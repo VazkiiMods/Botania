@@ -60,6 +60,7 @@ import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.IMCSender;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
@@ -103,7 +104,6 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
@@ -174,11 +174,7 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
-		if(curiosLoaded) {
-			CurioIntegration.init();
-			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
-			MinecraftForge.EVENT_BUS.register(CurioIntegration.class);
-		}
+		EquipmentHandler.init();
 
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);

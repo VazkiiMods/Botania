@@ -10,23 +10,18 @@
  */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.items.IItemHandler;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
 import java.util.function.Supplier;
 
@@ -42,11 +37,7 @@ public class PacketDodge {
 			ServerPlayerEntity player = ctx.get().getSender();
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
-			ItemStack ringStack = ItemStack.EMPTY;
-			if(Botania.curiosLoaded) {
-				ringStack = CurioIntegration.findOrEmpty(ModItems.dodgeRing, player);
-			}
-
+			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
 			if(ringStack.isEmpty()) {
 				player.connection.disconnect(new TranslationTextComponent("botaniamisc.invalidDodge"));
 				return;

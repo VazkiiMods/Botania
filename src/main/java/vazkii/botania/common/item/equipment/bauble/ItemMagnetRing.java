@@ -25,20 +25,16 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.items.IItemHandler;
-import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
@@ -64,51 +60,45 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private void onTossItem(ItemTossEvent event) {
-		ItemStack ring = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(this, event.getPlayer()) : ItemStack.EMPTY;
+		ItemStack ring = EquipmentHandler.findOrEmpty(this, event.getPlayer());
 		if(!ring.isEmpty()) {
 			setCooldown(ring, 100);
 		}
 	}
 
-	public static class Curio extends BaseCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		int cooldown = getCooldown(stack);
+
+		if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
+			if(cooldown < 0)
+				setCooldown(stack, 2);
+			return;
 		}
 
-		@Override
-		public void onCurioTick(String identifier, LivingEntity player) {
-			int cooldown = getCooldown(stack);
+		if(cooldown <= 0) {
+			if(player.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
+				double x = player.posX;
+				double y = player.posY + 0.75;
+				double z = player.posZ;
 
-			if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
-				if(cooldown < 0)
-					setCooldown(stack, 2);
-				return;
-			}
+				int range = ((ItemMagnetRing) stack.getItem()).range;
+				List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+				int pulled = 0;
+				for(EntityItem item : items)
+					if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
+						if(pulled > 200)
+							break;
 
-			if(cooldown <= 0) {
-				if(player.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
-					double x = player.posX;
-					double y = player.posY + 0.75;
-					double z = player.posZ;
-
-					int range = ((ItemMagnetRing) stack.getItem()).range;
-					List<ItemEntity> items = player.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
-					int pulled = 0;
-					for(ItemEntity item : items)
-						if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
-							if(pulled > 200)
-								break;
-
-							MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-							if(player.world.isRemote) {
-								boolean red = player.world.rand.nextBoolean();
-								Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
-							}
-							pulled++;
+						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
+						if(player.world.isRemote) {
+							boolean red = player.world.rand.nextBoolean();
+							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
 						}
-				}
-			} else setCooldown(stack, cooldown - 1);
-		}
+						pulled++;
+					}
+			}
+		} else setCooldown(stack, cooldown - 1);
 	}
 
 	private boolean canPullItem(ItemEntity item) {

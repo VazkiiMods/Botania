@@ -34,14 +34,13 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
-import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -52,12 +51,11 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -111,9 +109,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			ItemStack tiara = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.flightTiara, player) : ItemStack.EMPTY;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
 			if(playersWithFlight.contains(playerStr(player))) {
@@ -211,8 +209,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return player.getGameProfile().getName() + ":" + player.world.isRemote;
 	}
 
-	private boolean shouldPlayerHaveFlight(PlayerEntity player) {
-	    ItemStack armor = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.flightTiara, player) : ItemStack.EMPTY;
+	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
+	    ItemStack armor = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
 		if(!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
@@ -231,216 +229,210 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return true;
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
+	@Override
+	public void onEquipped(ItemStack stack, EntityLivingBase living) {
+		super.onEquipped(stack, living);
+		int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+		if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
+			ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
+			stack.clearCustomName();
 		}
+	}
 
-		@Override
-		public void onEquipped(String identifier, LivingEntity living) {
-			super.onEquipped(identifier, living);
-			int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
-			if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
-				ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
-				stack.clearCustomName();
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		if(player instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer) player;
+			boolean flying = p.abilities.isFlying;
+
+			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
+			boolean isSprinting = p.isSprinting();
+			if(isSprinting != wasSprting)
+				ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
+
+			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+			int newTime = time;
+			Vector3 look = new Vector3(p.getLookVec()).multiply(1, 0, 1).normalize();
+
+			if(flying) {
+				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
+					newTime--;
+				final int maxCd = 80;
+				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+				if(!wasSprting && isSprinting && cooldown == 0) {
+					p.motionX += look.x;
+					p.motionZ += look.z;
+					p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
+				} else if(cooldown > 0) {
+					if(maxCd - cooldown < 2)
+						player.moveRelative(0F, 0F, 1F, 5F);
+					else if(maxCd - cooldown < 10)
+						player.setSprinting(false);
+					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
+				}
+			} else if(!flying) {
+				boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
+				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
+					newTime++;
+
+				if(doGlide) {
+					player.motionY = Math.max(-0.15F, player.motionY);
+					float mul = 0.6F;
+					player.motionX = look.x * mul;
+					player.motionZ = look.z * mul;
+					player.fallDistance = 2F;
+				}
 			}
+
+			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
+			if(newTime != time)
+				ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
 		}
+	}
 
-		@Override
-		public void onCurioTick(String identifier, LivingEntity player) {
-			if(player instanceof PlayerEntity) {
-				PlayerEntity p = (PlayerEntity) player;
-				boolean flying = p.abilities.isFlying;
+	@Override
+	public boolean shouldSyncToTracking(ItemStack stack, EntityLivingBase living) {
+		return true;
+	}
 
-				boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
-				boolean isSprinting = p.isSprinting();
-				if(isSprinting != wasSprting)
-					ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
+	@Override
+	public boolean hasRender(ItemStack stack, EntityLivingBase living) {
+		return super.hasRender(stack, living) && living instanceof EntityPlayer;
+	}
 
-				int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
-				int newTime = time;
-				Vector3 look = new Vector3(p.getLookVec()).multiply(1, 0, 1).normalize();
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+		if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
+			TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-				if(flying) {
-					if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
-						newTime--;
-					final int maxCd = 80;
-					int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-					if(!wasSprting && isSprinting && cooldown == 0) {
-						p.motionX += look.x;
-						p.motionZ += look.z;
-						p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-						ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
-					} else if(cooldown > 0) {
-						if(maxCd - cooldown < 2)
-							player.moveRelative(0F, 0F, 1F, 5F);
-						else if(maxCd - cooldown < 10)
-							player.setSprinting(false);
-						ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
-					}
-				} else if(!flying) {
-					boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
-					if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
-						newTime++;
+			boolean flying = ((EntityPlayer) player).abilities.isFlying;
 
-					if(doGlide) {
-						player.motionY = Math.max(-0.15F, player.motionY);
-						float mul = 0.6F;
-						player.motionX = look.x * mul;
-						player.motionZ = look.z * mul;
-						player.fallDistance = 2F;
-					}
-				}
+			float rz = 120F;
+			float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+			float ry = 0F;
+			float h = 0.2F;
+			float i = 0.15F;
+			float s = 1F;
 
-				ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
-				if(newTime != time)
-					ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
+
+			int light = 15728880;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
+
+			float lbx = OpenGlHelper.lastBrightnessX;
+			float lby = OpenGlHelper.lastBrightnessY;
+
+			switch (meta) {
+			case 1: { // Jibril
+				h = 0.4F;
+				break;
 			}
-		}
+			case 2: { // Sephiroth
+				s = 1.3F;
+				break;
+			}
+			case 3: { // Cirno
+				h = -0.1F;
+				rz = 0F;
+				rx = 0F;
+				i = 0.3F;
+				break;
+			}
+			case 4: { // Phoenix
+				rz = 180F;
+				h = 0.5F;
+				rx = 20F;
+				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
+				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+				break;
+			}
+			case 5: { // Kuroyukihime
+				h = 0.8F;
+				rz = 180F;
+				ry = -rx;
+				rx = 0F;
+				s = 2F;
+				break;
+			}
+			case 6: { // Random Devil
+				rz = 150F;
+				break;
+			}
+			case 7: { // Lyfa
+				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+				h = -0.1F;
+				rz = 0F;
+				ry = -rx;
+				rx = 0F;
+				GlStateManager.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
+				break;
+			}
+			case 8: { // Mega Ultra Chicken
+				h = 0.1F;
+				break;
+			}
+			case 9: { // The One
+				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+				rz = 180F;
+				rx = 0F;
+				h = 1.1F;
+				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+				GlStateManager.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+			}
+			}
 
-		@Override
-		public boolean shouldSyncToTracking(String identifier, LivingEntity living) {
-			return true;
-		}
+			// account for padding in the texture
+			float mul = 32F / 20F;
+			s *= mul;
 
-		@Override
-		public boolean hasRender(String identifier, LivingEntity living) {
-			return super.hasRender(identifier, living) && living instanceof PlayerEntity;
-		}
+			float f = icon.getMinU();
+			float f1 = icon.getMaxU();
+			float f2 = icon.getMinV();
+			float f3 = icon.getMaxV();
+			float sr = 1F / s;
 
-		@Override
-		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
-			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-				Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+			AccessoryRenderHelper.rotateIfSneaking(player);
 
-				boolean flying = ((PlayerEntity) player).abilities.isFlying;
+			GlStateManager.translatef(0F, h, i);
 
-				float rz = 120F;
-				float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
-				float ry = 0F;
-				float h = 0.2F;
-				float i = 0.15F;
-				float s = 1F;
+			GlStateManager.rotatef(rz, 0F, 0F, 1F);
+			GlStateManager.rotatef(rx, 1F, 0F, 0F);
+			GlStateManager.rotatef(ry, 0F, 1F, 0F);
+			GlStateManager.scalef(s, s, s);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
+			GlStateManager.scalef(sr, sr, sr);
+			GlStateManager.rotatef(-ry, 0F, 1F, 0F);
+			GlStateManager.rotatef(-rx, 1F, 0F, 0F);
+			GlStateManager.rotatef(-rz, 0F, 0F, 1F);
 
-				GlStateManager.pushMatrix();
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.color4f(1F, 1F, 1F, 1F);
-
-				int light = 15728880;
-				int lightmapX = light % 65536;
-				int lightmapY = light / 65536;
-
-				float lbx = GLX.lastBrightnessX;
-				float lby = GLX.lastBrightnessY;
-
-				switch(meta) {
-				case 1 : { // Jibril
-					h = 0.4F;
-					break;
-				}
-				case 2 : { // Sephiroth
-					s = 1.3F;
-					break;
-				}
-				case 3 : { // Cirno
-					h = -0.1F;
-					rz = 0F;
-					rx = 0F;
-					i = 0.3F;
-					break;
-				}
-				case 4 : { // Phoenix
-					rz = 180F;
-					h = 0.5F;
-					rx = 20F;
-					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
-					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-					break;
-				}
-				case 5 : { // Kuroyukihime
-					h = 0.8F;
-					rz = 180F;
-					ry = -rx;
-					rx = 0F;
-					s = 2F;
-					break;
-				}
-				case 6 : { // Random Devil
-					rz = 150F;
-					break;
-				}
-				case 7 : { // Lyfa
-					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-					h = -0.1F;
-					rz = 0F;
-					ry = -rx;
-					rx = 0F;
-					GlStateManager.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
-					break;
-				}
-				case 8 : { // Mega Ultra Chicken
-					h = 0.1F;
-					break;
-				}
-				case 9 : { // The One
-					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-					rz = 180F;
-					rx = 0F;
-					h = 1.1F;
-					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-					GlStateManager.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
-				}
-				}
-
-				// account for padding in the texture
-				float mul = 32F / 20F;
-				s *= mul;
-
-				float f = icon.getMinU();
-				float f1 = icon.getMaxU();
-				float f2 = icon.getMinV();
-				float f3 = icon.getMaxV();
-				float sr = 1F / s;
-
-				AccessoryRenderHelper.rotateIfSneaking(player);
-
-				GlStateManager.translatef(0F, h, i);
-
+			if(meta != 2) { // Sephiroth
+				GlStateManager.scalef(-1F, 1F, 1F);
 				GlStateManager.rotatef(rz, 0F, 0F, 1F);
 				GlStateManager.rotatef(rx, 1F, 0F, 0F);
 				GlStateManager.rotatef(ry, 0F, 1F, 0F);
 				GlStateManager.scalef(s, s, s);
 				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
 				GlStateManager.scalef(sr, sr, sr);
-				GlStateManager.rotatef(-ry, 0F, 1F, 0F);
+				GlStateManager.rotatef(-ry, 1F, 0F, 0F);
 				GlStateManager.rotatef(-rx, 1F, 0F, 0F);
 				GlStateManager.rotatef(-rz, 0F, 0F, 1F);
-
-				if(meta != 2) { // Sephiroth
-					GlStateManager.scalef(-1F, 1F, 1F);
-					GlStateManager.rotatef(rz, 0F, 0F, 1F);
-					GlStateManager.rotatef(rx, 1F, 0F, 0F);
-					GlStateManager.rotatef(ry, 0F, 1F, 0F);
-					GlStateManager.scalef(s, s, s);
-					IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
-					GlStateManager.scalef(sr, sr, sr);
-					GlStateManager.rotatef(-ry, 1F, 0F, 0F);
-					GlStateManager.rotatef(-rx, 1F, 0F, 0F);
-					GlStateManager.rotatef(-rz, 0F, 0F, 1F);
-				}
-
-				GlStateManager.color3f(1F, 1F, 1F);
-				GlStateManager.popMatrix();
-
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lbx, lby);
-
-				if(meta == 1)
-					renderHalo(player, partialTicks);
 			}
+
+			GlStateManager.color3f(1F, 1F, 1F);
+			GlStateManager.popMatrix();
+
+			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lbx, lby);
+
+			if(meta == 1)
+				renderHalo(player, partialTicks);
 		}
 	}
 

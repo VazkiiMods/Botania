@@ -34,7 +34,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 
 import java.util.List;
 
@@ -71,217 +70,211 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		super.addHiddenTooltip(stack, world, stacks, flags);
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
 
-		@Override
-		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		AccessoryRenderHelper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToFace();
+		AccessoryRenderHelper.defaultTransforms();
+		switch (variant) {
+		case RED_GLASSES:
+			scale(1.25F);
+			GlStateManager.translatef(0F, -0.085F, 0.045F);
+			renderItem(stack);
+			break;
+		case ENGINEER_GOGGLES:
+			scale(1.25F);
+			GlStateManager.translatef(0F, -0.085F, 0.045F);
+			renderItem(stack);
+			break;
+		case EYEPATCH:
+			scale(0.55F);
+			GlStateManager.translatef(-0.45F, -0.25F, 0F);
+			renderItem(stack);
+			break;
+		case WICKED_EYEPATCH:
+			scale(0.55F);
+			GlStateManager.translatef(0.45F, -0.25F, 0F);
+			renderItem(stack);
+			break;
+		case RED_RIBBONS:
+			scale(0.9F);
+			GlStateManager.translatef(0F, 0.75F, 1F);
+			renderItem(stack);
+			break;
+		case PINK_FLOWER_BUD:
+			GlStateManager.rotatef(-90F, 0F, 1F, 0F);
+			GlStateManager.translatef(0.4F, 0.6F, 0.45F);
+			renderItem(stack);
+			break;
+		case POLKA_DOTTED_BOWS:
+			GlStateManager.rotatef(-90F, 0F, 1F, 0F);
+			GlStateManager.translatef(0.65F, 0.3F, 0.5F);
+			renderItem(stack);
+			GlStateManager.translatef(0F, 0F, -1F);
+			renderItem(stack);
+			break;
+		case BLUE_BUTTERFLY:
+			GlStateManager.translatef(-0.75F, 0.1F, 1F);
 			GlStateManager.pushMatrix();
-			AccessoryRenderHelper.translateToHeadLevel(player);
-			AccessoryRenderHelper.translateToFace();
+			GlStateManager.rotatef(45F, 0F, 1F, 0F);
+			renderItem(stack);
+			GlStateManager.popMatrix();
+
+			GlStateManager.translatef(0F, 0F, -0.75F);
+			GlStateManager.rotatef(-45F, 0F, 1F, 0F);
+			renderItem(stack);
+			break;
+		case CAT_EARS:
+			GlStateManager.translatef(0F, 0.25F, 0.25F);
+			renderItem(stack);
+			break;
+		case GOOGLY_EYES:
+			GlStateManager.rotatef(180F, 0F, 1F, 0F);
+			GlStateManager.scalef(1.5F, 1.5F, 1F);
+			GlStateManager.translatef(0F, -0.05F, 0F);
+			renderItem(stack);
+			break;
+		case CLOCK_EYE:
+			scale(0.75F);
+			GlStateManager.translatef(-0.25F, -0.1F, 0F);
+			GlStateManager.rotatef(180F, 0F, 0F, 1F);
+			renderItem(stack);
+			break;
+		case UNICORN_HORN:
+			scale(1.25F);
+			GlStateManager.rotatef(-90F, 0F, 1F, 0F);
+			GlStateManager.translatef(0F, 0.4F, 0F);
+			renderItem(stack);
+			break;
+		case DEVIL_HORNS:
+			GlStateManager.translatef(0F, 0.2F, 0.25F);
+			renderItem(stack);
+			break;
+		case HYPER_PLUS:
+			scale(0.35F);
+			GlStateManager.translatef(-0.7F, 1F, -0.5F);
+			renderItem(stack);
+			GlStateManager.translatef(1.45F, 0F, 0F);
+			renderItem(stack);
+			break;
+		case ANCIENT_MASK:
+			scale(1.25F);
+			GlStateManager.translatef(0F, 0.025F, 0.01F);
+			renderItem(stack);
+			break;
+		case EERIE_MASK:
+			renderItem(stack);
+			break;
+		case ALIEN_ANTENNA:
+			scale(0.9F);
+			GlStateManager.rotatef(180F, 0F, 1F, 0F);
+			GlStateManager.translatef(0F, 0.75F, -1F);
+			renderItem(stack);
+			break;
+		case ANAGLYPH_GLASSES:
+			scale(1.25F);
+			GlStateManager.translatef(0F, -0.025F, 0F);
+			renderItem(stack);
+			break;
+		case ORANGE_SHADES:
+			scale(1.25f);
+			GlStateManager.translatef(0F, 0.04F, 0F);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color4f(1F, 1F, 1F, 0.7F);
+			renderItem(stack);
+			break;
+		case GROUCHO_GLASSES:
+			scale(1.5F);
+			GlStateManager.translatef(0F, -0.2125F, 0F);
+			renderItem(stack);
+			break;
+		case THICK_EYEBROWS:
+			scale(0.5F);
+			GlStateManager.translatef(-0.4F, 0.05F, 0F);
+			renderItem(stack);
+			GlStateManager.rotatef(180F, 0F, 1F, 0F);
+			GlStateManager.translatef(-0.775F, 0F, 0F);
+			renderItem(stack);
+			break;
+		case TINY_POTATO_MASK:
+			scale(1.25F);
+			GlStateManager.translatef(0F, 0.025F, 0F);
+			renderItem(stack);
+			break;
+		case QUESTGIVER_MARK:
+			scale(0.8F);
+			GlStateManager.translatef(0F, 1F, 0.3F);
+			renderItem(stack);
+			break;
+		case THINKING_HAND:
+			scale(0.9f);
+			GlStateManager.translatef(0.2F, -0.5F, 0F);
+			GlStateManager.scalef(-1, 1, 1);
+			GlStateManager.rotatef(15F, 0F, 0F, 1F);
+			renderItem(stack);
+			break;
+		default: {
+			// body cosmetics
+			AccessoryRenderHelper.rotateIfSneaking(player);
+			AccessoryRenderHelper.translateToChest();
 			AccessoryRenderHelper.defaultTransforms();
 			switch (variant) {
-			case RED_GLASSES:
-				scale(1.25F);
-				GlStateManager.translatef(0F, -0.085F, 0.045F);
+			case BLACK_BOWTIE:
+				GlStateManager.translatef(0F, 0.15F, 0F);
 				renderItem(stack);
 				break;
-			case ENGINEER_GOGGLES:
-				scale(1.25F);
-				GlStateManager.translatef(0F, -0.085F, 0.045F);
+			case BLACK_TIE:
+				GlStateManager.translatef(0F, -0.15F, 0F);
 				renderItem(stack);
 				break;
-			case EYEPATCH:
-				scale(0.55F);
-				GlStateManager.translatef(-0.45F, -0.25F, 0F);
+			case PUFFY_SCARF:
+				GlStateManager.translatef(0F, -0.15F, 0F);
 				renderItem(stack);
 				break;
-			case WICKED_EYEPATCH:
-				scale(0.55F);
-				GlStateManager.translatef(0.45F, -0.25F, 0F);
-				renderItem(stack);
-				break;
-			case RED_RIBBONS:
-				scale(0.9F);
-				GlStateManager.translatef(0F, 0.75F, 1F);
-				renderItem(stack);
-				break;
-			case PINK_FLOWER_BUD:
-				GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0.4F, 0.6F, 0.45F);
-				renderItem(stack);
-				break;
-			case POLKA_DOTTED_BOWS:
-				GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0.65F, 0.3F, 0.5F);
-				renderItem(stack);
-				GlStateManager.translatef(0F, 0F, -1F);
-				renderItem(stack);
-				break;
-			case BLUE_BUTTERFLY:
-				GlStateManager.translatef(-0.75F, 0.1F, 1F);
-				GlStateManager.pushMatrix();
-				GlStateManager.rotatef(45F, 0F, 1F, 0F);
-				renderItem(stack);
-				GlStateManager.popMatrix();
-
-				GlStateManager.translatef(0F, 0F, -0.75F);
-				GlStateManager.rotatef(-45F, 0F, 1F, 0F);
-				renderItem(stack);
-				break;
-			case CAT_EARS:
-				GlStateManager.translatef(0F, 0.25F, 0.25F);
-				renderItem(stack);
-				break;
-			case GOOGLY_EYES:
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.scalef(1.5F, 1.5F, 1F);
-				GlStateManager.translatef(0F, -0.05F, 0F);
-				renderItem(stack);
-				break;
-			case CLOCK_EYE:
-				scale(0.75F);
-				GlStateManager.translatef(-0.25F, -0.1F, 0F);
-				GlStateManager.rotatef(180F, 0F, 0F, 1F);
-				renderItem(stack);
-				break;
-			case UNICORN_HORN:
-				scale(1.25F);
-				GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0F, 0.4F, 0F);
-				renderItem(stack);
-				break;
-			case DEVIL_HORNS:
-				GlStateManager.translatef(0F, 0.2F, 0.25F);
-				renderItem(stack);
-				break;
-			case HYPER_PLUS:
+			case WITCH_PIN:
 				scale(0.35F);
-				GlStateManager.translatef(-0.7F, 1F, -0.5F);
-				renderItem(stack);
-				GlStateManager.translatef(1.45F, 0F, 0F);
+				GlStateManager.translatef(-0.35F, 0.35F, 0.15F);
 				renderItem(stack);
 				break;
-			case ANCIENT_MASK:
-				scale(1.25F);
-				GlStateManager.translatef(0F, 0.025F, 0.01F);
+			case DEVIL_TAIL:
+				GlStateManager.rotatef(90F, 0F, 1F, 0F);
+				GlStateManager.translatef(0.5F, -0.75F, 0F);
 				renderItem(stack);
 				break;
-			case EERIE_MASK:
-				renderItem(stack);
-				break;
-			case ALIEN_ANTENNA:
+			case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
 				scale(0.9F);
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(0F, 0.75F, -1F);
+				GlStateManager.translatef(0.9F, 0.35F, 0F);
 				renderItem(stack);
+				GlStateManager.translatef(-1.3F, -0.5F, 0.5F);
+				GlStateManager.rotatef(180F, 0F, 0F, 1F);
+				GlStateManager.rotatef(180F, 1F, 0F, 0F);
+				renderKamuiBlack(stack);
 				break;
-			case ANAGLYPH_GLASSES:
-				scale(1.25F);
-				GlStateManager.translatef(0F, -0.025F, 0F);
-				renderItem(stack);
-				break;
-			case ORANGE_SHADES:
-				scale(1.25f);
-				GlStateManager.translatef(0F, 0.04F, 0F);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.color4f(1F, 1F, 1F, 0.7F);
-				renderItem(stack);
-				break;
-			case GROUCHO_GLASSES:
-				scale(1.5F);
-				GlStateManager.translatef(0F, -0.2125F, 0F);
-				renderItem(stack);
-				break;
-			case THICK_EYEBROWS:
+			case FOUR_LEAF_CLOVER:
 				scale(0.5F);
-				GlStateManager.translatef(-0.4F, 0.05F, 0F);
+				GlStateManager.translatef(0.35F, 0.3F, -0.075F);
 				renderItem(stack);
+				break;
+			case BOTANIST_EMBLEM:
+				scale(0.5F);
+				GlStateManager.translatef(0F, -0.75F, 0F);
+				renderItem(stack);
+				break;
+			case LUSITANIC_SHIELD:
 				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(-0.775F, 0F, 0F);
+				GlStateManager.translatef(0.035F, -0.2F, 0.55F);
+				GlStateManager.rotatef(8F, 0F, 0F, 1F);
 				renderItem(stack);
 				break;
-			case TINY_POTATO_MASK:
-				scale(1.25F);
-				GlStateManager.translatef(0F, 0.025F, 0F);
-				renderItem(stack);
+			default:
 				break;
-			case QUESTGIVER_MARK:
-				scale(0.8F);
-				GlStateManager.translatef(0F, 1F, 0.3F);
-				renderItem(stack);
-				break;
-			case THINKING_HAND:
-				scale(0.9f);
-				GlStateManager.translatef(0.2F, -0.5F, 0F);
-				GlStateManager.scalef(-1, 1, 1);
-				GlStateManager.rotatef(15F, 0F, 0F, 1F);
-				renderItem(stack);
-				break;
-			default: {
-				// body cosmetics
-				GlStateManager.popMatrix();
-				AccessoryRenderHelper.rotateIfSneaking(player);
-				AccessoryRenderHelper.translateToChest();
-				AccessoryRenderHelper.defaultTransforms();
-				switch (variant) {
-				case BLACK_BOWTIE:
-					GlStateManager.translatef(0F, 0.15F, 0F);
-					renderItem(stack);
-					break;
-				case BLACK_TIE:
-					GlStateManager.translatef(0F, -0.15F, 0F);
-					renderItem(stack);
-					break;
-				case PUFFY_SCARF:
-					GlStateManager.translatef(0F, -0.15F, 0F);
-					renderItem(stack);
-					break;
-				case WITCH_PIN:
-					scale(0.35F);
-					GlStateManager.translatef(-0.35F, 0.35F, 0.15F);
-					renderItem(stack);
-					break;
-				case DEVIL_TAIL:
-					GlStateManager.rotatef(90F, 0F, 1F, 0F);
-					GlStateManager.translatef(0.5F, -0.75F, 0F);
-					renderItem(stack);
-					break;
-				case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
-					scale(0.9F);
-					GlStateManager.translatef(0.9F, 0.35F, 0F);
-					renderItem(stack);
-					GlStateManager.translatef(-1.3F, -0.5F, 0.5F);
-					GlStateManager.rotatef(180F, 0F, 0F, 1F);
-					GlStateManager.rotatef(180F, 1F, 0F, 0F);
-					renderKamuiBlack(stack);
-					break;
-				case FOUR_LEAF_CLOVER:
-					scale(0.5F);
-					GlStateManager.translatef(0.35F, 0.3F, -0.075F);
-					renderItem(stack);
-					break;
-				case BOTANIST_EMBLEM:
-					scale(0.5F);
-					GlStateManager.translatef(0F, -0.75F, 0F);
-					renderItem(stack);
-					break;
-				case LUSITANIC_SHIELD:
-					GlStateManager.rotatef(180F, 0F, 1F, 0F);
-					GlStateManager.translatef(0.035F, -0.2F, 0.55F);
-					GlStateManager.rotatef(8F, 0F, 0F, 1F);
-					renderItem(stack);
-					break;
-				default: break;
-				}
 			}
-			}
+		}
 		}
 	}
 

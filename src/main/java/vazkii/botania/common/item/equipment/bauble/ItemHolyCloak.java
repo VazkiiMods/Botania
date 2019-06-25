@@ -20,19 +20,17 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import top.theillusivec4.curios.api.CuriosAPI;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemHolyCloak extends ItemBauble {
 
@@ -51,9 +49,9 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	private void onPlayerDamage(LivingHurtEvent event) {
-		if(event.getEntityLiving() instanceof PlayerEntity && !event.getSource().canHarmInCreative()) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			ItemStack stack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemHolyCloak, player) : ItemStack.EMPTY;
+		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
 			if(!stack.isEmpty() && !isInEffect(stack)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) stack.getItem();
@@ -68,44 +66,38 @@ public class ItemHolyCloak extends ItemBauble {
 		}
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase living) {
+		int cooldown = getCooldown(stack);
+		if(cooldown > 0)
+			setCooldown(stack, cooldown - 1);
+	}
 
-		@Override
-		public void onCurioTick(String identifier, LivingEntity living) {
-			int cooldown = getCooldown(stack);
-			if(cooldown > 0)
-				setCooldown(stack, cooldown - 1);
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
+		AccessoryRenderHelper.rotateIfSneaking(player);
+		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
 
-		@Override
-		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
-			AccessoryRenderHelper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-			GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
+		float s = 1F / 16F;
+		GlStateManager.scalef(s, s, s);
+		if(model == null)
+			model = new ModelCloak();
 
-			float s = 1F / 16F;
-			GlStateManager.scalef(s, s, s);
-			if(model == null)
-				model = new ModelCloak();
+		GlStateManager.enableLighting();
+		GlStateManager.enableRescaleNormal();
 
-			GlStateManager.enableLighting();
-			GlStateManager.enableRescaleNormal();
+		Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
+		model.render(1F);
 
-			Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
-			model.render(1F);
-
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-			Minecraft.getInstance().textureManager.bindTexture(item.getCloakGlowTexture());
-			model.render(1F);
-		}
+		int light = 15728880;
+		int lightmapX = light % 65536;
+		int lightmapY = light / 65536;
+		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+		Minecraft.getInstance().textureManager.bindTexture(item.getCloakGlowTexture());
+		model.render(1F);
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {

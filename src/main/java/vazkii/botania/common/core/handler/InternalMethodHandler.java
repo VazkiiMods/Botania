@@ -39,9 +39,9 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.ISpecialFlower;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
@@ -50,7 +50,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lexicon.page.PageBrew;
@@ -153,7 +152,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
 		if(Botania.curiosLoaded) {
-			LazyOptional<IItemHandlerModifiable> cap = CurioIntegration.getAllCurios(player);
+			LazyOptional<IItemHandlerModifiable> cap = EquipmentHandler.getAllWorn(player);
 			return cap.orElseGet(EmptyHandler::new);
 		}
 		return new EmptyHandler();

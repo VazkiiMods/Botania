@@ -37,9 +37,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.MerchantRecipe;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -50,8 +50,6 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.RenderableCurio;
-import vazkii.botania.common.item.ModItems;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,43 +64,37 @@ public class ItemItemFinder extends ItemBauble {
 		super(props);
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		if(!(player instanceof EntityPlayer))
+			return;
 
-		@Override
-		public void onCurioTick(String identifier, LivingEntity player) {
-			if(!(player instanceof PlayerEntity))
-				return;
+		if(player.world.isRemote)
+			this.tickClient(stack, (EntityPlayer) player);
+		else this.tickServer(stack, (EntityPlayer) player);
+	}
 
-			if(player.world.isRemote)
-				((ItemItemFinder) ModItems.itemFinder).tickClient(stack, (PlayerEntity) player);
-			else ((ItemItemFinder) ModItems.itemFinder).tickServer(stack, (PlayerEntity) player);
-		}
+	@Override
+	public boolean shouldSyncToTracking(ItemStack stack, EntityLivingBase living) {
+		return true;
+	}
 
-		@Override
-		public boolean shouldSyncToTracking(String identifier, LivingEntity living) {
-			return true;
-		}
-
-		@Override
-        @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
-			float f = gemIcon.getMinU();
-			float f1 = gemIcon.getMaxU();
-			float f2 = gemIcon.getMinV();
-			float f3 = gemIcon.getMaxV();
-			boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-			AccessoryRenderHelper.translateToHeadLevel(living);
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.rotatef(90F, 0F, 1F, 0F);
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
-			GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
-			GlStateManager.scalef(0.75F, 0.75F, 0.75F);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
+		float f = gemIcon.getMinU();
+		float f1 = gemIcon.getMaxU();
+		float f2 = gemIcon.getMinV();
+		float f3 = gemIcon.getMaxV();
+		boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+		AccessoryRenderHelper.translateToHeadLevel(living);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.rotatef(90F, 0F, 1F, 0F);
+		GlStateManager.rotatef(180F, 1F, 0F, 0F);
+		GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
+		GlStateManager.scalef(0.75F, 0.75F, 0.75F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
 	}
 
 	protected void tickClient(ItemStack stack, PlayerEntity player) {
@@ -120,7 +112,7 @@ public class ItemItemFinder extends ItemBauble {
 
 		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
 		for(int i : entities) {
-			Entity e =  player.world.getEntityByID(i);
+			Entity e = player.world.getEntityByID(i);
 			if(e != null && Math.random() < 0.6) {
 				Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
 				Botania.proxy.wispFX(e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
