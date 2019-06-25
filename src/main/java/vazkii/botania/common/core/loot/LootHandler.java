@@ -2,14 +2,8 @@ package vazkii.botania.common.core.loot;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.ILootGenerator;
-import net.minecraft.world.storage.loot.ILootGenerator;
-import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.RandomValueRange;
-import net.minecraft.world.storage.loot.TableLootEntry;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +39,7 @@ public final class LootHandler {
 				.build();
 	}
 
-	private static LootEntry.Builder getInjectEntry(String name, int weight) {
+	private static ILootGenerator.Builder getInjectEntry(String name, int weight) {
 		ResourceLocation table = new ResourceLocation(LibMisc.MOD_ID, "inject/" + name);
 		return TableLootEntry.func_216171_a(table)
 				.weight(weight);

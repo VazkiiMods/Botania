@@ -12,17 +12,16 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -130,21 +129,21 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 
 	@Nullable
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
 		return EquipmentHandler.initBaubleCap(stack);
 	}
 
-	public void onWornTick(ItemStack stack, EntityLivingBase entity) {}
+	public void onWornTick(ItemStack stack, LivingEntity entity) {}
 
-	public void onEquipped(ItemStack stack, EntityLivingBase entity) {
-		if(!entity.world.isRemote && entity instanceof EntityPlayerMP) {
-			PlayerHelper.grantCriterion((EntityPlayerMP) entity, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
+	public void onEquipped(ItemStack stack, LivingEntity entity) {
+		if(!entity.world.isRemote && entity instanceof ServerPlayerEntity) {
+			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
 		}
 	}
 
-	public void onUnequipped(ItemStack stack, EntityLivingBase entity) {}
+	public void onUnequipped(ItemStack stack, LivingEntity entity) {}
 
-	public boolean canEquip(ItemStack stack, EntityLivingBase entity) {
+	public boolean canEquip(ItemStack stack, LivingEntity entity) {
 		return true;
 	}
 
@@ -152,17 +151,17 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 		return HashMultimap.create();
 	}
 
-	public boolean shouldSyncToTracking(ItemStack stack, EntityLivingBase entity) {
+	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity entity) {
 		return false;
 	}
 
-	public boolean hasRender(ItemStack stack, EntityLivingBase living) {
+	public boolean hasRender(ItemStack stack, LivingEntity living) {
 		return !(stack.getItem() instanceof ICosmeticAttachable && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
 				&& !(stack.getItem() instanceof IPhantomInkable && ((IPhantomInkable) stack.getItem()).hasPhantomInk(stack))
 				&& ConfigHandler.CLIENT.renderAccessories.get()
-				&& living.getActivePotionEffect(MobEffects.INVISIBILITY) == null;
+				&& living.getActivePotionEffect(Effects.INVISIBILITY) == null;
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {}
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {}
 }

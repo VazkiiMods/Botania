@@ -11,7 +11,6 @@
 package vazkii.botania.api.wiki;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 

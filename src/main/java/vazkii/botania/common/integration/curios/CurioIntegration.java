@@ -1,11 +1,11 @@
 package vazkii.botania.common.integration.curios;
 
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -40,7 +40,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 		@Nonnull
 		@Override
-		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 			return CuriosCapability.ITEM.orEmpty(cap, curioCap);
 		}
 	}
@@ -56,7 +56,7 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	@Override
-	protected LazyOptional<IItemHandlerModifiable> getAllWornItems(EntityLivingBase living) {
+	protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
 		return CuriosAPI.getCuriosHandler(living).map(h -> {
 			IItemHandlerModifiable[] invs = h.getCurioMap().values().toArray(new IItemHandlerModifiable[0]);
 			return new CombinedInvWrapper(invs);
@@ -64,13 +64,13 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	@Override
-	protected ItemStack findItem(Item item, EntityLivingBase living) {
+	protected ItemStack findItem(Item item, LivingEntity living) {
 		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(item, living);
 		return result == null ? ItemStack.EMPTY : result.getStack();
 	}
 
 	@Override
-	protected ItemStack findItem(Predicate<ItemStack> pred, EntityLivingBase living) {
+	protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
 		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(pred, living);
 		return result == null ? ItemStack.EMPTY : result.getStack();
 	}
@@ -92,22 +92,22 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase entity) {
+		public void onCurioTick(String identifier, LivingEntity entity) {
 			getItem().onWornTick(stack, entity);
 		}
 
 		@Override
-		public void onEquipped(String identifier, EntityLivingBase entity) {
+		public void onEquipped(String identifier, LivingEntity entity) {
 			getItem().onEquipped(stack, entity);
 		}
 
 		@Override
-		public void onUnequipped(String identifier, EntityLivingBase entity) {
+		public void onUnequipped(String identifier, LivingEntity entity) {
 			getItem().onUnequipped(stack, entity);
 		}
 
 		@Override
-		public boolean canEquip(String identifier, EntityLivingBase entity) {
+		public boolean canEquip(String identifier, LivingEntity entity) {
 			return getItem().canEquip(stack, entity);
 		}
 
@@ -117,12 +117,12 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public boolean shouldSyncToTracking(String identifier, EntityLivingBase entity) {
+		public boolean shouldSyncToTracking(String identifier, LivingEntity entity) {
 			return getItem().shouldSyncToTracking(stack, entity);
 		}
 
 		@Override
-		public void playEquipSound(EntityLivingBase entity) {
+		public void playEquipSound(LivingEntity entity) {
 			entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
 		}
 
@@ -132,12 +132,12 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase entity) {
+		public boolean hasRender(String identifier, LivingEntity entity) {
 			return getItem().hasRender(stack, entity);
 		}
 
 		@Override
-		public void doRender(String identifier, EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			getItem().doRender(stack, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 		}
 	}

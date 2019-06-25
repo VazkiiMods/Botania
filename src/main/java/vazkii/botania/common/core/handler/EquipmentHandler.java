@@ -11,9 +11,9 @@
 
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -49,15 +49,15 @@ public abstract class EquipmentHandler {
 		}
 	}
 
-	public static LazyOptional<IItemHandlerModifiable> getAllWorn(EntityLivingBase living) {
+	public static LazyOptional<IItemHandlerModifiable> getAllWorn(LivingEntity living) {
 		return instance.getAllWornItems(living);
 	}
 
-	public static ItemStack findOrEmpty(Item item, EntityLivingBase living) {
+	public static ItemStack findOrEmpty(Item item, LivingEntity living) {
 		return instance.findItem(item, living);
 	}
 
-	public static ItemStack findOrEmpty(Predicate<ItemStack> pred, EntityLivingBase living) {
+	public static ItemStack findOrEmpty(Predicate<ItemStack> pred, LivingEntity living) {
 		return instance.findItem(pred, living);
 	}
 
@@ -67,23 +67,23 @@ public abstract class EquipmentHandler {
 		return null;
 	}
 
-	protected abstract LazyOptional<IItemHandlerModifiable> getAllWornItems(EntityLivingBase living);
+	protected abstract LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living);
 
-	protected abstract ItemStack findItem(Item item, EntityLivingBase living);
+	protected abstract ItemStack findItem(Item item, LivingEntity living);
 
-	protected abstract ItemStack findItem(Predicate<ItemStack> pred, EntityLivingBase living);
+	protected abstract ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living);
 
 	protected abstract ICapabilityProvider initCap(ItemStack stack);
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.
 	static class InventoryEquipmentHandler extends EquipmentHandler {
-		private final Map<EntityPlayer, ItemStack[]> map = new WeakHashMap<>();
+		private final Map<PlayerEntity, ItemStack[]> map = new WeakHashMap<>();
 
 		@SubscribeEvent
 		public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 			if(event.phase != TickEvent.Phase.START || event.player.world.isRemote)
 				return;
-			EntityPlayer player = event.player;
+			PlayerEntity player = event.player;
 			player.world.profiler.startSection("botania:tick_wearables");
 
 			ItemStack[] oldStacks = map.computeIfAbsent(player, p -> {
@@ -92,7 +92,7 @@ public abstract class EquipmentHandler {
 				return array;
 			});
 
-			InventoryPlayer inv = player.inventory;
+			PlayerInventory inv = player.inventory;
 			for(int i = 0; i < 9; i++) {
 				ItemStack old = oldStacks[i];
 				ItemStack current = inv.getStackInSlot(i);
@@ -119,17 +119,17 @@ public abstract class EquipmentHandler {
 
 
 		@Override
-		protected LazyOptional<IItemHandlerModifiable> getAllWornItems(EntityLivingBase living) {
-			if(living instanceof EntityPlayer) {
-				return LazyOptional.of(() -> new RangedWrapper(new InvWrapper(((EntityPlayer) living).inventory), 0, 9));
+		protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
+			if(living instanceof PlayerEntity) {
+				return LazyOptional.of(() -> new RangedWrapper(new InvWrapper(((PlayerEntity) living).inventory), 0, 9));
 			}
 			return LazyOptional.empty();
 		}
 
 		@Override
-		protected ItemStack findItem(Item item, EntityLivingBase living) {
-			if(living instanceof EntityPlayer) {
-				InventoryPlayer inv = ((EntityPlayer) living).inventory;
+		protected ItemStack findItem(Item item, LivingEntity living) {
+			if(living instanceof PlayerEntity) {
+				PlayerInventory inv = ((PlayerEntity) living).inventory;
 				for(int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getStackInSlot(i);
 					if(stack.getItem() == item && canEquip(stack, living)) {
@@ -141,9 +141,9 @@ public abstract class EquipmentHandler {
 		}
 
 		@Override
-		protected ItemStack findItem(Predicate<ItemStack> pred, EntityLivingBase living) {
-			if(living instanceof EntityPlayer) {
-				InventoryPlayer inv = ((EntityPlayer) living).inventory;
+		protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
+			if(living instanceof PlayerEntity) {
+				PlayerInventory inv = ((PlayerEntity) living).inventory;
 				for(int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getStackInSlot(i);
 					if(pred.test(stack) && canEquip(stack, living)) {
@@ -159,7 +159,7 @@ public abstract class EquipmentHandler {
 			return null;
 		}
 
-		private static boolean canEquip(ItemStack stack, EntityLivingBase player) {
+		private static boolean canEquip(ItemStack stack, LivingEntity player) {
 			return stack.getItem() instanceof ItemBauble && ((ItemBauble) stack.getItem()).canEquip(stack, player);
 		}
 	}

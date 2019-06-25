@@ -10,11 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -52,9 +49,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			if(Math.abs(motionZ) < MAX_SPEED && !flying)
 				living.motionZ = motionZ;
 
-			PotionEffect effect = living.getActivePotionEffect(MobEffects.NIGHT_VISION);
+			EffectInstance effect = living.getActivePotionEffect(MobEffects.NIGHT_VISION);
 			if(effect == null) {
-				PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, -42, true, true);
+				EffectInstance neweffect = new EffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, -42, true, true);
 				living.addPotionEffect(neweffect);
 			}
 
@@ -68,7 +65,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase living) {
-		PotionEffect effect = living.getActivePotionEffect(MobEffects.NIGHT_VISION);
+		EffectInstance effect = living.getActivePotionEffect(MobEffects.NIGHT_VISION);
 		if(effect != null && effect.getAmplifier() == -42)
 			living.removePotionEffect(MobEffects.NIGHT_VISION);
 	}
