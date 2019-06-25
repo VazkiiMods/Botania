@@ -10,11 +10,7 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,26 +24,23 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.IItemHandler;
-import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.integration.curios.RelicCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, IManaUsingItem {
@@ -115,7 +108,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					ItemStack saveHeld = heldItemStack.copy();
 					heldItemStack.onItemUse(new ItemUseContext(player, heldItemStack, pos, lookPos.sideHit, (float) lookPos.hitVec.x - pos.getX(), (float) lookPos.hitVec.y - pos.getY(), (float) lookPos.hitVec.z - pos.getZ()));
-					if (player.isCreative())
+					if(player.isCreative())
 						player.setHeldItem(event.getHand(), saveHeld);
 				}
 			}
@@ -131,7 +124,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
 
-		for (BlockPos offset : cursors) {
+		for(BlockPos offset : cursors) {
 			BlockPos coords = pos.add(offset);
 			IBlockState state = player.world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, pos, side);
@@ -140,20 +133,14 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 	}
 
-	public static class Curio extends RelicCurio {
-		public Curio(ItemStack stack, ItemRelic relicDelegate) {
-			super(stack, relicDelegate);
-		}
+	@Override
+	public boolean shouldSyncToTracking(ItemStack stack, EntityLivingBase entity) {
+		return true;
+	}
 
-		@Override
-		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
-			return true;
-		}
-
-		@Override
-		public void onUnequipped(String identifier, EntityLivingBase living) {
-			setCursorList(stack, null);
-		}
+	@Override
+	public void onUnequipped(ItemStack stack, EntityLivingBase living) {
+		setCursorList(stack, null);
 	}
 
 	@Override
@@ -168,8 +155,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 
-			for (int i = 0; i < list.size(); i++) {
-				if (origin.getY() != -1) {
+			for(int i = 0; i < list.size(); i++) {
+				if(origin.getY() != -1) {
 					list.set(i, list.get(i).add(origin));
 				} else {
 					list.set(i, list.get(i).add(lookPos.getBlockPos()));
@@ -188,10 +175,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		if(Botania.curiosLoaded) {
-			return CurioIntegration.findOrEmpty(ModItems.lokiRing, player);
-		}
-		return ItemStack.EMPTY;
+		return EquipmentHandler.findOrEmpty(ModItems.lokiRing, player);
 	}
 
 
@@ -227,7 +211,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	private static void setCursorList(ItemStack stack, List<BlockPos> cursors) {
 		if(stack == null)
 			return;
-		
+
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(cursors != null) {
 			int i = 0;

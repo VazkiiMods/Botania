@@ -23,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemKnockbackBelt extends ItemBauble {
 
@@ -34,32 +33,26 @@ public class ItemKnockbackBelt extends ItemBauble {
 		super(props);
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
+	@Override
+	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, 0).setSaved(false));
+		return attributes;
+	}
 
-		@Override
-		public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
-		    Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-			attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack),  "Knockback Belt", 1, 0).setSaved(false));
-			return attributes;
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(texture);
 
-		@Override
-        @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(texture);
+		GlStateManager.translatef(0F, 0.2F, 0F);
 
-			GlStateManager.translatef(0F, 0.2F, 0F);
+		float s = 1.05F / 16F;
+		GlStateManager.scalef(s, s, s);
 
-			float s = 1.05F / 16F;
-			GlStateManager.scalef(s, s, s);
+		if(model == null)
+			model = new ModelBiped();
 
-			if(model == null)
-				model = new ModelBiped();
-
-			model.bipedBody.render(1F);
-		}
+		model.bipedBody.render(1F);
 	}
 }

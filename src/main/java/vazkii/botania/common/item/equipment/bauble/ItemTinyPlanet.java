@@ -27,7 +27,6 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 
 import java.util.List;
 
@@ -38,29 +37,23 @@ public class ItemTinyPlanet extends ItemBauble {
 	public ItemTinyPlanet(Properties props) {
 		super(props);
 	}
+	
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		double x = player.posX;
+		double y = player.posY + player.getEyeHeight();
+		double z = player.posZ;
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
+		applyEffect(player.world, x, y, z);
+	}
 
-		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			double x = player.posX;
-			double y = player.posY + player.getEyeHeight();
-			double z = player.posZ;
-
-			applyEffect(player.world, x, y, z);
-		}
-
-		@Override
-        @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-			GlStateManager.translatef(0, -1.5F, 0.5F);
-			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+		GlStateManager.translatef(0, -1.5F, 0.5F);
+		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
 	}
 
 	public static void applyEffect(World world, double x, double y, double z) {

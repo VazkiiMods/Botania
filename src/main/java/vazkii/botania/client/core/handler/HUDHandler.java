@@ -28,15 +28,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
-import top.theillusivec4.curios.api.CuriosAPI;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -59,8 +59,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex.InputHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -87,17 +87,17 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getInstance();
 		Profiler profiler = mc.profiler;
 
-		if(event.getType() == ElementType.HEALTH && Botania.curiosLoaded) {
+		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
 
-			ItemStack tiara = CurioIntegration.findOrEmpty(ModItems.flightTiara, mc.player);
+			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
 			if(!tiara.isEmpty()) {
 				profiler.startSection("flugelTiara");
 				ItemFlightTiara.renderHUD(mc.player, tiara);
 				profiler.endSection();
 			}
 
-			ItemStack dodgeRing = CurioIntegration.findOrEmpty(ModItems.dodgeRing, mc.player);
+			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
 			if(!dodgeRing.isEmpty()) {
 				profiler.startSection("dodgeRing");
 				ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
@@ -200,7 +200,7 @@ public final class HUDHandler {
 				boolean creative = false;
 
 				IItemHandler mainInv = new net.minecraftforge.items.ItemStackHandler(1); // player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
-				IItemHandler accInv = Botania.curiosLoaded ? CurioIntegration.getAllCurios(player).orElse(null) : null;
+				IItemHandler accInv = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
 
 				int invSize = mainInv.getSlots();
 				int size = invSize;

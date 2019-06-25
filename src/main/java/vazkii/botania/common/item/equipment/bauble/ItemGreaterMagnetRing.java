@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import vazkii.botania.common.lib.LibItemNames;
-
 public class ItemGreaterMagnetRing extends ItemMagnetRing {
 
 	public ItemGreaterMagnetRing(Properties props) {

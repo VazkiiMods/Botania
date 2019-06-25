@@ -79,4 +79,20 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		return Integer.MAX_VALUE;
 	}
 
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
+		if(entity instanceof EntityPlayer) {
+			EntityPlayer ePlayer = (EntityPlayer) entity;
+			dummy.updateRelic(stack, ePlayer);
+			if(dummy.isRightPlayer(ePlayer, stack))
+				onValidPlayerWornTick(ePlayer);
+		}
+	}
+
+	public void onValidPlayerWornTick(EntityPlayer player) { }
+
+	@Override
+	public boolean canEquip(ItemStack stack, EntityLivingBase entity) {
+		return entity instanceof EntityPlayer && dummy.isRightPlayer((EntityPlayer) entity, stack);
+	}
 }

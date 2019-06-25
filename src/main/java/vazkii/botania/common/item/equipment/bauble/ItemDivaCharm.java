@@ -26,20 +26,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -54,11 +51,11 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	private void onEntityDamaged(LivingHurtEvent event) {
-		if (event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+		if(event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
 			Runnable lambda = () -> {
 				EntityLiving target = (EntityLiving) event.getEntityLiving();
 				EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
-				ItemStack amulet = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.divaCharm, player) : ItemStack.EMPTY;
+				ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
 				if(!amulet.isEmpty()) {
 					final int cost = 250;
@@ -96,21 +93,15 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 		return true;
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
-
-		@Override
-		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			AccessoryRenderHelper.translateToHeadLevel(player);
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.scaled(0.8, 0.8, 0.8);
-			GlStateManager.rotatef(-90, 0, 1, 0);
-			GlStateManager.rotatef(180, 1, 0, 0);
-			GlStateManager.translated(0.1625, -1.625, 0.40);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		AccessoryRenderHelper.translateToHeadLevel(player);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.scaled(0.8, 0.8, 0.8);
+		GlStateManager.rotatef(-90, 0, 1, 0);
+		GlStateManager.rotatef(180, 1, 0, 0);
+		GlStateManager.translated(0.1625, -1.625, 0.40);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 	}
 }

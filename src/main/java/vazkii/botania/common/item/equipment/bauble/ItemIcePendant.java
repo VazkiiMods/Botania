@@ -25,8 +25,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemIcePendant extends ItemBauble {
 
@@ -34,38 +32,32 @@ public class ItemIcePendant extends ItemBauble {
 		super(props);
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
+		if(!entity.world.isRemote) {
+			boolean lastOnGround = entity.onGround;
+			entity.onGround = true;
+			EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
+			entity.onGround = lastOnGround;
 		}
+	}
 
-		@Override
-		public void onCurioTick(String type, EntityLivingBase entity) {
-			if(!entity.world.isRemote) {
-				boolean lastOnGround = entity.onGround;
-				entity.onGround = true;
-				EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
-				entity.onGround = lastOnGround;
-			}
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		GlStateManager.rotatef(180F, 1F, 0F, 0F);
+		GlStateManager.translatef(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
+		GlStateManager.rotatef(-45F, 0F, 0F, 1F);
+		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 
-		@Override
-        @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
-			GlStateManager.translatef(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
-			GlStateManager.rotatef(-45F, 0F, 0F, 1F);
-			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-
-			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
-			float f = gemIcon.getMinU();
-			float f1 = gemIcon.getMaxU();
-			float f2 = gemIcon.getMinV();
-			float f3 = gemIcon.getMaxV();
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
-		}
+		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
+		float f = gemIcon.getMinU();
+		float f1 = gemIcon.getMaxU();
+		float f2 = gemIcon.getMinV();
+		float f3 = gemIcon.getMaxV();
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
 	}
 
 }
