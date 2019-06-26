@@ -17,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -27,7 +29,9 @@ public class LensFirework extends Lens {
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!entity.world.isRemote && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if(pos.entity == null && !isManaBlock && !pos.getBlockPos().equals(coords)) {
+			if(pos.getType() == RayTraceResult.Type.BLOCK
+					&& !isManaBlock
+					&& !((BlockRayTraceResult) pos).getPos().equals(coords)) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.posX, entity.posY, entity.posZ, fireworkStack);

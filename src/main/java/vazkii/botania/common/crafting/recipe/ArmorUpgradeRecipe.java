@@ -16,22 +16,22 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class ArmorUpgradeRecipe implements IRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "armor_upgrade");
+public class ArmorUpgradeRecipe implements ICraftingRecipe {
 	private final ShapedRecipe compose;
 
 	public ArmorUpgradeRecipe(ShapedRecipe compose) {
@@ -39,13 +39,13 @@ public class ArmorUpgradeRecipe implements IRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
 		return compose.matches(inv, world);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
+	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack out = compose.getCraftingResult(inv);
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -88,26 +88,22 @@ public class ArmorUpgradeRecipe implements IRecipe {
 		return SERIALIZER;
 	}
 
-	public static final IRecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new IRecipeSerializer<ArmorUpgradeRecipe>() {
+	public static final IRecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
+
+	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ArmorUpgradeRecipe> {
 		@Override
 		public ArmorUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new ArmorUpgradeRecipe(RecipeSerializers.CRAFTING_SHAPED.read(recipeId, json));
+			return new ArmorUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPED.read(recipeId, json));
 		}
 
 		@Override
 		public ArmorUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
-			return new ArmorUpgradeRecipe(RecipeSerializers.CRAFTING_SHAPED.read(recipeId, buffer));
+			return new ArmorUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPED.read(recipeId, buffer));
 		}
 
 		@Override
 		public void write(@Nonnull PacketBuffer buffer, @Nonnull ArmorUpgradeRecipe recipe) {
-			RecipeSerializers.CRAFTING_SHAPED.write(buffer, recipe.compose);
-		}
-
-		@Nonnull
-		@Override
-		public ResourceLocation getName() {
-			return TYPE_ID;
+			IRecipeSerializer.CRAFTING_SHAPED.write(buffer, recipe.compose);
 		}
 	};
 }

@@ -27,7 +27,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class PhantomInkRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "phantom_ink_apply");
 	public static final IRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SpecialRecipeSerializer<>(PhantomInkRecipe::new);
 
 	public PhantomInkRecipe(ResourceLocation id) {

@@ -14,6 +14,7 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.Vector3;
@@ -22,11 +23,12 @@ public class LensBounce extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!isManaBlock && pos.entity == null) {
+		if(!isManaBlock && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if (!coords.equals(pos.getBlockPos())) {
-				Vector3 currentMovementVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
-				Direction dir = pos.sideHit;
+			BlockRayTraceResult rtr = (BlockRayTraceResult) pos;
+			if (!coords.equals(rtr.getPos())) {
+				Vector3 currentMovementVec = new Vector3(entity.getMotion());
+				Direction dir = rtr.getFace();
 				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 

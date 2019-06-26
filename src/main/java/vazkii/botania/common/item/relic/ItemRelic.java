@@ -63,7 +63,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	public void addBindInfo(List<ITextComponent> list, ItemStack stack) {
-		if(Screen.isShiftKeyDown()) {
+		if(Screen.hasShiftDown()) {
 			if(!hasUUID(stack)) {
 				list.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
 			} else {

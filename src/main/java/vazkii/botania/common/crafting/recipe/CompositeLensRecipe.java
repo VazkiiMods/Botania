@@ -29,7 +29,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class CompositeLensRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "composite_lens");
 	public static final IRecipeSerializer<CompositeLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CompositeLensRecipe::new);
 
 	public CompositeLensRecipe(ResourceLocation id) {

@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
 import vazkii.botania.api.internal.IManaBurst;
@@ -27,8 +29,10 @@ public class LensRedirect extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.world.isRemote && pos.entity == null && coords.getY() != -1 && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
-			TileEntity tile = entity.world.getTileEntity(pos.getBlockPos());
+		if(!entity.world.isRemote && pos.getType() == RayTraceResult.Type.BLOCK
+				&& coords.getY() != -1
+				&& !((BlockRayTraceResult) pos).getPos().equals(coords)) {
+			TileEntity tile = entity.world.getTileEntity(((BlockRayTraceResult) pos).getPos());
 			if(tile instanceof IDirectioned) {
 				if(!burst.isFake()) {
 					IDirectioned redir = (IDirectioned) tile;

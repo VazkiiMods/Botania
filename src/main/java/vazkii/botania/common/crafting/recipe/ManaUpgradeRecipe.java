@@ -11,8 +11,10 @@
 package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -21,13 +23,13 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class ManaUpgradeRecipe implements IRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "mana_upgrade");
+public class ManaUpgradeRecipe implements ICraftingRecipe {
 	private final ShapedRecipe compose;
 
 	public ManaUpgradeRecipe(ShapedRecipe compose) {
@@ -52,13 +54,13 @@ public class ManaUpgradeRecipe implements IRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
 		return compose.matches(inv, world);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
+	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		return output(compose.getCraftingResult(inv), inv);
 	}
 
@@ -91,26 +93,22 @@ public class ManaUpgradeRecipe implements IRecipe {
 		return SERIALIZER;
 	}
 
-	public static final IRecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new IRecipeSerializer<ManaUpgradeRecipe>() {
+	public static final IRecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
+
+	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ManaUpgradeRecipe> {
 		@Override
 		public ManaUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new ManaUpgradeRecipe(RecipeSerializers.CRAFTING_SHAPED.read(recipeId, json));
+			return new ManaUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPED.read(recipeId, json));
 		}
 
 		@Override
 		public ManaUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
-			return new ManaUpgradeRecipe(RecipeSerializers.CRAFTING_SHAPED.read(recipeId, buffer));
+			return new ManaUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPED.read(recipeId, buffer));
 		}
 
 		@Override
 		public void write(@Nonnull PacketBuffer buffer, ManaUpgradeRecipe recipe) {
-			RecipeSerializers.CRAFTING_SHAPED.write(buffer, recipe.compose);
-		}
-
-		@Nonnull
-		@Override
-		public ResourceLocation getName() {
-			return TYPE_ID;
+			IRecipeSerializer.CRAFTING_SHAPED.write(buffer, recipe.compose);
 		}
 	};
 }

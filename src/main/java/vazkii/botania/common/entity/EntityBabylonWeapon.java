@@ -22,6 +22,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
@@ -40,7 +41,7 @@ import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@ObjectHolder(LibMisc.MOD_ID + ":babylon_weapon")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityBabylonWeapon> TYPE;
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -66,9 +67,6 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	protected void registerData() {
-		super.registerData();
-		setSize(0F, 0F);
-
 		dataManager.register(CHARGING, false);
 		dataManager.register(VARIETY, 0);
 		dataManager.register(CHARGE_TICKS, 0);
@@ -109,9 +107,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		charging &= liveTime == 0;
 
 		if(charging) {
-			motionX = 0;
-			motionY = 0;
-			motionZ = 0;
+			setMotion(Vec3d.ZERO);
 
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
@@ -120,9 +116,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				world.playSound(null, posX, posY, posZ, ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
 		} else {
 			if(liveTime < delay) {
-				motionX = 0;
-				motionY = 0;
-				motionZ = 0;
+				setMotion(Vec3d.ZERO);
 			} else if (liveTime == delay && player != null) {
 				Vector3 playerLook;
 				RayTraceResult lookat = ToolCommons.raytraceFromEntity(world, player, true, 64);

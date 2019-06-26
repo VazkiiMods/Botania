@@ -30,7 +30,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LensDyeingRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "lens_dye");
 	public static final IRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
 
 	private final List<Ingredient> dyes = Arrays.asList(

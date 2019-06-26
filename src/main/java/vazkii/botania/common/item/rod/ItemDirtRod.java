@@ -27,6 +27,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -63,17 +64,25 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 		Direction side = ctx.getFace();
 		BlockPos pos = ctx.getPos();
 
-		if(ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
+		if(player != null && ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
+			int entities = world.getEntitiesWithinAABB(LivingEntity.class,
+					new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
+				ItemStack save = player.getHeldItem(ctx.getHand());
 				ItemStack stackToPlace = new ItemStack(block);
-				stackToPlace.onItemUse(new ItemUseContext(player, stackToPlace, pos, side, ctx.getHitX(), ctx.getHitY(), ctx.getHitZ()));
+				player.setHeldItem(ctx.getHand(), stackToPlace);
+				ItemUseContext newCtx = new ItemUseContext(player, ctx.getHand(),
+						new BlockRayTraceResult(ctx.getHitVec(), side, pos, ctx.func_221533_k()));
+				stackToPlace.onItemUse(newCtx);
+				player.setHeldItem(ctx.getHand(), save);
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
 					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), r, g, b, 1F, 5);
+						Botania.proxy.sparkleFX(pos.getX() + side.getXOffset() + Math.random(),
+								pos.getY() + side.getYOffset() + Math.random(),
+								pos.getZ() + side.getZOffset() + Math.random(), r, g, b, 1F, 5);
 					return ActionResultType.SUCCESS;
 				}
 			}

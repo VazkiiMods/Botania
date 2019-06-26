@@ -30,7 +30,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TerraPickTippingRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping");
 	public static final IRecipeSerializer<TerraPickTippingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(TerraPickTippingRecipe::new);
 
 	public TerraPickTippingRecipe(ResourceLocation id) {

@@ -47,11 +47,10 @@ public class LensInfluence extends Lens {
 					if(!lens.isEmpty() && lens.getItem() == ModItems.lensInfluence)
 						continue;
 
-					((IManaBurst) movable).setBurstMotion(entity.motionX, entity.motionY, entity.motionZ);
+					((IManaBurst) movable).setBurstMotion(entity.getMotion().getX(),
+							entity.getMotion().getY(), entity.getMotion().getZ());
 				} else {
-					movable.motionX = entity.motionX;
-					movable.motionY = entity.motionY;
-					movable.motionZ = entity.motionZ;
+					movable.setMotion(entity.getMotion());
 				}
 			}
 		}

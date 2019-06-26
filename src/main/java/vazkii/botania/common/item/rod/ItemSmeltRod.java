@@ -16,6 +16,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.inventory.IInventory;
@@ -24,9 +26,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -36,6 +39,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.Optional;
 import java.util.WeakHashMap;
 
 public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
@@ -72,20 +76,26 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, LivingEntity living, int time) {
 		if(!(living instanceof PlayerEntity)) return;
 		PlayerEntity p = (PlayerEntity) living;
-		IInventory dummyInv = new Inventory(null, 1);
+		IInventory dummyInv = new Inventory(1);
 
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(p.world, p, false, 32);
+		RayTraceResult ray = ToolCommons.raytraceFromEntity(p.world, p, RayTraceContext.FluidMode.NONE, 32);
 
-		if(pos != null && pos.getBlockPos() != null) {
-			BlockState state = p.world.getBlockState(pos.getBlockPos());
+		if(ray.getType() == RayTraceResult.Type.BLOCK) {
+			BlockRayTraceResult pos = (BlockRayTraceResult) ray;
+			BlockState state = p.world.getBlockState(pos.getPos());
 
 			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
-			ItemStack result = p.world.getRecipeManager().getResult(dummyInv, p.world, VanillaRecipeTypes.SMELTING);
+			Optional<ItemStack> maybeResult= p.world.getRecipeManager()
+					.getRecipe(IRecipeType.SMELTING, dummyInv, p.world)
+					.map(IRecipe::getRecipeOutput);
 
-			if(!result.isEmpty() && result.getItem() instanceof BlockItem) {
+			if(maybeResult.isPresent()
+					&& !maybeResult.get().isEmpty()
+					&& maybeResult.get().getItem() instanceof BlockItem) {
+				ItemStack result = maybeResult.get();
 				boolean decremented = false;
 
 				if(playerData.containsKey(p)) {
@@ -96,7 +106,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						decremented = true;
 						if(data.progress <= 0) {
 							if(!p.world.isRemote) {
-								p.world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
+								p.world.setBlockState(pos.getPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
 								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
 								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
@@ -106,9 +116,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 							}
 
 							for(int i = 0; i < 25; i++) {
-								double x = pos.getBlockPos().getX() + Math.random();
-								double y = pos.getBlockPos().getY() + Math.random();
-								double z = pos.getBlockPos().getZ() + Math.random();
+								double x = pos.getPos().getX() + Math.random();
+								double y = pos.getPos().getY() + Math.random();
+								double z = pos.getPos().getZ() + Math.random();
 
 								Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 							}
@@ -120,9 +130,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
 				else {
 					for(int i = 0; i < 2; i++) {
-						double x = pos.getBlockPos().getX() + Math.random();
-						double y = pos.getBlockPos().getY() + Math.random();
-						double z = pos.getBlockPos().getZ() + Math.random();
+						double x = pos.getPos().getX() + Math.random();
+						double y = pos.getPos().getY() + Math.random();
+						double z = pos.getPos().getZ() + Math.random();
 						Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 					}
 					if(time % 10 == 0)
@@ -138,16 +148,16 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	}
 
 	static class SmeltData {
-		public final RayTraceResult pos;
+		public final BlockRayTraceResult pos;
 		public int progress;
 
-		public SmeltData(RayTraceResult pos, int progress) {
+		public SmeltData(BlockRayTraceResult pos, int progress) {
 			this.pos = pos;
 			this.progress = progress;
 		}
 
-		public boolean equalPos(RayTraceResult pos) {
-			return pos.getBlockPos().equals(this.pos.getBlockPos());
+		public boolean equalPos(BlockRayTraceResult pos) {
+			return pos.getPos().equals(this.pos.getPos());
 		}
 	}
 }

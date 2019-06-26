@@ -72,7 +72,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 
 		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		for(EffectInstance effect : brew.getPotionEffects(stack)) {
-			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
+			TextFormatting format = !effect.getPotion().isBeneficial() ? TextFormatting.RED : TextFormatting.GRAY;
 			EffectInstance longEffect = new EffectInstance(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
 			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {

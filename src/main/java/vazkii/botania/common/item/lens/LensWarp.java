@@ -13,6 +13,8 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.block.Block;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -25,12 +27,13 @@ public class LensWarp extends Lens {
 	
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(burst.isFake() || pos.type != RayTraceResult.Type.BLOCK)
+		if(burst.isFake() || pos.getType() != RayTraceResult.Type.BLOCK)
 			return dead;
-		
-		Block block = entity.world.getBlockState(pos.getBlockPos()).getBlock();
+
+		BlockPos hit = ((BlockRayTraceResult) pos).getPos();
+		Block block = entity.world.getBlockState(hit).getBlock();
 		if(block == ModBlocks.pistonRelay) {
-			BlockPistonRelay.DimWithPos key = ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.world.getDimension().getType(), pos.getBlockPos()));
+			BlockPistonRelay.DimWithPos key = ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.world.getDimension().getType(), hit));
 			if(key != null) {
 				if(key.dim == entity.world.getDimension().getType()) {
 					entity.setPosition(key.blockPos.getX() + 0.5, key.blockPos.getY() + 0.5, key.blockPos.getZ() + 0.5);

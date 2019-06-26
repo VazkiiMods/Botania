@@ -27,7 +27,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class ManaGunRemoveLensRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens");
 	public static final IRecipeSerializer<ManaGunRemoveLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunRemoveLensRecipe::new);
 
 	public ManaGunRemoveLensRecipe(ResourceLocation id) {

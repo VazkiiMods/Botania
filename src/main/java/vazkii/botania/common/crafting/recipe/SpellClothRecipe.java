@@ -28,7 +28,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class SpellClothRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "spell_cloth_apply");
 	public static final IRecipeSerializer<SpellClothRecipe> SERIALIZER = new SpecialRecipeSerializer<>(SpellClothRecipe::new);
 
 	public SpellClothRecipe(ResourceLocation id) {

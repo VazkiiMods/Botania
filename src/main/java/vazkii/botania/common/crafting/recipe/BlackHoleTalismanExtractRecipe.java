@@ -28,7 +28,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class BlackHoleTalismanExtractRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract");
 	public static final IRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SpecialRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
 
 	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {

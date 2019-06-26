@@ -89,9 +89,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		float x = (float) (living.posX - Math.random() * living.width);
+		float x = (float) (living.posX - Math.random() * living.getWidth());
 		float y = (float) (living.posY + Math.random());
-		float z = (float) (living.posZ - Math.random() * living.width);
+		float z = (float) (living.posZ - Math.random() * living.getWidth());
 		Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
 	}
 

@@ -68,12 +68,17 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {
 		Botania.proxy.setWispFXDepthTest(false);
-		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
+		for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+				pos.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos_);
 
 			if(Tags.Blocks.ORES.contains(state.getBlock())) {
 				Random rand = new Random(state.hashCode() ^ seedxor);
-				Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
+				Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(),
+						pos_.getY() + world.rand.nextFloat(),
+						pos_.getZ() + world.rand.nextFloat(),
+						rand.nextFloat(), rand.nextFloat(), rand.nextFloat(),
+						0.25F, 0F, 8);
 			}
 		}
 		Botania.proxy.setWispFXDepthTest(true);

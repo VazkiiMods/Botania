@@ -2,17 +2,24 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.ILiquidContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -30,26 +37,26 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 		super(props);
 	}
 
-	// [VanillaCopy] From ItemBucket
+	// [VanillaCopy] From BucketItem
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
-
+		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
 		ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
 		if (ret != null) return ret;
-
-		if (raytraceresult == null) {
+		if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
 			return new ActionResult<>(ActionResultType.PASS, itemstack);
-		} else if (raytraceresult.type == RayTraceResult.Type.BLOCK) {
-			BlockPos blockpos = raytraceresult.getBlockPos();
-			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack)) {
-				BlockState iblockstate = worldIn.getBlockState(blockpos);
-				BlockPos blockpos1 = this.getPlacementPosition(iblockstate, blockpos, raytraceresult);
-
+		} else if (raytraceresult.getType() != RayTraceResult.Type.BLOCK) {
+			return new ActionResult<>(ActionResultType.PASS, itemstack);
+		} else {
+			BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)raytraceresult;
+			BlockPos blockpos = blockraytraceresult.getPos();
+			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, blockraytraceresult.getFace(), itemstack)) {
+				BlockState blockstate = worldIn.getBlockState(blockpos);
+				BlockPos blockpos1 = blockstate.getBlock() instanceof ILiquidContainer ? blockpos : blockraytraceresult.getPos().offset(blockraytraceresult.getFace());
 				if (ManaItemHandler.requestManaExactForTool(itemstack, playerIn, COST, true)
-						&& ((BucketItem) Items.WATER_BUCKET).tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, raytraceresult)) {
+						&& ((BucketItem) Items.WATER_BUCKET).tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, blockraytraceresult)) {
 					if (playerIn instanceof ServerPlayerEntity) {
 						CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)playerIn, blockpos1, itemstack);
 					}
@@ -64,14 +71,7 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 			} else {
 				return new ActionResult<>(ActionResultType.FAIL, itemstack);
 			}
-		} else {
-			return new ActionResult<>(ActionResultType.PASS, itemstack);
 		}
-	}
-
-	// [VanillaCopy] ItemBucket
-	private BlockPos getPlacementPosition(BlockState p_210768_1_, BlockPos p_210768_2_, RayTraceResult p_210768_3_) {
-		return p_210768_1_.getBlock() instanceof ILiquidContainer ? p_210768_2_ : p_210768_3_.getBlockPos().offset(p_210768_3_.sideHit);
 	}
 
 	@Override

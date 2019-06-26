@@ -19,7 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaBlock;
@@ -27,15 +30,17 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
+import java.util.List;
+
 public class LensMine extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		World world = entity.world;
 
-		BlockPos collidePos = rtr.getBlockPos();
-		if (world.isRemote)
+		if (world.isRemote || rtr.getType() != RayTraceResult.Type.BLOCK)
 			return false;
 
+		BlockPos collidePos = ((BlockRayTraceResult) rtr).getPos();
 		BlockState state = world.getBlockState(collidePos);
 		Block block = state.getBlock();
 
@@ -54,14 +59,17 @@ public class LensMine extends Lens {
 		int mana = burst.getMana();
 
 		BlockPos source = burst.getBurstSourceBlockPos();
-		if(!source.equals(rtr.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+		if(!source.equals(collidePos)
+				&& !(tile instanceof IManaBlock)
+				&& neededHarvestLevel <= harvestLevel
+				&& hardness != -1 && hardness < 50F
+				&& (burst.isFake() || mana >= 24)) {
 			if(!burst.hasAlreadyCollidedAt(collidePos)) {
 				if(!burst.isFake()) {
-					NonNullList<ItemStack> items = NonNullList.create();
-					state.getDrops(items, world, collidePos, 0);
+					List<ItemStack> items = Block.getDrops(state, (ServerWorld) world, collidePos, tile);
 					float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, collidePos, state, 0, 1.0f, false, null);
 
-					world.removeBlock(collidePos);
+					world.removeBlock(collidePos, false);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						world.playEvent(2001, collidePos, Block.getStateId(state));
 
@@ -70,9 +78,6 @@ public class LensMine extends Lens {
 					BlockPos dropCoord = doWarp ? source : collidePos;
 
 					for(ItemStack stack_ : items) {
-						// Shulker boxes do weird things and drop themselves in breakBlock, so don't drop any dupes
-						if(block instanceof ShulkerBoxBlock && Block.getBlockFromItem(stack_.getItem()) instanceof ShulkerBoxBlock)
-							continue;
 						if(world.rand.nextFloat() <= chance)
 							Block.spawnAsEntity(world, dropCoord, stack_);
 					}

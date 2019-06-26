@@ -29,7 +29,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class KeepIvyRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "keep_ivy");
 	public static final IRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SpecialRecipeSerializer<>(KeepIvyRecipe::new);
 
 	public KeepIvyRecipe(ResourceLocation id) {

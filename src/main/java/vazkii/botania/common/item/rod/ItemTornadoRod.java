@@ -77,7 +77,9 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			} else if(isFlying(stack)) {
 				if(holding) {
 					player.fallDistance = 0F;
-					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25;
+					double dy =  player.getMotion().getY()
+							+ (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25);
+					player.setMotion(player.getMotion().add(0, dy, 0));
 
 					player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
@@ -144,8 +146,8 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			int rangeY = 3;
 			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for(PlayerEntity p : players) {
-				if(p.motionY > 0.3 && p.motionY < 2 && !p.isSneaking()) {
-					p.motionY = 2.8;
+				if(p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isSneaking()) {
+					p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
 
 					for(int i = 0; i < 20; i++)
 						for(int j = 0; j < 5; j++)

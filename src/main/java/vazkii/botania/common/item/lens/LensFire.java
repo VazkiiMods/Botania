@@ -16,6 +16,7 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -27,25 +28,30 @@ public class LensFire extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		BlockPos pos = rtr.getBlockPos();
-		if(!entity.world.isRemote && !coords.equals(pos) && !burst.isFake() && !isManaBlock) {
-			Direction dir = rtr.sideHit;
 
-			BlockPos offPos = pos.offset(dir);
+		if(!entity.world.isRemote && rtr.getType() == RayTraceResult.Type.BLOCK
+				&& !burst.isFake() && !isManaBlock) {
+			BlockRayTraceResult brtr = (BlockRayTraceResult) rtr;
+			BlockPos pos = brtr.getPos();
+			if(!coords.equals(pos)) {
+				Direction dir = brtr.getFace();
 
-			Block blockAt = entity.world.getBlockState(pos).getBlock();
-			Block blockAtOffset = entity.world.getBlockState(offPos).getBlock();
+				BlockPos offPos = pos.offset(dir);
 
-			if(blockAt == Blocks.NETHER_PORTAL)
-				entity.world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			if(blockAtOffset == Blocks.NETHER_PORTAL)
-				entity.world.setBlockState(offPos, Blocks.AIR.getDefaultState());
-			else if(blockAt == ModBlocks.incensePlate) {
-				TileIncensePlate plate = (TileIncensePlate) entity.world.getTileEntity(pos);
-				plate.ignite();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			} else if(blockAtOffset.isAir(entity.world.getBlockState(offPos), entity.world, offPos))
-				entity.world.setBlockState(offPos, Blocks.FIRE.getDefaultState());
+				Block blockAt = entity.world.getBlockState(pos).getBlock();
+				Block blockAtOffset = entity.world.getBlockState(offPos).getBlock();
+
+				if(blockAt == Blocks.NETHER_PORTAL)
+					entity.world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				if(blockAtOffset == Blocks.NETHER_PORTAL)
+					entity.world.setBlockState(offPos, Blocks.AIR.getDefaultState());
+				else if(blockAt == ModBlocks.incensePlate) {
+					TileIncensePlate plate = (TileIncensePlate) entity.world.getTileEntity(pos);
+					plate.ignite();
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+				} else if(blockAtOffset.isAir(entity.world.getBlockState(offPos), entity.world, offPos))
+					entity.world.setBlockState(offPos, Blocks.FIRE.getDefaultState());
+			}
 		}
 
 		return dead;

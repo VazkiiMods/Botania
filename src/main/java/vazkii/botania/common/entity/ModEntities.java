@@ -75,6 +75,7 @@ public final class ModEntities {
 				.tracker(64, 10, false).build("")
 				.setRegistryName(LibEntityNames.MANA_STORM));
 		evt.getRegistry().register(EntityType.Builder.create(EntityBabylonWeapon.class, EntityBabylonWeapon::new)
+				.size(0, 0)
 				.tracker(64, 10, true).build("")
 				.setRegistryName(LibEntityNames.BABYLON_WEAPON));
 		evt.getRegistry().register(EntityType.Builder.create(EntityFallingStar.class, EntityFallingStar::new)

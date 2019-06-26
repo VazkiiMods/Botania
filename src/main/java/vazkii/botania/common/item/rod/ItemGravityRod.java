@@ -166,7 +166,11 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						float xm = ((float) Math.random() - 0.5F) * m;
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
-						Botania.proxy.wispFX(item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
+						Botania.proxy.wispFX(item.posX + item.getWidth() / 2,
+								item.posY + item.getHeight() / 2,
+								item.posZ + item.getWidth() / 2,
+								r, 0F, b,
+								s, xm, ym, zm);
 					}
 
 					MathHelper.setEntityMotionFromVector(item, target3, 0.3333333F);
@@ -217,18 +221,14 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					if(item instanceof ItemEntity) {
 						((ItemEntity) item).setPickupDelay(20);
 						float mot = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 2.25F : 1.5F;
-						item.motionX = moveVector.x * mot;
-						item.motionY = moveVector.y;
-						item.motionZ = moveVector.z * mot;
+						item.setMotion(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if(!player.world.isRemote) {
 							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (ItemEntity) item);
 							item.world.addEntity(thrown);
 						}
 						item.remove();
 					} else {
-						item.motionX = moveVector.x * 3.0F;
-						item.motionY = moveVector.y * 1.5F;
-						item.motionZ = moveVector.z * 3.0F;
+						item.setMotion(item.getMotion().mul(3, 1.5, 3));
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}

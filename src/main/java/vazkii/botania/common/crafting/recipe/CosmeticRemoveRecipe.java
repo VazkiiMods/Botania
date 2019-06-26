@@ -27,7 +27,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class CosmeticRemoveRecipe extends SpecialRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove");
 	public static final IRecipeSerializer<CosmeticRemoveRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CosmeticRemoveRecipe::new);
 
 	public CosmeticRemoveRecipe(ResourceLocation id) {

@@ -15,10 +15,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.ListNBT;
@@ -27,6 +27,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -34,9 +35,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class HelmRevealingRecipe implements IRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "helm_revealing");
-
+public class HelmRevealingRecipe implements ICraftingRecipe {
 	private final ShapelessRecipe compose;
 
 	public HelmRevealingRecipe(ShapelessRecipe compose) {
@@ -44,13 +43,13 @@ public class HelmRevealingRecipe implements IRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
 		return compose.matches(inv, world);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
+	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack helm = ItemStack.EMPTY;
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
@@ -134,27 +133,23 @@ public class HelmRevealingRecipe implements IRecipe {
 			ItemNBTHelper.setList(destination, TAG_INFUSION_ENCH, infEnchList);
 	}
 
-	public static final IRecipeSerializer<HelmRevealingRecipe> SERIALIZER = new IRecipeSerializer<HelmRevealingRecipe>() {
+	public static final IRecipeSerializer<HelmRevealingRecipe> SERIALIZER = new Serializer();
+
+	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<HelmRevealingRecipe> {
 		@Nonnull
 		@Override
 		public HelmRevealingRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new HelmRevealingRecipe(RecipeSerializers.CRAFTING_SHAPELESS.read(recipeId, json));
+			return new HelmRevealingRecipe(IRecipeSerializer.CRAFTING_SHAPELESS.read(recipeId, json));
 		}
 
 		@Override
 		public HelmRevealingRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
-			return new HelmRevealingRecipe(RecipeSerializers.CRAFTING_SHAPELESS.read(recipeId, buffer));
+			return new HelmRevealingRecipe(IRecipeSerializer.CRAFTING_SHAPELESS.read(recipeId, buffer));
 		}
 
 		@Override
 		public void write(@Nonnull PacketBuffer buffer, @Nonnull HelmRevealingRecipe recipe) {
-			RecipeSerializers.CRAFTING_SHAPELESS.write(buffer, recipe.compose);
-		}
-
-		@Nonnull
-		@Override
-		public ResourceLocation getName() {
-			return TYPE_ID;
+			IRecipeSerializer.CRAFTING_SHAPELESS.write(buffer, recipe.compose);
 		}
 	};
 }

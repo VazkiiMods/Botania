@@ -12,11 +12,16 @@ package vazkii.botania.common.item;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.Food;
 import net.minecraft.item.Items;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,6 +37,23 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
+import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
+import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
+import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
+import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
+import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
+import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
+import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.brew.*;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
@@ -214,7 +236,7 @@ public final class ModItems {
 
 	public static final Item manaTablet = new ItemManaTablet(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_TABLET);
 	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_GUN);
-	public static final Item manaCookie = new ItemManaCookie(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE);
+	public static final Item manaCookie = new ItemManaCookie(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build())).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE);
 	public static final Item fertilizer = new ItemFertilizer(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.FERTILIZER);
 
 	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GRASS_SEEDS);
@@ -665,6 +687,28 @@ public final class ModItems {
 		register(r, new ItemGoddessCharm(unstackable()), LibItemNames.GODDESS_CHARM);
 
 		registerOreDictionary();
+	}
+
+	@SubscribeEvent
+	public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
+		IForgeRegistry<IRecipeSerializer<?>> r = evt.getRegistry();
+		r.register(AncientWillRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach")));
+		r.register(ArmorUpgradeRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "armor_upgrade")));
+		r.register(BlackHoleTalismanExtractRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract")));
+		r.register(CompositeLensRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "composite_lens")));
+		r.register(CosmeticAttachRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach")));
+		r.register(CosmeticRemoveRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove")));
+		r.register(HelmRevealingRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "helm_revealing")));
+		r.register(KeepIvyRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "keep_ivy")));
+		r.register(LensDyeingRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "lens_dye")));
+		r.register(ManaGunClipRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_clip")));
+		r.register(ManaGunLensRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens")));
+		r.register(ManaGunRemoveLensRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens")));
+		r.register(ManaUpgradeRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_upgrade")));
+		r.register(ShapelessManaUpgradeRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_upgrade_shapeless")));
+		r.register(PhantomInkRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "phantom_ink_apply")));
+		r.register(SpellClothRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "spell_cloth_apply")));
+		r.register(TerraPickTippingRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
 	}
 
 

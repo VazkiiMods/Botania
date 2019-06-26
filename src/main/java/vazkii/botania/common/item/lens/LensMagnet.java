@@ -32,7 +32,8 @@ public class LensMagnet extends Lens {
 		int range = 3;
 
 		magnetize : {
-			for (BlockPos pos : BlockPos.getAllInBox(basePos.add(-range, -range, -range), basePos.add(range, range, range))) {
+			for (BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
+					basePos.add(range, range, range))) {
 				if(entity.world.getTileEntity(pos) instanceof IManaReceiver) {
 					TileEntity tile = entity.world.getTileEntity(pos);
 
@@ -51,7 +52,7 @@ public class LensMagnet extends Lens {
 					if(tile.getPos().distanceSq(srcCoords) > 9 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 						Vector3 burstVec = Vector3.fromEntity(entity);
 						Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
-						Vector3 motionVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
+						Vector3 motionVec = new Vector3(entity.getMotion());
 
 						Vector3 normalMotionVec = motionVec.normalize();
 						Vector3 magnetVec = tileVec.subtract(burstVec).normalize();

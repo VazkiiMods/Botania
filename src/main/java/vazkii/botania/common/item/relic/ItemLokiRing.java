@@ -13,15 +13,21 @@ package vazkii.botania.common.item.relic;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -67,24 +73,25 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		ItemStack heldItemStack = event.getItemStack();
 		BlockPos originCoords = getOriginPos(lokiRing);
-		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, true, 10F);
+		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.ANY, 10F);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 
-		if(lookPos == null)
+		if(lookPos.getType() != RayTraceResult.Type.BLOCK)
 			return;
 
+		BlockPos hit = ((BlockRayTraceResult) lookPos).getPos();
 		if(heldItemStack.isEmpty()) {
 			if(!event.getWorld().isRemote) {
 				if(originCoords.getY() == -1) {
-					setOriginPos(lokiRing, lookPos.getBlockPos());
+					setOriginPos(lokiRing, hit);
 					setCursorList(lokiRing, null);
 				} else {
-					if(originCoords.equals(lookPos.getBlockPos())) {
+					if(originCoords.equals(hit)) {
 						setOriginPos(lokiRing, new BlockPos(0, -1, 0));
 					} else {
 						addCursor : {
-							BlockPos relPos = lookPos.getBlockPos().add(new BlockPos(-originCoords.getX(), -originCoords.getY(), -originCoords.getZ()));
+							BlockPos relPos = hit.subtract(originCoords);
 
 							for(BlockPos cursor : cursors)
 								if(cursor.equals(relPos)) {
@@ -103,10 +110,13 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			event.setCancellationResult(ActionResultType.SUCCESS);
 		} else {
 			for(BlockPos cursor : cursors) {
-				BlockPos pos = lookPos.getBlockPos().add(cursor);
+				BlockPos pos = hit.add(cursor);
 				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					ItemStack saveHeld = heldItemStack.copy();
-					heldItemStack.onItemUse(new ItemUseContext(player, heldItemStack, pos, lookPos.sideHit, (float) lookPos.hitVec.x - pos.getX(), (float) lookPos.hitVec.y - pos.getY(), (float) lookPos.hitVec.z - pos.getZ()));
+					BlockRayTraceResult newHit = new BlockRayTraceResult(
+							lookPos.getHitVec().subtract(pos.getX(), pos.getY(), pos.getZ()),
+							((BlockRayTraceResult) lookPos).getFace(), pos, false);
+					heldItemStack.onItemUse(new ItemUseContext(player, event.getHand(), newHit));
 					if(player.isCreative())
 						player.setHeldItem(event.getHand(), saveHeld);
 				}
@@ -133,11 +143,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
-	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity entity) {
-		return true;
-	}
-
-	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity living) {
 		setCursorList(stack, null);
 	}
@@ -150,7 +155,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		RayTraceResult lookPos = Minecraft.getInstance().objectMouseOver;
 
-		if(lookPos != null && !player.world.isAirBlock(lookPos.getBlockPos()) && lookPos.entity == null) {
+		if(lookPos != null
+				&& lookPos.getType() == RayTraceResult.Type.BLOCK
+				&& !player.world.isAirBlock(((BlockRayTraceResult) lookPos).getPos())) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 
@@ -158,7 +165,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				if(origin.getY() != -1) {
 					list.set(i, list.get(i).add(origin));
 				} else {
-					list.set(i, list.get(i).add(lookPos.getBlockPos()));
+					list.set(i, list.get(i).add(((BlockRayTraceResult) lookPos).getPos()));
 				}
 			}
 
@@ -211,7 +218,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		if(stack == null)
 			return;
 
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 		if(cursors != null) {
 			int i = 0;
 			for(BlockPos cursor : cursors) {

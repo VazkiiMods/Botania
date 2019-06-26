@@ -26,6 +26,7 @@ import net.minecraft.item.ToolItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceFluidMode;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -46,7 +47,7 @@ import java.util.function.Predicate;
 public final class ToolCommons {
 
 	public static final List<Material> materialsPick = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL);
-	public static final List<Material> materialsShovel = Arrays.asList(Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY);
+	public static final List<Material> materialsShovel = Arrays.asList(Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
 	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD);
 
 	public static void damageItem(ItemStack stack, int dmg, LivingEntity entity, int manaPerDamage) {
@@ -54,14 +55,16 @@ public final class ToolCommons {
 		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);
 
 		if(!manaRequested)
-			stack.damageItem(dmg, entity);
+			stack.damageItem(dmg, entity, e -> {});
 	}
 
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
                                                Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter,
                                                boolean dispose) {
-		for (BlockPos iterPos : BlockPos.getAllInBox(centerPos.add(startDelta), centerPos.add(endDelta))) {
-			if (iterPos.equals(centerPos)) // skip original block space to avoid crash, vanilla code in the tool class will handle it
+		for (BlockPos iterPos : BlockPos.getAllInBoxMutable(centerPos.add(startDelta),
+				centerPos.add(endDelta))) {
+			// skip original block space to avoid crash, vanilla code in the tool class will handle it
+			if (iterPos.equals(centerPos))
 				continue;
 			removeBlockWithDrops(player, stack, world, iterPos, filter, dispose);
 		}
@@ -102,7 +105,7 @@ public final class ToolCommons {
 				}
 
 				damageItem(stack, 1, player, 80);
-			} else world.removeBlock(pos);
+			} else world.removeBlock(pos, false);
 
 			if(particles && ConfigHandler.COMMON.blockBreakParticles.get() && ConfigHandler.COMMON.blockBreakParticlesTool.get())
 				world.playEvent(2001, pos, Block.getStateId(state));
@@ -136,26 +139,18 @@ public final class ToolCommons {
 	}
 
 	// [VanillaCopy] of Item.rayTrace, edits noted
-	public static RayTraceResult raytraceFromEntity(World worldIn, Entity playerIn, boolean useLiquids, double range) {
-		float f = playerIn.rotationPitch;
-		float f1 = playerIn.rotationYaw;
-		double d0 = playerIn.posX;
-		double d1 = playerIn.posY + (double)playerIn.getEyeHeight();
-		double d2 = playerIn.posZ;
-		Vec3d vec3d = new Vec3d(d0, d1, d2);
-		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float)Math.PI);
-		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float)Math.PI);
-		float f4 = -MathHelper.cos(-f * 0.017453292F);
-		float f5 = MathHelper.sin(-f * 0.017453292F);
+	public static RayTraceResult raytraceFromEntity(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode, double range) {
+		float f = player.rotationPitch;
+		float f1 = player.rotationYaw;
+		Vec3d vec3d = player.getEyePosition(1.0F);
+		float f2 = MathHelper.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+		float f3 = MathHelper.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+		float f4 = -MathHelper.cos(-f * ((float)Math.PI / 180F));
+		float f5 = MathHelper.sin(-f * ((float)Math.PI / 180F));
 		float f6 = f3 * f4;
 		float f7 = f2 * f4;
-		double d3 = range; // Botania - use custom range param, don't limit to reach distance
-		/*if (playerIn instanceof net.minecraft.entity.player.EntityPlayerMP)
-		{
-			d3 = ((net.minecraft.entity.player.EntityPlayerMP)playerIn).interactionManager.getBlockReachDistance();
-		}*/
-		Vec3d vec3d1 = vec3d.add((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
-		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids ? RayTraceFluidMode.SOURCE_ONLY : RayTraceFluidMode.NEVER, false, false);
+		double d0 = range; // Botania - use custom range
+		Vec3d vec3d1 = vec3d.add((double)f6 * d0, (double)f5 * d0, (double)f7 * d0);
+		return worldIn.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.OUTLINE, fluidMode, player));
 	}
-
 }

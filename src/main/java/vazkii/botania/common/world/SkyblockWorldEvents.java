@@ -26,6 +26,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -101,7 +102,8 @@ public final class SkyblockWorldEvents {
 					event.setCancellationResult(ActionResultType.SUCCESS);
 				}
 			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
-				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
+				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(),
+						RayTraceContext.FluidMode.SOURCE_ONLY, 4.5F);
 				if(rtr.getType() == RayTraceResult.Type.BLOCK) {
 					BlockPos pos = ((BlockRayTraceResult) rtr).getPos();
 					if(event.getWorld().getBlockState(pos).getMaterial() == Material.WATER) {

@@ -26,6 +26,7 @@ import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -183,7 +184,7 @@ public class ItemAstrolabe extends ItemMod {
 
 	public static List<BlockPos> getBlocksToPlace(ItemStack stack, PlayerEntity player) {
 		List<BlockPos> coords = new ArrayList<>();
-		RayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, true, 5);
+		RayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.SOURCE_ONLY, 5);
 		if(rtr != null) {
 			BlockPos pos = rtr.getBlockPos();
 			BlockState state = player.world.getBlockState(pos);

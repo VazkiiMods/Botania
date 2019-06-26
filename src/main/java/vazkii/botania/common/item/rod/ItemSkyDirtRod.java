@@ -23,7 +23,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -54,9 +56,13 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if(entities == 0) {
+				ItemStack save = player.getHeldItem(hand);
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
-				ItemUseContext ctx = new ItemUseContext(player, stackToPlace, new BlockPos(x, y, z), Direction.DOWN, 0, 0, 0);
+				player.setHeldItem(hand, stackToPlace);
+				BlockRayTraceResult hit = new BlockRayTraceResult(Vec3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
+				ItemUseContext ctx = new ItemUseContext(player, hand, hit);
 				stackToPlace.onItemUse(ctx);
+				player.setHeldItem(hand, save);
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);

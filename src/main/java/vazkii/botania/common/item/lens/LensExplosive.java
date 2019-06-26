@@ -14,17 +14,21 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.Explosion;
 import vazkii.botania.api.internal.IManaBurst;
 
 public class LensExplosive extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!entity.world.isRemote && !burst.isFake()) {
+		if(!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if(pos.entity == null && !isManaBlock && !coords.equals(pos.getBlockPos()))
-				entity.world.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
+			if(!isManaBlock && !coords.equals(((BlockRayTraceResult) pos).getPos()))
+				entity.world.createExplosion(entity, entity.posX, entity.posY, entity.posZ,
+						burst.getMana() / 50F, Explosion.Mode.BREAK);
 		} else dead = false;
 
 		return dead;

@@ -12,17 +12,16 @@ package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.item.PaintingEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.item.PaintingEntity;
-import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -195,24 +194,6 @@ public class Botania {
 			CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
 			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
 
-			RecipeSerializers.register(AncientWillRecipe.SERIALIZER);
-			RecipeSerializers.register(ArmorUpgradeRecipe.SERIALIZER);
-			RecipeSerializers.register(BlackHoleTalismanExtractRecipe.SERIALIZER);
-			RecipeSerializers.register(CompositeLensRecipe.SERIALIZER);
-			RecipeSerializers.register(CosmeticAttachRecipe.SERIALIZER);
-			RecipeSerializers.register(CosmeticRemoveRecipe.SERIALIZER);
-			RecipeSerializers.register(HelmRevealingRecipe.SERIALIZER);
-			RecipeSerializers.register(KeepIvyRecipe.SERIALIZER);
-			RecipeSerializers.register(LensDyeingRecipe.SERIALIZER);
-			RecipeSerializers.register(ManaGunClipRecipe.SERIALIZER);
-			RecipeSerializers.register(ManaGunLensRecipe.SERIALIZER);
-			RecipeSerializers.register(ManaGunRemoveLensRecipe.SERIALIZER);
-			RecipeSerializers.register(ManaUpgradeRecipe.SERIALIZER);
-			RecipeSerializers.register(ShapelessManaUpgradeRecipe.SERIALIZER);
-			RecipeSerializers.register(PhantomInkRecipe.SERIALIZER);
-			RecipeSerializers.register(SpellClothRecipe.SERIALIZER);
-			RecipeSerializers.register(TerraPickTippingRecipe.SERIALIZER);
-
 			CraftingHelper.register(FluxfieldConditionFactory.KEY, new FluxfieldConditionFactory());
 
 			ModBlocks.addDispenserBehaviours();
@@ -294,7 +275,7 @@ public class Botania {
 	private void registerDefaultEntityBlacklist() {
 		// Vanilla
 		BotaniaAPI.blacklistEntityFromGravityRod(EnderDragonEntity.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(MultiPartEntityPart.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EnderDragonPartEntity.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(WitherEntity.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(ItemFrameEntity.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EnderCrystalEntity.class);

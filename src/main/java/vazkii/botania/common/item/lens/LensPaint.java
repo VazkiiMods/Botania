@@ -19,6 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -35,22 +37,27 @@ public class LensPaint extends Lens {
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
 		if(!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
-			if(pos.entity instanceof SheepEntity) {
+			if(pos.getType() == RayTraceResult.Type.ENTITY
+					&& ((EntityRayTraceResult) pos).getEntity() instanceof SheepEntity) {
 				int r = 20;
-				DyeColor sheepColor = ((SheepEntity) pos.entity).getFleeceColor();
-				List<SheepEntity> sheepList = entity.world.getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(pos.entity.posX - r, pos.entity.posY - r, pos.entity.posZ - r, pos.entity.posX + r, pos.entity.posY + r, pos.entity.posZ + r));
-				for(SheepEntity sheep : sheepList) {
-					if(sheep.getFleeceColor() == sheepColor)
-						sheep.setFleeceColor(DyeColor.byId(storedColor == 16 ? sheep.world.rand.nextInt(16) : storedColor));
+				SheepEntity sheep = (SheepEntity) ((EntityRayTraceResult) pos).getEntity();
+				DyeColor sheepColor = sheep.getFleeceColor();
+				List<SheepEntity> sheepList = entity.world.getEntitiesWithinAABB(SheepEntity.class,
+						new AxisAlignedBB(sheep.posX - r, sheep.posY - r, sheep.posZ - r,
+								sheep.posX + r, sheep.posY + r, sheep.posZ + r));
+				for(SheepEntity other : sheepList) {
+					if(other.getFleeceColor() == sheepColor)
+						other.setFleeceColor(DyeColor.byId(storedColor == 16 ? other.world.rand.nextInt(16) : storedColor));
 				}
 				dead = true;
-			} else {
-				BlockState state = entity.world.getBlockState(pos.getBlockPos());
+			} else if (pos.getType() == RayTraceResult.Type.BLOCK) {
+				BlockPos hit = ((BlockRayTraceResult) pos).getPos();
+				BlockState state = entity.world.getBlockState(hit);
 				Block block = state.getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block.delegate)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
 					List<BlockPos> coordsFound = new ArrayList<>();
-					coordsFound.add(pos.getBlockPos());
+					coordsFound.add(hit);
 
 					do {
 						List<BlockPos> iterCoords = new ArrayList<>(coordsFound);
