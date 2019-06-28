@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
@@ -53,7 +55,7 @@ import javax.annotation.Nonnull;
 
 public class EntitySpark extends Entity implements ISparkEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":spark")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntitySpark> TYPE;
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final String TAG_INVIS = "invis";
@@ -63,10 +65,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	private int removeTransferants = 2;
 
+	public EntitySpark(EntityType<EntitySpark> type, World world) {
+		super(type, world);
+	}
+
 	public EntitySpark(World world) {
-		super(TYPE, world);
-		isImmuneToFire = true;
-		setSize(0.1F, 0.5F);
+		this(TYPE, world);
 	}
 
 	@Override
@@ -96,13 +100,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		SparkUpgradeType upgrade = getUpgrade();
 		List<ISparkEntity> allSparks = null;
 		if(upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
-			allSparks = SparkHelper.getSparksAround(world, posX, posY + (height / 2.0), posZ);
+			allSparks = SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2.0), posZ);
 
 		Collection<ISparkEntity> transfers = getTransfers();
 
 		switch(upgrade) {
 		case DISPERSIVE : {
-			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, posX, posY + (height / 2.0), posZ);
+			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, posX, posY + (getHeight() / 2.0), posZ);
 
 			Map<PlayerEntity, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
 
@@ -264,7 +268,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					} else dropAndKill();
 					return true;
 				} else {
-					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY + (height / 2.0), posZ))
+					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2.0), posZ))
 						particleBeam(player, this, (Entity) spark);
 					return true;
 				}
@@ -279,6 +283,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		}
 
 		return false;
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override

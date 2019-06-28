@@ -21,6 +21,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
@@ -34,20 +35,21 @@ import java.util.List;
 
 public class EntityMagicLandmine extends Entity {
 	@ObjectHolder(LibMisc.MOD_ID + ":magic_landmine")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityMagicLandmine> TYPE;
 
 	public EntityDoppleganger summoner;
 
+	public EntityMagicLandmine(EntityType<EntityMagicLandmine> type, World world) {
+		super(type, world);
+	}
+
 	public EntityMagicLandmine(World world) {
-		super(TYPE, world);
-		setSize(0F, 0F);
+		this(TYPE, world);
 	}
 
 	@Override
 	public void tick() {
-		motionX = 0;
-		motionY = 0;
-		motionZ = 0;
+		setMotion(Vec3d.ZERO);
 		super.tick();
 
 		float range = 2.5F;

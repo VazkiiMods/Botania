@@ -96,7 +96,7 @@ import java.util.stream.Collectors;
 
 public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEntityAdditionalSpawnData {
 	@ObjectHolder(LibMisc.MOD_ID + ":doppleganger")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityDoppleganger> TYPE;
 
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
@@ -149,14 +149,17 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	private UUID bossInfoUUID = bossInfo.getUniqueId();
 	public PlayerEntity trueKiller = null;
 
-	public EntityDoppleganger(World world) {
-		super(TYPE, world);
-		setSize(0.6F, 1.8F);
+	public EntityDoppleganger(EntityType<EntityDoppleganger> type, World world) {
+		this(type, world);
 		isImmuneToFire = true;
 		experienceValue = 825;
 		if(world.isRemote) {
 			Botania.proxy.addBoss(this);
 		}
+	}
+
+	public EntityDoppleganger(World world) {
+		this(TYPE, world);
 	}
 
 	public static MultiblockSet makeMultiblockSet() {

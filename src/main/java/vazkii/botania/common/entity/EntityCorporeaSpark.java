@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -27,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
@@ -41,7 +43,7 @@ import java.util.List;
 
 public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@ObjectHolder(LibMisc.MOD_ID + ":corporea_spark")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityCorporeaSpark> TYPE;
 
 	private static final int SCAN_RANGE = 8;
 
@@ -52,21 +54,23 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEMSTACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
 	private List<ICorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
+	public EntityCorporeaSpark(EntityType<EntityCorporeaSpark> type, World world) {
+		super(type, world);
+	}
+
 	public EntityCorporeaSpark(World world) {
-		super(TYPE, world);
-		isImmuneToFire = true;
+		this(TYPE, world);
 	}
 
 	@Override
 	protected void registerData() {
-		setSize(0.1F, 0.5F);
 		dataManager.register(MASTER, false);
 		dataManager.register(NETWORK, 0);
 		dataManager.register(ITEM_DISPLAY_TICKS, 0);
@@ -301,6 +305,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		}
 
 		return false;
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override

@@ -34,11 +34,14 @@ import java.util.List;
 
 public class EntityFlameRing extends Entity {
 	@ObjectHolder(LibMisc.MOD_ID + ":flame_ring")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityFlameRing> TYPE;
+
+	public EntityFlameRing(EntityType<EntityFlameRing> type, World world) {
+		super(type, world);
+	}
 
 	public EntityFlameRing(World world) {
-		super(TYPE, world);
-		setSize(0F, 0F);
+		this(TYPE, world);
 	}
 
 	@Override

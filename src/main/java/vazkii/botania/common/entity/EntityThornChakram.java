@@ -29,7 +29,10 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
@@ -40,7 +43,7 @@ import javax.annotation.Nonnull;
 
 public class EntityThornChakram extends ThrowableEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityThornChakram> TYPE;
 
 	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
@@ -49,8 +52,8 @@ public class EntityThornChakram extends ThrowableEntity {
 	private boolean bounced = false;
 	private ItemStack stack = ItemStack.EMPTY;
 
-	public EntityThornChakram(World world) {
-		super(TYPE, world);
+	public EntityThornChakram(EntityType<EntityThornChakram> type, World world) {
+		super(type, world);
 	}
 
 	public EntityThornChakram(LivingEntity e, World world, ItemStack stack) {
@@ -60,7 +63,6 @@ public class EntityThornChakram extends ThrowableEntity {
 
 	@Override
 	protected void registerData() {
-		super.registerData();
 		dataManager.register(BOUNCES, 0);
 		dataManager.register(FLARE, false);
 		dataManager.register(RETURN_TO, -1);
@@ -74,17 +76,13 @@ public class EntityThornChakram extends ThrowableEntity {
 	@Override
 	public void tick() {
 		// Standard motion
-		double mx = motionX;
-		double my = motionY;
-		double mz = motionZ;
+		Vec3d old = getMotion();
 
 		super.tick();
 
 		if(!bounced) {
 			// Reset the drag applied by super
-			motionX = mx;
-			motionY = my;
-			motionZ = mz;
+			setMotion(old);
 		}
 
 		bounced = false;
@@ -94,9 +92,7 @@ public class EntityThornChakram extends ThrowableEntity {
 			Entity thrower = getThrower();
 			if(thrower != null) {
 				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
-				motionX = motion.x;
-				motionY = motion.y;
-				motionZ = motion.z;
+				setMotion(motion.toVec3D());
 			}
 		}
 
@@ -139,22 +135,21 @@ public class EntityThornChakram extends ThrowableEntity {
 		if(isReturning())
 			return;
 
-		switch (pos.type) {
+		switch (pos.getType()) {
 		case BLOCK: {
-			Block block = world.getBlockState(pos.getBlockPos()).getBlock();
+			BlockRayTraceResult rtr = (BlockRayTraceResult) pos;
+			Block block = world.getBlockState(rtr.getPos()).getBlock();
 			if(block instanceof BushBlock || block instanceof LeavesBlock)
 				return;
 
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {
-				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
-				Direction dir = pos.sideHit;
+				Vector3 currentMovementVec = new Vector3(getMotion());
+				Direction dir = rtr.getFace();
 				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
-				motionX = movementVec.x;
-				motionY = movementVec.y;
-				motionZ = movementVec.z;
+				setMotion(movementVec.toVec3D());
 				bounced = true;
 
 				if(!world.isRemote)
@@ -164,13 +159,18 @@ public class EntityThornChakram extends ThrowableEntity {
 			break;
 		}
 		case ENTITY: {
-			if(!world.isRemote && pos.entity != null && pos.entity instanceof LivingEntity && pos.entity != getThrower()) {
+			EntityRayTraceResult rtr = (EntityRayTraceResult) pos;
+			if(!world.isRemote && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getThrower()) {
 				LivingEntity thrower = getThrower();
-				pos.entity.attackEntityFrom(thrower != null ? thrower instanceof PlayerEntity ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.GENERIC, 12);
+				rtr.getEntity().attackEntityFrom(thrower != null
+						? thrower instanceof PlayerEntity
+							? DamageSource.causeThrownDamage(this, thrower)
+							: DamageSource.causeMobDamage(thrower)
+						: DamageSource.GENERIC, 12);
 				if(isFire())
-					pos.entity.setFire(5);
+					rtr.getEntity().setFire(5);
 				else if(world.rand.nextInt(3) == 0)
-					((LivingEntity) pos.entity).addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
+					((LivingEntity) rtr.getEntity()).addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
 			}
 
 			break;

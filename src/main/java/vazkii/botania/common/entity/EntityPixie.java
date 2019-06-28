@@ -33,16 +33,19 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class EntityPixie extends FlyingEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pixie")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityPixie> TYPE;
 	private static final DataParameter<Integer> PIXIE_TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
 	private LivingEntity summoner = null;
 	private float damage = 0;
 	private EffectInstance effect = null;
 
+	public EntityPixie(EntityType<EntityPixie> type, World world) {
+		super(type, world);
+	}
+
 	public EntityPixie(World world) {
-		super(TYPE, world);
-		setSize(1.0F, 1.0F);
+		this(TYPE, world);
 	}
 
 	@Override

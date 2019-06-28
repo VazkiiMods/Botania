@@ -258,13 +258,13 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		private static final DataParameter<BlockPos> EXIT_POS = EntityDataManager.createKey(EntityPlayerMover.class, DataSerializers.BLOCK_POS);
 
 
-		public EntityPlayerMover(World world) {
-			super(TYPE, world);
+		public EntityPlayerMover(EntityType<EntityPlayerMover> type, World world) {
+			super(type, world);
 			noClip = true;
 		}
 
 		public EntityPlayerMover(World world, BlockPos pos, BlockPos exitPos) {
-			this(world);
+			this(TYPE, world);
 			setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			setExit(exitPos);
 		}

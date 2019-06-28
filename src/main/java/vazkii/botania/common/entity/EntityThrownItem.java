@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -26,13 +27,18 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 
 public class EntityThrownItem extends ItemEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":thrown_item")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityThrownItem> TYPE;
+
+	public EntityThrownItem(EntityType<EntityThrownItem> type, World world) {
+		super(type, world);
+	}
 
 	public EntityThrownItem(World world) {
-		super(world);
+		this(TYPE, world);
 		setInvulnerable(true);
 	}
 
@@ -40,9 +46,7 @@ public class EntityThrownItem extends ItemEntity {
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
 		setPickupDelay(item.pickupDelay);
-		motionX = item.motionX;
-		motionY = item.motionY;
-		motionZ = item.motionZ;
+		setMotion(item.getMotion());
 		setInvulnerable(true);
 	}
 
@@ -56,25 +60,25 @@ public class EntityThrownItem extends ItemEntity {
 	public void tick() {
 		super.tick();
 		Vec3d vec3 = new Vec3d(posX, posY, posZ);
-		Vec3d vec31 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
+		Vec3d vec31 = getPositionVec().add(getMotion());
 
-		RayTraceResult RayTraceResult = world.rayTraceBlocks(vec3, vec31);
+		RayTraceResult ray = world.rayTraceBlocks(vec3, vec31);
 
 
 		if (!world.isRemote)
 		{
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().offset(motionX*2, motionY*2, motionZ*2).grow(2));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().offset(getMotion().scale(2)).grow(2));
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof PlayerEntity) || pickupDelay == 0)) {
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(f);
-					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
+					Optional<Vec3d> ray1 = axisalignedbb.rayTrace(vec3, vec31);
 
-					if (RayTraceResult1 != null) {
-						double d1 = vec3.distanceTo(RayTraceResult1.hitVec);
+					if (ray1.isPresent()) {
+						double d1 = vec3.distanceTo(ray1.get());
 
 						if (d1 < d0 || d0 == 0.0D) {
 							entity = entity1;
@@ -86,20 +90,20 @@ public class EntityThrownItem extends ItemEntity {
 
 			if (entity != null)
 			{
-				RayTraceResult = new RayTraceResult(entity);
+				ray = new EntityRayTraceResult(entity);
 			}
 		}
 
-		if (RayTraceResult != null)
+		if (ray != null)
 		{
-			if (RayTraceResult.type == net.minecraft.util.math.RayTraceResult.Type.BLOCK && world.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL)
+			if (ray.getType() == net.minecraft.util.math.RayTraceResult.Type.BLOCK && world.getBlockState(ray.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL)
 			{
-				setPortal(RayTraceResult.getBlockPos());
+				setPortal(ray.getBlockPos());
 			}
 			else
 			{
-				if (RayTraceResult.type != null) {
-					RayTraceResult.entity.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+				if (ray.type != null) {
+					ray.entity.attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {

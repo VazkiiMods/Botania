@@ -32,21 +32,19 @@ import javax.annotation.Nonnull;
 
 public class EntityPinkWither extends WitherEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pink_wither")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityPinkWither> TYPE;
+
+	public EntityPinkWither(EntityType<EntityPinkWither> type, World world) {
+		super(type, world);
+	}
 
 	public EntityPinkWither(World world) {
-		super(world);
+		super(TYPE, world);
 
 		tasks.taskEntries.removeIf(entry -> entry.action instanceof RangedAttackGoal); // Remove firing wither skulls
 
 		targetTasks.taskEntries.removeIf(entry -> entry.action instanceof HurtByTargetGoal
 				|| entry.action instanceof NearestAttackableTargetGoal); // Remove revenge and aggro
-	}
-
-	@Nonnull
-	@Override
-	public EntityType<?> getType() {
-		return TYPE;
 	}
 
 	@Override
@@ -76,9 +74,6 @@ public class EntityPinkWither extends WitherEntity {
 		}
 		return false;
 	}
-
-	@Override
-	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {}
 
 	@Override
 	public void addTrackingPlayer(@Nonnull ServerPlayerEntity player) {}

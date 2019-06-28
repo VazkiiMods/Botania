@@ -40,14 +40,18 @@ import java.util.Map;
 
 public class EntityVineBall extends ThrowableEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityVineBall> TYPE;
 
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityVineBall.class, DataSerializers.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
 			Direction.WEST, VineBlock.WEST, Direction.EAST, VineBlock.EAST);
 
 	public EntityVineBall(World world) {
-		super(TYPE, world);
+		this(TYPE, world);
+	}
+
+	public EntityVineBall(EntityType<EntityVineBall> type, World world) {
+		super(type, world);
 	}
 
 	public EntityVineBall(LivingEntity thrower, boolean gravity) {
@@ -57,7 +61,6 @@ public class EntityVineBall extends ThrowableEntity {
 
 	@Override
 	protected void registerData() {
-		super.registerData();
 		dataManager.register(GRAVITY, 0F);
 	}
 

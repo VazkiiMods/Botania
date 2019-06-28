@@ -42,13 +42,13 @@ import java.awt.Color;
 
 public class EntityPoolMinecart extends AbstractMinecartEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityPoolMinecart> TYPE;
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
 
-	public EntityPoolMinecart(World world) {
-		super(TYPE, world);
+	public EntityPoolMinecart(EntityType<EntityPoolMinecart> type, World world) {
+		super(type, world);
 	}
 
 	public EntityPoolMinecart(World world, double x, double y, double z) {
@@ -87,10 +87,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	@Override
 	protected void applyDrag() {
 		float f = 0.98F;
-
-		this.motionX *= (double)f;
-		this.motionY *= 0.0D;
-		this.motionZ *= (double)f;
+		this.setMotion(getMotion().mul(f, 0, f));
 	}
 
 

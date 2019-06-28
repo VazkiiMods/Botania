@@ -29,15 +29,18 @@ import javax.annotation.Nonnull;
 
 public class EntitySignalFlare extends Entity {
 	@ObjectHolder(LibMisc.MOD_ID + ":signal_flare")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntitySignalFlare> TYPE;
 	private static final String COLOR_TAG = "color";
 	private static final String FIRED_Y_TAG = "firedY";
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> FIRED_Y = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 
+	public EntitySignalFlare(EntityType<EntitySignalFlare> type, World world) {
+		super(type, world);
+	}
+
 	public EntitySignalFlare(World world) {
-		super(TYPE, world);
-		setSize(0F, 0F);
+		this(TYPE, world);
 	}
 
 	@Override

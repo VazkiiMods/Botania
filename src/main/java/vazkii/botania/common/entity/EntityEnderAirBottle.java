@@ -18,6 +18,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -31,10 +33,10 @@ import java.util.stream.Collectors;
 
 public class EntityEnderAirBottle extends ThrowableEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":ender_air_bottle")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityEnderAirBottle> TYPE;
 
-	public EntityEnderAirBottle(World world) {
-		super(TYPE, world);
+	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, World world) {
+		super(type, world);
 	}
 
 	public EntityEnderAirBottle(LivingEntity entity, World world) {
@@ -43,8 +45,8 @@ public class EntityEnderAirBottle extends ThrowableEntity {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if(pos.type == RayTraceResult.Type.BLOCK && !world.isRemote) {
-			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
+		if(pos.getType() == RayTraceResult.Type.BLOCK && !world.isRemote) {
+			List<BlockPos> coordsList = getCoordsToPut(((BlockRayTraceResult) pos).getPos());
 			world.playEvent(2002, new BlockPos(this), 8);
 
 			for(BlockPos coords : coordsList) {
@@ -61,11 +63,12 @@ public class EntityEnderAirBottle extends ThrowableEntity {
 		int range = 4;
 		int rangeY = 4;
 
-		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
+		for (BlockPos bPos : BlockPos.getAllInBoxMutable(pos.add(-range, -rangeY, -range),
+				pos.add(range, rangeY, range))) {
 			BlockState state = world.getBlockState(bPos);
 			Block block = state.getBlock();
 			if(block.isReplaceableOreGen(state, world, bPos, BlockStateMatcher.forBlock(Blocks.STONE)))
-				possibleCoords.add(bPos);
+				possibleCoords.add(bPos.toImmutable());
 		}
 
 		Collections.shuffle(possibleCoords, rand);
@@ -73,4 +76,6 @@ public class EntityEnderAirBottle extends ThrowableEntity {
 		return possibleCoords.stream().limit(64).collect(Collectors.toList());
 	}
 
+	@Override
+	protected void registerData() {}
 }

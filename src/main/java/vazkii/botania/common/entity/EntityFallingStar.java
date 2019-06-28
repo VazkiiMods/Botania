@@ -12,11 +12,15 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -29,17 +33,18 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class EntityFallingStar extends EntityThrowableCopy {
 	@ObjectHolder(LibMisc.MOD_ID + ":falling_star")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityFallingStar> TYPE;
 
-	public EntityFallingStar(World world) {
-		super(TYPE, world);
-		setSize(0F, 0F);
+	public EntityFallingStar(EntityType<EntityFallingStar> type, World world) {
+		super(type, world);
 	}
 
 	public EntityFallingStar(LivingEntity e, World world) {
 		super(TYPE, e, world);
-		setSize(0F, 0F);
 	}
+
+	@Override
+	protected void registerData() {}
 
 	@Override
 	public void tick() {
@@ -62,7 +67,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 					continue;
 
 				if(living.hurtTime == 0) {
-					onImpact(new RayTraceResult(living));
+					onImpact(new EntityRayTraceResult(living));
 					return;
 				}
 			}
@@ -78,16 +83,20 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			return;
 
 		LivingEntity thrower = getThrower();
-		if(pos.entity != null && thrower != null && pos.entity != thrower && !pos.entity.removed) {
-			if(thrower instanceof PlayerEntity)
-				pos.entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) thrower), Math.random() < 0.25 ? 10 : 5);
-			else pos.entity.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
+		if(pos.getType() == RayTraceResult.Type.ENTITY && thrower != null ) {
+			Entity e = ((EntityRayTraceResult) pos).getEntity();
+			if(e != thrower && e.isAlive()) {
+				if(thrower instanceof PlayerEntity)
+					e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) thrower), Math.random() < 0.25 ? 10 : 5);
+				else e.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
+			}
 		}
 
-		if (pos.getBlockPos() != null) {
-			BlockState state = world.getBlockState(pos.getBlockPos());
-			if(ConfigHandler.COMMON.blockBreakParticles.get() && !state.getBlock().isAir(state, world, pos.getBlockPos()))
-				world.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
+		if (pos.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos bpos = ((BlockRayTraceResult) pos).getPos();
+			BlockState state = world.getBlockState(bpos);
+			if(ConfigHandler.COMMON.blockBreakParticles.get() && !state.isAir(world, bpos))
+				world.playEvent(2001, bpos, Block.getStateId(state));
 		}
 
 		remove();

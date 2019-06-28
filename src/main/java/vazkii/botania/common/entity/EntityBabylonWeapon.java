@@ -21,8 +21,12 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
@@ -57,8 +61,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	private static final DataParameter<Integer> DELAY = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.VARINT);
 	private static final DataParameter<Float> ROTATION = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.FLOAT);
 
-	public EntityBabylonWeapon(World world) {
-		super(TYPE, world);
+	public EntityBabylonWeapon(EntityType<EntityBabylonWeapon> type, World world) {
+		super(type, world);
 	}
 
 	public EntityBabylonWeapon(LivingEntity thrower, World world) {
@@ -98,9 +102,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			}
 		}
 
-		double x = motionX;
-		double y = motionY;
-		double z = motionZ;
+		Vec3d mot = getMotion();
 
 		int liveTime = getLiveTicks();
 		int delay = getDelay();
@@ -119,17 +121,18 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				setMotion(Vec3d.ZERO);
 			} else if (liveTime == delay && player != null) {
 				Vector3 playerLook;
-				RayTraceResult lookat = ToolCommons.raytraceFromEntity(world, player, true, 64);
-				if(lookat == null)
+				RayTraceResult lookat = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.SOURCE_ONLY, 64);
+				if(lookat.getType() != RayTraceResult.Type.BLOCK)
 					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
-				else playerLook = new Vector3(lookat.getBlockPos().getX() + 0.5, lookat.getBlockPos().getY() + 0.5, lookat.getBlockPos().getZ() + 0.5);
+				else {
+					BlockRayTraceResult rtr = (BlockRayTraceResult) lookat;
+					playerLook = new Vector3(rtr.getPos().getX() + 0.5, rtr.getPos().getY() + 0.5, rtr.getPos().getZ() + 0.5);
+				}
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);
 				Vector3 motionVec = playerLook.subtract(thisVec).normalize().multiply(2);
 
-				x = motionVec.x;
-				y = motionVec.y;
-				z = motionVec.z;
+				mot = motionVec.toVec3D();
 				world.playSound(null, posX, posY, posZ, ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);
@@ -145,7 +148,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 						if(player != null)
 							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 20);
 						else living.attackEntityFrom(DamageSource.GENERIC, 20);
-						onImpact(new RayTraceResult(living));
+						onImpact(new EntityRayTraceResult(living));
 						return;
 					}
 				}
@@ -154,9 +157,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		super.tick();
 
-		motionX = x;
-		motionY = y;
-		motionZ = z;
+		setMotion(mot);
 
 		if(liveTime > delay)
 			Botania.proxy.wispFX(posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
@@ -168,8 +169,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@Override
 	protected void onImpact(RayTraceResult pos) {
 		LivingEntity thrower = getThrower();
-		if(pos.entity == null || pos.entity != thrower) {
-			world.createExplosion(this, posX, posY, posZ, 3F, false);
+		if(pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
+			world.createExplosion(this, posX, posY, posZ, 3F, Explosion.Mode.NONE);
 			remove();
 		}
 	}

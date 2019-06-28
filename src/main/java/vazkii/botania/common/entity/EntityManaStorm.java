@@ -14,7 +14,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -24,7 +27,7 @@ import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
 	@ObjectHolder(LibMisc.MOD_ID + ":mana_storm")
-	public static EntityType<?> TYPE;
+	public static EntityType<EntityManaStorm> TYPE;
 
 	private static final String TAG_TIME = "time";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
@@ -37,8 +40,12 @@ public class EntityManaStorm extends Entity {
 	public int burstsFired;
 	public int deathTime;
 
+	public EntityManaStorm(EntityType<EntityManaStorm> type, World world) {
+		super(type, world);
+	}
+
 	public EntityManaStorm(World world) {
-		super(TYPE, world);
+		this(TYPE, world);
 	}
 
 	@Override
@@ -60,7 +67,7 @@ public class EntityManaStorm extends Entity {
 			deathTime++;
 			if(deathTime >= DEATH_TIME) {
 				remove();
-				world.newExplosion(this, posX, posY, posZ, 8F, true, true);
+				world.createExplosion(this, posX, posY, posZ, 8F, true, Explosion.Mode.DESTROY);
 			}
 		}
 	}
@@ -96,6 +103,12 @@ public class EntityManaStorm extends Entity {
 		cmp.putInt(TAG_TIME, liveTime);
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 }

@@ -105,20 +105,22 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
 	public EntityManaBurst(World world) {
-		super(TYPE, world);
-		setSize(0F, 0F);
+		this(TYPE, world);
+	}
+
+	public EntityManaBurst(EntityType<EntityManaBurst> type, World world) {
+		super(type, world);
 	}
 
 	@Override
 	protected void registerData() {
-		super.registerData();
 		dataManager.register(COLOR, 0);
 		dataManager.register(MANA, 0);
 		dataManager.register(START_MANA, 0);
 		dataManager.register(MIN_MANA_LOSS, 0);
 		dataManager.register(MANA_LOSS_PER_TICK, 0F);
 		dataManager.register(GRAVITY, 0F);
-		dataManager.register(SOURCE_COORDS, BlockPos.ORIGIN);
+		dataManager.register(SOURCE_COORDS, BlockPos.ZERO);
 		dataManager.register(SOURCE_LENS, ItemStack.EMPTY);
 	}
 
