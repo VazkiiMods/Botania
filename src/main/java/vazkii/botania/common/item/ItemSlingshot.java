@@ -56,9 +56,7 @@ public class ItemSlingshot extends ItemMod {
 
 			EntityVineBall ball = new EntityVineBall(living, false);
 			ball.shoot(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
-			ball.motionX *= 1.6;
-			ball.motionY *= 1.6;
-			ball.motionZ *= 1.6;
+			ball.setMotion(ball.getMotion().scale(1.6));
 			world.addEntity(ball);
 			world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		}

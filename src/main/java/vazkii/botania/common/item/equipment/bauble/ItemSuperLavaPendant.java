@@ -22,25 +22,32 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 
 public class ItemSuperLavaPendant extends ItemBauble {
 
 	public ItemSuperLavaPendant(Properties props) {
 		super(props);
+		MinecraftForge.EVENT_BUS.addListener(this::onDamage);
 	}
 
+	private void onDamage(LivingHurtEvent evt) {
+		if(evt.getSource().isFireDamage()
+				&& !EquipmentHandler.findOrEmpty(this, evt.getEntityLiving()).isEmpty()) {
+			evt.setCanceled(true);
+		}
+	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		living.isImmuneToFire = true;
-	}
-
-	@Override
-	public void onUnequipped(ItemStack stack, LivingEntity living) {
-		living.isImmuneToFire = false;
+		if (living.isBurning())
+			living.extinguish();
 	}
 
 	@Override

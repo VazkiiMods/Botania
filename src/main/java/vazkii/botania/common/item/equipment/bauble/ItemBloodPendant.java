@@ -138,7 +138,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
-			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 		}
 		GlStateManager.color3f(1, 1, 1);
 	}

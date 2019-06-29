@@ -61,6 +61,7 @@ public final class ModEntities {
 				.setRegistryName(LibEntityNames.VINE_BALL));
 		evt.getRegistry().register(EntityType.Builder.<EntityDoppleganger>create(EntityDoppleganger::new, EntityClassification.MONSTER)
 				.size(0.6F, 1.8F)
+				.immuneToFire()
 				.setTrackingRange(128)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(true)

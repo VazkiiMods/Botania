@@ -11,10 +11,11 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -598,9 +599,9 @@ public final class ModCraftingRecipes {
 			return Collections.emptyList();
 		String jsonGroup = group.toString();
 
-		return server.getRecipeManager().getRecipes(VanillaRecipeTypes.CRAFTING)
+		return server.getRecipeManager().getRecipes(IRecipeType.CRAFTING)
 				.stream()
-				.filter(r -> jsonGroup.equals(r.getGroup()))
+				.filter((ICraftingRecipe r) -> jsonGroup.equals(r.getGroup()))
 				.map(IRecipe::getId)
 				.collect(Collectors.toList());
 	}

@@ -43,6 +43,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -71,8 +72,8 @@ public class ItemBottledMana extends ItemMod {
 	public void effect(ItemStack stack, LivingEntity living, int id) {
 		switch(id) {
 		case 0 : { // Random motion
-			living.motionX = (Math.random() - 0.5) * 3;
-			living.motionZ = (Math.random() - 0.5) * 3;
+			living.setMotion((Math.random() - 0.5) * 3, living.getMotion().getY(),
+					(Math.random() - 0.5) * 3);
 			break;
 		}
 		case 1 : { // Water
@@ -87,14 +88,15 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 3 : { // Mini Explosion
 			if(!living.world.isRemote)
-				living.world.createExplosion(null, living.posX, living.posY, living.posZ, 0.25F, false);
+				living.world.createExplosion(null, living.posX, living.posY,
+						living.posZ, 0.25F, Explosion.Mode.NONE);
 			break;
 		}
 		case 4 : { // Mega Jump
 			if(!living.world.getDimension().isNether()) {
 				if(!living.world.isRemote)
 					living.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 300, 5));
-				living.motionY = 6;
+				living.setMotion(living.getMotion().getX(), 6, living.getMotion().getZ());
 			}
 
 			break;

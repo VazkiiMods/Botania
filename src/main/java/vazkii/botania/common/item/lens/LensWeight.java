@@ -39,8 +39,7 @@ public class LensWeight extends Lens {
 			if(entity.world.isAirBlock(bPos.down())
 					&& state.getBlockHardness(entity.world, bPos) != -1
 					&& neededHarvestLevel <= harvestLevel
-					&& entity.world.getTileEntity(bPos) == null
-					&& state.canSilkHarvest(entity.world, bPos, null)) {
+					&& entity.world.getTileEntity(bPos) == null) {
 				FallingBlockEntity falling = new FallingBlockEntity(entity.world, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
 				falling.fallTime = 1;
 				entity.world.removeBlock(bPos, false);

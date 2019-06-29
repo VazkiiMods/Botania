@@ -17,6 +17,9 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -90,10 +93,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
-		if(raycast != null) {
-			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
-			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.NONE, 10);
+		if(raycast.getType() == RayTraceResult.Type.BLOCK) {
+			Direction face = ((BlockRayTraceResult) raycast).getFace();
+			breakOtherBlock(player, stack, pos, pos, face);
+			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, face);
 		}
 
 		return false;

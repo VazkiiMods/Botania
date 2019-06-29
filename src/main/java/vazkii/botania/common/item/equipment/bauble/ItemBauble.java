@@ -57,7 +57,7 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(Screen.isShiftKeyDown())
+		if(Screen.hasShiftDown())
 			addHiddenTooltip(par1ItemStack, world, stacks, flags);
 		else stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}

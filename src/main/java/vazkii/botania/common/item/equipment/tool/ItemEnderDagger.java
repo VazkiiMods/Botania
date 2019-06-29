@@ -23,6 +23,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
@@ -44,7 +45,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 			target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), 20);
 		}
 
-		stack.damageItem(1, attacker);
+		stack.damageItem(1, attacker, e -> e.sendBreakAnimation(Hand.MAIN_HAND));
 		return true;
 	}
 
@@ -62,7 +63,8 @@ public class ItemEnderDagger extends ItemManasteelSword {
 		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, AttributeModifier.Operation.ADDITION));
 		}
 
 		return multimap;

@@ -11,9 +11,12 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.ChestContainer;
+import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
@@ -48,9 +51,12 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
-			if(!player.world.isRemote)
-				player.displayGUIChest(player.getInventoryEnderChest());
-			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
+			if(!player.world.isRemote) {
+				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
+					return ChestContainer.createGeneric9X3(windowId, playerInv, p.getInventoryEnderChest());
+				}, EnderChestBlock.field_220115_d));
+				ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
+			}
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
 			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
@@ -60,8 +66,12 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		if(ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
-			if(!player.world.isRemote)
-				player.displayGUIChest(((PlayerEntity) entity).getInventoryEnderChest());
+			if(!player.world.isRemote) {
+				PlayerEntity other = (PlayerEntity) entity;
+				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
+					return ChestContainer.createGeneric9X3(windowId, playerInv, other.getInventoryEnderChest());
+				}, EnderChestBlock.field_220115_d));
+			}
 			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
 			return true;

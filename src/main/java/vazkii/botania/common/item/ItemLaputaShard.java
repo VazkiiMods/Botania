@@ -225,9 +225,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		int targetDistance = BASE_OFFSET;
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		if(!entity.world.isRemote) {
-			entity.motionX = 0;
-			entity.motionY = speed;
-			entity.motionZ = 0;
+			entity.setMotion(0, speed, 0);
 
 			final int spawnTicks = 2;
 			final int placeTicks = net.minecraft.util.math.MathHelper.floor(targetDistance / speed);
@@ -276,7 +274,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
-		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
+		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.posX, entity.posY, entity.posZ,
+				entity.getMotion().getX(), entity.getMotion().getY(), entity.getMotion().getZ());
 
 		return true;
 	}

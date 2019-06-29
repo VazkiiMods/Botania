@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -81,23 +82,23 @@ public class ItemVirus extends ItemMod {
 				if(!saddle.isEmpty())
 					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new).insertItem(0, saddle, false);
 
-				AbstractAttributeMap oldAttributes = horse.getAttributeMap();
-				AbstractAttributeMap attributes = newHorse.getAttributeMap();
+				AbstractAttributeMap oldAttributes = horse.getAttributes();
+				AbstractAttributeMap attributes = newHorse.getAttributes();
 
 				IAttributeInstance movementSpeed = attributes.getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED);
 				movementSpeed.setBaseValue(oldAttributes.getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue());
-				movementSpeed.applyModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), 0));
+				movementSpeed.applyModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
 				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH);
 				health.setBaseValue(oldAttributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).getBaseValue());
-				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), 0));
+				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
 				IAttributeInstance jumpHeight = attributes.getAttributeInstance(AbstractHorseEntity.JUMP_STRENGTH);
 				jumpHeight.setBaseValue(oldAttributes.getAttributeInstance(AbstractHorseEntity.JUMP_STRENGTH).getBaseValue());
-				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
+				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
-				newHorse.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(newHorse)), null, null);
+				newHorse.onInitialSpawn(player.world, player.world.getDifficultyForLocation(new BlockPos(newHorse)), SpawnReason.CONVERSION, null, null);
 				newHorse.setGrowingAge(horse.getGrowingAge());
 				player.world.addEntity(newHorse);
 				newHorse.spawnExplosionParticle();

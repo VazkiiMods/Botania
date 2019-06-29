@@ -106,7 +106,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 		else {
 			Optional<ItemStack> maybeStack = furnace.getWorld().getRecipeManager()
 					.getRecipe(IRecipeType.SMELTING, furnace, furnace.getWorld())
-					.map(IRecipe::getRecipeOutput);
+					.map(r -> r.getCraftingResult(furnace));
 
 			if(!maybeStack.isPresent() || maybeStack.get().isEmpty())
 				return false;

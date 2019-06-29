@@ -135,7 +135,7 @@ public class ItemSpawnerMover extends ItemMod {
 				}
 
 				if(ctx.getPlayer() != null)
-					ctx.getPlayer().renderBrokenItemStack(mover);
+					ctx.getPlayer().sendBreakAnimation(ctx.getHand());
 				mover.shrink(1);
 			} else {
 				for(int i = 0; i < 100; i++)
@@ -162,7 +162,7 @@ public class ItemSpawnerMover extends ItemMod {
 				if(player != null) {
 					player.getCooldownTracker().setCooldown(this, 20);
 					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
-					player.renderBrokenItemStack(stack);
+					player.sendBreakAnimation(ctx.getHand());
 				}
 			} else {
 				for(int i = 0; i < 50; i++) {

@@ -51,7 +51,10 @@ public class ItemWorldSeed extends ItemMod {
 
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 50; i++)
-				Botania.proxy.sparkleFX(player.posX + Math.random() * player.width, player.posY - 1.6 + Math.random() * player.height, player.posZ + Math.random() * player.width, 0.25F, 1F, 0.25F, 1F, 10);
+				Botania.proxy.sparkleFX(player.posX + Math.random() * player.getWidth(),
+						player.posY - 1.6 + Math.random() * player.getHeight(),
+						player.posZ + Math.random() * player.getWidth(),
+						0.25F, 1F, 0.25F, 1F, 10);
 
 			stack.shrink(1);
 			return ActionResult.newResult(ActionResultType.SUCCESS, stack);

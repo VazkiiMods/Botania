@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
@@ -42,7 +42,10 @@ public class ItemKeepIvy extends ItemMod {
 	}
 
 	@SubscribeEvent
-	public static void onPlayerDrops(PlayerDropsEvent event) {
+	public static void onPlayerDrops(LivingDropsEvent event) {
+		if(!(event.getEntityLiving() instanceof PlayerEntity))
+			return;
+
 		List<ItemEntity> keeps = new ArrayList<>();
 		for(ItemEntity item : event.getDrops()) {
 			ItemStack stack = item.getItem();
@@ -64,7 +67,7 @@ public class ItemKeepIvy extends ItemMod {
 				i++;
 			}
 
-			CompoundNBT data = event.getEntityPlayer().getEntityData();
+			CompoundNBT data = event.getEntityLiving().getEntityData();
 			if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
 				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
 

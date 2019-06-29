@@ -218,7 +218,8 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		 */
 		public boolean tick() {
 			if(++ticksExisted % 20 == 0) {
-				for(BlockPos pos : BlockPos.getAllInBox(startCoords.add(-RANGE, 0, -RANGE), startCoords.add(RANGE, 0, RANGE))) {
+				for(BlockPos pos : BlockPos.getAllInBoxMutable(startCoords.add(-RANGE, 0, -RANGE),
+						startCoords.add(RANGE, 0, RANGE))) {
 					if(world.getBlockState(pos) == stateToSet)
 						tickBlock(pos);
 				}

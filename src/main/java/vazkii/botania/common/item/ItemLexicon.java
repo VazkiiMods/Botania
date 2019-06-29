@@ -30,6 +30,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
@@ -97,7 +98,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 					return ActionResultType.SUCCESS;
 				}
 			} else if(world.isRemote) {
-				RayTraceResult mop = new RayTraceResult(new Vec3d(ctx.getHitX(), ctx.getHitY(), ctx.getHitZ()), ctx.getFace(), pos);
+				BlockRayTraceResult mop = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), pos, ctx.func_221533_k());
 				return Botania.proxy.openWikiPage(world, block, mop) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
 			}
 		}
@@ -121,7 +122,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(Screen.isShiftKeyDown()) {
+		if(Screen.hasShiftDown()) {
 			ITextComponent edition = new TranslationTextComponent("botaniamisc.edition", getEdition()).applyTextStyle(TextFormatting.GOLD);
 			if(!edition.getString().isEmpty())
 				stacks.add(edition);

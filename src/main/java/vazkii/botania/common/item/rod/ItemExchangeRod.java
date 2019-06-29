@@ -24,6 +24,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -367,8 +369,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		BlockState state = getState(stack);
 
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
-		if(pos != null && pos.getBlockPos() != null) {
-			BlockPos bPos = pos.getBlockPos();
+		if(pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
 			BlockState target = null;
 			if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
@@ -381,11 +383,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 			if(!player.world.isAirBlock(bPos)) {
 				List<BlockPos> coordsList = getBlocksToSwap(player.world, stack, state, bPos, target);
-				for(BlockPos coords : coordsList)
-					if(coords.equals(bPos)) {
-						coordsList.remove(coords);
-						break;
-					}
+				coordsList.removeIf(bPos::equals);
 				return coordsList;
 			}
 

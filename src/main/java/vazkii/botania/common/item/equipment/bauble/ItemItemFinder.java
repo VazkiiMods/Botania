@@ -37,19 +37,19 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.village.MerchantRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.ArrayList;
@@ -162,8 +162,8 @@ public class ItemItemFinder extends ItemBauble {
 				} else if(e instanceof PlayerEntity) {
 					PlayerEntity player_ = (PlayerEntity) e;
 					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-					LazyOptional<Collection<? extends IItemHandler>> binv = CuriosAPI.getCuriosHandler(player_).map(h -> h.getCurioMap().values());
-					if(scanInventory(playerInv, pstack) || scanInventories(binv, pstack))
+					LazyOptional<IItemHandlerModifiable> binv = EquipmentHandler.getAllWorn(player);
+					if(scanInventory(playerInv, pstack) || scanInventory(binv, pstack))
 						entIdBuilder.add(player_.getEntityId());
 
 				} else if(e instanceof VillagerEntity) {
@@ -207,16 +207,7 @@ public class ItemItemFinder extends ItemBauble {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	private boolean scanInventories(LazyOptional<Collection<? extends IItemHandler>> invs, ItemStack pstack) {
-		return invs.map(coll -> {
-			for(IItemHandler inv : coll)
-				if(scanInventory(inv, pstack))
-					return true;
-			return false;
-		}).orElse(false);
-	}
-
-	private boolean scanInventory(LazyOptional<IItemHandler> optInv, ItemStack pstack) {
+	private boolean scanInventory(LazyOptional<? extends IItemHandler> optInv, ItemStack pstack) {
 		return optInv.map(inv -> scanInventory(inv, pstack)).orElse(false);
 	}
 

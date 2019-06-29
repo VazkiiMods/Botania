@@ -44,8 +44,8 @@ public class ItemCloudPendant extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-			if(player instanceof EntityPlayerSP && player == Minecraft.getInstance().player) {
-				EntityPlayerSP playerSp = (EntityPlayerSP) player;
+			if(player == Minecraft.getInstance().player) {
+				ClientPlayerEntity playerSp = (ClientPlayerEntity) player;
 
 				if (playerSp.onGround)
 					timesJumped = 0;

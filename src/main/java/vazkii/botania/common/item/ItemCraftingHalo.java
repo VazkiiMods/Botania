@@ -39,6 +39,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
@@ -57,11 +58,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -86,6 +85,7 @@ import vazkii.botania.common.lib.LibGuiIDs;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class ItemCraftingHalo extends ItemMod {
 
@@ -176,11 +176,14 @@ public class ItemCraftingHalo extends ItemMod {
 	}
 
 	private static ItemStack[] validateRecipe(PlayerEntity player, ItemStack stack, ItemStack[] recipe, int slot) {
-		CraftingInventory fakeInv = new CraftingInventory(new WorkbenchContainer(player.inventory, player.world, BlockPos.ORIGIN), 3, 3);
+		CraftingInventory fakeInv = new CraftingInventory(new WorkbenchContainer(-1, player.inventory), 3, 3);
 		for(int i = 0; i < 9; i++)
 			fakeInv.setInventorySlotContents(i, recipe[i]);
 
-		ItemStack result = player.world.getRecipeManager().getResult(fakeInv, player.world, VanillaRecipeTypes.CRAFTING);
+		ItemStack result = player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, fakeInv, player.world)
+				.map(r -> r.getCraftingResult(fakeInv))
+				.orElse(ItemStack.EMPTY);
+
 		if(result.isEmpty()) {
 			assignRecipe(stack, recipe[9], slot);
 			return null;
@@ -343,24 +346,28 @@ public class ItemCraftingHalo extends ItemMod {
 	private void saveRecipeToStack(ItemCraftedEvent event, ItemStack stack) {
 		CompoundNBT cmp = new CompoundNBT();
 
-		ItemStack result = event.getPlayer().world.getRecipeManager().getResult(event.getInventory(), event.getPlayer().world, VanillaRecipeTypes.CRAFTING);
-		if(!result.isEmpty()) {
-			cmp.put(TAG_ITEM_PREFIX + 9, result.write(new CompoundNBT()));
+		if(event.getInventory() instanceof CraftingInventory) {
+			Optional<ItemStack> result = event.getPlayer().world.getRecipeManager().getRecipe(IRecipeType.CRAFTING,
+					(CraftingInventory) event.getInventory(), event.getPlayer().world)
+					.map(r -> r.getCraftingResult((CraftingInventory) event.getInventory()));
+			if(result.isPresent() && !result.get().isEmpty()) {
+				cmp.put(TAG_ITEM_PREFIX + 9, result.get().write(new CompoundNBT()));
 
-			for(int i = 0; i < 9; i++) {
-				CompoundNBT ingr = new CompoundNBT();
-				ItemStack stackSlot = event.getInventory().getStackInSlot(i);
+				for(int i = 0; i < 9; i++) {
+					CompoundNBT ingr = new CompoundNBT();
+					ItemStack stackSlot = event.getInventory().getStackInSlot(i);
 
-				if(!stackSlot.isEmpty()) {
-					ItemStack writeStack = stackSlot.copy();
-					writeStack.setCount(1);
-					ingr = writeStack.write(new CompoundNBT());
+					if(!stackSlot.isEmpty()) {
+						ItemStack writeStack = stackSlot.copy();
+						writeStack.setCount(1);
+						ingr = writeStack.write(new CompoundNBT());
+					}
+					cmp.put(TAG_ITEM_PREFIX + i, ingr);
 				}
-				cmp.put(TAG_ITEM_PREFIX + i, ingr);
 			}
-		}
 
-		ItemNBTHelper.setCompound(stack, TAG_LAST_CRAFTING, cmp);
+			ItemNBTHelper.setCompound(stack, TAG_LAST_CRAFTING, cmp);
+		}
 	}
 
 	private static ItemStack[] getCraftingItems(ItemStack stack, int slot) {
@@ -432,7 +439,7 @@ public class ItemCraftingHalo extends ItemMod {
 		double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
 		double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
 
-		GlStateManager.translated(posX - renderPosX, posY - renderPosY + player.getDefaultEyeHeight(), posZ - renderPosZ);
+		GlStateManager.translated(posX - renderPosX, posY - renderPosY + player.getEyeHeight(), posZ - renderPosZ);
 
 
 		float base = getRotationBase(stack);
@@ -534,8 +541,8 @@ public class ItemCraftingHalo extends ItemMod {
 			int x = mc.mainWindow.getScaledWidth() / 2 - l / 2;
 			int y = mc.mainWindow.getScaledHeight() / 2 - 65;
 
-			AbstractGui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
-			AbstractGui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
+			AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
+			AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.mainWindow.getScaledWidth() / 2 - 8, mc.mainWindow.getScaledHeight() / 2 - 52);
@@ -566,11 +573,11 @@ public class ItemCraftingHalo extends ItemMod {
 			int x = mc.mainWindow.getScaledWidth() / 2 - 45;
 			int y = mc.mainWindow.getScaledHeight() / 2 - 90;
 
-			AbstractGui.drawRect(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
-			AbstractGui.drawRect(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
+			AbstractGui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
+			AbstractGui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
 
-			AbstractGui.drawRect(x + 66, y + 14, x + 92, y + 40, 0x22000000);
-			AbstractGui.drawRect(x - 2, y - 2, x + 56, y + 56, 0x22000000);
+			AbstractGui.fill(x + 66, y + 14, x + 92, y + 40, 0x22000000);
+			AbstractGui.fill(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
@@ -579,7 +586,7 @@ public class ItemCraftingHalo extends ItemMod {
 				if(!stack.isEmpty()) {
 					int xpos = x + i % 3 * 18;
 					int ypos = y + i / 3 * 18;
-					AbstractGui.drawRect(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
+					AbstractGui.fill(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
 					mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, xpos, ypos);
 				}

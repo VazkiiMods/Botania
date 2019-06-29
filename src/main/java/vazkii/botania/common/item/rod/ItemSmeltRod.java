@@ -90,7 +90,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
 			Optional<ItemStack> maybeResult= p.world.getRecipeManager()
 					.getRecipe(IRecipeType.SMELTING, dummyInv, p.world)
-					.map(IRecipe::getRecipeOutput);
+					.map(r -> r.getCraftingResult(dummyInv));
 
 			if(maybeResult.isPresent()
 					&& !maybeResult.get().isEmpty()

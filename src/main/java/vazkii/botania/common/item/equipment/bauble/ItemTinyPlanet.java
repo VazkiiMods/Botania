@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
-import com.sun.prism.AtlasTexture;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;

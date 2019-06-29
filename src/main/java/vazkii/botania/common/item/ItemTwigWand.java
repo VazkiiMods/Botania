@@ -34,6 +34,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -311,8 +313,8 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			return bound;
 
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
-		if(pos != null && pos.type == RayTraceResult.Type.BLOCK) {
-			TileEntity tile = Minecraft.getInstance().world.getTileEntity(pos.getBlockPos());
+		if(pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
+			TileEntity tile = Minecraft.getInstance().world.getTileEntity(((BlockRayTraceResult) pos).getPos());
 			if(tile instanceof ITileBound) {
 				return ((ITileBound) tile).getBinding();
 			}

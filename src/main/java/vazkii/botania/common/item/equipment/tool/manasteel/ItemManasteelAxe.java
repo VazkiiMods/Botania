@@ -28,6 +28,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -87,7 +88,14 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack stackAt = player.inventory.getStackInSlot(i);
 				if(!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
-					ActionResultType did = stackAt.getItem().onItemUse(new ItemUseContext(player, stackAt, ctx.getPos(), ctx.getFace(), ctx.getHitX(), ctx.getHitY(), ctx.getHitZ()));
+					ItemStack save = player.getHeldItem(ctx.getHand());
+
+					player.setHeldItem(ctx.getHand(), stackAt);
+					BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(),
+							ctx.getPos(), ctx.func_221533_k());
+					ActionResultType did = stackAt.getItem().onItemUse(new ItemUseContext(player, ctx.getHand(), hit));
+					player.setHeldItem(ctx.getHand(), save);
+
 					ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.OAK_SAPLING), SAPLING_PATTERN);
 					return did;
 				}

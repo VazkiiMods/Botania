@@ -22,6 +22,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -105,12 +109,13 @@ public class ItemSextant extends ItemMod {
 
 		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
-			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, false, 128);
-			if(pos != null && pos.entity == null && pos.getBlockPos() != null) {
+			RayTraceResult rtr = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 128);
+			if(rtr.getType() == RayTraceResult.Type.BLOCK) {
 				if(!world.isRemote) {
-					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getBlockPos().getX());
-					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getBlockPos().getY());
-					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
+					BlockPos pos = ((BlockRayTraceResult) rtr).getPos();
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getX());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getZ());
 				}
 			} else ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
 

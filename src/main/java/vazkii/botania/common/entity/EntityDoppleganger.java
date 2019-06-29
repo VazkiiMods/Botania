@@ -36,6 +36,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SRemoveEntityEffectPacket;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.EffectInstance;
@@ -143,15 +144,14 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	private int mobSpawnTicks = 0;
 	private int playerCount = 0;
 	private boolean hardMode = false;
-	private BlockPos source = BlockPos.ORIGIN;
+	private BlockPos source = BlockPos.ZERO;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	private final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(TYPE.getName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
 	private UUID bossInfoUUID = bossInfo.getUniqueId();
 	public PlayerEntity trueKiller = null;
 
 	public EntityDoppleganger(EntityType<EntityDoppleganger> type, World world) {
-		this(type, world);
-		isImmuneToFire = true;
+		super(type, world);
 		experienceValue = 825;
 		if(world.isRemote) {
 			Botania.proxy.addBoss(this);
@@ -238,12 +238,12 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
-			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
+			e.getAttributes().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 			if(hard)
-				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
+				e.getAttributes().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null, null);
+			e.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(e)), SpawnReason.EVENT, null, null);
 			world.addEntity(e);
 		}
 		
@@ -279,9 +279,9 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	protected void initEntityAI() {
-		tasks.addTask(0, new SwimGoal(this));
-		tasks.addTask(1, new LookAtGoal(this, PlayerEntity.class, ARENA_RANGE * 1.5F));
+	protected void registerGoals() {
+		goalSelector.addGoal(0, new SwimGoal(this));
+		goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, ARENA_RANGE * 1.5F));
 	}
 
 	@Override
@@ -395,9 +395,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			Vector3 motionVector = thisVector.subtract(playerVector).normalize().multiply(0.75);
 
 			if(getHealth() > 0) {
-				motionX = -motionVector.x;
-				motionY = 0.5;
-				motionZ = -motionVector.z;
+				setMotion(-motionVector.x, 0.5, -motionVector.z);
 				tpDelay = 4;
 				spawnPixies = aggro;
 			}
@@ -427,7 +425,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	public boolean canDespawn() {
+	public boolean canDespawn(double dist) {
 		return false;
 	}
 
@@ -437,14 +435,14 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source) {
+	protected void dropLoot(@Nonnull DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
 		if (wasRecentlyHit && source.getTrueSource() instanceof PlayerEntity) {
 			trueKiller = (PlayerEntity) source.getTrueSource();
 		}
 
 		// Drop equipment and clear it so multiple calls to super don't do it again
-		super.dropEquipment(wasRecentlyHit, lootingModifier);
+		super.dropSpecialItems(source, 0, wasRecentlyHit);
 
 		for (EquipmentSlotType e : EquipmentSlotType.values()) {
 			setItemStackToSlot(e, ItemStack.EMPTY);
@@ -452,7 +450,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
-			PlayerEntity player = world.getPlayerEntityByUUID(u);
+			PlayerEntity player = world.getPlayerByUuid(u);
 			if (player == null)
 				continue;
 
@@ -465,7 +463,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			posX = player.posX;       // Spoof pos so drops spawn at the player
 			posY = player.posY;
 			posZ = player.posZ;
-			super.dropLoot(wasRecentlyHit, lootingModifier, DamageSource.causePlayerDamage(player));
+			super.dropLoot(DamageSource.causePlayerDamage(player), wasRecentlyHit);
 			posX = savePosX;
 			posY = savePosY;
 			posZ = savePosZ;
@@ -564,9 +562,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	private void clearPotions(PlayerEntity player) {
-		int posXInt = MathHelper.floor(posX);
-		int posZInt = MathHelper.floor(posZ);
-
 		List<Effect> potionsToRemove = player.getActivePotionEffects().stream()
 				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && !effect.getPotion().isBadEffect())
 				.map(EffectInstance::getPotion)
@@ -575,7 +570,8 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 		potionsToRemove.forEach(potion -> {
 			player.removePotionEffect(potion);
-			((ServerWorld) world).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SRemoveEntityEffectPacket(player.getEntityId(), potion));
+			((ServerWorld) world).getChunkProvider().sendToTrackingAndSelf(player,
+					new SRemoveEntityEffectPacket(player.getEntityId(), potion));
 		});
 	}
 
@@ -585,9 +581,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
 			Vector3 motion = sourceVector.subtract(playerVector).normalize();
 
-			player.motionX = motion.x;
-			player.motionY = 0.2;
-			player.motionZ = motion.z;
+			player.setMotion(motion.x, 0.2, motion.z);
 			player.velocityChanged = true;
 		}
 	}
@@ -600,14 +594,14 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 					case 0: {
 						entity = new ZombieEntity(world);
 						if(world.rand.nextInt(hardMode ? 3 : 12) == 0) {
-							entity = new WitchEntity(world);
+							entity = EntityType.WITCH.create(world);
 						}
 						break;
 					}
 					case 1: {
-						entity = new SkeletonEntity(world);
+						entity = EntityType.SKELETON.create(world);
 						if(world.rand.nextInt(8) == 0) {
-							entity = new WitherSkeletonEntity(world);
+							entity = EntityType.WITHER_SKELETON.create(world);
 						}
 						break;
 					}
@@ -616,8 +610,9 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 							for(int j = 0; j < 1 + world.rand.nextInt(hardMode ? 8 : 5); j++) {
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-								pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
+								pixie.setPosition(posX + getWidth() / 2, posY + 2, posZ + getWidth() / 2);
+								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
 							}
 						}
@@ -629,8 +624,10 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 					if(!entity.isImmuneToFire())
 						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					float range = 6F;
-					entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
-					entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null, null);
+					entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1,
+							posZ + 0.5 + Math.random() * range - range / 2);
+					entity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)),
+							SpawnReason.MOB_SUMMONED, null, null);
 					if(entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
 					}
@@ -666,19 +663,19 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 		List<PlayerEntity> players = getPlayersAround();
 
-		if(players.isEmpty() && !world.playerEntities.isEmpty())
+		if(players.isEmpty() && !world.getPlayers().isEmpty())
 			remove();
 		else {
 			for(PlayerEntity player : players) {
 				for(EquipmentSlotType e : EquipmentSlotType.values()) {
-					if(e.getSlotType() == EquipmentSlotType.Type.ARMOR && !player.getItemStackFromSlot(e).isEmpty()) {
+					if(e.getSlotType() == EquipmentSlotType.Group.ARMOR && !player.getItemStackFromSlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}
 				}
 
 				//also see SleepingHandler
-				if(player.isPlayerSleeping()) player.wakeUpPlayer(true, true, false);
+				if(player.isSleeping()) player.wakeUpPlayer(true, true, false);
 				
 				clearPotions(player);
 				keepInsideArena(player);
@@ -686,7 +683,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			}
 		}
 
-		if(removed)
+		if(!isAlive())
 			return;
 
 		boolean spawnMissiles = hardMode && ticksExisted % 15 < 4;
@@ -701,18 +698,16 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			setHealth(getHealth() + (getMaxHealth() - 1F) / SPAWN_TICKS);
 			setInvulTime(invul - 1);
 
-			motionY = 0;
+			setMotion(getMotion().getX(), 0, getMotion().getZ());
 		} else {
 			if(aggro) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if(dying && mobSpawnTicks > 0) {
-					motionX = 0;
-					motionY = 0;
-					motionZ = 0;
+					setMotion(Vec3d.ZERO);
 
 					int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
 					if(reverseTicks < MOB_SPAWN_START_TICKS) {
-						motionY = 0.2;
+						setMotion(getMotion().getX(), 0.2, getMotion().getZ());
 						setInvulTime(invul + 1);
 					}
 
@@ -756,8 +751,9 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 								for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hardMode ? 6 : 3) : 1); i++) {
 									EntityPixie pixie = new EntityPixie(world);
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-									pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
+									pixie.setPosition(posX + getWidth() / 2, posY + 2, posZ + getWidth() / 2);
+									pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+											SpawnReason.MOB_SUMMONED, null, null);
 									world.addEntity(pixie);
 								}
 
@@ -851,20 +847,21 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			float vx = (random.nextFloat() - 0.5F) * 0.2F;
 			float vy = (random.nextFloat() - 0.5F) * 0.2F;
 			float vz = (random.nextFloat() - 0.5F) * 0.2F;
-			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
-			double py = oldY + (newY - oldY) * progress + random.nextDouble() * height;
-			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
+			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * getWidth() * 2.0D;
+			double py = oldY + (newY - oldY) * progress + random.nextDouble() * getHeight();
+			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * getWidth() * 2.0D;
 			world.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
-		Vec3d oldPosVec = new Vec3d(oldX, oldY + height / 2, oldZ);
-		Vec3d newPosVec = new Vec3d(newX, newY + height / 2, newZ);
+		Vec3d oldPosVec = new Vec3d(oldX, oldY + getHeight() / 2, oldZ);
+		Vec3d newPosVec = new Vec3d(newX, newY + getHeight() / 2, newZ);
 
 		if(oldPosVec.squareDistanceTo(newPosVec) > 1) {
 			//damage players in the path of the teleport
 			for(PlayerEntity player : getPlayersAround()) {
-				RayTraceResult rtr = player.getBoundingBox().grow(0.25).calculateIntercept(oldPosVec, newPosVec);
-				if(rtr != null)
+				boolean hit = player.getBoundingBox().grow(0.25).rayTrace(oldPosVec, newPosVec)
+						.isPresent();
+				if(hit)
 					player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
 			}
 

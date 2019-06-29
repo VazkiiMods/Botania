@@ -90,7 +90,8 @@ public class ItemThunderSword extends ItemManasteelSword {
 
 		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
 			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, AttributeModifier.Operation.ADDITION));
 		}
 
 		return multimap;

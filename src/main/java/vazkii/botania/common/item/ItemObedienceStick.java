@@ -44,7 +44,8 @@ public class ItemObedienceStick extends ItemMod {
 			BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
-			for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
+			for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+					pos.add(range, range, range))) {
 				if(pos_.distanceSq(pos) > range * range)
 					continue;
 

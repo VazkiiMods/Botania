@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -55,9 +56,11 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	private void onEntityDamaged(LivingHurtEvent event) {
-		if(event.getSource().getImmediateSource() instanceof PlayerEntity && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+		if(event.getSource().getImmediateSource() instanceof PlayerEntity
+				&& event.getEntityLiving() instanceof MobEntity
+				&& !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
 			Runnable lambda = () -> {
-				EntityLiving target = (EntityLiving) event.getEntityLiving();
+				MobEntity target = (MobEntity) event.getEntityLiving();
 				PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
 				ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
@@ -85,10 +88,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 			// Have to delay a tick because setAttackTarget(player) is called *after* the event fires, and we want to get rid of that
 			// addScheduledTask runs the lambda immediately if on the main thread, hence this trickery
+			// todo 1.14 make sure this still works
 			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-			synchronized (server.futureTaskQueue) {
-				server.futureTaskQueue.add(ListenableFutureTask.create(lambda, null));
-			}
+			server.enqueue(new TickDelayedTask(server.getTickCounter(), lambda));
 		}
 	}
 

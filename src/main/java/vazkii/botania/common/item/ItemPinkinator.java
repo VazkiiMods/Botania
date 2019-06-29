@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -61,7 +62,7 @@ public class ItemPinkinator extends ItemMod {
 				wither.remove();
 				EntityPinkWither pink = new EntityPinkWither(world);
 				pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
-				pink.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pink)), null, null);
+				pink.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pink)), SpawnReason.CONVERSION, null, null);
 				world.addEntity(pink);
 				pink.spawnExplosionParticle();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);

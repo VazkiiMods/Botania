@@ -83,18 +83,16 @@ public class EntityPixie extends FlyingEntity {
 	protected void updateAITasks() {
 		LivingEntity target = getAttackTarget();
 		if(target != null) {
-			double d0 = target.posX + target.width / 2 - posX;
-			double d1 = target.posY + target.height / 2 - posY;
-			double d2 = target.posZ + target.width / 2 - posZ;
+			double d0 = target.posX + target.getWidth() / 2 - posX;
+			double d1 = target.posY + target.getHeight() / 2 - posY;
+			double d2 = target.posZ + target.getWidth() / 2 - posZ;
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			float mod = 0.45F;
 			if(getPixieType() == 1)
 				mod = 0.1F;
 
-			motionX += d0 / d3 * mod;
-			motionY += d1 / d3 * mod;
-			motionZ += d2 / d3 * mod;
+			setMotion(d0 / d3 * mod, d1 / d3 * mod, d2 / d3 * mod);
 
 			if(Math.sqrt(d3) < 1F) {
 				if(summoner != null) {
@@ -110,7 +108,8 @@ public class EntityPixie extends FlyingEntity {
 			}
 		}
 
-		renderYawOffset = rotationYaw = -((float)Math.atan2(motionX, motionZ)) * 180.0F / (float)Math.PI;
+		renderYawOffset = rotationYaw = -((float)Math.atan2(getMotion().getX(), getMotion().getZ()))
+				* 180.0F / (float)Math.PI;
 	}
 
 	@Override
@@ -143,7 +142,7 @@ public class EntityPixie extends FlyingEntity {
 	}
 
 	@Override
-	public boolean canDespawn() {
+	public boolean canDespawn(double dist) {
 		return false;
 	}
 

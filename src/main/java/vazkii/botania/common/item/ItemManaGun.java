@@ -91,9 +91,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);
 				} else {
 					player.swingArm(hand);
-					player.motionX -= burst.motionX * 0.1;
-					player.motionY -= burst.motionY * 0.3;
-					player.motionZ -= burst.motionZ * 0.1;
+					player.setMotion(player.getMotion().subtract(burst.getMotion().mul(0.1, 0.3, 0.1)));
 				}
 				stack.setDamage(effCd);
 			} else if(!world.isRemote)
@@ -161,7 +159,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			burst.setMinManaLoss(props.ticksBeforeManaLoss);
 			burst.setManaLossPerTick(props.manaLossPerTick);
 			burst.setGravity(props.gravity);
-			burst.setBurstMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
+			burst.setBurstMotion(burst.getMotion().getX() * props.motionModifier,
+					burst.getMotion().getY() * props.motionModifier,
+					burst.getMotion().getZ() * props.motionModifier);
 
 			return burst;
 		}
@@ -172,7 +172,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		boolean clip = hasClip(stack);
-		if(clip && !Screen.isShiftKeyDown()) {
+		if(clip && !Screen.hasShiftDown()) {
 			stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 			return;
 		}

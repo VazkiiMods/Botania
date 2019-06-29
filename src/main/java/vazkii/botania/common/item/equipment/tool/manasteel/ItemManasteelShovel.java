@@ -104,7 +104,10 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 				if(block == block1)
 					block1 = Blocks.FARMLAND;
 				
-				world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
+				world.playSound(null, pos, block1.getDefaultState().getSoundType().getStepSound(),
+						SoundCategory.BLOCKS,
+						(block1.getDefaultState().getSoundType().getVolume() + 1.0F) / 2.0F,
+						block1.getDefaultState().getSoundType().getPitch() * 0.8F);
 
 				if (world.isRemote)
 					return ActionResultType.SUCCESS;

@@ -45,9 +45,9 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 			
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {
-				double x = player.posX + Math.random() * player.width * 2 - player.width;
-				double y = player.posY + Math.random() * player.height;
-				double z = player.posZ + Math.random() * player.width * 2 - player.width;
+				double x = player.posX + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double y = player.posY + Math.random() * player.getHeight();
+				double z = player.posZ + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean green = Math.random() > 0.5;
 				Botania.proxy.sparkleFX(x, y, z, 0.3F, green ? 1F : 0.3F, green ? 0.3F : 1F, 0.8F + (float) Math.random() * 0.4F, 3);
 			}

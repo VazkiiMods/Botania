@@ -26,6 +26,8 @@ import net.minecraft.particles.ItemParticleData;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -75,13 +77,13 @@ public class EntityVineBall extends ThrowableEntity {
 	}
 
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult var1) {
+	protected void onImpact(@Nonnull RayTraceResult rtr) {
 		if(!world.isRemote) {
-			if(var1 != null) {
-				Direction dir = var1.sideHit;
+			if(rtr.getType() == RayTraceResult.Type.BLOCK) {
+				Direction dir = ((BlockRayTraceResult) rtr).getFace();
 
-				if(dir != null && dir.getAxis() != Direction.Axis.Y) {
-					BlockPos pos = var1.getBlockPos().offset(dir);
+				if(dir.getAxis() != Direction.Axis.Y) {
+					BlockPos pos = ((BlockRayTraceResult) rtr).getPos().offset(dir);
 					boolean first = true;
 					while(pos.getY() > 0) {
 						BlockState state = world.getBlockState(pos);

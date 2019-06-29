@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,6 +22,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
@@ -87,6 +89,12 @@ public class EntitySignalFlare extends Entity {
 	protected void writeAdditional(@Nonnull CompoundNBT nbttagcompound) {
 		nbttagcompound.putInt(COLOR_TAG, getColor());
 		nbttagcompound.putInt(FIRED_Y_TAG, getFiredAt());
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	public void setColor(int color) {

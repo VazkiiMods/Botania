@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.item.ISortableTool.ToolType;
@@ -41,7 +42,8 @@ public class ItemSwapRing extends ItemBauble {
 
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
 
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(entity.world, entity, true, 4.5F);
+		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.world, player,
+				RayTraceContext.FluidMode.SOURCE_ONLY, 4.5F);
 		ToolType typeToFind = null;
 
 		if(player.isSwingInProgress && pos.getType() == RayTraceResult.Type.BLOCK) {

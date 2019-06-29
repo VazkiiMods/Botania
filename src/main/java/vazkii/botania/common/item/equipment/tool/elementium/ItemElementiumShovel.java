@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -26,13 +27,10 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (!ToolCommons.materialsShovel.contains(mat))
 			return false;
 
-		RayTraceResult block = ToolCommons.raytraceFromEntity(world, player, true, 10);
-		if (block == null)
-			return false;
-
 		Block blk = world.getBlockState(pos).getBlock();
 		if(blk instanceof FallingBlock)
-			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1),
+			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0),
+					new Vec3i(1, 12, 1),
 					state -> state.getBlock() == blk,
 					false);
 

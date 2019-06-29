@@ -40,6 +40,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -317,7 +318,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 		particles();
 
-		setBurstMotion(motionX, motionY, motionZ);
+		setBurstMotion(getMotion().getX(), getMotion().getY(), getMotion().getZ());
 
 		fullManaLastTick = getMana() == getStartingMana();
 
@@ -391,9 +392,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		par1nbtTagCompound.putInt(TAG_SPREADER_Y, coords.getY());
 		par1nbtTagCompound.putInt(TAG_SPREADER_Z, coords.getZ());
 
-		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_X, motionX);
-		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Y, motionY);
-		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Z, motionZ);
+		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_X, getMotion().getX());
+		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Y, getMotion().getY());
+		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Z, getMotion().getZ());
 
 		UUID identity = getShooterUUID();
 		boolean hasShooter = identity != null;
@@ -498,7 +499,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 						b = ob + (float) Math.random() * 0.125F;
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
-					Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+					Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.2F * size,
+							(float) -getMotion().getX() * 0.01F,
+							(float) -getMotion().getY() * 0.01F,
+							(float) -getMotion().getZ() * 0.01F);
 
 					posX += diffVecNorm.x * distance;
 					posY += diffVecNorm.y * distance;
@@ -528,15 +532,20 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult rtr) {
-		boolean collided = false;
+		BlockPos pos = null;
 		boolean dead = false;
 
-		if(rtr.entity == null) {
-			TileEntity tile = world.getTileEntity(rtr.getBlockPos());
-			BlockState state = world.getBlockState(rtr.getBlockPos());
+		if(rtr.getType() == RayTraceResult.Type.BLOCK) {
+			pos = ((BlockRayTraceResult) rtr).getPos();
+			TileEntity tile = world.getTileEntity(pos);
+			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 
-			if(block instanceof IManaCollisionGhost && ((IManaCollisionGhost) block).isGhost(state, world, rtr.getBlockPos()) && !(block instanceof IManaTrigger) || block instanceof BushBlock || block instanceof LeavesBlock)
+			if(block instanceof IManaCollisionGhost
+					&& ((IManaCollisionGhost) block).isGhost(state, world, pos)
+					&& !(block instanceof IManaTrigger)
+					|| block instanceof BushBlock
+					|| block instanceof LeavesBlock)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
@@ -551,23 +560,22 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 					onRecieverImpact((IManaReceiver) tile, tile.getPos());
 
 				if(block instanceof IManaTrigger)
-					((IManaTrigger) block).onBurstCollision(this, world, rtr.getBlockPos());
+					((IManaTrigger) block).onBurstCollision(this, world, pos);
 
 				boolean ghost = block instanceof IManaCollisionGhost;
 				dead = !ghost;
 				if(ghost)
 					return;
 			}
-
-			collided = true;
 		}
 
 		ILensEffect lens = getLensInstance();
 		if(lens != null)
-			dead = lens.collideBurst(this, rtr, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
+			dead = lens.collideBurst(this, rtr, collidedTile instanceof IManaReceiver
+							&& ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
-		if(collided && !hasAlreadyCollidedAt(rtr.getBlockPos()))
-			alreadyCollidedAt.add(rtr.getBlockPos());
+		if(pos != null && !hasAlreadyCollidedAt(pos))
+			alreadyCollidedAt.add(pos);
 
 		if(dead && isAlive()) {
 			if(!fake && world.isRemote) {

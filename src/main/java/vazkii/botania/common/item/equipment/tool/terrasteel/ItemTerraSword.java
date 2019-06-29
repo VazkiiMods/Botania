@@ -36,10 +36,11 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
-	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
+	private static final String TAG_ATTACKER_UUID = "attackerUuid";
 
 	private static final int MANA_PER_DAMAGE = 100;
 
@@ -89,10 +90,11 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setMinManaLoss(40);
 		burst.setManaLossPerTick(4F);
 		burst.setGravity(0F);
-		burst.setBurstMotion(burst.motionX * motionModifier, burst.motionY * motionModifier, burst.motionZ * motionModifier);
+		burst.setBurstMotion(burst.getMotion().getX() * motionModifier,
+				burst.getMotion().getY() * motionModifier, burst.getMotion().getZ() * motionModifier);
 
 		ItemStack lens = stack.copy();
-		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getGameProfile().getName());
+		ItemNBTHelper.setUuid(lens, TAG_ATTACKER_UUID, player.getUniqueID());
 		burst.setSourceLens(lens);
 		return burst;
 	}
@@ -110,7 +112,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
-		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
+		UUID attacker = ItemNBTHelper.getUuid(burst.getSourceLens(), TAG_ATTACKER_UUID);
 
 		for(LivingEntity living : entities) {
 			if(living instanceof PlayerEntity && (living.getName().getString().equals(attacker) || ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
@@ -123,8 +125,10 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.TERRASTEEL_ITEM_TIER.getAttackDamage();
 					if(!burst.isFake() && !entity.world.isRemote) {
-						PlayerEntity player = living.world.getPlayerEntityByName(attacker);
-						living.attackEntityFrom(player == null ? DamageSource.MAGIC : DamageSource.causePlayerDamage(player), damage);
+						PlayerEntity player = attacker != null ? living.world.getPlayerByUuid(attacker) : null;
+						living.attackEntityFrom(player == null
+								? DamageSource.MAGIC
+								: DamageSource.causePlayerDamage(player), damage);
 						entity.remove();
 						break;
 					}

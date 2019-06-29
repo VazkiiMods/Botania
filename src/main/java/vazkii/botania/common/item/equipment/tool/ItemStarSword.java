@@ -16,6 +16,9 @@ import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -41,18 +44,16 @@ public class ItemStarSword extends ItemManasteelSword {
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
 			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !world.isRemote) {
-				RayTraceResult pos = ToolCommons.raytraceFromEntity(world, par3Entity, true, 48);
-				if(pos != null && pos.type == RayTraceResult.Type.BLOCK) {
-					Vector3 posVec = Vector3.fromBlockPos(pos.getBlockPos());
+				RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 48);
+				if(pos.getType() == RayTraceResult.Type.BLOCK) {
+					Vector3 posVec = Vector3.fromBlockPos(((BlockRayTraceResult) pos).getPos());
 					Vector3 motVec = new Vector3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec = posVec.add(motVec);
 					motVec = motVec.normalize().negate().multiply(1.5);
 
 					EntityFallingStar star = new EntityFallingStar(player, world);
 					star.setPosition(posVec.x, posVec.y, posVec.z);
-					star.motionX = motVec.x;
-					star.motionY = motVec.y;
-					star.motionZ = motVec.z;
+					star.setMotion(motVec.toVec3D());
 					world.addEntity(star);
 
 					if (!world.isRaining()
@@ -60,9 +61,8 @@ public class ItemStarSword extends ItemManasteelSword {
 							&& Math.random() < 0.125) {
 						EntityFallingStar bonusStar = new EntityFallingStar(player, world);
 						bonusStar.setPosition(posVec.x, posVec.y, posVec.z);
-						bonusStar.motionX = motVec.x + Math.random() - 0.5;
-						bonusStar.motionY = motVec.y + Math.random() - 0.5;
-						bonusStar.motionZ = motVec.z + Math.random() - 0.5;
+						bonusStar.setMotion(motVec.x + Math.random() - 0.5,
+								motVec.y + Math.random() - 0.5, motVec.z + Math.random() - 0.5);
 						world.addEntity(bonusStar);
 					}
 

@@ -29,6 +29,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
@@ -64,7 +67,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY);
+	private static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE,
+			Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND,
+			Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
 
 	public static final int[] LEVELS = new int[] {
 			0, 10000, 1000000, 10000000, 100000000, 1000000000
@@ -140,10 +145,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
-		if(!player.world.isRemote && raycast != null) {
-			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
-			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.NONE, 10);
+		if(!player.world.isRemote && raycast.getType() == RayTraceResult.Type.BLOCK) {
+			Direction face = ((BlockRayTraceResult) raycast).getFace();
+			breakOtherBlock(player, stack, pos, pos, face);
+			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, face);
 			// ^ Doable with API access through the IInternalMethodHandler.
 		}
 
