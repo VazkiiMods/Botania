@@ -50,11 +50,6 @@ public class BlockPylon extends BlockMod implements ILexiconable {
 		return SHAPE;
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

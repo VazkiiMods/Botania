@@ -23,6 +23,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -50,8 +52,13 @@ import java.util.Random;
 public class BlockModFlower extends FlowerBlock implements ILexiconable, IGrowable {
 	public final DyeColor color;
 	protected BlockModFlower(DyeColor color, Properties builder) {
-		super(builder);
+		super(effectForFlower(color), 4, builder);
 		this.color = color;
+	}
+
+	private static Effect effectForFlower(DyeColor color) {
+		// todo 1.14
+		return Effects.REGENERATION;
 	}
 
 	@OnlyIn(Dist.CLIENT)

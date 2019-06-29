@@ -18,9 +18,12 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -55,9 +58,13 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
-		// todo 1.13 don't collide if it's a burst
-		return super.getCollisionShape(state, worldIn, pos);
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos,
+										ISelectionContext context) {
+		if(context.getEntity() instanceof IManaBurst) {
+			return VoxelShapes.empty();
+		} else {
+			return super.getCollisionShape(state, world, pos, context);
+		}
 	}
 
 	@Override

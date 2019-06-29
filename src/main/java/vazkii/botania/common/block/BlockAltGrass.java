@@ -28,6 +28,7 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -64,7 +65,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack held = player.getHeldItem(hand);
 		if(held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
-			held.damageItem(1, player);
+			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState(), 1 | 2);
 			return true;
 		}
@@ -93,8 +94,8 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
-		EnumPlantType type = plantable.getPlantType(world, pos.down());
-		return type == EnumPlantType.Plains || type == EnumPlantType.Beach || plantable instanceof StemBlock;
+		PlantType type = plantable.getPlantType(world, pos.down());
+		return type == PlantType.Plains || type == PlantType.Beach || plantable instanceof StemBlock;
 	}
 
 	@OnlyIn(Dist.CLIENT)

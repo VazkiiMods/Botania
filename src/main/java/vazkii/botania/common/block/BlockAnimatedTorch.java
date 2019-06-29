@@ -115,11 +115,6 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {

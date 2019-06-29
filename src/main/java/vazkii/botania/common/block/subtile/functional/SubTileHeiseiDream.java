@@ -15,7 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.GoalSelector.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -76,11 +76,11 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 				entity.setAttackTarget(null);
 
 				// Move any EntityAIHurtByTarget to highest priority
-				for (EntityAITaskEntry entry : entity.targetTasks.taskEntries) {
-					if (entry.action instanceof HurtByTargetGoal) {
+				for (PrioritizedGoal entry : entity.targetSelector.goals) {
+					if (entry.func_220772_j() instanceof HurtByTargetGoal) {
 						// Concurrent modification OK since we break out of the loop
-						entity.targetTasks.removeTask(entry.action);
-						entity.targetTasks.addTask(-1, entry.action);
+						entity.targetSelector.removeGoal(entry.func_220772_j());
+						entity.targetSelector.addGoal(-1, entry.func_220772_j());
 						break;
 					}
 				}

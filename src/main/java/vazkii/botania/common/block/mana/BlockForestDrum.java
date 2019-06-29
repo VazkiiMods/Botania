@@ -66,11 +66,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
-	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(burst.isFake())
 			return;
@@ -92,15 +87,17 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 				if(entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, new BlockPos(entity))) {
 					shearables.add(entity);
 				} else if(entity instanceof CowEntity) {
-					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
+					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
 					for(ItemEntity item : items) {
 						ItemStack itemstack = item.getItem();
 						if(!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
 							while(itemstack.getCount() > 0) {
 								ItemEntity ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
-								ent.motionY += world.rand.nextFloat() * 0.05F;
-								ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+								ent.setMotion(ent.getMotion().add(
+										world.rand.nextFloat() * 0.05F,
+										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
+										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+								));
 								itemstack.shrink(1);
 							}
 							item.remove();
@@ -117,13 +114,14 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 					break;
 
 				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, new BlockPos(entity), 0);
-				if(stacks != null)
-					for(ItemStack wool : stacks) {
-						ItemEntity ent = entity.entityDropItem(wool, 1.0F);
-						ent.motionY += world.rand.nextFloat() * 0.05F;
-						ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-						ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-					}
+				for(ItemStack wool : stacks) {
+					ItemEntity ent = entity.entityDropItem(wool, 1.0F);
+					ent.setMotion(ent.getMotion().add(
+							world.rand.nextFloat() * 0.05F,
+							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
+							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+					));
+				}
 				++sheared;
 			}
 		}

@@ -38,6 +38,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SRemoveEntityEffectPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.BlockTags;
@@ -563,7 +564,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 	private void clearPotions(PlayerEntity player) {
 		List<Effect> potionsToRemove = player.getActivePotionEffects().stream()
-				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && !effect.getPotion().isBadEffect())
+				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && effect.getPotion().type != EffectType.HARMFUL)
 				.map(EffectInstance::getPotion)
 				.distinct()
 				.collect(Collectors.toList());

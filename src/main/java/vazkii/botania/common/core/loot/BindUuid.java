@@ -3,10 +3,12 @@ package vazkii.botania.common.core.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootFunction;
+import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraft.world.storage.loot.functions.ILootFunction;
 import vazkii.botania.common.item.ModItems;
@@ -25,14 +27,14 @@ public class BindUuid extends LootFunction {
 	@Nonnull
 	@Override
 	public ItemStack doApply(@Nonnull ItemStack stack, @Nonnull LootContext context) {
-		if (context.getKillerPlayer() != null) {
-			((ItemRelic) ModItems.dice).bindToUUID(context.getKillerPlayer().getUniqueID(), stack);
+		if (context.get(LootParameters.KILLER_ENTITY) instanceof PlayerEntity) {
+			((ItemRelic) ModItems.dice).bindToUUID(context.get(LootParameters.KILLER_ENTITY).getUniqueID(), stack);
 		}
 
 		return stack;
 	}
 
-	public static class Serializer extends ILootFunction.Serializer<BindUuid> {
+	public static class Serializer extends LootFunction.Serializer<BindUuid> {
 		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "bind_uuid"), BindUuid.class);
 		}

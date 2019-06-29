@@ -85,11 +85,6 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		return false;
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {

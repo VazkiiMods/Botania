@@ -94,11 +94,6 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		}
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

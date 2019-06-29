@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -24,15 +25,15 @@ public class PotionEmptiness extends PotionMod {
 	private static final int RANGE = 128;
 
 	public PotionEmptiness() {
-		super(false, 0xFACFFF, 2);
-		setBeneficial();
+		super(EffectType.BENEFICIAL, 0xFACFFF, 2);
 	}
 
 	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof IMob) {
-			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE, event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
-			for(PlayerEntity player : event.getWorld().getWorld().playerEntities) {
+			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,
+					event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
+			for(PlayerEntity player : event.getWorld().getPlayers()) {
 				if(player.isPotionActive(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
 					event.setResult(Event.Result.DENY);
 					return;

@@ -212,7 +212,7 @@ public class ModSubtiles {
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 		Block.Properties props = Block.Properties.from(Blocks.POPPY);
-		Block.Properties floatProps = Block.Properties.create(Material.GROUND).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
+		Block.Properties floatProps = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
 			register(r, new BlockSpecialFlower(props, type.getLeft()), type.getValue());

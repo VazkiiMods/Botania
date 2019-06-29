@@ -55,11 +55,6 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 		super(builder);
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

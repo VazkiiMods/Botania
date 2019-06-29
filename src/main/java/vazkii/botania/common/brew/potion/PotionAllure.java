@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
+import net.minecraft.potion.EffectType;
 import vazkii.botania.common.lib.LibPotionNames;
 
 import javax.annotation.Nonnull;
@@ -20,8 +21,7 @@ import javax.annotation.Nonnull;
 public class PotionAllure extends PotionMod {
 
 	public PotionAllure() {
-		super(false, 0x0034E4, 5);
-		setBeneficial();
+		super(EffectType.BENEFICIAL, 0x0034E4, 5);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class PotionAllure extends PotionMod {
 	@Override
 	public void performEffect(@Nonnull LivingEntity living, int amplified) {
 		if(living instanceof PlayerEntity) {
-			FishingBobberEntity hook = ((PlayerEntity) living).fishEntity;
+			FishingBobberEntity hook = ((PlayerEntity) living).fishingBobber;
 			if(hook != null)
 				hook.tick();
 		}

@@ -103,11 +103,6 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}

@@ -71,7 +71,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		if(!worldIn.isRemote && variant == LuminizerVariant.TOGGLE) {
 			if(state.get(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
 				worldIn.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
@@ -94,11 +94,6 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction s) {
 		return variant == LuminizerVariant.DETECTOR
 				&& state.get(BotaniaStateProps.POWERED) ? 15 : 0;
-	}
-
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
 	}
 
 	@Nonnull

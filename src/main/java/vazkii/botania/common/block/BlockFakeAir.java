@@ -45,7 +45,7 @@ public class BlockFakeAir extends AirBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		if(shouldRemove(world, pos))
 			world.getPendingBlockTicks().scheduleTick(pos, this, tickRate(world));
 	}

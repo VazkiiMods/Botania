@@ -14,8 +14,8 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.GoalSelector.EntityAITaskEntry;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.entity.monster.CreeperEntity;
@@ -60,17 +60,17 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
 		for(MobEntity entity : entities) {
-			List<EntityAITaskEntry> entries = new ArrayList<>(entity.tasks.taskEntries);
-			entries.addAll(entity.targetTasks.taskEntries);
+			List<PrioritizedGoal> entries = new ArrayList<>(entity.goalSelector.goals);
+			entries.addAll(entity.targetSelector.goals);
 
 			boolean avoidsOcelots = false;
 			if(shouldAfffect)
-				for(EntityAITaskEntry entry : entries) {
-					if(entry.action instanceof AvoidEntityGoal)
-						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.action) || avoidsOcelots;
+				for(PrioritizedGoal entry : entries) {
+					if(entry.func_220772_j() instanceof AvoidEntityGoal)
+						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.func_220772_j()) || avoidsOcelots;
 
-					if(entry.action instanceof NearestAttackableTargetGoal)
-						messWithGetTargetAI((NearestAttackableTargetGoal) entry.action);
+					if(entry.func_220772_j() instanceof NearestAttackableTargetGoal)
+						messWithGetTargetAI((NearestAttackableTargetGoal) entry.func_220772_j());
 				}
 
 			if(entity instanceof CreeperEntity) {

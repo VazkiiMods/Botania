@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import javafx.geometry.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,14 +32,14 @@ public class PotionMod extends Effect {
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
 	private final int iconIndex;
 
-	public PotionMod(boolean badEffect, int color, int iconIndex) {
-		super(badEffect, color);
+	public PotionMod(EffectType type, int color, int iconIndex) {
+		super(type, color);
 		this.iconIndex = iconIndex;
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderInventoryEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z) {
+	public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, int x, int y, float z) {
 		render(x + 6, y + 7, 1);
 	}
 

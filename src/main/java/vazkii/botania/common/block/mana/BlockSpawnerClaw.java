@@ -51,11 +51,6 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}

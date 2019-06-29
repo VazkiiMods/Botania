@@ -184,7 +184,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.onDataPacket(net, packet);
 		if(oldType != floatingData.getIslandType() && isFloating()) {
-			world.markBlockRangeForRenderUpdate(pos, pos);
+			world.markForRerender(pos);
 		}
 	}
 
@@ -232,7 +232,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	/**
 	 * Called when a player right clicks this sub tile.
 	 */
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction side, float hitX, float hitY, float hitZ) { return false; }
+	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, Direction side, double hitX, double hitY, double hitZ) { return false; }
 
 	/**
 	 * Called when this sub tile is added to the world.

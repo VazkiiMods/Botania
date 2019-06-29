@@ -37,11 +37,6 @@ public class BlockModWall extends WallBlock implements ILexiconable {
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(BlockState state, IWorldReader world, BlockPos pos) {
-		return true;
-	}
-
-	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
 	}

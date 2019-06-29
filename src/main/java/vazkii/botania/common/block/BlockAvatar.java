@@ -96,11 +96,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

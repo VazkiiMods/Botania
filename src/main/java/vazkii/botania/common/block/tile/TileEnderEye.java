@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -51,7 +52,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 			if(!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
 				continue;
 
-			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, true, 64);
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 64);
 			if(pos.getType() == RayTraceResult.Type.BLOCK && ((BlockRayTraceResult) pos).getPos().equals(getPos())) {
 				looking = true;
 				break;

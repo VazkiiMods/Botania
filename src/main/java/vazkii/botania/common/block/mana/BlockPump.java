@@ -65,11 +65,6 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean hasComparatorInputOverride(BlockState state) {
 		return true;
 	}

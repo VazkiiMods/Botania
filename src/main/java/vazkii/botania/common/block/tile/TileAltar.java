@@ -236,7 +236,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		if(didAny) {
 			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 			ServerPlayerEntity mp = (ServerPlayerEntity) player;
-			mp.inventoryContainer.detectAndSendChanges();
+			mp.container.detectAndSendChanges();
 		}
 	}
 

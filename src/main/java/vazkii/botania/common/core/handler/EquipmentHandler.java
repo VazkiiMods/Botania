@@ -84,7 +84,7 @@ public abstract class EquipmentHandler {
 			if(event.phase != TickEvent.Phase.START || event.player.world.isRemote)
 				return;
 			PlayerEntity player = event.player;
-			player.world.profiler.startSection("botania:tick_wearables");
+			player.world.getProfiler().startSection("botania:tick_wearables");
 
 			ItemStack[] oldStacks = map.computeIfAbsent(player, p -> {
 				ItemStack[] array = new ItemStack[9];
@@ -99,11 +99,11 @@ public abstract class EquipmentHandler {
 
 				if(!ItemStack.areItemStacksEqual(old, current)) {
 					if(old.getItem() instanceof ItemBauble) {
-						player.getAttributeMap().removeAttributeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributes().removeAttributeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
 					if(canEquip(current, player)) {
-						player.getAttributeMap().applyAttributeModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
+						player.getAttributes().applyAttributeModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,
@@ -114,7 +114,7 @@ public abstract class EquipmentHandler {
 					((ItemBauble) current.getItem()).onWornTick(current, player);
 				}
 			}
-			player.world.profiler.endSection();
+			player.world.getProfiler().endSection();
 		}
 
 

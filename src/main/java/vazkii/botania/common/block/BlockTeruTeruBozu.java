@@ -106,11 +106,6 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 		return world.isRaining() ? 15 : 0;
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

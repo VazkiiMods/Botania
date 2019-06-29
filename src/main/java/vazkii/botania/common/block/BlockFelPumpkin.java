@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -53,7 +54,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			world.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState());
-			BlazeEntity blaze = new BlazeEntity(world);
+			BlazeEntity blaze = EntityType.BLAZE.create(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.deathLootTable = LOOT_TABLE;
 			blaze.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.EVENT, null, null);

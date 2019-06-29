@@ -36,11 +36,6 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 		super(builder);
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {

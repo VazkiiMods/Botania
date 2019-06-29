@@ -42,11 +42,6 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaColl
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}

@@ -127,11 +127,6 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

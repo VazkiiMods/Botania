@@ -62,8 +62,8 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 			int xc = mc.mainWindow.getScaledWidth() / 2 + 20;
 			int yc = mc.mainWindow.getScaledHeight() / 2 - height / 2;
 
-			AbstractGui.drawRect(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
-			AbstractGui.drawRect(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
+			AbstractGui.fill(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
+			AbstractGui.fill(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
 
 			for(int i = 0; i < 3; i++)
 				for(int j = 0; j < 3; j++) {
@@ -75,7 +75,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 					if(craft.getPattern() != CratePattern.NONE)
 						enabled = craft.getPattern().openSlots.get(index);
 
-					AbstractGui.drawRect(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
+					AbstractGui.fill(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
 					ItemStack item = craft.getItemHandler().getStackInSlot(index);
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();

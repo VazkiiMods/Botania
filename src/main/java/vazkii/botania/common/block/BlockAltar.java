@@ -143,7 +143,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
-					world.checkLight(pos);
+					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
 
 				return true;
@@ -154,7 +154,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				tile.setLava(true);
 				tile.setWater(false);
 				world.updateComparatorOutputLevel(pos, this);
-				world.checkLight(pos);
+				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return true;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
@@ -170,7 +170,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					tile.setLava(false);
 				else tile.setWater(false);
 				world.updateComparatorOutputLevel(pos, this);
-				world.checkLight(pos);
+				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return true;
 			}
@@ -216,11 +216,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					return handler.getContainer();
 				})
 				.orElse(stack);
-	}
-
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
 	}
 
 	@Override

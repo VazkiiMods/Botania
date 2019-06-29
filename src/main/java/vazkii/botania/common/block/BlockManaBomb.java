@@ -36,7 +36,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!burst.isFake() && !world.isRemote) {
 			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
-			world.removeBlock(pos);
+			world.removeBlock(pos, false);
 			EntityManaStorm storm = new EntityManaStorm(world);
 			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.addEntity(storm);

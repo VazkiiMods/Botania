@@ -68,7 +68,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		} else if(!plateStack.isEmpty() && !plate.burning) {
 			if(!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.ignite();
-				stack.damageItem(1, player);
+				stack.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 				did = true;
 			} else {
 				ItemHandlerHelper.giveItemToPlayer(player, plateStack);

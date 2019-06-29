@@ -127,11 +127,6 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		}
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

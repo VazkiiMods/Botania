@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -27,16 +28,18 @@ public class PotionBloodthirst extends PotionMod {
 	private static final int RANGE = 64;
 
 	public PotionBloodthirst() {
-		super(false, 0xC30000, 3);
-		setBeneficial();
+		super(EffectType.BENEFICIAL, 0xC30000, 3);
 	}
 
 	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof IMob) {
-			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE, event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
-			for(PlayerEntity player : event.getWorld().getWorld().playerEntities) {
-				if(player.isPotionActive(ModPotions.bloodthrst) && !player.isPotionActive(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
+			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,
+					event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
+			for(PlayerEntity player : event.getWorld().getPlayers()) {
+				if(player.isPotionActive(ModPotions.bloodthrst)
+						&& !player.isPotionActive(ModPotions.emptiness)
+						&& player.getBoundingBox().intersects(aabb)) {
 					event.setResult(Event.Result.ALLOW);
 					return;
 				}

@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectType;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,8 +24,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class PotionSoulCross extends PotionMod {
 
 	public PotionSoulCross() {
-		super(false, 0x47453d, 0);
-		setBeneficial();
+		super(EffectType.BENEFICIAL, 0x47453d, 0);
 	}
 
 	@SubscribeEvent

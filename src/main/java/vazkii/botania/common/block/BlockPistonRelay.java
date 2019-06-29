@@ -29,6 +29,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.storage.WorldSavedData;
@@ -120,7 +121,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
-			world.removeBlock(pos);
+			world.removeBlock(pos, false);
 			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
 		}
 
@@ -143,8 +144,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		private static final String ID = "PistonRelayPairs";
 
-		public WorldData(String id) {
-			super(id);
+		public WorldData() {
+			super(ID);
 		}
 
 		@Override
@@ -174,12 +175,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		public static WorldData get(World world) {
-			WorldData data = world.getSavedData(DimensionType.OVERWORLD, WorldData::new, ID);
-
+			WorldData data = ((ServerWorld) world).getSavedData().get(WorldData::new, ID);
 			if (data == null) {
-				data = new WorldData(ID);
+				data = new WorldData();
 				data.markDirty();
-				world.setSavedData(DimensionType.OVERWORLD, ID, data);
+				((ServerWorld) world).getSavedData().set(data);
 			}
 			return data;
 		}

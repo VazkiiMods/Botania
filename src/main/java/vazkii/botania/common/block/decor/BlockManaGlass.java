@@ -37,11 +37,6 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 		super(builder);
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	@Nonnull
 	@Override

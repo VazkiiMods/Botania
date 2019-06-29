@@ -17,7 +17,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -62,7 +64,8 @@ public class EntityThrownItem extends ItemEntity {
 		Vec3d vec3 = new Vec3d(posX, posY, posZ);
 		Vec3d vec31 = getPositionVec().add(getMotion());
 
-		RayTraceResult ray = world.rayTraceBlocks(vec3, vec31);
+		RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(vec3, vec31,
+				RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
 
 
 		if (!world.isRemote)
@@ -96,30 +99,22 @@ public class EntityThrownItem extends ItemEntity {
 
 		if (ray != null)
 		{
-			if (ray.getType() == net.minecraft.util.math.RayTraceResult.Type.BLOCK && world.getBlockState(ray.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL)
+			if (ray.getType() == RayTraceResult.Type.BLOCK
+					&& world.getBlockState(((BlockRayTraceResult) ray).getPos()).getBlock() == Blocks.NETHER_PORTAL)
 			{
-				setPortal(ray.getBlockPos());
+				setPortal(((BlockRayTraceResult) ray).getPos());
 			}
 			else
 			{
-				if (ray.type != null) {
-					ray.entity.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+				if (ray.getType() == RayTraceResult.Type.ENTITY) {
+					((EntityRayTraceResult) ray).getEntity().attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
 							item = new ItemEntity(world, posX, posY, posZ, getItem());
 							world.addEntity(item);
-							item.motionX = motionX*0.25F;
-							item.motionY = motionY*0.25F;
-							item.motionZ = motionZ*0.25F;
-
 						}
-						else
-						{
-							item.motionX = motionX*0.25F;
-							item.motionY = motionY*0.25F;
-							item.motionZ = motionZ*0.25F;
-						}
+						item.setMotion(getMotion().scale(0.25));
 					}
 					remove();
 
@@ -127,23 +122,15 @@ public class EntityThrownItem extends ItemEntity {
 			}
 		}
 
-		Vector3 vec3m = new Vector3(motionX, motionY, motionZ);
+		Vector3 vec3m = new Vector3(getMotion());
 		if (vec3m.mag() < 1.0F) {
 			if (!world.isRemote) {
 				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
 					item = new ItemEntity(world, posX, posY, posZ, getItem());
 					world.addEntity(item);
-					item.motionX = motionX;
-					item.motionY = motionY;
-					item.motionZ = motionZ;
 				}
-				else
-				{
-					item.motionX = motionX;
-					item.motionY = motionY;
-					item.motionZ = motionZ;
-				}
+				item.setMotion(getMotion());
 			}
 			remove();
 		}

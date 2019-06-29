@@ -67,7 +67,7 @@ public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconabl
 		List<ItemStack> ret = new ArrayList<>();
 		ret.add(new ItemStack(this));
 		BlockPos other = world.getBlockState(pos).get(HALF) == DoubleBlockHalf.UPPER ? pos.down() : pos.up();
-		world.removeBlock(pos);
+		world.removeBlock(pos, false);
 		world.destroyBlock(other, false);
 		return ret;
 	}

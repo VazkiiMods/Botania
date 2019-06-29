@@ -25,6 +25,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
@@ -66,13 +69,20 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		this.variant = v;
 	}
 
-	/* todo 1.13
+	@Nonnull
 	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity, boolean isActualState) {
-		if(variant == Variant.INFRANGIBLE || variant == Variant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof PlayerEntity) || !par7Entity.isSneaking()))
-			super.addCollisionBoxToList(state, world, pos, par5AxisAlignedBB, stacks, par7Entity, isActualState);
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
+		Entity e = context.getEntity();
+		if(variant == Variant.INFRANGIBLE
+				|| variant == Variant.ABSTRUSE
+					&& e != null
+					&& e.posY > pos.getY() + 0.9
+					&& !context.isSneaking()) {
+			return super.getCollisionShape(state, world, pos, context);
+		} else {
+			return VoxelShapes.empty();
+		}
 	}
-	*/
 
 	@Override
 	public boolean canRenderInLayer(BlockState state, @Nonnull BlockRenderLayer layer) {
