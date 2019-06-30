@@ -37,11 +37,6 @@ public class BlockBifrost extends BlockBifrostPerm implements ILexiconable {
 	}
 
 	@Override
-	public int quantityDropped(BlockState state, @Nonnull Random random) {
-		return 0;
-	}
-
-	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}

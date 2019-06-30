@@ -76,12 +76,6 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		return new TileEnchanter();
 	}
 
-	@Nonnull
-	@Override
-	public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return Blocks.LAPIS_BLOCK;
-	}
-
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);

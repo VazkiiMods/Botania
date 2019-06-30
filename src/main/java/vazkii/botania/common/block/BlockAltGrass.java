@@ -85,12 +85,6 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		}
 	}
 
-	@Nonnull
-	@Override
-	public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return Blocks.DIRT.getItemDropped(state, world, pos, fortune);
-	}
-
 	@Override
 	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
 		PlantType type = plantable.getPlantType(world, pos.down());

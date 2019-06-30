@@ -134,7 +134,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 	@Override
 	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
-		List<ItemStack> drops = super.getDrops(list);
+		List<ItemStack> drops = super.getDrops(list, ctx);
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, cooldown);
 		return drops;

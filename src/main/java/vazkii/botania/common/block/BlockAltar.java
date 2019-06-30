@@ -94,16 +94,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	@Nonnull
-	@Override
-	public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		if(variant == Variant.MOSSY) {
-			return ModBlocks.defaultAltar;
-		} else {
-			return super.getItemDropped(state, world, pos, fortune);
-		}
-	}
-
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if(!world.isRemote && entity instanceof ItemEntity) {

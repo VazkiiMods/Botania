@@ -22,7 +22,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.common.block.decor.BlockBiomeStone;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzPillar;
 import vazkii.botania.common.block.decor.quartz.BlockElfQuartzSlab;
@@ -330,7 +329,7 @@ public final class ModFluffBlocks {
 				"swamp", "desert", "taiga", "mesa"
 		};
 		for (String variant : variants) {
-			base = new BlockBiomeStone(props);
+			base = new BlockModLexiconable(props, marimorph);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
 			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);

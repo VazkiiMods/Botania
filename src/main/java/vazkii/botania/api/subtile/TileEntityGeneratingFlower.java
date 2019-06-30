@@ -203,7 +203,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
-		List<ItemStack> drops = super.getDrops(list);
+		List<ItemStack> drops = super.getDrops(list, ctx);
 		populateDropStackNBTs(drops);
 		return drops;
 	}

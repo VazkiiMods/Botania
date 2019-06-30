@@ -66,12 +66,6 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return ModItems.getPetal(color);
-	}
-
-	@Nonnull
-	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.INVISIBLE;
 	}

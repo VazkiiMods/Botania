@@ -99,17 +99,6 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	@Nonnull
-	@Override
-	public Item getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return Items.AIR;
-	}
-
-	@Override
-	public boolean canSilkHarvest(@Nonnull BlockState state, IWorldReader world, BlockPos pos, PlayerEntity player) {
-		return false;
-	}
-
 	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;

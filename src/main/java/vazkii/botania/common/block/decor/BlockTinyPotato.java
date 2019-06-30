@@ -95,38 +95,6 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 			((TileTinyPotato) world.getTileEntity(pos)).name = stack.getDisplayName();
 	}
 
-	@Override
-	public boolean removedByPlayer(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, boolean willHarvest, IFluidState fluid) {
-		if (willHarvest) {
-			// Copy of super.removedByPlayer but don't remove block yet
-			// This is so getDrops below will have a TE to work with
-			onBlockHarvested(world, pos, state, player);
-			return true;
-		} else {
-			return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
-		}
-	}
-
-	@Override
-	public void harvestBlock(@Nonnull World world, PlayerEntity player, @Nonnull BlockPos pos, @Nonnull BlockState state, TileEntity te, ItemStack stack) {
-		super.harvestBlock(world, player, pos, state, te, stack);
-		// Now delete the block and TE
-		world.removeBlock(pos);
-	}
-
-	@Override
-	public void getDrops(BlockState state, NonNullList<ItemStack> list, World world, BlockPos pos, int fortune) {
-		TileEntity tile = world.getTileEntity(pos);
-
-		if(tile != null) {
-			ItemStack stack = new ItemStack(this);
-			ITextComponent name = ((TileTinyPotato) tile).name;
-			if(!name.getString().isEmpty())
-				stack.setDisplayName(name);
-			list.add(stack);
-		}
-	}
-
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

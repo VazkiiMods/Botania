@@ -30,17 +30,6 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 		super(builder);
 	}
 
-	@Nonnull
-	@Override
-	public Item getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return ModItems.livingroot;
-	}
-
-	@Override
-	public int quantityDropped(BlockState state, Random r) {
-		return 2 + r.nextInt(3);
-	}
-
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.gardenOfGlass;

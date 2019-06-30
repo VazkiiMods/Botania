@@ -38,12 +38,6 @@ public class BlockCell extends BlockMod implements ILexiconable {
 		super(builder);
 	}
 
-	@Nonnull
-	@Override
-	public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return Items.AIR;
-	}
-
 	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;

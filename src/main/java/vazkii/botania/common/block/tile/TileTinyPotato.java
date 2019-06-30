@@ -22,10 +22,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.INameable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -35,7 +37,10 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity, INameable {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO)
 	public static TileEntityType<TileTinyPotato> TYPE;
 	private static final String TAG_NAME = "name";
@@ -127,4 +132,21 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 		return 6;
 	}
 
+	@Nonnull
+	@Override
+	public ITextComponent getName() {
+		return new TranslationTextComponent(ModBlocks.tinyPotato.getTranslationKey());
+	}
+
+	@Nullable
+	@Override
+	public ITextComponent getCustomName() {
+		return name.getString().isEmpty() ? null : name; // todo 1.14 improve
+	}
+
+	@Nonnull
+	@Override
+	public ITextComponent getDisplayName() {
+		return hasCustomName() ? getCustomName() : getName();
+	}
 }

@@ -74,11 +74,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public int quantityDropped(BlockState state, @Nonnull Random random) {
-		return 0;
-	}
-
-	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if(!world.isRemote)
 			mapCoords(world.getDimension().getType(), pos, 2);

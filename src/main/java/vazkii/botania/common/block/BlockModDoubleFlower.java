@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconable, IShearable {
+public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconable {
 	private final DyeColor color;
 
 	public BlockModDoubleFlower(DyeColor color, Properties builder) {
@@ -45,31 +45,9 @@ public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconabl
 		this.color = color;
 	}
 
-	@Nonnull
-	@Override
-	public Item getItemDropped(BlockState state, @Nonnull World world, @Nonnull BlockPos pos, int fortune) {
-		return Items.AIR;
-	}
-
 	@Override
 	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return false;
-	}
-
-	@Override
-	public boolean isShearable(@Nonnull ItemStack item, IWorldReader world, BlockPos pos) {
-		return true;
-	}
-
-	@Nonnull
-	@Override
-	public List<ItemStack> onSheared(@Nonnull ItemStack item, IWorld world, @Nonnull BlockPos pos, int fortune) {
-		List<ItemStack> ret = new ArrayList<>();
-		ret.add(new ItemStack(this));
-		BlockPos other = world.getBlockState(pos).get(HALF) == DoubleBlockHalf.UPPER ? pos.down() : pos.up();
-		world.removeBlock(pos, false);
-		world.destroyBlock(other, false);
-		return ret;
 	}
 
 	@Override

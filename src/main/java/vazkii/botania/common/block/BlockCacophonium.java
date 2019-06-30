@@ -44,11 +44,6 @@ public class BlockCacophonium extends BlockMod {
 	}
 
 	@Override
-	public boolean canSilkHarvest(@Nonnull BlockState state, IWorldReader world, BlockPos pos, PlayerEntity player) {
-		return false;
-	}
-
-	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
