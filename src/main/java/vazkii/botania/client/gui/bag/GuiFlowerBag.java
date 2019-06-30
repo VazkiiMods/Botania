@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.gui.bag;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -38,7 +39,7 @@ public class GuiFlowerBag extends ContainerScreen {
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		this.renderBackground();
 		super.render(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
 	}
@@ -46,20 +47,20 @@ public class GuiFlowerBag extends ContainerScreen {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String s = I18n.format("item.botania:flowerBag.name");
-		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-		fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		font.drawString(s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
+		font.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		Minecraft mc = Minecraft.getInstance();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
-		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
+		blit(k, l, 0, 0, xSize, ySize);
 
-		List<Slot> slotList = inventorySlots.inventorySlots;
-		for(Slot slot : slotList)
+		for(Slot slot : container.inventorySlots)
 			if(slot instanceof SlotItemHandler) {
 				SlotItemHandler slotf = (SlotItemHandler) slot;
 				if(!slotf.getHasStack()) {

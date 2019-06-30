@@ -41,7 +41,7 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, k == 2 ? 109 : 98, 180, 11, 11);
+		blit(x, y, k == 2 ? 109 : 98, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		for(int i = 0; i < 3; i++)

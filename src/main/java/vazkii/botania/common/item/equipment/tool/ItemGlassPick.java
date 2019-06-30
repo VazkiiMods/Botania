@@ -56,9 +56,8 @@ public class ItemGlassPick extends ItemManasteelPick {
 	};
 
 	public ItemGlassPick(Properties props) {
-		super(MATERIAL, props);
+		super(MATERIAL, props, -1);
 		MinecraftForge.EVENT_BUS.addListener(this::onBlockDrops);
-		attackSpeed = -1;
 	}
 
 	private void onBlockDrops(HarvestDropsEvent event) {

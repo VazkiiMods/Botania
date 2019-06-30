@@ -26,7 +26,7 @@ import vazkii.botania.common.entity.EntityPixie;
 
 import javax.annotation.Nonnull;
 
-public class RenderPixie extends MobRenderer<EntityPixie> {
+public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
 	private final ShaderCallback callback = shader -> {
 		// Frag Uniforms

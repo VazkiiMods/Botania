@@ -25,6 +25,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedConstants;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.glfw.GLFW;
@@ -111,14 +112,14 @@ public class GuiLexicon extends Screen {
 	public String note = "";
 	public String categoryHighlight = "";
 
-	String title;
 	final int guiWidth = 146;
 	final int guiHeight = 180;
+	protected final Minecraft mc = Minecraft.getInstance();
 	int left, top;
 
 	@Override
-	public final void initGui() {
-		super.initGui();
+	public final void init() {
+		super.init();
 
 		if(PersistentVariableHelper.firstLoad) {
 			PersistentVariableHelper.firstLoad = false;
@@ -242,14 +243,14 @@ public class GuiLexicon extends Screen {
 		if(konamiTime > 0) {
 			String meme = I18n.format("botania.subtitle.way");
 			GlStateManager.pushMatrix();
-			int fullWidth = fontRenderer.getStringWidth(meme);
+			int fullWidth = font.getStringWidth(meme);
 			int left = width;
 			double widthPerTick = (fullWidth + width) / 240;
 			double currWidth = left - widthPerTick * (240 - (konamiTime - partialTicks)) * 3.2;
 
 			GlStateManager.translated(currWidth, height / 2 - 10, 0);
 			GlStateManager.scalef(4, 4, 4);
-			mc.fontRenderer.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
+			mc.font.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
 			GlStateManager.popMatrix();
 		}
 	}
@@ -266,10 +267,10 @@ public class GuiLexicon extends Screen {
 
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		mc.textureManager.bindTexture(texture);
-		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
+		blit(left, top, 0, 0, guiWidth, guiHeight);
 
 		if(ClientProxy.jingleTheBells)
-			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
+			blit(left + 3, top + 1, 0, 212, 138, 6);
 
 		String subtitle = getSubtitle();
 
@@ -288,7 +289,7 @@ public class GuiLexicon extends Screen {
 		if(mc.player.getGameProfile().getName().equals("haighyorkie")) {
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			mc.textureManager.bindTexture(texture);
-			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
+			blit(left - 19, top + 42, 67, 180, 19, 26);
 			if(xCoord >= left - 19 && xCoord < left && yCoord >= top + 62 && yCoord < top + 88) {
 				mc.textureManager.bindTexture(textureToff);
 				GlStateManager.pushMatrix();
@@ -302,7 +303,7 @@ public class GuiLexicon extends Screen {
 				int x = (int) ((ClientTickHandler.ticksInGame + newPartialTicks) * 6) % (width + w) - w;
 				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + newPartialTicks) / 6.0) * 40);
 
-				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
+				blit(x * 2, y * 2, 0, 0, w, h);
 				GlStateManager.disableBlend();
 				GlStateManager.popMatrix();
 
@@ -317,7 +318,7 @@ public class GuiLexicon extends Screen {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color4f(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + newPartialTicks) * 0.3F) + 1) * 0.15F);
-			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
+			blit(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GlStateManager.disableBlend();
 		}
 	}
@@ -335,13 +336,13 @@ public class GuiLexicon extends Screen {
 		int x = left - drawSize;
 		int y = top + 10;
 
-		drawTexturedModalRect(x, y, 146, 0, drawSize, 125);
+		blit(x, y, 146, 0, drawSize, 125);
 
 		String noteDisplay = note;
 		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
 			noteDisplay += "&r_";
 
-		fontRenderer.drawString(I18n.format("botaniamisc.notes"), x + 5, y - 7, 0x666666);
+		font.drawString(I18n.format("botaniamisc.notes"), x + 5, y - 7, 0x666666);
 		PageText.renderText(x + 5, y - 3, 92, 120, 0, true, 0, TextFormatting.RESET + noteDisplay);
 	}
 
@@ -354,8 +355,8 @@ public class GuiLexicon extends Screen {
 	}
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
-		// This function is called from the buttons so I can't use fontRenderer
-		FontRenderer font = Minecraft.getInstance().fontRenderer;
+		// This function is called from the buttons so I can't use font
+		FontRenderer font = Minecraft.getInstance().font;
 		int l = font.getStringWidth(s);
 		int fontOff = 0;
 
@@ -367,12 +368,12 @@ public class GuiLexicon extends Screen {
 		Minecraft.getInstance().textureManager.bindTexture(texture);
 
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, v, 6, 11);
+		blit(x + l / 2 + 3, y - 1, 54, v, 6, 11);
 
 		if(drawLeft)
-			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, v, 6, 11);
+			blit(x - l / 2 - 9, y - 1, 61, v, 6, 11);
 		for(int i = 0; i < l + 6; i++)
-			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, v, 1, 11);
+			blit(x - l / 2 - 3 + i, y - 1, 60, v, 1, 11);
 
 		font.drawString(s, x - l / 2 + fontOff, y, color);
 	}
@@ -381,14 +382,14 @@ public class GuiLexicon extends Screen {
 		GlStateManager.pushMatrix();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		Minecraft.getInstance().textureManager.bindTexture(texture);
-		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
+		blit(left - 8, top + 9, 0, 224, 140, 31);
 
 		int color = 0xffd200;
-		fontRenderer.drawString(title, left + 18, top + 13, color);
-		fontRenderer.drawString(I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), left + 24, top + 22, color);
+		font.drawString(title.getFormattedText(), left + 18, top + 13, color);
+		font.drawString(I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), left + 24, top + 22, color);
 
 		String s = TextFormatting.BOLD + categoryHighlight;
-		fontRenderer.drawString(s, left + guiWidth / 2 - fontRenderer.getStringWidth(s) / 2, top + 36, 0);
+		font.drawString(s, left + guiWidth / 2 - font.getStringWidth(s) / 2, top + 36, 0);
 
 		GlStateManager.popMatrix();
 
@@ -405,13 +406,14 @@ public class GuiLexicon extends Screen {
 	}
 
 	public int bookmarkWidth(String b) {
-		if(fontRenderer == null)
-			fontRenderer = Minecraft.getInstance().fontRenderer;
+		if(font == null)
+			font = Minecraft.getInstance().fontRenderer;
 
-		return fontRenderer.getStringWidth(b) + 15;
+		return font.getStringWidth(b) + 15;
 	}
 
-	public String getTitle() {
+	@Override
+	public ITextComponent getTitle() {
 		return title;
 	}
 
@@ -448,9 +450,9 @@ public class GuiLexicon extends Screen {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttons.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
-				button.displayString = I18n.format(category.getUnlocalizedName());
+				button.setMessage(I18n.format(category.getUnlocalizedName()));
 			else {
-				button.displayString = I18n.format("botaniamisc.lexiconIndex");
+				button.setMessage(I18n.format("botaniamisc.lexiconIndex"));
 				break;
 			}
 		}
@@ -560,7 +562,7 @@ public class GuiLexicon extends Screen {
 			boolean changed = false;
 
 			if(codePoint == 8 && note.length() > 0) { // backspace
-				if(isCtrlKeyDown())
+				if(hasControlDown())
 					note = "";
 				else {
 					if(note.endsWith("<br>"))

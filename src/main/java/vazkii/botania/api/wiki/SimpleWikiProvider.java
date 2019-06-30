@@ -14,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.text.WordUtils;
@@ -46,8 +47,8 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getBlockName(World world, RayTraceResult pos, PlayerEntity player) {
-		BlockPos bPos = pos.getBlockPos();
+	public String getBlockName(World world, BlockRayTraceResult pos, PlayerEntity player) {
+		BlockPos bPos = pos.getPos();
 		BlockState state = world.getBlockState(bPos);
 
 		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
@@ -62,7 +63,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiURL(World world, RayTraceResult pos, PlayerEntity player) {
+	public String getWikiURL(World world, BlockRayTraceResult pos, PlayerEntity player) {
 		String name = getBlockName(world, pos, player);
 		if(name == null)
 			return null;
@@ -75,7 +76,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiName(World world, RayTraceResult pos, PlayerEntity player) {
+	public String getWikiName(World world, BlockRayTraceResult pos, PlayerEntity player) {
 		return name;
 	}
 

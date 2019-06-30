@@ -41,8 +41,8 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 	public void render(TileStarfield tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage) {
 		GlStateManager.disableLighting();
 		RANDOM.setSeed(31100L);
-		GlStateManager.getFloatv(2982, MODELVIEW);
-		GlStateManager.getFloatv(2983, PROJECTION);
+		GlStateManager.getMatrix(2982, MODELVIEW);
+		GlStateManager.getMatrix(2983, PROJECTION);
 		double d0 = x * x + y * y + z * z;
 		int i = this.getPasses(d0);
 		float f = this.getOffset();
@@ -88,8 +88,8 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 			GlStateManager.translatef(17.0F / f2, (2.0F + f2 / 1.5F) * ((float) Util.milliTime() % 800000.0F / 800000.0F), 0.0F);
 			GlStateManager.rotatef((f2 * f2 * 4321.0F + f2 * 9.0F) * 2.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.scalef(4.5F - f2 / 4.0F, 4.5F - f2 / 4.0F, 1.0F);
-			GlStateManager.multMatrixf(PROJECTION);
-			GlStateManager.multMatrixf(MODELVIEW);
+			GlStateManager.multMatrix(PROJECTION);
+			GlStateManager.multMatrix(MODELVIEW);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);

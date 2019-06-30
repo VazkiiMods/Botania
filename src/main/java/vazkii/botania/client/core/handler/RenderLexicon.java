@@ -116,7 +116,7 @@ public class RenderLexicon {
 			GlStateManager.scalef(0.0030F, 0.0030F, -0.0030F);
 
 
-			String title = ItemLexicon.getTitle(stack);
+			String title = ItemLexicon.getTitle(stack).getFormattedText();
 
 			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
 

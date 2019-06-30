@@ -80,7 +80,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	};
 
 	public ItemTerraPick(Properties props) {
-		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
+		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props, -2.8F);
 		addPropertyOverride(new ResourceLocation("botania", "tipped"), (itemStack, world, entityLivingBase) -> isTipped(itemStack) ? 1 : 0);
 		addPropertyOverride(new ResourceLocation("botania", "enabled"), (itemStack, world, entityLivingBase) -> isEnabled(itemStack) ? 1 : 0);
 	}

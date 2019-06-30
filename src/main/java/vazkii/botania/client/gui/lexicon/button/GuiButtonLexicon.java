@@ -18,12 +18,12 @@ import vazkii.botania.common.core.handler.ModSounds;
 
 public class GuiButtonLexicon extends Button {
 
-	public GuiButtonLexicon(int id, int x, int y, int width, int height, String text) {
-		super(id, x, y, width, height, text);
+	public GuiButtonLexicon(int x, int y, int width, int height, String text) {
+		super(x, y, width, height, text);
 	}
 
 	@Override
-	public void playPressSound(SoundHandler handler)  {
+	public void playDownSound(SoundHandler handler)  {
 		handler.play(SimpleSound.master(ModSounds.lexiconPage, 1.0F));
 	}
 

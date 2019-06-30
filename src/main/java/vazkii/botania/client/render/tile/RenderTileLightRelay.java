@@ -39,7 +39,7 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
 	@Override
 	public void render(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
-		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false))
+		if(!tile.getWorld().isBlockLoaded(tile.getPos()))
 			return;
 
 		BlockState state = tile.getWorld().getBlockState(tile.getPos());

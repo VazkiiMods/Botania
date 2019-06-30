@@ -1,7 +1,10 @@
 package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -19,18 +22,20 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class LayerGaiaHead implements LayerRenderer<PlayerEntity> {
+public class LayerGaiaHead extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
 
 	private final RendererModel modelRenderer;
 
-	public LayerGaiaHead(RendererModel modelRenderer)
+	public LayerGaiaHead(IEntityRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> renderer,
+						 RendererModel modelRenderer)
 	{
+		super(renderer);
 		this.modelRenderer = modelRenderer;
 	}
 
 	// Copied from LayerCustomHead, edits noted
 	@Override
-	public void render(@Nonnull PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 
 		if (!itemstack.isEmpty() && itemstack.getItem() == ModBlocks.gaiaHead.asItem()) // Botania - check for head

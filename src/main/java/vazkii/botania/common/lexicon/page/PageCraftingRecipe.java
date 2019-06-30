@@ -86,7 +86,7 @@ public class PageCraftingRecipe extends PageRecipe {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		((Screen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
+		((Screen) gui).blit(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
 		int iconX = gui.getLeft() + 115;
 		int iconY = gui.getTop() + 12;
@@ -95,7 +95,7 @@ public class PageCraftingRecipe extends PageRecipe {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(shapelessRecipe) {
-			((Screen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
+			((Screen) gui).blit(iconX, iconY, 240, 0, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
 				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.format("botaniamisc.shapeless")));
@@ -109,7 +109,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
-		if(Screen.isShiftKeyDown())
+		if(Screen.hasShiftDown())
 			return;
 
 		if(ticksElapsed % 20 == 0) {
@@ -133,7 +133,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 			for(int y = 0; y < height; y++)
 				for(int x = 0; x < width; x++) {
-					Ingredient input = recipe.getIngredients().get(y * width + x);
+					Ingredient input = (Ingredient) recipe.getIngredients().get(y * width + x);
 					ItemStack[] stacks = input.getMatchingStacks();
 					if(stacks.length > 0) {
 						renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);
@@ -150,7 +150,7 @@ public class PageCraftingRecipe extends PageRecipe {
 						if(index >= recipe.getIngredients().size())
 							break drawGrid;
 
-						Ingredient input = recipe.getIngredients().get(index);
+						Ingredient input = (Ingredient) recipe.getIngredients().get(index);
 						if(input != Ingredient.EMPTY) {
 							ItemStack[] stacks = input.getMatchingStacks(); 
 							renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);

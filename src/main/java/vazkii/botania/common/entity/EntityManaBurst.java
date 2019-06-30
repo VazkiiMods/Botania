@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.particles.ParticleTypes;
@@ -42,6 +43,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -94,7 +96,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	private static final DataParameter<Float> MANA_LOSS_PER_TICK = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
-	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.ITEMSTACK);
 
 	float accumulatedManaLoss = 0;
 	boolean fake = false;
@@ -180,79 +182,54 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 		if (this.inGround) {
 			this.inGround = false;
-			this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
-			this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
-			this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
+			this.setMotion(this.getMotion().mul((double)(this.rand.nextFloat() * 0.2F), (double)(this.rand.nextFloat() * 0.2F), (double)(this.rand.nextFloat() * 0.2F)));
 		}
 
-		Vec3d vec3d = new Vec3d(this.posX, this.posY, this.posZ);
-		Vec3d vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		RayTraceResult raytraceresult = this.world.rayTraceBlocks(vec3d, vec3d1);
-		vec3d = new Vec3d(this.posX, this.posY, this.posZ);
-		vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		if (raytraceresult != null) {
-			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
-		}
+		AxisAlignedBB axisalignedbb = this.getBoundingBox().expand(this.getMotion()).grow(1.0D);
 
-		if (!scanBeam && !world.isRemote) { // Botania - collide only on server and non-scanbeam
-			Entity entity = null;
-			List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D));
-			double d0 = 0.0D;
-			boolean flag = false;
-
-			for (int i = 0; i < list.size(); ++i) {
-				Entity entity1 = list.get(i);
-				if (entity1.canBeCollidedWith()) {
-					if (entity1 == this.ignoreEntity) {
-						flag = true;
-					} else if (this.thrower != null && this.ticksExisted < 2 && this.ignoreEntity == null) {
-						this.ignoreEntity = entity1;
-						flag = true;
-					} else {
-						flag = false;
-						AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow((double) 0.3F);
-						RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
-						if (raytraceresult1 != null) {
-							double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
-							if (d1 < d0 || d0 == 0.0D) {
-								entity = entity1;
-								d0 = d1;
-							}
-						}
-					}
-				}
+		/* Botania - no ignoreEntity stuff at all
+		for(Entity entity : this.world.getEntitiesInAABBexcluding(this, axisalignedbb, (p_213881_0_) -> {
+			return !p_213881_0_.isSpectator() && p_213881_0_.canBeCollidedWith();
+		})) {
+			if (entity == this.ignoreEntity) {
+				++this.ignoreTime;
+				break;
 			}
 
-			if (this.ignoreEntity != null) {
-			/*
-			if (flag) {
-				this.ignoreTime = 2;
-			} else if (this.ignoreTime-- <= 0) {
-				this.ignoreEntity = null;
-			}
-			*/
-			}
-
-			if (entity != null) {
-				raytraceresult = new RayTraceResult(entity);
+			if (this.owner != null && this.ticksExisted < 2 && this.ignoreEntity == null) {
+				this.ignoreEntity = entity;
+				this.ignoreTime = 3;
+				break;
 			}
 		}
+		*/
 
-		if (raytraceresult != null) {
-			if (raytraceresult.type == RayTraceResult.Type.BLOCK && this.world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL) {
-				this.setPortal(raytraceresult.getBlockPos());
+		RayTraceResult raytraceresult = ProjectileHelper.func_221267_a(this, axisalignedbb, (p_213880_1_) -> {
+			return !p_213880_1_.isSpectator() && p_213880_1_.canBeCollidedWith(); // && p_213880_1_ != this.ignoreEntity;
+		}, RayTraceContext.BlockMode.OUTLINE, true);
+		/*
+		if (this.ignoreEntity != null && this.ignoreTime-- <= 0) {
+			this.ignoreEntity = null;
+		}
+		*/
+
+		if (!scanBeam && !world.isRemote() && // Botania - collide only on server and non scanbeam
+				raytraceresult.getType() != RayTraceResult.Type.MISS) {
+			if (raytraceresult.getType() == RayTraceResult.Type.BLOCK && this.world.getBlockState(((BlockRayTraceResult)raytraceresult).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
+				this.setPortal(((BlockRayTraceResult)raytraceresult).getPos());
 			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)){
 				this.onImpact(raytraceresult);
 			}
 		}
 
-		this.posX += this.motionX;
-		this.posY += this.motionY;
-		this.posZ += this.motionZ;
-		float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (double)(180F / (float)Math.PI));
+		Vec3d vec3d = this.getMotion();
+		this.posX += vec3d.x;
+		this.posY += vec3d.y;
+		this.posZ += vec3d.z;
+		float f = MathHelper.sqrt(func_213296_b(vec3d));
+		this.rotationYaw = (float)(MathHelper.atan2(vec3d.x, vec3d.z) * (double)(180F / (float)Math.PI));
 
-		for(this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (double)(180F / (float)Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+		for(this.rotationPitch = (float)(MathHelper.atan2(vec3d.y, (double)f) * (double)(180F / (float)Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
 			;
 		}
 
@@ -268,26 +245,24 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			this.prevRotationYaw += 360.0F;
 		}
 
-		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
-		float f1 = 0.99F;
-		float f2 = this.getGravityVelocity();
+		this.rotationPitch = MathHelper.lerp(0.2F, this.prevRotationPitch, this.rotationPitch);
+		this.rotationYaw = MathHelper.lerp(0.2F, this.prevRotationYaw, this.rotationYaw);
+		float f1;
 		if (this.isInWater()) {
-			for(int j = 0; j < 4; ++j) {
-				float f3 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
+			for(int i = 0; i < 4; ++i) {
+				float f2 = 0.25F;
+				this.world.addParticle(ParticleTypes.BUBBLE, this.posX - vec3d.x * 0.25D, this.posY - vec3d.y * 0.25D, this.posZ - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
 			}
 
 			f1 = 0.8F;
+		} else {
+			f1 = 0.99F;
 		}
 
-		/* Botania - no drag
-		this.motionX *= (double)f1;
-		this.motionY *= (double)f1;
-		this.motionZ *= (double)f1;
-		*/
+		// Botania - no drag this.setMotion(vec3d.scale((double)f1));
 		if (!this.hasNoGravity()) {
-			this.motionY -= (double)f2;
+			Vec3d vec3d1 = this.getMotion();
+			this.setMotion(vec3d1.x, vec3d1.y - (double)this.getGravityVelocity(), vec3d1.z);
 		}
 
 		this.setPosition(this.posX, this.posY, this.posZ);

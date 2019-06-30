@@ -46,7 +46,7 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 	@Override
 	public void render(@Nullable TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
 		if (avatar != null)
-			if (!avatar.getWorld().isBlockLoaded(avatar.getPos(), false)
+			if (!avatar.getWorld().isBlockLoaded(avatar.getPos())
 					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)
 				return;
 

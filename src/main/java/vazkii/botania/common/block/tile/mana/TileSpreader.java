@@ -549,26 +549,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return null;
 	}
 
-	// [VanillaCopy] Item.rayTrace
-	@Nullable
-	protected static RayTraceResult rayTraceFromEntity(World worldIn, PlayerEntity playerIn, boolean useLiquids) {
-		float f = playerIn.rotationPitch;
-		float f1 = playerIn.rotationYaw;
-		double d0 = playerIn.posX;
-		double d1 = playerIn.posY + (double)playerIn.getEyeHeight();
-		double d2 = playerIn.posZ;
-		Vec3d vec3d = new Vec3d(d0, d1, d2);
-		float f2 = MathHelper.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
-		float f3 = MathHelper.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
-		float f4 = -MathHelper.cos(-f * ((float)Math.PI / 180F));
-		float f5 = MathHelper.sin(-f * ((float)Math.PI / 180F));
-		float f6 = f3 * f4;
-		float f7 = f2 * f4;
-		double d3 = playerIn.getAttribute(PlayerEntity.REACH_DISTANCE).getValue();
-		Vec3d vec3d1 = vec3d.add((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
-		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids ? RayTraceFluidMode.SOURCE_ONLY : RayTraceFluidMode.NEVER, false, false);
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();

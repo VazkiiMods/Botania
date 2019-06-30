@@ -2,15 +2,21 @@ package vazkii.botania.client.fx;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,8 +65,14 @@ public class FXLightning extends Particle {
 	}
 
 	@Override
-	public void renderParticle(BufferBuilder wr, Entity entity, float partialTicks, float rotX, float rotZ, float rotYZ, float rotXY, float rotXZ) {
+	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo info, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 		LightningHandler.queuedLightningBolts.offer(this);
+	}
+
+	@Nonnull
+	@Override
+	public IParticleRenderType getRenderType() {
+		return IParticleRenderType.NO_RENDER;
 	}
 
 	public void renderBolt(int pass, boolean inner) {
@@ -180,15 +192,18 @@ public class FXLightning extends Particle {
 	}
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-		RayTraceResult mop = world.rayTraceBlocks(start.toVec3D(), end.toVec3D());
+		// todo 1.14 entity?
+		RayTraceContext ctx = new RayTraceContext(start.toVec3D(), end.toVec3D(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, null);
+		RayTraceResult mop = world.rayTraceBlocks(ctx);
 
 		if(mop == null)
 			return prevresistance;
 
-		if(mop.type == RayTraceResult.Type.BLOCK) {
-			Block block = world.getBlockState(mop.getBlockPos()).getBlock();
+		if(mop.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos pos = ((BlockRayTraceResult) mop).getPos();
+			Block block = world.getBlockState(pos).getBlock();
 
-			if(world.isAirBlock(mop.getBlockPos()))
+			if(world.isAirBlock(pos))
 				return prevresistance;
 
 			return prevresistance + block.getExplosionResistance() + 0.3F;

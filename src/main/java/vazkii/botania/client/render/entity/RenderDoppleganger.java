@@ -16,6 +16,7 @@ import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +27,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 
-public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger> {
+public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedModel<EntityDoppleganger>> {
 
 	private static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	private static final float DEFAULT_DISFIGURATION = 0.025F;
@@ -55,7 +56,7 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger> {
 	};
 
 	public RenderDoppleganger(EntityRendererManager renderManager) {
-		super(renderManager, new PlayerModel(0.0F, false), 0F);
+		super(renderManager, new PlayerModel<>(0.0F, false), 0F);
 	}
 
 	@Override

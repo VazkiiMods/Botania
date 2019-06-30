@@ -73,7 +73,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 				if(c.complete)
 					complete++;
 
-			fontRenderer.drawString(TextFormatting.BOLD + I18n.format(level.getName()) + TextFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
+			font.drawString(TextFormatting.BOLD + I18n.format(level.getName()) + TextFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
 		}
 	}
 
@@ -102,7 +102,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
 	private void back() {
 		if(backButton.enabled) {
-			backButton.playPressSound(mc.getSoundHandler());
+			backButton.playDownSound(mc.getSoundHandler());
 			backButton.onClick(backButton.x, backButton.y);
 		}
 	}

@@ -172,7 +172,7 @@ public class PageRecipe extends LexiconPage {
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
 
-				if(!mouseDownLastTick && mouseDown && Screen.isShiftKeyDown()) {
+				if(!mouseDownLastTick && mouseDown && Screen.hasShiftDown()) {
 					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (Screen) gui);
 					newGui.page = data.page;
 					Minecraft.getInstance().displayGuiScreen(newGui);

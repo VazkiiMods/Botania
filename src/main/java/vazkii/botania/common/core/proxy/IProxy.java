@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
@@ -27,7 +28,7 @@ public interface IProxy {
 
 	String getLastVersion();
 
-	boolean openWikiPage(World world, Block block, RayTraceResult pos);
+	boolean openWikiPage(World world, Block block, BlockRayTraceResult pos);
 
 	void setMultiblock(World world, int x, int y, int z, double radius, Block block);
 

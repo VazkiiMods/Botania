@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.profiler.IProfiler;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -43,7 +44,7 @@ public class LightningHandler {
 
 	@SubscribeEvent
 	public static void onRenderWorldLast(RenderWorldLastEvent event) {
-		Profiler profiler = Minecraft.getInstance().profiler;
+		IProfiler profiler = Minecraft.getInstance().getProfiler();
 
 		profiler.startSection("botania-particles");
 		ParticleRenderDispatcher.dispatch();

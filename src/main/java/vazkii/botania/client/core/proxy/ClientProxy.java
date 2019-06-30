@@ -17,12 +17,14 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.settings.ParticleStatus;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
@@ -151,18 +153,18 @@ public class ClientProxy implements IProxy {
 		Map<String, PlayerRenderer> skinMap = Minecraft.getInstance().getRenderManager().getSkinMap();
 		PlayerRenderer render;
 		render = skinMap.get("default");
-		render.addLayer(new ContributorFancinessHandler());
+		render.addLayer(new ContributorFancinessHandler(render));
 		if(Botania.curiosLoaded)
 			render.addLayer(new BaubleRenderHandler());
-		render.addLayer(new LayerTerraHelmet());
-		render.addLayer(new LayerGaiaHead(render.getMainModel().bipedHead));
+		render.addLayer(new LayerTerraHelmet(render));
+		render.addLayer(new LayerGaiaHead(render, render.getEntityModel().bipedHead));
 
 		render = skinMap.get("slim");
-		render.addLayer(new ContributorFancinessHandler());
+		render.addLayer(new ContributorFancinessHandler(render));
 		if(Botania.curiosLoaded)
 			render.addLayer(new BaubleRenderHandler());
-		render.addLayer(new LayerTerraHelmet());
-		render.addLayer(new LayerGaiaHead(render.getMainModel().bipedHead));
+		render.addLayer(new LayerTerraHelmet(render));
+		render.addLayer(new LayerGaiaHead(render, render.getEntityModel().bipedHead));
 	}
 
 	@Override
@@ -197,7 +199,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
+	public boolean openWikiPage(World world, Block block, BlockRayTraceResult pos) {
 		if(ConfigHandler.CLIENT.lexicaOfflineMode.get())
 			return false;
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
@@ -319,9 +321,9 @@ public class ClientProxy implements IProxy {
 			return true;
 
 		float chance = 1F;
-		if(Minecraft.getInstance().gameSettings.particleSetting == 1)
+		if(Minecraft.getInstance().gameSettings.particles == ParticleStatus.DECREASED)
 			chance = 0.6F;
-		else if(Minecraft.getInstance().gameSettings.particleSetting == 2)
+		else if(Minecraft.getInstance().gameSettings.particles == ParticleStatus.MINIMAL)
 			chance = 0.2F;
 
 		return chance == 1F || Math.random() < chance;

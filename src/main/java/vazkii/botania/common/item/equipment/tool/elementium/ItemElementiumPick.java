@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class ItemElementiumPick extends ItemManasteelPick {
 
 	public ItemElementiumPick(Properties props) {
-		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
+		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props, -2.8F);
 		MinecraftForge.EVENT_BUS.addListener(this::onHarvestDrops);
 	}
 

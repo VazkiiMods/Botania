@@ -21,7 +21,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.lexicon.LexiconEntry;

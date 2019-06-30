@@ -12,8 +12,11 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -40,13 +43,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public final class ContributorFancinessHandler implements LayerRenderer<PlayerEntity> {
+public final class ContributorFancinessHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
 
 	public static final Map<String, ItemStack> flowerMap = new HashMap<>();
 	private static boolean startedLoading = false;
 
+	public ContributorFancinessHandler(IEntityRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> renderer) {
+		super(renderer);
+	}
+
 	@Override
-	public void render(@Nonnull PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		String name = player.getDisplayName().getString();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;

@@ -34,6 +34,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.container.Container;
@@ -117,9 +118,9 @@ public class ItemCraftingHalo extends ItemMod {
 
 		if(!world.isRemote) {
 			if(segment == 0) {
-				NetworkHooks.openGui((ServerPlayerEntity) player, new ContainerProvider(world), buf -> {
-					buf.writeBoolean(hand == Hand.OFF_HAND);
-				});
+				player.openContainer(new SimpleNamedContainerProvider(
+						(windowId, playerInv, p) -> new ContainerCraftingHalo(windowId, playerInv),
+						stack.getDisplayName()));
 			} else {
 				if(itemForPos.isEmpty())
 					assignRecipe(stack, itemForPos, segment);
@@ -606,42 +607,5 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 
 		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
-	}
-
-	public static class ContainerProvider implements IInteractionObject {
-		private final World world;
-
-		public ContainerProvider(World world) {
-			this.world = world;
-		}
-
-		@Nonnull
-		@Override
-		public Container createContainer(@Nonnull PlayerInventory inv, @Nonnull PlayerEntity player) {
-			return new ContainerCraftingHalo(inv, world);
-		}
-
-		@Nonnull
-		@Override
-		public String getGuiID() {
-			return "botania:crafting_halo";
-		}
-
-		@Nonnull
-		@Override
-		public ITextComponent getName() {
-			return new StringTextComponent(getGuiID());
-		}
-
-		@Override
-		public boolean hasCustomName() {
-			return false;
-		}
-
-		@Nullable
-		@Override
-		public ITextComponent getCustomName() {
-			return null;
-		}
 	}
 }

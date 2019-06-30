@@ -27,6 +27,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -311,7 +313,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		GlStateManager.scalef(1F, -1F, -1F);
 
 		RayTraceResult pos = mc.objectMouseOver;
-		if (!name.isEmpty() && pos != null && pos.getBlockPos() != null && potato.getPos().equals(pos.getBlockPos())) {
+		if (!name.isEmpty() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK
+				&& potato.getPos().equals(((BlockRayTraceResult) pos).getPos())) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translatef(0F, -0.6F, 0F);
 			GlStateManager.rotatef(-mc.getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);

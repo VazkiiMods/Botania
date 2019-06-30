@@ -22,8 +22,8 @@ import java.util.List;
 
 public class GuiButtonBack extends GuiButtonLexicon {
 
-	public GuiButtonBack(int id, int x, int y) {
-		super(id, x, y, 18, 9, "");
+	public GuiButtonBack(int x, int y) {
+		super(x, y, 18, 9, "");
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class GuiButtonBack extends GuiButtonLexicon {
 
 			Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
-			drawTexturedModalRect(x, y, 36, k == 2 ? 180 : 189, 18, 9);
+			blit(x, y, 36, k == 2 ? 180 : 189, 18, 9);
 
 			List<String> tooltip = getTooltip();
 			int tooltipY = (tooltip.size() - 1) * 10;

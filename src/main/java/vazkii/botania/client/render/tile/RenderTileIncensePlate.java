@@ -33,7 +33,7 @@ public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate>
 	@SuppressWarnings("deprecation")
 	@Override
 	public void render(@Nonnull TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
-		if(!plate.getWorld().isBlockLoaded(plate.getPos(), false)
+		if(!plate.getWorld().isBlockLoaded(plate.getPos())
 				|| plate.getWorld().getBlockState(plate.getPos()).getBlock() != ModBlocks.incensePlate)
 			return;
 

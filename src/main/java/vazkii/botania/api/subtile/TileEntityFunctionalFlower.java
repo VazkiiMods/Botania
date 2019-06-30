@@ -218,7 +218,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && linkedPool.hasWorld() && !linkedPool.isRemoved() && getWorld().isBlockLoaded(linkedPool.getPos(), false) && getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
+		return linkedPool != null
+				&& linkedPool.hasWorld()
+				&& !linkedPool.isRemoved()
+				&& getWorld().isBlockLoaded(linkedPool.getPos())
+				&& getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	@OnlyIn(Dist.CLIENT)

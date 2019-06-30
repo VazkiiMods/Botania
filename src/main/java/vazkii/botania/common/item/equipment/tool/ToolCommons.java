@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
@@ -138,7 +139,7 @@ public final class ToolCommons {
 	}
 
 	// [VanillaCopy] of Item.rayTrace, edits noted
-	public static RayTraceResult raytraceFromEntity(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode, double range) {
+	public static BlockRayTraceResult raytraceFromEntity(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode, double range) {
 		float f = player.rotationPitch;
 		float f1 = player.rotationYaw;
 		Vec3d vec3d = player.getEyePosition(1.0F);

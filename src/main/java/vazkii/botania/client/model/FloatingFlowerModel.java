@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -30,6 +31,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.data.IDynamicBakedModel;
@@ -60,8 +62,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class FloatingFlowerModel implements IDynamicBakedModel {
-
+	private final ModelBakery bakery;
 	private final Table<IFloatingFlower.IslandType, ResourceLocation, CompositeBakedModel> CACHE = HashBasedTable.create();
+
+	public FloatingFlowerModel(ModelBakery bakery) {
+		this.bakery = bakery;
+	}
 
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(DefaultVertexFormats.ITEM);
@@ -111,7 +117,8 @@ public class FloatingFlowerModel implements IDynamicBakedModel {
 			IBakedModel islandModel;
 			try {
 				islandModel = ModelLoaderRegistry.getModel(BotaniaAPIClient.getRegisteredIslandTypeModels().get(islandType))
-						.bake(ModelLoader.defaultModelGetter(), ModelLoader.defaultTextureGetter(), TRSRTransformation.identity(), false, DefaultVertexFormats.ITEM);
+						.bake(bakery, ModelLoader.defaultTextureGetter(),
+								new BasicState(TRSRTransformation.identity(), false), DefaultVertexFormats.ITEM);
 			} catch (Exception e) {
 				islandModel = modelManager.getMissingModel();
 			}

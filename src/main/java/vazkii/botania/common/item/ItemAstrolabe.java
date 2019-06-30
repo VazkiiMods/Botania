@@ -26,6 +26,7 @@ import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -184,16 +185,16 @@ public class ItemAstrolabe extends ItemMod {
 
 	public static List<BlockPos> getBlocksToPlace(ItemStack stack, PlayerEntity player) {
 		List<BlockPos> coords = new ArrayList<>();
-		RayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.SOURCE_ONLY, 5);
-		if(rtr != null) {
-			BlockPos pos = rtr.getBlockPos();
+		BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.SOURCE_ONLY, 5);
+		if(rtr.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos pos = rtr.getPos();
 			BlockState state = player.world.getBlockState(pos);
 			if(state.getMaterial().isReplaceable())
 				pos = pos.down();
 
 			int range = (getSize(stack) ^ 1) / 2;
 
-			Direction dir = rtr.sideHit;
+			Direction dir = rtr.getFace();
 			Direction rotationDir = Direction.fromAngle(player.rotationYaw);
 			
 			boolean pitchedVertically = player.rotationPitch > 70 || player.rotationPitch < -70;

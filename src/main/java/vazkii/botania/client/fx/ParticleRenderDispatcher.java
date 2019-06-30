@@ -14,6 +14,7 @@ package vazkii.botania.client.fx;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.profiler.IProfiler;
 import net.minecraft.profiler.Profiler;
 import org.lwjgl.opengl.GL11;
 
@@ -30,7 +31,7 @@ public final class ParticleRenderDispatcher {
 	public static void dispatch() {
 		Tessellator tessellator = Tessellator.getInstance();
 
-		Profiler profiler = Minecraft.getInstance().profiler;
+		IProfiler profiler = Minecraft.getInstance().getProfiler();
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.depthMask(false);

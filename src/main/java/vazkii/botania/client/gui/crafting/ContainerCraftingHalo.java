@@ -22,10 +22,15 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
+/* We don't need to register a new ContainerType and can just piggyback off vanilla's,
+ * because all we want to change is canInteractWith, which is only checked serverside.
+ * So on the server we have this container while the client will think it's just interacting
+ * with a normal WorkbenchContainer.
+ */
 public class ContainerCraftingHalo extends WorkbenchContainer {
 
-	public ContainerCraftingHalo(PlayerInventory playerInv, World world) {
-		super(playerInv, world, BlockPos.ORIGIN);
+	public ContainerCraftingHalo(int windowId, PlayerInventory playerInv) {
+		super(windowId, playerInv);
 	}
 
 	@Override
