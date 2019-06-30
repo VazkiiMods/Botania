@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -62,14 +63,14 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 					FurnaceTileEntity furnace = (FurnaceTileEntity) tile;
 					boolean canSmelt = canFurnaceSmelt(furnace);
 					if(canSmelt && mana > 2) {
-						if(furnace.getField(0) < 2) { // Field 0 -> Burn time
-							if(furnace.getField(0) == 0)
+						if(furnace.burnTime < 2) {
+							if(furnace.burnTime == 0)
 								getWorld().setBlockState(pos, state.with(BlockStateProperties.LIT, true));
-							furnace.setField(0, 200);
+							furnace.burnTime = 200;
 							mana = Math.max(0, mana - COST);
 						}
 						if(ticksExisted % 2 == 0)
-							furnace.setField(2, Math.min(199, furnace.getField(2) + 1)); // Field 2 -> cook time
+							furnace.cookTime = Math.min(199, furnace.cookTime + 1);
 
 						did = true;
 
@@ -99,7 +100,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 			sync();
 	}
 
-	public static boolean canFurnaceSmelt(FurnaceTileEntity furnace){
+	public static boolean canFurnaceSmelt(AbstractFurnaceTileEntity furnace){
 		if(furnace.getStackInSlot(0).isEmpty())
 			return false;
 		else {

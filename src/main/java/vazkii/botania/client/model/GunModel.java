@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -20,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
@@ -44,9 +46,11 @@ import java.util.stream.Collectors;
 
 public class GunModel implements IBakedModel {
 
+	private final ModelBakery bakery;
 	private final IBakedModel originalModel;
 
-	public GunModel(IBakedModel originalModel) {
+	public GunModel(ModelBakery bakery, IBakedModel originalModel) {
+		this.bakery = bakery;
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 	}
 
@@ -90,7 +94,7 @@ public class GunModel implements IBakedModel {
 	private final IdentityHashMap<IUnbakedModel, CompositeBakedModel> cache = new IdentityHashMap<>();
 
 	private CompositeBakedModel getModel(IUnbakedModel lens) {
-		return cache.computeIfAbsent(lens, l -> new CompositeBakedModel(l, originalModel));
+		return cache.computeIfAbsent(lens, l -> new CompositeBakedModel(bakery, l, originalModel));
 	}
 
 	private static class CompositeBakedModel implements IBakedModel {
@@ -99,11 +103,11 @@ public class GunModel implements IBakedModel {
 		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
-		CompositeBakedModel(IUnbakedModel lensUnbaked, IBakedModel gun) {
+		CompositeBakedModel(ModelBakery bakery, IUnbakedModel lensUnbaked, IBakedModel gun) {
 			this.gun = gun;
 
 			final TRSRTransformation transform = new TRSRTransformation(new Vector3f(-0.2F, 0.4F, 0.8F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0), new Vector3f(0.625F, 0.625F, 0.625F), null);
-			IBakedModel lens = lensUnbaked.bake(ModelLoader.defaultModelGetter(), ModelLoader.defaultTextureGetter(), transform, false, DefaultVertexFormats.ITEM);
+			IBakedModel lens = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), new BasicState(transform, false), DefaultVertexFormats.ITEM);
 
 			for(Direction e : Direction.values())
 				faceQuads.put(e, new ArrayList<>());

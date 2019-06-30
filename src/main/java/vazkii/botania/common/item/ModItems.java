@@ -10,7 +10,10 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Food;
 import net.minecraft.item.Items;
@@ -19,18 +22,25 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.client.gui.bag.ContainerFlowerBag;
+import vazkii.botania.client.gui.bag.GuiFlowerBag;
+import vazkii.botania.client.gui.box.ContainerBaubleBox;
+import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.block.ModBlocks;
@@ -709,6 +719,19 @@ public final class ModItems {
 		r.register(PhantomInkRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "phantom_ink_apply")));
 		r.register(SpellClothRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "spell_cloth_apply")));
 		r.register(TerraPickTippingRecipe.SERIALIZER.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
+	}
+
+	@SubscribeEvent
+	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> evt) {
+		IForgeRegistry<ContainerType<?>> r = evt.getRegistry();
+
+		ContainerType<ContainerFlowerBag> bag = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
+		register(r, bag, flowerBag.getRegistryName());
+		ScreenManager.registerFactory(bag, GuiFlowerBag::new);
+
+		ContainerType<ContainerBaubleBox> box = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
+		register(r, box, baubleBox.getRegistryName());
+		ScreenManager.registerFactory(box, GuiBaubleBox::new);
 	}
 
 

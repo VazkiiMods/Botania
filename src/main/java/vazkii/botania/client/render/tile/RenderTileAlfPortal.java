@@ -31,7 +31,7 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 
 	@Override
 	public void render(@Nonnull TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress) {
-		if (!portal.getWorld().isBlockLoaded(portal.getPos(), false)
+		if (!portal.getWorld().isBlockLoaded(portal.getPos())
 				|| portal.getWorld().getBlockState(portal.getPos()).getBlock() != ModBlocks.alfPortal)
 			return;
 

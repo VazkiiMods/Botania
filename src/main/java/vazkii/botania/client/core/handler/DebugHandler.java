@@ -26,6 +26,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -64,15 +65,13 @@ public final class DebugHandler {
 			if (Minecraft.getInstance().isSingleplayer()) {
 				DimensionType dim = Minecraft.getInstance().world.getDimension().getType();
 				ResourceLocation dimName = Registry.DIMENSION_TYPE.getKey(dim);
-				UUID id = Minecraft.getInstance().player.getUniqueID();
-				Entity ent = Minecraft.getInstance().getIntegratedServer().getWorld(dim).getEntityFromUuid(id);
-				if (ent != null) {
-					World serverWorld = ent.world;
-					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
+				if (ServerLifecycleHooks.getCurrentServer() != null) {
+					World serverWorld = ServerLifecycleHooks.getCurrentServer().getWorld(dim);
+					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
 
-			if(Screen.isCtrlKeyDown() && Screen.isShiftKeyDown()) {
+			if(Screen.hasControlDown() && Screen.hasShiftDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
 				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
 				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.CLIENT.glSecondaryTextureUnit.get());

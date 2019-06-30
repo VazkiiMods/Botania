@@ -11,7 +11,9 @@
 package vazkii.botania.client.fx;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -26,6 +28,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -116,13 +119,13 @@ public class FXSparkle extends Particle {
 	}
 
 	@Override
-	public void renderParticle(BufferBuilder worldRendererIn, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-		this.f = f;
-		this.f1 = f1;
-		this.f2 = f2;
-		this.f3 = f3;
-		this.f4 = f4;
-		this.f5 = f5;
+	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+		this.f = partialTicks;
+		this.f1 = rotationX;
+		this.f2 = rotationZ;
+		this.f3 = rotationYZ;
+		this.f4 = rotationXY;
+		this.f5 = rotationXZ;
 
 		if(corrupt)
 			queuedCorruptRenders.add(this);
@@ -158,6 +161,12 @@ public class FXSparkle extends Particle {
 
 		if(fake && age > 1)
 			setExpired();
+	}
+
+	@Nonnull
+	@Override
+	public IParticleRenderType getRenderType() {
+		return IParticleRenderType.NO_RENDER;
 	}
 
 	public void setGravity(float value) {

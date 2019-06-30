@@ -155,14 +155,14 @@ public class ClientProxy implements IProxy {
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler(render));
 		if(Botania.curiosLoaded)
-			render.addLayer(new BaubleRenderHandler());
+			render.addLayer(new BaubleRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
 		render.addLayer(new LayerGaiaHead(render, render.getEntityModel().bipedHead));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler(render));
 		if(Botania.curiosLoaded)
-			render.addLayer(new BaubleRenderHandler());
+			render.addLayer(new BaubleRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
 		render.addLayer(new LayerGaiaHead(render, render.getEntityModel().bipedHead));
 	}

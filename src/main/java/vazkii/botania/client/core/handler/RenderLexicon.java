@@ -108,7 +108,7 @@ public class RenderLexicon {
 
 		pageFlip = pageFlipTicks / 5F;
 
-		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
+		model.func_217103_a(0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 		if(ticks < 3) {
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
 			GlStateManager.rotatef(180F, 0F, 0F, 1F);

@@ -82,7 +82,7 @@ public class MiscellaneousIcons {
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
 		// Floating flowers
-		FloatingFlowerModel model = new FloatingFlowerModel();
+		FloatingFlowerModel model = new FloatingFlowerModel(evt.getModelLoader());
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:mini_island", "normal"), model);
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:mini_island", "inventory"), model);
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:floating_special_flower", "normal"), model);
@@ -113,12 +113,12 @@ public class MiscellaneousIcons {
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
 		IBakedModel originalModel = evt.getModelRegistry().get(key);
-		evt.getModelRegistry().put(key, new GunModel(originalModel));
+		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel));
 
 		// same as lexicon, reach into all json overrides and wrap them
 		for (int i = 0; i < originalModel.getOverrides().overrideBakedModels.size(); i++) {
 			Botania.LOGGER.info("wrapping {}", i);
-			originalModel.getOverrides().overrideBakedModels.set(i, new GunModel(originalModel.getOverrides().overrideBakedModels.get(i)));
+			originalModel.getOverrides().overrideBakedModels.set(i, new GunModel(evt.getModelLoader(), originalModel.getOverrides().overrideBakedModels.get(i)));
 		}
 	}
 	

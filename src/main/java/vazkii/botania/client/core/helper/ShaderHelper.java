@@ -127,7 +127,7 @@ public final class ShaderHelper {
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.CLIENT.useShaders.get() && GLX.shadersSupported && checkIncompatibleMods();
+		return ConfigHandler.CLIENT.useShaders.get() && GLX.hasShaders && checkIncompatibleMods();
 	}
 	
 	private static boolean checkIncompatibleMods() {

@@ -195,7 +195,7 @@ public final class RenderHelper {
 		Minecraft mc = Minecraft.getInstance();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 
-		GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
+		GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
 		GlStateManager.colorMask(false, false, false, false);
 		GlStateManager.depthMask(false);
@@ -244,7 +244,7 @@ public final class RenderHelper {
 		KeyBinding[] keys = Minecraft.getInstance().gameSettings.keyBindings;
 		for(KeyBinding otherKey : keys)
 			if(otherKey.getKeyDescription().equals(keyName)) {
-				key = otherKey.func_197978_k();
+				key = otherKey.getLocalizedName();
 				break;
 			}
 

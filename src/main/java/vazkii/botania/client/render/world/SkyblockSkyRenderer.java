@@ -52,7 +52,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 
 		// Begin
 		GlStateManager.disableTexture();
-		Vec3d vec3d = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
+		Vec3d vec3d = world.func_217382_a(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
 		float f = (float)vec3d.x;
 		float f1 = (float)vec3d.y;
 		float f2 = (float)vec3d.z;

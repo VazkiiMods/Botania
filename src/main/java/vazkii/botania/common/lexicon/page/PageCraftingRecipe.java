@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
@@ -77,7 +78,8 @@ public class PageCraftingRecipe extends PageRecipe {
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		shapelessRecipe = false;
 
-		IRecipe recipe = Minecraft.getInstance().world.getRecipeManager().getRecipe(recipes.get(recipeAt));
+		ResourceLocation recipeId = recipes.get(recipeAt);
+		IRecipe recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(IRecipeType.CRAFTING).get(recipeId);
 		renderCraftingRecipe(gui, recipe);
 
 		TextureManager render = Minecraft.getInstance().textureManager;

@@ -23,18 +23,19 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.List;
 
-public class GuiFlowerBag extends ContainerScreen {
+public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_FLOWER_BAG);
 
-	public GuiFlowerBag(PlayerInventory playerInv, InventoryFlowerBag flowerBagInv) {
-		super(new ContainerFlowerBag(playerInv, flowerBagInv));
+	public GuiFlowerBag(ContainerFlowerBag container, PlayerInventory playerInv, ITextComponent title) {
+		super(container, playerInv, title);
 	}
 
 	@Override

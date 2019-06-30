@@ -28,7 +28,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190621-1.14.2'
+    mappings channel: 'snapshot', version: '20190630-1.14.3'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -87,7 +87,7 @@ configurations {
 //End of the SCP config
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.2-26.0.43'
+    minecraft 'net.minecraftforge:forge:1.14.3-27.0.16'
 
     //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

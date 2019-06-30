@@ -28,6 +28,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -41,6 +43,8 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
 	private static final VoxelShape SLAB = makeCuboidShape(0, 0, 0, 16, 8, 16);
@@ -67,27 +71,14 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return REAL_SHAPE;
 	}
 
-	// If harvesting, delay setting block to air so getDrops can read the TE
 	@Override
-	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid) {
-		if (willHarvest)
-			return true;
-		return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
-	}
-
-	@Override
-	public void getDrops(BlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof TilePool && !((TilePool) te).fragile) {
-			super.getDrops(state, drops, world, pos, fortune);
+	public List<ItemStack> getDrops(@Nonnull BlockState state, LootContext.Builder builder) {
+		if (builder.get(LootParameters.BLOCK_ENTITY) instanceof TilePool
+			&& ((TilePool) builder.get(LootParameters.BLOCK_ENTITY)).fragile) {
+			return Collections.emptyList();
+		} else {
+			return super.getDrops(state, builder);
 		}
-	}
-
-	// After getDrops reads the TE, then delete the block
-	@Override
-	public void harvestBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack tool) {
-		super.harvestBlock(world, player, pos, state, te, tool);
-		world.removeBlock(pos);
 	}
 
 	@Override
@@ -108,11 +99,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 			if(tile.collideEntityItem((ItemEntity) entity))
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
-	}
-
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
 	}
 
 	@Nonnull

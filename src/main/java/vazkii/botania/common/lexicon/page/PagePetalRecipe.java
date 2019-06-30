@@ -72,7 +72,11 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Ingredient> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get() ? Screen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
+		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get()
+				? Screen.hasShiftDown()
+					? ticksElapsed
+					: ticksElapsed + ClientTickHandler.partialTicks
+				: 0;
 		int inputIndex = ticksElapsed / 40;
 
 		for(Ingredient input : inputs) {
@@ -93,7 +97,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		((Screen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
+		((Screen) gui).blit(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 	}
 
@@ -119,7 +123,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
-		if(Screen.isShiftKeyDown())
+		if(Screen.hasShiftDown())
 			return;
 
 		if(ticksElapsed % 20 == 0) {

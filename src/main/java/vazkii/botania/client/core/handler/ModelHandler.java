@@ -30,7 +30,6 @@ import vazkii.botania.client.render.entity.RenderManaStorm;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
-import vazkii.botania.client.render.entity.RenderSnowballStack;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModBlocks;
@@ -102,10 +101,9 @@ public final class ModelHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, RenderManaStorm::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getInstance().getItemRenderer(),
-				entity -> entity.isFire() ? new ItemStack(ModItems.flareChakram) : new ItemStack(ModItems.thornChakram)));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new SpriteRenderer<>(renderManager, ModItems.vineBall, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new SpriteRenderer<>(renderManager, ModItems.enderAirBottle, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.manaPylon, renderTilePylon);
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.naturaPylon, renderTilePylon);

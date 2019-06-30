@@ -14,15 +14,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -31,7 +34,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntityEnderAirBottle extends ThrowableEntity {
+public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsItem {
 	@ObjectHolder(LibMisc.MOD_ID + ":ender_air_bottle")
 	public static EntityType<EntityEnderAirBottle> TYPE;
 
@@ -78,4 +81,10 @@ public class EntityEnderAirBottle extends ThrowableEntity {
 
 	@Override
 	protected void registerData() {}
+
+	@Nonnull
+	@Override
+	public ItemStack getItem() {
+		return new ItemStack(ModItems.enderAirBottle);
+	}
 }

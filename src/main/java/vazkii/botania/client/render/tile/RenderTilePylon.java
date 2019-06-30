@@ -59,7 +59,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
-		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || !(pylon.getBlockState().getBlock() instanceof BlockPylon))
+		if(!pylon.getWorld().isBlockLoaded(pylon.getPos()) || !(pylon.getBlockState().getBlock() instanceof BlockPylon))
 			return;
 
 		renderPylon(pylon, d0, d1, d2, pticks);

@@ -51,7 +51,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 		GlStateManager.scalef(s, s, s);
 
 		if(model == null)
-			model = new ModelBiped();
+			model = new BipedModel();
 
 		model.bipedBody.render(1F);
 	}

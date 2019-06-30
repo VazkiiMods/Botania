@@ -38,7 +38,7 @@ public interface IManaProficiencyArmor {
 			boolean proficient = false;
 			
 			for(EquipmentSlotType e: EquipmentSlotType.values()) {
-				if(e.getSlotType() != EquipmentSlotType.Type.ARMOR)
+				if(e.getSlotType() != EquipmentSlotType.Group.ARMOR)
 					continue;
 				ItemStack armor = player.getItemStackFromSlot(e);
 				if(!armor.isEmpty()) {

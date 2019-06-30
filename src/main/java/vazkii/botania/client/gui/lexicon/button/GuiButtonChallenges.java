@@ -41,7 +41,7 @@ public class GuiButtonChallenges extends GuiButtonLexicon {
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, k == 2 ? 131 : 120, 180, 11, 11);
+		blit(x, y, k == 2 ? 131 : 120, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.challenges"));

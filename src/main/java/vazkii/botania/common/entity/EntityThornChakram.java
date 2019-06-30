@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
@@ -41,7 +42,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class EntityThornChakram extends ThrowableEntity {
+public class EntityThornChakram extends ThrowableEntity implements IRendersAsItem {
 	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram")
 	public static EntityType<EntityThornChakram> TYPE;
 
@@ -230,4 +231,9 @@ public class EntityThornChakram extends ThrowableEntity {
 		setFire(compound.getBoolean("flare"));
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack getItem() {
+		return stack;
+	}
 }

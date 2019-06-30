@@ -85,7 +85,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 		for(Direction dir : Direction.values()) {
 			List<ItemFrameEntity> frames = world.getEntitiesWithinAABB(ItemFrameEntity.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(ItemFrameEntity frame : frames) {
-				Direction orientation = frame.facingDirection;
+				Direction orientation = frame.getHorizontalFacing();
 				if(orientation == dir)
 					filter.add(frame.getDisplayedItem());
 			}

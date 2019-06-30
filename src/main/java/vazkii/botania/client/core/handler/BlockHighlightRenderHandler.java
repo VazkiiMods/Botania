@@ -19,6 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,8 +56,8 @@ public final class BlockHighlightRenderHandler {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		boundTile: {
-			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.entity == null) {
-				BlockPos bPos = pos.getBlockPos();
+			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
+				BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
 
 				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
 				if(!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
@@ -81,7 +83,7 @@ public final class BlockHighlightRenderHandler {
 		}
 
 		double offY = -1.0 / 16 + 0.005;
-		for(Entity e : mc.world.loadedEntityList)
+		for(Entity e : mc.world.func_217416_b())
 			if(e instanceof EntityMagicLandmine) {
 				BlockPos bpos = e.getPosition();
 				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).grow(2.5, 0, 2.5);

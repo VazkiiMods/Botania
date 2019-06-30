@@ -10,26 +10,29 @@
  */
 package vazkii.botania.client.gui.box;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import vazkii.botania.client.lib.LibResources;
 
-public class GuiBaubleBox extends ContainerScreen {
+public class GuiBaubleBox extends ContainerScreen<ContainerBaubleBox> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
 
-	public GuiBaubleBox(PlayerEntity player, InventoryBaubleBox box) {
-		super(new ContainerBaubleBox(player, box));
+	public GuiBaubleBox(ContainerBaubleBox container, PlayerInventory player, ITextComponent title) {
+		super(container, player, title);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		this.renderBackground();
 		super.render(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
 	}
@@ -37,13 +40,13 @@ public class GuiBaubleBox extends ContainerScreen {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.getTextureManager().bindTexture(texture);
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+		Minecraft.getInstance().getTextureManager().bindTexture(texture);
+		blit(guiLeft, guiTop, 0, 0, xSize, ySize);
 
 		for(int i1 = 0; i1 < 7; ++i1) {
-			Slot slot = inventorySlots.inventorySlots.get(i1);
+			Slot slot = container.inventorySlots.get(i1);
 			if(slot.getHasStack() && slot.getSlotStackLimit() == 1)
-				drawTexturedModalRect(guiLeft+slot.xPos, guiTop+slot.yPos, 200, 0, 16, 16);
+				blit(guiLeft+slot.xPos, guiTop+slot.yPos, 200, 0, 16, 16);
 		}
 	}
 

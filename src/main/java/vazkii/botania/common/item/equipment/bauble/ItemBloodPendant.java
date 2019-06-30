@@ -25,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemGroup;
@@ -84,7 +85,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		list.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		for(EffectInstance effect : brew.getPotionEffects(stack)) {
-			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
+			TextFormatting format = effect.getPotion().type.func_220306_a();
 			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {
 				cmp.appendText(" ");

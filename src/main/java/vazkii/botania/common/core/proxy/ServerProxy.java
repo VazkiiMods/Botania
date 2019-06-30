@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -55,7 +56,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
+	public boolean openWikiPage(World world, Block block, BlockRayTraceResult pos) {
 		return false;
 	}
 

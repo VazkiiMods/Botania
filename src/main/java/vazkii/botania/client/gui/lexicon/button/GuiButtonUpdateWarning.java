@@ -37,7 +37,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		super.onClick(mouseX, mouseY);
-		if(Screen.isShiftKeyDown()) {
+		if(Screen.hasShiftDown()) {
 			try {
 				if(Desktop.isDesktopSupported())
 					Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PersistentVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));
@@ -64,7 +64,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, red ? 153 : 142, 180, 11, 11);
+		blit(x, y, red ? 153 : 142, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		String version = PersistentVariableHelper.lastBotaniaVersion;

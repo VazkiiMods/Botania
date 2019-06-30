@@ -187,7 +187,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
 			List<ItemFrameEntity> frames = getWorld().getEntitiesWithinAABB(ItemFrameEntity.class, aabb);
 			for(ItemFrameEntity frame : frames) {
-				if(frame.facingDirection == dir)
+				if(frame.getHorizontalFacing() == dir)
 					filter.add(frame.getDisplayedItem());
 			}
 		}

@@ -70,7 +70,7 @@ public final class ClientTickHandler {
 			}
 
 			Screen gui = Minecraft.getInstance().currentScreen;
-			if(gui == null || !gui.doesGuiPauseGame()) {
+			if(gui == null || !gui.isPauseScreen()) {
 				ticksInGame++;
 				partialTicks = 0;
 

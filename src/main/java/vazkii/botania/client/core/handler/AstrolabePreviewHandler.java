@@ -41,8 +41,7 @@ public final class AstrolabePreviewHandler {
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
-		List<PlayerEntity> playerEntities = world.playerEntities;
-		for (PlayerEntity player : playerEntities) {
+		for (PlayerEntity player : world.getPlayers()) {
 			ItemStack currentStack = player.getHeldItemMainhand();
 			if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe))
 				currentStack = player.getHeldItemOffhand();

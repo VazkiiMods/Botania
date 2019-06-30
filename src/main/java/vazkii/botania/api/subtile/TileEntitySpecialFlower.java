@@ -39,6 +39,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.EmptyModelData;
@@ -247,7 +248,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	/**
 	 * Allows additional processing of sub tile drops
 	 */
-	public List<ItemStack> getDrops(List<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
 		return list;
 	}
 

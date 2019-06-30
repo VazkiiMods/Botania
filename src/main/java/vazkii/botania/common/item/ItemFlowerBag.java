@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.play.server.SCollectItemPacket;
@@ -39,7 +40,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -143,7 +143,7 @@ public class ItemFlowerBag extends ItemMod {
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		if(!world.isRemote) {
 			NetworkHooks.openGui((ServerPlayerEntity) player, new ContainerProvider(player.getHeldItem(hand)), buf -> {
-				buf.writeBoolean(hand == Hand.OFF_HAND);
+				buf.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
 		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
@@ -180,7 +180,7 @@ public class ItemFlowerBag extends ItemMod {
 		return ActionResultType.PASS;
 	}
 
-	private static class ContainerProvider implements IInteractionObject {
+	private static class ContainerProvider implements INamedContainerProvider {
 		private final ItemStack stack;
 
 		private ContainerProvider(ItemStack stack) {
@@ -189,31 +189,14 @@ public class ItemFlowerBag extends ItemMod {
 
 		@Nonnull
 		@Override
-		public Container createContainer(@Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
-			return new ContainerFlowerBag(playerInventory, new InventoryFlowerBag(stack));
-		}
-
-		@Nonnull
-		@Override
-		public String getGuiID() {
-			return "botania:flower_bag";
-		}
-
-		@Nonnull
-		@Override
-		public ITextComponent getName() {
-			return new StringTextComponent(getGuiID());
-		}
-
-		@Override
-		public boolean hasCustomName() {
-			return false;
+		public ITextComponent getDisplayName() {
+			return stack.getDisplayName();
 		}
 
 		@Nullable
 		@Override
-		public ITextComponent getCustomName() {
-			return null;
+		public Container createMenu(int windowId, PlayerInventory playerInv, PlayerEntity player) {
+			return new ContainerFlowerBag(windowId, playerInv, stack);
 		}
 	}
 

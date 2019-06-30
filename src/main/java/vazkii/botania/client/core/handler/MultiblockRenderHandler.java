@@ -19,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -80,9 +81,9 @@ public final class MultiblockRenderHandler {
 		}
 	}
 
-	private static void renderPlayerLook(PlayerEntity player, RayTraceResult src) {
+	private static void renderPlayerLook(PlayerEntity player, BlockRayTraceResult src) {
 		if(currentMultiblock != null && dimension == player.world.getDimension().getType()) {
-			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
+			BlockPos anchorPos = anchor != null ? anchor : src.getPos();
 
 			GlStateManager.pushMatrix();
 			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);

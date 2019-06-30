@@ -36,7 +36,7 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 				modified = true;
 			}
 		} else {
-			if(Screen.isShiftKeyDown()) {
+			if(Screen.hasShiftDown()) {
 				GuiLexicon.bookmarks.remove(i);
 				GuiLexicon.bookmarkKeys.remove(i);
 

@@ -81,10 +81,10 @@ public final class TooltipAdditionDisplayHandler {
 				int x = tooltipX - 34;
 				GlStateManager.disableDepthTest();
 
-				AbstractGui.drawRect(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
-				AbstractGui.drawRect(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
+				AbstractGui.fill(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
+				AbstractGui.fill(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
 
-				if(ConfigHandler.CLIENT.useShiftForQuickLookup.get() ? Screen.isShiftKeyDown() : Screen.isCtrlKeyDown()) {
+				if(ConfigHandler.CLIENT.useShiftForQuickLookup.get() ? Screen.hasShiftDown() : Screen.hasControlDown()) {
 					lexiconLookupTime += ClientTickHandler.delta;
 
 					int cx = x + 8;
@@ -154,10 +154,10 @@ public final class TooltipAdditionDisplayHandler {
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
 		GlStateManager.disableDepthTest();
-		AbstractGui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for(int i = 0; i < rainbowWidth; i++)
-			AbstractGui.drawRect(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
-		AbstractGui.drawRect(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
+		AbstractGui.fill(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
@@ -178,9 +178,9 @@ public final class TooltipAdditionDisplayHandler {
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
 		GlStateManager.disableDepthTest();
-		AbstractGui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
-		AbstractGui.drawRect(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
-		AbstractGui.drawRect(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.fill(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		AbstractGui.fill(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
 }

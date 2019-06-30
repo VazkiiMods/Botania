@@ -23,10 +23,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameters;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileCacophonium;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class BlockCacophonium extends BlockMod {
 
@@ -46,7 +49,7 @@ public class BlockCacophonium extends BlockMod {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
 
@@ -59,34 +62,17 @@ public class BlockCacophonium extends BlockMod {
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
 	}
 
+	@Nonnull
 	@Override
-	public boolean removedByPlayer(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, boolean willHarvest, IFluidState fluid) {
-		if (willHarvest) {
-			// Copy of super.removedByPlayer but don't set to air yet
-			// This is so getDrops below will have a TE to work with
-			onBlockHarvested(world, pos, state, player);
-			return true;
-		} else {
-			return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
-		}
-	}
-
-	@Override
-	public void harvestBlock(@Nonnull World world, PlayerEntity player, @Nonnull BlockPos pos, @Nonnull BlockState state, TileEntity te, ItemStack stack) {
-		super.harvestBlock(world, player, pos, state, te, stack);
-		// Now delete the block and TE
-		world.removeBlock(pos);
-	}
-
-	@Override
-	public void getDrops(@Nonnull BlockState state, NonNullList<ItemStack> stacks, World world, BlockPos pos, int fortune) {
-		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null && tile instanceof TileCacophonium) {
-			stacks.add(new ItemStack(Blocks.NOTE_BLOCK));
-			ItemStack thingy = ((TileCacophonium) tile).stack;
+	public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
+		List<ItemStack> stacks = super.getDrops(state, builder);
+		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
+		if(te instanceof TileCacophonium) {
+			ItemStack thingy = ((TileCacophonium) te).stack;
 			if(!thingy.isEmpty())
 				stacks.add(thingy.copy());
 		}
+		return stacks;
 	}
 
 	@Override

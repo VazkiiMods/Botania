@@ -16,6 +16,7 @@ import net.minecraft.client.gui.screen.Screen;
 public class GuiBotaniaConfig extends /*GuiConfig*/ Screen {
 
 	public GuiBotaniaConfig(Screen parentScreen) {
+		super(parentScreen.getTitle());
 		// super(parentScreen, new ConfigElement(ConfigHandler.config.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(), LibMisc.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigHandler.config.toString()));
 	}
 

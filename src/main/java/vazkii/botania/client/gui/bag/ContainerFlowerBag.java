@@ -15,24 +15,37 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.Hand;
 import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
 public class ContainerFlowerBag extends Container {
+	@ObjectHolder("botania:" + LibItemNames.FLOWER_BAG)
+	public static ContainerType<ContainerFlowerBag> TYPE;
+
+	public static ContainerFlowerBag fromNetwork(int windowId, PlayerInventory inv, PacketBuffer buf) {
+		Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
+		return new ContainerFlowerBag(windowId, inv, inv.player.getHeldItem(hand));
+	}
 
 	private final InventoryFlowerBag flowerBagInv;
 
-	public ContainerFlowerBag(PlayerInventory playerInv, InventoryFlowerBag flowerBagInv) {
+	public ContainerFlowerBag(int windowId, PlayerInventory playerInv, ItemStack bag) {
+		super(TYPE, windowId);
 		int i;
 		int j;
 
-		this.flowerBagInv = flowerBagInv;
+		this.flowerBagInv = new InventoryFlowerBag(bag);
 
 		for(i = 0; i < 2; ++i)
 			for(j = 0; j < 8; ++j) {

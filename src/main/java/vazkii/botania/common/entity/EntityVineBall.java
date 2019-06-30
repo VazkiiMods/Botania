@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -40,7 +41,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class EntityVineBall extends ThrowableEntity {
+public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball")
 	public static EntityType<EntityVineBall> TYPE;
 
@@ -113,4 +114,9 @@ public class EntityVineBall extends ThrowableEntity {
 		return dataManager.get(GRAVITY);
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack getItem() {
+		return new ItemStack(ModItems.vineBall);
+	}
 }

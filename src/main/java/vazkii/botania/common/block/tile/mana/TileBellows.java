@@ -15,6 +15,7 @@ import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.nbt.CompoundNBT;
@@ -74,14 +75,15 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 			if(moving == 0F)
 				world.playSound(null, pos, ModSounds.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
 
-			if(tile instanceof FurnaceTileEntity) {
-				FurnaceTileEntity furnace = (FurnaceTileEntity) tile;
+			if(tile instanceof AbstractFurnaceTileEntity) {
+				AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) tile;
 				if(SubTileExoflame.canFurnaceSmelt(furnace)) {
-					furnace.setField(2, Math.min(199, furnace.getField(2) + 20)); // cookTime
-					furnace.setField(0, Math.max(0, furnace.getField(0) - 10)); // burnTime
+					furnace.cookTime = Math.min(199, furnace.cookTime + 20);
+					furnace.burnTime = Math.max(0, furnace.burnTime - 10);
 				}
 
-				if(furnace.hasWorld() && furnace.getBlockState().get(FurnaceBlock.LIT)) {
+				if(furnace instanceof FurnaceTileEntity
+					&& furnace.hasWorld() && furnace.getBlockState().get(FurnaceBlock.LIT)) {
 					// [VanillaCopy] BlockFurnace
 					double d0 = (double)pos.getX() + 0.5D;
 					double d1 = (double)pos.getY();

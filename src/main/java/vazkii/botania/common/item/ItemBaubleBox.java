@@ -10,33 +10,29 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.lib.LibGuiIDs;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.client.gui.box.ContainerBaubleBox;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -91,8 +87,32 @@ public class ItemBaubleBox extends ItemMod {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		// todo 1.13 player.openGui(Botania.instance, LibGuiIDs.BAUBLE_BOX, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+		if(!world.isRemote) {
+			NetworkHooks.openGui((ServerPlayerEntity) player, new ContainerProvider(player.getHeldItem(hand)), b -> {
+				b.writeBoolean(hand == Hand.MAIN_HAND);
+			});
+		}
 		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+	}
+
+	private static class ContainerProvider implements INamedContainerProvider {
+		private final ItemStack stack;
+
+		private ContainerProvider(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		@Nonnull
+		@Override
+		public ITextComponent getDisplayName() {
+			return stack.getDisplayName();
+		}
+
+		@Nullable
+		@Override
+		public Container createMenu(int windowId, PlayerInventory playerInv, PlayerEntity player) {
+			return new ContainerBaubleBox(windowId, playerInv, stack);
+		}
 	}
 
 }

@@ -45,7 +45,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 	@Override
 	public void render(@Nullable TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
-		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos(), false)
+		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
 				|| !(pool.getBlockState().getBlock() instanceof BlockPool)))
 			return;
 

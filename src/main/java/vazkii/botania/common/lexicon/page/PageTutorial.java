@@ -37,29 +37,21 @@ public class PageTutorial extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		buttonText = new Button(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialText")) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				GuiLexicon.startTutorial();
-				Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
-				Minecraft.getInstance().player.sendMessage(new TranslationTextComponent("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
-			}
-		};
+		buttonText = new Button(gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialText"), b -> {
+			GuiLexicon.startTutorial();
+			Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
+			Minecraft.getInstance().player.sendMessage(new TranslationTextComponent("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
+		});
 		if(VIDEO_ENABLED)
-			buttonVideo = new Button(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialVideo")) {
-				@Override
-				public void onClick(double mouseX, double mouseY) {
-					super.onClick(mouseX, mouseY);
-					if(Desktop.isDesktopSupported()) {
-						try {
-							Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=D75Aad-5QgQ"));
-						} catch(Exception e) {
-							e.printStackTrace();
-						}
+			buttonVideo = new Button(gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialVideo"), b -> {
+				if(Desktop.isDesktopSupported()) {
+					try {
+						Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=D75Aad-5QgQ"));
+					} catch(Exception e) {
+						e.printStackTrace();
 					}
 				}
-			};
+			});
 
 		gui.getButtonList().add(buttonText);
 		if(VIDEO_ENABLED)
@@ -78,6 +70,6 @@ public class PageTutorial extends PageText {
 		super.renderScreen(gui, mx, my);
 
 		if(!VIDEO_ENABLED)
-			PageText.renderText(buttonText.x + buttonText.width + 4, buttonText.y - 14, 65, 100, "botaniamisc.noVideo");
+			PageText.renderText(buttonText.x + buttonText.getWidth() + 4, buttonText.y - 14, 65, 100, "botaniamisc.noVideo");
 	}
 }

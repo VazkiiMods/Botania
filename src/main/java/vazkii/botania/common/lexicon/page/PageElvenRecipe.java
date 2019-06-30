@@ -57,7 +57,7 @@ public class PageElvenRecipe extends PageRecipe {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		((Screen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
+		((Screen) gui).blit(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 
 		List<ItemStack> outputs = recipe.getOutputs();
@@ -74,7 +74,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 		TextureAtlasSprite portalIcon = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		((Screen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
+		((Screen) gui).blit(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -103,7 +103,7 @@ public class PageElvenRecipe extends PageRecipe {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
-		if(Screen.isShiftKeyDown())
+		if(Screen.hasShiftDown())
 			return;
 
 		if(ticksElapsed % 20 == 0) {

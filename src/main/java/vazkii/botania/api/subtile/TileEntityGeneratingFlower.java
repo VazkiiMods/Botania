@@ -31,6 +31,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -118,11 +119,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				BlockState state = getWorld().getBlockState(getPos());
-				getWorld().playEvent(2001, getPos(), Block.getStateId(state));
+				getWorld().destroyBlock(getPos(), false);
 				if(Blocks.DEAD_BUSH.getDefaultState().isValidPosition(getWorld(), getPos()))
 					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
-				else getWorld().removeBlock(getPos());
 			}
 		}
 
@@ -203,7 +202,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(List<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
 		List<ItemStack> drops = super.getDrops(list);
 		populateDropStackNBTs(drops);
 		return drops;

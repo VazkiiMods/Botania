@@ -30,19 +30,16 @@ public class PageGuide extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		button = new Button(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, I18n.format("botaniamisc.playVideo")) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				if(Desktop.isDesktopSupported()) {
-					try {
-						Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));
-						if(Math.random() < 0.01)
-							Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-					} catch(IOException | URISyntaxException ignored) { }
-				}
+		button = new Button(gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, I18n.format("botaniamisc.playVideo"),
+		b -> {
+			if(Desktop.isDesktopSupported()) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));
+					if(Math.random() < 0.01)
+						Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+				} catch(IOException | URISyntaxException ignored) { }
 			}
-		};
+		});
 		gui.getButtonList().add(button);
 	}
 

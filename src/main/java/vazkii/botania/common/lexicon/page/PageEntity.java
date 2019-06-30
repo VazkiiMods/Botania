@@ -48,7 +48,7 @@ public class PageEntity extends LexiconPage{
 		int text_y = gui.getTop() + gui.getHeight() - 40;
 		int entity_scale = getEntityScale(size);
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
-		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor(dummyEntity.height * entity_scale / 2);
+		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor(dummyEntity.getHeight() * entity_scale / 2);
 
 		renderEntity(gui, dummyEntity, entity_x, entity_y, entity_scale, dummyEntity.ticksExisted * 2);
 
@@ -57,10 +57,10 @@ public class PageEntity extends LexiconPage{
 
 	@OnlyIn(Dist.CLIENT)
 	public int getEntityScale(int targetSize) {
-		float entity_size = dummyEntity.width;
+		float entity_size = dummyEntity.getWidth();
 
-		if(dummyEntity.width < dummyEntity.height)
-			entity_size = dummyEntity.height;
+		if(dummyEntity.getWidth() < dummyEntity.getHeight())
+			entity_size = dummyEntity.getHeight();
 
 		return MathHelper.floor(size / entity_size);
 
@@ -92,7 +92,7 @@ public class PageEntity extends LexiconPage{
 		GlStateManager.disableTexture();
 		GLX.glActiveTexture(GLX.GL_TEXTURE0);
 
-		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
+		if(relativeMouseX >= x - dummyEntity.getWidth() * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.getHeight() * scale - 20 && relativeMouseX <= x + dummyEntity.getWidth() * scale / 2 + 10 && relativeMouseY <= y + 20)
 			tooltipEntity = true;
 	}
 

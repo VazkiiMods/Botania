@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -132,7 +133,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(List<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
 		List<ItemStack> drops = super.getDrops(list);
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, cooldown);

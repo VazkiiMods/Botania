@@ -53,7 +53,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.translatef(0.5F, 1.25F, 0.5F);
-			((EntityRenderer) Minecraft.getInstance().getRenderManager().entityRenderMap.get(ItemEntity.class)).doRender(item, d0, d1, d2, 1F, f);
+			((EntityRenderer) Minecraft.getInstance().getRenderManager().renderers.get(ItemEntity.class)).doRender(item, d0, d1, d2, 1F, f);
 			GlStateManager.translatef(-0.5F, -1.25F, -0.5F);
 		}
 
