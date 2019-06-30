@@ -24,26 +24,22 @@ import java.util.List;
 
 public class GuiButtonScaleChange extends GuiButtonLexicon {
 
-	public GuiButtonScaleChange(int id, int x, int y) {
-		super(id, x, y, 11, 11, "");
-	}
+	public GuiButtonScaleChange(int x, int y) {
+		super(x, y, 11, 11, "", b -> {
+			int maxAllowed = GuiLexicon.getMaxAllowedScale();
+			if(PersistentVariableHelper.lexiconGuiScale >= maxAllowed)
+				PersistentVariableHelper.lexiconGuiScale = 2;
+			else PersistentVariableHelper.lexiconGuiScale++;
 
-	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-		int maxAllowed = GuiLexicon.getMaxAllowedScale();
-		if(PersistentVariableHelper.lexiconGuiScale >= maxAllowed)
-			PersistentVariableHelper.lexiconGuiScale = 2;
-		else PersistentVariableHelper.lexiconGuiScale++;
-
-		PersistentVariableHelper.saveSafe();
-		Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
+			PersistentVariableHelper.saveSafe();
+			Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
+		});
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);

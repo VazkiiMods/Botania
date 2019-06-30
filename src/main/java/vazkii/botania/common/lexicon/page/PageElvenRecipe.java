@@ -1,6 +1,7 @@
 package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.Screen;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -74,7 +75,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 		TextureAtlasSprite portalIcon = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		((Screen) gui).blit(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
+		AbstractGui.blit(gui.getLeft() + 22, gui.getTop() + 36, 48, 48, 0, portalIcon); // todo 1.14 zlevel?
 	}
 
 	@OnlyIn(Dist.CLIENT)

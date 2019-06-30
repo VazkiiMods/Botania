@@ -28,22 +28,16 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 	public final Challenge challenge;
 	private final GuiLexicon owner;
 
-	public GuiButtonChallengeIcon(int id, int x, int y, Challenge challenge, GuiLexicon owner) {
-		super(id, x, y, 16, 16, "");
+	public GuiButtonChallengeIcon(int x, int y, Challenge challenge, GuiLexicon owner) {
+		super(x, y, 16, 16, "", b -> Minecraft.getInstance().displayGuiScreen(new GuiLexiconChallenge(owner, challenge)));
 		this.challenge = challenge;
 		this.owner = owner;
 	}
 
 	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-		Minecraft.getInstance().displayGuiScreen(new GuiLexiconChallenge(owner, challenge));
-	}
-
-	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();

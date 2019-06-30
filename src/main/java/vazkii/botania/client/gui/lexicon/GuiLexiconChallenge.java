@@ -16,7 +16,10 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
@@ -40,35 +43,21 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	public GuiLexiconChallenge(GuiLexicon parent, Challenge challenge) {
 		this.parent = parent;
 		this.challenge = challenge;
-		setTitle();
-	}
-
-	private void setTitle() {
-		title = challenge == null ? "(null)" : I18n.format(challenge.unlocalizedName);
 	}
 
 	@Override
 	public void onInitGui() {
 		super.onInitGui();
-		setTitle();
 
-		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				mc.displayGuiScreen(parent);
-				ClientTickHandler.notifyPageChange();
-			}
-		});
-		buttons.add(completeButton = new Button(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, "") {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				challenge.complete = !challenge.complete;
-				setCompleteButtonTitle();
-				PersistentVariableHelper.saveSafe();
-			}
-		});
+		buttons.add(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+			mc.displayGuiScreen(parent);
+			ClientTickHandler.notifyPageChange();
+		}));
+		buttons.add(completeButton = new Button(left + 20, top + guiHeight - 35, guiWidth - 40, 20, "", b -> {
+			challenge.complete = !challenge.complete;
+			setCompleteButtonTitle();
+			PersistentVariableHelper.saveSafe();
+		}));
 		setCompleteButtonTitle();
 	}
 
@@ -82,8 +71,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 
-		fontRenderer.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
-		fontRenderer.drawString(I18n.format(challenge.level.getName()) + ((challenge.icon.getItem() instanceof ItemRune) ? "+" : "") + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
+		font.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
+		font.drawString(I18n.format(challenge.level.getName()) + ((challenge.icon.getItem() instanceof ItemRune) ? "+" : "") + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
 
 		int width = guiWidth - 30;
 		int x = left + 16;
@@ -116,12 +105,12 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	private void setCompleteButtonTitle() {
-		completeButton.displayString = I18n.format(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
+		completeButton.setMessage(I18n.format(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted"));
 	}
 
 	private void back() {
-		if(backButton.enabled) {
-			backButton.playPressSound(mc.getSoundHandler());
+		if(backButton.active) {
+			backButton.playDownSound(mc.getSoundHandler());
 			backButton.onClick(backButton.x, backButton.y);
 		}
 	}
@@ -137,8 +126,10 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public String getTitle() {
-		return title;
+	public ITextComponent getTitle() {
+		return challenge == null
+				? new StringTextComponent("(null)")
+				: new TranslationTextComponent(challenge.unlocalizedName);
 	}
 
 	@Override
@@ -167,7 +158,6 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		super.load(cmp);
 		String challengeName = cmp.getString(TAG_CHALLENGE);
 		challenge = ModChallenges.challengeLookup.get(challengeName);
-		setTitle();
 	}
 
 	@Override

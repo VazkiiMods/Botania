@@ -17,6 +17,8 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -77,63 +79,43 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void onInitGui() {
 		super.onInitGui();
 
-		buttons.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
-				mc.displayGuiScreen(Screen.isShiftKeyDown() ? new GuiLexicon() : parent);
-				ClientTickHandler.notifyPageChange();
-			}
-		});
-		buttons.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
-				page--;
-				entry.pages.get(page).onOpened(GuiLexiconEntry.this);
+		buttons.add(backButton = new GuiButtonBackWithShift(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+			entry.pages.get(page).onClosed(GuiLexiconEntry.this);
+			mc.displayGuiScreen(Screen.hasShiftDown() ? new GuiLexicon() : parent);
+			ClientTickHandler.notifyPageChange();
+		}));
+		buttons.add(leftButton = new GuiButtonPage(left, top + guiHeight - 10, false, b -> {
+			entry.pages.get(page).onClosed(GuiLexiconEntry.this);
+			page--;
+			entry.pages.get(page).onOpened(GuiLexiconEntry.this);
 
-				ClientTickHandler.notifyPageChange();
-				updatePageButtons();
-			}
-		});
-		buttons.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
-				page++;
-				entry.pages.get(page).onOpened(GuiLexiconEntry.this);
+			ClientTickHandler.notifyPageChange();
+			updatePageButtons();
+		}));
+		buttons.add(rightButton = new GuiButtonPage(left + guiWidth - 18, top + guiHeight - 10, true, b -> {
+			entry.pages.get(page).onClosed(GuiLexiconEntry.this);
+			page++;
+			entry.pages.get(page).onOpened(GuiLexiconEntry.this);
 
-				ClientTickHandler.notifyPageChange();
-				updatePageButtons();
-			}
-		});
-		buttons.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				Minecraft mc = Minecraft.getInstance();
-				String cmd = "/botania-share " + entry.getUnlocalizedName();
+			ClientTickHandler.notifyPageChange();
+			updatePageButtons();
+		}));
+		buttons.add(new GuiButtonShare(left + guiWidth - 6, top - 2, b -> {
+			Minecraft mc = Minecraft.getInstance();
+			String cmd = "/botania-share " + entry.getUnlocalizedName();
 
-				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
-				mc.player.sendChatMessage(cmd);
-			}
-		});
+			mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
+			mc.player.sendChatMessage(cmd);
+		}));
 		if(entry.getWebLink() != null)
-			buttons.add(new GuiButtonViewOnline(4, left - 8, top + 12) {
-				@Override
-				public void onClick(double mouseX, double mouseY) {
-					super.onClick(mouseX, mouseY);
-					try {
-						if(Desktop.isDesktopSupported())
-							Desktop.getDesktop().browse(new URI(entry.getWebLink()));
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
+			buttons.add(new GuiButtonViewOnline(left - 8, top + 12, b -> {
+				try {
+					if(Desktop.isDesktopSupported())
+						Desktop.getDesktop().browse(new URI(entry.getWebLink()));
+				} catch(Exception e) {
+					e.printStackTrace();
 				}
-			});
+			}));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
@@ -165,8 +147,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public String getTitle() {
-		return String.format("%s " + TextFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
+	public ITextComponent getTitle() {
+		return new StringTextComponent(String.format("%s " + TextFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size()));
 	}
 
 	@Override
@@ -185,10 +167,10 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	private void updatePageButtons() {
-		leftButton.enabled = page != 0;
-		rightButton.enabled = page + 1 < entry.pages.size();
+		leftButton.active = page != 0;
+		rightButton.active = page + 1 < entry.pages.size();
 		if(firstEntry)
-			backButton.enabled = !rightButton.enabled;
+			backButton.active = !rightButton.active;
 	}
 
 	@Override
@@ -227,7 +209,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			return;
 		}
 
-		if(rightButton.enabled && rightButton.visible)
+		if(rightButton.active && rightButton.visible)
 			orientTutorialArrowWithButton(rightButton);
 	}
 
@@ -333,23 +315,23 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	private void back() {
-		if(backButton.enabled) {
-			backButton.playPressSound(mc.getSoundHandler());
+		if(backButton.active) {
+			backButton.playDownSound(mc.getSoundHandler());
 			backButton.onClick(backButton.x, backButton.y);
 		}
 	}
 
 	private void nextPage() {
-		if(rightButton.enabled) {
-			rightButton.playPressSound(mc.getSoundHandler());
+		if(rightButton.active) {
+			rightButton.playDownSound(mc.getSoundHandler());
 			rightButton.onClick(rightButton.x, rightButton.y);
 			updateNote();
 		}
 	}
 
 	private void prevPage() {
-		if(leftButton.enabled) {
-			leftButton.playPressSound(mc.getSoundHandler());
+		if(leftButton.active) {
+			leftButton.playDownSound(mc.getSoundHandler());
 			leftButton.onClick(leftButton.x, leftButton.y);
 			updateNote();
 		}

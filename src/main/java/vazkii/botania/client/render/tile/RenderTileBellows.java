@@ -29,7 +29,7 @@ public class RenderTileBellows extends TileEntityRenderer<TileBellows> {
 	@Override
 	public void render(@Nullable TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
 		if (bellows != null)
-			if (!bellows.getWorld().isBlockLoaded(bellows.getPos(), false)
+			if (!bellows.getWorld().isBlockLoaded(bellows.getPos())
 					|| bellows.getWorld().getBlockState(bellows.getPos()).getBlock() != ModBlocks.bellows)
 				return;
 

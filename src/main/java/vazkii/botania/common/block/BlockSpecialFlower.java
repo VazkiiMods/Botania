@@ -31,6 +31,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -43,6 +45,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.item.material.ItemDye;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
@@ -104,32 +107,15 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
 	}
 
+	@Nonnull
 	@Override
-	public boolean removedByPlayer(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, boolean willHarvest, IFluidState fluidState) {
-		if (willHarvest) {
-			// Copy of super.removedByPlayer but don't set to air yet
-			// This is so getDrops below will have a TE to work with
-			onBlockHarvested(world, pos, state, player);
-			return true;
+	public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
+		List<ItemStack> drops = super.getDrops(state, builder);
+		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
+		if(te instanceof TileEntitySpecialFlower) {
+			return ((TileEntitySpecialFlower) te).getDrops(drops, builder);
 		} else {
-			return super.removedByPlayer(state, world, pos, player, willHarvest, fluidState);
-		}
-	}
-
-	@Override
-	public void harvestBlock(@Nonnull World world, PlayerEntity player, @Nonnull BlockPos pos, @Nonnull BlockState state, TileEntity te, ItemStack stack) {
-		super.harvestBlock(world, player, pos, state, te, stack);
-		// Now delete the block and TE
-		world.removeBlock(pos);
-	}
-
-	@Override
-	public void getDrops(@Nonnull BlockState state, NonNullList<ItemStack> list, World world, BlockPos pos, int fortune) {
-		super.getDrops(state, list, world, pos, fortune);
-		TileEntity tile = world.getTileEntity(pos);
-
-		if(tile instanceof TileEntitySpecialFlower) {
-			((TileEntitySpecialFlower) tile).getDrops(list);
+			return drops;
 		}
 	}
 
@@ -182,7 +168,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 			return true;
 		}
 
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
 	}
 
 	@OnlyIn(Dist.CLIENT)

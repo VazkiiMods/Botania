@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,7 +46,7 @@ public abstract class BlockCamo extends BlockMod {
 
 		ItemStack currentStack = player.getHeldItem(hand);
 		if(!currentStack.isEmpty()
-				&& Block.getBlockFromItem(currentStack.getItem()) != null
+				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
 			BlockItemUseContext ctx = new BlockItemUseContext(world, player, hand, currentStack, hit);

@@ -24,20 +24,16 @@ import java.util.List;
 
 public class GuiButtonChallenges extends GuiButtonLexicon {
 
-	public GuiButtonChallenges(int id, int x, int y) {
-		super(id, x, y, 11, 11, "");
-	}
-
-	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-		Minecraft.getInstance().displayGuiScreen(new GuiLexiconChallengesList());
+	public GuiButtonChallenges(int x, int y) {
+		super(x, y, 11, 11, "", b -> {
+			Minecraft.getInstance().displayGuiScreen(new GuiLexiconChallengesList());
+		});
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);

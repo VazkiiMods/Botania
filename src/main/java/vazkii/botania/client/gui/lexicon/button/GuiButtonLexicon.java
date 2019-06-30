@@ -18,8 +18,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 
 public class GuiButtonLexicon extends Button {
 
-	public GuiButtonLexicon(int x, int y, int width, int height, String text) {
-		super(x, y, width, height, text);
+	public GuiButtonLexicon(int x, int y, int width, int height, String text, IPressable onPress) {
+		super(x, y, width, height, text, onPress);
 	}
 
 	@Override

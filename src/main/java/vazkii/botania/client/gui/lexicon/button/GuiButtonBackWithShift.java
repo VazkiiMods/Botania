@@ -18,8 +18,8 @@ import java.util.List;
 
 public class GuiButtonBackWithShift extends GuiButtonBack {
 
-	public GuiButtonBackWithShift(int par1, int par2, int par3) {
-		super(par1, par2, par3);
+	public GuiButtonBackWithShift(int x, int y, IPressable onPress) {
+		super(x, y, onPress);
 	}
 
 	@Override

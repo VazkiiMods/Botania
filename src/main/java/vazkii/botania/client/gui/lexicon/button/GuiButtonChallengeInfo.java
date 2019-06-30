@@ -26,23 +26,19 @@ public class GuiButtonChallengeInfo extends GuiButtonLexicon {
 
 	final GuiLexicon gui;
 
-	public GuiButtonChallengeInfo(int par1, int par2, int par3, String str, GuiLexicon gui) {
-		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);
+	public GuiButtonChallengeInfo(int x, int y, String str, GuiLexicon gui) {
+		super(x, y, gui.bookmarkWidth(str) + 5, 11, str, b -> {
+			Minecraft.getInstance().displayGuiScreen(new GuiLexiconEntry(LexiconData.challenges, gui));
+			ClientTickHandler.notifyPageChange();
+		});
 		this.gui = gui;
 	}
 
 	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-		Minecraft.getInstance().displayGuiScreen(new GuiLexiconEntry(LexiconData.challenges, gui));
-		ClientTickHandler.notifyPageChange();
-	}
-
-	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		gui.drawBookmark(x, y, displayString, false);
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		gui.drawBookmark(x, y, getMessage(), false);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		List<String> tooltip = new ArrayList<>();
 		tooltip.add(I18n.format("botaniamisc.challengeInfo"));

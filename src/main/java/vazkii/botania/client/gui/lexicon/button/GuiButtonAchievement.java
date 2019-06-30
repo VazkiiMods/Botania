@@ -27,29 +27,25 @@ import java.util.List;
 
 public class GuiButtonAchievement extends GuiButtonLexicon {
 
-	public GuiButtonAchievement(int id, int x, int y) {
-		super(id, x, y, 11, 11, "");
+	public GuiButtonAchievement(int x, int y) {
+		super(x, y, 11, 11, "", b -> {
+			if(Minecraft.getInstance().player != null) {
+				AdvancementsScreen gui = new AdvancementsScreen(Minecraft.getInstance().player.connection.getAdvancementManager());
+				Minecraft.getInstance().displayGuiScreen(gui);
+				ResourceLocation tab = new ResourceLocation(LibMisc.MOD_ID, "main/root");
+				gui.setSelectedTab(Minecraft.getInstance().player.connection.getAdvancementManager().getAdvancementList().getAdvancement(tab));
+			}
+		});
 	}
 
     @Override
-    public void onClick(double mouseX, double mouseY) {
-        super.onClick(mouseX, mouseY);
-        if(Minecraft.getInstance().player != null) {
-            AdvancementsScreen gui = new AdvancementsScreen(Minecraft.getInstance().player.connection.getAdvancementManager());
-            Minecraft.getInstance().displayGuiScreen(gui);
-            ResourceLocation tab = new ResourceLocation(LibMisc.MOD_ID, "main/root");
-            gui.setSelectedTab(Minecraft.getInstance().player.connection.getAdvancementManager().getAdvancementList().getAdvancement(tab));
-        }
-    }
-
-    @Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, k == 2 ? 109 : 98, 191, 11, 11);
+		blit(x, y, k == 2 ? 109 : 98, 191, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.advancements"));

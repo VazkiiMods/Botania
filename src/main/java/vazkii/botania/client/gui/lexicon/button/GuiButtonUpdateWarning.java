@@ -29,14 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiButtonUpdateWarning extends GuiButtonLexicon {
-
-	public GuiButtonUpdateWarning(int id, int x, int y) {
-		super(id, x, y, 11, 11, "");
-	}
-
-	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
+	private static final IPressable OPEN_CHANGELOG = b -> {
 		if(Screen.hasShiftDown()) {
 			try {
 				if(Desktop.isDesktopSupported())
@@ -47,18 +40,22 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		} else {
 			PersistentVariableHelper.lastBotaniaVersion = LibMisc.VERSION;
 			PersistentVariableHelper.saveSafe();
-			this.visible = false;
-			this.enabled = false;
+			b.visible = false;
+			b.active = false;
 		}
+	};
+
+	public GuiButtonUpdateWarning(int x, int y) {
+		super(x, y, 11, 11, "", OPEN_CHANGELOG);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		if(!visible || !enabled)
+		if(!visible || !active)
 			return;
 
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		boolean red = k == 2 || ClientTickHandler.ticksInGame % 10 < 5;
 

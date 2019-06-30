@@ -23,18 +23,18 @@ import java.util.List;
 
 public class GuiButtonShare extends GuiButtonLexicon {
 
-	public GuiButtonShare(int par1, int par2, int par3) {
-		super(par1, par2, par3, 10, 12, "");
+	public GuiButtonShare(int x, int y, IPressable onPress) {
+		super(x, y, 10, 12, "", onPress);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, k == 2 ? 10 : 0 , 200, 10, 12);
+		blit(x, y, k == 2 ? 10 : 0 , 200, 10, 12);
 
 		List<String> tooltip = getTooltip();
 		int tooltipY = (tooltip.size() - 1) * 10;

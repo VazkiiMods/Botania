@@ -72,12 +72,6 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	@Nonnull
-	@Override
-	public Item getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
-		return Items.AIR;
-	}
-
 	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;

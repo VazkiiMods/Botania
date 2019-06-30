@@ -25,25 +25,19 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 
 	private final GuiLexicon parent;
 
-	public GuiButtonNotes(GuiLexicon parent, int id, int x, int y) {
-		super(id, x, y, 11, 11, "");
+	public GuiButtonNotes(GuiLexicon parent, int x, int y) {
+		super(x, y, 11, 11, "", b -> GuiLexicon.notesEnabled = !GuiLexicon.notesEnabled);
 		this.parent = parent;
 	}
 
 	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-		GuiLexicon.notesEnabled = !GuiLexicon.notesEnabled;
-	}
-
-	@Override
 	public void render(int x, int y, float partialTicks) {
-		hovered = x >= this.x && y >= this.y && x < this.x + width && y < this.y + height;
-		int k = getHoverState(hovered);
+		isHovered = x >= this.x && y >= this.y && x < this.x + width && y < this.y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, k == 2 ? 130 : 120, 191, 10, 11);
+		blit(x, y, k == 2 ? 130 : 120, 191, 10, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		if(GuiLexicon.notesEnabled)

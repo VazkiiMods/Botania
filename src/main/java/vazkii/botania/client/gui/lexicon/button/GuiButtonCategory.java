@@ -66,10 +66,11 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		ARBShaderObjects.glUniform1fARB(heightMatchUniform, heightMatch);
 	};
 
-	int activeTex = 0;
-
-	public GuiButtonCategory(int id, int x, int y, GuiLexicon gui, LexiconCategory category) {
-		super(id, x, y, 16, 16, "");
+	public GuiButtonCategory(int x, int y, GuiLexicon gui, LexiconCategory category) {
+		super(x, y, 16, 16, "", b -> {
+			Minecraft.getInstance().displayGuiScreen(new GuiLexiconIndex(category));
+			ClientTickHandler.notifyPageChange();
+		});
 		this.gui = gui;
 		this.category = category;
 	}
@@ -77,13 +78,11 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		super.onClick(mouseX, mouseY);
-		Minecraft.getInstance().displayGuiScreen(new GuiLexiconIndex(category));
-		ClientTickHandler.notifyPageChange();
 	}
 
 	@Override
 	public void render(int mx, int my, float partialTicks) {
-		boolean inside = isPressable(mx, my);
+		boolean inside = isHovered();
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);
 		else ticksHovered = Math.max(0F, ticksHovered - gui.timeDelta);

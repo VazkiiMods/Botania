@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedConstants;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -54,6 +55,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
@@ -117,6 +119,14 @@ public class GuiLexicon extends Screen {
 	protected final Minecraft mc = Minecraft.getInstance();
 	int left, top;
 
+	public GuiLexicon() {
+		this(new TranslationTextComponent(ModItems.lexicon.getTranslationKey()));
+	}
+
+	protected GuiLexicon(ITextComponent title) {
+		super(title);
+	}
+
 	@Override
 	public final void init() {
 		super.init();
@@ -164,7 +174,7 @@ public class GuiLexicon extends Screen {
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
-				buttons.add(new GuiButtonInvisible((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
+				buttons.add(new GuiButtonInvisible((GuiLexiconIndex) this, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
@@ -177,32 +187,32 @@ public class GuiLexicon extends Screen {
 				int y = i / perline;
 
 				int size = 22;
-				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 50 + y * size, this, category);
+				GuiButtonCategory button = new GuiButtonCategory(left + 18 + x * size, top + 50 + y * size, this, category);
 				buttons.add(button);
 			}
 		}
 		populateBookmarks();
 		if(isMainPage()) {
-			buttons.add(new GuiButtonOptions(-1, left + 20, top + guiHeight - 25));
-			buttons.add(new GuiButtonAchievement(-2, left + 33, top + guiHeight - 25));
-			buttons.add(new GuiButtonChallenges(-3, left + 45, top + guiHeight - 25));
-			buttons.add(new GuiButtonScaleChange(-4, left + 57, top + guiHeight - 25));
+			buttons.add(new GuiButtonOptions(left + 20, top + guiHeight - 25));
+			buttons.add(new GuiButtonAchievement(left + 33, top + guiHeight - 25));
+			buttons.add(new GuiButtonChallenges(left + 45, top + guiHeight - 25));
+			buttons.add(new GuiButtonScaleChange(left + 57, top + guiHeight - 25));
 
-			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-98, left - 6, top + guiHeight - 70);
+			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(left - 6, top + guiHeight - 70);
 			buttons.add(button);
 
 			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
-				button.enabled = false;
+				button.active = false;
 				button.visible = false;
 			}
 
 			LocalDateTime now = LocalDateTime.now();
 
 			if(now.getMonth() == Month.NOVEMBER && now.getDayOfMonth() == 22)
-				buttons.add(new GuiButtonDoot(-99, left + 100, top + 12));
+				buttons.add(new GuiButtonDoot(left + 100, top + 12));
 		}
 
-		buttons.add(new GuiButtonNotes(this, 1336, left - 4, top - 4));
+		buttons.add(new GuiButtonNotes(this, left - 4, top - 4));
 	}
 
 	@Override
@@ -356,7 +366,7 @@ public class GuiLexicon extends Screen {
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
 		// This function is called from the buttons so I can't use font
-		FontRenderer font = Minecraft.getInstance().font;
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		int l = font.getStringWidth(s);
 		int fontOff = 0;
 
@@ -471,13 +481,13 @@ public class GuiLexicon extends Screen {
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();
 			GuiLexicon gui = isAdd ? null : bookmarks.get(i);
-			buttons.add(new GuiButtonBookmark(BOOKMARK_START + i, left + 138, top + 18 + 14 * i, gui == null ? this : gui, gui == null ? "+" : gui.getTitle()));
+			buttons.add(new GuiButtonBookmark(left + 138, top + 18 + 14 * i, gui == null ? this : gui, gui == null ? "+" : gui.getTitle()));
 		}
 
 		if(isMainPage())
-			buttons.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.format("botaniamisc.history"), this));
+			buttons.add(new GuiButtonHistory(left + 138, top + guiHeight - 24, I18n.format("botaniamisc.history"), this));
 		else if(isChallenge())
-			buttons.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.format("botaniamisc.info"), this));
+			buttons.add(new GuiButtonChallengeInfo(left + 138, top + guiHeight - 24, I18n.format("botaniamisc.info"), this));
 	}
 
 	public static void startTutorial() {

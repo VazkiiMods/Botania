@@ -23,18 +23,18 @@ import java.util.List;
 
 public class GuiButtonViewOnline extends GuiButtonLexicon {
 
-	public GuiButtonViewOnline(int id, int x, int y) {
-		super(id, x, y, 11, 11, "");
+	public GuiButtonViewOnline(int x, int y, IPressable onPress) {
+		super(x, y, 11, 11, "", onPress);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x, y, k == 2 ? 41 : 30, 200, 11, 11);
+		blit(x, y, k == 2 ? 41 : 30, 200, 11, 11);
 
 		List<String> tooltip = Collections.singletonList(TextFormatting.AQUA + I18n.format("botaniamisc.viewOnline"));
 		int tooltipY = (tooltip.size() - 1) * 10;

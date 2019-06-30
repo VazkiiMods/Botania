@@ -124,7 +124,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit.getFace(), hit.getHitVec().x, hit.getHitVec().y, hit.getHitVec().z) || super.onBlockActivated(state, world, pos, player, hand, hit);
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit) || super.onBlockActivated(state, world, pos, player, hand, hit);
 	}
 
 	@Override

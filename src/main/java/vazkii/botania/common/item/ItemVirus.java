@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -74,7 +75,9 @@ public class ItemVirus extends ItemMod {
 
 				horse.remove();
 
-				AbstractHorseEntity newHorse = stack.getItem() == ModItems.necroVirus ? new ZombieHorseEntity(player.world) : new SkeletonHorseEntity(player.world);
+				AbstractHorseEntity newHorse = stack.getItem() == ModItems.necroVirus
+						? EntityType.ZOMBIE_HORSE.create(player.world)
+						: EntityType.SKELETON_HORSE.create(player.world);
 				newHorse.setTamedBy(player);
 				newHorse.setPositionAndRotation(horse.posX, horse.posY, horse.posZ, horse.rotationYaw, horse.rotationPitch);
 

@@ -12,7 +12,9 @@ package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.EnumChallengeLevel;
@@ -30,23 +32,18 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	private Button backButton;
 
 	public GuiLexiconChallengesList() {
-		parent = new GuiLexicon();
-		title = I18n.format("botaniamisc.challenges");
+		super(new TranslationTextComponent("botaniamisc.challenges"));
+		parent = new GuiLexicon(getTitle());
 	}
 
 	@Override
 	public void onInitGui() {
 		super.onInitGui();
-		title = I18n.format("botaniamisc.challenges");
 
-		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2) {
-			@Override
-			public void onClick(double mouseX, double mouseY) {
-				super.onClick(mouseX, mouseY);
-				mc.displayGuiScreen(parent);
-				ClientTickHandler.notifyPageChange();
-			}
-		});
+		buttons.add(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+			mc.displayGuiScreen(parent);
+			ClientTickHandler.notifyPageChange();
+		}));
 
 		int perline = 6;
 		int i = 13;
@@ -54,7 +51,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			int j = 0;
 			for(Challenge c : ModChallenges.challenges.get(level)) {
-				buttons.add(new GuiButtonChallengeIcon(i, left + 20 + j % perline * 18, y + j / perline * 17, c, this));
+				buttons.add(new GuiButtonChallengeIcon(left + 20 + j % perline * 18, y + j / perline * 17, c, this));
 				i++;
 				j++;
 			}
@@ -83,7 +80,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 			back();
 			return true;
 		} else if(keyCode == GLFW.GLFW_KEY_HOME) {
-			mc.displayGuiScreen(new GuiLexicon());
+			mc.displayGuiScreen(new GuiLexicon(getTitle()));
 			ClientTickHandler.notifyPageChange();
 			return true;
 		}
@@ -101,7 +98,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	}
 
 	private void back() {
-		if(backButton.enabled) {
+		if(backButton.active) {
 			backButton.playDownSound(mc.getSoundHandler());
 			backButton.onClick(backButton.x, backButton.y);
 		}
@@ -115,11 +112,6 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	@Override
 	boolean isMainPage() {
 		return false;
-	}
-
-	@Override
-	public String getTitle() {
-		return title;
 	}
 
 	@Override

@@ -22,15 +22,15 @@ import java.util.List;
 
 public class GuiButtonBack extends GuiButtonLexicon {
 
-	public GuiButtonBack(int x, int y) {
-		super(x, y, 18, 9, "");
+	public GuiButtonBack(int x, int y, IPressable onPress) {
+		super(x, y, 18, 9, "", onPress);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		if(enabled) {
-			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-			int k = getHoverState(hovered);
+		if(active) {
+			isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+			int k = getYImage(isHovered());
 
 			Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);

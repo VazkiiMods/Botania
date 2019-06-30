@@ -28,14 +28,14 @@ import java.util.List;
 // I should've done this last year
 public class GuiButtonDoot extends GuiButtonLexicon {
 
-	public GuiButtonDoot(int id, int x, int y) {
-		super(id, x, y, 16, 16, "");
+	public GuiButtonDoot(int x, int y) {
+		super(x, y, 16, 16, "", b -> {});
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);

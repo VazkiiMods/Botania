@@ -29,8 +29,20 @@ import javax.annotation.Nonnull;
 public class GuiButtonInvisible extends GuiButtonLexicon {
 
 	private static final ResourceLocation dogResource = new ResourceLocation(LibResources.GUI_DOG);
+	private static final IPressable ON_PRESS = b -> {
+		GuiButtonInvisible button = (GuiButtonInvisible) b;
+		if (button.dog) {
+			button.enableDog = true;
+			PersistentVariableHelper.dog = true;
+			PersistentVariableHelper.saveSafe();
+		} else {
+			// todo 1.13 is this the right place? moved from GuiLexiconIndex.actionPerformed
+			int index = id + button.gui.page * 12;
+			button.gui.openEntry(index);
+		}
+	};
 
-	final GuiLexiconIndex gui;
+	private final GuiLexiconIndex gui;
 	public ItemStack displayStack = ItemStack.EMPTY;
 	public boolean dog = false;
 	private float timeHover = 0;
@@ -38,23 +50,9 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	private boolean enableDog = false;
 	private double dogPos = 0;
 
-	public GuiButtonInvisible(GuiLexiconIndex gui, int par1, int par2, int par3, int par4, int par5, String par6Str) {
-		super(par1, par2, par3, par4, par5, par6Str);
+	public GuiButtonInvisible(GuiLexiconIndex gui, int x, int y, int width, int height, String text) {
+		super(x, y, width, height, text, ON_PRESS);
 		this.gui = gui;
-	}
-
-	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-		if (dog) {
-			enableDog = true;
-			PersistentVariableHelper.dog = true;
-			PersistentVariableHelper.saveSafe();
-		} else {
-			// todo 1.13 is this the right place? moved from GuiLexiconIndex.actionPerformed
-			int index = id + gui.page * 12;
-			gui.openEntry(index);
-		}
 	}
 
 	@Override
@@ -72,11 +70,11 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			GlStateManager.translated(-dogPos, 0, 0);
 		}
 
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
-		boolean showStack = !displayStack.isEmpty() && !displayString.isEmpty();
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
+		boolean showStack = !displayStack.isEmpty() && !getMessage().isEmpty();
 
-		if(!displayString.isEmpty() && k == 2) {
+		if(!getMessage().isEmpty() && k == 2) {
 			timeHover = Math.min(5, timeHover + gui.timeDelta);
 			gui.setHoveredButton(this);
 		} else timeHover = Math.max(0, timeHover - gui.timeDelta);
@@ -87,7 +85,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 
 		GlStateManager.disableAlphaTest();
 		int color = 0;
-		String format = FontHelper.getFormatFromString(displayString);
+		String format = FontHelper.getFormatFromString(getMessage());
 		if(format.length() > 1) {
 			char key = format.charAt(format.length() - 1);
 			if(key == 'o' && format.length() > 3)
@@ -104,10 +102,10 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 
 		int maxalpha = 0x22;
 		int alpha = Math.min(maxalpha, (int) (timeHover / 4 * maxalpha));
-		drawRect(x - 5, y, (int) (x - 5 + timeHover * 24), y + height, alpha << 24 | color);
+		fill(x - 5, y, (int) (x - 5 + timeHover * 24), y + height, alpha << 24 | color);
 		GlStateManager.enableAlphaTest();
 
-		Minecraft.getInstance().fontRenderer.drawString(displayString, x + (showStack ? 7 : 0), y + (height - 8) / 2, 0);
+		Minecraft.getInstance().fontRenderer.drawString(getMessage(), x + (showStack ? 7 : 0), y + (height - 8) / 2, 0);
 
 		if(showStack) {
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);

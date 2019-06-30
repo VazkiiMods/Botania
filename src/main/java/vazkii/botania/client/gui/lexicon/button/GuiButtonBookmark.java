@@ -19,52 +19,49 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 
 	final GuiLexicon gui;
 
-	public GuiButtonBookmark(int par1, int par2, int par3, GuiLexicon gui, String str) {
-		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);
+	public GuiButtonBookmark(int x, int y, GuiLexicon gui, String str) {
+		super(x, y, gui.bookmarkWidth(str) + 5, 11, str, b -> {
+			boolean modified = false;
+			int i = id - GuiLexicon.BOOKMARK_START;
+			String key = gui.getNotesKey();
+			if(i == GuiLexicon.bookmarks.size()) {
+				if(!GuiLexicon.bookmarkKeys.contains(key)) {
+					GuiLexicon.bookmarks.add(gui.copy());
+					GuiLexicon.bookmarkKeys.add(key);
+					modified = true;
+				}
+			} else {
+				if(Screen.hasShiftDown()) {
+					GuiLexicon.bookmarks.remove(i);
+					GuiLexicon.bookmarkKeys.remove(i);
+
+					modified = true;
+				} else {
+					GuiLexicon bookmark = GuiLexicon.bookmarks.get(i).copy();
+					if(!bookmark.getTitle().equals(gui.getTitle())) {
+						Minecraft.getInstance().displayGuiScreen(bookmark);
+						if(bookmark instanceof IParented)
+							((IParented) bookmark).setParent(gui);
+						ClientTickHandler.notifyPageChange();
+					}
+				}
+			}
+
+			gui.bookmarksNeedPopulation = true;
+			if(modified)
+				PersistentVariableHelper.saveSafe();
+		});
 		this.gui = gui;
 	}
 
 	@Override
-	public void onClick(double mouseX, double mouseY) {
-		boolean modified = false;
-		int i = id - GuiLexicon.BOOKMARK_START;
-		String key = gui.getNotesKey();
-		if(i == GuiLexicon.bookmarks.size()) {
-			if(!GuiLexicon.bookmarkKeys.contains(key)) {
-				GuiLexicon.bookmarks.add(gui.copy());
-				GuiLexicon.bookmarkKeys.add(key);
-				modified = true;
-			}
-		} else {
-			if(Screen.hasShiftDown()) {
-				GuiLexicon.bookmarks.remove(i);
-				GuiLexicon.bookmarkKeys.remove(i);
-
-				modified = true;
-			} else {
-				GuiLexicon bookmark = GuiLexicon.bookmarks.get(i).copy();
-				if(!bookmark.getTitle().equals(gui.getTitle())) {
-					Minecraft.getInstance().displayGuiScreen(bookmark);
-					if(bookmark instanceof IParented)
-						((IParented) bookmark).setParent(gui);
-					ClientTickHandler.notifyPageChange();
-				}
-			}
-		}
-
-		gui.bookmarksNeedPopulation = true;
-		if(modified)
-			PersistentVariableHelper.saveSafe();
-	}
-
-	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
-		gui.drawBookmark(x, y, displayString, false);
-		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-		int k = getHoverState(hovered);
+		gui.drawBookmark(x, y, getMessage(), false);
+		isHovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+		int k = getYImage(isHovered());
 
 		List<String> tooltip = new ArrayList<>();
-		if(displayString.equals("+"))
+		if(getMessage().equals("+"))
 			tooltip.add(I18n.format("botaniamisc.clickToAdd"));
 		else {
 			tooltip.add(I18n.format("botaniamisc.bookmark", id - GuiLexicon.BOOKMARK_START + 1));
