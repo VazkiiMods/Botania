@@ -8,9 +8,12 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.ServerWorld;
 
 import java.util.function.Predicate;
@@ -113,6 +116,35 @@ public final class PlayerHelper {
 		if(advancement != null) {
 			advancements.grantCriterion(advancement, criterion);
 		}
+	}
+
+	/**
+	 * Temporarily swap <code>toUse</code> into the hand of the player, use it, then swap it back out.
+	 * This is to ensure that any code in mods' onItemUse that relies on player.getHeldItem(ctx.hand) == ctx.stack
+	 * will work as intended.
+	 *
+	 * Properly handles null players, as long as the Item's onItemUse also handles them.
+	 */
+	public static ActionResultType substituteUse(ItemUseContext ctx, ItemStack toUse) {
+		ItemStack save = ItemStack.EMPTY;
+		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.func_221533_k());
+		ItemUseContext newCtx;
+
+		if(ctx.getPlayer() != null) {
+			save = ctx.getPlayer().getHeldItem(ctx.getHand());
+			ctx.getPlayer().setHeldItem(ctx.getHand(), toUse);
+			newCtx = new ItemUseContext(ctx.getPlayer(), ctx.getHand(), hit);
+		} else {
+			newCtx = new ItemUseContext(ctx.getWorld(), null, ctx.getHand(), toUse, hit);
+		}
+
+		ActionResultType result = toUse.onItemUse(newCtx);
+
+		if(ctx.getPlayer() != null) {
+			ctx.getPlayer().setHeldItem(ctx.getHand(), save);
+		}
+
+		return result;
 	}
 
 	private PlayerHelper() {}

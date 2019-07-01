@@ -600,8 +600,9 @@ public final class ModCraftingRecipes {
 		String jsonGroup = group.toString();
 
 		return server.getRecipeManager().getRecipes(IRecipeType.CRAFTING)
+				.values()
 				.stream()
-				.filter((ICraftingRecipe r) -> jsonGroup.equals(r.getGroup()))
+				.filter(r -> jsonGroup.equals(r.getGroup()))
 				.map(IRecipe::getId)
 				.collect(Collectors.toList());
 	}

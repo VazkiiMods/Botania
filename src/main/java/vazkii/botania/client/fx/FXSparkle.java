@@ -10,9 +10,11 @@
  */
 package vazkii.botania.client.fx;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -22,6 +24,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -32,7 +35,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class FXSparkle extends Particle {
+public class FXSparkle extends SpriteTexturedParticle {
 
 	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
@@ -173,78 +176,48 @@ public class FXSparkle extends Particle {
 		particleGravity = value;
 	}
 
-	// Copy of Entity.pushOutOfBlocks with several important changes
-	private boolean wiggleAround(double x, double y, double z)
+
+
+	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
+	private void wiggleAround(double x, double y, double z)
 	{
 		BlockPos blockpos = new BlockPos(x, y, z);
-		double d0 = x - blockpos.getX();
-		double d1 = y - blockpos.getY();
-		double d2 = z - blockpos.getZ();
+		Vec3d vec3d = new Vec3d(x - (double)blockpos.getX(), y - (double)blockpos.getY(), z - (double)blockpos.getZ());
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+		Direction direction = Direction.UP;
+		double d0 = Double.MAX_VALUE;
 
-		// Botania - change collision box list check to !airblock check
-		if (!world.isAirBlock(blockpos))
-		{
-			Direction enumfacing = Direction.UP;
-			double d3 = Double.MAX_VALUE;
-
-			if (!world.isBlockFullCube(blockpos.west()) && d0 < d3)
-			{
-				d3 = d0;
-				enumfacing = Direction.WEST;
+		for(Direction direction1 : new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP}) {
+			blockpos$mutableblockpos.setPos(blockpos).move(direction1);
+			if (!Block.isOpaque(this.world.getBlockState(blockpos$mutableblockpos).getCollisionShape(this.world, blockpos$mutableblockpos))) {
+				double d1 = vec3d.getCoordinate(direction1.getAxis());
+				double d2 = direction1.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1.0D - d1 : d1;
+				if (d2 < d0) {
+					d0 = d2;
+					direction = direction1;
+				}
 			}
-
-			if (!world.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
-			{
-				d3 = 1.0D - d0;
-				enumfacing = Direction.EAST;
-			}
-
-			if (!world.isBlockFullCube(blockpos.north()) && d2 < d3)
-			{
-				d3 = d2;
-				enumfacing = Direction.NORTH;
-			}
-
-			if (!world.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
-			{
-				d3 = 1.0D - d2;
-				enumfacing = Direction.SOUTH;
-			}
-
-			if (!world.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
-			{
-				d3 = 1.0D - d1;
-				enumfacing = Direction.UP;
-			}
-
-			float f = rand.nextFloat() * 0.05F + 0.025F; // Botania - made multiplier and add both smaller
-			float f1 = enumfacing.getAxisDirection().getOffset();
-			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use secondary movement variables below
-			float secondary2 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-
-			if (enumfacing.getAxis() == Direction.Axis.X)
-			{
-				motionX = f1 * f;
-				motionY = secondary;
-				motionZ = secondary2;
-			}
-			else if (enumfacing.getAxis() == Direction.Axis.Y)
-			{
-				motionY = f1 * f;
-				motionX = secondary;
-				motionZ = secondary2;
-			}
-			else if (enumfacing.getAxis() == Direction.Axis.Z)
-			{
-				motionZ = f1 * f;
-				motionX = secondary;
-				motionY = secondary2;
-			}
-
-			return true;
 		}
 
-		return false;
+		// Botania - made multiplier and add both smaller
+		float f = this.rand.nextFloat() * 0.05F + 0.025F;
+		float f1 = (float)direction.getAxisDirection().getOffset();
+		// Botania - Randomness in other axes as well
+		float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+		float secondary2 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+		if (direction.getAxis() == Direction.Axis.X) {
+			motionX = (double)(f1 * f);
+			motionY = secondary;
+			motionZ = secondary2;
+		} else if (direction.getAxis() == Direction.Axis.Y) {
+			motionX = secondary;
+			motionY = (double)(f1 * f);
+			motionZ = secondary2;
+		} else if (direction.getAxis() == Direction.Axis.Z) {
+			motionX = secondary;
+			motionY = secondary2;
+			motionZ = (double)(f1 * f);
+		}
 	}
 
 	public boolean corrupt = false;

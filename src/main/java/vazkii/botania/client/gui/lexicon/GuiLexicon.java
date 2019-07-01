@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
@@ -150,12 +151,17 @@ public class GuiLexicon extends Screen {
 		int persistentScale = Math.min(PersistentVariableHelper.lexiconGuiScale, getMaxAllowedScale());
 
 		if(persistentScale > 0 && persistentScale != guiScale) {
+			// Fake the scale temporarily so we can get the scaled width from mainWindow
 			mc.gameSettings.guiScale = persistentScale;
-			mc.mainWindow.updateSize();
+			mc.updateWindowSize();
+
+			// Get the info
 			width = mc.mainWindow.getScaledWidth();
 			height = mc.mainWindow.getScaledHeight();
+
+			// Change it back
 			mc.gameSettings.guiScale = guiScale;
-			mc.mainWindow.updateSize();
+			mc.updateWindowSize();
 		}
 
 		List<LexiconCategory> allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
@@ -174,7 +180,7 @@ public class GuiLexicon extends Screen {
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
-				buttons.add(new GuiButtonInvisible((GuiLexiconIndex) this, left + x, top + y, 110, 10, ""));
+				buttons.add(new GuiButtonInvisible((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
@@ -260,7 +266,7 @@ public class GuiLexicon extends Screen {
 
 			GlStateManager.translated(currWidth, height / 2 - 10, 0);
 			GlStateManager.scalef(4, 4, 4);
-			mc.font.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
 			GlStateManager.popMatrix();
 		}
 	}
@@ -286,7 +292,7 @@ public class GuiLexicon extends Screen {
 
 		if(subtitle != null)
 			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true, 191);
-		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
+		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle().getFormattedText(), true);
 
 		if(isMainPage())
 			drawHeader();
@@ -411,7 +417,7 @@ public class GuiLexicon extends Screen {
 	}
 
 	@Override
-	public boolean doesGuiPauseGame() {
+	public boolean isPauseScreen() {
 		return false;
 	}
 
@@ -469,7 +475,9 @@ public class GuiLexicon extends Screen {
 	}
 
 	private void populateBookmarks() {
-		buttons.removeIf(b -> b.id >= BOOKMARK_START);
+		buttons.removeIf(b -> b instanceof GuiButtonBookmark
+				|| b instanceof GuiButtonHistory
+				|| b instanceof GuiButtonChallengeInfo);
 
 		int len = bookmarks.size();
 		boolean thisExists = false;
@@ -480,8 +488,8 @@ public class GuiLexicon extends Screen {
 		boolean addEnabled = len < MAX_BOOKMARK_COUNT && this instanceof IParented && !thisExists;
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();
-			GuiLexicon gui = isAdd ? null : bookmarks.get(i);
-			buttons.add(new GuiButtonBookmark(left + 138, top + 18 + 14 * i, gui == null ? this : gui, gui == null ? "+" : gui.getTitle()));
+			GuiLexicon destination = isAdd ? null : bookmarks.get(i);
+			buttons.add(new GuiButtonBookmark(i, left + 138, top + 18 + 14 * i, destination == null ? this : destination, destination == null ? "+" : destination.getTitle().getFormattedText()));
 		}
 
 		if(isMainPage())
@@ -521,11 +529,11 @@ public class GuiLexicon extends Screen {
 		LexiconEntry entry = tutorial.peek();
 		LexiconCategory category = entry.category;
 
-		for(Button button : buttons)
+		for(Widget button : buttons)
 			if(button instanceof GuiButtonCategory) {
 				GuiButtonCategory catButton = (GuiButtonCategory) button;
 				if(catButton.getCategory() == category) {
-					orientTutorialArrowWithButton(button);
+					orientTutorialArrowWithButton(catButton);
 					break;
 				}
 			}

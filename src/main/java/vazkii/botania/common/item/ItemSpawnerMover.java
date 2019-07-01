@@ -46,6 +46,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
@@ -113,9 +114,7 @@ public class ItemSpawnerMover extends ItemMod {
 	}
 
 	private ActionResultType placeSpawner(ItemUseContext ctx) {
-		ItemStack spawner = new ItemStack(Blocks.SPAWNER);
-		ItemUseContext placeCtx = new BlockItemUseContext(ctx.getWorld(), ctx.getPlayer(), spawner, ctx.getPos(), ctx.getFace(), ctx.getHitX(), ctx.getHitY(), ctx.getHitZ());
-		ActionResultType res = spawner.onItemUse(placeCtx);
+		ActionResultType res = PlayerHelper.substituteUse(ctx, new ItemStack(Blocks.SPAWNER));
 
 		if(res == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();

@@ -79,7 +79,6 @@ public abstract class EquipmentHandler {
 	static class InventoryEquipmentHandler extends EquipmentHandler {
 		private final Map<PlayerEntity, ItemStack[]> map = new WeakHashMap<>();
 
-		@SubscribeEvent
 		public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 			if(event.phase != TickEvent.Phase.START || event.player.world.isRemote)
 				return;

@@ -56,7 +56,7 @@ public class WorldTypeSkyblock extends WorldType {
 	@Nonnull
 	@Override
 	public ChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
-		world.setSeaLevel(64);
+		// todo 1.14 world.setSeaLevel(64);
 
 		FlatGenerationSettings settings = new FlatGenerationSettings();
 		settings.setBiome(Biomes.PLAINS);

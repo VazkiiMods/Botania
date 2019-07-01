@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
@@ -235,7 +236,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public float getZLevel() {
-		return zLevel;
+		return blitOffset;
 	}
 
 	@Override
@@ -282,7 +283,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public boolean mouseScrolled(double w) {
+	public boolean mouseScrolled(double mouseX, double mouseY, double w) {
 		if(w < 0)
 			nextPage();
 		else if(w > 0)
@@ -343,7 +344,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public List<Button> getButtonList() {
+	public List<Widget> getButtonList() {
 		return buttons;
 	}
 

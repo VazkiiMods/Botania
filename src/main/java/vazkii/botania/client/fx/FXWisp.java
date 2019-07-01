@@ -13,6 +13,7 @@ package vazkii.botania.client.fx;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -29,7 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class FXWisp extends Particle {
+public class FXWisp extends SpriteTexturedParticle {
 
 	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);

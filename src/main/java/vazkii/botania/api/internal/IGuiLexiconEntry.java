@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.internal;
 
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.Button;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -61,7 +62,7 @@ public interface IGuiLexiconEntry {
 	/**
 	 * Gets the list of buttons in this gui.
 	 */
-	public List<Button> getButtonList();
+	public List<Widget> getButtonList();
 
 	/**
 	 * Gets the total amount of ticks (+ partial ticks) the player

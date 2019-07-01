@@ -19,9 +19,12 @@ import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -34,8 +37,8 @@ public class BehaviourCocoaBeans extends DefaultDispenseItemBehavior {
 		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
-
-		BlockState cocoa = block.getStateForPlacement(new BlockItemUseContext(world, null, stack, pos, facing.getOpposite(), 0, 0, 0));
+		BlockItemUseContext ctx = new DirectionalPlaceContext(source.getWorld(), source.getBlockPos(), facing, new ItemStack(block), facing.getOpposite());
+		BlockState cocoa = block.getStateForPlacement(ctx);
 		if(cocoa != null && world.isAirBlock(pos)) {
 			world.setBlockState(pos, cocoa);
 			stack.shrink(1);

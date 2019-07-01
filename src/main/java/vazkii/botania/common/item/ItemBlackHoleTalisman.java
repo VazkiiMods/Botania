@@ -33,6 +33,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -50,6 +51,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -115,8 +117,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 			} else {
 				if(player == null || player.abilities.isCreativeMode || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
-					ItemUseContext newCtx = new ItemUseContext(world, ctx.getPlayer(), stack, pos, side, ctx.getHitX(), ctx.getHitY(), ctx.getHitZ());
-					ActionResultType result = toUse.getItem().onItemUse(newCtx);
+					ActionResultType result = PlayerHelper.substituteUse(ctx, toUse);
 
 					if (result == ActionResultType.SUCCESS) {
 						remove(stack, 1);

@@ -14,7 +14,9 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GLX;
 
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
+import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
@@ -32,6 +34,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 public final class ShaderHelper {
@@ -62,22 +65,34 @@ public final class ShaderHelper {
 	}
 
 	public static void initShaders() {
-		if (Minecraft.getInstance().getResourceManager() instanceof SimpleReloadableResourceManager) {
-			((SimpleReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(manager -> {
-				deleteShader(pylonGlow); pylonGlow = 0;
-				deleteShader(enchanterRune); enchanterRune = 0;
-				deleteShader(manaPool); manaPool = 0;
-				deleteShader(doppleganger); doppleganger = 0;
-				deleteShader(halo); halo = 0;
-				deleteShader(dopplegangerBar); dopplegangerBar = 0;
-				deleteShader(terraPlateRune); terraPlateRune = 0;
-				deleteShader(filmGrain); filmGrain = 0;
-				deleteShader(gold); gold = 0;
-				deleteShader(categoryButton); categoryButton = 0;
-				deleteShader(alpha); alpha = 0;
+		if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
+			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
+					(IResourceManagerReloadListener) manager -> {
+						deleteShader(pylonGlow);
+						pylonGlow = 0;
+						deleteShader(enchanterRune);
+						enchanterRune = 0;
+						deleteShader(manaPool);
+						manaPool = 0;
+						deleteShader(doppleganger);
+						doppleganger = 0;
+						deleteShader(halo);
+						halo = 0;
+						deleteShader(dopplegangerBar);
+						dopplegangerBar = 0;
+						deleteShader(terraPlateRune);
+						terraPlateRune = 0;
+						deleteShader(filmGrain);
+						filmGrain = 0;
+						deleteShader(gold);
+						gold = 0;
+						deleteShader(categoryButton);
+						categoryButton = 0;
+						deleteShader(alpha);
+						alpha = 0;
 
-				loadShaders(manager);
-			});
+						loadShaders(manager);
+					});
 		}
 	}
 
@@ -127,7 +142,8 @@ public final class ShaderHelper {
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.CLIENT.useShaders.get() && GLX.hasShaders && checkIncompatibleMods();
+		// usePostProcess equivalent to hasShaders
+		return ConfigHandler.CLIENT.useShaders.get() && GLX.usePostProcess && checkIncompatibleMods();
 	}
 	
 	private static boolean checkIncompatibleMods() {
@@ -203,7 +219,7 @@ public final class ShaderHelper {
 	private static String readFileAsString(IResourceManager manager, String filename) throws Exception {
 		InputStream in = manager.getResource(new ResourceLocation(LibMisc.MOD_ID, filename)).getInputStream();
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
 			return reader.lines().collect(Collectors.joining("\n"));
 		}
 	}

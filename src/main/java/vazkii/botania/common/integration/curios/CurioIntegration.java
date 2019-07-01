@@ -14,6 +14,7 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.CuriosCapability;
 import top.theillusivec4.curios.api.capability.ICurio;
@@ -65,14 +66,16 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	protected ItemStack findItem(Item item, LivingEntity living) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(item, living);
-		return result == null ? ItemStack.EMPTY : result.getStack();
+		return CuriosAPI.getCurioEquipped(item, living)
+				.map(ImmutableTriple::getRight)
+				.orElse(ItemStack.EMPTY);
 	}
 
 	@Override
 	protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(pred, living);
-		return result == null ? ItemStack.EMPTY : result.getStack();
+		return CuriosAPI.getCurioEquipped(pred, living)
+				.map(ImmutableTriple::getRight)
+				.orElse(ItemStack.EMPTY);
 	}
 
 	@Override

@@ -16,15 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiButtonBookmark extends GuiButtonLexicon {
-
+	private final int ordinal;
 	final GuiLexicon gui;
 
-	public GuiButtonBookmark(int x, int y, GuiLexicon gui, String str) {
+	public GuiButtonBookmark(int ordinal, int x, int y, GuiLexicon gui, String str) {
 		super(x, y, gui.bookmarkWidth(str) + 5, 11, str, b -> {
 			boolean modified = false;
-			int i = id - GuiLexicon.BOOKMARK_START;
 			String key = gui.getNotesKey();
-			if(i == GuiLexicon.bookmarks.size()) {
+			if(ordinal == GuiLexicon.bookmarks.size()) {
 				if(!GuiLexicon.bookmarkKeys.contains(key)) {
 					GuiLexicon.bookmarks.add(gui.copy());
 					GuiLexicon.bookmarkKeys.add(key);
@@ -32,12 +31,12 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 				}
 			} else {
 				if(Screen.hasShiftDown()) {
-					GuiLexicon.bookmarks.remove(i);
-					GuiLexicon.bookmarkKeys.remove(i);
+					GuiLexicon.bookmarks.remove(ordinal);
+					GuiLexicon.bookmarkKeys.remove(ordinal);
 
 					modified = true;
 				} else {
-					GuiLexicon bookmark = GuiLexicon.bookmarks.get(i).copy();
+					GuiLexicon bookmark = GuiLexicon.bookmarks.get(ordinal).copy();
 					if(!bookmark.getTitle().equals(gui.getTitle())) {
 						Minecraft.getInstance().displayGuiScreen(bookmark);
 						if(bookmark instanceof IParented)
@@ -51,6 +50,7 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 			if(modified)
 				PersistentVariableHelper.saveSafe();
 		});
+		this.ordinal = ordinal;
 		this.gui = gui;
 	}
 
@@ -64,7 +64,7 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 		if(getMessage().equals("+"))
 			tooltip.add(I18n.format("botaniamisc.clickToAdd"));
 		else {
-			tooltip.add(I18n.format("botaniamisc.bookmark", id - GuiLexicon.BOOKMARK_START + 1));
+			tooltip.add(I18n.format("botaniamisc.bookmark", ordinal));
 			tooltip.add(TextFormatting.GRAY + I18n.format("botaniamisc.clickToSee"));
 			tooltip.add(TextFormatting.GRAY + I18n.format("botaniamisc.shiftToRemove"));
 		}

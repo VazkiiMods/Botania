@@ -118,7 +118,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		}
 
 		ShaderHelper.useShader(ShaderHelper.categoryButton, shaderCallback);
-		RenderHelper.drawTexturedModalRect(x * 2, y * 2, zLevel * 2, 0, 0, 32, 32, s, s);
+		RenderHelper.drawTexturedModalRect(x * 2, y * 2, blitOffset * 2, 0, 0, 32, 32, s, s);
 		ShaderHelper.releaseShader();
 
 		if(shaders) {

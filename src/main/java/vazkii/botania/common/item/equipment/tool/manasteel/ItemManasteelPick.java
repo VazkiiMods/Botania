@@ -31,6 +31,7 @@ import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
@@ -73,14 +74,7 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack stackAt = player.inventory.getStackInSlot(i);
 				if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
-					ItemStack save = player.getHeldItem(ctx.getHand());
-
-					player.setHeldItem(ctx.getHand(), stackAt);
-					BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(),
-							ctx.getPos(), ctx.func_221533_k());
-					ActionResultType did = stackAt.getItem().onItemUse(new ItemUseContext(player, ctx.getHand(), hit));
-					player.setHeldItem(ctx.getHand(), save);
-
+					ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
 					ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
 					return did;
 				}

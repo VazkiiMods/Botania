@@ -36,12 +36,12 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			PersistentVariableHelper.dog = true;
 			PersistentVariableHelper.saveSafe();
 		} else {
-			// todo 1.13 is this the right place? moved from GuiLexiconIndex.actionPerformed
-			int index = id + button.gui.page * 12;
+			int index = button.ordinal + button.gui.page * 12;
 			button.gui.openEntry(index);
 		}
 	};
 
+	private final int ordinal;
 	private final GuiLexiconIndex gui;
 	public ItemStack displayStack = ItemStack.EMPTY;
 	public boolean dog = false;
@@ -50,8 +50,9 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	private boolean enableDog = false;
 	private double dogPos = 0;
 
-	public GuiButtonInvisible(GuiLexiconIndex gui, int x, int y, int width, int height, String text) {
+	public GuiButtonInvisible(GuiLexiconIndex gui, int ordinal, int x, int y, int width, int height, String text) {
 		super(x, y, width, height, text, ON_PRESS);
+		this.ordinal = ordinal;
 		this.gui = gui;
 	}
 
@@ -64,7 +65,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			float f = 1F / 64F;
 			GlStateManager.translated(dogPos, 0, 0);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
-			vazkii.botania.client.core.helper.RenderHelper.drawTexturedModalRect(0, y, zLevel + 10, dogPos % 100 < 50 ? 23 : 0, 0, 23, 19, f, f);
+			vazkii.botania.client.core.helper.RenderHelper.drawTexturedModalRect(0, y, blitOffset + 10, dogPos % 100 < 50 ? 23 : 0, 0, 23, 19, f, f);
 			x = (int) Math.max(x, dogPos + 10);
 
 			GlStateManager.translated(-dogPos, 0, 0);

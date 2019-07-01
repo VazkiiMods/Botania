@@ -34,7 +34,6 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;

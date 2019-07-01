@@ -40,6 +40,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
@@ -88,14 +89,7 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack stackAt = player.inventory.getStackInSlot(i);
 				if(!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
-					ItemStack save = player.getHeldItem(ctx.getHand());
-
-					player.setHeldItem(ctx.getHand(), stackAt);
-					BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(),
-							ctx.getPos(), ctx.func_221533_k());
-					ActionResultType did = stackAt.getItem().onItemUse(new ItemUseContext(player, ctx.getHand(), hit));
-					player.setHeldItem(ctx.getHand(), save);
-
+					ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
 					ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.OAK_SAPLING), SAPLING_PATTERN);
 					return did;
 				}

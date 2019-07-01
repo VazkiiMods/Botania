@@ -19,6 +19,7 @@ import net.minecraft.fluid.IFluidState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -53,7 +54,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
 	protected BlockSpecialFlower(Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
-		super(props);
+		super(Effects.REGENERATION, 1, props); // todo 1.14 choose potion effects
 		this.teProvider = teProvider;
 	}
 

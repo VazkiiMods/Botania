@@ -36,6 +36,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -69,13 +70,8 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 					new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
-				ItemStack save = player.getHeldItem(ctx.getHand());
 				ItemStack stackToPlace = new ItemStack(block);
-				player.setHeldItem(ctx.getHand(), stackToPlace);
-				ItemUseContext newCtx = new ItemUseContext(player, ctx.getHand(),
-						new BlockRayTraceResult(ctx.getHitVec(), side, pos, ctx.func_221533_k()));
-				stackToPlace.onItemUse(newCtx);
-				player.setHeldItem(ctx.getHand(), save);
+				PlayerHelper.substituteUse(ctx, stackToPlace);
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);

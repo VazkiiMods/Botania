@@ -29,6 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -56,13 +57,9 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if(entities == 0) {
-				ItemStack save = player.getHeldItem(hand);
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
-				player.setHeldItem(hand, stackToPlace);
 				BlockRayTraceResult hit = new BlockRayTraceResult(Vec3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
-				ItemUseContext ctx = new ItemUseContext(player, hand, hit);
-				stackToPlace.onItemUse(ctx);
-				player.setHeldItem(hand, save);
+				PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), stackToPlace);
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);

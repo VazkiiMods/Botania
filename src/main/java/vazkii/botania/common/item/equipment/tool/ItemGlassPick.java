@@ -61,11 +61,11 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	private void onBlockDrops(HarvestDropsEvent event) {
+		// todo 1.14 need to change to fake a silk touch tool in the loot context
 		if(event.getHarvester() != null && event.getState() != null && event.getDrops() != null && event.getDrops().isEmpty()
 				&& !event.getHarvester().getHeldItemMainhand().isEmpty()
 				&& event.getHarvester().getHeldItemMainhand().getItem() == this
-				&& event.getState().getMaterial() == Material.GLASS
-				&& event.getState().canSilkHarvest(event.getWorld().getWorld(), event.getPos(), event.getHarvester()))
+				&& event.getState().getMaterial() == Material.GLASS)
 			event.getDrops().add(new ItemStack(event.getState().getBlock()));
 	}
 
