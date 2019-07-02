@@ -13,15 +13,16 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import vazkii.botania.common.lib.LibPotionNames;
 
 import javax.annotation.Nonnull;
 
-public class PotionAllure extends PotionMod {
+public class PotionAllure extends Effect {
 
 	public PotionAllure() {
-		super(EffectType.BENEFICIAL, 0x0034E4, 5);
+		super(EffectType.BENEFICIAL, 0x0034E4);
 	}
 
 	@Override

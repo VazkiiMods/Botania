@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
@@ -23,12 +24,12 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class PotionBloodthirst extends PotionMod {
+public class PotionBloodthirst extends Effect {
 
 	private static final int RANGE = 64;
 
 	public PotionBloodthirst() {
-		super(EffectType.BENEFICIAL, 0xC30000, 3);
+		super(EffectType.BENEFICIAL, 0xC30000);
 	}
 
 	@SubscribeEvent

@@ -13,6 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
@@ -20,12 +21,12 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.common.brew.ModPotions;
 
-public class PotionEmptiness extends PotionMod {
+public class PotionEmptiness extends Effect {
 
 	private static final int RANGE = 128;
 
 	public PotionEmptiness() {
-		super(EffectType.BENEFICIAL, 0xFACFFF, 2);
+		super(EffectType.BENEFICIAL, 0xFACFFF);
 	}
 
 	@SubscribeEvent

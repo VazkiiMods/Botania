@@ -14,14 +14,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 
 import javax.annotation.Nonnull;
 
-public class PotionClear extends PotionMod {
+public class PotionClear extends Effect {
 
 	public PotionClear() {
-		super(EffectType.NEUTRAL, 0xFFFFFF, 0);
+		super(EffectType.NEUTRAL, 0xFFFFFF);
 	}
 
 	@Override
