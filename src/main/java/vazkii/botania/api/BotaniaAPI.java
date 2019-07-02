@@ -339,7 +339,7 @@ public final class BotaniaAPI {
 		}
 	};
 
-	public static final Rarity rarityRelic = Rarity.EPIC; // todo 1.13 EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
+	public static final Rarity rarityRelic = Rarity.create("RELIC", TextFormatting.GOLD);
 
 	public static final KnowledgeType basicKnowledge;
 	public static final KnowledgeType elvenKnowledge;

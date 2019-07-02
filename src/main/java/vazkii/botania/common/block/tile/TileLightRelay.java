@@ -44,6 +44,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -358,10 +359,10 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 			cmp.putInt(TAG_EXIT_Z, exit.getZ());
 		}
 
+		@Nonnull
 		@Override
 		public IPacket<?> createSpawnPacket() {
-			// todo 1.14 ??
-			return null;
+			return NetworkHooks.getEntitySpawningPacket(this);
 		}
 
 		public BlockPos getExitPos() {
