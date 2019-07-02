@@ -2,17 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "main",
+      "name": "vanilla",
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "botania:solid_vine"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:loot_table",
+          "name": "minecraft:vine"
         }
       ]
     }

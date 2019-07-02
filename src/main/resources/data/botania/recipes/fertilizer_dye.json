@@ -7,16 +7,16 @@
       "item": "minecraft:bone_meal"
     },
     {
-      "item": "minecraft:dandelion_yellow"
+      "item": "minecraft:yellow_dye"
     },
     {
-      "item": "minecraft:dandelion_yellow"
+      "item": "minecraft:yellow_dye"
     },
     {
-      "item": "minecraft:rose_red"
+      "item": "minecraft:red_dye"
     },
     {
-      "item": "minecraft:rose_red"
+      "item": "minecraft:red_dye"
     }
   ],
   "type": "minecraft:crafting_shapeless"
