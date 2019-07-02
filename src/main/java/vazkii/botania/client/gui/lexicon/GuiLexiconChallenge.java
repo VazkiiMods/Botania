@@ -30,6 +30,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.lexicon.page.PageText;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class GuiLexiconChallenge extends GuiLexicon implements IParented {
@@ -125,10 +126,11 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public ITextComponent getTitle() {
 		return challenge == null
-				? new StringTextComponent("(null)")
+				? super.getTitle()
 				: new TranslationTextComponent(challenge.unlocalizedName);
 	}
 

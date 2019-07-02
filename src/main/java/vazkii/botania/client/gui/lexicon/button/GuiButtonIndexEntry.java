@@ -24,13 +24,11 @@ import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-
-public class GuiButtonInvisible extends GuiButtonLexicon {
+public class GuiButtonIndexEntry extends GuiButtonLexicon {
 
 	private static final ResourceLocation dogResource = new ResourceLocation(LibResources.GUI_DOG);
 	private static final IPressable ON_PRESS = b -> {
-		GuiButtonInvisible button = (GuiButtonInvisible) b;
+		GuiButtonIndexEntry button = (GuiButtonIndexEntry) b;
 		if (button.dog) {
 			button.enableDog = true;
 			PersistentVariableHelper.dog = true;
@@ -41,7 +39,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		}
 	};
 
-	private final int ordinal;
+	public final int ordinal;
 	private final GuiLexiconIndex gui;
 	public ItemStack displayStack = ItemStack.EMPTY;
 	public boolean dog = false;
@@ -50,7 +48,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	private boolean enableDog = false;
 	private double dogPos = 0;
 
-	public GuiButtonInvisible(GuiLexiconIndex gui, int ordinal, int x, int y, int width, int height, String text) {
+	public GuiButtonIndexEntry(GuiLexiconIndex gui, int ordinal, int x, int y, int width, int height, String text) {
 		super(x, y, width, height, text, ON_PRESS);
 		this.ordinal = ordinal;
 		this.gui = gui;

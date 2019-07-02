@@ -67,7 +67,6 @@ public class LensMine extends Lens {
 			if(!burst.hasAlreadyCollidedAt(collidePos)) {
 				if(!burst.isFake()) {
 					List<ItemStack> items = Block.getDrops(state, (ServerWorld) world, collidePos, tile);
-					float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, collidePos, state, 0, 1.0f, false, null);
 
 					world.removeBlock(collidePos, false);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
@@ -78,8 +77,7 @@ public class LensMine extends Lens {
 					BlockPos dropCoord = doWarp ? source : collidePos;
 
 					for(ItemStack stack_ : items) {
-						if(world.rand.nextFloat() <= chance)
-							Block.spawnAsEntity(world, dropCoord, stack_);
+						Block.spawnAsEntity(world, dropCoord, stack_);
 					}
 
 					burst.setMana(mana - 24);

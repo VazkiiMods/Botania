@@ -240,7 +240,7 @@ public class MiscellaneousIcons {
 	}
 	
 	private void register(AtlasTexture map, String name) {
-		map.registerSprite(null, new ResourceLocation(LibMisc.MOD_ID, name));
+		// todo 1.14 map.registerSprite(null, new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 	
 	private TextureAtlasSprite get(AtlasTexture map, String name) {

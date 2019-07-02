@@ -12,14 +12,12 @@ package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -31,7 +29,7 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
-import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonIndexEntry;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.common.lexicon.DogLexiconEntry;
 
@@ -161,7 +159,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		LexiconEntry tutEntry = !tutorial.isEmpty() ? tutorial.peek() : null;
 
 		for(int i = page * 12; i < (page + 1) * 12; i++) {
-			GuiButtonInvisible button = (GuiButtonInvisible) buttons.get(i - page * 12);
+			GuiButtonIndexEntry button = (GuiButtonIndexEntry) buttons.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null) {
 				button.setMessage(entry.getKnowledgeType().color + "" + (entry.isPriority() ? TextFormatting.ITALIC : "") + I18n.format(entry.getUnlocalizedName()));
@@ -175,10 +173,10 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		}
 	}
 
-	public void setHoveredButton(GuiButtonInvisible b) {
+	public void setHoveredButton(GuiButtonIndexEntry b) {
 		if(b == null)
 			currentEntry = null;
-		else currentEntry = entriesToDisplay.get(b.id + page * 12);
+		else currentEntry = entriesToDisplay.get(b.ordinal + page * 12);
 		currentButton = b;
 	}
 
@@ -276,15 +274,18 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return;
 		}
 
-		for(Button button : buttons) {
-			int id = button.id;
-			int index = id + page * 12;
-			if(index >= entriesToDisplay.size())
-				continue;
+		for(Widget widget : buttons) {
+			if(widget instanceof GuiButtonIndexEntry) {
+				GuiButtonIndexEntry button = (GuiButtonIndexEntry) widget;
+				int id = button.ordinal;
+				int index = id + page * 12;
+				if(index >= entriesToDisplay.size())
+					continue;
 
-			if(entry == entriesToDisplay.get(index)) {
-				orientTutorialArrowWithButton(id >= 12 ? rightButton : button);
-				break;
+				if(entry == entriesToDisplay.get(index)) {
+					orientTutorialArrowWithButton(id >= 12 ? rightButton : button);
+					break;
+				}
 			}
 		}
 	}

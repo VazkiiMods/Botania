@@ -187,13 +187,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 						BlockPos adjPos = pos_.offset(dir);
 						BlockState adjState = world.getBlockState(adjPos);
 
-						// If the side of the adjacent block facing this block is
-						// _not_ solid, then this block is considered "visible"
-						// and should be replaced.
-
-						// If there is a rendering-specific way to check for this,
-						// that should be placed in preference to this.
-						if(adjState.getBlockFaceShape(world, adjPos, dir.getOpposite()) != BlockFaceShape.SOLID) {
+						if(!Block.hasSolidSide(adjState, world, adjPos, dir.getOpposite())) {
 							coordsList.add(pos_);
 							break;
 						}

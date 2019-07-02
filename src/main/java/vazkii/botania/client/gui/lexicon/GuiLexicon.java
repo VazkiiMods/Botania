@@ -16,13 +16,10 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedConstants;
@@ -47,7 +44,7 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeInfo;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallenges;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonDoot;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
-import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonIndexEntry;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonScaleChange;
@@ -61,6 +58,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayDeque;
@@ -169,7 +167,6 @@ public class GuiLexicon extends Screen {
 
 		lastTime = ClientTickHandler.ticksInGame;
 
-		title = ItemLexicon.getTitle(stackUsed);
 		currentOpenLexicon = this;
 
 		left = width / 2 - guiWidth / 2;
@@ -180,7 +177,7 @@ public class GuiLexicon extends Screen {
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
-				buttons.add(new GuiButtonInvisible((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
+				buttons.add(new GuiButtonIndexEntry((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
@@ -428,9 +425,10 @@ public class GuiLexicon extends Screen {
 		return font.getStringWidth(b) + 15;
 	}
 
+	@Nonnull
 	@Override
 	public ITextComponent getTitle() {
-		return title;
+		return ItemLexicon.getTitle(stackUsed);
 	}
 
 	String getSubtitle() {
@@ -454,8 +452,8 @@ public class GuiLexicon extends Screen {
 	}
 	
 	public static int getMaxAllowedScale() {
-		Minecraft mc = Minecraft.getInstance();
-		return mc.mainWindow.getScaleFactor(0);
+		// Reference: AbstractOption.GUI_SCALE
+		return Minecraft.getInstance().mainWindow.calcGuiScale(0, Minecraft.getInstance().getForceUnicodeFont());
 	}
 
 	void populateIndex() {
@@ -463,7 +461,7 @@ public class GuiLexicon extends Screen {
 		int shift = 2;
 		for(int i = shift; i < 12; i++) {
 			int i_ = i - shift;
-			GuiButtonInvisible button = (GuiButtonInvisible) buttons.get(i);
+			GuiButtonIndexEntry button = (GuiButtonIndexEntry) buttons.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
 				button.setMessage(I18n.format(category.getUnlocalizedName()));
