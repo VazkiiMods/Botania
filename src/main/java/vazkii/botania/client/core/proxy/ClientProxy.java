@@ -108,6 +108,7 @@ public class ClientProxy implements IProxy {
 	public void registerHandlers() {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
+		FMLJavaModLoadingContext.get().getModEventBus().register(MiscellaneousIcons.INSTANCE);
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
@@ -118,8 +119,6 @@ public class ClientProxy implements IProxy {
 		} catch (IOException e) {
 			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
-
-		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 
 		ModChallenges.init();
 

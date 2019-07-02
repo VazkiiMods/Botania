@@ -122,6 +122,7 @@ public class Botania {
 
 	public static Botania instance;
 	public static IProxy proxy;
+	public static boolean finishedLoading = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
@@ -238,6 +239,7 @@ public class Botania {
 		Botania.LOGGER.info("The Lexica Botania has {} words.", words);
 
 		registerDefaultEntityBlacklist();
+		finishedLoading = true;
 	}
 
 	// Overriding the internal method handler will break everything as it changes regularly.

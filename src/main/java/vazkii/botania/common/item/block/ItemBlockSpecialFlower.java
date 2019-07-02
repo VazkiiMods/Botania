@@ -34,6 +34,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -64,7 +65,8 @@ public class ItemBlockSpecialFlower extends ItemBlockMod {
 			tooltip.add(new TranslationTextComponent("botania.flowerType.misc").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
 		}
 
-		if(ConfigHandler.CLIENT.referencesEnabled.get()) {
+		// Prevent crash when tooltips queried before configs load
+		if(Botania.finishedLoading && ConfigHandler.CLIENT.referencesEnabled.get()) {
 			String key = getTranslationKey() + ".reference";
 			ITextComponent lore = new TranslationTextComponent(key);
 			if(!lore.getString().equals(key))
