@@ -8,17 +8,15 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.apache.commons.lang3.text.WordUtils;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
@@ -28,8 +26,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.EnumMap;
-import java.util.Map;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class MiscellaneousIcons {
 
@@ -124,40 +121,43 @@ public class MiscellaneousIcons {
 	
 	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		register(evt.getMap(), "blocks/alfheim_portal_swirl");
-		register(evt.getMap(), "blocks/alfheim_portal_swirl");
-		register(evt.getMap(), "blocks/luminizer");
-		register(evt.getMap(), "blocks/luminizer_detector");
-		register(evt.getMap(), "blocks/luminizer_fork");
-		register(evt.getMap(), "blocks/luminizer_toggle");
-		register(evt.getMap(), "blocks/catalyst_alchemy_overlay");
-		register(evt.getMap(), "blocks/catalyst_conjuration_overlay");
-		register(evt.getMap(), "blocks/enchanter_overlay");
-		register(evt.getMap(), "blocks/mana_void_overlay");
-		register(evt.getMap(), "blocks/mana_water");
-		register(evt.getMap(), "blocks/terra_plate_overlay");
-		register(evt.getMap(), "items/spark_corporea");
-		register(evt.getMap(), "items/spark_corporea_master");
-		register(evt.getMap(), "items/spark_corporea_star");
-		register(evt.getMap(), "items/spark");
+		if(evt.getMap() != Minecraft.getInstance().getTextureMap())
+			return;
+
+		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
+		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
+		evt.addSprite(prefix("blocks/luminizer"));
+		evt.addSprite(prefix("blocks/luminizer_detector"));
+		evt.addSprite(prefix("blocks/luminizer_fork"));
+		evt.addSprite(prefix("blocks/luminizer_toggle"));
+		evt.addSprite(prefix("blocks/catalyst_alchemy_overlay"));
+		evt.addSprite(prefix("blocks/catalyst_conjuration_overlay"));
+		evt.addSprite(prefix("blocks/enchanter_overlay"));
+		evt.addSprite(prefix("blocks/mana_void_overlay"));
+		evt.addSprite(prefix("blocks/mana_water"));
+		evt.addSprite(prefix("blocks/terra_plate_overlay"));
+		evt.addSprite(prefix("items/spark_corporea"));
+		evt.addSprite(prefix("items/spark_corporea_master"));
+		evt.addSprite(prefix("items/spark_corporea_star"));
+		evt.addSprite(prefix("items/spark"));
 
 		for(int i = 0; i < 4; i++) {
-			register(evt.getMap(), "items/spark_upgrade_rune_" + i);
+			evt.addSprite(prefix("items/spark_upgrade_rune_" + i));
 		}
 
-		register(evt.getMap(), "items/special_tail");
-		register(evt.getMap(), "items/special_phiflower");
-		register(evt.getMap(), "items/special_goldfish");
-		register(evt.getMap(), "items/special_nerfbat");
+		evt.addSprite(prefix("items/special_tail"));
+		evt.addSprite(prefix("items/special_phiflower"));
+		evt.addSprite(prefix("items/special_goldfish"));
+		evt.addSprite(prefix("items/special_nerfbat"));
 
 		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			register(evt.getMap(), "items/gate_weapon_" + i);
+			evt.addSprite(prefix("items/gate_weapon_" + i));
 
 		for(int i = 0; i < 3; i++)
-			register(evt.getMap(), "items/third_eye_" + i);
+			evt.addSprite(prefix("items/third_eye_" + i));
 
-		register(evt.getMap(), "items/triggers/mana_detector");
-		register(evt.getMap(), "items/triggers/rune_altar_can_craft");
+		evt.addSprite(prefix("items/triggers/mana_detector"));
+		evt.addSprite(prefix("items/triggers/rune_altar_can_craft"));
 
 		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
@@ -166,23 +166,26 @@ public class MiscellaneousIcons {
 		*/
 
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			register(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
+			evt.addSprite(prefix("items/headpiece_tiara_wing_" + (i + 1)));
 		}
 
-		register(evt.getMap(), "items/will_flame");
+		evt.addSprite(prefix("items/will_flame"));
 
-		register(evt.getMap(), "items/pendant_blood_chain");
-		register(evt.getMap(), "items/pendant_blood_gem");
-		register(evt.getMap(), "items/pendant_ice_gem");
-		register(evt.getMap(), "items/headpiece_item_finder_gem");
-		register(evt.getMap(), "items/pendant_lava_gem");
-		register(evt.getMap(), "items/pendant_lava_super_gem");
-		register(evt.getMap(), "items/pendant_cloud_gem");
-		register(evt.getMap(), "items/pendant_cloud_super_gem");
+		evt.addSprite(prefix("items/pendant_blood_chain"));
+		evt.addSprite(prefix("items/pendant_blood_gem"));
+		evt.addSprite(prefix("items/pendant_ice_gem"));
+		evt.addSprite(prefix("items/headpiece_item_finder_gem"));
+		evt.addSprite(prefix("items/pendant_lava_gem"));
+		evt.addSprite(prefix("items/pendant_lava_super_gem"));
+		evt.addSprite(prefix("items/pendant_cloud_gem"));
+		evt.addSprite(prefix("items/pendant_cloud_super_gem"));
 	}
 
 	@SubscribeEvent
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
+		if(evt.getMap() != Minecraft.getInstance().getTextureMap())
+			return;
+
 		alfPortalTex = get(evt.getMap(), "blocks/alfheim_portal_swirl");
 		lightRelayWorldIcon = get(evt.getMap(), "blocks/luminizer");
 		lightRelayWorldIconRed = get(evt.getMap(), "blocks/luminizer_detector");
@@ -238,11 +241,7 @@ public class MiscellaneousIcons {
 		cirrusGem = get(evt.getMap(), "items/pendant_cloud_gem");
 		nimbusGem = get(evt.getMap(), "items/pendant_cloud_super_gem");
 	}
-	
-	private void register(AtlasTexture map, String name) {
-		// todo 1.14 map.registerSprite(null, new ResourceLocation(LibMisc.MOD_ID, name));
-	}
-	
+
 	private TextureAtlasSprite get(AtlasTexture map, String name) {
 		return map.getSprite(new ResourceLocation(LibMisc.MOD_ID, name));
 	}
