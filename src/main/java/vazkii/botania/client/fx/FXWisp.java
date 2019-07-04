@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class FXWisp extends SpriteTexturedParticle {
+public class FXWisp extends Particle {
 
 	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
@@ -38,6 +38,7 @@ public class FXWisp extends SpriteTexturedParticle {
 	private static final Queue<FXWisp> queuedRenders = new ArrayDeque<>();
 	private static final Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque<>();
 
+	protected float particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
 	// Queue values
 	private float f;
 	private float f1;
@@ -145,7 +146,7 @@ public class FXWisp extends SpriteTexturedParticle {
 	@Nonnull
 	@Override
 	public IParticleRenderType getRenderType() {
-		return IParticleRenderType.NO_RENDER;
+		return IParticleRenderType.CUSTOM;
 	}
 
 	// [VanillaCopy] of super, without drag when onGround is true
@@ -177,10 +178,7 @@ public class FXWisp extends SpriteTexturedParticle {
 		motionZ = mz;
 	}
 
-	private boolean depthTest = true;
-	public boolean distanceLimit = true;
+	private boolean depthTest;
 	private final float moteParticleScale;
 	private final int moteHalfLife;
-	public boolean tinkle = false;
-	public int blendmode = 1;
 }

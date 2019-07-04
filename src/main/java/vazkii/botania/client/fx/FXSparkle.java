@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class FXSparkle extends SpriteTexturedParticle {
+public class FXSparkle extends Particle {
 
 	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
@@ -43,6 +43,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 	private static final Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
 	private static final Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
 
+	protected float particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
 	// Queue values
 	private float f;
 	private float f1;
@@ -104,6 +105,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 		float var10 = part / 8 / 8.0F;
 		float var11 = var10 + 0.0624375F*2;
 		float var12 = 0.1F * particleScale;
+		boolean shrink = true;
 		if (shrink) var12 *= (maxAge-age+1)/(float)maxAge;
 		float var13 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
 		float var14 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
@@ -169,7 +171,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 	@Nonnull
 	@Override
 	public IParticleRenderType getRenderType() {
-		return IParticleRenderType.NO_RENDER;
+		return IParticleRenderType.CUSTOM;
 	}
 
 	public void setGravity(float value) {
@@ -223,9 +225,6 @@ public class FXSparkle extends SpriteTexturedParticle {
 	public boolean corrupt = false;
 	public boolean fake = false;
 	private int multiplier = 2;
-	private final boolean shrink = true;
 	public final int particle = 16;
-	public boolean tinkle = false;
 	public final boolean slowdown = true;
-	public int currentColor = 0;
 }
