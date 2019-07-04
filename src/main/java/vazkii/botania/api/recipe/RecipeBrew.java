@@ -14,19 +14,22 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class RecipeBrew {
-
+	private final ResourceLocation id;
 	private final Brew brew;
 	private final ImmutableList<Ingredient> inputs;
 
-	public RecipeBrew(Brew brew, Ingredient... inputs) {
+	public RecipeBrew(ResourceLocation id, Brew brew, Ingredient... inputs) {
+		this.id = id;
 		this.brew = brew;
 		this.inputs = ImmutableList.copyOf(inputs);
 	}
@@ -42,22 +45,27 @@ public class RecipeBrew {
 			if(stack.getItem() instanceof IBrewContainer)
 				continue;
 
-			int stackIndex = -1;
+			boolean matchedOne = false;
 
-			for(int j = 0; j < inputsMissing.size(); j++) {
-				Ingredient input = inputsMissing.get(j);
+			Iterator<Ingredient> iter = inputsMissing.iterator();
+			while (iter.hasNext()) {
+				Ingredient input = iter.next();
 				if(input.test(stack)) {
-					stackIndex = j;
+					iter.remove();
+					matchedOne = true;
 					break;
 				}
 			}
 
-			if(stackIndex != -1)
-				inputsMissing.remove(stackIndex);
-			else return false;
+			if(!matchedOne)
+				return false;
 		}
 
 		return inputsMissing.isEmpty();
+	}
+
+	public ResourceLocation getId() {
+		return id;
 	}
 
 	public List<Ingredient> getInputs() {

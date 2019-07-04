@@ -28,7 +28,6 @@ public final class IMCHandler {
 		BotaniaAPI.oreWeightsNether = handleOreWeights(evt.getIMCStream(IMC.REGISTER_NETHER_ORE_WEIGHT::equals));
 		WikiHooks.modWikis = handleWikis(evt.getIMCStream(IMC.REGISTER_MOD_WIKI::equals));
 		BotaniaAPI.paintableBlocks = handlePaintable(evt.getIMCStream(IMC.REGISTER_PAINTABLE_BLOCK::equals));
-		BotaniaAPI.manaInfusionRecipes = handleManaInfusion(evt.getIMCStream(IMC.REGISTER_MANA_INFUSION::equals));
 	}
 
 	private static Map<String, IWikiProvider> handleWikis(Stream<InterModComms.IMCMessage> msgs) {
@@ -52,14 +51,6 @@ public final class IMCHandler {
 				.filter(msg -> msg.getMessageSupplier().get() instanceof PaintableBlockMessage)
 				.map(msg -> (PaintableBlockMessage) msg.getMessageSupplier().get())
 				.collect(Collectors.toMap(PaintableBlockMessage::getBlock, PaintableBlockMessage::getTransformer));
-		return ImmutableMap.copyOf(map);
-	}
-
-	private static Map<ResourceLocation, RecipeManaInfusion> handleManaInfusion(Stream<InterModComms.IMCMessage> msgs) {
-		Map<ResourceLocation, RecipeManaInfusion> map = msgs
-				.filter(msg -> msg.getMessageSupplier().get() instanceof RecipeManaInfusion)
-				.map(msg -> (RecipeManaInfusion) msg.getMessageSupplier().get())
-				.collect(Collectors.toMap(RecipeManaInfusion::getId, r -> r));
 		return ImmutableMap.copyOf(map);
 	}
 }

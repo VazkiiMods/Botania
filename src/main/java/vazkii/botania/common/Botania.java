@@ -71,29 +71,10 @@ import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldConditionFactory;
-import vazkii.botania.common.crafting.ModBrewRecipes;
 import vazkii.botania.common.crafting.ModCraftingRecipes;
-import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
-import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
-import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
-import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
-import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
-import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
-import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
-import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
-import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
-import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
+import vazkii.botania.common.crafting.ReloadListener;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityFlameRing;
@@ -154,11 +135,6 @@ public class Botania {
 		PacketHandler.init();
 		ModBrews.init();
 		ModMultiblocks.init();
-		ModPetalRecipes.init();
-		ModPureDaisyRecipes.init();
-		ModRuneRecipes.init();
-		ModElvenTradeRecipes.init();
-		ModBrewRecipes.init();
 		ModCraftingRecipes.init();
 		// todo 1.13 LexiconData.init();
 
@@ -167,7 +143,6 @@ public class Botania {
 				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
 			}
 			ModBrews.initTC();
-			ModBrewRecipes.initTC();
 		}
 
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
@@ -253,6 +228,7 @@ public class Botania {
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
 					+ " back to elementary school and learn to read. (Expected classname: " + expect + ", Actual classname: " + clname + ")");
 		}
+		event.getServer().getResourceManager().addReloadListener(new ReloadListener());
 	}
 
 	private void serverStarting(FMLServerStartingEvent event) {

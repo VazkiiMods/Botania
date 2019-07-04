@@ -193,7 +193,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if(currentRecipe != null)
 				this.manaToGet = currentRecipe.getManaUsage();
 			else {
-				for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+				for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
 					if(recipe.matches(itemHandler)) {
 						this.manaToGet = recipe.getManaUsage();
 						break getMana;
@@ -227,7 +227,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public boolean hasValidRecipe() {
-		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
 			if(recipe.matches(itemHandler))
 				return true;
 
@@ -242,7 +242,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if(currentRecipe != null)
 			recipe = currentRecipe;
-		else for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
+		else for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes.values()) {
 			if(recipe_.matches(itemHandler)) {
 				recipe = recipe_;
 				break;
@@ -366,13 +366,12 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if(amt > 0) {
 			float anglePer = 360F / amt;
-			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
 				if(recipe.matches(itemHandler)) {
 					GlStateManager.enableBlend();
 					GlStateManager.enableRescaleNormal();
 					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-					recipe.getOutput();
 					float progress = (float) mana / (float) manaToGet;
 
 					mc.textureManager.bindTexture(HUDHandler.manaBar);

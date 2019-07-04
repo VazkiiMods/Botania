@@ -70,13 +70,15 @@ public final class BotaniaAPI {
 
 	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
 
-	public static final List<RecipePetals> petalRecipes = new ArrayList<>();
-	public static final List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
+	/*
+	 * These maps are not meant to be mutated!
+	 */
+	public static Map<ResourceLocation, RecipePetals> petalRecipes = Collections.emptyMap();
+	public static Map<ResourceLocation, RecipePureDaisy> pureDaisyRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipeManaInfusion> manaInfusionRecipes = Collections.emptyMap();
-	public static final List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<>();
-	public static final List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
-	public static final List<RecipeBrew> brewRecipes = new ArrayList<>();
-	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
+	public static Map<ResourceLocation, RecipeRuneAltar> runeAltarRecipes = Collections.emptyMap();
+	public static Map<ResourceLocation, RecipeElvenTrade> elvenTradeRecipes = Collections.emptyMap();
+	public static Map<ResourceLocation, RecipeBrew> brewRecipes = Collections.emptyMap();
 
 	public static Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
 	public static Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
@@ -418,93 +420,6 @@ public final class BotaniaAPI {
 	 */
 	public static boolean isEntityBlacklistedFromGravityRod(Class entity) {
 		return gravityRodBlacklist.contains(entity);
-	}
-
-	/**
-	 * Registers a Petal Recipe.
-	 * @param output The ItemStack to craft.
-	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
-	 * or String (case for Ore Dictionary). The array can't be larger than 16.
-	 * @return The recipe created.
-	 */
-	public static RecipePetals registerPetalRecipe(ItemStack output, Ingredient... inputs) {
-		Preconditions.checkArgument(inputs.length <= 16);
-		RecipePetals recipe = new RecipePetals(output, inputs);
-		petalRecipes.add(recipe);
-		return recipe;
-	}
-
-	/**
-	 * Registers a Pure Daisy Recipe with the default time
-	 * @param input The input for the recipe. Can be a Block (meta-insensitive), IBlockState (meta-sensitive), or an oredict String.
-	 * @param outputState The blockstate to be placed upon recipe completion.
-	 * @return The recipe created.
-	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, BlockState outputState) {
-		return registerPureDaisyRecipe(input, outputState, RecipePureDaisy.DEFAULT_TIME);
-	}
-
-	/**
-	 * Registers a Pure Daisy Recipe.
-	 * @param input The input for the recipe. Can be a Block (meta-insensitive), IBlockState (meta-sensitive), or an oredict String.
-	 * @param outputState The blockstate to be placed upon recipe completion.
-	 * @param time The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not total time.
-	 *             The Pure Daisy only ticks one block at a time in a round robin fashion.
-	 * @return The recipe created.
-	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, BlockState outputState, int time) {
-		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState, time);
-		pureDaisyRecipes.add(recipe);
-		return recipe;
-	}
-
-	/**
-	 * Registers a Rune Altar Recipe.
-	 * @param output The ItemStack to craft.
-	 * @param mana The amount of mana required. Don't go over 100000!
-	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
-	 * or String (case for Ore Dictionary). The array can't be larger than 16.
-	 * @return The recipe created.
-	 */
-	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Ingredient... inputs) {
-		Preconditions.checkArgument(inputs.length <= 16);
-		RecipeRuneAltar recipe = new RecipeRuneAltar(output, mana, inputs);
-		runeAltarRecipes.add(recipe);
-		return recipe;
-	}
-
-	/**
-	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
-	 * @param outputs The ItemStacks to return.
-	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.
-	 * @return The recipe created.
-	 */
-	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack[] outputs, Ingredient... inputs) {
-		RecipeElvenTrade recipe = new RecipeElvenTrade(outputs, inputs);
-		elvenTradeRecipes.add(recipe);
-		return recipe;
-	}
-
-	/**
-	 * Registers a Elven Trade recipe (throw an item into an Alfeim Portal).
-	 * @param output The ItemStack to return
-	 * @param inputs The items required, can be an ItemStack or an Ore Dictionary entry string.
-	 * @return The recipe created.
-	 */
-	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Ingredient... inputs) {
-		return registerElvenTradeRecipe(new ItemStack[]{ output }, inputs);
-	}
-
-	/**
-	 * Registers a Brew Recipe (for the Botanical Brewery).
-	 * @param brew The brew in to be set in this recipe.
-	 * @param inputs The items used in the recipe, no more than 6.
-	 */
-	public static RecipeBrew registerBrewRecipe(Brew brew, Ingredient... inputs) {
-		Preconditions.checkArgument(inputs.length <= 6);
-		RecipeBrew recipe = new RecipeBrew(brew, inputs);
-		brewRecipes.add(recipe);
-		return recipe;
 	}
 
 	/**

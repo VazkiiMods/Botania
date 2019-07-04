@@ -10,15 +10,19 @@
  */
 package vazkii.botania.api.recipe;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 
 public class RecipeRuneAltar extends RecipePetals {
 
 	private final int mana;
 
-	public RecipeRuneAltar(ItemStack output, int mana, Ingredient... inputs) {
-		super(output, inputs);
+	public RecipeRuneAltar(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
+		super(id, output, inputs);
+		Preconditions.checkArgument(inputs.length <= 16);
+		Preconditions.checkArgument(mana <= 100000);
 		this.mana = mana;
 	}
 

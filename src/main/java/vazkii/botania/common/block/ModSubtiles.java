@@ -237,10 +237,13 @@ public class ModSubtiles {
 
 	@SubscribeEvent
 	public static void registerTEs(RegistryEvent.Register<TileEntityType<?>> evt) {
+		IForgeRegistry<Block> b = ForgeRegistries.BLOCKS;
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
-			register(r, TileEntityType.Builder.create(type.getLeft()).build(null), type.getRight());
+			Block block = b.getValue(type.getRight());
+			Block floating = b.getValue(floating(type.getRight()));
+			register(r, TileEntityType.Builder.create(type.getLeft(), block, floating).build(null), type.getRight());
 		}
 	}
 }

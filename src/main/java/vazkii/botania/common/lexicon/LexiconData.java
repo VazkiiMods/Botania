@@ -21,6 +21,7 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -56,6 +57,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class LexiconData {
 
@@ -536,9 +538,13 @@ public final class LexiconData {
 				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot))
 		.setIcon(ItemStack.EMPTY);
 
+		// todo 1.14 make this a tag or something instead of this dumb thing
+		List<RecipeManaInfusion> miniRecipes = BotaniaAPI.manaInfusionRecipes.values().stream()
+				.filter(r -> r.getOutput().getItem().getRegistryName().getPath().contains("chibi"))
+				.collect(Collectors.toList());
 		flowerShrinking = new BasicLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority()
-		.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", BotaniaAPI.miniFlowerRecipes))
+		.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", miniRecipes))
 		.setIcon(new ItemStack(ModSubtiles.bellethornChibi));
 
 		flowerSpeed = new BasicLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);

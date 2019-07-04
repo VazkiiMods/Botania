@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -21,11 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipePetals {
-
+	private final ResourceLocation id;
 	private final ItemStack output;
 	private final ImmutableList<Ingredient> inputs;
 
-	public RecipePetals(ItemStack output, Ingredient... inputs) {
+	public RecipePetals(ResourceLocation id, ItemStack output, Ingredient... inputs) {
+		this.id = id;
 		this.output = output;
 		this.inputs = ImmutableList.copyOf(inputs);
 	}
@@ -54,6 +56,10 @@ public class RecipePetals {
 		}
 
 		return ingredientsMissing.isEmpty();
+	}
+
+	public ResourceLocation getId() {
+		return id;
 	}
 
 	public List<Ingredient> getInputs() {

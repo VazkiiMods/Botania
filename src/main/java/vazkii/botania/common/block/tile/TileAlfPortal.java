@@ -194,7 +194,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		if(inputStack.getItem() == ModItems.lexicon)
 			return true;
 
-		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			for(Ingredient o : recipe.getInputs()) {
 				if(o.test(inputStack)) {
 					return true;
@@ -263,7 +263,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			i++;
 		}
 
-		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			if(recipe.matches(stacksIn, false)) {
 				if(consumeMana(null, 500, false)) {
 					recipe.matches(stacksIn, true);
@@ -363,7 +363,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos = new BlockPos(i, j, k);
+					BlockPos pos = getPos().add(i, j, k);
 					if(world.getBlockState(pos) == pylonState && world.getBlockState(pos.down()).getBlock() instanceof BlockPool)
 						list.add(pos);
 				}

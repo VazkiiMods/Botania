@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:vine"
+          "name": "minecraft:blocks/vine"
         }
       ]
     }

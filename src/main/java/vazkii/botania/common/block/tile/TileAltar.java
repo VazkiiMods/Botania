@@ -146,7 +146,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 		
 		if(SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
-			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
+			for(RecipePetals recipe : BotaniaAPI.petalRecipes.values()) {
 				if(recipe.matches(itemHandler)) {
 					saveLastRecipe();
 					
@@ -377,7 +377,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		if(amt > 0) {
 			float anglePer = 360F / amt;
 
-			for(RecipePetals recipe : BotaniaAPI.petalRecipes)
+			for(RecipePetals recipe : BotaniaAPI.petalRecipes.values())
 				if(recipe.matches(itemHandler)) {
 					GlStateManager.color4f(1F, 1F, 1F, 1F);
 					mc.textureManager.bindTexture(HUDHandler.manaBar);

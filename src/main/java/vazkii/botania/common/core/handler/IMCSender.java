@@ -133,10 +133,6 @@ public class IMCSender {
 				Blocks.CYAN_CARPET, Blocks.PURPLE_CARPET, Blocks.BLUE_CARPET, Blocks.BROWN_CARPET, Blocks.GREEN_CARPET, Blocks.RED_CARPET, Blocks.BLACK_CARPET };
 		for(Block b : carpets)
 			send(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(ColorHelper.CARPET_MAP::get, b));
-
-		ModManaInfusionRecipes.send();
-		ModManaAlchemyRecipes.send();
-		ModManaConjurationRecipes.send();
 	}
 
 	public static void send(String method, Object thing) {

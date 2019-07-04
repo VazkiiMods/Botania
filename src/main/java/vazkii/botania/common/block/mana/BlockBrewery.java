@@ -78,10 +78,12 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+		if(state.getBlock() != newState.getBlock()) {
+			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		InventoryHelper.dropInventory(inv, world, state, pos);
+			InventoryHelper.dropInventory(inv, world, state, pos);
 
+		}
 		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 

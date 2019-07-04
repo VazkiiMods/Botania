@@ -124,7 +124,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private RecipePureDaisy findRecipe(BlockPos coords) {
 		BlockState state = getWorld().getBlockState(coords);
 
-		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
+		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes.values()) {
 			if(recipe.matches(getWorld(), coords, this, state)) {
 				return recipe;
 			}

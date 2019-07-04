@@ -14,6 +14,7 @@ import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -22,22 +23,37 @@ public class RecipePureDaisy {
 
 	public static final int DEFAULT_TIME = 150;
 
+	private final ResourceLocation id;
 	private final Object input;
 	private final BlockState outputState;
 	private final int time;
 
-	public RecipePureDaisy(Object input, BlockState state) {
-		this(input, state, DEFAULT_TIME);
+	public RecipePureDaisy(ResourceLocation id, Object input, BlockState state) {
+		this(id, input, state, DEFAULT_TIME);
 	}
 
-	public RecipePureDaisy(Object input, BlockState state, int time) {
+	/**
+	 * @param id    The ID for this recipe.
+	 * @param input The input for the recipe. Can be a Block, BlockState, or Tag&lt;Block&gt;.
+	 * @param state The blockstate to be placed upon recipe completion.
+	 * @param time  The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not total time.
+	 *              The Pure Daisy only ticks one block at a time in a round robin fashion.
+	 */
+	public RecipePureDaisy(ResourceLocation id, Object input, BlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
+		this.id = id;
 		this.input = input;
-		outputState = state;
+		this.outputState = state;
 		this.time = time;
-		if(input != null && !(input instanceof Tag || input instanceof Block || input instanceof BlockState))
+		if(input != null
+				&& !(input instanceof Block)
+				&& !(input instanceof BlockState)
+				&& !(input instanceof Tag && checkBlockTag((Tag) input)))
 			throw new IllegalArgumentException("input must be a Tag<Block>, Block, or IBlockState");
-		// todo 1.13 find way to throw or enforce Tag<Block>
+	}
+
+	private static boolean checkBlockTag(Tag<?> tag) {
+		return tag.getAllElements().stream().allMatch(o -> o instanceof Block);
 	}
 
 	/**
@@ -74,6 +90,10 @@ public class RecipePureDaisy {
 
 	public int getTime() {
 		return time;
+	}
+
+	public ResourceLocation getId() {
+		return id;
 	}
 
 }

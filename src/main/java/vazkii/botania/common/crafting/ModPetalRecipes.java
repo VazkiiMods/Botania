@@ -10,14 +10,19 @@
  */
 package vazkii.botania.common.crafting;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -29,6 +34,9 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModPetalRecipes {
 	public static RecipePetals pureDaisyRecipe;
 	public static RecipePetals manastarRecipe;
@@ -74,7 +82,8 @@ public final class ModPetalRecipes {
 	public static RecipePetals solegnoliaRecipe;
 	public static RecipePetals bergamuteRecipe;
 
-	public static void init() {
+	@SubscribeEvent
+	public static void register(RegisterRecipesEvent evt) {
 		Ingredient white = tagIngr("petals/white");
 		Ingredient orange = tagIngr("petals/orange");
 		Ingredient magenta = tagIngr("petals/magenta");
@@ -112,63 +121,67 @@ public final class ModPetalRecipes {
 		Ingredient pixieDust = Ingredient.fromItems(ModItems.pixieDust);
 		Ingredient gaiaSpirit = Ingredient.fromItems(ModItems.lifeEssence);
 
-		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.pureDaisy), white, white, white, white);
-		manastarRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.manastar), lightBlue, green, red, cyan);
+		evt.apothecary().accept(make(ModSubtiles.pureDaisy, white, white, white, white));
+		evt.apothecary().accept(make(ModSubtiles.manastar, lightBlue, green, red, cyan));
 
-		endoflameRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.endoflame), brown, brown, red, lightGray);
-		hydroangeasRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.hydroangeas), blue, blue, cyan, cyan);
-		thermalilyRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.thermalily), red, orange, orange, runeEarth, runeFire);
-		arcaneRoseRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.rosaArcana), pink, pink, purple, purple, lime, runeMana);
-		munchdewRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.munchdew), lime, lime, red, red, green, runeGluttony);
-		entropinnyumRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.entropinnyum), red, red, gray, gray, white, white, runeWrath, runeFire);
-		kekimurusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.kekimurus), white, white, orange, orange, brown, brown,runeGluttony, pixieDust);
-		gourmaryllisRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.gourmaryllis), lightGray, lightGray, yellow, yellow, red, runeFire, runeSummer);
-		narslimmusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.narslimmus), lime, lime, green, green, black, runeSummer, runeWater);
-		spectrolusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.spectrolus), red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust);
-		rafflowsiaRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.rafflowsia), purple, purple, green, green, black, runeEarth, runePride, pixieDust);
-		shulkMeNotRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.shulkMeNot), purple, purple, magenta, magenta, lightGray, gaiaSpirit, runeEnvy, runeWrath);
-		dandelifeonRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.dandelifeon), purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, gaiaSpirit);
+		evt.apothecary().accept(make(ModSubtiles.endoflame, brown, brown, red, lightGray));
+		evt.apothecary().accept(make(ModSubtiles.hydroangeas, blue, blue, cyan, cyan));
+		evt.apothecary().accept(make(ModSubtiles.thermalily, red, orange, orange, runeEarth, runeFire));
+		evt.apothecary().accept(make(ModSubtiles.rosaArcana, pink, pink, purple, purple, lime, runeMana));
+		evt.apothecary().accept(make(ModSubtiles.munchdew, lime, lime, red, red, green, runeGluttony));
+		evt.apothecary().accept(make(ModSubtiles.entropinnyum, red, red, gray, gray, white, white, runeWrath, runeFire));
+		evt.apothecary().accept(make(ModSubtiles.kekimurus, white, white, orange, orange, brown, brown,runeGluttony, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.gourmaryllis, lightGray, lightGray, yellow, yellow, red, runeFire, runeSummer));
+		evt.apothecary().accept(make(ModSubtiles.narslimmus, lime, lime, green, green, black, runeSummer, runeWater));
+		evt.apothecary().accept(make(ModSubtiles.spectrolus, red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.rafflowsia, purple, purple, green, green, black, runeEarth, runePride, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.shulkMeNot, purple, purple, magenta, magenta, lightGray, gaiaSpirit, runeEnvy, runeWrath));
+		evt.apothecary().accept(make(ModSubtiles.dandelifeon, purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, gaiaSpirit));
 
-		jadedAmaranthusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.jadedAmaranthus), purple, lime, green, runeSpring, redstoneRoot);
-		bellethorneRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.bellethorn), red, red, red, cyan, cyan, redstoneRoot);
-		dreadthorneRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.dreadthorn), black, black, black, cyan, cyan, redstoneRoot);
-		heiseiDreamRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.heiseiDream), magenta, magenta, purple, pink, runeWrath, pixieDust);
-		tigerseyeRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.tigerseye), yellow, brown, orange, lime, runeAutumn);
+		evt.apothecary().accept(make(ModSubtiles.jadedAmaranthus, purple, lime, green, runeSpring, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.bellethorn, red, red, red, cyan, cyan, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.dreadthorn, black, black, black, cyan, cyan, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.tigerseye, yellow, brown, orange, lime, runeAutumn));
 
 		if(Botania.gardenOfGlassLoaded)
-			orechidRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.orechid), gray, gray, yellow, yellow, green, green, red, red);
-		else orechidRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.orechid), gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
+			evt.apothecary().accept(make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red));
+		else evt.apothecary().accept(make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust));
 
-		orechidIgnemRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.orechidIgnem), red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
+		evt.apothecary().accept(make(ModSubtiles.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust));
 		if(ConfigHandler.COMMON.fallenKanadeEnabled.get())
-			fallenKanadeRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.fallenKanade), white, white, yellow, yellow, orange, runeSpring);
-		exoflameRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.exoflame), red, red, gray, lightGray, runeFire, runeSummer);
-		agricarnationRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.agricarnation), lime, lime, green, yellow, runeSpring, redstoneRoot);
-		hopperhockRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.hopperhock), gray, gray, lightGray, lightGray, runeAir, redstoneRoot);
-		tangleberrieRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.tangleberrie), cyan, cyan, gray, lightGray, runeAir, runeEarth);
-		jiyuuliaRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.jiyuulia), pink, pink, purple, lightGray, runeWater, runeAir);
-		rannuncarpusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.rannuncarpus), orange, orange, yellow, runeEarth, redstoneRoot);
-		hyacidusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.hyacidus), purple, purple, magenta, magenta, green, runeWater, runeAutumn, redstoneRoot);
-		pollidisiacRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.pollidisiac), red, red, pink, pink, orange, runeLust, runeFire);
-		clayconiaRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.clayconia), lightGray, lightGray, gray, cyan, runeEarth);
-		looniumRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.loonium), green, green, green, green, gray, runeSloth, runeGluttony, runeEnvy, redstoneRoot, pixieDust);
-		daffomillRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.daffomill), white, white, brown, yellow, runeAir, redstoneRoot);
-		vinculotusRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.vinculotus), black, black, purple, purple, green, runeWater, runeSloth, runeLust, redstoneRoot);
-		spectranthemumRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.spectranthemum), white, white, lightGray, lightGray, cyan, runeEnvy, runeWater, redstoneRoot, pixieDust);
-		medumoneRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.medumone), brown, brown, gray, gray, runeEarth, redstoneRoot);
-		marimorphosisRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.marimorphosis), gray, yellow, green, red, runeEarth, runeFire, redstoneRoot);
-		bubbellRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.bubbell), cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust);
-		solegnoliaRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.solegnolia), brown, brown, red, blue, redstoneRoot);
-		bergamuteRecipe = BotaniaAPI.registerPetalRecipe(new ItemStack(ModSubtiles.bergamute), orange, green, green, redstoneRoot);
+			evt.apothecary().accept(make(ModSubtiles.fallenKanade, white, white, yellow, yellow, orange, runeSpring));
+		evt.apothecary().accept(make(ModSubtiles.exoflame, red, red, gray, lightGray, runeFire, runeSummer));
+		evt.apothecary().accept(make(ModSubtiles.agricarnation, lime, lime, green, yellow, runeSpring, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.hopperhock, gray, gray, lightGray, lightGray, runeAir, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.tangleberrie, cyan, cyan, gray, lightGray, runeAir, runeEarth));
+		evt.apothecary().accept(make(ModSubtiles.jiyuulia, pink, pink, purple, lightGray, runeWater, runeAir));
+		evt.apothecary().accept(make(ModSubtiles.rannuncarpus, orange, orange, yellow, runeEarth, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.hyacidus, purple, purple, magenta, magenta, green, runeWater, runeAutumn, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.pollidisiac, red, red, pink, pink, orange, runeLust, runeFire));
+		evt.apothecary().accept(make(ModSubtiles.clayconia, lightGray, lightGray, gray, cyan, runeEarth));
+		evt.apothecary().accept(make(ModSubtiles.loonium, green, green, green, green, gray, runeSloth, runeGluttony, runeEnvy, redstoneRoot, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.daffomill, white, white, brown, yellow, runeAir, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.vinculotus, black, black, purple, purple, green, runeWater, runeSloth, runeLust, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.spectranthemum, white, white, lightGray, lightGray, cyan, runeEnvy, runeWater, redstoneRoot, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.medumone, brown, brown, gray, gray, runeEarth, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.marimorphosis, gray, yellow, green, red, runeEarth, runeFire, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.bubbell, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.solegnolia, brown, brown, red, blue, redstoneRoot));
+		evt.apothecary().accept(make(ModSubtiles.bergamute, orange, green, green, redstoneRoot));
 
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		BotaniaAPI.registerPetalRecipe(stack, inputs);
+		evt.apothecary().accept(new RecipePetals(prefix("vazkii_head"), stack, inputs));
 	}
 
 	private static Ingredient tagIngr(String tag) {
 		return Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, tag)));
+	}
+
+	private static RecipePetals make(IItemProvider item, Ingredient... ingredients) {
+		return new RecipePetals(item.asItem().getRegistryName(), new ItemStack(item), ingredients);
 	}
 }

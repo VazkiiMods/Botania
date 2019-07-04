@@ -87,7 +87,7 @@ configurations {
 //End of the SCP config
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.3-27.0.16'
+    minecraft 'net.minecraftforge:forge:1.14.3-27.0.23'
 
     //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

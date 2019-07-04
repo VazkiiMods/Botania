@@ -8,8 +8,11 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
+import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -18,6 +21,9 @@ import vazkii.botania.common.lib.LibOreDict;
 import java.util.ArrayList;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ModElvenTradeRecipes {
 
 	public static RecipeElvenTrade dreamwoodRecipe;
@@ -27,29 +33,28 @@ public class ModElvenTradeRecipes {
 	public static RecipeElvenTrade elvenQuartzRecipe;
 	public static RecipeElvenTrade alfglassRecipe;
 
-	public static void init() {
+	@SubscribeEvent
+	public static void register(RegisterRecipesEvent evt) {
 		Ingredient livingwood = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "livingwood")));
-		dreamwoodRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.dreamwood), livingwood);
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("dreamwood"), new ItemStack(ModBlocks.dreamwood), livingwood));
 
 		Ingredient manaDiamond = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "gems/mana_diamond")));
 		Ingredient manaSteel = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "ingots/manasteel")));
-		elementiumRecipes = new ArrayList<>();
-		elementiumRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.elementium), manaSteel, manaSteel));
-		elementiumRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.elementiumBlock), Ingredient.fromItems(ModBlocks.manasteelBlock), Ingredient.fromItems(ModBlocks.manasteelBlock)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("elementium"), new ItemStack(ModItems.elementium), manaSteel, manaSteel));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("elementium_block"), new ItemStack(ModBlocks.elementiumBlock), Ingredient.fromItems(ModBlocks.manasteelBlock), Ingredient.fromItems(ModBlocks.manasteelBlock)));
 
-		pixieDustRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.pixieDust), Ingredient.fromItems(ModItems.manaPearl));
-		dragonstoneRecipes = new ArrayList<>();
-		dragonstoneRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.dragonstone), manaDiamond));
-		dragonstoneRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.dragonstoneBlock), Ingredient.fromItems(ModBlocks.manaDiamondBlock)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("pixie_dust"), new ItemStack(ModItems.pixieDust), Ingredient.fromItems(ModItems.manaPearl)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("dragonstone"), new ItemStack(ModItems.dragonstone), manaDiamond));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("dragonstone_block"), new ItemStack(ModBlocks.dragonstoneBlock), Ingredient.fromItems(ModBlocks.manaDiamondBlock)));
 
-		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.elfQuartz), Ingredient.fromItems(Items.QUARTZ));
-		alfglassRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.elfGlass), Ingredient.fromItems(ModBlocks.manaGlass));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("elf_quartz"), new ItemStack(ModItems.elfQuartz), Ingredient.fromItems(Items.QUARTZ)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("elf_glass"), new ItemStack(ModBlocks.elfGlass), Ingredient.fromItems(ModBlocks.manaGlass)));
 
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.IRON_INGOT), Ingredient.fromItems(Items.IRON_INGOT));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.IRON_BLOCK), Ingredient.fromItems(Blocks.IRON_BLOCK));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.ENDER_PEARL), Ingredient.fromItems(Items.ENDER_PEARL));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.DIAMOND), Ingredient.fromItems(Items.DIAMOND));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.DIAMOND_BLOCK), Ingredient.fromItems(Blocks.DIAMOND_BLOCK));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("iron_return"), new ItemStack(Items.IRON_INGOT), Ingredient.fromItems(Items.IRON_INGOT)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("iron_block_return"), new ItemStack(Blocks.IRON_BLOCK), Ingredient.fromItems(Blocks.IRON_BLOCK)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("ender_pearl_return"), new ItemStack(Items.ENDER_PEARL), Ingredient.fromItems(Items.ENDER_PEARL)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("diamond_return"), new ItemStack(Items.DIAMOND), Ingredient.fromItems(Items.DIAMOND)));
+		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("diamond_block_return"), new ItemStack(Blocks.DIAMOND_BLOCK), Ingredient.fromItems(Blocks.DIAMOND_BLOCK)));
 	}
 
 }
