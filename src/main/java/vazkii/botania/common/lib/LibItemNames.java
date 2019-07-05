@@ -19,12 +19,24 @@ public final class LibItemNames {
 	public static final String DYE_SUFFIX = "_" + DYE;
 	public static final String PESTLE_AND_MORTAR = "pestle_and_mortar";
 	public static final String TWIG_WAND = "twig_wand";
-	public static final String[] RUNE_NAMES = {
-			"rune_water", "rune_fire", "rune_earth", "rune_air",
-			"rune_spring", "rune_summer", "rune_autumn", "rune_winter",
-			"rune_mana",
-			"rune_lust", "rune_gluttony", "rune_greed", "rune_sloth", "rune_wrath", "rune_envy", "rune_pride"
-	};
+	
+	public static final String RUNE_WATER = "rune_water";
+	public static final String RUNE_FIRE = "rune_fire";
+	public static final String RUNE_EARTH = "rune_earth";
+	public static final String RUNE_AIR = "rune_air";
+	public static final String RUNE_SPRING = "rune_spring";
+	public static final String RUNE_SUMMER = "rune_summer";
+	public static final String RUNE_AUTUMN = "rune_autumn";
+	public static final String RUNE_WINTER = "rune_winter";
+	public static final String RUNE_MANA = "rune_mana";
+	public static final String RUNE_LUST = "rune_lust";
+	public static final String RUNE_GLUTTONY = "rune_gluttony";
+	public static final String RUNE_GREED = "rune_greed";
+	public static final String RUNE_SLOTH = "rune_sloth";
+	public static final String RUNE_WRATH = "rune_wrath";
+	public static final String RUNE_ENVY = "rune_envy";
+	public static final String RUNE_PRIDE = "rune_pride";
+
 	public static final String MANA_TABLET = "mana_tablet";
 	public static final String MANA_GUN = "mana_gun";
 	public static final String MANA_COOKIE = "mana_cookie";
@@ -74,15 +86,15 @@ public final class LibItemNames {
 	public static final String DIVA_CHARM = "diva_charm";
 	public static final String FLIGHT_TIARA = "flight_tiara";
 	public static final String ENDER_DAGGER = "ender_dagger";
-	public static final String[] QUARTZ_NAMES = {
-			"quartz_dark",
-			"quartz_mana",
-			"quartz_blaze",
-			"quartz_lavender",
-			"quartz_red",
-			"quartz_elven",
-			"quartz_sunny"
-	};
+	
+	public static final String QUARTZ_DARK = "quartz_dark";
+	public static final String QUARTZ_MANA = "quartz_mana";
+	public static final String QUARTZ_BLAZE = "quartz_blaze";
+	public static final String QUARTZ_LAVENDER = "quartz_lavender";
+	public static final String QUARTZ_RED = "quartz_red";
+	public static final String QUARTZ_ELVEN = "quartz_elven";
+	public static final String QUARTZ_SUNNY = "quartz_sunny";
+
 	public static final String WATER_ROD = "water_rod";
 	public static final String ELEMENTIUM_HELM = "elementium_helmet";
 	public static final String ELEMENTIUM_CHEST = "elementium_chestplate";
@@ -192,58 +204,54 @@ public final class LibItemNames {
 	public static final String ASTROLABE = "astrolabe";
 	public static final String GODDESS_CHARM = "goddess_charm";
 
-	public static final String[] LENS_NAMES = new String[] {
-			"lens_normal",
-			"lens_speed",
-			"lens_power",
-			"lens_time",
-			"lens_efficiency",
-			"lens_bounce",
-			"lens_gravity",
-			"lens_mine",
-			"lens_damage",
-			"lens_phantom",
-			"lens_magnet",
-			"lens_explosive",
-			"lens_influence",
-			"lens_weight",
-			"lens_paint",
-			"lens_fire",
-			"lens_piston",
-			"lens_light",
-			"lens_warp",
-			"lens_redirect",
-			"lens_firework",
-			"lens_flare",
-			"lens_messenger",
-			"lens_tripwire",
-			"lens_storm"
-	};
+	public static final String LENS_NORMAL = "lens_normal";
+	public static final String LENS_SPEED = "lens_speed";
+	public static final String LENS_POWER = "lens_power";
+	public static final String LENS_TIME = "lens_time";
+	public static final String LENS_EFFICIENCY = "lens_efficiency";
+	public static final String LENS_BOUNCE = "lens_bounce";
+	public static final String LENS_GRAVITY = "lens_gravity";
+	public static final String LENS_MINE = "lens_mine";
+	public static final String LENS_DAMAGE = "lens_damage";
+	public static final String LENS_PHANTOM = "lens_phantom";
+	public static final String LENS_MAGNET = "lens_magnet";
+	public static final String LENS_EXPLOSIVE = "lens_explosive";
+	public static final String LENS_INFLUENCE = "lens_influence";
+	public static final String LENS_WEIGHT = "lens_weight";
+	public static final String LENS_PAINT = "lens_paint";
+	public static final String LENS_FIRE = "lens_fire";
+	public static final String LENS_PISTON = "lens_piston";
+	public static final String LENS_LIGHT = "lens_light";
+	public static final String LENS_WARP = "lens_warp";
+	public static final String LENS_REDIRECT = "lens_redirect";
+	public static final String LENS_FIREWORK = "lens_firework";
+	public static final String LENS_FLARE = "lens_flare";
+	public static final String LENS_MESSENGER = "lens_messenger";
+	public static final String LENS_TRIPWIRE = "lens_tripwire";
+	public static final String LENS_STORM = "lens_storm";
 
-	public static final String[] MANA_RESOURCE_NAMES = new String[] {
-			"manasteel_ingot",
-			"mana_pearl",
-			"mana_diamond",
-			"livingwood_twig",
-			"terrasteel_ingot",
-			"life_essence",
-			"redstone_root",
-			"elementium_ingot",
-			"pixie_dust",
-			"dragonstone",
-			"UNUSED",
-			"placeholder",
-			"red_string",
-			"dreamwood_twig",
-			"gaia_ingot",
-			"ender_air_bottle",
-			"mana_string",
-			"manasteel_nugget",
-			"terrasteel_nugget",
-			"elementium_nugget",
-			"living_root",
-			"pebble",
-			"manaweave_cloth",
-			"mana_powder"
-	};
+	public static final String MANASTEEL_INGOT = "manasteel_ingot";
+	public static final String MANA_PEARL = "mana_pearl";
+	public static final String MANA_DIAMOND = "mana_diamond";
+	public static final String LIVINGWOOD_TWIG = "livingwood_twig";
+	public static final String TERRASTEEL_INGOT = "terrasteel_ingot";
+	public static final String LIFE_ESSENCE = "life_essence";
+	public static final String REDSTONE_ROOT = "redstone_root";
+	public static final String ELEMENTIUM_INGOT = "elementium_ingot";
+	public static final String PIXIE_DUST = "pixie_dust";
+	public static final String DRAGONSTONE = "dragonstone";
+	public static final String PLACEHOLDER = "placeholder";
+	public static final String RED_STRING = "red_string";
+	public static final String DREAMWOOD_TWIG = "dreamwood_twig";
+	public static final String GAIA_INGOT = "gaia_ingot";
+	public static final String ENDER_AIR_BOTTLE = "ender_air_bottle";
+	public static final String MANA_STRING = "mana_string";
+	public static final String MANASTEEL_NUGGET = "manasteel_nugget";
+	public static final String TERRASTEEL_NUGGET = "terrasteel_nugget";
+	public static final String ELEMENTIUM_NUGGET = "elementium_nugget";
+	public static final String LIVING_ROOT = "living_root";
+	public static final String PEBBLE = "pebble";
+	public static final String MANAWEAVE_CLOTH = "manaweave_cloth";
+	public static final String MANA_POWDER = "mana_powder";
+	
 }

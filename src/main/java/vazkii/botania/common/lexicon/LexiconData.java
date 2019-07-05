@@ -1389,7 +1389,7 @@ public final class LexiconData {
 
 		challenges = new BasicLexiconEntry(LibLexicon.MISC_CHALLENGES, categoryMisc);
 		challenges.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2")).setPriority()
-		.setIcon(new ItemStack(ModItems.cosmetics.get(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK)));
+		.setIcon(new ItemStack(ModItems.questgiverMark));
 
 		cacophonium = new BasicLexiconEntry(LibLexicon.MISC_CACOPHONIUM, categoryMisc);
 		cacophonium.setLexiconPages(new PageText("0"),

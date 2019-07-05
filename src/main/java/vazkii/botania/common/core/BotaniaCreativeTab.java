@@ -11,7 +11,6 @@
 package vazkii.botania.common.core;
 
 import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
@@ -625,7 +624,39 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.yellowPavementSlab);
 		addItem(ModFluffBlocks.redPavementSlab);
 
-		ModItems.cosmetics.values().forEach(this::addItem);
+		addItem(ModItems.blackBowtie);
+		addItem(ModItems.blackTie);
+		addItem(ModItems.redGlasses);
+		addItem(ModItems.puffyScarf);
+		addItem(ModItems.engineerGoggles);
+		addItem(ModItems.eyepatch);
+		addItem(ModItems.wickedEyepatch);
+		addItem(ModItems.redRibbons);
+		addItem(ModItems.pinkFlowerBud);
+		addItem(ModItems.polkaDottedBows);
+		addItem(ModItems.blueButterfly);
+		addItem(ModItems.catEars);
+		addItem(ModItems.witchPin);
+		addItem(ModItems.devilTail);
+		addItem(ModItems.kamuiEye);
+		addItem(ModItems.googlyEyes);
+		addItem(ModItems.fourLeafClover);
+		addItem(ModItems.clockEye);
+		addItem(ModItems.unicornHorn);
+		addItem(ModItems.devilHorns);
+		addItem(ModItems.hyperPlus);
+		addItem(ModItems.botanistEmblem);
+		addItem(ModItems.ancientMask);
+		addItem(ModItems.eerieMask);
+		addItem(ModItems.alienAntenna);
+		addItem(ModItems.anaglyphGlasses);
+		addItem(ModItems.orangeShades);
+		addItem(ModItems.grouchoGlasses);
+		addItem(ModItems.thickEyebrows);
+		addItem(ModItems.lusitanicShield);
+		addItem(ModItems.tinyPotatoMask);
+		addItem(ModItems.questgiverMark);
+		addItem(ModItems.thinkingHand);
 	}
 
 	private void addTag(ResourceLocation tagId) {

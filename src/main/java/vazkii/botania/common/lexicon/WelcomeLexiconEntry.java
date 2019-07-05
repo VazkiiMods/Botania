@@ -28,7 +28,7 @@ public class WelcomeLexiconEntry extends BasicLexiconEntry {
 	public WelcomeLexiconEntry() {
 		super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);
 		setPriority();
-		setIcon(new ItemStack(ModItems.cosmetics.get(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK)));
+		setIcon(new ItemStack(ModItems.questgiverMark));
 
 		LexiconPage[] pages = new LexiconPage[PAGES];
 		for(int i = 0; i < PAGES; i++)

@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "tag": "minecraft:saplings"
+    "item": "minecraft:oak_sapling"
   },
   "ingredients": [
     {

@@ -134,8 +134,8 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		ITextComponent cmp = new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getUnlocalizedName(stack)));
-		cmp.appendSibling(new StringTextComponent(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
+		ITextComponent cmp = new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getUnlocalizedName(stack)), 
+			new StringTextComponent(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
 		return cmp;
 	}
 
