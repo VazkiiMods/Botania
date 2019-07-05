@@ -1662,12 +1662,12 @@ botania.brew.warpWard=здравых мыслей
 botania.brew.clear=отпущения грехов
 
 # POTION NAMES
-botania.potion.soulCross=скрещивания душ
-botania.potion.featherFeet=парящих ног
-botania.potion.emptiness=тщеславной пустоты
-botania.potion.bloodthirst=багровой тени
-botania.potion.allure=морского очарования
-botania.potion.clear=отпущения грехов
+botania.potion.soulCross=Скрещивание души
+botania.potion.featherFeet=Парящие ноги
+botania.potion.emptiness=Тщеславие пустоты
+botania.potion.bloodthirst=Багровая тень
+botania.potion.allure=Морское очарование
+botania.potion.clear=Отпущение грехов
 
 # GUI TEXT
 botania.gui.lexicon.header=Оглавление Лексикона Botania, %s издание.
