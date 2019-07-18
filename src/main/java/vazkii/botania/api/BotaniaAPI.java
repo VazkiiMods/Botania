@@ -84,7 +84,6 @@ public final class BotaniaAPI {
 	public static Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
 
 	public static Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> paintableBlocks = Collections.emptyMap();
-	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
 	public static final IArmorMaterial MANASTEEL_ARMOR_MAT = new IArmorMaterial() {
@@ -404,22 +403,6 @@ public final class BotaniaAPI {
 		if(brewMap.containsKey(key))
 			return brewMap.get(key);
 		return fallbackBrew;
-	}
-
-	/**
-	 * Blacklists an Entity from being affected by the Rod of the Shaded Mesa.
-	 * Pass in the class for the Entity, e.g. EntityCow.class
-	 */
-	public static void blacklistEntityFromGravityRod(Class<? extends Entity> entity) {
-		gravityRodBlacklist.add(entity);
-	}
-
-	/**
-	 * Checks if the provided Entity is contained in the Blacklist.
-	 * Pass in the class for the Entity, e.g. entity.getClass()
-	 */
-	public static boolean isEntityBlacklistedFromGravityRod(Class entity) {
-		return gravityRodBlacklist.contains(entity);
 	}
 
 	/**

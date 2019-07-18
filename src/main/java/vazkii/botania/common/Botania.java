@@ -194,14 +194,6 @@ public class Botania {
 
 	// todo 1.13 move everything here to where it belongs
 	private void loadComplete(FMLLoadCompleteEvent event) {
-		if(Botania.thaumcraftLoaded) {
-			try {
-				@SuppressWarnings("unchecked")
-				Class<? extends Entity> clazz = (Class<? extends Entity>) Class.forName("thaumcraft.common.entities.EntityFluxRift");
-				BotaniaAPI.blacklistEntityFromGravityRod(clazz);
-			} catch (ClassNotFoundException ignored) {}
-		}
-
 		LexiconData.postInit();
 
 		int words = 0;
@@ -213,7 +205,6 @@ public class Botania {
 			}
 		Botania.LOGGER.info("The Lexica Botania has {} words.", words);
 
-		registerDefaultEntityBlacklist();
 		finishedLoading = true;
 	}
 
@@ -248,28 +239,6 @@ public class Botania {
 		return s1.split("\\s+").length;
 		*/
 		return 0;
-	}
-
-	private void registerDefaultEntityBlacklist() {
-		// Vanilla
-		BotaniaAPI.blacklistEntityFromGravityRod(EnderDragonEntity.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EnderDragonPartEntity.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(WitherEntity.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(ItemFrameEntity.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EnderCrystalEntity.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(PaintingEntity.class);
-
-		// Botania
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityCorporeaSpark.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDoppleganger.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityFlameRing.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicLandmine.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicMissile.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityManaBurst.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityPinkWither.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntitySignalFlare.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntitySpark.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(TileLightRelay.EntityPlayerMover.class);
 	}
 
 }

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -22,10 +23,13 @@ import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -40,13 +44,14 @@ import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
-
+	private static final Tag<EntityType<?>> BLACKLIST = new EntityTypeTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "shaded_mesa_blacklist"));
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 
@@ -100,54 +105,54 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 
 		if(ticksCooldown == 0) {
-			Entity item = null;
+			Entity target = null;
 			if(targetID != -1 && player.world.getEntityByID(targetID) != null) {
 				Entity taritem = player.world.getEntityByID(targetID);
 
 				boolean found = false;
-				Vector3 target = Vector3.fromEntityCenter(player);
+				Vector3 targetVec = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
-					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					targetVec = targetVec.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
+					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;
 				}
 
 				if(found)
-					item = player.world.getEntityByID(targetID);
+					target = player.world.getEntityByID(targetID);
 			}
 
-			if(item == null) {
-				Vector3 target = Vector3.fromEntityCenter(player);
+			if(target == null) {
+				Vector3 targetVec = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
-					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					targetVec = targetVec.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
+					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
 					distance++;
 				}
 
 				if(entities.size() > 0) {
-					item = entities.get(0);
+					target = entities.get(0);
 					length = 5.5D;
-					if(item instanceof ItemEntity)
+					if(target instanceof ItemEntity)
 						length = 2.0D;
 				}
 			}
 
-			if(item != null) {
-				if(BotaniaAPI.isEntityBlacklistedFromGravityRod(item.getClass()))
+			if(target != null) {
+				if(BLACKLIST.contains(target.getType()))
 					return ActionResult.newResult(ActionResultType.FAIL, stack);
 
 				if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true)) {
-					if(item instanceof ItemEntity)
-						((ItemEntity) item).setPickupDelay(5);
+					if(target instanceof ItemEntity)
+						((ItemEntity) target).setPickupDelay(5);
 
-					if(item instanceof LivingEntity) {
-						LivingEntity targetEntity = (LivingEntity)item;
+					if(target instanceof LivingEntity) {
+						LivingEntity targetEntity = (LivingEntity)target;
 						targetEntity.fallDistance = 0.0F;
 						if(targetEntity.getActivePotionEffect(Effects.SLOWNESS) == null)
 							targetEntity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 3, true, true));
@@ -155,7 +160,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 					Vector3 target3 = Vector3.fromEntityCenter(player)
 							.add(new Vector3(player.getLookVec()).multiply(length)).add(0, 0.5, 0);
-					if(item instanceof ItemEntity)
+					if(target instanceof ItemEntity)
 						target3 = target3.add(0, 0.25, 0);
 
 					for(int i = 0; i < 4; i++) {
@@ -166,16 +171,16 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						float xm = ((float) Math.random() - 0.5F) * m;
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
-						Botania.proxy.wispFX(item.posX + item.getWidth() / 2,
-								item.posY + item.getHeight() / 2,
-								item.posZ + item.getWidth() / 2,
+						Botania.proxy.wispFX(target.posX + target.getWidth() / 2,
+								target.posY + target.getHeight() / 2,
+								target.posZ + target.getWidth() / 2,
 								r, 0F, b,
 								s, xm, ym, zm);
 					}
 
-					MathHelper.setEntityMotionFromVector(item, target3, 0.3333333F);
+					MathHelper.setEntityMotionFromVector(target, target3, 0.3333333F);
 
-					ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
+					ItemNBTHelper.setInt(stack, TAG_TARGET, target.getEntityId());
 					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 				}
 
