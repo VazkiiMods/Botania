@@ -5,6 +5,7 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.network.PacketDistributor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -13,6 +14,9 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.network.PacketSyncRecipes;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -44,5 +48,9 @@ public class ReloadListener implements IResourceManagerReloadListener {
         BotaniaAPI.elvenTradeRecipes = ImmutableMap.copyOf(elvenTrade);
         BotaniaAPI.petalRecipes = ImmutableMap.copyOf(apothecary);
         BotaniaAPI.runeAltarRecipes = ImmutableMap.copyOf(runeAltar);
+        PacketHandler.HANDLER.send(PacketDistributor.ALL.noArg(), new PacketSyncRecipes(brew, elvenTrade, manaInfusion,
+                apothecary, pureDaisy, runeAltar));
+
+        LexiconData.reload();
     }
 }

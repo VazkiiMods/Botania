@@ -136,7 +136,6 @@ public class Botania {
 		ModBrews.init();
 		ModMultiblocks.init();
 		ModCraftingRecipes.init();
-		// todo 1.13 LexiconData.init();
 
 		if(Botania.thaumcraftLoaded) {
 			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
@@ -194,8 +193,6 @@ public class Botania {
 
 	// todo 1.13 move everything here to where it belongs
 	private void loadComplete(FMLLoadCompleteEvent event) {
-		LexiconData.postInit();
-
 		int words = 0;
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
 			for(LexiconPage page : entry.pages) {

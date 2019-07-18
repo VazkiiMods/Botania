@@ -14,8 +14,10 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 
@@ -98,6 +100,25 @@ public class RecipeBrew {
 		return o instanceof RecipeBrew
 				&& brew == ((RecipeBrew) o).brew
 				&& inputs.equals(((RecipeBrew) o).inputs);
+	}
+
+	public void write(PacketBuffer buf) {
+		buf.writeResourceLocation(id);
+		buf.writeString(brew.getKey());
+		buf.writeVarInt(inputs.size());
+		for (Ingredient input : inputs) {
+			input.write(buf);
+		}
+	}
+
+	public static RecipeBrew read(PacketBuffer buf) {
+		ResourceLocation id = buf.readResourceLocation();
+		Brew brew = BotaniaAPI.getBrewFromKey(buf.readString());
+		Ingredient[] inputs = new Ingredient[buf.readVarInt()];
+		for (int i = 0; i < inputs.length; i++) {
+			inputs[i] = Ingredient.read(buf);
+		}
+		return new RecipeBrew(id, brew, inputs);
 	}
 
 }

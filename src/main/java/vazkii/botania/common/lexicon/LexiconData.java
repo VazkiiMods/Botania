@@ -299,7 +299,10 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 	public static LexiconEntry banners;
 
-	public static void init() {
+	public static void reload() {
+		BotaniaAPI.getAllCategories().clear();
+		BotaniaAPI.getAllEntries().clear();
+
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
@@ -1409,9 +1412,7 @@ public final class LexiconData {
 			bcIntegration = new CompatLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.REDSTONE));
 		}
-	}
 
-	public static void postInit() {
 		if (Botania.thaumcraftLoaded) {
 			tcIntegration = new CompatLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
 
@@ -1420,13 +1421,13 @@ public final class LexiconData {
 						new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"),
 						new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"),
 						new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b"))
-				.setIcon(new ItemStack(ModItems.manaInkwell));
+						.setIcon(new ItemStack(ModItems.manaInkwell));
 			else
 				tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"),
 						new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"),
 						new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe),
 						new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b"))
-				.setIcon(new ItemStack(ModItems.manaInkwell));
+						.setIcon(new ItemStack(ModItems.manaInkwell));
 		}
 	}
 }

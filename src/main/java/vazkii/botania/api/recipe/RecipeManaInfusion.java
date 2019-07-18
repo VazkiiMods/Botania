@@ -16,6 +16,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -82,6 +83,25 @@ public class RecipeManaInfusion {
 
 	public int getManaToConsume() {
 		return mana;
+	}
+
+	public void write(PacketBuffer buf) {
+		buf.writeResourceLocation(id);
+		input.write(buf);
+		buf.writeItemStack(output, false);
+		buf.writeVarInt(mana);
+		buf.writeInt(catalystState == null ? -1 : Block.getStateId(catalystState));
+	}
+
+	public static RecipeManaInfusion read(PacketBuffer buf) {
+		ResourceLocation id = buf.readResourceLocation();
+		Ingredient input = Ingredient.read(buf);
+		ItemStack output = buf.readItemStack();
+		int mana = buf.readVarInt();
+		int catalystId = buf.readInt();
+		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
+		ret.setCatalyst(catalystId == -1 ? null : Block.getStateById(catalystId));
+		return ret;
 	}
 }
 

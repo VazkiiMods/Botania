@@ -13,10 +13,14 @@ package vazkii.botania.api.recipe;
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 public class RecipePureDaisy {
@@ -94,6 +98,36 @@ public class RecipePureDaisy {
 
 	public ResourceLocation getId() {
 		return id;
+	}
+
+	public void write(PacketBuffer buf) {
+		buf.writeResourceLocation(id);
+		if (input instanceof Tag) {
+			buf.writeVarInt(0);
+			buf.writeResourceLocation(((Tag) input).getId());
+		} else if (input instanceof Block) {
+			buf.writeVarInt(1);
+			buf.writeVarInt(Registry.BLOCK.getId((Block) input));
+		} else {
+			buf.writeVarInt(2);
+			buf.writeVarInt(Block.getStateId((BlockState) input));
+		}
+		buf.writeVarInt(Block.getStateId(outputState));
+		buf.writeVarInt(time);
+	}
+
+	public static RecipePureDaisy read(PacketBuffer buf) {
+		ResourceLocation id = buf.readResourceLocation();
+		Object input;
+		switch (buf.readVarInt()) {
+			case 0: input = new BlockTags.Wrapper(buf.readResourceLocation()); break;
+			case 1: input = Registry.BLOCK.getByValue(buf.readVarInt()); break;
+			case 2: input = Block.getStateById(buf.readVarInt()); break;
+			default: throw new RuntimeException("Unknown input discriminator");
+		}
+		BlockState output = Block.getStateById(buf.readVarInt());
+		int time = buf.readVarInt();
+		return new RecipePureDaisy(id, input, output, time);
 	}
 
 }

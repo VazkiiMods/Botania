@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -68,6 +69,25 @@ public class RecipePetals {
 
 	public ItemStack getOutput() {
 		return output;
+	}
+
+	public void write(PacketBuffer buf) {
+		buf.writeResourceLocation(id);
+		buf.writeVarInt(inputs.size());
+		for (Ingredient input : inputs) {
+			input.write(buf);
+		}
+		buf.writeItemStack(output, false);
+	}
+
+	public static RecipePetals read(PacketBuffer buf) {
+		ResourceLocation id = buf.readResourceLocation();
+		Ingredient[] inputs = new Ingredient[buf.readVarInt()];
+		for (int i = 0; i < inputs.length; i++) {
+			inputs[i] = Ingredient.read(buf);
+		}
+		ItemStack output = buf.readItemStack();
+		return new RecipePetals(id, output, inputs);
 	}
 
 }

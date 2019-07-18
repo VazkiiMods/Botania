@@ -3,6 +3,7 @@ package vazkii.botania.api.recipe;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -69,4 +70,28 @@ public class RecipeElvenTrade {
 		return outputs;
 	}
 
+	public void write(PacketBuffer buf) {
+		buf.writeResourceLocation(id);
+		buf.writeVarInt(inputs.size());
+		for (Ingredient input : inputs) {
+			input.write(buf);
+		}
+		buf.writeVarInt(outputs.size());
+		for (ItemStack output : outputs) {
+			buf.writeItemStack(output, false);
+		}
+	}
+
+	public static RecipeElvenTrade read(PacketBuffer buf) {
+		ResourceLocation id = buf.readResourceLocation();
+		Ingredient[] inputs = new Ingredient[buf.readVarInt()];
+		for (int i = 0; i < inputs.length; i++) {
+			inputs[i] = Ingredient.read(buf);
+		}
+		ItemStack[] outputs = new ItemStack[buf.readVarInt()];
+		for (int i = 0; i < outputs.length; i++) {
+			outputs[i] = buf.readItemStack();
+		}
+		return new RecipeElvenTrade(id, outputs, inputs);
+	}
 }
