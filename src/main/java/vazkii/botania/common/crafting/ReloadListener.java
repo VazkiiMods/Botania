@@ -43,5 +43,6 @@ public class ReloadListener implements IResourceManagerReloadListener {
         BotaniaAPI.brewRecipes = ImmutableMap.copyOf(brew);
         BotaniaAPI.elvenTradeRecipes = ImmutableMap.copyOf(elvenTrade);
         BotaniaAPI.petalRecipes = ImmutableMap.copyOf(apothecary);
+        BotaniaAPI.runeAltarRecipes = ImmutableMap.copyOf(runeAltar);
     }
 }

@@ -41,7 +41,7 @@ public class LensDyeingRecipe extends SpecialRecipe {
 			Ingredient.fromTag(Tags.Items.DYES_PURPLE), Ingredient.fromTag(Tags.Items.DYES_BLUE),
 			Ingredient.fromTag(Tags.Items.DYES_BROWN), Ingredient.fromTag(Tags.Items.DYES_RED),
 			Ingredient.fromTag(Tags.Items.DYES_GREEN), Ingredient.fromTag(Tags.Items.DYES_BLACK),
-			Ingredient.fromItems(ModItems.manaPearl) // todo 1.13 tag for mana pearl?
+			Ingredient.fromItems(ModItems.manaPearl)
 	);
 
 	public LensDyeingRecipe(ResourceLocation id) {
