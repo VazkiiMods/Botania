@@ -83,7 +83,7 @@ public final class BlockHighlightRenderHandler {
 		}
 
 		double offY = -1.0 / 16 + 0.005;
-		for(Entity e : mc.world.func_217416_b())
+		for(Entity e : mc.world.getAllEntities())
 			if(e instanceof EntityMagicLandmine) {
 				BlockPos bpos = e.getPosition();
 				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).grow(2.5, 0, 2.5);

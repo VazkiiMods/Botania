@@ -85,7 +85,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		list.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		for(EffectInstance effect : brew.getPotionEffects(stack)) {
-			TextFormatting format = effect.getPotion().type.func_220306_a();
+			TextFormatting format = effect.getPotion().type.getColor();
 			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {
 				cmp.appendText(" ");

@@ -95,11 +95,11 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
-		registry.addRecipes(BotaniaAPI.brewRecipes, BreweryRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.pureDaisyRecipes, PureDaisyRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.petalRecipes, PetalApothecaryRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.elvenTradeRecipes, ElvenTradeRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.runeAltarRecipes, RunicAltarRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.brewRecipes.values(), BreweryRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.pureDaisyRecipes.values(), PureDaisyRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.petalRecipes.values(), PetalApothecaryRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.elvenTradeRecipes.values(), ElvenTradeRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.runeAltarRecipes.values(), RunicAltarRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.manaInfusionRecipes.values(), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
@@ -162,7 +162,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
-		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			List<Ingredient> inputs = recipe.getInputs();
 			List<ItemStack> outputs = recipe.getOutputs();
 			if(inputs.size() == 1 && outputs.size() == 1 && inputs.get(0).test(outputs.get(0))) {

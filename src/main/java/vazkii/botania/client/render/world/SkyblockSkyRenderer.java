@@ -45,14 +45,14 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 
 	// [VanillaCopy] WorldRenderer.renderSky, overworld section, edits noted
 	@Override
-	public void render(float partialTicks, ClientWorld world, Minecraft mc) {
+	public void render(int ticks, float partialTicks, ClientWorld world, Minecraft mc) {
 		// Environment setup
 		int glSkyList = mc.worldRenderer.glSkyList;
 		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO = mc.worldRenderer.skyVBO;
 
 		// Begin
 		GlStateManager.disableTexture();
-		Vec3d vec3d = world.func_217382_a(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
+		Vec3d vec3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
 		float f = (float)vec3d.x;
 		float f1 = (float)vec3d.y;
 		float f2 = (float)vec3d.z;

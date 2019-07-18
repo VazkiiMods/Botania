@@ -81,7 +81,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		if (entityLiving instanceof PlayerEntity) {
 			PlayerEntity playerentity = (PlayerEntity)entityLiving;
 			boolean flag = canFire(stack, playerentity); // Botania - custom check
-			ItemStack itemstack = playerentity.func_213356_f(stack);
+			ItemStack itemstack = playerentity.findAmmo(stack);
 
 			int i = (int) ((getUseDuration(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, playerentity, i, !itemstack.isEmpty() || flag);
@@ -148,7 +148,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	boolean canFire(ItemStack stack, PlayerEntity player) {
 		return player.abilities.isCreativeMode
 				|| EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0
-				|| !player.func_213356_f(stack).isEmpty();
+				|| !player.findAmmo(stack).isEmpty();
 	}
 
 	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {

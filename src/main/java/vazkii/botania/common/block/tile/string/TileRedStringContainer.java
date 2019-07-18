@@ -25,12 +25,15 @@ import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_CONTAINER)
 	public static TileEntityType<TileRedStringContainer> TYPE;
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
+	@Nullable
+	private LazyOptional<?> lastBoundInv = null;
 
 	public TileRedStringContainer() {
 		this(TYPE);
@@ -51,14 +54,29 @@ public class TileRedStringContainer extends TileRedString {
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-		// todo 1.13 need to invalidate when binding breaks
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			if(getTileAtBinding() != null) {
-				return getTileAtBinding().getCapability(cap, side);
+				lastBoundInv = getTileAtBinding().getCapability(cap, side);
+				return lastBoundInv.cast();
+			} else {
+				invalidateLastCap();
+				return EMPTY.cast();
 			}
-			return EMPTY.cast();
 		}
 		return super.getCapability(cap, side);
+	}
+
+	private void invalidateLastCap() {
+		if(lastBoundInv != null) {
+			lastBoundInv.invalidate();
+			lastBoundInv = null;
+		}
+	}
+
+	@Override
+	public void remove() {
+		super.remove();
+		invalidateLastCap();
 	}
 
 	@Override
