@@ -58,7 +58,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 			PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
 			if(effect == null) {
-				PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, 10, -42, true, true);
+				PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, 600, -42, true, true);
 				player.addPotionEffect(neweffect);
 			}
 
