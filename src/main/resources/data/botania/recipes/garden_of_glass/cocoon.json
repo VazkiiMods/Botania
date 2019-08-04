@@ -19,7 +19,7 @@
       "item": "minecraft:string"
     },
     "F": {
-      "item": "botania:felpumpkin"
+      "item": "botania:fel_pumpkin"
     },
     "I": {
       "tag": "forge:ingots/manasteel"

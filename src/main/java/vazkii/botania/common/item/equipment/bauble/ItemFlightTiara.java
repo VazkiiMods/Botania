@@ -97,6 +97,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			for(int i = 0; i < SUBTYPES + 1; i++) {
 				ItemStack stack = new ItemStack(this);
 				ItemNBTHelper.setInt(stack, TAG_VARIANT, i);
+				list.add(stack);
 			}
 		}
 	}
