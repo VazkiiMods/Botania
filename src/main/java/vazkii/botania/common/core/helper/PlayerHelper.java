@@ -14,7 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.function.Predicate;
 

@@ -66,11 +66,11 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 			boolean avoidsOcelots = false;
 			if(shouldAfffect)
 				for(PrioritizedGoal entry : entries) {
-					if(entry.func_220772_j() instanceof AvoidEntityGoal)
-						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.func_220772_j()) || avoidsOcelots;
+					if(entry.getGoal() instanceof AvoidEntityGoal)
+						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.getGoal()) || avoidsOcelots;
 
-					if(entry.func_220772_j() instanceof NearestAttackableTargetGoal)
-						messWithGetTargetAI((NearestAttackableTargetGoal) entry.func_220772_j());
+					if(entry.getGoal() instanceof NearestAttackableTargetGoal)
+						messWithGetTargetAI((NearestAttackableTargetGoal) entry.getGoal());
 				}
 
 			if(entity instanceof CreeperEntity) {

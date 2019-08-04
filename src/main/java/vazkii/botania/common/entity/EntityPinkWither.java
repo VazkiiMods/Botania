@@ -42,11 +42,11 @@ public class EntityPinkWither extends WitherEntity {
 		super(TYPE, world);
 
 		// Remove firing wither skulls
-		goalSelector.goals.removeIf(entry -> entry.func_220772_j() instanceof RangedAttackGoal);
+		goalSelector.goals.removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
 
 		// Remove revenge and aggro
-		targetSelector.goals.removeIf(entry -> entry.func_220772_j() instanceof HurtByTargetGoal
-				|| entry.func_220772_j() instanceof NearestAttackableTargetGoal);
+		targetSelector.goals.removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
+				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
 	}
 
 	@Override

@@ -11,8 +11,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.ServerWorld;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;

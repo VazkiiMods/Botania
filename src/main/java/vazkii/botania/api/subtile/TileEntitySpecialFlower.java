@@ -186,7 +186,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.onDataPacket(net, packet);
 		if(oldType != floatingData.getIslandType() && isFloating()) {
-			world.markForRerender(pos);
+			// todo 1.14 world.markForRerender(pos);
 		}
 	}
 

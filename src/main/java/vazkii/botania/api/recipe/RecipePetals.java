@@ -22,7 +22,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipePetals {
+public class RecipePetals implements IModRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final ImmutableList<Ingredient> inputs;

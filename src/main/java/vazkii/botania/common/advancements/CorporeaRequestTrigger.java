@@ -10,7 +10,7 @@ import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;

@@ -52,7 +52,7 @@ public class TileCamo extends TileMod {
 	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
 		super.onDataPacket(manager, packet);
 		requestModelDataUpdate();
-		world.markForRerender(pos);
+		// todo 1.14 world.markForRerender(pos);
 	}
 
 	@Nonnull

@@ -60,7 +60,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerBossInfo;
 import net.minecraft.world.World;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;

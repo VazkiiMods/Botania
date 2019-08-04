@@ -77,10 +77,10 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 
 				// Move any EntityAIHurtByTarget to highest priority
 				for (PrioritizedGoal entry : entity.targetSelector.goals) {
-					if (entry.func_220772_j() instanceof HurtByTargetGoal) {
+					if (entry.getGoal() instanceof HurtByTargetGoal) {
 						// Concurrent modification OK since we break out of the loop
-						entity.targetSelector.removeGoal(entry.func_220772_j());
-						entity.targetSelector.addGoal(-1, entry.func_220772_j());
+						entity.targetSelector.removeGoal(entry.getGoal());
+						entity.targetSelector.addGoal(-1, entry.getGoal());
 						break;
 					}
 				}

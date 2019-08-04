@@ -15,7 +15,7 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.BiomeProviderType;

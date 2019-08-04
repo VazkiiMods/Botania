@@ -21,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.handler.ConfigHandler;
 

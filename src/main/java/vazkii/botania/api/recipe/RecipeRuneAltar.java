@@ -21,7 +21,7 @@ import net.minecraftforge.items.IItemHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeRuneAltar {
+public class RecipeRuneAltar implements IModRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final ImmutableList<Ingredient> inputs;

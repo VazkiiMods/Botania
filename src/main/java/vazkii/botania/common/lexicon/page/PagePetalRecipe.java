@@ -32,13 +32,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
+import vazkii.botania.api.recipe.IModRecipe;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
+public class PagePetalRecipe<T extends IModRecipe> extends PageRecipe {
 
 	private static final ResourceLocation petalOverlay = new ResourceLocation(LibResources.GUI_PETAL_OVERLAY);
 
