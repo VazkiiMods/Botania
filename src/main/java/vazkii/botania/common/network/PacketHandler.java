@@ -44,13 +44,9 @@ public final class PacketHandler {
 		if(world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
 
-			// todo 1.14 this sends duplicates
-			for (ServerPlayerEntity playerMP : ws.getPlayers()) {
-				if (playerMP.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64) {
-					HANDLER.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), toSend);
-				}
-			}
-
+			ws.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(pos), false)
+					.filter(p -> p.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
+					.forEach(p -> HANDLER.send(PacketDistributor.PLAYER.with(() -> p), toSend));
 		}
 	}
 

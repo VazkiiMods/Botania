@@ -57,7 +57,24 @@ public class BlockModFlower extends FlowerBlock implements ILexiconable, IGrowab
 	}
 
 	private static Effect effectForFlower(DyeColor color) {
-		// todo 1.14
+		switch (color) {
+			case WHITE: return Effects.SPEED;
+			case ORANGE: return Effects.FIRE_RESISTANCE;
+			case MAGENTA: return Effects.MINING_FATIGUE;
+			case LIGHT_BLUE: return Effects.JUMP_BOOST;
+			case YELLOW: return Effects.ABSORPTION;
+			case LIME: return Effects.POISON;
+			case PINK: return Effects.REGENERATION;
+			case GRAY: return Effects.RESISTANCE;
+			case LIGHT_GRAY: return Effects.WEAKNESS;
+			case CYAN: return Effects.WATER_BREATHING;
+			case PURPLE: return Effects.NAUSEA;
+			case BLUE: return Effects.NIGHT_VISION;
+			case BROWN: return Effects.WITHER;
+			case GREEN: return Effects.HUNGER;
+			case RED: return Effects.STRENGTH;
+			case BLACK: return Effects.BLINDNESS;
+		}
 		return Effects.REGENERATION;
 	}
 

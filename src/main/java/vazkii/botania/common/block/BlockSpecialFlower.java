@@ -54,7 +54,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
 	protected BlockSpecialFlower(Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
-		super(Effects.REGENERATION, 1, props); // todo 1.14 choose potion effects
+		super(Effects.SPEED, 4, props);
 		this.teProvider = teProvider;
 	}
 

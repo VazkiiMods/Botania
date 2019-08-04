@@ -86,9 +86,8 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 				}
 			};
 
-			// Have to delay a tick because setAttackTarget(player) is called *after* the event fires, and we want to get rid of that
-			// addScheduledTask runs the lambda immediately if on the main thread, hence this trickery
-			// todo 1.14 make sure this still works
+			// Delay until end of tick because setAttackTarget(player) is called *after* this event fires, but
+			// we want to overwrite it
 			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 			server.enqueue(new TickDelayedTask(server.getTickCounter(), lambda));
 		}
