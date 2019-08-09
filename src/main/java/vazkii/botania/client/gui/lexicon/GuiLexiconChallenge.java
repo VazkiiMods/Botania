@@ -50,11 +50,11 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	public void onInitGui() {
 		super.onInitGui();
 
-		buttons.add(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+		addButton(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
 			mc.displayGuiScreen(parent);
 			ClientTickHandler.notifyPageChange();
 		}));
-		buttons.add(completeButton = new Button(left + 20, top + guiHeight - 35, guiWidth - 40, 20, "", b -> {
+		addButton(completeButton = new Button(left + 20, top + guiHeight - 35, guiWidth - 40, 20, "", b -> {
 			challenge.complete = !challenge.complete;
 			setCompleteButtonTitle();
 			PersistentVariableHelper.saveSafe();

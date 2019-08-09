@@ -1,25 +1,28 @@
 package vazkii.botania.common.lexicon.page;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.Screen;
-import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,31 +31,30 @@ import java.util.List;
 public class PageElvenRecipe extends PageRecipe {
 
 	private static final ResourceLocation elvenTradeOverlay = new ResourceLocation(LibResources.GUI_ELVEN_TRADE_OVERLAY);
+	private static final List<RecipeElvenTrade> DUMMY = Collections.singletonList(new RecipeElvenTrade(ResourceLocationHelper.prefix("dummy"), ItemStack.EMPTY, Ingredient.EMPTY));
 
-	private final List<RecipeElvenTrade> recipes;
+	private final Item[] outputItems;
+	private List<RecipeElvenTrade> recipes;
 	private int ticksElapsed = 0;
 	private int recipeAt = 0;
 
-	public PageElvenRecipe(String unlocalizedName, List<RecipeElvenTrade> recipes) {
-		super(unlocalizedName);
-		this.recipes = recipes;
-	}
 
-	public PageElvenRecipe(String unlocalizedName, RecipeElvenTrade recipe) {
-		this(unlocalizedName, Collections.singletonList(recipe));
+	public PageElvenRecipe(String unlocalizedName, Item... outputs) {
+		super(unlocalizedName);
+		this.outputItems = outputs;
 	}
 
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
-		for(RecipeElvenTrade recipe : recipes)
-			for(ItemStack output : recipe.getOutputs())
-				LexiconRecipeMappings.map(output, entry, index);
+		for(Item item : outputItems) {
+			LexiconRecipeMappings.map(new ItemStack(item), entry, index);
+		}
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
-		RecipeElvenTrade recipe = recipes.get(recipeAt);
+		RecipeElvenTrade recipe = getRecipes().get(recipeAt);
 		TextureManager render = Minecraft.getInstance().textureManager;
 		render.bindTexture(elvenTradeOverlay);
 		GlStateManager.enableBlend();
@@ -110,19 +112,44 @@ public class PageElvenRecipe extends PageRecipe {
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
-			if(recipeAt == recipes.size())
+			if(recipeAt == getRecipes().size())
 				recipeAt = 0;
 		}
 		++ticksElapsed;
 	}
 
+	public List<RecipeElvenTrade> getRecipes() {
+		if(recipes == null) {
+			recipes = findRecipes();
+		}
+		return recipes;
+	}
+
+	private List<RecipeElvenTrade> findRecipes() {
+		List<RecipeElvenTrade> list = new ArrayList<>();
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
+			recipe: for(ItemStack output : recipe.getOutputs()) {
+				for(Item item : outputItems) {
+					if(output.getItem() == item) {
+						list.add(recipe);
+						break recipe;
+					}
+				}
+			}
+		}
+		if(list.isEmpty()) {
+			Botania.LOGGER.warn("Could not find elven trade recipes for item {}, using dummy", (Object) outputItems);
+			return DUMMY;
+		}
+		return list;
+	}
+
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList<>();
-		for(RecipeElvenTrade r : recipes)
+		for(RecipeElvenTrade r : getRecipes())
 			list.addAll(r.getOutputs());
 
 		return list;
 	}
-
 }

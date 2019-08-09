@@ -26,13 +26,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ModElvenTradeRecipes {
 
-	public static RecipeElvenTrade dreamwoodRecipe;
-	public static List<RecipeElvenTrade> elementiumRecipes;
-	public static RecipeElvenTrade pixieDustRecipe;
-	public static List<RecipeElvenTrade> dragonstoneRecipes;
-	public static RecipeElvenTrade elvenQuartzRecipe;
-	public static RecipeElvenTrade alfglassRecipe;
-
 	@SubscribeEvent
 	public static void register(RegisterRecipesEvent evt) {
 		Ingredient livingwood = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "livingwood")));

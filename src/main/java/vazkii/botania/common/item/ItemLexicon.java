@@ -18,11 +18,11 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Rarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -31,13 +31,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -175,8 +173,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		Botania.proxy.setToTutorialIfFirstLaunch();
 
 		if(!l.isKnowledgeUnlocked(stack, BotaniaAPI.relicKnowledge) && l.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge))
-			for(ItemStack rstack : ItemDice.relicStacks) {
-				Item item = rstack.getItem();
+			for(Item item : ItemDice.getRelics()) {
 				if(PlayerHelper.hasItem(player, s -> s != null && s.getItem() == item)) {
 					l.unlockKnowledge(stack, BotaniaAPI.relicKnowledge);
 					break;
@@ -184,7 +181,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 		Botania.proxy.setLexiconStack(stack);
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().displayGuiScreen(GuiLexicon.currentOpenLexicon));
+		if(world.isRemote)
+			DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().displayGuiScreen(GuiLexicon.currentOpenLexicon));
 		if(!world.isRemote) {
 			if(!skipSound)
 				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);

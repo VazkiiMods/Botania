@@ -11,8 +11,6 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -21,40 +19,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModRuneRecipes {
-
-	public static RecipeRuneAltar recipeWaterRune;
-	public static RecipeRuneAltar recipeFireRune;
-	public static List<RecipeRuneAltar> recipesEarthRune;
-	public static List<RecipeRuneAltar> recipesAirRune;
-	public static RecipeRuneAltar recipeSpringRune;
-	public static RecipeRuneAltar recipeSummerRune;
-	public static RecipeRuneAltar recipeAutumnRune;
-	public static List<RecipeRuneAltar> recipesWinterRune;
-	public static RecipeRuneAltar recipeManaRune;
-	public static RecipeRuneAltar recipeLustRune;
-	public static RecipeRuneAltar recipeGluttonyRune;
-	public static RecipeRuneAltar recipeGreedRune;
-	public static RecipeRuneAltar recipeSlothRune;
-	public static RecipeRuneAltar recipeWrathRune;
-	public static RecipeRuneAltar recipeEnvyRune;
-	public static RecipeRuneAltar recipePrideRune;
-
-	public static RecipeRuneAltar recipeHead;
 
 	// todo 1.13 re-tagify these once the community settles down on some names
 	@SubscribeEvent
@@ -104,7 +78,6 @@ public final class ModRuneRecipes {
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("envy"), new ItemStack(ModItems.runeEnvy), costTier3, manaDiamond, manaDiamond, winter, water));
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("pride"), new ItemStack(ModItems.runePride), costTier3, manaDiamond, manaDiamond, summer, fire));
 
-		recipeHead = new HeadRecipe(prefix("head"), new ItemStack(Items.PLAYER_HEAD), 22500, Ingredient.fromItems(Items.SKELETON_SKULL), Ingredient.fromItems(ModItems.pixieDust), Ingredient.fromItems(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.NAME_TAG), Ingredient.fromItems(Items.GOLDEN_APPLE));
-		evt.runeAltar().accept(recipeHead);
+		evt.runeAltar().accept(new HeadRecipe(prefix("head"), new ItemStack(Items.PLAYER_HEAD), 22500, Ingredient.fromItems(Items.SKELETON_SKULL), Ingredient.fromItems(ModItems.pixieDust), Ingredient.fromItems(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.NAME_TAG), Ingredient.fromItems(Items.GOLDEN_APPLE)));
 	}
 }

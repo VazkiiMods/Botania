@@ -16,8 +16,8 @@ public final class LibLexicon {
 
 	public static final String CATEGORY_BASICS = "basics";
 	public static final String CATEGORY_MANA = "mana";
-	public static final String CATEGORY_FUNCTIONAL_FLOWERS = "functionalFlowers";
-	public static final String CATEGORY_GENERATION_FLOWERS = "generationFlowers";
+	public static final String CATEGORY_FUNCTIONAL_FLOWERS = "functionalflowers";
+	public static final String CATEGORY_GENERATION_FLOWERS = "generationflowers";
 	public static final String CATEGORY_DEVICES = "devices";
 	public static final String CATEGORY_TOOLS = "tools";
 	public static final String CATEGORY_BAUBLES = "baubles";

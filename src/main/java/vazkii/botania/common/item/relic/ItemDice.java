@@ -13,17 +13,17 @@ package vazkii.botania.common.item.relic;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.item.IRelic;
@@ -34,18 +34,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDice extends ItemRelic {
-	public static ItemStack[] relicStacks;
-
 	public ItemDice(Properties props) {
 		super(props);
+	}
 
-		relicStacks = new ItemStack[] {
-				new ItemStack(ModItems.infiniteFruit),
-				new ItemStack(ModItems.kingKey),
-				new ItemStack(ModItems.flugelEye),
-				new ItemStack(ModItems.thorRing),
-				new ItemStack(ModItems.odinRing),
-				new ItemStack(ModItems.lokiRing)
+	public static Item[] getRelics() {
+		return new Item[]{
+				ModItems.infiniteFruit,
+				ModItems.kingKey,
+				ModItems.flugelEye,
+				ModItems.thorRing,
+				ModItems.odinRing,
+				ModItems.lokiRing
 		};
 	}
 
@@ -73,7 +73,7 @@ public class ItemDice extends ItemRelic {
 			} else {
 				int relic = possible.get(world.rand.nextInt(possible.size()));
 				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
-				return ActionResult.newResult(ActionResultType.SUCCESS, relicStacks[relic].copy());
+				return ActionResult.newResult(ActionResultType.SUCCESS, new ItemStack(getRelics()[relic]));
 			}
 		}
 
@@ -86,11 +86,11 @@ public class ItemDice extends ItemRelic {
 	}
 
 	private boolean hasRelicAlready(PlayerEntity player, int relic) {
-		if(relic < 0 || relic > relicStacks.length || !(player instanceof ServerPlayerEntity))
+		if(relic < 0 || relic > 6 || !(player instanceof ServerPlayerEntity))
 			return true;
 
 		ServerPlayerEntity mpPlayer = (ServerPlayerEntity) player;
-		Item item = relicStacks[relic].getItem();
+		Item item = getRelics()[relic];
 		ResourceLocation advId = ((IRelic) item).getAdvancement();
 
 		if(advId != null) {

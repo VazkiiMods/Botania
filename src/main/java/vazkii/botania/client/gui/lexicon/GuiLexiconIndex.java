@@ -95,17 +95,17 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return;
 		}
 
-		buttons.add(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+		addButton(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
 			mc.displayGuiScreen(parent);
 			ClientTickHandler.notifyPageChange();
 		}));
-		buttons.add(leftButton = new GuiButtonPage(left, top + guiHeight - 10, false, b -> {
+		addButton(leftButton = new GuiButtonPage(left, top + guiHeight - 10, false, b -> {
 			page--;
 			updatePageButtons();
 			populateIndex();
 			ClientTickHandler.notifyPageChange();
 		}));
-		buttons.add(rightButton = new GuiButtonPage(left + guiWidth - 18, top + guiHeight - 10, true, b -> {
+		addButton(rightButton = new GuiButtonPage(left + guiWidth - 18, top + guiHeight - 10, true, b -> {
 			page++;
 			updatePageButtons();
 			populateIndex();

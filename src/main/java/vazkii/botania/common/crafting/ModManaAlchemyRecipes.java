@@ -11,8 +11,6 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,52 +20,18 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.IMCSender;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.List;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModManaAlchemyRecipes {
-
-	public static RecipeManaInfusion leatherRecipe;
-	public static List<RecipeManaInfusion> woodRecipes;
-	public static List<RecipeManaInfusion> saplingRecipes;
-	public static RecipeManaInfusion glowstoneDustRecipe;
-	public static List<RecipeManaInfusion> quartzRecipes;
-	public static RecipeManaInfusion chiseledBrickRecipe;
-	public static RecipeManaInfusion iceRecipe;
-	public static List<RecipeManaInfusion> swampFolliageRecipes;
-	public static List<RecipeManaInfusion> fishRecipes;
-	public static List<RecipeManaInfusion> cropRecipes;
-	public static RecipeManaInfusion potatoRecipe;
-	public static RecipeManaInfusion netherWartRecipe;
-	public static List<RecipeManaInfusion> gunpowderAndFlintRecipes;
-	public static RecipeManaInfusion nameTagRecipe;
-	public static List<RecipeManaInfusion> stringRecipes;
-	public static List<RecipeManaInfusion> slimeballCactusRecipes;
-	public static RecipeManaInfusion enderPearlRecipe;
-	public static List<RecipeManaInfusion> redstoneToGlowstoneRecipes;
-	public static RecipeManaInfusion sandRecipe;
-	public static RecipeManaInfusion redSandRecipe;
-	public static List<RecipeManaInfusion> clayBreakdownRecipes;
-	public static RecipeManaInfusion coarseDirtRecipe;
-	public static List<RecipeManaInfusion> stoneRecipes;
-	public static List<RecipeManaInfusion> tallgrassRecipes;
-	public static List<RecipeManaInfusion> flowersRecipes;
-	public static RecipeManaInfusion chorusRecipe;
-
-	// Garden of Glass
-	public static List<RecipeManaInfusion> prismarineRecipes;
 
 	@SubscribeEvent
 	public static void register(RegisterRecipesEvent evt) {

@@ -14,16 +14,16 @@
       "item": "minecraft:bone_meal"
     },
     {
-      "constant": "botania:all_dyes"
+      "tag": "botania:floral_powder"
     },
     {
-      "constant": "botania:all_dyes"
+      "tag": "botania:floral_powder"
     },
     {
-      "constant": "botania:all_dyes"
+      "tag": "botania:floral_powder"
     },
     {
-      "constant": "botania:all_dyes"
+      "tag": "botania:floral_powder"
     }
   ],
   "type": "minecraft:crafting_shapeless"

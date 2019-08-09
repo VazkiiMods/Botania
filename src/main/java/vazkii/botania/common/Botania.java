@@ -119,6 +119,7 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
+//		MinecraftForge.EVENT_BUS.addListener(LexiconData::reload);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -135,7 +136,6 @@ public class Botania {
 		PacketHandler.init();
 		ModBrews.init();
 		ModMultiblocks.init();
-		ModCraftingRecipes.init();
 
 		if(Botania.thaumcraftLoaded) {
 			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {

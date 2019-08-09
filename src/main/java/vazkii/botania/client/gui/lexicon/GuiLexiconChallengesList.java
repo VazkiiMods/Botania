@@ -40,7 +40,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	public void onInitGui() {
 		super.onInitGui();
 
-		buttons.add(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+		addButton(backButton = new GuiButtonBack(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
 			mc.displayGuiScreen(parent);
 			ClientTickHandler.notifyPageChange();
 		}));
@@ -51,7 +51,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			int j = 0;
 			for(Challenge c : ModChallenges.challenges.get(level)) {
-				buttons.add(new GuiButtonChallengeIcon(left + 20 + j % perline * 18, y + j / perline * 17, c, this));
+				addButton(new GuiButtonChallengeIcon(left + 20 + j % perline * 18, y + j / perline * 17, c, this));
 				i++;
 				j++;
 			}

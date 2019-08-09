@@ -10,9 +10,7 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,15 +22,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.recipe.RecipeElvenTrade;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import java.util.List;
@@ -52,27 +46,17 @@ public interface IInternalMethodHandler {
 
 	public LexiconPage imagePage(String key, String resource);
 
-	public LexiconPage craftingRecipesPage(String key, List<ResourceLocation> recipes);
+	public LexiconPage craftingRecipePage(String key, Item... outputItems);
 
-	public LexiconPage craftingRecipePage(String key, ResourceLocation recipe);
+	public LexiconPage petalRecipePage(String key, Item... outputItems);
 
-	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes);
+	public LexiconPage runeRecipePage(String key, Item... outputItems);
 
-	public LexiconPage petalRecipePage(String key, RecipePetals recipe);
+	public LexiconPage manaInfusionRecipePage(String key, Item... outputItems);
 
-	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes);
+	public LexiconPage elvenTradePage(String key, Item... outputItems);
 
-	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe);
-
-	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes);
-
-	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
-
-	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
-
-	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
-
-	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe);
+	public LexiconPage brewPage(String key, String bottomText, Brew outputBrew);
 
 	public LexiconPage multiblockPage(String key, MultiblockSet mb);
 

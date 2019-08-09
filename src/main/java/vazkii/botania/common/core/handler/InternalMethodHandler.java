@@ -13,11 +13,9 @@ package vazkii.botania.common.core.handler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.EmptyHandler;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
@@ -33,11 +32,6 @@ import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.recipe.RecipeElvenTrade;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -85,58 +79,33 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public LexiconPage craftingRecipesPage(String key, List<ResourceLocation> recipes) {
-		return new PageCraftingRecipe(key, recipes);
+	public LexiconPage craftingRecipePage(String key, Item... outputItems) {
+		return new PageCraftingRecipe(key, outputItems);
 	}
 
 	@Override
-	public LexiconPage craftingRecipePage(String key, ResourceLocation recipe) {
-		return new PageCraftingRecipe(key, recipe);
+	public LexiconPage petalRecipePage(String key, Item... outputItems) {
+		return new PagePetalRecipe(key, outputItems);
 	}
 
 	@Override
-	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
-		return new PagePetalRecipe<>(key, recipes);
+	public LexiconPage runeRecipePage(String key, Item... outputItems) {
+		return new PageRuneRecipe(key, outputItems);
 	}
 
 	@Override
-	public LexiconPage petalRecipePage(String key, RecipePetals recipe) {
-		return new PagePetalRecipe<>(key, recipe);
+	public LexiconPage manaInfusionRecipePage(String key, Item... outputItems) {
+		return new PageManaInfusionRecipe(key, outputItems);
 	}
 
 	@Override
-	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes) {
-		return new PageRuneRecipe(key, recipes);
+	public LexiconPage elvenTradePage(String key, Item... outputItems) {
+		return new PageElvenRecipe(key, outputItems);
 	}
 
 	@Override
-	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe) {
-		return new PageRuneRecipe(key, recipe);
-	}
-
-	@Override
-	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes) {
-		return new PageManaInfusionRecipe(key, recipes);
-	}
-
-	@Override
-	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
-		return new PageManaInfusionRecipe(key, recipe);
-	}
-
-	@Override
-	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes) {
-		return new PageElvenRecipe(key, recipes);
-	}
-
-	@Override
-	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
-		return new PageElvenRecipe(key, recipe);
-	}
-
-	@Override
-	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe) {
-		return new PageBrew(recipe, key, bottomText);
+	public LexiconPage brewPage(String key, String bottomText, Brew outputBrew) {
+		return new PageBrew(outputBrew, key, bottomText);
 	}
 
 	@Override

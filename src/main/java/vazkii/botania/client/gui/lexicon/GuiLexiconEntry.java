@@ -80,12 +80,12 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void onInitGui() {
 		super.onInitGui();
 
-		buttons.add(backButton = new GuiButtonBackWithShift(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
+		addButton(backButton = new GuiButtonBackWithShift(left + guiWidth / 2 - 8, top + guiHeight + 2, b -> {
 			entry.pages.get(page).onClosed(GuiLexiconEntry.this);
 			mc.displayGuiScreen(Screen.hasShiftDown() ? new GuiLexicon() : parent);
 			ClientTickHandler.notifyPageChange();
 		}));
-		buttons.add(leftButton = new GuiButtonPage(left, top + guiHeight - 10, false, b -> {
+		addButton(leftButton = new GuiButtonPage(left, top + guiHeight - 10, false, b -> {
 			entry.pages.get(page).onClosed(GuiLexiconEntry.this);
 			page--;
 			entry.pages.get(page).onOpened(GuiLexiconEntry.this);
@@ -93,7 +93,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			ClientTickHandler.notifyPageChange();
 			updatePageButtons();
 		}));
-		buttons.add(rightButton = new GuiButtonPage(left + guiWidth - 18, top + guiHeight - 10, true, b -> {
+		addButton(rightButton = new GuiButtonPage(left + guiWidth - 18, top + guiHeight - 10, true, b -> {
 			entry.pages.get(page).onClosed(GuiLexiconEntry.this);
 			page++;
 			entry.pages.get(page).onOpened(GuiLexiconEntry.this);
@@ -101,7 +101,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			ClientTickHandler.notifyPageChange();
 			updatePageButtons();
 		}));
-		buttons.add(new GuiButtonShare(left + guiWidth - 6, top - 2, b -> {
+		addButton(new GuiButtonShare(left + guiWidth - 6, top - 2, b -> {
 			Minecraft mc = Minecraft.getInstance();
 			String cmd = "/botania-share " + entry.getUnlocalizedName();
 
@@ -109,7 +109,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			mc.player.sendChatMessage(cmd);
 		}));
 		if(entry.getWebLink() != null)
-			buttons.add(new GuiButtonViewOnline(left - 8, top + 12, b -> {
+			addButton(new GuiButtonViewOnline(left - 8, top + 12, b -> {
 				try {
 					if(Desktop.isDesktopSupported())
 						Desktop.getDesktop().browse(new URI(entry.getWebLink()));
