@@ -1060,5 +1060,25 @@ public final class ModBlocks {
 			case BLACK: return doubleFlowerBlack;
 		}
 	}
-
+	public static Block getPetalBlock(DyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return petalBlockWhite;
+			case ORANGE: return petalBlockOrange;
+			case MAGENTA: return petalBlockMagenta;
+			case LIGHT_BLUE: return petalBlockLightBlue;
+			case YELLOW: return petalBlockYellow;
+			case LIME: return petalBlockLime;
+			case PINK: return petalBlockPink;
+			case GRAY: return petalBlockGray;
+			case LIGHT_GRAY: return petalBlockSilver;
+			case CYAN: return petalBlockCyan;
+			case PURPLE: return petalBlockPurple;
+			case BLUE: return petalBlockBlue;
+			case BROWN: return petalBlockBrown;
+			case GREEN: return petalBlockGreen;
+			case RED: return petalBlockRed;
+			case BLACK: return petalBlockBlack;
+		}
+	}
 }

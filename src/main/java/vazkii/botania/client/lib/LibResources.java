@@ -58,7 +58,6 @@ public final class LibResources {
 	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
 	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
 	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elven_garde.png";
-	public static final String ENTRY_DIMINISHING_RETURNS = PREFIX_ENTRIES + "diminishing_returns.png";
 	public static final String ENTRY_HYDROANGEAS = PREFIX_ENTRIES + "hydroangeas.png";
 	public static final String ENTRY_CRAFT_CRATE = PREFIX_ENTRIES + "craft_crate.png";
 	public static final String ENTRY_AZULEJOS = PREFIX_ENTRIES + "azulejos.png";

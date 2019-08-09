@@ -15,6 +15,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,18 +27,20 @@ import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PageBrew extends PageRecipe implements ITwoNamedPage {
+	private static final RecipeBrew DUMMY = new RecipeBrew(new ResourceLocation(LibMisc.MOD_ID, "dummy"), BotaniaAPI.fallbackBrew);
 
-	final RecipeBrew recipe;
-	String text;
+	private final RecipeBrew recipe;
+	private String text;
 
-	public PageBrew(RecipeBrew recipe, String unlocalizedName, String bottomText) {
+	public PageBrew(Brew brew, String unlocalizedName, String bottomText) {
 		super(bottomText);
-		this.recipe = recipe;
+		recipe = BotaniaAPI.brewRecipes.values().stream().filter(recipe -> recipe.getBrew() == brew).findFirst().orElse(DUMMY);
 		text = unlocalizedName;
 	}
 

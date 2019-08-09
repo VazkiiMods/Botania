@@ -148,18 +148,21 @@ public class GuiLexicon extends Screen {
 		int guiScale = mc.gameSettings.guiScale;
 		int persistentScale = Math.min(PersistentVariableHelper.lexiconGuiScale, getMaxAllowedScale());
 
-		if(persistentScale > 0 && persistentScale != guiScale) {
-			// Fake the scale temporarily so we can get the scaled width from mainWindow
-			mc.gameSettings.guiScale = persistentScale;
-			mc.updateWindowSize();
+		if(persistentScale > 0 && persistentScale != guiScale) { //todo changing gui scale with this now results in endless recursion
+//			// Fake the scale temporarily so we can get the scaled width from mainWindow
+//			mc.gameSettings.guiScale = persistentScale;
+//			mc.updateWindowSize();
+			
+//			mc.mainWindow.setGuiScale(mc.mainWindow.calcGuiScale(persistentScale, Minecraft.getInstance().getForceUnicodeFont()));
 
 			// Get the info
 			width = mc.mainWindow.getScaledWidth();
 			height = mc.mainWindow.getScaledHeight();
-
-			// Change it back
-			mc.gameSettings.guiScale = guiScale;
-			mc.updateWindowSize();
+			
+//			mc.mainWindow.setGuiScale(guiScale);
+//			// Change it back
+//			mc.gameSettings.guiScale = guiScale;
+//			mc.updateWindowSize();
 		}
 
 		List<LexiconCategory> allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
@@ -177,7 +180,7 @@ public class GuiLexicon extends Screen {
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
-				buttons.add(new GuiButtonIndexEntry((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
+				addButton(new GuiButtonIndexEntry((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
@@ -191,18 +194,18 @@ public class GuiLexicon extends Screen {
 
 				int size = 22;
 				GuiButtonCategory button = new GuiButtonCategory(left + 18 + x * size, top + 50 + y * size, this, category);
-				buttons.add(button);
+				addButton(button);
 			}
 		}
 		populateBookmarks();
 		if(isMainPage()) {
-			buttons.add(new GuiButtonOptions(left + 20, top + guiHeight - 25));
-			buttons.add(new GuiButtonAchievement(left + 33, top + guiHeight - 25));
-			buttons.add(new GuiButtonChallenges(left + 45, top + guiHeight - 25));
-			buttons.add(new GuiButtonScaleChange(left + 57, top + guiHeight - 25));
+			addButton(new GuiButtonOptions(left + 20, top + guiHeight - 25));
+			addButton(new GuiButtonAchievement(left + 33, top + guiHeight - 25));
+			addButton(new GuiButtonChallenges(left + 45, top + guiHeight - 25));
+			addButton(new GuiButtonScaleChange(left + 57, top + guiHeight - 25));
 
 			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(left - 6, top + guiHeight - 70);
-			buttons.add(button);
+			addButton(button);
 
 			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.active = false;
@@ -212,10 +215,10 @@ public class GuiLexicon extends Screen {
 			LocalDateTime now = LocalDateTime.now();
 
 			if(now.getMonth() == Month.NOVEMBER && now.getDayOfMonth() == 22)
-				buttons.add(new GuiButtonDoot(left + 100, top + 12));
+				addButton(new GuiButtonDoot(left + 100, top + 12));
 		}
 
-		buttons.add(new GuiButtonNotes(this, left - 4, top - 4));
+		addButton(new GuiButtonNotes(this, left - 4, top - 4));
 	}
 
 	@Override
@@ -487,13 +490,13 @@ public class GuiLexicon extends Screen {
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();
 			GuiLexicon destination = isAdd ? null : bookmarks.get(i);
-			buttons.add(new GuiButtonBookmark(i, left + 138, top + 18 + 14 * i, destination == null ? this : destination, destination == null ? "+" : destination.getTitle().getFormattedText()));
+			addButton(new GuiButtonBookmark(i, left + 138, top + 18 + 14 * i, destination == null ? this : destination, destination == null ? "+" : destination.getTitle().getFormattedText()));
 		}
 
 		if(isMainPage())
-			buttons.add(new GuiButtonHistory(left + 138, top + guiHeight - 24, I18n.format("botaniamisc.history"), this));
+			addButton(new GuiButtonHistory(left + 138, top + guiHeight - 24, I18n.format("botaniamisc.history"), this));
 		else if(isChallenge())
-			buttons.add(new GuiButtonChallengeInfo(left + 138, top + guiHeight - 24, I18n.format("botaniamisc.info"), this));
+			addButton(new GuiButtonChallengeInfo(left + 138, top + guiHeight - 24, I18n.format("botaniamisc.info"), this));
 	}
 
 	public static void startTutorial() {

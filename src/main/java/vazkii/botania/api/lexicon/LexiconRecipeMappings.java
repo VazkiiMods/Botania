@@ -28,6 +28,9 @@ public final class LexiconRecipeMappings {
 	 * Maps the given stack to the given page of the entry.
 	 */
 	public static void map(ItemStack stack, LexiconEntry entry, int page, boolean force) {
+		if(stack.isEmpty())
+			return;
+		
 		EntryData data = new EntryData(entry, page);
 		String str = stackToString(stack);
 
@@ -46,9 +49,6 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
-		String wildKey = stackToString(stack);
-		if (mappings.containsKey(wildKey))
-			return mappings.get(wildKey);
 		return mappings.get(stackToString(stack));
 	}
 
@@ -62,6 +62,10 @@ public final class LexiconRecipeMappings {
 		return stack.getTranslationKey();
 	}
 
+	public static void clear() {
+		mappings.clear();
+	}
+	
 	public static class EntryData {
 
 		public final LexiconEntry entry;

@@ -37,30 +37,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ModBrewRecipes {
 
-	public static RecipeBrew speedBrew;
-	public static RecipeBrew strengthBrew;
-	public static RecipeBrew hasteBrew;
-	public static RecipeBrew healingBrew;
-	public static RecipeBrew jumpBoostBrew;
-	public static RecipeBrew regenerationBrew;
-	public static RecipeBrew weakRegenerationBrew;
-	public static RecipeBrew resistanceBrew;
-	public static RecipeBrew fireResistanceBrew;
-	public static RecipeBrew waterBreathingBrew;
-	public static RecipeBrew invisibilityBrew;
-	public static RecipeBrew nightVisionBrew;
-	public static RecipeBrew absorptionBrew;
-
-	public static RecipeBrew overloadBrew;
-	public static RecipeBrew soulCrossBrew;
-	public static RecipeBrew featherFeetBrew;
-	public static RecipeBrew emptinessBrew;
-	public static RecipeBrew bloodthirstBrew;
-	public static RecipeBrew allureBrew;
-	public static RecipeBrew clearBrew;
-
-	public static RecipeBrew warpWardBrew;
-
 	@SubscribeEvent
 	public static void register(RegisterRecipesEvent evt) {
 		evt.brew().accept(new RecipeBrew(prefix("speed"), ModBrews.speed, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.SUGAR), Ingredient.fromItems(Items.REDSTONE)));

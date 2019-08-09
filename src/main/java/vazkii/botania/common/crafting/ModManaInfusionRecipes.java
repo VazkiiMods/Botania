@@ -11,9 +11,6 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Items;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,40 +21,19 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.IMCSender;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModManaInfusionRecipes {
-
-	public static List<RecipeManaInfusion> manasteelRecipes;
-	public static RecipeManaInfusion manaPearlRecipe;
-	public static List<RecipeManaInfusion> manaDiamondRecipes;
-	public static List<RecipeManaInfusion> manaPowderRecipes;
-	public static RecipeManaInfusion pistonRelayRecipe;
-	public static RecipeManaInfusion manaCookieRecipe;
-	public static RecipeManaInfusion grassSeedsRecipe;
-	public static RecipeManaInfusion podzolSeedsRecipe;
-	public static List<RecipeManaInfusion> mycelSeedsRecipes;
-	public static RecipeManaInfusion manaQuartzRecipe;
-	public static RecipeManaInfusion tinyPotatoRecipe;
-	public static RecipeManaInfusion manaInkwellRecipe;
-	public static RecipeManaInfusion managlassRecipe;
-	public static RecipeManaInfusion manaStringRecipe;
-
-	public static RecipeManaInfusion sugarCaneRecipe;
 
 	@SubscribeEvent
 	public static void register(RegisterRecipesEvent evt) {
