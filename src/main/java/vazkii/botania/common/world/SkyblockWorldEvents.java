@@ -70,6 +70,10 @@ public final class SkyblockWorldEvents {
 				World world = player.world;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
+					if(coords.getY() <= 0) {
+						coords = new BlockPos(coords.getX(), 64, coords.getZ());
+						world.setSpawnPoint(coords);
+					}
 					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world == overworld)
 						spawnPlayer(player, coords, false);
 				}
