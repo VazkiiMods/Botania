@@ -38,4 +38,8 @@ public class MysticalFlowerConfig implements IFeatureConfig {
         // todo 1.14
         return new Dynamic<>(ops);
     }
+
+    public static MysticalFlowerConfig deserialize(Dynamic<?> dynamic) {
+        return new MysticalFlowerConfig();
+    }
 }

@@ -11,17 +11,6 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
-import net.minecraft.entity.item.EnderCrystalEntity;
-import net.minecraft.entity.item.EnderCrystalEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.entity.item.PaintingEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.entity.item.PaintingEntity;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -52,7 +41,6 @@ import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
-import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.command.CommandOpen;
@@ -71,22 +59,10 @@ import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldConditionFactory;
-import vazkii.botania.common.crafting.ModCraftingRecipes;
-import vazkii.botania.common.crafting.ModPetalRecipes;
-import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.crafting.ReloadListener;
-import vazkii.botania.common.entity.EntityCorporeaSpark;
-import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.EntityFlameRing;
-import vazkii.botania.common.entity.EntityMagicLandmine;
-import vazkii.botania.common.entity.EntityMagicMissile;
-import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.entity.EntityPinkWither;
-import vazkii.botania.common.entity.EntitySignalFlare;
-import vazkii.botania.common.entity.EntitySpark;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
@@ -119,7 +95,6 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
-//		MinecraftForge.EVENT_BUS.addListener(LexiconData::reload);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -172,6 +147,8 @@ public class Botania {
 			CraftingHelper.register(FluxfieldConditionFactory.KEY, new FluxfieldConditionFactory());
 
 			ModBlocks.addDispenserBehaviours();
+
+			ModFeatures.addWorldgen();
 		});
 	}
 

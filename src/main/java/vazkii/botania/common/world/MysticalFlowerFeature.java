@@ -2,16 +2,14 @@ package vazkii.botania.common.world;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
-import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
@@ -41,9 +39,9 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
         int dist = Math.min(8, Math.max(1, config.getPatchSize()));
         for(int i = 0; i < config.getPatchCount(); i++) {
             if(rand.nextInt(config.getPatchChance()) == 0) {
-                int x = pos.getX() + rand.nextInt(16) + 8;
-                int z = pos.getZ() + rand.nextInt(16) + 8;
-                int y = world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos).getY();
+                int x = pos.getX() + rand.nextInt(16);
+                int z = pos.getZ() + rand.nextInt(16);
+                int y = world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z);
 
                 DyeColor color = DyeColor.byId(rand.nextInt(16));
                 BlockState flower = ModBlocks.getFlower(color).getDefaultState();
