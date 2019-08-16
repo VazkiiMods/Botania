@@ -121,12 +121,6 @@ public class ItemCacophonium extends ItemMod {
 			list.add(I18n.format(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
-	@Nonnull
-	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.NONE;
-	}
-
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 72000;
