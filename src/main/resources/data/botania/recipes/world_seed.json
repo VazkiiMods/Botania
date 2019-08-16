@@ -17,7 +17,7 @@
       "tag": "forge:gems/dragonstone"
     },
     "G": {
-      "item": "minecraft:grass"
+      "item": "minecraft:grass_block"
     }
   }
 }

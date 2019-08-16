@@ -2,7 +2,7 @@
   "__comment": "Blocks in this tag provide pebbles in Garden of Glass mode",
   "replace": false,
   "values": [
-    "minecraft:grass",
+    "minecraft:grass_block",
     "minecraft:dirt",
     "minecraft:farmland",
     "minecraft:grass_path",
