@@ -64,6 +64,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		this.parent = new GuiLexicon();
 	}
 
+	// No-arg constructor for bookmark serialization
+	public GuiLexiconIndex() {
+		this(BotaniaAPI.categoryBasics);
+	}
+
 	@Override
 	boolean isMainPage() {
 		return false;
