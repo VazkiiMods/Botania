@@ -50,7 +50,5 @@ public class ReloadListener implements IResourceManagerReloadListener {
         BotaniaAPI.runeAltarRecipes = ImmutableMap.copyOf(runeAltar);
         PacketHandler.HANDLER.send(PacketDistributor.ALL.noArg(), new PacketSyncRecipes(brew, elvenTrade, manaInfusion,
                 apothecary, pureDaisy, runeAltar));
-
-        LexiconData.reload();
     }
 }

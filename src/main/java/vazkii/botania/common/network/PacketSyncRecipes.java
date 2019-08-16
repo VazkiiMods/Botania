@@ -10,6 +10,7 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -96,6 +97,7 @@ public class PacketSyncRecipes {
             BotaniaAPI.petalRecipes = petal;
             BotaniaAPI.pureDaisyRecipes = pureDaisy;
             BotaniaAPI.runeAltarRecipes = runeAltar;
+            LexiconData.reload();
         });
         ctx.get().setPacketHandled(true);
     }

@@ -18,9 +18,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -77,7 +77,7 @@ public class ItemKeepIvy extends ItemMod {
 	}
 
 	@SubscribeEvent
-	public static void onPlayerRespawn(PlayerRespawnEvent event) {
+	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
 		CompoundNBT data = event.getPlayer().getEntityData();
 		if(data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
 			CompoundNBT cmp = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);

@@ -87,15 +87,15 @@ configurations {
 //End of the SCP config
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.40'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.0.49'
 
     //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    compileOnly fg.deobf("mezz.jei:jei-1.14.3:6.0.0.8:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.14.3:6.0.0.8")
+    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10")
     
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.3-0.14:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.3-0.14")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.22:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.22")
     //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP

@@ -34,11 +34,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -182,7 +180,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	@SubscribeEvent
 	public void tickEnd(TickEvent.ServerTickEvent event) {
-		if(event.type == Type.SERVER && event.phase == Phase.END) {
+		if(event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
 			for(DimWithPos s : coordsToCheck.keySet()) {
 				decrCoords(s);
 				if(checkedCoords.contains(s))

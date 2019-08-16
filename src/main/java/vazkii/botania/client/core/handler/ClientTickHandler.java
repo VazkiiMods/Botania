@@ -15,11 +15,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
@@ -50,8 +48,8 @@ public final class ClientTickHandler {
 	}
 
 	@SubscribeEvent
-	public static void renderTick(RenderTickEvent event) {
-		if(event.phase == Phase.START)
+	public static void renderTick(TickEvent.RenderTickEvent event) {
+		if(event.phase == TickEvent.Phase.START)
 			partialTicks = event.renderTickTime;
 		else {
 			calcDelta();
@@ -59,8 +57,8 @@ public final class ClientTickHandler {
 	}
 
 	@SubscribeEvent
-	public static void clientTickEnd(ClientTickEvent event) {
-		if(event.phase == Phase.END) {
+	public static void clientTickEnd(TickEvent.ClientTickEvent event) {
+		if(event.phase == TickEvent.Phase.END) {
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();
 

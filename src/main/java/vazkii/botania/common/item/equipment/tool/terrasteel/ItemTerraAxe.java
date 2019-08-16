@@ -24,9 +24,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.common.item.ItemTemperanceStone;
@@ -126,7 +125,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		if(event.world.isRemote)
 			return;
 
-		if(event.phase == Phase.END) {
+		if(event.phase == TickEvent.Phase.END) {
 			DimensionType dim = event.world.getDimension().getType();
 			if(blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);

@@ -24,9 +24,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -68,8 +67,8 @@ public class CorporeaAutoCompleteHandler {
 	}
 
 	@SubscribeEvent
-	public void onTick(ClientTickEvent event) {
-		if(event.phase != Phase.END)
+	public void onTick(TickEvent.ClientTickEvent event) {
+		if(event.phase != TickEvent.Phase.END)
 			return;
 		Screen screen = Minecraft.getInstance().currentScreen;
 		if(!(screen instanceof ChatScreen)) {

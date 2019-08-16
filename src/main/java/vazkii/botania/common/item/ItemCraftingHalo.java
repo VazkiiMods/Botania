@@ -62,9 +62,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -333,7 +333,7 @@ public class ItemCraftingHalo extends ItemMod {
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, getLastCraftingCompound(stack, false));
 	}
 
-	private void onItemCrafted(ItemCraftedEvent event) {
+	private void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
 		if(!(event.getPlayer().openContainer instanceof ContainerCraftingHalo) || !(event.getInventory() instanceof CraftingInventory))
 			return;
 
@@ -344,7 +344,7 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 	}
 
-	private void saveRecipeToStack(ItemCraftedEvent event, ItemStack stack) {
+	private void saveRecipeToStack(PlayerEvent.ItemCraftedEvent event, ItemStack stack) {
 		CompoundNBT cmp = new CompoundNBT();
 
 		if(event.getInventory() instanceof CraftingInventory) {

@@ -27,11 +27,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
@@ -122,7 +121,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@SubscribeEvent
 	public static void onTickEnd(TickEvent.WorldTickEvent event) {
-		if(event.side == LogicalSide.SERVER && event.phase == Phase.END) {
+		if(event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
 			DimensionType dim = event.world.getDimension().getType();
 			if(blockSwappers.containsKey(dim)) {
 				blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());

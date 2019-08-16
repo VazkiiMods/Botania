@@ -13,3 +13,15 @@ displayName="Botania"
 description='''
 Botania is a mod that adds nature magic to Minecraft
 '''
+
+[[dependencies.botania]]
+    modId="forge" #mandatory
+    mandatory=false #mandatory
+    versionRange="[28.0.45,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.botania]]
+    modId="curios"
+    mandatory=false
+    ordering="AFTER"

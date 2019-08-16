@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -23,8 +22,8 @@ public final class CommonTickHandler {
 	private CommonTickHandler() {}
 
 	@SubscribeEvent
-	public static void onTick(WorldTickEvent event) {
-		if(event.phase == Phase.END) {
+	public static void onTick(TickEvent.WorldTickEvent event) {
+		if(event.phase == TickEvent.Phase.END) {
 			CorporeaHelper.clearCache();
 		}
 	}
