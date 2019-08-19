@@ -191,6 +191,21 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		if(list.isEmpty()) {
 			Botania.LOGGER.warn("Could not find mana infusion recipes for items {}, using dummy", (Object) outputItems);
 			return DUMMY;
+		} else {
+			list.sort((r1, r2) -> {
+				Item output1 = r1.getOutput().getItem();
+				Item output2 = r2.getOutput().getItem();
+				if(output1 == output2)
+					return 0;
+				for(Item outputItem : outputItems) {
+					if(outputItem == output1) {
+						return -1;
+					} else if(outputItem == output2) {
+						return 1;
+					}
+				}
+				return 0;
+			});
 		}
 		return list;
 	}
