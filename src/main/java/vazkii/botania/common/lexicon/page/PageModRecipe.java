@@ -168,6 +168,21 @@ public abstract class PageModRecipe<T extends IModRecipe> extends PageRecipe {
 				}
 			}
 			recipes = list;
+			
+			list.sort((r1, r2) -> {
+				Item output1 = r1.getOutput().getItem();
+				Item output2 = r2.getOutput().getItem();
+				if(output1 == output2)
+					return 0;
+				for(Item outputItem : outputItems) {
+					if(outputItem == output1) {
+						return -1;
+					} else if(outputItem == output2) {
+						return 1;
+					}
+				}
+				return 0;
+			});
 			return list;
 		}
 		return recipes;

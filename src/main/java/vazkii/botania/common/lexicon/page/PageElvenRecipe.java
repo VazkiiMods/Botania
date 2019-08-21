@@ -140,6 +140,22 @@ public class PageElvenRecipe extends PageRecipe {
 		if(list.isEmpty()) {
 			Botania.LOGGER.warn("Could not find elven trade recipes for item {}, using dummy", (Object) outputItems);
 			return DUMMY;
+		} else {
+			list.sort((r1, r2) -> {
+				for(Item outputItem : outputItems) {
+					for(ItemStack stack : r1.getOutputs()) {
+						if(stack.getItem() == outputItem) {
+							return -1;
+						}
+					}
+					for(ItemStack stack : r2.getOutputs()) {
+						if(stack.getItem() == outputItem) {
+							return 1;
+						}
+					}
+				}
+				return 0;
+			});
 		}
 		return list;
 	}

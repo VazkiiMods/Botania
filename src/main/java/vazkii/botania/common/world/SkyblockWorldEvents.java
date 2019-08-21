@@ -70,6 +70,10 @@ public final class SkyblockWorldEvents {
 				World world = player.world;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
+					if(coords.getY() <= 0) {
+						coords = new BlockPos(coords.getX(), 64, coords.getZ());
+						world.setSpawnPoint(coords);
+					}
 					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world == overworld)
 						spawnPlayer(player, coords, false);
 				}
@@ -84,10 +88,11 @@ public final class SkyblockWorldEvents {
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		if(Botania.gardenOfGlassLoaded) {
 			ItemStack equipped = event.getItemStack();
-			if(equipped.isEmpty() && event.getEntityPlayer().isSneaking()) {
+			PlayerEntity player = event.getPlayer();
+
+			if(equipped.isEmpty() && player.isSneaking()) {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
-				PlayerEntity player = event.getEntityPlayer();
 
 				if(PEBBLE_SOURCES.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
@@ -96,23 +101,23 @@ public final class SkyblockWorldEvents {
 					if(event.getWorld().isRemote)
 						player.swingArm(event.getHand());
 					else if(Math.random() < 0.8)
-						event.getEntityPlayer().dropItem(new ItemStack(ModItems.pebble), false);
+						player.dropItem(new ItemStack(ModItems.pebble), false);
 
 					event.setCanceled(true);
 					event.setCancellationResult(ActionResultType.SUCCESS);
 				}
 			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
-				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(),
+				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), player,
 						RayTraceContext.FluidMode.SOURCE_ONLY, 4.5F);
 				if(rtr.getType() == RayTraceResult.Type.BLOCK) {
-					BlockPos pos = ((BlockRayTraceResult) rtr).getPos();
+					BlockPos pos = rtr.getPos();
 					if(event.getWorld().getBlockState(pos).getMaterial() == Material.WATER) {
 						if(!event.getWorld().isRemote) {
 							equipped.shrink(1);
 
 							if(equipped.isEmpty())
-								event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
-							else ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), new ItemStack(ModItems.waterBowl));
+								player.setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
+							else ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.waterBowl));
 						}
 
 						event.setCanceled(true);
@@ -180,7 +185,7 @@ public final class SkyblockWorldEvents {
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 4; j++)
 				for(int k = 0; k < 3; k++)
-					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS.getDefaultState() : Blocks.DIRT.getDefaultState());
+					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.getDefaultState() : Blocks.DIRT.getDefaultState());
 		world.setBlockState(pos.add(-1, -2, 0), Blocks.WATER.getDefaultState());
 		world.setBlockState(pos.add(1, 2, 1), ModBlocks.manaFlame.getDefaultState());
 		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());

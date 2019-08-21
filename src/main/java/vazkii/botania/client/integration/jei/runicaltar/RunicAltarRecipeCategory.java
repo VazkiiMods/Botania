@@ -85,7 +85,6 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 		for(Ingredient ingr : recipe.getInputs()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
 		}
-		System.out.println(list);
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
 		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 	}

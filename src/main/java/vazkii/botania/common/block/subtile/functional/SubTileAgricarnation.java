@@ -93,7 +93,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	private boolean isPlant(BlockPos pos) {
 		BlockState state = getWorld().getBlockState(pos);
 		Block block = state.getBlock();
-		if(block == Blocks.GRASS || BlockTags.LEAVES.contains(block) || block instanceof BushBlock && !(block instanceof CropsBlock) && !(block instanceof SaplingBlock))
+		if(block == Blocks.GRASS_BLOCK || BlockTags.LEAVES.contains(block) || block instanceof BushBlock && !(block instanceof CropsBlock) && !(block instanceof SaplingBlock))
 			return false;
 
 		Material mat = state.getMaterial();

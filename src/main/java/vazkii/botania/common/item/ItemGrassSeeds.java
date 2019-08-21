@@ -86,7 +86,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getItem();
 
-		if(state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
+		if(state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS_BLOCK && type != IslandType.GRASS) {
 			if(!world.isRemote) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockState(pos, swapper.stateToSet);
@@ -168,7 +168,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			return ModBlocks.infusedGrass.getDefaultState();
 		else if(type == IslandType.MUTATED)
 			return ModBlocks.mutatedGrass.getDefaultState();
-		else return Blocks.GRASS.getDefaultState();
+		else return Blocks.GRASS_BLOCK.getDefaultState();
 	}
 
 	/**
@@ -274,7 +274,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			// The major rule is that a block which reduces light
 			// levels by 2 or more blocks grass growth.
 
-			return (block == Blocks.DIRT || block == Blocks.GRASS)
+			return (block == Blocks.DIRT || block == Blocks.GRASS_BLOCK)
 					&& world.getBlockState(pos.up()).getOpacity(world, pos.up()) <= 1;
 		}
 	}
