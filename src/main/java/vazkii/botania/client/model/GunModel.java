@@ -20,6 +20,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ModelLoader;
@@ -30,6 +31,7 @@ import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +40,7 @@ import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,36 +48,37 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class GunModel implements IBakedModel {
+	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
+	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
 
 	private final ModelBakery bakery;
 	private final IBakedModel originalModel;
+	private final IBakedModel originalModelClip;
 
-	public GunModel(ModelBakery bakery, IBakedModel originalModel) {
+	public GunModel(ModelBakery bakery, IBakedModel originalModel, IBakedModel originalModelClip) {
 		this.bakery = bakery;
 		this.originalModel = Preconditions.checkNotNull(originalModel);
+		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
 	}
 
 	private final ItemOverrideList itemHandler = new ItemOverrideList() {
 		@Nonnull
 		@Override
 		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-			// TODO 1.13 this faffing around with double overrides is dumb. Move back from json overrides once a "load this model please" PR gets merged?
+			boolean clip = ItemManaGun.hasClip(stack);
 
-			// First, let json overrides on original model apply. This gets us to the clip GunModel instance
-			IBakedModel jsonOverride = originalModel.getOverrides().getModelWithOverrides(originalModel, stack, worldIn, entityIn);
-			if (jsonOverride != null && jsonOverride != originalModel) {
-				// Now, apply overrides again. This will add lenses.
-				return jsonOverride.getOverrides().getModelWithOverrides(jsonOverride, stack, worldIn, entityIn);
+			if (ItemManaGun.isSugoiKawaiiDesuNe(stack)) {
+				return Minecraft.getInstance().getModelManager().getModel(clip ? DESU_CLIP : DESU);
 			}
 
-			// Done doing override stuff, look up our composite models
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if(!lens.isEmpty()) {
+				// TODO 1.14 : currently broken because it goes through the vanilla codepath which doesn't handle builtin/generated models
 				ModelResourceLocation mrl = new ModelResourceLocation(lens.getItem().getRegistryName(), "inventory");
 				IUnbakedModel unbaked = ModelLoaderRegistry.getModelOrMissing(mrl);
-				return GunModel.this.getModel(unbaked);
+				return GunModel.this.getModel(unbaked, clip);
 			}
-			else return GunModel.this;
+			else return clip ? originalModelClip : originalModel;
 		}
 	};
 
@@ -91,10 +95,10 @@ public class GunModel implements IBakedModel {
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return originalModel.getParticleTexture(); }
 	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return originalModel.getItemCameraTransforms(); }
 
-	private final IdentityHashMap<IUnbakedModel, CompositeBakedModel> cache = new IdentityHashMap<>();
+	private final HashMap<Pair<IUnbakedModel, Boolean>, CompositeBakedModel> cache = new HashMap<>();
 
-	private CompositeBakedModel getModel(IUnbakedModel lens) {
-		return cache.computeIfAbsent(lens, l -> new CompositeBakedModel(bakery, l, originalModel));
+	private CompositeBakedModel getModel(IUnbakedModel lens, boolean clip) {
+		return cache.computeIfAbsent(Pair.of(lens, clip), p -> new CompositeBakedModel(bakery, p.getLeft(), p.getRight() ? originalModelClip : originalModel));
 	}
 
 	private static class CompositeBakedModel implements IBakedModel {

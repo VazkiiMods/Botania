@@ -110,13 +110,9 @@ public class MiscellaneousIcons {
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
 		IBakedModel originalModel = evt.getModelRegistry().get(key);
-		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel));
-
-		// same as lexicon, reach into all json overrides and wrap them
-		for (int i = 0; i < originalModel.getOverrides().overrideBakedModels.size(); i++) {
-			Botania.LOGGER.info("wrapping {}", i);
-			originalModel.getOverrides().overrideBakedModels.set(i, new GunModel(evt.getModelLoader(), originalModel.getOverrides().overrideBakedModels.get(i)));
-		}
+		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
+		IBakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
+		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
 	}
 	
 	@SubscribeEvent

@@ -184,26 +184,5 @@
       "translation": [ -1.8, 2.5, 0 ],
       "scale": [ 0.45, 0.45, 0.45 ]
     }
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "botania:desu": 1
-      },
-      "model": "botania:item/desu_gun"
-    },
-    {
-      "predicate": {
-        "botania:clip": 1
-      },
-      "model": "botania:item/mana_gun_clip"
-    },
-    {
-      "predicate": {
-        "botania:desu": 1,
-        "botania:clip": 1
-      },
-      "model": "botania:item/desu_gun_clip"
-    }
-  ]
+  }
 }

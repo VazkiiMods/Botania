@@ -60,8 +60,12 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	public ItemManaGun(Properties props) {
 		super(props.defaultMaxDamage(COOLDOWN));
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "clip"), (stack, world, entity) -> hasClip(stack) ? 1 : 0);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "desu"), (stack, world, entity) -> isSugoiKawaiiDesuNe(stack) ? 1 : 0);
+	}
+
+	// ItemRenderer does not call IBakedModel.getModelWithOverrides unless this is true, or we have called addPropertyOverride.
+	@Override
+	public boolean hasCustomProperties() {
+		return true;
 	}
 
 	@Nonnull
@@ -116,7 +120,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-	private boolean isSugoiKawaiiDesuNe(ItemStack stack) {
+	public static boolean isSugoiKawaiiDesuNe(ItemStack stack) {
 		return stack.getDisplayName().getString().equalsIgnoreCase("desu gun");
 	}
 
