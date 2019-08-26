@@ -1,0 +1,36 @@
+{
+  "name": "botania.entry.welcome",
+  "category": "basics",
+  "icon": "botania:questgiver_mark",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.welcome0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.welcome1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.welcome2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.welcome3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.welcome4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.welcome5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.welcome6"
+    }
+  ]
+}

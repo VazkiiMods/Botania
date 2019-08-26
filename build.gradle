@@ -78,6 +78,9 @@ repositories {
         name = "curios"
         url = "https://maven.theillusivec4.top/"
     }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 //This here is for SCP
@@ -88,6 +91,7 @@ configurations {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.14.4-28.0.49'
+    compile fg.deobf("vazkii:patchouli:1.1-22")
 
     //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
