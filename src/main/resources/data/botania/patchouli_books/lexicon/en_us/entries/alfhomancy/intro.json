@@ -23,7 +23,7 @@
       "recipe": "botania:natura_pylon"
     },
     {
-      "type": "_unknown_PageMultiblock",
+      "type": "tmp_multiblock",
       "text": "botania.page.aIntro4"
     },
     {

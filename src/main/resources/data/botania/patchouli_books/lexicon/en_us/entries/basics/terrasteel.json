@@ -17,11 +17,11 @@
       "text": "botania.page.terrasteel2"
     },
     {
-      "type": "_unknown_PageMultiblock",
+      "type": "tmp_multiblock",
       "text": "botania.page.terrasteel4"
     },
     {
-      "type": "_unknown_PageTerrasteel",
+      "type": "tmp_terrasteel",
       "text": "botania.page.terrasteel3"
     }
   ]

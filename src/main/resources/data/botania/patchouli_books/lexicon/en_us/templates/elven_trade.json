@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "text",
+      "text": "Hello this is a test of the template system!",
+      "x": 20,
+      "y": 30
+    }
+  ]
+}
