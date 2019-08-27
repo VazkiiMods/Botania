@@ -16,11 +16,9 @@
       "text": "botania.page.manaBlaster2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaBlaster3",
-      "recipes": [
-        "botania:mana_gun"
-      ]
+      "recipe": "botania:mana_gun"
     }
   ]
 }

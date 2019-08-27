@@ -13,18 +13,14 @@
       "text": "botania.page.pool9"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.pool1",
-      "recipes": [
-        "botania:mana_pool"
-      ]
+      "recipe": "botania:mana_pool"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.pool10",
-      "recipes": [
-        "botania:diluted_pool"
-      ]
+      "recipe": "botania:diluted_pool"
     },
     {
       "type": "text",
@@ -82,11 +78,9 @@
       ]
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.pool13",
-      "recipes": [
-        "botania:cobweb"
-      ]
+      "recipe": "botania:cobweb"
     },
     {
       "type": "mana_infusion",

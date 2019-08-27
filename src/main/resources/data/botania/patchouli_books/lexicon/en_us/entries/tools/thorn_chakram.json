@@ -8,11 +8,9 @@
       "text": "botania.page.thornChakram0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.thornChakram1",
-      "recipes": [
-        "botania:thorn_chakram"
-      ]
+      "recipe": "botania:thorn_chakram"
     }
   ]
 }

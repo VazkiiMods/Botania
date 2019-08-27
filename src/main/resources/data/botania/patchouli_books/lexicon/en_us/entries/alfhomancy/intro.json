@@ -13,18 +13,14 @@
       "text": "botania.page.aIntro1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.aIntro2",
-      "recipes": [
-        "botania:alfheim_portal"
-      ]
+      "recipe": "botania:alfheim_portal"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.aIntro3",
-      "recipes": [
-        "botania:natura_pylon"
-      ]
+      "recipe": "botania:natura_pylon"
     },
     {
       "type": "_unknown_PageMultiblock",

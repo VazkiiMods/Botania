@@ -8,11 +8,9 @@
       "text": "botania.page.lavaPendant0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.lavaPendant1",
-      "recipes": [
-        "botania:lava_pendant"
-      ]
+      "recipe": "botania:lava_pendant"
     }
   ]
 }

@@ -12,11 +12,9 @@
       "text": "botania.page.craftingHalo1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.craftingHalo2",
-      "recipes": [
-        "botania:crafting_halo"
-      ]
+      "recipe": "botania:crafting_halo"
     }
   ]
 }

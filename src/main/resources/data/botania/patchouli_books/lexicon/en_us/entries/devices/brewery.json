@@ -12,18 +12,14 @@
       "text": "botania.page.brewery1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.brewery2",
-      "recipes": [
-        "botania:brewery"
-      ]
+      "recipe": "botania:brewery"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.brewery3",
-      "recipes": [
-        "botania:vial"
-      ]
+      "recipe": "botania:vial"
     },
     {
       "type": "text",

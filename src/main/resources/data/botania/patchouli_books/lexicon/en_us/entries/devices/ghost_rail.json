@@ -8,11 +8,9 @@
       "text": "botania.page.ghostRail0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.ghostRail1",
-      "recipes": [
-        "botania:ghost_rail"
-      ]
+      "recipe": "botania:ghost_rail"
     }
   ]
 }

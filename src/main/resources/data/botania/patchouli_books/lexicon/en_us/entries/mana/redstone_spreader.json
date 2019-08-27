@@ -9,11 +9,9 @@
       "text": "botania.page.redstoneSpreader0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.redstoneSpreader1",
-      "recipes": [
-        "botania:redstone_spreader"
-      ]
+      "recipe": "botania:redstone_spreader"
     }
   ]
 }

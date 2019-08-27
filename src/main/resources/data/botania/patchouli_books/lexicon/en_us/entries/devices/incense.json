@@ -20,18 +20,14 @@
       "text": "botania.page.incense5"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.incense3",
-      "recipes": [
-        "botania:incense_stick"
-      ]
+      "recipe": "botania:incense_stick"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.incense4",
-      "recipes": [
-        "botania:incense_plate"
-      ]
+      "recipe": "botania:incense_plate"
     }
   ]
 }

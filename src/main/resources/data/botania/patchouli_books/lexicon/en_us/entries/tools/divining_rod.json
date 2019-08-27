@@ -12,11 +12,9 @@
       "text": "botania.page.diviningRod2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.diviningRod1",
-      "recipes": [
-        "botania:divining_rod"
-      ]
+      "recipe": "botania:divining_rod"
     }
   ]
 }

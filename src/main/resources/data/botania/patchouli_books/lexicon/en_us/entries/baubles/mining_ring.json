@@ -8,11 +8,9 @@
       "text": "botania.page.miningRing0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.miningRing1",
-      "recipes": [
-        "botania:mining_ring"
-      ]
+      "recipe": "botania:mining_ring"
     }
   ]
 }

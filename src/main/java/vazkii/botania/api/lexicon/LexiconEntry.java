@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -129,7 +130,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		try (OutputStreamWriter os = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(f)))) {
 			Map<String, Object> entry = new LinkedHashMap<>();
 			entry.put("name", this.getUnlocalizedName());
-			entry.put("category", category.getUnlocalizedName());
+			entry.put("category", category.getUnlocalizedName().substring("botania.category.".length()));
 			entry.put("icon", getIcon().getItem().getRegistryName().toString());
 			if (isPriority())
 				entry.put("priority", true);
@@ -144,9 +145,13 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 					json.put("text", page.getUnlocalizedName());
 					json.put("images", Collections.singletonList(((PageImage) page).resource.toString()));
 				} else if (page instanceof PageCraftingRecipe) {
-					json.put("type", "crafting_multi");
+				    List<IRecipe<?>> recipes = ((PageCraftingRecipe) page).getRecipes();
+					json.put("type", recipes.size() == 1 ? "crafting" : "crafting_multi");
 					json.put("text", page.getUnlocalizedName());
-					json.put("recipes", ((PageCraftingRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+					if (recipes.size() == 1)
+						json.put("recipe", recipes.get(0).getId().toString());
+					else
+						json.put("recipes", recipes.stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
 				} else if (page instanceof PageManaInfusionRecipe) {
 					json.put("type", "mana_infusion");
 					json.put("text", page.getUnlocalizedName());

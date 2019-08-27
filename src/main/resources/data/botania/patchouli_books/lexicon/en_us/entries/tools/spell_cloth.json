@@ -8,11 +8,9 @@
       "text": "botania.page.spellCloth0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.spellCloth1",
-      "recipes": [
-        "botania:spell_cloth"
-      ]
+      "recipe": "botania:spell_cloth"
     }
   ]
 }

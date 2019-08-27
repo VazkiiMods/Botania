@@ -16,11 +16,9 @@
       "text": "botania.page.blackHoleTalisman2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.blackHoleTalisman3",
-      "recipes": [
-        "botania:black_hole_talisman"
-      ]
+      "recipe": "botania:black_hole_talisman"
     }
   ]
 }

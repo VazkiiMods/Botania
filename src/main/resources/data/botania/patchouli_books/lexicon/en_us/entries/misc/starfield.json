@@ -8,11 +8,9 @@
       "text": "botania.page.starfield0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.starfield1",
-      "recipes": [
-        "botania:starfield"
-      ]
+      "recipe": "botania:starfield"
     }
   ]
 }

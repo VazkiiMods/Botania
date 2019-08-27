@@ -8,18 +8,14 @@
       "text": "botania.page.tinyPlanet0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.tinyPlanet1",
-      "recipes": [
-        "botania:tiny_planet"
-      ]
+      "recipe": "botania:tiny_planet"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.tinyPlanet2",
-      "recipes": [
-        "botania:tiny_planet_block"
-      ]
+      "recipe": "botania:tiny_planet_block"
     }
   ]
 }

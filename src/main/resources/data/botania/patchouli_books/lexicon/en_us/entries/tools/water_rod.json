@@ -8,11 +8,9 @@
       "text": "botania.page.waterRod0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.waterRod1",
-      "recipes": [
-        "botania:water_rod"
-      ]
+      "recipe": "botania:water_rod"
     }
   ]
 }

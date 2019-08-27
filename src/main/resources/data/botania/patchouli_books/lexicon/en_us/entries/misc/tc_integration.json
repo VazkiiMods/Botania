@@ -12,11 +12,9 @@
       "text": "botania.page.tcIntegration1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.tcIntegration2",
-      "recipes": [
-        "botania:terrasteel_helmet_revealing"
-      ]
+      "recipe": "botania:terrasteel_helmet_revealing"
     },
     {
       "type": "text",

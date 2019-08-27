@@ -15,11 +15,9 @@
       ]
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.azulejo2",
-      "recipes": [
-        "botania:azulejo_0"
-      ]
+      "recipe": "botania:azulejo_0"
     },
     {
       "type": "crafting_multi",

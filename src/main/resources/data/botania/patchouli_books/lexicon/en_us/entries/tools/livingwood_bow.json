@@ -8,11 +8,9 @@
       "text": "botania.page.livingwoodBow0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.livingwoodBow1",
-      "recipes": [
-        "botania:livingwood_bow"
-      ]
+      "recipe": "botania:livingwood_bow"
     }
   ]
 }

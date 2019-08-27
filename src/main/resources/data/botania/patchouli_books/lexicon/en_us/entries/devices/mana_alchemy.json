@@ -8,11 +8,9 @@
       "text": "botania.page.manaAlchemy0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaAlchemy1",
-      "recipes": [
-        "botania:alchemy_catalyst"
-      ]
+      "recipe": "botania:alchemy_catalyst"
     },
     {
       "type": "mana_infusion",
@@ -25,10 +23,10 @@
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy3",
       "recipes": [
-        "botania:dark_oak_to_oak_log",
-        "botania:spruce_to_birch_log",
         "botania:birch_to_jungle_log",
         "botania:oak_to_spruce_log",
+        "botania:dark_oak_to_oak_log",
+        "botania:spruce_to_birch_log",
         "botania:jungle_to_acacia_log",
         "botania:acacia_to_dark_oak_log"
       ]
@@ -37,12 +35,12 @@
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy4",
       "recipes": [
-        "botania:jungle_to_acacia_sapling",
-        "botania:birch_to_jungle_sapling",
-        "botania:oak_to_spruce_sapling",
         "botania:acacia_to_dark_oak_sapling",
-        "botania:spruce_to_birch_sapling",
-        "botania:dark_oak_to_oak_sapling"
+        "botania:birch_to_jungle_sapling",
+        "botania:dark_oak_to_oak_sapling",
+        "botania:oak_to_spruce_sapling",
+        "botania:jungle_to_acacia_sapling",
+        "botania:spruce_to_birch_sapling"
       ]
     },
     {

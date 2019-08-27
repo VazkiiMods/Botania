@@ -8,11 +8,9 @@
       "text": "botania.page.teruTeruBozu0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.teruTeruBozu1",
-      "recipes": [
-        "botania:teru_teru_bozu"
-      ]
+      "recipe": "botania:teru_teru_bozu"
     }
   ]
 }

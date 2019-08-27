@@ -9,11 +9,9 @@
       "text": "botania.page.baubleBox0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.baubleBox1",
-      "recipes": [
-        "botania:bauble_box"
-      ]
+      "recipe": "botania:bauble_box"
     }
   ]
 }

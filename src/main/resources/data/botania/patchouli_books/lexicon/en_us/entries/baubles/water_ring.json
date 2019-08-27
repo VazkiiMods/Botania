@@ -8,11 +8,9 @@
       "text": "botania.page.waterRing0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.waterRing1",
-      "recipes": [
-        "botania:water_ring"
-      ]
+      "recipe": "botania:water_ring"
     }
   ]
 }

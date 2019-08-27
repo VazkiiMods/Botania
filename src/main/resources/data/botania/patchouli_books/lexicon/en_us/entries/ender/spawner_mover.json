@@ -8,11 +8,9 @@
       "text": "botania.page.spawnerMover0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.spawnerMover1",
-      "recipes": [
-        "botania:spawner_mover"
-      ]
+      "recipe": "botania:spawner_mover"
     }
   ]
 }

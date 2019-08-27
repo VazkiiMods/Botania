@@ -8,11 +8,9 @@
       "text": "botania.page.invisibilityCloak0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.invisibilityCloak1",
-      "recipes": [
-        "botania:invisibility_cloak"
-      ]
+      "recipe": "botania:invisibility_cloak"
     }
   ]
 }

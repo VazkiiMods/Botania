@@ -8,11 +8,9 @@
       "text": "botania.page.autocraftingHalo0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.autocraftingHalo1",
-      "recipes": [
-        "botania:auto_crafting_halo"
-      ]
+      "recipe": "botania:auto_crafting_halo"
     }
   ]
 }

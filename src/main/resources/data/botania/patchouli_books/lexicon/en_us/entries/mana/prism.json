@@ -16,11 +16,9 @@
       "text": "botania.page.prism2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.prism3",
-      "recipes": [
-        "botania:prism"
-      ]
+      "recipe": "botania:prism"
     }
   ]
 }

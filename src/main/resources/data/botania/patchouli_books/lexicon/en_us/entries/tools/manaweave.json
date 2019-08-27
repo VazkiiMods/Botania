@@ -12,39 +12,29 @@
       "text": "botania.page.manaweave1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaweave2",
-      "recipes": [
-        "botania:manaweave_cloth"
-      ]
+      "recipe": "botania:manaweave_cloth"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaweave3",
-      "recipes": [
-        "botania:manaweave_helmet"
-      ]
+      "recipe": "botania:manaweave_helmet"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaweave4",
-      "recipes": [
-        "botania:manaweave_chestplate"
-      ]
+      "recipe": "botania:manaweave_chestplate"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaweave5",
-      "recipes": [
-        "botania:manaweave_leggings"
-      ]
+      "recipe": "botania:manaweave_leggings"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaweave6",
-      "recipes": [
-        "botania:manaweave_boots"
-      ]
+      "recipe": "botania:manaweave_boots"
     }
   ]
 }

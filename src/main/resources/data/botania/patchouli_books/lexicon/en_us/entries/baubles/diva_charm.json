@@ -8,11 +8,9 @@
       "text": "botania.page.divaCharm0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.divaCharm1",
-      "recipes": [
-        "botania:diva_charm"
-      ]
+      "recipe": "botania:diva_charm"
     }
   ]
 }

@@ -8,11 +8,9 @@
       "text": "botania.page.rfGenerator0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.rfGenerator1",
-      "recipes": [
-        "botania:mana_fluxfield"
-      ]
+      "recipe": "botania:mana_fluxfield"
     }
   ]
 }

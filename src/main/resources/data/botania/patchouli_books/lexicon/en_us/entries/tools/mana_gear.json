@@ -13,67 +13,49 @@
       "text": "botania.page.manaGear10"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear1",
-      "recipes": [
-        "botania:manasteel_pickaxe"
-      ]
+      "recipe": "botania:manasteel_pickaxe"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear2",
-      "recipes": [
-        "botania:manasteel_shovel"
-      ]
+      "recipe": "botania:manasteel_shovel"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear3",
-      "recipes": [
-        "botania:manasteel_axe"
-      ]
+      "recipe": "botania:manasteel_axe"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear4",
-      "recipes": [
-        "botania:manasteel_shears"
-      ]
+      "recipe": "botania:manasteel_shears"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear5",
-      "recipes": [
-        "botania:manasteel_sword"
-      ]
+      "recipe": "botania:manasteel_sword"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear6",
-      "recipes": [
-        "botania:manasteel_helmet"
-      ]
+      "recipe": "botania:manasteel_helmet"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear7",
-      "recipes": [
-        "botania:manasteel_chestplate"
-      ]
+      "recipe": "botania:manasteel_chestplate"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear8",
-      "recipes": [
-        "botania:manasteel_leggings"
-      ]
+      "recipe": "botania:manasteel_leggings"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaGear9",
-      "recipes": [
-        "botania:manasteel_boots"
-      ]
+      "recipe": "botania:manasteel_boots"
     }
   ]
 }

@@ -8,11 +8,9 @@
       "text": "botania.page.fireChakram0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.fireChakram1",
-      "recipes": [
-        "botania:flare_chakram"
-      ]
+      "recipe": "botania:flare_chakram"
     }
   ]
 }

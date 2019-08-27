@@ -12,66 +12,54 @@
       "text": "botania.page.elvenLenses1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elvenLenses2",
-      "recipes": [
-        "botania:lens_paint"
-      ]
+      "recipe": "botania:lens_paint"
     },
     {
       "type": "text",
       "text": "botania.page.elvenLenses3"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elvenLenses4",
-      "recipes": [
-        "botania:lens_warp"
-      ]
+      "recipe": "botania:lens_warp"
     },
     {
       "type": "text",
       "text": "botania.page.elvenLenses5"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elvenLenses6",
-      "recipes": [
-        "botania:lens_redirect"
-      ]
+      "recipe": "botania:lens_redirect"
     },
     {
       "type": "text",
       "text": "botania.page.elvenLenses7"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elvenLenses8",
-      "recipes": [
-        "botania:lens_firework"
-      ]
+      "recipe": "botania:lens_firework"
     },
     {
       "type": "text",
       "text": "botania.page.elvenLenses9"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elvenLenses10",
-      "recipes": [
-        "botania:lens_flare"
-      ]
+      "recipe": "botania:lens_flare"
     },
     {
       "type": "text",
       "text": "botania.page.elvenLenses11"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elvenLenses12",
-      "recipes": [
-        "botania:lens_tripwire"
-      ]
+      "recipe": "botania:lens_tripwire"
     }
   ]
 }

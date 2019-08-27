@@ -8,18 +8,14 @@
       "text": "botania.page.auraRing0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.auraRing1",
-      "recipes": [
-        "botania:aura_ring"
-      ]
+      "recipe": "botania:aura_ring"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.auraRing2",
-      "recipes": [
-        "botania:aura_ring_greater"
-      ]
+      "recipe": "botania:aura_ring_greater"
     }
   ]
 }

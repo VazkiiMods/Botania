@@ -8,11 +8,9 @@
       "text": "botania.page.thirdEye0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.thirdEye1",
-      "recipes": [
-        "botania:third_eye"
-      ]
+      "recipe": "botania:third_eye"
     }
   ]
 }

@@ -8,25 +8,19 @@
       "text": "botania.page.grassHorn0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.grassHorn1",
-      "recipes": [
-        "botania:horn_grass"
-      ]
+      "recipe": "botania:horn_grass"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.grassHorn2",
-      "recipes": [
-        "botania:horn_leaves"
-      ]
+      "recipe": "botania:horn_leaves"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.grassHorn3",
-      "recipes": [
-        "botania:horn_snow"
-      ]
+      "recipe": "botania:horn_snow"
     }
   ]
 }

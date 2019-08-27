@@ -36,11 +36,9 @@
       "text": "botania.page.apothecary6"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.apothecary5",
-      "recipes": [
-        "botania:apothecary_default"
-      ]
+      "recipe": "botania:apothecary_default"
     }
   ]
 }

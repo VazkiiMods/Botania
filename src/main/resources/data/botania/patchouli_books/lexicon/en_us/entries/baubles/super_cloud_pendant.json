@@ -8,11 +8,9 @@
       "text": "botania.page.superCloudPendant0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.superCloudPendant1",
-      "recipes": [
-        "botania:super_cloud_pendant"
-      ]
+      "recipe": "botania:super_cloud_pendant"
     }
   ]
 }

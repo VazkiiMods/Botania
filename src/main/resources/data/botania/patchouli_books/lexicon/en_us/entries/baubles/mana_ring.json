@@ -8,18 +8,14 @@
       "text": "botania.page.manaRing0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaRing1",
-      "recipes": [
-        "botania:mana_ring"
-      ]
+      "recipe": "botania:mana_ring"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaRing2",
-      "recipes": [
-        "botania:mana_ring_greater"
-      ]
+      "recipe": "botania:mana_ring_greater"
     }
   ]
 }

@@ -12,11 +12,9 @@
       "text": "botania.page.platform2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.platform1",
-      "recipes": [
-        "botania:abstruse_platform"
-      ]
+      "recipe": "botania:abstruse_platform"
     }
   ]
 }

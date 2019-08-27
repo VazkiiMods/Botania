@@ -12,11 +12,9 @@
       "text": "botania.page.craftCrate1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.craftCrate2",
-      "recipes": [
-        "botania:placeholder"
-      ]
+      "recipe": "botania:placeholder"
     },
     {
       "type": "text",
@@ -38,11 +36,9 @@
       ]
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.craftCrate6",
-      "recipes": [
-        "botania:crafty_crate"
-      ]
+      "recipe": "botania:crafty_crate"
     },
     {
       "type": "text",

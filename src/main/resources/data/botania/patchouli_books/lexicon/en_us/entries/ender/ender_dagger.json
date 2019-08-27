@@ -12,11 +12,9 @@
       "text": "botania.page.enderDagger1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.enderDagger2",
-      "recipes": [
-        "botania:ender_dagger"
-      ]
+      "recipe": "botania:ender_dagger"
     }
   ]
 }

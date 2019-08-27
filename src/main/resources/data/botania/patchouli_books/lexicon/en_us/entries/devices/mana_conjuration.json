@@ -8,11 +8,9 @@
       "text": "botania.page.manaConjuration0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.manaConjuration1",
-      "recipes": [
-        "botania:conjuration_catalyst"
-      ]
+      "recipe": "botania:conjuration_catalyst"
     },
     {
       "type": "mana_infusion",
@@ -74,12 +72,12 @@
       "type": "mana_infusion",
       "text": "botania.page.manaConjuration10",
       "recipes": [
-        "botania:dark_oak_leaves_dupe",
-        "botania:oak_leaves_dupe",
         "botania:jungle_leaves_dupe",
         "botania:spruce_leaves_dupe",
         "botania:birch_leaves_dupe",
-        "botania:acacia_leaves_dupe"
+        "botania:acacia_leaves_dupe",
+        "botania:dark_oak_leaves_dupe",
+        "botania:oak_leaves_dupe"
       ]
     },
     {

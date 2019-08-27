@@ -8,11 +8,9 @@
       "text": "botania.page.temperanceStone0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.temperanceStone1",
-      "recipes": [
-        "botania:temperance_stone"
-      ]
+      "recipe": "botania:temperance_stone"
     }
   ]
 }

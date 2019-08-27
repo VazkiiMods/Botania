@@ -12,11 +12,9 @@
       "text": "botania.page.fireRod2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.fireRod1",
-      "recipes": [
-        "botania:fire_rod"
-      ]
+      "recipe": "botania:fire_rod"
     }
   ]
 }

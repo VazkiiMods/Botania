@@ -16,11 +16,9 @@
       "text": "botania.page.corporeaRetainer2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.corporeaRetainer3",
-      "recipes": [
-        "botania:corporea_retainer"
-      ]
+      "recipe": "botania:corporea_retainer"
     }
   ]
 }

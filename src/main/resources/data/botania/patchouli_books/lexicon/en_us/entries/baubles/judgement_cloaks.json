@@ -12,25 +12,19 @@
       "text": "botania.page.judgementCloaks1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.judgementCloaks2",
-      "recipes": [
-        "botania:holy_cloak"
-      ]
+      "recipe": "botania:holy_cloak"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.judgementCloaks3",
-      "recipes": [
-        "botania:unholy_cloak"
-      ]
+      "recipe": "botania:unholy_cloak"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.judgementCloaks4",
-      "recipes": [
-        "botania:balance_cloak"
-      ]
+      "recipe": "botania:balance_cloak"
     }
   ]
 }

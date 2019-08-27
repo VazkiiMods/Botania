@@ -16,11 +16,9 @@
       "text": "botania.page.exchangeRod2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.exchangeRod3",
-      "recipes": [
-        "botania:exchange_rod"
-      ]
+      "recipe": "botania:exchange_rod"
     }
   ]
 }

@@ -16,83 +16,65 @@
       "text": "botania.page.elfGear2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear3",
-      "recipes": [
-        "botania:elementium_pickaxe"
-      ]
+      "recipe": "botania:elementium_pickaxe"
     },
     {
       "type": "text",
       "text": "botania.page.elfGear4"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear5",
-      "recipes": [
-        "botania:elementium_shovel"
-      ]
+      "recipe": "botania:elementium_shovel"
     },
     {
       "type": "text",
       "text": "botania.page.elfGear6"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear7",
-      "recipes": [
-        "botania:elementium_axe"
-      ]
+      "recipe": "botania:elementium_axe"
     },
     {
       "type": "text",
       "text": "botania.page.elfGear8"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear9",
-      "recipes": [
-        "botania:elementium_shears"
-      ]
+      "recipe": "botania:elementium_shears"
     },
     {
       "type": "text",
       "text": "botania.page.elfGear10"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear11",
-      "recipes": [
-        "botania:elementium_sword"
-      ]
+      "recipe": "botania:elementium_sword"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear12",
-      "recipes": [
-        "botania:elementium_helmet"
-      ]
+      "recipe": "botania:elementium_helmet"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear13",
-      "recipes": [
-        "botania:elementium_chestplate"
-      ]
+      "recipe": "botania:elementium_chestplate"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear14",
-      "recipes": [
-        "botania:elementium_leggings"
-      ]
+      "recipe": "botania:elementium_leggings"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.elfGear15",
-      "recipes": [
-        "botania:elementium_boots"
-      ]
+      "recipe": "botania:elementium_boots"
     }
   ]
 }

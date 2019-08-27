@@ -39,11 +39,9 @@
       "text": "botania.page.flightTiara2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.flightTiara3",
-      "recipes": [
-        "botania:dummy"
-      ]
+      "recipe": "botania:dummy"
     }
   ]
 }

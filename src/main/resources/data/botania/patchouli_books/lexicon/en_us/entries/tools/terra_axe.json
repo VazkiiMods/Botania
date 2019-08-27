@@ -8,11 +8,9 @@
       "text": "botania.page.terraAxe0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.terraAxe1",
-      "recipes": [
-        "botania:terra_axe"
-      ]
+      "recipe": "botania:terra_axe"
     }
   ]
 }

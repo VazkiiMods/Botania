@@ -8,11 +8,9 @@
       "text": "botania.page.distributor0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.distributor1",
-      "recipes": [
-        "botania:mana_distributor"
-      ]
+      "recipe": "botania:mana_distributor"
     }
   ]
 }

@@ -20,11 +20,9 @@
       "text": "botania.page.corporeaCrystalCube4"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.corporeaCrystalCube2",
-      "recipes": [
-        "botania:corporea_crystal_cube"
-      ]
+      "recipe": "botania:corporea_crystal_cube"
     }
   ]
 }

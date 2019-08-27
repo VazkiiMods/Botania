@@ -8,11 +8,9 @@
       "text": "botania.page.crystalBow0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.crystalBow1",
-      "recipes": [
-        "botania:crystal_bow"
-      ]
+      "recipe": "botania:crystal_bow"
     }
   ]
 }

@@ -12,11 +12,9 @@
       "text": "botania.page.gravityRod1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.gravityRod2",
-      "recipes": [
-        "botania:gravity_rod"
-      ]
+      "recipe": "botania:gravity_rod"
     }
   ]
 }

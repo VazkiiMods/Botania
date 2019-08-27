@@ -47,11 +47,9 @@
       ]
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.dandelifeon9",
-      "recipes": [
-        "botania:cell_block"
-      ]
+      "recipe": "botania:cell_block"
     }
   ]
 }
