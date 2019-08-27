@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.spawnerMover",
+  "category": "ender",
+  "icon": "botania:spawner_mover",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spawnerMover0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.spawnerMover1",
+      "recipes": [
+        "botania:spawner_mover"
+      ]
+    }
+  ]
+}

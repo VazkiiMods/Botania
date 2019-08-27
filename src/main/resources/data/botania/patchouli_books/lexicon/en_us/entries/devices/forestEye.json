@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.forestEye",
+  "category": "devices",
+  "icon": "botania:forest_eye",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.forestEye0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.forestEye1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.forestEye2",
+      "recipes": [
+        "botania:forest_eye"
+      ]
+    }
+  ]
+}

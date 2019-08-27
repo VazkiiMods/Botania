@@ -1,0 +1,34 @@
+{
+  "name": "botania.entry.terraPick",
+  "category": "tools",
+  "icon": "botania:terra_pick",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.terraPick0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terraPick1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terraPick2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terraPick3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terraPick4"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terraPick5",
+      "recipes": [
+        "botania:terra_pick"
+      ]
+    }
+  ]
+}

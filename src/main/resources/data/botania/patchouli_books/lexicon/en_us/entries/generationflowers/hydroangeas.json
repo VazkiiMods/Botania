@@ -1,0 +1,25 @@
+{
+  "name": "botania.entry.hydroangeas",
+  "category": "generationflowers",
+  "icon": "botania:hydroangeas",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.hydroangeas0"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.hydroangeas2",
+      "images": [
+        "botania:textures/gui/entries/hydroangeas.png"
+      ]
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.hydroangeas1",
+      "recipes": [
+        "botania:hydroangeas"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.clip",
+  "category": "tools",
+  "icon": "botania:clip",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.clip0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.clip1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.clip2",
+      "recipes": [
+        "botania:clip"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "botania.entry.tinyPlanet",
+  "category": "baubles",
+  "icon": "botania:tiny_planet",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.tinyPlanet0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.tinyPlanet1",
+      "recipes": [
+        "botania:tiny_planet"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.tinyPlanet2",
+      "recipes": [
+        "botania:tiny_planet_block"
+      ]
+    }
+  ]
+}

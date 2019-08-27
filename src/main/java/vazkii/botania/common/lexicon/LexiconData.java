@@ -1438,10 +1438,10 @@ public final class LexiconData {
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.REDSTONE));
 		}
 
-		if(Botania.thaumcraftLoaded) {
+		if(true || Botania.thaumcraftLoaded) {
 			tcIntegration = new CompatLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
 
-			if(ConfigHandler.COMMON.enableThaumcraftStablizers.get())
+			if(true || ConfigHandler.COMMON.enableThaumcraftStablizers.get())
 				tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"),
 						new PageCraftingRecipe("2", ModItems.manasteelHelmRevealing, ModItems.elementiumHelmRevealing, ModItems.terrasteelHelmRevealing), new PageText("3"),
 						new PageManaInfusionRecipe("4", ModItems.manaInkwell), new PageText("5"),
@@ -1455,6 +1455,11 @@ public final class LexiconData {
 						.setIcon(new ItemStack(ModItems.manaInkwell));
 		}
 		Botania.LOGGER.info("Reloaded lexicon in {}", stopwatch.stop());
+
+		Botania.LOGGER.info("Dumping lexicon entries");
+		for (LexiconEntry e : BotaniaAPI.getAllEntries()) {
+		    e.dump();
+        }
 	}
 
 	private static Predicate<IRecipe<?>> GOG_RECIPE = recipe -> recipe.getId().getPath().contains("garden_of_glass");

@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.prism",
+  "category": "mana",
+  "icon": "botania:prism",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.prism0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.prism1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.prism2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.prism3",
+      "recipes": [
+        "botania:prism"
+      ]
+    }
+  ]
+}

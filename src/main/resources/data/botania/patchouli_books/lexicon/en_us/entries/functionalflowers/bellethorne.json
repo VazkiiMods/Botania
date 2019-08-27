@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.bellethorne",
+  "category": "functionalflowers",
+  "icon": "botania:bellethorn",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.bellethorne0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.bellethorne1",
+      "recipes": [
+        "botania:bellethorn"
+      ]
+    }
+  ]
+}

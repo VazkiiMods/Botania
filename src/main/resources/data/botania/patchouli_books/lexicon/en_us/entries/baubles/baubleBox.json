@@ -1,0 +1,19 @@
+{
+  "name": "botania.entry.baubleBox",
+  "category": "baubles",
+  "icon": "botania:bauble_box",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.baubleBox0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.baubleBox1",
+      "recipes": [
+        "botania:bauble_box"
+      ]
+    }
+  ]
+}

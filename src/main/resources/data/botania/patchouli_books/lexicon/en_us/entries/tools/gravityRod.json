@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.gravityRod",
+  "category": "tools",
+  "icon": "botania:gravity_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.gravityRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gravityRod1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.gravityRod2",
+      "recipes": [
+        "botania:gravity_rod"
+      ]
+    }
+  ]
+}

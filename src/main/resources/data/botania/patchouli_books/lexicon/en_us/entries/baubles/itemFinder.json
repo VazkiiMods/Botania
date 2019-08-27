@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.itemFinder",
+  "category": "baubles",
+  "icon": "botania:itemfinder",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.itemFinder0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.itemFinder1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.itemFinder2",
+      "recipes": [
+        "botania:itemfinder"
+      ]
+    }
+  ]
+}

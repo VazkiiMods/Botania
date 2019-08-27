@@ -1,0 +1,39 @@
+{
+  "name": "botania.entry.hourglass",
+  "category": "devices",
+  "icon": "botania:hourglass",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.hourglass0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.hourglass1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.hourglass2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.hourglass3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.hourglass4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.hourglass6"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.hourglass5",
+      "recipes": [
+        "botania:hourglass"
+      ]
+    }
+  ]
+}

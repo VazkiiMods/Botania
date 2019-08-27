@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.corporeaFunnel",
+  "category": "ender",
+  "icon": "botania:corporea_funnel",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.corporeaFunnel0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporeaFunnel1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.corporeaFunnel2",
+      "recipes": [
+        "botania:corporea_funnel"
+      ]
+    }
+  ]
+}

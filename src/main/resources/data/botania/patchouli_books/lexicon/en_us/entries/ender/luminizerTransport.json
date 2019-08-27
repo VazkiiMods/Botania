@@ -1,0 +1,70 @@
+{
+  "name": "botania.entry.luminizerTransport",
+  "category": "ender",
+  "icon": "botania:light_relay",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.luminizerTransport2",
+      "recipes": [
+        "botania:light_relay"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport3"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.luminizerTransport4",
+      "recipes": [
+        "botania:detector_light_relay"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport7"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.luminizerTransport8",
+      "recipes": [
+        "botania:fork_light_relay"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport9"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport10"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.luminizerTransport11",
+      "recipes": [
+        "botania:toggle_light_relay"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.luminizerTransport5"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.luminizerTransport6",
+      "recipes": [
+        "botania:light_launcher"
+      ]
+    }
+  ]
+}

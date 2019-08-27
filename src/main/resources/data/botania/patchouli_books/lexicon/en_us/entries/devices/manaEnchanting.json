@@ -1,0 +1,39 @@
+{
+  "name": "botania.entry.manaEnchanting",
+  "category": "devices",
+  "icon": "botania:enchanter",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting1"
+    },
+    {
+      "type": "_unknown_PageMultiblock",
+      "text": "botania.page.manaEnchanting2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting6"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting7"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting8"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaEnchanting9"
+    }
+  ]
+}

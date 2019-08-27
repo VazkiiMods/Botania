@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.manaBlaster",
+  "category": "tools",
+  "icon": "botania:mana_gun",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaBlaster0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaBlaster1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaBlaster2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaBlaster3",
+      "recipes": [
+        "botania:mana_gun"
+      ]
+    }
+  ]
+}

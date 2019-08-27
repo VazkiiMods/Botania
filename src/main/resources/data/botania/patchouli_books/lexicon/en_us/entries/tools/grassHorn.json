@@ -1,0 +1,32 @@
+{
+  "name": "botania.entry.grassHorn",
+  "category": "tools",
+  "icon": "botania:horn_grass",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.grassHorn0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.grassHorn1",
+      "recipes": [
+        "botania:horn_grass"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.grassHorn2",
+      "recipes": [
+        "botania:horn_leaves"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.grassHorn3",
+      "recipes": [
+        "botania:horn_snow"
+      ]
+    }
+  ]
+}

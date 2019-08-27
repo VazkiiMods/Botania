@@ -35,7 +35,7 @@ import java.util.List;
 public class PageBrew extends PageRecipe implements ITwoNamedPage {
 	private static final RecipeBrew DUMMY = new RecipeBrew(new ResourceLocation(LibMisc.MOD_ID, "dummy"), BotaniaAPI.fallbackBrew);
 
-	private final RecipeBrew recipe;
+	public final RecipeBrew recipe;
 	private String text;
 
 	public PageBrew(Brew brew, String unlocalizedName, String bottomText) {

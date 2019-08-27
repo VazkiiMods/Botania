@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.superLavaPendant",
+  "category": "baubles",
+  "icon": "botania:super_lava_pendant",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.superLavaPendant0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.superLavaPendant1",
+      "recipes": [
+        "botania:super_lava_pendant"
+      ]
+    }
+  ]
+}

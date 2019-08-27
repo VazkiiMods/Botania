@@ -1,0 +1,25 @@
+{
+  "name": "botania.entry.manaRing",
+  "category": "baubles",
+  "icon": "botania:mana_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaRing0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaRing1",
+      "recipes": [
+        "botania:mana_ring"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaRing2",
+      "recipes": [
+        "botania:mana_ring_greater"
+      ]
+    }
+  ]
+}

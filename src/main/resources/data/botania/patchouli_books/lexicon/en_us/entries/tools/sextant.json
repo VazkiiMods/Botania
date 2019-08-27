@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.sextant",
+  "category": "tools",
+  "icon": "botania:sextant",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.sextant0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.sextant1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.sextant2",
+      "recipes": [
+        "botania:sextant"
+      ]
+    }
+  ]
+}

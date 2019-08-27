@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.swapRing",
+  "category": "baubles",
+  "icon": "botania:swap_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.swapRing0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.swapRing1",
+      "recipes": [
+        "botania:swap_ring"
+      ]
+    }
+  ]
+}

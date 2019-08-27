@@ -1,0 +1,19 @@
+{
+  "name": "botania.entry.redstoneSpreader",
+  "category": "mana",
+  "icon": "botania:redstone_spreader",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.redstoneSpreader0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redstoneSpreader1",
+      "recipes": [
+        "botania:redstone_spreader"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.platform",
+  "category": "devices",
+  "icon": "botania:abstruse_platform",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.platform0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.platform2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.platform1",
+      "recipes": [
+        "botania:abstruse_platform"
+      ]
+    }
+  ]
+}

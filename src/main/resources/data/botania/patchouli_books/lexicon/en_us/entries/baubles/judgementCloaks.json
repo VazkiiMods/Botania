@@ -1,0 +1,36 @@
+{
+  "name": "botania.entry.judgementCloaks",
+  "category": "baubles",
+  "icon": "botania:holy_cloak",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.judgementCloaks0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.judgementCloaks1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.judgementCloaks2",
+      "recipes": [
+        "botania:holy_cloak"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.judgementCloaks3",
+      "recipes": [
+        "botania:unholy_cloak"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.judgementCloaks4",
+      "recipes": [
+        "botania:balance_cloak"
+      ]
+    }
+  ]
+}

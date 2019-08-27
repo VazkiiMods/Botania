@@ -1,0 +1,20 @@
+{
+  "name": "botania.entry.mIntro",
+  "category": "mana",
+  "icon": "minecraft:air",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.mIntro0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.mIntro1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.mIntro2"
+    }
+  ]
+}

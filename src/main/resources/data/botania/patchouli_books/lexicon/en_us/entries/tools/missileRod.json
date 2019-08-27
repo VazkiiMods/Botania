@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.missileRod",
+  "category": "tools",
+  "icon": "botania:missile_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.missileRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.missileRod2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.missileRod1",
+      "recipes": [
+        "botania:missile_rod"
+      ]
+    }
+  ]
+}

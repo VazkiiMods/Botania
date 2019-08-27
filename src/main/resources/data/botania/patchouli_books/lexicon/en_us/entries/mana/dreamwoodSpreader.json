@@ -1,0 +1,29 @@
+{
+  "name": "botania.entry.dreamwoodSpreader",
+  "category": "mana",
+  "icon": "botania:elven_spreader",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.dreamwoodSpreader0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.dreamwoodSpreader1",
+      "recipes": [
+        "botania:elven_spreader"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.dreamwoodSpreader2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.dreamwoodSpreader3",
+      "recipes": [
+        "botania:gaia_spreader"
+      ]
+    }
+  ]
+}

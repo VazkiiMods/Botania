@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.livingwoodBow",
+  "category": "tools",
+  "icon": "botania:livingwood_bow",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.livingwoodBow0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.livingwoodBow1",
+      "recipes": [
+        "botania:livingwood_bow"
+      ]
+    }
+  ]
+}

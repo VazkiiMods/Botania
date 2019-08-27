@@ -1,0 +1,67 @@
+{
+  "name": "botania.entry.complexBrews",
+  "category": "devices",
+  "icon": "botania:brew_vial",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.complexBrews0"
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews1b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "overload"
+      }
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews2b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "soul_cross"
+      }
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews3b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "feather_feet"
+      }
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews4b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "emptiness"
+      }
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews5b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "bloodthirst"
+      }
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews6b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "allure"
+      }
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.complexBrews7b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "clear"
+      }
+    }
+  ]
+}

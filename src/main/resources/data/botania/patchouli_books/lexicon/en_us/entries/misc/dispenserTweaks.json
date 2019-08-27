@@ -1,0 +1,12 @@
+{
+  "name": "botania.entry.dispenserTweaks",
+  "category": "misc",
+  "icon": "minecraft:dispenser",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.dispenserTweaks0"
+    }
+  ]
+}

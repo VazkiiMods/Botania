@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.flasks",
+  "category": "devices",
+  "icon": "botania:flask",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.flasks0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flasks1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.flasks2",
+      "recipes": [
+        "botania:flask"
+      ]
+    }
+  ]
+}

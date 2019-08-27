@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.gaiaRitualHardmode",
+  "category": "alfhomancy",
+  "icon": "botania:gaia_ingot",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.gaiaRitualHardmode0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gaiaRitualHardmode1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.gaiaRitualHardmode2",
+      "recipes": [
+        "botania:gaia_ingot"
+      ]
+    }
+  ]
+}

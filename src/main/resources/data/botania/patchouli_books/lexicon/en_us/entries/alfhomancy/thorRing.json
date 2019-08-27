@@ -1,0 +1,11 @@
+{
+  "name": "botania.entry.thorRing",
+  "category": "alfhomancy",
+  "icon": "botania:thor_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.thorRing0"
+    }
+  ]
+}

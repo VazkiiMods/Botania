@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.fireChakram",
+  "category": "tools",
+  "icon": "botania:flare_chakram",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.fireChakram0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.fireChakram1",
+      "recipes": [
+        "botania:flare_chakram"
+      ]
+    }
+  ]
+}

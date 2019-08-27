@@ -1,0 +1,56 @@
+{
+  "name": "botania.entry.rainbowRod",
+  "category": "tools",
+  "icon": "botania:rainbow_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.rainbowRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.rainbowRod1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.rainbowRod6"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.rainbowRod2",
+      "recipes": [
+        "botania:rainbow_rod"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.rainbowRod3",
+      "recipes": [
+        "botania:bifrost_perm"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.rainbowRod4",
+      "recipes": [
+        "botania:slab_recombine/shimmerrock",
+        "botania:shimmerrock"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.rainbowRod5",
+      "recipes": [
+        "botania:slab_recombine/shimmerwood_planks",
+        "botania:shimmerwood_planks"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.rainbowRod7",
+      "recipes": [
+        "botania:fabulous_pool"
+      ]
+    }
+  ]
+}

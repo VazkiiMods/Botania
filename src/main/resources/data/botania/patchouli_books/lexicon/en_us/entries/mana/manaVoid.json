@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.manaVoid",
+  "category": "mana",
+  "icon": "botania:mana_void",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaVoid0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaVoid1",
+      "recipes": [
+        "botania:mana_void"
+      ]
+    }
+  ]
+}

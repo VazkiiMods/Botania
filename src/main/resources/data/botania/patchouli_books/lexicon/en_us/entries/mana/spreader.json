@@ -1,0 +1,46 @@
+{
+  "name": "botania.entry.spreader",
+  "category": "mana",
+  "icon": "botania:mana_spreader",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spreader0"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.spreader1",
+      "images": [
+        "botania:textures/gui/entries/spreader.png"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spreader2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spreader3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spreader4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spreader11"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.spreader5",
+      "recipes": [
+        "botania:mana_spreader"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spreader10"
+    }
+  ]
+}

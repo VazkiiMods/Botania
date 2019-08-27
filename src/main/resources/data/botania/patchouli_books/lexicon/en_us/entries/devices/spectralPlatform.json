@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.spectralPlatform",
+  "category": "devices",
+  "icon": "botania:spectral_platform",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spectralPlatform0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.spectralPlatform1",
+      "recipes": [
+        "botania:spectral_platform"
+      ]
+    }
+  ]
+}

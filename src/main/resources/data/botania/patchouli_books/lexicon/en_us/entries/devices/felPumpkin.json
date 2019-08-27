@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.felPumpkin",
+  "category": "devices",
+  "icon": "botania:fel_pumpkin",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.felPumpkin0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.felPumpkin1",
+      "recipes": [
+        "botania:fel_pumpkin"
+      ]
+    }
+  ]
+}

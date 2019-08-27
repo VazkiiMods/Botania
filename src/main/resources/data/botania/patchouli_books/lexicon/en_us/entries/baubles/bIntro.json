@@ -1,0 +1,23 @@
+{
+  "name": "botania.entry.bIntro",
+  "category": "baubles",
+  "icon": "minecraft:air",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.bIntro0"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.bIntro1",
+      "images": [
+        "botania:textures/gui/entries/baubles.png"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.bIntro2"
+    }
+  ]
+}

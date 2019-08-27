@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.thirdEye",
+  "category": "baubles",
+  "icon": "botania:third_eye",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.thirdEye0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.thirdEye1",
+      "recipes": [
+        "botania:third_eye"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.craftingHalo",
+  "category": "tools",
+  "icon": "botania:crafting_halo",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.craftingHalo0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.craftingHalo1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.craftingHalo2",
+      "recipes": [
+        "botania:crafting_halo"
+      ]
+    }
+  ]
+}

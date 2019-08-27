@@ -1,0 +1,67 @@
+{
+  "name": "botania.entry.craftCrate",
+  "category": "devices",
+  "icon": "botania:crafty_crate",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.craftCrate0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.craftCrate1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.craftCrate2",
+      "recipes": [
+        "botania:placeholder"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.craftCrate3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.craftCrate4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.craftCrate7"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.craftCrate5",
+      "images": [
+        "botania:textures/gui/entries/craft_crate.png"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.craftCrate6",
+      "recipes": [
+        "botania:crafty_crate"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.craftCrate8"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.craftCrate9",
+      "recipes": [
+        "botania:pattern_1_1",
+        "botania:pattern_2_2",
+        "botania:pattern_1_2",
+        "botania:pattern_2_1",
+        "botania:pattern_1_3",
+        "botania:pattern_3_1",
+        "botania:pattern_2_3",
+        "botania:pattern_3_2",
+        "botania:pattern_donut"
+      ]
+    }
+  ]
+}

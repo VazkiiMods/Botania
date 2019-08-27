@@ -1,0 +1,12 @@
+{
+  "name": "botania.entry.enderAir",
+  "category": "ender",
+  "icon": "botania:ender_air_bottle",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.enderAir0"
+    }
+  ]
+}

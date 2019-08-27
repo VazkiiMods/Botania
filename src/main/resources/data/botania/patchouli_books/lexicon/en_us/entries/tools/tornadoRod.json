@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.tornadoRod",
+  "category": "tools",
+  "icon": "botania:tornado_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.tornadoRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.tornadoRod2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.tornadoRod1",
+      "recipes": [
+        "botania:tornado_rod"
+      ]
+    }
+  ]
+}

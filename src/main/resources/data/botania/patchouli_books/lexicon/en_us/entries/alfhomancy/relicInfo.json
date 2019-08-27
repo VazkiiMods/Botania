@@ -1,0 +1,15 @@
+{
+  "name": "botania.entry.relicInfo",
+  "category": "alfhomancy",
+  "icon": "botania:dice",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.relicInfo0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.relicInfo1"
+    }
+  ]
+}

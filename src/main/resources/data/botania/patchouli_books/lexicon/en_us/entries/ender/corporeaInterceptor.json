@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.corporeaInterceptor",
+  "category": "ender",
+  "icon": "botania:corporea_interceptor",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.corporeaInterceptor0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporeaInterceptor1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.corporeaInterceptor2",
+      "recipes": [
+        "botania:corporea_interceptor"
+      ]
+    }
+  ]
+}

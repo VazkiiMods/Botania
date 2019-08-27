@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.terraAxe",
+  "category": "tools",
+  "icon": "botania:terra_axe",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.terraAxe0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terraAxe1",
+      "recipes": [
+        "botania:terra_axe"
+      ]
+    }
+  ]
+}

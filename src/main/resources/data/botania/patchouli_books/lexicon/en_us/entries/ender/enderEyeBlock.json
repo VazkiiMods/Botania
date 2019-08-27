@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.enderEyeBlock",
+  "category": "ender",
+  "icon": "botania:ender_eye_block",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.enderEyeBlock0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.enderEyeBlock1",
+      "recipes": [
+        "botania:ender_eye_block"
+      ]
+    }
+  ]
+}

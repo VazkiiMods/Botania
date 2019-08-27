@@ -1,0 +1,46 @@
+{
+  "name": "botania.entry.aIntro",
+  "category": "alfhomancy",
+  "icon": "botania:lexicon",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.aIntro0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.aIntro2",
+      "recipes": [
+        "botania:alfheim_portal"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.aIntro3",
+      "recipes": [
+        "botania:natura_pylon"
+      ]
+    },
+    {
+      "type": "_unknown_PageMultiblock",
+      "text": "botania.page.aIntro4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro6"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro7"
+    }
+  ]
+}

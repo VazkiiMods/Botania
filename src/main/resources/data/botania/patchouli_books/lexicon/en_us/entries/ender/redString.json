@@ -1,0 +1,89 @@
+{
+  "name": "botania.entry.redString",
+  "category": "ender",
+  "icon": "botania:red_string",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.redString0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString2",
+      "recipes": [
+        "botania:red_string",
+        "botania:red_string_alt"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString3"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString4",
+      "recipes": [
+        "botania:red_string_container"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString5"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString6",
+      "recipes": [
+        "botania:red_string_dispenser"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString7"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString8",
+      "recipes": [
+        "botania:red_string_fertilizer"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString9"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString10",
+      "recipes": [
+        "botania:red_string_comparator"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString11"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString12",
+      "recipes": [
+        "botania:red_string_relay"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.redString13"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.redString14",
+      "recipes": [
+        "botania:red_string_interceptor"
+      ]
+    }
+  ]
+}

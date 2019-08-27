@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.manaDetector",
+  "category": "mana",
+  "icon": "botania:mana_detector",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaDetector0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaDetector1",
+      "recipes": [
+        "botania:mana_detector"
+      ]
+    }
+  ]
+}

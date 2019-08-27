@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.spellCloth",
+  "category": "tools",
+  "icon": "botania:spell_cloth",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spellCloth0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.spellCloth1",
+      "recipes": [
+        "botania:spell_cloth"
+      ]
+    }
+  ]
+}

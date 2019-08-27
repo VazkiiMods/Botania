@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.cocoon",
+  "category": "devices",
+  "icon": "botania:cocoon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.cocoon0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.cocoon1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.cocoon2",
+      "recipes": [
+        "botania:cocoon"
+      ]
+    }
+  ]
+}

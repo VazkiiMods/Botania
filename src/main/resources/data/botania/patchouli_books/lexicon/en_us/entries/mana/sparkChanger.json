@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.sparkChanger",
+  "category": "mana",
+  "icon": "botania:spark_changer",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.sparkChanger0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.sparkChanger1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.sparkChanger2",
+      "recipes": [
+        "botania:spark_changer"
+      ]
+    }
+  ]
+}

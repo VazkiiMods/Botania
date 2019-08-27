@@ -1,0 +1,33 @@
+{
+  "name": "botania.entry.poolCart",
+  "category": "mana",
+  "icon": "botania:pool_minecart",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.poolCart0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.poolCart1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.poolCart2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.poolCart3",
+      "recipes": [
+        "botania:pool_minecart"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.poolCart4",
+      "recipes": [
+        "botania:pump"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.enderHand",
+  "category": "ender",
+  "icon": "botania:ender_hand",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.enderHand0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderHand2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.enderHand1",
+      "recipes": [
+        "botania:ender_hand"
+      ]
+    }
+  ]
+}

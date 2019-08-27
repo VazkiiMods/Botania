@@ -1,0 +1,49 @@
+{
+  "name": "botania.entry.flightTiara",
+  "category": "ender",
+  "icon": "botania:flight_tiara",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.flightTiara0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flightTiara4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flightTiara5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flightTiara6"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.flightTiara1",
+      "recipes": [
+        "botania:flighttiara_5",
+        "botania:flighttiara_4",
+        "botania:flighttiara_7",
+        "botania:flighttiara_6",
+        "botania:flighttiara_1",
+        "botania:flighttiara_0",
+        "botania:flighttiara_3",
+        "botania:flighttiara_2",
+        "botania:flighttiara_8"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flightTiara2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.flightTiara3",
+      "recipes": [
+        "botania:dummy"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.welcome",
   "category": "basics",
-  "icon": "botania:questgiver_mark",
+  "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "pages": [
     {

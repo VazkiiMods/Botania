@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.bergamute",
+  "category": "functionalflowers",
+  "icon": "botania:bergamute",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.bergamute0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.bergamute1",
+      "recipes": [
+        "botania:bergamute"
+      ]
+    }
+  ]
+}

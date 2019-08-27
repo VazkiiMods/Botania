@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.gatherDrum",
+  "category": "devices",
+  "icon": "botania:drum_gathering",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.gatherDrum0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.gatherDrum1",
+      "recipes": [
+        "botania:drum_gathering"
+      ]
+    }
+  ]
+}

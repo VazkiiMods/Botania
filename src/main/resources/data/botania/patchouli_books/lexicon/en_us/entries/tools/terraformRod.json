@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.terraformRod",
+  "category": "tools",
+  "icon": "botania:terraform_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.terraformRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terraformRod1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terraformRod2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terraformRod3",
+      "recipes": [
+        "botania:terraform_rod"
+      ]
+    }
+  ]
+}

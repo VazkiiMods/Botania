@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.avatar",
+  "category": "devices",
+  "icon": "botania:avatar",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.avatar0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.avatar1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.avatar2",
+      "recipes": [
+        "botania:avatar"
+      ]
+    }
+  ]
+}

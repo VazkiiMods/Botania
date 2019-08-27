@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.autocraftingHalo",
+  "category": "tools",
+  "icon": "botania:auto_crafting_halo",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.autocraftingHalo0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.autocraftingHalo1",
+      "recipes": [
+        "botania:auto_crafting_halo"
+      ]
+    }
+  ]
+}

@@ -10,15 +10,42 @@
  */
 package vazkii.botania.api.lexicon;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.lexicon.page.PageBrew;
+import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
+import vazkii.botania.common.lexicon.page.PageElvenRecipe;
+import vazkii.botania.common.lexicon.page.PageImage;
+import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
+import vazkii.botania.common.lexicon.page.PagePetalRecipe;
+import vazkii.botania.common.lexicon.page.PageRuneRecipe;
+import vazkii.botania.common.lexicon.page.PageTerrasteel;
+import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lib.LibLexicon;
 
 import javax.annotation.Nonnull;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
@@ -88,6 +115,69 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	@OnlyIn(Dist.CLIENT)
 	public boolean isVisible() {
 		return true;
+	}
+
+	public void dump() {
+		File dir = Paths.get(".", "entries", category.getUnlocalizedName().substring(LibLexicon.CATEGORY_PREFIX.length())).toFile();
+		if(!dir.exists())
+			dir.mkdirs();
+		File f = new File(dir, this.unlocalizedName + ".json");
+		if (f.exists())
+			throw new RuntimeException("preexisting file " + f.getAbsolutePath());
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Type typ = new TypeToken<Map<String, Object>>() {}.getType();
+		try (OutputStreamWriter os = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(f)))) {
+			Map<String, Object> entry = new LinkedHashMap<>();
+			entry.put("name", this.getUnlocalizedName());
+			entry.put("category", category.getUnlocalizedName());
+			entry.put("icon", getIcon().getItem().getRegistryName().toString());
+			if (isPriority())
+				entry.put("priority", true);
+			List<Object> pages = new ArrayList<>();
+			for(LexiconPage page : this.pages) {
+				Map<String, Object> json = new LinkedHashMap<>();
+				if (page instanceof PageText) {
+					json.put("type", "text");
+					json.put("text", page.getUnlocalizedName());
+				} else if (page instanceof PageImage) {
+					json.put("type", "image");
+					json.put("text", page.getUnlocalizedName());
+					json.put("images", Collections.singletonList(((PageImage) page).resource.toString()));
+				} else if (page instanceof PageCraftingRecipe) {
+					json.put("type", "crafting_multi");
+					json.put("text", page.getUnlocalizedName());
+					json.put("recipes", ((PageCraftingRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+				} else if (page instanceof PageManaInfusionRecipe) {
+					json.put("type", "mana_infusion");
+					json.put("text", page.getUnlocalizedName());
+					json.put("recipes", ((PageManaInfusionRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+				} else if (page instanceof PagePetalRecipe) {
+					json.put("type", "petal_apothecary");
+					json.put("text", page.getUnlocalizedName());
+					json.put("recipes", ((PagePetalRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+				} else if (page instanceof PageRuneRecipe) {
+					json.put("type", "runic_altar");
+					json.put("text", page.getUnlocalizedName());
+					json.put("recipes", ((PageRuneRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+				} else if (page instanceof PageElvenRecipe) {
+					json.put("type", "elven_trade");
+					json.put("text", page.getUnlocalizedName());
+					json.put("recipes", ((PageElvenRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+				} else if (page instanceof PageBrew) {
+					json.put("type", "brew");
+					json.put("text", page.getUnlocalizedName());
+					json.put("recipe", ((PageBrew) page).recipe.getId());
+				} else {
+					json.put("type", "_unknown_" + page.getClass().getSimpleName());
+					json.put("text", page.getUnlocalizedName());
+				}
+				pages.add(json);
+			}
+			entry.put("pages", pages);
+			os.write(gson.toJson(entry));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

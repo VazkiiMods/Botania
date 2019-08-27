@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.blackHoleTalisman",
+  "category": "ender",
+  "icon": "botania:black_hole_talisman",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.blackHoleTalisman0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.blackHoleTalisman1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.blackHoleTalisman2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.blackHoleTalisman3",
+      "recipes": [
+        "botania:black_hole_talisman"
+      ]
+    }
+  ]
+}

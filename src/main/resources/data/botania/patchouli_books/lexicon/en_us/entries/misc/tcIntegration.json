@@ -1,0 +1,45 @@
+{
+  "name": "botania.entry.tcIntegration",
+  "category": "misc",
+  "icon": "botania:mana_inkwell",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.tcIntegration0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.tcIntegration1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.tcIntegration2",
+      "recipes": [
+        "botania:terrasteel_helmet_revealing"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.tcIntegration3"
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.tcIntegration4",
+      "recipes": [
+        "botania:dummy"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.tcIntegration5"
+    },
+    {
+      "type": "brew",
+      "text": "botania.page.tcIntegration6b",
+      "recipe": {
+        "namespace": "botania",
+        "path": "dummy"
+      }
+    }
+  ]
+}

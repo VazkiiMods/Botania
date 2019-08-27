@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.fireRod",
+  "category": "tools",
+  "icon": "botania:fire_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.fireRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.fireRod2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.fireRod1",
+      "recipes": [
+        "botania:fire_rod"
+      ]
+    }
+  ]
+}

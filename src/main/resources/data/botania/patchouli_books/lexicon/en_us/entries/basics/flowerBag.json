@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.flowerBag",
+  "category": "basics",
+  "icon": "botania:flower_bag",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.flowerBag0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flowerBag2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.flowerBag1",
+      "recipes": [
+        "botania:flower_bag"
+      ]
+    }
+  ]
+}

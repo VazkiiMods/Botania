@@ -1,0 +1,25 @@
+{
+  "name": "botania.entry.auraRing",
+  "category": "baubles",
+  "icon": "botania:aura_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.auraRing0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.auraRing1",
+      "recipes": [
+        "botania:aura_ring"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.auraRing2",
+      "recipes": [
+        "botania:aura_ring_greater"
+      ]
+    }
+  ]
+}

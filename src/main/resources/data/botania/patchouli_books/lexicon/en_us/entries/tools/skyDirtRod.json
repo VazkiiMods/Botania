@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.skyDirtRod",
+  "category": "tools",
+  "icon": "botania:skydirt_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.skyDirtRod0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.skyDirtRod1",
+      "recipes": [
+        "botania:skydirt_rod"
+      ]
+    }
+  ]
+}

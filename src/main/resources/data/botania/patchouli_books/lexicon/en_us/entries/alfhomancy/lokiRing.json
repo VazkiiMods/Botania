@@ -1,0 +1,23 @@
+{
+  "name": "botania.entry.lokiRing",
+  "category": "alfhomancy",
+  "icon": "botania:loki_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing3"
+    }
+  ]
+}

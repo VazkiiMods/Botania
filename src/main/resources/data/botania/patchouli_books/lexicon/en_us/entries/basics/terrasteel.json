@@ -1,0 +1,30 @@
+{
+  "name": "botania.entry.terrasteel",
+  "category": "basics",
+  "icon": "botania:terrasteel_ingot",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.terrasteel0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terrasteel1",
+      "recipes": [
+        "botania:terra_plate"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.terrasteel2"
+    },
+    {
+      "type": "_unknown_PageMultiblock",
+      "text": "botania.page.terrasteel4"
+    },
+    {
+      "type": "_unknown_PageTerrasteel",
+      "text": "botania.page.terrasteel3"
+    }
+  ]
+}

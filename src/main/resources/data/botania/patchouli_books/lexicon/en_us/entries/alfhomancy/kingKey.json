@@ -1,0 +1,11 @@
+{
+  "name": "botania.entry.kingKey",
+  "category": "alfhomancy",
+  "icon": "botania:king_key",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.kingKey0"
+    }
+  ]
+}

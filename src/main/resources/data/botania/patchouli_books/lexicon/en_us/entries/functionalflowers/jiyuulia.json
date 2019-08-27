@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.jiyuulia",
+  "category": "functionalflowers",
+  "icon": "botania:jiyuulia",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.jiyuulia0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.jiyuulia1",
+      "recipes": [
+        "botania:jiyuulia"
+      ]
+    }
+  ]
+}

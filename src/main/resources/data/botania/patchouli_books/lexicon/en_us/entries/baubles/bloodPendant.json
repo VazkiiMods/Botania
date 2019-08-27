@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.bloodPendant",
+  "category": "baubles",
+  "icon": "botania:blood_pendant",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.bloodPendant0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.bloodPendant1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.bloodPendant2",
+      "recipes": [
+        "botania:blood_pendant"
+      ]
+    }
+  ]
+}

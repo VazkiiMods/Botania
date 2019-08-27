@@ -1,0 +1,11 @@
+{
+  "name": "botania.entry.odinRing",
+  "category": "alfhomancy",
+  "icon": "botania:odin_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.odinRing0"
+    }
+  ]
+}

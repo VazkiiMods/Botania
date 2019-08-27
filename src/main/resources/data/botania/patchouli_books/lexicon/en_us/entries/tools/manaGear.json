@@ -1,0 +1,79 @@
+{
+  "name": "botania.entry.manaGear",
+  "category": "tools",
+  "icon": "botania:manasteel_pick",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaGear0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaGear10"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear1",
+      "recipes": [
+        "botania:manasteel_pickaxe"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear2",
+      "recipes": [
+        "botania:manasteel_shovel"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear3",
+      "recipes": [
+        "botania:manasteel_axe"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear4",
+      "recipes": [
+        "botania:manasteel_shears"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear5",
+      "recipes": [
+        "botania:manasteel_sword"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear6",
+      "recipes": [
+        "botania:manasteel_helmet"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear7",
+      "recipes": [
+        "botania:manasteel_chestplate"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear8",
+      "recipes": [
+        "botania:manasteel_leggings"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaGear9",
+      "recipes": [
+        "botania:manasteel_boots"
+      ]
+    }
+  ]
+}

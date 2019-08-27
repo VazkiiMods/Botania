@@ -1,0 +1,49 @@
+{
+  "name": "botania.entry.corporea",
+  "category": "ender",
+  "icon": "botania:corporea_spark",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.corporea0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporea1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporea2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporea3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporea4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporea5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporea6"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.corporea7",
+      "recipes": [
+        "botania:corporea_spark"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.corporea8",
+      "recipes": [
+        "botania:corporea_spark_master"
+      ]
+    }
+  ]
+}

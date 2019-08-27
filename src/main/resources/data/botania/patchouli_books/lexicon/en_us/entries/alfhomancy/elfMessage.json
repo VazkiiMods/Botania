@@ -1,0 +1,39 @@
+{
+  "name": "botania.entry.elfMessage",
+  "category": "alfhomancy",
+  "icon": "minecraft:writable_book",
+  "priority": true,
+  "pages": [
+    {
+      "type": "image",
+      "text": "botania.page.elfMessage0",
+      "images": [
+        "botania:textures/gui/entries/elven_garde.png"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfMessage1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfMessage2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfMessage3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfMessage4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfMessage5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfMessage6"
+    }
+  ]
+}

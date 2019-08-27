@@ -1,0 +1,93 @@
+{
+  "name": "botania.entry.manaConjuration",
+  "category": "devices",
+  "icon": "botania:conjuration_catalyst",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaConjuration0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaConjuration1",
+      "recipes": [
+        "botania:conjuration_catalyst"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration2",
+      "recipes": [
+        "botania:redstone_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration3",
+      "recipes": [
+        "botania:glowstone_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration4",
+      "recipes": [
+        "botania:quartz_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration5",
+      "recipes": [
+        "botania:coal_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration6",
+      "recipes": [
+        "botania:snowball_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration7",
+      "recipes": [
+        "botania:netherrack_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration8",
+      "recipes": [
+        "botania:soul_sand_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration9",
+      "recipes": [
+        "botania:gravel_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration10",
+      "recipes": [
+        "botania:dark_oak_leaves_dupe",
+        "botania:oak_leaves_dupe",
+        "botania:jungle_leaves_dupe",
+        "botania:spruce_leaves_dupe",
+        "botania:birch_leaves_dupe",
+        "botania:acacia_leaves_dupe"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaConjuration11",
+      "recipes": [
+        "botania:grass"
+      ]
+    }
+  ]
+}

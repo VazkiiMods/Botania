@@ -1,0 +1,29 @@
+{
+  "name": "botania.entry.vineBall",
+  "category": "tools",
+  "icon": "botania:vine_ball",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.vineBall0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.vineBall1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.vineBall2",
+      "recipes": [
+        "botania:vine_ball"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.vineBall3",
+      "recipes": [
+        "botania:slingshot"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.thornChakram",
+  "category": "tools",
+  "icon": "botania:thorn_chakram",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.thornChakram0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.thornChakram1",
+      "recipes": [
+        "botania:thorn_chakram"
+      ]
+    }
+  ]
+}

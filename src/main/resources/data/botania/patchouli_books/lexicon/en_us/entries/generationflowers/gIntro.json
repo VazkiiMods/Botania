@@ -1,0 +1,24 @@
+{
+  "name": "botania.entry.gIntro",
+  "category": "generationflowers",
+  "icon": "minecraft:air",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.gIntro0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gIntro1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gIntro2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gIntro3"
+    }
+  ]
+}

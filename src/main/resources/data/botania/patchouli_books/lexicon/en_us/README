@@ -1,0 +1,8 @@
+README for interested people in the patchouli migration:
+- the plan is to dump the entries from the existing lexicon code
+- but instead of putting in localized text in the page bodies (and other places), keep them as lang keys
+- after the structure of the book is complete, then I'll write a script that reads everything in en_us, replaces all the
+  lang keys with their real text, then outputs them to every language. that way we do the work once and get them for all langs
+- custom components will be added as necessary to support all pages
+- extra features like the dog or notes will be removed
+- special reference features like haighyorkie's fish will be reimplemented in some way

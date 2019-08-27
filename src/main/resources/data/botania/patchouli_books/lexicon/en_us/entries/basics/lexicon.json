@@ -1,0 +1,27 @@
+{
+  "name": "botania.entry.lexicon",
+  "category": "basics",
+  "icon": "botania:lexicon",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.lexicon0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lexicon3"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.lexicon1",
+      "recipes": [
+        "botania:lexicon"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lexicon2"
+    }
+  ]
+}

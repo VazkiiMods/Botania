@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.cacophonium",
+  "category": "misc",
+  "icon": "botania:cacophonium",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.cacophonium0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.cacophonium1",
+      "recipes": [
+        "botania:dummy"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.cacophonium2"
+    }
+  ]
+}

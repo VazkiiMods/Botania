@@ -1,0 +1,19 @@
+{
+  "name": "botania.entry.manastar",
+  "category": "mana",
+  "icon": "botania:manastar",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manastar0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.manastar1",
+      "recipes": [
+        "botania:manastar"
+      ]
+    }
+  ]
+}

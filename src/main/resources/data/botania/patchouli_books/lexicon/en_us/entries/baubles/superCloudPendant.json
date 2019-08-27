@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.superCloudPendant",
+  "category": "baubles",
+  "icon": "botania:super_cloud_pendant",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.superCloudPendant0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.superCloudPendant1",
+      "recipes": [
+        "botania:super_cloud_pendant"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.miningRing",
+  "category": "baubles",
+  "icon": "botania:mining_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.miningRing0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.miningRing1",
+      "recipes": [
+        "botania:mining_ring"
+      ]
+    }
+  ]
+}

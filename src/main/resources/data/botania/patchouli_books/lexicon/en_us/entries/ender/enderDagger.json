@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.enderDagger",
+  "category": "ender",
+  "icon": "botania:ender_dagger",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.enderDagger0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderDagger1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.enderDagger2",
+      "recipes": [
+        "botania:ender_dagger"
+      ]
+    }
+  ]
+}

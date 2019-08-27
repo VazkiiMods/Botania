@@ -1,0 +1,99 @@
+{
+  "name": "botania.entry.pool",
+  "category": "mana",
+  "icon": "botania:mana_pool",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.pool0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.pool9"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.pool1",
+      "recipes": [
+        "botania:mana_pool"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.pool10",
+      "recipes": [
+        "botania:diluted_pool"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.pool14"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.pool2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.pool8"
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool3",
+      "recipes": [
+        "botania:manasteel"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool4",
+      "recipes": [
+        "botania:mana_pearl"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool5",
+      "recipes": [
+        "botania:mana_diamond"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool6",
+      "recipes": [
+        "botania:mana_powder_dust",
+        "botania:mana_powder_dye"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool11",
+      "recipes": [
+        "botania:mana_glass"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool12",
+      "recipes": [
+        "botania:mana_string"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.pool13",
+      "recipes": [
+        "botania:cobweb"
+      ]
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pool7",
+      "recipes": [
+        "botania:mana_cookie"
+      ]
+    }
+  ]
+}

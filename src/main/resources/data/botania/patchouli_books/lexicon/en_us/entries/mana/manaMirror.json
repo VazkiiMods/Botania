@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.manaMirror",
+  "category": "mana",
+  "icon": "botania:mana_mirror",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaMirror0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaMirror1",
+      "recipes": [
+        "botania:mana_mirror"
+      ]
+    }
+  ]
+}

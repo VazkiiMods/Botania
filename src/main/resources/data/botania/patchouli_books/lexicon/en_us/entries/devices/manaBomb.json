@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.manaBomb",
+  "category": "devices",
+  "icon": "botania:mana_bomb",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaBomb0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.manaBomb1",
+      "recipes": [
+        "botania:mana_bomb"
+      ]
+    }
+  ]
+}

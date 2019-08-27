@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.fallenKanade",
+  "category": "functionalflowers",
+  "icon": "botania:fallen_kanade",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.fallenKanade0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.fallenKanade1",
+      "recipes": [
+        "botania:fallen_kanade"
+      ]
+    }
+  ]
+}

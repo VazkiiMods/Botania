@@ -1,0 +1,75 @@
+{
+  "name": "botania.entry.elfResources",
+  "category": "alfhomancy",
+  "icon": "botania:dragonstone",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.elfResources0"
+    },
+    {
+      "type": "elven_trade",
+      "text": "botania.page.elfResources1",
+      "recipes": [
+        "botania:dreamwood"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfResources2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.elfResources10",
+      "recipes": [
+        "botania:dreamwood_twig"
+      ]
+    },
+    {
+      "type": "elven_trade",
+      "text": "botania.page.elfResources3",
+      "recipes": [
+        "botania:elementium",
+        "botania:elementium_block"
+      ]
+    },
+    {
+      "type": "elven_trade",
+      "text": "botania.page.elfResources4",
+      "recipes": [
+        "botania:pixie_dust"
+      ]
+    },
+    {
+      "type": "elven_trade",
+      "text": "botania.page.elfResources5",
+      "recipes": [
+        "botania:dragonstone",
+        "botania:dragonstone_block"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfResources6"
+    },
+    {
+      "type": "elven_trade",
+      "text": "botania.page.elfResources7",
+      "recipes": [
+        "botania:elf_quartz"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.elfResources8"
+    },
+    {
+      "type": "elven_trade",
+      "text": "botania.page.elfResources9",
+      "recipes": [
+        "botania:elf_glass"
+      ]
+    }
+  ]
+}

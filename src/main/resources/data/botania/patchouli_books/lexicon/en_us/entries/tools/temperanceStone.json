@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.temperanceStone",
+  "category": "tools",
+  "icon": "botania:temperance_stone",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.temperanceStone0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.temperanceStone1",
+      "recipes": [
+        "botania:temperance_stone"
+      ]
+    }
+  ]
+}

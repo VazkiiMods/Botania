@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.starfield",
+  "category": "misc",
+  "icon": "botania:starfield",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.starfield0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.starfield1",
+      "recipes": [
+        "botania:starfield"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "botania.entry.monocle",
+  "category": "baubles",
+  "icon": "botania:monocle",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.monocle0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.monocle2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.monocle1",
+      "recipes": [
+        "botania:monocle"
+      ]
+    }
+  ]
+}

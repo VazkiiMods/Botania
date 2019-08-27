@@ -1,0 +1,25 @@
+{
+  "name": "botania.entry.virus",
+  "category": "tools",
+  "icon": "botania:virus_necrodermal",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.virus0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.virus1",
+      "recipes": [
+        "botania:virus_necrodermal"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.virus2",
+      "recipes": [
+        "botania:virus_nullodermal"
+      ]
+    }
+  ]
+}

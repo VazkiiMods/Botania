@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.waterRod",
+  "category": "tools",
+  "icon": "botania:water_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.waterRod0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.waterRod1",
+      "recipes": [
+        "botania:water_rod"
+      ]
+    }
+  ]
+}

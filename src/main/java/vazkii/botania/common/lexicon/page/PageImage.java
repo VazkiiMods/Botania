@@ -24,7 +24,7 @@ import vazkii.botania.api.lexicon.LexiconPage;
 
 public class PageImage extends LexiconPage {
 
-	final ResourceLocation resource;
+	public final ResourceLocation resource;
 
 	public PageImage(String unlocalizedName, String resource) {
 		super(unlocalizedName);

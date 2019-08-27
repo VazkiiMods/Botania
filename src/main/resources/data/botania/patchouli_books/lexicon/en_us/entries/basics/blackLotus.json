@@ -1,0 +1,11 @@
+{
+  "name": "botania.entry.blackLotus",
+  "category": "basics",
+  "icon": "botania:black_lotus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.blackLotus0"
+    }
+  ]
+}

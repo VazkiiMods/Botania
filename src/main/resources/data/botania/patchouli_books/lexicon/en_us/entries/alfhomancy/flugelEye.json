@@ -1,0 +1,15 @@
+{
+  "name": "botania.entry.flugelEye",
+  "category": "alfhomancy",
+  "icon": "botania:flugel_eye",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.flugelEye0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flugelEye1"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.dirtRod",
+  "category": "tools",
+  "icon": "botania:dirt_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.dirtRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.dirtRod2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.dirtRod1",
+      "recipes": [
+        "botania:dirt_rod"
+      ]
+    }
+  ]
+}

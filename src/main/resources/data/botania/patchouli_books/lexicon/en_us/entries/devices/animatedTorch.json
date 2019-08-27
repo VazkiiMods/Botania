@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.animatedTorch",
+  "category": "devices",
+  "icon": "botania:animated_torch",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.animatedTorch0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.animatedTorch1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.animatedTorch2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.animatedTorch3",
+      "recipes": [
+        "botania:animated_torch"
+      ]
+    }
+  ]
+}

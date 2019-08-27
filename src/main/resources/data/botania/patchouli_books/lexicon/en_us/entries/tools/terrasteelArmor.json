@@ -1,0 +1,39 @@
+{
+  "name": "botania.entry.terrasteelArmor",
+  "category": "tools",
+  "icon": "botania:terrasteel_helmet",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.terrasteelArmor0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terrasteelArmor1",
+      "recipes": [
+        "botania:terrasteel_helmet"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terrasteelArmor2",
+      "recipes": [
+        "botania:terrasteel_chestplate"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terrasteelArmor3",
+      "recipes": [
+        "botania:terrasteel_leggings"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.terrasteelArmor4",
+      "recipes": [
+        "botania:terrasteel_boots"
+      ]
+    }
+  ]
+}

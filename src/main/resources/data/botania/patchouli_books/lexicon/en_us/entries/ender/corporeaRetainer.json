@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.corporeaRetainer",
+  "category": "ender",
+  "icon": "botania:corporea_retainer",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.corporeaRetainer0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporeaRetainer1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporeaRetainer2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.corporeaRetainer3",
+      "recipes": [
+        "botania:corporea_retainer"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "botania.entry.pureDaisy",
+  "category": "basics",
+  "icon": "botania:pure_daisy",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.pureDaisy0"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.pureDaisy1",
+      "images": [
+        "botania:textures/gui/entries/pure_daisy.png"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.pureDaisy2",
+      "recipes": [
+        "botania:livingwood_twig"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "botania.page.pureDaisy4"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.pureDaisy3",
+      "recipes": [
+        "botania:pure_daisy"
+      ]
+    }
+  ]
+}

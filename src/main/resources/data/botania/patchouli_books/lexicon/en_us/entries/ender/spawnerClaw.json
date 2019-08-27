@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.spawnerClaw",
+  "category": "ender",
+  "icon": "botania:spawner_claw",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spawnerClaw0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spawnerClaw1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.spawnerClaw2",
+      "recipes": [
+        "botania:spawner_claw"
+      ]
+    }
+  ]
+}

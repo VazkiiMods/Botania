@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.icePendant",
+  "category": "baubles",
+  "icon": "botania:ice_pendant",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.icePendant0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.icePendant1",
+      "recipes": [
+        "botania:ice_pendant"
+      ]
+    }
+  ]
+}

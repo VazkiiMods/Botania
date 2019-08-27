@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.thunderSword",
+  "category": "ender",
+  "icon": "botania:thunder_sword",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.thunderSword0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.thunderSword1",
+      "recipes": [
+        "botania:thunder_sword"
+      ]
+    }
+  ]
+}

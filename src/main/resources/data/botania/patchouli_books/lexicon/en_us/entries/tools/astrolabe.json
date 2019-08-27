@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.astrolabe",
+  "category": "tools",
+  "icon": "botania:astrolabe",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.astrolabe0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.astrolabe1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.astrolabe2",
+      "recipes": [
+        "botania:astrolabe"
+      ]
+    }
+  ]
+}

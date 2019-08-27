@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.pistonRelay",
+  "category": "ender",
+  "icon": "botania:piston_relay",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.pistonRelay0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.pistonRelay1"
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.pistonRelay2",
+      "recipes": [
+        "botania:piston_relay"
+      ]
+    }
+  ]
+}

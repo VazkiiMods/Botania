@@ -1,0 +1,37 @@
+{
+  "name": "botania.entry.incense",
+  "category": "devices",
+  "icon": "botania:incense_stick",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.incense0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.incense1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.incense2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.incense5"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.incense3",
+      "recipes": [
+        "botania:incense_stick"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.incense4",
+      "recipes": [
+        "botania:incense_plate"
+      ]
+    }
+  ]
+}

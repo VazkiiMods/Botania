@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.exchangeRod",
+  "category": "tools",
+  "icon": "botania:exchange_rod",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.exchangeRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.exchangeRod1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.exchangeRod2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.exchangeRod3",
+      "recipes": [
+        "botania:exchange_rod"
+      ]
+    }
+  ]
+}

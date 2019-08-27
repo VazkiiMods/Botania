@@ -1,0 +1,34 @@
+{
+  "name": "botania.entry.gaiaRitual",
+  "category": "alfhomancy",
+  "icon": "botania:life_essence",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.gaiaRitual0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.gaiaRitual1",
+      "recipes": [
+        "botania:gaia_pylon"
+      ]
+    },
+    {
+      "type": "_unknown_PageMultiblock",
+      "text": "botania.page.gaiaRitual2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gaiaRitual3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gaiaRitual4"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gaiaRitual5"
+    }
+  ]
+}

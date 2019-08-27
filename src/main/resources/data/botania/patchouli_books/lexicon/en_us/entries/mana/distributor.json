@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.distributor",
+  "category": "mana",
+  "icon": "botania:mana_distributor",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.distributor0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.distributor1",
+      "recipes": [
+        "botania:mana_distributor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.rfGenerator",
+  "category": "mana",
+  "icon": "botania:mana_fluxfield",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.rfGenerator0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.rfGenerator1",
+      "recipes": [
+        "botania:mana_fluxfield"
+      ]
+    }
+  ]
+}

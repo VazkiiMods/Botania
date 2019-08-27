@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.pylon",
+  "category": "devices",
+  "icon": "botania:mana_pylon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.pylon0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.pylon1",
+      "recipes": [
+        "botania:mana_pylon"
+      ]
+    }
+  ]
+}

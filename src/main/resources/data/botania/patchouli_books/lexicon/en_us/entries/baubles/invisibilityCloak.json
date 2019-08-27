@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.invisibilityCloak",
+  "category": "baubles",
+  "icon": "botania:invisibility_cloak",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.invisibilityCloak0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.invisibilityCloak1",
+      "recipes": [
+        "botania:invisibility_cloak"
+      ]
+    }
+  ]
+}

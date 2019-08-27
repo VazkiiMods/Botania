@@ -1,0 +1,25 @@
+{
+  "name": "botania.entry.magnetRing",
+  "category": "baubles",
+  "icon": "botania:magnet_ring",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.magnetRing0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.magnetRing1",
+      "recipes": [
+        "botania:magnet_ring"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.magnetRing2",
+      "recipes": [
+        "botania:magnet_ring_greater"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.slimeBottle",
+  "category": "tools",
+  "icon": "botania:slime_bottle",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.slimeBottle0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.slimeBottle1",
+      "recipes": [
+        "botania:slime_bottle"
+      ]
+    }
+  ]
+}

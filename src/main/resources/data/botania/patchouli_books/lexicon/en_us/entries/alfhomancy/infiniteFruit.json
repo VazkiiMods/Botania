@@ -1,0 +1,11 @@
+{
+  "name": "botania.entry.infiniteFruit",
+  "category": "alfhomancy",
+  "icon": "botania:infinite_fruit",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.infiniteFruit0"
+    }
+  ]
+}

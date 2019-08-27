@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.headCreating",
+  "category": "misc",
+  "icon": "minecraft:player_head",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.headCreating0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.headCreating2"
+    },
+    {
+      "type": "runic_altar",
+      "text": "botania.page.headCreating1",
+      "recipes": [
+        "botania:head"
+      ]
+    }
+  ]
+}

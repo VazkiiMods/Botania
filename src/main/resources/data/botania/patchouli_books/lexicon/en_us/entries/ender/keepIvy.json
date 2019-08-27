@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.keepIvy",
+  "category": "ender",
+  "icon": "botania:keep_ivy",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.keepIvy0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.keepIvy2"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.keepIvy1",
+      "recipes": [
+        "botania:keep_ivy"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.bellows",
+  "category": "mana",
+  "icon": "botania:bellows",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.bellows0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.bellows1"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.bellows2",
+      "recipes": [
+        "botania:bellows"
+      ]
+    }
+  ]
+}

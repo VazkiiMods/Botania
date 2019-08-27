@@ -1,0 +1,19 @@
+{
+  "name": "botania.entry.obedienceStick",
+  "category": "tools",
+  "icon": "botania:obedience_stick",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.obedienceStick0"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.obedienceStick1",
+      "recipes": [
+        "botania:obedience_stick"
+      ]
+    }
+  ]
+}
