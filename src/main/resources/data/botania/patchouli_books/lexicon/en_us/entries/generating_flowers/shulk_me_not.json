@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.shulk_me_not",
+  "category": "generating_flowers",
+  "icon": "botania:shulk_me_not",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.shulk_me_not0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.shulk_me_not1"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.shulk_me_not2",
+      "recipes": [
+        "botania:shulk_me_not"
+      ]
+    }
+  ]
+}

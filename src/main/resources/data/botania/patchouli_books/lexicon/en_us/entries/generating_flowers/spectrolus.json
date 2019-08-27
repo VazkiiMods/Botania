@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.spectrolus",
+  "category": "generating_flowers",
+  "icon": "botania:spectrolus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spectrolus0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spectrolus1"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.spectrolus2",
+      "recipes": [
+        "botania:spectrolus"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.hopperhock",
+  "category": "functional_flowers",
+  "icon": "botania:hopperhock",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.hopperhock0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.hopperhock1"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.hopperhock2",
+      "recipes": [
+        "botania:hopperhock"
+      ]
+    }
+  ]
+}

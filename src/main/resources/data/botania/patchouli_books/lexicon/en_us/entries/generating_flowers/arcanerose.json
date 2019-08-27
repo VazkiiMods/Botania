@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.arcanerose",
+  "category": "generating_flowers",
+  "icon": "botania:rosa_arcana",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.arcanerose0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.arcanerose1",
+      "recipes": [
+        "botania:rosa_arcana"
+      ]
+    }
+  ]
+}

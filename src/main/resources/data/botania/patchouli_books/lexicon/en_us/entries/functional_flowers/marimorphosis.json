@@ -1,0 +1,39 @@
+{
+  "name": "botania.entry.marimorphosis",
+  "category": "functional_flowers",
+  "icon": "botania:marimorphosis",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.marimorphosis0"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.marimorphosis1",
+      "images": [
+        "botania:textures/gui/entries/metamorphic_stones.png"
+      ]
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.marimorphosis2",
+      "recipes": [
+        "botania:marimorphosis"
+      ]
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.marimorphosis3",
+      "recipes": [
+        "botania:apothecary_forest",
+        "botania:apothecary_plains",
+        "botania:apothecary_mountain",
+        "botania:apothecary_fungal",
+        "botania:apothecary_swamp",
+        "botania:apotehcary_desert",
+        "botania:apothecary_taiga",
+        "botania:apothecary_mesa"
+      ]
+    }
+  ]
+}

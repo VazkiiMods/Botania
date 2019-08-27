@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.solegnolia",
+  "category": "functional_flowers",
+  "icon": "botania:solegnolia",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.solegnolia0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.solegnolia1",
+      "recipes": [
+        "botania:solegnolia"
+      ]
+    }
+  ]
+}

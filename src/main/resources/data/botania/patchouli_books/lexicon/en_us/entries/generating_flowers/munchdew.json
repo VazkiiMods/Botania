@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.munchdew",
+  "category": "generating_flowers",
+  "icon": "botania:munchdew",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.munchdew0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.munchdew1"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.munchdew2",
+      "recipes": [
+        "botania:munchdew"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.rannuncarpus",
+  "category": "functional_flowers",
+  "icon": "botania:rannuncarpus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.rannuncarpus0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.rannuncarpus1"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.rannuncarpus2",
+      "recipes": [
+        "botania:rannuncarpus"
+      ]
+    }
+  ]
+}

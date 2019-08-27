@@ -1,0 +1,16 @@
+{
+  "name": "botania.entry.flowerSpeed",
+  "category": "functional_flowers",
+  "icon": "minecraft:podzol",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.flowerSpeed0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flowerSpeed1"
+    }
+  ]
+}

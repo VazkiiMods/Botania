@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.narslimmus",
+  "category": "generating_flowers",
+  "icon": "botania:narslimmus",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.narslimmus0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.narslimmus1",
+      "recipes": [
+        "botania:narslimmus"
+      ]
+    }
+  ]
+}

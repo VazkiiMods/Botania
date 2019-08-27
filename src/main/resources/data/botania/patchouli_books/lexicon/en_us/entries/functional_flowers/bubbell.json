@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.bubbell",
+  "category": "functional_flowers",
+  "icon": "botania:bubbell",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.bubbell0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.bubbell1",
+      "recipes": [
+        "botania:bubbell"
+      ]
+    }
+  ]
+}

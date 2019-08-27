@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.gourmaryllis",
+  "category": "generating_flowers",
+  "icon": "botania:gourmaryllis",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.gourmaryllis0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gourmaryllis1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gourmaryllis2"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.gourmaryllis3",
+      "recipes": [
+        "botania:gourmaryllis"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.entropinnyum",
+  "category": "generating_flowers",
+  "icon": "botania:entropinnyum",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.entropinnyum0"
+    },
+    {
+      "type": "petal_apothecary",
+      "text": "botania.page.entropinnyum1",
+      "recipes": [
+        "botania:entropinnyum"
+      ]
+    }
+  ]
+}

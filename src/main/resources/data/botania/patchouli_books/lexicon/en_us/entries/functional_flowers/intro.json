@@ -1,0 +1,31 @@
+{
+  "name": "botania.entry.fIntro",
+  "category": "functional_flowers",
+  "icon": "minecraft:air",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.fIntro0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.fIntro1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.fIntro2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.fIntro3"
+    },
+    {
+      "type": "crafting_multi",
+      "text": "botania.page.fIntro4",
+      "recipes": [
+        "botania:redstone_root"
+      ]
+    }
+  ]
+}
