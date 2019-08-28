@@ -23,8 +23,10 @@
       "recipe": "botania:natura_pylon"
     },
     {
-      "type": "tmp_multiblock",
-      "text": "botania.page.aIntro4"
+      "type": "multiblock",
+      "multiblock_id": "botania:alfheim_portal",
+      "text": "botania.page.aIntro4",
+      "symmetrical": true
     },
     {
       "type": "text",

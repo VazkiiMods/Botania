@@ -11,6 +11,7 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Blocks;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -65,6 +66,9 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
+import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.multiblock.Multiblock;
 
 @Mod(LibMisc.MOD_ID)
 public class Botania {
@@ -133,6 +137,35 @@ public class Botania {
 				new WorldTypeSkyblock();
 
 			ModBanners.init();
+
+			// todo 1.14 make these canonical and move to where they belong
+			String[][] pat = new String[][] {
+					{ "_", "W", "G", "W", "_" },
+					{ "W", "_", "_", "_", "W" },
+					{ "G", "_", "_", "_", "G" },
+					{ "W", "_", "_", "_", "W" },
+					{ "_", "W", "0", "W", "_" }
+			};
+			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
+					pat,
+					'W', ModBlocks.livingwood,
+					'G', ModBlocks.livingwoodGlimmering,
+					'0', ModBlocks.alfPortal
+			);
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), mb);
+
+			pat = new String[][] {
+					{ "_", "P", "_" },
+					{ "RLR", "L0L", "RLR" }
+			};
+			mb = PatchouliAPI.instance.makeMultiblock(
+					pat,
+					'P', ModBlocks.terraPlate,
+					'R', ModBlocks.livingrock,
+					'0', ModBlocks.livingrock,
+					'L', Blocks.LAPIS_BLOCK
+			);
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), mb);
 
 			LootConditionManager.registerCondition(new TrueGuardianKiller.Serializer());
 			LootConditionManager.registerCondition(new EnableRelics.Serializer());

@@ -17,7 +17,9 @@
       "text": "botania.page.terrasteel2"
     },
     {
-      "type": "tmp_multiblock",
+      "type": "multiblock",
+      "multiblock_id": "botania:terra_plate",
+      "symmetrical": true,
       "text": "botania.page.terrasteel4"
     },
     {
