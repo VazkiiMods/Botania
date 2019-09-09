@@ -13,7 +13,8 @@
       "recipe": "botania:gaia_pylon"
     },
     {
-      "type": "tmp_multiblock",
+      "type": "multiblock",
+      "multiblock_id": "botania:gaia_ritual",
       "text": "botania.page.gaiaRitual2"
     },
     {

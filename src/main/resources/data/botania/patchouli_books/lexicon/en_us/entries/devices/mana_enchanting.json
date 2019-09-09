@@ -12,7 +12,8 @@
       "text": "botania.page.manaEnchanting1"
     },
     {
-      "type": "tmp_multiblock",
+      "type": "multiblock",
+      "multiblock_id": "botania:enchanter",
       "text": "botania.page.manaEnchanting2"
     },
     {

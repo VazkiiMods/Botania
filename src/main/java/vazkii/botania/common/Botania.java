@@ -11,7 +11,11 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -67,8 +71,10 @@ import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.common.multiblock.Multiblock;
+import vazkii.patchouli.common.multiblock.StateMatcher;
 
 @Mod(LibMisc.MOD_ID)
 public class Botania {
@@ -155,8 +161,16 @@ public class Botania {
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), mb);
 
 			pat = new String[][] {
-					{ "_", "P", "_" },
-					{ "RLR", "L0L", "RLR" }
+					{
+						"___",
+						"_P_",
+						"___"
+					},
+					{
+						"RLR",
+						"L0L",
+						"RLR"
+					}
 			};
 			mb = PatchouliAPI.instance.makeMultiblock(
 					pat,
@@ -166,6 +180,98 @@ public class Botania {
 					'L', Blocks.LAPIS_BLOCK
 			);
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), mb);
+
+			pat = new String[][] {
+					{
+						"_P_______P_",
+						"___________",
+						"___________",
+						"P_________P",
+						"___________",
+						"___________",
+						"_P_______P_",
+					},
+					{
+						"_F_______F_",
+						"___________",
+						"____F_F____",
+						"F____L____F",
+						"____F_F____",
+						"___________",
+						"_F_______F_",
+					},
+					{
+						"___________",
+						"____BBB____",
+						"___B_B_B___",
+						"___BB0BB___",
+						"___B_B_B___",
+						"____BBB____",
+						"___________",
+					}
+			};
+			Tag<Block> mysticalFlowers = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "mystical_flowers"));
+			mb = PatchouliAPI.instance.makeMultiblock(
+					pat,
+					'P', ModBlocks.manaPylon,
+					'L', Blocks.LAPIS_BLOCK,
+					'B', Blocks.OBSIDIAN,
+					'0', Blocks.OBSIDIAN,
+					'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(mysticalFlowers))
+			);
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), mb);
+
+			pat = new String[][] {
+					{
+						"P_______P",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"P_______P",
+					},
+					{
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"____B____",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+					},
+					{
+						"_________",
+						"_________",
+						"_________",
+						"___III___",
+						"___I0I___",
+						"___III___",
+						"_________",
+						"_________",
+						"_________",
+					}
+			};
+			IStateMatcher sm = StateMatcher.fromPredicate(Blocks.IRON_BLOCK, state -> {
+				try {
+					// No world to pass here, so just fall back to false if it errors
+					return state.isBeaconBase(null, null, null);
+				} catch (Exception ignored) {
+					return false;
+				}
+			});
+			mb = PatchouliAPI.instance.makeMultiblock(
+					pat,
+					'P', ModBlocks.gaiaPylon,
+					'B', Blocks.BEACON,
+					'I', sm,
+					'0', sm
+			);
+			PatchouliAPI.instance.registerMultiblock(new ResourceLocation(LibMisc.MOD_ID, "gaia_ritual"), mb);
 
 			LootConditionManager.registerCondition(new TrueGuardianKiller.Serializer());
 			LootConditionManager.registerCondition(new EnableRelics.Serializer());
