@@ -34,10 +34,7 @@
     {
       "type": "brew",
       "text": "botania.page.tcIntegration6b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "dummy"
-      }
+      "recipe": "botania:dummy"
     }
   ]
 }

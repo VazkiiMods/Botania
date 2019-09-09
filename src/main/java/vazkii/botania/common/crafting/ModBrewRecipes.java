@@ -45,7 +45,7 @@ public class ModBrewRecipes {
 		evt.brew().accept(new RecipeBrew(prefix("healing"), ModBrews.healing, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GLISTERING_MELON_SLICE), Ingredient.fromItems(Items.POTATO)));
 		evt.brew().accept(new RecipeBrew(prefix("jump_boost"), ModBrews.jumpBoost, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.FEATHER), Ingredient.fromItems(Items.CARROT)));
 		evt.brew().accept(new RecipeBrew(prefix("regeneration"), ModBrews.regen, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GHAST_TEAR), Ingredient.fromItems(Items.GLOWSTONE_DUST)));
-		evt.brew().accept(new RecipeBrew(prefix("weak_regenreation"), ModBrews.regenWeak, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GHAST_TEAR), Ingredient.fromItems(Items.REDSTONE)));
+		evt.brew().accept(new RecipeBrew(prefix("weak_regeneration"), ModBrews.regenWeak, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GHAST_TEAR), Ingredient.fromItems(Items.REDSTONE)));
 		evt.brew().accept(new RecipeBrew(prefix("resistance"), ModBrews.resistance, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.IRON_INGOT), Ingredient.fromItems(Items.LEATHER)));
 		evt.brew().accept(new RecipeBrew(prefix("fire_resistance"), ModBrews.fireResistance, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.MAGMA_CREAM), Ingredient.fromItems(Blocks.NETHERRACK)));
 		evt.brew().accept(new RecipeBrew(prefix("water_breathing"), ModBrews.waterBreathing, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.GLOWSTONE_DUST)));

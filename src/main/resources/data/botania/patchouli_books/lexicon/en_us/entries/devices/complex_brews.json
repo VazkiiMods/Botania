@@ -10,58 +10,37 @@
     {
       "type": "brew",
       "text": "botania.page.complexBrews1b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "overload"
-      }
+      "recipe": "botania:overload"
     },
     {
       "type": "brew",
       "text": "botania.page.complexBrews2b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "soul_cross"
-      }
+      "recipe": "botania:soul_cross"
     },
     {
       "type": "brew",
       "text": "botania.page.complexBrews3b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "feather_feet"
-      }
+      "recipe": "botania:feather_feet"
     },
     {
       "type": "brew",
       "text": "botania.page.complexBrews4b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "emptiness"
-      }
+      "recipe": "botania:emptiness"
     },
     {
       "type": "brew",
       "text": "botania.page.complexBrews5b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "bloodthirst"
-      }
+      "recipe": "botania:bloodthirst"
     },
     {
       "type": "brew",
       "text": "botania.page.complexBrews6b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "allure"
-      }
+      "recipe": "botania:allure"
     },
     {
       "type": "brew",
       "text": "botania.page.complexBrews7b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "clear"
-      }
+      "recipe": "botania:clear"
     }
   ]
 }

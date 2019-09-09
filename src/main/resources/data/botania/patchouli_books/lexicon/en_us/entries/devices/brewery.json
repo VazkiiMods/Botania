@@ -28,106 +28,67 @@
     {
       "type": "brew",
       "text": "botania.page.brewery5b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "speed"
-      }
+      "recipe": "botania:speed"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery6b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "strength"
-      }
+      "recipe": "botania:strength"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery7b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "haste"
-      }
+      "recipe": "botania:haste"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery8b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "healing"
-      }
+      "recipe": "botania:healing"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery9b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "jump_boost"
-      }
+      "recipe": "botania:jump_boost"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery10b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "regeneration"
-      }
+      "recipe": "botania:regeneration"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery17b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "weak_regenreation"
-      }
+      "recipe": "botania:weak_regeneration"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery11b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "resistance"
-      }
+      "recipe": "botania:resistance"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery12b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "fire_resistance"
-      }
+      "recipe": "botania:fire_resistance"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery13b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "water_breathing"
-      }
+      "recipe": "botania:water_breathing"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery14b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "invisibility"
-      }
+      "recipe": "botania:invisibility"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery15b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "night_vision"
-      }
+      "recipe": "botania:night_vision"
     },
     {
       "type": "brew",
       "text": "botania.page.brewery16b",
-      "recipe": {
-        "namespace": "botania",
-        "path": "absorption"
-      }
+      "recipe": "botania:absorption"
     }
   ]
 }
