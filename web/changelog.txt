@@ -1,3 +1,15 @@
+r1.10 362
+*When matching recipe tags, also match the first items of nested lists. (codewarrior0)
+*Fix magnet ring working in spectator mode
+*Made Gaia Guardian floor check a bit more lenient. (quat)
+*Gaia arena check now shows where pylons should be. (quat)
+*Fix armor exploit with Astral Sorcery and Monk. (MoriyaShiine)
+*Magnet ring respects PreventRemoteMovement tag. (code500)
+*Gaia Guardian break blacklist now also serves as an arena whitelist. This fixes Natural Pledge. (quat)
+*Fix Flugel Tiara's secret code not working on Linux.
+*ru_ru language fixes. (Ggglitch)
+*Add hook for hidden lexicon categories. (Hubry)
+*Fix patron headflowers showing when invisible.
 r1.10 361
 *Corporea cubes can now be locked (similar to the Hovering Hourglass) to prevent accidental changing of the item. (Hubry)
 *Fixed Daffomill desyncing clientside when items are dropped by powered open crates.
