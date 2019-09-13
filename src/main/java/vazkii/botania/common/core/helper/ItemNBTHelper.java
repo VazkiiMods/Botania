@@ -140,35 +140,39 @@ public final class ItemNBTHelper {
 	}
 
 	/**
-	 * Checks that one tag is a subset of another - that is, it's ok if the superset has more NBT keys than the subset, but the subset has to have at least all the same keys as the superset, and the values of the keys that *are* shared between the two must match.
-	 * 
-	 * This is useful when, e.g. matching NBT tags in recipes.
+	 * Returns true if the `target` tag contains all of the tags and values present in the `template` tag. Recurses into
+	 * compound tags and matches all template keys and values; recurses into list tags and matches the template against
+	 * the first elements of target. Empty lists and compounds in the template will match target lists and compounds of
+	 * any size.
 	 */
-	public static boolean isTagSubset(@Nullable CompoundNBT subset, @Nullable CompoundNBT superset) {
-		//an empty set is a subset of everything
-		if(subset == null || subset.isEmpty()) return true;
-		//an empty set is a superset of only another empty set (which was already checked above)
-		if(superset == null || superset.isEmpty()) return false;
-		//a subset can't be bigger than its superset
-		if(subset.keySet().size() > superset.keySet().size()) return false;
+	public static boolean matchTag(@Nullable INBT template, @Nullable INBT target) {
+		if(template instanceof CompoundNBT && target instanceof CompoundNBT) {
+			return matchTagCompound((CompoundNBT) template, (CompoundNBT) target);
+		} else if(template instanceof ListNBT && target instanceof ListNBT) {
+			return matchTagList((ListNBT) template, (ListNBT) target);
+		} else {
+			return template == null || (target != null && target.equals(template));
+		}
+	}
+
+	private static boolean matchTagCompound(CompoundNBT template, CompoundNBT target) {
+		if(template.size() > target.size()) return false;
 		
-		//it's not an easy case, so we actually have to check the contents of each tag
-		for(String key : superset.keySet()) {
-			//it's ok if the subset is missing a key from the superset
-			if(!subset.contains(key)) continue;
-			
-			INBT supersetEntry = superset.get(key);
-			INBT subsetEntry = subset.get(key);
-			
-			//if a value is present on both tags, but they do not match, fail
-			if(supersetEntry instanceof CompoundNBT && subsetEntry instanceof CompoundNBT) {
-				//recurse into tag compounds (this properly compares nested tag compounds)
-				if(!isTagSubset((CompoundNBT) subsetEntry, (CompoundNBT) supersetEntry)) return false;
-			} else {
-				if(!supersetEntry.equals(subsetEntry)) return false;
-			}
+		for(String key : template.keySet()) {
+			if (!matchTag(template.get(key), target.get(key))) return false;
 		}
 		
 		return true;
 	}
+
+	private static boolean matchTagList(ListNBT template, ListNBT target) {
+		if (template.size() > target.size()) return false;
+
+		for (int i = 0; i < template.size(); i++) {
+			if (!matchTag(template.get(i), target.get(i))) return false;
+		}
+
+		return true;
+	}
+
 }

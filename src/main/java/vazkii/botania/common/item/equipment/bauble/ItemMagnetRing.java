@@ -15,6 +15,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
@@ -66,23 +67,28 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
+		super.onWornTick(stack, living);
+
+		if(living.isSpectator())
+			return;
+
 		int cooldown = getCooldown(stack);
 
-		if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
+		if(SubTileSolegnolia.hasSolegnoliaAround(living)) {
 			if(cooldown < 0)
 				setCooldown(stack, 2);
 			return;
 		}
 
 		if(cooldown <= 0) {
-			if(player.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
-				double x = player.posX;
-				double y = player.posY + 0.75;
-				double z = player.posZ;
+			if(living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
+				double x = living.posX;
+				double y = living.posY + 0.75;
+				double z = living.posZ;
 
 				int range = ((ItemMagnetRing) stack.getItem()).range;
-				List<ItemEntity> items = player.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<ItemEntity> items = living.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for(ItemEntity item : items)
 					if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
@@ -90,8 +96,8 @@ public class ItemMagnetRing extends ItemBauble {
 							break;
 
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if(player.world.isRemote) {
-							boolean red = player.world.rand.nextBoolean();
+						if(living.world.isRemote) {
+							boolean red = living.world.rand.nextBoolean();
 							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
 						}
 						pulled++;
@@ -101,7 +107,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(ItemEntity item) {
-		if(!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item))
+		if(!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement"))
 			return false;
 
 		ItemStack stack = item.getItem();

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.Screen;

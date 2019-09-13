@@ -165,9 +165,6 @@ public class GuiLexicon extends Screen {
 //			mc.updateWindowSize();
 		}
 
-		List<LexiconCategory> allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
-		Collections.sort(allCategories);
-
 		lastTime = ClientTickHandler.ticksInGame;
 
 		currentOpenLexicon = this;
@@ -184,6 +181,10 @@ public class GuiLexicon extends Screen {
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
+			List<LexiconCategory> allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
+			allCategories.removeIf(cat -> !cat.isVisible(stackUsed));
+			Collections.sort(allCategories);
+
 			int categories = allCategories.size();
 			for(int i = 0; i < categories + 1; i++) {
 				LexiconCategory category;
