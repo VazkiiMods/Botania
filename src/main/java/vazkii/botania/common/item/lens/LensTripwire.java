@@ -28,7 +28,7 @@ public class LensTripwire extends Lens {
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		IManaBurst burst = spreader.runBurstSimulation();
 		Entity e = (Entity) burst;
-		return e.getEntityData().getBoolean(TAG_TRIPPED);
+		return e.getPersistentData().getBoolean(TAG_TRIPPED);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class LensTripwire extends Lens {
 			List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 			if(!entities.isEmpty()) {
 				Entity e = (Entity) burst;
-				e.getEntityData().putBoolean(TAG_TRIPPED, true);
+				e.getPersistentData().putBoolean(TAG_TRIPPED, true);
 			}
 		}
 

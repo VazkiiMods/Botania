@@ -60,7 +60,7 @@ public final class SkyblockWorldEvents {
 	public static void onPlayerUpdate(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof PlayerEntity && !event.getEntityLiving().world.isRemote) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			CompoundNBT data = player.getEntityData();
+			CompoundNBT data = player.getPersistentData();
 			if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
 				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
 
@@ -146,7 +146,7 @@ public final class SkyblockWorldEvents {
 	}
 
 	public static void spawnPlayer(PlayerEntity player, BlockPos pos, boolean fabricated) {
-		CompoundNBT data = player.getEntityData();
+		CompoundNBT data = player.getPersistentData();
 		if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
 			data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
 		CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);

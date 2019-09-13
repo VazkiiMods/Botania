@@ -58,7 +58,7 @@ import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
-import vazkii.botania.common.crafting.FluxfieldConditionFactory;
+import vazkii.botania.common.crafting.FluxfieldCondition;
 import vazkii.botania.common.crafting.ReloadListener;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
@@ -144,7 +144,7 @@ public class Botania {
 			CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
 			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
 
-			CraftingHelper.register(FluxfieldConditionFactory.KEY, new FluxfieldConditionFactory());
+			CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 
 			ModBlocks.addDispenserBehaviours();
 

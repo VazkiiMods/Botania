@@ -67,7 +67,7 @@ public class ItemKeepIvy extends ItemMod {
 				i++;
 			}
 
-			CompoundNBT data = event.getEntityLiving().getEntityData();
+			CompoundNBT data = event.getEntityLiving().getPersistentData();
 			if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
 				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
 
@@ -78,7 +78,7 @@ public class ItemKeepIvy extends ItemMod {
 
 	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-		CompoundNBT data = event.getPlayer().getEntityData();
+		CompoundNBT data = event.getPlayer().getPersistentData();
 		if(data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
 			CompoundNBT cmp = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 			CompoundNBT cmp1 = cmp.getCompound(TAG_PLAYER_KEPT_DROPS);
@@ -94,7 +94,7 @@ public class ItemKeepIvy extends ItemMod {
 				}
 			}
 
-			cmp.put(TAG_PLAYER_KEPT_DROPS, new CompoundNBT());
+			cmp.remove(TAG_PLAYER_KEPT_DROPS);
 		}
 	}
 

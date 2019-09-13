@@ -23,7 +23,6 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.common.block.ModSubtiles;

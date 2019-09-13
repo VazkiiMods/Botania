@@ -20,6 +20,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -35,10 +37,10 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -115,26 +117,24 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		
 		if(!hasWater() && !hasLava()) {
 			if(hasFluidCapability) {
-				/* todo 1.13
-				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElseThrow(NullPointerException::new);
 
-				FluidStack drainWater = fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
-				FluidStack drainLava = fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), false);
+				FluidStack drainWater = fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+				FluidStack drainLava = fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
 
-				if(drainWater != null && drainWater.getFluid() == FluidRegistry.WATER && drainWater.amount == Fluid.BUCKET_VOLUME) {
+				if(!drainWater.isEmpty() && drainWater.getFluid() == Fluids.WATER && drainWater.getAmount() == FluidAttributes.BUCKET_VOLUME) {
 					setWater(true);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
-					fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
+					fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
-				} else if(drainLava != null && drainLava.getFluid() == FluidRegistry.LAVA && drainLava.amount == Fluid.BUCKET_VOLUME) {
+				} else if(!drainLava.isEmpty() && drainLava.getFluid() == Fluids.LAVA && drainLava.getAmount() == FluidAttributes.BUCKET_VOLUME) {
 					setLava(true);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
-					fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), true);
+					fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
 				}
-				*/
 			}
 
 			return false;

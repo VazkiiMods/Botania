@@ -149,7 +149,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 					ItemStack stack = item.getItem();
 					boolean consume;
-					if (item.getEntityData().contains(TAG_PORTAL_FLAG)) {
+					if (item.getPersistentData().contains(TAG_PORTAL_FLAG)) {
 						consume = false;
 					} else if (stack.getItem() instanceof ItemLexicon) {
 						consume = true;
@@ -277,7 +277,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
-		item.getEntityData().putBoolean(TAG_PORTAL_FLAG, true);
+		item.getPersistentData().putBoolean(TAG_PORTAL_FLAG, true);
 		world.addEntity(item);
 		ticksSinceLastItem = 0;
 	}

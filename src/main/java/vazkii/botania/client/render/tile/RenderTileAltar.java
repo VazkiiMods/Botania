@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -103,7 +104,6 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 
 			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
 
 			GlStateManager.enableBlend();
@@ -118,7 +118,9 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 			TextureAtlasSprite sprite = lava ? Minecraft.getInstance().getModelManager().getBlockModelShapes().getModel(Blocks.LAVA.getDefaultState()).getParticleTexture()
 					: Minecraft.getInstance().getModelManager().getBlockModelShapes().getModel(Blocks.WATER.getDefaultState()).getParticleTexture();
-			renderIcon(0, 0, sprite, 16, 16, brightness);
+			int color = lava ? Fluids.LAVA.getAttributes().getColor(altar.getWorld(), altar.getPos())
+					: Fluids.WATER.getAttributes().getColor(altar.getWorld(), altar.getPos());
+			renderIcon(sprite, color, alpha);
 			if(lava)
 				GlStateManager.enableLighting();
 			GlStateManager.enableAlphaTest();
@@ -128,15 +130,16 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 		GlStateManager.popMatrix();
 	}
 
-	private void renderIcon(int x, int y, TextureAtlasSprite sprite, int width, int height, int brightness) {
+	private void renderIcon(TextureAtlasSprite sprite, int color, float alpha) {
+		int red = ((color >> 16) & 0xFF);
+		int green = ((color >> 8) & 0xFF);
+		int blue = (color & 0xFF);
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		//if(brightness != -1)
-		//tessellator.getBuffer().putBrightness4(brightness, brightness, brightness, brightness);
-		tessellator.getBuffer().pos(x + 0, y + height, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
-		tessellator.getBuffer().pos(x + width, y + height, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
-		tessellator.getBuffer().pos(x + width, y + 0, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
-		tessellator.getBuffer().pos(x + 0, y + 0, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+		tessellator.getBuffer().pos(0, 16, 0).tex(sprite.getMinU(), sprite.getMaxV()).color(red, green, blue, (int) (alpha * 255F)).endVertex();
+		tessellator.getBuffer().pos(16, 16, 0).tex(sprite.getMaxU(), sprite.getMaxV()).color(red, green, blue, (int) (alpha * 255F)).endVertex();
+		tessellator.getBuffer().pos(16, 0, 0).tex(sprite.getMaxU(), sprite.getMinV()).color(red, green, blue, (int) (alpha * 255F)).endVertex();
+		tessellator.getBuffer().pos(0, 0, 0).tex(sprite.getMinU(), sprite.getMinV()).color(red, green, blue, (int) (alpha * 255F)).endVertex();
 		tessellator.draw();
 	}
 

@@ -51,7 +51,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	private static final int RANGE = 2;
 	private static final int BIND_RANGE = 12;
 
-	private static final String TAG_TELEPORTED = "Botania_TPd";
+	private static final String TAG_TELEPORTED = "botania:teleported";
 
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
@@ -72,7 +72,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			int slowdown = getSlowdownFactor();
 
 			for(ItemEntity item : items) {
-				if(item.age < 60 + slowdown || !item.isAlive() || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(item.age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getItem();
@@ -85,7 +85,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 					if(mana >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
-						item.getEntityData().putBoolean(TAG_TELEPORTED, true);
+						item.getPersistentData().putBoolean(TAG_TELEPORTED, true);
 						item.setMotion(Vec3d.ZERO);
 						spawnExplosionParticles(item, 10);
 						mana -= cost;

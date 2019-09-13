@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 import vazkii.botania.common.lib.LibItemNames;
@@ -29,18 +29,18 @@ public class ItemWaterBowl extends ItemMod  {
 		super(builder);
 	}
 
-	/* todo 1.13
+
 	@Nonnull
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
 		return new Handler(stack);
 	}
 
 	private static class Handler extends FluidHandlerItemStackSimple.SwapEmpty {
 
 		private Handler(ItemStack stack) {
-			super(stack, new ItemStack(Items.BOWL), Fluid.BUCKET_VOLUME);
-			setFluid(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME));
+			super(stack, new ItemStack(Items.BOWL), FluidAttributes.BUCKET_VOLUME);
+			setFluid(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME));
 		}
 
 		@Override
@@ -50,9 +50,8 @@ public class ItemWaterBowl extends ItemMod  {
 
 		@Override
 		public boolean canDrainFluidType(FluidStack fluid) {
-			return fluid.getFluid() == FluidRegistry.WATER;
+			return fluid.getFluid() == Fluids.WATER;
 		}
 	}
-	*/
 
 }
