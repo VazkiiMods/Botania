@@ -31,6 +31,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -49,6 +50,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -753,6 +755,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		TileEntity tile = getShooter();
 		if(tile != null && tile instanceof IPingable)
 			((IPingable) tile).pingback(this, getShooterUUID());
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	protected boolean shouldDoFakeParticles() {
