@@ -258,7 +258,7 @@ curseforge {
         releaseType = "release"
         addGameVersion "${config.cf_meta_version}"
         relations {
-            requiredLibrary 'baubles'
+            requiredLibrary 'curios'
             optionalLibrary 'quark'
             optionalLibrary 'albedo'
         }
