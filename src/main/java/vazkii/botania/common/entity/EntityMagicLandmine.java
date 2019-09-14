@@ -13,11 +13,9 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.potion.Effects;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
@@ -26,7 +24,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 
 import javax.annotation.Nonnull;
@@ -61,16 +59,20 @@ public class EntityMagicLandmine extends Entity {
 		float b = 0.2F;
 
 		//Botania.proxy.wispFX(world, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
-		for(int i = 0; i < 6; i++)
-			Botania.proxy.wispFX(posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.015F, 1);
+		for(int i = 0; i < 6; i++) {
+            ParticleData data = ParticleData.wisp(0.4F, r, g, b, (float) 1);
+            world.addParticle(data, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, 0, - -0.015F, 0);
+        }
 
 		if(ticksExisted >= 55) {
 			world.playSound(null, posX, posY, posZ, ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
-			for(int i = 0; i < 25; i++)
-				Botania.proxy.wispFX(posX, posY + 1, posZ, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+			for(int i = 0; i < 25; i++) {
+				ParticleData data = ParticleData.wisp(0.5F, r, g, b);
+				world.addParticle(data, posX, posY + 1, posZ, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+			}
 
 			if(!world.isRemote) {
 				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));

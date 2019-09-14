@@ -24,7 +24,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -33,6 +32,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -83,8 +83,9 @@ public class ItemSextant extends ItemMod {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double zp = z + Math.sin(radian) * radius;
-					Botania.proxy.wispFX(xp + 0.5, source.y + 1, zp + 0.5, 0F, 1F, 1F, 0.3F, -0.01F);
-				}
+                    ParticleData data = ParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
+                    world.addParticle(data, xp + 0.5, source.y + 1, zp + 0.5, 0, - -0.01F, 0);
+                }
 		}
 	}
 
@@ -130,9 +131,10 @@ public class ItemSextant extends ItemMod {
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		Vector3 source = new Vector3(x, y, z);
-		Botania.proxy.wispFX(source.x + 0.5, source.y + 1, source.z + 0.5, 1F, 0F, 0F, 0.2F, -0.1F);
+        ParticleData data = ParticleData.wisp(0.2F, 1F, 0F, 0F, 1);
+        world.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
 
-		Vector3 centerVec = Vector3.fromEntityCenter(player);
+        Vector3 centerVec = Vector3.fromEntityCenter(player);
 		Vector3 diffVec = source.subtract(centerVec);
 		Vector3 lookVec = new Vector3(player.getLookVec());
 		double mul = diffVec.y / lookVec.y;

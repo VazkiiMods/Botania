@@ -15,7 +15,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -79,15 +78,6 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {}
-
-	@Override
-	public void setWispFXDistanceLimit(boolean limit) {}
-
-	@Override
-	public void setWispFXDepthTest(boolean depth) {}
-
-	@Override
-	public void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {}
 
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {}

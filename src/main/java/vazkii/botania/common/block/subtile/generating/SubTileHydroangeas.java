@@ -14,14 +14,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
@@ -34,8 +31,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -69,8 +65,10 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 		if(cooldown > 0) {
 			cooldown--;
-			for(int i = 0; i < 3; i++)
-				Botania.proxy.wispFX(getPos().getX() + 0.5 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.5 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
+			for(int i = 0; i < 3; i++) {
+                ParticleData data = ParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
+                world.addParticle(data, getPos().getX() + 0.5 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.5 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
+            }
 		}
 
 		if(burnTime == 0) {
@@ -121,8 +119,9 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
-	}
+        ParticleData data = ParticleData.wisp((float) Math.random() / 6, 0.05F, 0.05F, 0.7F, 1);
+        world.addParticle(data, getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+    }
 
 	public Tag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.WATER;

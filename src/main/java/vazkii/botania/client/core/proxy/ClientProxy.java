@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,7 +57,6 @@ import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.FXSparkle;
-import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
@@ -291,26 +289,6 @@ public class ClientProxy implements IProxy {
 
 	private static boolean distanceLimit = true;
 	private static boolean depthTest = true;
-
-	@Override
-	public void setWispFXDistanceLimit(boolean limit) {
-		distanceLimit = limit;
-	}
-
-	@Override
-	public void setWispFXDepthTest(boolean test) {
-		depthTest = test;
-	}
-
-	@Override
-	public void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		if(!doParticle())
-			return;
-
-		FXWisp wisp = new FXWisp(Minecraft.getInstance().world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
-		wisp.setSpeed(motionx, motiony, motionz);
-		Minecraft.getInstance().particles.addEffect(wisp);
-	}
 
 	private boolean doParticle() {
 		if(Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)

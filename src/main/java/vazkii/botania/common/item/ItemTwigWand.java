@@ -35,7 +35,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -48,6 +47,7 @@ import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
@@ -150,8 +150,12 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 						float velMul = 0.07F;
 
-						Botania.proxy.wispFX(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
-					}
+                        float motionx = (float) -x * velMul;
+                        float motiony = (float) -y * velMul;
+                        float motionz = (float) -z * velMul;
+                        ParticleData data = ParticleData.wisp((float) Math.random() * 0.15F + 0.15F, red, green, blue);
+                        world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
+                    }
 				}
 
 				return ActionResultType.SUCCESS;

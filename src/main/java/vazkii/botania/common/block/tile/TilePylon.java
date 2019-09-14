@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockPylon;
@@ -73,9 +74,12 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					centerBlock = centerBlock.subtract(new Vector3(0, 0.5, 0));
 					Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
-					Botania.proxy.wispFX(x, pos.getY() + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
-					if(world.rand.nextInt(3) == 0)
-						Botania.proxy.wispFX(x, pos.getY() + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+                    ParticleData data = ParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 1);
+                    world.addParticle(data, x, pos.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+                    if(world.rand.nextInt(3) == 0) {
+						ParticleData data1 = ParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
+						world.addParticle(data1, x, pos.getY() + 0.25, z, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+					}
 				}
 			} else {
 				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
@@ -91,9 +95,12 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					if(world.rand.nextInt(4) == 0)
 						Botania.proxy.sparkleFX(centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random(), 8);
 
-					Botania.proxy.wispFX(pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r / 255F, g / 255F, b / 255F, (float) Math.random() / 3F, -0.04F);
-					Botania.proxy.wispFX(pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, r / 255F, g / 255F, b / 255F, (float) Math.random() / 5F, -0.001F);
-					Botania.proxy.wispFX(pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r / 255F, g / 255F, b / 255F, (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+                    ParticleData data1 = ParticleData.wisp((float) Math.random() / 3F, r / 255F, g / 255F, b / 255F, 1);
+                    world.addParticle(data1, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, 0, - -0.04F, 0);
+                    ParticleData data = ParticleData.wisp((float) Math.random() / 5F, r / 255F, g / 255F, b / 255F, 1);
+                    world.addParticle(data, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, 0, - -0.001F, 0);
+					ParticleData data2 = ParticleData.wisp((float) Math.random() / 8F, r / 255F, g / 255F, b / 255F);
+					world.addParticle(data2, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 				}
 			}
 		}

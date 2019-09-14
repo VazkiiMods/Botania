@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.ITickableTileEntity;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 
 public class TileSpiritShrine extends TileMod implements ITickableTileEntity {
@@ -54,8 +55,11 @@ public class TileSpiritShrine extends TileMod implements ITickableTileEntity {
 
 						wticks += tickIncrement;
 						float[] colorsfx = colors[i >= colors.length ? 0 : i];
-						Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
-						Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
+						ParticleData data = ParticleData.wisp(0.85F,  colorsfx[0], colorsfx[1], colorsfx[2], 0.25F);
+						world.addParticle(data, x, y, z, 0, (float) (-g * 0.05), 0);
+
+						data = ParticleData.wisp((float) Math.random() * 0.1F + 0.1F, colorsfx[0], colorsfx[1], colorsfx[2], 0.9F);
+						world.addParticle(data, x, y, z, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F);
 					}
 				}
 			}

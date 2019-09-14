@@ -13,14 +13,12 @@ package vazkii.botania.common.block.subtile;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -44,8 +42,12 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 		super.tickFlower();
 
 		if(getWorld().isRemote) {
-			if(state != NONE && Math.random() > 0.6)
-				Botania.proxy.wispFX(getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, state == INCREASING ? 0.05F : 1F, 0.05F, state == INCREASING ? 1F : 0.05F, (float) Math.random() / 7, (float) -Math.random() / 50);
+			if(state != NONE && Math.random() > 0.6) {
+				float r = state == INCREASING ? 0.05F : 1F;
+				float b = state == INCREASING ? 1F : 0.05F;
+				ParticleData data = ParticleData.wisp((float) Math.random() / 7, r, 0.05F, b, 1);
+				world.addParticle(data, getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0, (float) Math.random() / 50, 0);
+			}
 		} else {
 			int mana = 0;
 			for(Direction dir : MathHelper.HORIZONTALS) {

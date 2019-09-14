@@ -29,7 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -159,8 +159,10 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		setMotion(mot);
 
-		if(liveTime > delay)
-			Botania.proxy.wispFX(posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
+		if(liveTime > delay) {
+            ParticleData data = ParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
+            world.addParticle(data, posX, posY, posZ, 0, -0F, 0);
+        }
 
 		if(liveTime > 200 + delay)
 			remove();

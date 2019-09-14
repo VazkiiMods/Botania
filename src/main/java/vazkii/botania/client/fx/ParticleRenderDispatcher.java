@@ -16,8 +16,14 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.profiler.Profiler;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.common.lib.LibMisc;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ParticleRenderDispatcher {
 
 	public static int wispFxCount = 0;
@@ -25,6 +31,12 @@ public final class ParticleRenderDispatcher {
 	public static int sparkleFxCount = 0;
 	public static int fakeSparkleFxCount = 0;
 	public static int lightningCount = 0;
+
+	@SubscribeEvent
+	public static void registerFactories(ParticleFactoryRegisterEvent evt) {
+		Minecraft.getInstance().particles.registerFactory(ModParticles.WISP, WispParticleType.FACTORY);
+		Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE, SparkleParticleType.FACTORY);
+	}
 
 	// Called from LightningHandler.onRenderWorldLast since that was
 	// already registered. /shrug

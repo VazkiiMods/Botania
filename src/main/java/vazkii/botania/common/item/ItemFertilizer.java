@@ -10,20 +10,13 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -69,8 +62,9 @@ public class ItemFertilizer extends ItemMod {
 				float red = (float) Math.random();
 				float green = (float) Math.random();
 				float blue = (float) Math.random();
-				Botania.proxy.wispFX(x, y, z, red, green, blue, 0.15F + (float) Math.random() * 0.25F, -(float) Math.random() * 0.1F - 0.05F);
-			}
+                ParticleData data = ParticleData.wisp(0.15F + (float) Math.random() * 0.25F, red, green, blue, 1);
+                world.addParticle(data, x, y, z, 0, (float) Math.random() * 0.1F - 0.05F, 0);
+            }
 		}
 
 		return ActionResultType.SUCCESS;

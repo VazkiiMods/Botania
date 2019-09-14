@@ -49,6 +49,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
@@ -116,7 +117,8 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 						mul = Math.min(maxMul, mul + mulPer);
 						double rad = radPer * (i + ticksElapsed * 0.4);
 						Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-						Botania.proxy.wispFX(vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
+						ParticleData data = ParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
+						world.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
 						vecTip = vecTip.add(vecMag);
 					}
 				}

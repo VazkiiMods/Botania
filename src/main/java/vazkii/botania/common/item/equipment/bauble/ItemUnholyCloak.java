@@ -15,7 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -24,10 +23,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.List;
 
@@ -56,8 +54,9 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;
 				float zMotion = (float) Math.sin(rad) * 0.2F;
-				Botania.proxy.wispFX(player.posX, player.posY + 0.5, player.posZ, 0.4F + (float) Math.random() + 0.25F, 0F, 0F, 0.6F + (float) Math.random() * 0.2F, xMotion, 0F, zMotion);
-			}
+                ParticleData data = ParticleData.wisp(0.6F + (float) Math.random() * 0.2F, 0.4F + (float) Math.random() + 0.25F, 0F, 0F);
+                world.addParticle(data, player.posX, player.posY + 0.5, player.posZ, xMotion, 0F, zMotion);
+            }
 
 			return true;
 		}

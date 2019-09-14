@@ -21,8 +21,6 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.WitchEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,7 +49,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -75,6 +72,7 @@ import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
@@ -199,7 +197,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		List<BlockPos> invalidPylonBlocks = checkPylons(world, pos);
 		if(!invalidPylonBlocks.isEmpty()) {
 			if(world.isRemote) {
-				warnInvalidBlocks(invalidPylonBlocks);
+				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
 				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 			}
@@ -211,7 +209,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
 		if(!invalidArenaBlocks.isEmpty()) {
 			if(world.isRemote) {
-				warnInvalidBlocks(invalidArenaBlocks);
+				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
@@ -300,12 +298,11 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		return trippedPositions;
 	}
 
-	private static void warnInvalidBlocks(Iterable<BlockPos> invalidPositions) {
-		Botania.proxy.setWispFXDepthTest(false);
+	private static void warnInvalidBlocks(World world, Iterable<BlockPos> invalidPositions) {
+		ParticleData data = ParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
 		for(BlockPos pos_ : invalidPositions) {
-			Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
+			world.addParticle(data, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
 		}
-		Botania.proxy.setWispFXDepthTest(true);
 	}
 
 	@Override
@@ -535,7 +532,8 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			double y = source.getY() + 0.5;
 			double z = source.getZ() + 0.5 - Math.sin(rad) * ARENA_RANGE;
 
-			Botania.proxy.wispFX(x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
+			ParticleData data = ParticleData.wisp(0.5F, r, g, b);
+			world.addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
 
 		if(getInvulTime() > 10) {
@@ -556,8 +554,10 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				float g = (float) Math.random() * 0.3F;
 				float b = 0.7F + (float) Math.random() * 0.3F;
 
-				Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
-				Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.4F, (float) mot.x, (float) mot.y, (float) mot.z);
+				ParticleData data = ParticleData.wisp(0.25F + (float) Math.random() * 0.1F, r, g, b, 1);
+				world.addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+				ParticleData data1 = ParticleData.wisp(0.4F, r, g, b);
+				world.addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
 			}
 		}
 	}

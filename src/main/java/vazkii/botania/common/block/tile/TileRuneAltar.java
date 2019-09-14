@@ -14,15 +14,11 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
@@ -36,6 +32,7 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -44,8 +41,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -173,8 +168,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 
-			if (cooldown > 0)
-				Botania.proxy.wispFX(pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
+			if (cooldown > 0) {
+                ParticleData data = ParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
+                world.addParticle(data, pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0, - -0.025F, 0);
+            }
 		}
 
 		if(cooldown > 0) {

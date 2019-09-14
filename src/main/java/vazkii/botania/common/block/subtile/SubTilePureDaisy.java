@@ -22,6 +22,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -145,7 +146,8 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 						double y = coords.getY() + Math.random() + 0.5;
 						double z = coords.getZ() + Math.random();
 
-						Botania.proxy.wispFX(x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
+						ParticleData data = ParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
+						getWorld().addParticle(data, x, y, z, 0, 0, 0);
 					}
 				}
 

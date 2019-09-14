@@ -54,11 +54,9 @@ public class FXSparkle extends Particle {
 
 	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
-
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
-		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;

@@ -16,7 +16,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
@@ -33,7 +32,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.ParticleData;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -120,8 +119,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 								double y = pos.getPos().getY() + Math.random();
 								double z = pos.getPos().getZ() + Math.random();
 
-								Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
-							}
+                                ParticleData data1 = ParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+                                p.world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
+                            }
 						}
 					}
 				}
@@ -133,8 +133,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						double x = pos.getPos().getX() + Math.random();
 						double y = pos.getPos().getY() + Math.random();
 						double z = pos.getPos().getZ() + Math.random();
-						Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
-					}
+                        ParticleData data = ParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+                        p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
+                    }
 					if(time % 10 == 0)
 						p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 				}
