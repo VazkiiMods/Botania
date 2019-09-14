@@ -18,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockState;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
@@ -89,23 +90,21 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 			BlockState state = recipe.getInput() instanceof BlockState ? (BlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
 			Block b = state.getBlock();
 
-			// todo 1.13 fluids
-			//if(FluidRegistry.lookupFluidForBlock(b) != null) {
-			//	iIngredients.setInput(VanillaTypes.FLUID, new FluidStack(FluidRegistry.lookupFluidForBlock(b), 1000));
-			//} else {
+			if (b instanceof FlowingFluidBlock) {
+				iIngredients.setInput(VanillaTypes.FLUID, new FluidStack(((FlowingFluidBlock) b).getFluid(), 1000));
+			} else {
 				if(b.asItem() != Items.AIR)
 				iIngredients.setInput(VanillaTypes.ITEM, new ItemStack(b));
-			//}
+			}
 		}
 
 		Block outBlock = recipe.getOutputState().getBlock();
-		// todo 1.13 fluids
-		//if(FluidRegistry.lookupFluidForBlock(outBlock) != null) {
-		//	iIngredients.setOutput(VanillaTypes.FLUID, new FluidStack(FluidRegistry.lookupFluidForBlock(outBlock), 1000));
-		//} else {
+		if(outBlock instanceof FlowingFluidBlock) {
+			iIngredients.setOutput(VanillaTypes.FLUID, new FluidStack(((FlowingFluidBlock) outBlock).getFluid(), 1000));
+		} else {
 			if(outBlock.asItem() != Items.AIR)
 			iIngredients.setOutput(VanillaTypes.ITEM, new ItemStack(outBlock));
-		//}
+		}
 	}
 
 	@Override
