@@ -114,7 +114,6 @@ public class MiscellaneousIcons {
 
 		// same as lexicon, reach into all json overrides and wrap them
 		for (int i = 0; i < originalModel.getOverrides().overrideBakedModels.size(); i++) {
-			Botania.LOGGER.info("wrapping {}", i);
 			originalModel.getOverrides().overrideBakedModels.set(i, new GunModel(evt.getModelLoader(), originalModel.getOverrides().overrideBakedModels.get(i)));
 		}
 	}
