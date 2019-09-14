@@ -39,8 +39,8 @@ public class LensDyeingRecipe extends SpecialRecipe {
 			Ingredient.fromTag(Tags.Items.DYES_PINK), Ingredient.fromTag(Tags.Items.DYES_GRAY),
 			Ingredient.fromTag(Tags.Items.DYES_LIGHT_GRAY), Ingredient.fromTag(Tags.Items.DYES_CYAN),
 			Ingredient.fromTag(Tags.Items.DYES_PURPLE), Ingredient.fromTag(Tags.Items.DYES_BLUE),
-			Ingredient.fromTag(Tags.Items.DYES_BROWN), Ingredient.fromTag(Tags.Items.DYES_RED),
-			Ingredient.fromTag(Tags.Items.DYES_GREEN), Ingredient.fromTag(Tags.Items.DYES_BLACK),
+			Ingredient.fromTag(Tags.Items.DYES_BROWN), Ingredient.fromTag(Tags.Items.DYES_GREEN),
+			Ingredient.fromTag(Tags.Items.DYES_RED), Ingredient.fromTag(Tags.Items.DYES_BLACK),
 			Ingredient.fromItems(ModItems.manaPearl)
 	);
 
