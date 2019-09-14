@@ -398,7 +398,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
-		String name = I18n.format(pool.getTranslationKey().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = pool.getDisplayName().getString();
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name);
 

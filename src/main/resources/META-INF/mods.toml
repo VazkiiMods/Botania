@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[27,)"
+loaderVersion="[28,)"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
 logoFile="logo.png" #optional
@@ -15,9 +15,9 @@ Botania is a mod that adds nature magic to Minecraft
 '''
 
 [[dependencies.botania]]
-    modId="forge" #mandatory
-    mandatory=false #mandatory
-    versionRange="[28.0.45,)" #mandatory
+    modId="forge"
+    mandatory=true
+    versionRange="[28.1.0,)"
     ordering="NONE"
     side="BOTH"
 
@@ -25,3 +25,4 @@ Botania is a mod that adds nature magic to Minecraft
     modId="curios"
     mandatory=false
     ordering="AFTER"
+    side="BOTH"

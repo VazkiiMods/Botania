@@ -67,7 +67,10 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 
 	@Override
 	public int getLightValue(@Nonnull BlockState state, IEnviromentBlockReader world, @Nonnull BlockPos pos) {
-		return world.getTileEntity(pos) == null ? 0 : ((TileEntitySpecialFlower) world.getTileEntity(pos)).getLightValue();
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileEntitySpecialFlower) {
+			return ((TileEntitySpecialFlower) te).getLightValue();
+		} else return 0;
 	}
 
 	@Override

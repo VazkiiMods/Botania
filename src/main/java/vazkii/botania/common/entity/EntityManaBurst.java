@@ -213,11 +213,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		}
 		*/
 
-		if (!scanBeam && !world.isRemote() && // Botania - collide only on server and non scanbeam
-				raytraceresult.getType() != RayTraceResult.Type.MISS) {
+		if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
 			if (raytraceresult.getType() == RayTraceResult.Type.BLOCK && this.world.getBlockState(((BlockRayTraceResult)raytraceresult).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
 				this.setPortal(((BlockRayTraceResult)raytraceresult).getPos());
-			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)){
+			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
 				this.onImpact(raytraceresult);
 			}
 		}
