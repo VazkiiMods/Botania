@@ -67,15 +67,14 @@ public class EntitySignalFlare extends Entity {
 				int g = (hex & 0xFF00) >> 8;
 				int b = hex & 0xFF;
 
-				// todo 1.14 use of client only addParticle version
 				for(int i = 0; i < 3; i++) {
 					WispParticleData data = WispParticleData.wisp((float) Math.random() * 5 + 1F, r / 255F, g / 255F, b / 255F);
-					world.addParticle(data, true, posX, posY, posZ + 0.5, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
+					Botania.proxy.addParticleForce(world, data, posX, posY, posZ + 0.5, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
 				}
 
 				for(int i = 0; i < 4; i++) {
 					WispParticleData data = WispParticleData.wisp((float) Math.random() * 15 + 8F, r / 255F, g / 255F, b / 255F);
-					world.addParticle(data, true, posX + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), posZ + 0.5, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
+					Botania.proxy.addParticleForce(world, data, posX + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), posZ + 0.5, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 				}
 			}
 		}

@@ -22,6 +22,7 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -282,6 +283,11 @@ public class ClientProxy implements IProxy {
 	@Override
 	public BipedModel getEmptyModelBiped() {
 		return EMPTY_MODEL;
+	}
+
+	@Override
+	public void addParticleForce(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
 	}
 }
 

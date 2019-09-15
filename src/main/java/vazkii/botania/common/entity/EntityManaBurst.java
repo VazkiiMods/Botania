@@ -445,8 +445,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 			if(!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				// todo 1.14 usage of client-only method
-				world.addParticle(data, true, posX, posY, posZ, 0, 0, 0);
+				Botania.proxy.addParticleForce(world, data, posX, posY, posZ, 0, 0, 0);
 			}
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
