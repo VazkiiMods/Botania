@@ -30,7 +30,7 @@ import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -77,8 +77,10 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get() * 0.25F)
-			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
+		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get() * 0.25F) {
+            SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
+            world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+        }
 	}
 
 	@Override

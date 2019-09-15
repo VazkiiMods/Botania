@@ -52,7 +52,9 @@ public class FXSparkle extends Particle {
 	private float f4;
 	private float f5;
 
-	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m) {
+	public FXSparkle(World world, double x, double y, double z, float size,
+					 float red, float green, float blue, int m,
+					 boolean fake, boolean noClip, boolean corrupt) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
 		particleGreen = green;
@@ -66,6 +68,9 @@ public class FXSparkle extends Particle {
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
+		this.fake = fake;
+		this.corrupt = corrupt;
+		this.canCollide = !fake && !noClip;
 	}
 
 	public static void dispatchQueuedRenders(Tessellator tessellator) {

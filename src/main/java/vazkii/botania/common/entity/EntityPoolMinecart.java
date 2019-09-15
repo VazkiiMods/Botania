@@ -30,7 +30,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
@@ -119,7 +119,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 			double y = MathHelper.floor(posY);
 			double z = MathHelper.floor(posZ);
 			if(Math.random() > particleChance) {
-				ParticleData data = ParticleData.wisp((float) Math.random() / 3F, (float) color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, 2F);
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, (float) color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, 2F);
 				world.addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 		}

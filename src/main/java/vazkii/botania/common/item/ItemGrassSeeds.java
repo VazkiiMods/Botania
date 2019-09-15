@@ -25,7 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -98,7 +98,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
                     float motionx = (float) -x * velMul;
                     float motiony = (float) -y * velMul;
                     float motionz = (float) -z * velMul;
-                    ParticleData data = ParticleData.wisp((float) Math.random() * 0.15F + 0.15F, r, g, b);
+                    WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, r, g, b);
                     world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
                 }
 			}

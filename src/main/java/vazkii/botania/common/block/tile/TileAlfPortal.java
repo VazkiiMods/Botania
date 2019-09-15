@@ -35,7 +35,7 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -211,7 +211,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			pos = CONVERTER_X_Z_FP.apply(pos);
 
 		float motionMul = 0.2F;
-        ParticleData data = ParticleData.wisp((float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F));
+        WispParticleData data = WispParticleData.wisp((float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F));
         world.addParticle(data, getPos().getX() + pos[0], getPos().getY() + pos[1], getPos().getZ() + pos[2], (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
     }
 

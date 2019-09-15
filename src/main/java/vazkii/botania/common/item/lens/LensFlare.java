@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 
 import java.awt.Color;
 
@@ -61,8 +61,8 @@ public class LensFlare extends Lens {
 		float g = ((hex & 0xFF00) >> 8) / 255F;
 		float b = (hex & 0xFF) / 255F;
 
-        ParticleData data = ParticleData.wisp(0.4F, r, g, b);
-        world.addParticle(data, tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, mx, my, mz);
+        WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
+        tile.getWorld().addParticle(data, tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, mx, my, mz);
     }
 
 }

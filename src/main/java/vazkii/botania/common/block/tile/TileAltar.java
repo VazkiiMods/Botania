@@ -14,13 +14,9 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.block.Blocks;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Items;
@@ -28,10 +24,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -53,7 +46,7 @@ import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -273,8 +266,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					float blue = color.getBlue() / 255F;
 					if(Math.random() >= 0.75F)
 						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
-					Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1.2, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-				}
+                    SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+                    world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1.2, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+                }
 			}
 
 			if(hasLava()) {
@@ -315,8 +309,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 						float red = (float) Math.random();
 						float green = (float) Math.random();
 						float blue = (float) Math.random();
-						Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-					}
+                        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+                        world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+                    }
 					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.altarCraft, SoundCategory.BLOCKS, 1F, 1F, false);
 				}
 				return true;

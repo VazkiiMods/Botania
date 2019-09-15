@@ -16,15 +16,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.item.DyeColor;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -71,12 +69,12 @@ public class EntitySignalFlare extends Entity {
 
 				// todo 1.14 use of client only addParticle version
 				for(int i = 0; i < 3; i++) {
-					ParticleData data = ParticleData.wisp((float) Math.random() * 5 + 1F, r / 255F, g / 255F, b / 255F);
+					WispParticleData data = WispParticleData.wisp((float) Math.random() * 5 + 1F, r / 255F, g / 255F, b / 255F);
 					world.addParticle(data, true, posX, posY, posZ + 0.5, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
 				}
 
 				for(int i = 0; i < 4; i++) {
-					ParticleData data = ParticleData.wisp((float) Math.random() * 15 + 8F, r / 255F, g / 255F, b / 255F);
+					WispParticleData data = WispParticleData.wisp((float) Math.random() * 15 + 8F, r / 255F, g / 255F, b / 255F);
 					world.addParticle(data, true, posX + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), posZ + 0.5, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 				}
 			}

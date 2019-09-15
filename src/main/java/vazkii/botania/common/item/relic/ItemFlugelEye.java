@@ -29,7 +29,7 @@ import net.minecraft.world.dimension.DimensionType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
@@ -62,7 +62,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
 					float z1 = (float) (pos.getZ() + Math.random());
-                    ParticleData data = ParticleData.wisp((float) Math.random() * 0.5F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+                    WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.5F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
                     world.addParticle(data, x1, y1, z1, 0, -(-0.05F + (float) Math.random() * 0.05F), 0);
                 }
 			} else {
@@ -85,8 +85,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		float x = (float) (living.posX - Math.random() * living.getWidth());
 		float y = (float) (living.posY + Math.random());
 		float z = (float) (living.posZ - Math.random() * living.getWidth());
-        ParticleData data = ParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-        world.addParticle(data, (double) x, (double) y, (double) z, 0, -(-0.05F - (float) Math.random() * 0.05F), 0);
+        WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+        living.world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
     }
 
 	@Nonnull

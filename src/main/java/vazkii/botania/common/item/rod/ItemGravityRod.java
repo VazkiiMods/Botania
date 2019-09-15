@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -163,7 +163,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						float xm = ((float) Math.random() - 0.5F) * m;
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
-                        ParticleData data = ParticleData.wisp(s, r, 0F, b);
+                        WispParticleData data = WispParticleData.wisp(s, r, 0F, b);
                         world.addParticle(data, target.posX + target.getWidth() / 2, target.posY + target.getHeight() / 2, target.posZ + target.getWidth() / 2, xm, ym, zm);
                     }
 

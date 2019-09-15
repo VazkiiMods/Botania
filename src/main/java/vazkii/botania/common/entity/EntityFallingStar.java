@@ -24,7 +24,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.List;
@@ -51,11 +51,12 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		super.tick();
 
 		float dist = 1.5F;
+		SparkleParticleData data = SparkleParticleData.sparkle(2F, 1F, 0.4F, 1F, 6);
 		for(int i = 0; i < 10; i++) {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			Botania.proxy.sparkleFX(posX + xs, posY + ys, posZ + zs, 1F, 0.4F, 1F, 2F, 6);
+			world.addParticle(data, posX + xs, posY + ys, posZ + zs, 0, 0, 0);
 		}
 
 		LivingEntity thrower = getThrower();

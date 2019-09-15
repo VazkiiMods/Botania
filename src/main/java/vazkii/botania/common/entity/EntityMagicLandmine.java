@@ -24,7 +24,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 
 import javax.annotation.Nonnull;
@@ -60,7 +60,7 @@ public class EntityMagicLandmine extends Entity {
 
 		//Botania.proxy.wispFX(world, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
 		for(int i = 0; i < 6; i++) {
-            ParticleData data = ParticleData.wisp(0.4F, r, g, b, (float) 1);
+            WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
             world.addParticle(data, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, 0, - -0.015F, 0);
         }
 
@@ -70,7 +70,7 @@ public class EntityMagicLandmine extends Entity {
 			float m = 0.35F;
 			g = 0.4F;
 			for(int i = 0; i < 25; i++) {
-				ParticleData data = ParticleData.wisp(0.5F, r, g, b);
+				WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
 				world.addParticle(data, posX, posY + 1, posZ, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 

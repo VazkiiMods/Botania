@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -119,7 +119,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 								double y = pos.getPos().getY() + Math.random();
 								double z = pos.getPos().getZ() + Math.random();
 
-                                ParticleData data1 = ParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+                                WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
                                 p.world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
                             }
 						}
@@ -133,7 +133,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						double x = pos.getPos().getX() + Math.random();
 						double y = pos.getPos().getY() + Math.random();
 						double z = pos.getPos().getZ() + Math.random();
-                        ParticleData data = ParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+                        WispParticleData data = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
                         p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
                     }
 					if(time % 10 == 0)

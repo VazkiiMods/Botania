@@ -12,10 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
@@ -28,7 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -98,8 +95,11 @@ public class ItemMagnetRing extends ItemBauble {
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
 						if(living.world.isRemote) {
 							boolean red = living.world.rand.nextBoolean();
-							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
-						}
+                            float r = red ? 1F : 0F;
+                            float b = red ? 0F : 1F;
+                            SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
+                            living.world.addParticle(data, item.posX, item.posY, item.posZ, 0, 0, 0);
+                        }
 						pulled++;
 					}
 			}

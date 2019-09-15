@@ -71,15 +71,6 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public void setSparkleFXNoClip(boolean noclip) {}
-
-	@Override
-	public void setSparkleFXCorrupt(boolean corrupt) {}
-
-	@Override
-	public void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {}
-
-	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {}
 
 	@Override

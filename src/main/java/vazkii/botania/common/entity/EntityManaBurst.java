@@ -64,7 +64,8 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.mana.IPingable;
 import vazkii.botania.api.mana.IThrottledPacket;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
@@ -442,13 +443,16 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			else if(fullManaLastTick)
 				size = 4F;
 
-			if(!noParticles && shouldDoFakeParticles())
-				Botania.proxy.sparkleFX(posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
+			if(!noParticles && shouldDoFakeParticles()) {
+				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
+				// todo 1.14 usage of client-only method
+				world.addParticle(data, true, posX, posY, posZ, 0, 0, 0);
+			}
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
 			if(ConfigHandler.CLIENT.subtlePowerSystem.get()) {
-				ParticleData data = ParticleData.wisp(0.1F * size, r, g, b, depth);
+				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
 				world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
@@ -475,7 +479,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 						b = ob + (float) Math.random() * 0.125F;
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
-					ParticleData data = ParticleData.wisp(0.2F * size, r, g, b, depth);
+					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
 					world.addParticle(data, posX, posY, posZ,
 							(float) -getMotion().getX() * 0.01F,
 							(float) -getMotion().getY() * 0.01F,
@@ -491,7 +495,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 						break;
 				} while(Math.abs(diffVec.mag()) > distance);
 
-				ParticleData data = ParticleData.wisp(0.1F * size, or, og, ob, depth);
+				WispParticleData data = WispParticleData.wisp(0.1F * size, or, og, ob, depth);
 				world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 
 				posX = savedPosX;
@@ -565,10 +569,11 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 				if(!ConfigHandler.CLIENT.subtlePowerSystem.get())
 					for(int i = 0; i < 4; i++) {
-						ParticleData data = ParticleData.wisp(0.15F * size, r, g, b);
+						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
 						world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 					}
-				Botania.proxy.sparkleFX((float) posX, (float) posY, (float) posZ, r, g, b, 4, 2);
+				SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
+				world.addParticle(data, (float) posX, (float) posY, (float) posZ, 0, 0, 0);
 			}
 
 			remove();

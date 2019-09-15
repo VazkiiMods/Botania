@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -19,10 +18,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemBalanceCloak extends ItemHolyCloak {
 
@@ -49,8 +47,11 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 				double y = player.posY + Math.random() * player.getHeight();
 				double z = player.posZ + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean green = Math.random() > 0.5;
-				Botania.proxy.sparkleFX(x, y, z, 0.3F, green ? 1F : 0.3F, green ? 0.3F : 1F, 0.8F + (float) Math.random() * 0.4F, 3);
-			}
+                float g = green ? 1F : 0.3F;
+                float b = green ? 0.3F : 1F;
+                SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, 0.3F, g, b, 3);
+                player.world.addParticle(data, x, y, z, 0, 0, 0);
+            }
 			return true;
 		}
 

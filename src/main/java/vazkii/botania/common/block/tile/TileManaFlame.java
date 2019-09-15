@@ -14,7 +14,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -66,7 +66,7 @@ public class TileManaFlame extends TileMod implements ITickableTileEntity {
 			float s = 0.2F + (float) Math.random() * 0.1F;
 			float m = 0.03F + (float) Math.random() * 0.015F;
 
-            ParticleData data = ParticleData.wisp(s, r, g, b, 1);
+            WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
             world.addParticle(data, x, y, z, 0, m, 0);
         }
 	}

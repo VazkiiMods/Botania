@@ -18,8 +18,6 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -28,10 +26,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
@@ -63,8 +60,10 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
-					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(x + Math.random(), y + Math.random(), z + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
+					for(int i = 0; i < 6; i++) {
+                        SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
+                        world.addParticle(data, x + Math.random(), y + Math.random(), z + Math.random(), 0, 0, 0);
+                    }
 				}
 			}
 		}

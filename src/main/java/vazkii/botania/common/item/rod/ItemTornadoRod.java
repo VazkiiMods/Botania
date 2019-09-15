@@ -28,7 +28,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -77,7 +77,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 					player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++) {
-                        ParticleData data = ParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+                        WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
                         world.addParticle(data, player.posX, player.posY, player.posZ, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
                     }
 				}
@@ -147,7 +147,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 					for(int i = 0; i < 20; i++)
 						for(int j = 0; j < 5; j++) {
-                            ParticleData data = ParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+                            WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
                             world.addParticle(data, p.posX, p.posY + i, p.posZ, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
                         }
 

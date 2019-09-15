@@ -48,7 +48,7 @@ import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -307,10 +307,9 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 						float red = (float) Math.random();
 						float green = (float) Math.random();
 						float blue = (float) Math.random();
-						Botania.proxy.sparkleFX(
-								getPos().getX() + Math.random() * 0.4 - 0.2, getPos().getY(), getPos().getZ() + Math.random() * 0.4 - 0.2,
-								red, green, blue, (float) Math.random(), 10);
-					}
+                        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+                        world.addParticle(data, getPos().getX() + Math.random() * 0.4 - 0.2, getPos().getY(), getPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
+                    }
 					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.enchanterEnchant, SoundCategory.BLOCKS, 1F, 1F, false);
 				}
 				return true;

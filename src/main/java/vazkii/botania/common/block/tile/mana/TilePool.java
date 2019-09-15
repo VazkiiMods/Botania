@@ -13,20 +13,14 @@ package vazkii.botania.common.block.tile.mana;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
@@ -35,8 +29,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
@@ -52,11 +44,10 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.ParticleData;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
@@ -227,9 +218,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 						float red = (float) Math.random();
 						float green = (float) Math.random();
 						float blue = (float) Math.random();
-						Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 0.75, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2,
-									red, green, blue, (float) Math.random(), 10);
-					}
+                        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+                        world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 0.75, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+                    }
 				}
 
 				return true;
@@ -261,7 +252,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(world.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			if(Math.random() > particleChance) {
-				ParticleData data = ParticleData.wisp((float) Math.random() / 3F, PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, 2F);
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, 2F);
 				world.addParticle(data, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 			return;

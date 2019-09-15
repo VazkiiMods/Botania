@@ -12,8 +12,6 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
@@ -21,24 +19,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
@@ -75,10 +69,10 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
-					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(pos.getX() + side.getXOffset() + Math.random(),
-								pos.getY() + side.getYOffset() + Math.random(),
-								pos.getZ() + side.getZOffset() + Math.random(), r, g, b, 1F, 5);
+					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
+					for(int i = 0; i < 6; i++) {
+                        world.addParticle(data, pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), 0, 0, 0);
+                    }
 					return ActionResultType.SUCCESS;
 				}
 			}

@@ -32,7 +32,7 @@ import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -79,8 +79,10 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get())
-			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
+		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
+            SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
+            world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+        }
 	}
 
 	@Override

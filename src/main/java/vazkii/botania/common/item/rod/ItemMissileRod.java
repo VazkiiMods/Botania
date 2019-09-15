@@ -12,10 +12,8 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -27,12 +25,11 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
@@ -67,8 +64,9 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			if(spawnMissile(player.world, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
 				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
 
-			Botania.proxy.sparkleFX(player.posX, player.posY + 2.4, player.posZ, 1F, 0.4F, 1F, 6F, 6);
-		}
+            SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
+            player.world.addParticle(data, player.posX, player.posY + 2.4, player.posZ, 0, 0, 0);
+        }
 	}
 
 	public boolean spawnMissile(World world, LivingEntity thrower, double x, double y, double z) {
@@ -109,8 +107,9 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			if(spawnMissile(world, null, te.getPos().getX() + 0.5 + (Math.random() - 0.5 * 0.1), te.getPos().getY() + 2.5 + (Math.random() - 0.5 * 0.1), te.getPos().getZ() + (Math.random() - 0.5 * 0.1))) {
 				if(!world.isRemote)
 					tile.recieveMana(-COST_AVATAR);
-				Botania.proxy.sparkleFX(te.getPos().getX() + 0.5, te.getPos().getY() + 2.5, te.getPos().getZ() + 0.5, 1F, 0.4F, 1F, 6F, 6);
-			}
+                SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
+                world.addParticle(data, te.getPos().getX() + 0.5, te.getPos().getY() + 2.5, te.getPos().getZ() + 0.5, 0, 0, 0);
+            }
 	}
 
 	@Override

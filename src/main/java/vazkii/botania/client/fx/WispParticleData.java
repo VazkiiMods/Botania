@@ -9,35 +9,29 @@ import net.minecraft.particles.ParticleType;
 import javax.annotation.Nonnull;
 import java.util.Locale;
 
-public class ParticleData implements IParticleData {
-    private final ParticleType<ParticleData> type;
+public class WispParticleData implements IParticleData {
     public final float size;
     public final float r, g, b;
     public final float maxAgeMul;
     public final boolean depthTest;
 
-    public static ParticleData wisp(float size, float r, float g, float b) {
+    public static WispParticleData wisp(float size, float r, float g, float b) {
         return wisp(size, r, g, b, 1);
     }
 
-    public static ParticleData wisp(float size, float r, float g, float b, float maxAgeMul) {
+    public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul) {
         return wisp(size, r, g, b, maxAgeMul, true);
     }
 
-    public static ParticleData wisp(float size, float r, float g, float b, boolean depth) {
+    public static WispParticleData wisp(float size, float r, float g, float b, boolean depth) {
         return wisp(size, r, g, b, 1, depth);
     }
 
-    public static ParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
-        return new ParticleData(ModParticles.WISP, size, r, g, b, maxAgeMul, depthTest);
+    public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
+        return new WispParticleData(size, r, g, b, maxAgeMul, depthTest);
     }
 
-    public static ParticleData sparkle(float size, float r, float g, float b, int maxAgeMul) {
-        return new ParticleData(ModParticles.SPARKLE, size, r, g, b, maxAgeMul, true);
-    }
-
-    private ParticleData(ParticleType<ParticleData> type, float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
-        this.type = type;
+    private WispParticleData(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
         this.size = size;
         this.r = r;
         this.g = g;
@@ -49,8 +43,8 @@ public class ParticleData implements IParticleData {
 
     @Nonnull
     @Override
-    public ParticleType<ParticleData> getType() {
-        return type;
+    public ParticleType<WispParticleData> getType() {
+        return ModParticles.WISP;
     }
 
     @Override
@@ -70,10 +64,10 @@ public class ParticleData implements IParticleData {
                 this.getType().getRegistryName(), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
     }
 
-    public static final IDeserializer<ParticleData> DESERIALIZER = new IDeserializer<ParticleData>() {
+    public static final IDeserializer<WispParticleData> DESERIALIZER = new IDeserializer<WispParticleData>() {
         @Nonnull
         @Override
-        public ParticleData deserialize(@Nonnull ParticleType<ParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+        public WispParticleData deserialize(@Nonnull ParticleType<WispParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
             float size = reader.readFloat();
             reader.expect(' ');
@@ -89,12 +83,12 @@ public class ParticleData implements IParticleData {
                 reader.expect(' ');
                 depth = reader.readBoolean();
             }
-            return new ParticleData(type, size, r, g, b, mam, depth);
+            return new WispParticleData(size, r, g, b, mam, depth);
         }
 
         @Override
-        public ParticleData read(@Nonnull ParticleType<ParticleData> type, PacketBuffer buf) {
-            return new ParticleData(type, buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean());
+        public WispParticleData read(@Nonnull ParticleType<WispParticleData> type, PacketBuffer buf) {
+            return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean());
         }
     };
 }

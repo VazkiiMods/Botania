@@ -47,7 +47,8 @@ import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
@@ -153,7 +154,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
                         float motionx = (float) -x * velMul;
                         float motiony = (float) -y * velMul;
                         float motionz = (float) -z * velMul;
-                        ParticleData data = ParticleData.wisp((float) Math.random() * 0.15F + 0.15F, red, green, blue);
+                        WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, red, green, blue);
                         world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
                     }
 				}
@@ -221,9 +222,8 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			float g = color.getGreen() / 255F;
 			float b = color.getBlue() / 255F;
 
-			Botania.proxy.setSparkleFXNoClip(true);
-			Botania.proxy.sparkleFX(currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.5F, 4);
-			Botania.proxy.setSparkleFXNoClip(false);
+			SparkleParticleData data = SparkleParticleData.noClip(0.5F, r, g, b, 4);
+			world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 			currentPos = currentPos.add(movement);
 		}
 	}

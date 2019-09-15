@@ -24,7 +24,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -78,9 +78,9 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 					float r = color.getRed() / 255F;
 					float g = color.getGreen() / 255F;
 					float b = color.getBlue() / 255F;
-                    ParticleData data1 = ParticleData.wisp(0.05F + (float) Math.random() * 0.02F, r, g, b);
+                    WispParticleData data1 = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, r, g, b);
                     world.addParticle(data1, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.005F, 0.005F - (float) Math.random() * 0.01F);
-                    ParticleData data = ParticleData.wisp(0.05F + (float) Math.random() * 0.02F, 0.2F, 0.2F, 0.2F);
+                    WispParticleData data = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, 0.2F, 0.2F, 0.2F);
                     world.addParticle(data, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
                 }
 			} else {

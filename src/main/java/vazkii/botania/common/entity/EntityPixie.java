@@ -13,19 +13,16 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 
 import javax.annotation.Nonnull;
 
@@ -129,15 +126,22 @@ public class EntityPixie extends FlyingEntity {
 
 		boolean dark = getPixieType() == 1;
 		if(world.isRemote)
-			for(int i = 0; i < 4; i++)
-				Botania.proxy.sparkleFX(posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, dark ? 0.1F : 1F, dark ? 0.025F : 0.25F, dark ? 0.09F : 0.9F, 0.1F + (float) Math.random() * 0.25F, 12);
+			for(int i = 0; i < 4; i++) {
+                float r = dark ? 0.1F : 1F;
+                float g = dark ? 0.025F : 0.25F;
+                float b = dark ? 0.09F : 0.9F;
+                SparkleParticleData data = SparkleParticleData.sparkle(0.1F + (float) Math.random() * 0.25F, r, g, b, 12);
+                world.addParticle(data, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+            }
 	}
 
 	@Override
 	public void remove() {
 		if(world != null && world.isRemote && getPixieType() == 0)
-			for(int i = 0; i < 12; i++)
-				Botania.proxy.sparkleFX(posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 1F + (float) Math.random() * 0.25F, 5);
+			for(int i = 0; i < 12; i++) {
+                SparkleParticleData data = SparkleParticleData.sparkle(1F + (float) Math.random() * 0.25F, 1F, 0.25F, 0.9F, 5);
+                world.addParticle(data, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+            }
 		super.remove();
 	}
 

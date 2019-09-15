@@ -259,53 +259,6 @@ public class ClientProxy implements IProxy {
 		}
 	}
 
-	private static boolean noclipEnabled = false;
-	private static boolean corruptSparkle = false;
-
-	@Override
-	public void setSparkleFXNoClip(boolean noclip) {
-		noclipEnabled = noclip;
-	}
-
-	@Override
-	public void setSparkleFXCorrupt(boolean corrupt) {
-		corruptSparkle = corrupt;
-	}
-
-	@Override
-	public void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		if(!doParticle() && !fake)
-			return;
-
-		FXSparkle sparkle = new FXSparkle(Minecraft.getInstance().world, x, y, z, size, r, g, b, m);
-		sparkle.fake = fake;
-		sparkle.setCanCollide(!fake);
-		if(noclipEnabled)
-			sparkle.setCanCollide(false);
-		if(corruptSparkle)
-			sparkle.corrupt = true;
-		Minecraft.getInstance().particles.addEffect(sparkle);
-	}
-
-	private static boolean distanceLimit = true;
-	private static boolean depthTest = true;
-
-	private boolean doParticle() {
-		if(Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-			return false;
-
-		if(!ConfigHandler.CLIENT.useVanillaParticleLimiter.get())
-			return true;
-
-		float chance = 1F;
-		if(Minecraft.getInstance().gameSettings.particles == ParticleStatus.DECREASED)
-			chance = 0.6F;
-		else if(Minecraft.getInstance().gameSettings.particles == ParticleStatus.MINIMAL)
-			chance = 0.2F;
-
-		return chance == 1F || Math.random() < chance;
-	}
-
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		Minecraft.getInstance().particles.addEffect(new FXLightning(Minecraft.getInstance().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));

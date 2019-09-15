@@ -15,7 +15,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,9 +24,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.api.item.AccessoryRenderHelper;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCloak;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -109,8 +108,12 @@ public class ItemHolyCloak extends ItemBauble {
 				double y = player.posY + Math.random() * player.getHeight();
 				double z = player.posZ + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean yellow = Math.random() > 0.5;
-				Botania.proxy.sparkleFX(x, y, z, yellow ? 1F : 0.3F, yellow ? 1F : 0.3F, yellow ? 0.3F : 1F, 0.8F + (float) Math.random() * 0.4F, 3);
-			}
+                float r = yellow ? 1F : 0.3F;
+                float g = yellow ? 1F : 0.3F;
+                float b = yellow ? 0.3F : 1F;
+                SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, r, g, b, 3);
+                player.world.addParticle(data, x, y, z, 0, 0, 0);
+            }
 			return true;
 		}
 

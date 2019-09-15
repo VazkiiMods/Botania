@@ -18,16 +18,13 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EnderPearlEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,27 +34,23 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
-import vazkii.botania.client.fx.ParticleData;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibEntityNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileLightRelay extends TileMod implements ITickableTileEntity, IWandBindable {
@@ -117,7 +110,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 						mul = Math.min(maxMul, mul + mulPer);
 						double rad = radPer * (i + ticksElapsed * 0.4);
 						Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-						ParticleData data = ParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
+						WispParticleData data = WispParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
 						world.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
 						vecTip = vecTip.add(vecMag);
 					}
@@ -329,8 +322,9 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					double sin = Math.sin(rad);
 					double s = 0.4;
 
-					Botania.proxy.sparkleFX(posX + cos * s, posY - 0.5, posZ + sin * s, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1.2F, 10);
-				}
+                    SparkleParticleData data = SparkleParticleData.sparkle(1.2F, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 10);
+                    world.addParticle(data, posX + cos * s, posY - 0.5, posZ + sin * s, 0, 0, 0);
+                }
 
 				posX += motVec.x;
 				posY += motVec.y;

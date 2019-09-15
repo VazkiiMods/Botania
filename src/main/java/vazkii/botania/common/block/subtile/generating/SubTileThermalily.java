@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -42,7 +42,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void doBurnParticles() {
-        ParticleData data = ParticleData.wisp((float) Math.random() / 6, 0.7F, 0.05F, 0.05F, 1);
+        WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.7F, 0.05F, 0.05F, 1);
         world.addParticle(data, getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
     }
 

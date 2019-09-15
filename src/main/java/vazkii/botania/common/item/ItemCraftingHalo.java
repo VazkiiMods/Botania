@@ -53,7 +53,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -195,8 +195,8 @@ public class ItemCraftingHalo extends ItemMod {
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 		float m = 0.1F;
 		for(int i = 0; i < 4; i++) {
-            ParticleData data = ParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
-            world.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+            WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
+            player.world.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
         }
 	}
 

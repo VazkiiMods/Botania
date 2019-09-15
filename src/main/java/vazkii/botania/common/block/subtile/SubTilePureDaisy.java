@@ -22,9 +22,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.client.fx.ParticleData;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -70,8 +69,9 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if ((activePositions >>> i & 1) > 0) {
 					BlockPos coords = getPos().add(POSITIONS[i]);
-					Botania.proxy.sparkleFX(coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
-				}
+                    SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
+                    world.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
+                }
 			}
 
 			return;
@@ -146,7 +146,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 						double y = coords.getY() + Math.random() + 0.5;
 						double z = coords.getZ() + Math.random();
 
-						ParticleData data = ParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
+						WispParticleData data = WispParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
 						getWorld().addParticle(data, x, y, z, 0, 0, 0);
 					}
 				}

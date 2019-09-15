@@ -32,7 +32,8 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -122,8 +123,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 						float red = (float) Math.random();
 						float green = (float) Math.random();
 						float blue = (float) Math.random();
-						Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-					}
+                        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+                        world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+                    }
 					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.runeAltarCraft, SoundCategory.BLOCKS, 1, 1, false);
 				}
 				return true;
@@ -169,7 +171,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			}
 
 			if (cooldown > 0) {
-                ParticleData data = ParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
+                WispParticleData data = WispParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
                 world.addParticle(data, pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0, - -0.025F, 0);
             }
 		}

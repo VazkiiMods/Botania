@@ -28,7 +28,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
@@ -55,7 +55,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(getWorld().rand.nextInt(4) == 0) {
-            ParticleData data = ParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
+            WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
             world.addParticle(data, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
         }
 

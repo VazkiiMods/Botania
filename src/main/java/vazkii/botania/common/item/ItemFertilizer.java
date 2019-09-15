@@ -15,7 +15,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.client.fx.ParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -62,7 +62,7 @@ public class ItemFertilizer extends ItemMod {
 				float red = (float) Math.random();
 				float green = (float) Math.random();
 				float blue = (float) Math.random();
-                ParticleData data = ParticleData.wisp(0.15F + (float) Math.random() * 0.25F, red, green, blue, 1);
+                WispParticleData data = WispParticleData.wisp(0.15F + (float) Math.random() * 0.25F, red, green, blue, 1);
                 world.addParticle(data, x, y, z, 0, (float) Math.random() * 0.1F - 0.05F, 0);
             }
 		}
