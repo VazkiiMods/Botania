@@ -84,17 +84,7 @@ public class SubTileOrechid extends SubTileFunctional {
 
 		for(ItemStack stack : ores) {
 			Item item = stack.getItem();
-			String clname = item.getClass().getName();
-
-			// This poem is dedicated to Greg
-			//
-			// Greg.
-			// I get what you do when
-			// others say it's a grind.
-			// But take your TE ores
-			// and stick them in your behind.
-			if(clname.startsWith("gregtech") || clname.startsWith("gregapi"))
-				continue;
+			
 			if(!(item instanceof ItemBlock))
 				continue;
 
