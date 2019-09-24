@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.solegnolia1",
-      "recipes": [
-        "botania:solegnolia"
-      ]
+      "recipe": "botania:solegnolia"
     }
   ]
 }

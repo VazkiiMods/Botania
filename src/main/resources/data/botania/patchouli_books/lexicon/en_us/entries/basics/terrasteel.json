@@ -19,11 +19,11 @@
     {
       "type": "multiblock",
       "multiblock_id": "botania:terra_plate",
-      "symmetrical": true,
-      "text": "botania.page.terrasteel4"
+      "text": "botania.page.terrasteel4",
+      "symmetrical": true
     },
     {
-      "type": "tmp_terrasteel",
+      "type": "terrasteel",
       "text": "botania.page.terrasteel3"
     }
   ]

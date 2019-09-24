@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.jadedAmaranthus1",
-      "recipes": [
-        "botania:jaded_amaranthus"
-      ]
+      "recipe": "botania:jaded_amaranthus"
     },
     {
       "type": "text",

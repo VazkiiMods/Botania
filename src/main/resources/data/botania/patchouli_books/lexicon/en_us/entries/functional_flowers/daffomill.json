@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.daffomill1",
-      "recipes": [
-        "botania:daffomill"
-      ]
+      "recipe": "botania:daffomill"
     }
   ]
 }

@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.bellethorne1",
-      "recipes": [
-        "botania:bellethorn"
-      ]
+      "recipe": "botania:bellethorn"
     }
   ]
 }

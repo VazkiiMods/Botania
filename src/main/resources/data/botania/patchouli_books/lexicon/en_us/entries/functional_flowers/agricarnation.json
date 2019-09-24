@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.agricarnation1",
-      "recipes": [
-        "botania:agricarnation"
-      ]
+      "recipe": "botania:agricarnation"
     }
   ]
 }

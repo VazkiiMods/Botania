@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.fallenKanade1",
-      "recipes": [
-        "botania:fallen_kanade"
-      ]
+      "recipe": "botania:fallen_kanade"
     }
   ]
 }

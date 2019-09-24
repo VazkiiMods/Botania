@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.clayconia1",
-      "recipes": [
-        "botania:clayconia"
-      ]
+      "recipe": "botania:clayconia"
     }
   ]
 }

@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.orechid1",
-      "recipes": [
-        "botania:orechid"
-      ]
+      "recipe": "botania:orechid"
     }
   ]
 }

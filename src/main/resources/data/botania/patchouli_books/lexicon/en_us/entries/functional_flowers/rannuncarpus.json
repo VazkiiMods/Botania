@@ -14,9 +14,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.rannuncarpus2",
-      "recipes": [
-        "botania:rannuncarpus"
-      ]
+      "recipe": "botania:rannuncarpus"
     }
   ]
 }

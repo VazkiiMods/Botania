@@ -17,9 +17,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.hydroangeas1",
-      "recipes": [
-        "botania:hydroangeas"
-      ]
+      "recipe": "botania:hydroangeas"
     }
   ]
 }

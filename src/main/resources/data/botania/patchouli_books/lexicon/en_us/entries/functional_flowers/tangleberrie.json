@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.tangleberrie1",
-      "recipes": [
-        "botania:tangleberrie"
-      ]
+      "recipe": "botania:tangleberrie"
     }
   ]
 }

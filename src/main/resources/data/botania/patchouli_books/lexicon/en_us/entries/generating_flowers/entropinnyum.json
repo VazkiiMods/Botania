@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.entropinnyum1",
-      "recipes": [
-        "botania:entropinnyum"
-      ]
+      "recipe": "botania:entropinnyum"
     }
   ]
 }

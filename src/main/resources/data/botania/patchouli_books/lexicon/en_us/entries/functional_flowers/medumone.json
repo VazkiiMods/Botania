@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.medumone1",
-      "recipes": [
-        "botania:medumone"
-      ]
+      "recipe": "botania:medumone"
     }
   ]
 }

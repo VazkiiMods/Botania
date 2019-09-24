@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.heiseiDream1",
-      "recipes": [
-        "botania:heisei_dream"
-      ]
+      "recipe": "botania:heisei_dream"
     }
   ]
 }

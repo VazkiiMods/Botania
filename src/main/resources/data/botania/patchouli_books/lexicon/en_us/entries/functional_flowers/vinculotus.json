@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.vinculotus1",
-      "recipes": [
-        "botania:vinculotus"
-      ]
+      "recipe": "botania:vinculotus"
     }
   ]
 }

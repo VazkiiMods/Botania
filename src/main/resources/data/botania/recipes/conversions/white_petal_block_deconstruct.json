@@ -3,6 +3,7 @@
     "item": "botania:white_petal",
     "count": 9
   },
+  "group": "botania:petal_block_deconstruct",
   "ingredients": [
     {
       "item": "botania:white_petal_block"
