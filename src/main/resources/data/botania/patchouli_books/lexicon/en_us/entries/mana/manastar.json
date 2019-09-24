@@ -11,9 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.manastar1",
-      "recipes": [
-        "botania:manastar"
-      ]
+      "recipe": "botania:manastar"
     }
   ]
 }

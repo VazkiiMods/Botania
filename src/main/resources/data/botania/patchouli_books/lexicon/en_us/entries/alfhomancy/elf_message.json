@@ -5,35 +5,38 @@
   "priority": true,
   "pages": [
     {
-      "type": "image",
-      "text": "botania.page.elfMessage0",
-      "images": [
-        "botania:textures/gui/entries/elven_garde.png"
-      ]
+      "type": "lore_page",
+      "elven_garde": "true"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfMessage1"
+      "type": "lore_page",
+      "text": "botania.page.elfMessage1",
+      "right_side": "true"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfMessage2"
+      "type": "lore_page",
+      "text": "botania.page.elfMessage2",
+      "left_side": "true"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfMessage3"
+      "type": "lore_page",
+      "text": "botania.page.elfMessage3",
+      "right_side": "true"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfMessage4"
+      "type": "lore_page",
+      "text": "botania.page.elfMessage4",
+      "left_side": "true"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfMessage5"
+      "type": "lore_page",
+      "text": "botania.page.elfMessage5",
+      "right_side": "true"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfMessage6"
+      "type": "lore_page",
+      "text": "botania.page.elfMessage6",
+      "left_side": "true"
     }
   ]
 }

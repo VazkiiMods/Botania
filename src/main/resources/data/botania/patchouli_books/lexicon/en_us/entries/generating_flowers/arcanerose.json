@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.arcanerose1",
-      "recipes": [
-        "botania:rosa_arcana"
-      ]
+      "recipe": "botania:rosa_arcana"
     }
   ]
 }

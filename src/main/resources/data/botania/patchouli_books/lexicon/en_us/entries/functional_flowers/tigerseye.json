@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.tigerseye1",
-      "recipes": [
-        "botania:tigerseye"
-      ]
+      "recipe": "botania:tigerseye"
     }
   ]
 }

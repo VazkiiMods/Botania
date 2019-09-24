@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.jiyuulia1",
-      "recipes": [
-        "botania:jiyuulia"
-      ]
+      "recipe": "botania:jiyuulia"
     }
   ]
 }

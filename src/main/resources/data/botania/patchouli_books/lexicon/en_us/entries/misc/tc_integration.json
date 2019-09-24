@@ -23,9 +23,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.tcIntegration4",
-      "recipes": [
-        "botania:dummy"
-      ]
+      "recipes": "botania:dummy"
     },
     {
       "type": "text",
@@ -33,7 +31,8 @@
     },
     {
       "type": "brew",
-      "text": "botania.page.tcIntegration6b",
+      "text": "botania.page.tcIntegration6a",
+      "flavor": "botania.page.tcIntegration6b",
       "recipe": "botania:dummy"
     }
   ]

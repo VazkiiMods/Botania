@@ -169,12 +169,10 @@
       "text": "botania.page.lens36"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.lens37",
-      "recipes": [
-        "botania:lens_light",
-        "botania:lens_light_alt"
-      ]
+      "recipe": "botania:lens_light",
+      "recipe2": "botania:lens_light_alt"
     }
   ]
 }

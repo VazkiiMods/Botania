@@ -11,9 +11,7 @@
     {
       "type": "elven_trade",
       "text": "botania.page.elfResources1",
-      "recipes": [
-        "botania:dreamwood"
-      ]
+      "recipes": "botania:dreamwood"
     },
     {
       "type": "text",
@@ -27,25 +25,17 @@
     {
       "type": "elven_trade",
       "text": "botania.page.elfResources3",
-      "recipes": [
-        "botania:elementium",
-        "botania:elementium_block"
-      ]
+      "recipes": "botania:elementium;botania:elementium_block"
     },
     {
       "type": "elven_trade",
       "text": "botania.page.elfResources4",
-      "recipes": [
-        "botania:pixie_dust"
-      ]
+      "recipes": "botania:pixie_dust"
     },
     {
       "type": "elven_trade",
       "text": "botania.page.elfResources5",
-      "recipes": [
-        "botania:dragonstone",
-        "botania:dragonstone_block"
-      ]
+      "recipes": "botania:dragonstone;botania:dragonstone_block"
     },
     {
       "type": "text",
@@ -54,9 +44,7 @@
     {
       "type": "elven_trade",
       "text": "botania.page.elfResources7",
-      "recipes": [
-        "botania:elf_quartz"
-      ]
+      "recipes": "botania:elf_quartz"
     },
     {
       "type": "text",
@@ -65,9 +53,7 @@
     {
       "type": "elven_trade",
       "text": "botania.page.elfResources9",
-      "recipes": [
-        "botania:elf_glass"
-      ]
+      "recipes": "botania:elf_glass"
     }
   ]
 }

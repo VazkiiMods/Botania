@@ -12,12 +12,10 @@
       "text": "botania.page.redString1"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.redString2",
-      "recipes": [
-        "botania:red_string",
-        "botania:red_string_alt"
-      ]
+      "recipe": "botania:red_string",
+      "recipe2": "botania:red_string_alt"
     },
     {
       "type": "text",

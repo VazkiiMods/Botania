@@ -1,0 +1,49 @@
+{
+  "components": [
+    {
+      "type": "image",
+      "image": "botania:textures/gui/terrasteel_overlay.png",
+      "x": 50,
+      "y": 28,
+      "width": 15,
+      "height": 29,
+      "u": 65,
+      "v": 48
+    },
+    {
+      "type": "item",
+      "item": "botania:manasteel_ingot",
+      "x": 50,
+      "y": 60
+    },
+    {
+      "type": "item",
+      "item": "botania:mana_pearl",
+      "x": 31,
+      "y": 66
+    },
+    {
+      "type": "item",
+      "item": "botania:mana_diamond",
+      "x": 69,
+      "y": 66
+    },
+    {
+      "type": "item",
+      "item": "botania:terrasteel_ingot",
+      "x": 50,
+      "y": 10
+    },
+    {
+      "type": "custom",
+      "class": "vazkii.botania.client.patchouli.component.TerraPlateComponent",
+      "x": 36,
+      "y": 80
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": 120
+    }
+  ]
+}

@@ -18,9 +18,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.endoflame2",
-      "recipes": [
-        "botania:endoflame"
-      ]
+      "recipe": "botania:endoflame"
     }
   ]
 }

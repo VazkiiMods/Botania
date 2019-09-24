@@ -59,6 +59,7 @@ public class RecipePetals implements IModRecipe {
 		return ingredientsMissing.isEmpty();
 	}
 
+	@Override
 	public ResourceLocation getId() {
 		return id;
 	}

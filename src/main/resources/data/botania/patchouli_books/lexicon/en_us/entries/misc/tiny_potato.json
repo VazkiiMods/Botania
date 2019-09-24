@@ -14,9 +14,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.tinyPotato1",
-      "recipes": [
-        "botania:tiny_potato"
-      ]
+      "recipes": "botania:tiny_potato"
     }
   ]
 }

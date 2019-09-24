@@ -8,12 +8,10 @@
       "text": "botania.page.decorativeBlocks0"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.decorativeBlocks1",
-      "recipes": [
-        "botania:slab_recombine/livingrock_bricks",
-        "botania:livingrock_bricks"
-      ]
+      "recipe": "botania:slab_recombine/livingrock_bricks",
+      "recipe2": "botania:livingrock_bricks"
     },
     {
       "type": "crafting",
@@ -31,12 +29,10 @@
       "recipe": "botania:chiseled_livingrock_bricks"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.decorativeBlocks5",
-      "recipes": [
-        "botania:slab_recombine/livingwood_planks",
-        "botania:livingwood_planks"
-      ]
+      "recipe": "botania:slab_recombine/livingwood_planks",
+      "recipe2": "botania:livingwood_planks"
     },
     {
       "type": "crafting",
@@ -70,10 +66,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.decorativeBlocks12",
-      "recipes": [
-        "botania:mana_quartz_deconstruct",
-        "botania:mana_quartz"
-      ]
+      "recipes": "botania:mana_quartz"
     },
     {
       "type": "crafting",

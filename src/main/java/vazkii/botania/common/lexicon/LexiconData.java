@@ -54,6 +54,8 @@ import vazkii.botania.common.lib.LibLexicon;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -967,8 +969,8 @@ public final class LexiconData {
 
 		laputaShard = new AlfheimLexiconEntry(LibLexicon.TOOL_LAPUTA_SHARD, categoryTools);
 		laputaShard.setLexiconPages(new PageText("0"), new PageText("2"),
-				new PageCraftingRecipe("1", inGroup("laputashard_upgrade").negate(), ModItems.laputaShard),
-				new PageCraftingRecipe("3", inGroup("laputashard_upgrade"), ModItems.laputaShard));
+				new PageCraftingRecipe("1", inGroup("laputa_shard_upgrade").negate(), ModItems.laputaShard),
+				new PageCraftingRecipe("3", inGroup("laputa_shard_upgrade"), ModItems.laputaShard));
 
 		virus = new AlfheimLexiconEntry(LibLexicon.TOOL_VIRUS, categoryTools);
 		virus.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModItems.necroVirus),
@@ -1110,8 +1112,8 @@ public final class LexiconData {
 
 		flightTiara = new AlfheimLexiconEntry(LibLexicon.ENDER_FLIGHT_TIARA, categoryEnder);
 		flightTiara.setLexiconPages(new PageText("0"), new PageText("4"), new PageText("5"), new PageText("6"),
-				new PageCraftingRecipe("1", inGroup("flighttiara_wings").negate(), ModItems.flightTiara), new PageText("2"),
-				new PageCraftingRecipe("3", inGroup("flighttiara_wings"), ModItems.flightTiara));
+				new PageCraftingRecipe("1", inGroup("flight_tiara_wings").negate(), ModItems.flightTiara), new PageText("2"),
+				new PageCraftingRecipe("3", inGroup("flight_tiara_wings"), ModItems.flightTiara));
 
 		corporea = new AlfheimLexiconEntry(LibLexicon.ENDER_CORPOREA, categoryEnder);
 		corporea.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"),
@@ -1456,10 +1458,15 @@ public final class LexiconData {
 		}
 		Botania.LOGGER.info("Reloaded lexicon in {}", stopwatch.stop());
 
-		Botania.LOGGER.info("Dumping lexicon entries");
-		for (LexiconEntry e : BotaniaAPI.getAllEntries()) {
-		    e.dump();
-        }
+		File dir = Paths.get(".", "entries").toFile();
+		if(!dir.exists()) {
+			Botania.LOGGER.info("Dumping lexicon entries");
+			for (LexiconEntry e : BotaniaAPI.getAllEntries()) {
+				e.dump();
+			}
+		} else {
+			Botania.LOGGER.info("Preexisting file {}, aborting lexicon dump", dir.getAbsolutePath());
+		}
 	}
 
 	private static Predicate<IRecipe<?>> GOG_RECIPE = recipe -> recipe.getId().getPath().contains("garden_of_glass");

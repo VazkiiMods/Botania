@@ -18,9 +18,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.spectranthemum3",
-      "recipes": [
-        "botania:spectranthemum"
-      ]
+      "recipe": "botania:spectranthemum"
     }
   ]
 }

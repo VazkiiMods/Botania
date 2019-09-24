@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.bergamute1",
-      "recipes": [
-        "botania:bergamute"
-      ]
+      "recipe": "botania:bergamute"
     }
   ]
 }

@@ -189,7 +189,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 			}
 		}
 		if(list.isEmpty()) {
-			Botania.LOGGER.warn("Could not find mana infusion recipes for items {}, using dummy", (Object) outputItems);
+			Botania.LOGGER.warn("Could not find mana infusion recipes for items {}, using dummy for {}", (Object) outputItems, this.unlocalizedName);
 			return DUMMY;
 		} else {
 			list.sort((r1, r2) -> {

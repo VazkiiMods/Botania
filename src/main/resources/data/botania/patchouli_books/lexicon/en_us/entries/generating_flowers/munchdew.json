@@ -14,9 +14,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.munchdew2",
-      "recipes": [
-        "botania:munchdew"
-      ]
+      "recipe": "botania:munchdew"
     }
   ]
 }

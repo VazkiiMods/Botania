@@ -8,31 +8,31 @@
       "text": "botania.page.elvenLore0"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore1"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore2"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore3"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore4"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore5"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore6"
     },
     {
-      "type": "text",
+      "type": "lore_page",
       "text": "botania.page.elvenLore7"
     }
   ]

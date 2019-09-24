@@ -179,7 +179,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			}
 		}
 		if(list.isEmpty()) {
-			Botania.LOGGER.info("Could not find mana infusion recipes for items {}, using dummy", (Object) this.outputItems);
+			Botania.LOGGER.info("Could not find crafting recipes for items {}, using dummy for {}", (Object) this.outputItems, this.unlocalizedName);
 			return DUMMY;
 		} else {
 			list.sort((r1, r2) -> {

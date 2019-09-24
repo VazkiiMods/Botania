@@ -62,6 +62,7 @@ public class RecipeRuneAltar implements IModRecipe {
 		return ingredientsMissing.isEmpty();
 	}
 
+	@Override
 	public ResourceLocation getId() {
 		return id;
 	}

@@ -10,9 +10,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.dreadthorne1",
-      "recipes": [
-        "botania:dreadthorn"
-      ]
+      "recipe": "botania:dreadthorn"
     }
   ]
 }

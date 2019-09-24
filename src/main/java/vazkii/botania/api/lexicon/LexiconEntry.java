@@ -10,21 +10,25 @@
  */
 package vazkii.botania.api.lexicon;
 
+import com.google.common.base.CaseFormat;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.IModRecipe;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
+import vazkii.botania.common.lexicon.page.PageLoreText;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
+import vazkii.botania.common.lexicon.page.PageModRecipe;
+import vazkii.botania.common.lexicon.page.PageMultiblock;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
-import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
@@ -34,17 +38,14 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -119,62 +120,82 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	}
 
 	public void dump() {
-		File dir = Paths.get(".", "entries", category.getUnlocalizedName().substring(LibLexicon.CATEGORY_PREFIX.length())).toFile();
+		Map<String, String> multiblocks = ImmutableMap.<String, String>builder()
+				.put("botania.page.terrasteel4", "botania:terra_plate")
+				.put("botania.page.manaEnchanting2", "botania:enchanter")
+				.put("botania.page.aIntro4", "botania:alfheim_portal")
+				.put("botania.page.gaiaRitual2", "botania:gaia_ritual").build();
+
+		File dir = Paths.get(".", "entries", fixCamelCase(category.getUnlocalizedName().substring(LibLexicon.CATEGORY_PREFIX.length()))).toFile();
 		if(!dir.exists())
 			dir.mkdirs();
-		File f = new File(dir, this.unlocalizedName + ".json");
+		File f = new File(dir, fixCamelCase(this.unlocalizedName) + ".json");
 		if (f.exists())
 			throw new RuntimeException("preexisting file " + f.getAbsolutePath());
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		Type typ = new TypeToken<Map<String, Object>>() {}.getType();
 		try (OutputStreamWriter os = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(f)))) {
 			Map<String, Object> entry = new LinkedHashMap<>();
 			entry.put("name", this.getUnlocalizedName());
-			entry.put("category", category.getUnlocalizedName().substring("botania.category.".length()));
+			entry.put("category", fixCamelCase(category.getUnlocalizedName().substring("botania.category.".length())));
 			entry.put("icon", getIcon().getItem().getRegistryName().toString());
 			if (isPriority())
 				entry.put("priority", true);
 			List<Object> pages = new ArrayList<>();
 			for(LexiconPage page : this.pages) {
 				Map<String, Object> json = new LinkedHashMap<>();
+				String unlocalizedName = page.getUnlocalizedName();
 				if (page instanceof PageText) {
-					json.put("type", "text");
-					json.put("text", page.getUnlocalizedName());
+					json.put("type", page instanceof PageLoreText ? "lore_page" : "text");
+					json.put("text", unlocalizedName);
 				} else if (page instanceof PageImage) {
 					json.put("type", "image");
-					json.put("text", page.getUnlocalizedName());
+					json.put("text", unlocalizedName);
 					json.put("images", Collections.singletonList(((PageImage) page).resource.toString()));
 				} else if (page instanceof PageCraftingRecipe) {
 				    List<IRecipe<?>> recipes = ((PageCraftingRecipe) page).getRecipes();
-					json.put("type", recipes.size() == 1 ? "crafting" : "crafting_multi");
-					json.put("text", page.getUnlocalizedName());
-					if (recipes.size() == 1)
+					json.put("type", recipes.size() <= 2 ? "crafting" : "crafting_multi");
+					json.put("text", unlocalizedName);
+					if (recipes.size() <= 2) {
 						json.put("recipe", recipes.get(0).getId().toString());
-					else
-						json.put("recipes", recipes.stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+						if(recipes.size() == 2) 
+							json.put("recipe2", recipes.get(1).getId().toString());
+					} else
+						json.put("recipes", recipes.stream().map(r -> r.getId().toString()).collect(Collectors.joining(";")));
 				} else if (page instanceof PageManaInfusionRecipe) {
 					json.put("type", "mana_infusion");
-					json.put("text", page.getUnlocalizedName());
-					json.put("recipes", ((PageManaInfusionRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
-				} else if (page instanceof PagePetalRecipe) {
-					json.put("type", "petal_apothecary");
-					json.put("text", page.getUnlocalizedName());
-					json.put("recipes", ((PagePetalRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
-				} else if (page instanceof PageRuneRecipe) {
-					json.put("type", "runic_altar");
-					json.put("text", page.getUnlocalizedName());
-					json.put("recipes", ((PageRuneRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+					json.put("text", unlocalizedName);
+					json.put("recipes", ((PageManaInfusionRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.joining(";")));
+				} else if (page instanceof PageModRecipe) {
+					json.put("type", page instanceof PagePetalRecipe ? "petal_apothecary" : "runic_altar");
+					json.put("text", unlocalizedName);
+					List<String> strings = ((PageModRecipe<? extends IModRecipe>) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList());
+					if(strings.size() == 1) {
+						json.put("recipe", strings.get(0));
+					} else {
+						json.put("recipes", strings);
+					}
 				} else if (page instanceof PageElvenRecipe) {
 					json.put("type", "elven_trade");
-					json.put("text", page.getUnlocalizedName());
-					json.put("recipes", ((PageElvenRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.toList()));
+					json.put("text", unlocalizedName);
+					json.put("recipes", ((PageElvenRecipe) page).getRecipes().stream().map(r -> r.getId().toString()).collect(Collectors.joining(";")));
 				} else if (page instanceof PageBrew) {
 					json.put("type", "brew");
-					json.put("text", page.getUnlocalizedName());
-					json.put("recipe", ((PageBrew) page).recipe.getId());
+					json.put("text", ((PageBrew) page).text);
+					json.put("flavor", unlocalizedName);
+					json.put("recipe", ((PageBrew) page).recipe.getId().toString());
+				} else if (page instanceof PageMultiblock) {
+					json.put("type", "multiblock");
+					json.put("multiblock_id", multiblocks.get(unlocalizedName));
+					json.put("text", unlocalizedName);
+					if (unlocalizedName.contains("terrasteel") || unlocalizedName.contains("aIntro")) {
+						json.put("symmetrical", true);
+					}
+				} else if(page instanceof PageTerrasteel) {
+					json.put("type", "terrasteel");
+					json.put("text", unlocalizedName);
 				} else {
-					json.put("type", "_unknown_" + page.getClass().getSimpleName());
-					json.put("text", page.getUnlocalizedName());
+					json.put("type", "_unknown_" + page.getClass().getSimpleName().toLowerCase(Locale.ROOT));
+					json.put("text", unlocalizedName);
 				}
 				pages.add(json);
 			}
@@ -183,6 +204,17 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static String fixCamelCase(String s) {
+		if(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS.equals(s)) {
+			return "functional_flowers";
+		} else if(LibLexicon.CATEGORY_GENERATION_FLOWERS.equals(s)) {
+			return "generating_flowers";
+		} else if(s.length() == 6 && s.endsWith("Intro")) {
+			return "intro";
+		}
+		return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s);
 	}
 
 	/**

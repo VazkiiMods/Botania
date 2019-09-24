@@ -12,35 +12,14 @@
       "text": "botania.page.laputaShard2"
     },
     {
-      "type": "crafting_multi",
+      "type": "crafting",
       "text": "botania.page.laputaShard1",
-      "recipes": [
-        "botania:laputa_shard_2",
-        "botania:laputa_shard_1",
-        "botania:laputa_shard_4",
-        "botania:laputa_shard_3",
-        "botania:laputa_shard_0",
-        "botania:laputa_shard_9",
-        "botania:laputa_shard_6",
-        "botania:laputa_shard_5",
-        "botania:laputa_shard_8",
-        "botania:laputa_shard_7",
-        "botania:laputa_shard_11",
-        "botania:laputa_shard_10",
-        "botania:laputa_shard_13",
-        "botania:laputa_shard_12",
-        "botania:laputa_shard_19",
-        "botania:laputa_shard_18",
-        "botania:laputa_shard_15",
-        "botania:laputa_shard_14",
-        "botania:laputa_shard_17",
-        "botania:laputa_shard_16"
-      ]
+      "recipe": "botania:laputa_shard_0"
     },
     {
-      "type": "crafting",
+      "type": "crafting_multi",
       "text": "botania.page.laputaShard3",
-      "recipe": "botania:dummy"
+      "recipes": "botania:laputa_shard_2;botania:laputa_shard_1;botania:laputa_shard_4;botania:laputa_shard_3;botania:laputa_shard_9;botania:laputa_shard_6;botania:laputa_shard_5;botania:laputa_shard_8;botania:laputa_shard_7;botania:laputa_shard_11;botania:laputa_shard_10;botania:laputa_shard_13;botania:laputa_shard_12;botania:laputa_shard_19;botania:laputa_shard_18;botania:laputa_shard_15;botania:laputa_shard_14;botania:laputa_shard_17;botania:laputa_shard_16"
     }
   ]
 }

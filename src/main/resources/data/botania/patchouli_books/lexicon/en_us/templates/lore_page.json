@@ -1,0 +1,42 @@
+{
+  "components": [
+    {
+      "type": "image",
+      "image": "botania:textures/gui/paper_left.png",
+      "guard": "#left_side->exists",
+      "x": -5,
+      "y": -10,
+      "width": 123,
+      "height": 163,
+      "u": 13,
+      "v": 9
+    },
+    {
+      "type": "image",
+      "image": "botania:textures/gui/paper.png",
+      "guard": "#right_side->exists",
+      "x": -5,
+      "y": -10,
+      "width": 123,
+      "height": 163,
+      "u": 13,
+      "v": 9
+    },
+    {
+      "type": "image",
+      "image": "botania:textures/gui/entries/elven_garde_left.png",
+      "guard": "#elven_garde->exists",
+      "x": -5,
+      "y": -10,
+      "width": 123,
+      "height": 163,
+      "u": 13,
+      "v": 9
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": -4
+    }
+  ]
+}

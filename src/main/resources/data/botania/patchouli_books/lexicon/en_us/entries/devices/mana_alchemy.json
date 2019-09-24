@@ -15,235 +15,132 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy2",
-      "recipes": [
-        "botania:rotten_flesh_to_leather"
-      ]
+      "recipes": "botania:rotten_flesh_to_leather"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy3",
-      "recipes": [
-        "botania:birch_to_jungle_log",
-        "botania:oak_to_spruce_log",
-        "botania:dark_oak_to_oak_log",
-        "botania:spruce_to_birch_log",
-        "botania:jungle_to_acacia_log",
-        "botania:acacia_to_dark_oak_log"
-      ]
+      "recipes": "botania:spruce_to_birch_log;botania:birch_to_jungle_log;botania:acacia_to_dark_oak_log;botania:oak_to_spruce_log;botania:jungle_to_acacia_log;botania:dark_oak_to_oak_log"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy4",
-      "recipes": [
-        "botania:acacia_to_dark_oak_sapling",
-        "botania:birch_to_jungle_sapling",
-        "botania:dark_oak_to_oak_sapling",
-        "botania:oak_to_spruce_sapling",
-        "botania:jungle_to_acacia_sapling",
-        "botania:spruce_to_birch_sapling"
-      ]
+      "recipes": "botania:birch_to_jungle_sapling;botania:oak_to_spruce_sapling;botania:jungle_to_acacia_sapling;botania:acacia_to_dark_oak_sapling;botania:spruce_to_birch_sapling;botania:dark_oak_to_oak_sapling"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy5",
-      "recipes": [
-        "botania:redstone_to_glowstone",
-        "botania:glowstone_deconstruct"
-      ]
+      "recipes": "botania:redstone_to_glowstone;botania:glowstone_deconstruct"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy6",
-      "recipes": [
-        "botania:quartz_deconstruct",
-        "botania:dark_quartz_deconstruct",
-        "botania:mana_quartz_deconstruct",
-        "botania:blaze_quartz_deconstruct",
-        "botania:lavender_quartz_deconstruct",
-        "botania:red_quartz_deconstruct",
-        "botania:elf_quartz_deconstruct"
-      ]
+      "recipes": "botania:quartz_deconstruct;botania:dark_quartz_deconstruct;botania:mana_quartz_deconstruct;botania:blaze_quartz_deconstruct;botania:lavender_quartz_deconstruct;botania:red_quartz_deconstruct;botania:elf_quartz_deconstruct"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy7",
-      "recipes": [
-        "botania:chiseled_stone_bricks"
-      ]
+      "recipes": "botania:chiseled_stone_bricks"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy8",
-      "recipes": [
-        "botania:ice"
-      ]
+      "recipes": "botania:ice"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy9",
-      "recipes": [
-        "botania:vine_to_lily_pad",
-        "botania:lily_pad_to_vine"
-      ]
+      "recipes": "botania:vine_to_lily_pad;botania:lily_pad_to_vine"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy10",
-      "recipes": [
-        "botania:pufferfish_to_cod",
-        "botania:cod_to_salmon",
-        "botania:salmon_to_tropical_fish",
-        "botania:tropical_fish_to_pufferfish"
-      ]
+      "recipes": "botania:pufferfish_to_cod;botania:cod_to_salmon;botania:salmon_to_tropical_fish;botania:tropical_fish_to_pufferfish"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy11",
-      "recipes": [
-        "botania:cocoa_to_wheat",
-        "botania:wheat_to_potato",
-        "botania:potato_unpoison",
-        "botania:potato_to_carrot",
-        "botania:carrot_to_beetroot",
-        "botania:beetroot_to_melon",
-        "botania:melon_to_pumpkin",
-        "botania:pumpkin_to_cocoa"
-      ]
+      "recipes": "botania:cocoa_to_wheat;botania:wheat_to_potato;botania:potato_unpoison;botania:potato_to_carrot;botania:carrot_to_beetroot;botania:beetroot_to_melon;botania:melon_to_pumpkin;botania:pumpkin_to_cocoa"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy12",
-      "recipes": [
-        "botania:wheat_to_potato",
-        "botania:potato_unpoison"
-      ]
+      "recipes": "botania:wheat_to_potato;botania:potato_unpoison"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy13",
-      "recipes": [
-        "botania:blaze_rod_to_nether_wart"
-      ]
+      "recipes": "botania:blaze_rod_to_nether_wart"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy14",
-      "recipes": [
-        "botania:flint_to_gunpowder"
-      ]
+      "recipes": "botania:flint_to_gunpowder"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy15",
-      "recipes": [
-        "botania:book_to_name_tag"
-      ]
+      "recipes": "botania:book_to_name_tag"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy16",
-      "recipes": [
-        "botania:wool_deconstruct"
-      ]
+      "recipes": "botania:wool_deconstruct"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy17",
-      "recipes": [
-        "botania:cactus_to_slime",
-        "botania:slime_to_cactus"
-      ]
+      "recipes": "botania:cactus_to_slime;botania:slime_to_cactus"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy18",
-      "recipes": [
-        "botania:ender_pearl_from_ghast_tear"
-      ]
+      "recipes": "botania:ender_pearl_from_ghast_tear"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy19",
-      "recipes": [
-        "botania:glowstone_to_redstone",
-        "botania:redstone_to_glowstone",
-        "botania:glowstone_deconstruct"
-      ]
+      "recipes": "botania:glowstone_to_redstone;botania:redstone_to_glowstone;botania:glowstone_deconstruct"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy20",
-      "recipes": [
-        "botania:cobble_to_sand"
-      ]
+      "recipes": "botania:cobble_to_sand"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy21",
-      "recipes": [
-        "botania:terracotta_to_red_sand"
-      ]
+      "recipes": "botania:terracotta_to_red_sand"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy26",
-      "recipes": [
-        "botania:granite_to_andesite",
-        "botania:stone_to_andesite",
-        "botania:andesite_to_diorite",
-        "botania:diorite_to_granite"
-      ]
+      "recipes": "botania:granite_to_andesite;botania:stone_to_andesite;botania:andesite_to_diorite;botania:diorite_to_granite"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy22",
-      "recipes": [
-        "botania:clay_deconstruct",
-        "botania:brick_deconstruct"
-      ]
+      "recipes": "botania:clay_deconstruct;botania:brick_deconstruct"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy27",
-      "recipes": [
-        "botania:chorus_fruit_to_flower"
-      ]
+      "recipes": "botania:chorus_fruit_to_flower"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy24",
-      "recipes": [
-        "botania:fern_to_dead_bush",
-        "botania:dead_bush_to_grass",
-        "botania:grass_to_fern"
-      ]
+      "recipes": "botania:fern_to_dead_bush;botania:dead_bush_to_grass;botania:grass_to_fern"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy25",
-      "recipes": [
-        "botania:dandelion_to_poppy",
-        "botania:poppy_to_blue_orchid",
-        "botania:blue_orchid_to_allium",
-        "botania:allium_to_azure_bluet",
-        "botania:azure_bluet_to_red_tulip",
-        "botania:red_tulip_to_orange_tulip",
-        "botania:orange_tulip_to_white_tulip",
-        "botania:white_tulip_to_pink_tulip",
-        "botania:pink_tulip_to_oxeye_daisy",
-        "botania:oxeye_daisy_to_sunflower",
-        "botania:sunflower_to_lilac",
-        "botania:lilac_to_rose_bush",
-        "botania:rose_bush_to_peony",
-        "botania:peony_to_dandelion"
-      ]
+      "recipes": "botania:dandelion_to_poppy;botania:poppy_to_blue_orchid;botania:blue_orchid_to_allium;botania:allium_to_azure_bluet;botania:azure_bluet_to_red_tulip;botania:red_tulip_to_orange_tulip;botania:orange_tulip_to_white_tulip;botania:white_tulip_to_pink_tulip;botania:pink_tulip_to_oxeye_daisy;botania:oxeye_daisy_to_sunflower;botania:sunflower_to_lilac;botania:lilac_to_rose_bush;botania:rose_bush_to_peony;botania:peony_to_dandelion"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy23",
-      "recipes": [
-        "botania:coarse_dirt"
-      ]
+      "recipes": "botania:coarse_dirt"
     }
   ]
 }
