@@ -20,15 +20,15 @@ import vazkii.botania.common.core.helper.Vector3;
 
 public class LensMagnet extends Lens {
 
-	private static final String TAG_MAGNETIZED = "Botania:Magnetized";
-	private static final String TAG_MAGNETIZED_X = "Botania:MagnetizedX";
-	private static final String TAG_MAGNETIZED_Y = "Botania:MagnetizedY";
-	private static final String TAG_MAGNETIZED_Z = "Botania:MagnetizedZ";
+	private static final String TAG_MAGNETIZED = "botania:magnetized";
+	private static final String TAG_MAGNETIZED_X = "botania:magnetized_x";
+	private static final String TAG_MAGNETIZED_Y = "botania:magnetized_y";
+	private static final String TAG_MAGNETIZED_Z = "botania:magnetized_z";
 
 	@Override
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		BlockPos basePos = new BlockPos(entity);
-		boolean magnetized = entity.getEntityData().contains(TAG_MAGNETIZED);
+		boolean magnetized = entity.getPersistentData().contains(TAG_MAGNETIZED);
 		int range = 3;
 
 		magnetize : {
@@ -38,9 +38,9 @@ public class LensMagnet extends Lens {
 					TileEntity tile = entity.world.getTileEntity(pos);
 
 					if(magnetized) {
-						int magX = entity.getEntityData().getInt(TAG_MAGNETIZED_X);
-						int magY = entity.getEntityData().getInt(TAG_MAGNETIZED_Y);
-						int magZ = entity.getEntityData().getInt(TAG_MAGNETIZED_Z);
+						int magX = entity.getPersistentData().getInt(TAG_MAGNETIZED_X);
+						int magY = entity.getPersistentData().getInt(TAG_MAGNETIZED_Y);
+						int magZ = entity.getPersistentData().getInt(TAG_MAGNETIZED_Z);
 						if(tile.getPos().getX() != magX || tile.getPos().getY() != magY || tile.getPos().getZ() != magZ)
 							continue;
 					}
@@ -61,10 +61,10 @@ public class LensMagnet extends Lens {
 						Vector3 finalMotionVec = motionVec.subtract(differenceVec);
 						if(!magnetized) {
 							finalMotionVec = finalMotionVec.multiply(0.75);
-							entity.getEntityData().putBoolean(TAG_MAGNETIZED, true);
-							entity.getEntityData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
-							entity.getEntityData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());
-							entity.getEntityData().putInt(TAG_MAGNETIZED_Z, tile.getPos().getZ());
+							entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
+							entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
+							entity.getPersistentData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());
+							entity.getPersistentData().putInt(TAG_MAGNETIZED_Z, tile.getPos().getZ());
 						}
 
 						burst.setBurstMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);

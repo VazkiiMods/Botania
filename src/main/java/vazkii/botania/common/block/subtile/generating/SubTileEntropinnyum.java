@@ -12,19 +12,16 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.TNTEntity;
-import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -67,8 +64,10 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			if(getWorld().isRemote && getWorld().getEntityByID(param) instanceof TNTEntity) {
 				Entity e = getWorld().getEntityByID(param);
 
-				for(int i = 0; i < 50; i++)
-					Botania.proxy.sparkleFX(e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
+				for(int i = 0; i < 50; i++) {
+                    SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
+                    world.addParticle(data, e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 0, 0, 0);
+                }
 
 				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
 			}

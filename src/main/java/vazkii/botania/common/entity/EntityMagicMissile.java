@@ -31,6 +31,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
@@ -110,15 +111,16 @@ public class EntityMagicMissile extends ThrowableEntity {
 		int steps = (int) (diff.mag() / step.mag());
 		Vector3 particlePos = oldPos;
 
-		Botania.proxy.setSparkleFXCorrupt(evil);
+		SparkleParticleData data = evil ? SparkleParticleData.corrupt(0.8F, 1F, 0.0F, 1F, 2)
+										: SparkleParticleData.sparkle(0.8F, 1F, 0.4F, 1F, 2);
 		for(int i = 0; i < steps; i++) {
-			Botania.proxy.sparkleFX(particlePos.x, particlePos.y, particlePos.z, 1F, evil ? 0F : 0.4F, 1F, 0.8F, 2);
+			world.addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
+
 			if(world.rand.nextInt(steps) <= 1)
-				Botania.proxy.sparkleFX(particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 1F, evil ? 0F : 0.4F, 1F, 0.8F, 2);
+				world.addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
 
 			particlePos = particlePos.add(step);
 		}
-		Botania.proxy.setSparkleFXCorrupt(false);
 
 		LivingEntity target = getTargetEntity();
 		if(target != null) {

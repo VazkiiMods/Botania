@@ -221,7 +221,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		if(isPassiveFlower()) {
-			CompoundNBT cmp = stack.getTag();
+			CompoundNBT cmp = stack.getOrCreateTag();
 			passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 		}
 	}

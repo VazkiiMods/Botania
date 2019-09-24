@@ -38,6 +38,7 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -149,8 +150,9 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
-		Botania.proxy.sparkleFX(x, y, z, r, g, b, size, m);
-	}
+        SparkleParticleData data = SparkleParticleData.sparkle(size, r, g, b, m);
+        world.addParticle(data, x, y, z, 0, 0, 0);
+    }
 
 	@Override
 	public ResourceLocation getDefaultBossBarTexture() {

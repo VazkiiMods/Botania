@@ -12,13 +12,10 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -30,11 +27,10 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -67,21 +63,19 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 	}
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {
-		Botania.proxy.setWispFXDepthTest(false);
 		for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
 				pos.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos_);
 
 			if(Tags.Blocks.ORES.contains(state.getBlock())) {
 				Random rand = new Random(state.hashCode() ^ seedxor);
-				Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(),
+				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8);
+				world.addParticle(data, pos_.getX() + world.rand.nextFloat(),
 						pos_.getY() + world.rand.nextFloat(),
 						pos_.getZ() + world.rand.nextFloat(),
-						rand.nextFloat(), rand.nextFloat(), rand.nextFloat(),
-						0.25F, 0F, 8);
+						0, 0, 0);
 			}
 		}
-		Botania.proxy.setWispFXDepthTest(true);
 	}
 
 	@Override

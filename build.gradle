@@ -28,11 +28,11 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190801-1.14.3'
+    mappings channel: 'snapshot', version: "${config.mc_mappings}"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
-            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run')
             mods {
@@ -42,7 +42,7 @@ minecraft {
             }
         }
         server {
-            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run')
             mods {
@@ -90,16 +90,16 @@ configurations {
 //End of the SCP config
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.49'
+    minecraft "net.minecraftforge:forge:${config.forge_version}"
     compile fg.deobf("vazkii:patchouli:1.1-22")
 
     //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.10")
+    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
     
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.22:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.22")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-0.25")
     //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP
@@ -262,7 +262,7 @@ curseforge {
         releaseType = "release"
         addGameVersion "${config.cf_meta_version}"
         relations {
-            requiredLibrary 'baubles'
+            requiredLibrary 'curios'
             optionalLibrary 'quark'
             optionalLibrary 'albedo'
         }

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.Screen;
@@ -57,6 +56,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPhantomInkable {
 
@@ -88,9 +88,9 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 			stack.setDamage(stack.getDamage() - 1);
 	}
 
-	// todo 1.13
-	public void damageArmor(LivingEntity entity, @Nonnull ItemStack stack, DamageSource source, int damage, int slot) {
-		ToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
 	}
 
 	@Nonnull

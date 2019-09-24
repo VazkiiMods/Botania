@@ -21,7 +21,7 @@ public final class StringObfuscator {
 		return getHash(str).equals(hash);
 	}
 
-	public static String getHash(String str) {
+	private static String getHash(String str) {
 		if(str != null)
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -32,9 +32,10 @@ public final class StringObfuscator {
 		return "";
 	}
 
-	private static String dontRainbowTableMeOrMySonEverAgain(String str) {
+	private static String dontRainbowTableMeOrMySonEverAgain(String str) throws NoSuchAlgorithmException {
 		str += reverseString(str);
-		SecureRandom rand = new SecureRandom(str.getBytes());
+		SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
+		rand.setSeed(str.getBytes());
 		int l = str.length();
 		int steps = rand.nextInt(l);
 		char[] chrs = str.toCharArray();
@@ -52,10 +53,7 @@ public final class StringObfuscator {
 	}
 
 	private static String reverseString(String str) {
-		char[] chars = new char[str.length()];
-		for(int i = 0; i < chars.length; i++)
-			chars[i] = str.charAt(str.length() - 1 - i);
-		return String.copyValueOf(chars);
+		return new StringBuilder(str).reverse().toString();
 	}
 
 }

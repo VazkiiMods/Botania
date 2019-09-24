@@ -1,6 +1,5 @@
 package vazkii.botania.common.network;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.particles.ParticleTypes;
@@ -8,13 +7,12 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -81,23 +79,19 @@ public class PacketBotaniaEffect {
 		int b = hex & 0xFF;
 		for(int i = 0; i < 10; i++) {
 			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.rand));
-			Botania.proxy.sparkleFX(
-					pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
-					r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
+			SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
+			world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 		}
 		break;
 					}
 					case ARENA_INDICATOR: {
+						SparkleParticleData data = SparkleParticleData.sparkle(5F, 1, 0, 1, 120);
 						for(int i = 0; i < 360; i += 8) {
-							float r = 1F;
-							float g = 0F;
-							float b = 1F;
 							float rad = i * (float) Math.PI / 180F;
 							double x = message.x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
 							double y = message.y + 0.5;
 							double z = message.z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
-
-							Botania.proxy.sparkleFX(x, y, z, r, g, b, 5F, 120);
+							world.addParticle(data, x, y, z, 0, 0, 0);
 						}
 						break;
 					}
@@ -142,9 +136,8 @@ public class PacketBotaniaEffect {
 							float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
 							float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
 
-							Botania.proxy.setSparkleFXNoClip(true);
-							Botania.proxy.sparkleFX(currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
-							Botania.proxy.setSparkleFXNoClip(false);
+							SparkleParticleData data = SparkleParticleData.noClip(1, r, g, b, 12);
+							world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 							currentPos = currentPos.add(movement);
 						}
 
@@ -167,8 +160,8 @@ public class PacketBotaniaEffect {
 						float b = 0.4F + 0.3F * (float) Math.random();
 						float size = 0.125F + 0.125F * (float) Math.random();
 
-						Botania.proxy.wispFX(thisVec.x, thisVec.y, thisVec.z, r, g, b,
-								size, (float) motion.x, (float) motion.y, (float) motion.z);
+						WispParticleData data = WispParticleData.wisp(size, r, g, b);
+						world.addParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
 						break;
 					}
 					case ENCHANTER_DESTROY: {
@@ -176,8 +169,8 @@ public class PacketBotaniaEffect {
 							float red = (float) Math.random();
 							float green = (float) Math.random();
 							float blue = (float) Math.random();
-							Botania.proxy.wispFX(message.x, message.y, message.z,
-									red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
+							WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, red, green, blue);
+							world.addParticle(data, message.x, message.y, message.z, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
 						}
 						break;
 					}
@@ -193,7 +186,8 @@ public class PacketBotaniaEffect {
 							float my = (float) Math.random() * m;
 							float mz = ((float) Math.random() - 0.5F) * m;
 
-							Botania.proxy.wispFX(message.x, message.y, message.z, r, g, b, s, mx, my, mz);
+							WispParticleData data = WispParticleData.wisp(s, r, g, b);
+							world.addParticle(data, message.x, message.y, message.z, mx, my, mz);
 						}
 
 						break;
@@ -221,12 +215,16 @@ public class PacketBotaniaEffect {
 								float[] colorsfx = new float[] {
 										0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
 								};
-								Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
-								Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
+								WispParticleData data = WispParticleData.wisp(0.85F, colorsfx[0], colorsfx[1], colorsfx[2], 0.25F);
+								world.addParticle(data, x, y, z, 0, (float) (-g*0.05), 0);
+								data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.1F, colorsfx[0], colorsfx[1], colorsfx[2], 0.9F);
+								world.addParticle(data, x, y, z, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F);
 
 								if(ticks == 100)
-									for(int j = 0; j < 15; j++)
-										Botania.proxy.wispFX(message.x + 0.5, message.y + 0.5, message.z + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
+									for(int j = 0; j < 15; j++) {
+										data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, colorsfx[0], colorsfx[1], colorsfx[2]);
+										world.addParticle(data, message.x + 0.5, message.y + 0.5, message.z + 0.5, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
+									}
 							}
 						}
 						break;
@@ -238,8 +236,9 @@ public class PacketBotaniaEffect {
 								float x = (float) (entity.posX + Math.random());
 								float y = (float) (entity.posY + Math.random());
 								float z = (float) (entity.posZ + Math.random());
-								Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
-							}
+                                WispParticleData data = WispParticleData.wisp((float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+                                world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
+                            }
 						}
 						break;
 					}
@@ -258,8 +257,9 @@ public class PacketBotaniaEffect {
 						double y = target.posY;
 						double z = target.posZ;
 
+						SparkleParticleData data = SparkleParticleData.sparkle(1F, 1F, 1F, 0.25F, 3);
 						for(int i = 0; i < 50; i++)
-							Botania.proxy.sparkleFX(x + Math.random() * target.getWidth(), y + Math.random() * target.getHeight(), z + Math.random() * target.getWidth(), 1F, 1F, 0.25F, 1F, 3);
+							world.addParticle(data, x + Math.random() * target.getWidth(), y + Math.random() * target.getHeight(), z + Math.random() * target.getWidth(), 0, 0, 0);
 						break;
 					}
 					}

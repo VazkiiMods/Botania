@@ -12,34 +12,26 @@ package vazkii.botania.common.item.relic;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -70,8 +62,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
 					float z1 = (float) (pos.getZ() + Math.random());
-					Botania.proxy.wispFX(x1, y1, z1, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.5F, -0.05F + (float) Math.random() * 0.05F);
-				}
+                    WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.5F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+                    world.addParticle(data, x1, y1, z1, 0, -(-0.05F + (float) Math.random() * 0.05F), 0);
+                }
 			} else {
 				ItemStack stack = ctx.getItem();
 				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
@@ -92,8 +85,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		float x = (float) (living.posX - Math.random() * living.getWidth());
 		float y = (float) (living.posY + Math.random());
 		float z = (float) (living.posZ - Math.random() * living.getWidth());
-		Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
-	}
+        WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+        living.world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
+    }
 
 	@Nonnull
 	@Override

@@ -31,6 +31,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -49,6 +50,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -62,6 +64,8 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.mana.IPingable;
 import vazkii.botania.api.mana.IThrottledPacket;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
@@ -213,11 +217,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		}
 		*/
 
-		if (!scanBeam && !world.isRemote() && // Botania - collide only on server and non scanbeam
-				raytraceresult.getType() != RayTraceResult.Type.MISS) {
+		if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
 			if (raytraceresult.getType() == RayTraceResult.Type.BLOCK && this.world.getBlockState(((BlockRayTraceResult)raytraceresult).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
 				this.setPortal(((BlockRayTraceResult)raytraceresult).getPos());
-			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)){
+			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
 				this.onImpact(raytraceresult);
 			}
 		}
@@ -440,16 +443,17 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			else if(fullManaLastTick)
 				size = 4F;
 
-			if(!noParticles && shouldDoFakeParticles())
-				Botania.proxy.sparkleFX(posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
+			if(!noParticles && shouldDoFakeParticles()) {
+				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
+				Botania.proxy.addParticleForce(world, data, posX, posY, posZ, 0, 0, 0);
+			}
 		} else {
-			boolean monocle = Botania.proxy.isClientPlayerWearingMonocle();
-			if(monocle)
-				Botania.proxy.setWispFXDepthTest(false);
+			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
-			if(ConfigHandler.CLIENT.subtlePowerSystem.get())
-				Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
-			else {
+			if(ConfigHandler.CLIENT.subtlePowerSystem.get()) {
+				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
+				world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+			} else {
 				float or = r;
 				float og = g;
 				float ob = b;
@@ -474,7 +478,8 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 						b = ob + (float) Math.random() * 0.125F;
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
-					Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.2F * size,
+					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
+					world.addParticle(data, posX, posY, posZ,
 							(float) -getMotion().getX() * 0.01F,
 							(float) -getMotion().getY() * 0.01F,
 							(float) -getMotion().getZ() * 0.01F);
@@ -485,19 +490,17 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 					currentPos = Vector3.fromEntity(this);
 					diffVec = oldPos.subtract(currentPos);
-					if(getEntityData().contains(ItemTinyPlanet.TAG_ORBIT))
+					if(getPersistentData().contains(ItemTinyPlanet.TAG_ORBIT))
 						break;
 				} while(Math.abs(diffVec.mag()) > distance);
 
-				Botania.proxy.wispFX(posX, posY, posZ, or, og, ob, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
+				WispParticleData data = WispParticleData.wisp(0.1F * size, or, og, ob, depth);
+				world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 
 				posX = savedPosX;
 				posY = savedPosY;
 				posZ = savedPosZ;
 			}
-
-			if(monocle)
-				Botania.proxy.setWispFXDepthTest(true);
 		}
 	}
 	
@@ -564,9 +567,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 				float size = (float) mana / (float) maxMana;
 
 				if(!ConfigHandler.CLIENT.subtlePowerSystem.get())
-					for(int i = 0; i < 4; i++)
-						Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
-				Botania.proxy.sparkleFX((float) posX, (float) posY, (float) posZ, r, g, b, 4, 2);
+					for(int i = 0; i < 4; i++) {
+						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
+						world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+					}
+				SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
+				world.addParticle(data, (float) posX, (float) posY, (float) posZ, 0, 0, 0);
 			}
 
 			remove();
@@ -754,6 +760,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		TileEntity tile = getShooter();
 		if(tile != null && tile instanceof IPingable)
 			((IPingable) tile).pingback(this, getShooterUUID());
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	protected boolean shouldDoFakeParticles() {

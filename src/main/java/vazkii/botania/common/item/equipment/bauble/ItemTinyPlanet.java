@@ -87,14 +87,14 @@ public class ItemTinyPlanet extends ItemBauble {
 	}
 
 	public static int getEntityOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getEntityData();
+		CompoundNBT cmp = entity.getPersistentData();
 		if(cmp.contains(TAG_ORBIT))
 			return cmp.getInt(TAG_ORBIT);
 		else return 0;
 	}
 
 	public static void incrementOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getEntityData();
+		CompoundNBT cmp = entity.getPersistentData();
 		int time = getEntityOrbitTime(entity);
 		cmp.putInt(TAG_ORBIT, time + 1);
 	}

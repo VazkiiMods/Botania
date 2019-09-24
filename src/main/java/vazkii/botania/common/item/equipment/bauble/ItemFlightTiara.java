@@ -12,7 +12,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.AbstractGui;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.Tessellator;
@@ -21,8 +20,6 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -32,7 +29,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,6 +45,7 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -181,10 +178,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							}
 							}
 
-							for(int i = 0; i < 2; i++)
-								Botania.proxy.sparkleFX(x + Math.random() * event.getEntityLiving().getWidth(), 
-										y + Math.random() * 0.4, z + Math.random() * event.getEntityLiving().getWidth(), 
-										r, g, b, 2F * (float) Math.random(), 20);
+							for(int i = 0; i < 2; i++) {
+                                SparkleParticleData data = SparkleParticleData.sparkle(2F * (float) Math.random(), r, g, b, 20);
+                                player.world.addParticle(data, x + Math.random() * event.getEntityLiving().getWidth(), y + Math.random() * 0.4, z + Math.random() * event.getEntityLiving().getWidth(), 0, 0, 0);
+                            }
 						}
 					}
 				} else {

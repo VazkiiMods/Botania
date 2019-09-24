@@ -13,19 +13,16 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nonnull;
@@ -66,14 +63,16 @@ public class EntityFlameRing extends Entity {
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
 
-				Botania.proxy.wispFX(posX + x, posY - 0.2, posZ + z, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.65F + (float) Math.random() * 0.45F, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
+				WispParticleData data1 = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
+				world.addParticle(data1, posX + x, posY - 0.2, posZ + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
 
 				float gs = (float) Math.random() * 0.15F;
 				float smokeRadius = (float) (renderRadius - Math.random() * renderRadius * 0.9);
 				x = Math.cos(rad) * smokeRadius;
 				z = Math.sin(rad) * smokeRadius;
-				Botania.proxy.wispFX(posX + x, posY - 0.2, posZ + z, gs, gs, gs, 0.65F + (float) Math.random() * 0.45F, -0.155F - (float) Math.random() * 0.025F);
-			}
+                WispParticleData data = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, gs, gs, gs, 1);
+                world.addParticle(data, posX + x, posY - 0.2, posZ + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
+            }
 		}
 
 		if(world.rand.nextInt(20) == 0)

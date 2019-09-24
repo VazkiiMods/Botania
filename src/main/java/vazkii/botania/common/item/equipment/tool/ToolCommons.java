@@ -50,6 +50,25 @@ public final class ToolCommons {
 	public static final List<Material> materialsShovel = Arrays.asList(Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
 	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD);
 
+	/**
+	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
+	 */
+	public static int damageItemIfPossible(ItemStack stack, int amount, LivingEntity entity, int manaPerDamage) {
+		if(!(entity instanceof PlayerEntity))
+			return amount;
+
+		PlayerEntity player = (PlayerEntity) entity;
+		while (amount > 0) {
+			if (ManaItemHandler.requestManaExactForTool(stack, player, manaPerDamage, true)) {
+				amount--;
+			} else {
+				break;
+			}
+		}
+
+		return amount;
+	}
+
 	public static void damageItem(ItemStack stack, int dmg, LivingEntity entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
 		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);

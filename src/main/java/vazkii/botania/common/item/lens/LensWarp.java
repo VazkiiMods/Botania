@@ -39,7 +39,7 @@ public class LensWarp extends Lens {
 					entity.setPosition(key.blockPos.getX() + 0.5, key.blockPos.getY() + 0.5, key.blockPos.getZ() + 0.5);
 					burst.setCollidedAt(key.blockPos);
 					
-					entity.getEntityData().putBoolean(TAG_WARPED, true);
+					entity.getPersistentData().putBoolean(TAG_WARPED, true);
 					
 					return false;
 				}
@@ -50,7 +50,7 @@ public class LensWarp extends Lens {
 	
 	@Override
 	public int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
-		return entity.getEntityData().getBoolean(TAG_WARPED) ? 0 : burst.getMana();
+		return entity.getPersistentData().getBoolean(TAG_WARPED) ? 0 : burst.getMana();
 	}
 
 }

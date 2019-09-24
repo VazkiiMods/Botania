@@ -22,10 +22,10 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,7 +58,6 @@ import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.FXSparkle;
-import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
@@ -261,73 +260,6 @@ public class ClientProxy implements IProxy {
 		}
 	}
 
-	private static boolean noclipEnabled = false;
-	private static boolean corruptSparkle = false;
-
-	@Override
-	public void setSparkleFXNoClip(boolean noclip) {
-		noclipEnabled = noclip;
-	}
-
-	@Override
-	public void setSparkleFXCorrupt(boolean corrupt) {
-		corruptSparkle = corrupt;
-	}
-
-	@Override
-	public void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		if(!doParticle() && !fake)
-			return;
-
-		FXSparkle sparkle = new FXSparkle(Minecraft.getInstance().world, x, y, z, size, r, g, b, m);
-		sparkle.fake = fake;
-		sparkle.setCanCollide(!fake);
-		if(noclipEnabled)
-			sparkle.setCanCollide(false);
-		if(corruptSparkle)
-			sparkle.corrupt = true;
-		Minecraft.getInstance().particles.addEffect(sparkle);
-	}
-
-	private static boolean distanceLimit = true;
-	private static boolean depthTest = true;
-
-	@Override
-	public void setWispFXDistanceLimit(boolean limit) {
-		distanceLimit = limit;
-	}
-
-	@Override
-	public void setWispFXDepthTest(boolean test) {
-		depthTest = test;
-	}
-
-	@Override
-	public void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		if(!doParticle())
-			return;
-
-		FXWisp wisp = new FXWisp(Minecraft.getInstance().world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
-		wisp.setSpeed(motionx, motiony, motionz);
-		Minecraft.getInstance().particles.addEffect(wisp);
-	}
-
-	private boolean doParticle() {
-		if(Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-			return false;
-
-		if(!ConfigHandler.CLIENT.useVanillaParticleLimiter.get())
-			return true;
-
-		float chance = 1F;
-		if(Minecraft.getInstance().gameSettings.particles == ParticleStatus.DECREASED)
-			chance = 0.6F;
-		else if(Minecraft.getInstance().gameSettings.particles == ParticleStatus.MINIMAL)
-			chance = 0.2F;
-
-		return chance == 1F || Math.random() < chance;
-	}
-
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		Minecraft.getInstance().particles.addEffect(new FXLightning(Minecraft.getInstance().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
@@ -351,6 +283,11 @@ public class ClientProxy implements IProxy {
 	@Override
 	public BipedModel getEmptyModelBiped() {
 		return EMPTY_MODEL;
+	}
+
+	@Override
+	public void addParticleForce(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
 	}
 }
 

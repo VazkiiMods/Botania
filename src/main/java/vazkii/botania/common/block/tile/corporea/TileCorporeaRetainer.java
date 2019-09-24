@@ -82,6 +82,8 @@ public class TileCorporeaRetainer extends TileMod {
 				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.world.getTileEntity(inv.pos);
 				requestor.doCorporeaRequest(request, requestCount, spark);
 				pendingRequest = false;
+				
+				compValue = 0;
 				world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 			}
 		}

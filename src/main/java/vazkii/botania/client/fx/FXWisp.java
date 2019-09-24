@@ -47,14 +47,17 @@ public class FXWisp extends Particle {
 	private float f4;
 	private float f5;
 
-	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, boolean depthTest, float maxAgeMul) {
-		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
+	public FXWisp(World world, double d, double d1, double d2, double xSpeed, double ySpeed, double zSpeed,
+				  float size, float red, float green, float blue, boolean depthTest, float maxAgeMul) {
+		super(world, d, d1, d2, 0, 0, 0);
+		// super applies wiggle to motion so set it here instead
+		motionX = xSpeed;
+		motionY = ySpeed;
+		motionZ = zSpeed;
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
-		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
-		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
 		maxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
@@ -64,7 +67,8 @@ public class FXWisp extends Particle {
 		setSize(0.01F, 0.01F);
 		Entity renderentity = Minecraft.getInstance().getRenderViewEntity();
 
-		if(distanceLimit) {
+		// todo 1.14
+		if(false) {
 			int visibleDistance = 50;
 			if (!Minecraft.getInstance().gameSettings.fancyGraphics)
 				visibleDistance = 25;

@@ -18,7 +18,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -39,8 +39,10 @@ public class TileManaDetector extends TileMod implements ITickableTileEntity {
 			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, expectedState));
 
 		if(expectedState)
-			for(int i = 0; i < 4; i++)
-				Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
+			for(int i = 0; i < 4; i++) {
+                SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 1F, 0.2F, 0.2F, 5);
+                world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+            }
 	}
 
 }

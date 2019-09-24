@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -20,8 +21,6 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.WitchEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,7 +49,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -74,6 +72,7 @@ import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
@@ -124,12 +123,12 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 
-	private static final BlockPos[] PYLON_LOCATIONS = {
+	private static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
 			new BlockPos(4, 1, 4),
 			new BlockPos(4, 1, -4),
 			new BlockPos(-4, 1, 4),
 			new BlockPos(-4, 1, -4)
-	};
+	);
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
 		new ResourceLocation("openblocks", "beartrap"),
@@ -195,25 +194,22 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		}
 
 		//check pylons
-		for(BlockPos coords : PYLON_LOCATIONS) {
-			BlockPos pos_ = pos.add(coords);
-
-			BlockState state = world.getBlockState(pos_);
-			if(state.getBlock() != ModBlocks.gaiaPylon) {
-				if(!world.isRemote)
-					player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
-				return false;
+		List<BlockPos> invalidPylonBlocks = checkPylons(world, pos);
+		if(!invalidPylonBlocks.isEmpty()) {
+			if(world.isRemote) {
+				warnInvalidBlocks(world, invalidPylonBlocks);
+			} else {
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 			}
+
+			return false;
 		}
 
 		//check arena shape
 		List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
 		if(!invalidArenaBlocks.isEmpty()) {
 			if(world.isRemote) {
-				Botania.proxy.setWispFXDepthTest(false);
-				for(BlockPos pos_ : invalidArenaBlocks)
-					Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
-				Botania.proxy.setWispFXDepthTest(true);
+				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
@@ -250,6 +246,21 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		return true;
 	}
 
+	private static List<BlockPos> checkPylons(World world, BlockPos beaconPos) {
+		List<BlockPos> invalidPylonBlocks = new ArrayList<>();
+
+		for(BlockPos coords : PYLON_LOCATIONS) {
+			BlockPos pos_ = beaconPos.add(coords);
+			
+			BlockState state = world.getBlockState(pos_);
+			if(state.getBlock() != ModBlocks.gaiaPylon) {
+				invalidPylonBlocks.add(pos_);
+			}
+		}
+
+		return invalidPylonBlocks;
+	}
+
 	private static List<BlockPos> checkArena(World world, BlockPos beaconPos) {
 		List<BlockPos> trippedPositions = new ArrayList<>();
 		int range = (int) Math.ceil(ARENA_RANGE);
@@ -260,22 +271,38 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				if(Math.abs(x) == 4 && Math.abs(z) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE)
 					continue; // Ignore pylons and out of circle
 
-				for(int y = -1; y <= ARENA_HEIGHT; y++) {
+				boolean hasFloor = false;
+
+				for(int y = -2; y <= ARENA_HEIGHT; y++) {
 					if(x == 0 && y == 0 && z == 0)
-						continue; //this is the beacon
+						continue; //the beacon
 
 					pos = beaconPos.add(x, y, z);
 
-					boolean expectedBlockHere = y == -1; //the floor
-					boolean isBlockHere = !world.getBlockState(pos).getCollisionShape(world, pos).isEmpty();
+					BlockState state = world.getBlockState(pos);
 
-					if(expectedBlockHere != isBlockHere) {
+					boolean allowBlockHere = y < 0;
+					boolean isBlockHere = !state.getCollisionShape(world, pos).isEmpty();
+
+					if(allowBlockHere && isBlockHere) //floor is here! good
+						hasFloor = true;
+
+					if(y == 0 && !hasFloor) //column is entirely missing floor
+						trippedPositions.add(pos.down());
+
+					if(!allowBlockHere && isBlockHere && !BLACKLIST.contains(state.getBlock())) //ceiling is obstructed in this column
 						trippedPositions.add(pos);
-					}
 				}
 			}
 
 		return trippedPositions;
+	}
+
+	private static void warnInvalidBlocks(World world, Iterable<BlockPos> invalidPositions) {
+		WispParticleData data = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
+		for(BlockPos pos_ : invalidPositions) {
+			world.addParticle(data, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
+		}
 	}
 
 	@Override
@@ -505,7 +532,8 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			double y = source.getY() + 0.5;
 			double z = source.getZ() + 0.5 - Math.sin(rad) * ARENA_RANGE;
 
-			Botania.proxy.wispFX(x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
+			WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
+			world.addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
 
 		if(getInvulTime() > 10) {
@@ -526,8 +554,10 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				float g = (float) Math.random() * 0.3F;
 				float b = 0.7F + (float) Math.random() * 0.3F;
 
-				Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
-				Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.4F, (float) mot.x, (float) mot.y, (float) mot.z);
+				WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, r, g, b, 1);
+				world.addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+				WispParticleData data1 = WispParticleData.wisp(0.4F, r, g, b);
+				world.addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
 			}
 		}
 	}
@@ -552,7 +582,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 						//don't break blacklisted blocks
 						if(BLACKLIST.contains(block)) continue;
 						//don't break the floor
-						if(y == source.getY() - 1) continue;
+						if(y < source.getY()) continue;
 						//don't break blocks in pylon columns
 						if(Math.abs(source.getX() - x) == 4 && Math.abs(source.getZ() - z) == 4) continue;
 						
@@ -812,12 +842,11 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	private void teleportRandomly() {
 		//choose a location to teleport to
 		double oldX = posX, oldY = posY, oldZ = posZ;
-		double newX, newY, newZ;
+		double newX, newY = source.getY(), newZ;
 		int tries = 0;
 
 		do {
 			newX = source.getX() + (rand.nextDouble() - .5) * ARENA_RANGE;
-			newY = source.getY();
 			newZ = source.getZ() + (rand.nextDouble() - .5) * ARENA_RANGE;
 			tries++;
 			//ensure it's inside the arena ring, and not just its bounding square
@@ -829,6 +858,12 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			newX = source.getX() + .5;
 			newY = source.getY() + 1.6;
 			newZ = source.getZ() + .5;
+		}
+		
+		//for low-floor arenas, ensure landing on the ground
+		BlockPos tentativeFloorPos = new BlockPos(newX, newY - 1, newZ);
+		if(world.getBlockState(tentativeFloorPos).getCollisionShape(world, tentativeFloorPos).isEmpty()) {
+			newY--;
 		}
 
 		//teleport there

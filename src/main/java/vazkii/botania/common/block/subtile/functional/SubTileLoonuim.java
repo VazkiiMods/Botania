@@ -164,7 +164,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
 
 			CompoundNBT cmp = stack.write(new CompoundNBT());
-			entity.getEntityData().put(TAG_ITEMSTACK_TO_DROP, cmp);
+			entity.getPersistentData().put(TAG_ITEMSTACK_TO_DROP, cmp);
 
 			entity.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.SPAWNER, null, null);
 			world.addEntity(entity);
@@ -216,8 +216,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onDrops(LivingDropsEvent event) {
 		LivingEntity e = event.getEntityLiving();
-		if(e.getEntityData().contains(TAG_ITEMSTACK_TO_DROP)) {
-			CompoundNBT cmp = e.getEntityData().getCompound(TAG_ITEMSTACK_TO_DROP);
+		if(e.getPersistentData().contains(TAG_ITEMSTACK_TO_DROP)) {
+			CompoundNBT cmp = e.getPersistentData().getCompound(TAG_ITEMSTACK_TO_DROP);
 			ItemStack stack = ItemStack.read(cmp);
 			event.getDrops().clear();
 			event.getDrops().add(new ItemEntity(e.world, e.posX, e.posY, e.posZ, stack));

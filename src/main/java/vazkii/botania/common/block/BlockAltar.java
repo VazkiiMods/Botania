@@ -15,6 +15,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -31,7 +33,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -129,7 +131,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.abilities.isCreativeMode)
-						player.setHeldItem(hand, new ItemStack(Items.BUCKET) /* todo 1.13 drain(FluidRegistry.WATER, stack) */);
+						player.setHeldItem(hand, drain(Fluids.WATER, stack));
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
@@ -139,7 +141,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				return true;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.abilities.isCreativeMode)
-					player.setHeldItem(hand, new ItemStack(Items.BUCKET) /* todo 1.13 drain(FluidRegistry.LAVA, stack) */);
+					player.setHeldItem(hand, drain(Fluids.LAVA, stack));
 
 				tile.setLava(true);
 				tile.setWater(false);
@@ -186,23 +188,16 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
 
-		LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
-		if(cap.isPresent()) {
-			IFluidHandler handler = cap.orElseThrow(IllegalStateException::new);
-			/* todo 1.13
-			FluidStack simulate = handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
-			if(simulate != null && simulate.getFluid() == FluidRegistry.WATER && simulate.amount == Fluid.BUCKET_VOLUME)
-				return true;
-			*/
-		}
-
-		return false;
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
+			FluidStack simulate = handler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+			return !simulate.isEmpty() && simulate.getFluid() == Fluids.WATER && simulate.getAmount() == FluidAttributes.BUCKET_VOLUME;
+		}).orElse(false);
 	}
 
 	private ItemStack drain(Fluid fluid, ItemStack stack) {
 		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(handler -> {
-					handler.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+					handler.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					return handler.getContainer();
 				})
 				.orElse(stack);

@@ -19,7 +19,6 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -31,7 +30,7 @@ import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
@@ -106,14 +105,21 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 				world.addParticle(ParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
 			break;
 		case INFUSED:
-			if(r.nextInt(100) == 0)
-				Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
+			if(r.nextInt(100) == 0) {
+                SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 0F, 1F, 1F, 5);
+                world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+            }
 			break;
 		case MUTATED:
 			if(r.nextInt(100) == 0) {
-				if(r.nextInt(100) > 25)
-					Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-				else Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5);
+				if(r.nextInt(100) > 25) {
+                    SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 0F, 1F, 5);
+                    world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+                }
+				else {
+                    SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 1F, 0F, 5);
+                    world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+                }
 			}
 			break;
 		}

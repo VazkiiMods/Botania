@@ -69,6 +69,9 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 	@Override
 	public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if(player.isInvisible())
+			return;
+
 		String name = player.getDisplayName().getString();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;

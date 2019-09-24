@@ -40,7 +40,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":narslimmus")
 	public static TileEntityType<SubTileNarslimmus> TYPE;
 
-	public static final String TAG_WORLD_SPAWNED = "Botania:WorldSpawned";
+	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 
 	private static final int RANGE = 2;
 
@@ -55,7 +55,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		if(ticksExisted % 5 == 0) {
 			List<SlimeEntity> slimes = getWorld().getEntitiesWithinAABB(SlimeEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(SlimeEntity slime : slimes) {
-				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
+				if(slime.getPersistentData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 1200 * mul;
@@ -105,7 +105,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		if(event.getEntityLiving() instanceof SlimeEntity
 				&& event.getResult() != Event.Result.DENY
 				&& isSlimeChunk(event.getEntityLiving().world, event.getX(), event.getZ()))
-			event.getEntityLiving().getEntityData().putBoolean(TAG_WORLD_SPAWNED, true);
+			event.getEntityLiving().getPersistentData().putBoolean(TAG_WORLD_SPAWNED, true);
 	}
 
 	private static boolean isSlimeChunk(World world, double x, double z) {
