@@ -25,7 +25,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -44,7 +43,7 @@ import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.common.block.BlockCamo;
+import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 
@@ -82,7 +81,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(player != null && player.isSneaking()) {
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile == null) {
-				if(BlockCamo.isValidBlock(wstate, world, pos)) {
+				if(BlockPlatform.isValidBlock(wstate, world, pos)) {
 					setBlock(stack, wstate);
 
 					displayRemainderCounter(player, stack);

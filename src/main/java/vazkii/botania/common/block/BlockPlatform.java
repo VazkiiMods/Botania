@@ -10,51 +10,36 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Locale;
 
-public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable, IManaCollisionGhost {
+public class BlockPlatform extends BlockMod implements ILexiconable, IWandable, IManaCollisionGhost {
 
 	public enum Variant {
 		ABSTRUSE,
@@ -94,6 +79,11 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return variant != Variant.INFRANGIBLE;
 	}
 
+	@Override
+	public boolean hasTileEntity(BlockState state) {
+		return true;
+	}
+
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
@@ -115,4 +105,36 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	public boolean isGhost(BlockState state, World world, BlockPos pos) {
 		return true;
 	}
+
+	public static boolean isValidBlock(BlockState state, World world, BlockPos pos) {
+		return state.isOpaqueCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL;
+	}
+
+	@Override
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+		TileEntity tile = world.getTileEntity(pos);
+
+		if(world.isRemote)
+			return true;
+
+		ItemStack currentStack = player.getHeldItem(hand);
+		if(!currentStack.isEmpty()
+				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
+				&& tile instanceof TilePlatform) {
+			TilePlatform camo = (TilePlatform) tile;
+			BlockItemUseContext ctx = new BlockItemUseContext(world, player, hand, currentStack, hit);
+			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
+
+			if(isValidBlock(changeState, world, pos) && !(changeState.getBlock() instanceof BlockPlatform) && changeState.getMaterial() != Material.AIR) {
+				camo.camoState = changeState;
+				world.notifyBlockUpdate(pos, state, state, 3);
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
 }

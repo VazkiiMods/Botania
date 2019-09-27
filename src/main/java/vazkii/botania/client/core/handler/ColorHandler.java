@@ -1,39 +1,30 @@
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.world.FoliageColors;
 import net.minecraft.world.biome.BiomeColors;
-import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.BlockCamo;
+import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.block.tile.TileCamo;
+import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemManaMirror;
@@ -44,11 +35,8 @@ import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
-import java.lang.reflect.Field;
-import java.util.Map;
 
 public final class ColorHandler {
 
@@ -100,11 +88,11 @@ public final class ColorHandler {
 				(state, world, pos, tintIndex) -> {
 					if (world != null && pos != null) {
 						TileEntity tile = world.getTileEntity(pos);
-						if(tile instanceof TileCamo) {
-							TileCamo camo = (TileCamo) tile;
+						if(tile instanceof TilePlatform) {
+							TilePlatform camo = (TilePlatform) tile;
 							BlockState camoState = camo.camoState;
 							if(camoState != null)
-								return camoState.getBlock() instanceof BlockCamo
+								return camoState.getBlock() instanceof BlockPlatform
 										? 0xFFFFFF
 												: Minecraft.getInstance().getBlockColors().getColor(camoState, world, pos, tintIndex);
 						}
