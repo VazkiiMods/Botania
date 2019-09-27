@@ -19,8 +19,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -37,7 +39,9 @@ import javax.annotation.Nonnull;
 
 public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable {
 
-	private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 12, 16);
+	private static final VoxelShape TOP = Block.makeCuboidShape(0, 6, 0, 16, 12, 16);
+	private static final VoxelShape BOTTOM = Block.makeCuboidShape(2, 0, 2, 14, 6, 14);
+	private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(TOP, BOTTOM, IBooleanFunction.OR);
 
 	public BlockRuneAltar(Properties builder) {
 		super(builder);

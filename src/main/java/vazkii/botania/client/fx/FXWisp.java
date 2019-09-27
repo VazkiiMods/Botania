@@ -65,17 +65,6 @@ public class FXWisp extends Particle {
 
 		moteHalfLife = maxAge / 2;
 		setSize(0.01F, 0.01F);
-		Entity renderentity = Minecraft.getInstance().getRenderViewEntity();
-
-		// todo 1.14
-		if(false) {
-			int visibleDistance = 50;
-			if (!Minecraft.getInstance().gameSettings.fancyGraphics)
-				visibleDistance = 25;
-
-			if (renderentity == null || renderentity.getDistanceSq(posX, posY, posZ) > visibleDistance * visibleDistance)
-				maxAge = 0;
-		}
 
 		prevPosX = posX;
 		prevPosY = posY;
