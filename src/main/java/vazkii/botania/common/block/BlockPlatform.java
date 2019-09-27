@@ -113,10 +113,6 @@ public class BlockPlatform extends BlockMod implements ILexiconable, IWandable, 
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
-
-		if(world.isRemote)
-			return true;
-
 		ItemStack currentStack = player.getHeldItem(hand);
 		if(!currentStack.isEmpty()
 				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
@@ -126,8 +122,10 @@ public class BlockPlatform extends BlockMod implements ILexiconable, IWandable, 
 			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
 
 			if(isValidBlock(changeState, world, pos) && !(changeState.getBlock() instanceof BlockPlatform) && changeState.getMaterial() != Material.AIR) {
-				camo.camoState = changeState;
-				world.notifyBlockUpdate(pos, state, state, 3);
+				if (!world.isRemote) {
+					camo.camoState = changeState;
+					world.notifyBlockUpdate(pos, state, state, 3);
+				}
 
 				return true;
 			}
