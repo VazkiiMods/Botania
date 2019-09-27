@@ -64,6 +64,7 @@ public final class ShaderHelper {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void initShaders() {
 		if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
 			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(

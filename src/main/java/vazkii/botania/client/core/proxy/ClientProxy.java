@@ -108,6 +108,9 @@ public class ClientProxy implements IProxy {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
 		FMLJavaModLoadingContext.get().getModEventBus().register(MiscellaneousIcons.INSTANCE);
+		// This is the only place it works, but mods are constructed in parallel (brilliant idea) so this
+		// *could* end up blowing up if it races with someone else. Let's pray that doesn't happen.
+		ShaderHelper.initShaders();
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
@@ -140,7 +143,6 @@ public class ClientProxy implements IProxy {
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
 	    DeferredWorkQueue.runLater(() -> {
-			ShaderHelper.initShaders();
 			initAuxiliaryRender();
 			ColorHandler.init();
 		});
