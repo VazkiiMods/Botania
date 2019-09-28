@@ -51,18 +51,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	private int compValue = 0;
 	public boolean locked = false;
 
-	private final IAnimationStateMachine asm;
-	private final LazyOptional<IAnimationStateMachine> asmCap;
-
 	public TileCorporeaCrystalCube() {
 		super(TYPE);
-		if (FMLEnvironment.dist == Dist.CLIENT) {
-			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/corporeacrystalcube.json"), ImmutableMap.of());
-			asmCap = LazyOptional.of(() -> asm);
-		} else {
-			asm = null;
-			asmCap = LazyOptional.empty();
-		}
 	}
 
 	@Override
@@ -174,13 +164,4 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			onUpdateCount();
 		}
 	}
-
-	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
-			return asmCap.cast();
-		} else return super.getCapability(cap, side);
-	}
-
 }

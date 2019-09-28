@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.animation.TileEntityRendererAnimation;
@@ -64,6 +65,7 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
+		ModelLoader.addSpecialModel(new ResourceLocation(LibMisc.MOD_ID, "block/corporea_crystal_cube_glass"));
 		registerSubtiles();
 
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();

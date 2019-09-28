@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -49,6 +50,8 @@ import javax.annotation.Nullable;
 
 // TODO 1.13 move this back to a normal tesr. Byebye animation API
 public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorporeaCrystalCube> {
+	// Ugly but there's no other way to get the model besides grabbing it from the event
+	public static IBakedModel cubeModel = null;
 	private ItemEntity entity = null;
 	private ItemRenderer itemRenderer = null;
 
@@ -93,6 +96,11 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			GlStateManager.rotatef(180F, 0F, 0F, 1F);
 			itemRenderer.doRender(entity, 0, 0, 0, 1F, f);
 			GlStateManager.popMatrix();
+		}
+
+		if (cubeModel != null) {
+			GlStateManager.color4f(1, 1, 1, 0.4F);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(cubeModel, 1, 1, 1, 1);
 		}
 
 		GlStateManager.color3f(1F, 1F, 1F);

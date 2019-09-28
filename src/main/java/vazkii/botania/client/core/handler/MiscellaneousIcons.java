@@ -21,6 +21,7 @@ import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
+import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
@@ -113,6 +114,8 @@ public class MiscellaneousIcons {
 		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
 		IBakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
 		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
+
+		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(new ResourceLocation(LibMisc.MOD_ID, "block/corporea_crystal_cube_glass"));
 	}
 	
 	@SubscribeEvent
