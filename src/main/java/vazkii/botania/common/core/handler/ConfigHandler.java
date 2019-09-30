@@ -75,6 +75,7 @@ public final class ConfigHandler {
 	public static int spreaderTraceTime = 400;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
+	public static boolean petalPlantingEnabled = true;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
@@ -212,6 +213,9 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
 		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
+
+		desc = "Set to false to disable the ability multiply Mystical Petals by planting it and grow it by bone meal (this will increase game difficult).";
+		petalPlantingEnabled = loadPropBool("petalPlantingEnabled.enabled", desc, petalPlantingEnabled);
 
 		desc = "Set this to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);

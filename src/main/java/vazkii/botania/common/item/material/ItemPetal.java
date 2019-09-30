@@ -25,6 +25,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
@@ -41,6 +42,11 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		// Copy of ItemBlock.onItemUse
+		if(!ConfigHandler.petalPlantingEnabled)
+		{
+			return EnumActionResult.FAIL;
+		}
+
 		IBlockState iblockstate = world.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 
