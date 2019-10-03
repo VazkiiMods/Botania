@@ -2,6 +2,7 @@
   "name": "botania.entry.bergamute",
   "category": "functional_flowers",
   "icon": "botania:bergamute",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

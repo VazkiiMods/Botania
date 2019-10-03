@@ -42,8 +42,15 @@
     },
     {
       "type": "text",
+      "text": "botaniamisc.shiftToStopSpin",
+      "color": "-67000000",
+      "x": 13,
+      "y": 110
+    },
+    {
+      "type": "text",
       "text": "#text",
-      "y": 130
+      "y": 126
     }
   ]
 }

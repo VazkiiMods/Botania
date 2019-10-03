@@ -2,6 +2,7 @@
   "name": "botania.entry.headCreating",
   "category": "misc",
   "icon": "minecraft:player_head",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

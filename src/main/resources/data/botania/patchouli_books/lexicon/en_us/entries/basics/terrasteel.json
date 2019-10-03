@@ -2,6 +2,7 @@
   "name": "botania.entry.terrasteel",
   "category": "basics",
   "icon": "botania:terrasteel_ingot",
+  "priority": true,
   "pages": [
     {
       "type": "text",

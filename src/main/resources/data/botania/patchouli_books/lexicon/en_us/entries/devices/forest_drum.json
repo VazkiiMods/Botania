@@ -2,6 +2,7 @@
   "name": "botania.entry.forestDrum",
   "category": "devices",
   "icon": "botania:drum_wild",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

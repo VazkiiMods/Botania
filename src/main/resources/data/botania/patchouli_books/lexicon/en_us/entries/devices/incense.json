@@ -2,6 +2,7 @@
   "name": "botania.entry.incense",
   "category": "devices",
   "icon": "botania:incense_stick",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

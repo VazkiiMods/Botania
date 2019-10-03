@@ -2,6 +2,7 @@
   "name": "botania.entry.sparkChanger",
   "category": "mana",
   "icon": "botania:spark_changer",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

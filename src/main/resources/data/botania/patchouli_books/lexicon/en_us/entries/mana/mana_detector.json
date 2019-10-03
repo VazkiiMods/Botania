@@ -2,6 +2,7 @@
   "name": "botania.entry.manaDetector",
   "category": "mana",
   "icon": "botania:mana_detector",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

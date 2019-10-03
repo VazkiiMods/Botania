@@ -2,6 +2,7 @@
   "name": "botania.entry.solegnolia",
   "category": "functional_flowers",
   "icon": "botania:solegnolia",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

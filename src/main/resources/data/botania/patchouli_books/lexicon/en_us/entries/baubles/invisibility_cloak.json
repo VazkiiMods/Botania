@@ -2,6 +2,7 @@
   "name": "botania.entry.invisibilityCloak",
   "category": "baubles",
   "icon": "botania:invisibility_cloak",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.enderEyeBlock",
   "category": "ender",
   "icon": "botania:ender_eye_block",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.tigerseye",
   "category": "functional_flowers",
   "icon": "botania:tigerseye",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

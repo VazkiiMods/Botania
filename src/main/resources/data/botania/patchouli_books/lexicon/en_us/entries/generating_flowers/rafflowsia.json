@@ -2,6 +2,7 @@
   "name": "botania.entry.rafflowsia",
   "category": "generating_flowers",
   "icon": "botania:rafflowsia",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

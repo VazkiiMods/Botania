@@ -2,6 +2,7 @@
   "name": "botania.entry.odinRing",
   "category": "alfhomancy",
   "icon": "botania:odin_ring",
+  "advancement": "botania:challenge/odin_ring",
   "pages": [
     {
       "type": "text",

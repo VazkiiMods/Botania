@@ -2,6 +2,7 @@
   "name": "botania.entry.terrasteelArmor",
   "category": "tools",
   "icon": "botania:terrasteel_helmet",
+  "priority": true,
   "pages": [
     {
       "type": "text",

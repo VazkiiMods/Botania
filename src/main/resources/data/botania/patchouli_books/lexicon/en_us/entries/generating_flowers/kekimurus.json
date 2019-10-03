@@ -2,6 +2,7 @@
   "name": "botania.entry.kekimurus",
   "category": "generating_flowers",
   "icon": "botania:kekimurus",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

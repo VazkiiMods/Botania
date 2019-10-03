@@ -2,6 +2,7 @@
   "name": "botania.entry.animatedTorch",
   "category": "devices",
   "icon": "botania:animated_torch",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.sparkUpgrades",
   "category": "mana",
   "icon": "botania:spark_upgrade_dispersive",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

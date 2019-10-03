@@ -2,6 +2,7 @@
   "name": "botania.entry.waterRing",
   "category": "baubles",
   "icon": "botania:water_ring",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

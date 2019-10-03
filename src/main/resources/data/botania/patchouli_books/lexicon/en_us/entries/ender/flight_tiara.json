@@ -2,6 +2,7 @@
   "name": "botania.entry.flightTiara",
   "category": "ender",
   "icon": "botania:flight_tiara",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

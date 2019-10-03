@@ -2,6 +2,7 @@
   "name": "botania.entry.terraSword",
   "category": "tools",
   "icon": "botania:terra_sword",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.fallenKanade",
   "category": "functional_flowers",
   "icon": "botania:fallen_kanade",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

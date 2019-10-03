@@ -2,6 +2,7 @@
   "name": "botania.entry.craftCrate",
   "category": "devices",
   "icon": "botania:crafty_crate",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

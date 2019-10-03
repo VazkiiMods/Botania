@@ -2,6 +2,7 @@
   "name": "botania.entry.laputaShard",
   "category": "tools",
   "icon": "botania:laputa_shard",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.thirdEye",
   "category": "baubles",
   "icon": "botania:third_eye",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

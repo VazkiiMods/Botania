@@ -2,6 +2,7 @@
   "name": "botania.entry.livingwoodBow",
   "category": "tools",
   "icon": "botania:livingwood_bow",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

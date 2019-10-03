@@ -3,7 +3,7 @@
   "components": [
     {
       "type": "header",
-      "text": "heading",
+      "text": "#heading",
       "x": -1,
       "y": -6
     },
@@ -22,7 +22,7 @@
     {
       "type": "image",
       "image": "patchouli:textures/gui/crafting.png",
-      "guard": "#shapeless",
+      "guard": "#shapeless->exists",
       "x": 71,
       "y": 6,
       "u": 0,
@@ -33,64 +33,66 @@
       "height": 11
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "tooltip",
+      "guard": "#shapeless->exists",
+      "tooltip": [
+        "#shapeless"
+      ],
+      "x": 71,
+      "y": 6,
+      "width": 11,
+      "height": 11
+    },
+    {
+      "type": "item",
       "item": "#input1",
       "x": 12,
       "y": 7
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input2",
       "x": 31,
       "y": 7
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input3",
       "x": 50,
       "y": 7
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input4",
       "x": 12,
       "y": 26
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input5",
       "x": 31,
       "y": 26
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input6",
       "x": 50,
       "y": 26
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input7",
       "x": 12,
       "y": 45
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input8",
       "x": 31,
       "y": 45
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#input9",
       "x": 50,
       "y": 45

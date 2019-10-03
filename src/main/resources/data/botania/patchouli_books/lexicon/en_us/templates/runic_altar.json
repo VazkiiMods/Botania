@@ -45,12 +45,19 @@
       "class": "vazkii.botania.client.patchouli.component.ManaComponent",
       "mana": "#mana",
       "x": -1,
-      "y": 103
+      "y": 100
+    },
+    {
+      "type": "text",
+      "text": "botaniamisc.shiftToStopSpin",
+      "color": "-67000000",
+      "x": 13,
+      "y": 123
     },
     {
       "type": "text",
       "text": "#text",
-      "y": 130
+      "y": 134
     }
   ]
 }

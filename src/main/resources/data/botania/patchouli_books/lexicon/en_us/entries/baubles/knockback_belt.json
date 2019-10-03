@@ -2,6 +2,7 @@
   "name": "botania.entry.knockbackBelt",
   "category": "baubles",
   "icon": "botania:knockback_belt",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

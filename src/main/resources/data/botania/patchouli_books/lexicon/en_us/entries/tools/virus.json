@@ -2,6 +2,7 @@
   "name": "botania.entry.virus",
   "category": "tools",
   "icon": "botania:virus_necrodermal",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

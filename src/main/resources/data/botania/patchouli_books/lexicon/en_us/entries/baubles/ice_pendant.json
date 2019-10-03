@@ -2,6 +2,7 @@
   "name": "botania.entry.icePendant",
   "category": "baubles",
   "icon": "botania:ice_pendant",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

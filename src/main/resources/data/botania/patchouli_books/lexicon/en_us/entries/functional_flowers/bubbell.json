@@ -2,6 +2,7 @@
   "name": "botania.entry.bubbell",
   "category": "functional_flowers",
   "icon": "botania:bubbell",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

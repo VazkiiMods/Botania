@@ -13,7 +13,6 @@ package vazkii.botania.client.patchouli.component;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.crafting.Ingredient;
-import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -42,7 +41,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 	@Override
 	public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		int degreePerInput = (int) (360F / ingredients.size());
-		int ticksElapsed = PatchouliUtils.getBookTicksElapsed(context);
+		int ticksElapsed = context.getTicksInBook();
 
 		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get()
 				? Screen.hasShiftDown()

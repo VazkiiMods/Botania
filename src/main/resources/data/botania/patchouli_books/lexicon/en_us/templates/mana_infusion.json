@@ -5,11 +5,29 @@
       "type": "image",
       "image": "botania:textures/gui/mana_infusion_overlay.png",
       "x": 1,
-      "y": 8,
+      "y": 16,
       "width": 116,
       "height": 106,
       "u": 17,
       "v": 28
+    },
+    {
+      "type": "text",
+      "text": "#drop",
+      "color": "77000000",
+      "x": 27,
+      "y": 17
+    },
+    {
+      "type": "tooltip",
+      "tooltip": [
+        "#dropTip0",
+        "#dropTip1"
+      ],
+      "x": 27,
+      "y": 17,
+      "width": 30,
+      "height": 10
     },
     {
       "type": "header",
@@ -22,22 +40,21 @@
       "item": "#input",
       "framed": "false",
       "x": 20,
-      "y": 33
+      "y": 41
     },
     {
-      "type": "custom",
-      "class": "vazkii.botania.client.patchouli.component.ItemStackListComponent",
+      "type": "item",
       "item": "#catalyst",
       "framed": "false",
       "x": 20,
-      "y": 57
+      "y": 65
     },
     {
       "type": "item",
       "item": "botania:mana_pool:0{RenderFull:1b}",
       "framed": "false",
       "x": 49,
-      "y": 33
+      "y": 41
     },
     {
       "type": "item",
@@ -45,7 +62,7 @@
       "framed": "false",
       "link_recipe": true,
       "x": 78,
-      "y": 33
+      "y": 41
     },
     {
       "type": "custom",

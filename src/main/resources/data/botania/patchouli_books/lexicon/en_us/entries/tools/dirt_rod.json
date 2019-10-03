@@ -2,6 +2,7 @@
   "name": "botania.entry.dirtRod",
   "category": "tools",
   "icon": "botania:dirt_rod",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

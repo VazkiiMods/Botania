@@ -13,7 +13,6 @@ package vazkii.botania.client.patchouli.component;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -56,12 +55,9 @@ public class ManaComponent implements ICustomComponent {
 			ratio = 1;
 		}
 		HUDHandler.renderManaBar(x, y + 10, 0x0000FF, 0.75F, 
-				manaValues[PatchouliUtils.getBookTicksElapsed(context) % manaValues.length], TilePool.MAX_MANA / ratio);
+				manaValues[(context.getTicksInBook() / 20) % manaValues.length], TilePool.MAX_MANA / ratio);
 
 		String ratioString = I18n.format("botaniamisc.ratio", ratio);
 		font.drawString(ratioString, x + 102 / 2 - font.getStringWidth(ratioString) / 2, y + 15, 0x99000000);
-
-		//String stopStr = I18n.format("botaniamisc.shiftToStopSpin"); //TODO we get the vanilla font renderer and Patchouli is tighter than the lexicon
-		//font.drawString(stopStr, x + 102 / 2 - font.getStringWidth(ratioString) / 2, y + 20, 0x99000000);
 	}
 }

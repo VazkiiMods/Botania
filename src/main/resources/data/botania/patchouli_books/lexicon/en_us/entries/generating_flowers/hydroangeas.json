@@ -2,6 +2,7 @@
   "name": "botania.entry.hydroangeas",
   "category": "generating_flowers",
   "icon": "botania:hydroangeas",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

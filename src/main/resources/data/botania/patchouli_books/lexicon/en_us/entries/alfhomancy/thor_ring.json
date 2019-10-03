@@ -2,6 +2,7 @@
   "name": "botania.entry.thorRing",
   "category": "alfhomancy",
   "icon": "botania:thor_ring",
+  "advancement": "botania:challenge/thor_ring",
   "pages": [
     {
       "type": "text",

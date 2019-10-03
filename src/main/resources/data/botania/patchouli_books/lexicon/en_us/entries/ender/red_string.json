@@ -2,6 +2,7 @@
   "name": "botania.entry.redString",
   "category": "ender",
   "icon": "botania:red_string",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",
