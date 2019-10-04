@@ -12,9 +12,7 @@ package vazkii.botania.client.patchouli;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.client.book.gui.GuiBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,20 +21,9 @@ import java.util.StringJoiner;
 public class PatchouliUtils {
 
 	/**
-	 * Extracts the tick counter from the current render context, if possible.
-	 * Note: uses Patchouli internals. TODO expose tick counter in the Patchouli API?
-	 */
-	public static int getBookTicksElapsed(IComponentRenderContext context) {
-		return context instanceof GuiBook ? ((GuiBook) context).ticksInBook : 0;
-	}
-
-	/**
 	 * Combines the ingredients, returning the first matching stack of each, then the second stack of each, etc.
 	 * looping back ingredients that run out of matched stacks, until the ingredients reach the length
 	 * of the longest ingredient in the recipe set.
-	 * <p>
-	 * Note: As Patchouli internally converts the list of stacks into an ingredient, which will ignore empty stacks,
-	 * empty ingredients will result in displaying stacks where nothing should be displayed instead.
 	 *
 	 * @param ingredients           List of ingredients in the specific slot
 	 * @param longestIngredientSize Longest ingredient in the entire recipe

@@ -2,6 +2,7 @@
   "name": "botania.entry.goddessCharm",
   "category": "baubles",
   "icon": "botania:goddess_charm",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

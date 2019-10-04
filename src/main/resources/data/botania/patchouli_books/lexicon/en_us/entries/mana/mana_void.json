@@ -2,6 +2,7 @@
   "name": "botania.entry.manaVoid",
   "category": "mana",
   "icon": "botania:mana_void",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.spawnerClaw",
   "category": "ender",
   "icon": "botania:spawner_claw",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

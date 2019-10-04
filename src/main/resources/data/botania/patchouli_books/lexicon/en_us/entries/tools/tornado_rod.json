@@ -2,6 +2,7 @@
   "name": "botania.entry.tornadoRod",
   "category": "tools",
   "icon": "botania:tornado_rod",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

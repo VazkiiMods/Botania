@@ -2,6 +2,7 @@
   "name": "botania.entry.cloudPendant",
   "category": "baubles",
   "icon": "botania:cloud_pendant",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

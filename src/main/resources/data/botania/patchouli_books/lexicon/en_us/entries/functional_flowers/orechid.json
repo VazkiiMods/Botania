@@ -2,6 +2,7 @@
   "name": "botania.entry.orechid",
   "category": "functional_flowers",
   "icon": "botania:orechid",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

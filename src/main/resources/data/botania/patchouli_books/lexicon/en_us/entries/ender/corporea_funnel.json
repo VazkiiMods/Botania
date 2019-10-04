@@ -2,6 +2,7 @@
   "name": "botania.entry.corporeaFunnel",
   "category": "ender",
   "icon": "botania:corporea_funnel",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

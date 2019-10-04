@@ -2,6 +2,7 @@
   "name": "botania.entry.magnetRing",
   "category": "baubles",
   "icon": "botania:magnet_ring",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

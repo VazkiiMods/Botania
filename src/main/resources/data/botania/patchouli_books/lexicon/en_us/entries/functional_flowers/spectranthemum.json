@@ -2,6 +2,7 @@
   "name": "botania.entry.spectranthemum",
   "category": "functional_flowers",
   "icon": "botania:spectranthemum",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

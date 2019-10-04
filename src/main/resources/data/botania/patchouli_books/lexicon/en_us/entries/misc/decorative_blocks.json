@@ -2,6 +2,7 @@
   "name": "botania.entry.decorativeBlocks",
   "category": "misc",
   "icon": "botania:livingrock_bricks",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

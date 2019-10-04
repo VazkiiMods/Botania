@@ -2,6 +2,7 @@
   "name": "botania.entry.slimeBottle",
   "category": "tools",
   "icon": "botania:slime_bottle",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

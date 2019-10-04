@@ -2,6 +2,7 @@
   "name": "botania.entry.pixieRing",
   "category": "baubles",
   "icon": "botania:pixie_ring",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

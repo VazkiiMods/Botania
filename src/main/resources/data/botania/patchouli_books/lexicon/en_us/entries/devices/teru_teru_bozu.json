@@ -2,6 +2,7 @@
   "name": "botania.entry.teruTeruBozu",
   "category": "devices",
   "icon": "botania:teru_teru_bozu",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

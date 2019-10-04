@@ -2,6 +2,7 @@
   "name": "botania.entry.lokiRing",
   "category": "alfhomancy",
   "icon": "botania:loki_ring",
+  "advancement": "botania:challenge/loki_ring",
   "pages": [
     {
       "type": "text",

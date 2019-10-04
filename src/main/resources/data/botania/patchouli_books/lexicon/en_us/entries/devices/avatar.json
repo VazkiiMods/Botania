@@ -2,6 +2,7 @@
   "name": "botania.entry.avatar",
   "category": "devices",
   "icon": "botania:avatar",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

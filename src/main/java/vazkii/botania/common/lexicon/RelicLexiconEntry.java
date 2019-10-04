@@ -22,7 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 
 public class RelicLexiconEntry extends BasicLexiconEntry {
-	private final ResourceLocation advancement;
+	public final ResourceLocation advancement;
 
 	public RelicLexiconEntry(String unlocalizedName, LexiconCategory category, ResourceLocation advancement) {
 		super(unlocalizedName, category);

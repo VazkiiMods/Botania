@@ -2,6 +2,7 @@
   "name": "botania.entry.superTravelBelt",
   "category": "baubles",
   "icon": "botania:super_travel_belt",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

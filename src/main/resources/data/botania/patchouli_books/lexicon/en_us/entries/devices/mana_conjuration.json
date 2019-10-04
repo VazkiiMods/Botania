@@ -2,6 +2,7 @@
   "name": "botania.entry.manaConjuration",
   "category": "devices",
   "icon": "botania:conjuration_catalyst",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",
@@ -55,7 +56,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.manaConjuration10",
-      "recipes": "botania:oak_leaves_dupe;botania:jungle_leaves_dupe;botania:acacia_leaves_dupe;botania:spruce_leaves_dupe;botania:dark_oak_leaves_dupe;botania:birch_leaves_dupe"
+      "recipes": "botania:oak_leaves_dupe;botania:spruce_leaves_dupe;botania:birch_leaves_dupe;botania:jungle_leaves_dupe;botania:acacia_leaves_dupe;botania:dark_oak_leaves_dupe"
     },
     {
       "type": "mana_infusion",

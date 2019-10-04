@@ -2,6 +2,7 @@
   "name": "botania.entry.poolCart",
   "category": "mana",
   "icon": "botania:pool_minecart",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

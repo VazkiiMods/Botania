@@ -2,6 +2,7 @@
   "name": "botania.entry.elvenLore",
   "category": "alfhomancy",
   "icon": "minecraft:writable_book",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",
@@ -9,31 +10,38 @@
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore1"
+      "text": "botania.page.elvenLore1",
+      "right_side": "true"
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore2"
+      "text": "botania.page.elvenLore2",
+      "left_side": "true"
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore3"
+      "text": "botania.page.elvenLore3",
+      "right_side": "true"
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore4"
+      "text": "botania.page.elvenLore4",
+      "left_side": "true"
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore5"
+      "text": "botania.page.elvenLore5",
+      "right_side": "true"
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore6"
+      "text": "botania.page.elvenLore6",
+      "left_side": "true"
     },
     {
       "type": "lore_page",
-      "text": "botania.page.elvenLore7"
+      "text": "botania.page.elvenLore7",
+      "right_side": "true"
     }
   ]
 }

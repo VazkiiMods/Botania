@@ -2,6 +2,7 @@
   "name": "botania.entry.thornChakram",
   "category": "tools",
   "icon": "botania:thorn_chakram",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

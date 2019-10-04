@@ -16,7 +16,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class CompatLexiconEntry extends BasicLexiconEntry implements IAddonEntry {
 
-	final String mod;
+	public final String mod;
 
 	public CompatLexiconEntry(String unlocalizedName, LexiconCategory category, String mod) {
 		super(unlocalizedName, category);

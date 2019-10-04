@@ -2,6 +2,7 @@
   "name": "botania.entry.corporeaInterceptor",
   "category": "ender",
   "icon": "botania:corporea_interceptor",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

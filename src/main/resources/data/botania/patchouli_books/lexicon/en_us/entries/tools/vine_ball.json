@@ -2,6 +2,7 @@
   "name": "botania.entry.vineBall",
   "category": "tools",
   "icon": "botania:vine_ball",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

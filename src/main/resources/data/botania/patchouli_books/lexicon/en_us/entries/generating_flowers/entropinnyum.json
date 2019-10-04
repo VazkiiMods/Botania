@@ -2,6 +2,7 @@
   "name": "botania.entry.entropinnyum",
   "category": "generating_flowers",
   "icon": "botania:entropinnyum",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

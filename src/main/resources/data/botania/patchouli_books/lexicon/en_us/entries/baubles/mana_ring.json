@@ -2,6 +2,7 @@
   "name": "botania.entry.manaRing",
   "category": "baubles",
   "icon": "botania:mana_ring",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

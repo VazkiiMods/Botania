@@ -2,6 +2,7 @@
   "name": "botania.entry.elvenLenses",
   "category": "mana",
   "icon": "botania:lens_paint",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

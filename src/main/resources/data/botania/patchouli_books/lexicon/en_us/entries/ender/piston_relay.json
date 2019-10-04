@@ -2,6 +2,7 @@
   "name": "botania.entry.pistonRelay",
   "category": "ender",
   "icon": "botania:piston_relay",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

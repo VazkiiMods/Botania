@@ -3,6 +3,7 @@
   "category": "basics",
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
+  "sortnum": -10,
   "pages": [
     {
       "type": "text",

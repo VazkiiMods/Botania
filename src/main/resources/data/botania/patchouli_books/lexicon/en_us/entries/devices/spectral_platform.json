@@ -2,6 +2,7 @@
   "name": "botania.entry.spectralPlatform",
   "category": "devices",
   "icon": "botania:spectral_platform",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

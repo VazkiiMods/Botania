@@ -2,6 +2,7 @@
   "name": "botania.entry.terraAxe",
   "category": "tools",
   "icon": "botania:terra_axe",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

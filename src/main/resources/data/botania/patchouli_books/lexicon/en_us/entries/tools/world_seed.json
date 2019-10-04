@@ -2,6 +2,7 @@
   "name": "botania.entry.worldSeed",
   "category": "tools",
   "icon": "botania:world_seed",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.temperanceStone",
   "category": "tools",
   "icon": "botania:temperance_stone",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

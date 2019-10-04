@@ -2,6 +2,7 @@
   "name": "botania.entry.waterRod",
   "category": "tools",
   "icon": "botania:water_rod",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

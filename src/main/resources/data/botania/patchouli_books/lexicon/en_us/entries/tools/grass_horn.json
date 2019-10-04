@@ -2,6 +2,7 @@
   "name": "botania.entry.grassHorn",
   "category": "tools",
   "icon": "botania:horn_grass",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

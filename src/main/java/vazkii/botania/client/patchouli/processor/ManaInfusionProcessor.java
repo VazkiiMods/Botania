@@ -11,10 +11,13 @@
 package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
@@ -65,6 +68,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 					.collect(Collectors.joining(","));
 		case "mana":
 			return recipes.stream().mapToInt(RecipeManaInfusion::getManaToConsume).mapToObj(Integer::toString).collect(Collectors.joining(";"));
+		case "drop":
+			return I18n.format("botaniamisc.drop") + TextFormatting.BOLD + " (?)";
+		case "dropTip0":
+		case "dropTip1":
+			return I18n.format("botaniamisc.dropTip" + key.substring(7), 
+					TextFormatting.GREEN + RenderHelper.getKeyDisplayString("key.drop") + TextFormatting.WHITE);
 		}
 		return null;
 	}

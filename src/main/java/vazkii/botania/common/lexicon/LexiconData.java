@@ -19,8 +19,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryManager;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -58,6 +62,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
@@ -429,7 +434,7 @@ public final class LexiconData {
 			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.livingroot));
 		}
 
-		if(Botania.thaumcraftLoaded)
+		if(Botania.thaumcraftLoaded || true)
 			new CompatLexiconEntry("wrap", categoryBasics, "Thaumcraft").setLexiconPages(new PageText("0")); // lel
 
 		// MANA ENTRIES
@@ -556,10 +561,9 @@ public final class LexiconData {
 				new PageText("3"), new PageCraftingRecipe("4", ModItems.redstoneRoot))
 				.setIcon(ItemStack.EMPTY);
 
-		Item[] miniFlowers = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "mini_flowers")).getAllElements().toArray(new Item[0]);
 		flowerShrinking = new BasicLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority()
-				.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", miniFlowers))
+				.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", getSortedTag(new ResourceLocation(LibMisc.MOD_ID, "mini_flowers"))))
 				.setIcon(new ItemStack(ModSubtiles.bellethornChibi));
 
 		flowerSpeed = new BasicLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
@@ -731,8 +735,8 @@ public final class LexiconData {
 		alchemy.setLexiconPages(new PageText("0"),
 				new PageCraftingRecipe("1", ModBlocks.alchemyCatalyst.asItem()),
 				new PageManaInfusionRecipe("2", filter, Items.LEATHER),
-				new PageManaInfusionRecipe("3", filter, ItemTags.LOGS.getAllElements().toArray(new Item[0])),
-				new PageManaInfusionRecipe("4", filter, ItemTags.SAPLINGS.getAllElements().toArray(new Item[0])),
+				new PageManaInfusionRecipe("3", filter, getSortedTag(ItemTags.LOGS)),
+				new PageManaInfusionRecipe("4", filter, getSortedTag(ItemTags.SAPLINGS)),
 				new PageManaInfusionRecipe("5", filter, Items.GLOWSTONE_DUST),
 				new PageManaInfusionRecipe("6", filter, Items.QUARTZ, ModItems.darkQuartz, ModItems.manaQuartz,
 						ModItems.blazeQuartz, ModItems.lavenderQuartz, ModItems.redQuartz, ModItems.elfQuartz).setSkipRegistry(),
@@ -788,7 +792,7 @@ public final class LexiconData {
 				new PageManaInfusionRecipe("7", conjurationFilter, Items.NETHERRACK),
 				new PageManaInfusionRecipe("8", conjurationFilter, Items.SOUL_SAND),
 				new PageManaInfusionRecipe("9", conjurationFilter, Items.GRAVEL),
-				new PageManaInfusionRecipe("10", conjurationFilter, ItemTags.LEAVES.getAllElements().toArray(new Item[0])),
+				new PageManaInfusionRecipe("10", conjurationFilter, getSortedTag(ItemTags.LEAVES)),
 				new PageManaInfusionRecipe("11", conjurationFilter, Items.GRASS)); //todos
 
 		spectralPlatform = new AlfheimLexiconEntry(LibLexicon.DEVICE_SPECTRAL_PLATFORM, categoryDevices);
@@ -1467,6 +1471,23 @@ public final class LexiconData {
 		} else {
 			Botania.LOGGER.info("Preexisting file {}, aborting lexicon dump", dir.getAbsolutePath());
 		}
+	}
+	
+	private static <V extends IForgeRegistryEntry<V>> Comparator<V> registryOrderComparator() {
+		return (V a, V b) -> {
+			ForgeRegistry<V> registry = (ForgeRegistry<V>) RegistryManager.ACTIVE.getRegistry(a.getRegistryType());
+			return Integer.compare(registry.getID(a), registry.getID(b));
+		};
+	}
+
+	private static Item[] getSortedTag(Tag<Item> tag) {
+		Item[] items = tag.getAllElements().toArray(new Item[0]);
+		Arrays.sort(items, registryOrderComparator());
+		return items;
+	}
+
+	private static Item[] getSortedTag(ResourceLocation tag) {
+		return getSortedTag(new ItemTags.Wrapper(tag));
 	}
 
 	private static Predicate<IRecipe<?>> GOG_RECIPE = recipe -> recipe.getId().getPath().contains("garden_of_glass");

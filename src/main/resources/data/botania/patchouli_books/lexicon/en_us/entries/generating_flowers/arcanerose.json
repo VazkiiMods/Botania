@@ -2,6 +2,7 @@
   "name": "botania.entry.arcanerose",
   "category": "generating_flowers",
   "icon": "botania:rosa_arcana",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

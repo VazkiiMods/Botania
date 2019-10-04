@@ -2,6 +2,7 @@
   "name": "botania.entry.canopyDrum",
   "category": "devices",
   "icon": "botania:drum_canopy",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

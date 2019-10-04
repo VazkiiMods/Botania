@@ -2,6 +2,7 @@
   "name": "botania.entry.dreamwoodSpreader",
   "category": "mana",
   "icon": "botania:elven_spreader",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

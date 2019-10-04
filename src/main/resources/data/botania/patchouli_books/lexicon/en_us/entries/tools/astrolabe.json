@@ -2,6 +2,7 @@
   "name": "botania.entry.astrolabe",
   "category": "tools",
   "icon": "botania:astrolabe",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

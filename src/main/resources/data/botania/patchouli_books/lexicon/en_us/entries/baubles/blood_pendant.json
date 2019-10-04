@@ -2,6 +2,7 @@
   "name": "botania.entry.bloodPendant",
   "category": "baubles",
   "icon": "botania:blood_pendant",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

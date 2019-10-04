@@ -2,6 +2,7 @@
   "name": "botania.entry.luminizerTransport",
   "category": "ender",
   "icon": "botania:light_relay",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

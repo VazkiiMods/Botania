@@ -16,10 +16,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.IModRecipe;
+import vazkii.botania.common.lexicon.AlfheimLexiconEntry;
+import vazkii.botania.common.lexicon.CompatLexiconEntry;
+import vazkii.botania.common.lexicon.RelicLexiconEntry;
+import vazkii.botania.common.lexicon.WelcomeLexiconEntry;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
@@ -135,17 +140,38 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try (OutputStreamWriter os = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(f)))) {
 			Map<String, Object> entry = new LinkedHashMap<>();
+			
 			entry.put("name", this.getUnlocalizedName());
 			entry.put("category", fixCamelCase(category.getUnlocalizedName().substring("botania.category.".length())));
 			entry.put("icon", getIcon().getItem().getRegistryName().toString());
-			if (isPriority())
+			if (isPriority()) {
 				entry.put("priority", true);
+			} else if (!(this instanceof RelicLexiconEntry || this.getUnlocalizedName().contains("terrasteel") || this.getUnlocalizedName().contains("relics"))) {
+				entry.put("read_by_default", true);
+			}
+			if (this instanceof WelcomeLexiconEntry)
+				entry.put("sortnum", -10);
+			if (this instanceof RelicLexiconEntry) {
+				ResourceLocation advancement = ((RelicLexiconEntry) this).advancement;
+				if(advancement != null) 
+					entry.put("advancement", advancement.toString());
+			} else if(this instanceof AlfheimLexiconEntry) {
+//				entry.put("advancement", ); TODO pick/make advancement for elven entries
+			} else if(this instanceof CompatLexiconEntry) {
+				entry.put("flag", "|debug,mod:" + ((CompatLexiconEntry) this).mod.toLowerCase(Locale.ROOT));
+			}
+			
 			List<Object> pages = new ArrayList<>();
-			for(LexiconPage page : this.pages) {
+			for (int i = 0; i < this.pages.size(); i++) {
+				LexiconPage page = this.pages.get(i);
 				Map<String, Object> json = new LinkedHashMap<>();
 				String unlocalizedName = page.getUnlocalizedName();
-				if (page instanceof PageText) {
-					json.put("type", page instanceof PageLoreText ? "lore_page" : "text");
+				if (page instanceof PageLoreText) {
+					json.put("type", "lore_page");
+					json.put("text", unlocalizedName);
+					json.put(i % 2 == 0 ? "left_side" : "right_side", "true");
+				} else if (page instanceof PageText) {
+					json.put("type", "text");
 					json.put("text", unlocalizedName);
 				} else if (page instanceof PageImage) {
 					json.put("type", "image");

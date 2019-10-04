@@ -2,6 +2,7 @@
   "name": "botania.entry.thunderSword",
   "category": "ender",
   "icon": "botania:thunder_sword",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

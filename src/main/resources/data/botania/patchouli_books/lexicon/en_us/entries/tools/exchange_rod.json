@@ -2,6 +2,7 @@
   "name": "botania.entry.exchangeRod",
   "category": "tools",
   "icon": "botania:exchange_rod",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

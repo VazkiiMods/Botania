@@ -2,6 +2,7 @@
   "name": "botania.entry.vinculotus",
   "category": "functional_flowers",
   "icon": "botania:vinculotus",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "botania.entry.autocraftingHalo",
   "category": "tools",
   "icon": "botania:auto_crafting_halo",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

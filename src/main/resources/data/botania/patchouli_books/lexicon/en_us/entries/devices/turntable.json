@@ -2,6 +2,7 @@
   "name": "botania.entry.turntable",
   "category": "devices",
   "icon": "botania:turntable",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

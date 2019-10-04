@@ -2,6 +2,7 @@
   "name": "botania.entry.flasks",
   "category": "devices",
   "icon": "botania:flask",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -11,6 +11,7 @@
 package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
@@ -20,7 +21,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.Botania;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -34,6 +34,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 	private List<ICraftingRecipe> recipes;
 	private boolean shapeless = true;
 	private int longestIngredientSize = 0;
+	private boolean hasCustomHeading;
 
 	@Override
 	public void setup(IVariableProvider<String> variables) {
@@ -55,11 +56,17 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 				}
 			}
 		}
+		this.hasCustomHeading = variables.has("heading");
 	}
 
 	@Override
 	public String process(String key) {
 		if(recipes.isEmpty()) {
+			return null;
+		}
+		if(key.equals("heading")) {
+			if(!hasCustomHeading)
+				return recipes.get(0).getRecipeOutput().getDisplayName().getString();
 			return null;
 		}
 		if(key.startsWith("input")) {
@@ -73,14 +80,11 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 					if(shaped.getRecipeWidth() < shapedX + 1) {
 						ingredients.add(Ingredient.EMPTY);
 					} else {
-						if(recipe.getId().getPath().contains("floating")) {
-							Botania.LOGGER.error("test");
-						}
 						int realIndex = index - (shapedY * (3 - shaped.getRecipeWidth()));
 						NonNullList<Ingredient> list = recipe.getIngredients();
 						ingredients.add(list.size() > realIndex ? list.get(realIndex) : Ingredient.EMPTY);
 					}
-					
+
 				} else {
 					NonNullList<Ingredient> list = recipe.getIngredients();
 					ingredients.add(list.size() > index ? list.get(index) : Ingredient.EMPTY);
@@ -92,7 +96,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			return recipes.stream().map(IRecipe::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 		}
 		if(key.equals("shapeless")) {
-			return Boolean.toString(shapeless);
+			return shapeless ? I18n.format("patchouli.gui.lexicon.shapeless") : "";
 		}
 		return null;
 	}

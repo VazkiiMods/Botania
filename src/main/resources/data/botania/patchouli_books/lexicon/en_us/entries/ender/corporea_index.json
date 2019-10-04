@@ -2,6 +2,7 @@
   "name": "botania.entry.corporeaIndex",
   "category": "ender",
   "icon": "botania:corporea_index",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

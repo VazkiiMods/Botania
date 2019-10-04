@@ -2,6 +2,7 @@
   "name": "botania.entry.manaMirror",
   "category": "mana",
   "icon": "botania:mana_mirror",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,8 @@
   "name": "botania.entry.tcIntegration",
   "category": "misc",
   "icon": "botania:mana_inkwell",
+  "read_by_default": true,
+  "flag": "|debug,mod:thaumcraft",
   "pages": [
     {
       "type": "text",

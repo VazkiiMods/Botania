@@ -2,6 +2,7 @@
   "name": "botania.entry.dandelifeon",
   "category": "generating_flowers",
   "icon": "botania:dandelifeon",
+  "read_by_default": true,
   "pages": [
     {
       "type": "text",
