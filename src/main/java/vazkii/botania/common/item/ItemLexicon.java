@@ -29,6 +29,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -55,7 +56,13 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.ItemDice;
+import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.patchouli.common.base.PatchouliSounds;
+import vazkii.patchouli.common.book.Book;
+import vazkii.patchouli.common.book.BookRegistry;
+import vazkii.patchouli.common.network.NetworkHandler;
+import vazkii.patchouli.common.network.message.MessageOpenBookGui;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -73,6 +80,11 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "elven"), (stack, world, living) -> isElvenItem(stack) ? 1 : 0);
 	}
 
+	private static Book getBook() {
+		return BookRegistry.INSTANCE.books.get(ModItems.lexicon.getRegistryName());
+	}
+
+	/*
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
@@ -116,55 +128,45 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			list.add(creative);
 		}
 	}
+	*/
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(Screen.hasShiftDown()) {
-			ITextComponent edition = new TranslationTextComponent("botaniamisc.edition", getEdition()).applyTextStyle(TextFormatting.GOLD);
-			if(!edition.getString().isEmpty())
-				stacks.add(edition);
-
-			List<KnowledgeType> typesKnown = new ArrayList<>();
-			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
-				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
-				if(isKnowledgeUnlocked(par1ItemStack, type))
-					typesKnown.add(type);
-			}
-
-			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			stacks.add(new TranslationTextComponent(format, typesKnown.size()));
-
-			for(KnowledgeType type : typesKnown)
-				stacks.add(new StringTextComponent(" \u2022 ").appendSibling(new TranslationTextComponent(type.getUnlocalizedName())));
-
-		} else stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
-	}
-
 	@OnlyIn(Dist.CLIENT)
-	public static String getEdition() {
-		String version = LibMisc.BUILD;
-		int build = version.contains("GRADLE") ? 0 : Integer.parseInt(version);
-		return build == 0 ? I18n.format("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+
+		if (Screen.hasShiftDown()) {
+			Book book = getBook();
+			if(book.contents != null)
+				tooltip.add(new StringTextComponent(book.contents.getSubtitle()).applyTextStyle(TextFormatting.GRAY));
+		} else {
+			tooltip.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
+		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		String force = getForcedPage(stack);
-		if(force != null && !force.isEmpty()) {
-			LexiconEntry entry = getEntryFromForce(stack);
-			if(entry != null)
-				Botania.proxy.setEntryToOpen(entry);
-			else player.sendMessage(new TranslationTextComponent("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
-			setForcedPage(stack, "");
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack stack = playerIn.getHeldItem(handIn);
+		Book book = getBook();
+
+		if(playerIn instanceof ServerPlayerEntity) {
+			NetworkHandler.sendToPlayer(new MessageOpenBookGui(book.resourceLoc.toString()), (ServerPlayerEntity) playerIn);
+			SoundEvent sfx = PatchouliSounds.getSound(book.openSound, PatchouliSounds.book_open);
+			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, sfx, SoundCategory.PLAYERS, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
-		openBook(player, stack, world, skipSound);
-		skipSound = false;
+		return new ActionResult<>(ActionResultType.SUCCESS, stack);
+	}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+	@OnlyIn(Dist.CLIENT)
+	public static String getEdition() {
+		String version = getBook().version;
+		try {
+			return MathHelper.numberToOrdinal(Integer.parseInt(version));
+		} catch (NumberFormatException e) {
+			return I18n.format("botaniamisc.devEdition");
+		}
 	}
 
 	public static void openBook(PlayerEntity player, ItemStack stack, World world, boolean skipSound) {

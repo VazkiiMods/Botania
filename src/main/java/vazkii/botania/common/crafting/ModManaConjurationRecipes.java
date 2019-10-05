@@ -61,7 +61,7 @@ public class ModManaConjurationRecipes {
         evt.manaInfusion().accept(RecipeManaInfusion.conjuration(prefix("acacia_leaves_dupe"), new ItemStack(Blocks.ACACIA_LEAVES, 2), ingr(Blocks.ACACIA_LEAVES), 2000));
         evt.manaInfusion().accept(RecipeManaInfusion.conjuration(prefix("dark_oak_leaves_dupe"), new ItemStack(Blocks.DARK_OAK_LEAVES, 2), ingr(Blocks.DARK_OAK_LEAVES), 2000));
 
-        evt.manaInfusion().accept(RecipeManaInfusion.conjuration(prefix("grass"), new ItemStack(Blocks.GRASS), ingr(Blocks.GRASS), 800));
+        evt.manaInfusion().accept(RecipeManaInfusion.conjuration(prefix("grass"), new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800));
 	}
 
 	private static Ingredient ingr(IItemProvider i) {

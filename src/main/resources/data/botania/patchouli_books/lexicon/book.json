@@ -7,6 +7,8 @@
   "open_sound": "botania:lexiconopen",
   "flip_sound": "botania:lexiconpage",
   "creative_tab": "botania",
+  "dont_generate_book": true,
+  "custom_book_item": "botania:lexicon",
   "advancements_tab": "botania:main/root",
   "advancement_namespaces": [ "botania" ]
 }
