@@ -29,6 +29,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -63,6 +64,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.boss.IBotaniaBoss;
@@ -1014,6 +1016,12 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		long lsb = additionalData.readLong();
 		bossInfoUUID = new UUID(msb, lsb);
 		Minecraft.getInstance().getSoundHandler().play(new DopplegangerMusic(this));
+	}
+
+	@Nonnull
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@OnlyIn(Dist.CLIENT)

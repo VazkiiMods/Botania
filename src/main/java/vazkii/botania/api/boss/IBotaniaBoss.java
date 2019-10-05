@@ -57,7 +57,7 @@ public interface IBotaniaBoss {
 	/**
 	 * Get the serverside UUID of the {@link ServerBossInfo} instance tracking this boss
 	 * Note that this is NOT the entity's UUID, nor is it the clientside UUID of the BossInfoServer instance!
-	 * You will most likely need to sync this yourself using the datawatcher
+	 * You will most likely need to sync this yourself using IEntityAdditionalSpawnData or similar.
 	 * @return The uuid.
 	 */
 	public UUID getBossInfoUuid();
