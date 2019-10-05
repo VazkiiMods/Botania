@@ -3,6 +3,7 @@
   "category": "tools",
   "icon": "botania:open_bucket",
   "read_by_default": true,
+  "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

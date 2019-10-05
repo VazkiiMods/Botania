@@ -246,11 +246,9 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private void resolveRecipes() {
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
-			if(!stack.isEmpty() && stack.getItem() instanceof ILexicon) {
-				ILexicon lexicon = (ILexicon) stack.getItem();
-				if (!lexicon.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge)) {
-					lexicon.unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
-					ItemLexicon.setForcedPage(stack, LexiconData.elvenMessage.getUnlocalizedName());
+			if(!stack.isEmpty() && stack.getItem() == ModItems.lexicon) {
+				if (!stack.getOrCreateTag().getBoolean(ItemLexicon.TAG_ELVEN_UNLOCK)) {
+					stack.getTag().putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
 					spawnItem(stack);
 					stacksIn.remove(i);
 					return;

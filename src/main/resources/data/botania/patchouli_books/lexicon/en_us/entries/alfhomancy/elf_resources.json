@@ -3,6 +3,7 @@
   "category": "alfhomancy",
   "icon": "botania:dragonstone",
   "priority": true,
+  "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

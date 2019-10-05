@@ -2,6 +2,7 @@
   "name": "botania.entry.gaiaRitualHardmode",
   "category": "alfhomancy",
   "icon": "botania:gaia_ingot",
+  "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

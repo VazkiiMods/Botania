@@ -156,7 +156,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 				if(advancement != null) 
 					entry.put("advancement", advancement.toString());
 			} else if(this instanceof AlfheimLexiconEntry) {
-//				entry.put("advancement", ); TODO pick/make advancement for elven entries
+				entry.put("advancement", "botania:main/elf_lexicon_pickup");
 			} else if(this instanceof CompatLexiconEntry) {
 				entry.put("flag", "|debug,mod:" + ((CompatLexiconEntry) this).mod.toLowerCase(Locale.ROOT));
 			}

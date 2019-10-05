@@ -3,6 +3,7 @@
   "category": "mana",
   "icon": "botania:spark_changer",
   "read_by_default": true,
+  "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

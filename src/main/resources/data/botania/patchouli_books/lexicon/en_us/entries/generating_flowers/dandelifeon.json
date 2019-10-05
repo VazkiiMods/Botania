@@ -3,6 +3,7 @@
   "category": "generating_flowers",
   "icon": "botania:dandelifeon",
   "read_by_default": true,
+  "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

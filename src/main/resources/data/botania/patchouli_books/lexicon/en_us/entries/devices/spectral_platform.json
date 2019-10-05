@@ -3,6 +3,7 @@
   "category": "devices",
   "icon": "botania:spectral_platform",
   "read_by_default": true,
+  "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

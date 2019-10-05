@@ -70,6 +70,7 @@ import java.util.List;
 
 public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
+    public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
 	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
 	private static final String TAG_QUEUE_TICKS = "queueTicks";
@@ -84,43 +85,12 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		return BookRegistry.INSTANCE.books.get(ModItems.lexicon.getRegistryName());
 	}
 
-	/*
-	@Nonnull
-	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		PlayerEntity player = ctx.getPlayer();
-		if(player == null)
-			return ActionResultType.PASS;
-
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-		if(player.isSneaking()) {
-			Block block = world.getBlockState(pos).getBlock();
-
-			if(block instanceof ILexiconable) {
-				ItemStack stack = ctx.getItem();
-				LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, stack);
-				if(entry != null && isKnowledgeUnlocked(stack, entry.getKnowledgeType())) {
-					Botania.proxy.setEntryToOpen(entry);
-					Botania.proxy.setLexiconStack(stack);
-
-					openBook(player, stack, world, false);
-					return ActionResultType.SUCCESS;
-				}
-			} else if(world.isRemote) {
-				BlockRayTraceResult mop = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), pos, ctx.func_221533_k());
-				return Botania.proxy.openWikiPage(world, block, mop) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
-			}
-		}
-
-		return ActionResultType.PASS;
-	}
-
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
 		if(isInGroup(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
+			creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
 			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
 				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
 				unlockKnowledge(creative, type);
@@ -128,7 +98,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			list.add(creative);
 		}
 	}
-	*/
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
@@ -260,6 +229,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);
+	    return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
 	}
 }
