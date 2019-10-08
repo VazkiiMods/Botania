@@ -10,6 +10,8 @@
  */
 package vazkii.botania.api.mana.spark;
 
+import net.minecraft.item.DyeColor;
+
 import java.util.Collection;
 
 /**
@@ -53,4 +55,9 @@ public interface ISparkEntity {
 	 */
 	public boolean areIncomingTransfersDone();
 
+	/**
+	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others
+	 * of the same network.
+	 */
+	public DyeColor getNetwork();
 }

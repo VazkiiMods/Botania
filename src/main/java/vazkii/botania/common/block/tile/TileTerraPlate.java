@@ -93,14 +93,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 				removeMana = false;
 				ISparkEntity spark = getAttachedSpark();
 				if(spark != null) {
-					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-					for(ISparkEntity otherSpark : sparkEntities) {
-						if(spark == otherSpark)
-							continue;
-
-						if(otherSpark.getAttachedTile() != null && otherSpark.getAttachedTile() instanceof IManaPool)
-							otherSpark.registerTransfer(spark);
-					}
+					SparkHelper.getSparksAround(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, spark.getNetwork())
+							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
+							.forEach(os -> os.registerTransfer(spark));
 				}
 				if(mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
@@ -126,7 +121,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 			recieveMana(-1000);
 	}
 
-	List<ItemEntity> getItems() {
+	private List<ItemEntity> getItems() {
 		return world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 	}
 

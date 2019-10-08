@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -38,6 +39,7 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -51,14 +53,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
-public class EntitySpark extends Entity implements ISparkEntity {
+public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":spark")
 	public static EntityType<EntitySpark> TYPE;
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
-	private static final String TAG_INVIS = "invis";
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
 	private final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
@@ -75,6 +78,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	protected void registerData() {
+		super.registerData();
 		dataManager.register(UPGRADE, 0);
 	}
 
@@ -98,10 +102,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		}
 
 		SparkUpgradeType upgrade = getUpgrade();
-		List<ISparkEntity> allSparks = null;
-		if(upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
-			allSparks = SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2.0), posZ);
-
 		Collection<ISparkEntity> transfers = getTransfers();
 
 		switch(upgrade) {
@@ -160,29 +160,27 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			break;
 		}
 		case DOMINANT : {
-			List<ISparkEntity> validSparks = new ArrayList<>();
-			for(ISparkEntity spark : allSparks) {
-				if(spark == this)
-					continue;
-
-				SparkUpgradeType upgrade_ = spark.getUpgrade();
-				if(upgrade_ == SparkUpgradeType.NONE && spark.getAttachedTile() instanceof IManaPool)
-					validSparks.add(spark);
-			}
+			List<ISparkEntity> validSparks = SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2), posZ, getNetwork())
+					.filter(s -> {
+						SparkUpgradeType otherUpgrade = s.getUpgrade();
+						return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedTile() instanceof IManaPool;
+					})
+					.collect(Collectors.toList());
 			if(validSparks.size() > 0)
 				validSparks.get(world.rand.nextInt(validSparks.size())).registerTransfer(this);
 
 			break;
 		}
 		case RECESSIVE : {
-			for(ISparkEntity spark : allSparks) {
-				if(spark == this)
-					continue;
-
-				SparkUpgradeType upgrade_ = spark.getUpgrade();
-				if(upgrade_ != SparkUpgradeType.DOMINANT && upgrade_ != SparkUpgradeType.RECESSIVE && upgrade_ != SparkUpgradeType.ISOLATED)
-					transfers.add(spark);
-			}
+			SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2), posZ, getNetwork())
+					.filter(s -> {
+						SparkUpgradeType otherUpgrade = s.getUpgrade();
+						return s != this
+							&& otherUpgrade != SparkUpgradeType.DOMINANT
+							&& otherUpgrade != SparkUpgradeType.RECESSIVE
+							&& otherUpgrade != SparkUpgradeType.ISOLATED;
+					})
+					.forEach(transfers::add);
 			break;
 		}
 		case NONE:
@@ -240,17 +238,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
-		return true;
-	}
-
-	@Override
 	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!removed && !stack.isEmpty()) {
+		if(isAlive() && !stack.isEmpty()) {
 			if(world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
-						|| stack.getItem() == ModItems.phantomInk;
+						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof ItemDye;
 				if(valid)
 					player.swingArm(hand);
 				return valid;
@@ -268,8 +261,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					} else dropAndKill();
 					return true;
 				} else {
-					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2.0), posZ))
-						particleBeam(player, this, (Entity) spark);
+					SparkHelper.getSparksAround(world, posX, posY + (getHeight() / 2), posZ, getNetwork())
+							.forEach(s -> particleBeam(player, this, (Entity) s));
 					return true;
 				}
 			} else if(stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
@@ -279,6 +272,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
 				return true;
+			} else if (stack.getItem() instanceof ItemDye) {
+				DyeColor color = ((ItemDye) stack.getItem()).color;
+				if(color != getNetwork()) {
+					setNetwork(color);
+					stack.shrink(1);
+					return true;
+				}
 			}
 		}
 
@@ -293,14 +293,14 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	protected void readAdditional(@Nonnull CompoundNBT cmp) {
+		super.readAdditional(cmp);
 		setUpgrade(SparkUpgradeType.values()[cmp.getInt(TAG_UPGRADE)]);
-		setInvisible(cmp.getInt(TAG_INVIS) == 1);
 	}
 
 	@Override
 	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
+		super.writeAdditional(cmp);
 		cmp.putInt(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.putInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 	@Override
@@ -309,7 +309,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		int y = MathHelper.floor(posY) - 1;
 		int z = MathHelper.floor(posZ);
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if(tile != null && tile instanceof ISparkAttachable)
+		if(tile instanceof ISparkAttachable)
 			return (ISparkAttachable) tile;
 
 		return null;
@@ -323,10 +323,14 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			SparkUpgradeType supgr = spark.getUpgrade();
 			ISparkAttachable atile = spark.getAttachedTile();
 
-			if(!(spark != this
-					&& !spark.areIncomingTransfersDone()
-					&& atile != null && !atile.isFull()
-					&& (upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT || upgr == SparkUpgradeType.RECESSIVE && (supgr == SparkUpgradeType.NONE || supgr == SparkUpgradeType.DISPERSIVE) || !(atile instanceof IManaPool))))
+			if(spark == this
+					|| spark.areIncomingTransfersDone()
+					|| getNetwork() != spark.getNetwork()
+					|| atile == null
+					|| atile.isFull()
+					|| !(upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT
+							|| upgr == SparkUpgradeType.RECESSIVE && (supgr == SparkUpgradeType.NONE || supgr == SparkUpgradeType.DISPERSIVE)
+							|| !(atile instanceof IManaPool)))
 				iter.remove();
 		}
 	}

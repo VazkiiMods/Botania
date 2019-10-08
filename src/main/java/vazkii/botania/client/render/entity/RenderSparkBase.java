@@ -24,11 +24,12 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.proxy.ClientProxy;
+import vazkii.botania.common.entity.EntitySparkBase;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public abstract class RenderSparkBase<T extends Entity> extends EntityRenderer<T> {
+public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
 
 	public RenderSparkBase(EntityRendererManager manager) {
 		super(manager);
@@ -64,12 +65,11 @@ public abstract class RenderSparkBase<T extends Entity> extends EntityRenderer<T
 		renderIcon(tessellator, iicon);
 
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
-		if(spinningIcon != null) {
-			GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
-			GlStateManager.scalef(0.2F, 0.2F, 0.2F);
-			colorSpinningIcon(tEntity, a);
-			renderIcon(tessellator, spinningIcon);
-		}
+		GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
+		GlStateManager.scalef(0.2F, 0.2F, 0.2F);
+		colorSpinningIcon(tEntity, a);
+		renderIcon(tessellator, spinningIcon);
+
 		GlStateManager.popMatrix();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		renderCallback(tEntity, par9);
@@ -83,17 +83,23 @@ public abstract class RenderSparkBase<T extends Entity> extends EntityRenderer<T
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;
 	}
 
-	protected void colorSpinningIcon(T entity, float a) {}
+	private void colorSpinningIcon(T entity, float a) {
+		int hex = entity.getNetwork().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = hex & 0xFF;
+		GlStateManager.color4f(r / 255F, g / 255F, b / 255F, a);
+	}
 
 	protected TextureAtlasSprite getSpinningIcon(T entity) {
-		return null;
+		return MiscellaneousIcons.INSTANCE.corporeaIconStar;
 	}
 
 	protected void renderCallback(T entity, float pticks) {}
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull Entity entity) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntitySparkBase entity) {
 		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 
@@ -112,7 +118,6 @@ public abstract class RenderSparkBase<T extends Entity> extends EntityRenderer<T
 		tess.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 		tess.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 		tess.draw();
-
 	}
 
 }

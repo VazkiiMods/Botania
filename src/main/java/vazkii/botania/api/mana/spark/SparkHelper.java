@@ -12,14 +12,20 @@ package vazkii.botania.api.mana.spark;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public final class SparkHelper {
 
 	public static final int SPARK_SCAN_RANGE = 12;
+
+	public static Stream<ISparkEntity> getSparksAround(World world, double x, double y, double z, DyeColor color) {
+		return getSparksAround(world, x, y, z).stream().filter(s -> s.getNetwork() == color);
+	}
 
 	public static List<ISparkEntity> getSparksAround(World world, double x, double y, double z) {
 		return SparkHelper.getEntitiesAround(ISparkEntity.class, world, x, y, z);

@@ -41,18 +41,15 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
+public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
 	@ObjectHolder(LibMisc.MOD_ID + ":corporea_spark")
 	public static EntityType<EntityCorporeaSpark> TYPE;
 
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
-	private static final String TAG_NETWORK = "network";
-	private static final String TAG_INVIS = "invis";
 
 	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEMSTACK);
 
@@ -71,8 +68,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	@Override
 	protected void registerData() {
+		super.registerData();
 		dataManager.register(MASTER, false);
-		dataManager.register(NETWORK, 0);
 		dataManager.register(ITEM_DISPLAY_TICKS, 0);
 		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
 	}
@@ -81,11 +78,6 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
 		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return true;
 	}
 
 	@Override
@@ -241,15 +233,6 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		return dataManager.get(MASTER);
 	}
 
-	public void setNetwork(DyeColor network) {
-		dataManager.set(NETWORK, network.getId());
-	}
-
-	@Override
-	public DyeColor getNetwork() {
-		return DyeColor.byId(dataManager.get(NETWORK));
-	}
-
 	public int getItemDisplayTicks() {
 		return dataManager.get(ITEM_DISPLAY_TICKS);
 	}
@@ -315,16 +298,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	@Override
 	protected void readAdditional(@Nonnull CompoundNBT cmp) {
+		super.readAdditional(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
-		setNetwork(DyeColor.byId(cmp.getInt(TAG_NETWORK)));
-		setInvisible(cmp.getInt(TAG_INVIS) == 1);
 	}
 
 	@Override
 	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
+		super.writeAdditional(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
-		cmp.putInt(TAG_NETWORK, getNetwork().getId());
-		cmp.putInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 }

@@ -208,14 +208,9 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		} else {
 			ISparkEntity spark = getAttachedSpark();
 			if(spark != null) {
-				List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-				for(ISparkEntity otherSpark : sparkEntities) {
-					if(spark == otherSpark)
-						continue;
-
-					if(otherSpark.getAttachedTile() != null && otherSpark.getAttachedTile() instanceof IManaPool)
-						otherSpark.registerTransfer(spark);
-				}
+				SparkHelper.getSparksAround(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, spark.getNetwork())
+						.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
+						.forEach(os -> os.registerTransfer(spark));
 			}
 			if(stageTicks % 5 == 0)
 				sync();

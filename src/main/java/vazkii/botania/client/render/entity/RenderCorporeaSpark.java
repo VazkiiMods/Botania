@@ -36,20 +36,6 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	}
 
 	@Override
-	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
-		int hex = entity.getNetwork().colorValue;
-		int r = (hex & 0xFF0000) >> 16;
-		int g = (hex & 0xFF00) >> 8;
-		int b = hex & 0xFF;
-		GlStateManager.color4f(r / 255F, g / 255F, b / 255F, a);
-	}
-
-	@Override
-	public TextureAtlasSprite getSpinningIcon(EntityCorporeaSpark entity) {
-		return MiscellaneousIcons.INSTANCE.corporeaIconStar;
-	}
-
-	@Override
 	public void renderCallback(EntityCorporeaSpark entity, float pticks) {
 		int time = entity.getItemDisplayTicks();
 		if(time == 0)
