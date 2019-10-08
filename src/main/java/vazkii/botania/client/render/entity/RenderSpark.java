@@ -26,7 +26,7 @@ public class RenderSpark extends RenderSparkBase<EntitySpark> {
 		int upgrade = entity.getUpgrade().ordinal() - 1;
 		return upgrade >= 0 && upgrade < MiscellaneousIcons.INSTANCE.sparkUpgradeIcons.length
 				? MiscellaneousIcons.INSTANCE.sparkUpgradeIcons[upgrade]
-				: super.getSpinningIcon(entity);
+				: null;
 	}
 
 }

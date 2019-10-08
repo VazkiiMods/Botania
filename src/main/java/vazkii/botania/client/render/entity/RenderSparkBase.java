@@ -14,11 +14,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -27,6 +24,7 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.entity.EntitySparkBase;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
@@ -64,11 +62,19 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		GlStateManager.rotatef(-renderManager.playerViewX, 1F, 0F, 0F);
 		renderIcon(tessellator, iicon);
 
-		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
+		GlStateManager.pushMatrix();
 		GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 		GlStateManager.scalef(0.2F, 0.2F, 0.2F);
-		colorSpinningIcon(tEntity, a);
-		renderIcon(tessellator, spinningIcon);
+		colorStar(tEntity, a);
+		renderIcon(tessellator, MiscellaneousIcons.INSTANCE.corporeaIconStar);
+		GlStateManager.popMatrix();
+
+		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
+		if (spinningIcon != null) {
+			GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * -0.2F, 0.24F + (float) Math.cos(time / 20) * -0.2F, 0.005F);
+			GlStateManager.scalef(0.2F, 0.2F, 0.2F);
+			renderIcon(tessellator, spinningIcon);
+		}
 
 		GlStateManager.popMatrix();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
@@ -83,7 +89,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;
 	}
 
-	private void colorSpinningIcon(T entity, float a) {
+	private void colorStar(T entity, float a) {
 		int hex = entity.getNetwork().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -91,8 +97,9 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		GlStateManager.color4f(r / 255F, g / 255F, b / 255F, a);
 	}
 
+	@Nullable
 	protected TextureAtlasSprite getSpinningIcon(T entity) {
-		return MiscellaneousIcons.INSTANCE.corporeaIconStar;
+		return null;
 	}
 
 	protected void renderCallback(T entity, float pticks) {}
