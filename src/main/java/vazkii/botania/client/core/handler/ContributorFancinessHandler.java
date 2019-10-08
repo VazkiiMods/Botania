@@ -27,17 +27,14 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
-import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -53,7 +50,6 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 	public static final Map<String, ItemStack> flowerMap = new HashMap<>();
 	private static boolean startedLoading = false;
 
-	private static final Tag<Item> FLOWERS = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
 	private static final ImmutableMap<String, String> LEGACY_FLOWER_NAMES = ImmutableMap.<String, String>builder()
 			.put("puredaisy", LibBlockNames.SUBTILE_PUREDAISY.getPath())
 			.put("fallenkanade", LibBlockNames.SUBTILE_FALLEN_KANADE.getPath())
@@ -121,7 +117,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				Item item = FLOWERS.getAllElements().stream()
+				Item item = ModTags.Items.SPECIAL_FLOWERS.getAllElements().stream()
 						.filter(flower -> flower.getRegistryName().getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				flowerMap.put(key, new ItemStack(item));

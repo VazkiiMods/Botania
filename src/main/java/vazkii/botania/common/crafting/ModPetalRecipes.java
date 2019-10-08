@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -20,7 +18,6 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
@@ -28,8 +25,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
@@ -38,50 +33,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModPetalRecipes {
-	public static RecipePetals pureDaisyRecipe;
-	public static RecipePetals manastarRecipe;
-
-	public static RecipePetals endoflameRecipe;
-	public static RecipePetals hydroangeasRecipe;
-	public static RecipePetals thermalilyRecipe;
-	public static RecipePetals arcaneRoseRecipe;
-	public static RecipePetals munchdewRecipe;
-	public static RecipePetals entropinnyumRecipe;
-	public static RecipePetals kekimurusRecipe;
-	public static RecipePetals gourmaryllisRecipe;
-	public static RecipePetals narslimmusRecipe;
-	public static RecipePetals spectrolusRecipe;
-	public static RecipePetals rafflowsiaRecipe;
-	public static RecipePetals shulkMeNotRecipe;
-	public static RecipePetals dandelifeonRecipe;
-
-	public static RecipePetals jadedAmaranthusRecipe;
-	public static RecipePetals bellethorneRecipe;
-	public static RecipePetals dreadthorneRecipe;
-	public static RecipePetals heiseiDreamRecipe;
-	public static RecipePetals tigerseyeRecipe;
-	public static RecipePetals orechidRecipe;
-	public static RecipePetals orechidIgnemRecipe;
-	public static RecipePetals fallenKanadeRecipe;
-	public static RecipePetals exoflameRecipe;
-	public static RecipePetals agricarnationRecipe;
-	public static RecipePetals hopperhockRecipe;
-	public static RecipePetals tangleberrieRecipe;
-	public static RecipePetals jiyuuliaRecipe;
-	public static RecipePetals rannuncarpusRecipe;
-	public static RecipePetals hyacidusRecipe;
-	public static RecipePetals pollidisiacRecipe;
-	public static RecipePetals clayconiaRecipe;
-	public static RecipePetals looniumRecipe;
-	public static RecipePetals daffomillRecipe;
-	public static RecipePetals vinculotusRecipe;
-	public static RecipePetals spectranthemumRecipe;
-	public static RecipePetals medumoneRecipe;
-	public static RecipePetals marimorphosisRecipe;
-	public static RecipePetals bubbellRecipe;
-	public static RecipePetals solegnoliaRecipe;
-	public static RecipePetals bergamuteRecipe;
-
 	@SubscribeEvent
 	public static void register(RegisterRecipesEvent evt) {
 		Ingredient white = tagIngr("petals/white");

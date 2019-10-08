@@ -66,6 +66,7 @@ import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldCondition;
 import vazkii.botania.common.crafting.ReloadListener;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -210,14 +211,13 @@ public class Botania {
 						"___________",
 					}
 			};
-			Tag<Block> mysticalFlowers = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "mystical_flowers"));
 			mb = PatchouliAPI.instance.makeMultiblock(
 					pat,
 					'P', ModBlocks.manaPylon,
 					'L', Blocks.LAPIS_BLOCK,
 					'B', Blocks.OBSIDIAN,
 					'0', Blocks.OBSIDIAN,
-					'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(mysticalFlowers))
+					'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
 			);
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), mb);
 

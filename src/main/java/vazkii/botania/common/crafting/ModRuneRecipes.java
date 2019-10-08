@@ -24,6 +24,7 @@ import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -37,9 +38,9 @@ public final class ModRuneRecipes {
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
 
-		Ingredient manaSteel = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "ingots/manasteel")));
-		Ingredient manaDiamond = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "gems/mana_diamond")));
-		Ingredient manaPowder = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "dusts/mana")));
+		Ingredient manaSteel = Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL);
+		Ingredient manaDiamond = Ingredient.fromTag(ModTags.Items.GEMS_MANA_DIAMOND);
+		Ingredient manaPowder = Ingredient.fromTag(ModTags.Items.DUSTS_MANA);
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("water"), new ItemStack(ModItems.runeWater, 2), costTier1, manaPowder, manaSteel, Ingredient.fromItems(Items.BONE_MEAL), Ingredient.fromItems(Blocks.SUGAR_CANE), Ingredient.fromItems(Items.FISHING_ROD)));
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("fire"), new ItemStack(ModItems.runeFire, 2), costTier1, manaPowder, manaSteel, Ingredient.fromItems(Items.NETHER_BRICK), Ingredient.fromItems(Items.GUNPOWDER), Ingredient.fromItems(Items.NETHER_WART)));
 
@@ -49,10 +50,10 @@ public final class ModRuneRecipes {
 
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.fromTag(ItemTags.CARPETS), Ingredient.fromItems(Items.FEATHER), Ingredient.fromItems(Items.STRING)));
 		
-		Ingredient fire = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/fire")));
-		Ingredient water = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/water")));
-		Ingredient earth = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/earth")));
-		Ingredient air = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/air")));
+		Ingredient fire = Ingredient.fromTag(ModTags.Items.RUNES_FIRE);
+		Ingredient water = Ingredient.fromTag(ModTags.Items.RUNES_WATER);
+		Ingredient earth = Ingredient.fromTag(ModTags.Items.RUNES_EARTH);
+		Ingredient air = Ingredient.fromTag(ModTags.Items.RUNES_AIR);
 
 		Ingredient sapling = Ingredient.fromTag(ItemTags.SAPLINGS);
 		Ingredient leaves = Ingredient.fromTag(ItemTags.LEAVES);
@@ -63,10 +64,10 @@ public final class ModRuneRecipes {
 
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("winter"), new ItemStack(ModItems.runeWinter), costTier2, water, earth, Ingredient.fromItems(Blocks.SNOW), Ingredient.fromItems(Blocks.SNOW), Ingredient.fromTag(ItemTags.WOOL), Ingredient.fromItems(Blocks.CAKE)));
 
-		Ingredient spring = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/spring")));
-		Ingredient summer = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/summer")));
-		Ingredient autumn = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/autumn")));
-		Ingredient winter = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "runes/winter")));
+		Ingredient spring = Ingredient.fromTag(ModTags.Items.RUNES_SPRING);
+		Ingredient summer = Ingredient.fromTag(ModTags.Items.RUNES_SUMMER);
+		Ingredient autumn = Ingredient.fromTag(ModTags.Items.RUNES_AUTUMN);
+		Ingredient winter = Ingredient.fromTag(ModTags.Items.RUNES_WINTER);
 		
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("mana"), new ItemStack(ModItems.runeMana), costTier2, manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.fromItems(ModItems.manaPearl)));
 

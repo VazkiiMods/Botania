@@ -23,11 +23,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -39,14 +36,13 @@ import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
-	private static final Tag<Block> TERRAFORMABLE = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "terraformable"));
 	private static final int COST_PER = 55;
 
 	// todo 1.13 migrate rest of these
@@ -106,7 +102,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			if(state.isAir(world, pos))
 				continue;
 
-			if(TERRAFORMABLE.contains(state.getBlock())) {
+			if(ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
 				for(Direction dir : MathHelper.HORIZONTALS) {

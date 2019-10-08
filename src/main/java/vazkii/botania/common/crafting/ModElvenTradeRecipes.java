@@ -1,25 +1,17 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
-
-import java.util.ArrayList;
-import java.util.List;
+import vazkii.botania.common.lib.ModTags;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -28,11 +20,11 @@ public class ModElvenTradeRecipes {
 
 	@SubscribeEvent
 	public static void register(RegisterRecipesEvent evt) {
-		Ingredient livingwood = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "livingwood")));
+		Ingredient livingwood = Ingredient.fromTag(ModTags.Items.LIVINGWOOD);
 		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("dreamwood"), new ItemStack(ModBlocks.dreamwood), livingwood));
 
-		Ingredient manaDiamond = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "gems/mana_diamond")));
-		Ingredient manaSteel = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation("forge", "ingots/manasteel")));
+		Ingredient manaDiamond = Ingredient.fromTag(ModTags.Items.GEMS_MANA_DIAMOND);
+		Ingredient manaSteel = Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL);
 		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("elementium"), new ItemStack(ModItems.elementium), manaSteel, manaSteel));
 		evt.elvenTrade().accept(new RecipeElvenTrade(prefix("elementium_block"), new ItemStack(ModBlocks.elementiumBlock), Ingredient.fromItems(ModBlocks.manasteelBlock), Ingredient.fromItems(ModBlocks.manasteelBlock)));
 
