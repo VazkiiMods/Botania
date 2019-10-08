@@ -20,10 +20,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -41,7 +38,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import java.awt.Color;
 
@@ -54,7 +51,6 @@ public final class SkyblockWorldEvents {
 	private static final String TAG_ISLAND_X = "Botania-IslandX";
 	private static final String TAG_ISLAND_Y = "Botania-IslandY";
 	private static final String TAG_ISLAND_Z = "Botania-IslandZ";
-	private static final Tag<Block> PEBBLE_SOURCES = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "pebble_sources"));
 
 	@SubscribeEvent
 	public static void onPlayerUpdate(LivingUpdateEvent event) {
@@ -94,7 +90,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				if(PEBBLE_SOURCES.contains(block)) {
+				if(ModTags.Blocks.PEBBLE_SOURCES.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 

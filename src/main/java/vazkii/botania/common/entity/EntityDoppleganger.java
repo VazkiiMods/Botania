@@ -82,6 +82,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -121,7 +122,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final Tag<Block> BLACKLIST = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "gaia_break_blacklist"));
+	private static final Tag<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 
