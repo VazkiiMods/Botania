@@ -11,44 +11,30 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.IRecipeKeyProvider;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemBlockSpecialFlower extends ItemBlockMod {
-	private static final Tag<Item> GENERATING = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "generating_special_flowers"));
-	private static final Tag<Item> FUNCTIONAL = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "functional_special_flowers"));
-	private static final Tag<Item> MISC = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "misc_special_flowers"));
+	private static final Tag<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
+	private static final Tag<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
+	private static final Tag<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
 
 	public ItemBlockSpecialFlower(Block block1, Properties props) {
 		super(block1, props);

@@ -15,15 +15,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -36,14 +34,14 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
-	private static final Tag<EntityType<?>> BLACKLIST = new EntityTypeTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "shaded_mesa_blacklist"));
+	private static final Tag<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 

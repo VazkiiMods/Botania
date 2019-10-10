@@ -10,14 +10,9 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -32,16 +27,13 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.List;
 
 public class ItemMagnetRing extends ItemBauble {
 
 	private static final String TAG_COOLDOWN = "cooldown";
-
-	private static final Tag<Item> BLACKLIST = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "magnet_ring_blacklist"));
-	private static final Tag<Block> BLOCK_BLACKLIST = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "magnet_ring_blacklist"));
 
 	private final int range;
 
@@ -111,15 +103,15 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 
 		ItemStack stack = item.getItem();
-		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(stack.getItem()))
+		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem()))
 			return false;
 
 		BlockPos pos = new BlockPos(item);
 
-		if(BLOCK_BLACKLIST.contains(item.world.getBlockState(pos).getBlock()))
+		if(ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock()))
 			return false;
 
-		if(BLOCK_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock()))
+		if(ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock()))
 			return false;
 
 		return true;

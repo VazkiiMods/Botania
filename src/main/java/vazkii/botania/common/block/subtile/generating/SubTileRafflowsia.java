@@ -15,10 +15,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -28,11 +24,11 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -43,7 +39,6 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 	private static final String TAG_LAST_FLOWER = "lastFlower";
 	private static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
-	private static final Tag<Block> SPECIAL_FLOWERS = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
 
 	@Nullable
 	private Block lastFlower;
@@ -68,7 +63,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
 
 						BlockState state = getWorld().getBlockState(pos);
-						if(state.isIn(SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
+						if(state.isIn(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
 							if(state.getBlock() == lastFlower)
 								lastFlowerTimes++;
 							else {
