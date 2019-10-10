@@ -114,14 +114,13 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 								decremented = false;
 							}
 
+							WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
 							for(int i = 0; i < 25; i++) {
 								double x = pos.getPos().getX() + Math.random();
 								double y = pos.getPos().getY() + Math.random();
 								double z = pos.getPos().getZ() + Math.random();
-
-                                WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
-                                p.world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
-                            }
+								p.world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
+							}
 						}
 					}
 				}

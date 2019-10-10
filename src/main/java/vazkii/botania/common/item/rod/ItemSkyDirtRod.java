@@ -60,10 +60,10 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
+					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
 					for(int i = 0; i < 6; i++) {
-                        SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
-                        world.addParticle(data, x + Math.random(), y + Math.random(), z + Math.random(), 0, 0, 0);
-                    }
+						world.addParticle(data, x + Math.random(), y + Math.random(), z + Math.random(), 0, 0, 0);
+					}
 				}
 			}
 		}

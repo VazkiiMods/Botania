@@ -106,11 +106,11 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					float mul = 0.5F;
 					float mulPer = 0.4F;
 					float maxMul = 2;
+					WispParticleData data = WispParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
 					for(int i = start; i < start + count; i++) {
 						mul = Math.min(maxMul, mul + mulPer);
 						double rad = radPer * (i + ticksElapsed * 0.4);
 						Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-						WispParticleData data = WispParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
 						world.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
 						vecTip = vecTip.add(vecMag);
 					}
