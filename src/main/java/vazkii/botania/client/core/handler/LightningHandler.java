@@ -25,7 +25,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.FXLightning;
-import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -47,7 +46,6 @@ public class LightningHandler {
 		IProfiler profiler = Minecraft.getInstance().getProfiler();
 
 		profiler.startSection("botania-particles");
-		ParticleRenderDispatcher.dispatch();
 		profiler.startSection("redString");
 		RedStringRenderer.renderAll();
 		profiler.endStartSection("lightning");
@@ -68,8 +66,6 @@ public class LightningHandler {
 		GlStateManager.depthMask(false);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-		ParticleRenderDispatcher.lightningCount = 0;
 
 		render.bindTexture(outsideResource);
 		int counter = 0;

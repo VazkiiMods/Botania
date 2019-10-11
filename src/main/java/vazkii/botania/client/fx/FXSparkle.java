@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
@@ -32,25 +33,18 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 public class FXSparkle extends Particle {
 
 	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
-	private static final Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
-	private static final Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
-
 	protected float particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
-	// Queue values
-	private float f;
-	private float f1;
-	private float f2;
-	private float f3;
-	private float f4;
-	private float f5;
+	private final boolean corrupt;
+	public final boolean fake;
+	private final int multiplier;
+	public final int particle = 16;
+	private final boolean slowdown = true;
 
 	public FXSparkle(World world, double x, double y, double z, float size,
 					 float red, float green, float blue, int m,
@@ -73,34 +67,12 @@ public class FXSparkle extends Particle {
 		this.canCollide = !fake && !noClip;
 	}
 
-	public static void dispatchQueuedRenders(Tessellator tessellator) {
-		ParticleRenderDispatcher.sparkleFxCount = 0;
-		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
-
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
-
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-		for(FXSparkle sparkle : queuedRenders)
-			sparkle.renderQueued(tessellator);
-		tessellator.draw();
-
-		ShaderHelper.useShader(ShaderHelper.filmGrain);
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-		for(FXSparkle sparkle : queuedCorruptRenders)
-			sparkle.renderQueued(tessellator);
-		tessellator.draw();
-		ShaderHelper.releaseShader();
-
-		queuedRenders.clear();
-		queuedCorruptRenders.clear();
+	public void setCanCollide(boolean canCollide) {
+		this.canCollide = canCollide;
 	}
 
-	private void renderQueued(Tessellator tessellator) {
-		if(fake)
-			ParticleRenderDispatcher.fakeSparkleFxCount++;
-		else ParticleRenderDispatcher.sparkleFxCount++;
-
+	@Override
+	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 		int part = particle + age/multiplier;
 
 		float var8 = part % 8 / 8.0F;
@@ -110,34 +82,15 @@ public class FXSparkle extends Particle {
 		float var12 = 0.1F * particleScale;
 		boolean shrink = true;
 		if (shrink) var12 *= (maxAge-age+1)/(float)maxAge;
-		float var13 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
-		float var14 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
-		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
+		float var13 = (float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
+		float var14 = (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
+		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
 		float var16 = 1.0F;
 
-		tessellator.getBuffer().pos(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12).tex(var9, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-		tessellator.getBuffer().pos(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-		tessellator.getBuffer().pos(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-		tessellator.getBuffer().pos(var13 + f1 * var12 - f4 * var12, var14 - f2 * var12, var15 + f3 * var12 - f5 * var12).tex(var8, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
-
-	}
-
-	public void setCanCollide(boolean canCollide) {
-		this.canCollide = canCollide;
-	}
-
-	@Override
-	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-		this.f = partialTicks;
-		this.f1 = rotationX;
-		this.f2 = rotationZ;
-		this.f3 = rotationYZ;
-		this.f4 = rotationXY;
-		this.f5 = rotationXZ;
-
-		if(corrupt)
-			queuedCorruptRenders.add(this);
-		else queuedRenders.add(this);
+		buffer.pos(var13 - rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 - rotationYZ * var12 - rotationXZ * var12).tex(var9, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+		buffer.pos(var13 - rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 - rotationYZ * var12 + rotationXZ * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+		buffer.pos(var13 + rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 + rotationYZ * var12 + rotationXZ * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+		buffer.pos(var13 + rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 + rotationYZ * var12 - rotationXZ * var12).tex(var8, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
 	}
 
 	@Override
@@ -174,14 +127,12 @@ public class FXSparkle extends Particle {
 	@Nonnull
 	@Override
 	public IParticleRenderType getRenderType() {
-		return IParticleRenderType.CUSTOM;
+		return corrupt ? CORRUPT_RENDER : NORMAL_RENDER;
 	}
 
 	public void setGravity(float value) {
 		particleGravity = value;
 	}
-
-
 
 	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
 	private void wiggleAround(double x, double y, double z)
@@ -225,9 +176,60 @@ public class FXSparkle extends Particle {
 		}
 	}
 
-	public boolean corrupt = false;
-	public boolean fake = false;
-	private int multiplier = 2;
-	public final int particle = 16;
-	public final boolean slowdown = true;
+	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+		GlStateManager.depthMask(false);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
+		GlStateManager.disableLighting();
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
+		textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
+		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+	}
+
+	private static void endRenderCommon() {
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+		GlStateManager.disableBlend();
+		GlStateManager.depthMask(true);
+		GL11.glPopAttrib();
+	}
+
+	private static final IParticleRenderType NORMAL_RENDER = new IParticleRenderType() {
+		@Override
+		public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
+			beginRenderCommon(bufferBuilder, textureManager);
+		}
+
+		@Override
+		public void finishRender(Tessellator tessellator) {
+			tessellator.draw();
+			endRenderCommon();
+		}
+
+		@Override
+		public String toString() {
+			return "botania:sparkle";
+		}
+	};
+
+	private static final IParticleRenderType CORRUPT_RENDER = new IParticleRenderType() {
+		@Override
+		public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
+			beginRenderCommon(bufferBuilder, textureManager);
+			ShaderHelper.useShader(ShaderHelper.filmGrain);
+		}
+
+		@Override
+		public void finishRender(Tessellator tessellator) {
+			tessellator.draw();
+			ShaderHelper.releaseShader();
+			endRenderCommon();
+		}
+
+		@Override
+		public String toString() {
+			return "botania:corrupt_sparkle";
+		}
+	};
 }

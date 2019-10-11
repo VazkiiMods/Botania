@@ -111,7 +111,7 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 			GlStateManager.disableAlphaTest();
 			if(lava)
 				GlStateManager.disableLighting();
-			GlStateManager.color4f(1F, 1F, 1F, alpha);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.translatef(w, -0.3F, w);
 			GlStateManager.rotatef(90F, 1F, 0F, 0F);
 			GlStateManager.scalef(s, s, s);

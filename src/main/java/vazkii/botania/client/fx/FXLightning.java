@@ -76,7 +76,6 @@ public class FXLightning extends Particle {
 	}
 
 	public void renderBolt(int pass, boolean inner) {
-		ParticleRenderDispatcher.lightningCount++;
 		BufferBuilder wr = Tessellator.getInstance().getBuffer();
 
 		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;

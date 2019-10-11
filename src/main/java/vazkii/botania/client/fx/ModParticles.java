@@ -1,6 +1,9 @@
 package vazkii.botania.client.fx;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.particles.ParticleType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,5 +24,14 @@ public class ModParticles {
     public static void registerParticles(RegistryEvent.Register<ParticleType<?>> evt) {
         register(evt.getRegistry(), new WispParticleType(), "wisp");
         register(evt.getRegistry(), new SparkleParticleType(), "sparkle");
+    }
+
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class FactoryHandler {
+        @SubscribeEvent
+        public static void registerFactories(ParticleFactoryRegisterEvent evt) {
+            Minecraft.getInstance().particles.registerFactory(ModParticles.WISP, WispParticleType.FACTORY);
+            Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE, SparkleParticleType.FACTORY);
+        }
     }
 }
