@@ -25,7 +25,6 @@ public final class ModEntities {
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> evt) {
 		evt.getRegistry().register(EntityType.Builder.<EntityManaBurst>create(
 				EntityManaBurst::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityManaBurst(w))
 				.size(0, 0)
 				.setUpdateInterval(10)
 				.setTrackingRange(64)
@@ -34,7 +33,6 @@ public final class ModEntities {
 				.setRegistryName(LibEntityNames.MANA_BURST));
 		evt.getRegistry().register(EntityType.Builder.<EntitySignalFlare>create(
 				EntitySignalFlare::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntitySignalFlare(w))
 				.size(0, 0)
 				.setUpdateInterval(10)
 				.setTrackingRange(2048)
@@ -42,7 +40,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.SIGNAL_FLARE));
 		evt.getRegistry().register(EntityType.Builder.<EntityPixie>create(EntityPixie::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityPixie(w))
 				.size(1, 1)
 				.setUpdateInterval(3)
 				.setTrackingRange(16)
@@ -50,7 +47,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.PIXIE));
 		evt.getRegistry().register(EntityType.Builder.<EntityFlameRing>create(EntityFlameRing::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityFlameRing(w))
 				.size(0, 0)
 				.setTrackingRange(32)
 				.setUpdateInterval(40)
@@ -58,14 +54,12 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.FLAME_RING));
 		evt.getRegistry().register(EntityType.Builder.<EntityVineBall>create(EntityVineBall::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityVineBall(w))
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(true)
 				.build("")
 				.setRegistryName(LibEntityNames.VINE_BALL));
 		evt.getRegistry().register(EntityType.Builder.<EntityDoppleganger>create(EntityDoppleganger::new, EntityClassification.MONSTER)
-				.setCustomClientFactory((p, w) -> new EntityDoppleganger(w))
 				.size(0.6F, 1.8F)
 				.immuneToFire()
 				.setTrackingRange(128)
@@ -74,7 +68,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.DOPPLEGANGER));
 		evt.getRegistry().register(EntityType.Builder.<EntityMagicLandmine>create(EntityMagicLandmine::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityMagicLandmine(w))
 				.size(0, 0)
 				.setTrackingRange(128)
 				.setUpdateInterval(40)
@@ -82,7 +75,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.MAGIC_LANDMINE));
 		evt.getRegistry().register(EntityType.Builder.<EntitySpark>create(EntitySpark::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntitySpark(w))
 				.size(0.1F, 0.5F)
 				.immuneToFire()
 				.setTrackingRange(64)
@@ -91,7 +83,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.SPARK));
 		evt.getRegistry().register(EntityType.Builder.<EntityThrownItem>create(EntityThrownItem::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityThrownItem(w))
 				.size(0.25F, 0.25F)
 				.setTrackingRange(64)
 				.setUpdateInterval(20)
@@ -99,7 +90,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.THROWN_ITEM));
 		evt.getRegistry().register(EntityType.Builder.<EntityMagicMissile>create(EntityMagicMissile::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityMagicMissile(w))
 				.size(0, 0)
 				.setTrackingRange(64)
 				.setUpdateInterval(2)
@@ -107,14 +97,12 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.MAGIC_MISSILE));
 		evt.getRegistry().register(EntityType.Builder.<EntityThornChakram>create(EntityThornChakram::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityThornChakram(EntityThornChakram.TYPE, w))
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(true)
 				.build("")
 				.setRegistryName(LibEntityNames.THORN_CHAKRAM));
 		evt.getRegistry().register(EntityType.Builder.<EntityCorporeaSpark>create(EntityCorporeaSpark::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityCorporeaSpark(w))
 				.size(0.1F, 0.5F)
 				.immuneToFire()
 				.setTrackingRange(64)
@@ -123,7 +111,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.CORPOREA_SPARK));
 		evt.getRegistry().register(EntityType.Builder.<EntityEnderAirBottle>create(EntityEnderAirBottle::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityEnderAirBottle(EntityEnderAirBottle.TYPE, w))
 				.size(0.25F, 0.25F)
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
@@ -131,7 +118,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.ENDER_AIR_BOTTLE));
 		evt.getRegistry().register(EntityType.Builder.<EntityPoolMinecart>create(EntityPoolMinecart::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityPoolMinecart(EntityPoolMinecart.TYPE, w))
 				.size(0.98F, 0.7F)
 				.setTrackingRange(80)
 				.setUpdateInterval(3)
@@ -139,7 +125,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.POOL_MINECART));
 		evt.getRegistry().register(EntityType.Builder.<EntityPinkWither>create(EntityPinkWither::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityPinkWither(w))
 				.size(0.9F, 3.5F)
 				.setTrackingRange(80)
 				.setUpdateInterval(3)
@@ -147,7 +132,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.PINK_WITHER));
 		evt.getRegistry().register(EntityType.Builder.<EntityPlayerMover>create(EntityPlayerMover::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityPlayerMover(EntityPlayerMover.TYPE, w))
 				.size(0, 0)
 				.setTrackingRange(40)
 				.setUpdateInterval(3)
@@ -155,14 +139,12 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.PLAYER_MOVER));
 		evt.getRegistry().register(EntityType.Builder.<EntityManaStorm>create(EntityManaStorm::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityManaStorm(w))
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(false)
 				.build("")
 				.setRegistryName(LibEntityNames.MANA_STORM));
 		evt.getRegistry().register(EntityType.Builder.<EntityBabylonWeapon>create(EntityBabylonWeapon::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityBabylonWeapon(EntityBabylonWeapon.TYPE, w))
 				.size(0, 0)
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
@@ -170,7 +152,6 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.BABYLON_WEAPON));
 		evt.getRegistry().register(EntityType.Builder.<EntityFallingStar>create(EntityFallingStar::new, EntityClassification.MISC)
-				.setCustomClientFactory((p, w) -> new EntityFallingStar(EntityFallingStar.TYPE, w))
 				.size(0, 0)
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
