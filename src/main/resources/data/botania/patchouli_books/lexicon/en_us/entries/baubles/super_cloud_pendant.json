@@ -2,6 +2,7 @@
   "name": "botania.entry.superCloudPendant",
   "category": "baubles",
   "icon": "botania:super_cloud_pendant",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

@@ -2,6 +2,7 @@
   "name": "botania.entry.missileRod",
   "category": "tools",
   "icon": "botania:missile_rod",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

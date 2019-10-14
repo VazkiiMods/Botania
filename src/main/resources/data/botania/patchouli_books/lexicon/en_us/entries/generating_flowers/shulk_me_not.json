@@ -2,6 +2,7 @@
   "name": "botania.entry.shulk_me_not",
   "category": "generating_flowers",
   "icon": "botania:shulk_me_not",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

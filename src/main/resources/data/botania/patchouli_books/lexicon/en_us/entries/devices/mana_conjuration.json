@@ -2,6 +2,7 @@
   "name": "botania.entry.manaConjuration",
   "category": "devices",
   "icon": "botania:conjuration_catalyst",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

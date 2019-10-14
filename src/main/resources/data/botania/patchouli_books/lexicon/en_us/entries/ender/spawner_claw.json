@@ -2,6 +2,7 @@
   "name": "botania.entry.spawnerClaw",
   "category": "ender",
   "icon": "botania:spawner_claw",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

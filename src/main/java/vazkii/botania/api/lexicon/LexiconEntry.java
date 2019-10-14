@@ -17,6 +17,7 @@ import com.google.gson.GsonBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -144,9 +145,13 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 			entry.put("name", this.getUnlocalizedName());
 			entry.put("category", fixCamelCase(category.getUnlocalizedName().substring("botania.category.".length())));
 			entry.put("icon", getIcon().getItem().getRegistryName().toString());
+			if(this.getKnowledgeType().color != TextFormatting.RESET) {
+				entry.put("entry_color", Integer.toString(this.getKnowledgeType().color.getColor(), 16));
+			}
 			if (isPriority()) {
 				entry.put("priority", true);
-			} else if (!(this instanceof RelicLexiconEntry || this.getUnlocalizedName().contains("terrasteel") || this.getUnlocalizedName().contains("relics"))) {
+			} else if (!(this instanceof RelicLexiconEntry || this.getUnlocalizedName().contains("terrasteel") 
+					|| this.getUnlocalizedName().contains("relics") || this.getUnlocalizedName().contains("gaia_ritual"))) {
 				entry.put("read_by_default", true);
 			}
 			if (this instanceof WelcomeLexiconEntry)

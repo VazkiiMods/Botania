@@ -2,6 +2,7 @@
   "name": "botania.entry.relics",
   "category": "alfhomancy",
   "icon": "botania:dice",
+  "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {

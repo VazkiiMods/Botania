@@ -2,6 +2,7 @@
   "name": "botania.entry.openBucket",
   "category": "tools",
   "icon": "botania:open_bucket",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

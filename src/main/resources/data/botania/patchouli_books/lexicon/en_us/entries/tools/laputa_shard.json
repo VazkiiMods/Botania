@@ -2,6 +2,7 @@
   "name": "botania.entry.laputaShard",
   "category": "tools",
   "icon": "botania:laputa_shard",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

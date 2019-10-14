@@ -10,5 +10,6 @@
   "dont_generate_book": true,
   "custom_book_item": "botania:lexicon",
   "advancements_tab": "botania:main/root",
-  "advancement_namespaces": [ "botania" ]
+  "advancement_namespaces": [ "botania" ],
+  "i18n": true
 }
