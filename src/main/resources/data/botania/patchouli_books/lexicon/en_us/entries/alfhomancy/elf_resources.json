@@ -2,6 +2,7 @@
   "name": "botania.entry.elfResources",
   "category": "alfhomancy",
   "icon": "botania:dragonstone",
+  "entry_color": "aa00",
   "priority": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

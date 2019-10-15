@@ -2,6 +2,7 @@
   "name": "botania.entry.sparkChanger",
   "category": "mana",
   "icon": "botania:spark_changer",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

@@ -2,6 +2,7 @@
   "name": "botania.entry.thunderSword",
   "category": "ender",
   "icon": "botania:thunder_sword",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [

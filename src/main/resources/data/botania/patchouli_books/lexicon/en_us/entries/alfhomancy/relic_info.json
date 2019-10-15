@@ -2,6 +2,7 @@
   "name": "botania.entry.relicInfo",
   "category": "alfhomancy",
   "icon": "botania:dice",
+  "entry_color": "aa00aa",
   "pages": [
     {
       "type": "text",

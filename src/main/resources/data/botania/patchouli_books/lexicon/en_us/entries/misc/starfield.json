@@ -2,6 +2,7 @@
   "name": "botania.entry.starfield",
   "category": "misc",
   "icon": "botania:starfield",
+  "entry_color": "aa00",
   "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
