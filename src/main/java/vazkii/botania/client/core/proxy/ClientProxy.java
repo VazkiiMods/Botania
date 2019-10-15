@@ -41,8 +41,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.AnyComponent;
-import vazkii.botania.api.wiki.IWikiProvider;
-import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
@@ -196,24 +194,6 @@ public class ClientProxy implements IProxy {
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
 		return ItemMonocle.hasMonocle(Minecraft.getInstance().player);
-	}
-
-	@Override
-	public boolean openWikiPage(World world, Block block, BlockRayTraceResult pos) {
-		if(ConfigHandler.CLIENT.lexicaOfflineMode.get())
-			return false;
-		IWikiProvider wiki = WikiHooks.getWikiFor(block);
-		String url = wiki.getWikiURL(world, pos, Minecraft.getInstance().player);
-		if(url != null && !url.isEmpty()) {
-			try {
-				Desktop.getDesktop().browse(new URI(url));
-			} catch(Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-			return true;
-		}
-		return false;
 	}
 
 	@Override

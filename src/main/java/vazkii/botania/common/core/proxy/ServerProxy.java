@@ -55,11 +55,6 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public boolean openWikiPage(World world, Block block, BlockRayTraceResult pos) {
-		return false;
-	}
-
-	@Override
 	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {}
 
 	@Override

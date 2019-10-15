@@ -30,7 +30,6 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue renderAccessories;
 		public final ForgeConfigSpec.BooleanValue enableSeasonalFeatures;
 		public final ForgeConfigSpec.BooleanValue useShiftForQuickLookup;
-		public final ForgeConfigSpec.BooleanValue lexicaOfflineMode;
 		public final ForgeConfigSpec.BooleanValue enableArmorModels;
 		public final ForgeConfigSpec.BooleanValue enableFancySkybox;
 		public final ForgeConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
@@ -88,9 +87,6 @@ public final class ConfigHandler {
 			useShiftForQuickLookup = builder
 					.comment("Set this to true to use Shift instead of Ctrl for the inventory lexica botania quick lookup feature")
 					.define("quick_lookup.use_shift", false);
-			lexicaOfflineMode = builder
-					.comment("Set this to true to disable the wiki lookup feature of the lexica, for offline usage")
-					.define("quick_lookup.offline_mode", false);
 			enableArmorModels = builder
 					.comment("Set this to false to disable custom armor models")
 					.define("armor_models", true);

@@ -50,8 +50,6 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wiki.IWikiProvider;
-import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -399,21 +397,6 @@ public final class HUDHandler {
 				secondLine = TextFormatting.ITALIC + I18n.format(entry.getTagline());
 				draw = true;
 			}
-		}
-
-		if(!ConfigHandler.CLIENT.lexicaOfflineMode.get() && !draw) {
-			profiler.startSection("wikiLookup");
-			if(!block.isAir(state, mc.world, pos.getPos()) && !(block instanceof FlowingFluidBlock)) {
-				IWikiProvider provider = WikiHooks.getWikiFor(block);
-				String url = provider.getWikiURL(mc.world, pos, mc.player);
-				if(url != null && !url.isEmpty()) {
-					String name = provider.getBlockName(mc.world, pos, mc.player);
-					String wikiName = provider.getWikiName(mc.world, pos, mc.player);
-					drawStr = name + " @ " + TextFormatting.AQUA + wikiName;
-					draw = true;
-				}
-			}
-			profiler.endSection();
 		}
 
 		if(draw) {

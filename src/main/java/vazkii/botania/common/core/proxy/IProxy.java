@@ -29,8 +29,6 @@ public interface IProxy {
 
 	String getLastVersion();
 
-	boolean openWikiPage(World world, Block block, BlockRayTraceResult pos);
-
 	void setMultiblock(World world, int x, int y, int z, double radius, Block block);
 
 	void removeSextantMultiblock();

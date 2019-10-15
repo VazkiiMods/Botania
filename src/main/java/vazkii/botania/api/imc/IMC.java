@@ -32,12 +32,6 @@ public class IMC {
     public static final String REGISTER_NETHER_ORE_WEIGHT = "register_nether_ore_weight";
 
     /**
-     * Registers a Wiki provider for a mod so it uses that instead of the fallback FTB wiki.<br />
-     * The argument should be a {@link ModWikiMessage}, any other types are ignored.
-     */
-    public static final String REGISTER_MOD_WIKI = "register_mod_wiki";
-
-    /**
      * Registers a block as paintable under the paint lens.<br />
      * The argument should be a {@link PaintableBlockMessage}, any other types are ignored.
      */

@@ -2,18 +2,11 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.imc.IMC;
-import vazkii.botania.api.imc.ModWikiMessage;
 import vazkii.botania.api.imc.PaintableBlockMessage;
-import vazkii.botania.api.wiki.IWikiProvider;
-import vazkii.botania.api.wiki.SimpleWikiProvider;
-import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
-import vazkii.botania.common.crafting.ModManaConjurationRecipes;
-import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.lib.LibMisc;
 
 public class IMCSender {
@@ -90,18 +83,6 @@ public class IMCSender {
 		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite
 		*/
-
-		IWikiProvider technicWiki = new SimpleWikiProvider("Technic Wiki", "http://wiki.technicpack.net/%s");
-		IWikiProvider mekanismWiki = new SimpleWikiProvider("Mekanism Wiki", "http://wiki.aidancbrady.com/wiki/%s");
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("minecraft", new SimpleWikiProvider("Minecraft Wiki", "https://minecraft.gamepedia.com/%s")));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("mekanism", mekanismWiki));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("mekanismgenerators", mekanismWiki));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("mekanismtools", mekanismWiki));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("enderio", new SimpleWikiProvider("EnderIO Wiki", "http://wiki.enderio.com/%s")));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("tropicraft", new SimpleWikiProvider("Tropicraft Wiki", "http://wiki.tropicraft.net/wiki/%s")));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("randomthings", new SimpleWikiProvider("Random Things Wiki", "https://lumien.net/rtwiki/blocks/%s/", "-", true)));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("appliedenergistics2", new SimpleWikiProvider("AE2 Wiki", "http://ae-mod.info/%s")));
-		send(IMC.REGISTER_MOD_WIKI, new ModWikiMessage("bigreactors", technicWiki));
 
 		// Can't iterate over ColorHelper map values yet since remap event hasn't fired yet -.-
 		Block[] stainedGlass = { Blocks.WHITE_STAINED_GLASS, Blocks.ORANGE_STAINED_GLASS, Blocks.MAGENTA_STAINED_GLASS, Blocks.LIGHT_BLUE_STAINED_GLASS,
