@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,23 +17,20 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy> {
@@ -85,7 +83,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	public void setIngredients(RecipePureDaisy recipe, IIngredients iIngredients) {
 		if(recipe.getInput() instanceof Tag) {
 			Collection<Block> all = ((Tag<Block>) recipe.getInput()).getAllElements();
-			iIngredients.setInputs(VanillaTypes.ITEM, all.stream().map(ItemStack::new).filter(ItemStack::isEmpty).collect(Collectors.toList()));
+			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(all.stream().map(ItemStack::new).filter(s -> !s.isEmpty()).collect(Collectors.toList())));
 		} else if(recipe.getInput() instanceof Block || recipe.getInput() instanceof BlockState) {
 			BlockState state = recipe.getInput() instanceof BlockState ? (BlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
 			Block b = state.getBlock();
