@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockMod;
@@ -17,7 +18,7 @@ public class ItemBlockBlaze extends ItemBlockMod {
 
     @Override
     public int getBurnTime(ItemStack stack) {
-        int blazeTime = ForgeEventFactory.getItemBurnTime(stack, FurnaceTileEntity.getBurnTimes().getOrDefault(Items.BLAZE_ROD, 0));
+        int blazeTime = ForgeHooks.getBurnTime(new ItemStack(Items.BLAZE_ROD));
         return blazeTime * (Botania.gardenOfGlassLoaded ? 5 : 10);
     }
 }

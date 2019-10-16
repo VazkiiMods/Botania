@@ -25,6 +25,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -161,10 +162,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if (stack.isEmpty() || Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader) {
 			return 0;
 		} else {
-			Item item = stack.getItem();
-			int ret = stack.getBurnTime();
-			return net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack, ret == -1
-					? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(item, 0) : ret);
+			return ForgeHooks.getBurnTime(stack);
 		}
 	}
 
