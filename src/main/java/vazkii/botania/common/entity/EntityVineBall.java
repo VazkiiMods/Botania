@@ -43,6 +43,10 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
+@OnlyIn(
+	value = Dist.CLIENT,
+	_interface = IRendersAsItem.class
+)
 public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball")
 	public static EntityType<EntityVineBall> TYPE;

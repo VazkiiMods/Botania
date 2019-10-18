@@ -36,7 +36,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -85,7 +84,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public ItemFlightTiara(Properties props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerFlyStatus);
+		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
 	@Override
@@ -106,8 +106,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		stacks.add(new TranslationTextComponent("botania.wings" + ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)));
 	}
 
-	@SubscribeEvent
-	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
+	private void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
@@ -199,8 +198,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 	}
 
-	@SubscribeEvent
-	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+	private void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
 		String username = event.getPlayer().getGameProfile().getName();
 		playersWithFlight.remove(username + ":false");
 		playersWithFlight.remove(username + ":true");

@@ -24,7 +24,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -51,7 +50,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public ItemTravelBelt(Properties props) {
 		this(props, 0.035F, 0.2F, 2F);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerStepStatus);
+		MinecraftForge.EVENT_BUS.addListener(this::onPlayerJump);
+		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
 	public ItemTravelBelt(Properties props, float speed, float jump, float fallBuffer) {
@@ -61,8 +62,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		this.fallBuffer = fallBuffer;
 	}
 
-	@SubscribeEvent
-	public void updatePlayerStepStatus(LivingUpdateEvent event) {
+	private void updatePlayerStepStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
@@ -106,8 +106,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {}
 
-	@SubscribeEvent
-	public void onPlayerJump(LivingJumpEvent event) {
+	private void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
@@ -124,8 +123,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return !result.isEmpty() && ManaItemHandler.requestManaExact(result, player, COST, false);
 	}
 
-	@SubscribeEvent
-	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+	private void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
 		String username = event.getPlayer().getGameProfile().getName();
 		playersWithStepup.remove(username + ":false");
 		playersWithStepup.remove(username + ":true");

@@ -22,8 +22,11 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -622,10 +625,6 @@ public final class ModBlocks {
 		register(r, new ItemBlockPool(dilutedPool, props), dilutedPool.getRegistryName());
 		register(r, new ItemBlockPool(fabulousPool, props), fabulousPool.getRegistryName());
 		register(r, new ItemBlockMod(runeAltar, props), runeAltar.getRegistryName());
-		Item.Properties pylonProps = ModItems.defaultBuilder().setTEISR(() -> RenderTilePylon.TEISR::new);
-		register(r, new ItemBlockMod(manaPylon, pylonProps), manaPylon.getRegistryName());
-		register(r, new ItemBlockMod(naturaPylon, pylonProps), naturaPylon.getRegistryName());
-		register(r, new ItemBlockMod(gaiaPylon, pylonProps), gaiaPylon.getRegistryName());
 		register(r, new ItemBlockMod(pistonRelay, props), pistonRelay.getRegistryName());
 		register(r, new ItemBlockMod(distributor, props), distributor.getRegistryName());
 		register(r, new ItemBlockMod(manaVoid, props), manaVoid.getRegistryName());
@@ -711,7 +710,6 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(starfield, props), starfield.getRegistryName());
 		register(r, new ItemBlockMod(rfGenerator, props), rfGenerator.getRegistryName());
 		register(r, new ItemBlockElven(elfGlass, props), elfGlass.getRegistryName());
-		register(r, new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.brewery, TileBrewery.class))), brewery.getRegistryName());
 		register(r, new ItemBlockMod(manaGlass, props), manaGlass.getRegistryName());
 		register(r, new ItemBlockMod(terraPlate, props), terraPlate.getRegistryName());
 		register(r, new ItemBlockMod(redStringContainer, props), redStringContainer.getRegistryName());
@@ -737,7 +735,6 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(petalBlockGreen, props), petalBlockGreen.getRegistryName());
 		register(r, new ItemBlockMod(petalBlockRed, props), petalBlockRed.getRegistryName());
 		register(r, new ItemBlockMod(petalBlockBlack, props), petalBlockBlack.getRegistryName());
-		register(r, new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaIndex, TileCorporeaIndex.class))), corporeaIndex.getRegistryName());
 		register(r, new ItemBlockMod(corporeaFunnel, props), corporeaFunnel.getRegistryName());
 		register(r, new ItemBlockMod(whiteMushroom, props), whiteMushroom.getRegistryName());
 		register(r, new ItemBlockMod(orangeMushroom, props), orangeMushroom.getRegistryName());
@@ -774,9 +771,7 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(doubleFlowerBlack, props), doubleFlowerBlack.getRegistryName());
 		register(r, new ItemBlockBlaze(blazeBlock, props), blazeBlock.getRegistryName());
 		register(r, new ItemBlockMod(corporeaInterceptor, props), corporeaInterceptor.getRegistryName());
-		register(r, new ItemBlockMod(corporeaCrystalCube, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaCrystalCube, TileCorporeaCrystalCube.class))), corporeaCrystalCube.getRegistryName());
 		register(r, new ItemBlockMod(incensePlate, props), incensePlate.getRegistryName());
-		register(r, new ItemBlockMod(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.hourglass, TileHourglass.class))), hourglass.getRegistryName());
 		register(r, new ItemBlockMod(ghostRail, props), ghostRail.getRegistryName());
 		register(r, new ItemBlockMod(sparkChanger, props), sparkChanger.getRegistryName());
 		register(r, new ItemBlockMod(root, props), root.getRegistryName());
@@ -789,15 +784,12 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(lightLauncher, props), lightLauncher.getRegistryName());
 		register(r, new ItemBlockMod(manaBomb, props), manaBomb.getRegistryName());
 		register(r, new ItemBlockMod(cacophonium, props), cacophonium.getRegistryName());
-		register(r, new ItemBlockMod(bellows, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.bellows, TileBellows.class))), bellows.getRegistryName());
 		register(r, new ItemBlockMod(bifrostPerm, props), bifrostPerm.getRegistryName());
 		register(r, new ItemBlockMod(cellBlock, props), cellBlock.getRegistryName());
 		register(r, new ItemBlockMod(redStringInterceptor, props), redStringInterceptor.getRegistryName());
 		register(r, new ItemBlockMod(corporeaRetainer, props), corporeaRetainer.getRegistryName());
-		register(r, new ItemBlockMod(teruTeruBozu, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.teruTeruBozu, TileTeruTeruBozu.class))), teruTeruBozu.getRegistryName());
 		register(r, new ItemBlockMod(shimmerrock, props), shimmerrock.getRegistryName());
 		register(r, new ItemBlockMod(shimmerwoodPlanks, props), shimmerwoodPlanks.getRegistryName());
-		register(r, new ItemBlockMod(avatar, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.avatar, TileAvatar.class))), avatar.getRegistryName());
 		register(r, new ItemBlockMod(dryGrass, props), dryGrass.getRegistryName());
 		register(r, new ItemBlockMod(goldenGrass, props), goldenGrass.getRegistryName());
 		register(r, new ItemBlockMod(vividGrass, props), vividGrass.getRegistryName());
@@ -805,6 +797,44 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(infusedGrass, props), infusedGrass.getRegistryName());
 		register(r, new ItemBlockMod(mutatedGrass, props), mutatedGrass.getRegistryName());
 		register(r, new ItemBlockMod(animatedTorch, props), animatedTorch.getRegistryName());
+
+		DistExecutor.runForDist(() -> () -> registerWithTEISRS(r), () -> () -> registerWithoutTEISRS(r));
+	}
+
+	// Yay side-safety -.-
+
+	@OnlyIn(Dist.DEDICATED_SERVER)
+	private static Void registerWithoutTEISRS(IForgeRegistry<Item> r) {
+		Item.Properties props = ModItems.defaultBuilder();
+		register(r, new ItemBlockMod(manaPylon, props), manaPylon.getRegistryName());
+		register(r, new ItemBlockMod(naturaPylon, props), naturaPylon.getRegistryName());
+		register(r, new ItemBlockMod(gaiaPylon, props), gaiaPylon.getRegistryName());
+
+		register(r, new ItemBlockMod(teruTeruBozu, props), teruTeruBozu.getRegistryName());
+		register(r, new ItemBlockMod(avatar, props), avatar.getRegistryName());
+		register(r, new ItemBlockMod(bellows, props), bellows.getRegistryName());
+		register(r, new ItemBlockMod(brewery, props), brewery.getRegistryName());
+		register(r, new ItemBlockMod(corporeaCrystalCube, props), corporeaCrystalCube.getRegistryName());
+		register(r, new ItemBlockMod(corporeaIndex, props), corporeaIndex.getRegistryName());
+		register(r, new ItemBlockMod(hourglass, props), hourglass.getRegistryName());
+		return null;
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static Void registerWithTEISRS(IForgeRegistry<Item> r) {
+		Item.Properties pylonProps = ModItems.defaultBuilder().setTEISR(() -> () -> new RenderTilePylon.TEISR());
+		register(r, new ItemBlockMod(manaPylon, pylonProps), manaPylon.getRegistryName());
+		register(r, new ItemBlockMod(naturaPylon, pylonProps), naturaPylon.getRegistryName());
+		register(r, new ItemBlockMod(gaiaPylon, pylonProps), gaiaPylon.getRegistryName());
+
+		register(r, new ItemBlockMod(teruTeruBozu, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.teruTeruBozu, TileTeruTeruBozu.class))), teruTeruBozu.getRegistryName());
+		register(r, new ItemBlockMod(avatar, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.avatar, TileAvatar.class))), avatar.getRegistryName());
+		register(r, new ItemBlockMod(bellows, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.bellows, TileBellows.class))), bellows.getRegistryName());
+		register(r, new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.brewery, TileBrewery.class))), brewery.getRegistryName());
+		register(r, new ItemBlockMod(corporeaCrystalCube, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaCrystalCube, TileCorporeaCrystalCube.class))), corporeaCrystalCube.getRegistryName());
+		register(r, new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaIndex, TileCorporeaIndex.class))), corporeaIndex.getRegistryName());
+		register(r, new ItemBlockMod(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.hourglass, TileHourglass.class))), hourglass.getRegistryName());
+		return null;
 	}
 
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, ResourceLocation name) {

@@ -21,9 +21,11 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -750,11 +752,14 @@ public final class ModItems {
 
 		ContainerType<ContainerFlowerBag> bag = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
 		register(r, bag, flowerBag.getRegistryName());
-		ScreenManager.registerFactory(bag, GuiFlowerBag::new);
 
 		ContainerType<ContainerBaubleBox> box = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
 		register(r, box, baubleBox.getRegistryName());
-		ScreenManager.registerFactory(box, GuiBaubleBox::new);
+
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+			ScreenManager.registerFactory(bag, GuiFlowerBag::new);
+			ScreenManager.registerFactory(box, GuiBaubleBox::new);
+		});
 	}
 
 

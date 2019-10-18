@@ -25,6 +25,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.item.ModItems;
@@ -36,6 +38,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@OnlyIn(
+	value = Dist.CLIENT,
+	_interface = IRendersAsItem.class
+)
 public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsItem {
 	@ObjectHolder(LibMisc.MOD_ID + ":ender_air_bottle")
 	public static EntityType<EntityEnderAirBottle> TYPE;

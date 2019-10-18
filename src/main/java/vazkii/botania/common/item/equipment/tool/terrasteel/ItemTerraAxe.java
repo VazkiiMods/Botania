@@ -25,7 +25,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.common.item.ItemTemperanceStone;
@@ -78,7 +77,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
 			if(entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity))
 				return 0;
@@ -119,8 +118,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		return false;
 	}
 
-	@SubscribeEvent
-	public void onTickEnd(TickEvent.WorldTickEvent event) {
+	private void onTickEnd(TickEvent.WorldTickEvent event) {
 		// Block Swapping ticking should only occur on the server
 		if(event.world.isRemote)
 			return;

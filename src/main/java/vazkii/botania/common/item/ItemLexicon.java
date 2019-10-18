@@ -138,29 +138,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		}
 	}
 
-	public static void openBook(PlayerEntity player, ItemStack stack, World world, boolean skipSound) {
-		ILexicon l = (ILexicon) stack.getItem();
-
-		Botania.proxy.setToTutorialIfFirstLaunch();
-
-		if(!l.isKnowledgeUnlocked(stack, BotaniaAPI.relicKnowledge) && l.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge))
-			for(Item item : ItemDice.getRelics()) {
-				if(PlayerHelper.hasItem(player, s -> s != null && s.getItem() == item)) {
-					l.unlockKnowledge(stack, BotaniaAPI.relicKnowledge);
-					break;
-				}
-			}
-
-		Botania.proxy.setLexiconStack(stack);
-		if(world.isRemote)
-			DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().displayGuiScreen(GuiLexicon.currentOpenLexicon));
-		if(!world.isRemote) {
-			if(!skipSound)
-				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
-			UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);
-		}
-	}
-
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);

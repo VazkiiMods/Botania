@@ -122,7 +122,7 @@ public final class TooltipAdditionDisplayHandler {
 						Botania.proxy.setEntryToOpen(data.entry);
 						Botania.proxy.setLexiconStack(lexiconStack);
 						mc.player.closeScreen();
-						ItemLexicon.openBook(mc.player, lexiconStack, mc.world, false);
+						// todo 1.14 remove all this
 
 					}
 				} else lexiconLookupTime = 0F;
