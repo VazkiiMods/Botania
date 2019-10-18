@@ -17,6 +17,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -464,7 +465,7 @@ public final class ModItems {
 	public static void registerItems(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 
-		register(r, new ItemLexicon(unstackable()), LibItemNames.LEXICON);
+		register(r, new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON)), LibItemNames.LEXICON);
 		for(DyeColor color : DyeColor.values()) {
 			register(r, new ItemPetal(ModBlocks.getBuriedPetal(color), color, defaultBuilder()), color.getName() + LibItemNames.PETAL_SUFFIX);
 			register(r, new ItemDye(color, defaultBuilder()), color.getName() + LibItemNames.DYE_SUFFIX);

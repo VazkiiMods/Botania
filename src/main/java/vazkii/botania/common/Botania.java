@@ -45,8 +45,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.command.CommandOpen;
-import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -97,6 +95,7 @@ public class Botania {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(IMCSender::enqueue);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(IMCHandler::handle);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
@@ -303,17 +302,7 @@ public class Botania {
 	}
 	*/
 
-	// todo 1.13 move everything here to where it belongs
 	private void loadComplete(FMLLoadCompleteEvent event) {
-		int words = 0;
-		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
-			for(LexiconPage page : entry.pages) {
-				words += countWords(page.getUnlocalizedName());
-				if(page instanceof ITwoNamedPage)
-					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
-			}
-		Botania.LOGGER.info("The Lexica Botania has {} words.", words);
-
 		finishedLoading = true;
 	}
 
@@ -332,22 +321,12 @@ public class Botania {
 	}
 
 	private void serverStarting(FMLServerStartingEvent event) {
-		CommandShare.register(event.getCommandDispatcher());
-		CommandOpen.register(event.getCommandDispatcher());
 		if(Botania.gardenOfGlassLoaded)
 			CommandSkyblockSpread.register(event.getCommandDispatcher());
 	}
 
 	private void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
-	}
-
-	private int countWords(String s) {
-		/* todo 1.13
-		String s1 = I18n.translateToLocal(s);
-		return s1.split("\\s+").length;
-		*/
-		return 0;
 	}
 
 }

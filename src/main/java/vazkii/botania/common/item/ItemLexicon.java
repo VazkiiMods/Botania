@@ -72,9 +72,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
     public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
-	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
-	private static final String TAG_QUEUE_TICKS = "queueTicks";
-	private boolean skipSound = false;
 
 	public ItemLexicon(Properties props) {
 		super(props);
@@ -139,24 +136,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int idk, boolean something) {
-		int ticks = getQueueTicks(stack);
-		if(ticks > 0 && entity instanceof PlayerEntity) {
-			skipSound = ticks < 5;
-			if(ticks == 1)
-				onItemRightClick(world, (PlayerEntity) entity, Hand.MAIN_HAND);
-
-			setQueueTicks(stack, ticks - 1);
-		}
-	}
-
-	@Nonnull
-	@Override
-	public Rarity getRarity(ItemStack par1ItemStack) {
-		return Rarity.UNCOMMON;
-	}
-
-	@Override
 	public boolean isKnowledgeUnlocked(ItemStack stack, KnowledgeType knowledge) {
 		return knowledge.autoUnlock || ItemNBTHelper.getBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, false);
 	}
@@ -164,33 +143,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@Override
 	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge) {
 		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
-	}
-
-	public static void setForcedPage(ItemStack stack, String forced) {
-		ItemNBTHelper.setString(stack, TAG_FORCED_MESSAGE, forced);
-	}
-
-	public static String getForcedPage(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_FORCED_MESSAGE, "");
-	}
-
-	private static LexiconEntry getEntryFromForce(ItemStack stack) {
-		String force = getForcedPage(stack);
-
-		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
-			if(entry.getUnlocalizedName().equals(force))
-				if(((ItemLexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
-					return entry;
-
-		return null;
-	}
-
-	public static int getQueueTicks(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_QUEUE_TICKS, 0);
-	}
-
-	public static void setQueueTicks(ItemStack stack, int ticks) {
-		ItemNBTHelper.setInt(stack, TAG_QUEUE_TICKS, ticks);
 	}
 
 	public static ITextComponent getTitle(ItemStack stack) {
