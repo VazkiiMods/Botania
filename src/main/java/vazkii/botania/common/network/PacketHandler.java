@@ -58,6 +58,12 @@ public final class PacketHandler {
 		HANDLER.sendTo(toSend, playerMP.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
 	}
 
+	public static void sendNonLocal(ServerPlayerEntity playerMP, Object toSend) {
+		if(playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getServerOwner())) {
+			sendTo(playerMP, toSend);
+		}
+	}
+
 	public static void sendToServer(Object msg) {
 		HANDLER.sendToServer(msg);
 	}

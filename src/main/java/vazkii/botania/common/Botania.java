@@ -11,10 +11,7 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
@@ -64,7 +61,7 @@ import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldCondition;
-import vazkii.botania.common.crafting.ReloadListener;
+import vazkii.botania.common.crafting.SyncHandler;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketHandler;
@@ -74,7 +71,6 @@ import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.multiblock.Multiblock;
 import vazkii.patchouli.common.multiblock.StateMatcher;
 
 @Mod(LibMisc.MOD_ID)
@@ -332,7 +328,7 @@ public class Botania {
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
 					+ " back to elementary school and learn to read. (Expected classname: " + expect + ", Actual classname: " + clname + ")");
 		}
-		event.getServer().getResourceManager().addReloadListener(new ReloadListener());
+		event.getServer().getResourceManager().addReloadListener(new SyncHandler.ReloadListener());
 	}
 
 	private void serverStarting(FMLServerStartingEvent event) {
