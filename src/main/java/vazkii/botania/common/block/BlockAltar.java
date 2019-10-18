@@ -110,7 +110,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
-		return tile != null && tile.hasLava ? 15 : 0;
+		return tile != null && tile.getFluid() == Fluids.LAVA ? 15 : 0;
 	}
 
 	@Override
@@ -121,19 +121,19 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 			return true;
-		} else if(tile.isEmpty() && tile.hasWater && stack.isEmpty()) {
+		} else if(tile.isEmpty() && tile.getFluid() == Fluids.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
 			return true;
 		}
 		else {
 			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
-				if(!tile.hasWater) {
+				if(tile.getFluid() == Fluids.EMPTY) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.abilities.isCreativeMode)
 						player.setHeldItem(hand, drain(Fluids.WATER, stack));
 
-					tile.setWater(true);
+					tile.setFluid(Fluids.WATER);
 					world.updateComparatorOutputLevel(pos, this);
 					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
@@ -143,14 +143,13 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				if(!player.abilities.isCreativeMode)
 					player.setHeldItem(hand, drain(Fluids.LAVA, stack));
 
-				tile.setLava(true);
-				tile.setWater(false);
+				tile.setFluid(Fluids.LAVA);
 				world.updateComparatorOutputLevel(pos, this);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return true;
-			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
-				ItemStack bucket = tile.hasLava ? new ItemStack(Items.LAVA_BUCKET) : new ItemStack(Items.WATER_BUCKET);
+			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && tile.getFluid() != Fluids.EMPTY && !Botania.gardenOfGlassLoaded) {
+				ItemStack bucket = new ItemStack(tile.getFluid().getFilledBucket());
 				if(stack.getCount() == 1)
 					player.setHeldItem(hand, bucket);
 				else {
@@ -158,9 +157,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					stack.shrink(1);
 				}
 
-				if(tile.hasLava)
-					tile.setLava(false);
-				else tile.setWater(false);
+				tile.setFluid(Fluids.EMPTY);
 				world.updateComparatorOutputLevel(pos, this);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
@@ -177,8 +174,8 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile instanceof TileAltar) {
 				TileAltar altar = (TileAltar) tile;
-				if(!altar.hasLava && !altar.hasWater)
-					altar.setWater(true);
+				if(altar.getFluid() == Fluids.EMPTY)
+					altar.setFluid(Fluids.WATER);
 				world.updateComparatorOutputLevel(pos, this);
 			}
 		}
@@ -231,7 +228,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@Override
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		TileAltar altar = (TileAltar) world.getTileEntity(pos);
-		return altar.hasWater ? 15 : 0;
+		return altar.getFluid() == Fluids.WATER ? 15 : 0;
 	}
 
 	@Override

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -17,11 +18,13 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,6 +41,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -66,13 +70,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
 
-	private static final String TAG_HAS_WATER = "hasWater";
-	private static final String TAG_HAS_LAVA = "hasLava";
+	private static final String TAG_FLUID = "fluid";
 
 	private static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
 
-	public boolean hasWater = false;
-	public boolean hasLava = false;
+	private Fluid fluid = Fluids.EMPTY;
 
 	private List<ItemStack> lastRecipe = null;
 	private int recipeKeepTicks = 0;
@@ -108,7 +110,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		boolean hasFluidCapability = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
 		
-		if(!hasWater() && !hasLava()) {
+		if(getFluid() == Fluids.EMPTY) {
 			if(hasFluidCapability) {
 				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElseThrow(NullPointerException::new);
 
@@ -116,13 +118,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				FluidStack drainLava = fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
 
 				if(!drainWater.isEmpty() && drainWater.getFluid() == Fluids.WATER && drainWater.getAmount() == FluidAttributes.BUCKET_VOLUME) {
-					setWater(true);
+				    setFluid(Fluids.WATER);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
 				} else if(!drainLava.isEmpty() && drainLava.getFluid() == Fluids.LAVA && drainLava.getAmount() == FluidAttributes.BUCKET_VOLUME) {
-					setLava(true);
+					setFluid(Fluids.LAVA);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
@@ -133,7 +135,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return false;
 		}
 
-		if(hasLava()) {
+		if(getFluid() == Fluids.LAVA) {
 			item.setFire(100);
 			return true;
 		}
@@ -153,7 +155,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 					world.addEntity(outputItem);
 					
-					setWater(false);
+					setFluid(Fluids.EMPTY);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					
 					world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
@@ -271,7 +273,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
                 }
 			}
 
-			if(hasLava()) {
+			if(getFluid() == Fluids.LAVA) {
 				world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 				if(Math.random() > 0.9)
 					world.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
@@ -287,16 +289,15 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.putBoolean(TAG_HAS_WATER, hasWater());
-		cmp.putBoolean(TAG_HAS_LAVA, hasLava());
+		cmp.putString(TAG_FLUID, fluid.getRegistryName().toString());
 	}
 
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
-		hasWater = cmp.getBoolean(TAG_HAS_WATER);
-		hasLava = cmp.getBoolean(TAG_HAS_LAVA);
+		ResourceLocation id = new ResourceLocation(cmp.getString(TAG_FLUID));
+		fluid = ForgeRegistries.FLUIDS.getValue(id);
 	}
 
 	@Override
@@ -336,23 +337,15 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@Override
-	public void setWater(boolean water) {
-		hasWater = water;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
-	}
-
-	public void setLava(boolean lava) {
-		hasLava = lava;
+	public void setFluid(Fluid fluid) {
+		Preconditions.checkArgument(fluid == Fluids.WATER || fluid == Fluids.LAVA || fluid == Fluids.EMPTY);
+		this.fluid = fluid;
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	@Override
-	public boolean hasWater() {
-		return hasWater;
-	}
-
-	public boolean hasLava() {
-		return hasLava;
+	public Fluid getFluid() {
+		return fluid;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -398,7 +391,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				angle += anglePer;
 			}
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		} else if(recipeKeepTicks > 0 && hasWater) {
+		} else if(recipeKeepTicks > 0 && getFluid() == Fluids.WATER) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");

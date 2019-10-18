@@ -41,8 +41,8 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 		GlStateManager.translated(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GlStateManager.enableRescaleNormal();
 
-		boolean water = altar.hasWater();
-		boolean lava = altar.hasLava();
+		boolean water = altar.getFluid() == Fluids.WATER;
+		boolean lava = altar.getFluid() == Fluids.LAVA;
 		if(water || lava) {
 			GlStateManager.pushMatrix();
 			float s = 1F / 256F * 10F;

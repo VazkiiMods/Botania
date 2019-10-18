@@ -10,6 +10,9 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+
 /**
  * Base Interface for the Petal Apothecary block. Can
  * be safely casted to TileEntity.
@@ -17,13 +20,12 @@ package vazkii.botania.api.item;
 public interface IPetalApothecary {
 
 	/**
-	 * Sets if the the apothecary has water or not.
+	 * Set the contained fluid. Must be {@link Fluids#WATER}, {@link Fluids#LAVA}, or {@link Fluids#EMPTY}.
 	 */
-	public void setWater(boolean water);
+	public void setFluid(Fluid fluid);
 
 	/**
-	 * Does the apothecary have water in it?
+	 * Get the contained fluid. Will be {@link Fluids#WATER}, {@link Fluids#LAVA}, or {@link Fluids#EMPTY}.
 	 */
-	public boolean hasWater();
-
+	public Fluid getFluid();
 }
