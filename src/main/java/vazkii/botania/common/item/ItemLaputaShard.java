@@ -31,6 +31,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -89,7 +90,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		int level = stack.getOrCreateTag().getInt(TAG_LEVEL);
 		ITextComponent levelLoc = new TranslationTextComponent("botania.roman" + (level + 1));
-		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc));
+		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).applyTextStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull

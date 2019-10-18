@@ -15,6 +15,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,7 +41,7 @@ public class ItemBlockPool extends ItemBlockMod {
 	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
 		if(((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE)
 			for(int i = 0; i < 2; i++)
-				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i));
+				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i).applyTextStyle(TextFormatting.GRAY));
 	}
 
 }

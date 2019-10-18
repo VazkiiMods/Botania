@@ -16,12 +16,21 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
+import javax.annotation.Nonnull;
+
 public class ItemPetal extends ItemBlockMod implements ICustomApothecaryColor {
 	public final DyeColor color;
 
 	public ItemPetal(Block buriedPetals, DyeColor color, Properties props) {
 		super(buriedPetals, props);
 		this.color = color;
+	}
+
+	@Nonnull
+	@Override
+	public String getTranslationKey() {
+		// Don't take name of the block
+		return getDefaultTranslationKey();
 	}
 
 	@Override

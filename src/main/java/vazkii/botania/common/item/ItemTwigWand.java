@@ -37,6 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -260,7 +261,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent(getModeString(stack)));
+		list.add(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull

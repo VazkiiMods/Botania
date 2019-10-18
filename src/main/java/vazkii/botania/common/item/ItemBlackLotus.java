@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -70,7 +71,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent("botaniamisc.lotusDesc"));
+		list.add(new TranslationTextComponent("botaniamisc.lotusDesc").applyTextStyle(TextFormatting.GRAY));
 	}
 
 }

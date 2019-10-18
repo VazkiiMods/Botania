@@ -31,6 +31,7 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -266,7 +267,7 @@ public class ItemAstrolabe extends ItemMod {
 
 		tip.add(new StringTextComponent(size + " x " + size));
 		if (block != Blocks.AIR)
-			tip.add(new ItemStack(block).getDisplayName());
+			tip.add(new ItemStack(block).getDisplayName().applyTextStyle(TextFormatting.GRAY));
 	}
 
 }

@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -63,9 +64,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	@Override
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(variant == Variant.THINKING_HAND) {
-			stacks.add(new TranslationTextComponent("botaniamisc.cosmeticThinking"));
+			stacks.add(new TranslationTextComponent("botaniamisc.cosmeticThinking").applyTextStyle(TextFormatting.GRAY));
 		} else {
-			stacks.add(new TranslationTextComponent("botaniamisc.cosmeticBauble"));
+			stacks.add(new TranslationTextComponent("botaniamisc.cosmeticBauble").applyTextStyle(TextFormatting.GRAY));
 		}
 		super.addHiddenTooltip(stack, world, stacks, flags);
 	}
