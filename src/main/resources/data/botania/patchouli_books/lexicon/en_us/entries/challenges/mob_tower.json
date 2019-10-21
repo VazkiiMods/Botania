@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.mobTower",
+  "category": "challenges",
+  "icon": "minecraft:bone",
+  "read_by_default": true,
+  "entry_color": "aa0000",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.mobTower",
+      "text": "botania.challenge.mobTower.desc"
+    }
+  ]
+}

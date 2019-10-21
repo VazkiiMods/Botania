@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.runeCrafter",
+  "category": "challenges",
+  "icon": "botania:rune_water",
+  "read_by_default": true,
+  "entry_color": "aa00aa",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.runeCrafter",
+      "text": "botania.challenge.runeCrafter.desc"
+    }
+  ]
+}

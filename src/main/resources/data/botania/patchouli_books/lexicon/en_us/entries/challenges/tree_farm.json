@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.treeFarm",
+  "category": "challenges",
+  "icon": "minecraft:oak_sapling",
+  "read_by_default": true,
+  "entry_color": "ffaa00",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.treeFarm",
+      "text": "botania.challenge.treeFarm.desc"
+    }
+  ]
+}

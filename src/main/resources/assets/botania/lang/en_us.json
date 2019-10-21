@@ -3481,7 +3481,7 @@
 
   "botania.entry.challenges": "Challenges",
   "botania.tagline.challenges": "Challenge yourself",
-  "botania.page.challenges0": "$(1)Challenges$(0) are available in the $(1)Lexica Botania$(0) by clicking the icon on the bottom of the landing page shaped like a cup. These, as the name says, challenge the player to create a mechanism using the features only available in $(1)Botania$(0) and $(1)Minecraft$(0) itself.$(p)Of course, you can use items from other mods to complete them, but that's no fun.",
+  "botania.page.challenges0": "$(1)Challenges$(0) are available in this section of the $(1)Lexica Botania$(0). These, as the name says, challenge the player to create a mechanism using the features only available in $(1)Botania$(0) and $(1)Minecraft$(0) itself.$(p)Of course, you can use items from other mods to complete them, but that's no fun.",
   "botania.page.challenges1": "All of the challenges are possible, of course. They just require some thinking and knowledge of the ins and outs of redstone and the $(1)Botania$(0) mechanics themselves.$(p)It's highly recommended that they're done without using features from external mods, as they have been created with that in mind, and aren't really challenges if you put down a block that solves them instantly.",
   "botania.page.challenges2": "The challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what $(1)Botania$(0) can do, automation wise, and are but scratching the surface of that topic. Challenges need be marked completed manually.$(p)It should be kept in mind that the boundaries of this world are one's imagination, so don't stop at the ideas in there!",
 

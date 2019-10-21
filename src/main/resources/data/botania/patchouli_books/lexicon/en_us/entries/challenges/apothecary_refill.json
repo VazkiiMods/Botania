@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.apothecaryRefill",
+  "category": "challenges",
+  "icon": "botania:apothecary_default",
+  "read_by_default": true,
+  "entry_color": "ffaa00",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.apothecaryRefill",
+      "text": "botania.challenge.apothecaryRefill.desc"
+    }
+  ]
+}

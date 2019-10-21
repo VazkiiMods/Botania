@@ -1,0 +1,14 @@
+{
+  "name": "botania.challenge.recordFarm",
+  "category": "challenges",
+  "icon": "minecraft:music_disc_13",
+  "read_by_default": true,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.recordFarm",
+      "text": "botania.challenge.recordFarm.desc"
+    }
+  ]
+}

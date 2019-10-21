@@ -1,0 +1,14 @@
+{
+  "name": "botania.challenge.flowerFarm",
+  "category": "challenges",
+  "icon": "botania:pink_mystical_flower",
+  "read_by_default": true,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.flowerFarm",
+      "text": "botania.challenge.flowerFarm.desc"
+    }
+  ]
+}

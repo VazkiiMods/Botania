@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.boneMealFarm",
+  "category": "challenges",
+  "icon": "minecraft:bone_meal",
+  "read_by_default": true,
+  "entry_color": "ffaa00",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.boneMealFarm",
+      "text": "botania.challenge.boneMealFarm.desc"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "botania.challenge.reedFarm",
+  "category": "challenges",
+  "icon": "minecraft:sugar_cane",
+  "read_by_default": true,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.reedFarm",
+      "text": "botania.challenge.reedFarm.desc"
+    }
+  ]
+}

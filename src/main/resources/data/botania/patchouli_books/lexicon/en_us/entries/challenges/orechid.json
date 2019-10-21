@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.orechid",
+  "category": "challenges",
+  "icon": "botania:orechid",
+  "read_by_default": true,
+  "entry_color": "ffaa00",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.orechid",
+      "text": "botania.challenge.orechid.desc"
+    }
+  ]
+}

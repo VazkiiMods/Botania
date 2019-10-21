@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.fullCropFarm",
+  "category": "challenges",
+  "icon": "minecraft:wheat_seeds",
+  "read_by_default": true,
+  "entry_color": "ffaa00",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.fullCropFarm",
+      "text": "botania.challenge.fullCropFarm.desc"
+    }
+  ]
+}

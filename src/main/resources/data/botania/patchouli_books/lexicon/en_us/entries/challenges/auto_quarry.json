@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.autoQuarry",
+  "category": "challenges",
+  "icon": "minecraft:diamond_pickaxe",
+  "read_by_default": true,
+  "entry_color": "aa00aa",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.autoQuarry",
+      "text": "botania.challenge.autoQuarry.desc"
+    }
+  ]
+}

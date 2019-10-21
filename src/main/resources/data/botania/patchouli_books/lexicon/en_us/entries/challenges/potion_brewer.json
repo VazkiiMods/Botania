@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.potionBrewer",
+  "category": "challenges",
+  "icon": "botania:brewery",
+  "read_by_default": true,
+  "entry_color": "aa0000",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.potionBrewer",
+      "text": "botania.challenge.potionBrewer.desc"
+    }
+  ]
+}

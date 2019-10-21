@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.spectrolusSetup",
+  "category": "challenges",
+  "icon": "botania:spectrolus",
+  "read_by_default": true,
+  "entry_color": "aa0000",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.spectrolusSetup",
+      "text": "botania.challenge.spectrolusSetup.desc"
+    }
+  ]
+}

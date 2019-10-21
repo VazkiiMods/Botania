@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.challenges",
-  "category": "misc",
+  "category": "challenges",
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "pages": [

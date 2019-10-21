@@ -1,0 +1,14 @@
+{
+  "name": "botania.challenge.pureDaisy",
+  "category": "challenges",
+  "icon": "botania:pure_daisy",
+  "read_by_default": true,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.pureDaisy",
+      "text": "botania.challenge.pureDaisy.desc"
+    }
+  ]
+}

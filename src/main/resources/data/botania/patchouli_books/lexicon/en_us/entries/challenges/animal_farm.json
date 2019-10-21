@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.animalFarm",
+  "category": "challenges",
+  "icon": "minecraft:leather",
+  "read_by_default": true,
+  "entry_color": "ffaa00",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "quest",
+      "title": "botania.challenge.animalFarm",
+      "text": "botania.challenge.animalFarm.desc"
+    }
+  ]
+}
