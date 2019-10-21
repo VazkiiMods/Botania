@@ -2,7 +2,7 @@
   "name": "botania.entry.dodgeRing",
   "category": "baubles",
   "icon": "botania:dodge_ring",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

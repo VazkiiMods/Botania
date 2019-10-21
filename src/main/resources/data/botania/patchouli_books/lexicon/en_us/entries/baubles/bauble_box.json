@@ -3,6 +3,7 @@
   "category": "baubles",
   "icon": "botania:bauble_box",
   "priority": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

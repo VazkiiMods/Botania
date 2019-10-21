@@ -2,7 +2,7 @@
   "name": "botania.entry.agricarnation",
   "category": "functional_flowers",
   "icon": "botania:agricarnation",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

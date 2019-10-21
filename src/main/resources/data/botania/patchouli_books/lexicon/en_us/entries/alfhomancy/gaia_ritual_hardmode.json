@@ -3,7 +3,8 @@
   "category": "alfhomancy",
   "icon": "botania:gaia_ingot",
   "entry_color": "aa00",
-  "advancement": "botania:main/elf_lexicon_pickup",
+  "advancement": "botania:main/gaia_guardian_kill",
+  "turnin": "botania:challenge/gaia_guardian_hardmode",
   "pages": [
     {
       "type": "text",

@@ -3,6 +3,7 @@
   "category": "tools",
   "icon": "botania:obedience_stick",
   "priority": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

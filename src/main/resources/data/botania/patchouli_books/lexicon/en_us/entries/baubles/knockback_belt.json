@@ -2,7 +2,7 @@
   "name": "botania.entry.knockbackBelt",
   "category": "baubles",
   "icon": "botania:knockback_belt",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

@@ -2,7 +2,7 @@
   "name": "botania.entry.shinyFlowers",
   "category": "misc",
   "icon": "botania:white_shiny_flower",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

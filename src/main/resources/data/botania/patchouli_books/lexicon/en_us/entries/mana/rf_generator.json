@@ -2,7 +2,7 @@
   "name": "botania.entry.rfGenerator",
   "category": "mana",
   "icon": "botania:mana_fluxfield",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

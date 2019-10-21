@@ -2,7 +2,6 @@
   "name": "botania.entry.blazeBlock",
   "category": "misc",
   "icon": "botania:blaze_block",
-  "read_by_default": true,
   "pages": [
     {
       "type": "text",

@@ -2,7 +2,6 @@
   "name": "botania.entry.cacophonium",
   "category": "misc",
   "icon": "botania:cacophonium",
-  "read_by_default": true,
   "pages": [
     {
       "type": "text",
@@ -11,7 +10,7 @@
     {
       "type": "crafting",
       "text": "botania.page.cacophonium1",
-      "recipe": "botania:dummy"
+      "recipe": "botania:cacophonium"
     },
     {
       "type": "text",

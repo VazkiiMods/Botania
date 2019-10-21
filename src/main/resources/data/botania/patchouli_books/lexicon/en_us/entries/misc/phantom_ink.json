@@ -2,7 +2,7 @@
   "name": "botania.entry.phantomInk",
   "category": "misc",
   "icon": "botania:phantom_ink",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

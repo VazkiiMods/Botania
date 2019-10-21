@@ -2,7 +2,7 @@
   "name": "botania.entry.lavaPendant",
   "category": "baubles",
   "icon": "botania:lava_pendant",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

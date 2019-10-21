@@ -2,7 +2,7 @@
   "name": "botania.entry.brewery",
   "category": "devices",
   "icon": "botania:brewery",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

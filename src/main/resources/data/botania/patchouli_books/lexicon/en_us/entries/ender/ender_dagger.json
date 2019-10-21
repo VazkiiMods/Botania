@@ -2,7 +2,7 @@
   "name": "botania.entry.enderDagger",
   "category": "ender",
   "icon": "botania:ender_dagger",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

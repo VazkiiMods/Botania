@@ -2,7 +2,7 @@
   "name": "botania.entry.munchdew",
   "category": "generating_flowers",
   "icon": "botania:munchdew",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

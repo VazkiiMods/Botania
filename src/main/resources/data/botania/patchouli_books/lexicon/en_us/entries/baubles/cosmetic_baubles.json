@@ -3,6 +3,7 @@
   "category": "baubles",
   "icon": "botania:cosmetic_black_bowtie",
   "priority": true,
+  "advancement": "botania:main/flower_pickup",
   "pages": [
     {
       "type": "text",

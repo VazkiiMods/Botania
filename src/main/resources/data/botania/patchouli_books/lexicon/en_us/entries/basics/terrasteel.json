@@ -3,6 +3,8 @@
   "category": "basics",
   "icon": "botania:terrasteel_ingot",
   "priority": true,
+  "advancement": "botania:main/runic_altar_pickup",
+  "turnin": "botania:main/terrasteel_pickup",
   "pages": [
     {
       "type": "text",

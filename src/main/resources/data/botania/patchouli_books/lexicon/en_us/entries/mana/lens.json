@@ -2,7 +2,7 @@
   "name": "botania.entry.lens",
   "category": "mana",
   "icon": "botania:lens_normal",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

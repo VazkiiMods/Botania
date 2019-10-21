@@ -2,7 +2,7 @@
   "name": "botania.entry.tigerseye",
   "category": "functional_flowers",
   "icon": "botania:tigerseye",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

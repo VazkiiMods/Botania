@@ -2,7 +2,7 @@
   "name": "botania.entry.forestEye",
   "category": "devices",
   "icon": "botania:forest_eye",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

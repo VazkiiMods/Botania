@@ -3,6 +3,7 @@
   "category": "functional_flowers",
   "icon": "minecraft:air",
   "priority": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

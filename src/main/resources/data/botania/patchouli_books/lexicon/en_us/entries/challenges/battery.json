@@ -3,6 +3,7 @@
   "category": "challenges",
   "icon": "botania:mana_pool",
   "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "sortnum": 1,
   "pages": [
     {

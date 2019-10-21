@@ -3,6 +3,7 @@
   "category": "devices",
   "icon": "botania:hourglass",
   "priority": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

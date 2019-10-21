@@ -3,6 +3,8 @@
   "category": "basics",
   "icon": "botania:apothecary_default",
   "priority": true,
+  "advancement": "botania:main/flower_pickup",
+  "turnin": "botania:main/apothecary_pickup",
   "pages": [
     {
       "type": "text",
