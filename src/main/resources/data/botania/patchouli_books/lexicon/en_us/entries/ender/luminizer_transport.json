@@ -3,7 +3,6 @@
   "category": "ender",
   "icon": "botania:light_relay",
   "entry_color": "aa00",
-  "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {

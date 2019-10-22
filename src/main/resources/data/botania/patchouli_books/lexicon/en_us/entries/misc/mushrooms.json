@@ -2,7 +2,7 @@
   "name": "botania.entry.mushrooms",
   "category": "misc",
   "icon": "botania:white_mushroom",
-  "read_by_default": true,
+  "advancement": "botania:main/flower_pickup",
   "pages": [
     {
       "type": "text",

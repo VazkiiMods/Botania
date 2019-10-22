@@ -2,7 +2,7 @@
   "name": "botania.entry.terraPick",
   "category": "tools",
   "icon": "botania:terra_pick",
-  "read_by_default": true,
+  "advancement": "botania:main/terrasteel_pickup",
   "pages": [
     {
       "type": "text",

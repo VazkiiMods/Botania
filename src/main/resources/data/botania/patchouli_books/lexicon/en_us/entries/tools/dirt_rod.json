@@ -2,7 +2,7 @@
   "name": "botania.entry.dirtRod",
   "category": "tools",
   "icon": "botania:dirt_rod",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

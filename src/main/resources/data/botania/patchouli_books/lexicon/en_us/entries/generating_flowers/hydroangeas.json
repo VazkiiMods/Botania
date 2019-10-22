@@ -2,7 +2,8 @@
   "name": "botania.entry.hydroangeas",
   "category": "generating_flowers",
   "icon": "botania:hydroangeas",
-  "read_by_default": true,
+  "advancement": "botania:main/pure_daisy_pickup",
+  "turnin": "botania:main/generating_flower",
   "pages": [
     {
       "type": "text",

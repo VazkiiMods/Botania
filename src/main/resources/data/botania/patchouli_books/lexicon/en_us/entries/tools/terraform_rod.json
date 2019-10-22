@@ -2,7 +2,7 @@
   "name": "botania.entry.terraformRod",
   "category": "tools",
   "icon": "botania:terraform_rod",
-  "read_by_default": true,
+  "advancement": "botania:main/terrasteel_pickup",
   "pages": [
     {
       "type": "text",

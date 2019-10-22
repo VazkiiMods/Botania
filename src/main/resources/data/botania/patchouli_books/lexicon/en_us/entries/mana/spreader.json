@@ -3,6 +3,7 @@
   "category": "mana",
   "icon": "botania:mana_spreader",
   "priority": true,
+  "advancement": "botania:main/pure_daisy_pickup",
   "pages": [
     {
       "type": "text",

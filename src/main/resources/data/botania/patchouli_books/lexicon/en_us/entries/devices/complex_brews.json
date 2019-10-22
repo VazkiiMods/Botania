@@ -2,7 +2,7 @@
   "name": "botania.entry.complexBrews",
   "category": "devices",
   "icon": "botania:brew_vial",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

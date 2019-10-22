@@ -2,6 +2,7 @@
   "name": "botania.entry.openCrate",
   "category": "devices",
   "icon": "botania:open_crate",
+  "advancement": "botania:main/pure_daisy_pickup",
   "priority": true,
   "pages": [
     {

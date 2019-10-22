@@ -2,7 +2,6 @@
   "name": "botania.entry.felPumpkin",
   "category": "devices",
   "icon": "botania:fel_pumpkin",
-  "read_by_default": true,
   "pages": [
     {
       "type": "text",

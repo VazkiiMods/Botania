@@ -14,14 +14,18 @@ import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.IModRecipe;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.AlfheimLexiconEntry;
 import vazkii.botania.common.lexicon.CompatLexiconEntry;
 import vazkii.botania.common.lexicon.RelicLexiconEntry;
@@ -38,6 +42,7 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.io.BufferedOutputStream;
@@ -53,7 +58,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
@@ -124,14 +133,37 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public boolean isVisible() {
 		return true;
 	}
+	
+	private static Map<String, String> multiblocks = ImmutableMap.<String, String>builder()
+			.put("botania.page.terrasteel4", "botania:terra_plate")
+			.put("botania.page.manaEnchanting2", "botania:enchanter")
+			.put("botania.page.aIntro4", "botania:alfheim_portal")
+			.put("botania.page.gaiaRitual2", "botania:gaia_ritual").build();
+	
+	// Basic mapping of input -> advancement, requires manually checking first
+	private static Map<Predicate<Item>, ResourceLocation> inputsToAdvancements = ImmutableMap.<Predicate<Item>, ResourceLocation>builder()
+			.put(or(ModTags.Items.INGOTS_TERRASTEEL::contains, ModTags.Items.NUGGETS_TERRASTEEL::contains), 
+					prefix("main/terrasteel_pickup"))
+			.put(ModTags.Items.RUNES::contains, prefix("main/runic_altar_pickup"))
+			.put(oneOf(ModItems.manaDiamond, ModItems.manaPearl, ModItems.manaSteel, ModItems.manaPowder, ModItems.manaString),
+					prefix("main/mana_pool_pickup"))
+			.put(or(ModTags.Items.LIVINGWOOD::contains, ModTags.Items.LIVINGWOOD::contains), prefix("main/pure_daisy_pickup"))
+			.put(ModTags.Items.PETALS::contains, prefix("main/flower_pickup"))
+	.build();
+
+	private static <T> Predicate<T> or(Predicate<T> first, Predicate<T> second) {
+		return first.or(second);
+	}
+
+	private static Predicate<Item> oneOf(Item... items) {
+		return item -> {
+			for(Item i : items) 
+				if(i == item) return true;
+			return false;
+		};
+	}
 
 	public void dump() {
-		Map<String, String> multiblocks = ImmutableMap.<String, String>builder()
-				.put("botania.page.terrasteel4", "botania:terra_plate")
-				.put("botania.page.manaEnchanting2", "botania:enchanter")
-				.put("botania.page.aIntro4", "botania:alfheim_portal")
-				.put("botania.page.gaiaRitual2", "botania:gaia_ritual").build();
-
 		File dir = Paths.get(".", "entries", fixCamelCase(category.getUnlocalizedName().substring(LibLexicon.CATEGORY_PREFIX.length()))).toFile();
 		if(!dir.exists())
 			dir.mkdirs();
@@ -150,9 +182,6 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 			}
 			if (isPriority()) {
 				entry.put("priority", true);
-			} else if (!(this instanceof RelicLexiconEntry || this.getUnlocalizedName().contains("terrasteel") 
-					|| this.getUnlocalizedName().contains("relics") || this.getUnlocalizedName().contains("gaia_ritual"))) {
-				entry.put("read_by_default", true);
 			}
 			if (this instanceof WelcomeLexiconEntry)
 				entry.put("sortnum", -10);
@@ -164,6 +193,15 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 				entry.put("advancement", "botania:main/elf_lexicon_pickup");
 			} else if(this instanceof CompatLexiconEntry) {
 				entry.put("flag", "|debug,mod:" + ((CompatLexiconEntry) this).mod.toLowerCase(Locale.ROOT));
+			}
+
+			if(!entry.containsKey("advancement")) {
+				for(Map.Entry<Predicate<Item>, ResourceLocation> thing : inputsToAdvancements.entrySet()) {
+					if(pages.stream().flatMap(this::getRecipeInputs).map(ItemStack::getItem).anyMatch(thing.getKey())) {
+						entry.put("advancement", thing.getValue().toString());
+						break;
+					}
+				}
 			}
 			
 			List<Object> pages = new ArrayList<>();
@@ -235,6 +273,24 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Stream<ItemStack> getRecipeInputs(LexiconPage page) {
+		Stream<Ingredient> stream;
+		if(page instanceof PageModRecipe) {
+			stream = ((PageModRecipe<? extends IModRecipe>) page).getRecipes().stream().flatMap(o -> o.getInputs().stream());
+		} else if(page instanceof PageCraftingRecipe) {
+			stream = ((PageCraftingRecipe) page).getRecipes().stream().flatMap(o -> o.getIngredients().stream());
+		} else if(page instanceof PageManaInfusionRecipe) {
+			stream = ((PageManaInfusionRecipe) page).getRecipes().stream().map(RecipeManaInfusion::getInput);
+		} else if(page instanceof PageElvenRecipe) {
+			stream = ((PageElvenRecipe) page).getRecipes().stream().flatMap(o -> o.getInputs().stream());
+		} else if(page instanceof PageBrew) {
+			stream = ((PageBrew) page).recipe.getInputs().stream();
+		} else {
+			stream = Stream.empty();
+		}
+		return stream.flatMap(ingr -> Stream.of(ingr.getMatchingStacks()));
 	}
 
 	private static String fixCamelCase(String s) {

@@ -2,7 +2,7 @@
   "name": "botania.entry.travelBelt",
   "category": "baubles",
   "icon": "botania:travel_belt",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

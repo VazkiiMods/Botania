@@ -2,7 +2,7 @@
   "name": "botania.entry.diviningRod",
   "category": "tools",
   "icon": "botania:divining_rod",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

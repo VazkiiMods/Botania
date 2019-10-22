@@ -2,7 +2,7 @@
   "name": "botania.entry.tornadoRod",
   "category": "tools",
   "icon": "botania:tornado_rod",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

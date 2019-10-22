@@ -2,7 +2,7 @@
   "name": "botania.entry.auraRing",
   "category": "baubles",
   "icon": "botania:aura_ring",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",
@@ -16,7 +16,8 @@
     {
       "type": "crafting",
       "text": "botania.page.auraRing2",
-      "recipe": "botania:aura_ring_greater"
+      "recipe": "botania:aura_ring_greater",
+      "advancement": "botania:main/terrasteel_pickup"
     }
   ]
 }

@@ -10,7 +10,7 @@
       "translate": "advancement.botania:manaPoolPickup.desc"
     }
   },
-  "parent": "botania:main/generating_flower",
+  "parent": "botania:main/flower_pickup",
   "criteria": {
     "default": {
       "trigger": "minecraft:inventory_changed",

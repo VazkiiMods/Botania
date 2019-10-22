@@ -2,7 +2,6 @@
   "name": "botania.entry.wrap",
   "category": "basics",
   "icon": "minecraft:air",
-  "read_by_default": true,
   "flag": "|debug,mod:thaumcraft",
   "pages": [
     {

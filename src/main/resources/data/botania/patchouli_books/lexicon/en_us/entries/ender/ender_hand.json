@@ -2,7 +2,7 @@
   "name": "botania.entry.enderHand",
   "category": "ender",
   "icon": "botania:ender_hand",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

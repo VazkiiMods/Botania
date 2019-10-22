@@ -2,7 +2,7 @@
   "name": "botania.entry.manaweave",
   "category": "tools",
   "icon": "botania:manaweave_cloth",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

@@ -2,7 +2,7 @@
   "name": "botania.entry.manaDetector",
   "category": "mana",
   "icon": "botania:mana_detector",
-  "read_by_default": true,
+  "advancement": "botania:main/pure_daisy_pickup",
   "pages": [
     {
       "type": "text",

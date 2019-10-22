@@ -11,7 +11,7 @@
     },
     "frame": "challenge"
   },
-  "parent": "botania:challenge/root",
+  "parent": "botania:challenge/gaia_guardian_hardmode",
   "criteria": {
     "fruit": {
       "trigger": "botania:relic_bind",

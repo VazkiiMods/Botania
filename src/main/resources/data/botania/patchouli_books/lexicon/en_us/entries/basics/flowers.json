@@ -3,6 +3,7 @@
   "category": "basics",
   "icon": "botania:pink_mystical_flower",
   "priority": true,
+  "turnin": "botania:main/flower_pickup",
   "pages": [
     {
       "type": "text",

@@ -2,7 +2,7 @@
   "name": "botania.entry.dreadthorne",
   "category": "functional_flowers",
   "icon": "botania:dreadthorn",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",
