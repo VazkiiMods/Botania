@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_fungal_stone"
+  },
+  "result": "botania:metamorphic_fungal_bricks_slab",
+  "count": 2
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_swamp_bricks"
+  },
+  "result": "botania:metamorphic_swamp_bricks_stairs",
+  "count": 1
+}

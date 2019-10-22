@@ -12,5 +12,6 @@ public class DataGenerators {
         evt.getGenerator().addProvider(new BlockLootProvider(evt.getGenerator()));
         evt.getGenerator().addProvider(new BlockTagProvider(evt.getGenerator()));
         evt.getGenerator().addProvider(new ItemTagProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new StonecuttingProvider(evt.getGenerator()));
     }
 }

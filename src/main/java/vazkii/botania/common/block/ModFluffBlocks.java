@@ -324,11 +324,7 @@ public final class ModFluffBlocks {
 
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE);
 		ILexiconable marimorph = (world, pos, player, lex) -> LexiconData.marimorphosis;
-		variants = new String[] {
-				"forest", "plains", "mountain", "fungal",
-				"swamp", "desert", "taiga", "mesa"
-		};
-		for (String variant : variants) {
+		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			base = new BlockModLexiconable(props, marimorph);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);

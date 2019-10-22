@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_desert_stone"
+  },
+  "result": "botania:metamorphic_desert_bricks_stairs",
+  "count": 1
+}

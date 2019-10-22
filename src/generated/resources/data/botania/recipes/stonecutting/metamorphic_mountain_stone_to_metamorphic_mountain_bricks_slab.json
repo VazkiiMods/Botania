@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_mountain_stone"
+  },
+  "result": "botania:metamorphic_mountain_bricks_slab",
+  "count": 2
+}

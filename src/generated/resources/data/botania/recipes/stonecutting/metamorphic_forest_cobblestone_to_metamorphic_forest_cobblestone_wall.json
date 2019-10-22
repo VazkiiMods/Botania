@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_forest_cobblestone"
+  },
+  "result": "botania:metamorphic_forest_cobblestone_wall",
+  "count": 1
+}

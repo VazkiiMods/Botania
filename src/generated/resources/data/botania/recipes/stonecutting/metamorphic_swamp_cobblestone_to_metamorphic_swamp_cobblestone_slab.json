@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_swamp_cobblestone"
+  },
+  "result": "botania:metamorphic_swamp_cobblestone_slab",
+  "count": 2
+}

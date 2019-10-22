@@ -138,6 +138,10 @@ public final class LibBlockNames {
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
 	public static final String METAMORPHIC_PREFIX = "metamorphic_";
+	public static final String[] METAMORPHIC_VARIANTS =  {
+			"forest", "plains", "mountain", "fungal",
+			"swamp", "desert", "taiga", "mesa"
+	};
 	public static final String SLAB_SUFFIX = "_slab";
     public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";

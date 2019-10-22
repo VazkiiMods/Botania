@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_mountain_stone"
+  },
+  "result": "botania:chiseled_metamorphic_mountain_bricks",
+  "count": 1
+}

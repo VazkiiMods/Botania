@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:metamorphic_taiga_stone"
+  },
+  "result": "botania:metamorphic_taiga_bricks_slab",
+  "count": 2
+}
