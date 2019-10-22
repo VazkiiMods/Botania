@@ -109,14 +109,11 @@ dependencies {
     minecraft "net.minecraftforge:forge:${config.forge_version}"
     compile fg.deobf("vazkii:patchouli:1.1-22")
 
-    //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
-    //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
     
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2")
-    //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
