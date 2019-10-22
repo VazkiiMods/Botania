@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "botania:dreamwood_wall",
+    "botania:livingrock_wall",
+    "botania:livingwood_wall",
+    "botania:metamorphic_desert_cobblestone_wall",
+    "botania:metamorphic_forest_cobblestone_wall",
+    "botania:metamorphic_fungal_cobblestone_wall",
+    "botania:metamorphic_mesa_cobblestone_wall",
+    "botania:metamorphic_mountain_cobblestone_wall",
+    "botania:metamorphic_plains_cobblestone_wall",
+    "botania:metamorphic_swamp_cobblestone_wall",
+    "botania:metamorphic_taiga_cobblestone_wall"
+  ]
+}
