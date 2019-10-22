@@ -60,3 +60,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Data Generator cache
+/src/generated/resources/.cache/
