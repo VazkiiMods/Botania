@@ -3,6 +3,7 @@
   "category": "challenges",
   "icon": "minecraft:bone_meal",
   "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "entry_color": "ffaa00",
   "sortnum": 3,
   "pages": [

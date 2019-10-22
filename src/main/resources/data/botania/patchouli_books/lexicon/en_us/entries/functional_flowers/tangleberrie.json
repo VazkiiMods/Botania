@@ -2,7 +2,7 @@
   "name": "botania.entry.tangleberrie",
   "category": "functional_flowers",
   "icon": "botania:tangleberrie",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

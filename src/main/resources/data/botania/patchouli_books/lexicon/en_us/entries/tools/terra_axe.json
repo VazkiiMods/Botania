@@ -2,7 +2,7 @@
   "name": "botania.entry.terraAxe",
   "category": "tools",
   "icon": "botania:terra_axe",
-  "read_by_default": true,
+  "advancement": "botania:main/terrasteel_pickup",
   "pages": [
     {
       "type": "text",

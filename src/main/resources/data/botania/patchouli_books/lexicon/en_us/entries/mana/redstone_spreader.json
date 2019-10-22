@@ -2,6 +2,7 @@
   "name": "botania.entry.redstoneSpreader",
   "category": "mana",
   "icon": "botania:redstone_spreader",
+  "advancement": "botania:main/pure_daisy_pickup",
   "priority": true,
   "pages": [
     {

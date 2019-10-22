@@ -3,6 +3,7 @@
   "category": "tools",
   "icon": "botania:terrasteel_helmet",
   "priority": true,
+  "advancement": "botania:main/terrasteel_pickup",
   "pages": [
     {
       "type": "text",

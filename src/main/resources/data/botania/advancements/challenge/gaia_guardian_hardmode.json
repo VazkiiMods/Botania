@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:life_essence"
+    },
+    "title": {
+      "translate": "advancement.botania:gaiaGuardianHardmode"
+    },
+    "description": {
+      "translate": "advancement.botania:gaiaGuardianHardmode.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "dice": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "item": "botania:dice"
+        }
+      }
+    }
+  }
+}

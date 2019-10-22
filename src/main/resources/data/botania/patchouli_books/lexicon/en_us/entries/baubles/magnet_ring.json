@@ -2,7 +2,7 @@
   "name": "botania.entry.magnetRing",
   "category": "baubles",
   "icon": "botania:magnet_ring",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",
@@ -16,7 +16,8 @@
     {
       "type": "crafting",
       "text": "botania.page.magnetRing2",
-      "recipe": "botania:magnet_ring_greater"
+      "recipe": "botania:magnet_ring_greater",
+      "advancement": "botania:main/terrasteel_pickup"
     }
   ]
 }

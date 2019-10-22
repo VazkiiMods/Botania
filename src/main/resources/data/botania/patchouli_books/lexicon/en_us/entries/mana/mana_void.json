@@ -2,7 +2,7 @@
   "name": "botania.entry.manaVoid",
   "category": "mana",
   "icon": "botania:mana_void",
-  "read_by_default": true,
+  "advancement": "botania:main/pure_daisy_pickup",
   "pages": [
     {
       "type": "text",

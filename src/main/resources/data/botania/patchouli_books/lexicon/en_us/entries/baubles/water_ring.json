@@ -2,7 +2,7 @@
   "name": "botania.entry.waterRing",
   "category": "baubles",
   "icon": "botania:water_ring",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

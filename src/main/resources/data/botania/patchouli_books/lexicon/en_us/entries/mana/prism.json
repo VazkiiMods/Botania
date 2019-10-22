@@ -3,7 +3,6 @@
   "category": "mana",
   "icon": "botania:prism",
   "entry_color": "aa00",
-  "read_by_default": true,
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
     {

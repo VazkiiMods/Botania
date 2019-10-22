@@ -2,7 +2,7 @@
   "name": "botania.entry.bellethorne",
   "category": "functional_flowers",
   "icon": "botania:bellethorn",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

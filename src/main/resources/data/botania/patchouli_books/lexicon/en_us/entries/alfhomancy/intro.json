@@ -3,6 +3,8 @@
   "category": "alfhomancy",
   "icon": "botania:lexicon",
   "priority": true,
+  "advancement": "botania:main/terrasteel_pickup",
+  "turnin": "botania:main/elf_lexicon_pickup",
   "pages": [
     {
       "type": "text",

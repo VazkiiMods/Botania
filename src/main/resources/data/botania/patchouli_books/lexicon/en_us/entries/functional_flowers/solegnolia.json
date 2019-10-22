@@ -2,7 +2,7 @@
   "name": "botania.entry.solegnolia",
   "category": "functional_flowers",
   "icon": "botania:solegnolia",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

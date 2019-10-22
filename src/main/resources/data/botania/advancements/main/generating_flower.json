@@ -10,7 +10,7 @@
       "translate": "advancement.botania:generatingFlower.desc"
     }
   },
-  "parent": "botania:main/lexicon_use",
+  "parent": "botania:main/flower_pickup",
   "criteria": {
     "flower": {
       "trigger": "minecraft:inventory_changed",

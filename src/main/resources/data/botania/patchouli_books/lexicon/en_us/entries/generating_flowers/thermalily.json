@@ -2,7 +2,7 @@
   "name": "botania.entry.thermalily",
   "category": "generating_flowers",
   "icon": "botania:thermalily",
-  "read_by_default": true,
+  "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
       "type": "text",

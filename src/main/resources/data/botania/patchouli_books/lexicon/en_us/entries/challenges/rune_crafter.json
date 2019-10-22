@@ -3,6 +3,7 @@
   "category": "challenges",
   "icon": "botania:rune_water",
   "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "entry_color": "aa00aa",
   "sortnum": 7,
   "pages": [

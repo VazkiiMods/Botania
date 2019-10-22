@@ -2,7 +2,7 @@
   "name": "botania.entry.manaMirror",
   "category": "mana",
   "icon": "botania:mana_mirror",
-  "read_by_default": true,
+  "advancement": "botania:main/terrasteel_pickup",
   "pages": [
     {
       "type": "text",

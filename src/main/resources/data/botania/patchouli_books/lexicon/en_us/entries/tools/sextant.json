@@ -2,7 +2,7 @@
   "name": "botania.entry.sextant",
   "category": "tools",
   "icon": "botania:sextant",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

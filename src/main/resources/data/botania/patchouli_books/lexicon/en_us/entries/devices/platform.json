@@ -2,7 +2,7 @@
   "name": "botania.entry.platform",
   "category": "devices",
   "icon": "botania:abstruse_platform",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

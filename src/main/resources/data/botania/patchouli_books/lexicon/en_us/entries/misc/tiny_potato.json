@@ -2,7 +2,7 @@
   "name": "botania.entry.tinyPotato",
   "category": "misc",
   "icon": "botania:tiny_potato",
-  "read_by_default": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",

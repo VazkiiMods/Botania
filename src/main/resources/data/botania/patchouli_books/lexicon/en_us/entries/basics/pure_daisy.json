@@ -3,6 +3,8 @@
   "category": "basics",
   "icon": "botania:pure_daisy",
   "priority": true,
+  "advancement": "botania:main/flower_pickup",
+  "turnin": "botania:main/pure_daisy_pickup",
   "pages": [
     {
       "type": "text",

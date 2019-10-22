@@ -3,6 +3,7 @@
   "category": "mana",
   "icon": "botania:mana_tablet",
   "priority": true,
+  "advancement": "botania:main/mana_pool_pickup",
   "pages": [
     {
       "type": "text",
