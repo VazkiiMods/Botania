@@ -146,11 +146,6 @@ jar {
     exclude "**/*.exe"
 }
 
-task deobfJar(type: Jar) {
-    from(sourceSets.main.output)
-	archiveName = "${baseName} ${version}-deobf.${extension}"
-}
-
 task srcJar(type: Jar) {
     from(sourceSets.main.java)
     classifier = 'sources'
