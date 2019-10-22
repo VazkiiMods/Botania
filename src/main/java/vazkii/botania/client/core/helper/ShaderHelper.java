@@ -66,7 +66,9 @@ public final class ShaderHelper {
 
 	@SuppressWarnings("deprecation")
 	public static void initShaders() {
-		if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
+		// Can be null when running datagenerators due to the unfortunate time we call this
+		if (Minecraft.getInstance() != null
+			&& Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
 			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
 					(IResourceManagerReloadListener) manager -> {
 						deleteShader(pylonGlow);

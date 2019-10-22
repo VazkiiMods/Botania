@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:water_bowl"
+          "name": "botania:floating_bubbell"
         }
       ],
       "conditions": [

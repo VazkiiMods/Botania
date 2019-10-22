@@ -7,7 +7,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:dirt"
+          "name": "botania:floating_pure_daisy"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

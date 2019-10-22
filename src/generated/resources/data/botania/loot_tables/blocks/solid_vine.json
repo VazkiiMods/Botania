@@ -2,7 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "vanilla",
+      "name": "main",
       "rolls": 1,
       "entries": [
         {

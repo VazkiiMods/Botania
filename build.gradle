@@ -51,11 +51,27 @@ minecraft {
                 }
             }
         }
+        data {
+            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level': 'debug'
+            properties 'fml.earlyprogresswindow': 'false'
+            workingDirectory project.file('run')
+            mods {
+                botania {
+                    source sourceSets.main
+                }
+            }
+            args '--mod', 'botania', '--all', '--output', file('src/generated/resources/')
+        }
     }
     // replace 'GRADLE:BUILD', config.build_number
     // replace 'GRADLE:VERSION', config.version
 
     // replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
 }
 
 repositories {
@@ -279,4 +295,4 @@ uploadArchives {
 }
 // tasks.uploadArchives.dependsOn reobfJar
 
-defaultTasks 'clean', 'build', 'sortArtifacts', 'incrementBuildNumber', 'upload'
+defaultTasks 'clean', 'runData', 'build', 'sortArtifacts', 'incrementBuildNumber', 'upload'

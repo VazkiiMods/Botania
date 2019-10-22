@@ -7,19 +7,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:living_root",
           "functions": [
             {
-              "function": "set_count",
+              "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 4
+                "min": 2.0,
+                "max": 4.0,
+                "type": "minecraft:uniform"
               }
             },
             {
-              "function": "explosion_decay"
+              "function": "minecraft:explosion_decay"
             }
-          ]
+          ],
+          "name": "botania:living_root"
         }
       ]
     }
