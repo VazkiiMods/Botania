@@ -28,6 +28,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.patchouli.client.book.gui.GuiBook;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class ClientTickHandler {
@@ -88,7 +89,7 @@ public final class ClientTickHandler {
 			}
 
 			int ticksToOpen = 10;
-			if(gui instanceof GuiLexicon) {
+			if(gui instanceof GuiBook && ((GuiBook) gui).book.getBookItem().getItem() == ModItems.lexicon) {
 				if(ticksWithLexicaOpen < 0)
 					ticksWithLexicaOpen = 0;
 				if(ticksWithLexicaOpen < ticksToOpen)

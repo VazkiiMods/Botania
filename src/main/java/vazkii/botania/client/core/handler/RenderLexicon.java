@@ -28,6 +28,7 @@ import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.patchouli.client.book.gui.GuiBook;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
@@ -92,7 +93,8 @@ public class RenderLexicon {
 
 		float ticks = ClientTickHandler.ticksWithLexicaOpen;
 		if(ticks > 0 && ticks < 10) {
-			if(Minecraft.getInstance().currentScreen instanceof GuiLexicon)
+			if(Minecraft.getInstance().currentScreen instanceof GuiBook
+				&& ((GuiBook) Minecraft.getInstance().currentScreen).book.getBookItem().getItem() == ModItems.lexicon)
 				ticks += partialTicks;
 			else ticks -= partialTicks;
 		}

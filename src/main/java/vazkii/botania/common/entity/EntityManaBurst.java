@@ -526,9 +526,6 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 					|| block instanceof LeavesBlock)
 				return;
 
-			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
-				return;
-
 			BlockPos coords = getBurstSourceBlockPos();
 			if(tile != null && !tile.getPos().equals(coords))
 				collidedTile = tile;

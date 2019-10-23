@@ -288,17 +288,10 @@ public class Botania {
 
 	/* todo 1.13
 	public void init(FMLInitializationEvent event) {
-		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
-
 		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
 		for(Block b : new Block[]{ ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm })
 			FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic", b.getRegistryName().toString());
-
-
-
-		if(Botania.bcApiLoaded)
-			new StatementAPIPlugin();
 	}
 	*/
 

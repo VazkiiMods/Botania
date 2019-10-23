@@ -128,11 +128,6 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public boolean isBuildcraftPipe(TileEntity tile) {
-		return false;
-	}
-
-	@Override
 	public void breakOnAllCursors(PlayerEntity player, Item item, ItemStack stack, BlockPos pos, Direction side) {}
 
 	@Override
