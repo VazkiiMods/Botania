@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.block.Blocks;
@@ -63,6 +64,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);
 		GlStateManager.translatef(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+
 		if(!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
