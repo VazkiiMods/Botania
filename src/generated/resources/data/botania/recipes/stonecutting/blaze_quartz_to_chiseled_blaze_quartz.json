@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:blaze_quartz"
+  },
+  "result": "botania:chiseled_blaze_quartz",
+  "count": 1
+}

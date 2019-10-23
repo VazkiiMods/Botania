@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:red_quartz"
+  },
+  "result": "botania:red_quartz_stairs",
+  "count": 1
+}

@@ -13,10 +13,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
@@ -32,6 +33,47 @@ public class StonecuttingProvider extends RecipeProvider {
         for(String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
             registerForMetamorphic(variant, consumer);
         }
+
+        for(String color : LibBlockNames.PAVEMENT_VARIANTS) {
+            registerForPavement(color, consumer);
+        }
+
+        for(String variant : LibBlockNames.QUARTZ_VARIANTS) {
+            registerForQuartz(variant, consumer);
+        }
+
+        consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockSlab, 2));
+        consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockStairs));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockSlab, 2));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockStairs));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockWall));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModBlocks.livingrockBrick));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickSlab, 2));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickStairs));
+        consumer.accept(stonecutting(ModBlocks.livingrock, ModBlocks.livingrockBrickChiseled));
+        consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickSlab, 2));
+        consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickStairs));
+        consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModBlocks.livingrockBrickChiseled));
+    }
+
+    private static void registerForQuartz(String variant, Consumer<IFinishedRecipe> consumer) {
+        Block base = ForgeRegistries.BLOCKS.getValue(prefix(variant));
+        Block slab = ForgeRegistries.BLOCKS.getValue(prefix(variant + LibBlockNames.SLAB_SUFFIX));
+        Block stairs = ForgeRegistries.BLOCKS.getValue(prefix(variant + LibBlockNames.STAIR_SUFFIX));
+        Block chiseled = ForgeRegistries.BLOCKS.getValue(prefix("chiseled_" + variant));
+        Block pillar = ForgeRegistries.BLOCKS.getValue(prefix(variant + "_pillar"));
+        consumer.accept(stonecutting(base, slab, 2));
+        consumer.accept(stonecutting(base, stairs));
+        consumer.accept(stonecutting(base, chiseled));
+        consumer.accept(stonecutting(base, pillar));
+    }
+
+    private static void registerForPavement(String color, Consumer<IFinishedRecipe> consumer) {
+        Block base = ForgeRegistries.BLOCKS.getValue(prefix(color + LibBlockNames.PAVEMENT_SUFFIX));
+        Block slab = ForgeRegistries.BLOCKS.getValue(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX));
+        Block stair = ForgeRegistries.BLOCKS.getValue(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX));
+        consumer.accept(stonecutting(base, slab, 2));
+        consumer.accept(stonecutting(base, stair));
     }
 
     private static void registerForMetamorphic(String variant, Consumer<IFinishedRecipe> consumer) {
@@ -61,6 +103,12 @@ public class StonecuttingProvider extends RecipeProvider {
         consumer.accept(stonecutting(cobble, cobbleSlab, 2));
         consumer.accept(stonecutting(cobble, cobbleStair));
         consumer.accept(stonecutting(cobble, cobbleWall));
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+        return "Botania stonecutting recipes";
     }
 
     private static ResourceLocation idFor(IItemProvider a, IItemProvider b) {

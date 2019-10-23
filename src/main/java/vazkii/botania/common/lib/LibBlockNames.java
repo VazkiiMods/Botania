@@ -127,6 +127,10 @@ public final class LibBlockNames {
 	public static final String BELLOWS = "bellows";
 	public static final String BIFROST_PERM = "bifrost_perm";
 	public static final String PAVEMENT_SUFFIX = "_pavement";
+	public static final String[] PAVEMENT_VARIANTS = {
+			"white", "black", "blue",
+			"red", "yellow", "green"
+	};
 	public static final String CELL_BLOCK = "cell_block";
 	public static final String GAIA_HEAD = "gaia_head";
 	public static final String GAIA_WALL_HEAD = "gaia_wall_head";
@@ -197,5 +201,9 @@ public final class LibBlockNames {
 	public static final String QUARTZ_RED = "red_quartz";
 	public static final String QUARTZ_ELF = "elf_quartz";
 	public static final String QUARTZ_SUNNY = "sunny_quartz";
+	public static final String[] QUARTZ_VARIANTS = {
+			QUARTZ_DARK, QUARTZ_MANA, QUARTZ_BLAZE, QUARTZ_LAVENDER,
+			QUARTZ_RED, QUARTZ_ELF, QUARTZ_SUNNY
+	};
 
 }

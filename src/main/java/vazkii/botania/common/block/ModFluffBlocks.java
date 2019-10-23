@@ -265,12 +265,7 @@ public final class ModFluffBlocks {
 		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
 		
 		Block.Properties props = Block.Properties.from(Blocks.QUARTZ_BLOCK);
-		String[] variants = {
-				LibBlockNames.QUARTZ_BLAZE, LibBlockNames.QUARTZ_DARK,
-				LibBlockNames.QUARTZ_LAVENDER, LibBlockNames.QUARTZ_MANA,
-				LibBlockNames.QUARTZ_RED, LibBlockNames.QUARTZ_SUNNY
-		};
-		for (String variant : variants) {
+		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
 			ILexiconable lexicon = (world, pos, player, lex) -> LexiconData.decorativeBlocks;
 			
 			base = new BlockModLexiconable(props, lexicon);
@@ -281,46 +276,13 @@ public final class ModFluffBlocks {
 			register(r, new BlockModStairs(base.getDefaultState(), props), variant + STAIR_SUFFIX);
 		}
 
-		// elf quartz special
-		ILexiconable elven = (world, pos, player, lex) -> LexiconData.elvenResources;
-		base = new BlockModLexiconable(props, elven);
-		register(r, base, LibBlockNames.QUARTZ_ELF);
-		register(r, new BlockModLexiconable(props, elven), "chiseled_" + LibBlockNames.QUARTZ_ELF);
-		register(r, new BlockSpecialQuartzPillar(props), LibBlockNames.QUARTZ_ELF + "_pillar");
-		register(r, new BlockElfQuartzSlab(props), LibBlockNames.QUARTZ_ELF + SLAB_SUFFIX);
-		register(r, new BlockElfQuartzStairs(base.getDefaultState(), props), LibBlockNames.QUARTZ_ELF + STAIR_SUFFIX);
-
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		
-		Block block = new BlockMod(props);
-		register(r, block, "white" + LibBlockNames.PAVEMENT_SUFFIX);
-		register(r, new BlockPavementStairs(block.getDefaultState(), props), "white" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-        register(r, new BlockPavementSlab(props), "white" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
-		
-		block = new BlockMod(props);
-		register(r, block, "black" + LibBlockNames.PAVEMENT_SUFFIX);
-		register(r, new BlockPavementStairs(block.getDefaultState(), props), "black" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-		register(r, new BlockPavementSlab(props), "black" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
-
-		block = new BlockMod(props);
-		register(r, block, "blue" + LibBlockNames.PAVEMENT_SUFFIX);
-		register(r, new BlockPavementStairs(block.getDefaultState(), props), "blue" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-		register(r, new BlockPavementSlab(props), "blue" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
-
-		block = new BlockMod(props);
-		register(r, block, "red" + LibBlockNames.PAVEMENT_SUFFIX);
-		register(r, new BlockPavementStairs(block.getDefaultState(), props), "red" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-		register(r, new BlockPavementSlab(props), "red" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
-
-		block = new BlockMod(props);
-		register(r, block, "yellow" + LibBlockNames.PAVEMENT_SUFFIX);
-		register(r, new BlockPavementStairs(block.getDefaultState(), props), "yellow" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-		register(r, new BlockPavementSlab(props), "yellow" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
-
-		block = new BlockMod(props);
-		register(r, block, "green" + LibBlockNames.PAVEMENT_SUFFIX);
-		register(r, new BlockPavementStairs(block.getDefaultState(), props), "green" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-		register(r, new BlockPavementSlab(props), "green" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+		for (String color : LibBlockNames.PAVEMENT_VARIANTS) {
+			Block block = new BlockMod(props);
+			register(r, block, color + LibBlockNames.PAVEMENT_SUFFIX);
+			register(r, new BlockPavementStairs(block.getDefaultState(), props), color + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+			register(r, new BlockPavementSlab(props), color + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+		}
 
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE);
 		ILexiconable marimorph = (world, pos, player, lex) -> LexiconData.marimorphosis;

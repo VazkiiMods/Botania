@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:sunny_quartz"
+  },
+  "result": "botania:sunny_quartz_pillar",
+  "count": 1
+}

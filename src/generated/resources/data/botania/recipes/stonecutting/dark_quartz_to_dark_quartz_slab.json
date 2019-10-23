@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:dark_quartz"
+  },
+  "result": "botania:dark_quartz_slab",
+  "count": 2
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:lavender_quartz"
+  },
+  "result": "botania:lavender_quartz_slab",
+  "count": 2
+}

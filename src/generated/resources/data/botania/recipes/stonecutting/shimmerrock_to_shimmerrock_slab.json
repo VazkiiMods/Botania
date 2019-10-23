@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:shimmerrock"
+  },
+  "result": "botania:shimmerrock_slab",
+  "count": 2
+}
