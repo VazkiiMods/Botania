@@ -10,45 +10,20 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.model.animation.Animation;
-import net.minecraftforge.common.animation.Event;
-import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.animation.CapabilityAnimation;
-import net.minecraftforge.common.property.Properties;
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-// TODO 1.13 move this back to a normal tesr. Byebye animation API
 public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorporeaCrystalCube> {
 	// Ugly but there's no other way to get the model besides grabbing it from the event
 	public static IBakedModel cubeModel = null;
@@ -82,7 +57,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		GlStateManager.translated(d0, d1, d2);
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
@@ -99,8 +74,11 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		}
 
 		if (cubeModel != null) {
-			GlStateManager.color4f(1, 1, 1, 0.4F);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
+			GlStateManager.translatef(-0.5F, 0.25F, -0.5F);
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(cubeModel, 1, 1, 1, 1);
+			GlStateManager.popMatrix();
 		}
 
 		GlStateManager.color3f(1F, 1F, 1F);
@@ -138,9 +116,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			GlStateManager.enableLighting();
 		}
 
-		GlStateManager.scalef(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
-		// todo 1.13 readd cube
 	}
 }
