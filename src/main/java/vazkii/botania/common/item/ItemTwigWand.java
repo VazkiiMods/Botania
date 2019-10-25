@@ -35,6 +35,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -50,7 +51,6 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -186,17 +186,17 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			return wanded ? ActionResultType.SUCCESS : ActionResultType.FAIL;
 		}
 
-		if(!world.isRemote && ((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.containsKey(player.getUniqueID())) {
-			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.get(player.getUniqueID());
-			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(world.getDimension().getType(), pos);
+		if(!world.isRemote && ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.containsKey(player.getUniqueID())) {
+			GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
+			GlobalPos currentPos = GlobalPos.of(world.getDimension().getType(), pos);
 
-			((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.remove(player.getUniqueID());
+			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
 			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(world).markDirty();
 
 			PacketHandler.sendToNearby(world, pos,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-							bindPos.blockPos.getX() + 0.5, bindPos.blockPos.getY() + 0.5, bindPos.blockPos.getZ() + 0.5,
+							bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
 							pos.getX(), pos.getY(), pos.getZ()));
 			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return ActionResultType.SUCCESS;

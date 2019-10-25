@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MovingPistonBlock;
@@ -20,20 +21,21 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.state.properties.PistonType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,26 +47,23 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
 	// Currently active binding attempts
-	public final Map<UUID, DimWithPos> playerPositions = new HashMap<>();
+	public final Map<UUID, GlobalPos> activeBindingAttempts = new HashMap<>();
 
 	// Bindings
-	public final Map<DimWithPos, DimWithPos> mappedPositions = new HashMap<>();
+	public final Map<GlobalPos, GlobalPos> mappedPositions = new HashMap<>();
 
-	private final Set<DimWithPos> removeQueue = new HashSet<>();
-	private final Set<DimWithPos> checkedCoords = new HashSet<>();
-	private final Map<DimWithPos, Integer> coordsToCheck = new HashMap<>();
+	private final Set<GlobalPos> removeQueue = new HashSet<>();
+	private final Set<GlobalPos> checkedCoords = new HashSet<>();
+	private final Map<GlobalPos, Integer> coordsToCheck = new HashMap<>();
 
 	public BlockPistonRelay(Properties builder) {
 		super(builder);
@@ -78,10 +77,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	private void mapCoords(DimensionType type, BlockPos pos, int time) {
-		coordsToCheck.put(new DimWithPos(type, pos), time);
+		coordsToCheck.put(GlobalPos.of(type, pos), time);
 	}
 
-	private void decrCoords(DimWithPos key) {
+	private void decrCoords(GlobalPos key) {
 		int time = getTimeInCoords(key);
 
 		if(time <= 0)
@@ -89,19 +88,19 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		else coordsToCheck.merge(key, -1, Integer::sum);
 	}
 
-	private int getTimeInCoords(DimWithPos key) {
+	private int getTimeInCoords(GlobalPos key) {
 		return coordsToCheck.getOrDefault(key, 0);
 	}
 
-	private Block getBlockAt(DimWithPos key) {
+	private Block getBlockAt(GlobalPos key) {
 		return getStateAt(key).getBlock();
 	}
 
-	private BlockState getStateAt(DimWithPos key) {
+	private BlockState getStateAt(GlobalPos key) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if(server == null)
 			return Blocks.AIR.getDefaultState();
-		return server.getWorld(key.dim).getBlockState(key.blockPos);
+		return server.getWorld(key.getDimension()).getBlockState(key.getPos());
 	}
 
 	@Override
@@ -110,7 +109,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			return false;
 
 		if(!player.isSneaking()) {
-			playerPositions.put(player.getUniqueID(), new DimWithPos(world.getDimension().getType(), pos));
+			activeBindingAttempts.put(player.getUniqueID(), GlobalPos.of(world.getDimension().getType(), pos));
 			world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
@@ -142,29 +141,30 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		@Override
-		public void read(@Nonnull CompoundNBT nbttagcompound) {
+		public void read(@Nonnull CompoundNBT cmp) {
 			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.clear();
 
-			Collection<String> tags = nbttagcompound.keySet();
-			for(String key : tags) {
-				INBT tag = nbttagcompound.get(key);
-				if(tag instanceof StringNBT) {
-					String value = tag.getString();
-					DimWithPos from = DimWithPos.fromString(key);
-					DimWithPos to = DimWithPos.fromString(value);
+			ListNBT list = cmp.getList("list", Constants.NBT.TAG_COMPOUND);
+			for (int i = 0; i < list.size(); i += 2) {
+				CompoundNBT from = list.getCompound(i);
+				CompoundNBT to = list.getCompound(i + 1);
+				GlobalPos fromPos = GlobalPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, from));
+				GlobalPos toPos = GlobalPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, to));
 
-					if(from != null && to != null)
-						((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(from, to);
-				}
+				((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(fromPos, toPos);
 			}
 		}
 
 		@Nonnull
 		@Override
-		public CompoundNBT write(@Nonnull CompoundNBT nbttagcompound) {
-			for(DimWithPos s : ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.keySet())
-				nbttagcompound.putString(s.toString(), ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(s).toString());
-			return nbttagcompound;
+		public CompoundNBT write(@Nonnull CompoundNBT cmp) {
+			ListNBT list = new ListNBT();
+			for (Map.Entry<GlobalPos, GlobalPos> e : ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.entrySet()) {
+				list.add(e.getKey().serialize(NBTDynamicOps.INSTANCE));
+				list.add(e.getValue().serialize(NBTDynamicOps.INSTANCE));
+			}
+			cmp.put("list", list);
+			return cmp;
 		}
 
 		public static WorldData get(World world) {
@@ -181,7 +181,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	@SubscribeEvent
 	public void tickEnd(TickEvent.ServerTickEvent event) {
 		if(event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
-			for(DimWithPos s : coordsToCheck.keySet()) {
+			for(GlobalPos s : coordsToCheck.keySet()) {
 				decrCoords(s);
 				if(checkedCoords.contains(s))
 					continue;
@@ -195,13 +195,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 					MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 
 					if(server != null && getTimeInCoords(s) == 0) {
-						DimWithPos newPos;
+						GlobalPos newPos;
 
 						// Put the relay back, or drop it
 						{
-							int x = s.blockPos.getX(), y = s.blockPos.getY(), z = s.blockPos.getZ();
-							BlockPos pos = s.blockPos;
-							World world = server.getWorld(s.dim);
+							int x = s.getPos().getX(), y = s.getPos().getY(), z = s.getPos().getZ();
+							BlockPos pos = s.getPos();
+							World world = server.getWorld(s.getDimension());
 							if(world.isAirBlock(pos.offset(dir)))
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
@@ -209,14 +209,14 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								world.addEntity(new ItemEntity(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
 							}
 							checkedCoords.add(s);
-							newPos = new DimWithPos(world.getDimension().getType(), pos.offset(dir));
+							newPos = GlobalPos.of(world.getDimension().getType(), pos.offset(dir));
 						}
 
 						// Move the linked block and update the mapping
 						if(mappedPositions.containsKey(s)) {
-							DimWithPos dest = mappedPositions.get(s);
-							BlockPos destPos = dest.blockPos;
-							World world = server.getWorld(dest.dim);
+							GlobalPos dest = mappedPositions.get(s);
+							BlockPos destPos = dest.getPos();
+							World world = server.getWorld(dest.getDimension());
 
 							BlockState srcState = world.getBlockState(destPos);
 							TileEntity tile = world.getTileEntity(destPos);
@@ -225,8 +225,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
 								if(world.isAirBlock(destPos.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(destPos, Blocks.AIR.getDefaultState());
-									world.setBlockState(destPos.offset(dir), srcState, 1 | 2);
-									mappedPositions.put(s, new DimWithPos(world.getDimension().getType(), destPos.offset(dir)));
+									world.setBlockState(destPos.offset(dir), srcState);
+									mappedPositions.put(s, GlobalPos.of(world.getDimension().getType(), destPos.offset(dir)));
 								}
 							}
 
@@ -240,10 +240,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			}
 		}
 
-		for(DimWithPos s : removeQueue) {
-			coordsToCheck.remove(s);
-			checkedCoords.remove(s);
-		}
+		coordsToCheck.keySet().removeAll(removeQueue);
+		checkedCoords.removeAll(removeQueue);
 		removeQueue.clear();
 	}
 
@@ -257,46 +255,4 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.pistonRelay;
 	}
-
-	public static class DimWithPos {
-		public final DimensionType dim;
-		public final BlockPos blockPos;
-
-		public DimWithPos(DimensionType dim, BlockPos pos) {
-			this.dim = dim;
-			blockPos = pos;
-		}
-
-		@Override
-		public int hashCode() {
-			return 31 * dim.hashCode() ^ blockPos.hashCode();
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			return o instanceof DimWithPos
-					&& dim.equals(((DimWithPos) o).dim)
-					&& blockPos.equals(((DimWithPos) o).blockPos);
-		}
-
-		@Override
-		public String toString() {
-			return dim.toString() + "|" + blockPos.getX() + "|" + blockPos.getY() + "|" + blockPos.getZ();
-		}
-
-		@Nullable
-		public static DimWithPos fromString(String s) {
-			String[] split = s.split("\\|");
-			ResourceLocation id = ResourceLocation.tryCreate(split[0]);
-			if(id != null) {
-				DimensionType type = DimensionType.byName(id);
-				if(type != null) {
-					return new DimWithPos(type, new BlockPos(Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3])));
-				}
-			}
-			return null;
-		}
-
-	}
-
 }
