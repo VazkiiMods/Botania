@@ -63,6 +63,11 @@ public class ItemPinkinator extends ItemMod {
 				wither.remove();
 				EntityPinkWither pink = new EntityPinkWither(world);
 				pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
+				pink.setNoAI(wither.isAIDisabled());
+				if (wither.hasCustomName()) {
+					pink.setCustomName(wither.getCustomName());
+					pink.setCustomNameVisible(wither.isCustomNameVisible());
+				}
 				pink.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pink)), SpawnReason.CONVERSION, null, null);
 				world.addEntity(pink);
 				pink.spawnExplosionParticle();
