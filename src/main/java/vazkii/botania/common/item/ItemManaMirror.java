@@ -21,9 +21,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -125,7 +128,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
 		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
 		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
-		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : pool.getWorld().getDimension().getType().getModType().getRegistryName().toString());
+		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : DimensionType.getKey(pool.getWorld().getDimension().getType()).toString());
 	}
 
 	public BlockPos getPoolCoords(ItemStack stack) {
@@ -148,15 +151,10 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		if(coords.getY() == -1)
 			return null;
 
-		String dim = getDimension(stack);
-		World world = null;
-		for(World w : server.getWorlds())
-			if(w.getDimension().getType().getModType().getRegistryName().toString().equals(dim)) {
-				world = w;
-				break;
-			}
-
-		if(world != null) {
+		ResourceLocation dim = new ResourceLocation(getDimension(stack));
+		DimensionType type = DimensionType.byName(dim);
+		if (type != null) {
+			World world = server.getWorld(type);
 			TileEntity tile = world.getTileEntity(coords);
 			if(tile instanceof IManaPool)
 				return (IManaPool) tile;
