@@ -67,11 +67,9 @@ public final class BlockHighlightRenderHandler {
 				}
 
 				TileEntity tile = mc.world.getTileEntity(bPos);
-				if(tile == null || !(tile instanceof TileEntitySpecialFlower))
+				if(!(tile instanceof TileEntitySpecialFlower))
 					break boundTile;
 				TileEntitySpecialFlower subtile = (TileEntitySpecialFlower) tile;
-				if(subtile == null)
-					break boundTile;
 				RadiusDescriptor descriptor = subtile.getRadius();
 				if(descriptor == null)
 					break boundTile;
