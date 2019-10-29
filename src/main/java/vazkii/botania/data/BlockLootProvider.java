@@ -1,4 +1,4 @@
-package vazkii.botania.common.data;
+package vazkii.botania.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +12,6 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
-import net.minecraft.data.LootTableProvider;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;

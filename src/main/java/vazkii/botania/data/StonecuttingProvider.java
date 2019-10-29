@@ -1,7 +1,6 @@
-package vazkii.botania.common.data;
+package vazkii.botania.data;
 
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;

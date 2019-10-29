@@ -1,4 +1,4 @@
-package vazkii.botania.common.data;
+package vazkii.botania.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;

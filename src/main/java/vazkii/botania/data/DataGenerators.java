@@ -1,4 +1,4 @@
-package vazkii.botania.common.data;
+package vazkii.botania.data;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
