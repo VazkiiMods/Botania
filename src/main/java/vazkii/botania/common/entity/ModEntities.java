@@ -54,6 +54,7 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.FLAME_RING));
 		evt.getRegistry().register(EntityType.Builder.<EntityVineBall>create(EntityVineBall::new, EntityClassification.MISC)
+				.size(0.25F, 0.25F)
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(true)
@@ -97,6 +98,7 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.MAGIC_MISSILE));
 		evt.getRegistry().register(EntityType.Builder.<EntityThornChakram>create(EntityThornChakram::new, EntityClassification.MISC)
+				.size(0.25F, 0.25F)
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(true)
@@ -139,6 +141,7 @@ public final class ModEntities {
 				.build("")
 				.setRegistryName(LibEntityNames.PLAYER_MOVER));
 		evt.getRegistry().register(EntityType.Builder.<EntityManaStorm>create(EntityManaStorm::new, EntityClassification.MISC)
+				.size(0.98F, 0.98F)
 				.setTrackingRange(64)
 				.setUpdateInterval(10)
 				.setShouldReceiveVelocityUpdates(false)
