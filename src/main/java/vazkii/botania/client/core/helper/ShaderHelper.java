@@ -17,13 +17,12 @@ import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
-import net.minecraft.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraftforge.fml.ModList;
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.ARBVertexShader;
+import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.MemoryUtil;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -32,16 +31,16 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 public final class ShaderHelper {
-
-	private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
-	private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
-
+	// Scratch buffer to use for uniforms
+	public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
 	public static int pylonGlow = 0;
 	public static int enchanterRune = 0;
 	public static int manaPool = 0;
@@ -60,7 +59,7 @@ public final class ShaderHelper {
 
 	private static void deleteShader(int id) {
 		if (id != 0) {
-			ARBShaderObjects.glDeleteObjectARB(id);
+			GLX.glDeleteShader(id);
 		}
 	}
 
@@ -122,12 +121,11 @@ public final class ShaderHelper {
 
 		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		GlStateManager.disableLighting();
-		
-		ARBShaderObjects.glUseProgramObjectARB(shader);
+		GLX.glUseProgram(shader);
 
 		if(shader != 0) {
-			int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
-			ARBShaderObjects.glUniform1iARB(time, ClientTickHandler.ticksInGame);
+		    int time = GLX.glGetUniformLocation(shader, "time");
+		    GLX.glUniform1i(time, ClientTickHandler.ticksInGame);
 
 			if(callback != null)
 				callback.call(shader);
@@ -158,34 +156,26 @@ public final class ShaderHelper {
 		return !hasIncompatibleMods;
 	}
 
-	// Most of the code taken from the LWJGL wiki
-	// http://lwjgl.org/wiki/index.php?title=GLSL_Shaders_with_LWJGL
-
 	private static int createProgram(IResourceManager manager, String vert, String frag) {
 		int vertId = 0, fragId = 0, program;
 		if(vert != null)
-			vertId = createShader(manager, vert, VERT);
+			vertId = createShader(manager, vert, GLX.GL_VERTEX_SHADER);
 		if(frag != null)
-			fragId = createShader(manager, frag, FRAG);
+			fragId = createShader(manager, frag, GLX.GL_FRAGMENT_SHADER);
 
-		program = ARBShaderObjects.glCreateProgramObjectARB();
+		program = GLX.glCreateProgram();
 		if(program == 0)
 			return 0;
 
 		if(vert != null)
-			ARBShaderObjects.glAttachObjectARB(program, vertId);
+			GLX.glAttachShader(program, vertId);
 		if(frag != null)
-			ARBShaderObjects.glAttachObjectARB(program, fragId);
+			GLX.glAttachShader(program, fragId);
 
-		ARBShaderObjects.glLinkProgramARB(program);
-		if(ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
-			Botania.LOGGER.error(getLogInfo(program));
-			return 0;
-		}
-
-		ARBShaderObjects.glValidateProgramARB(program);
-		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
-			Botania.LOGGER.error(getLogInfo(program));
+		GLX.glLinkProgram(program);
+		if (GLX.glGetProgrami(program, GLX.GL_LINK_STATUS) == GL11.GL_FALSE) {
+			Botania.LOGGER.warn("Error encountered when linking program containing VS {} and FS {}. Log output:", vert, frag);
+			Botania.LOGGER.warn(GLX.glGetProgramInfoLog(program, 32768));
 			return 0;
 		}
 
@@ -195,28 +185,25 @@ public final class ShaderHelper {
 	private static int createShader(IResourceManager manager, String filename, int shaderType){
 		int shader = 0;
 		try {
-			shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
+		    shader = GLX.glCreateShader(shaderType);
 
 			if(shader == 0)
 				return 0;
 
-			ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(manager, filename));
-			ARBShaderObjects.glCompileShaderARB(shader);
+			GLX.glShaderSource(shader, readFileAsString(manager, filename));
+			GLX.glCompileShader(shader);
 
-			if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
-				throw new RuntimeException("Error creating shader: " + getLogInfo(shader));
+			if (GLX.glGetShaderi(shader, GLX.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+				String s1 = StringUtils.trim(GLX.glGetShaderInfoLog(shader, 32768));
+				throw new IOException("Couldn't compile " + filename + ": " + s1);
+			}
 
 			return shader;
-		}
-		catch(Exception e) {
-			ARBShaderObjects.glDeleteObjectARB(shader);
+		} catch(Exception e) {
+			GLX.glDeleteShader(shader);
 			e.printStackTrace();
 			return -1;
 		}
-	}
-
-	private static String getLogInfo(int obj) {
-		return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
 	}
 
 	private static String readFileAsString(IResourceManager manager, String filename) throws Exception {

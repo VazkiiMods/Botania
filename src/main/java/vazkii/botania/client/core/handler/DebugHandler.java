@@ -28,8 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -79,7 +77,6 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
 				event.getLeft().add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
 				event.getLeft().add("  GL_SHADING_LANGUAGE_VERSION: " + GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
-				event.getLeft().add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(ARBVertexShader.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);

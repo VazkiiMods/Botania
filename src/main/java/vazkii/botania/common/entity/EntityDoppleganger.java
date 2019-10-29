@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -66,7 +67,6 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
-import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -985,14 +985,19 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
 		if(shaderCallback == null)
 			shaderCallback = shader1 -> {
-				int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader1, "grainIntensity");
-				int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader1, "hpFract");
+				int grainIntensityUniform = GLX.glGetUniformLocation(shader1, "grainIntensity");
+				int hpFractUniform = GLX.glGetUniformLocation(shader1, "hpFract");
 
 				float time = getInvulTime();
 				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
 
-				ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
-				ARBShaderObjects.glUniform1fARB(hpFractUniform, getHealth() / getMaxHealth());
+				ShaderHelper.FLOAT_BUF.position(0);
+				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
+				GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+
+				ShaderHelper.FLOAT_BUF.position(0);
+				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
+				GLX.glUniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
 			};
 
 			return background ? null : shaderCallback;

@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -30,12 +29,16 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
 	private final ShaderCallback callback = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-		ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
+		int disfigurationUniform = GLX.glGetUniformLocation(shader, "disfiguration");
+		ShaderHelper.FLOAT_BUF.position(0);
+		ShaderHelper.FLOAT_BUF.put(0, 0.025F);
+		GLX.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-		ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
+		int grainIntensityUniform = GLX.glGetUniformLocation(shader, "grainIntensity");
+		ShaderHelper.FLOAT_BUF.position(0);
+		ShaderHelper.FLOAT_BUF.put(0, 0.05F);
+		GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderPixie(EntityRendererManager renderManager) {

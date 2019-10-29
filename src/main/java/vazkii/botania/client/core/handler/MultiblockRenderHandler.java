@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -18,6 +19,7 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -31,14 +33,16 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
-import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.MemoryUtil;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.nio.FloatBuffer;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class MultiblockRenderHandler {
@@ -98,8 +102,10 @@ public final class MultiblockRenderHandler {
 			blockAccess.update(player.world, mb, anchorPos);
 
 			ShaderHelper.useShader(ShaderHelper.alpha, shader -> {
-				int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
-				ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
+				int alpha = GLX.glGetUniformLocation(shader, "alpha");
+				ShaderHelper.FLOAT_BUF.position(0);
+				ShaderHelper.FLOAT_BUF.put(0, 0.4F);
+				GLX.glUniform1(alpha, ShaderHelper.FLOAT_BUF);
 			});
 
 			for(MultiblockComponent comp : mb.getComponents()) {

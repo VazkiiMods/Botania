@@ -10,34 +10,34 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
-import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.MemoryUtil;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.item.ItemAstrolabe;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.nio.FloatBuffer;
 import java.util.List;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class AstrolabePreviewHandler {
-
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
@@ -64,8 +64,10 @@ public final class AstrolabePreviewHandler {
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			
 			ShaderHelper.useShader(ShaderHelper.alpha, shader -> {
-				int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
-				ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
+				int alpha = GLX.glGetUniformLocation(shader, "alpha");
+				ShaderHelper.FLOAT_BUF.position(0);
+				ShaderHelper.FLOAT_BUF.put(0, 0.4F);
+				GLX.glUniform1(alpha, ShaderHelper.FLOAT_BUF);
 			});
 			
 			for(BlockPos coord : coords)

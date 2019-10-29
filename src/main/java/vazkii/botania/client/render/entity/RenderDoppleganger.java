@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
@@ -20,7 +21,6 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -37,22 +37,30 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 
 	public static final ShaderCallback callback = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-		ARBShaderObjects.glUniform1fARB(disfigurationUniform, disfiguration);
+		int disfigurationUniform = GLX.glGetUniformLocation(shader, "disfiguration");
+		ShaderHelper.FLOAT_BUF.position(0);
+		ShaderHelper.FLOAT_BUF.put(0, disfiguration);
+		GLX.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-		ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
+		int grainIntensityUniform = GLX.glGetUniformLocation(shader, "grainIntensity");
+		ShaderHelper.FLOAT_BUF.position(0);
+		ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
+		GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public static final ShaderCallback defaultCallback = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-		ARBShaderObjects.glUniform1fARB(disfigurationUniform, DEFAULT_DISFIGURATION);
+		int disfigurationUniform = GLX.glGetUniformLocation(shader, "disfiguration");
+		ShaderHelper.FLOAT_BUF.position(0);
+		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_DISFIGURATION);
+		GLX.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-		ARBShaderObjects.glUniform1fARB(grainIntensityUniform, DEFAULT_GRAIN_INTENSITY);
+		int grainIntensityUniform = GLX.glGetUniformLocation(shader, "grainIntensity");
+		ShaderHelper.FLOAT_BUF.position(0);
+		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_GRAIN_INTENSITY);
+		GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderDoppleganger(EntityRendererManager renderManager) {

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +18,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
-import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -97,12 +97,12 @@ public final class BossBarHandler {
 
 		@Override
 		public void call(int shader) {
-			int startXUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "startX");
-			int startYUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "startY");
+			int startXUniform = GLX.glGetUniformLocation(shader, "startX");
+			int startYUniform = GLX.glGetUniformLocation(shader, "startY");
 
 
-			ARBShaderObjects.glUniform1iARB(startXUniform, x);
-			ARBShaderObjects.glUniform1iARB(startYUniform, y);
+			GLX.glUniform1i(startXUniform, x);
+			GLX.glUniform1i(startYUniform, y);
 
 			if(callback != null)
 				callback.call(shader);
