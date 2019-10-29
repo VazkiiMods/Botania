@@ -40,6 +40,7 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -171,7 +172,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 			try {
 				URL url = new URL("https://raw.githubusercontent.com/Vazkii/Botania/master/contributors.properties");
 				Properties props = new Properties();
-				try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
+				try (InputStreamReader reader = new InputStreamReader(url.openStream(), StandardCharsets.UTF_8)) {
 					props.load(reader);
 					load(props);
 				}

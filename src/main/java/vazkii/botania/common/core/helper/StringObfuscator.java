@@ -11,6 +11,7 @@
 package vazkii.botania.common.core.helper;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -25,7 +26,7 @@ public final class StringObfuscator {
 		if(str != null)
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				return new HexBinaryAdapter().marshal(md.digest(dontRainbowTableMeOrMySonEverAgain(str).getBytes()));
+				return new HexBinaryAdapter().marshal(md.digest(dontRainbowTableMeOrMySonEverAgain(str).getBytes(StandardCharsets.UTF_8)));
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
@@ -35,7 +36,7 @@ public final class StringObfuscator {
 	private static String dontRainbowTableMeOrMySonEverAgain(String str) throws NoSuchAlgorithmException {
 		str += reverseString(str);
 		SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
-		rand.setSeed(str.getBytes());
+		rand.setSeed(str.getBytes(StandardCharsets.UTF_8));
 		int l = str.length();
 		int steps = rand.nextInt(l);
 		char[] chrs = str.toCharArray();
