@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
@@ -24,6 +25,8 @@ import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -77,6 +80,15 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
+		// Floating flower item models
+		for (Map.Entry<ResourceLocation, IBakedModel> e : evt.getModelRegistry().entrySet()) {
+			if (e.getValue() instanceof FloatingFlowerModel.Baked) {
+				ResourceLocation stripVariant = new ResourceLocation(e.getKey().getNamespace(), e.getKey().getPath());
+				ModelResourceLocation itemPath = new ModelResourceLocation(stripVariant, "inventory");
+				evt.getModelRegistry().put(itemPath, e.getValue());
+			}
+		}
+
 		// Platforms
 		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
 		IBakedModel abstruse = evt.getModelRegistry().get(abstruseName);

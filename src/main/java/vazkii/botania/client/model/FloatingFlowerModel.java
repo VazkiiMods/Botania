@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.texture.ISprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -21,12 +22,14 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
+import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -103,12 +106,14 @@ public class FloatingFlowerModel implements IUnbakedModel {
         return new Baked(bakedFlower, bakedIslands);
     }
 
-    private static class Baked extends BakedModelWrapper<IBakedModel> {
+    public static class Baked extends BakedModelWrapper<IBakedModel> {
+        private final Map<IFloatingFlower.IslandType, IBakedModel> islands;
         private final Map<IFloatingFlower.IslandType, List<BakedQuad>> genQuads = new HashMap<>();
         private final Map<IFloatingFlower.IslandType, Map<Direction, List<BakedQuad>>> faceQuads = new HashMap<>();
 
         Baked(IBakedModel flower, Map<IFloatingFlower.IslandType, IBakedModel> islands) {
             super(flower);
+            this.islands = islands;
             Random rand = new Random();
             for (Map.Entry<IFloatingFlower.IslandType, IBakedModel> e : islands.entrySet()) {
                 rand.setSeed(42);
@@ -131,6 +136,13 @@ public class FloatingFlowerModel implements IUnbakedModel {
 
         @Nonnull
         @Override
+        public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
+            // Default to GRASS island
+            return getQuads(state, side, rand, EmptyModelData.INSTANCE);
+        }
+
+        @Nonnull
+        @Override
         public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
             IFloatingFlower.IslandType type = IFloatingFlower.IslandType.GRASS;
             if (extraData.hasProperty(BotaniaStateProps.FLOATING_DATA)) {
@@ -142,6 +154,14 @@ public class FloatingFlowerModel implements IUnbakedModel {
             } else {
                 return faceQuads.get(type).get(side);
             }
+        }
+
+        @Nonnull
+        @Override
+        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
+            // Use the item transforms from the islands since it looks better
+            Pair<? extends IBakedModel, Matrix4f> p = this.islands.values().iterator().next().handlePerspective(cameraTransformType);
+            return Pair.of(this, p.getRight());
         }
     }
 
