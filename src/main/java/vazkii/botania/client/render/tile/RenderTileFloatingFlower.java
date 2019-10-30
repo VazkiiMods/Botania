@@ -41,6 +41,9 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 	@Override
 	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+		if (ConfigHandler.CLIENT.staticFloaters.get())
+			return;
+
 		IModelData data = tile.getModelData();
 		if (!data.hasProperty(BotaniaStateProps.FLOATING_DATA))
 			return;

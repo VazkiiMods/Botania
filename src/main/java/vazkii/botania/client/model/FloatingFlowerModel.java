@@ -17,6 +17,7 @@ import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.ModelStateComposition;
+import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -29,6 +30,7 @@ import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -102,23 +104,44 @@ public class FloatingFlowerModel implements IUnbakedModel {
     }
 
     private static class Baked extends BakedModelWrapper<IBakedModel> {
-        private final Map<IFloatingFlower.IslandType, IBakedModel> islands;
+        private final Map<IFloatingFlower.IslandType, List<BakedQuad>> genQuads = new HashMap<>();
+        private final Map<IFloatingFlower.IslandType, Map<Direction, List<BakedQuad>>> faceQuads = new HashMap<>();
 
         Baked(IBakedModel flower, Map<IFloatingFlower.IslandType, IBakedModel> islands) {
             super(flower);
-            this.islands = islands;
+            Random rand = new Random();
+            for (Map.Entry<IFloatingFlower.IslandType, IBakedModel> e : islands.entrySet()) {
+                rand.setSeed(42);
+                List<BakedQuad> gen = new ArrayList<>(flower.getQuads(null, null, rand, EmptyModelData.INSTANCE));
+                rand.setSeed(42);
+                gen.addAll(e.getValue().getQuads(null, null, rand, EmptyModelData.INSTANCE));
+                genQuads.put(e.getKey(), gen);
+
+                Map<Direction, List<BakedQuad>> fq = new EnumMap<>(Direction.class);
+                for (Direction dir : Direction.values()) {
+                    rand.setSeed(42);
+                    List<BakedQuad> lst = new ArrayList<>(flower.getQuads(null, dir, rand, EmptyModelData.INSTANCE));
+                    rand.setSeed(42);
+                    lst.addAll(e.getValue().getQuads(null, dir, rand, EmptyModelData.INSTANCE));
+                    fq.put(dir, lst);
+                }
+                faceQuads.put(e.getKey(), fq);
+            }
         }
 
         @Nonnull
         @Override
         public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
-            List<BakedQuad> quads = super.getQuads(state, side, rand, extraData);
             IFloatingFlower.IslandType type = IFloatingFlower.IslandType.GRASS;
             if (extraData.hasProperty(BotaniaStateProps.FLOATING_DATA)) {
                 type = extraData.getData(BotaniaStateProps.FLOATING_DATA).getIslandType();
             }
-            quads.addAll(islands.get(type).getQuads(state, side, rand, extraData));
-            return quads;
+
+            if (side == null) {
+                return genQuads.get(type);
+            } else {
+                return faceQuads.get(type).get(side);
+            }
         }
     }
 
