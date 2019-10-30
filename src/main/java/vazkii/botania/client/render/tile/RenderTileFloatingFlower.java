@@ -14,13 +14,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.util.LazyOptional;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -33,12 +37,6 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 	@Override
 	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
-		LazyOptional<IFloatingFlower> floatingOpt = tile.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP);
-		if(!floatingOpt.isPresent())
-			return;
-
-		IFloatingFlower floatingData = floatingOpt.orElseThrow(NullPointerException::new);
-		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		GlStateManager.translated(d0, d1, d2);
@@ -55,12 +53,13 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
-		/* todo 1.13
-		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
-		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());
-		IBakedModel model = brd.getBlockModelShapes().getModelManager().getModel(new ModelResourceLocation("botania:floating_special_flower", "inventory"));
-		brd.getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, true);
-		*/
+		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
+		BlockState state = tile.getWorld().getBlockState(tile.getPos());
+		IBakedModel model = brd.getModelForState(state);
+		Tessellator.getInstance().getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+		IModelData data = tile.getModelData();
+		brd.getBlockModelRenderer().renderModel(tile.getWorld(), model, state, tile.getPos(), Tessellator.getInstance().getBuffer(), false, tile.getWorld().rand, 0, data);
+		Tessellator.getInstance().draw();
 
 		GlStateManager.popMatrix();
 
