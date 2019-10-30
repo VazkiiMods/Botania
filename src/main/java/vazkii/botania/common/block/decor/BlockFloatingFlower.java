@@ -27,6 +27,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
@@ -88,8 +89,9 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty()) {
-			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
+		TileEntity te = world.getTileEntity(pos);
+		if(!stack.isEmpty() && te != null && te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).isPresent()) {
+			IFloatingFlower flower = te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).orElseThrow(IllegalStateException::new);
 			IslandType type = null;
 			if(stack.getItem() == Items.SNOWBALL)
 				type = IslandType.SNOW;
