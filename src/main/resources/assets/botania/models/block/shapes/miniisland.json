@@ -9,7 +9,7 @@
 		}
 	},
 	"textures": {
-	   "bottom": "blocks/dirt"
+	   "bottom": "block/dirt"
 	},
     "elements": [
         {

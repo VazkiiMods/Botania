@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraftforge.client.model.ModelDataManager;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
@@ -79,7 +80,8 @@ public class TileFloatingFlower extends TileMod {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.onDataPacket(net, packet);
 		if(oldType != floatingData.getIslandType()) {
-			// todo 1.14 world.markForRerender(pos);
+			ModelDataManager.requestModelDataRefresh(this);
+			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
 

@@ -24,26 +24,27 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public final class BotaniaAPIClient {
 
-	private static final Map<IFloatingFlower.IslandType, ModelResourceLocation> islandTypeModels = Maps.newHashMap();
+	private static final Map<IFloatingFlower.IslandType, ResourceLocation> islandTypeModels = Maps.newHashMap();
 
 	private BotaniaAPIClient() {
 	}
 
 	/**
 	 * Registers your model for island type islandType here.
-	 * Call this during {@code ModelRegistryEvent}.
+	 * Call this during {@link net.minecraftforge.client.event.ModelRegistryEvent}.
 	 *
 	 * @param islandType The islandtype to register
-	 * @param model      The variant within a blockstate json to use as the islandtype's model
+	 * @param model      The model, may be {@link ResourceLocation} to point directly into the models folder or
+	 *                   {@link ModelResourceLocation} to go through the blockstate jsons.
 	 */
-	public static void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ModelResourceLocation model) {
+	public static void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
 		islandTypeModels.put(islandType, model);
 	}
 
 	/**
 	 * @return An immutable and live view of the registered island type model map
 	 */
-	public static Map<IFloatingFlower.IslandType, ModelResourceLocation> getRegisteredIslandTypeModels() {
+	public static Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
 		return Collections.unmodifiableMap(islandTypeModels);
 	}
 
