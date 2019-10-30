@@ -42,21 +42,14 @@ public class TileFloatingFlower extends TileMod {
 	public static TileEntityType<TileFloatingFlower> TYPE;
 
 	private static final String TAG_FLOATING_DATA = "floating";
-	public static ItemStack forcedStack = ItemStack.EMPTY;
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
-			if(!forcedStack.isEmpty()) {
-				ItemStack retStack = forcedStack;
-				forcedStack = ItemStack.EMPTY;
-				return retStack;
+			Block b = getBlockState().getBlock();
+			if(b instanceof BlockFloatingFlower) {
+				return new ItemStack(ModBlocks.getShinyFlower(((BlockFloatingFlower) b).color));
 			} else {
-				Block b = getBlockState().getBlock();
-				if(b instanceof BlockFloatingFlower) {
-					return new ItemStack(ModBlocks.getShinyFlower(((BlockFloatingFlower) b).color));
-				} else {
-					return ItemStack.EMPTY;
-				}
+				return ItemStack.EMPTY;
 			}
 		}
 	};

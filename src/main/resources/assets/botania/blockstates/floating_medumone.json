@@ -3,7 +3,7 @@
   "defaults": {
     "model": "botania_special:floating_flower",
     "custom": {
-      "flower": "botania:block/plants/flower_white"
+      "flower": "botania:block/medumone"
     }
   },
   "variants": {

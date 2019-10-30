@@ -252,6 +252,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public void readFromPacketNBT(CompoundNBT cmp) {
+		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 
@@ -264,6 +265,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public void writeToPacketNBT(CompoundNBT cmp) {
+		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);

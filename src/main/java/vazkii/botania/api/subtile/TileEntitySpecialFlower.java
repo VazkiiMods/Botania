@@ -43,6 +43,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.model.ModelDataManager;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
@@ -160,8 +161,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		super.read(cmp);
 		if(cmp.contains(TAG_TICKS_EXISTED))
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
-		if(cmp.contains(TAG_FLOATING_DATA))
-			BotaniaAPI.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 		readFromPacketNBT(cmp);
 	}
 
@@ -169,7 +168,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public final CompoundNBT write(CompoundNBT cmp) {
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
-		cmp.put(TAG_FLOATING_DATA, BotaniaAPI.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
 		writeToPacketNBT(cmp);
 		return cmp;
 	}
@@ -184,8 +182,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
-		super.onDataPacket(net, packet);
+		readFromPacketNBT(packet.getNbtCompound());
 		if(oldType != floatingData.getIslandType() && isFloating()) {
+			ModelDataManager.requestModelDataRefresh(this);
 			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
@@ -201,21 +200,23 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * by readFromPacketNBT on the client that receives the packet.
 	 * Note: This method is also used to write to the world NBT.
 	 */
-	public void writeToPacketNBT(CompoundNBT cmp) { }
+	public void writeToPacketNBT(CompoundNBT cmp) {
+		if (isFloating())
+			cmp.put(TAG_FLOATING_DATA, BotaniaAPI.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+	}
 
 	/**
 	 * Reads data from a network packet. This data is written by
 	 * writeToPacketNBT in the server. Note: This method is also used
 	 * to read from the world NBT.
 	 */
-	public void readFromPacketNBT(CompoundNBT cmp) { }
+	public void readFromPacketNBT(CompoundNBT cmp) {
+		if(cmp.contains(TAG_FLOATING_DATA))
+			BotaniaAPI.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+	}
 
 	public void sync() {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-	}
-
-	public String getUnlocalizedName() {
-		return getType().getRegistryName().toString();
 	}
 
 	/**

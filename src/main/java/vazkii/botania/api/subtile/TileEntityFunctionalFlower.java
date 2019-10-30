@@ -160,6 +160,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public void readFromPacketNBT(CompoundNBT cmp) {
+		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 
 		int x = cmp.getInt(TAG_POOL_X);
@@ -171,6 +172,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public void writeToPacketNBT(CompoundNBT cmp) {
+		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
 
 		if(cachedPoolCoordinates != null) {

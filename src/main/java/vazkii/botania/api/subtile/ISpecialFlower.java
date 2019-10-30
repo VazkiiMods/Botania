@@ -15,6 +15,7 @@ package vazkii.botania.api.subtile;
  * BlockFlower would be checked against, but isn't convenient for
  * the special flowers with effects. For Azanor and Lycaon.
  */
+// todo 1.14 remove
 public interface ISpecialFlower {
 
 }
