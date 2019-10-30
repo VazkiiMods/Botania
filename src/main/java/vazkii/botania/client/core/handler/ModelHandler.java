@@ -24,6 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
@@ -80,6 +81,8 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingFlower.class, renderTileFloatingFlower);
+		// TODO 1.14 this seems highly questionable.
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpecialFlower.class, renderTileFloatingFlower);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTinyPotato.class, new RenderTileTinyPotato());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileStarfield.class, new RenderTileStarfield());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());

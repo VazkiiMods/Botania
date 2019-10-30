@@ -101,6 +101,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -876,7 +877,7 @@ public final class ModBlocks {
 		register(r, TileEntityType.Builder.create(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform).build(null), LibBlockNames.PLATFORM);;
 		register(r, TileEntityType.Builder.create(TileAlfPortal::new, alfPortal).build(null), LibBlockNames.ALF_PORTAL);;
 		register(r, TileEntityType.Builder.create(TileBifrost::new, bifrost).build(null), LibBlockNames.BIFROST);;
-		register(r, TileEntityType.Builder.create(TileFloatingFlower::new).build(null), LibBlockNames.MINI_ISLAND);;
+		register(r, TileEntityType.Builder.create(TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new)).build(null), LibBlockNames.MINI_ISLAND);
 		register(r, TileEntityType.Builder.create(TileTinyPotato::new, tinyPotato).build(null), LibBlockNames.TINY_POTATO);;
 		register(r, TileEntityType.Builder.create(TileSpawnerClaw::new, spawnerClaw).build(null), LibBlockNames.SPAWNER_CLAW);;
 		register(r, TileEntityType.Builder.create(TileEnderEye::new, enderEye).build(null), LibBlockNames.ENDER_EYE_BLOCK);;
