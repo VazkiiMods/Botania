@@ -104,7 +104,7 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 						if(block.isAir(state, world, pos)) {
 							BlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
 							
-							if(first && !ModBlocks.solidVines.getDefaultState().isValidPosition(world, pos)) break;
+							if(first && !stateSet.isValidPosition(world, pos)) break;
 							first = false;
 							
 							world.setBlockState(pos, stateSet, 1 | 2);
