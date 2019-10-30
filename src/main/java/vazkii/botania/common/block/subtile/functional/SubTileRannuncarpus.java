@@ -170,7 +170,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toBlockPos(), getRange());
+        return new RadiusDescriptor.Square(getPos(), getRange());
 	}
 
 	public int getRange() {

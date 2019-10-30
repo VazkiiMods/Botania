@@ -141,7 +141,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toBlockPos(), 1);
+        return new RadiusDescriptor.Square(getPos(), 1);
 	}
 
 	@Override

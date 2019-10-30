@@ -281,13 +281,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	/**
-	 * Gets a BlockPos instance with the position of this sub tile.
-	 */
-	public BlockPos toBlockPos() {
-		return getPos();
-	}
-
-	/**
 	 * @see IWandBindable#canSelect(PlayerEntity, ItemStack, net.minecraft.util.math.BlockPos, Direction)
 	 */
 	@Override

@@ -142,7 +142,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();
 		aabb = new AxisAlignedBB(aabb.minX, getPos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
-		return new RadiusDescriptor.Rectangle(toBlockPos(), aabb);
+        return new RadiusDescriptor.Rectangle(getPos(), aabb);
 	}
 
 	@Override

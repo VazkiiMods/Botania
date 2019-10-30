@@ -159,7 +159,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toBlockPos(), 1);
+        return new RadiusDescriptor.Square(getPos(), 1);
 	}
 
 	@Override

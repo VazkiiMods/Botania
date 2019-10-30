@@ -93,7 +93,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toBlockPos(), getRange());
+        return new RadiusDescriptor.Circle(getPos(), getRange());
 	}
 
 	@Override

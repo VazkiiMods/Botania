@@ -89,7 +89,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
+        return new RadiusDescriptor.Square(getPos(), RANGE);
 	}
 
 	@Override

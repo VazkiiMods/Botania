@@ -22,7 +22,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -59,7 +58,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toBlockPos(), RANGE);
+        return new RadiusDescriptor.Circle(getPos(), RANGE);
 	}
 
 	@Override
