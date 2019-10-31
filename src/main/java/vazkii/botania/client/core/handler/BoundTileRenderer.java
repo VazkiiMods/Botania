@@ -10,13 +10,12 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -36,7 +35,7 @@ import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 public final class BoundTileRenderer {

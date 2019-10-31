@@ -2,7 +2,6 @@ package vazkii.botania.api.item;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 /**

@@ -1,13 +1,9 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tileentity.FurnaceTileEntity;
-import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeEventFactory;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockMod;
 

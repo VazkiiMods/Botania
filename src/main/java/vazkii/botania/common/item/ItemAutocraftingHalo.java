@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemAutocraftingHalo extends ItemCraftingHalo {
 

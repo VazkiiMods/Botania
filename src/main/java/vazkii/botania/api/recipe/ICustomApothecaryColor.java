@@ -11,7 +11,6 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.item.ItemStack;
-import vazkii.botania.api.item.IPetalApothecary;
 
 /**
  * An Item or Block that implements this interface can have a special particle color in the Petal Apothecary.

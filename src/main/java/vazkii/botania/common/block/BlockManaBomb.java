@@ -11,17 +11,11 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaBomb extends BlockMod implements IManaTrigger {
 

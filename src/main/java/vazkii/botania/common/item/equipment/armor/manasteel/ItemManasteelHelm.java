@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaDiscountArmor;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nullable;
 

@@ -12,7 +12,6 @@ package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {

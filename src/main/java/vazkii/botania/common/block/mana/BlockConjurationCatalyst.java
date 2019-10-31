@@ -11,14 +11,11 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 

@@ -1,13 +1,10 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +16,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {

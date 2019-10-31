@@ -10,16 +10,12 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,13 +23,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemBlackLotus extends ItemMod implements IManaDissolvable {

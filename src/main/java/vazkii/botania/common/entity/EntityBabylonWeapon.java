@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -38,11 +38,9 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
-
-import javax.annotation.Nonnull;
-
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {

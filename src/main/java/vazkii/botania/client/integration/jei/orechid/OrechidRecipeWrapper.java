@@ -8,8 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;

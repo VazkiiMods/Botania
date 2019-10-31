@@ -12,11 +12,6 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import vazkii.botania.client.lib.LibResources;
-
-import javax.annotation.Nonnull;
 
 // todo 1.13 reevaluate if necessary
 public class ItemBlockMod extends BlockItem {

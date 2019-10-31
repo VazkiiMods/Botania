@@ -10,17 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
-
 public class BlockRoot extends BlockMod {
 
 	public BlockRoot(Properties builder) {

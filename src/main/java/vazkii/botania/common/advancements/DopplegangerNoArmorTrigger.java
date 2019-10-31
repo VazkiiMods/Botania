@@ -8,14 +8,18 @@ import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.DamageSourcePredicate;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DopplegangerNoArmorTrigger implements ICriterionTrigger<DopplegangerNoArmorTrigger.Instance> {
     public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "gaia_guardian_no_armor");

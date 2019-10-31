@@ -1,10 +1,9 @@
 package vazkii.botania.common.core.loot;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.ILootGenerator;
 import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

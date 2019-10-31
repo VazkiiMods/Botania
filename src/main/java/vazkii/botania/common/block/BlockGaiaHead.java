@@ -11,7 +11,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.SkullBlock;
-import net.minecraft.block.SkullBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 import vazkii.botania.common.block.tile.TileGaiaHead;

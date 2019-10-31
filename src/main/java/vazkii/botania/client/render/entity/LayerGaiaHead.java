@@ -6,10 +6,8 @@ import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -18,7 +16,6 @@ import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.BlockGaiaHead;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileGaiaHead;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 

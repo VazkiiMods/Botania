@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

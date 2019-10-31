@@ -5,8 +5,6 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class SparkleParticleType extends ParticleType<SparkleParticleData> {
     public SparkleParticleType() {
         super(false, SparkleParticleData.DESERIALIZER);

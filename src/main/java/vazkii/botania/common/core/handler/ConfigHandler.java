@@ -16,7 +16,6 @@ import org.apache.commons.lang3.tuple.Pair;
 public final class ConfigHandler {
 
 	public static class Client {
-		public final ForgeConfigSpec.BooleanValue useAdaptativeConfig;
 		public final ForgeConfigSpec.BooleanValue useShaders;
 		public final ForgeConfigSpec.BooleanValue lexiconRotatingItems;
 		public final ForgeConfigSpec.BooleanValue lexiconJustifiedText;
@@ -26,10 +25,8 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue lexicon3dModel;
 		public final ForgeConfigSpec.DoubleValue flowerParticleFrequency;
 		public final ForgeConfigSpec.BooleanValue elfPortalParticlesEnabled;
-		public final ForgeConfigSpec.BooleanValue useVanillaParticleLimiter;
 		public final ForgeConfigSpec.BooleanValue renderAccessories;
 		public final ForgeConfigSpec.BooleanValue enableSeasonalFeatures;
-		public final ForgeConfigSpec.BooleanValue useShiftForQuickLookup;
 		public final ForgeConfigSpec.BooleanValue enableArmorModels;
 		public final ForgeConfigSpec.BooleanValue enableFancySkybox;
 		public final ForgeConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
@@ -45,9 +42,6 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue referencesEnabled;
 
 		public Client(ForgeConfigSpec.Builder builder) {
-			useAdaptativeConfig = builder
-					.comment("Set this to false to disable the Adaptative Config. Adaptative Config changes any default config values from old versions to the new defaults to make sure you aren't missing out on changes because of old configs. It will not touch any values that were changed manually.")
-					.define("adaptive_config", true);
 			useShaders = builder
 					.comment("Set this to false to disable the use of shaders for some of the mod's renders.")
 					.define("shaders.enabled", true);
@@ -75,18 +69,12 @@ public final class ConfigHandler {
 			elfPortalParticlesEnabled = builder
 					.comment("Set this to false to disable the particles in the elven portal.")
 					.define("particles.elf_portal", true);
-			useVanillaParticleLimiter = builder
-					.comment("Set this to false to always display all particles regardless of the \"ParticleTypes\" setting in the Vanilla options menu.")
-					.define("particles.use_vanilla", true);
 			renderAccessories = builder
 					.comment("Set this to false to disable rendering of baubles in the player.")
 					.define("render_baubles", true);
 			enableSeasonalFeatures = builder
 					.comment("Set this to false to disable seasonal features, such as halloween and christmas.")
 					.define("seasonal_features", true);
-			useShiftForQuickLookup = builder
-					.comment("Set this to true to use Shift instead of Ctrl for the inventory lexica botania quick lookup feature")
-					.define("quick_lookup.use_shift", false);
 			enableArmorModels = builder
 					.comment("Set this to false to disable custom armor models")
 					.define("armor_models", true);

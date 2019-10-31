@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;

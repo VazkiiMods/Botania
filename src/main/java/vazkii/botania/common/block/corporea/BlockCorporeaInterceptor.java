@@ -12,23 +12,15 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

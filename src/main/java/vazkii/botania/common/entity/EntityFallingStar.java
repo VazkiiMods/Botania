@@ -13,8 +13,8 @@ package vazkii.botania.common.entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
@@ -28,10 +28,9 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
-
-import vazkii.botania.common.lib.LibMisc;
 
 public class EntityFallingStar extends EntityThrowableCopy {
 	@ObjectHolder(LibMisc.MOD_ID + ":falling_star")

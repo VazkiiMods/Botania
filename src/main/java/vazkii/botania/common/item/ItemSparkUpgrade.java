@@ -10,12 +10,8 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.Locale;
 
 public class ItemSparkUpgrade extends ItemMod {
 	public final SparkUpgradeType type;

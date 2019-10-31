@@ -12,23 +12,10 @@ package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
-
-import javax.annotation.Nonnull;
 
 public abstract class BlockRedString extends BlockMod {
 

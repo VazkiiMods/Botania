@@ -40,7 +40,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.awt.Color;
+import java.awt.*;
 
 public class EntityPoolMinecart extends AbstractMinecartEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart")

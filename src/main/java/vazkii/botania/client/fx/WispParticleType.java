@@ -5,8 +5,6 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class WispParticleType extends ParticleType<WispParticleData> {
     public WispParticleType() {
         super(false, WispParticleData.DESERIALIZER);

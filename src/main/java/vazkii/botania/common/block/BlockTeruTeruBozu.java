@@ -11,8 +11,8 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;

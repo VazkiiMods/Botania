@@ -11,8 +11,8 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;

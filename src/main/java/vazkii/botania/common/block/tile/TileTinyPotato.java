@@ -12,16 +12,12 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.INameable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;

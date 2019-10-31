@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -21,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 

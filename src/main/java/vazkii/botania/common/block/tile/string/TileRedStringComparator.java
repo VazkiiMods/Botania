@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;

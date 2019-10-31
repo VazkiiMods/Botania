@@ -11,7 +11,6 @@
 package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;

@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;

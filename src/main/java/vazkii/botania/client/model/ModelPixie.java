@@ -11,10 +11,7 @@
 package vazkii.botania.client.model;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.client.renderer.model.Model;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.common.entity.EntityPixie;
 

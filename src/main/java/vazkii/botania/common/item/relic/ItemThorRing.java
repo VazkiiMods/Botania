@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.core.handler.EquipmentHandler;

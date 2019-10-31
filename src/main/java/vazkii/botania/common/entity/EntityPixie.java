@@ -10,9 +10,9 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
@@ -25,10 +25,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-
-import vazkii.botania.common.lib.LibMisc;
 
 public class EntityPixie extends FlyingEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pixie")

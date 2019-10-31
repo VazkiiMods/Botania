@@ -11,13 +11,13 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GLX;
-import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -26,7 +26,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;

@@ -10,20 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.lib.LibItemNames;
-
 public class ItemSuperCloudPendant extends ItemCloudPendant {
 
 	public ItemSuperCloudPendant(Properties props) {

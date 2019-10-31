@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
-import vazkii.botania.common.lib.LibPotionNames;
 
 import javax.annotation.Nonnull;
 

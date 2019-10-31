@@ -12,8 +12,8 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.IManaBurst;

@@ -10,12 +10,11 @@
  */
 package vazkii.botania.client.fx;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -26,8 +25,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 public class FXWisp extends Particle {
 

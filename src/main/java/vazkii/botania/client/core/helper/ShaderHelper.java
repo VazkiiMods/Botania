@@ -10,15 +10,13 @@
  */
 package vazkii.botania.client.core.helper;
 
-import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GLX;
-
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;

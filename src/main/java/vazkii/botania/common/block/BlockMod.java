@@ -11,17 +11,10 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.Items;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.lib.LibMisc;
 
 public class BlockMod extends Block {
 

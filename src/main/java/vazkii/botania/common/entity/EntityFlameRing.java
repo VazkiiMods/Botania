@@ -11,24 +11,22 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
-
-import javax.annotation.Nonnull;
-
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityFlameRing extends Entity {

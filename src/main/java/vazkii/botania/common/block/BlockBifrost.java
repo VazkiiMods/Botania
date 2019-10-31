@@ -21,7 +21,6 @@ import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class BlockBifrost extends BlockBifrostPerm {
 

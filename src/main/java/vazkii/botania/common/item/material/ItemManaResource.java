@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.Items;
 import net.minecraft.util.ActionResultType;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;

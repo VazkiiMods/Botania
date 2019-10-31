@@ -8,19 +8,13 @@
  */
 package vazkii.botania.api.state;
 
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeColor;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.data.ModelProperty;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;

@@ -10,23 +10,15 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import net.minecraft.block.Block;
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.IBlockReader;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -36,6 +28,10 @@ import vazkii.botania.client.model.ModelPylonMana;
 import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.tile.TilePylon;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 

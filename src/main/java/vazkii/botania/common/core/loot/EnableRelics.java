@@ -10,7 +10,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class EnableRelics implements ILootCondition {
 

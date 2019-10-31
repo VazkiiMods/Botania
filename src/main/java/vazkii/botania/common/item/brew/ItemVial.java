@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.brew;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;

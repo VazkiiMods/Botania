@@ -13,7 +13,6 @@ package vazkii.botania.client.model;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
-import net.minecraft.client.renderer.entity.model.RendererModel;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 
 public class ModelBrewery extends Model {

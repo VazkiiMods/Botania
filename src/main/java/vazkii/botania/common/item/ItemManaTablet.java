@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -27,7 +26,6 @@ import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.List;

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.record;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.SoundEvent;
 

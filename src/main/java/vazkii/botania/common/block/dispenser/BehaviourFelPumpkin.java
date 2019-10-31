@@ -4,12 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.block.Blocks;
 import net.minecraft.dispenser.OptionalDispenseBehavior;
-import net.minecraft.util.registry.Bootstrap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Bootstrap;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 

@@ -11,20 +11,15 @@
 package vazkii.botania.common.block.decor.panes;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.PaneBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

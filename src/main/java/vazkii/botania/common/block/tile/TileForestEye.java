@@ -11,8 +11,8 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;

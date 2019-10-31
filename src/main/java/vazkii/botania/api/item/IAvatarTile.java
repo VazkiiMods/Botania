@@ -11,7 +11,6 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.mana.IManaReceiver;
 

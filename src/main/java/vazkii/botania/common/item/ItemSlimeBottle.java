@@ -11,21 +11,13 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nullable;
 
 public class ItemSlimeBottle extends ItemMod {
 	private static final String TAG_ACTIVE = "active";

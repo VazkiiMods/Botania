@@ -11,7 +11,6 @@
 package vazkii.botania.client.render.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;

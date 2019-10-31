@@ -10,13 +10,8 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockElfGlass extends BlockManaGlass implements IElvenItem {
 

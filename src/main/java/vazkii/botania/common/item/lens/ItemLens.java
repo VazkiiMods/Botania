@@ -36,7 +36,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {

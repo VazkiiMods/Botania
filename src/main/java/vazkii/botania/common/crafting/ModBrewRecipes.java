@@ -11,26 +11,20 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

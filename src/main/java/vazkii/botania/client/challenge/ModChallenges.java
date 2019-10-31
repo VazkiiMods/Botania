@@ -11,15 +11,11 @@
 package vazkii.botania.client.challenge;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

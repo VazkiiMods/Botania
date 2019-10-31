@@ -10,19 +10,14 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ItemManaGun;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

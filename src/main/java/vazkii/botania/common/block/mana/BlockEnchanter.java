@@ -12,25 +12,15 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -41,14 +31,11 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 

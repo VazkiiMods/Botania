@@ -11,10 +11,9 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -23,9 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

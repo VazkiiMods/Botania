@@ -2,7 +2,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.TickableSound;
 import net.minecraft.client.audio.Sound;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.audio.SoundHandler;
@@ -21,7 +20,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.Color;
+import java.awt.*;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)

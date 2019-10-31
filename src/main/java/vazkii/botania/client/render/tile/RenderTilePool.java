@@ -10,10 +10,10 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -30,7 +30,7 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nullable;
-import java.awt.Color;
+import java.awt.*;
 import java.util.Random;
 
 public class RenderTilePool extends TileEntityRenderer<TilePool> {

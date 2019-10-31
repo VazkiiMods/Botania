@@ -14,15 +14,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemCrystalBow extends ItemLivingwoodBow {
 

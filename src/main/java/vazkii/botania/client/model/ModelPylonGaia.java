@@ -12,8 +12,6 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
-import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.client.renderer.model.Model;
 
 public class ModelPylonGaia extends Model implements IPylonModel {
 

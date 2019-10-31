@@ -11,21 +11,15 @@
 package vazkii.botania.common.world;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.block.Blocks;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.BiomeProviderType;
-import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
-import net.minecraft.world.gen.FlatChunkGenerator;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.FlatGenerationSettings;
-import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.FlatLayerInfo;
-import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

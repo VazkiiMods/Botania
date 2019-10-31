@@ -11,22 +11,18 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
-import vazkii.botania.common.core.handler.IMCSender;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)

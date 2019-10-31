@@ -17,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class LensFlare extends Lens {
 

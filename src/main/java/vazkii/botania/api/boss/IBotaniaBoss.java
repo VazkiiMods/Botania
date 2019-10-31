@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.ShaderCallback;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.UUID;
 
 /**

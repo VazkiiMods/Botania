@@ -11,7 +11,6 @@
 package vazkii.botania.common.lib;
 
 import net.minecraft.util.ResourceLocation;
-import vazkii.botania.client.lib.LibResources;
 
 public final class LibEntityNames {
 	public static final ResourceLocation MANA_BURST = makeName("mana_burst");

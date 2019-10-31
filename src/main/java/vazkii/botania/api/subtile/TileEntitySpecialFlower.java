@@ -12,30 +12,20 @@ package vazkii.botania.api.subtile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Hand;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -58,6 +48,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -70,7 +61,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation("botania", "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
-	private static final Tag<Block> FLOATING_TAG = new BlockTags.Wrapper(new ResourceLocation("botania", "special_floating_flowers"));
 
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
@@ -132,7 +122,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 		if(cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
-			if(hasWorld() && getWorld().getBlockState(getPos()).isIn(FLOATING_TAG)) {
+			if(hasWorld() && getWorld().getBlockState(getPos()).isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
 		}

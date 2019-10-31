@@ -44,6 +44,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -54,8 +55,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.annotation.Nonnull;
 
 public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":spark")

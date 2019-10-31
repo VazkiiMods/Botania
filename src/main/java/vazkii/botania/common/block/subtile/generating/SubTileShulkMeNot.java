@@ -1,28 +1,25 @@
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.potion.Effects;
+import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.List;
 
 public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":shulk_me_not")

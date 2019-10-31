@@ -12,18 +12,14 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileCraftCrate;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.util.Locale;
 
 public class ItemCraftPattern extends ItemMod {
 	public final CratePattern pattern;

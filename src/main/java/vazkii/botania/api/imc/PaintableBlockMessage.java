@@ -2,11 +2,8 @@ package vazkii.botania.api.imc;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeColor;
 import net.minecraftforge.registries.IRegistryDelegate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
 public class PaintableBlockMessage {

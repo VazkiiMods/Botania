@@ -11,9 +11,12 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.WallBlock;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,25 +25,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzPillar;
-import vazkii.botania.common.block.decor.quartz.BlockElfQuartzSlab;
-import vazkii.botania.common.block.decor.quartz.BlockElfQuartzStairs;
-import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
-import vazkii.botania.common.block.decor.slabs.BlockModSlab;
-import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
-import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
-import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
-import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
-import vazkii.botania.common.block.decor.walls.BlockModWall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.block.ModBlocks.register;
-import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.WALL_SUFFIX;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -237,30 +230,30 @@ public final class ModFluffBlocks {
 
 		Block base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + STAIR_SUFFIX);
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + SLAB_SUFFIX);
-		register(r, new BlockModWall(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + WALL_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + SLAB_SUFFIX);
+		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + WALL_SUFFIX);
 
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX);
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX);
 
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + STAIR_SUFFIX);
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + SLAB_SUFFIX);
-		register(r, new BlockModWall(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + WALL_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + SLAB_SUFFIX);
+		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + WALL_SUFFIX);
 		
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX);
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX);
 
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + STAIR_SUFFIX);
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + SLAB_SUFFIX);
-		register(r, new BlockModWall(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + WALL_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + SLAB_SUFFIX);
+		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + WALL_SUFFIX);
 
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX);
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
 		
 		Block.Properties props = Block.Properties.from(Blocks.QUARTZ_BLOCK);
 		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
@@ -268,8 +261,8 @@ public final class ModFluffBlocks {
 			base = new BlockMod(props);
 			register(r, base, variant);
 			register(r, new BlockMod(props), "chiseled_" + variant);
-			register(r, new BlockSpecialQuartzPillar(props), variant + "_pillar");
-			register(r, new BlockModSlab(props), variant + SLAB_SUFFIX);
+			register(r, new RotatedPillarBlock(props), variant + "_pillar");
+			register(r, new SlabBlock(props), variant + SLAB_SUFFIX);
 			register(r, new BlockModStairs(base.getDefaultState(), props), variant + STAIR_SUFFIX);
 		}
 
@@ -277,36 +270,36 @@ public final class ModFluffBlocks {
 		for (String color : LibBlockNames.PAVEMENT_VARIANTS) {
 			Block block = new BlockMod(props);
 			register(r, block, color + LibBlockNames.PAVEMENT_SUFFIX);
-			register(r, new BlockPavementStairs(block.getDefaultState(), props), color + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-			register(r, new BlockPavementSlab(props), color + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+			register(r, new BlockModStairs(block.getDefaultState(), props), color + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+			register(r, new SlabBlock(props), color + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
 		}
 
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE);
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			base = new BlockMod(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
-			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
+			register(r, new BlockModStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
+			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 
 			base = new BlockMod(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
-			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
-			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
-			register(r, new BlockBiomeStoneWall(props), LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX);
+			register(r, new BlockModStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
+			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
+			register(r, new WallBlock(props), LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX);
 
 			base = new BlockMod(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
-			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
+			register(r, new BlockModStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
+			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 			register(r, new BlockMod(props), "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 		}
 		
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERROCK));
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + SLAB_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + SLAB_SUFFIX);
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + STAIR_SUFFIX);
 
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERWOOD_PLANKS));
-		register(r, new BlockModSlab(Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX);
+		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX);
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX);
 
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MANA_GLASS));

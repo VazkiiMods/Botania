@@ -10,9 +10,7 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 

@@ -12,9 +12,8 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.MushroomBlock;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.MushroomBlock;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;

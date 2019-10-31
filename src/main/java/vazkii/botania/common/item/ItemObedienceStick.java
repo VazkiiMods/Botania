@@ -13,14 +13,13 @@ package vazkii.botania.common.item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;

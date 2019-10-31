@@ -11,10 +11,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;

@@ -11,13 +11,7 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -28,7 +22,6 @@ import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 

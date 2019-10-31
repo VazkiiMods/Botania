@@ -1,9 +1,7 @@
 package vazkii.botania.common.network;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -14,9 +12,6 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public final class PacketHandler {
 	private static final String PROTOCOL = "1";

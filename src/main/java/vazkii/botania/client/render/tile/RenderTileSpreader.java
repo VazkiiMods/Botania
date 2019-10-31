@@ -10,23 +10,12 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CarpetBlock;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.ColorHelper;
@@ -34,8 +23,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.util.Random;
 
 public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 

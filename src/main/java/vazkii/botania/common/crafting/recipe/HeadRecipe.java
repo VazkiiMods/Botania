@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;

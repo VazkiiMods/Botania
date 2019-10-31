@@ -12,9 +12,9 @@ package vazkii.botania.common.item.lens;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
