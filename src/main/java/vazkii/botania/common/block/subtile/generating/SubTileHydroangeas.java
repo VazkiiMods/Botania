@@ -28,12 +28,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
@@ -154,12 +152,6 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		return 0x532FE0;
 	}
 
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.hydroangeas;
-	}
-
-	@Override
 	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 

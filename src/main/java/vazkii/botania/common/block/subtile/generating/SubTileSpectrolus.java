@@ -28,11 +28,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
@@ -94,11 +92,6 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	@Override
 	public int getColor() {
 		return Color.HSBtoRGB(ticksExisted / 100F, 1F, 1F);
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.spectrolus;
 	}
 
 	@OnlyIn(Dist.CLIENT)

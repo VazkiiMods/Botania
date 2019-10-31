@@ -18,15 +18,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockBifrostPerm extends BlockMod implements ILexiconable {
+public class BlockBifrostPerm extends BlockMod {
 	public BlockBifrostPerm(Properties builder) {
 		super(builder);
 	}
@@ -46,10 +43,4 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.TRANSLUCENT;
 	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.rainbowRod;
-	}
-
 }

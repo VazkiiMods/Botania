@@ -26,18 +26,15 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileLightRelay;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable {
+public class BlockLightRelay extends BlockMod implements IWandable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
@@ -116,11 +113,6 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		return false;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.luminizerTransport;
 	}
 
 }

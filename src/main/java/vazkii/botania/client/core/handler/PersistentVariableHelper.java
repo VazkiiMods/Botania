@@ -15,7 +15,6 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.CompoundNBT;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.io.File;
@@ -29,41 +28,25 @@ public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_DOG = "dog";
-	private static final String TAG_BOOKMARK_COUNT = "bookmarkCount";
-	private static final String TAG_BOOKMARK_PREFIX = "bookmark";
-	private static final String TAG_BOOKMARKS = "bookmarks";
 	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
 	private static final String TAG_LAST_BOTANIA_VERSION = "lastBotaniaVersion";
-	private static final String TAG_LEXICON_GUI_SCALE = "lexiconGuiScale";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
 	public static String lastBotaniaVersion = "";
-	public static int lexiconGuiScale = 0;
 
 	public static void save() throws IOException {
 		CompoundNBT cmp = new CompoundNBT();
-
-		List<GuiLexicon> bookmarks = GuiLexicon.bookmarks;
-		int count = bookmarks.size();
-		cmp.putInt(TAG_BOOKMARK_COUNT, count);
-		CompoundNBT bookmarksCmp = new CompoundNBT();
-		for(int i = 0; i < count; i++) {
-			GuiLexicon lex = bookmarks.get(i);
-			CompoundNBT bookmarkCmp = new CompoundNBT();
-			lex.serialize(bookmarkCmp);
-			bookmarksCmp.put(TAG_BOOKMARK_PREFIX + i, bookmarkCmp);
-		}
-		cmp.put(TAG_BOOKMARKS, bookmarksCmp);
 
 		CompoundNBT challengesCmp = new CompoundNBT();
 		for(Challenge c : ModChallenges.challengeLookup.values())
 			c.writeToNBT(challengesCmp);
 		cmp.put(TAG_CHALLENGES, challengesCmp);
 
+		/*
 		CompoundNBT notesCmp = new CompoundNBT();
 		for(String s : GuiLexicon.notes.keySet()) {
 			String note = GuiLexicon.notes.get(s);
@@ -71,31 +54,17 @@ public final class PersistentVariableHelper {
 				notesCmp.putString(s, note);
 		}
 		cmp.put(TAG_LEXICON_NOTES, notesCmp);
+		 */
 
 		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.putBoolean(TAG_DOG, dog);
 		cmp.putString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
-		cmp.putInt(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
 
 		injectNBTToFile(cmp, getCacheFile());
 	}
 
 	public static void load() throws IOException {
 		CompoundNBT cmp = getCacheCompound();
-
-		int count = cmp.getInt(TAG_BOOKMARK_COUNT);
-		GuiLexicon.bookmarks.clear();
-		if(count > 0) {
-			CompoundNBT bookmarksCmp = cmp.getCompound(TAG_BOOKMARKS);
-			for(int i = 0; i < count; i++) {
-				CompoundNBT bookmarkCmp = bookmarksCmp.getCompound(TAG_BOOKMARK_PREFIX + i);
-				GuiLexicon gui = GuiLexicon.create(bookmarkCmp);
-				if(gui != null) {
-					GuiLexicon.bookmarks.add(gui);
-					GuiLexicon.bookmarkKeys.add(gui.getNotesKey());
-				}
-			}
-		}
 
 		if(cmp.contains(TAG_CHALLENGES)) {
 			CompoundNBT challengesCmp = cmp.getCompound(TAG_CHALLENGES);
@@ -106,9 +75,9 @@ public final class PersistentVariableHelper {
 		if(cmp.contains(TAG_LEXICON_NOTES)) {
 			CompoundNBT notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
 			Set<String> keys = notesCmp.keySet();
-			GuiLexicon.notes.clear();
+			// GuiLexicon.notes.clear();
 			for(String key : keys)
-				GuiLexicon.notes.put(key, notesCmp.getString(key));
+				;// GuiLexicon.notes.put(key, notesCmp.getString(key));
 		}
 
 		lastBotaniaVersion = cmp.contains(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
@@ -118,7 +87,6 @@ public final class PersistentVariableHelper {
 			lastBotaniaVersion = LibMisc.VERSION;
 
 		dog = cmp.getBoolean(TAG_DOG);
-		lexiconGuiScale = cmp.getInt(TAG_LEXICON_GUI_SCALE);
 	}
 
 	public static void saveSafe() {

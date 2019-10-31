@@ -24,16 +24,13 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public abstract class BlockRedString extends BlockMod implements ILexiconable {
+public abstract class BlockRedString extends BlockMod {
 
 	public BlockRedString(Block.Properties builder) {
 		super(builder);
@@ -53,10 +50,4 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.redString;
-	}
-
 }

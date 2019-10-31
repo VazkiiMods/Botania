@@ -29,14 +29,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileCocoon;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockCocoon extends BlockMod implements ILexiconable {
+public class BlockCocoon extends BlockMod {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 14, 13);;
 
@@ -110,8 +107,4 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 		return new TileCocoon();
 	}
 
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.cocoon;
-	}
 }

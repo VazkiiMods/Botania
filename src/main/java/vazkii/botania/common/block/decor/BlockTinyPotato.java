@@ -32,18 +32,15 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockTinyPotato extends BlockMod implements ILexiconable {
+public class BlockTinyPotato extends BlockMod {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(6, 0, 6, 10, 6, 10);
 
@@ -110,10 +107,5 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileTinyPotato();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.tinyPotato;
 	}
 }

@@ -31,7 +31,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
@@ -97,7 +96,6 @@ import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -367,8 +365,6 @@ public final class ModBlocks {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
-		ILexiconable decorative = (w, po, pl, st) -> LexiconData.decorativeBlocks;
-		ILexiconable elvenResource = (w, po, pl, st) -> LexiconData.elvenResources;
 
 		Block.Properties builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
 		for(DyeColor color : DyeColor.values()) {
@@ -382,20 +378,20 @@ public final class ModBlocks {
 		}
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy), LibBlockNames.LIVING_ROCK);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK_MOSSY);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK_CRACKED);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK_CHISELED);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK_MOSSY);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK_CRACKED);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK_CHISELED);
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: livingwood should support leaves
-		register(r, new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy), LibBlockNames.LIVING_WOOD);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PLANKS);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PLANKS_MOSSY);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_FRAMED);
-		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
-		register(r, new BlockModLexiconable(builder.lightValue(12), decorative), LibBlockNames.LIVING_WOOD_GLIMMERING);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_PLANKS);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_PLANKS_MOSSY);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_FRAMED);
+		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
+		register(r, new BlockMod(builder.lightValue(12)), LibBlockNames.LIVING_WOOD_GLIMMERING);
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		register(r, new BlockSpreader(BlockSpreader.Variant.MANA, builder), LibBlockNames.SPREADER);
@@ -465,12 +461,12 @@ public final class ModBlocks {
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: dreamwood should support leaves?
-		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD);
-		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_PLANKS);
-		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_PLANKS_MOSSY);
-		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_FRAMED);
-		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_PATTERN_FRAMED);
-		register(r, new BlockModLexiconable(builder.lightValue(12), elvenResource), LibBlockNames.DREAM_WOOD_GLIMMERING);
+		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD);
+		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_PLANKS);
+		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_PLANKS_MOSSY);
+		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_FRAMED);
+		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_PATTERN_FRAMED);
+		register(r, new BlockMod(builder.lightValue(12)), LibBlockNames.DREAM_WOOD_GLIMMERING);
 
 		register(r, new BlockConjurationCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.CONJURATION_CATALYST);
 		register(r, new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS)), LibBlockNames.BIFROST);
@@ -490,9 +486,8 @@ public final class ModBlocks {
 		register(r, new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3)), LibBlockNames.SPAWNER_CLAW);
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE);
-		ILexiconable azulejo = (w, po ,pl, st) -> LexiconData.azulejo;
 		for (int i = 0; i < 16; i++) {
-			register(r, new BlockModLexiconable(builder, azulejo), LibBlockNames.AZULEJO_PREFIX + i);
+			register(r, new BlockMod(builder), LibBlockNames.AZULEJO_PREFIX + i);
 		}
 
 		register(r, new BlockEnderEye(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.ENDER_EYE_BLOCK);
@@ -535,7 +530,7 @@ public final class ModBlocks {
 		}
 
 		register(r, new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly()), LibBlockNames.FAKE_AIR);
-		register(r, new BlockModLexiconable(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15), (w, po, pl, st) -> LexiconData.blazeBlock), LibBlockNames.BLAZE_BLOCK);
+		register(r, new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15)), LibBlockNames.BLAZE_BLOCK);
 		register(r, new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_INTERCEPTOR);
 		register(r, new BlockCorporeaCrystalCube(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		register(r, new BlockIncensePlate(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.INCENSE_PLATE);
@@ -562,9 +557,8 @@ public final class ModBlocks {
 		register(r, new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)), LibBlockNames.GAIA_HEAD);
 		register(r, new BlockCorporeaRetainer(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_RETAINER);
 		register(r, new BlockTeruTeruBozu(Block.Properties.create(Material.WOOL)), LibBlockNames.TERU_TERU_BOZU);
-		ILexiconable rainbowRod = (w, po, pl, st) -> LexiconData.rainbowRod;
-		register(r, new BlockModLexiconable(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE), rainbowRod), LibBlockNames.SHIMMERROCK);
-		register(r, new BlockModLexiconable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD), rainbowRod), LibBlockNames.SHIMMERWOOD_PLANKS);
+		register(r, new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.SHIMMERROCK);
+		register(r, new BlockMod(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.SHIMMERWOOD_PLANKS);
 		register(r, new BlockAvatar(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.AVATAR);
 
 		builder = Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).tickRandomly().sound(SoundType.PLANT);

@@ -22,12 +22,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
@@ -121,11 +119,6 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(getPos(), RANGE);
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.endoflame;
 	}
 
 	@Override

@@ -19,20 +19,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.boss.IBotaniaBoss;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
 
 public class ServerProxy implements IProxy {
-
-	@Override
-	public void setEntryToOpen(LexiconEntry entry) {}
-
-	@Override
-	public void setToTutorialIfFirstLaunch() {}
-
-	@Override
-	public void setLexiconStack(ItemStack stack) {}
 
 	@Override
 	public boolean isTheClientPlayer(LivingEntity entity) {
@@ -53,12 +43,6 @@ public class ServerProxy implements IProxy {
 	public String getLastVersion() {
 		return LibMisc.BUILD;
 	}
-
-	@Override
-	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {}
-
-	@Override
-	public void removeSextantMultiblock() {}
 
 	@Override
 	public long getWorldElapsedTicks() {

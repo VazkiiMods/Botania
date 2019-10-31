@@ -18,21 +18,17 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.Random;
@@ -53,9 +49,8 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.enableRescaleNormal();
-		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 
-		GlStateManager.color4f(1F, 1F, 1F, a);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		if (pool == null) { // A null pool means we are calling the TESR without a pool (on a minecart). Adjust accordingly
 			GlStateManager.translatef(0, 0, -1);
 		} else {
@@ -83,7 +78,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		}
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
-		GlStateManager.color4f(1, 1, 1, a);
+		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.enableRescaleNormal();
 
 		int mana = pool == null ? forceManaNumber : pool.getCurrentMana();
@@ -106,7 +101,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 					GlStateManager.enableBlend();
 					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 					GlStateManager.disableAlphaTest();
-					GlStateManager.color4f(1F, 1F, 1F, a * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
+					GlStateManager.color4f(1F, 1F, 1F, 1 * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
 					GlStateManager.translatef(-0.5F, -1F - 0.43F, -0.5F);
 					GlStateManager.rotatef(90F, 1F, 0F, 0F);
 					GlStateManager.scalef(s, s, s);
@@ -126,7 +121,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.disableAlphaTest();
-			GlStateManager.color4f(1F, 1F, 1F, a);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.translatef(w, -1F - (0.43F - waterLevel), w);
 			GlStateManager.rotatef(90F, 1F, 0F, 0F);
 			GlStateManager.scalef(s, s, s);

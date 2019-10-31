@@ -20,16 +20,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconable {
+public class BlockModDoubleFlower extends TallFlowerBlock {
 	private final DyeColor color;
 
 	public BlockModDoubleFlower(DyeColor color, Properties builder) {
@@ -55,10 +52,5 @@ public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconabl
             world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
         }
 
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.flowers;
 	}
 }

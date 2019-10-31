@@ -12,9 +12,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
@@ -43,11 +41,6 @@ public class SubTileJiyuulia extends SubTileTangleberrie {
 	@Override
 	public int getColor() {
 		return 0xBD9ACA;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.jiyuulia;
 	}
 
 }

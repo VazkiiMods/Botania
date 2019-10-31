@@ -27,15 +27,12 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
+public class BlockEnchantedSoil extends BlockMod {
 
 	public BlockEnchantedSoil(Properties builder) {
 		super(builder);
@@ -44,11 +41,6 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	@Override
 	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
 		return plantable.getPlantType(world, pos.down()) == PlantType.Plains;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.overgrowthSeed;
 	}
 
 }

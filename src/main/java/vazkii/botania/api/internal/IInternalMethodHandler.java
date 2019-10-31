@@ -25,8 +25,6 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import java.util.List;
@@ -39,26 +37,6 @@ import java.util.List;
  * doing anythign with this on PreInit.
  */
 public interface IInternalMethodHandler {
-
-	public LexiconPage textPage(String key);
-
-	public LexiconPage elfPaperTextPage(String key);
-
-	public LexiconPage imagePage(String key, String resource);
-
-	public LexiconPage craftingRecipePage(String key, Item... outputItems);
-
-	public LexiconPage petalRecipePage(String key, Item... outputItems);
-
-	public LexiconPage runeRecipePage(String key, Item... outputItems);
-
-	public LexiconPage manaInfusionRecipePage(String key, Item... outputItems);
-
-	public LexiconPage elvenTradePage(String key, Item... outputItems);
-
-	public LexiconPage brewPage(String key, String bottomText, Brew outputBrew);
-
-	public LexiconPage multiblockPage(String key, MultiblockSet mb);
 
 	public IManaNetwork getManaNetworkInstance();
 

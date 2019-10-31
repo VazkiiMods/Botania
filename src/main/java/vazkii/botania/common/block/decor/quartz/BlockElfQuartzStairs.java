@@ -16,20 +16,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
-import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockElfQuartzStairs extends BlockModStairs {
 
 	public BlockElfQuartzStairs(BlockState state, Properties props) {
 		super(state, props);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.elvenResources;
 	}
 
 }

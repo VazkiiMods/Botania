@@ -19,14 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable {
+public class BlockManaBomb extends BlockMod implements IManaTrigger {
 
 	public BlockManaBomb(Properties builder) {
 		super(builder);
@@ -41,10 +38,5 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.addEntity(storm);
 		}
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.manaBomb;
 	}
 }

@@ -42,8 +42,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -51,11 +49,10 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemWaterRod;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockAltar extends BlockMod implements ILexiconable {
+public class BlockAltar extends BlockMod {
 
 	private static final VoxelShape BASE = Block.makeCuboidShape(0, 0, 0, 16, 2, 16);
 	private static final VoxelShape MIDDLE = Block.makeCuboidShape(2, 2, 2, 14, 12, 14);
@@ -229,10 +226,5 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		TileAltar altar = (TileAltar) world.getTileEntity(pos);
 		return altar.getFluid() == Fluids.WATER ? 15 : 0;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.apothecary;
 	}
 }

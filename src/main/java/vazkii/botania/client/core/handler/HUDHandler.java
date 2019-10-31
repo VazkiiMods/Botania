@@ -41,9 +41,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.ILexicon;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -136,12 +133,11 @@ public final class HUDHandler {
 							((IWandHUD) block).renderHUD(mc, mc.world, bpos);
 							profiler.endSection();
 						}
-					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class))
-						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.player, ILexicon.class), state, (BlockRayTraceResult) pos);
+					}
 					if(tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
 						renderPoolRecipeHUD((TilePool) tile, mc.player.getHeldItemMainhand());
 				}
-				if(!PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class)) {
+				if(!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
 					if(tile instanceof TileAltar)
 						((TileAltar) tile).renderHUD(mc);
 					else if(tile instanceof TileRuneAltar)
@@ -155,13 +151,6 @@ public final class HUDHandler {
 			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof ChatScreen) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay();
-				profiler.endSection();
-			}
-
-			if(MultiblockRenderHandler.currentMultiblock != null && MultiblockRenderHandler.anchor == null) {
-				profiler.startSection("multiblockRightClick");
-				String s = I18n.format("botaniamisc.rightClickToAnchor");
-				mc.fontRenderer.drawStringWithShadow(s, mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(s) / 2, mc.mainWindow.getScaledHeight() / 2 - 30, 0xFFFFFF);
 				profiler.endSection();
 			}
 
@@ -368,58 +357,6 @@ public final class HUDHandler {
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
 
-		profiler.endSection();
-	}
-
-	private static void drawLexiconHUD(ItemStack stack, BlockState state, BlockRayTraceResult pos) {
-		Minecraft mc = Minecraft.getInstance();
-		Block block = state.getBlock();
-		IProfiler profiler = mc.getProfiler();
-
-		profiler.startSection("lexicon");
-		FontRenderer font = mc.fontRenderer;
-		boolean draw = false;
-		String drawStr = "";
-		String secondLine = "";
-
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		int sx = mc.mainWindow.getScaledWidth() / 2 - 17;
-		int sy = mc.mainWindow.getScaledHeight() / 2 + 2;
-
-		if(block instanceof ILexiconable) {
-			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.world, pos.getPos(), mc.player, stack);
-			if(entry != null) {
-				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
-					font = mc.getFontResourceManager().getFontRenderer(Minecraft.standardGalacticFontRenderer);
-
-				drawStr = I18n.format(entry.getUnlocalizedName());
-				secondLine = TextFormatting.ITALIC + I18n.format(entry.getTagline());
-				draw = true;
-			}
-		}
-
-		if(draw) {
-			if(!mc.player.isSneaking()) {
-				drawStr = "?";
-				secondLine = "";
-				font = mc.fontRenderer;
-			}
-
-			mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.lexicon), sx, sy);
-			GlStateManager.disableLighting();
-			font.drawStringWithShadow(drawStr, sx + 20, sy + 4, 0xFFFFFFFF);
-			font.drawStringWithShadow(secondLine, sx + 20, sy + 14, 0xFFAAAAAA);
-
-			if(!mc.player.isSneaking()) {
-				GlStateManager.scalef(0.5F, 0.5F, 1F);
-				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + mc.gameSettings.keyBindSneak.getLocalizedName(), (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
-				GlStateManager.scalef(2F, 2F, 1F);
-			}
-		}
-
-		GlStateManager.disableBlend();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		profiler.endSection();
 	}
 

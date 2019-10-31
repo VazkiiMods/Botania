@@ -20,17 +20,14 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
+public class BlockCorporeaFunnel extends BlockCorporeaBase {
 
 	public BlockCorporeaFunnel(Properties builder) {
 		super(builder);
@@ -60,8 +57,4 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 		return new TileCorporeaFunnel();
 	}
 
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.corporeaFunnel;
-	}
 }

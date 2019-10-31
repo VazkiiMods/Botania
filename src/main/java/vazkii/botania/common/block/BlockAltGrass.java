@@ -28,15 +28,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockAltGrass extends BlockMod implements ILexiconable {
+public class BlockAltGrass extends BlockMod {
 
 	public enum Variant {
 		DRY,
@@ -123,10 +120,5 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 			}
 			break;
 		}
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.grassSeeds;
 	}
 }

@@ -15,13 +15,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
@@ -104,11 +102,6 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 	@Override
 	public int getMaxMana() {
 		return 20;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.tangleberrie;
 	}
 
 }

@@ -26,17 +26,14 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileLightRelay;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLightLauncher extends BlockMod implements ILexiconable {
+public class BlockLightLauncher extends BlockMod {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
@@ -91,11 +88,6 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 				}
 			}
 		}
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.luminizerTransport;
 	}
 
 }

@@ -25,18 +25,15 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
+public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 
 	public BlockCorporeaInterceptor(Block.Properties builder) {
 		super(builder);
@@ -72,11 +69,6 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	@Override
 	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaInterceptor();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.corporeaInterceptor;
 	}
 
 }

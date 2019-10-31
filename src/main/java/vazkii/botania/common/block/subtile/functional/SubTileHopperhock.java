@@ -32,13 +32,11 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
@@ -244,11 +242,6 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
 		GlStateManager.disableBlend();
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.hopperhock;
 	}
 
 	@Override

@@ -27,9 +27,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -41,7 +38,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class BlockGhostRail extends AbstractRailBlock implements ILexiconable {
+public class BlockGhostRail extends AbstractRailBlock {
 
 	private static final String TAG_FLOAT_TICKS = "botania:float_ticks";
 
@@ -110,11 +107,6 @@ public class BlockGhostRail extends AbstractRailBlock implements ILexiconable {
 				updateFloating(c, c.getPersistentData().getInt(TAG_FLOAT_TICKS));
 			}
 		}
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.ghostRail;
 	}
 
 	@Nonnull

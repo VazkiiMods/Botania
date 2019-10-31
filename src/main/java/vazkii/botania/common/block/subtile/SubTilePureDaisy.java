@@ -18,14 +18,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
@@ -178,8 +176,4 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
 	}
 
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.pureDaisy;
-	}
 }

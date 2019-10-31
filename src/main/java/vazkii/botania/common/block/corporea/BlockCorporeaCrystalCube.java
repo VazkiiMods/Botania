@@ -26,15 +26,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexiconable, IWandable {
+public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements IWandable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3.0, 0, 3.0, 13.0, 16, 13.0);
 
@@ -89,11 +86,6 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	@Override
 	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaCrystalCube();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.corporeaCrystalCube;
 	}
 
 	@Override

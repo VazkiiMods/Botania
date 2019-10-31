@@ -25,10 +25,8 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
@@ -91,11 +89,6 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	@Override
 	public int getColor() {
 		return 0x71C373;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.narslimmus;
 	}
 
 	@SubscribeEvent

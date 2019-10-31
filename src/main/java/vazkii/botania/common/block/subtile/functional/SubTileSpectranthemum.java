@@ -25,11 +25,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -156,11 +154,6 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	@OnlyIn(Dist.CLIENT)
 	public BlockPos getBinding() {
 		return Minecraft.getInstance().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.spectranthemum;
 	}
 
 }

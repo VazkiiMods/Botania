@@ -30,16 +30,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockPlatform extends BlockMod implements ILexiconable, IWandable, IManaCollisionGhost {
+public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost {
 
 	public enum Variant {
 		ABSTRUSE,
@@ -88,11 +85,6 @@ public class BlockPlatform extends BlockMod implements ILexiconable, IWandable, 
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TilePlatform();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return variant == Variant.ABSTRUSE ? LexiconData.platform : variant == Variant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
 	}
 
 	@Override

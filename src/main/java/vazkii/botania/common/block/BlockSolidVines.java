@@ -20,14 +20,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockSolidVines extends VineBlock implements ILexiconable {
+public class BlockSolidVines extends VineBlock {
 
 	public BlockSolidVines(Properties builder) {
 		super(builder);
@@ -45,10 +42,5 @@ public class BlockSolidVines extends VineBlock implements ILexiconable {
 	@Override
 	public ItemStack getPickBlock(@Nonnull BlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, PlayerEntity player) {
 		return new ItemStack(Blocks.VINE);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.vineBall;
 	}
 }

@@ -1,5 +1,6 @@
 package vazkii.botania.client.core.handler;
 
+import com.google.common.base.Joiner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
@@ -20,15 +21,16 @@ import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.client.book.gui.GuiBook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
@@ -132,7 +134,7 @@ public class RenderLexicon {
 			String quoteStr = QUOTES[quote];
 
 			GlStateManager.translatef(-5F, 15F, 0F);
-			PageText.renderText(0, 0, 140, 100, 0, false, 0x79ff92, quoteStr);
+			renderText(0, 0, 140, 100, 0, false, 0x79ff92, quoteStr);
 			GlStateManager.color3f(1F, 1F, 1F);
 
 			GlStateManager.translatef(8F, 110F, 0F);
@@ -177,4 +179,81 @@ public class RenderLexicon {
 		GlStateManager.rotatef(i * -45.0F, 0.0F, 1.0F, 0.0F);
 	}
 
+	private static void renderText(int x, int y, int width, int height, int paragraphSize, boolean useUnicode, int color, String unlocalizedText) {
+		x += 2;
+		y += 10;
+		width -= 4;
+
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
+		String text = I18n.format(unlocalizedText).replaceAll("&", "\u00a7");
+		String[] textEntries = text.split("<br>");
+
+		List<List<String>> lines = new ArrayList<>();
+
+		String controlCodes;
+		for(String s : textEntries) {
+			List<String> words = new ArrayList<>();
+			String lineStr = "";
+			String[] tokens = s.split(" ");
+			for(String token : tokens) {
+				String prev = lineStr;
+				String spaced = token + " ";
+				lineStr += spaced;
+
+				controlCodes = toControlCodes(getControlCodes(prev));
+				if(font.getStringWidth(lineStr) > width) {
+					lines.add(words);
+					lineStr = controlCodes + spaced;
+					words = new ArrayList<>();
+				}
+
+				words.add(controlCodes + token);
+			}
+
+			if(!lineStr.isEmpty())
+				lines.add(words);
+			lines.add(new ArrayList<>());
+		}
+
+		int i = 0;
+		for(List<String> words : lines) {
+			words.size();
+			int xi = x;
+			int spacing = 4;
+			int wcount = words.size();
+			int compensationSpaces = 0;
+			boolean justify = ConfigHandler.CLIENT.lexiconJustifiedText.get() && wcount > 0 && lines.size() > i && !lines.get(i + 1).isEmpty();
+
+			if(justify) {
+				String s = Joiner.on("").join(words);
+				int swidth = font.getStringWidth(s);
+				int space = width - swidth;
+
+				spacing = wcount == 1 ? 0 : space / (wcount - 1);
+				compensationSpaces = wcount == 1 ? 0 : space % (wcount - 1);
+			}
+
+			for(String s : words) {
+				int extra = 0;
+				if(compensationSpaces > 0) {
+					compensationSpaces--;
+					extra++;
+				}
+				font.drawString(s, xi, y, color);
+				xi += font.getStringWidth(s) + spacing + extra;
+			}
+
+			y += words.isEmpty() ? paragraphSize : 10;
+			i++;
+		}
+	}
+
+	private static String getControlCodes(String s) {
+		String controls = s.replaceAll("(?<!\u00a7)(.)", "");
+		return controls.replaceAll(".*r", "r");
+	}
+
+	private static String toControlCodes(String s) {
+		return s.replaceAll(".", "\u00a7$0");
+	}
 }

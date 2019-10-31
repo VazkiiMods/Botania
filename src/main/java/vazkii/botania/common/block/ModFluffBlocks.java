@@ -21,7 +21,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzPillar;
 import vazkii.botania.common.block.decor.quartz.BlockElfQuartzSlab;
@@ -36,7 +35,6 @@ import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
 import vazkii.botania.common.block.decor.walls.BlockModWall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockMod;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -266,11 +264,10 @@ public final class ModFluffBlocks {
 		
 		Block.Properties props = Block.Properties.from(Blocks.QUARTZ_BLOCK);
 		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
-			ILexiconable lexicon = (world, pos, player, lex) -> LexiconData.decorativeBlocks;
-			
-			base = new BlockModLexiconable(props, lexicon);
+
+			base = new BlockMod(props);
 			register(r, base, variant);
-			register(r, new BlockModLexiconable(props, lexicon), "chiseled_" + variant);
+			register(r, new BlockMod(props), "chiseled_" + variant);
 			register(r, new BlockSpecialQuartzPillar(props), variant + "_pillar");
 			register(r, new BlockModSlab(props), variant + SLAB_SUFFIX);
 			register(r, new BlockModStairs(base.getDefaultState(), props), variant + STAIR_SUFFIX);
@@ -285,24 +282,23 @@ public final class ModFluffBlocks {
 		}
 
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE);
-		ILexiconable marimorph = (world, pos, player, lex) -> LexiconData.marimorphosis;
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			base = new BlockModLexiconable(props, marimorph);
+			base = new BlockMod(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
 			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 
-			base = new BlockModLexiconable(props, marimorph);
+			base = new BlockMod(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
 			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 			register(r, new BlockBiomeStoneWall(props), LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX);
 
-			base = new BlockModLexiconable(props, marimorph);
+			base = new BlockMod(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
 			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
-			register(r, new BlockModLexiconable(props, marimorph), "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			register(r, new BlockMod(props), "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 		}
 		
 		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERROCK));

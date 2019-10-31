@@ -39,9 +39,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.lexicon.multiblock.component.FlowerComponent;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -107,23 +104,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	private static final BlockPos[] FLOWER_LOCATIONS = {
 			new BlockPos(-1, 0, -1), new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1), new BlockPos(1, 0, 1)
 	};
-
-	public static MultiblockSet makeMultiblockSet() {
-		Multiblock mb = new Multiblock();
-
-		for(BlockPos o : OBSIDIAN_LOCATIONS)
-			mb.addComponent(o.up(), Blocks.OBSIDIAN.getDefaultState());
-		for(BlockPos p : PYLON_LOCATIONS.get(Direction.Axis.X)) {
-			mb.addComponent(p.up(), ModBlocks.manaPylon.getDefaultState());
-			mb.addComponent(new FlowerComponent(p, ModBlocks.whiteFlower));
-		}
-		for(BlockPos f : FLOWER_LOCATIONS)
-			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.whiteFlower));
-
-		mb.addComponent(BlockPos.ZERO.up(), Blocks.LAPIS_BLOCK.getDefaultState());
-
-		return mb.makeSet();
-	}
 
 	public TileEnchanter() {
 		super(TYPE);

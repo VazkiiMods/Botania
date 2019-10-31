@@ -36,8 +36,6 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -49,7 +47,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
+public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, IWandable, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
@@ -139,11 +137,6 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return teProvider.get();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getEntry();
 	}
 
 	@Override

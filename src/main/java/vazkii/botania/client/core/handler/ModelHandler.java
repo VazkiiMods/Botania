@@ -23,7 +23,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
@@ -115,10 +114,6 @@ public final class ModelHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.manaPylon, renderTilePylon);
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.naturaPylon, renderTilePylon);
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.gaiaPylon, renderTilePylon);
 	}
 
 	private static void registerSubtiles() {

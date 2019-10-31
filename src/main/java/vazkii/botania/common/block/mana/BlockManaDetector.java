@@ -24,17 +24,14 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCollisionGhost {
+public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 
 	public BlockManaDetector(Properties builder) {
 		super(builder);
@@ -76,11 +73,6 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileManaDetector();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.manaDetector;
 	}
 
 	@Override

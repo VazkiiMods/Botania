@@ -27,19 +27,16 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
+public class BlockBrewery extends BlockMod implements IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(6, 0.8, 6, 10, 15.2, 10);
 
@@ -113,11 +110,6 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileBrewery();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.brewery;
 	}
 
 	@OnlyIn(Dist.CLIENT)

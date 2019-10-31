@@ -21,10 +21,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
@@ -107,11 +105,6 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	@Override
 	public int getMaxMana() {
 		return 1000;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.tigerseye;
 	}
 
 }

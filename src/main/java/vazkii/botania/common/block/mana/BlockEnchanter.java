@@ -38,8 +38,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -47,13 +45,12 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
+public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 
 	public BlockEnchanter(Properties builder) {
 		super(builder);
@@ -122,11 +119,6 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		((TileEnchanter) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.manaEnchanting;
 	}
 
 	@OnlyIn(Dist.CLIENT)

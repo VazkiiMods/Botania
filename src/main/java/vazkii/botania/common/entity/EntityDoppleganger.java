@@ -69,9 +69,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.WispParticleData;
@@ -162,22 +159,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 	public EntityDoppleganger(World world) {
 		this(TYPE, world);
-	}
-
-	public static MultiblockSet makeMultiblockSet() {
-		Multiblock mb = new Multiblock();
-
-		for(BlockPos p : PYLON_LOCATIONS)
-			mb.addComponent(p.up(), ModBlocks.gaiaPylon.getDefaultState());
-
-		for(int i = 0; i < 3; i++)
-			for(int j = 0; j < 3; j++)
-				mb.addComponent(new BeaconComponent(new BlockPos(i - 1, 0, j - 1)));
-
-		mb.addComponent(new BeaconBeamComponent(new BlockPos(0, 1, 0)));
-		mb.setRenderOffset(new BlockPos(0, -1, 0));
-
-		return mb.makeSet();
 	}
 
 	public static boolean spawn(PlayerEntity player, ItemStack stack, World world, BlockPos pos, boolean hard) {
@@ -1048,31 +1029,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			if (!guardian.isAlive()) {
 				donePlaying = true;
 			}
-		}
-	}
-
-	private static class BeaconComponent extends MultiblockComponent {
-
-		public BeaconComponent(BlockPos relPos) {
-			super(relPos, Blocks.IRON_BLOCK.getDefaultState());
-		}
-
-		@Override
-		public boolean matches(World world, BlockPos pos) {
-			return world.getBlockState(pos).isBeaconBase(world, pos, pos.add(new BlockPos(-relPos.getX(), -relPos.getY(), -relPos.getZ())));
-		}
-
-	}
-
-	private static class BeaconBeamComponent extends MultiblockComponent {
-
-		public BeaconBeamComponent(BlockPos relPos) {
-			super(relPos, Blocks.BEACON.getDefaultState());
-		}
-
-		@Override
-		public boolean matches(World world, BlockPos pos) {
-			return world.getTileEntity(pos) instanceof BeaconTileEntity;
 		}
 	}
 }

@@ -23,67 +23,11 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import java.util.List;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
-
-	@Override
-	public LexiconPage textPage(String key) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage elfPaperTextPage(String key) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage imagePage(String key, String resource) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage craftingRecipePage(String key, Item... outputItems) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage petalRecipePage(String key, Item... outputItems) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage runeRecipePage(String key, Item... outputItems) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage manaInfusionRecipePage(String key, Item... outputItems) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage elvenTradePage(String key, Item... outputItems) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage brewPage(String key, String bottomText, Brew outputBrew) {
-		return dummyPage(key);
-	}
-
-	@Override
-	public LexiconPage multiblockPage(String key, MultiblockSet mb) {
-		return dummyPage(key);
-	}
-
-	private LexiconPage dummyPage(String key) {
-		return new DummyPage(key);
-	}
 
 	@Override
 	public IManaNetwork getManaNetworkInstance() {

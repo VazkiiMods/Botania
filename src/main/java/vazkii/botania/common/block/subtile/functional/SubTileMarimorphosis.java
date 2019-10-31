@@ -19,12 +19,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
@@ -159,11 +157,6 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	@Override
 	public int getMaxMana() {
 		return 1000;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.marimorphosis;
 	}
 
 	public static class Mini extends SubTileMarimorphosis {

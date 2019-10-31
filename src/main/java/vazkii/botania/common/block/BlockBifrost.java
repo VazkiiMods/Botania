@@ -17,14 +17,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
-import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockBifrost extends BlockBifrostPerm implements ILexiconable {
+public class BlockBifrost extends BlockBifrostPerm {
 
 	public BlockBifrost(Properties builder) {
 		super(builder);

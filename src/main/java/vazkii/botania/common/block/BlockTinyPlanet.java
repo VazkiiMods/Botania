@@ -19,15 +19,12 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaCollisionGhost {
+public class BlockTinyPlanet extends BlockMod implements IManaCollisionGhost {
 
 	private static final VoxelShape AABB = makeCuboidShape(3, 3, 3, 13, 13, 13);
 
@@ -50,11 +47,6 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaColl
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileTinyPlanet();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.tinyPlanet;
 	}
 
 	@Override

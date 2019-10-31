@@ -17,12 +17,10 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCell;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
@@ -206,11 +204,6 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	@Override
 	public int getColor() {
 		return 0x9c0a7e;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.dandelifeon;
 	}
 
 }

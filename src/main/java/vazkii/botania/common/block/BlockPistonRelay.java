@@ -40,11 +40,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -53,7 +50,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
+public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	// Currently active binding attempts
 	public final Map<UUID, GlobalPos> activeBindingAttempts = new HashMap<>();
@@ -249,10 +246,5 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		WorldData data = WorldData.get(world);
 		if(data != null)
 			data.markDirty();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.pistonRelay;
 	}
 }

@@ -29,21 +29,18 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
+public class BlockForestDrum extends BlockMod implements IManaTrigger {
 
 	public enum Variant {
 		WILD,
@@ -129,18 +126,4 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		for(int i = 0; i < 10; i++)
 			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
 	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		switch(variant) {
-		case GATHERING:
-			return LexiconData.gatherDrum;
-		case CANOPY:
-			return LexiconData.canopyDrum;
-		case WILD:
-		default:
-			return LexiconData.forestDrum;
-		}
-	}
-
 }

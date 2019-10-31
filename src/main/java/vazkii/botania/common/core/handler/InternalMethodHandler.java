@@ -30,8 +30,6 @@ import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -47,73 +45,12 @@ import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.lexicon.page.PageBrew;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
-import vazkii.botania.common.lexicon.page.PageElvenRecipe;
-import vazkii.botania.common.lexicon.page.PageImage;
-import vazkii.botania.common.lexicon.page.PageLoreText;
-import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
-import vazkii.botania.common.lexicon.page.PageMultiblock;
-import vazkii.botania.common.lexicon.page.PagePetalRecipe;
-import vazkii.botania.common.lexicon.page.PageRuneRecipe;
-import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InternalMethodHandler extends DummyMethodHandler {
-
-	@Override
-	public LexiconPage textPage(String key) {
-		return new PageText(key);
-	}
-
-	@Override
-	public LexiconPage elfPaperTextPage(String key) {
-		return new PageLoreText(key);
-	}
-
-	@Override
-	public LexiconPage imagePage(String key, String resource) {
-		return new PageImage(key, resource);
-	}
-
-	@Override
-	public LexiconPage craftingRecipePage(String key, Item... outputItems) {
-		return new PageCraftingRecipe(key, outputItems);
-	}
-
-	@Override
-	public LexiconPage petalRecipePage(String key, Item... outputItems) {
-		return new PagePetalRecipe(key, outputItems);
-	}
-
-	@Override
-	public LexiconPage runeRecipePage(String key, Item... outputItems) {
-		return new PageRuneRecipe(key, outputItems);
-	}
-
-	@Override
-	public LexiconPage manaInfusionRecipePage(String key, Item... outputItems) {
-		return new PageManaInfusionRecipe(key, outputItems);
-	}
-
-	@Override
-	public LexiconPage elvenTradePage(String key, Item... outputItems) {
-		return new PageElvenRecipe(key, outputItems);
-	}
-
-	@Override
-	public LexiconPage brewPage(String key, String bottomText, Brew outputBrew) {
-		return new PageBrew(outputBrew, key, bottomText);
-	}
-
-	@Override
-	public LexiconPage multiblockPage(String key, MultiblockSet mb) {
-		return new PageMultiblock(key, mb);
-	}
-
 	@Override
 	public IManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
@@ -145,7 +82,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
-		PageText.renderText(x, y, width, height, unlocalizedText);
 	}
 
 	@Override

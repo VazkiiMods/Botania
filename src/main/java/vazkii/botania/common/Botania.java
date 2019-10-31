@@ -35,14 +35,10 @@ import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.lexicon.ITwoNamedPage;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
@@ -116,7 +112,6 @@ public class Botania {
 
 		PacketHandler.init();
 		ModBrews.init();
-		ModMultiblocks.init();
 
 		if(Botania.thaumcraftLoaded) {
 			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {

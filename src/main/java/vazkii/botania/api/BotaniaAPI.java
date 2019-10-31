@@ -38,9 +38,6 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.lexicon.KnowledgeType;
-import vazkii.botania.api.lexicon.LexiconCategory;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -62,11 +59,6 @@ import java.util.function.Function;
 public final class BotaniaAPI {
 	@CapabilityInject(IFloatingFlower.class)
 	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
-
-	private static final List<LexiconCategory> categories = new ArrayList<>();
-	private static final List<LexiconEntry> allEntries = new ArrayList<>();
-
-	public static final Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
 	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
 
@@ -342,31 +334,7 @@ public final class BotaniaAPI {
 
 	public static final Rarity rarityRelic = Rarity.create("RELIC", TextFormatting.GOLD);
 
-	public static final KnowledgeType basicKnowledge;
-	public static final KnowledgeType elvenKnowledge;
-
-	// This is here for completeness sake, but you shouldn't use it
-	public static final KnowledgeType relicKnowledge;
-
-	// All of these categories are initialized during botania's PreInit stage.
-	public static LexiconCategory categoryBasics;
-	public static LexiconCategory categoryMana;
-	public static LexiconCategory categoryFunctionalFlowers;
-	public static LexiconCategory categoryGenerationFlowers;
-	public static LexiconCategory categoryDevices;
-	public static LexiconCategory categoryTools;
-	public static LexiconCategory categoryBaubles;
-	public static LexiconCategory categoryEnder;
-	public static LexiconCategory categoryAlfhomancy;
-	public static LexiconCategory categoryMisc;
-
 	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
-
-	static {
-		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
-		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
-		relicKnowledge = registerKnowledgeType("relic", TextFormatting.DARK_PURPLE, false);
-	}
 
 	/**
 	 * The internal method handler in use.
@@ -375,17 +343,6 @@ public final class BotaniaAPI {
 	 * @see IInternalMethodHandler
 	 */
 	public static volatile IInternalMethodHandler internalHandler = new DummyMethodHandler();
-
-	/**
-	 * Registers a new Knowledge Type.
-	 * @param id The ID for this knowledge type.
-	 * @param color The color to display this knowledge type as.
-	 */
-	public static KnowledgeType registerKnowledgeType(String id, TextFormatting color, boolean autoUnlock) {
-		KnowledgeType type = new KnowledgeType(id, color, autoUnlock);
-		knowledgeTypes.put(id, type);
-		return type;
-	}
 
 	/**
 	 * Registers a Brew and returns it.
@@ -403,35 +360,6 @@ public final class BotaniaAPI {
 		if(brewMap.containsKey(key))
 			return brewMap.get(key);
 		return fallbackBrew;
-	}
-
-	/**
-	 * Adds a category to the list of registered categories to appear in the Lexicon.
-	 */
-	public static void addCategory(LexiconCategory category) {
-		categories.add(category);
-	}
-
-	/**
-	 * Gets all registered categories.
-	 */
-	public static List<LexiconCategory> getAllCategories() {
-		return categories;
-	}
-
-	/**
-	 * Gets all registered entries.
-	 */
-	public static List<LexiconEntry> getAllEntries() {
-		return allEntries;
-	}
-
-	/**
-	 * Registers a Lexicon Entry and adds it to the category passed in.
-	 */
-	public static void addEntry(LexiconEntry entry, LexiconCategory category) {
-		allEntries.add(entry);
-		category.entries.add(entry);
 	}
 
 	public static int getOreWeight(ResourceLocation tag) {

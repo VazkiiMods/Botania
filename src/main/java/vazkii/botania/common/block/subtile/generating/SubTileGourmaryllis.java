@@ -23,10 +23,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
@@ -140,11 +138,6 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	@Override
 	public int getColor() {
 		return 0xD3D604;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.gourmaryllis;
 	}
 
 }

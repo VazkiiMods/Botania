@@ -31,7 +31,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -100,14 +99,14 @@ public class ItemSextant extends ItemMod {
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 			if(y != -1)
-				Botania.proxy.setMultiblock(world, x, y, z, radius, Blocks.COBBLESTONE);
+				; // todo 1.14 use patchouli multiblocks Botania.proxy.setMultiblock(world, x, y, z, radius, Blocks.COBBLESTONE);
 		}
 	}
 
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		Botania.proxy.removeSextantMultiblock();
+		// todo 1.14 use patchouli multiblocks Botania.proxy.removeSextantMultiblock();
 
 		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
@@ -182,19 +181,6 @@ public class ItemSextant extends ItemMod {
 				GlStateManager.enableTexture();
 			}
 		}
-	}
-
-	public static class MultiblockSextant extends Multiblock {
-
-		@Override
-		public Map<Direction, Multiblock> createRotations() {
-			Map<Direction, Multiblock> ret = new EnumMap<>(Direction.class);
-			for (Direction e : Direction.values()) {
-				ret.put(e, this);
-			}
-			return ret;
-		}
-
 	}
 
 }

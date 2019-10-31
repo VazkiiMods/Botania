@@ -15,12 +15,10 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileManastar extends TileEntitySpecialFlower {
@@ -76,11 +74,6 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 		} else {
 			return super.receiveClientEvent(id, param);
 		}
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.manastar;
 	}
 
 }

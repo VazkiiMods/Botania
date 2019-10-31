@@ -24,18 +24,15 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockSparkChanger extends BlockMod implements ILexiconable {
+public class BlockSparkChanger extends BlockMod {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
 
@@ -121,11 +118,6 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileSparkChanger();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.sparkChanger;
 	}
 
 }

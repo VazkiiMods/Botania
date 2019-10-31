@@ -17,20 +17,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 
 	public BlockConjurationCatalyst(Properties builder) {
 		super(builder);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.conjurationCatalyst;
 	}
 
 	@Override

@@ -18,10 +18,8 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileKekimurus extends TileEntityGeneratingFlower {
@@ -69,11 +67,6 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 	@Override
 	public RadiusDescriptor getRadius() {
         return new RadiusDescriptor.Square(getPos(), RANGE);
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.kekimurus;
 	}
 
 	@Override

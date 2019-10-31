@@ -26,18 +26,15 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable {
+public class BlockRuneAltar extends BlockMod implements IWandable {
 
 	private static final VoxelShape TOP = Block.makeCuboidShape(0, 6, 0, 16, 12, 16);
 	private static final VoxelShape BOTTOM = Block.makeCuboidShape(2, 0, 2, 14, 6, 14);
@@ -117,9 +114,5 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 		return true;
 	}
 
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.runicAltar;
-	}
 
 }

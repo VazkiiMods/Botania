@@ -44,10 +44,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -165,11 +163,6 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	@Override
 	public int getColor() {
 		return 0x274A00;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.loonium;
 	}
 
 	@Override

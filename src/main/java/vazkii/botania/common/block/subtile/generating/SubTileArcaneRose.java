@@ -15,11 +15,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.core.helper.ExperienceHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
@@ -71,11 +69,6 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	@Override
 	public int getMaxMana() {
 		return 6000;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.arcaneRose;
 	}
 
 }

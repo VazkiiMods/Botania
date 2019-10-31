@@ -54,7 +54,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
@@ -252,13 +251,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 */
 	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
 		return list;
-	}
-
-	/**
-	 * Gets which Lexicon Entry to open when this sub tile is right clicked with a lexicon.
-	 */
-	public LexiconEntry getEntry() {
-		return null;
 	}
 
 	/**

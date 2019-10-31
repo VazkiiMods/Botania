@@ -22,14 +22,11 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TilePylon;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockPylon extends BlockMod implements ILexiconable {
+public class BlockPylon extends BlockMod {
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
@@ -76,8 +73,4 @@ public class BlockPylon extends BlockMod implements ILexiconable {
 		return new TilePylon();
 	}
 
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return variant == Variant.MANA ? LexiconData.pylon : variant == Variant.NATURA ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
-	}
 }

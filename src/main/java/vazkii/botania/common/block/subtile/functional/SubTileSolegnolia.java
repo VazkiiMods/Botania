@@ -14,10 +14,8 @@ import com.google.common.collect.MapMaker;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
@@ -80,11 +78,6 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	@Override
 	public RadiusDescriptor getRadius() {
         return new RadiusDescriptor.Circle(getPos(), getRange());
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.solegnolia;
 	}
 
 	public static class Mini extends SubTileSolegnolia {

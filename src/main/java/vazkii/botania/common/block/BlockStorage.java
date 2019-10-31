@@ -21,15 +21,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.Locale;
 
-public class BlockStorage extends BlockMod implements IElvenItem, ILexiconable {
+public class BlockStorage extends BlockMod implements IElvenItem {
 
 	public BlockStorage(Properties builder) {
 		super(builder);
@@ -38,11 +35,6 @@ public class BlockStorage extends BlockMod implements IElvenItem, ILexiconable {
 	@Override
 	public boolean isBeaconBase(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
 		return true;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return this == ModBlocks.manasteelBlock ? LexiconData.pool : LexiconData.terrasteel;
 	}
 
 	@Override

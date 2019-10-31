@@ -17,30 +17,21 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.settings.ParticleStatus;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.thread.SidedThreadGroups;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.boss.IBotaniaBoss;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.lexicon.multiblock.component.AnyComponent;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
@@ -51,29 +42,19 @@ import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
 import vazkii.botania.client.core.handler.LayerTerraHelmet;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
-import vazkii.botania.client.fx.FXSparkle;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
-import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
-import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.render.entity.LayerGaiaHead;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
-import vazkii.botania.common.item.ItemSextant.MultiblockSextant;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Map;
@@ -166,22 +147,6 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void setEntryToOpen(LexiconEntry entry) {
-		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
-	}
-
-	@Override
-	public void setToTutorialIfFirstLaunch() {
-		if(PersistentVariableHelper.firstLoad)
-			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon())).setFirstEntry();
-	}
-
-	@Override
-	public void setLexiconStack(ItemStack stack) {
-		GuiLexicon.stackUsed = stack;
-	}
-
-	@Override
 	public boolean isTheClientPlayer(LivingEntity entity) {
 		return entity == Minecraft.getInstance().player;
 	}
@@ -212,34 +177,6 @@ public class ClientProxy implements IProxy {
 	@Override
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;
-	}
-
-	@Override
-	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
-		MultiblockSextant mb = new MultiblockSextant();
-
-		int iradius = (int) radius + 1;
-		for(int i = 0; i < iradius * 2 + 1; i++)
-			for(int j = 0; j < iradius * 2 + 1; j++) {
-				int xp = x + i - iradius;
-				int zp = z + j - iradius;
-
-				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
-					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
-			}
-
-		MultiblockRenderHandler.setMultiblock(mb.makeSet());
-		MultiblockRenderHandler.anchor = new BlockPos(x, y, z);
-	}
-
-	@Override
-	public void removeSextantMultiblock() {
-		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;
-		if(set != null) {
-			Multiblock mb = set.getForFacing(Direction.SOUTH);
-			if(mb instanceof MultiblockSextant)
-				MultiblockRenderHandler.setMultiblock(null);
-		}
 	}
 
 	@Override

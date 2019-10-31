@@ -43,12 +43,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.ILexicon;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.KnowledgeType;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -68,10 +63,9 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
+public class ItemLexicon extends ItemMod implements IElvenItem {
 
     public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
-	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
 
 	public ItemLexicon(Properties props) {
 		super(props);
@@ -88,10 +82,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
 			creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
-			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
-				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
-				unlockKnowledge(creative, type);
-			}
 			list.add(creative);
 		}
 	}
@@ -135,16 +125,6 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		} catch (NumberFormatException e) {
 			return I18n.format("botaniamisc.devEdition");
 		}
-	}
-
-	@Override
-	public boolean isKnowledgeUnlocked(ItemStack stack, KnowledgeType knowledge) {
-		return knowledge.autoUnlock || ItemNBTHelper.getBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, false);
-	}
-
-	@Override
-	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge) {
-		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
 	}
 
 	public static ITextComponent getTitle(ItemStack stack) {

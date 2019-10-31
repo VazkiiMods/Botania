@@ -16,10 +16,8 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileThermalily extends SubTileHydroangeas {
@@ -33,11 +31,6 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	@Override
 	public int getColor(){
 		return 0xD03C00;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.thermalily;
 	}
 
 	@Override

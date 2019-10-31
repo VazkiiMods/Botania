@@ -27,9 +27,6 @@ import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.ILexicon;
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -42,7 +39,6 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -91,24 +87,6 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private static final Function<double[], double[]> CONVERTER_X_Z_FP = input -> new double[] { input[2], input[1], input[0] };
 
 	private static final Function<BlockPos, BlockPos> CONVERTER_Z_SWAP = input -> new BlockPos(input.getX(), input.getY(), -input.getZ());
-
-	public static MultiblockSet makeMultiblockSet() {
-		Multiblock mb = new Multiblock();
-
-		for(BlockPos l : LIVINGWOOD_POSITIONS)
-			mb.addComponent(l.up(), ModBlocks.livingwood.getDefaultState());
-		for(BlockPos g : GLIMMERING_LIVINGWOOD_POSITIONS)
-			mb.addComponent(g.up(), ModBlocks.livingwoodGlimmering.getDefaultState());
-		//		for(BlockPos p : PYLON_POSITIONS)
-		//			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().with(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
-		//		for(BlockPos p : POOL_POSITIONS)
-		//			mb.addComponent(new StateInsensitiveComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool));
-
-		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.alfPortal.getDefaultState());
-		mb.setRenderOffset(new BlockPos(0, -1, 0));
-
-		return mb.makeSet();
-	}
 
 	public TileAlfPortal() {
 		super(TYPE);

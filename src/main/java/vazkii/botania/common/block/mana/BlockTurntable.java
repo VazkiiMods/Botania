@@ -25,18 +25,15 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
-public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILexiconable {
+public class BlockTurntable extends BlockMod implements IWandable, IWandHUD {
 
 	public BlockTurntable(Properties builder) {
 		super(builder);
@@ -63,11 +60,6 @@ public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILe
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		((TileTurntable) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.turntable;
 	}
 
 }

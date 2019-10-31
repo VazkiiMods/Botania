@@ -19,11 +19,9 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
@@ -95,11 +93,6 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	@Override
 	public int getMaxMana() {
 		return 75000;
-	}
-	
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.shulkMeNot;
 	}
 	
 }

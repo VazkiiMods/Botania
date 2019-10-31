@@ -23,17 +23,14 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePump;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockPump extends BlockMod implements ILexiconable {
+public class BlockPump extends BlockMod {
 
 	private static final VoxelShape X_SHAPE = makeCuboidShape(0, 0, 4, 16, 8, 12);
 	private static final VoxelShape Z_SHAPE = makeCuboidShape(4, 0, 0, 12, 8, 16);
@@ -73,12 +70,6 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		return ((TilePump) world.getTileEntity(pos)).comparator;
 	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.poolCart;
-	}
-
 
 	@Override
 	public boolean hasTileEntity(BlockState state) {

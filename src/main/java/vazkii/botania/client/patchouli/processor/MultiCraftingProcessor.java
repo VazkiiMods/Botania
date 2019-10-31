@@ -96,7 +96,6 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			return recipes.stream().map(IRecipe::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 		}
 		if(key.equals("shapeless")) {
-			return shapeless ? I18n.format("patchouli.gui.lexicon.shapeless") : "";
 		}
 		return null;
 	}

@@ -35,11 +35,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFlowerPlaceable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -189,11 +187,6 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	@Override
 	public int getColor() {
 		return 0xFFB27F;
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.rannuncarpus;
 	}
 
 	public static class Mini extends SubTileRannuncarpus {

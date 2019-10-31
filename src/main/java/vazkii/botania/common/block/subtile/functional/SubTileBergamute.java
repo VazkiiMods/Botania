@@ -2,10 +2,8 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
@@ -61,11 +59,6 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	@Override
 	public RadiusDescriptor getRadius() {
         return new RadiusDescriptor.Circle(getPos(), RANGE);
-	}
-
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.bergamute;
 	}
 
 }

@@ -21,9 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IHornHarvestable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
@@ -31,11 +29,6 @@ public class BlockShinyFlower extends BlockModFlower implements IHornHarvestable
 
 	public BlockShinyFlower(DyeColor color, Properties builder) {
 		super(color, builder);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.shinyFlowers;
 	}
 
 	@Override

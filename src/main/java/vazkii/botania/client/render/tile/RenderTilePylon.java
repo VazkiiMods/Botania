@@ -24,16 +24,10 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
-import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.IPylonModel;
@@ -41,10 +35,9 @@ import vazkii.botania.client.model.ModelPylonGaia;
 import vazkii.botania.client.model.ModelPylonMana;
 import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.BlockPylon;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
-public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IMultiblockRenderHook {
+public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 
 	private static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
 	private static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
@@ -91,8 +84,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
-		GlStateManager.color4f(1F, 1F, 1F, a);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
@@ -146,18 +138,5 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 				((RenderTilePylon) r).renderPylon(null, 0, 0, 0, 0);
 			}
 		}
-	}
-
-	@Override
-	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, BlockState state, MultiblockComponent comp) {
-		forceVariant = ((BlockPylon) state.getBlock()).variant;
-		GlStateManager.translatef(-0.5F, -0.25F, -0.5F);
-		renderPylon(null, 0, 0, 0, 0);
-		forceVariant = BlockPylon.Variant.MANA;
-	}
-
-	@Override
-	public boolean needsTranslate(BlockState state) {
-		return true;
 	}
 }

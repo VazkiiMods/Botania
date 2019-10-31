@@ -14,20 +14,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
-import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockElfQuartzSlab extends BlockModSlab {
 
 	public BlockElfQuartzSlab(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.elvenResources;
 	}
 
 }

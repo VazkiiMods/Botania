@@ -8,18 +8,11 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.Vector3;
 
 public interface IProxy {
 	default void registerHandlers() {}
-
-	void setEntryToOpen(LexiconEntry entry);
-
-	void setToTutorialIfFirstLaunch();
-
-	void setLexiconStack(ItemStack stack);
 
 	boolean isTheClientPlayer(LivingEntity entity);
 
@@ -28,10 +21,6 @@ public interface IProxy {
 	boolean isClientPlayerWearingMonocle();
 
 	String getLastVersion();
-
-	void setMultiblock(World world, int x, int y, int z, double radius, Block block);
-
-	void removeSextantMultiblock();
 
 	long getWorldElapsedTicks();
 

@@ -33,8 +33,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
@@ -43,12 +41,11 @@ import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
+public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 18.4, 12);
 
@@ -166,11 +163,6 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 		tile.renderHUD();
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.hourglass;
 	}
 
 }

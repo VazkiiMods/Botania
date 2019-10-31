@@ -15,13 +15,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexiconable {
+public class BlockElfGlass extends BlockManaGlass implements IElvenItem {
 
 	public BlockElfGlass(Properties builder) {
 		super(builder);
@@ -30,11 +27,6 @@ public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexico
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.elvenResources;
 	}
 
 }

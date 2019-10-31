@@ -33,20 +33,17 @@ import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
+public class BlockPool extends BlockMod implements IWandHUD, IWandable {
 	private static final VoxelShape SLAB = makeCuboidShape(0, 0, 0, 16, 8, 16);
 	private static final VoxelShape CUTOUT = makeCuboidShape(1, 1, 1, 15, 8, 15);
 	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, IBooleanFunction.ONLY_FIRST);
@@ -130,10 +127,5 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		((TilePool) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return variant == Variant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 }

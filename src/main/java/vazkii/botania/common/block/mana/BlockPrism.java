@@ -28,8 +28,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -38,11 +36,10 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
+public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollisionGhost {
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Properties builder) {
@@ -132,11 +129,6 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TilePrism)
 			((TilePrism) tile).onBurstCollision(burst);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
-		return LexiconData.prism;
 	}
 
 	@Override
