@@ -2367,7 +2367,7 @@
   "botania.tagline.spectrolus": "Mana from wool",
   "botania.page.spectrolus0": "The $(1)Spectrolus$(0) is a flower that's particularly fond of the various tones of $(1)Wool$(0). It'll absorb any and all $(1)Wool$(0) blocks dropped nearby and create $(4)Mana$(0) from them.$(p)There's a caveat though. It's picky as to what colors it wants. Starting at white, after it absorbs one piece of $(1)Wool$(0), it'll rotate to the next color in the spectrum.",
   "botania.page.spectrolus1": "While it consumes all $(1)Wool$(0) around, it'll only create any mana if its of the color it wants, so haphazardly tossing $(1)Wool$(0) at it is a wasteful strategy.$(p)The color it'll absorb properly next can be seen by hovering over the flower with a $(1)Wand of the Forest$(0).",
-  "botania.page.spectrolus1.5": "The flower is widely known to consume refined wool, but you wonder what would happen if you gave it wool straight \"from the source\"",
+  "botania.page.spectrolus1.5": "The flower is widely known to consume refined wool, but you wonder what would happen if you gave it wool straight \"from the source\"?...",
   "botania.page.spectrolus2": "$(o)Taste the Rainbow$().",
 
   "botania.entry.rafflowsia": "Rafflowsia",
