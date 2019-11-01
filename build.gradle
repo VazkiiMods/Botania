@@ -144,6 +144,11 @@ jar {
     exclude "**/*.exe"
 }
 
+processResources {
+    // Exclude datagenerator .cache directory
+    exclude '.cache'
+}
+
 task srcJar(type: Jar) {
     from(sourceSets.main.java)
     classifier = 'sources'
