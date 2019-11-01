@@ -799,6 +799,7 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(infusedGrass, props), infusedGrass.getRegistryName());
 		register(r, new ItemBlockMod(mutatedGrass, props), mutatedGrass.getRegistryName());
 		register(r, new ItemBlockMod(animatedTorch, props), animatedTorch.getRegistryName());
+		register(r, new ItemBlockMod(corporeaCrystalCube, props), corporeaCrystalCube.getRegistryName());
 
 		DistExecutor.runForDist(() -> () -> registerWithTEISRS(r), () -> () -> registerWithoutTEISRS(r));
 	}
@@ -816,7 +817,6 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(avatar, props), avatar.getRegistryName());
 		register(r, new ItemBlockMod(bellows, props), bellows.getRegistryName());
 		register(r, new ItemBlockMod(brewery, props), brewery.getRegistryName());
-		register(r, new ItemBlockMod(corporeaCrystalCube, props), corporeaCrystalCube.getRegistryName());
 		register(r, new ItemBlockMod(corporeaIndex, props), corporeaIndex.getRegistryName());
 		register(r, new ItemBlockMod(hourglass, props), hourglass.getRegistryName());
 		return null;
@@ -833,7 +833,6 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(avatar, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.avatar, TileAvatar.class))), avatar.getRegistryName());
 		register(r, new ItemBlockMod(bellows, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.bellows, TileBellows.class))), bellows.getRegistryName());
 		register(r, new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.brewery, TileBrewery.class))), brewery.getRegistryName());
-		register(r, new ItemBlockMod(corporeaCrystalCube, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaCrystalCube, TileCorporeaCrystalCube.class))), corporeaCrystalCube.getRegistryName());
 		register(r, new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaIndex, TileCorporeaIndex.class))), corporeaIndex.getRegistryName());
 		register(r, new ItemBlockMod(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.hourglass, TileHourglass.class))), hourglass.getRegistryName());
 		return null;
