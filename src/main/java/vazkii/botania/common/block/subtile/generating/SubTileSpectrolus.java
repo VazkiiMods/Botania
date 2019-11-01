@@ -46,8 +46,8 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public static TileEntityType<SubTileSpectrolus> TYPE;
 
 	private static final String TAG_NEXT_COLOR = "nextColor";
-	private static final int WOOL_GEN = 2400;
-	private static final int SHEEP_GEN = (int) (WOOL_GEN * 1.5);
+	private static final int WOOL_GEN = 1200;
+	private static final int SHEEP_GEN = 6400;
 	private static final int BABY_SHEEP_GEN = 1; // you are a monster
 
 	private static final int RANGE = 1;
@@ -82,7 +82,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					sheep.playSound(SoundEvents.ENTITY_SHEEP_DEATH, 0.9F, pitch);
 					sheep.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
 
-					ItemStack morbid = new ItemStack(Items.MUTTON);
+					ItemStack morbid = new ItemStack(sheep.isBurning() ? Items.COOKED_MUTTON : Items.MUTTON);
 					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.posX, target.posY + target.getEyeHeight(), target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
 					ItemStack wool = new ItemStack(ModBlocks.getWool(sheep.getFleeceColor()));
