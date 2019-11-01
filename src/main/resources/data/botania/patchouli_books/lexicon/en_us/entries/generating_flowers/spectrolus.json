@@ -14,6 +14,10 @@
       "text": "botania.page.spectrolus1"
     },
     {
+      "type": "text",
+      "text": "botania.page.spectrolus1.5"
+    },
+    {
       "type": "petal_apothecary",
       "text": "botania.page.spectrolus2",
       "recipe": "botania:spectrolus"

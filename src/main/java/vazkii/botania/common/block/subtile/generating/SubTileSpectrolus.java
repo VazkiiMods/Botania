@@ -14,13 +14,17 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
@@ -35,12 +39,16 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.*;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus")
 	public static TileEntityType<SubTileSpectrolus> TYPE;
 
 	private static final String TAG_NEXT_COLOR = "nextColor";
+	private static final int WOOL_GEN = 2400;
+	private static final int SHEEP_GEN = (int) (WOOL_GEN * 1.5);
+	private static final int BABY_SHEEP_GEN = 1; // you are a monster
 
 	private static final int RANGE = 1;
 
@@ -57,26 +65,51 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		if (getWorld().isRemote)
 			return;
 
-		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		// sheep need to enter the actual block space
+		List<Entity> targets = getWorld().getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(getPos()), Entity::isAlive);
+
+		AxisAlignedBB itemAABB = new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
+		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((ItemEntity) e).age >= slowdown);
+		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
 
-		for(ItemEntity item : items) {
-			ItemStack stack = item.getItem();
+		for(Entity target : targets) {
+			if (target instanceof SheepEntity) {
+				SheepEntity sheep = (SheepEntity) target;
+				if (!sheep.getSheared() && sheep.getFleeceColor() == nextColor) {
+					addManaAndCycle(sheep.isChild() ? BABY_SHEEP_GEN : SHEEP_GEN);
+					float pitch = sheep.isChild() ? (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.5F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F;
+					sheep.playSound(SoundEvents.ENTITY_SHEEP_DEATH, 0.9F, pitch);
+					sheep.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
 
-			if(!stack.isEmpty() && item.isAlive() && item.age >= slowdown) {
-				Block expected = ModBlocks.getWool(nextColor);
+					ItemStack morbid = new ItemStack(Items.MUTTON);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.posX, target.posY + target.getEyeHeight(), target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
-				if(expected.asItem() == stack.getItem()) {
-					mana = Math.min(getMaxMana(), mana + 2400);
-					nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.values()[nextColor.ordinal() + 1];
-					sync();
-
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					ItemStack wool = new ItemStack(ModBlocks.getWool(sheep.getFleeceColor()));
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.posX, target.posY + target.getEyeHeight(), target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
+				sheep.setHealth(0);
+			} else if (target instanceof ItemEntity) {
+				ItemStack stack = ((ItemEntity) target).getItem();
 
-				item.remove();
+				if(!stack.isEmpty()) {
+					Block expected = ModBlocks.getWool(nextColor);
+
+					if(expected.asItem() == stack.getItem()) {
+						addManaAndCycle(WOOL_GEN);
+						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.posX, target.posY, target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					}
+
+					target.remove();
+				}
 			}
 		}
+	}
+
+	private void addManaAndCycle(int toAdd) {
+		mana = Math.min(getMaxMana(), mana + toAdd);
+		nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.values()[nextColor.ordinal() + 1];
+		sync();
 	}
 
 	@Override
