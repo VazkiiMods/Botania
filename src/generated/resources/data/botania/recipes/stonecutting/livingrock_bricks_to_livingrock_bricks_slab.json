@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:livingrock_bricks"
+  },
+  "result": "botania:livingrock_bricks_slab",
+  "count": 2
+}
