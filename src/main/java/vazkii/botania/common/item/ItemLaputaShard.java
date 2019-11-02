@@ -88,7 +88,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		int level = stack.getOrCreateTag().getInt(TAG_LEVEL);
+		int level = getShardLevel(stack);
 		ITextComponent levelLoc = new TranslationTextComponent("botania.roman" + (level + 1));
 		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).applyTextStyle(TextFormatting.GRAY));
 	}
@@ -112,7 +112,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	public void spawnBurstFirst(World world, BlockPos pos, ItemStack shard) {
-		int range = BASE_RANGE + shard.getOrCreateTag().getInt(TAG_LEVEL);
+		int range = BASE_RANGE + getShardLevel(shard);
 		boolean pointy = world.rand.nextDouble() < 0.25;
 		double heightscale = (world.rand.nextDouble() + 0.5) * ((double)BASE_RANGE / (double)range);
 		spawnBurst(world, pos, shard, pointy, heightscale);
@@ -126,7 +126,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	public void spawnBurst(World world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
-		int range = BASE_RANGE + shard.getOrCreateTag().getInt(TAG_LEVEL);
+		int range = BASE_RANGE + getShardLevel(shard);
 
 		int i = ItemNBTHelper.getInt(shard, TAG_ITERATION_I, 0);
 		int j = ItemNBTHelper.getInt(shard, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);
@@ -157,7 +157,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								world.destroyBlock(pos_, false);
 
 								ItemStack copyLens = new ItemStack(this);
-								copyLens.getOrCreateTag().putInt(TAG_LEVEL, shard.getOrCreateTag().getInt(TAG_LEVEL));
+								copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
 								copyLens.getTag().put(TAG_STATE, NBTUtil.writeBlockState(state));
 								CompoundNBT cmp = new CompoundNBT();
 								if(tile != null)
@@ -184,6 +184,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				j = BASE_OFFSET - BASE_RANGE / 2;
 			}
 		}
+	}
+
+	public static int getShardLevel(ItemStack shard) {
+		return shard.getOrCreateTag().getInt(TAG_LEVEL);
 	}
 
 	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
