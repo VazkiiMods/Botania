@@ -103,7 +103,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	@Override
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(stack, world, stacks, flags);
-		stacks.add(new TranslationTextComponent("botania.wings" + ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)));
+		stacks.add(new TranslationTextComponent("botania.wings" + getVariant(stack)));
 	}
 
 	private void updatePlayerFlyStatus(LivingUpdateEvent event) {
@@ -128,7 +128,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							float g = 1F;
 							float b = 1F;
 
-							int variant = ItemNBTHelper.getInt(tiara, TAG_VARIANT, 0);
+							int variant = getVariant(tiara);
 							switch(variant) {
 							case 2 : {
 								r = 0.1F;
@@ -231,7 +231,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	@Override
 	public void onEquipped(ItemStack stack, LivingEntity living) {
 		super.onEquipped(stack, living);
-		int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+		int variant = getVariant(stack);
 		if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
 			ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
 			stack.clearCustomName();
@@ -302,7 +302,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+		int meta = getVariant(stack);
 		if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 			TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
@@ -472,7 +472,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(PlayerEntity player, ItemStack stack) {
-		int u = Math.max(1, ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)) * 9 - 9;
+		int u = Math.max(1, getVariant(stack)) * 9 - 9;
 		int v = 0;
 
 		Minecraft mc = Minecraft.getInstance();
@@ -514,5 +514,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		GlStateManager.enableAlphaTest();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		mc.textureManager.bindTexture(AbstractGui.GUI_ICONS_LOCATION);
+	}
+
+	public static int getVariant(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 	}
 }

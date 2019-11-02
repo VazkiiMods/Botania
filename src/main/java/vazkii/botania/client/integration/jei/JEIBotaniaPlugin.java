@@ -22,11 +22,13 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
@@ -45,11 +47,16 @@ import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeCategory;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
+import vazkii.botania.common.item.ItemLaputaShard;
+import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -61,22 +68,31 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "main");
 
 	@Override
-	public void registerItemSubtypes(@Nonnull ISubtypeRegistration subtypeRegistry) {
-		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewVial, ItemBrewBase::getSubtype);
-		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewFlask, ItemBrewBase::getSubtype);
-		subtypeRegistry.registerSubtypeInterpreter(ModItems.incenseStick, ItemBrewBase::getSubtype);
-		subtypeRegistry.registerSubtypeInterpreter(ModItems.bloodPendant, ItemBrewBase::getSubtype);
+	public void registerItemSubtypes(@Nonnull ISubtypeRegistration registry) {
+		registry.registerSubtypeInterpreter(ModItems.brewVial, ItemBrewBase::getSubtype);
+		registry.registerSubtypeInterpreter(ModItems.brewFlask, ItemBrewBase::getSubtype);
+		registry.registerSubtypeInterpreter(ModItems.incenseStick, ItemBrewBase::getSubtype);
+		registry.registerSubtypeInterpreter(ModItems.bloodPendant, ItemBrewBase::getSubtype);
+
+		registry.registerSubtypeInterpreter(ModItems.twigWand, stack -> ItemTwigWand.getColor1(stack) + "_" + ItemTwigWand.getColor2(stack));
+		registry.registerSubtypeInterpreter(ModItems.flightTiara, stack -> String.valueOf(ItemFlightTiara.getVariant(stack)));
+		registry.registerSubtypeInterpreter(ModItems.lexicon, stack -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, true)));
+		registry.registerSubtypeInterpreter(ModItems.laputaShard, stack -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));
+		
+		for(Item item : new Item[]{ModItems.manaTablet, ModItems.manaRing, ModItems.manaRingGreater, ModItems.terraPick}) {
+			registry.registerSubtypeInterpreter(item, stack -> String.valueOf(((IManaItem) item).getMana(stack)));
+		}
 	}
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(
-				new BreweryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new PureDaisyRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-				new RunicAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()), // Runic must come before petals. See williewillus/Botania#172
-				new PetalApothecaryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-				new ElvenTradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new ManaPoolRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new PetalApothecaryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new RunicAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new ElvenTradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new BreweryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
