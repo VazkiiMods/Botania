@@ -12,7 +12,6 @@ package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.KeyBinding;
@@ -43,7 +42,6 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
-import vazkii.botania.client.render.entity.LayerGaiaHead;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
@@ -72,11 +70,6 @@ public class ClientProxy implements IProxy {
 					.addElement(DefaultVertexFormats.TEX_2S);
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
-
-	private static final BipedModel EMPTY_MODEL = new BipedModel();
-	static {
-		EMPTY_MODEL.setVisible(false);
-	}
 
 	public static KeyBinding CORPOREA_REQUEST;
 
@@ -134,14 +127,12 @@ public class ClientProxy implements IProxy {
 		if(Botania.curiosLoaded)
 			render.addLayer(new BaubleRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
-		render.addLayer(new LayerGaiaHead(render, render.getEntityModel().bipedHead));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler(render));
 		if(Botania.curiosLoaded)
 			render.addLayer(new BaubleRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
-		render.addLayer(new LayerGaiaHead(render, render.getEntityModel().bipedHead));
 	}
 
 	@Override
@@ -195,11 +186,6 @@ public class ClientProxy implements IProxy {
 	@Override
 	public int getClientRenderDistance() {
 		return Minecraft.getInstance().gameSettings.renderDistanceChunks;
-	}
-
-	@Override
-	public BipedModel getEmptyModelBiped() {
-		return EMPTY_MODEL;
 	}
 
 	@Override

@@ -32,11 +32,4 @@ public class ItemGaiaHead extends WallOrFloorItem {
 	public EquipmentSlotType getEquipmentSlot(ItemStack stack) {
 		return EquipmentSlotType.HEAD;
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Nonnull
-	@Override
-	public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
-		return (BipedModel) Botania.proxy.getEmptyModelBiped();
-	}
 }

@@ -32,8 +32,6 @@ public interface IProxy {
 
 	int getClientRenderDistance();
 
-	Object getEmptyModelBiped();
-
 	// Side-safe version of world.addParticle with noDistanceLimit flag set to true
 	default void addParticleForce(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
 }

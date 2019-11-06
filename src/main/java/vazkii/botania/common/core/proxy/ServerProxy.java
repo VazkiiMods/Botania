@@ -59,9 +59,4 @@ public class ServerProxy implements IProxy {
 		return 0;
 	}
 
-	@Override
-	public Object getEmptyModelBiped() {
-		return null;
-	}
-
 }
