@@ -89,6 +89,10 @@ public class BlockGhostRail extends AbstractRailBlock {
 	private void worldTick(TickEvent.WorldTickEvent evt) {
 		if(!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
 			for (AbstractMinecartEntity c : carts.getOrDefault(evt.world.getDimension().getType(), Collections.emptySet())) {
+				if (!c.isAlive() || !c.isAddedToWorld()) {
+					continue;
+				}
+
 				BlockPos entPos = new BlockPos(c);
 				BlockState state = c.world.getBlockState(entPos);
 				Block block = state.getBlock();
