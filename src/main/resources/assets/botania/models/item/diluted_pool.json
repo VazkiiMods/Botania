@@ -1,3 +1,11 @@
 {
-  "parent": "botania:block/diluted_pool"
+  "parent": "botania:block/diluted_pool",
+  "overrides": [
+    {
+      "predicate": {
+        "botania:full": 1
+      },
+      "model": "botania:block/diluted_pool_full"
+    }
+  ]
 }

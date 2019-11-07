@@ -1,3 +1,11 @@
 {
-  "parent": "botania:block/creative_pool_full"
+  "parent": "botania:block/creative_pool",
+  "overrides": [
+    {
+      "predicate": {
+        "botania:full": 1
+      },
+      "model": "botania:block/creative_pool_full"
+    }
+  ]
 }

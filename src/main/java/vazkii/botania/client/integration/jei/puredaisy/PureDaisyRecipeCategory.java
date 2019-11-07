@@ -30,6 +30,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy> {
@@ -82,7 +83,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	public void setIngredients(RecipePureDaisy recipe, IIngredients iIngredients) {
 		if(recipe.getInput() instanceof Tag) {
 			Collection<Block> all = ((Tag<Block>) recipe.getInput()).getAllElements();
-			iIngredients.setInputs(VanillaTypes.ITEM, all.stream().map(ItemStack::new).filter(ItemStack::isEmpty).collect(Collectors.toList()));
+			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(all.stream().map(ItemStack::new).filter(s -> !s.isEmpty()).collect(Collectors.toList())));
 		} else if(recipe.getInput() instanceof Block || recipe.getInput() instanceof BlockState) {
 			BlockState state = recipe.getInput() instanceof BlockState ? (BlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
 			Block b = state.getBlock();
