@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,6 +19,7 @@ import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.RailShape;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -30,6 +32,8 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -51,62 +55,79 @@ public class BlockGhostRail extends AbstractRailBlock {
 		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
 	}
 
-	private static void updateFloating(AbstractMinecartEntity cart, int floatTicks) {
+	private void updateFloating(AbstractMinecartEntity cart) {
+		cart.world.getProfiler().startSection("cartFloating");
+		int floatTicks = cart.getPersistentData().getInt(TAG_FLOAT_TICKS);
+		Preconditions.checkState(floatTicks > 0);
+
 		BlockPos entPos = new BlockPos(cart);
 		BlockState state = cart.world.getBlockState(entPos);
 		boolean air = state.isAir(cart.world, entPos);
-		if(floatTicks > 0) {
-			BlockState stateBelow = cart.world.getBlockState(entPos.down());
-			Block blockBelow = stateBelow.getBlock();
-			boolean airBelow = blockBelow.isAir(stateBelow, cart.world, entPos.down());
+
+		if(state.getBlock() == ModBlocks.dreamwood
+				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
+			cart.world.playEvent(2003, entPos, 0);
+			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 0);
+		} else {
+			BlockPos down = entPos.down();
+			BlockState stateBelow = cart.world.getBlockState(down);
+			boolean airBelow = stateBelow.isAir(cart.world, down);
 			if(air && airBelow || !air && !airBelow)
 				cart.noClip = true;
 			cart.setMotion(cart.getMotion().getX() * 1.4, 0.2, cart.getMotion().getZ() * 1.4);
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, floatTicks - 1);
 			cart.world.playEvent(2000, entPos, 0);
-		} else cart.noClip = false; // todo 1.14 doesn't seem to work for some reason?
+		}
+
+		cart.world.getProfiler().endSection();
 	}
 
 	@Override
 	public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
 		super.onMinecartPass(state, world, pos, cart);
 		if(!world.isRemote) {
-			int floatTicks = 20;
-			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, floatTicks);
-			updateFloating(cart, floatTicks);
+			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 20);
+			addFloatingCart(cart);
+			updateFloating(cart);
 		}
 	}
 
-	private final Map<DimensionType, Set<AbstractMinecartEntity>> carts = new HashMap<>();
+	private final Map<DimensionType, Set<AbstractMinecartEntity>> floatingCarts = new HashMap<>();
+
+	private void addFloatingCart(AbstractMinecartEntity cart) {
+		if (cart.isAlive() && cart.getPersistentData().getInt(TAG_FLOAT_TICKS) > 0) {
+			floatingCarts.computeIfAbsent(cart.world.getDimension().getType(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
+					.add(cart);
+		}
+	}
 
 	private void cartSpawn(EntityJoinWorldEvent evt) {
 		if(!evt.getWorld().isRemote && evt.getEntity() instanceof AbstractMinecartEntity) {
-			carts.computeIfAbsent(evt.getWorld().getDimension().getType(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
-				.add((AbstractMinecartEntity) evt.getEntity());
+			addFloatingCart((AbstractMinecartEntity) evt.getEntity());
 		}
 	}
 
 	private void worldTick(TickEvent.WorldTickEvent evt) {
 		if(!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
-			for (AbstractMinecartEntity c : carts.getOrDefault(evt.world.getDimension().getType(), Collections.emptySet())) {
-				if (!c.isAlive() || !c.isAddedToWorld()) {
+			evt.world.getProfiler().startSection("cartFloatingIter");
+			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.getDimension().getType(), Collections.emptySet()).iterator();
+			while (iter.hasNext()) {
+			    AbstractMinecartEntity c = iter.next();
+				BlockPos entPos = new BlockPos(c);
+
+				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)) {
+					iter.remove();
 					continue;
 				}
 
-				BlockPos entPos = new BlockPos(c);
-				BlockState state = c.world.getBlockState(entPos);
-				Block block = state.getBlock();
-				int floatTicks = c.getPersistentData().getInt(TAG_FLOAT_TICKS);
+				updateFloating(c);
 
-				if(block != ModBlocks.ghostRail
-						&& (block instanceof AbstractRailBlock || block == ModBlocks.dreamwood)) {
-					c.getPersistentData().putInt(TAG_FLOAT_TICKS, 0);
-					if(floatTicks > 0)
-						c.world.playEvent(2003, entPos, 0);
+				if (c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+					c.noClip = false;
+					iter.remove();
 				}
-
-				updateFloating(c, c.getPersistentData().getInt(TAG_FLOAT_TICKS));
 			}
+			evt.world.getProfiler().endSection();
 		}
 	}
 
