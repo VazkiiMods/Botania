@@ -15,6 +15,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -42,9 +43,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public BipedModel provideArmorModelForSlot(ItemStack stack, EquipmentSlotType slot) {
-		models.put(slot, new ModelArmorManaweave(slot));
-		return models.get(slot);
+	public BipedModel provideArmorModelForSlot(EquipmentSlotType slot) {
+		return new ModelArmorManaweave(slot);
 	}
 
 	@Override
@@ -62,41 +62,37 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return name;
 	}
 
-	private static ItemStack[] armorset;
+	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+			new ItemStack(ModItems.manaweaveHelm),
+			new ItemStack(ModItems.manaweaveChest),
+			new ItemStack(ModItems.manaweaveLegs),
+			new ItemStack(ModItems.manaweaveBoots)
+	});
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
-		if(armorset == null)
-			armorset = new ItemStack[] {
-					new ItemStack(ModItems.manaweaveHelm),
-					new ItemStack(ModItems.manaweaveChest),
-					new ItemStack(ModItems.manaweaveLegs),
-					new ItemStack(ModItems.manaweaveBoots)
-		};
-
-		return armorset;
+		return armorSet.getValue();
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, int i) {
-		if(player == null || player.inventory == null || player.inventory.armorInventory == null)
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
+		if(player == null)
 			return false;
 		
-		ItemStack stack = player.inventory.armorInventory.get(3 - i);
+		ItemStack stack = player.getItemStackFromSlot(slot);
 		if(stack.isEmpty())
 			return false;
 
-		switch(i) {
-		case 0: return stack.getItem() == ModItems.manaweaveHelm;
-		case 1: return stack.getItem() == ModItems.manaweaveChest;
-		case 2: return stack.getItem() == ModItems.manaweaveLegs;
-		case 3: return stack.getItem() == ModItems.manaweaveBoots;
+		switch(slot) {
+		case HEAD: return stack.getItem() == ModItems.manaweaveHelm;
+		case CHEST: return stack.getItem() == ModItems.manaweaveChest;
+		case LEGS: return stack.getItem() == ModItems.manaweaveLegs;
+		case FEET: return stack.getItem() == ModItems.manaweaveBoots;
 		}
 
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ITextComponent getArmorSetName() {
 		return new TranslationTextComponent("botania.armorset.manaweave.name");

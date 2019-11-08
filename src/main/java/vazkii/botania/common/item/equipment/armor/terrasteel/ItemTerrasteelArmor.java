@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,9 +41,8 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public BipedModel provideArmorModelForSlot(ItemStack stack, EquipmentSlotType slot) {
-		models.put(slot, new ModelArmorTerrasteel(slot));
-		return models.get(slot);
+	public BipedModel provideArmorModelForSlot(EquipmentSlotType slot) {
+	    return new ModelArmorTerrasteel(slot);
 	}
 
 	@Override
@@ -63,41 +63,37 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return multimap;
 	}
 
-	private static ItemStack[] armorset;
+	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+			new ItemStack(ModItems.terrasteelHelm),
+			new ItemStack(ModItems.terrasteelChest),
+			new ItemStack(ModItems.terrasteelLegs),
+			new ItemStack(ModItems.terrasteelBoots)
+	});
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
-		if(armorset == null)
-			armorset = new ItemStack[] {
-					new ItemStack(ModItems.terrasteelHelm),
-					new ItemStack(ModItems.terrasteelChest),
-					new ItemStack(ModItems.terrasteelLegs),
-					new ItemStack(ModItems.terrasteelBoots)
-		};
-
-		return armorset;
+		return armorSet.getValue();
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, int i) {
-		if(player == null || player.inventory == null || player.inventory.armorInventory == null)
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
+		if(player == null)
 			return false;
 		
-		ItemStack stack = player.inventory.armorInventory.get(3 - i);
+		ItemStack stack = player.getItemStackFromSlot(slot);
 		if(stack.isEmpty())
 			return false;
 
-		switch(i) {
-		case 0: return stack.getItem() == ModItems.terrasteelHelm || stack.getItem() == ModItems.terrasteelHelmRevealing;
-		case 1: return stack.getItem() == ModItems.terrasteelChest;
-		case 2: return stack.getItem() == ModItems.terrasteelLegs;
-		case 3: return stack.getItem() == ModItems.terrasteelBoots;
+		switch(slot) {
+		case HEAD: return stack.getItem() == ModItems.terrasteelHelm || stack.getItem() == ModItems.terrasteelHelmRevealing;
+		case CHEST: return stack.getItem() == ModItems.terrasteelChest;
+		case LEGS: return stack.getItem() == ModItems.terrasteelLegs;
+		case FEET: return stack.getItem() == ModItems.terrasteelBoots;
 		}
 
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ITextComponent getArmorSetName() {
 		return new TranslationTextComponent("botania.armorset.terrasteel.name");

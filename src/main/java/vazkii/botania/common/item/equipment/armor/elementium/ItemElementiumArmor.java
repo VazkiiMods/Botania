@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,9 +27,8 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public BipedModel provideArmorModelForSlot(ItemStack stack, EquipmentSlotType slot) {
-		models.put(slot, new ModelArmorElementium(slot));
-		return models.get(slot);
+	public BipedModel provideArmorModelForSlot(EquipmentSlotType slot) {
+		return new ModelArmorElementium(slot);
 	}
 
 	@Override
@@ -36,41 +36,37 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
-	static ItemStack[] armorset;
+	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+			new ItemStack(ModItems.elementiumHelm),
+			new ItemStack(ModItems.elementiumChest),
+			new ItemStack(ModItems.elementiumLegs),
+			new ItemStack(ModItems.elementiumBoots)
+	});
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
-		if(armorset == null)
-			armorset = new ItemStack[] {
-					new ItemStack(ModItems.elementiumHelm),
-					new ItemStack(ModItems.elementiumChest),
-					new ItemStack(ModItems.elementiumLegs),
-					new ItemStack(ModItems.elementiumBoots)
-		};
-
-		return armorset;
+		return armorSet.getValue();
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, int i) {
-		if(player == null || player.inventory == null || player.inventory.armorInventory == null)
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
+		if(player == null)
 			return false;
 		
-		ItemStack stack = player.inventory.armorInventory.get(3 - i);
+		ItemStack stack = player.getItemStackFromSlot(slot);
 		if(stack.isEmpty())
 			return false;
 
-		switch(i) {
-		case 0: return stack.getItem() == ModItems.elementiumHelm || stack.getItem() == ModItems.elementiumHelmRevealing;
-		case 1: return stack.getItem() == ModItems.elementiumChest;
-		case 2: return stack.getItem() == ModItems.elementiumLegs;
-		case 3: return stack.getItem() == ModItems.elementiumBoots;
+		switch(slot) {
+		case HEAD: return stack.getItem() == ModItems.elementiumHelm || stack.getItem() == ModItems.elementiumHelmRevealing;
+		case CHEST: return stack.getItem() == ModItems.elementiumChest;
+		case LEGS: return stack.getItem() == ModItems.elementiumLegs;
+		case FEET: return stack.getItem() == ModItems.elementiumBoots;
 		}
 
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ITextComponent getArmorSetName() {
 		return new TranslationTextComponent("botania.armorset.elementium.name");

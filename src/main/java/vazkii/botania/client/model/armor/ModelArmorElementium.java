@@ -12,6 +12,7 @@ package vazkii.botania.client.model.armor;
 
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
 import javax.annotation.Nonnull;
@@ -218,7 +219,7 @@ public class ModelArmorElementium extends ModelArmor {
 	}
 
 	@Override
-	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		
 		helmAnchor.showModel = slot == EquipmentSlotType.HEAD;
 		bodyAnchor.showModel = slot == EquipmentSlotType.CHEST;
