@@ -13,6 +13,7 @@ package vazkii.botania.client.gui.crafting;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.WorkbenchContainer;
+import net.minecraft.util.IWorldPosCallable;
 
 import javax.annotation.Nonnull;
 
@@ -23,8 +24,8 @@ import javax.annotation.Nonnull;
  */
 public class ContainerCraftingHalo extends WorkbenchContainer {
 
-	public ContainerCraftingHalo(int windowId, PlayerInventory playerInv) {
-		super(windowId, playerInv);
+	public ContainerCraftingHalo(int windowId, PlayerInventory playerInv, IWorldPosCallable wp) {
+		super(windowId, playerInv, wp);
 	}
 
 	@Override

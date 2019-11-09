@@ -33,7 +33,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
@@ -94,8 +96,9 @@ public class ItemCraftingHalo extends ItemMod {
 
 		if(!world.isRemote) {
 			if(segment == 0) {
+				IWorldPosCallable wp = IWorldPosCallable.of(world, BlockPos.ZERO); // pos is never used by workbench
 				player.openContainer(new SimpleNamedContainerProvider(
-						(windowId, playerInv, p) -> new ContainerCraftingHalo(windowId, playerInv),
+						(windowId, playerInv, p) -> new ContainerCraftingHalo(windowId, playerInv, wp),
 						stack.getDisplayName()));
 			} else {
 				if(itemForPos.isEmpty())
