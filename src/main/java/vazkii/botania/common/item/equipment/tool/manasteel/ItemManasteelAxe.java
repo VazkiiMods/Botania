@@ -73,8 +73,9 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack stackAt = player.inventory.getStackInSlot(i);
 				if(!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
+					ItemStack displayStack = stackAt.copy();
 					ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
-					ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.OAK_SAPLING), SAPLING_PATTERN);
+					ItemsRemainingRenderHandler.set(player, displayStack, SAPLING_PATTERN);
 					return did;
 				}
 			}
