@@ -161,7 +161,7 @@ public final class BotaniaAPI {
 
 		@Override
 		public Ingredient getRepairMaterial() {
-			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manasteel_ingot"));
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "elementium_ingot"));
 			return Ingredient.fromItems(item);
 		}
 

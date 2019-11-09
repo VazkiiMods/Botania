@@ -22,6 +22,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -71,9 +72,9 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			} else if(isFlying(stack)) {
 				if(holding) {
 					player.fallDistance = 0F;
-					double dy =  player.getMotion().getY()
-							+ (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25);
-					player.setMotion(player.getMotion().add(0, dy, 0));
+					double my =  IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25;
+					Vec3d oldMot = player.getMotion();
+					player.setMotion(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
 
 					player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++) {
