@@ -34,7 +34,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ICreativeManaProvider;
@@ -144,7 +146,7 @@ public final class HUDHandler {
 			}
 
 			TileCorporeaIndex.getInputHandler();
-			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof ChatScreen) {
+			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen instanceof ChatScreen) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay();
 				profiler.endSection();
@@ -187,7 +189,7 @@ public final class HUDHandler {
 				boolean anyRequest = false;
 				boolean creative = false;
 
-				IItemHandler mainInv = new net.minecraftforge.items.ItemStackHandler(1); // player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
+				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(EmptyHandler.INSTANCE);
 				IItemHandler accInv = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
 
 				int invSize = mainInv.getSlots();
