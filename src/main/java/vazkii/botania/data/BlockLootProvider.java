@@ -18,6 +18,7 @@ import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.AlternativesLootEntry;
 import net.minecraft.world.storage.loot.ConstantRange;
+import net.minecraft.world.storage.loot.DynamicLootEntry;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootParameterSets;
@@ -34,6 +35,7 @@ import net.minecraft.world.storage.loot.functions.ExplosionDecay;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.common.block.BlockAltGrass;
+import vazkii.botania.common.block.BlockCacophonium;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -84,6 +86,8 @@ public class BlockLootProvider implements IDataProvider {
                 tables.put(b.getRegistryName(), genTinyPotato(b));
             else if (b == ModBlocks.cellBlock)
                 tables.put(b.getRegistryName(), genCellBlock(b));
+            else if (b == ModBlocks.cacophonium)
+                tables.put(b.getRegistryName(), genRegular(Blocks.NOTE_BLOCK));
             else if (b.getRegistryName().getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone"))
                 tables.put(b.getRegistryName(), genMetamorphicStone(b));
             else

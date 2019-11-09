@@ -12,22 +12,18 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameters;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileCacophonium;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockCacophonium extends BlockMod {
-
 	protected BlockCacophonium(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
@@ -45,24 +41,22 @@ public class BlockCacophonium extends BlockMod {
 
 		if(power && !powered) {
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile != null && tile instanceof TileCacophonium)
+			if(tile instanceof TileCacophonium)
 				((TileCacophonium) tile).annoyDirewolf();
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-		List<ItemStack> stacks = super.getDrops(state, builder);
-		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
-		if(te instanceof TileCacophonium) {
-			ItemStack thingy = ((TileCacophonium) te).stack;
-			if(!thingy.isEmpty())
-				stacks.add(thingy.copy());
+	public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (state.getBlock() != newState.getBlock()) {
+			TileEntity te = world.getTileEntity(pos);
+			if(te instanceof TileCacophonium) {
+				InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), ((TileCacophonium) te).stack);
+			}
+			super.onReplaced(state, world, pos, newState, isMoving);
 		}
-		return stacks;
 	}
 
 	@Override

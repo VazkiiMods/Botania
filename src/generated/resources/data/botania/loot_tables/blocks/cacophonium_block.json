@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:cacophonium_block"
+          "name": "minecraft:note_block"
         }
       ],
       "conditions": [
