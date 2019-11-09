@@ -27,7 +27,6 @@ public final class VanillaPacketDispatcher {
 		if(packet != null && tile.getWorld() instanceof ServerWorld) {
 			((ServerChunkProvider)tile.getWorld().getChunkProvider()).chunkManager
 					.getTrackingPlayers(new ChunkPos(pos), false)
-					.filter(p -> p.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
 					.forEach(e -> e.connection.sendPacket(packet));
 		}
 	}
