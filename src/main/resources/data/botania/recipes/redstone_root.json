@@ -6,9 +6,14 @@
     {
       "tag": "forge:dusts/redstone"
     },
-    {
-      "item": "minecraft:fern"
-    }
+    [
+      {
+        "item": "minecraft:fern"
+      },
+      {
+        "item": "minecraft:grass"
+      }
+    ]
   ],
   "type": "minecraft:crafting_shapeless"
 }
