@@ -156,6 +156,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Nonnull
 	@Override
 	public final CompoundNBT write(CompoundNBT cmp) {
+		cmp = super.write(cmp);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp);
 		return cmp;
