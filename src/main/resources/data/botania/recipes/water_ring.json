@@ -4,16 +4,19 @@
   },
   "pattern": [
     "WMP",
-    "M M",
-    "SM "
+    "MHM",
+    "CM "
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
       "item": "minecraft:pufferfish"
     },
-    "S": {
-      "item": "minecraft:salmon"
+    "C": {
+      "item": "minecraft:cod"
+    },
+    "H": {
+      "item": "minecraft:heart_of_the_sea"
     },
     "W": {
       "tag": "botania:runes/water"
