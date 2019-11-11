@@ -73,34 +73,34 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 				AbstractCookingRecipe recipe = p.getFirst();
 				boolean canSmelt = p.getSecond();
 
-				if(canSmelt && mana > 2) {
+				if(canSmelt && getMana() > 2) {
 					if(furnace.burnTime < 2) {
 						if(furnace.burnTime == 0)
 							getWorld().setBlockState(pos, state.with(BlockStateProperties.LIT, true));
 						furnace.burnTime = 200;
-						mana = Math.max(0, mana - COST);
+						addMana(-COST);
 					}
 					if(ticksExisted % 2 == 0)
 						furnace.cookTime = Math.min(recipe.getCookTime() - 1, furnace.cookTime + 1);
 
 					did = true;
 
-					if(mana <= 0)
+					if(getMana() <= 0)
 						break;
 				}
 			} else if(tile instanceof IExoflameHeatable) {
 				IExoflameHeatable heatable = (IExoflameHeatable) tile;
 
-				if(heatable.canSmelt() && mana > 2) {
+				if(heatable.canSmelt() && getMana() > 2) {
 					if(heatable.getBurnTime() == 0) {
 						heatable.boostBurnTime();
-						mana = Math.max(0, mana - COST);
+						addMana(-COST);
 					}
 
 					if(ticksExisted % 2 == 0)
 						heatable.boostCookTime();
 
-					if(mana <= 0)
+					if(getMana() <= 0)
 						break;
 				}
 			}

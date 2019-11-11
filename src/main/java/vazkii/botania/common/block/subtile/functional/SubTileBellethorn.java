@@ -67,13 +67,13 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-range, -range, -range), getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
 
 			for(LivingEntity entity : entities) {
-				if(entity.hurtTime == 0 && mana >= manaToUse) {
+				if(entity.hurtTime == 0 && getMana() >= manaToUse) {
 					int dmg = 4;
 					if(entity instanceof WitchEntity)
 						dmg = 20;
 
 					entity.attackEntityFrom(DamageSource.MAGIC, dmg);
-					mana -= manaToUse;
+					addMana(-manaToUse);
 					break;
 				}
 			}

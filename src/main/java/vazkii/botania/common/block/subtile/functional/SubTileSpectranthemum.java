@@ -77,13 +77,13 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 						continue;
 
 					int cost = stack.getCount() * COST;
-					if(mana >= cost) {
+					if(getMana() >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getPersistentData().putBoolean(TAG_TELEPORTED, true);
 						item.setMotion(Vec3d.ZERO);
 						spawnExplosionParticles(item, 10);
-						mana -= cost;
+						addMana(-cost);
 						did = true;
 					}
 				}

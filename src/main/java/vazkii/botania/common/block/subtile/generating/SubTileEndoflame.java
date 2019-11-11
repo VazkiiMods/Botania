@@ -60,7 +60,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 		if(linkedCollector != null) {
 			if(burnTime == 0) {
-				if(mana < getMaxMana()) {
+				if(getMana() < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
 					for(ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {

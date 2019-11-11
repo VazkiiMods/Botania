@@ -36,22 +36,24 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(mana >= getMaxMana())
+		if(getMana() >= getMaxMana())
 			return;
 
 		List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(PlayerEntity player : players)
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
-				mana += 50;
+				addMana(50);
 				return;
 			}
 
 		List<ExperienceOrbEntity> orbs = getWorld().getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(ExperienceOrbEntity orb : orbs) {
-			mana += orb.getXpValue() * 35;
-			orb.remove();
-			return;
+			if (orb.isAlive()) {
+				addMana(orb.getXpValue() * 35);
+				orb.remove();
+				return;
+			}
 		}
 
 	}

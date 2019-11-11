@@ -34,6 +34,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
+	private static final int COST = 70;
 
 	public SubTileTigerseye() {
 		super(TYPE);
@@ -46,9 +47,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		if(getWorld().isRemote)
 			return;
 
-		final int cost = 70;
-
-		boolean shouldAfffect = mana >= cost;
+		boolean shouldAfffect = getMana() >= COST;
 
 		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
@@ -72,7 +71,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 			}
 
 			if(avoidsOcelots) {
-				mana -= cost;
+				addMana(-COST);
 				sync();
 				shouldAfffect = false;
 			}

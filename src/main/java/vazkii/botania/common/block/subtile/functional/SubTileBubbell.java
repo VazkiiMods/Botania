@@ -54,8 +54,8 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 		if(ticksExisted % 200 == 0)
 			sync();
 
-		if(mana > COST_PER_TICK) {
-			mana -= COST_PER_TICK;
+		if(getMana() > COST_PER_TICK) {
+			addMana(-COST_PER_TICK);
 
 			if(ticksExisted % 10 == 0 && range < getRange())
 				range++;
@@ -76,7 +76,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	public static boolean isValidBubbell(World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof SubTileBubbell) {
-			return ((SubTileBubbell) tile).mana > COST_PER_TICK;
+			return ((SubTileBubbell) tile).getMana() > COST_PER_TICK;
 		}
 
 		return false;

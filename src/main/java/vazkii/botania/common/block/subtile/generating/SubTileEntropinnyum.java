@@ -40,13 +40,13 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(!getWorld().isRemote && mana == 0) {
+		if(!getWorld().isRemote && getMana() == 0) {
 			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(TNTEntity tnt : tnts) {
 				if(tnt.getFuse() == 1 && !tnt.removed && !getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
 					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
-					mana += getMaxMana();
+					addMana(getMaxMana());
 					sync();
 
 					getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());

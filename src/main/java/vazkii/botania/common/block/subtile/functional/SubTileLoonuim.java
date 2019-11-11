@@ -74,7 +74,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		World world = getWorld();
-		if(!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && mana >= COST) {
+		if(!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && getMana() >= COST) {
 			Random rand = world.rand;
 
 			ItemStack stack;
@@ -155,7 +155,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			world.addEntity(entity);
 			entity.spawnExplosionParticle();
 			
-			mana -= COST;
+			addMana(-COST);
 			sync();
 		}
 	}

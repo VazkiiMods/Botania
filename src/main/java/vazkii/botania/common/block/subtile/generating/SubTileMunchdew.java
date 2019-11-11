@@ -66,7 +66,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 		int manaPerLeaf = 160;
 		eatLeaves : {
-			if(getMaxMana() - mana >= manaPerLeaf && ticksExisted % 4 == 0) {
+			if(getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = getPos();
 
@@ -94,7 +94,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				ateOnce = true;
 				if(ConfigHandler.COMMON.blockBreakParticles.get())
 					getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
-				mana += manaPerLeaf;
+				addMana(manaPerLeaf);
 			}
 		}
 

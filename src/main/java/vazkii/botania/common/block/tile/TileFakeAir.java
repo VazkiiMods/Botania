@@ -37,6 +37,7 @@ public class TileFakeAir extends TileMod {
 
 	public void setFlower(TileEntity tile) {
 		flowerPos = tile.getPos();
+		markDirty();
 	}
 
 	public boolean canStay() {

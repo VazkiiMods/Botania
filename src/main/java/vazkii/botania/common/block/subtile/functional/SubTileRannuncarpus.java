@@ -105,8 +105,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 								getWorld().playEvent(2001, coords, Block.getStateId(state));
 							}
 							validPositions.remove(coords);
-							if(mana > 1)
-								mana--;
+							if(getMana() > 1)
+								addMana(-1);
 							return;
 						}
 					}
@@ -172,7 +172,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public int getRange() {
-		return mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
+		return getMana() > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
 	}
 
 	public int getRangeY() {
@@ -197,7 +197,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 			super(TYPE);
 		}
 
-		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
+		@Override public int getRange() { return getMana() > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
 		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
 	}
 

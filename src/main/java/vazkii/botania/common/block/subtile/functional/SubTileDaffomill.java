@@ -57,9 +57,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
             world.addParticle(data, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
         }
 
-		if(windTicks == 0 && mana > 0) {
+		if(windTicks == 0 && getMana() > 0) {
 			windTicks = 20;
-			mana--;
+			addMana(-1);
 		}
 
 		if(windTicks > 0 && redstoneSignal == 0) {

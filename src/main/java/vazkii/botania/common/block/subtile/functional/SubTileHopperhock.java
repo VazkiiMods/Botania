@@ -123,8 +123,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			}
 		}
 
-		if(pulledAny && mana > 0)
-			mana--;
+		if(pulledAny && getMana() > 0)
+			addMana(-1);
 	}
 
 	public boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
@@ -211,7 +211,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	public int getRange() {
-		return mana > 0 ? RANGE_MANA : RANGE;
+		return getMana() > 0 ? RANGE_MANA : RANGE;
 	}
 
 	@Override
@@ -262,6 +262,6 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			super(TYPE);
 		}
 
-		@Override public int getRange() { return mana > 0 ? RANGE_MANA_MINI : RANGE_MINI; }
+		@Override public int getRange() { return getMana() > 0 ? RANGE_MANA_MINI : RANGE_MINI; }
 	}
 }

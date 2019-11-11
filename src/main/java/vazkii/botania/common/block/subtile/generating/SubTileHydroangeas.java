@@ -70,7 +70,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		}
 
 		if(burnTime == 0) {
-			if(mana < getMaxMana() && !getWorld().isRemote) {
+			if(getMana() < getMaxMana() && !getWorld().isRemote) {
 				List<BlockPos> offsets = Arrays.asList(OFFSETS);
 				Collections.shuffle(offsets);
 

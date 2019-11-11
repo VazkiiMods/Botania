@@ -54,7 +54,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 		int mana = 2100;
 
-		if(getMaxMana() - this.mana >= mana && !getWorld().isRemote && ticksExisted % 40 == 0) {
+		if(getMaxMana() - this.getMana() >= mana && !getWorld().isRemote && ticksExisted % 40 == 0) {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
@@ -72,7 +72,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 							float mod = 1F / lastFlowerTimes;
 
 							getWorld().destroyBlock(pos, false);
-							this.mana += mana * mod;
+							addMana((int) (mana * mod));
 							sync();
 							return;
 						}

@@ -61,7 +61,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 			int munchInterval = 2 + (2 * lastFoodCount);
 			
 			if(cooldown == 0) {
-				mana = Math.min(getMaxMana(), mana + digestingMana);
+				addMana(digestingMana);
 				digestingMana = 0;
 				
 				float burpPitch = 1 - (lastFoodCount - 1) * 0.05F;

@@ -42,9 +42,9 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 			boolean did = false;
 			List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(PlayerEntity player : players) {
-				if(player.getActivePotionEffect(Effects.REGENERATION) == null && mana >= COST) {
+				if(player.getActivePotionEffect(Effects.REGENERATION) == null && getMana() >= COST) {
 					player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 59, 2, true, true));
-					mana -= COST;
+					addMana(-COST);
 					did = true;
 				}
 			}

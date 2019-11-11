@@ -84,7 +84,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 				SubTileVinculotus flower = e.getKey();
 				BlockPos activePos = e.getValue();
 
-				if(flower == null || flower.redstoneSignal > 0 || flower.mana <= cost || flower.getWorld() != event.getEntityLiving().world || flower.getWorld().getTileEntity(flower.getPos()) != flower)
+				if(flower == null || flower.redstoneSignal > 0 || flower.getMana() <= cost || flower.getWorld() != event.getEntityLiving().world || flower.getWorld().getTileEntity(flower.getPos()) != flower)
 					continue;
 
 				double x = activePos.getX() + 0.5;
@@ -107,7 +107,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 				event.setTargetX(x + Math.random() * 3 - 1);
 				event.setTargetY(y);
 				event.setTargetZ(z + Math.random() * 3 - 1);
-				flower.mana -= cost;
+				flower.addMana(-cost);
 				flower.sync();
 			}
 		}

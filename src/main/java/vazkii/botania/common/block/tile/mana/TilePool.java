@@ -90,7 +90,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private boolean outputting = false;
 
 	public DyeColor color = DyeColor.WHITE;
-	int mana;
+	private int mana;
 	private int knownMana = -1;
 
 	public int manaCap = -1;
@@ -122,6 +122,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		int old = this.mana;
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		if(old != this.mana) {
+			markDirty();
 			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 			markDispatchable();
 		}

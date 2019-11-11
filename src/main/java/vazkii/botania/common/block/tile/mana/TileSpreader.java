@@ -131,7 +131,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	UUID identity;
 
-	int mana;
+	private int mana;
 	private int knownMana = -1;
 	public float rotationX, rotationY;
 
@@ -169,6 +169,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, getMaxMana());
+		this.markDirty();
 	}
 
 	@Override

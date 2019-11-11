@@ -50,7 +50,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
 	private static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
-	protected int mana;
+	private int mana;
 
 	public int redstoneSignal = 0;
 
@@ -97,7 +97,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 
 		if(getWorld().isRemote) {
-			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
+			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
@@ -161,15 +161,16 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void addMana(int mana) {
-		this.mana = Math.min(getMaxMana(), this.mana + mana);
+		this.mana = Math.min(getMaxMana(), this.getMana() + mana);
+		markDirty();
 	}
 
 	public void emptyManaIntoCollector() {
 		if(linkedCollector != null && isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
-			if(!collector.isFull() && mana > 0) {
-				int manaval = Math.min(mana, collector.getMaxMana() - collector.getCurrentMana());
-				mana -= manaval;
+			if(!collector.isFull() && getMana() > 0) {
+				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
+				mana = getMana() - manaval;
 				collector.recieveMana(manaval);
 			}
 		}
@@ -228,7 +229,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		if(!player.world.isRemote)
 			sync();
 
-		knownMana = mana;
+		knownMana = getMana();
 		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
 		if(evt != null)
 			player.playSound(evt, 0.1F, 1F);
@@ -260,7 +261,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	@Override
 	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.putInt(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA, getMana());
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 
@@ -326,4 +327,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		return !isPassiveFlower();
 	}
 
+	public int getMana() {
+		return mana;
+	}
 }

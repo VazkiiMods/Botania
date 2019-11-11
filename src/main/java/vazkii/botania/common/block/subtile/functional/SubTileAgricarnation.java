@@ -65,9 +65,9 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 				if(getWorld().isAirBlock(pos))
 					continue;
 
-				if(isPlant(pos) && mana > 5) {
+				if(isPlant(pos) && getMana() > 5) {
 					Block block = getWorld().getBlockState(pos).getBlock();
-					mana -= 5;
+					addMana(-5);
 					getWorld().getPendingBlockTicks().scheduleTick(pos, block, 1);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2005, pos, 6 + getWorld().rand.nextInt(4));

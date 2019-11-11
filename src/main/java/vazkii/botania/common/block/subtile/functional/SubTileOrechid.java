@@ -62,7 +62,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 			return;
 
 		int cost = getCost();
-		if(mana >= cost && ticksExisted % getDelay() == 0) {
+		if(getMana() >= cost && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				BlockState state = getOreToPut();
@@ -72,7 +72,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 						getWorld().playEvent(2001, coords, Block.getStateId(state));
 					getWorld().playSound(null, getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
-					mana -= cost;
+					addMana(-cost);
 					sync();
 				}
 			}

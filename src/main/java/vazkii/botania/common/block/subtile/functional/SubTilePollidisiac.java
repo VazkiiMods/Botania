@@ -27,6 +27,7 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 	public static TileEntityType<SubTilePollidisiac> TYPE;
 
 	private static final int RANGE = 6;
+	private static final int MANA_COST = 12;
 
 	public SubTilePollidisiac() {
 		super(TYPE);
@@ -37,14 +38,13 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote) {
-			int manaCost = 12;
 
 			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			List<AnimalEntity> animals = getWorld().getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
 			for(AnimalEntity animal : animals) {
-				if(mana < manaCost)
+				if(getMana() < MANA_COST)
 					break;
 
 				if(animal.getGrowingAge() == 0 && !animal.isInLove()) {
@@ -56,8 +56,7 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 						if(!stack.isEmpty() && animal.isBreedingItem(stack)) {
 							stack.shrink(1);
 
-							mana -= manaCost;
-
+							addMana(-MANA_COST);
 							animal.setInLove(1200);
 							getWorld().setEntityState(animal, (byte)18);
 						}

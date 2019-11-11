@@ -65,7 +65,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
-		if(mana >= COST && ticksExisted % 2 == 0) {
+		if(getMana() >= COST && ticksExisted % 2 == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				BlockState state = getStoneToPut(coords);
@@ -74,7 +74,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2001, coords, Block.getStateId(state));
 
-					mana -= COST;
+					addMana(-COST);
 					sync();
 				}
 			}

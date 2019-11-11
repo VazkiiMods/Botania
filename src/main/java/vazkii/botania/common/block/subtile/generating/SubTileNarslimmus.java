@@ -58,7 +58,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 					if(!slime.world.isRemote) {
 						slime.remove();
 						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH_SMALL, 1, 0.02F);
-						this.mana = Math.min(getMaxMana(), this.mana + mana);
+						addMana(mana);
 						sync();
 					}
 

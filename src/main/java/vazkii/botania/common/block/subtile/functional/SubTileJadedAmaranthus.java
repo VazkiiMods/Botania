@@ -41,7 +41,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
-		if(ticksExisted % 30 == 0 && mana >= COST) {
+		if(ticksExisted % 30 == 0 && getMana() >= COST) {
 			BlockPos pos = new BlockPos(
 					getPos().getX() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1),
 					getPos().getY() + RANGE,
@@ -59,7 +59,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2001, up, Block.getStateId(flower));
 					getWorld().setBlockState(up, flower);
-					mana -= COST;
+					addMana(-COST);
 					sync();
 
 					break;

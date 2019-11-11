@@ -29,6 +29,7 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 	public static TileEntityType<SubTileHyacidus> TYPE;
 
 	private static final int RANGE = 6;
+	private static final int COST = 20;
 
 	public SubTileHyacidus() {
 		super(TYPE);
@@ -41,13 +42,11 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
-		final int cost = 20;
-
 		List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(LivingEntity entity : entities) {
-			if(!(entity instanceof PlayerEntity) && entity.getActivePotionEffect(Effects.POISON) == null && mana >= cost && !entity.world.isRemote && entity.getCreatureAttribute() != CreatureAttribute.UNDEAD) {
+			if(!(entity instanceof PlayerEntity) && entity.getActivePotionEffect(Effects.POISON) == null && getMana() >= COST && !entity.world.isRemote && entity.getCreatureAttribute() != CreatureAttribute.UNDEAD) {
 				entity.addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
-				mana -= cost;
+				addMana(-COST);
 			}
 		}
 	}

@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -42,7 +43,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	private static final String TAG_POOL_Y = "poolY";
 	private static final String TAG_POOL_Z = "poolZ";
 
-	public int mana;
+	private int mana;
 
 	public int redstoneSignal = 0;
 
@@ -104,7 +105,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 				if(getWorld().isBlockLoaded(cachedPoolCoordinates)) {
 					needsNew = true;
 					TileEntity tileAt = getWorld().getTileEntity(cachedPoolCoordinates);
-					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isRemoved()) {
+					if(tileAt instanceof IManaPool && !tileAt.isRemoved()) {
 						linkedPool = tileAt;
 						needsNew = false;
 					}
@@ -113,7 +114,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			}
 		} else {
 			TileEntity tileAt = getWorld().getTileEntity(linkedPool.getPos());
-			if(tileAt != null && tileAt instanceof IManaPool)
+			if(tileAt instanceof IManaPool)
 				linkedPool = tileAt;
 		}
 
@@ -125,14 +126,22 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 				sizeLastCheck = size;
 			}
 		}
+
+		markDirty();
 	}
 
 	public void linkToForcefully(TileEntity pool) {
 		linkedPool = pool;
+		markDirty();
+	}
+
+	public int getMana() {
+		return mana;
 	}
 
 	public void addMana(int mana) {
-		this.mana = Math.min(getMaxMana(), this.mana + mana);
+		this.mana = MathHelper.clamp(this.mana + mana, 0, getMaxMana());
+		markDirty();
 	}
 
 	@Override

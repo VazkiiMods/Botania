@@ -40,7 +40,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(mana > 0) {
+		if(getMana() > 0) {
 			double x1 = getPos().getX() + 0.5;
 			double y1 = getPos().getY() + 0.5;
 			double z1 = getPos().getZ() + 0.5;
@@ -71,7 +71,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 			}
 
 			if(ticksExisted % 4 == 0) {
-				mana--;
+				addMana(-1);
 				sync();
 			}
 		}

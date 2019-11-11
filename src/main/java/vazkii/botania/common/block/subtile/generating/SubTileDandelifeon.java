@@ -173,8 +173,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 		TileEntity tile = world.getTileEntity(pos);
 		if(gen == -2) {
 			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
-			mana = Math.min(getMaxMana(), mana + val);
-			//world.setBlockToAir(x, y, z);
+			addMana(val);
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0)
 				world.removeBlock(pos, false);

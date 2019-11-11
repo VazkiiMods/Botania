@@ -43,7 +43,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 		List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 		if(!world.isRemote)
 			for(ShulkerEntity shulker : shulkers) {
-				if(getMaxMana() - mana < generate)
+				if(getMaxMana() - getMana() < generate)
 					break;
 
 				if(shulker.isAlive() && shulker.getDistanceSq(posD) < RADIUS * RADIUS) {
@@ -57,8 +57,8 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ENTITY_SHULKER_DEATH, SoundCategory.BLOCKS, 10F, 0.1F);
 						particles(world, pos, target);
 						particles(world, pos, shulker);
-						
-						mana += generate; 
+
+						addMana(generate);
 						sync();
 					}
 				}

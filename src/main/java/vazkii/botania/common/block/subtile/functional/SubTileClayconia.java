@@ -50,7 +50,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote && ticksExisted % 5 == 0) {
-			if(mana >= COST) {
+			if(getMana() >= COST) {
 				BlockPos coords = getCoordsToPut();
 				if(coords != null) {
 					getWorld().removeBlock(coords, false);
@@ -58,7 +58,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 						getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
 					ItemEntity item = new ItemEntity(getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
 					getWorld().addEntity(item);
-					mana -= COST;
+					addMana(-COST);
 				}
 			}
 		}

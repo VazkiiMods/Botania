@@ -31,6 +31,7 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 	public static TileEntityType<SubTileHeiseiDream> TYPE;
 
 	private static final int RANGE = 5;
+	private static final int COST = 100;
 
 	public SubTileHeiseiDream() {
 		super(TYPE);
@@ -43,17 +44,15 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 		if(getWorld().isRemote)
 			return;
 
-		final int cost = 100;
-
 		@SuppressWarnings("unchecked")
 		List<IMob> mobs = (List) getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
 
-		if(mobs.size() > 1 && mana >= cost)
+		if(mobs.size() > 1 && getMana() >= COST)
 			for(IMob mob : mobs) {
 				if(mob instanceof MobEntity) {
 					MobEntity entity = (MobEntity) mob;
 					if(brainwashEntity(entity, mobs)) {
-						mana -= cost;
+						addMana(-COST);
 						sync();
 						break;
 					}

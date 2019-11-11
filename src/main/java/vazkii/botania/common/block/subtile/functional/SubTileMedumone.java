@@ -37,14 +37,14 @@ public class SubTileMedumone extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(!getWorld().isRemote && mana > 0) {
+		if(!getWorld().isRemote && getMana() > 0) {
 			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for(LivingEntity entity : entities)
 				if(!(entity instanceof PlayerEntity)) {
 					entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 100));
-					mana--;
-					if(mana == 0)
+					addMana(-1);
+					if(getMana() == 0)
 						return;
 				}
 		}

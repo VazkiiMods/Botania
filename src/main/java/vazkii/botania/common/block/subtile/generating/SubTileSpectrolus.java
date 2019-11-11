@@ -107,7 +107,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	}
 
 	private void addManaAndCycle(int toAdd) {
-		mana = Math.min(getMaxMana(), mana + toAdd);
+		addMana(toAdd);
 		nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.values()[nextColor.ordinal() + 1];
 		sync();
 	}

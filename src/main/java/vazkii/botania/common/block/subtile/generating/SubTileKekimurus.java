@@ -41,7 +41,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 
 		int mana = 1800;
 
-		if(getMaxMana() - this.mana >= mana && !getWorld().isRemote && ticksExisted % 80 == 0) {
+		if(getMaxMana() - this.getMana() >= mana && !getWorld().isRemote && ticksExisted % 80 == 0) {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
@@ -56,7 +56,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 
 							getWorld().playEvent(2001, pos, Block.getStateId(state));
 							getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
-							this.mana += mana;
+							addMana(mana);
 							sync();
 							return;
 						}
