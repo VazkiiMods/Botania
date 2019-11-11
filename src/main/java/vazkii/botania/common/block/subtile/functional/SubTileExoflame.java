@@ -10,10 +10,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.AbstractCookingRecipe;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
@@ -21,12 +24,18 @@ import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
@@ -36,6 +45,8 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
+	private static final Field RECIPE_TYPE = ObfuscationReflectionHelper.findField(AbstractFurnaceTileEntity.class, "field_214014_c");
+	private static final Method CAN_SMELT = ObfuscationReflectionHelper.findMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);
 
 	public SubTileExoflame() {
 		super(TYPE);
@@ -54,41 +65,43 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 				getPos().add(RANGE, RANGE_Y, RANGE))) {
 			TileEntity tile = getWorld().getTileEntity(pos);
 			BlockState state = getWorld().getBlockState(pos);
-			Block block = state.getBlock();
-			if(tile != null) {
-				if(tile instanceof FurnaceTileEntity && block == Blocks.FURNACE) {
-					FurnaceTileEntity furnace = (FurnaceTileEntity) tile;
-					boolean canSmelt = canFurnaceSmelt(furnace);
-					if(canSmelt && mana > 2) {
-						if(furnace.burnTime < 2) {
-							if(furnace.burnTime == 0)
-								getWorld().setBlockState(pos, state.with(BlockStateProperties.LIT, true));
-							furnace.burnTime = 200;
-							mana = Math.max(0, mana - COST);
-						}
-						if(ticksExisted % 2 == 0)
-							furnace.cookTime = Math.min(199, furnace.cookTime + 1);
+			if(tile instanceof AbstractFurnaceTileEntity) {
+				AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) tile;
+				Pair<AbstractCookingRecipe, Boolean> p = canSmelt(furnace);
+				if(p == null)
+					continue;
+				AbstractCookingRecipe recipe = p.getFirst();
+				boolean canSmelt = p.getSecond();
 
-						did = true;
-
-						if(mana <= 0)
-							break;
+				if(canSmelt && mana > 2) {
+					if(furnace.burnTime < 2) {
+						if(furnace.burnTime == 0)
+							getWorld().setBlockState(pos, state.with(BlockStateProperties.LIT, true));
+						furnace.burnTime = 200;
+						mana = Math.max(0, mana - COST);
 					}
-				} else if(tile instanceof IExoflameHeatable) {
-					IExoflameHeatable heatable = (IExoflameHeatable) tile;
+					if(ticksExisted % 2 == 0)
+						furnace.cookTime = Math.min(recipe.getCookTime() - 1, furnace.cookTime + 1);
 
-					if(heatable.canSmelt() && mana > 2) {
-						if(heatable.getBurnTime() == 0) {
-							heatable.boostBurnTime();
-							mana = Math.max(0, mana - COST);
-						}
+					did = true;
 
-						if(ticksExisted % 2 == 0)
-							heatable.boostCookTime();
+					if(mana <= 0)
+						break;
+				}
+			} else if(tile instanceof IExoflameHeatable) {
+				IExoflameHeatable heatable = (IExoflameHeatable) tile;
 
-						if(mana <= 0)
-							break;
+				if(heatable.canSmelt() && mana > 2) {
+					if(heatable.getBurnTime() == 0) {
+						heatable.boostBurnTime();
+						mana = Math.max(0, mana - COST);
 					}
+
+					if(ticksExisted % 2 == 0)
+						heatable.boostCookTime();
+
+					if(mana <= 0)
+						break;
 				}
 			}
 		}
@@ -97,32 +110,25 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 			sync();
 	}
 
-	public static boolean canFurnaceSmelt(AbstractFurnaceTileEntity furnace){
-		if(furnace.getStackInSlot(0).isEmpty())
-			return false;
-		else {
-			Optional<ItemStack> maybeStack = furnace.getWorld().getRecipeManager()
-					.getRecipe(IRecipeType.SMELTING, furnace, furnace.getWorld())
-					.map(r -> r.getCraftingResult(furnace));
-
-			if(!maybeStack.isPresent() || maybeStack.get().isEmpty())
-				return false;
-
-			ItemStack itemstack = maybeStack.get();
-			if(furnace.getStackInSlot(2).isEmpty())
-				return true;
-
-			if(!furnace.getStackInSlot(2).isItemEqual(itemstack))
-				return false;
-
-			int result = furnace.getStackInSlot(2).getCount() + itemstack.getCount();
-			return result <= 64 && result <= itemstack.getMaxStackSize();
+	@Nullable
+	public static Pair<AbstractCookingRecipe, Boolean> canSmelt(AbstractFurnaceTileEntity furnace) {
+		IRecipeType<AbstractCookingRecipe> rt;
+		AbstractCookingRecipe recipe;
+		boolean canSmelt;
+		try {
+			rt = (IRecipeType<AbstractCookingRecipe>) RECIPE_TYPE.get(furnace);
+			recipe = furnace.getWorld().getRecipeManager().getRecipe(rt, furnace, furnace.getWorld()).orElse(null);
+			canSmelt = (Boolean) CAN_SMELT.invoke(furnace, recipe);
+			return Pair.of(recipe, canSmelt);
+		} catch (InvocationTargetException | IllegalAccessException e) {
+			Botania.LOGGER.error("Failed to reflect furnace", e);
+			return null;
 		}
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+		return new RadiusDescriptor.Square(getPos(), RANGE);
 	}
 
 	@Override

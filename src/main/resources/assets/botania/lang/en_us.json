@@ -2209,7 +2209,7 @@
 
   "botania.entry.exoflame": "Exoflame",
   "botania.tagline.exoflame": "Ignites and speeds up Furnaces",
-  "botania.page.exoflame0": "Unlike its generating counterpart, the $(1)Exoflame$(0) utilizes $(4)Mana$(0) with means to generate heat.$(p)Any $(1)Furnaces$(0) nearby to the $(1)Exoflame$(0) will be fueled, and given a speed boost, for the cost of some $(4)Mana$(0).",
+  "botania.page.exoflame0": "Unlike its generating counterpart, the $(1)Exoflame$(0) utilizes $(4)Mana$(0) with means to generate heat.$(p)Any $(1)Furnaces$(0), $(1)Blast Furnaces$(0), or $(1)Smokers$(0) nearby to the $(1)Exoflame$(0) will be fueled, and given a speed boost, for the cost of some $(4)Mana$(0).",
   "botania.page.exoflame1": "$(o)But we should be going nowhere fast$().",
 
   "botania.entry.agricarnation": "Agricarnation",
