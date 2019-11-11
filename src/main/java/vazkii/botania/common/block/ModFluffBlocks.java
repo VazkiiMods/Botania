@@ -18,8 +18,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -35,6 +35,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.WALL_SUFFIX;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
@@ -224,34 +225,34 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.ELF_GLASS + "_pane") public static Block alfglassPane;
 	@ObjectHolder(LibBlockNames.BIFROST + "_pane") public static Block bifrostPane;
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOW) // Run after ModBlocks
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
-		Block base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD));
+		Block base = r.getValue(prefix(LibBlockNames.LIVING_WOOD));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + SLAB_SUFFIX);
 		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + WALL_SUFFIX);
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS));
+		base = r.getValue(prefix(LibBlockNames.LIVING_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX);
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK));
+		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + SLAB_SUFFIX);
 		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + WALL_SUFFIX);
 		
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK));
+		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK_BRICK));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX);
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD));
+		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + SLAB_SUFFIX);
 		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + WALL_SUFFIX);
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS));
+		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
 		
@@ -294,21 +295,21 @@ public final class ModFluffBlocks {
 			register(r, new BlockMod(props), "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 		}
 		
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERROCK));
+		base = r.getValue(prefix(LibBlockNames.SHIMMERROCK));
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + SLAB_SUFFIX);
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + STAIR_SUFFIX);
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERWOOD_PLANKS));
+		base = r.getValue(prefix(LibBlockNames.SHIMMERWOOD_PLANKS));
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX);
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX);
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MANA_GLASS));
+		base = r.getValue(prefix(LibBlockNames.MANA_GLASS));
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.MANA_GLASS + "_pane");
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.ELF_GLASS));
+		base = r.getValue(prefix(LibBlockNames.ELF_GLASS));
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.ELF_GLASS + "_pane");
 
-		base = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.BIFROST));
+		base = r.getValue(prefix(LibBlockNames.BIFROST));
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.BIFROST + "_pane");
 	}
 	
