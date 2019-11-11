@@ -24,6 +24,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ModItems;
 
 public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 
@@ -42,7 +43,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String s = I18n.format("item.botania:flowerBag.name");
+		String s = I18n.format(ModItems.flowerBag.getTranslationKey());
 		font.drawString(s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
 		font.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}

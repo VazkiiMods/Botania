@@ -25,7 +25,7 @@
     "botaniamisc.inputtingPower": "Nimmt Energie von Items auf",
     "botaniamisc.creative": "Kreativ",
     "botaniamisc.invFull": "Dein Inventar ist voll.",
-    "botaniamisc.compositeLens": "Gemisch mit %s",
+    "botaniamisc.composite_lens": "Gemisch mit %s",
     "botaniamisc.filter0": "Nur Items in Rahmen aufsammeln",
     "botaniamisc.filter1": "Nur Items außerhalb von Rahmen aufsammeln",
     "botaniamisc.filter2": "Alle Items aufsammeln",
@@ -707,7 +707,7 @@
     "item.botania.signalflare": "Signalpistole",
     "item.botania.mana_tablet": "Manatablett",
     "item.botania.mana_gun": "Mana-Blaster",
-    "item.botania.compositelens": "Verbundmanalinse: %s %s",
+    "item.botania.composite_lens": "Verbundmanalinse: %s %s",
     "item.botania.mana_cookie": "Manakeks",
     "item.botania.fertilizer": "Blumendünger",
     "item.botania.grass_seeds": "Weidesamen",
@@ -1307,7 +1307,7 @@
 
     "botania.entry.manaDetector": "Manadetektor",
 
-    "botania.entry.compositeLens": "Verbundmanalinse",
+    "botania.entry.composite_lens": "Verbundmanalinse",
 
     "botania.entry.redstoneSpreader": "Redstone-Manaverbreiter",
 

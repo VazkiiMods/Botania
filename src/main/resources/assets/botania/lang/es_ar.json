@@ -24,7 +24,7 @@
   "botaniamisc.inputtingPower": "Recibiendo Maná de Ítems",
   "botaniamisc.creative": "Creativo",
   "botaniamisc.invFull": "Tu inventario está lleno.",
-  "botaniamisc.compositeLens": "Composite with %s",
+  "botaniamisc.composite_lens": "Composite with %s",
   "botaniamisc.filter0": "Recoge solamente los objetos  en los marcos.",
   "botaniamisc.filter1": "Recoge solamente los objetos que no están en los marcos.",
   "botaniamisc.filter2": "Recoge todos los objetos.",

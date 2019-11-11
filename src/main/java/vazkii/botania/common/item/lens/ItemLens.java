@@ -76,7 +76,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			return super.getDisplayName(stack);
 		String shortKeyA = stack.getTranslationKey() + ".short";
 		String shortKeyB = compositeLens.getTranslationKey() + ".short";
-		return new TranslationTextComponent("item.botania:compositeLens", new TranslationTextComponent(shortKeyA), new TranslationTextComponent(shortKeyB));
+		return new TranslationTextComponent("item.botania.composite_lens", new TranslationTextComponent(shortKeyA), new TranslationTextComponent(shortKeyB));
 	}
 
 	@Override
