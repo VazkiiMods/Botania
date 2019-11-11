@@ -3168,7 +3168,7 @@
 
   "botania.entry.waterRing": "Ring of Chordata",
   "botania.tagline.waterRing": "Move super fast underwater",
-  "botania.page.waterRing0": "The $(1)Ring of Chordata$(0) allows the wearer to swim like a fish. While it's equipped, the wearer is bestowed with the ability to accelerate to a decent speed while underwater. It also gives the wearer good sight underwater and, if $(4)Mana$(0) is present, at the cost of some of it, the ability to breathe indefinitely.",
+  "botania.page.waterRing0": "The $(1)Ring of Chordata$(0) allows the wearer to swim like a fish. While it's equipped, at the cost of some $(4)mana$(0), the wearer is bestowed with better maneuvering, better eyesight, and water breathing while underwater.",
   "botania.page.waterRing1": "Check out that fish AI",
 
   "botania.entry.miningRing": "Ring of the Mantle",
