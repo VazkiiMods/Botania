@@ -37,6 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -104,10 +105,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			if(boundPos.getY() != -1 && !pos.equals(boundPos)) {
 				if (boundTile instanceof IWandBindable) {
 					if(((IWandBindable) boundTile).bindTo(player, stack, pos, side)) {
-						Vector3 orig = new Vector3(boundPos.getX() + 0.5, boundPos.getY() + 0.5, boundPos.getZ() + 0.5);
-						Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-						doParticleBeam(world, orig, end);
-
+						doParticleBeamWithOffset(world, boundPos, pos);
 						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, boundPos);
 						setBoundTile(stack, UNBOUND_POS);
 					}
@@ -203,6 +201,14 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		}
 
 		return ActionResultType.PASS;
+	}
+
+	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {
+		Vec3d origOffset = world.getBlockState(orig).getOffset(world, orig);
+		Vector3 vorig = new Vector3(orig.getX() + origOffset.getX() + 0.5, orig.getY() + origOffset.getY() + 0.5, orig.getZ() + origOffset.getZ() + 0.5);
+		Vec3d endOffset = world.getBlockState(end).getOffset(world, end);
+		Vector3 vend = new Vector3(end.getX() + endOffset.getX() + 0.5, end.getY() + endOffset.getY() + 0.5, end.getZ() + endOffset.getZ() + 0.5);
+		doParticleBeam(world, vorig, vend);
 	}
 
 	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {

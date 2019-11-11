@@ -43,18 +43,16 @@ public class ItemObedienceStick extends ItemMod {
 			BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
-			for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+			for(BlockPos iterPos : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
 					pos.add(range, range, range))) {
-				if(pos_.distanceSq(pos) > range * range)
+				if(iterPos.distanceSq(pos) > range * range)
 					continue;
 
-				TileEntity tile = world.getTileEntity(pos_);
+				TileEntity tile = world.getTileEntity(iterPos);
 				if(tile instanceof TileEntitySpecialFlower) {
 					TileEntitySpecialFlower subtile = ((TileEntitySpecialFlower) tile);
 					if(act.apply(subtile, tileAt)) {
-						Vector3 orig = new Vector3(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5);
-						Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-						ItemTwigWand.doParticleBeam(world, orig, end);
+						ItemTwigWand.doParticleBeamWithOffset(world, iterPos, pos);
 					}
 				}
 			}
