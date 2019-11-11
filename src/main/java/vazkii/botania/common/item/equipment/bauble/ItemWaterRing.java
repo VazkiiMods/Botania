@@ -24,7 +24,6 @@ import vazkii.botania.common.item.ModItems;
 public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	private static final int COST = 3;
-	private static final int MAGIC_AMPLIFIER = 123;
 
 	public ItemWaterRing(Properties props) {
 		super(props);
@@ -51,24 +50,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	private static void addEffect(LivingEntity living, Effect effect) {
 		EffectInstance inst = living.getActivePotionEffect(effect);
-		if (inst == null) {
-			EffectInstance neweffect = new EffectInstance(effect, Short.MAX_VALUE, MAGIC_AMPLIFIER, true, true);
+		if (inst == null || (inst.getAmplifier() == 0 && inst.getDuration() == 1)) {
+			EffectInstance neweffect = new EffectInstance(effect, 100, 0, true, true);
 			living.addPotionEffect(neweffect);
-		}
-	}
-
-	private static void removeEffect(LivingEntity living, Effect effect) {
-		EffectInstance inst = living.getActivePotionEffect(effect);
-		if (inst != null && inst.getAmplifier() == MAGIC_AMPLIFIER) {
-			living.removePotionEffect(effect);
-		}
-	}
-
-	@Override
-	public void onUnequipped(ItemStack stack, LivingEntity living) {
-		if (!living.world.isRemote) {
-			removeEffect(living, Effects.CONDUIT_POWER);
-			removeEffect(living, Effects.DOLPHINS_GRACE);
 		}
 	}
 
