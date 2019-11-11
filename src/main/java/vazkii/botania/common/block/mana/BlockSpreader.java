@@ -143,20 +143,22 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		TileEntity tile = world.getTileEntity(pos);
-		if(!(tile instanceof TileSpreader))
-			return;
+		if (state.getBlock() != newState.getBlock()) {
+			TileEntity tile = world.getTileEntity(pos);
+			if(!(tile instanceof TileSpreader))
+				return;
 
-		TileSpreader inv = (TileSpreader) tile;
+			TileSpreader inv = (TileSpreader) tile;
 
-		if(inv.paddingColor != null) {
-			ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor));
-			world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
+			if(inv.paddingColor != null) {
+				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor));
+				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
+			}
+
+			InventoryHelper.dropInventory(inv, world, state, pos);
+
+			super.onReplaced(state, world, pos, newState, isMoving);
 		}
-
-		InventoryHelper.dropInventory(inv, world, state, pos);
-
-		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override

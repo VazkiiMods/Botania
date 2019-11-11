@@ -88,11 +88,11 @@ public class BlockSparkChanger extends BlockMod {
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-
-		InventoryHelper.dropInventory(inv, world, state, pos);
-
-		super.onReplaced(state, world, pos, newState, isMoving);
+		if (state.getBlock() != newState.getBlock()) {
+			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			InventoryHelper.dropInventory(inv, world, state, pos);
+			super.onReplaced(state, world, pos, newState, isMoving);
+		}
 	}
 
 	@Override

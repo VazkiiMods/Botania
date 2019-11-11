@@ -91,15 +91,16 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
+		if (state.getBlock() != newState.getBlock()) {
+			TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 
-		if(!enchanter.itemToEnchant.isEmpty()) {
-			world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+			if(!enchanter.itemToEnchant.isEmpty()) {
+				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+			}
+
+			world.updateComparatorOutputLevel(pos, state.getBlock());
+			super.onReplaced(state, world, pos, newState, isMoving);
 		}
-
-		world.updateComparatorOutputLevel(pos, state.getBlock());
-
-		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override

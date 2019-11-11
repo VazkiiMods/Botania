@@ -77,11 +77,9 @@ public class BlockBrewery extends BlockMod implements IWandHUD {
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if(state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-
 			InventoryHelper.dropInventory(inv, world, state, pos);
-
+			super.onReplaced(state, world, pos, newState, isMoving);
 		}
-		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
