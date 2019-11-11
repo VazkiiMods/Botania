@@ -235,9 +235,10 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			i++;
 		}
 
+		List<BlockPos> pylons = locatePylons();
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			if(recipe.matches(stacksIn, false)) {
-				if(consumeMana(null, 500, false)) {
+				if(consumeMana(pylons, 500, false)) {
 					recipe.matches(stacksIn, true);
 					for(ItemStack output : recipe.getOutputs())
 						spawnItem(output.copy());
@@ -349,7 +350,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 		List<BlockPos> pylons = locatePylons();
 		for(BlockPos pos : pylons) {
-			TileEntity tile = world.getTileEntity(getPos().add(pos));
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
@@ -361,12 +362,9 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			consumeMana(pylons, 200000, true);
 	}
 
-	public boolean consumeMana(@Nullable List<BlockPos> pylons, int totalCost, boolean close) {
-		List<TilePool> consumePools = new ArrayList();
+	public boolean consumeMana(List<BlockPos> pylons, int totalCost, boolean close) {
+		List<TilePool> consumePools = new ArrayList<>();
 		int consumed = 0;
-
-		if(pylons == null)
-			pylons = locatePylons();
 
 		if(pylons.size() < 2) {
 			closeNow = true;
@@ -377,14 +375,14 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		int expectedConsumption = costPer * pylons.size();
 
 		for(BlockPos pos : pylons) {
-			TileEntity tile = world.getTileEntity(getPos().add(pos));
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
 				pylon.centerPos = getPos();
 			}
 
-			tile = world.getTileEntity(getPos().add(pos).down());
+			tile = world.getTileEntity(pos.down());
 			if(tile instanceof TilePool) {
 				TilePool pool = (TilePool) tile;
 
