@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.util.LazyOptional;
@@ -36,7 +37,9 @@ import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class BoundTileRenderer {
 
@@ -112,11 +115,16 @@ public final class BoundTileRenderer {
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		drawWireframe : {
-			List<AxisAlignedBB> list;
+			List<AxisAlignedBB> list = null;
 
 			if(block instanceof IWireframeAABBProvider)
 				list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
-			else list = state.getShape(world, pos).toBoundingBoxList();
+			else{
+				VoxelShape shape = state.getShape(world, pos);
+				if (!shape.isEmpty()) {
+					list = Collections.singletonList(shape.getBoundingBox().offset(pos));
+				}
+			}
 
 			if(list == null)
 				break drawWireframe;
