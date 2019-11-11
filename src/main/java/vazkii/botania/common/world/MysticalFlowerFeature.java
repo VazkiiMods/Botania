@@ -36,6 +36,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
         if(!flowers)
             return false;
 
+        boolean any = false;
         int dist = Math.min(8, Math.max(1, config.getPatchSize()));
         for(int i = 0; i < config.getPatchCount(); i++) {
             if(rand.nextInt(config.getPatchChance()) == 0) {
@@ -53,6 +54,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
                     BlockPos pos2 = new BlockPos(x1, y1, z1);
                     if(world.isAirBlock(pos2) && (!world.getDimension().isNether() || y1 < 127) && flower.isValidPosition(world, pos2)) {
                         world.setBlockState(pos2, flower, 2);
+                        any = true;
                         if(rand.nextDouble() < config.getTallChance()
                                 && ((BlockModFlower) flower.getBlock()).canGrow(world, pos2, world.getBlockState(pos2), false)) {
                             Block block = ModBlocks.getDoubleFlower(color);
@@ -65,16 +67,6 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
             }
         }
 
-        for(int i = 0; i < config.getMushroomPatchSize(); i++) {
-            int x = pos.getX() + rand.nextInt(16) + 8;
-            int z = pos.getZ() + rand.nextInt(16) + 8;
-            int y = rand.nextInt(26) + 4;
-            BlockPos pos3 = new BlockPos(x, y, z);
-            DyeColor color = DyeColor.byId(rand.nextInt(16));
-            BlockState mushroom = ModBlocks.getMushroom(color).getDefaultState();
-            if(world.isAirBlock(pos3) && mushroom.isValidPosition(world, pos3))
-                world.setBlockState(pos3, mushroom, 2);
-        }
-        return false;
+        return any;
     }
 }
