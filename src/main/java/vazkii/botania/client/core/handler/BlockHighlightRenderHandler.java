@@ -117,7 +117,7 @@ public final class BlockHighlightRenderHandler {
 
 		if(color == null)
 			color = Color.getHSBColor(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
-		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), alpha);
+		GlStateManager.color4f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, alpha / 255F);
 
 		double f = 1F / 16F;
 		double x = aabb.maxX - aabb.minX - f;
@@ -135,7 +135,7 @@ public final class BlockHighlightRenderHandler {
 			x += f;
 			z += f;
 			double f1 = f + f / 4F;
-			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (alpha * 2));
+			GlStateManager.color4f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (alpha * 2) / 255F);
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 			tessellator.getBuffer().pos(x, f1, 0).endVertex();
 			tessellator.getBuffer().pos(0, f1, 0).endVertex();
@@ -144,7 +144,7 @@ public final class BlockHighlightRenderHandler {
 			tessellator.draw();
 		}
 
-		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.popMatrix();
 	}
 
@@ -161,7 +161,7 @@ public final class BlockHighlightRenderHandler {
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
+		GlStateManager.color4f(colorRGB.getRed() / 255F, colorRGB.getGreen() / 255F, colorRGB.getBlue() / 255F, 0.125F);
 
 		double f = 1F / 16F;
 
@@ -184,7 +184,7 @@ public final class BlockHighlightRenderHandler {
 
 		radius += f;
 		double f1 = f + f / 4F;
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+		GlStateManager.color4f(colorRGB.getRed() / 255F, colorRGB.getGreen() / 255F, colorRGB.getBlue() / 255F, 0.25F);
 		tessellator.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
 		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {
@@ -195,7 +195,7 @@ public final class BlockHighlightRenderHandler {
 		}
 		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		tessellator.draw();
-		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.popMatrix();
 	}
 

@@ -287,14 +287,14 @@ public final class HUDHandler {
 		}
 
 		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F));
-		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
+		GlStateManager.color4f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1 - (color.getRed() / 255F));
 		mc.textureManager.bindTexture(manaBar);
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
 		GlStateManager.disableBlend();
-		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.color4f(1, 1, 1, 1);
 	}
 
 	private static void renderPoolRecipeHUD(TilePool tile, ItemStack stack) {
@@ -443,8 +443,8 @@ public final class HUDHandler {
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, 100, 3);
 
 		Color color_ = new Color(color);
-		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
+		GlStateManager.color4f(color_.getRed() / 255F, color_.getGreen() / 255F, color_.getBlue() / 255F, alpha);
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
-		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.color4f(1, 1, 1, 1);
 	}
 }

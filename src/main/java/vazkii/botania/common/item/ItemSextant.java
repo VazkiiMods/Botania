@@ -163,7 +163,7 @@ public class ItemSextant extends ItemMod {
 			if(inRange) {
 				radius += 4;
 				GlStateManager.disableTexture();
-				GL11.glLineWidth(3F);
+				GlStateManager.lineWidth(3F);
 				GL11.glBegin(GL11.GL_LINE_STRIP);
 				GlStateManager.color4f(0F, 1F, 1F, 1F);
 				for(int i = 0; i < 361; i++) {

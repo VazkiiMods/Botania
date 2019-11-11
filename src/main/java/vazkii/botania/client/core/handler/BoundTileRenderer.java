@@ -109,7 +109,7 @@ public final class BoundTileRenderer {
 		GlStateManager.pushMatrix();
 		GlStateManager.translated(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
 		Color colorRGB = new Color(color);
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
+		GlStateManager.color4f(colorRGB.getRed() / 255F, colorRGB.getGreen() / 255F, colorRGB.getBlue() / 255F, 1);
 
 		World world = Minecraft.getInstance().world;
 		BlockState state = world.getBlockState(pos);
@@ -131,21 +131,21 @@ public final class BoundTileRenderer {
 
 			GlStateManager.scalef(1F, 1F, 1F);
 
-			GL11.glLineWidth(thickness);
+			GlStateManager.lineWidth(thickness);
 			for(AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(axis);
 			}
 
-			GL11.glLineWidth(thickness + 3F);
-			GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+			GlStateManager.lineWidth(thickness + 3F);
+			GlStateManager.color4f(colorRGB.getRed() / 255F, colorRGB.getGreen() / 255F, colorRGB.getBlue() / 255F, 0.25F);
 			for(AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(axis);
 			}
 		}
 
-		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.popMatrix();
 	}
 

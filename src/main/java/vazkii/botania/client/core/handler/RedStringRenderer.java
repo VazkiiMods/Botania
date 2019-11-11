@@ -82,7 +82,7 @@ public final class RedStringRenderer {
 			int stages = (int) (vecOrig.mag() / vecMag.mag());
 
 			Tessellator tessellator = Tessellator.getInstance();
-			GL11.glLineWidth(1F);
+			GlStateManager.lineWidth(1F);
 			tessellator.getBuffer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
 
 			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getPos().hashCode()).nextInt(10000);
