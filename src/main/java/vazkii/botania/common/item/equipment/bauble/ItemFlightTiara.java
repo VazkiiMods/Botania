@@ -290,11 +290,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity living) {
-		return true;
-	}
-
-	@Override
 	public boolean hasRender(ItemStack stack, LivingEntity living) {
 		return super.hasRender(stack, living) && living instanceof PlayerEntity;
 	}

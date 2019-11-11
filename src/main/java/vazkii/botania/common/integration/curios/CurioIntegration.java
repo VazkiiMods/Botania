@@ -121,7 +121,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 		@Override
 		public boolean shouldSyncToTracking(String identifier, LivingEntity entity) {
-			return getItem().shouldSyncToTracking(stack, entity);
+			return true;
 		}
 
 		@Override

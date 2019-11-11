@@ -69,11 +69,6 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	@Override
-	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity living) {
-		return true;
-	}
-
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;

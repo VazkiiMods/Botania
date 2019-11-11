@@ -151,10 +151,6 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 		return HashMultimap.create();
 	}
 
-	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity entity) {
-		return false;
-	}
-
 	public boolean hasRender(ItemStack stack, LivingEntity living) {
 		return !(stack.getItem() instanceof ICosmeticAttachable && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
 				&& !(stack.getItem() instanceof IPhantomInkable && ((IPhantomInkable) stack.getItem()).hasPhantomInk(stack))
