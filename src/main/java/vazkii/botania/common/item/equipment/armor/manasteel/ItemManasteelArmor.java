@@ -129,7 +129,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
-			ITextComponent cmp = new StringTextComponent(" - ").appendSibling(stack.getDisplayName());
+			ITextComponent cmp = new StringTextComponent(" - ").appendSibling(armor.getDisplayName());
 			EquipmentSlotType slot = ((ArmorItem) armor.getItem()).getEquipmentSlot();
 			if (hasArmorSetItem(player, slot))
 				cmp.getStyle().setColor(TextFormatting.GREEN);
