@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -33,6 +34,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,13 +57,10 @@ public class ItemBaubleBox extends ItemMod {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
-				/* todo 1.13
 				if(!toInsert.isEmpty()) {
-					boolean isBauble = toInsert.getCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE).isPresent();
-					if(toInsert.getItem() instanceof IManaItem || isBauble)
+					if(EquipmentHandler.instance.isAccessory(toInsert))
 						return super.insertItem(slot, toInsert, simulate);
 				}
-				*/
 				return toInsert;
 			}
 		};
@@ -88,31 +87,12 @@ public class ItemBaubleBox extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		if(!world.isRemote) {
-			NetworkHooks.openGui((ServerPlayerEntity) player, new ContainerProvider(player.getHeldItem(hand)), b -> {
+			ItemStack stack = player.getHeldItem(hand);
+			INamedContainerProvider container = new SimpleNamedContainerProvider((w, p, pl) -> new ContainerBaubleBox(w, p, stack), stack.getDisplayName());
+			NetworkHooks.openGui((ServerPlayerEntity) player, container, b -> {
 				b.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
 		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
-
-	private static class ContainerProvider implements INamedContainerProvider {
-		private final ItemStack stack;
-
-		private ContainerProvider(ItemStack stack) {
-			this.stack = stack;
-		}
-
-		@Nonnull
-		@Override
-		public ITextComponent getDisplayName() {
-			return stack.getDisplayName();
-		}
-
-		@Nullable
-		@Override
-		public Container createMenu(int windowId, PlayerInventory playerInv, PlayerEntity player) {
-			return new ContainerBaubleBox(windowId, playerInv, stack);
-		}
-	}
-
 }

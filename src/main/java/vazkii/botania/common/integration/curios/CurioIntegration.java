@@ -83,6 +83,11 @@ public class CurioIntegration extends EquipmentHandler {
 		return new Provider(new Wrapper(stack));
 	}
 
+	@Override
+	public boolean isAccessory(ItemStack stack) {
+		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM).isPresent();
+	}
+
 	private static class Wrapper implements ICurio {
 		private final ItemStack stack;
 

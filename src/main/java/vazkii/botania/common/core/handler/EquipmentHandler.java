@@ -24,6 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.RangedWrapper;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
@@ -34,7 +35,7 @@ import java.util.WeakHashMap;
 import java.util.function.Predicate;
 
 public abstract class EquipmentHandler {
-	private static EquipmentHandler instance;
+	public static EquipmentHandler instance;
 
 	public static void init() { //todo maybe support baubles when/if that gets released
 		if(Botania.curiosLoaded) {
@@ -73,6 +74,10 @@ public abstract class EquipmentHandler {
 	protected abstract ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living);
 
 	protected abstract ICapabilityProvider initCap(ItemStack stack);
+
+	public boolean isAccessory(ItemStack stack) {
+		return stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
+	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.
 	static class InventoryEquipmentHandler extends EquipmentHandler {

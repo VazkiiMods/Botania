@@ -18,15 +18,14 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Hand;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.client.gui.SlotLocked;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ContainerBaubleBox extends Container {
 	@ObjectHolder("botania:" + LibItemNames.BAUBLE_BOX)
@@ -37,7 +36,7 @@ public class ContainerBaubleBox extends Container {
 		return new ContainerBaubleBox(windowId, inv, inv.player.getHeldItem(hand));
 	}
 
-	private final InventoryBaubleBox baubleBoxInv;
+	private final ItemStack box;
 	public IItemHandlerModifiable baubles;
 
 	public ContainerBaubleBox(int windowId, PlayerInventory playerInv, ItemStack box) {
@@ -45,9 +44,10 @@ public class ContainerBaubleBox extends Container {
 		int i;
 		int j;
 
-		baubleBoxInv = new InventoryBaubleBox(box);
+		this.box = box;
+		IItemHandlerModifiable baubleBoxInv = (IItemHandlerModifiable) box.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
 
-        /* todo 1.13
+        /* todo 1.13 remove these slots from the gui texture and provide a button to open curios gui instead
         baubles = BaublesApi.getBaublesHandler(player);
 
 		addSlotToContainer(new SlotBauble(player, baubles, 0, 8, 8 + 0 * 18));
@@ -58,37 +58,28 @@ public class ContainerBaubleBox extends Container {
 		addSlotToContainer(new SlotBauble(player, baubles, 4, 27, 8 + 0 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 5, 27, 8 + 1 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 6, 27, 8 + 2 * 18));
+		*/
 
 		for(i = 0; i < 4; ++i)
 			for(j = 0; j < 6; ++j) {
 				int k = j + i * 6;
-				addSlotToContainer(new SlotItemHandler(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
+				addSlot(new SlotItemHandler(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
 			}
-		*/
 
 		for(i = 0; i < 3; ++i)
 			for(j = 0; j < 9; ++j)
 				addSlot(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
-			if(playerInv.getStackInSlot(i) == baubleBoxInv.box)
-				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
-			else addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
+			addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
 
 	}
 
 	@Override
 	public boolean canInteractWith(@Nonnull PlayerEntity player) {
-		return player.getHeldItemMainhand() == baubleBoxInv.box
-				|| player.getHeldItemOffhand() == baubleBoxInv.box;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void setAll(List<ItemStack> l) {
-		// todo 1.13 baubles.setEventBlock(true);
-		super.setAll(l);
+		return player.getHeldItemMainhand() == box
+				|| player.getHeldItemOffhand() == box;
 	}
 
 	@Nonnull
@@ -101,7 +92,7 @@ public class ContainerBaubleBox extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			int boxStart = 7;
+			int boxStart = 0;
 			int boxEnd = boxStart + 24;
 			int invEnd = boxEnd + 36;
 			
@@ -109,7 +100,7 @@ public class ContainerBaubleBox extends Container {
 				if(!mergeItemStack(itemstack1, boxEnd, invEnd, true))
 					return ItemStack.EMPTY;
 			} else {
-				// todo 1.13 if(!itemstack1.isEmpty() && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
+				if(!itemstack1.isEmpty() && EquipmentHandler.instance.isAccessory(itemstack1) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
 					return ItemStack.EMPTY;
 			}
 
