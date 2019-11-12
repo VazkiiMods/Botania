@@ -12,11 +12,10 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -30,7 +29,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -132,7 +130,9 @@ public class ItemFlowerBag extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		if(!world.isRemote) {
-			NetworkHooks.openGui((ServerPlayerEntity) player, new ContainerProvider(player.getHeldItem(hand)), buf -> {
+			ItemStack stack = player.getHeldItem(hand);
+			INamedContainerProvider container = new SimpleNamedContainerProvider((w, p, pl) -> new ContainerFlowerBag(w, p, stack), stack.getDisplayName());
+			NetworkHooks.openGui((ServerPlayerEntity) player, container, buf -> {
 				buf.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
@@ -169,25 +169,4 @@ public class ItemFlowerBag extends ItemMod {
 		}
 		return ActionResultType.PASS;
 	}
-
-	private static class ContainerProvider implements INamedContainerProvider {
-		private final ItemStack stack;
-
-		private ContainerProvider(ItemStack stack) {
-			this.stack = stack;
-		}
-
-		@Nonnull
-		@Override
-		public ITextComponent getDisplayName() {
-			return stack.getDisplayName();
-		}
-
-		@Nullable
-		@Override
-		public Container createMenu(int windowId, PlayerInventory playerInv, PlayerEntity player) {
-			return new ContainerFlowerBag(windowId, playerInv, stack);
-		}
-	}
-
 }

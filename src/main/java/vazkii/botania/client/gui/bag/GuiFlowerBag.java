@@ -58,18 +58,15 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 		blit(k, l, 0, 0, xSize, ySize);
 
 		for(Slot slot : container.inventorySlots)
-			if(slot instanceof SlotItemHandler) {
-				SlotItemHandler slotf = (SlotItemHandler) slot;
-				if(!slotf.getHasStack()) {
-					DyeColor color = DyeColor.byId(slotf.getSlotIndex());
-					ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
-					int x = guiLeft + slotf.xPos;
-					int y = guiTop + slotf.yPos;
-					RenderHelper.enableGUIStandardItemLighting();
-					mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-					RenderHelper.disableStandardItemLighting();
-					mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
-				}
+			if(slot instanceof SlotItemHandler && !slot.getHasStack()) {
+				DyeColor color = DyeColor.byId(slot.getSlotIndex());
+				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
+				int x = guiLeft + slot.xPos;
+				int y = guiTop + slot.yPos;
+				RenderHelper.enableGUIStandardItemLighting();
+				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
+				RenderHelper.disableStandardItemLighting();
+				mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 			}
 	}
 

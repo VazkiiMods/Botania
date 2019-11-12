@@ -19,6 +19,8 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Hand;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.client.gui.SlotLocked;
@@ -36,14 +38,15 @@ public class ContainerFlowerBag extends Container {
 		return new ContainerFlowerBag(windowId, inv, inv.player.getHeldItem(hand));
 	}
 
-	private final InventoryFlowerBag flowerBagInv;
+	private final ItemStack bag;
 
 	public ContainerFlowerBag(int windowId, PlayerInventory playerInv, ItemStack bag) {
 		super(TYPE, windowId);
 		int i;
 		int j;
 
-		this.flowerBagInv = new InventoryFlowerBag(bag);
+		this.bag = bag;
+		IItemHandlerModifiable flowerBagInv = (IItemHandlerModifiable) bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
 
 		for(i = 0; i < 2; ++i)
 			for(j = 0; j < 8; ++j) {
@@ -56,17 +59,15 @@ public class ContainerFlowerBag extends Container {
 				addSlot(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
-			if(playerInv.getStackInSlot(i) == flowerBagInv.bag)
-				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
-			else addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
+			addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
 
 	}
 
 	@Override
 	public boolean canInteractWith(@Nonnull PlayerEntity player) {
-		return player.getHeldItemMainhand() == flowerBagInv.bag
-				|| player.getHeldItemOffhand() == flowerBagInv.bag;
+		return player.getHeldItemMainhand() == bag
+				|| player.getHeldItemOffhand() == bag;
 	}
 
 	@Nonnull
