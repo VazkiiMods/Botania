@@ -115,7 +115,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		UUID attacker = ItemNBTHelper.getUuid(burst.getSourceLens(), TAG_ATTACKER_UUID);
 
 		for(LivingEntity living : entities) {
-			if(living instanceof PlayerEntity && (living.getName().getString().equals(attacker) || ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
+			if(living instanceof PlayerEntity && (living.getUniqueID().equals(attacker)
+				|| ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
 				continue;
 
 			if(living.hurtTime == 0) {

@@ -308,7 +308,7 @@ public final class HUDHandler {
 			int y = mc.mainWindow.getScaledHeight() / 2 + 10;
 
 			int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-			int v = mc.player.getName().equals("haighyorkie") && mc.player.isSneaking() ? 23 : 8;
+			int v = mc.player.getName().getString().equals("haighyorkie") && mc.player.isSneaking() ? 23 : 8;
 
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
