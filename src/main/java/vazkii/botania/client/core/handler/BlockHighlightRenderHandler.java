@@ -112,6 +112,7 @@ public final class BlockHighlightRenderHandler {
 		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
 		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
+		GlStateManager.disableCull();
 		GlStateManager.pushMatrix();
 		GlStateManager.translated(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
 
@@ -146,6 +147,7 @@ public final class BlockHighlightRenderHandler {
 
 		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.popMatrix();
+		GlStateManager.enableCull();
 	}
 
 	private static void renderCircle(BlockPos center, double radius) {
@@ -153,6 +155,7 @@ public final class BlockHighlightRenderHandler {
 		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
 		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
+		GlStateManager.disableCull();
 		GlStateManager.pushMatrix();
 		double x = center.getX() + 0.5;
 		double y = center.getY();
@@ -197,6 +200,7 @@ public final class BlockHighlightRenderHandler {
 		tessellator.draw();
 		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.popMatrix();
+		GlStateManager.enableCull();
 	}
 
 }
