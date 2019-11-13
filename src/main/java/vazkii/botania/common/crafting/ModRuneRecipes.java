@@ -61,7 +61,7 @@ public final class ModRuneRecipes {
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("summer"), new ItemStack(ModItems.runeSummer), costTier2, earth, air, sand, sand, Ingredient.fromItems(Items.SLIME_BALL), Ingredient.fromItems(Items.MELON_SLICE)));
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("autumn"), new ItemStack(ModItems.runeAutumn), costTier2, fire, air, leaves, leaves, leaves, Ingredient.fromItems(Items.SPIDER_EYE)));
 
-		evt.runeAltar().accept(new RecipeRuneAltar(prefix("winter"), new ItemStack(ModItems.runeWinter), costTier2, water, earth, Ingredient.fromItems(Blocks.SNOW), Ingredient.fromItems(Blocks.SNOW), Ingredient.fromTag(ItemTags.WOOL), Ingredient.fromItems(Blocks.CAKE)));
+		evt.runeAltar().accept(new RecipeRuneAltar(prefix("winter"), new ItemStack(ModItems.runeWinter), costTier2, water, earth, Ingredient.fromItems(Blocks.SNOW), Ingredient.fromItems(Blocks.SNOW_BLOCK), Ingredient.fromTag(ItemTags.WOOL), Ingredient.fromItems(Blocks.CAKE)));
 
 		Ingredient spring = Ingredient.fromTag(ModTags.Items.RUNES_SPRING);
 		Ingredient summer = Ingredient.fromTag(ModTags.Items.RUNES_SUMMER);

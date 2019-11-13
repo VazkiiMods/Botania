@@ -61,7 +61,7 @@ public final class ModManaAlchemyRecipes {
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("elf_quartz_deconstruct"), new ItemStack(ModItems.elfQuartz, 4), Ingredient.fromItems(ModFluffBlocks.elfQuartz), 25));
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("chiseled_stone_bricks"), new ItemStack(Blocks.CHISELED_STONE_BRICKS, 1), Ingredient.fromItems(Blocks.STONE_BRICKS), 150));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("ice"), new ItemStack(Blocks.ICE), Ingredient.fromItems(Blocks.SNOW), 2250));
+		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("ice"), new ItemStack(Blocks.ICE), Ingredient.fromItems(Blocks.SNOW_BLOCK), 2250));
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("vine_to_lily_pad"), new ItemStack(Blocks.LILY_PAD), Ingredient.fromItems(Blocks.VINE), 320));
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("lily_pad_to_vine"), new ItemStack(Blocks.VINE), Ingredient.fromItems(Blocks.LILY_PAD), 320));
