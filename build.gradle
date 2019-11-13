@@ -107,7 +107,7 @@ configurations {
 //End of the SCP config
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${config.forge_version}"
+    minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
     compile fg.deobf("vazkii:patchouli:1.1-22")
 
     compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
@@ -182,8 +182,8 @@ task incrementBuildNumber {
             config.toProperties().store(it, "")
         }
 
-        file('web/versions.ini').append("\n${version}=${minecraft.version}")
-        file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
+        file('web/versions.ini').append("\n${project.version}=${config.mc_version}")
+        file("${config.dir_repo}/version/${config.mc_version}.txt").write("${project.version}")
     }
 }
 
@@ -274,7 +274,7 @@ curseforge {
 		    See http://botaniamod.net/changelog.php#${version}
         """
         releaseType = "release"
-        addGameVersion "${config.cf_meta_version}"
+        addGameVersion "${config.mc_version}"
         relations {
             requiredLibrary 'curios'
             optionalLibrary 'quark'
