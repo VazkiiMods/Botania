@@ -78,8 +78,9 @@ public class ContainerBaubleBox extends Container {
 
 	@Override
 	public boolean canInteractWith(@Nonnull PlayerEntity player) {
-		return player.getHeldItemMainhand() == box
-				|| player.getHeldItemOffhand() == box;
+		ItemStack main = player.getHeldItemMainhand();
+		ItemStack off = player.getHeldItemOffhand();
+		return !main.isEmpty() && main == box || !off.isEmpty() && off == box;
 	}
 
 	@Nonnull

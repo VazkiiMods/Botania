@@ -66,8 +66,9 @@ public class ContainerFlowerBag extends Container {
 
 	@Override
 	public boolean canInteractWith(@Nonnull PlayerEntity player) {
-		return player.getHeldItemMainhand() == bag
-				|| player.getHeldItemOffhand() == bag;
+		ItemStack main = player.getHeldItemMainhand();
+		ItemStack off = player.getHeldItemOffhand();
+		return !main.isEmpty() && main == bag || !off.isEmpty() && off == bag;
 	}
 
 	@Nonnull
