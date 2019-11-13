@@ -12,20 +12,10 @@ package vazkii.botania.common.lib;
 
 public final class LibMisc {
 
-	// Mod Constants
 	public static final String MOD_ID = "botania";
 	public static final String MOD_NAME = "Botania";
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String MC_VERSION = "1.13.2";
-
-	public static final int[] CONTROL_CODE_COLORS = new int[] {
-			0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,
-			0xAA0000, 0xAA00AA, 0xFFAA00, 0xAAAAAA,
-			0x555555, 0x5555FF, 0x55FF55, 0x55FFFF,
-			0xFF5555, 0xFF55FF, 0xFFFF55, 0xFFFFFF
-	};
-
 	public static final int PASSIVE_FLOWER_DECAY = 72000;
 
 }
