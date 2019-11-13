@@ -11,12 +11,16 @@ buildscript {
         // classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
+
+plugins {
+    id 'org.hidetake.ssh' version '2.10.1'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
-
-
 // apply plugin: 'com.matthewprenger.cursegradle'
+
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
@@ -100,12 +104,6 @@ repositories {
     }
 }
 
-//This here is for SCP
-configurations {
-    sshAntTask
-}
-//End of the SCP config
-
 dependencies {
     minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
     compile fg.deobf("vazkii:patchouli:1.1-22")
@@ -115,9 +113,6 @@ dependencies {
     
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2")
-
-    //and a bit more for SCP
-    sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
 }
 
 if (System.getenv().BUILD_NUMBER != null) { 
@@ -208,47 +203,41 @@ task sortArtifacts(type: Copy) {
     }
 }
 
-// This is the upload task from the build.xml
+// SCP servers
+remotes {
+    web {
+        host = 'botaniamod.net'
+        user = priv.scp_user
+        password = priv.scp_pass
+        knownHosts = allowAnyHosts
+    }
+}
+
 task upload {
     doLast {
-        scp('/') {
-            fileset(file: 'web/changelog.txt')
-            fileset(file: 'web/versions.ini')
+        ssh.run {
+            session(remotes.web) {
+                put from: 'web/changelog.txt', into: priv.scp_dir + "/changelog.txt"
+                put from: 'web/versions.ini', into: priv.scp_dir + "/versions.ini"
+            }
         }
     }
 }
 
-// This is deploy_web task
 task deployWeb {
     doLast {
-        scp('/') {
-            fileset(dir: 'web') //everything from the web directory
+        ssh.run {
+            session(remotes.web) {
+                def parent = file('web').toPath()
+                for (f in fileTree(dir: 'web')) {
+                    def rel = parent.relativize(f.toPath()).toString().replace(File.separator, '/')
+                    def dest = priv.scp_dir + rel
+                    put from: f, into: dest
+                }
+            }
         }
     }
 }
-
-def scp(String dir, Closure antFileset = {}) {
-    ant {
-        taskdef(
-            name: 'scp',
-            classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
-            classpath: configurations.sshAntTask.asPath)
-
-        String dirstr = priv.scp_dir + dir
-        Map scpArgs = [
-           todir  : dirstr,
-           password  : priv.scp_pass,
-           sftp: true,
-           trust: 'yes'
-        ]
-
-        delegate.scp(scpArgs) {
-            antFileset.delegate = delegate
-            antFileset()
-        }
-    }
-}
-
 
 def parseConfig(File config) {
 	if(config.exists()){

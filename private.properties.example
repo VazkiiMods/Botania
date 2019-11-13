@@ -1,4 +1,7 @@
+# The contents of web will be copied to this directory, web/foo.php -> scp_dir/foo.php
+# See the deployWeb task for more details.
 scp_dir=
+scp_user=
 scp_pass=
 cfkey=
 dir_forgecraft=../Build Output/Botania/
