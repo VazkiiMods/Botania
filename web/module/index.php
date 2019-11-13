@@ -115,12 +115,14 @@
 		</div>
 		<div class="video-intro">If you prefer a more traditional assessment, try Direwolf20's spotlight. Note: might be outdated.</div>
 		<div class="lead youtube">
-			<iframe src="//www.youtube.com/embed/ixIVMYrbpaw" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/bpM_MSJZY2o" frameborder="0" allowfullscreen></iframe>
-
-			<iframe src="//www.youtube.com/embed/igyN7rkx17E" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/Z2tlGSqZaE4" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/H8-3_U6tvas" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/x_UfV8g9Rlo" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/snbSZTDjsUg" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/oNpGKmIEShY" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/5x-ji4X5FKw" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/6yzVSIm4H_Y" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/XgMkdG67tlQ" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/qxO-P9nReQQ" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube-nocookie.com/embed/h5zv3J5NtTI" frameborder="0" allowfullscreen></iframe>
 		</div>
 		<div class="video-intro">Looking for a Let's Play? Check out Vanhal's Garden of Glass (optional botania skyblock mode) LP.</div>
 		<div class="lead youtube">
