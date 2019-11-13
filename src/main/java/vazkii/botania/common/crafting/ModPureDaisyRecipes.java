@@ -34,6 +34,6 @@ public final class ModPureDaisyRecipes {
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("packed_ice"), Blocks.ICE, Blocks.PACKED_ICE.getDefaultState()));
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("blue_ice"), Blocks.PACKED_ICE, Blocks.BLUE_ICE.getDefaultState()));
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("obsidian"), ModBlocks.blazeBlock, Blocks.OBSIDIAN.getDefaultState()));
-		evt.pureDaisy().accept(new RecipePureDaisy(prefix("snow"), Blocks.WATER, Blocks.SNOW.getDefaultState()));
+		evt.pureDaisy().accept(new RecipePureDaisy(prefix("snow_block"), Blocks.WATER, Blocks.SNOW_BLOCK.getDefaultState()));
 	}
 }
