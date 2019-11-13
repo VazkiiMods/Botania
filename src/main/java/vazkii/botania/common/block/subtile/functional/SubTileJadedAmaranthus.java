@@ -51,11 +51,10 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 			BlockPos up = pos.up();
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				BlockState stateAbove = getWorld().getBlockState(up);
 				DyeColor color = DyeColor.byId(getWorld().rand.nextInt(16));
 				BlockState flower = ModBlocks.getFlower(color).getDefaultState();
 
-				if((getWorld().isAirBlock(up) || stateAbove.getMaterial() != Material.WATER && flower.isValidPosition(getWorld(), up))) {
+				if(getWorld().isAirBlock(up) && flower.isValidPosition(getWorld(), up)) {
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2001, up, Block.getStateId(flower));
 					getWorld().setBlockState(up, flower);
