@@ -139,16 +139,16 @@ public class BlockLootProvider implements IDataProvider {
 
     private static LootTable.Builder genRoot() {
         LootEntry.Builder<?> entry = ItemLootEntry.builder(ModItems.livingroot)
-                .acceptFunction(SetCount.func_215932_a(RandomValueRange.of(2, 4)))
-                .acceptFunction(ExplosionDecay.func_215863_b());
+                .acceptFunction(SetCount.builder(RandomValueRange.of(2, 4)))
+                .acceptFunction(ExplosionDecay.builder());
         return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
     }
 
     private static LootTable.Builder genSlab(Block b) {
         LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-                .acceptFunction(SetCount.func_215932_a(ConstantRange.of(2))
+                .acceptFunction(SetCount.builder(ConstantRange.of(2))
                         .acceptCondition(BlockStateProperty.builder(b).with(SlabBlock.TYPE, SlabType.DOUBLE)))
-                .acceptFunction(ExplosionDecay.func_215863_b());
+                .acceptFunction(ExplosionDecay.builder());
         return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
     }
 
@@ -167,7 +167,7 @@ public class BlockLootProvider implements IDataProvider {
                 .acceptCondition(MatchTool.builder(silkPred));
         LootEntry.Builder<?> dirt = ItemLootEntry.builder(Blocks.DIRT)
                 .acceptCondition(SurvivesExplosion.builder());
-        LootEntry.Builder<?> entry = AlternativesLootEntry.func_216149_a(silk, dirt);
+        LootEntry.Builder<?> entry = AlternativesLootEntry.builder(silk, dirt);
         LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry);
         return LootTable.builder().addLootPool(pool);
     }

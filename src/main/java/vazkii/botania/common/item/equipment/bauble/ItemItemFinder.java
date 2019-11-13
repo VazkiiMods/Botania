@@ -155,9 +155,9 @@ public class ItemItemFinder extends ItemBauble {
 				} else if(e instanceof VillagerEntity) {
 					VillagerEntity villager = (VillagerEntity) e;
 					for(MerchantOffer offer : villager.getOffers()) {
-						if (equalStacks(pstack, offer.func_222218_a())
-							|| equalStacks(pstack, offer.func_222202_c())
-							|| equalStacks(pstack, offer.func_222200_d())) {
+						if (equalStacks(pstack, offer.getBuyingStackFirst())
+							|| equalStacks(pstack, offer.getBuyingStackSecond())
+							|| equalStacks(pstack, offer.getSellingStack())) {
 							entIdBuilder.add(villager.getEntityId());
 						}
 					}

@@ -227,7 +227,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		this.posX += vec3d.x;
 		this.posY += vec3d.y;
 		this.posZ += vec3d.z;
-		float f = MathHelper.sqrt(func_213296_b(vec3d));
+		float f = MathHelper.sqrt(horizontalMag(vec3d));
 		this.rotationYaw = (float)(MathHelper.atan2(vec3d.x, vec3d.z) * (double)(180F / (float)Math.PI));
 
 		for(this.rotationPitch = (float)(MathHelper.atan2(vec3d.y, (double)f) * (double)(180F / (float)Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
