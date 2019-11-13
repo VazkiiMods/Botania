@@ -8,11 +8,10 @@ authors="Vazkii, wiiv, williewillus, dylan4ever" #optional
 
 [[mods]]
 modId="botania"
-version="${version}"
+version="${file.jarVersion}"
 displayName="Botania"
 description='''
-Botania is a mod that adds nature magic to Minecraft
-'''
+Botania is a mod that adds nature magic to Minecraft'''
 
 [[dependencies.botania]]
     modId="forge"
