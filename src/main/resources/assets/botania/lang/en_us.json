@@ -2930,8 +2930,8 @@
 
   "botania.entry.pistonRelay": "Force Relay",
   "botania.tagline.pistonRelay": "Remote piston extension",
-  "botania.page.pistonRelay0": "It seems that infusing $(1)Pistons$(0) with $(4)Mana$(0) results in some interesting adverse effects.$(p)This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.$(p)To bind it to a block, right click it with a $(1)Wand of the Forest$(0), and right click on the block you want to bind it to.",
-  "botania.page.pistonRelay1": "To break the block, shift-right click it with a $(1)Wand of the Forest$(0), any other means will destroy it.$(p)Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken. It also ignores $(1)Sticky Pistons$(0), both in pulling and pushing. This allows for a \"frame\" like setup.",
+  "botania.page.pistonRelay0": "It seems that infusing $(1)Pistons$(0) with $(4)Mana$(0) results in some interesting adverse effects.$(p)This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.$(p)To bind it to a block, right click it with a $(1)Wand of the Forest$(0) in $(4)Bind Mode$(0), and right click on the block you want to bind it to.",
+  "botania.page.pistonRelay1": "Right clicking the block in $(4)Function Mode$(0) shows the existing binding, if any.$(p)To break the block, shift-right click it with a $(1)Wand of the Forest$(0), any other means will destroy it.$(p)Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken. It also ignores $(1)Sticky Pistons$(0), both in pulling and pushing. This allows for a \"frame\" like setup.",
   "botania.page.pistonRelay2": "Infusing a $(1)Piston$(0) with $(4)Mana$(0).",
 
   "botania.entry.enderHand": "Hand of Ender",

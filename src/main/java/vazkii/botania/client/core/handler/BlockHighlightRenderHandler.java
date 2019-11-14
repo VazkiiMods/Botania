@@ -36,6 +36,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.*;
+import java.util.Optional;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class BlockHighlightRenderHandler {
@@ -54,28 +55,25 @@ public final class BlockHighlightRenderHandler {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		boundTile: {
-			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
-				BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
+		if (Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
 
-				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
-				if(!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
-					BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
-					if(coords.getY() != -1)
-						bPos = coords;
-				}
+			ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
+			if (!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
+				Optional<BlockPos> coords = ItemTwigWand.getBindingAttempt(stackHeld);
+				if (coords.isPresent())
+					bPos = coords.get();
+			}
 
-				TileEntity tile = mc.world.getTileEntity(bPos);
-				if(!(tile instanceof TileEntitySpecialFlower))
-					break boundTile;
+			TileEntity tile = mc.world.getTileEntity(bPos);
+			if (tile instanceof TileEntitySpecialFlower) {
 				TileEntitySpecialFlower subtile = (TileEntitySpecialFlower) tile;
 				RadiusDescriptor descriptor = subtile.getRadius();
-				if(descriptor == null)
-					break boundTile;
-
-				if(descriptor.isCircle())
-					renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
-				else renderRectangle(descriptor.getAABB(), true, null, (byte) 32);
+				if (descriptor != null) {
+					if (descriptor.isCircle())
+						renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
+					else renderRectangle(descriptor.getAABB(), true, null, (byte) 32);
+				}
 			}
 		}
 

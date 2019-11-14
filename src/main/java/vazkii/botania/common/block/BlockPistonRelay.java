@@ -42,6 +42,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -106,12 +109,22 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			return false;
 
 		if(!player.isSneaking()) {
-			activeBindingAttempts.put(player.getUniqueID(), GlobalPos.of(world.getDimension().getType(), pos));
-			world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
+			GlobalPos clicked = GlobalPos.of(world.getDimension().getType(), pos);
+			if(ItemTwigWand.getBindMode(stack)) {
+				activeBindingAttempts.put(player.getUniqueID(), clicked);
+				world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
+			} else {
+				GlobalPos dest = mappedPositions.get(clicked);
+				if (dest != null) {
+					PacketHandler.sendToNearby(world, pos,
+							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
+									pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+									dest.getPos().getX(), dest.getPos().getY(), dest.getPos().getZ()));
+				}
+			}
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
-			world.removeBlock(pos, false);
-			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
+			world.destroyBlock(pos, false);
 		}
 
 		return true;
