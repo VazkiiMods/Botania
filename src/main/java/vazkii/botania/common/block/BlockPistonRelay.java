@@ -109,7 +109,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			return false;
 
 		if(!player.isSneaking()) {
-			GlobalPos clicked = GlobalPos.of(world.getDimension().getType(), pos);
+			GlobalPos clicked = GlobalPos.of(world.getDimension().getType(), pos.toImmutable());
 			if(ItemTwigWand.getBindMode(stack)) {
 				activeBindingAttempts.put(player.getUniqueID(), clicked);
 				world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
@@ -132,13 +132,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
-		if(!event.getWorld().getWorld().isRemote)
+		if(!event.getWorld().getWorld().isRemote && event.getWorld().getDimension().getType() == DimensionType.OVERWORLD)
 			WorldData.get(event.getWorld().getWorld());
 	}
 
 	@SubscribeEvent
 	public void onWorldUnload(WorldEvent.Unload event) {
-		if(!event.getWorld().getWorld().isRemote)
+		if(!event.getWorld().getWorld().isRemote && event.getWorld().getDimension().getType() == DimensionType.OVERWORLD)
 			WorldData.get(event.getWorld().getWorld()).markDirty();
 	}
 

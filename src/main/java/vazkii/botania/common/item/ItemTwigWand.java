@@ -148,7 +148,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 		if(((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.containsKey(player.getUniqueID())) {
 			GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
-			GlobalPos currentPos = GlobalPos.of(world.getDimension().getType(), pos);
+			GlobalPos currentPos = GlobalPos.of(world.getDimension().getType(), pos.toImmutable());
 
 			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
 			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(bindPos, currentPos);
