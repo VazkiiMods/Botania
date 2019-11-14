@@ -29,6 +29,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -72,8 +73,10 @@ public class BlockTinyPotato extends BlockMod {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), hit.getFace());
-			AxisAlignedBB box = SHAPE.getBoundingBox();
-			world.addParticle(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 0, 0 ,0);
+			if(!world.isRemote) {
+				AxisAlignedBB box = SHAPE.getBoundingBox();
+				((ServerWorld) world).spawnParticle(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0 ,0, 0, 0);
+			}
 		}
 		return true;
 	}

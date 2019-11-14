@@ -40,6 +40,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO)
 	public static TileEntityType<TileTinyPotato> TYPE;
 	private static final String TAG_NAME = "name";
+	private static final int JUMP_EVENT = 0;
 
 	public int jumpTicks = 0;
 	public ITextComponent name = new StringTextComponent("");
@@ -69,9 +70,9 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 			}
 		}
 
-		jump();
-
 		if(!world.isRemote) {
+			jump();
+
 			if(name.getString().toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
 				nextDoIt = 40;
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
@@ -91,18 +92,30 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 
 	private void jump() {
 		if(jumpTicks == 0)
-			jumpTicks = 20;
+			world.addBlockEvent(getPos(), getBlockState().getBlock(), JUMP_EVENT, 20);
+	}
+
+	@Override
+	public boolean receiveClientEvent(int id, int param) {
+		if(id == JUMP_EVENT) {
+			jumpTicks = param;
+			return true;
+		} else {
+			return super.receiveClientEvent(id, param);
+		}
 	}
 
 	@Override
 	public void tick() {
-		if(world.rand.nextInt(100) == 0)
-			jump();
-
 		if(jumpTicks > 0)
 			jumpTicks--;
-		if(nextDoIt > 0)
-			nextDoIt--;
+
+		if(!world.isRemote) {
+			if(world.rand.nextInt(100) == 0)
+				jump();
+			if(nextDoIt > 0)
+				nextDoIt--;
+		}
 	}
 
 	@Override
@@ -137,7 +150,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	@Nullable
 	@Override
 	public ITextComponent getCustomName() {
-		return name.getString().isEmpty() ? null : name; // todo 1.14 improve
+		return name.getString().isEmpty() ? null : name;
 	}
 
 	@Nonnull
