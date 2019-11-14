@@ -57,34 +57,33 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity ent, int par4, boolean holding) {
+	public void inventoryTick(ItemStack stack, World world, Entity ent, int slot, boolean active) {
 		if(ent instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) ent;
-			boolean damaged = stack.getOrCreateTag().getInt(TAG_FLYCOUNTER) > 0;
+			boolean damaged = getFlyCounter(stack) > 0;
+			boolean held = player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
 
 			if(damaged && !isFlying(stack))
-				stack.getTag().putInt(TAG_FLYCOUNTER, stack.getTag().getInt(TAG_FLYCOUNTER) - 1);
+				setFlyCounter(stack, getFlyCounter(stack) - 1);
 
-			int max = FALL_MULTIPLIER * FLY_TIME;
-			if(stack.getTag().getInt(TAG_FLYCOUNTER) >= max) {
+			if(getFlyCounter(stack) >= MAX_COUNTER) {
 				setFlying(stack, false);
-				player.resetActiveHand();
 			} else if(isFlying(stack)) {
-				if(holding) {
+				if(held) {
 					player.fallDistance = 0F;
 					double my =  IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vec3d oldMot = player.getMotion();
 					player.setMotion(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
 
-					player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
+					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++) {
-                        WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-                        world.addParticle(data, player.posX, player.posY, player.posZ, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
-                    }
+						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+						world.addParticle(data, player.posX, player.posY, player.posZ, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+					}
 				}
 
-				stack.getTag().putInt(TAG_FLYCOUNTER, Math.min(max, stack.getTag().getInt(TAG_FLYCOUNTER) + FALL_MULTIPLIER));
-				if(stack.getTag().getInt(TAG_FLYCOUNTER) == MAX_COUNTER)
+				setFlyCounter(stack, getFlyCounter(stack) + FALL_MULTIPLIER);
+				if(getFlyCounter(stack) == MAX_COUNTER)
 					setFlying(stack, false);
 			}
 
@@ -93,40 +92,44 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		}
 	}
 
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return getFlyCounter(stack) > 0;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		return getFlyCounter(stack) / (double) MAX_COUNTER;
+	}
+
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		int dmg = stack.getDamage();
-		if(dmg != 0 || ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
-			player.setActiveHand(hand);
-			if(dmg == 0) {
-				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
-				setFlying(stack, true);
-			}
+		int fly = getFlyCounter(stack);
+		if(fly == 0 && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
+			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
+			setFlying(stack, true);
 			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
 
 		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
-	@Nonnull
-	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
-		return UseAction.BOW;
-	}
-
-	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
-		return 720000;
-	}
-
-	public boolean isFlying(ItemStack stack) {
+	private boolean isFlying(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_FLYING, false);
 	}
 
-	public void setFlying(ItemStack stack, boolean flying) {
+	private void setFlying(ItemStack stack, boolean flying) {
 		ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
+	}
+
+	private int getFlyCounter(ItemStack stack) {
+		return stack.getOrCreateTag().getInt(TAG_FLYCOUNTER);
+	}
+
+	private void setFlyCounter(ItemStack stack, int counter) {
+		stack.getOrCreateTag().putInt(TAG_FLYCOUNTER, counter);
 	}
 
 	@Override
@@ -166,7 +169,6 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
 		return newStack.getItem() != this || isFlying(oldStack) != isFlying(newStack);
 	}
-
 
 	@Override
 	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
