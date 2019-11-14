@@ -21,6 +21,7 @@ import net.minecraft.world.storage.loot.ConstantRange;
 import net.minecraft.world.storage.loot.DynamicLootEntry;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 import net.minecraft.world.storage.loot.LootEntry;
+import net.minecraft.world.storage.loot.LootFunction;
 import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
@@ -31,13 +32,21 @@ import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
 import net.minecraft.world.storage.loot.conditions.MatchTool;
 import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
 import net.minecraft.world.storage.loot.functions.CopyName;
+import net.minecraft.world.storage.loot.functions.CopyNbt;
 import net.minecraft.world.storage.loot.functions.ExplosionDecay;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.registries.ForgeRegistries;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockCacophonium;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
+import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
+import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
+import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
+import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -90,6 +99,16 @@ public class BlockLootProvider implements IDataProvider {
                 tables.put(b.getRegistryName(), genRegular(Blocks.NOTE_BLOCK));
             else if (b.getRegistryName().getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone"))
                 tables.put(b.getRegistryName(), genMetamorphicStone(b));
+            else if (b == ModSubtiles.munchdew || b == ModSubtiles.munchdewFloating)
+                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
+            else if (b == ModSubtiles.rafflowsia || b == ModSubtiles.rafflowsiaFloating)
+                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWER, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
+            else if (b == ModSubtiles.hydroangeas || b == ModSubtiles.hydroangeasFloating)
+                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
+            else if (b == ModSubtiles.gourmaryllis || b == ModSubtiles.gourmaryllisFloating)
+                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOOD, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT));
+            else if (b == ModSubtiles.spectrolus || b == ModSubtiles.spectrolusFloating)
+                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
             else
                 tables.put(b.getRegistryName(), genRegular(b));
         }
@@ -106,6 +125,16 @@ public class BlockLootProvider implements IDataProvider {
 
     private static LootTable.Builder empty() {
         return LootTable.builder();
+    }
+
+    private static LootTable.Builder genCopyNbt(Block b, String... tags) {
+        LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
+        LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
+                .acceptCondition(SurvivesExplosion.builder());
+        for (String tag : tags) {
+            pool = pool.acceptFunction(CopyNbt.func_215881_a(CopyNbt.Source.BLOCK_ENTITY).func_216056_a(tag, "BlockEntityTag." + tag));
+        }
+        return LootTable.builder().addLootPool(pool);
     }
 
     private static LootTable.Builder genCellBlock(Block b) {

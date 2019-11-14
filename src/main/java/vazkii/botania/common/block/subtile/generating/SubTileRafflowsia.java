@@ -35,8 +35,8 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":rafflowsia")
 	public static TileEntityType<SubTileRafflowsia> TYPE;
 
-	private static final String TAG_LAST_FLOWER = "lastFlower";
-	private static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
+	public static final String TAG_LAST_FLOWER = "lastFlower";
+	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 
 	@Nullable
 	private Block lastFlower;
@@ -97,26 +97,6 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		if(id != null)
 			lastFlower = ForgeRegistries.BLOCKS.getValue(id);
 		lastFlowerTimes = cmp.getInt(TAG_LAST_FLOWER_TIMES);
-	}
-
-	@Override
-	public void populateDropStackNBTs(List<ItemStack> drops) {
-		super.populateDropStackNBTs(drops);
-
-		ItemStack stack = drops.get(0);
-		if(lastFlower != null)
-		    ItemNBTHelper.setString(stack, TAG_LAST_FLOWER, lastFlower.getRegistryName().toString());
-		ItemNBTHelper.setInt(stack, TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, pos, state, entity, stack);
-
-		ResourceLocation id = ResourceLocation.tryCreate(ItemNBTHelper.getString(stack, TAG_LAST_FLOWER, ""));
-		if(id != null)
-			lastFlower = ForgeRegistries.BLOCKS.getValue(id);
-		lastFlowerTimes = ItemNBTHelper.getInt(stack, TAG_LAST_FLOWER_TIMES, 0);
 	}
 
 	@Override

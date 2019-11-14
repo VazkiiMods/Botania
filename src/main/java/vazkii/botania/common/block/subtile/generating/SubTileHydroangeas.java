@@ -43,7 +43,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	public static TileEntityType<SubTileHydroangeas> TYPE;
 
 	private static final String TAG_BURN_TIME = "burnTime";
-	private static final String TAG_COOLDOWN = "cooldown";
+	public static final String TAG_COOLDOWN = "cooldown";
 
 	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
 
@@ -165,23 +165,6 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);
 		cooldown = cmp.getInt(TAG_COOLDOWN);
-	}
-
-	@Override
-	public void populateDropStackNBTs(List<ItemStack> drops) {
-		super.populateDropStackNBTs(drops);
-		int cooldown = this.cooldown;
-		if(burnTime > 0)
-			cooldown = getCooldown();
-
-		if(cooldown > 0)
-			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, getCooldown());
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, pos, state, entity, stack);
-		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
 
 	@Override

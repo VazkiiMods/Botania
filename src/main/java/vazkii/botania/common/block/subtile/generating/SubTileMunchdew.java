@@ -36,7 +36,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":munchdew")
 	public static TileEntityType<SubTileMunchdew> TYPE;
 
-	private static final String TAG_COOLDOWN = "cooldown";
+	public static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";
 
 	private static final int RANGE = 8;
@@ -126,20 +126,6 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		ateOnce = cmp.getBoolean(TAG_ATE_ONCE);
-	}
-
-	@Override
-	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
-		List<ItemStack> drops = super.getDrops(list, ctx);
-		if(cooldown > 0)
-			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, cooldown);
-		return drops;
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, pos, state, entity, stack);
-		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
 
 	@Override

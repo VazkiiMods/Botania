@@ -14,6 +14,30 @@
         {
           "condition": "minecraft:survives_explosion"
         }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:copy_nbt",
+          "source": "block_entity",
+          "ops": [
+            {
+              "source": "lastFood",
+              "target": "BlockEntityTag.lastFood",
+              "op": "replace"
+            }
+          ]
+        },
+        {
+          "function": "minecraft:copy_nbt",
+          "source": "block_entity",
+          "ops": [
+            {
+              "source": "lastFoodCount",
+              "target": "BlockEntityTag.lastFoodCount",
+              "op": "replace"
+            }
+          ]
+        }
       ]
     }
   ]

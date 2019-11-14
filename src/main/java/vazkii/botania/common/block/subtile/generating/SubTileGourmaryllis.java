@@ -35,8 +35,8 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_DIGESTING_MANA = "digestingMana";
-	private static final String TAG_LAST_FOOD = "lastFood";
-	private static final String TAG_LAST_FOOD_COUNT = "lastFoodCount";
+	public static final String TAG_LAST_FOOD = "lastFood";
+	public static final String TAG_LAST_FOOD_COUNT = "lastFoodCount";
 	private static final int RANGE = 1;
 
 	private int cooldown = 0;

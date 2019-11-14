@@ -48,7 +48,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	private static final String TAG_COLLECTOR_X = "collectorX";
 	private static final String TAG_COLLECTOR_Y = "collectorY";
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
-	private static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
+	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
 	private int mana;
 
@@ -194,31 +194,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	public int getValueForPassiveGeneration() {
 		return 1;
-	}
-
-	@Override
-	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
-		List<ItemStack> drops = super.getDrops(list, ctx);
-		populateDropStackNBTs(drops);
-		return drops;
-	}
-
-	public void populateDropStackNBTs(List<ItemStack> drops) {
-		if(isPassiveFlower() && ticksExisted > 0 && BotaniaAPI.internalHandler.getPassiveFlowerDecay() > 0) {
-			ItemStack drop = drops.get(0);
-			if(!drop.isEmpty()) {
-				drop.getOrCreateTag().putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
-			}
-		}
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, pos, state, entity, stack);
-		if(isPassiveFlower()) {
-			CompoundNBT cmp = stack.getOrCreateTag();
-			passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
-		}
 	}
 
 	@Override
