@@ -56,13 +56,59 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class BlockLootProvider implements IDataProvider {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final DataGenerator generator;
+    private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
 
     public BlockLootProvider(DataGenerator generator) {
         this.generator = generator;
+
+        for (Block b : ForgeRegistries.BLOCKS) {
+            if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
+                continue;
+            if (b instanceof SlabBlock)
+                functionTable.put(b, BlockLootProvider::genSlab);
+            else if (b instanceof BlockModDoubleFlower)
+                functionTable.put(b, BlockLootProvider::genDoubleFlower);
+            else if (b instanceof BlockAltGrass)
+                functionTable.put(b, BlockLootProvider::genAltGrass);
+            else if (b.getRegistryName().getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone"))
+                functionTable.put(b, BlockLootProvider::genMetamorphicStone);
+        }
+
+        // Empty
+        functionTable.put(ModBlocks.bifrost, BlockLootProvider::empty);
+        functionTable.put(ModBlocks.cocoon, BlockLootProvider::empty);
+        functionTable.put(ModBlocks.fakeAir, BlockLootProvider::empty);
+        functionTable.put(ModBlocks.manaFlame, BlockLootProvider::empty);
+        functionTable.put(ModBlocks.pistonRelay, BlockLootProvider::empty);
+
+        // Redirects
+        functionTable.put(ModBlocks.cacophonium, b -> genRegular(Blocks.NOTE_BLOCK));
+        functionTable.put(ModBlocks.enchantedSoil, b -> genRegular(Blocks.DIRT));
+        functionTable.put(ModBlocks.enchanter, b -> genRegular(Blocks.LAPIS_BLOCK));
+        functionTable.put(ModBlocks.mossyAltar, b -> genRegular(ModBlocks.defaultAltar));
+
+        // Special
+        functionTable.put(ModBlocks.cellBlock, BlockLootProvider::genCellBlock);
+        functionTable.put(ModBlocks.root, BlockLootProvider::genRoot);
+        functionTable.put(ModBlocks.solidVines, BlockLootProvider::genSolidVine);
+        functionTable.put(ModBlocks.tinyPotato, BlockLootProvider::genTinyPotato);
+
+        // Flower NBT saving
+        functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOOD, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT));
+        functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOOD, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT));
+        functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
+        functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
+        functionTable.put(ModSubtiles.munchdew, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
+        functionTable.put(ModSubtiles.munchdewFloating, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
+        functionTable.put(ModSubtiles.rafflowsia, b -> genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWER, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
+        functionTable.put(ModSubtiles.rafflowsiaFloating, b -> genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWER, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
+        functionTable.put(ModSubtiles.spectrolus, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
+        functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
     }
 
     @Override
@@ -72,45 +118,8 @@ public class BlockLootProvider implements IDataProvider {
         for (Block b : ForgeRegistries.BLOCKS) {
             if(!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
                 continue;
-            if(b instanceof SlabBlock)
-                tables.put(b.getRegistryName(), genSlab(b));
-            else if(b instanceof BlockModDoubleFlower)
-                tables.put(b.getRegistryName(), genDoubleFlower(b));
-            else if (b instanceof BlockAltGrass)
-                tables.put(b.getRegistryName(), genAltGrass(b));
-            else if (b == ModBlocks.pistonRelay || b == ModBlocks.cocoon
-                    || b == ModBlocks.manaFlame || b == ModBlocks.fakeAir || b == ModBlocks.bifrost)
-                tables.put(b.getRegistryName(), empty());
-            else if (b == ModBlocks.mossyAltar)
-                tables.put(b.getRegistryName(), genRegular(ModBlocks.defaultAltar));
-            else if (b == ModBlocks.enchantedSoil)
-                tables.put(b.getRegistryName(), genRegular(Blocks.DIRT));
-            else if (b == ModBlocks.enchanter)
-                tables.put(b.getRegistryName(), genRegular(Blocks.LAPIS_BLOCK));
-            else if (b == ModBlocks.root)
-                tables.put(b.getRegistryName(), genRoot());
-            else if (b == ModBlocks.solidVines)
-                tables.put(b.getRegistryName(), genSolidVine());
-            else if (b == ModBlocks.tinyPotato)
-                tables.put(b.getRegistryName(), genTinyPotato(b));
-            else if (b == ModBlocks.cellBlock)
-                tables.put(b.getRegistryName(), genCellBlock(b));
-            else if (b == ModBlocks.cacophonium)
-                tables.put(b.getRegistryName(), genRegular(Blocks.NOTE_BLOCK));
-            else if (b.getRegistryName().getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone"))
-                tables.put(b.getRegistryName(), genMetamorphicStone(b));
-            else if (b == ModSubtiles.munchdew || b == ModSubtiles.munchdewFloating)
-                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
-            else if (b == ModSubtiles.rafflowsia || b == ModSubtiles.rafflowsiaFloating)
-                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWER, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
-            else if (b == ModSubtiles.hydroangeas || b == ModSubtiles.hydroangeasFloating)
-                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
-            else if (b == ModSubtiles.gourmaryllis || b == ModSubtiles.gourmaryllisFloating)
-                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOOD, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT));
-            else if (b == ModSubtiles.spectrolus || b == ModSubtiles.spectrolusFloating)
-                tables.put(b.getRegistryName(), genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
-            else
-                tables.put(b.getRegistryName(), genRegular(b));
+            Function<Block, LootTable.Builder> func = functionTable.getOrDefault(b, BlockLootProvider::genRegular);
+            tables.put(b.getRegistryName(), func.apply(b));
         }
 
         for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
@@ -123,7 +132,7 @@ public class BlockLootProvider implements IDataProvider {
         return root.resolve("data/" + id.getNamespace() + "/loot_tables/blocks/" + id.getPath() + ".json");
     }
 
-    private static LootTable.Builder empty() {
+    private static LootTable.Builder empty(Block b) {
         return LootTable.builder();
     }
 
@@ -161,12 +170,12 @@ public class BlockLootProvider implements IDataProvider {
         return genRegular(cobble);
     }
 
-    private static LootTable.Builder genSolidVine() {
+    private static LootTable.Builder genSolidVine(Block b) {
         LootEntry.Builder<?> entry = TableLootEntry.builder(new ResourceLocation("blocks/vine"));
         return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
     }
 
-    private static LootTable.Builder genRoot() {
+    private static LootTable.Builder genRoot(Block b) {
         LootEntry.Builder<?> entry = ItemLootEntry.builder(ModItems.livingroot)
                 .acceptFunction(SetCount.builder(RandomValueRange.of(2, 4)))
                 .acceptFunction(ExplosionDecay.builder());
