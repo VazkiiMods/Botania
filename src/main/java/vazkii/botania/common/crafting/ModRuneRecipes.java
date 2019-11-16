@@ -11,7 +11,7 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.*;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -31,8 +31,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
-import java.io.IOException;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
@@ -40,7 +38,7 @@ public final class ModRuneRecipes {
 
 	// todo 1.13 re-tagify these once the community settles down on some names
 	@SubscribeEvent
-	public static void register(RegisterRecipesEvent evt) throws IOException {
+	public static void register(RegisterRecipesEvent evt) {
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
