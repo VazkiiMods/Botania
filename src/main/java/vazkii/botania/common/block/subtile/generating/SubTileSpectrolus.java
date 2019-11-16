@@ -98,9 +98,8 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					if(expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
 						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.posX, target.posY, target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+						target.remove();
 					}
-
-					target.remove();
 				}
 			}
 		}
