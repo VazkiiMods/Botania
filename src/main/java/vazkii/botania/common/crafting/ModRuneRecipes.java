@@ -13,20 +13,14 @@ package vazkii.botania.common.crafting;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.NBTTextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponent;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -37,7 +31,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
-import java.io.DataOutput;
 import java.io.IOException;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
