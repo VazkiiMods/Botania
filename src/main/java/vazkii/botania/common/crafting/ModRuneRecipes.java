@@ -11,19 +11,34 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.*;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.NBTTextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponent;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
+
+import java.io.DataOutput;
+import java.io.IOException;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -32,7 +47,7 @@ public final class ModRuneRecipes {
 
 	// todo 1.13 re-tagify these once the community settles down on some names
 	@SubscribeEvent
-	public static void register(RegisterRecipesEvent evt) {
+	public static void register(RegisterRecipesEvent evt) throws IOException {
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
@@ -79,5 +94,19 @@ public final class ModRuneRecipes {
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("pride"), new ItemStack(ModItems.runePride), costTier3, manaDiamond, manaDiamond, summer, fire));
 
 		evt.runeAltar().accept(new HeadRecipe(prefix("head"), new ItemStack(Items.PLAYER_HEAD), 22500, Ingredient.fromItems(Items.SKELETON_SKULL), Ingredient.fromItems(ModItems.pixieDust), Ingredient.fromItems(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.NAME_TAG), Ingredient.fromItems(Items.GOLDEN_APPLE)));
+
+		Ingredient envy = Ingredient.fromTag(ModTags.Items.RUNES_ENVY);
+		Ingredient lust = Ingredient.fromTag(ModTags.Items.RUNES_LUST);
+		Ingredient greed = Ingredient.fromTag(ModTags.Items.RUNES_GREED);
+
+		ItemStack legs = new ItemStack(Items.GOLDEN_LEGGINGS);
+		ItemNBTHelper.setInt(legs, "Unbreakable", 1);
+		legs.addAttributeModifier("generic.armor", new AttributeModifier("generic.armor", -100, AttributeModifier.Operation.ADDITION), EquipmentSlotType.LEGS);
+		legs.addEnchantment(Enchantments.BINDING_CURSE, 1);
+
+		ITextComponent displayName = new StringTextComponent("Wear it or No Balls");
+		legs.setDisplayName(displayName);
+
+		evt.runeAltar().accept(new RecipeRuneAltar(prefix("pants"), legs, costTier3, manaDiamond, manaDiamond, Ingredient.fromItems(Items.GOLDEN_LEGGINGS), envy, lust, greed));
 	}
 }
