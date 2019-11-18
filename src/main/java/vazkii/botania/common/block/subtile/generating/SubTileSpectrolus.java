@@ -48,7 +48,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	public static final String TAG_NEXT_COLOR = "nextColor";
 	private static final int WOOL_GEN = 1200;
-	private static final int SHEEP_GEN = 6400;
+	private static final int SHEEP_GEN = 5000;
 	private static final int BABY_SHEEP_GEN = 1; // you are a monster
 
 	private static final int RANGE = 1;
