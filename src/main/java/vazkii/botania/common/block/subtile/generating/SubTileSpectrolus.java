@@ -32,6 +32,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -92,7 +93,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getItem();
 
-				if(!stack.isEmpty()) {
+				if(!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()))) {
 					Block expected = ModBlocks.getWool(nextColor);
 
 					if(expected.asItem() == stack.getItem()) {
