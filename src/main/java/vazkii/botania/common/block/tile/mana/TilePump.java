@@ -48,27 +48,8 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 	public boolean hasRedstone = false;
 	private int lastComparator = 0;
 
-	private final TimeValues.VariableValue move;
-	private final IAnimationStateMachine asm;
-	private final LazyOptional<IAnimationStateMachine> asmCap;
-
 	public TilePump() {
 		super(TYPE);
-		if (FMLEnvironment.dist == Dist.CLIENT) {
-			move = new TimeValues.VariableValue(0);
-			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
-			asmCap = LazyOptional.of(() -> asm);
-		} else {
-			move = null;
-			asm = null;
-			asmCap = LazyOptional.empty();
-		}
-	}
-
-	@Nonnull
-	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-		return CapabilityAnimation.ANIMATION_CAPABILITY.orEmpty(cap, asmCap);
 	}
 
 	@Override
@@ -105,9 +86,6 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 			}
 		}
 
-		if(world.isRemote)
-			move.setValue(innerRingPos / 8 * 0.5F); // rescale to 0 - 0.5 for json animation
-
 		if(!hasCartOnTop)
 			comparator = 0;
 		if(!hasCart && active)
@@ -130,11 +108,7 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
-		boolean prevActive = active;
 		active = cmp.getBoolean(TAG_ACTIVE);
-		if(world != null && world.isRemote)
-			if(prevActive != active)
-				asm.transition(active ? "moving" : "default");
 	}
 
 	public void setActive(boolean active) {

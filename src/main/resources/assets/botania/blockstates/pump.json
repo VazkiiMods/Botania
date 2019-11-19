@@ -1,33 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "particle": "botania:blocks/livingrock0"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "facing": {
-      "north": {},
-      "south": { "y": 180 },
-      "west": { "y": 270 },
-      "east": { "y": 90 }
-    },
-    "static": {
-      "true": {
-        "model": "botania:block/mana_pump"
-      },
-      "false": {
-        "model": "botania:block/mana_pump_head"
-      }
-    },
-    "inventory": [{
-      "model": "botania:block/mana_pump",
-      "submodel": {
-        "head": {
-          "model": "botania:block/mana_pump_head"
-        }
-      }
-    }]
+    "facing=north": { "model": "botania:block/mana_pump" },
+    "facing=south": { "model": "botania:block/mana_pump","y": 180 },
+    "facing=west": { "model": "botania:block/mana_pump","y": 270 },
+    "facing=east": { "model": "botania:block/mana_pump","y": 90 }
   }
 }

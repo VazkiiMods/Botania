@@ -22,6 +22,7 @@ import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
+import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
@@ -118,7 +119,8 @@ public class MiscellaneousIcons {
 		IBakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
 		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
 
-		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(new ResourceLocation(LibMisc.MOD_ID, "block/corporea_crystal_cube_glass"));
+		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
+		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/mana_pump_head"));
 	}
 	
 	@SubscribeEvent

@@ -46,7 +46,7 @@ public class BlockPump extends BlockMod {
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getNearestLookingDirection().getOpposite());
+		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Nonnull

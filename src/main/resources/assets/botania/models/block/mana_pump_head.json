@@ -1,7 +1,9 @@
 {
 	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
+	"parent": "minecraft:block/block",
 	"textures": {
-		"head_sheat": "botania:blocks/pump_head_sheat"
+		"head_sheat": "botania:blocks/pump_head_sheat",
+		"particle": "botania:blocks/livingrock0"
 	},
 	"elements": [
 		{

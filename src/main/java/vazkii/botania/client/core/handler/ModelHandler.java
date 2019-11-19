@@ -84,7 +84,8 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
-		ModelLoader.addSpecialModel(new ResourceLocation(LibMisc.MOD_ID, "block/corporea_crystal_cube_glass"));
+		ModelLoader.addSpecialModel(prefix("block/corporea_crystal_cube_glass"));
+		ModelLoader.addSpecialModel(prefix("block/mana_pump_head"));
 		registerSubtiles();
 
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
@@ -106,7 +107,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new TileEntityRendererAnimation<>());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderTilePump());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaCrystalCube.class, new RenderTileCorporeaCrystalCube());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileIncensePlate.class, new RenderTileIncensePlate());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHourglass.class, new RenderTileHourglass());
