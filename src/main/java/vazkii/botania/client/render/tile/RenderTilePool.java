@@ -35,9 +35,8 @@ import java.util.Random;
 
 public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
-	// Overrides for when we call this TESR without an actual pool
-	public static BlockPool.Variant forceVariant = BlockPool.Variant.DEFAULT;
-	public static int forceManaNumber = -1;
+	// Overrides for when we call this TESR from a cart
+	public static int cartMana = -1;
 
 	@Override
 	public void render(@Nullable TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
@@ -57,23 +56,19 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			GlStateManager.translated(d0, d1, d2);
 		}
 
-		boolean fab = pool == null ? forceVariant == BlockPool.Variant.FABULOUS : ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
+		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
 
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		int color = 0xFFFFFF;
 
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			if(pool != null)
-				time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
-			color = Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
-		}
+			time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
+			int color = Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 
-		if (fab || forceManaNumber > -1) {
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
-			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(pool == null ? poolForVariant(forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
+			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(pool.getWorld().getBlockState(pool.getPos()));
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 		}
 
@@ -81,7 +76,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.enableRescaleNormal();
 
-		int mana = pool == null ? forceManaNumber : pool.getCurrentMana();
+		int mana = pool == null ? cartMana : pool.getCurrentMana();
 		int cap = pool == null ? -1 : pool.manaCap;
 		if(cap == -1)
 			cap = TilePool.MAX_MANA;
@@ -136,8 +131,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		}
 		GlStateManager.popMatrix();
 
-		forceVariant = BlockPool.Variant.DEFAULT;
-		forceManaNumber = -1;
+		cartMana = -1;
 	}
 
 	private void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
