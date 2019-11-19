@@ -2,7 +2,7 @@
 	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"particle": "botania:blocks/livingrock0"
+		"particle": "#all"
 	},
 	"elements": [
 		{
