@@ -38,11 +38,11 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 	public static TileEntityType<TilePump> TYPE;
 	private static final String TAG_ACTIVE = "active";
 
-	private float innerRingPos;
+	public float innerRingPos;
 	public boolean active = false;
 	public boolean hasCart = false;
 	public boolean hasCartOnTop = false;
-	private float moving = 0F;
+	public float moving = 0F;
 
 	public int comparator;
 	public boolean hasRedstone = false;
