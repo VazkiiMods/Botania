@@ -130,7 +130,7 @@ public final class ItemNBTHelper {
 
 	@Nullable
 	public static UUID getUuid(ItemStack stack, String tag) {
-		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getUniqueId(tag) : null;
+		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUniqueId(tag) : null;
 	}
 
 	public static ListNBT getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {

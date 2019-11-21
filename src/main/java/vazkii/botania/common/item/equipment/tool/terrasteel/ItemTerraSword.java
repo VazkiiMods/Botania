@@ -40,6 +40,7 @@ import java.util.UUID;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
+	// todo 1.14 use throwableentity's owner system instead of tracking it ourselves
 	private static final String TAG_ATTACKER_UUID = "attackerUuid";
 
 	private static final int MANA_PER_DAMAGE = 100;
