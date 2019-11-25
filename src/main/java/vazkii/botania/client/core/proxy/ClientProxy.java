@@ -36,7 +36,6 @@ import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
-import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
 import vazkii.botania.client.core.handler.LayerTerraHelmet;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
@@ -116,7 +115,6 @@ public class ClientProxy implements IProxy {
 			initAuxiliaryRender();
 			ColorHandler.init();
 		});
-		CorporeaAutoCompleteHandler.updateItemList();
 	}
 
 	private void initAuxiliaryRender() {

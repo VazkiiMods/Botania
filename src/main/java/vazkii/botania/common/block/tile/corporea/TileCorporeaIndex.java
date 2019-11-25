@@ -30,7 +30,6 @@ import net.minecraftforge.registries.ObjectHolder;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
-import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
@@ -258,12 +257,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		set.remove(index);
 	}
 
-	public static final class InputHandler implements ICorporeaAutoCompleteController {
-
-		public InputHandler() {
-			CorporeaHelper.registerAutoCompleteController(this);
-		}
-
+	public static final class InputHandler {
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
@@ -309,13 +303,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 					.stream().filter(i -> isInRangeOfIndex(player, i))
 					.collect(Collectors.toList());
 		}
-
-		@Override
-		@OnlyIn(Dist.CLIENT)
-		public boolean shouldAutoComplete() {
-			return !getNearbyIndexes(Minecraft.getInstance().player).isEmpty();
-		}
-
 	}
 
 	public static interface IRegexStacker {

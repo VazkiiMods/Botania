@@ -33,7 +33,6 @@ public final class CorporeaHelper {
 
 	private static final List<InvWithLocation> empty = ImmutableList.of();
 	private static final WeakHashMap<List<ICorporeaSpark>, List<InvWithLocation>> cachedNetworks = new WeakHashMap<>();
-	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<>();
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 
@@ -275,23 +274,6 @@ public final class CorporeaHelper {
 	 */
 	public static boolean equalOrContain(String s1, String s2, boolean contain) {
 		return contain ? s1.contains(s2) : s1.equals(s2);
-	}
-
-	/**
-	 * Registers a ICorporeaAutoCompleteController
-	 */
-	public static void registerAutoCompleteController(ICorporeaAutoCompleteController controller) {
-		autoCompleteControllers.add(controller);
-	}
-
-	/**
-	 * Returns if the auto complete helper should run
-	 */
-	public static boolean shouldAutoComplete() {
-		for(ICorporeaAutoCompleteController controller : autoCompleteControllers)
-			if(controller.shouldAutoComplete())
-				return true;
-		return false;
 	}
 
 	// Copy from StringUtils

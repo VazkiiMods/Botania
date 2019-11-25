@@ -40,7 +40,7 @@ public class CorporeaInputHandler {
 	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
 		Minecraft mc = Minecraft.getInstance();
 		if(mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
-				|| ClientProxy.CORPOREA_REQUEST.isActiveAndMatches(InputMappings.getInputByCode(event.getKeyCode(), event.getScanCode()))
+				|| !ClientProxy.CORPOREA_REQUEST.isActiveAndMatches(InputMappings.getInputByCode(event.getKeyCode(), event.getScanCode()))
 				|| TileCorporeaIndex.InputHandler.getNearbyIndexes(mc.player).isEmpty())
 			return;
 
