@@ -29,7 +29,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.boss.IBotaniaBoss;
-import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
@@ -90,8 +89,6 @@ public class ClientProxy implements IProxy {
 		} catch (IOException e) {
 			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
-
-		ModChallenges.init();
 
 		if(ConfigHandler.CLIENT.boundBlockWireframe.get())
 			MinecraftForge.EVENT_BUS.register(BoundTileRenderer.class);

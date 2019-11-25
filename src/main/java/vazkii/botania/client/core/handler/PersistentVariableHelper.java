@@ -12,8 +12,6 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
-import vazkii.botania.client.challenge.Challenge;
-import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.io.File;
@@ -26,7 +24,6 @@ public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_DOG = "dog";
-	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
 	private static final String TAG_LAST_BOTANIA_VERSION = "lastBotaniaVersion";
 
@@ -38,11 +35,6 @@ public final class PersistentVariableHelper {
 
 	public static void save() throws IOException {
 		CompoundNBT cmp = new CompoundNBT();
-
-		CompoundNBT challengesCmp = new CompoundNBT();
-		for(Challenge c : ModChallenges.challengeLookup.values())
-			c.writeToNBT(challengesCmp);
-		cmp.put(TAG_CHALLENGES, challengesCmp);
 
 		/*
 		CompoundNBT notesCmp = new CompoundNBT();
@@ -63,12 +55,6 @@ public final class PersistentVariableHelper {
 
 	public static void load() throws IOException {
 		CompoundNBT cmp = getCacheCompound();
-
-		if(cmp.contains(TAG_CHALLENGES)) {
-			CompoundNBT challengesCmp = cmp.getCompound(TAG_CHALLENGES);
-			for(Challenge c : ModChallenges.challengeLookup.values())
-				c.readFromNBT(challengesCmp);
-		}
 
 		if(cmp.contains(TAG_LEXICON_NOTES)) {
 			CompoundNBT notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
