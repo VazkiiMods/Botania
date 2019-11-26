@@ -49,7 +49,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private void onTossItem(ItemTossEvent event) {
-		ItemStack ring = EquipmentHandler.findOrEmpty(this, event.getPlayer());
+		ItemStack ring = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemMagnetRing, event.getPlayer());
 		if(!ring.isEmpty()) {
 			setCooldown(ring, 100);
 		}
