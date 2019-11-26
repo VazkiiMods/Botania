@@ -703,7 +703,7 @@ public final class ModItems {
 		register(r, new ItemSlimeBottle(unstackable()), LibItemNames.SLIME_BOTTLE);
 		register(r, new ItemStarSword(unstackable()), LibItemNames.STAR_SWORD);
 		register(r, new ItemExchangeRod(unstackable()), LibItemNames.EXCHANGE_ROD);
-		register(r, new ItemGreaterMagnetRing(unstackable()), LibItemNames.MAGNET_RING_GREATER);
+		register(r, new ItemMagnetRing(unstackable(), 16), LibItemNames.MAGNET_RING_GREATER);
 		register(r, new ItemThunderSword(unstackable()), LibItemNames.THUNDER_SWORD);
 		register(r, new ItemManaweaveHelm(unstackable()), LibItemNames.MANAWEAVE_HELM);
 		register(r, new ItemManaweaveArmor(EquipmentSlotType.CHEST, unstackable()), LibItemNames.MANAWEAVE_CHEST);
