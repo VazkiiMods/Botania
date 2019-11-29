@@ -72,5 +72,9 @@
       "text": "botania.page.flowers13",
       "recipes": "botania:conversions/white_petal_block_deconstruct;botania:conversions/orange_petal_block_deconstruct;botania:conversions/magenta_petal_block_deconstruct;botania:conversions/light_blue_petal_block_deconstruct;botania:conversions/yellow_petal_block_deconstruct;botania:conversions/lime_petal_block_deconstruct;botania:conversions/pink_petal_block_deconstruct;botania:conversions/gray_petal_block_deconstruct;botania:conversions/silver_petal_block_deconstruct;botania:conversions/cyan_petal_block_deconstruct;botania:conversions/purple_petal_block_deconstruct;botania:conversions/blue_petal_block_deconstruct;botania:conversions/brown_petal_block_deconstruct;botania:conversions/green_petal_block_deconstruct;botania:conversions/red_petal_block_deconstruct;botania:conversions/black_petal_block_deconstruct"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "tag:botania:mystical_flowers": 1,
+    "tag:botania:double_mystical_flowers": 10
+  }
 }

@@ -31,5 +31,13 @@
       "text": "botania.page.pureDaisy3",
       "recipe": "botania:pure_daisy"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:livingrock": 1,
+    "botania:livingwood": 1,
+    "minecraft:snow": 1,
+    "minecraft:packed_ice": 1,
+    "minecraft:blue_ice": 1,
+    "minecraft:obsidian": 1
+  }
 }

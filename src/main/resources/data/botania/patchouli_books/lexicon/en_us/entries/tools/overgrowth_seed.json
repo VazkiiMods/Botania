@@ -12,5 +12,8 @@
       "type": "text",
       "text": "botania.page.overgrowthSeed1"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:enchanted_soil": 1
+  }
 }
