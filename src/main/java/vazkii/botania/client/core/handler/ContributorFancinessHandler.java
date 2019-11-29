@@ -87,7 +87,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 		name = name.toLowerCase();
 		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
-			renderFlower(player, flowerMap.get(name));
+			renderFlower(player, flowerMap.get(name), partialTicks);
 
 		GlStateManager.popMatrix();
 	}
@@ -144,9 +144,9 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void renderFlower(PlayerEntity player, ItemStack flower) {
+	private static void renderFlower(PlayerEntity player, ItemStack flower, float partialTicks) {
 		GlStateManager.pushMatrix();
-		AccessoryRenderHelper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotatef(180, 0, 0, 1);
 		GlStateManager.translated(0, -0.85, 0);

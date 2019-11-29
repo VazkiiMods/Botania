@@ -15,18 +15,10 @@ public class LayerTerraHelmet extends LayerRenderer<AbstractClientPlayerEntity, 
 
     @Override
     public void render(AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
-        float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
-        float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
-
         GlStateManager.pushMatrix();
-        GlStateManager.rotatef(yawOffset, 0, -1, 0);
-        GlStateManager.rotatef(yaw - 270, 0, 1, 0);
-        GlStateManager.rotatef(pitch, 0, 0, 1);
-
         ItemStack helm = player.inventory.armorItemInSlot(3);
         if(!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm)
-            ItemTerrasteelHelm.renderOnPlayer(helm, player);
+            ItemTerrasteelHelm.renderOnPlayer(helm, player, partialTicks);
 
         GlStateManager.popMatrix();
     }

@@ -52,7 +52,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
-		AccessoryRenderHelper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		AccessoryRenderHelper.translateToFace();
 		AccessoryRenderHelper.defaultTransforms();
 		GlStateManager.rotatef(180F, 0F, 1F, 0F);

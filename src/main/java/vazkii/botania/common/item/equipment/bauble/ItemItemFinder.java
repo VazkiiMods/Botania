@@ -77,7 +77,7 @@ public class ItemItemFinder extends ItemBauble {
 		float f2 = gemIcon.getMinV();
 		float f3 = gemIcon.getMaxV();
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		AccessoryRenderHelper.translateToHeadLevel(living);
+		AccessoryRenderHelper.translateToHeadLevel(living, partialTicks);
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotatef(90F, 0F, 1F, 0F);
 		GlStateManager.rotatef(180F, 1F, 0F, 0F);

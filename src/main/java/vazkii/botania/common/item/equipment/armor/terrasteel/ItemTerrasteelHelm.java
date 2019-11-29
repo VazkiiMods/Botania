@@ -97,14 +97,14 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderOnPlayer(ItemStack stack, PlayerEntity player) {
+	public static void renderOnPlayer(ItemStack stack, PlayerEntity player, float partialTicks) {
 		if(hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
 			GlStateManager.pushMatrix();
 			float f = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinU();
 			float f1 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxU();
 			float f2 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinV();
 			float f3 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxV();
-			AccessoryRenderHelper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotatef(90F, 0F, 1F, 0F);
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);

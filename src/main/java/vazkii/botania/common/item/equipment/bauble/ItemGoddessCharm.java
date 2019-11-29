@@ -61,7 +61,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		GlStateManager.pushMatrix();
-		AccessoryRenderHelper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		AccessoryRenderHelper.translateToFace();
 		AccessoryRenderHelper.defaultTransforms();
 		GlStateManager.rotatef(-90F, 0F, 1F, 0F);

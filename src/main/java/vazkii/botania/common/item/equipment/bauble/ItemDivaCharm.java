@@ -96,7 +96,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		AccessoryRenderHelper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.scaled(0.8, 0.8, 0.8);
 		GlStateManager.rotatef(-90, 0, 1, 0);
