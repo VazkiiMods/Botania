@@ -29,5 +29,8 @@
       "type": "terrasteel",
       "text": "botania.page.terrasteel3"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:terrasteel_block": 1
+  }
 }

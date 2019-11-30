@@ -35,6 +35,7 @@ public class ModTags {
 		public static final Tag<Item> NUGGETS_TERRASTEEL = forgeTag("nuggets/terrasteel");
 
 		public static final Tag<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final Tag<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
 		public static final Tag<Item> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final Tag<Item> MINI_FLOWERS = tag("mini_flowers");
@@ -141,6 +142,7 @@ public class ModTags {
 
 	public static class Blocks {
 		public static final Tag<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final Tag<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
 		public static final Tag<Block> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final Tag<Block> MINI_FLOWERS = tag("mini_flowers");

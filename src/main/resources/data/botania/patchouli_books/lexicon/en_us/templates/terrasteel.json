@@ -31,6 +31,7 @@
     {
       "type": "item",
       "item": "botania:terrasteel_ingot",
+      "link_recipe": true,
       "x": 50,
       "y": 10
     },

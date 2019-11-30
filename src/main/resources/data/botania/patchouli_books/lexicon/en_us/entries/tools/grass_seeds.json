@@ -32,5 +32,16 @@
       "text": "botania.page.grassSeeds5",
       "recipes": "botania:dry_seeds;botania:golden_seeds;botania:vivid_seeds;botania:scorched_seeds;botania:infused_seeds;botania:mutated_seeds"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "minecraft:grass_block": 2,
+    "minecraft:podzol": 3,
+    "minecraft:mycelium": 4,
+    "botania:dry_grass": 5,
+    "botania:golden_grass": 5,
+    "botania:vivid_grass": 5,
+    "botania:scorched_grass": 5,
+    "botania:infused_grass": 5,
+    "botania:mutated_grass": 5
+  }
 }

@@ -82,31 +82,23 @@ sourceSets.main.resources {
 repositories {
     mavenCentral()
     maven {
-        name = "buildcraft"
-        url = "https://mod-buildcraft.com/maven"
+        url = "https://maven.blamejared.com"
     }
     maven {
-        name = "thiakil"
-        url = "http://maven.thiakil.com"
+        url = "https://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url = "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        url = "http://minecraft.curseforge.com/api/maven/"
+        url = "https://minecraft.curseforge.com/api/maven/"
     }
     maven {
         name = "curios"
         url = "https://maven.theillusivec4.top/"
     }
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
-    compile fg.deobf("vazkii:patchouli:1.1-22")
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.1-22.37") { transitive = false }
 
     compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
@@ -193,8 +185,7 @@ task sortArtifacts(type: Copy) {
         //This matcher is used to get the classifier of the jar
         def matcher = Pattern.compile("$config.mod_name $version-(?<classifier>\\w+).jar").matcher(it.name)
         //Only change the destination for full matches, i.e jars with classifiers
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             def classifier = matcher.group('classifier')
             /* Set the relative path to change the destination, since 
              * Gradle doesn't seem to like the absolute path being set*/
@@ -205,12 +196,13 @@ task sortArtifacts(type: Copy) {
 
 // SCP servers
 remotes {
-    web {
-        host = 'botaniamod.net'
-        user = priv.scp_user
-        password = priv.scp_pass
-        knownHosts = allowAnyHosts
-    }
+    if (priv != null)
+        web {
+            host = 'botaniamod.net'
+            user = priv.scp_user
+            password = priv.scp_pass
+            knownHosts = allowAnyHosts
+        }
 }
 
 task upload {

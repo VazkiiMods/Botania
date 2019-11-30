@@ -42,5 +42,8 @@
       "text": "botania.page.apothecary5",
       "recipe": "botania:apothecary_default"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:apothecary_mossy": 1
+  }
 }
