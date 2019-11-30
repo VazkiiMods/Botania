@@ -442,7 +442,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
 
 		if(player != null)
-			AccessoryRenderHelper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		GlStateManager.translatef(0, 1.5F, 0);
 		GlStateManager.rotatef(30, 1, 0, -1);
 		GlStateManager.translatef(-0.1F, -0.5F, -0.1F);
