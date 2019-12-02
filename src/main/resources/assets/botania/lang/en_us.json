@@ -73,7 +73,7 @@
   "botaniamisc.notInfused": "Not Infused",
   "botaniamisc.getALife": "Get a Life",
   "botaniamisc.floatingPrefix": "Floating %s",
-  "botaniamisc.unsetRecipe": "[No Recipe] Right click to set:",
+  "botaniamisc.unsetRecipe": "[No Recipe] Right-click to set:",
   "botaniamisc.cantCraft": "Not enough Materials!",
   "botaniamisc.lotusDesc": "It emits strong magical vibes",
   "botaniamisc.hasClip": "$(6)Has Lens Clip",
@@ -116,7 +116,7 @@
   "botaniamisc.inactive": "$(c)Inactive",
   "botaniamisc.advancements": "Botania Advancements",
   "botaniamisc.dropIkea": "$(b)Dropping this item will break it down into its components",
-  "botaniamisc.hourglassLock": "This Hourglass is locked. Right click it with a Wand of the Forest to unlock it.",
+  "botaniamisc.hourglassLock": "This Hourglass is locked. Right-click it with a Wand of the Forest to unlock it.",
   "botaniamisc.crystalCubeLocked": "This Crystal Cube is locked. To change the displayed item, unlock it with a Wand of the Forest.",
   "botaniamisc.locked": "Locked",
   "botaniamisc.stopped": "Stopped",
@@ -2149,8 +2149,8 @@
 
   "botania.entry.fIntro": "An Introduction to Function",
   "botania.tagline.fIntro": "Flowers that use mana for beneficial powers",
-  "botania.page.fIntro0": "There are various places in which the $(4)Mana$(0) a botanist generates can be put to use, one of them is an assortment of $(4)Functional Flowers$(0).$(p)These flowers will drain $(4)Mana$(0) from a nearby $(1)Mana Pool$(0) into themselves, in order to do whatever task they were created for.$(p)It's to note that these can't receive power directly through $(1)Mana Spreaders$(0).",
-  "botania.page.fIntro1": "All $(4)Functional Flowers$(0), alike the $(4)Generating Flowers$(0) contain a small buffer of $(4)Mana$(0).$(p)Standard rules for $(4)Mana$(0) reading apply, right-clicking with a $(1)Wand of the Forest$(0) will update the mana readings.",
+  "botania.page.fIntro0": "There are various places in which the $(4)Mana$(0) a botanist generates can be put to use, one of them is an assortment of $(4)Functional Flora$(0).$(p)These flowers will drain $(4)Mana$(0) from a nearby $(1)Mana Pool$(0) into themselves, in order to do whatever task they were created for.$(p)It's to note that these can't receive power directly through $(1)Mana Spreaders$(0).",
+  "botania.page.fIntro1": "All $(4)Functional Flora$(0), alike the $(4)Generating Flora$(0) contain a small buffer of $(4)Mana$(0).$(p)Standard rules for $(4)Mana$(0) reading apply, right-clicking with a $(1)Wand of the Forest$(0) will update the mana readings.",
   "botania.page.fIntro2": "It is important to keep in mind that these flowers memorize the $(1)Mana Pool$(0) from which they should pull $(4)Mana$(0) out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other. It can be bound to another pool with a wand in $(4)Bind Mode$(0).",
   "botania.page.fIntro3": "Lastly, some functional flowers utilize a $(1)Redstone Root$(0) in their creation. If they do, the flower's effect can be toggled with a redstone signal.",
   "botania.page.fIntro4": "$(1)Redstone Root$(0) for Redstone Control",
@@ -2162,7 +2162,7 @@
 
   "botania.entry.flowerSpeed": "Modulating Delay",
   "botania.tagline.flowerSpeed": "Changing how long flowers take to work",
-  "botania.page.flowerSpeed0": "A problem with $(4)Functional Flowers$(0) that interact with dropped items on the floor is making sure the items are interacted with in the right order.$(p)Planting the relevant flowers under $(1)Podzol$(0) will add a small delay before they can pick up items, allowing for a \"priority\" system of sorts. Planting a flower on $(1)Mycellium$(0) will create a larger delay.",
+  "botania.page.flowerSpeed0": "A problem with $(4)Functional Flora$(0) that interact with dropped items on the floor is making sure the items are interacted with in the right order.$(p)Planting the relevant flowers under $(1)Podzol$(0) will add a small delay before they can pick up items, allowing for a \"priority\" system of sorts. Planting a flower on $(1)Mycellium$(0) will create a larger delay.",
   "botania.page.flowerSpeed1": "This system also extends to $(1)Floating Flowers$(0), via the use of $(1)Boreal Seeds$(0) and $(1)Infestation Spores$(0).$(p)Given two flowers with the same delay (or none), a $(4)Generating Flower$(0) (e.g. $(1)Endoflame$(0)) will pick up an item before a $(4)Functional One$(0). (e.g. $(1)Hopperhock$(0)). For two flowers of the same type, it's a secret to everybody.",
 
   "botania.entry.jadedAmaranthus": "Jaded Amaranthus",
@@ -2305,8 +2305,8 @@
 
   "botania.entry.gIntro": "An Introduction to Generation",
   "botania.tagline.gIntro": "Flowers that consume resources to make mana",
-  "botania.page.gIntro0": "$(4)Generating Mana$(0) should be at the top of the priorities for any botanist. Luckily there's an array of $(4)Generating Flowers$(0) willing to do the job.$(p)These flowers, as their name shows, generate $(4)Mana$(0), both passively and actively, the latter implying a requirement of some type of non-infinite resource without outside intervention.",
-  "botania.page.gIntro1": "All $(4)Generating Flowers$(0), alike the $(4)Functional Flowers$(0) contain a small buffer of $(4)Mana$(0).$(p)Standard rules for $(4)Mana$(0) reading apply, right-clicking with a $(1)Wand of the Forest$(0) will update the mana readings.$(p)This mana will be stored in the closest $(1)Mana Spreader$(0) around.",
+  "botania.page.gIntro0": "$(4)Generating Mana$(0) should be at the top of the priorities for any botanist. Luckily there's an array of $(4)Generating Flora$(0) willing to do the job.$(p)These flowers, as their name shows, generate $(4)Mana$(0), both passively and actively, the latter implying a requirement of some type of non-infinite resource without outside intervention.",
+  "botania.page.gIntro1": "All $(4)Generating Flora$(0), alike the $(4)Functional Flora$(0) contain a small buffer of $(4)Mana$(0).$(p)Standard rules for $(4)Mana$(0) reading apply, right-clicking with a $(1)Wand of the Forest$(0) will update the mana readings.$(p)This mana will be stored in the closest $(1)Mana Spreader$(0) around.",
   "botania.page.gIntro2": "It is important to keep in mind that these flowers memorize the $(1)Mana Spreader$(0) into which they should put $(4)Mana$(0) into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other. It can be bound to another spreader with a wand in $(4)Bind Mode$(0).",
   "botania.page.gIntro3": "Picking your first $(4)Generating Flower$(0) is a pretty simple task. As a fledgling botanist, you have two choices, the $(1)Endoflame$(0) and the $(1)Hydroangeas$(0).$(p)The former uses $(1)Coal$(0) or other fuel sources to create $(4)Mana$(0). The latter uses $(1)Water$(0) sources for the same task and decays after a real world hour, in exchange for the free $(4)Mana$(0).",
 
@@ -2397,7 +2397,7 @@
 
   "botania.entry.pylon": "Mana Pylon",
   "botania.tagline.pylon": "Enchantment booster",
-  "botania.page.pylon0": "A $(1)Mana Pylon$(0) is a structure that can pull energies from the earth and use them to power enchanting processes.$(p)For one, setting one adjacent to an $(1)Enchanting Table$(0) as if it was a $(1)Bookshelf$(0) will drastically increase the power it can convey, just 2 of these are enough for it to reach $(4)Level 30$(0).",
+  "botania.page.pylon0": "A $(1)Mana Pylon$(0) is a structure that can pull energies from the earth and use them to power enchanting processes.$(p)For one, setting one adjacent to an $(1)Enchanting Table$(0) as if it was a $(1)Bookshelf$(0) will dramatically increase the power it can convey, just 2 of these are enough for it to reach $(4)Level 30$(0).",
   "botania.page.pylon1": "$(o)You must construct additional pylons!$()",
 
   "botania.entry.manaEnchanting": "Enchanting with Mana",
@@ -2579,7 +2579,7 @@
   "botania.entry.hourglass": "Hovering Hourglass",
   "botania.tagline.hourglass": "A simple timer, using the sands of time",
   "botania.page.hourglass0": "The ability to count time is an essential one to anyone who wishes to develop any redstonic contraptions. A single timer, however, can take a up both a lot of space and be slow in general. The $(1)Hovering Hourglass$(0) is a simple, accurate, sand based timer. As the name implies, it's a hourglass that hovers and turns by itself.",
-  "botania.page.hourglass1": "The hourglass contains an inventory, in which up to a stack of $(1)Sand$(0), $(1)Red Sand$(0) or $(1)Soul Sand$(0) can be added via a right-click. Right clicking again removes it. The sand will then fall from one of the chambers into another, and when is done, release a single redstone pulse and turn over, starting the process again.",
+  "botania.page.hourglass1": "The hourglass contains an inventory, in which up to a stack of $(1)Sand$(0), $(1)Red Sand$(0) or $(1)Soul Sand$(0) can be added via a right-click. Right-clicking again removes it. The sand will then fall from one of the chambers into another, and when is done, release a single redstone pulse and turn over, starting the process again.",
   "botania.page.hourglass2": "The amount of time for each pulse is dependent on how much and what type of sand is in the chamber. $(1)Sand$(0) will count for one second per block, $(1)Red Sand$(0) ten seconds per and $(1)Soul Sand$(0) one minute per. Sand types can't be mixed. The time for each pulse can be seen by hovering over the block with a $(1)Wand of the Forest$(0).",
   "botania.page.hourglass3": "Note that the sand is added all at once, so the size of the stack to be added needs to be set in the inventory.$(p)Sand can't be added to the hourglass after it already has some in, trying to do so will end up removing the sand there instead. The sand in the block can be taken and added by $(1)Hoppers$(0) or other methods.",
   "botania.page.hourglass4": "Right clicking the block with a $(1)Wand of the Forest$(0) locks (and unlocks) it. When locked, sand can't be added or removed, just in case someone right-clicks it on accident.$(p)If a $(4)Mana Burst$(0) collides with the block, it'll stop the flow of sand and pause the timer, colliding again continues it.",
@@ -2811,7 +2811,7 @@
   "botania.entry.craftingHalo": "Assembly Halo",
   "botania.tagline.craftingHalo": "Portable crafting, fast or with a grid",
   "botania.page.craftingHalo0": "Carrying a $(1)Crafting Table$(0) around generally can be troublesome. The $(1)Assembly Halo$(0) acts not only as a portable $(1)Crafting Table$(0) but as a quick crafting method. Having the item in hand displays a \"halo\" of recipes around the holder.$(p)First off, right-clicking on the $(1)Crafting Table$(0) will open up a crafting interface.",
-  "botania.page.craftingHalo1": "As long as the item is present in the inventory the last crafting recipe done will be stored in it.$(p)Right clicking an empty slot of the halo will set the last recipe on it. Right clicking a slot with a recipe will try to do it using items from the inventory. Removing a recipe can be done through shift-left click.",
+  "botania.page.craftingHalo1": "As long as the item is present in the inventory the last crafting recipe done will be stored in it.$(p)Right clicking an empty slot of the halo will set the last recipe on it. Right-clicking a slot with a recipe will try to do it using items from the inventory. Removing a recipe can be done through shift-left click.",
   "botania.page.craftingHalo2": "It has no taste if you cook it from the menu",
 
   "botania.entry.clip": "Lens Clip",
@@ -2921,7 +2921,7 @@
 
   "botania.entry.enderAir": "Extracting Ender Air",
   "botania.tagline.enderAir": "Throwable bottles that create End Stone",
-  "botania.page.enderAir0": "The air present in the void of the $(1)End$(0) seems to have some mutating properties. Right clicking with an empty $(1)Glass Bottle$(0) while in the $(1)End$(0) will capture some of that air, which can then later be tossed similarly to a splash potion, turning nearby $(1)Stone$(0) on the landing point into $(1)End Stone$(0).",
+  "botania.page.enderAir0": "The air present in the void of the $(1)End$(0) seems to have some mutating properties. Right-clicking with an empty $(1)Glass Bottle$(0) while in the $(1)End$(0) will capture some of that air, which can then later be tossed similarly to a splash potion, turning nearby $(1)Stone$(0) on the landing point into $(1)End Stone$(0).",
 
   "botania.entry.enderEyeBlock": "Ender Overseer",
   "botania.tagline.enderEyeBlock": "Look activated redstone detector",
@@ -3061,7 +3061,7 @@
 
   "botania.entry.luminizerTransport": "Luminizer Transport",
   "botania.tagline.luminizerTransport": "Fly through the skies",
-  "botania.page.luminizerTransport0": "$(1)Luminizers$(0) serve as a simple way to transport players and other living things of the sort by having them ride on trails of light.$(p)$(1)Luminizers$(0) can be placed in the world as blocks. A $(1)Luminizer$(0), in order to work properly needs to be bound to another one. This can be done with the $(1)Wand of the Forest$(0) in bind mode. Right clicking a $(1)Luminizer$(0) will transport the clicker into the $(1)Luminizer$(0) it's bound to.",
+  "botania.page.luminizerTransport0": "$(1)Luminizers$(0) serve as a simple way to transport players and other living things of the sort by having them ride on trails of light.$(p)$(1)Luminizers$(0) can be placed in the world as blocks. A $(1)Luminizer$(0), in order to work properly needs to be bound to another one. This can be done with the $(1)Wand of the Forest$(0) in bind mode. Right-clicking a $(1)Luminizer$(0) will transport the clicker into the $(1)Luminizer$(0) it's bound to.",
   "botania.page.luminizerTransport1": "$(1)Luminizers$(0) have a range of twenty blocks each, but can be chained to create longer and more complex paths.$(p)The connection between two $(1)Luminizers$(0) goes only one way, unless the binding is explicitly done both ways. If the connection does go both ways, an endless loop is created, though.$(p)Furthermore, multiple $(1)Luminizers$(0) can target the same one as an endpoint.",
   "botania.page.luminizerTransport2": "Luminize to the future",
   "botania.page.luminizerTransport3": "Adding some $(1)Redstone$(0) to a $(1)Luminizer$(0) creates a $(1)Detector Luminizer$(0).$(p)For all intents and purposes, it functions just like a regular $(1)Luminizer$(0), however, it sends out a $(4)redstone pulse$(0) every time something passes through it or reaches it as an endpoint.",
@@ -3352,7 +3352,7 @@
 
   "botania.entry.thorRing": "Ring of Thor",
   "botania.tagline.thorRing": "Because the Terra Shatterer wasn't strong enough",
-  "botania.page.thorRing0": "One of the three mythic rings of the $(4)Aesir$(0), the $(1)Ring of Thor$(0), when worn, bestows upon the wearer the might of the Thunder God $(4)Thor$(0). This power drastically increases the strength of area of effect mining with a $(1)Terra Shatterer$(0).$(p)",
+  "botania.page.thorRing0": "One of the three mythic rings of the $(4)Aesir$(0), the $(1)Ring of Thor$(0), when worn, bestows upon the wearer the might of the Thunder God $(4)Thor$(0). This power dramatically increases the strength of area of effect mining with a $(1)Terra Shatterer$(0).$(p)",
 
   "botania.entry.lokiRing": "Ring of Loki",
   "botania.tagline.lokiRing": "The power to be here, and there, and over there too",
@@ -3490,7 +3490,7 @@
 
   "botania.entry.cacophonium": "Cacophonium",
   "botania.tagline.cacophonium": "Mimic mob sounds",
-  "botania.page.cacophonium0": "This interesting instrument, the $(1)Cacophonium$(0), has the ability to mimic almost every living being's cries in nature, allowing for the \"musician\" to play them at will. Right clicking with it on an entity has the instrument learn its sound. It can then be played by holding right-click.$(p)Why anyone would ever want to make this, however, is beyond moral comprehension.",
+  "botania.page.cacophonium0": "This interesting instrument, the $(1)Cacophonium$(0), has the ability to mimic almost every living being's cries in nature, allowing for the \"musician\" to play them at will. Right-clicking with it on an entity has the instrument learn its sound. It can then be played by holding right-click.$(p)Why anyone would ever want to make this, however, is beyond moral comprehension.",
   "botania.page.cacophonium1": "Hibike! Cacophonium",
   "botania.page.cacophonium2": "For maximum cacophony, the $(1)Cacophonium$(0) can be shift-right clicked onto a $(1)Note Block$(0), creating the ability to sound off animal or monster sounds on demand.$(p)You monster.",
 
