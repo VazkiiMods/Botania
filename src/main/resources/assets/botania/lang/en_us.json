@@ -96,7 +96,7 @@
   "botaniamisc.historyLong": "Lookup History",
   "botaniamisc.historyDesc": "See the last entries visited",
   "botaniamisc.lexiconOptions0": "Botania Options",
-  "botaniamisc.lexiconOptions1": "Configure Botania from ingame",
+  "botaniamisc.lexiconOptions1": "Configure Botania from in-game",
   "botaniamisc.lexiconOptions2": "Some options might need a game restart",
   "botaniamisc.hasPhantomInk": "$(b)Tinged with Phantom Ink",
   "botaniamisc.pinkinatorDesc": "Apply directly to Wither",
@@ -151,7 +151,7 @@
   "botaniamisc.tutorialVideo": "Video",
   "botaniamisc.shiftToStopSpin": "(SHIFT to stop animation)",
   "botaniamisc.noVideo": "$(4)Video will be back soon. Sorry :(",
-  "botaniamisc.adaptativeConfigChanges": "Botania's Adaptative Config has changed the following config defaults for you:",
+  "botaniamisc.adaptativeConfigChanges": "Botania's Adaptive Config has changed the following config defaults for you:",
   "botaniamisc.altarRefill0": "Right click with an empty hand to",
   "botaniamisc.altarRefill1": "add back the last recipe",
   "botaniamisc.santaweaveInfo": "Manaweave, changed up for the $(c)s$(f)e$(c)a$(f)s$(c)o$(f)n",
@@ -342,7 +342,7 @@
   "worldgen.flower.patchSize": "Worldgen Flower Patch Size",
   "worldgen.flower.tallChance": "Worldgen Flower Tall Chance",
   "worldgen.mushroom.quantity": "Worldgen Mushroom Quantity",
-  "adaptativeConfig.enabled": "Adaptative Config",
+  "adaptativeConfig.enabled": "Adaptive Config",
   "armorModels.enable": "Custom Armor Models",
   "fancySkybox.enable": "Fancy Skybox",
   "fancySkybox.normalWorlds": "Fancy Skybox in non-GoG Worlds",
@@ -375,10 +375,10 @@
   "botania.versioning.flavour16": "You get an update! You get an update! EVERYONE GETS AN UPDATE!",
   "botania.versioning.flavour17": "Your build's unbalanced and your hair's a Kuriboh! Hey. Hoo.",
   "botania.versioning.flavour18": "WhY iS tHiS uPdAtE mEsSaGe CaSeD lIkE tHiS!?",
-  "botania.versioning.flavour19": "By updating botania you must not accept the terms of service.",
+  "botania.versioning.flavour19": "By updating Botania you do not accept the terms of service.",
   "botania.versioning.flavour20": "wow such botania so update much fix very content",
-  "botania.versioning.flavour21": "This botania update will self destruct in 3...2...",
-  "botania.versioning.flavour22": "There were bugs in botania, but everything changed when the fire nation attacked. Or not.",
+  "botania.versioning.flavour21": "This Botania update will self destruct in 3...2...",
+  "botania.versioning.flavour22": "There were bugs in Botania, but everything changed when the fire nation attacked. Or not.",
   "botania.versioning.flavour23": "Botania updated. On other news, Germany totally bribed the referee.",
   "botania.versioning.flavour24": "Hey! Hey player! Hey player! Hey player hey! Botania update!",
   "botania.versioning.flavour25": "And what do we say to the Botania update?",
@@ -412,7 +412,7 @@
   "botania.versioning.flavour53": "Who wants a Botania Update at 3 in the morning?",
   "botania.versioning.flavour54": "Everybody say: Updating de!",
   "botania.versioning.flavour55": "Thank you for signing up for Update Facts! Botania has updated!",
-  "botania.versioning.flavour56": "Update botania, roach boy, support the pyramid =)",
+  "botania.versioning.flavour56": "Update Botania, roach boy, support the pyramid =)",
   "botania.versioning.flavour57": "gr8 b8 m8 here's an upd8",
   "botania.versioning.flavour58": "The power of the update compels you!",
   "botania.versioning.flavour59": "NICOLO BREADMUND GIVE UPDATE",
@@ -572,7 +572,7 @@
   "botania.challengelevel.lunatic": "Lunatic",
 
   "botania.challenge.flowerFarm": "Flower Farm",
-  "botania.challenge.flowerFarm.desc": "Create an automated farm of all 16 colors of botania flowers. Bonus points if the flowers are sorted.",
+  "botania.challenge.flowerFarm.desc": "Create an automated farm of all 16 colors of Botania flowers. Bonus points if the flowers are sorted.",
   "botania.challenge.recordFarm": "Record Farm",
   "botania.challenge.recordFarm.desc": "Create a system that produces records through the death of creepers at the hands of skeletons. Bonus points if it doesn't require a player's presence.",
   "botania.challenge.reedFarm": "Sugar Cane Farm",
@@ -1867,7 +1867,7 @@
   "botania.page.lexicon0": "The $(1)Lexica Botania$(0) is the repository of all knowledge for all botanical matters. (But you probably knew that already.)$(p)All pertinent information is stored within these pages (as you might expect). For convenience, if a block happens to have an entry in here, it can be shift-right clicked on with the $(1)Lexica Botania$(0) to open said entry.",
   "botania.page.lexicon3": "Any entries typed in $(o)Italics$() are $(4)basic$(0) entries, which contain the core knowledge required to play Botania-- you may want to read those first. Most sections contain one or more of these entries, so a good look through those would be a good idea.",
   "botania.page.lexicon1": "Crafting the $(1)Lexica Botania$(0).",
-  "botania.page.lexicon2": "The $(1)Lexica Botania$(0)'s title can also be customized by placing it in an $(1)Anvil$(0) and renaming it. This changes both its cover and its title.$(p)The Edition of the lexica shown equates to the version of the $(4)Botania$(0) you're running, and no, I don't care about the fourth wall.",
+  "botania.page.lexicon2": "The $(1)Lexica Botania$(0)'s title can also be customized by placing it in an $(1)Anvil$(0) and renaming it. This changes both its cover and its title.$(p)The Edition of the Lexica shown equates to the version of the $(4)Botania$(0) you're running, and no, I don't care about the fourth wall.",
 
   "botania.entry.flowers": "Mystical Flowers",
   "botania.tagline.flowers": "The roots of your studies",
@@ -1889,9 +1889,9 @@
 
   "botania.entry.apothecary": "Petal Apothecary",
   "botania.tagline.apothecary": "What you use to make flowers",
-  "botania.page.apothecary0": "To create plantlife that can do their bidding, a botanist needs a special means of infusing plants with mystical energy.$(p)Luckily, the $(1)Petal Apothecary$(0) can do just that.",
+  "botania.page.apothecary0": "To create plant life that can do one's bidding, a botanist needs a special means of infusing plants with mystical energy.$(p)Luckily, the $(1)Petal Apothecary$(0) can do just that.",
   "botania.page.apothecary1": "The $(1)Petal Apothecary$(0).",
-  "botania.page.apothecary2": "This block, when placed in the world and given some water (by use of a $(1)Water Bucket$(0)), will accept any $(1)Mystical Petals$(0) thrown into it, releasing their energies.$(p)Once one has inserted the correct petals, throwing some $(1)Seeds$(0) in will finalize the crafting process.$(p)The apothecary can also be filled by throwing in a fulll water bucket.",
+  "botania.page.apothecary2": "This block, when placed in the world and given some water (by use of a $(1)Water Bucket$(0)), will accept any $(1)Mystical Petals$(0) thrown into it, releasing their energies.$(p)Once one has inserted the correct petals, throwing some $(1)Seeds$(0) in will finalize the crafting process.$(p)The apothecary can also be filled by throwing in a full water bucket.",
   "botania.page.apothecary3": "Quite a few plants can be made here. For more information, read the $(4)Functional Flora$(0) and $(4)Generating Flora$(0) sections of this Lexicon.$(p)Shift-right clicking the $(1)Petal Apothecary$(0) with an empty hand will remove the last item thrown in.",
   "botania.page.apothecary4": "$(1)Lava$(0) can be used to fill this block in place of $(1)Water$(0). If this is done, the Apothecary will serve as a brazier and incinerator, destroying any items that come into contact with it.$(p)By the way, tossing in $(1)Vines$(0) will give the block an overgrown appearance.",
   "botania.page.apothecary7": "$(1)Comparators$(0) can detect whether the block contains water or not.$(p)Since the $(1)Petal Apothecary$(0) can be filled by with a dropped $(1)Water Bucket$(0), and $(1)Dispensers$(0) can fill buckets, creating a system that automatically refills the water in the block shouldn't prove too difficult.",
@@ -1907,7 +1907,7 @@
   "botania.page.pureDaisy3": "A blank canvas to start your adventure",
 
   "botania.entry.wand": "Wand of the Forest",
-  "botania.tagline.wand": "Your essential multitool",
+  "botania.tagline.wand": "Your essential multi-tool",
   "botania.page.wand0": "The general multi-use tool for a botanist is the $(1)Wand of the Forest$(0).$(p)This wand, made by strapping a pair of $(1)Mystical Petals$(0) of any color to a few $(1)Livingwood Twigs$(0), is required for any number of tasks botanical.",
   "botania.page.wand1": "The wand has two modes, $(4)Bind Mode$(0) and $(4)Function Mode$(0). In $(4)Bind Mode$(0), shift-right click it on a compatible block to select it, then shift-right click elsewhere to bind the two blocks. In $(4)Function Mode$(0) it simply doesn't perform this function, freeing it up for other tasks.$(p)The two modes can be switched between by shift-right clicking the wand on air.",
   "botania.page.wand2": "If the wand isn't binding anything, shift-right clicking on a block rotates the block around the axis of the side it was clicked on.$(p)For example, using the wand on the top of a $(1)Chest$(0) will spin it. Most blocks with orientations should be able to be reoriented this way.",
@@ -1963,7 +1963,7 @@
 
   "botania.entry.mIntro": "An Introduction to Mana",
   "botania.tagline.mIntro": "Start off with Mana",
-  "botania.page.mIntro0": "$(4)Mana$(0) is an ethereal substance. In layman's terms, it's a mystical form of $(4)energy$(0). Its sensorial existence is irregular, and its color depends on its surrounding environment.$(p)The usage and manipulation of $(4)Mana$(0) is one of the most important skills a botanist needs to master.",
+  "botania.page.mIntro0": "$(4)Mana$(0) is an ethereal substance. In layman's terms, it's a mystical form of $(4)energy$(0). Its existence is inconsistent to the senses, and its color depends on its surrounding environment.$(p)The usage and manipulation of $(4)Mana$(0) is one of the most important skills a botanist needs to master.",
   "botania.page.mIntro1": "In order to generate $(4)Mana$(0), you need $(4)Generating Flora$(0) (read the corresponding section for more details). $(4)Mana$(0) so generated can be extracted and transferred with $(1)Mana Spreaders$(0) and stored in $(1)Mana Pools$(0). $(4)Mana$(0) can be used for a myriad variety of things. For starters, it can be used to fuel $(4)Functional Flora$(0) (read that section too).",
   "botania.page.mIntro2": "To get started on mastering $(4)Mana$(0), learn about the use of $(1)Endoflames$(0) or $(1)Hydroangeas$(0); $(1)Mana Spreaders$(0); and $(1)Mana Pools$(0).$(p)These form a basic infrastructure for mana generation, which can be used for all sorts of purposes; have a read through the $(4)Functional Flora$(0) and $(4)Natural Apparatus$(0) sections of this Lexicon for more details.",
 
@@ -2015,7 +2015,7 @@
 
   "botania.entry.distributor": "Mana Splitter",
   "botania.tagline.distributor": "Equally split Mana between multiple pools",
-  "botania.page.distributor0": "Any botanist worth their weight in flowers will eventually reach a point where a single $(1)Mana Pool$(0) setup is not enough.$(p)The $(1)Mana Splitter$(0) can fix many of these issues. After placing $(1)Mana Pools$(0) on its adjacent sides, any $(4)Mana$(0) recieved through $(4)Mana Bursts$(0) will be split evenly among them.",
+  "botania.page.distributor0": "Any botanist worth their weight in flowers will eventually reach a point where a single $(1)Mana Pool$(0) setup is not enough.$(p)The $(1)Mana Splitter$(0) can fix many of these issues. After placing $(1)Mana Pools$(0) on its adjacent sides, any $(4)Mana$(0) received through $(4)Mana Bursts$(0) will be split evenly among them.",
   "botania.page.distributor1": "Crafting the splitter",
 
   "botania.entry.manaVoid": "Mana Void",
@@ -2025,7 +2025,7 @@
 
   "botania.entry.rfGenerator": "Mana Fluxfield",
   "botania.tagline.rfGenerator": "Converts Mana into Forge Energy",
-  "botania.page.rfGenerator0": "By passing $(4)Mana$(0) through a field of redstone charge, it can be converted from natural energy to $(4)Forge Energy$(0).$(p)Any $(4)Mana Bursts$(0) recieved by the Fluxfield are converted into $(4)FE$(0), and sent to any nearby $(4)FE$(0) acceptors.",
+  "botania.page.rfGenerator0": "By passing $(4)Mana$(0) through a field of redstone charge, it can be converted from natural energy to $(4)Forge Energy$(0).$(p)Any $(4)Mana Bursts$(0) received by the Fluxfield are converted into $(4)FE$(0), and sent to any nearby $(4)FE$(0) acceptors.",
   "botania.page.rfGenerator1": "Challenging the fabric of magic mod reality",
 
   "botania.entry.lens": "Mana Lenses",
@@ -2090,7 +2090,7 @@
   "botania.entry.redstoneSpreader": "Pulse Mana Spreader",
   "botania.tagline.redstoneSpreader": "A spreader that fires on a Redstone pulse",
   "botania.page.redstoneSpreader0": "By combining a $(1)Mana Spreader$(0) with a piece of $(1)Redstone$(0), a $(1)Pulse Mana Spreader$(0) is created, which (as the name implies) fires when given a $(4)redstone pulse$(0), regardless of target.$(p)Keep in mind that it still won't shoot a burst until the last one dissipates or is absorbed.",
-  "botania.page.redstoneSpreader1": "Lil' touch of redstone",
+  "botania.page.redstoneSpreader1": "Li'l touch of redstone",
 
   "botania.entry.manastar": "Manastar",
   "botania.tagline.manastar": "A flower for checking net mana flow",
@@ -2162,7 +2162,7 @@
 
   "botania.entry.flowerSpeed": "Modulating Delay",
   "botania.tagline.flowerSpeed": "Changing how long flowers take to work",
-  "botania.page.flowerSpeed0": "A problem with $(4)Functional Flora$(0) that interact with items on the floor is making sure they do so in the right order.$(p)Planting a flower over $(1)Podzol$(0) will add a small delay before it can interact with floor items, allowing for a \"priority\" system of sorts. Planting a flower on $(1)Mycellium$(0) will create a larger delay.",
+  "botania.page.flowerSpeed0": "A problem with $(4)Functional Flora$(0) that interact with items on the floor is making sure they do so in the right order.$(p)Planting a flower over $(1)Podzol$(0) will add a small delay before it can interact with floor items, allowing for a \"priority\" system of sorts. Planting a flower on $(1)Mycelium$(0) will create a larger delay.",
   "botania.page.flowerSpeed1": "This system's use also extends to $(1)Floating Flowers$(0), via the use of $(1)Boreal Seeds$(0) and $(1)Infestation Spores$(0).$(p)Given two flowers with the same (or no) delay, a $(4)Generating Flower$(0) (e.g. the $(1)Endoflame$(0)) will pick up an item before a $(4)Functional$(0) one (e.g. the $(1)Hopperhock$(0)). For two flowers of the same type, it's a secret to anybody.",
 
   "botania.entry.jadedAmaranthus": "Jaded Amaranthus",
@@ -2178,7 +2178,7 @@
 
   "botania.entry.dreadthorne": "Dreadthorne",
   "botania.tagline.dreadthorne": "Damages adult animals",
-  "botania.page.dreadthorne0": "The $(1)Dreadthorne$(0) is a slightly more specialized counterpart to the $(1)Bellethrorne$(0): more specifically, instead of $(o)all$() nearby beings, it only harms $(4)adult animals$(0).",
+  "botania.page.dreadthorne0": "The $(1)Dreadthorne$(0) is a slightly more specialized counterpart to the $(1)Bellethorne$(0): more specifically, instead of $(o)all$() nearby beings, it only harms $(4)adult animals$(0).",
   "botania.page.dreadthorne1": "$(o)It's a modus operandi$().",
 
   "botania.entry.heiseiDream": "Heisei Dream",
@@ -2256,7 +2256,7 @@
 
   "botania.entry.loonium": "Loonium",
   "botania.tagline.loonium": "Conjures dungeon loot",
-  "botania.page.loonium0": "Any weary adventurer knows that $(4)Dungeons$(0) can hold valuable goodies. The $(1)Loonium$(0) can, through the use of a rather substantial amount of $(4)Mana$(0), materialize these items for said aventurers to collect.$(p)There's a catch, though: Each item so materialized is held by a monster protecting it. These monsters are stronger than usual, and will drop their precious $(4)dungeon loot$(0) when killed.",
+  "botania.page.loonium0": "Any weary adventurer knows that $(4)Dungeons$(0) can hold valuable goodies. The $(1)Loonium$(0) can, through the use of a rather substantial amount of $(4)Mana$(0), materialize these items for said adventurers to collect.$(p)There's a catch, though: Each item so materialized is held by a monster protecting it. These monsters are stronger than usual, and will drop their precious $(4)dungeon loot$(0) when killed.",
   "botania.page.loonium1": "$(o)I CAN HAZ PHAT LOOTZ$()?",
 
   "botania.entry.daffomill": "Daffomill",
@@ -2265,7 +2265,7 @@
   "botania.page.daffomill1": "$(o)Wind Turbines? I'm a big fan$().",
 
   "botania.entry.vinculotus": "Vinculotus",
-  "botania.tagline.vinculotus": "Intercepts enderman teleportation",
+  "botania.tagline.vinculotus": "Intercepts Enderman teleportation",
   "botania.page.vinculotus0": "The $(1)Vinculotus$(0) uses $(5)Mana$(0) to hijack the powers of any $(4)Enderman$(0) within a fairly large radius around it. Whenever an $(4)Enderman$(0) attempts a teleport within said radius, it's instead forced to the location of the $(1)Vinculotus$(0).",
   "botania.page.vinculotus1": "$(o)Touch this black lotus with your fingers$().",
 
@@ -2295,7 +2295,7 @@
 
   "botania.entry.solegnolia": "Solegnolia",
   "botania.tagline.solegnolia": "Creates spaces where the Ring of Magnetization doesn't work",
-  "botania.page.solegnolia0": "The $(1)Ring of Magnetization$(0) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, possibly disrupting automatioa setups in the process. The $(1)Solegnolia$(0) disrupts the ring's field of effect and prevents any items around it from being pulled towards a ring-bearer, and any rings within its radius from picking items up. It does not require $(4)Mana$(0).",
+  "botania.page.solegnolia0": "The $(1)Ring of Magnetization$(0) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, possibly disrupting automation setups in the process. The $(1)Solegnolia$(0) disrupts the ring's field of effect and prevents any items around it from being pulled towards a ring-bearer, and any rings within its radius from picking items up. It does not require $(4)Mana$(0).",
   "botania.page.solegnolia1": "On/Off",
 
   "botania.entry.bergamute": "Bergamute",
@@ -2390,9 +2390,9 @@
   "botania.page.dandelifeon9": "Creating $(1)Cellular Blocks$(0)",
 
   "botania.entry.shulk_me_not": "Shulk Me Not",
-  "botania.tagline.shulk_me_not": "Mana from shulkers",
-  "botania.page.shulk_me_not0": "The $(1)Shulk Me Not$(0) is a generating flower that creates $(4)Mana$(0) by harnessing the power of the $(4)Levitation$(0) effect.$(p)The flower will create a massive amount of $(4)Mana$(0) while its internal buffer is empty, and a monster within its range is hit with a shulker's projectile, causing it to gain $(4)Levitation$(0).",
-  "botania.page.shulk_me_not1": "A few extra points are relevant to this generation process.$(p)First off, both the hit entity and the shulker are killed, and their drops and experience suppressed. Second, for the process to happen, the shulker must be targeting the other monster, rather than the projectile just wandering in its way. Lastly, both entities need to be within the flower's range.",
+  "botania.tagline.shulk_me_not": "Mana from Shulkers",
+  "botania.page.shulk_me_not0": "The $(1)Shulk Me Not$(0) is a generating flower that creates $(4)Mana$(0) by harnessing the power of the $(4)Levitation$(0) effect.$(p)The flower will create a massive amount of $(4)Mana$(0) while its internal buffer is empty, and a monster within its range is hit with a Shulker's projectile, causing it to gain $(4)Levitation$(0).",
+  "botania.page.shulk_me_not1": "A few extra points are relevant to this generation process.$(p)First off, both the hit entity and the Shulker are killed, and their drops and experience suppressed. Second, for the process to happen, the Shulker must be targeting the other monster, rather than the projectile just wandering in its way. Lastly, both entities need to be within the flower's range.",
   "botania.page.shulk_me_not2": "$(o)Petal plucking not recommended$().",
 
   "botania.entry.pylon": "Mana Pylon",
@@ -2483,7 +2483,7 @@
 
   "botania.entry.flasks": "Brewing Flasks",
   "botania.tagline.flasks": "Bigger brew containers",
-  "botania.page.flasks0": "$(1)Alfglass$(0) seems to be more malleable than the typical $(1)Managlass$(0) used for $(1)Vials$(0). A $(1)Flask$(0), made with $(1)Alfglass$(0) is the typical elven container for $(4)Brews$(0), and can contain 6 doses of one, rather than the 4 a $(1)Vial$(0) does.",
+  "botania.page.flasks0": "$(1)Alfglass$(0) seems to be more malleable than the typical $(1)Managlass$(0) used for $(1)Vials$(0). A $(1)Flask$(0), made with $(1)Alfglass$(0) is the typical Elven container for $(4)Brews$(0), and can contain 6 doses of one, rather than the 4 a $(1)Vial$(0) does.",
   "botania.page.flasks1": "While the ingredient cost to brew something in a $(1)Flask$(0) is smaller, the $(4)Mana$(0) cost is double that of a regular $(1)Vial$(0).$(p)Lastly, given that the bottleneck of a $(1)Flask$(0) is larger than that of a $(1)Vial$(0), the contents can be consumed faster.",
   "botania.page.flasks2": "Get one under the bridge",
 
@@ -2498,7 +2498,7 @@
   "botania.page.complexBrews3b": "And I call it magic",
   "botania.page.complexBrews4a": "This brew casts an aura of emptiness around any entity that has its effect. In a 128 block radius, mobs will not be allowed to spawn naturally.",
   "botania.page.complexBrews4b": "Close the floodgates",
-  "botania.page.complexBrews5a": "This brew casts an aura of bloodthirst around any entity that has its effect. In a 64 block radius, mobs will be allowed to spawn regardless of light or other conditions. This won't work with $(1)Emptiness$(0).",
+  "botania.page.complexBrews5a": "This brew casts an aura of bloodthirstiness around any entity that has its effect. In a 64 block radius, mobs will be allowed to spawn regardless of light or other conditions. This won't work with $(1)Emptiness$(0).",
   "botania.page.complexBrews5b": "Shall we pray for a miracle?",
   "botania.page.complexBrews6a": "A player affected with this brew's effect will have much higher proficiency at fishing and will catch fish and other loot twice as fast.",
   "botania.page.complexBrews6b": "Maybe you'll catch a Chris",
@@ -2560,13 +2560,13 @@
 
   "botania.entry.gatherDrum": "Drum of the Gathering",
   "botania.tagline.gatherDrum": "Shear sheep and milk cows with mana bursts",
-  "botania.page.gatherDrum0": "The $(1)Drum of the Gathering$(0) is, in short terms, a $(1)Drum of the Wild$(0) for livestock.$(p)When a $(4)Mana Burst$(0) collides with it, it'll shear any $(4)Sheep$(0) around with grown fleece. Any $(4)Cows$(0), with $(1)Empty Buckets$(0) below them will have their milk transfered to the buckets.",
+  "botania.page.gatherDrum0": "The $(1)Drum of the Gathering$(0) is, in short terms, a $(1)Drum of the Wild$(0) for livestock.$(p)When a $(4)Mana Burst$(0) collides with it, it'll shear any $(4)Sheep$(0) around with grown fleece. Any $(4)Cows$(0), with $(1)Empty Buckets$(0) below them will have their milk transferred to the buckets.",
   "botania.page.gatherDrum1": "Tap your lands",
 
   "botania.entry.craftCrate": "Crafty Crate",
   "botania.tagline.craftCrate": "A way to craft automatically",
   "botania.page.craftCrate0": "As the name suggests, the $(1)Crafty Crate$(0) is a counterpart to the $(1)Open Crate$(0) with the ability to assemble items into other items similarly to a $(1)Crafting Table$(0).$(p)Like a $(1)Crafting Table$(0), it has a 9 slot inventory, which can be filled with items in the pattern of a recipe.",
-  "botania.page.craftCrate1": "The items go in from left to right and top to bottom (illustration further in this entry), to that, there's a special item, named the $(1)Crafting Placeholder$(0), which, when placed in, counts as an empty slot in the recipe. This is used to allow for recipes with gaps (eg, furnace, chest, pickaxe...) to also be doable.",
+  "botania.page.craftCrate1": "The items go in from left to right and top to bottom (illustration further in this entry), to that, there's a special item, named the $(1)Crafting Placeholder$(0), which, when placed in, counts as an empty slot in the recipe. This is used to allow for recipes with gaps (e.g. furnace, chest, pickaxe...) to also be doable.",
   "botania.page.craftCrate2": "Creating the placeholder",
   "botania.page.craftCrate3": "To finish the recipe, one of two things can be done.$(p)First off, filling every of the 9 slots with either recipe components or placeholders will instantly eject the result, the placeholders and any leftovers (e.g. buckets when making cake), this is the most straightforward method.",
   "botania.page.craftCrate4": "Right clicking the crate with a $(1)Wand of the Forest$(0) (remember: $(1)Dispensers$(0) can do this) will attempt at crafting with whatever is inside the crate and eject it.$(p)If this fails all the items inside are simply ejected with no crafting procedure done.",
@@ -2578,7 +2578,7 @@
 
   "botania.entry.hourglass": "Hovering Hourglass",
   "botania.tagline.hourglass": "A simple timer, using the sands of time",
-  "botania.page.hourglass0": "The ability to count time is an essential one to anyone who wishes to develop any redstonic contraptions. A single timer, however, can take a up both a lot of space and be slow in general. The $(1)Hovering Hourglass$(0) is a simple, accurate, sand based timer. As the name implies, it's a hourglass that hovers and turns by itself.",
+  "botania.page.hourglass0": "The ability to count time is an essential one to anyone who wishes to develop any redstone-based contraptions. A single timer, however, can take a up both a lot of space and be slow in general. The $(1)Hovering Hourglass$(0) is a simple, accurate, sand based timer. As the name implies, it's a hourglass that hovers and turns by itself.",
   "botania.page.hourglass1": "The hourglass contains an inventory, in which up to a stack of $(1)Sand$(0), $(1)Red Sand$(0) or $(1)Soul Sand$(0) can be added via a right-click. Right-clicking again removes it. The sand will then fall from one of the chambers into another, and when is done, release a single redstone pulse and turn over, starting the process again.",
   "botania.page.hourglass2": "The amount of time for each pulse is dependent on how much and what type of sand is in the chamber. $(1)Sand$(0) will count for one second per block, $(1)Red Sand$(0) ten seconds per and $(1)Soul Sand$(0) one minute per. Sand types can't be mixed. The time for each pulse can be seen by hovering over the block with a $(1)Wand of the Forest$(0).",
   "botania.page.hourglass3": "Note that the sand is added all at once, so the size of the stack to be added needs to be set in the inventory.$(p)Sand can't be added to the hourglass after it already has some in, trying to do so will end up removing the sand there instead. The sand in the block can be taken and added by $(1)Hoppers$(0) or other methods.",
@@ -2639,7 +2639,7 @@
 
   "botania.entry.grassSeeds": "Pasture Seeds",
   "botania.tagline.grassSeeds": "Seeds to create Grass, Podzol and Mycelium",
-  "botania.page.grassSeeds0": "Watching grass spread is seldom a fun activity. By infusing some $(1)Tall Grass$(0) with $(4)Mana$(0), it's possible to create $(1)Pasture Seeds$(0), which will grow grass in any barren area, via a simple right-click on dirt.$(p)Other types of foliage can also be grown, such a $(1)Podzol$(0) or $(1)Mycellium$(0) with alternate seeds.",
+  "botania.page.grassSeeds0": "Watching grass spread is seldom a fun activity. By infusing some $(1)Tall Grass$(0) with $(4)Mana$(0), it's possible to create $(1)Pasture Seeds$(0), which will grow grass in any barren area, via a simple right-click on dirt.$(p)Other types of foliage can also be grown, such a $(1)Podzol$(0) or $(1)Mycelium$(0) with alternate seeds.",
   "botania.page.grassSeeds1": "$(1)Pasture Seeds$(0) for grass",
   "botania.page.grassSeeds2": "$(1)Boreal Seeds$(0) for podzol",
   "botania.page.grassSeeds3": "$(1)Infestation Spores$(0) for mycelium",
@@ -2656,7 +2656,7 @@
   "botania.tagline.terraformRod": "A rod to terraform",
   "botania.page.terraformRod0": "While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.$(p)By utilizing the $(1)Rod of the Terra Firma$(0), it's possible to terraform in a quick and environmental friendly manner.",
   "botania.page.terraformRod1": "This rod, will, at the cost of some $(4)Mana$(0) from the user's inventory, flatten the land to the level you are standing. For this to happen, charge it by $(4)holding right-click$(0) and, slowly but surely, the nearby terrain will be flattened to your level, either by placing $(1)Dirt$(0) or by removing blocks.",
-  "botania.page.terraformRod2": "Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.$(p)Lastly, the rod will cease to function whatsoever below sea level.",
+  "botania.page.terraformRod2": "Note that blocks removed by the rod are non-recoverable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.$(p)Lastly, the rod will cease to function whatsoever below sea level.",
   "botania.page.terraformRod3": "Quite a justicar",
 
   "botania.entry.manaGear": "Manasteel Equipment",
@@ -2777,7 +2777,7 @@
   "botania.entry.skyDirtRod": "Rod of the Highlands",
   "botania.tagline.skyDirtRod": "A rod to create dirt, in the sky",
   "botania.page.skyDirtRod0": "While the $(1)Rod of the Lands$(0) is all well and good, being able to place $(1)Dirt$(0) without something to hold it would be great.$(p)The $(1)Rod of the Highlands$(0) does just that, while maintaining the original power of the $(1)Rod of the Lands$(0), it can also place $(1)Dirt$(0) in mid air, for an increased $(4)Mana$(0) cost.",
-  "botania.page.skyDirtRod1": "Dirty Stick mk2",
+  "botania.page.skyDirtRod1": "Dirty Stick Mark II",
 
   "botania.entry.glassPick": "Vitreous Pickaxe",
   "botania.tagline.glassPick": "A pickaxe with built-in silk touch for glass",
@@ -2799,7 +2799,7 @@
   "botania.entry.regenIvy": "Timeless Ivy",
   "botania.tagline.regenIvy": "Ivy that can be attached to items to have them regenerate durability",
   "botania.page.regenIvy0": "While $(1)Manasteel$(0) or $(1)Elementium$(0) tools have the ability to harness $(4)Mana$(0) and use it to protect their bodies, other tools or armor don't have this property.$(p)A handful of $(1)Timeless Ivy$(0) can be attached on to virtually any item, allowing it to be repaired with $(4)Mana$(0).",
-  "botania.page.regenIvy1": "To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (eg. $(1)Diamonds$(0) for a $(1)Diamond Pickaxe$(0)).$(p)Due to not being in direct contact with the material, the amount of $(4)Mana$(0) used by the ivy in comparison to $(1)Manasteel$(0) is rather high.",
+  "botania.page.regenIvy1": "To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (e.g. $(1)Diamonds$(0) for a $(1)Diamond Pickaxe$(0)).$(p)Due to not being in direct contact with the material, the amount of $(4)Mana$(0) used by the ivy in comparison to $(1)Manasteel$(0) is rather high.",
   "botania.page.regenIvy2": "Bring your Inferno Adze",
 
   "botania.entry.missileRod": "Rod of the Unstable Reservoir",
@@ -2827,7 +2827,7 @@
 
   "botania.entry.smeltRod": "Rod of the Molten Core",
   "botania.tagline.smeltRod": "A rod to smelt blocks",
-  "botania.page.smeltRod0": "The $(1)Rod of the Molten Core$(0) has the ability to expel heat provenient from the world's core. Holding it via right-click and pointing at a block in the world that can be smelted into a different type of block will quickly turn it into that.$(p)For some examples, $(1)Cobblestone$(0) turns into $(1)Stone$(0), $(1)Sand$(0) into $(1)Glass$(0), so on.",
+  "botania.page.smeltRod0": "The $(1)Rod of the Molten Core$(0) has the ability to expel heat drawn from the world's core. Holding it via right-click and pointing at a block in the world that can be smelted into a different type of block will quickly turn it into that.$(p)For some examples, $(1)Cobblestone$(0) turns into $(1)Stone$(0), $(1)Sand$(0) into $(1)Glass$(0), so on.",
   "botania.page.smeltRod1": "No raid party required",
 
   "botania.entry.worldSeed": "World Seed",
@@ -2867,7 +2867,7 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of a Terra Shatterer",
-  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active $(1)Stone of Temperance$(0) in one's inventory will prevent their shatterer from breaking any more than a 3x3 area. This also affects the $(1)Terra Truncator$(0). The stone can be toggled on and off by shift-right clicking.",
+  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active $(1)Stone of Temperance$(0) in one's inventory will prevent their Shatterer from breaking any more than a 3x3 area. This also affects the $(1)Terra Truncator$(0). The stone can be toggled on and off by shift-right clicking.",
   "botania.page.temperanceStone1": "Don't lose it",
 
   "botania.entry.terraAxe": "Terra Truncator",
@@ -2943,7 +2943,7 @@
   "botania.page.enderHand1a": "It's like the 4G of Ender Chests",
 
   "botania.entry.enderDagger": "Soulscribe",
-  "botania.tagline.enderDagger": "A dagger that cuts through endermen like butter",
+  "botania.tagline.enderDagger": "A dagger that cuts through Endermen like butter",
   "botania.page.enderDagger0": "Those $(4)Endermen$(0). They're the second more pesky thing since $(4)Creepers$(0). I swear, the person who came up with them must have taken a $(o)notch$() too much of their drink.$(p)However, by infusing a standard dagger with some of their energy, one can create the $(1)Soulscribe$(0), a dagger that tears through $(1)Endermen$(0) as if they were butter.",
   "botania.page.enderDagger1": "Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the $(1)Manasteel$(0) from gathering $(4)Mana$(0) to avoid damage, like typical tools would. Still, all in the name of killing those monsters.",
   "botania.page.enderDagger2": "Strike my Soul",
@@ -2974,7 +2974,7 @@
 
   "botania.entry.flightTiara": "Flügel Tiara",
   "botania.tagline.flightTiara": "The ability to fly... for a bit",
-  "botania.page.flightTiara0": "The $(4)Flügel$(0) were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.$(p)The usage of $(1)Gaia Spirits$(0) allows for a small replica of their power, in the form of the $(1)Flügel Tiara$(0), which, at the cost of $(4)Mana$(0) allows for flight.",
+  "botania.page.flightTiara0": "The $(4)Flügel$(0) were once a dominant species in the lands, now they're but a race past extinct, once created as god-slayers, who possessed the ability of flight.$(p)The usage of $(1)Gaia Spirits$(0) allows for a small replica of their power, in the form of the $(1)Flügel Tiara$(0), which, at the cost of $(4)Mana$(0) allows for flight.",
   "botania.page.flightTiara4": "Not all is perfect with reproducing old technology though, the tiara has its flaws, that meaning it can't provide the power of flight constantly. If used for over thirty seconds without letting it recharge it'll stop being able to provide the power of flight.$(p)A \"flight bar\" is displayed on the HUD to help monitor this.",
   "botania.page.flightTiara5": "In addition to simple flight, the tiara grants the wearer the ability to $(4)dash$(0) and $(4)glide$(0). Pressing the sprint key (CTRL by default) while flying, provided one isn't sprinting already, will start a dash, a quick speed boost in the direction the wearer's facing.$(p)Dashes can only be done every 2 seconds.",
   "botania.page.flightTiara6": "Gliding allows one to gently descend to the ground while also covering a decent horizontal distance. It also prevents fall damage. To glide, one would simply sneak while falling.$(p)Gliding can be executed even with an empty flight bar, but while gliding, the flight bar regenerates slower than normally.",
@@ -2988,11 +2988,11 @@
   "botania.page.corporea1": "Starting off, they can go on top of any $(4)Inventory$(0), like a $(1)Chest$(0) or a $(1)Dispenser$(0) as opposed to $(4)Mana Containers$(0), secondly, there's two types of $(1)Corporea Sparks$(0), the basic $(1)Corporea Spark$(0) and the $(1)Master Corporea Spark$(0). These sparks work in a network-like system, each $(1)Master Corporea Spark$(0) designates a $(4)Corporea Network$(0), in which any spark can communicate with other sparks present in it.",
   "botania.page.corporea2": "When a $(1)Corporea Spark$(0) is placed or polled, each spark will poll any nearby sparks, adding them to the network designated by the single $(1)Master Corporea Spark$(0) and also polling other nearby sparks, in a chain. While each individual spark can only reach a few blocks, combined, the entire network can go for a virtually infinite distance.",
   "botania.page.corporea3": "$(1)Corporea Sparks$(0) have a view of the inventory directly below them, but can only access items from the top side. Each $(1)Corporea Spark$(0) has the ability to view every other spark in the network and its contents, and the ability to request them as necessary, depending on the type of block below it.",
-  "botania.page.corporea4": "It's to note that the $(1)Master Corporea Spark$(0), while being part of the network, can not have the items in its inventory extracted from.$(p)Futhermore, no requests for items in the network are ever done passively. Corporea does not have the ability to add new items to the network, those should be inserted physically through $(1)Hoppers$(0) or other methods.",
+  "botania.page.corporea4": "It's to note that the $(1)Master Corporea Spark$(0), while being part of the network, can not have the items in its inventory extracted from.$(p)Furthermore, no requests for items in the network are ever done passively. Corporea does not have the ability to add new items to the network, those should be inserted physically through $(1)Hoppers$(0) or other methods.",
   "botania.page.corporea5": "Similarly to normal $(1)Sparks$(0), $(1)Corporea Sparks$(0) have a method of augmentation, that being the ability to color them. While in the world, there's an icon floating around the spark that shows which color it has, this can be changed by right-clicking on the spark with a piece of $(1)Floral Powder$(0). These colors define networks. A spark may only be in the same network as another spark if the two have the same color.",
-  "botania.page.corporea6": "The ability to color sparks allows for multiple different $(4)Corporea Networks$(0) to be together in a close area, without interfering with each other.$(p)Viewing the network and removing the spark works exactly the same as a normal spark. Lastly, having two $(1)Master Corporea Sparks$(0) of the same color nearby, while possible, is a bad idea and will cause conflicts and odd behaviour.",
+  "botania.page.corporea6": "The ability to color sparks allows for multiple different $(4)Corporea Networks$(0) to be together in a close area, without interfering with each other.$(p)Viewing the network and removing the spark works exactly the same as a normal spark. Lastly, having two $(1)Master Corporea Sparks$(0) of the same color nearby, while possible, is a bad idea and will cause conflicts and odd behavior.",
   "botania.page.corporea7": "A spark of ingenuity",
-  "botania.page.corporea8": "Love-coloured",
+  "botania.page.corporea8": "Love-colored",
 
   "botania.entry.corporeaIndex": "Corporea Index",
   "botania.tagline.corporeaIndex": "Request items from a Corporea network via chat",
@@ -3000,7 +3000,7 @@
   "botania.page.corporeaIndex1": "While activated, the index will intercept any $(4)Chat Messages$(0) sent by nearby players, taking them in as $(4)requests$(0) and preventing them to be broadcasted to chat. From this, it'll request, from the network, items whose name matches the request. For example, writing \"iron ingot\" will have the index look through the network for a single $(1)Iron Ingot$(0) and transport it towards itself, materializing it in the world.",
   "botania.page.corporeaIndex2": "Requests can be more complex than just a single item. For example \"10 apples\" will request, as described, 10 $(1)Apples$(0). Writing \"this\" will search for items whose name equals the name of the item in the player's hand. Prepending or appending to a query \"...\", \"~\", \"+\" or \"?\" will turn it into a \"contains\" rather than \"equals\" query. So writing \"iron...\" will find all items that have \"iron\" in their name, for example.",
   "botania.page.corporeaIndex3": "The plural form of an item's name may only be used case it's a regular noun when it comes to the plural (suffixed by \"-s\", \"-es\" or \"-ies\"), the singular version works just as well for requests of multiple items, such as \"10 apple\".$(p)\"10 of this\" requests 10 items whose name equals the item in the player's hand, as expected.",
-  "botania.page.corporeaIndex4": "Examples of complex requests include \"10 apples\", \"a stack of apples\", \"2 stacks of apples\", \"2 stacks and 20 apples\", \"half a stack of apples\", \"a dozen apples\", and so on.$(p)The index will also recognise more or less verbose forms of request, so \"2x stacks and 20x of apples\" is equal to \"2 stack 2 apple\" or \"2 stacks + 2 apples\".",
+  "botania.page.corporeaIndex4": "Examples of complex requests include \"10 apples\", \"a stack of apples\", \"2 stacks of apples\", \"2 stacks and 20 apples\", \"half a stack of apples\", \"a dozen apples\", and so on.$(p)The index will also recognize more or less verbose forms of request, so \"2x stacks and 20x of apples\" is equal to \"2 stack 2 apple\" or \"2 stacks + 2 apples\".",
   "botania.page.corporeaIndex5": "Requesting with \"all\" or \"every\" will deliver every single item in the network that matches the criteria, so \"all apples\" will deliver all the apples in the network.$(p)On the other side, requesting \"count\", \"show\", \"display\" or \"tell\" won't request any, but will tell the requester how many exist in the network.",
   "botania.page.corporeaIndex8": "While near a $(1)Corporea Index$(0), pressing C on an item in one's inventory (or, if one is using $(4)JustEnoughItems$(0), the JEI panel) will request 1 of said item.$(p)Using SHIFT will instead request a full stack, CTRL will request half a stack and SHIFT+CTRL a quarter of a stack.",
   "botania.page.corporeaIndex6": "Lastly, while near a $(1)Corporea Index$(0), writing part of an item's name and pressing TAB in the chat menu will autocomplete the item's name.",
@@ -3014,13 +3014,13 @@
 
   "botania.entry.corporeaInterceptor": "Corporea Interceptor",
   "botania.tagline.corporeaInterceptor": "Intercept Corporea requests and send redstone signals",
-  "botania.page.corporeaInterceptor0": "The $(1)Corporea Interceptor$(0) does exactly as the name suggests, it intercepts corporea requests. First and foremost, $(1)Item Frames$(0) with items need be attached around the block, these define what items will trigger the interceptor.$(p)Whenever a request is fired to the corporea network, be it from an Index, Funnel, etc, and there's no items in the network that can fulfil it this block will be triggered.",
+  "botania.page.corporeaInterceptor0": "The $(1)Corporea Interceptor$(0) does exactly as the name suggests, it intercepts Corporea requests. First and foremost, $(1)Item Frames$(0) with items need be attached around the block, these define what items will trigger the interceptor.$(p)Whenever a request is fired to the Corporea network, be it from an Index, Funnel, etc, and there's no items in the network that can fulfill it this block will be triggered.",
   "botania.page.corporeaInterceptor1": "Of course, the block is only triggered if the item requested matches one of items in the $(1)Item Frames$(0) about it. When the block is triggered it'll emit a short redstone pulse. This can be used to do all sorts of things, such as craft the required item using $(1)Crafty Crates$(0) or light up a lamp indicating that the inventory for a resource is out.",
   "botania.page.corporeaInterceptor2": "So many automation prospects",
 
   "botania.entry.corporeaCrystalCube": "Corporea Crystal Cube",
   "botania.tagline.corporeaCrystalCube": "View and request items from a Corporea network",
-  "botania.page.corporeaCrystalCube0": "A seer usually looks through a crystal ball to see the future. Well, a corporea handler would look through a crystal cube to see the present. The $(1)Corporea Crystal Cube$(0) acts as a visual medium to interact ith one's $(4)Corporea Network$(0). Placing the block down and giving it a $(1)Corporea Spark$(0) is the obvious first step to hooking it up to the network.",
+  "botania.page.corporeaCrystalCube0": "A seer usually looks through a crystal ball to see the future. Well, a Corporea handler would look through a crystal cube to see the present. The $(1)Corporea Crystal Cube$(0) acts as a visual medium to interact with one's $(4)Corporea Network$(0). Placing the block down and giving it a $(1)Corporea Spark$(0) is the obvious first step to hooking it up to the network.",
   "botania.page.corporeaCrystalCube1": "When the block is connected, right-clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.$(p)While there's an item selected, left clicking the block will request one of that item from the network. Shift-left clicking requests a whole stack.",
   "botania.page.corporeaCrystalCube3": "The $(1)Corporea Crystal Cube$(0) can be used alongside a $(1)Redstone Comparator$(0). This will output the amount of items of the type it's looking for in the system. The output value follows a logarithmic progression, or on layman's terms, every level requires twice as many of the item as the previous one, starting at 1. 0 items would be signal 0. 1 item for 1, 2 items for 2, 4 items for 3, 8 items for 4, 16 items for 5 and so on up to 15.",
   "botania.page.corporeaCrystalCube4": "Right clicking on the block with a $(1)Wand of the Forest$(0) while sneaking locks (and unlocks) it, similarly to the $(1)Hovering Hourglass$(0). When locked, the monitored item can't be changed, just in case someone right-clicks it on accident.",
@@ -3028,8 +3028,8 @@
 
   "botania.entry.corporeaRetainer": "Corporea Retainer",
   "botania.tagline.corporeaRetainer": "Memory for re-doing Corporea requests",
-  "botania.page.corporeaRetainer0": "The $(1)Corporea Retainer$(0) is an addon of sorts to the $(1)Corporea Interceptor$(0). Placing one of these adjacent to an interceptor allows for the interceptor to pass along to it the original corporea request, if it's intercepted.$(p)When this happens, the retainer remembers which corporea object in the network initiated the request as well as the contents of said request.",
-  "botania.page.corporeaRetainer1": "Once the $(1)Corporea Retainer$(0) receives a redstone signal after it's been informed of a request, it'll have the original requestor redo the exact same request. For example, a funnel might request $(1)Wooden Planks$(0) from the network. An interceptor intercepts the request and passes a signal along to craft the planks. The retainer then gets a signal, allowing for the original funnel to redo the request and get its planks.",
+  "botania.page.corporeaRetainer0": "The $(1)Corporea Retainer$(0) is an addon of sorts to the $(1)Corporea Interceptor$(0). Placing one of these adjacent to an interceptor allows for the interceptor to pass along to it the original Corporea request, if it's intercepted.$(p)When this happens, the retainer remembers which Corporea object in the network initiated the request as well as the contents of said request.",
+  "botania.page.corporeaRetainer1": "Once the $(1)Corporea Retainer$(0) receives a redstone signal after it's been informed of a request, it'll have the original requester redo the exact same request. For example, a funnel might request $(1)Wooden Planks$(0) from the network. An interceptor intercepts the request and passes a signal along to craft the planks. The retainer then gets a signal, allowing for the original funnel to redo the request and get its planks.",
   "botania.page.corporeaRetainer2": "As the $(1)Corporea Retainer$(0) acts as an addon to the interceptor, it can use it to interact with the network, thus not needing a spark itself.$(p)The retainer can only hold on to one request at a time, and will not accept another until the last one is fulfilled. A $(1)Redstone Comparator$(0) can read if there's a request to be done or not.",
   "botania.page.corporeaRetainer3": "The nemesis of a goldfish",
 
@@ -3069,7 +3069,7 @@
   "botania.page.luminizerTransport7": "Adding a $(1)Lever$(0) will instead turn the $(1)Luminizer$(0) into a $(1)Toggle Luminizer$(0).$(p)This one is the opposite of the $(1)Detector Luminizer$(0), it accepts a $(4)redstone signal$(0), and will drop anything that comes through it right there if it's powered. Otherwise, it'll just carry on like usual.",
   "botania.page.luminizerTransport8": "Get a signal",
   "botania.page.luminizerTransport9": "Combining a $(1)Luminizer$(0) with a $(1)Redstone Torch$(0) forms a $(1)Fork Luminizer$(0).$(p)It reacts to an $(1)Animated Torch$(0) placed up to two blocks above or below it, and will redirect any incoming entities through the network to a $(1)Luminizer$(0) placed in the direction that the torch is pointing towards.",
-  "botania.page.luminizerTransport10": "The $(1)Fork Luminizer$(0) can still be bound like any other style of luminizer, but its conventional binding will only be put in play if there is no $(1)Animated Torch$(0) available to tell it where to go.$(p)In the case that there is not a $(1)Luminizer$(0) where a present $(1)Animated Torch$(0) is pointing, it'll default to the binding as well.",
+  "botania.page.luminizerTransport10": "The $(1)Fork Luminizer$(0) can still be bound like any other style of Luminizer, but its conventional binding will only be put in play if there is no $(1)Animated Torch$(0) available to tell it where to go.$(p)In the case that there is not a $(1)Luminizer$(0) where a present $(1)Animated Torch$(0) is pointing, it'll default to the binding as well.",
   "botania.page.luminizerTransport11": "One way or another",
   "botania.page.luminizerTransport5": "While players can just right-click the $(1)Luminizers$(0), in order to get animals, dropped items, or other beings into the trails, a $(1)Luminizer Launcher$(0) is required. This block needs to be placed down adjacent to $(1)Luminizers$(0), and when it receives a $(4)redstone pulse$(0), it'll randomly distribute all living beings and dropped items on top of it into all of the adjacent $(1)Luminizers$(0), causing them to go on their merry way.",
   "botania.page.luminizerTransport6": "Compulsory Evacuation Device",
@@ -3123,7 +3123,7 @@
   "botania.page.cosmeticBaubles28": "Who the hell do you think I am?",
   "botania.page.cosmeticBaubles29": "Nothing suspicious here, nope",
   "botania.page.cosmeticBaubles30": "I can fly with these",
-  "botania.page.cosmeticBaubles31": "Not actually part of spain",
+  "botania.page.cosmeticBaubles31": "Not actually part of Spain",
   "botania.page.cosmeticBaubles32": "Now you too can believe",
   "botania.page.cosmeticBaubles33": "Get on the treadmill, angbadang",
   "botania.page.cosmeticBaubles34": "Really makes you think",
@@ -3154,7 +3154,7 @@
   "botania.entry.knockbackBelt": "Tectonic Girdle",
   "botania.tagline.knockbackBelt": "Prevent all knockback damage",
   "botania.page.knockbackBelt0": "By harnessing the forces of tectonic movement, the $(1)Tectonic Girdle$(0), when worn, will negate any $(4)Knockback$(0) applied to the wearer by outside attacks.",
-  "botania.page.knockbackBelt1": "The steve who can't be moved",
+  "botania.page.knockbackBelt1": "The Steve who couldn't be moved",
 
   "botania.entry.icePendant": "Snowflake Pendant",
   "botania.tagline.icePendant": "Walk on water, by making ice",
@@ -3214,7 +3214,7 @@
   "botania.page.superLavaPendant1": "You can now take a lava bath",
 
   "botania.entry.bloodPendant": "Tainted Blood Pendant",
-  "botania.tagline.bloodPendant": "Crystalized brews in pendant form",
+  "botania.tagline.bloodPendant": "Crystallized brews in pendant form",
   "botania.page.bloodPendant0": "Messing around with the original source of the $(4)Potion$(0) design, the Nether, seems to work fairly well at harnessing that very power.$(p)The $(1)Tainted Blood Pendant$(0) allows one to store a $(4)Brew$(0) in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of $(4)Mana$(0) depending on the power of the $(4)Brew$(0).",
   "botania.page.bloodPendant1": "To infuse the pendant with a $(4)Brew$(0) the normal procedure of infusing one on a $(1)Vial$(0) is what's required. The cost increases by a tenfold, though.$(p)However, the pendant will not accept any and all effects, a few don't seem to behave well, such as $(4)Instant Health$(0) or $(4)Absorption$(0). Lastly, $(4)Brews$(0) with more than one effect will fail as well.",
   "botania.page.bloodPendant2": "Always potted up",
@@ -3228,7 +3228,7 @@
   "botania.page.judgementCloaks4": "Pain split",
 
   "botania.entry.monocle": "Manaseer Monocle",
-  "botania.tagline.monocle": "An essential tool for viewing flowers' radiuses",
+  "botania.tagline.monocle": "An essential tool for viewing flowers' radii",
   "botania.page.monocle0": "A handy accessory for one who requires a thorough window into where their $(4)Mana Bursts$(0) are going is the $(1)Manaseer Monocle$(0). Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby $(4)Mana Bursts$(0), even if their line of sight towards them is blocked by something. More important, perhaps, is that when someone wearing this monocle looks at a flower they'll be able to see its functional radius.",
   "botania.page.monocle2": "As an added bonus, looking at redstone pieces with the $(1)Manaseer Monocle$(0) worn will show info about them, expediting the process of creating redstonic contraptions.$(p)The monocle can be used as a $(4)Cosmetic Override$(0) to any other bauble. While in this state, all of its benefits are still provided, which allows for it to be used without taking up a slot.",
   "botania.page.monocle1": "Why hello there old chap",
@@ -3240,12 +3240,12 @@
 
   "botania.entry.speedUpBelt": "Planestrider's Sash",
   "botania.tagline.speedUpBelt": "Speeds you up the more you walk",
-  "botania.page.speedUpBelt0": "The $(1)Planestrider's Sash$(0) works as an alternative to the $(1)Soujourner's Sash$(0).$(p)Unlike the aforementioned item, the $(1)Planestider's Sash$(0) will not give the wearer a speed boost by default. However, when they walk, the sash will get more and more charged, enabling the wearer to go much faster than any other sash. Case one would stop, this bonus is reset.",
+  "botania.page.speedUpBelt0": "The $(1)Planestrider's Sash$(0) works as an alternative to the $(1)Soujourner's Sash$(0).$(p)Unlike the aforementioned item, the $(1)Planestrider's Sash$(0) will not give the wearer a speed boost by default. However, when they walk, the sash will get more and more charged, enabling the wearer to go much faster than any other sash. Case one would stop, this bonus is reset.",
   "botania.page.speedUpBelt1": "If you go slow you're a Planeswalker",
 
   "botania.entry.baubleBox": "Bauble Case",
   "botania.tagline.baubleBox": "A handy container to store your Baubles",
-  "botania.page.baubleBox0": "Somtimes having too many $(4)Baubles$(0) to pick from can be a real problem, as inventory space is limited. A better way would be to store all of these in a $(1)Bauble Case$(0), a handy container for any $(4)Baubles$(0).$(p)The case's interface allows for quick switching of the current equipped baubles. The case can also store $(4)Mana$(0) containing items like a $(1)Mana Tablet$(0).",
+  "botania.page.baubleBox0": "Sometimes having too many $(4)Baubles$(0) to pick from can be a real problem, as inventory space is limited. A better way would be to store all of these in a $(1)Bauble Case$(0), a handy container for any $(4)Baubles$(0).$(p)The case's interface allows for quick switching of the current equipped baubles. The case can also store $(4)Mana$(0) containing items like a $(1)Mana Tablet$(0).",
   "botania.page.baubleBox1": "It could even be a boat!",
 
   "botania.entry.dodgeRing": "Ring of Dexterous Motion",
@@ -3256,7 +3256,7 @@
   "botania.entry.invisibilityCloak": "Invisibility Cloak",
   "botania.tagline.invisibilityCloak": "Exactly what it says on the tin",
   "botania.page.invisibilityCloak0": "Not much explanation is required for the $(1)Invisibility Cloak$(0).$(p)It's a bauble worn on the $(4)body$(0) slot, that will take $(4)Mana$(0) from the wearer's inventory to make them, and their baubles invisible as long as it's worn and the cost is fulfilled.",
-  "botania.page.invisibilityCloak1": "You're a wizard, steve",
+  "botania.page.invisibilityCloak1": "You're a wizard, Steve",
 
   "botania.entry.cloudPendant": "Cirrus Amulet",
   "botania.tagline.cloudPendant": "Gives you double jump",
@@ -3280,7 +3280,7 @@
 
   "botania.entry.aIntro": "The Portal to Alfheim",
   "botania.tagline.aIntro": "The next step in the Journey...",
-  "botania.page.aIntro0": "It's said that once, $(4)Elves$(0) used to share the world with us $(4)Minecrafters$(0). Due to unknown events, they would've been banished back to their own world, $(4)Alfheim$(0).$(p)Experimentation has been done in attempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.",
+  "botania.page.aIntro0": "It's said that once, $(4)Elves$(0) used to share the world with us $(4)Minecraftians$(0). Due to unknown events, they would've been banished back to their own world, $(4)Alfheim$(0).$(p)Experimentation has been done in attempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.",
   "botania.page.aIntro1": "Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 $(1)Livingwood$(0) blocks, 3 $(1)Glimmering Livingwood$(0) blocks, 1 $(1)Elven Gateway Core$(0) (read on), and at least 2 $(1)Mana Pools$(0) and 2 $(1)Natura Pylons$(0) (read on).",
   "botania.page.aIntro2": "Creating the $(1)Elven Gateway Core$(0)",
   "botania.page.aIntro3": "Creating $(1)Natura Pylons$(0)",
@@ -3303,12 +3303,12 @@
   "botania.tagline.elfResources": "What's beyond the gate",
   "botania.page.elfResources0": "$(4)Alfheim$(0) contains a very varied amount of exquisite resources. Sadly though, most of them are extremely scarce and hard to come by due to competition between the various clans. The elves are interested in trading some materials, such as $(1)Dreamwood$(0), $(1)Elementium$(0), $(1)Pixie Dust$(0) or $(1)Dragonstone$(0), resources native to their lands.",
   "botania.page.elfResources1": "Trading for $(1)Dreamwood$(0)",
-  "botania.page.elfResources2": "$(1)Dreamwood$(0), similarly to $(1)Livingwood$(0) can be turned into various $(4)Decorative Blocks$(0), have a look through the $(4)Decorative Blocks$(0) entry under $(4)Miscelaneous$(0) for the recipes.",
+  "botania.page.elfResources2": "$(1)Dreamwood$(0), similarly to $(1)Livingwood$(0) can be turned into various $(4)Decorative Blocks$(0), have a look through the $(4)Decorative Blocks$(0) entry under $(4)Miscellaneous$(0) for the recipes.",
   "botania.page.elfResources10": "$(1)Dreamwood Twigs$(0)",
   "botania.page.elfResources3": "Trading for $(1)Elementium$(0)",
   "botania.page.elfResources4": "Trading for $(1)Pixie Dust$(0)",
   "botania.page.elfResources5": "Trading for $(1)Dragonstone$(0)",
-  "botania.page.elfResources6": "The $(1)Elves$(0) are also quite keen on the white posh block from the $(4)Nether$(0), $(1)Nether Quartz$(0), the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal $(1)Nether Quartz$(0) or any of the decorative variants you can find on the $(4)Decorative Blocks$(0) entry under $(4)Miscelaneous$(0).",
+  "botania.page.elfResources6": "The $(1)Elves$(0) are also quite keen on the white posh block from the $(4)Nether$(0), $(1)Nether Quartz$(0), the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal $(1)Nether Quartz$(0) or any of the decorative variants you can find on the $(4)Decorative Blocks$(0) entry under $(4)Miscellaneous$(0).",
   "botania.page.elfResources7": "Trading for $(1)Elven Quartz$(0)",
   "botania.page.elfResources8": "Alfheim also has its own variant of $(1)Glass$(0), in the form of $(1)Alfglass$(0). Its look is rather light and its patterns are randomized depending on where it's placed.$(p)Trading goes for $(1)Managlass$(0).",
   "botania.page.elfResources9": "Trading for $(1)Alfglass$(0)",
@@ -3371,9 +3371,9 @@
   "botania.page.elvenLore1": "$(o)A few millennia have passed since The Shattering. The amount of us who actually know about what really happened that day is rather minute. Nidavellir broke down, and while the Dwarves' incredible resistance helped, a great part of their technology and civilization was eradicated. Muspelheim, what was (...)",
   "botania.page.elvenLore2": "$(o)previously in the very opposite corner of the World Tree herself collided with Midgard, merging the two worlds in an apocalypse, eradicating any life remaining in that world. There's theories that state Hel was also involved in the event, although none were ever confirmed. Fissures in the ground of (...)",
   "botania.page.elvenLore3": "$(o)Jotunheim opened all around, massacring a great portion of the Giants who lived there, its current status remains unknown. Niflheim seemed to stay in place, unlike Muspelheim, interestingly enough. Since it contained no known lifeforms, we can admit that damage is irrelevant. Lastly, ourselves, the (...)",
-  "botania.page.elvenLore4": "$(o)elves of Alfheim, the damage on our world was somewhat split. The Salamander and Undine clans suffered a massive cut on their population, due to the unstableness of their volcanic and aquatic environments, respectively. Most of the Sylph were completely intact due to their extraordinary flight capabilities, the (...)",
+  "botania.page.elvenLore4": "$(o)elves of Alfheim, the damage on our world was somewhat split. The Salamander and Undine clans suffered a massive cut on their population, due to the instability of their volcanic and aquatic environments, respectively. Most of the Sylph were completely intact due to their extraordinary flight capabilities, the (...)",
   "botania.page.elvenLore5": "$(o)Spriggan also had fairly small scale consequences. During that time our civilization prospects were fairly weak and our choices of residence were mostly just huts made of Dreamwood, so, luckily, rebuilding was little of a chore. Allewyn, our emissary in Asgard witnessed this happening, everything happened faster (...)",
-  "botania.page.elvenLore6": "$(o)than the birth of a Pixie. Thor shattering the Bifrost with Mjolnir, her command to evacuate all of the elven civilization residing in Midgard, luckily she was here unscathed, or at least that's what records say, regardless, a few millennia later, she's passed off long ago. Right now our major concern is the status of Midgard. (...)",
+  "botania.page.elvenLore6": "$(o)than the birth of a Pixie. Thor shattering the Bifrost with Mjolnir, her command to evacuate all of the Elven civilization residing in Midgard, luckily she was here unscathed, or at least that's what records say, regardless, a few millennia later, she's passed off long ago. Right now our major concern is the status of Midgard. (...)",
   "botania.page.elvenLore7": "$(o)The collapse of the Bifrost broke any interaction between the various worlds, but the sheer quantity of Mana residues we have left behind will surely have lingered and infused the world with life all over again, be it animal, floral or fungal, natural or magical in essence. We hope it's enough to create intelligent life that can properly harness it though.",
 
   "botania.entry.unstableBlocks": "Unstable Cubes",
@@ -3398,7 +3398,7 @@
   "botania.page.decorativeBlocks6": "Mossing the planks",
   "botania.page.decorativeBlocks7": "Framing the planks",
   "botania.page.decorativeBlocks8": "Pattern planks",
-  "botania.page.decorativeBlocks9": "Glimmering livingwood",
+  "botania.page.decorativeBlocks9": "Glimmering Livingwood",
   "botania.page.decorativeBlocks10": "Carrying on, by combining $(1)Nether Quartz$(0) with all sorts of other substances, it's possible to create a wide array of other decorative $(1)Quartz$(0) blocks.$(p)As expected, all these items can be crafted into all their decorative block counterparts just like regular $(1)Quartz$(0) blocks are crafted.",
   "botania.page.decorativeBlocks11": "Smokey Quartz",
   "botania.page.decorativeBlocks12": "Mana Quartz",
@@ -3450,7 +3450,7 @@
 
   "botania.entry.starfield": "Starfield Creator",
   "botania.tagline.starfield": "Create a starry sky",
-  "botania.page.starfield0": "The $(1)Starfield Creator$(0) does exactly as it says, by releasing elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.",
+  "botania.page.starfield0": "The $(1)Starfield Creator$(0) does exactly as it says, by releasing Elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.",
   "botania.page.starfield1": "Twinkle twinkle",
 
   "botania.entry.dirtPath": "Trodden Dirt",
@@ -3557,7 +3557,7 @@
   "botania.subtitle.spreaderFire": "Spreader shoots mana",
   "botania.subtitle.starcaller": "Stars descend from the sky",
   "botania.subtitle.terraBlade": "Terrasteel Sword activates",
-  "botania.subtitle.terraformRod": "Land terrraforms",
+  "botania.subtitle.terraformRod": "Land terraforms",
   "botania.subtitle.terraPickMode": "Terrasteel Pick powers up",
   "botania.subtitle.terrasteelCraft": "Terrasteel finishes",
   "botania.subtitle.thermalily": "Thermalily consumes lava",
