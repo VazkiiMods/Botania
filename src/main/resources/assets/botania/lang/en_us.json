@@ -2528,7 +2528,7 @@
 
   "botania.entry.forestDrum": "Drum of the Wild",
   "botania.tagline.forestDrum": "Harvest crops and uproot grass with mana bursts",
-  "botania.page.forestDrum0": "The $(1)Drum of the Wild$(0) is, simply put, $(1)Horn of the Wild$(0)'s percussion counterpart. It serves the exact same purpose as a handheld horn, but as a block.$(p)A $(4)Mana Burst$(0) colliding with it will produce a drumbeat of the foliage-destroying variety.",
+  "botania.page.forestDrum0": "The $(1)Drum of the Wild$(0) is, simply put, $(1)Horn of the Wild$(0)'s percussion counterpart. It serves the exact same purpose as a handheld horn, but as a block.$(p)A $(4)Mana Burst$(0) colliding with it will produce a drumbeat that destroys nearby vegetation.",
   "botania.page.forestDrum1": "Note that the drum does not store mana; thus, to trigger it, a $(1)Pulse Mana Spreader$(0) or a $(1)Mana Blaster$(0) is required.",
   "botania.page.forestDrum2": "But if you close your eyes...",
 
@@ -2560,7 +2560,7 @@
 
   "botania.entry.gatherDrum": "Drum of the Gathering",
   "botania.tagline.gatherDrum": "Shear sheep and milk cows with mana bursts",
-  "botania.page.gatherDrum0": "The $(1)Drum of the Gathering$(0) is, in effectt, the rancher's $(1)Drum of the Wild$(0).$(p)When a $(4)Mana Burst$(0) collides with it, any $(4)Sheep$(0) around with grown fleece will be sheared, and any $(4)Cows$(0) with $(1)Empty Buckets$(0) below them will be milked into the buckets.",
+  "botania.page.gatherDrum0": "The $(1)Drum of the Gathering$(0) is, in effect, the rancher's $(1)Drum of the Wild$(0).$(p)When a $(4)Mana Burst$(0) collides with it, any $(4)Sheep$(0) around with grown fleece will be sheared, and any $(4)Cows$(0) with $(1)Empty Buckets$(0) below them will pour milk into the buckets.",
   "botania.page.gatherDrum1": "Tap your lands",
 
   "botania.entry.craftCrate": "Crafty Crate",
@@ -2588,46 +2588,46 @@
 
   "botania.entry.ghostRail": "Spectral Rail",
   "botania.tagline.ghostRail": "Send minecarts flying",
-  "botania.page.ghostRail0": "Using a $(1)Spectral Platform$(0) as a $(1)Rail$(0) component gives some interesting abilities to a $(1)Minecart$(0) that passes through it: when launched off the rail, the cart will float for a bit, it'll also be able to pass through walls.$(p)This effect stops if the cart lands on a rail or collides with any variant of $(1)Dreamwood$(0).",
+  "botania.page.ghostRail0": "Using a $(1)Spectral Platform$(0) as a $(1)Rail$(0) component yields a $(1)Spectral Rail$(0), which makes $(1)Minecarts$(0) passing over it do interesting things: when launched off a $(1)Spectral Rail$(0), a minecart will float for a short distance and briefly gain the ability to pass through walls.$(p)The cart loses the ability if it lands on a rail or collides with any variant of $(1)Dreamwood$(0).",
   "botania.page.ghostRail1": "Spirit Tracks, you could say",
 
   "botania.entry.canopyDrum": "Drum of the Canopy",
   "botania.tagline.canopyDrum": "Destroy leaves en masse with mana bursts",
-  "botania.page.canopyDrum0": "The $(1)Drum of the Canopy$(0) is like the $(1)Drum of the Wild$(0) in that it is the percussion counterpart of the $(1)Horn of the Canopy$(0). It serves the exact same purpose as the handheld horn, but is placed in world.$(p)All the functionality is similar to the $(1)Drum of the Wild$(0)",
+  "botania.page.canopyDrum0": "The $(1)Drum of the Canopy$(0) is like the $(1)Drum of the Wild$(0) in that it's the percussion counterpart of a greenery-wrecking horn. It serves the exact same purpose as the handheld $(1)Horn of the Canopy$(0), but as a block. $(p)It's operated identically to the $(1)Drum of the Wild$(0)",
   "botania.page.canopyDrum1": "The Pinking Drum",
 
   "botania.entry.cocoon": "Cocoon of Caprice",
   "botania.tagline.cocoon": "Hatch your own animals",
-  "botania.page.cocoon0": "A cocoon is usually a symbol of change, of evolution.$(p)Creating a $(1)Cocoon of Caprice$(0) and placing it down will slowly evolve the rudimentary contents inside it into a $(1)Baby Animal$(0). More often than not the animal hatched will be a farm animal, but on rare occasions, different animals such as $(1)Wolves$(0) or $(1)Horses$(0) may be created.",
-  "botania.page.cocoon1": "Speculation says that giving the cocoon $(1)Emeralds$(0) or $(1)Chorus Fruit$(0) influences the outcome towards something a bit different.$(p)Giving the items can be done via a right-click or simply dropping them on it.$(p)What could come out of such experiment is anyone's guess, really.",
+  "botania.page.cocoon0": "A cocoon is a symbol of change, of evolution.$(p)Creating a $(1)Cocoon of Caprice$(0) and placing it will slowly evolve the rudimentary bits of life inside into a $(1)Baby Animal$(0). More often than not, the cocoon will hatch into a farm animal, but on rare occasions, different animals such as $(1)Wolves$(0) or $(1)Horses$(0) could be created.",
+  "botania.page.cocoon1": "Rumor has it that giving a cocoon $(1)Emeralds$(0) or $(1)Chorus Fruit$(0) will influence its outcome towards something... different. What such experiments would yield is anyone's guess, really.$(p)(Giving a cocoon an item can be done via right-click or by simply tossing the item.)",
   "botania.page.cocoon2": "New World, Perfect World",
 
   "botania.entry.manaBomb": "Manastorm Charge",
   "botania.tagline.manaBomb": "Manastorm Charge go BOOM. BOOM BOOM. BOOMBOOMBOOMBOOMBOOMBOOM",
-  "botania.page.manaBomb0": "Putting together some $(1)TNT$(0) and a $(1)Gaia Spirit$(0) creates a $(1)Manastorm Charge$(0), a type of explosive, per se. Ignited with a $(1)Mana Burst$(0), the charge will create an unstable $(1)Manastorm Epicenter$(0), which will, over time, spawn supercharged $(1)Mana Bursts$(0), that explode on contact with other blocks.$(p)Needless to say, only a maniac would unleash such a force near anything they care about.",
+  "botania.page.manaBomb0": "Infusing a $(1)Gaia Spirit$(0) with some $(1)TNT$(0) creates a $(1)Manastorm Charge$(0), a type of explosive. In a sense. Once ignited with a $(1)Mana Burst$(0), the charge will create an unstable $(1)Manastorm Epicenter$(0). This will, over time, spawn supercharged explosive $(1)Mana Bursts$(0).$(p)Needless to say, only a maniac would unleash such a destructive force near anything valuable or important.",
   "botania.page.manaBomb1": "Prepare to face the mighty...",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
   "botania.tagline.teruTeruBozu": "Weather control and cuteness overload",
-  "botania.page.teruTeruBozu0": "$(1)Teru Teru Bozu$(0) are known as amulets that can ward away bad weather. Simply creating one of these and placing it in the world will decrease the amount of time that $(1)Rain$(0) or $(1)Snowstorms$(0) will last. During bad weather, right-clicking one with a $(1)Sunflower$(0) or tossing said flower at it will have the sun come back. Attaching a $(1)Redstone Comparator$(0) to one of these allows for it to detect bad weather.",
-  "botania.page.teruTeruBozu1": "Take the rain away",
+  "botania.page.teruTeruBozu0": "$(1)Teru Teru Bozu$(0) are amulets that ward away bad weather. Simply crafting one of these and placing it in the world will decrease the durations of $(1)Rain-$(0) and $(1)Snowstorms$(0). During bad weather, offering it (via right-click or throw) a $(1)Sunflower$(0) will make the sun return. Attaching a $(1)Redstone Comparator$(0) to one of these allows it to detect bad weather.",
+  "botania.page.teruTeruBozu1": "What makes the Sunflower so special, anyway?",
 
   "botania.entry.avatar": "Livingwood Avatar",
   "botania.tagline.avatar": "Rod effects in a block",
-  "botania.page.avatar0": "Carving some $(1)Livingwood$(0) and combining it with a $(1)Mana Diamond$(0) heart creates an apparatus known as the $(1)Livingwood Avatar$(0). By itself, this block doesn't do anything, aside from looking reasonably pretty.$(p)However, giving it a $(4)Rod$(0) can enable it to cast varied magic, depending on which one is given. At the cost of $(4)Mana$(0), from a spreader, of course.",
-  "botania.page.avatar1": "Not all $(4)Rods$(0) fit this criteria. Any that do, however, will have an explanation of what they can do when given to a $(1)Livingwood Avatar$(0) on their entry.$(p)A few examples of some rods that will work are the $(1)Rod of the Skies$(0), $(1)Rod of the Hells$(0) and $(1)Rod of the Plentiful Mantle$(0).",
+  "botania.page.avatar0": "Carving some $(1)Livingwood$(0) into a hominid and giving it a $(1)Mana Diamond$(0) for a heart yields an apparatus known as the $(1)Livingwood Avatar$(0). By itself, the block is just a pretty face; however, giving it a $(4)Rods$(0) might enable it to cast certain types of magics, depending on which rod it gets. At the cost of $(4)Mana$(0), from a spreader, of course.",
+  "botania.page.avatar1": "Not all $(4)Rods$(0) can be used that way. Any that do, however, are detailed in this book.$(p)Try out the $(1)Rod of the Skies$(0), $(1)Rod of the Hells$(0) and $(1)Rod of the Plentiful Mantle$(0), for starters.",
   "botania.page.avatar2": "But is it an anime?",
 
   "botania.entry.felPumpkin": "Fel Pumpkin",
   "botania.tagline.felPumpkin": "A pumpkin that can spawn blazes",
-  "botania.page.felPumpkin0": "A $(1)Fel Pumpkin$(0) is a demented infusion of a $(1)Pumpkin$(0) with the fel spirits of slain monsters. This vile pumpkin can be placed atop two $(1)Iron Bars$(0), in a similar fashion to a $(1)Snow Golem$(0), to spawn a $(1)Blaze$(0).$(p)$(1)Blazes$(0) spawned with this method drop a fairly reasonable amount of $(1)Blaze Powder$(0) instead of a small serving of $(1)Blaze Rods$(0).",
+  "botania.page.felPumpkin0": "A $(1)Fel Pumpkin$(0) is a demented infusion of a $(1)Pumpkin$(0) with the fel spirits of slain monsters. This vile pumpkin can be placed atop two $(1)Iron Bars$(0), as one would with snow blocks for a $(1)Snow Golem$(0), to spawn a $(1)Blaze$(0).$(p)$(1)Blazes$(0) thusly spawned are somewhat fragile, and drop a smattering of $(1)Blaze Powder$(0) in place of a $(1)Blaze Rod$(0).",
   "botania.page.felPumpkin1": "Spooky scary pumpkin",
 
   "botania.entry.animatedTorch": "Animated Torch",
   "botania.tagline.animatedTorch": "Compact systems with a floating redstone torch",
-  "botania.page.animatedTorch0": "The $(1)Animated Torch$(0) is no more than a floating $(1)Redstone Torch$(0) with a spark of magical autonomy.$(p)The torch, when placed, will face a horizontal direction, providing power towards that direction. Shift-right clicking it will rotate the torch 90 degrees, changing the power to the new direction instead.",
-  "botania.page.animatedTorch1": "By default, whenever the torch is triggered, it'll turn 180 degrees, serving as a T-Flip-Flop Latch.$(p)To trigger the torch one can either have a $(4)mana burst$(0) collide with it, or have an adjacent $(1)Hovering Hourglass$(0) turn. Either way will have the torch do its specified rotation.",
-  "botania.page.animatedTorch2": "Using a $(1)Wand of the Forest$(0) on the torch will change its mode. The default mode is $(4)Toggle$(0), which was explained in the previous page.$(p)The other two modes are $(4)Rotate$(0), which will have the torch do a 90 degree spin every time, and $(4)Random$(0), which will have the torch rotate towards a random direction.",
+  "botania.page.animatedTorch0": "The $(1)Animated Torch$(0) is no more than a $(1)Redstone Torch$(0) with the ability to hover, and a spark of magical autonomy.$(p)The torch will point horizontally when placed, providing a redstone signal in that direction only. Shift-right clicking it will rotate the torch 90 degrees, pointing the signal at the new direction instead.",
+  "botania.page.animatedTorch1": "By default, the torch is in $(4)Toggle$(0) mode: whenever the torch is actuated (by either a $(4)Mana Burst$(0) collision or an adjacent $(1)Hovering Hourglass$(0)), it'll turn 180 degrees, serving as a T-Flip-Flop Latch.",
+  "botania.page.animatedTorch2": "Using a $(1)Wand of the Forest$(0) on the torch will change its mode. The default mode is $(4)Toggle$(0), as previously stated. The other two modes are $(4)Rotate$(0), rotating the torch 90 degrees on every actuation, and $(4)Random$(0), which will point the torch randomly on every actuation.",
   "botania.page.animatedTorch3": "It's fallen and it can't get up",
 
   "botania.entry.manaBlaster": "Mana Blaster",
