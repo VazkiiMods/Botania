@@ -1873,7 +1873,7 @@
   "botania.tagline.flowers": "The roots of your studies",
   "botania.page.flowers0": "Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work, as the flowers themselves glow faintly and sparkle.$(p)They come in a total of $(4)16$(0) different colors.$(p)It's also possible to grow these flowers using $(1)Floral Fertilizer$(0) (read on).",
   "botania.page.flowers1": "Flowers as far as the eye can see...",
-  "botania.page.flowers2": "These flowers can be plucked for $(1)Mystical Petals$(0), which can be used for making magical instruments and plants alike.$(p)Right-clicking a petal upon the ground will $(4)bury it$(0), making it emit particles.$(p)These petals can also be crushed into $(1)Floral Powder$(0), which functions much like any mundane piece of dye.",
+  "botania.page.flowers2": "These flowers can be plucked for $(1)Mystical Petals$(0), which can be used for making magical instruments and plants alike.$(p)Right-clicking a petal upon the ground will $(4)bury it$(0), making it emit particles.$(p)These petals can also be crushed into $(1)Floral Powders$(0), which function much like any mundane piece of dye.",
   "botania.page.flowers3": "Plucking petals off flowers.",
   "botania.page.flowers4": "Crafting the $(1)Pestle and Mortar$(0).",
   "botania.page.flowers5": "Grinding Petals into Powder.",
@@ -1969,7 +1969,7 @@
 
   "botania.entry.spreader": "Mana Spreader",
   "botania.tagline.spreader": "Your essential Mana transporter",
-  "botania.page.spreader0": "The $(1)Mana Spreader$(0) is the single most important component in manipulating $(4)Mana$(0).$(p)This is the block that shoots $(4)Mana$(0) from point A to point B. When this block is placed on the ground, it'll face one of the six directions. Shift-right clicking on it with a $(1)Wand of the Forest$(0) orients it in the opposite direction of where it was clicked. It can be pointed to other blocks with a wand in $(4)Bind Mode$(0).",
+  "botania.page.spreader0": "The $(1)Mana Spreader$(0) is the single most important tool for $(4)Mana$(0) manipulation.$(p)This block shoots $(4)Mana$(0) from point A to point B. When it's placed on the ground, it'll face a cardinal direction. Shift-right clicking on it with a $(1)Wand of the Forest$(0) on a face points it elsewhere. It can be aimed at other blocks with a wand in $(4)Bind Mode$(0).",
   "botania.page.spreader1": "Holding a $(1)Wand of the Forest$(0)",
   "botania.page.spreader2": "The $(1)Mana Spreader$(0) has a small internal buffer of $(4)Mana$(0), which will get filled by $(4)Generating Flora$(0) bound to it. (Flowers bind to the nearest spreader by default when placed.) This buffer can be viewed by looking at the $(1)Spreader$(0) with a $(1)Wand of the Forest$(0), as demonstrated on the last page.$(p)Note that the block needs to be right-clicked with a wand repeatedly to get a real-time view of its contents.",
   "botania.page.spreader3": "Holding a $(1)Wand of the Forest$(0) makes nearby spreaders display beams show where the spreaders point. Hovering over a spreader highlights its target. The sparkle that's shown is the point when $(4)Mana Loss$(0) starts to occur.$(p)As long as the target of the spreader is a block that can contain $(4)Mana$(0), and isn't full, the spreader will fire $(4)Mana Bursts$(0), which will travel to their target, and transfer their contained $(4)Mana$(0) to it.",
@@ -2129,7 +2129,7 @@
 
   "botania.entry.poolCart": "Mana on Rails",
   "botania.tagline.poolCart": "Not a web framework",
-  "botania.page.poolCart0": "What could be an easier way to transport $(4)Mana$(0) over large distances than attaching a $(1)Mana Pool$(0) to a $(1)Minecart$(0), and watching it do the merry-go-round? It's simple! Similar to other types of carts, one can create a $(1)Minecart with Mana Pool$(0) that can store and transport, well, $(4)Mana$(0) on rails.$(p)Breaking the cart while there's any $(4)Mana$(0) in it will lose all $(4)Mana$(0) contained; care should be taken about this.",
+  "botania.page.poolCart0": "What could be an easier way to transport $(4)Mana$(0) over large distances than attaching a $(1)Mana Pool$(0) to a $(1)Minecart$(0)? It's simple! Similar to other types of carts, one can create a $(1)Minecart with Mana Pool$(0) that can store and transport, well, $(4)Mana$(0) on rails.$(p)Breaking the cart while there's any $(4)Mana$(0) in it will lose all $(4)Mana$(0) contained; care should be taken about this.",
   "botania.page.poolCart1": "Transferring $(4)Mana$(0) between a cart and a pool is done with a $(1)Mana Pump$(0). These can face any of the four cardinal directions, and will transfer $(4)Mana$(0) between an adjacent pool and a cart with pool on the opposite side.$(p)The transfer rate is extremely fast due to the mechanical nature of the pump-- so fast that overflow is possible, causing $(4)Mana Loss$(0).",
   "botania.page.poolCart2": "$(4)Mana$(0) will flow towards is the pink side of the pump, and is pulled from the blue side.$(p)The pump can be turned off with a redstone signal, and a $(1)Comparator$(0) on it will measure the amount of $(4)Mana$(0) in the cart.$(p)Lastly, a pool on a cart serves purely for transport, and can not receive, send, transfer or infuse any items with its $(4)Mana$(0).",
   "botania.page.poolCart3": "I like trains",
@@ -2256,7 +2256,7 @@
 
   "botania.entry.loonium": "Loonium",
   "botania.tagline.loonium": "Conjures dungeon loot",
-  "botania.page.loonium0": "Any weary adventurer knows that $(4)Dungeons$(0) can hold valuable goodies. The $(1)Loonium$(0) can, through the use of a rather substantial amount of $(4)Mana$(0), materialize these items for said adventurers to collect.$(p)There's a catch, though: Each item so materialized is held by a monster protecting it. These monsters are stronger than usual, and will drop their precious $(4)dungeon loot$(0) when killed.",
+  "botania.page.loonium0": "Any adventurer knows that $(4)Dungeons$(0) can hold valuable goodies. The $(1)Loonium$(0) can, when fed quite a bit of $(4)Mana$(0), summon these items for said adventurers to collect.$(p)There's a catch, though: Each item so materialized is held by a monster protecting it. These monsters are extra-strong, but will drop their precious $(4)dungeon loot$(0) when killed.",
   "botania.page.loonium1": "$(o)I CAN HAZ PHAT LOOTZ$()?",
 
   "botania.entry.daffomill": "Daffomill",
@@ -2271,8 +2271,8 @@
 
   "botania.entry.spectranthemum": "Spectranthemum",
   "botania.tagline.spectranthemum": "Teleports items",
-  "botania.page.spectranthemum0": "Long-distance item transport can be an arduous task; at some point, water channels and $(1)Daffomills$(0) just won't cut it. The $(1)Spectranthemum$(0) uses $(4)Mana$(0) to wrap the fabric of reality around any items near it, teleporting them elsewhere in the world. Note that this effect. Note that the complexity of the procedure means that $(4)Mana$(0)-containing items interfere with the process, as do items that have been teleported once; neither of these can be teleported again.",
-  "botania.page.spectranthemum1": "To specify the destination of warped items, use a $(1)Wand of the Forest$(0) in $(4)Bind Mode$(0) to bind the flower to a location within 12 blocks, the same way one would to a pool. To view what block the flower is bound to (as opposed to the pool it's pulling $(4)Mana$(0) from), one would sneak while looking at it with a wand.",
+  "botania.page.spectranthemum0": "Long-distance item transport can be an arduous task; at some point, water channels and $(1)Daffomills$(0) just won't cut it. The $(1)Spectranthemum$(0) uses $(4)Mana$(0) to wrap the fabric of reality around any items near it, teleporting them elsewhere in the world. ",
+  "botania.page.spectranthemum1": "Note that the complexity of the procedure means that $(4)Mana$(0)-containing items interfere with the process, as do items that have been teleported once; neither of these can be teleported again. To specify the destination of warped items, use a $(1)Wand of the Forest$(0) in $(4)Bind Mode$(0) to bind the flower to a location within 12 blocks, the same way one would to a pool. To view what block the flower is bound to (as opposed to the pool it's pulling $(4)Mana$(0) from), one would sneak while looking at it with a wand.",
   "botania.page.spectranthemum2": "This flower is bound by the $(4)axiom of chunkloading$(0); i.e. it won't function on chunks not loaded. This topic, however, is beyond the scope of this lexicon.$(p)$(o)Recommended Reading: \"Chunks and Chicken\", \"Anchors of the World\".",
   "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
 
@@ -2319,7 +2319,7 @@
 
   "botania.entry.hydroangeas": "Hydroangeas",
   "botania.tagline.hydroangeas": "Mana from water",
-  "botania.page.hydroangeas0": "$(1)Hydroangeas$(0) flowers act as liquid-based passive generators. They suck up any $(1)still water$(0) in a 3x3 area (at the same altitude) around them, converting the water into $(4)Mana$(0). Unfortunately, even though they seem to function faster during $(4)Rain$(0), their base $(4)Mana$(0) throughput is still rather slow.$(p)In addition, they decay after around three days, making them nonviable for long-term Mana production.",
+  "botania.page.hydroangeas0": "$(1)Hydroangeas$(0) flowers act as liquid-based passive generators. They suck up any $(1)still water$(0) in a 3x3 area (at the same altitude) around them, converting the water into $(4)Mana$(0). Unfortunately, even though they seem to function faster during $(4)Rain$(0), their base $(4)Mana$(0) throughput is still rather slow. In addition, they decay after around three days, making them nonviable for long-term Mana production.",
   "botania.page.hydroangeas2": "A simple $(1)Hydroangeas$(0) system",
   "botania.page.hydroangeas1": "$(o)Under the seeeeeeaaaaaaa~",
 
@@ -2593,7 +2593,7 @@
 
   "botania.entry.canopyDrum": "Drum of the Canopy",
   "botania.tagline.canopyDrum": "Destroy leaves en masse with mana bursts",
-  "botania.page.canopyDrum0": "The $(1)Drum of the Canopy$(0) is like the $(1)Drum of the Wild$(0) in that it's the percussion counterpart of a greenery-wrecking horn. It serves the exact same purpose as the handheld $(1)Horn of the Canopy$(0), but as a block. $(p)It's operated identically to the $(1)Drum of the Wild$(0)",
+  "botania.page.canopyDrum0": "The $(1)Drum of the Canopy$(0) is like the $(1)Drum of the Wild$(0) in that it's the percussion counterpart of a greenery-wrecking horn. It serves the exact same purpose as the handheld $(1)Horn of the Canopy$(0), but as a block. It's operated identically to the $(1)Drum of the Wild$(0).",
   "botania.page.canopyDrum1": "The Pinking Drum",
 
   "botania.entry.cocoon": "Cocoon of Caprice",
