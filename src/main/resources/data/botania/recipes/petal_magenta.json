@@ -6,7 +6,7 @@
   "group": "botania:petal",
   "ingredients": [
     {
-      "tag": "botania:flowers/magenta"
+      "item": "botania:magenta_mystical_flower"
     }
   ],
   "type": "minecraft:crafting_shapeless"

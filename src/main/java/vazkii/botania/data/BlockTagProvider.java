@@ -60,6 +60,20 @@ public class BlockTagProvider extends BlockTagsProvider {
         );
 
         getBuilder(ModTags.Blocks.FLOATING_FLOWERS).add(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
+
+        getBuilder(ModTags.Blocks.MYSTICAL_FLOWERS).add(
+                Arrays.stream(DyeColor.values())
+                        .map(ModBlocks::getFlower)
+                        .sorted(Comparator.comparing(Block::getRegistryName))
+                        .toArray(Block[]::new)
+        );
+
+        getBuilder(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
+                Arrays.stream(DyeColor.values())
+                        .map(ModBlocks::getDoubleFlower)
+                        .sorted(Comparator.comparing(Block::getRegistryName))
+                        .toArray(Block[]::new)
+        );
     }
 
     @Nonnull

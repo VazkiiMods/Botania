@@ -6,7 +6,7 @@
   "group": "botania:petal_double",
   "ingredients": [
     {
-      "tag": "botania:double_flowers/light_blue"
+      "item": "botania:light_blue_double_flower"
     }
   ],
   "type": "minecraft:crafting_shapeless"

@@ -57,44 +57,7 @@ public class ModTags {
 		public static final Tag<Item> DISPOSABLE = tag("disposable");
 		public static final Tag<Item> SEMI_DISPOSABLE = tag("semi_disposable");
 
-		public static final Tag<Item> FLOWERS = tag("flowers");
-
-		public static final Tag<Item> FLOWERS_BLACK = tag("flowers/black");
-		public static final Tag<Item> FLOWERS_BLUE = tag("flowers/blue");
-		public static final Tag<Item> FLOWERS_BROWN = tag("flowers/brown");
-		public static final Tag<Item> FLOWERS_CYAN = tag("flowers/cyan");
-		public static final Tag<Item> FLOWERS_GRAY = tag("flowers/gray");
-		public static final Tag<Item> FLOWERS_GREEN = tag("flowers/green");
-		public static final Tag<Item> FLOWERS_LIGHT_BLUE = tag("flowers/light_blue");
-		public static final Tag<Item> FLOWERS_LIGHT_GRAY = tag("flowers/light_gray");
-		public static final Tag<Item> FLOWERS_LIME = tag("flowers/lime");
-		public static final Tag<Item> FLOWERS_MAGENTA = tag("flowers/magenta");
-		public static final Tag<Item> FLOWERS_ORANGE = tag("flowers/orange");
-		public static final Tag<Item> FLOWERS_PINK = tag("flowers/pink");
-		public static final Tag<Item> FLOWERS_PURPLE = tag("flowers/purple");
-		public static final Tag<Item> FLOWERS_RED = tag("flowers/red");
-		public static final Tag<Item> FLOWERS_WHITE = tag("flowers/white");
-		public static final Tag<Item> FLOWERS_YELLOW = tag("flowers/yellow");
-
-		public static final Tag<Item> DOUBLE_FLOWERS_BLACK = tag("double_flowers/black");
-		public static final Tag<Item> DOUBLE_FLOWERS_BLUE = tag("double_flowers/blue");
-		public static final Tag<Item> DOUBLE_FLOWERS_BROWN = tag("double_flowers/brown");
-		public static final Tag<Item> DOUBLE_FLOWERS_CYAN = tag("double_flowers/cyan");
-		public static final Tag<Item> DOUBLE_FLOWERS_GRAY = tag("double_flowers/gray");
-		public static final Tag<Item> DOUBLE_FLOWERS_GREEN = tag("double_flowers/green");
-		public static final Tag<Item> DOUBLE_FLOWERS_LIGHT_BLUE = tag("double_flowers/light_blue");
-		public static final Tag<Item> DOUBLE_FLOWERS_LIGHT_GRAY = tag("double_flowers/light_gray");
-		public static final Tag<Item> DOUBLE_FLOWERS_LIME = tag("double_flowers/lime");
-		public static final Tag<Item> DOUBLE_FLOWERS_MAGENTA = tag("double_flowers/magenta");
-		public static final Tag<Item> DOUBLE_FLOWERS_ORANGE = tag("double_flowers/orange");
-		public static final Tag<Item> DOUBLE_FLOWERS_PINK = tag("double_flowers/pink");
-		public static final Tag<Item> DOUBLE_FLOWERS_PURPLE = tag("double_flowers/purple");
-		public static final Tag<Item> DOUBLE_FLOWERS_RED = tag("double_flowers/red");
-		public static final Tag<Item> DOUBLE_FLOWERS_WHITE = tag("double_flowers/white");
-		public static final Tag<Item> DOUBLE_FLOWERS_YELLOW = tag("double_flowers/yellow");
-
 		public static final Tag<Item> PETALS = tag("petals");
-
 		public static final Tag<Item> PETALS_BLACK = tag("petals/black");
 		public static final Tag<Item> PETALS_BLUE = tag("petals/blue");
 		public static final Tag<Item> PETALS_BROWN = tag("petals/brown");
