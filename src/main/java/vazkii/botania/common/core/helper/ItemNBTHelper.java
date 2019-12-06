@@ -27,6 +27,10 @@ public final class ItemNBTHelper {
 
 	// SETTERS ///////////////////////////////////////////////////////////////////
 
+	public static void set(ItemStack stack, String tag, INBT nbt) {
+		stack.getOrCreateTag().put(tag, nbt);
+	}
+
 	public static void setBoolean(ItemStack stack, String tag, boolean b) {
 		stack.getOrCreateTag().putBoolean(tag, b);
 	}
@@ -84,6 +88,11 @@ public final class ItemNBTHelper {
 
 	public static boolean verifyExistance(ItemStack stack, String tag) {
 		return !stack.isEmpty() && stack.getOrCreateTag().contains(tag);
+	}
+
+	@Nullable
+	public static INBT get(ItemStack stack, String tag) {
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().get(tag) : null;
 	}
 
 	public static boolean getBoolean(ItemStack stack, String tag, boolean defaultExpected) {

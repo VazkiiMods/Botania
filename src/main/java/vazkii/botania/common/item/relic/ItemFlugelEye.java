@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.relic;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +18,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -24,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -44,10 +48,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		super(props);
 	}
 
-	private static final String TAG_X = "x";
-	private static final String TAG_Y = "y";
-	private static final String TAG_Z = "z";
-	private static final String TAG_DIMENSION = "dim";
+	private static final String TAG_LOCATION = "location";
 
 	@Nonnull
 	@Override
@@ -62,15 +63,13 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
 					float z1 = (float) (pos.getZ() + Math.random());
-                    WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.5F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-                    world.addParticle(data, x1, y1, z1, 0, -(-0.05F + (float) Math.random() * 0.05F), 0);
-                }
+					WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.5F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+					world.addParticle(data, x1, y1, z1, 0, 0.05F - (float) Math.random() * 0.05F, 0);
+				}
 			} else {
 				ItemStack stack = ctx.getItem();
-				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
-				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
-				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
-				ItemNBTHelper.setString(stack, TAG_DIMENSION, world.getDimension().getType().toString());
+				GlobalPos loc = GlobalPos.of(world.getDimension().getType(), pos);
+				ItemNBTHelper.set(stack, TAG_LOCATION, loc.serialize(NBTDynamicOps.INSTANCE));
 				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
@@ -85,8 +84,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		float x = (float) (living.posX - Math.random() * living.getWidth());
 		float y = (float) (living.posY + Math.random());
 		float z = (float) (living.posZ - Math.random() * living.getWidth());
-        WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-        living.world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
+		WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+		living.world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
     }
 
 	@Nonnull
@@ -99,22 +98,21 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		if(!(living instanceof PlayerEntity))
+		INBT nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
+		if(nbt == null)
 			return stack;
+		GlobalPos loc = GlobalPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, nbt));
+		int x = loc.getPos().getX();
+		int y = loc.getPos().getY();
+		int z = loc.getPos().getZ();
 
-		PlayerEntity player = (PlayerEntity) living;
-		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
-		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
-		DimensionType dim = DimensionType.byName(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_DIMENSION, "minecraft:overworld")));
+		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.posX, living.posY, living.posZ) * 10);
 
-		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, player.posX, player.posY, player.posZ) * 10);
-
-		if(y > -1 && dim == world.getDimension().getType() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
-			moveParticlesAndSound(player);
-			if(player instanceof ServerPlayerEntity)
-				((ServerPlayerEntity) player).connection.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);
-			moveParticlesAndSound(player);
+		if(loc.getDimension() == world.getDimension().getType()
+			&& (!(living instanceof PlayerEntity) || ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, cost, true))) {
+			moveParticlesAndSound(living);
+			living.setPositionAndUpdate(x + 0.5, y + 1.5, z + 0.5);
+			moveParticlesAndSound(living);
 		}
 
 		return stack;
@@ -138,10 +136,10 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Override
 	public BlockPos getBinding(ItemStack stack) {
-		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
-		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
-		return y == -1 ? null : new BlockPos(x, y, z);
+		INBT nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
+		if(nbt != null)
+			return GlobalPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, nbt)).getPos();
+		return null;
 	}
 
 	@Override
