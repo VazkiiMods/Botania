@@ -1822,7 +1822,7 @@
   "botania.category.devices": "Natural Apparatus",
   "botania.category.tools": "Mystical Items",
   "botania.category.baubles": "Baubles and Accessories",
-  "botania.category.ender": "Ender Artefacts",
+  "botania.category.ender": "Ender Artifacts",
   "botania.category.alfhomancy": "Alfhomancy",
   "botania.category.misc": "Miscellaneous",
 
@@ -2790,12 +2790,6 @@
   "botania.page.gravityRod0": "The $(1)Rod of the Shaded Mesa$(0) is a powerful artifact; legend has it that the first of these devices was found lying atop a dusky geographical feature next to a single crowbar.$(p)To use this device, aim it at a mob or item and hold right-click to pick it up. Releasing right-click will drop the held entity, while pressing left-click will toss it in a powerful burst.",
   "botania.page.gravityRod1": "This power does not come free, of course. Its use requires a constant drain of $(4)Mana$(0) from the user's inventory.",
   "botania.page.gravityRod2": "bun pls",
-
-  "botania.entry.regenIvy": "Timeless Ivy",
-  "botania.tagline.regenIvy": "Ivy that can be attached to items to have them regenerate durability",
-  "botania.page.regenIvy0": "While $(1)Manasteel$(0) or $(1)Elementium$(0) tools have the ability to harness $(4)Mana$(0) and use it to protect their bodies, other tools or armor don't have this property.$(p)A handful of $(1)Timeless Ivy$(0) can be attached on to virtually any item, allowing it to be repaired with $(4)Mana$(0).",
-  "botania.page.regenIvy1": "To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (e.g. $(1)Diamonds$(0) for a $(1)Diamond Pickaxe$(0)).$(p)Due to not being in direct contact with the material, the amount of $(4)Mana$(0) used by the ivy in comparison to $(1)Manasteel$(0) is rather high.",
-  "botania.page.regenIvy2": "Bring your Inferno Adze",
 
   "botania.entry.missileRod": "Rod of the Unstable Reservoir",
   "botania.tagline.missileRod": "A rod for pewpew",
