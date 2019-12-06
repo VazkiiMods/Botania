@@ -2677,7 +2677,7 @@
 
   "botania.entry.terrasteelArmor": "Terrasteel Armor",
   "botania.tagline.terrasteelArmor": "Diamond-tier armor with Manasteel properties",
-  "botania.page.terrasteelArmor0": "Armor made out of $(1)Terrasteel$(0), much like its $(1)Manasteel$(0) counterpart, can use $(4)Mana$(0) from the inventory instead of taking damage.$(p)However, its strengths are comparable more to $(1)Diamond$(0) armor than to $(1)Iron$(0).",)
+  "botania.page.terrasteelArmor0": "Armor made out of $(1)Terrasteel$(0), much like its $(1)Manasteel$(0)-based counterpart, can use $(4)Mana$(0) from the inventory instead of taking damage.$(p)However, its strengths are comparable more to $(1)Diamond$(0) armor than to $(1)Iron$(0).",
   "botania.page.terrasteelArmor1": "The $(1)Terrasteel Helmet$(0)",
   "botania.page.terrasteelArmor2": "The $(1)Terrasteel Chestplate$(0)",
   "botania.page.terrasteelArmor3": "The $(1)Terrasteel Leggings$(0)",
@@ -2699,22 +2699,22 @@
 
   "botania.entry.waterRod": "Rod of the Seas",
   "botania.tagline.waterRod": "A rod for creating water",
-  "botania.page.waterRod0": "Similarly to its land counterpart, the $(1)Rod of the Seas$(0) will, at the cost of some $(4)Mana$(0), place down a $(1)Water$(0) block wherever it's used on. Furthermore, it can also be used to refill a $(1)Petal Apothecary$(0).",
+  "botania.page.waterRod0": "Similarly to its land-themed counterpart, the $(1)Rod of the Seas$(0) will (at the cost of some $(4)Mana$(0)) place down a block of $(1)Water$(0) wherever it's used. Furthermore, it can also be used to refill a $(1)Petal Apothecary$(0).",
   "botania.page.waterRod1": "Keep the Earth clean, it isn't Uranus",
 
   "botania.entry.elfGear": "Elementium Equipment",
   "botania.tagline.elfGear": "Manasteel equivalent gear with special properties",
-  "botania.page.elfGear0": "Similarly to other metals, as expected, $(1)Elementium$(0) can, too, be shaped into tools and armor.$(p)These pieces of equipment have a decent resistance to damage, about half of that of diamond, as well as the ability to drain $(4)Mana$(0) to prevent damage.",
-  "botania.page.elfGear1": "Each of the tools come with their own ability or power of sorts which makes them unique. The armor allows the wearer to, when hit, have a chance to spawn a $(1)Pixie$(0) that goes after the attacker, dealing decent damage.$(p)The more pieces of $(1)Elementium Armor$(0) equipped, the higher the chance.",
-  "botania.page.elfGear2": "Starting off, the $(1)Elementium Pickaxe$(0) will destroy any $(1)Cobblestone$(0), $(1)Dirt$(0), $(1)Netherrack$(0) and other mundane materials, leaving behind only the ores and fine resources.$(p)Combining the $(1)Elementium Pickaxe$(0) with a $(1)Terra Shatterer$(0) in a crafting square allows for the latter to also get this power. This can't be undone.",
+  "botania.page.elfGear0": "Similarly to other metals (as one might expect), $(1)Elementium$(0) can, too, be shaped into tools and armor.$(p)The respective armor pieces have decent damage resistances (about half that of diamond armor), as well as the ability to drain $(4)Mana$(0) to prevent damage.",
+  "botania.page.elfGear1": "Each of the tools in the set come with its own ability, or power of sorts, which makes it unique. Each piece of armor will, when its bearer is harmed, sometimes spawn a $(1)Pixie$(0) to fly after the aggressor, dealing decent damage.$(p)The more pieces of $(1)Elementium Armor$(0) equipped, the higher the chance.",
+  "botania.page.elfGear2": "First, the $(1)Elementium Pickaxe$(0) will clear away $(1)Cobblestone$(0), $(1)Dirt$(0), $(1)Netherrack$(0), and other common materials, leaving behind only ores and fine resources.$(p)Combining the $(1)Elementium Pickaxe$(0) with a $(1)Terra Shatterer$(0) in a crafting square allows for the latter to also get this power. This can't be undone.",
   "botania.page.elfGear3": "The $(1)Elementium Pickaxe$(0)",
-  "botania.page.elfGear4": "The $(1)Elementium Shovel$(0) will, case the block dug is affected by gravity ($(1)Gravel$(0), $(1)Sand$(0), etc), dig all the blocks of that material above and/or below it, no more gravel falling while mining.",
+  "botania.page.elfGear4": "The $(1)Elementium Shovel$(0) will, if the block broken is affected by gravity ($(1)Gravel$(0), $(1)Sand$(0), etc), also destroy all blocks of that material above/below it. No more gravel falling while mining!",
   "botania.page.elfGear5": "The $(1)Elementium Shovel$(0)",
-  "botania.page.elfGear6": "The $(1)Elementium Axe$(0) doubles as a weapon, if used to strike the finishing blow to a $(4)Zombie$(0), $(4)Skeleton$(0), $(4)Creeper$(0) or even another $(4)Player$(0), it has a chance to decapitate them, leaving their severed head or skull behind.",
+  "botania.page.elfGear6": "The $(1)Elementium Axe$(0) doubles as a weapon. If used to strike the finishing blow to a $(4)Zombie$(0), $(4)Skeleton$(0), $(4)Creeper$(0), or even another $(4)Player$(0), it has a chance to decapitate said creature, leaving their severed head or skull behind.",
   "botania.page.elfGear7": "The $(1)Elementium Axe$(0)",
-  "botania.page.elfGear8": "The $(1)Elementium Shears$(0) hold the ability to, when held back like a bow, shear any nearby sheep with speed within a large area of effect centered on the holder.",
+  "botania.page.elfGear8": "The $(1)Elementium Shears$(0) can, when drawn back like a bow, shear any nearby sheep with speed within a large area of effect centered on the holder.",
   "botania.page.elfGear9": "The $(1)Elementium Shears$(0)",
-  "botania.page.elfGear10": "Lastly, the $(1)Elementium Sword$(0) will increase the chance of a $(4)Pixie$(0) spawning when hit (this holds true when no $(1)Elementium Armor$(0) is worn) and increases the strength of any $(4)Pixies$(0) spawned.",
+  "botania.page.elfGear10": "Finally, the $(1)Elementium Sword$(0), when held, increases the chance of a $(4)Pixie$(0) spawning when hit (this holds true even when no $(1)Elementium Armor$(0) is worn), and also augments the strength of any $(4)Pixies$(0) spawned.",
   "botania.page.elfGear11": "The $(1)Elementium Sword$(0)",
   "botania.page.elfGear12": "The $(1)Elementium Helmet$(0)",
   "botania.page.elfGear13": "The $(1)Elementium Chestplate$(0)",
@@ -2723,7 +2723,7 @@
 
   "botania.entry.openBucket": "Extrapolated Bucket",
   "botania.tagline.openBucket": "A bucket that destroys anything that comes inside",
-  "botania.page.openBucket0": "By creating a bucket out of $(1)Elementium$(0) one seems to notice an interesting feature. The liquids acquired by it simply vanish into the ether, never to be seen again. This seems like a great clean up tool.",
+  "botania.page.openBucket0": "A bucket fashioned from $(1)Elementium$(0) seems to act oddly: liquids dumped into by it simply vanish into the ether, never to be seen again; this makes it a useful tool for fluid cleanup.",
   "botania.page.openBucket1": "A Souvenir from Lewis",
 
   "botania.entry.rainbowRod": "Rod of the Bifrost",
