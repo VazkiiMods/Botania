@@ -29,8 +29,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class ItemHorn extends ItemMod {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
-							: type == EnumHornType.WILD && block instanceof BushBlock && !(block instanceof ISpecialFlower)
+							: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW)
 				coords.add(pos.toImmutable());

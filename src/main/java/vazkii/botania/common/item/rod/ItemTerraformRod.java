@@ -32,7 +32,6 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.item.ItemMod;
@@ -110,7 +109,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
 					if(state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
-							|| block_ instanceof FlowerBlock && !(block_ instanceof ISpecialFlower)
+							|| block_ instanceof FlowerBlock && !block_.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| block_ instanceof DoublePlantBlock) {
 						airBlocks.add(pos_);
 					}
@@ -150,7 +149,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		private final Block block;
 
 		private CoordsWithBlock(BlockPos pos, Block block) {
-			super(pos.getX(), pos.getY(), pos.getZ());
+			super(pos);
 			this.block = block;
 		}
 

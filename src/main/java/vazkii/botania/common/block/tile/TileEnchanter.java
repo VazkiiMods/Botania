@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -50,6 +51,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -389,17 +391,22 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		return true;
 	}
 
+	private static boolean isValidFlower(BlockState b) {
+		return b.isIn(ModTags.Blocks.FLOATING_FLOWERS) || b.isIn(ModTags.Blocks.MYSTICAL_FLOWERS) || b.isIn(ModTags.Blocks.SPECIAL_FLOWERS);
+	}
+
 	public static boolean canEnchanterExist(World world, BlockPos pos, Direction.Axis axis) {
 		for(BlockPos obsidian : OBSIDIAN_LOCATIONS)
 			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.OBSIDIAN)
 				return false;
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
-			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.manaPylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon).down()))
+			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.manaPylon
+					|| !isValidFlower(world.getBlockState(pos.add(pylon).down())))
 				return false;
 
 		for(BlockPos flower : FLOWER_LOCATIONS)
-			if(!BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(flower)))
+			if(!isValidFlower(world.getBlockState(pos.add(flower))))
 				return false;
 
 		return true;
