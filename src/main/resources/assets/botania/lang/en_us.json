@@ -1866,7 +1866,7 @@
 
   "botania.entry.flowers": "Mystical Flowers",
   "botania.tagline.flowers": "The roots of your studies",
-  "botania.page.flowers0": "Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work, as the flowers themselves glow faintly and sparkle.$(p)They come in a total of $(4)16$(0) different colors.$(p)It's also possible to grow these flowers using $(1)Floral Fertilizer$(0) (read on).",
+  "botania.page.flowers0": "Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work, as the flowers themselves glow faintly and sparkle.$(p)They come in a total of $(4)16$(0) different colors.$(p)These flowers using can also be grown with $(1)Floral Fertilizer$(0) (read on).",
   "botania.page.flowers1": "Flowers as far as the eye can see...",
   "botania.page.flowers2": "These flowers can be plucked for $(1)Mystical Petals$(0), which can be used for making magical instruments and plants alike.$(p)Right-clicking a petal upon the ground will $(4)bury it$(0), making it emit particles.$(p)These petals can also be crushed into $(1)Floral Powders$(0), which function much like any mundane piece of dye.",
   "botania.page.flowers3": "Plucking petals off flowers.",
@@ -1886,9 +1886,9 @@
   "botania.tagline.apothecary": "What you use to make flowers",
   "botania.page.apothecary0": "To create plant life that can do one's bidding, a botanist needs a special means of infusing plants with mystical energy.$(p)Luckily, the $(1)Petal Apothecary$(0) can do just that.",
   "botania.page.apothecary1": "The $(1)Petal Apothecary$(0).",
-  "botania.page.apothecary2": "This block, when placed in the world and given some water (by use of a $(1)Water Bucket$(0)), will accept any $(1)Mystical Petals$(0) thrown into it, releasing their energies.$(p)Once one has inserted the correct petals, throwing some $(1)Seeds$(0) in will finalize the crafting process.$(p)The apothecary can also be filled by throwing in a full water bucket.",
-  "botania.page.apothecary3": "Quite a few plants can be made here. For more information, read the $(4)Functional Flora$(0) and $(4)Generating Flora$(0) sections of this Lexicon.$(p)Shift-right clicking the $(1)Petal Apothecary$(0) with an empty hand will remove the last item thrown in.",
-  "botania.page.apothecary4": "$(1)Lava$(0) can be used to fill this block in place of $(1)Water$(0). If this is done, the Apothecary will serve as a brazier and incinerator, destroying any items that come into contact with it.$(p)By the way, tossing in $(1)Vines$(0) will give the block an overgrown appearance.",
+  "botania.page.apothecary2": "This block, when placed in the world and given some water (by use of a $(1)Water Bucket$(0)), will accept any $(1)Mystical Petals$(0) thrown into it, absorbing their energies.$(p)Once one has inserted the correct petals, throwing some $(1)Seeds$(0) in will finalize the crafting process.$(p)The apothecary can also be filled by throwing in a full water bucket.",
+  "botania.page.apothecary3": "Quite a few flora are made here. For more information, read the $(4)Functional Flora$(0) and $(4)Generating Flora$(0) sections of this Lexicon.$(p)Shift-right clicking the $(1)Petal Apothecary$(0) with an empty hand will remove the last item thrown in.",
+  "botania.page.apothecary4": "$(1)Lava$(0) can be used to fill this block in place of $(1)Water$(0). If this is done, the Apothecary will serve as a brazier and incinerator, destroying any items that come into contact with it.$(p)Tossing $(1)Vines$(0) into a cobblestone apothecary will give the block an overgrown appearance.",
   "botania.page.apothecary7": "$(1)Comparators$(0) can detect whether the block contains water or not.$(p)Since the $(1)Petal Apothecary$(0) can be filled by with a dropped $(1)Water Bucket$(0), and $(1)Dispensers$(0) can fill buckets, creating a system that automatically refills the water in the block shouldn't prove too difficult.",
   "botania.page.apothecary6": "A simple tip for the more efficiency-minded: Up to twenty seconds after crafting a flower and after refilling the water, if you right-click the apothecary with an empty hand, it'll pull another set of the same ingredients out of your inventory, for quick crafting in bulk.",
   "botania.page.apothecary5": "Crafting the $(1)Petal Apothecary$(0).",
@@ -2529,8 +2529,8 @@
 
   "botania.entry.platform": "Abstruse Platform",
   "botania.tagline.platform": "Disguisable platform you can fall through",
-  "botania.page.platform0": "By aligning $(1)Livingwood$(0) in an exceedingly specific configuration, it's possible to create a selectively-permeable block. The $(1)Abstruse Platform$(0) has a physical body only for non-sneaking entities above one; sneaking entities or those coming from below will pass right through. $(4)Mana Bursts$(0) will always travel through a Platform without any trouble.",
-  "botania.page.platform2": "It's also possible to camouflage this block as any other simple block by simply right-clicking it with the block. Right-clicking a platform with a block in it with a $(1)Wand of the Forest$(0) spreads the disguise to all adjacent non-disguised blocks. Shift-right clicking removes all disguises.",
+  "botania.page.platform0": "When shaped into extremely specific patterns, $(1)Livingwood$(0) can be crafted into a selectively-permeable block. The $(1)Abstruse Platform$(0) has a physical body only for non-sneaking entities above one; sneaking entities or those coming from below will pass right through. $(4)Mana Bursts$(0) will always travel through a Platform without any trouble.",
+  "botania.page.platform2": "This block can also be disguised as any other simple block by simply right-clicking it with the block. Right-clicking a platform with a block in it with a $(1)Wand of the Forest$(0) spreads the disguise to all adjacent non-disguised blocks. Shift-right clicking removes all disguises.",
   "botania.page.platform1": "It would be Ethereal but the name was taken",
 
   "botania.entry.manaConjuration": "Conjuring with Mana",
