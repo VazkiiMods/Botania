@@ -119,6 +119,11 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
+	public boolean isSolid(BlockState state) {
+		return false;
+	}
+
+	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileAnimatedTorch();
 	}
