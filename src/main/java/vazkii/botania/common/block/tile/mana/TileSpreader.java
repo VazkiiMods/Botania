@@ -671,7 +671,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		Vector3 blockVec = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
 		VoxelShape shape = player.world.getBlockState(pos).getShape(player.world, pos);
-		AxisAlignedBB axis = shape.isEmpty() ? new AxisAlignedBB(pos) : shape.getBoundingBox();
+		AxisAlignedBB axis = shape.isEmpty() ? new AxisAlignedBB(pos) : shape.getBoundingBox().offset(pos);
 
 		if(!blockVec.isInside(axis))
 			blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
