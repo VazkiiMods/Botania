@@ -235,8 +235,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());
 	}
 
-	@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-	public static class EntityPlayerMover extends Entity implements ILightProvider {
+	public static class EntityPlayerMover extends Entity {
 
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
@@ -352,17 +351,6 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 
 		public void setExit(BlockPos pos) {
 			dataManager.set(EXIT_POS, pos);
-		}
-
-		@Override
-		@Optional.Method(modid="albedo")
-		public Light provideLight() {
-			if(getPassengers().isEmpty())
-				return null;
-			
-			Entity passenger = getPassengers().get(0);
-			Color color = Color.getHSBColor(passenger.ticksExisted / 36F, 1F, 1F);
-			return Light.builder().pos(this).color(color.getRGB(), false).radius(5).build();
 		}
 
 	}

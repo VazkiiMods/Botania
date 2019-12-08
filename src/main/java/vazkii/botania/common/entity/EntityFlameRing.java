@@ -29,8 +29,7 @@ import elucent.albedo.lighting.Light;
 
 import java.util.List;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityFlameRing extends Entity implements ILightProvider {
+public class EntityFlameRing extends Entity {
 
 	public EntityFlameRing(World world) {
 		super(world);
@@ -105,10 +104,4 @@ public class EntityFlameRing extends Entity implements ILightProvider {
 
 	@Override
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {}
-	
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		return Light.builder().pos(this).color(1F, 0.5F, 0F).radius(20).build();
-	}
 }

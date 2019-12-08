@@ -32,6 +32,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -63,6 +64,7 @@ import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
+import vazkii.botania.client.integration.albedo.AlbedoCompat;
 import vazkii.botania.client.render.entity.LayerGaiaHead;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
@@ -173,6 +175,10 @@ public class ClientProxy implements IProxy {
 				jingleTheBells = true;
 			if(now.getMonth() == Month.OCTOBER)
 				dootDoot = true;
+		}
+
+		if (Loader.isModLoaded("albedo") && ConfigHandler.enableAlbedo) {
+			MinecraftForge.EVENT_BUS.register(AlbedoCompat.class);
 		}
 
 		TileEntityItemStackRenderer.instance = new RenderTilePylon.ForwardingTEISR(TileEntityItemStackRenderer.instance);
