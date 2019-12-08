@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
+import baubles.api.cap.BaublesCapabilities;
 import baubles.api.cap.IBaublesItemHandler;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -99,7 +100,8 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			for(int i = 0; i < baubles.getSlots(); i++) {
 				if(baubles.isItemValidForSlot(i, toEquip, player)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
-					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
+					IBauble baubleInSlot = stackInSlot.getCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE, null);
+					if(stackInSlot.isEmpty() || baubleInSlot == null || baubleInSlot.canUnequip(stackInSlot, player)) {
 						// If toEquip and stackInSlot are stacks with equal value but not identity, ItemStackHandler.setStackInSlot actually does nothing >.>
 						// Prevent it from trying to be overly smart by going through empty first
 						baubles.setStackInSlot(i, ItemStack.EMPTY);
@@ -112,7 +114,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 						PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
 
 						if(!stackInSlot.isEmpty()) {
-							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
+							if(baubleInSlot != null) {
+								baubleInSlot.onUnequipped(stackInSlot, player);
+							}
 
 							if(stack.isEmpty()) {
 								return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot);
