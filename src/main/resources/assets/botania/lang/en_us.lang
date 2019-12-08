@@ -381,6 +381,7 @@ seasonalFeatures.enabled=Seasonal Features
 shedding.enable=Natural Shedding
 thaumcraftAspects.enabled=TC Aspects
 thaumraftStabilizers.enabled=TC Infusion Stabilizers
+albedoLights.enabled=Albedo Lights
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?

@@ -28,8 +28,7 @@ import javax.annotation.Nonnull;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityPixie extends EntityFlying implements ILightProvider {
+public class EntityPixie extends EntityFlying {
 
 	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
@@ -145,14 +144,4 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 	public boolean canBeLeashedTo(EntityPlayer player) {
 		return false;
 	}
-
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		if(getType() == 1)
-			return null;
-		
-		return Light.builder().pos(this).color(1F, 0F, 0.5F).radius(8).build();
-	}
-
 }

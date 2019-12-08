@@ -27,8 +27,7 @@ import java.util.List;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityFallingStar extends EntityThrowableCopy implements ILightProvider {
+public class EntityFallingStar extends EntityThrowableCopy {
 
 	public EntityFallingStar(World world) {
 		super(world);
@@ -90,12 +89,6 @@ public class EntityFallingStar extends EntityThrowableCopy implements ILightProv
 		}
 
 		setDead();
-	}
-	
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		return Light.builder().pos(this).color(1F, 0F, 1F).radius(12).build();
 	}
 
 }

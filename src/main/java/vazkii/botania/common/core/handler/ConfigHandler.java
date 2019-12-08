@@ -85,6 +85,7 @@ public final class ConfigHandler {
 	public static boolean invertMagnetRing = false;
 	public static boolean enableThaumcraftStablizers = true;
 	public static boolean enableThaumcraftAspects = true;
+	public static boolean enableAlbedo = true;
 	public static boolean enableShedding = false;
 
 	public static int harvestLevelWeight = 2;
@@ -239,6 +240,9 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable Thaumcraft aspects on Botania items";
 		enableThaumcraftAspects = loadPropBool("thaumcraftAspects.enabled", desc, enableThaumcraftAspects);
+
+		desc = "Set this to false to disable Albedo compat for moving colored lights on some Botania entities";
+		enableAlbedo = loadPropBool("albedoLights.enabled", desc, enableAlbedo);
 
 		desc = "Set this to true to enable the Shedding feature from 1.7.10. You'll need to load the game to generate the options. No options are enabled by default. This increases load time.";
 		enableShedding = loadPropBool("shedding.enable", desc, enableShedding);

@@ -30,8 +30,7 @@ import elucent.albedo.lighting.Light;
 
 import java.util.List;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityMagicLandmine extends Entity implements ILightProvider {
+public class EntityMagicLandmine extends Entity {
 
 	public EntityDoppleganger summoner;
 
@@ -92,10 +91,4 @@ public class EntityMagicLandmine extends Entity implements ILightProvider {
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
 	}
 
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		return Light.builder().pos(this).color(0.6F, 0F, 1F).radius(15).build();
-	}
-	
 }

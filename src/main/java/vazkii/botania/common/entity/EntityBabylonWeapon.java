@@ -39,8 +39,7 @@ import elucent.albedo.lighting.Light;
 
 import java.util.List;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightProvider {
+public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -202,12 +201,6 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
 
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		return Light.builder().pos(this).color(1F, 1F, 0F).radius(8).build();
-	}
-	
 	public boolean isCharging() {
 		return dataManager.get(CHARGING);
 	}
