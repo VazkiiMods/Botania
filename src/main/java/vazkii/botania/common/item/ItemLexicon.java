@@ -192,12 +192,16 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		int ticks = getQueueTicks(stack);
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 5;
-			if(ticks == 1)
-				onItemRightClick(world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
+			if(ticks == 1) {
+				if(selected)
+					onItemRightClick(world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
+				else if(stack == ((EntityPlayer) entity).getHeldItemOffhand())
+					onItemRightClick(world, (EntityPlayer) entity, EnumHand.OFF_HAND);
+			}
 
 			setQueueTicks(stack, ticks - 1);
 		}
