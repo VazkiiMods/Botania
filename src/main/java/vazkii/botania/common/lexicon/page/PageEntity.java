@@ -32,14 +32,14 @@ public class PageEntity extends LexiconPage{
 	int relativeMouseX, relativeMouseY;
 	boolean tooltipEntity;
 	final int size;
-	Constructor entityConstructor;
+	private Constructor<? extends Entity> entityConstructor;
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity)).getEntityClass();
+		Class<? extends Entity> entityClass = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity)).getEntityClass();
 		this.size = size;
 		try {
-			entityConstructor = EntityClass.getConstructor(World.class);
+			entityConstructor = entityClass.getConstructor(World.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,7 +79,7 @@ public class PageEntity extends LexiconPage{
 
 	@SideOnly(Side.CLIENT)
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
-		dummyEntity.world = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().world : null;
+		dummyEntity.world = Minecraft.getMinecraft().world;
 
 		GlStateManager.enableColorMaterial();
 		GlStateManager.pushMatrix();
@@ -93,9 +93,9 @@ public class PageEntity extends LexiconPage{
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
-		OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GlStateManager.disableTexture2D();
-		OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
 		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
 			tooltipEntity = true;

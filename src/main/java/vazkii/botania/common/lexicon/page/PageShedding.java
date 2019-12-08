@@ -41,11 +41,11 @@ public class PageShedding extends PageEntity {
 
 	private static final ResourceLocation sheddingOverlay = new ResourceLocation(LibResources.GUI_SHEDDING_OVERLAY);
 
-	final ItemStack shedStack;
-	ItemStack tooltipStack;
-	boolean tooltipEntry;
+	private final ItemStack shedStack;
+	private ItemStack tooltipStack = ItemStack.EMPTY;
+	private boolean tooltipEntry;
 
-	static boolean mouseDownLastTick = false;
+	private static boolean mouseDownLastTick = false;
 
 	public PageShedding(String unlocalizedName, String entity, int size, ItemStack shedStack) {
 		super(unlocalizedName, entity, size);
@@ -103,7 +103,7 @@ public class PageShedding extends PageEntity {
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
 		}
 
-		tooltipStack = null;
+		tooltipStack = ItemStack.EMPTY;
 		tooltipEntry = tooltipEntity = false;
 		GlStateManager.disableBlend();
 		mouseDownLastTick = Mouse.isButtonDown(0);
