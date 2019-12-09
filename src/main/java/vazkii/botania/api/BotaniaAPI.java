@@ -348,12 +348,4 @@ public final class BotaniaAPI {
 			return brewMap.get(key);
 		return fallbackBrew;
 	}
-
-	public static int getOreWeight(ResourceLocation tag) {
-		return oreWeights.get(tag);
-	}
-
-	public static int getOreWeightNether(ResourceLocation tag) {
-		return oreWeightsNether.get(tag);
-	}
 }

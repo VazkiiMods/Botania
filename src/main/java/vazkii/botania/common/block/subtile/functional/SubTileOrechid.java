@@ -29,10 +29,12 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SubTileOrechid extends TileEntityFunctionalFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":orechid")
@@ -70,7 +72,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 					getWorld().setBlockState(coords, state);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2001, coords, Block.getStateId(state));
-					getWorld().playSound(null, getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
+					getWorld().playSound(null, coords, ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					addMana(-cost);
 					sync();
@@ -79,13 +81,18 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		}
 	}
 
+	@Nullable
 	private BlockState getOreToPut() {
-		for (int i = 0; i < TRIES; i++) {
-			List<WeightedRandom.Item> values = new ArrayList<>();
-			Map<ResourceLocation, Integer> map = getOreMap();
-			for(ResourceLocation s : map.keySet())
-				values.add(new TagRandomItem(map.get(s), s));
+		Map<ResourceLocation, Integer> map = getOreMap();
+		List<WeightedRandom.Item> values = map.entrySet().stream()
+				.map(e -> new TagRandomItem(e.getValue(), e.getKey()))
+				.collect(Collectors.toList());
 
+		if (WeightedRandom.getTotalWeight(values) == 0) {
+			return null;
+		}
+
+		for (int i = 0; i < TRIES; i++) {
 			ResourceLocation ore = ((TagRandomItem) WeightedRandom.getRandomItem(getWorld().rand, values)).s;
 			Tag<Block> tag = BlockTags.getCollection().get(ore);
 			if(tag != null && !tag.getAllElements().isEmpty()) {
