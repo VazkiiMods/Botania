@@ -19,6 +19,8 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,8 +46,11 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.client.handler.MultiblockVisualizationHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -186,6 +191,20 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void addParticleForce(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
+	}
+
+	@Override
+	public void showMultiblock(IMultiblock mb, String name, BlockPos anchor, Rotation rot) {
+		MultiblockVisualizationHandler.setMultiblock(mb, name, null, false);
+		MultiblockVisualizationHandler.anchorTo(anchor, Rotation.NONE);
+	}
+
+	@Override
+	public void clearSextantMultiblock() {
+		if (MultiblockVisualizationHandler.hasMultiblock
+				&& MultiblockVisualizationHandler.getMultiblock() != null
+				&& MultiblockVisualizationHandler.getMultiblock().getID().equals(ItemSextant.MULTIBLOCK_ID))
+			MultiblockVisualizationHandler.setMultiblock(null, null, null, true);
 	}
 }
 
