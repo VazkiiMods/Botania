@@ -13,7 +13,7 @@ public class WispParticleType extends ParticleType<WispParticleData> {
     public static class Factory implements IParticleFactory<WispParticleData> {
         @Override
         public Particle makeParticle(WispParticleData data, World world, double x, double y, double z, double mx, double my, double mz) {
-            return new FXWisp(world, x, y, z, mx, my, mz, data.size, data.r, data.g, data.b, data.depthTest, data.maxAgeMul);
+            return new FXWisp(world, x, y, z, mx, my, mz, data.size, data.r, data.g, data.b, data.depthTest, data.maxAgeMul, data.noClip);
         }
     }
 }
