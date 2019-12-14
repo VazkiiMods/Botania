@@ -12,6 +12,8 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
@@ -19,6 +21,7 @@ import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.ChestType;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -163,18 +166,20 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		List<ItemStack> filter = new ArrayList<>();
 
 		if(recursiveForDoubleChests) {
-			TileEntity tileEntity = getWorld().getTileEntity(pos);
-			Block chest = getWorld().getBlockState(pos).getBlock();
+			BlockState chest = getWorld().getBlockState(pos);
 
-			if(tileEntity instanceof ChestTileEntity)
-				for(Direction dir : MathHelper.HORIZONTALS)
-					if(getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
-						filter.addAll(getFilterForInventory(pos.offset(dir), false));
-						break;
+			if(chest.has(ChestBlock.TYPE)) {
+				ChestType type = chest.get(ChestBlock.TYPE);
+				if (type != ChestType.SINGLE) {
+					BlockPos other = pos.offset(ChestBlock.getDirectionToAttached(chest));
+					if (getWorld().getBlockState(other).getBlock() == chest.getBlock()) {
+						filter.addAll(getFilterForInventory(other, false));
 					}
+				}
+			}
 		}
 
-		for(Direction dir : MathHelper.HORIZONTALS) {
+		for(Direction dir : Direction.values()) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
 			List<ItemFrameEntity> frames = getWorld().getEntitiesWithinAABB(ItemFrameEntity.class, aabb);
 			for(ItemFrameEntity frame : frames) {
