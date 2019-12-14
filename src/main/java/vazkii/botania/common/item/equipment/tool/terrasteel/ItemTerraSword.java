@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,7 +27,6 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
@@ -36,7 +34,6 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
@@ -78,7 +75,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	}
 
 	public EntityManaBurst getBurst(PlayerEntity player, ItemStack stack) {
-		EntityManaBurst burst = new EntityManaBurst(player, Hand.MAIN_HAND);
+		EntityManaBurst burst = new EntityManaBurst(player);
 
 		float motionModifier = 7F;
 

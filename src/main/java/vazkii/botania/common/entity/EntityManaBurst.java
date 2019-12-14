@@ -148,16 +148,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		setBurstMotion(mx, my, mz);
 	}
 
-	public EntityManaBurst(PlayerEntity player, Hand hand) {
+	public EntityManaBurst(PlayerEntity player) {
 		super(TYPE, player, player.world);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
 		setRotation(player.rotationYaw + 180, -player.rotationPitch);
 
-		double dX = (hand == Hand.OFF_HAND ? -1 : 1) * MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
-		double dZ = (hand == Hand.OFF_HAND ? -1 : 1) * MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
-
-		setPosition(posX - dX, posY, posZ - dZ);
 		float f = 0.4F;
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
