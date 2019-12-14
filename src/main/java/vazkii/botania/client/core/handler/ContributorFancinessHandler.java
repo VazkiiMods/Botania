@@ -71,15 +71,9 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 		String name = player.getDisplayName().getString();
 
-		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
-		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
-		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
-
 		GlStateManager.pushMatrix();
-		GlStateManager.rotatef(yawOffset, 0, -1, 0);
-		GlStateManager.rotatef(yaw - 270, 0, 1, 0);
-		GlStateManager.rotatef(pitch, 0, 0, 1);
-
+		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
+		
 		if(name.equals("haighyorkie"))
 			renderGoldfish(player);
 
@@ -133,6 +127,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
+		GlStateManager.translatef(0, player.getEyeHeight(), 0);
 		AccessoryRenderHelper.rotateIfSneaking(player);
 		GlStateManager.rotatef(180F, 0F, 0F, 1F);
 		GlStateManager.rotatef(90F, 0F, 1F, 0F);
@@ -146,7 +141,6 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 	@SuppressWarnings("deprecation")
 	private static void renderFlower(PlayerEntity player, ItemStack flower, float partialTicks) {
 		GlStateManager.pushMatrix();
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotatef(180, 0, 0, 1);
 		GlStateManager.translated(0, -0.85, 0);
