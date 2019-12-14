@@ -89,4 +89,19 @@ public final class LibOreDict {
 			"quartzDark", "quartzMana", "quartzBlaze",
 			"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"
 	};
+
+	public static final String[] QUARTZ_BLOCKS = new String[] {
+			"blockQuartzDark", "blockQuartzMana", "blockQuartzBlaze",
+			"blockQuartzLavender", "blockQuartzRed", "blockQuartzElven", "blockQuartzSunny"
+	};
+
+	public static final String[] QUARTZ_SLABS = new String[] {
+			"slabQuartzDark", "slabQuartzMana", "slabQuartzBlaze",
+			"slabQuartzLavender", "slabQuartzRed", "slabQuartzElven", "slabQuartzSunny"
+	};
+
+	public static final String[] QUARTZ_STAIRS = new String[] {
+			"stairQuartzDark", "stairQuartzMana", "stairQuartzBlaze",
+			"stairQuartzLavender", "stairQuartzRed", "stairQuartzElven", "stairQuartzSunny"
+	};
 }

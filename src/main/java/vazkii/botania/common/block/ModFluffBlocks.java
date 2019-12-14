@@ -14,13 +14,16 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
+import vazkii.botania.api.state.enums.QuartzVariant;
 import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneB;
@@ -61,6 +64,7 @@ import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -348,6 +352,35 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(managlassPane).setRegistryName(managlassPane.getRegistryName()));
 		r.register(new ItemBlockMod(alfglassPane).setRegistryName(alfglassPane.getRegistryName()));
 		r.register(new ItemBlockMod(bifrostPane).setRegistryName(bifrostPane.getRegistryName()));
+		registerOreDictionary();
+	}
+
+	private static void registerOreDictionary() {
+		Block[] quartzBlocks=new Block[] {
+				darkQuartz, manaQuartz, blazeQuartz, lavenderQuartz,
+				redQuartz, elfQuartz, sunnyQuartz
+		};
+
+		for(int i = 0; i < 7; i++) {
+			for(int j=0;j< QuartzVariant.values().length;j++) {
+				OreDictionary.registerOre(LibOreDict.QUARTZ_BLOCKS[i], new ItemStack(quartzBlocks[i],1,j));
+			}
+		}
+
+		Block[] quartzSlabs=new Block[] {
+				darkQuartzSlab, manaQuartzSlab, blazeQuartzSlab, lavenderQuartzSlab,
+				redQuartzSlab,  elfQuartzSlab, sunnyQuartzSlab,
+		};
+
+		for(int i = 0; i < 7; i++)
+			OreDictionary.registerOre(LibOreDict.QUARTZ_SLABS[i], quartzSlabs[i]);
+
+		Block[] quartzStairs = new Block[] {
+			darkQuartzStairs, manaQuartzStairs, blazeQuartzStairs, lavenderQuartzStairs,
+			redQuartzStairs, elfQuartzStairs, sunnyQuartzStairs
+		};
+		for(int i = 0; i < 7; i++)
+			OreDictionary.registerOre(LibOreDict.QUARTZ_STAIRS[i], quartzStairs[i]);
 	}
 
 }
