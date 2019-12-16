@@ -43,6 +43,7 @@ import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
@@ -141,21 +142,9 @@ public class Botania {
 			ModBanners.init();
 
 			// todo 1.14 make these canonical and move to where they belong
-			String[][] pat = new String[][] {
-					{ "_", "W", "G", "W", "_" },
-					{ "W", "_", "_", "_", "W" },
-					{ "G", "_", "_", "_", "G" },
-					{ "W", "_", "_", "_", "W" },
-					{ "_", "W", "0", "W", "_" }
-			};
-			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'W', ModBlocks.livingwood,
-					'G', ModBlocks.livingwoodGlimmering,
-					'0', ModBlocks.alfPortal
-			);
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), mb);
-
+			String[][] pat;
+			IMultiblock mb;
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), TileTerraPlate.MULTIBLOCK.getValue());
 
 			pat = new String[][] {
