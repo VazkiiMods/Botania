@@ -142,14 +142,11 @@ public class Botania {
 
 			ModBanners.init();
 
-			// todo 1.14 make these canonical and move to where they belong
-			String[][] pat;
-			IMultiblock mb;
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), TileTerraPlate.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), TileEnchanter.MULTIBLOCK.getValue());
 
-			pat = new String[][] {
+			String[][] pat = new String[][] {
 					{
 						"P_______P",
 						"_________",
@@ -192,7 +189,7 @@ public class Botania {
 					return false;
 				}
 			});
-			mb = PatchouliAPI.instance.makeMultiblock(
+			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
 					pat,
 					'P', ModBlocks.gaiaPylon,
 					'B', Blocks.BEACON,
