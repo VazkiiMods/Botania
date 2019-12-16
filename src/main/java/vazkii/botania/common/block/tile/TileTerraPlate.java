@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -36,6 +37,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
 
@@ -44,16 +47,24 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	public static TileEntityType<TileTerraPlate> TYPE;
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
-	private static final BlockPos[] LAPIS_BLOCKS = {
-			new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0),
-			new BlockPos(0, 0, 1), new BlockPos(0, 0, -1)
-	};
-
-	private static final BlockPos[] LIVINGROCK_BLOCKS = {
-			new BlockPos(0, 0, 0), new BlockPos(1, 0, 1),
-			new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1),
-			new BlockPos(-1, 0, -1)
-	};
+	public static final LazyLoadBase<IMultiblock> MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+			new String[][] {
+					{
+							"___",
+							"_P_",
+							"___"
+					},
+					{
+							"RLR",
+							"L0L",
+							"RLR"
+					}
+			},
+			'P', ModBlocks.terraPlate,
+			'R', ModBlocks.livingrock,
+			'0', ModBlocks.livingrock,
+			'L', Blocks.LAPIS_BLOCK
+	));
 
 	private static final String TAG_MANA = "mana";
 
@@ -133,20 +144,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	}
 
 	private boolean hasValidPlatform() {
-		return checkAll(LAPIS_BLOCKS, Blocks.LAPIS_BLOCK) && checkAll(LIVINGROCK_BLOCKS, ModBlocks.livingrock);
-	}
-
-	private boolean checkAll(BlockPos[] relPositions, Block block) {
-		for (BlockPos position : relPositions) {
-			if(!checkPlatform(position.getX(), position.getZ(), block))
-				return false;
-		}
-
-		return true;
-	}
-
-	private boolean checkPlatform(int xOff, int zOff, Block block) {
-		return world.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
+		return MULTIBLOCK.getValue().validate(world, getPos().down()) != null;
 	}
 
 	@Override

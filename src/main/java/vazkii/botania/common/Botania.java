@@ -43,6 +43,7 @@ import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
@@ -155,26 +156,7 @@ public class Botania {
 			);
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), mb);
 
-			pat = new String[][] {
-					{
-						"___",
-						"_P_",
-						"___"
-					},
-					{
-						"RLR",
-						"L0L",
-						"RLR"
-					}
-			};
-			mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'P', ModBlocks.terraPlate,
-					'R', ModBlocks.livingrock,
-					'0', ModBlocks.livingrock,
-					'L', Blocks.LAPIS_BLOCK
-			);
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), mb);
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), TileTerraPlate.MULTIBLOCK.getValue());
 
 			pat = new String[][] {
 					{
