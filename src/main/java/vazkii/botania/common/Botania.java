@@ -44,6 +44,7 @@ import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
@@ -146,45 +147,7 @@ public class Botania {
 			IMultiblock mb;
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), TileTerraPlate.MULTIBLOCK.getValue());
-
-			pat = new String[][] {
-					{
-						"_P_______P_",
-						"___________",
-						"___________",
-						"P_________P",
-						"___________",
-						"___________",
-						"_P_______P_",
-					},
-					{
-						"_F_______F_",
-						"___________",
-						"____F_F____",
-						"F____L____F",
-						"____F_F____",
-						"___________",
-						"_F_______F_",
-					},
-					{
-						"___________",
-						"____BBB____",
-						"___B_B_B___",
-						"___BB0BB___",
-						"___B_B_B___",
-						"____BBB____",
-						"___________",
-					}
-			};
-			mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'P', ModBlocks.manaPylon,
-					'L', Blocks.LAPIS_BLOCK,
-					'B', Blocks.OBSIDIAN,
-					'0', Blocks.OBSIDIAN,
-					'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
-			);
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), mb);
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), TileEnchanter.MULTIBLOCK.getValue());
 
 			pat = new String[][] {
 					{

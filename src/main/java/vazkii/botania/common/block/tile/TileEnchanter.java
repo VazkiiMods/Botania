@@ -28,8 +28,10 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -54,6 +56,9 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.multiblock.StateMatcher;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,6 +81,54 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	private static final String TAG_ENCHANTS = "enchantsToApply";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
+	private static final String[][] PATTERN = new String[][] {
+			{
+					"_P_______P_",
+					"___________",
+					"___________",
+					"P_________P",
+					"___________",
+					"___________",
+					"_P_______P_",
+			},
+			{
+					"_F_______F_",
+					"___________",
+					"____F_F____",
+					"F____L____F",
+					"____F_F____",
+					"___________",
+					"_F_______F_",
+			},
+			{
+					"___________",
+					"____BBB____",
+					"___B_B_B___",
+					"___BB0BB___",
+					"___B_B_B___",
+					"____BBB____",
+					"___________",
+			}
+	};
+
+	public static final LazyLoadBase<IMultiblock> MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+			PATTERN,
+			'P', ModBlocks.manaPylon,
+			'L', Blocks.LAPIS_BLOCK,
+			'B', Blocks.OBSIDIAN,
+			'0', Blocks.OBSIDIAN,
+			'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
+	));
+
+	private static final LazyLoadBase<IMultiblock> FORMED_MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+			PATTERN,
+			'P', ModBlocks.manaPylon,
+			'L', ModBlocks.enchanter,
+			'B', Blocks.OBSIDIAN,
+			'0', Blocks.OBSIDIAN,
+			'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
+	));
+
 	public State stage = State.IDLE;
 	public int stageTicks = 0;
 
@@ -87,25 +140,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	public ItemStack itemToEnchant = ItemStack.EMPTY;
 	private final List<EnchantmentData> enchants = new ArrayList<>();
 
-	private static final BlockPos[] OBSIDIAN_LOCATIONS = {
-			new BlockPos(0, -1, 0),
-			new BlockPos(0, -1, 1), new BlockPos(0, -1, -1), new BlockPos(1, -1, 0), new BlockPos(-1, -1, 0),
-			new BlockPos(0, -1, 2), new BlockPos(-1, -1, 2), new BlockPos(1, -1, 2),
-			new BlockPos(0, -1, -2), new BlockPos(-1, -1, -2), new BlockPos(1, -1, -2),
-			new BlockPos(2, -1, 0), new BlockPos(2, -1, 1), new BlockPos(2, -1, -1 ),
-			new BlockPos(-2, -1, 0), new BlockPos(-2, -1, 1), new BlockPos(-2, -1, -1)
-	};
-
 	private static final Map<Direction.Axis, BlockPos[]> PYLON_LOCATIONS = new EnumMap<>(Direction.Axis.class);
 
 	static {
 		PYLON_LOCATIONS.put(Direction.Axis.X, new BlockPos[] { new BlockPos(-5, 1, 0), new BlockPos(5, 1, 0), new BlockPos(-4, 1, 3), new BlockPos(4, 1, 3), new BlockPos(-4, 1, -3 ), new BlockPos(4, 1, -3) });
 		PYLON_LOCATIONS.put(Direction.Axis.Z, new BlockPos[] { new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4 ), new BlockPos(-3, 1, 4) });
 	}
-
-	private static final BlockPos[] FLOWER_LOCATIONS = {
-			new BlockPos(-1, 0, -1), new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1), new BlockPos(1, 0, 1)
-	};
 
 	public TileEnchanter() {
 		super(TYPE);
@@ -219,8 +259,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		if(world.isRemote)
 			return;
 
-		if(!canEnchanterExist(world, pos, axis)) {
-			world.setBlockState(pos, Blocks.LAPIS_BLOCK.getDefaultState(), 1 | 2);
+		if(FORMED_MULTIBLOCK.getValue().validate(world, pos.down()) == null) {
+			world.setBlockState(pos, Blocks.LAPIS_BLOCK.getDefaultState());
 			PacketHandler.sendToNearby(world, pos, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
 					pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5));
 			world.playSound(null, pos, ModSounds.enchanterFade, SoundCategory.BLOCKS, 0.5F, 10F);
@@ -391,25 +431,19 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		return true;
 	}
 
-	private static boolean isValidFlower(BlockState b) {
-		return b.isIn(ModTags.Blocks.FLOATING_FLOWERS) || b.isIn(ModTags.Blocks.MYSTICAL_FLOWERS) || b.isIn(ModTags.Blocks.SPECIAL_FLOWERS);
-	}
+	@Nullable
+	public static Direction.Axis canEnchanterExist(World world, BlockPos pos) {
+		Rotation rot = MULTIBLOCK.getValue().validate(world, pos.down());
+		if (rot == null)
+			return null;
 
-	public static boolean canEnchanterExist(World world, BlockPos pos, Direction.Axis axis) {
-		for(BlockPos obsidian : OBSIDIAN_LOCATIONS)
-			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.OBSIDIAN)
-				return false;
-
-		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
-			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.manaPylon
-					|| !isValidFlower(world.getBlockState(pos.add(pylon).down())))
-				return false;
-
-		for(BlockPos flower : FLOWER_LOCATIONS)
-			if(!isValidFlower(world.getBlockState(pos.add(flower))))
-				return false;
-
-		return true;
+		switch (rot) {
+			default:
+			case NONE:
+			case CLOCKWISE_180: return Direction.Axis.Z;
+			case CLOCKWISE_90:
+			case COUNTERCLOCKWISE_90: return Direction.Axis.X;
+		}
 	}
 
 	@Override
