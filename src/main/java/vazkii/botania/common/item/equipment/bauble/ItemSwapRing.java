@@ -31,7 +31,7 @@ public class ItemSwapRing extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if(!(entity instanceof PlayerEntity))
+		if(entity.world.isRemote && !(entity instanceof PlayerEntity))
 			return;
 
 		PlayerEntity player = (PlayerEntity) entity;
@@ -42,7 +42,7 @@ public class ItemSwapRing extends ItemBauble {
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
 
 		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.world, player,
-				RayTraceContext.FluidMode.SOURCE_ONLY, 4.5F);
+				RayTraceContext.FluidMode.NONE, 4.5F);
 		ToolType typeToFind = null;
 
 		if(player.isSwingInProgress && pos.getType() == RayTraceResult.Type.BLOCK) {
