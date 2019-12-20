@@ -1480,7 +1480,7 @@
   "effect.botania.clear": "Absolution",
 
   "botania.gui.lexicon.header": "Lexica Botania, %s Edition Table of Contents",
-  "botania.gui.lexicon.wip": "(This entry is a Work In Progress. It's not even in its final form)",
+  "botania.gui.lexicon.wip": "(This entry is a Work In Progress. It's not even its final form)",
 
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Endure Emptiness",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Fight For Quiescence",
