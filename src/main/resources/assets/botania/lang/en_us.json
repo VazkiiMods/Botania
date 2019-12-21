@@ -24,9 +24,9 @@
   "botaniamisc.statusUnknown": "Unknown Status",
   "botaniamisc.color": "%s Tinted",
   "botaniamisc.manaUsage": "Mana Usage",
-  "botaniamisc.shiftToRead": "Shift-right click to read more",
-  "botaniamisc.clickToRecipe": "Shift-click to see recipe",
-  "botaniamisc.clickToIndex": "Shift-click for index",
+  "botaniamisc.shiftToRead": "Sneak-right click to read more",
+  "botaniamisc.clickToRecipe": "Sneak-click to see recipe",
+  "botaniamisc.clickToIndex": "Sneak-click for index",
   "botaniamisc.flareColor": "%s Rounds",
   "botaniamisc.outputtingPower": "Sparing Mana to Items",
   "botaniamisc.inputtingPower": "Accepting Mana from Items",
@@ -50,7 +50,7 @@
   "botaniamisc.knowledgeTypesPlural": "Contains %s Schools of Knowledge",
   "botaniamisc.bookmark": "Bookmark #%s",
   "botaniamisc.clickToSee": "Click to read",
-  "botaniamisc.shiftToRemove": "Shift-click to remove",
+  "botaniamisc.shiftToRemove": "Sneak-click to remove",
   "botaniamisc.clickToAdd": "Add Bookmark",
   "botaniamisc.ratio": "%sx Zoom (hover to zoom out)",
   "botaniamisc.bottleTooltip": "It has an acquired taste",
@@ -108,7 +108,7 @@
   "botaniamisc.blockAway": "1 Block Away",
   "botaniamisc.blocksAway": "%s Blocks Away",
   "botaniamisc.clickToTeleport": "Right-click to teleport",
-  "botaniamisc.clickToRemoveWarp": "Shift-left click to remove",
+  "botaniamisc.clickToRemoveWarp": "Sneak-left click to remove",
   "botaniamisc.unboundWarp": "Unbound Warp Point",
   "botaniamisc.clickToAddWarp": "Right-click to bind to this position",
   "botaniamisc.hasKeepIvy": "Has Resolute Ivy",
@@ -144,7 +144,7 @@
   "botaniamisc.changes1": "The last version of \u00a7aBotania\u00a77 you used was \u00a7b%s\u00a77.",
   "botaniamisc.changes2": "Things change, don't panic. If something seems off, read the entry for that thing again.",
   "botaniamisc.changes3": "\u00a7oEveryone is afraid of change, yet change is the force that moves us forward.",
-  "botaniamisc.changes4": "\u00a7fShift-left click\u00a77 to read about the changes to Botania since then",
+  "botaniamisc.changes4": "\u00a7fSneak-left click\u00a77 to read about the changes to Botania since then",
   "botaniamisc.changes5": "\u00a7fLeft click\u00a77 to dismiss this",
   "botaniamisc.badArena": "As hard as you try, the Beacon will not accept your sacrifice. Perhaps the ritual grounds might be improper. It might be a good idea to check for obstructions in the nearby area or large gaps in the floor.",
   "botaniamisc.shiftToStopSpin": "(SHIFT to stop animation)",
@@ -1770,22 +1770,22 @@
   "botania.tagline.gardenOfGlass": "Your new challenge",
   "botania.page.gardenOfGlass0": "In the $(2)Garden of Glass$(0) nobody can hear you scream.$(p)You're alone in space.$(p)How exciting.",
   "botania.page.gardenOfGlass1": "The $(2)Garden of Glass$(0) is a skyblock mode for Botania. It's meant more for players who have some experience in the mod, but if you're new to it, you're more than welcome to try it out anyway.$(p)Most of the mod functions the same as it does on the ground, but some tweaks have been put in place to allow for skyblock-style gameplay. They'll be listed in the following pages.",
-  "botania.page.gardenOfGlass2": "After spawning in the $(1)Garden of Glass$(0), you'll find $(1)Living Roots$(0) belowground. These can be crafted into $(1)Saplings$(0) and $(1)Floral Fertilizer$(0), or just used as $(1)Bone Meal$(0). Shift-right clicking a $(1)Dirt$(0) or $(1)Grass$(0) block with an empty hand will have you rummage through the soil, yielding some $(1)Pebbles$(0); these can be converted into $(1)Cobblestone$(0). Filling a $(1)Petal Apothecary$(0) can be done with a $(1)Bowl$(0) by right-clicking it on a water block.",
+  "botania.page.gardenOfGlass2": "After spawning in the $(1)Garden of Glass$(0), you'll find $(1)Living Roots$(0) belowground. These can be crafted into $(1)Saplings$(0) and $(1)Floral Fertilizer$(0), or just used as $(1)Bone Meal$(0). Sneak-right clicking a $(1)Dirt$(0) or $(1)Grass$(0) block with an empty hand will have you rummage through the soil, yielding some $(1)Pebbles$(0); these can be converted into $(1)Cobblestone$(0). Filling a $(1)Petal Apothecary$(0) can be done with a $(1)Bowl$(0) by right-clicking it on a water block.",
   "botania.page.gardenOfGlass3": "Creating $(1)Saplings$(0)",
   "botania.page.gardenOfGlass4": "Creating $(1)Floral Fertilizer$(0)",
   "botania.page.gardenOfGlass5": "Creating $(1)Cobblestone$(0)",
-  "botania.page.gardenOfGlass6": "Aside from that, some things in Botania are different to fit Skyblock gameplay: The $(1)Orechid$(0) is easier to make, faster, and much more mana-efficient; The $(1)Cocoon of Caprice$(0) and the $(1)Mana Spreader$(0) have simpler recipes; the $(1)Blaze Mesh$(0), which can be purified into $(1)Obsidian$(0), uses blaze powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft; and some additional recipes have been added.",
+  "botania.page.gardenOfGlass6": "Aside from that, some things in Botania are different to fit Skyblock gameplay: The $(1)Orechid$(0) is easier to make, faster, and much more $(4)Mana$(0)-efficient; The $(1)Cocoon of Caprice$(0) and the $(1)Mana Spreader$(0) have simpler recipes; the $(1)Blaze Mesh$(0), which can be purified into $(1)Obsidian$(0), uses blaze powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft; and some additional recipes have been added.",
   "botania.page.gardenOfGlass7": "Creating $(1)Sugar Canes$(0)",
   "botania.page.gardenOfGlass8": "Creating $(1)Slimeballs$(0)",
   "botania.page.gardenOfGlass13": "Infusing $(1)Prismarine$(0)",
-  "botania.page.gardenOfGlass9": "A problem that you might face in this world is that of entering the $(4)Nether$(0). Worry not, however, as $(1)Blaze Meshes$(0), as mentioned previously, can be converted into $(1)Obsidian$(0). To get these lamps, spawning $(1)Blazes$(0) from $(1)Fel Pumpkins$(0) would be a good idea.$(p)Since there's no easily accessible $(1)Flint$(0) on an island in space, opening the portal with a $(1)Fire Charge$(0) will have to do.",
+  "botania.page.gardenOfGlass9": "A problem that you might face in this world is that of entering the $(thing)Nether$(0). Worry not, however, as $(1)Blaze Meshes$(0), as mentioned previously, can be converted into $(1)Obsidian$(0). To get these lamps, spawning $(1)Blazes$(0) from $(1)Fel Pumpkins$(0) would be a good idea.$(p)Since there's no easily accessible $(1)Flint$(0) on an island in space, opening the portal with a $(1)Fire Charge$(0) will have to do.",
   "botania.page.gardenOfGlass11": "Aside from providing light, the $(1)Mana Flash$(0) present in the starting area will allow a player who has lost their $(1)Lexica Botania$(0) to exchange a $(1)Sapling$(0) for a new one, by right-clicking the $(1)Sapling$(0) on the $(1)Mana Flame$(0).$(p)This can only be done if the player doesn't already have a $(1)Lexica Botania$(0) on them.",
   "botania.page.gardenOfGlass12": "Lastly, a way to reach the End",
 
   "botania.entry.lexicon": "Lexica Botania",
   "botania.tagline.lexicon": "What you're reading right now, dummy",
-  "botania.page.lexicon0": "The $(1)Lexica Botania$(0) is the repository of all knowledge for all botanical matters. (But you probably knew that already.)$(p)All pertinent information is stored within these pages (as you might expect). For convenience, if a block happens to have an entry in here, it can be shift-right clicked on with the $(1)Lexica Botania$(0) to open said entry.",
-  "botania.page.lexicon3": "Any entries typed in $(o)Italics$() are $(4)basic$(0) entries, which contain the core knowledge required to play Botania-- you may want to read those first. Most sections contain one or more of these entries, so a good look through those would be a good idea.",
+  "botania.page.lexicon0": "The $(1)Lexica Botania$(0) is the repository of all knowledge for all botanical matters. (But you probably knew that already.)$(p)All pertinent information is stored within these pages (as you might expect). For convenience, if a block happens to have an entry in here, it can be sneak-right clicked on with the $(1)Lexica Botania$(0) to open said entry.",
+  "botania.page.lexicon3": "Any entries typed in $(o)Italics$() are $(thing)basic$(0) entries, which contain the core knowledge required to play Botania-- you may want to read those first. Most sections contain one or more of these entries, so a good look through those would be a good idea.",
   "botania.page.lexicon1": "Crafting the $(1)Lexica Botania$(0).",
   "botania.page.lexicon2": "The $(1)Lexica Botania$(0)'s title can also be customized by placing it in an $(1)Anvil$(0) and renaming it. This changes both its cover and its title.$(p)The Edition of the Lexica shown equates to the version of the $(4)Botania$(0) you're running, and no, I don't care about the fourth wall.",
 
@@ -1809,10 +1809,10 @@
 
   "botania.entry.apothecary": "Petal Apothecary",
   "botania.tagline.apothecary": "What you use to make flowers",
-  "botania.page.apothecary0": "To create plant life that can do one's bidding, a botanist needs a special means of infusing plants with mystical energy.$(p)Luckily, the $(1)Petal Apothecary$(0) can do just that.",
+  "botania.page.apothecary0": "To create plant life that can do their bidding, a botanist needs a special means of infusing plants with mystical energy.$(p)Luckily, the $(1)Petal Apothecary$(0) can do just that.",
   "botania.page.apothecary1": "The $(1)Petal Apothecary$(0).",
-  "botania.page.apothecary2": "This block, when placed in the world and given some water (by use of a $(1)Water Bucket$(0)), will accept any $(1)Mystical Petals$(0) thrown into it, absorbing their energies.$(p)Once one has inserted the correct petals, throwing some $(1)Seeds$(0) in will finalize the crafting process.$(p)The apothecary can also be filled by throwing in a full water bucket.",
-  "botania.page.apothecary3": "Quite a few flora are made here. For more information, read the $(4)Functional Flora$(0) and $(4)Generating Flora$(0) sections of this Lexicon.$(p)Shift-right clicking the $(1)Petal Apothecary$(0) with an empty hand will remove the last item thrown in.",
+  "botania.page.apothecary2": "This block, when placed in the world and given some water (by use of a $(1)Water Bucket$(0)), will accept any $(1)Mystical Petals$(0) thrown into it, absorbing their energies.$(p)Once the correct petals are inserted, throwing some $(1)Seeds$(0) in will finalize the crafting process.$(p)The apothecary can also be filled by throwing in a full water bucket.",
+  "botania.page.apothecary3": "Quite a few flora are made here. For more information, read the $(4)Functional Flora$(0) and $(4)Generating Flora$(0) sections of this Lexicon.$(p)Sneak-right clicking the $(1)Petal Apothecary$(0) with an empty hand will remove the last item thrown in.",
   "botania.page.apothecary4": "$(1)Lava$(0) can be used to fill this block in place of $(1)Water$(0). If this is done, the Apothecary will serve as a brazier and incinerator, destroying any items that come into contact with it.$(p)Tossing $(1)Vines$(0) into a cobblestone apothecary will give the block an overgrown appearance.",
   "botania.page.apothecary7": "$(1)Comparators$(0) can detect whether the block contains water or not.$(p)Since the $(1)Petal Apothecary$(0) can be filled by with a dropped $(1)Water Bucket$(0), and $(1)Dispensers$(0) can fill buckets, creating a system that automatically refills the water in the block shouldn't prove too difficult.",
   "botania.page.apothecary6": "A simple tip for the more efficiency-minded: Up to twenty seconds after crafting a flower and after refilling the water, if you right-click the apothecary with an empty hand, it'll pull another set of the same ingredients out of your inventory, for quick crafting in bulk.",
@@ -1829,8 +1829,8 @@
   "botania.entry.wand": "Wand of the Forest",
   "botania.tagline.wand": "Your essential multi-tool",
   "botania.page.wand0": "The general multi-use tool for a botanist is the $(1)Wand of the Forest$(0).$(p)This wand, made by strapping a pair of $(1)Mystical Petals$(0) of any color to a few $(1)Livingwood Twigs$(0), is required for any number of tasks botanical.",
-  "botania.page.wand1": "The wand has two modes, $(4)Bind Mode$(0) and $(4)Function Mode$(0). In $(4)Bind Mode$(0), shift-right click it on a compatible block to select it, then shift-right click elsewhere to bind the two blocks. In $(4)Function Mode$(0) it simply doesn't perform this function, freeing it up for other tasks.$(p)The two modes can be switched between by shift-right clicking the wand on air.",
-  "botania.page.wand2": "If the wand isn't performing a binding, shift-right clicking on a block rotates the block around the axis of the side it was clicked on. For example, using the wand on the top of a $(1)Chest$(0) will spin it. Most blocks with orientations should be able to be reoriented this way.$(p)Do note that a $(1)Dispenser$(0) holding a wand, when triggered, will use the wand on the block it currently faces.",
+  "botania.page.wand1": "The wand has two modes, $(4)Bind Mode$(0) and $(4)Function Mode$(0). In $(4)Bind Mode$(0), sneak-right click it on a compatible block to select it, then sneak-right click elsewhere to bind the two blocks. In $(4)Function Mode$(0) it simply doesn't perform this function, freeing it up for other tasks.$(p)The two modes can be switched between by sneak-right clicking the wand on air.",
+  "botania.page.wand2": "If the wand isn't performing a binding, sneak-right clicking on a block rotates the block around the axis of the side it was clicked on. For example, using the wand on the top of a $(1)Chest$(0) will spin it. Most blocks with orientations should be able to be reoriented this way.$(p)Do note that a $(1)Dispenser$(0) holding a wand, when triggered, will use the wand on the block it currently faces.",
   "botania.page.wand3": "The petals used determine the colors of the wand",
 
   "botania.entry.runeAltar": "Runic Altar",
@@ -1874,7 +1874,7 @@
   "botania.entry.flowerBag": "Flower Pouch",
   "botania.tagline.flowerBag": "A trusty pouch to hold your floral goodness",
   "botania.page.flowerBag0": "The physical laws regarding one's $(4)Inventory$(0) are somewhat skewed in our world. Thanks to that, carrying an array of different colors of flowers can turn out to be a major hassle. Luckily, a $(1)Flower Pouch$(0) takes care of all those issues. It can store up to one stack of each color of $(1)Mystical Flower$(0), and passively catch any more that its holder picks up.",
-  "botania.page.flowerBag2": "Flowers won't be picked up by the pouch if the pouch is held in your dominant hand.$(p)Furthermore, shift-right clicking the pouch on a $(1)Chest$(0) or other inventory will dump all flowers the pouch contains into said inventory.",
+  "botania.page.flowerBag2": "Flowers won't be picked up by the pouch if the pouch is held in your dominant hand.$(p)Furthermore, sneak-right clicking the pouch on a $(1)Chest$(0) or other inventory will dump all flowers the pouch contains into said inventory.",
   "botania.page.flowerBag1": "It's about the same size on the inside (any colors work)",
 
   "botania.entry.wrap": "Wrap",
@@ -1889,7 +1889,7 @@
 
   "botania.entry.spreader": "Mana Spreader",
   "botania.tagline.spreader": "Your essential Mana transporter",
-  "botania.page.spreader0": "The $(1)Mana Spreader$(0) is the single most important tool for $(4)Mana$(0) manipulation.$(p)This block shoots $(4)Mana$(0) from point A to point B. When it's placed on the ground, it'll face a cardinal direction. Shift-right clicking on it with a $(1)Wand of the Forest$(0) on a face points it elsewhere. It can be aimed at other blocks with a wand in $(4)Bind Mode$(0).",
+  "botania.page.spreader0": "The $(1)Mana Spreader$(0) is the single most important tool for $(4)Mana$(0) manipulation.$(p)This block shoots $(4)Mana$(0) from point A to point B. When it's placed on the ground, it'll face a cardinal direction. Sneak-right clicking on it with a $(1)Wand of the Forest$(0) on a face points it elsewhere. It can be aimed at other blocks with a wand in $(4)Bind Mode$(0).",
   "botania.page.spreader1": "Holding a $(1)Wand of the Forest$(0)",
   "botania.page.spreader2": "The $(1)Mana Spreader$(0) has a small internal buffer of $(4)Mana$(0), which will get filled by $(4)Generating Flora$(0) bound to it. (Flowers bind to the nearest spreader by default when placed.) This buffer can be viewed by looking at the $(1)Spreader$(0) with a $(1)Wand of the Forest$(0), as demonstrated on the last page.$(p)Note that the block needs to be right-clicked with a wand repeatedly to get a real-time view of its contents.",
   "botania.page.spreader3": "Holding a $(1)Wand of the Forest$(0) makes nearby spreaders display beams show where the spreaders point. Hovering over a spreader highlights its target. The sparkle that's shown is the point when $(4)Mana Loss$(0) starts to occur.$(p)As long as the target of the spreader is a block that can contain $(4)Mana$(0), and isn't full, the spreader will fire $(4)Mana Bursts$(0), which will travel to their target, and transfer their contained $(4)Mana$(0) to it.",
@@ -1920,7 +1920,7 @@
   "botania.entry.sparks": "Sparks",
   "botania.tagline.sparks": "Simple and fast short-range Mana transporters",
   "botania.page.sparks0": "$(1)Sparks$(0) are interesting entities. Created from a combination of raw energy and $(4)Mana$(0), they can be placed on top of a few specific $(4)Mana$(0)-containing or -accepting blocks, mainly, $(1)Mana Pools$(0).$(p)Certain blocks have the ability to harness $(4)Mana$(0) from $(1)Sparks$(0), but their uses seem limited to a few blocks right now.",
-  "botania.page.sparks1": "Placing a $(1)Spark$(0) on top of a $(1)Mana Pool$(0), and another on top of a block that can accept it, will allow for the latter to remotely access the reserves of the former when needed, given it's not too far away.$(p)To remove a $(1)Spark$(0), simply shift-right click it with a $(1)Wand of the Forest$(0). Regular right-clicking will show which other $(1)Sparks$(0) this one can transfer to.",
+  "botania.page.sparks1": "Placing a $(1)Spark$(0) on top of a $(1)Mana Pool$(0), and another on top of a block that can accept it, will allow for the latter to remotely access the reserves of the former when needed, given it's not too far away.$(p)To remove a $(1)Spark$(0), simply sneak-right click it with a $(1)Wand of the Forest$(0). Regular right-clicking will show which other $(1)Sparks$(0) this one can transfer to.",
   "botania.page.sparks3": "If you think that $(1)Sparks$(0) are too obtrusive in their looks, you can use $(1)Phantom Ink$(0) to make a $(1)Spark$(0) highly translucent. This does not consume the ink.",
   "botania.page.sparks2": "$(o)holds up spork$()",
 
@@ -1994,12 +1994,12 @@
   "botania.entry.manaTablet": "Mana Tablet",
   "botania.tagline.manaTablet": "Portable Mana Storage",
   "botania.page.manaTablet0": "Using $(1)Mana Spreaders$(0) to transport $(4)Mana$(0) is all well and good, but there are other ways of getting the stuff around, too.$(p)The $(1)Mana Tablet$(0) is a portable item that can carry $(4)Mana$(0) within itself.$(p)In addition, other items in an inventory can draw from it for their own use, making this an essential tool.",
-  "botania.page.manaTablet1": "Tossing a tablet on top of a $(1)Mana Pool$(0) will allow for transport of $(4)Mana$(0) between the former and latter.$(p)Shift-right clicking the $(1)Mana Pool$(0) with a $(1)Wand of the Forest$(0) will change which way the $(4)Mana$(0) will flow.$(p)Unlike normal items, these will never despawn from the ground.",
+  "botania.page.manaTablet1": "Tossing a tablet on top of a $(1)Mana Pool$(0) will allow for transport of $(4)Mana$(0) between the former and latter.$(p)Sneak-right clicking the $(1)Mana Pool$(0) with a $(1)Wand of the Forest$(0) will change which way the $(4)Mana$(0) will flow.$(p)Unlike normal items, these will never despawn from the ground.",
   "botania.page.manaTablet2": "Sadly, it doesn't have wifi",
 
   "botania.entry.manaMirror": "Mana Mirror",
   "botania.tagline.manaMirror": "Remote Portable Mana Access",
-  "botania.page.manaMirror0": "A $(1)Mana Mirror$(0) is an alternative to $(4)Mana$(0)-containing items like $(1)Mana Tablets$(0). After binding it to a $(1)Mana Pool$(0) in the world, items in the same inventory will draw from it when needing $(4)Mana$(0).$(p)To bind a mirror to a pool, simply $(4)shift-right click$(0) a pool with the mirror. The mirror can't input or output mana from/to pools in any other way.",
+  "botania.page.manaMirror0": "A $(1)Mana Mirror$(0) is an alternative to $(4)Mana$(0)-containing items like $(1)Mana Tablets$(0). After binding it to a $(1)Mana Pool$(0) in the world, items in the same inventory will draw from it when needing $(4)Mana$(0).$(p)To bind a mirror to a pool, simply $(4)sneak-right click$(0) a pool with the mirror. The mirror can't input or output mana from/to pools in any other way.",
   "botania.page.manaMirror1": "Mirror mirror on the wall...",
 
   "botania.entry.manaDetector": "Mana Detector",
@@ -2026,7 +2026,7 @@
 
   "botania.entry.elvenLenses": "Elven Mana Lenses",
   "botania.tagline.elvenLenses": "Advanced Mana Lenses with new abilities",
-  "botania.page.elvenLenses0": "The knowledge of Alfheim's mana-handling methods of comes, of course, with an array of new and useful $(1)Mana Lenses$(0).$(p)Unlike common overworld-y lenses, these are a bit more distinctive in their uses...",
+  "botania.page.elvenLenses0": "The knowledge of Alfheim's Mana-handling methods of comes, of course, with an array of new and useful $(1)Mana Lenses$(0).$(p)Unlike common overworld-y lenses, these are a bit more distinctive in their uses...",
   "botania.page.elvenLenses1": "First off, the $(1)Paintslinger Lens$(0). This lens needs to be dyed one of the 16 colors of the spectrum to function. When a burst that's passed through it hits a colorable block ($(1)Wool, Stained Clay or Glass$(0)...) it'll turn that block (and any connected of the same type and color) into the color of the $(4)Mana Burst$(0) itself. It seems to work on $(4)Sheep$(0) too.",
   "botania.page.elvenLenses2": "Paintslinger Lens",
   "botania.page.elvenLenses3": "The $(1)Warp Lens$(0) is an interesting one. A burst under its effects, when colliding with a $(1)Force Relay$(0), will teleport to the connected position of said $(1)Force Relay$(0), maintaining its momentum. Furthermore, when it's combined with a $(1)Bore Lens$(0) (the $(1)Bore Lens$(0) must be first), it'll prevent bursts from breaking $(1)Force Relays$(0) or $(1)Pistons$(0), and teleport any blocks broken by the $(1)Bore Lens$(0) to the burst's origin.",
@@ -2140,7 +2140,7 @@
   "botania.entry.hopperhock": "Hopperhock",
   "botania.tagline.hopperhock": "Picks up items",
   "botania.page.hopperhock0": "The $(1)Hopperhock$(0) will simply pick up items around it and put them in adjacent inventories (like $(1)Chests$(0)). $(4)Mana$(0) is optional but will increase its range, if provided.$(p)Placing $(1)Item Frames$(0) on any of the adjacent inventories will specify which items can or can't go in them.",
-  "botania.page.hopperhock1": "Any inventory which has no $(1)Item Frame$(0) adjacent to it can accept any items, but labelled inventories will take priority.$(p)The rule used to sort items can be changed by shift-right clicking the flower with a $(1)Wand of the Forest$(0).",
+  "botania.page.hopperhock1": "Any inventory which has no $(1)Item Frame$(0) adjacent to it can accept any items, but labelled inventories will take priority.$(p)The rule used to sort items can be changed by sneak-right clicking the flower with a $(1)Wand of the Forest$(0).",
   "botania.page.hopperhock2": "$(o)Hungry hungry flowers$().",
 
   "botania.entry.tangleberrie": "Tangleberrie",
@@ -2181,7 +2181,7 @@
 
   "botania.entry.daffomill": "Daffomill",
   "botania.tagline.daffomill": "Moves items with wind",
-  "botania.page.daffomill0": "The $(1)Daffomill$(0) works as a fan of sorts: it uses $(4)Mana$(0) to push any items found in front of it.$(p)Shift-right clicking it with a $(1)Wand of the Forest$(0) changes its orientation; its current direction can be deduced from the subtle wind particles it emits.",
+  "botania.page.daffomill0": "The $(1)Daffomill$(0) works as a fan of sorts: it uses $(4)Mana$(0) to push any items found in front of it.$(p)Sneak-right clicking it with a $(1)Wand of the Forest$(0) changes its orientation; its current direction can be deduced from the subtle wind particles it emits.",
   "botania.page.daffomill1": "$(o)Wind Turbines? I'm a big fan$().",
 
   "botania.entry.vinculotus": "Vinculotus",
@@ -2333,7 +2333,7 @@
 
   "botania.entry.turntable": "Spreader Turntable",
   "botania.tagline.turntable": "Spin spreaders around",
-  "botania.page.turntable0": "The $(1)Spreader Turntable$(0), as its name implies, continually rotates a $(1)Mana Spreaders$(0) placed upon it. Placing a spreader on a turntable will start its rotation; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(1)Wand of the Forest$(0); shift-right clicking it will change its direction.",
+  "botania.page.turntable0": "The $(1)Spreader Turntable$(0), as its name implies, continually rotates a $(1)Mana Spreaders$(0) placed upon it. Placing a spreader on a turntable will start its rotation; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(1)Wand of the Forest$(0); sneak-right clicking it will change its direction.",
   "botania.page.turntable1": "You spin me right round",
 
   "botania.entry.manaAlchemy": "Alchemising with Mana",
@@ -2455,7 +2455,7 @@
   "botania.entry.platform": "Abstruse Platform",
   "botania.tagline.platform": "Disguisable platform you can fall through",
   "botania.page.platform0": "When shaped into extremely specific patterns, $(1)Livingwood$(0) can be crafted into a selectively-permeable block. The $(1)Abstruse Platform$(0) has a physical body only for non-sneaking entities above one; sneaking entities or those coming from below will pass right through. $(4)Mana Bursts$(0) will always travel through a Platform without any trouble.",
-  "botania.page.platform2": "This block can also be disguised as any other simple block by simply right-clicking it with the block. Right-clicking a platform with a block in it with a $(1)Wand of the Forest$(0) spreads the disguise to all adjacent non-disguised blocks. Shift-right clicking removes all disguises.",
+  "botania.page.platform2": "This block can also be disguised as any other simple block by simply right-clicking it with the block. Right-clicking a platform with a block in it with a $(1)Wand of the Forest$(0) spreads the disguise to all adjacent non-disguised blocks. Sneak-right clicking removes all disguises.",
   "botania.page.platform1": "It would be Ethereal but the name was taken",
 
   "botania.entry.manaConjuration": "Conjuring with Mana",
@@ -2545,7 +2545,7 @@
 
   "botania.entry.animatedTorch": "Animated Torch",
   "botania.tagline.animatedTorch": "Compact systems with a floating redstone torch",
-  "botania.page.animatedTorch0": "The $(1)Animated Torch$(0) is no more than a $(1)Redstone Torch$(0) with the ability to hover, and a spark of magical autonomy.$(p)The torch will point horizontally when placed, providing a redstone signal in that direction only. Shift-right clicking it will rotate the torch 90 degrees, pointing the signal at the new direction instead.",
+  "botania.page.animatedTorch0": "The $(1)Animated Torch$(0) is no more than a $(1)Redstone Torch$(0) with the ability to hover, and a spark of magical autonomy.$(p)The torch will point horizontally when placed, providing a redstone signal in that direction only. Sneak-right clicking it will rotate the torch 90 degrees, pointing the signal at the new direction instead.",
   "botania.page.animatedTorch1": "By default, the torch is in $(4)Toggle$(0) mode: whenever the torch is actuated (by either a $(4)Mana Burst$(0) collision or an adjacent $(1)Hovering Hourglass$(0)), it'll turn 180 degrees, serving as a T-Flip-Flop Latch.",
   "botania.page.animatedTorch2": "Using a $(1)Wand of the Forest$(0) on the torch will change its mode. The default mode is $(4)Toggle$(0), as previously stated. The other two modes are $(4)Rotate$(0), rotating the torch 90 degrees on every actuation, and $(4)Random$(0), which will point the torch randomly on every actuation.",
   "botania.page.animatedTorch3": "It's fallen and it can't get up",
@@ -2725,13 +2725,13 @@
   "botania.entry.craftingHalo": "Assembly Halo",
   "botania.tagline.craftingHalo": "Portable crafting at its quickest",
   "botania.page.craftingHalo0": "Lugging around a $(1)Crafting Table$(0) is a generally troublesome task. The $(1)Assembly Halo$(0), however, can act as a portable $(1)Crafting Table$(0), as well as a quick-start crafting option. Holding the item displays a \"halo\" of recipes around the holder, and right-clicking the displayed $(1)Crafting Table$(0) will open a crafting interface.",
-  "botania.page.craftingHalo1": "As long as the item is kept in-inventory, it'll remember its last recipe.$(p)Right-clicking an empty slot of the halo will save the recipe to that slot, and right-clicking a slot with a recipe saved will attempt to craft it from available items. Shift-left click deletes a saved recipe.",
+  "botania.page.craftingHalo1": "As long as the item is kept in-inventory, it'll remember its last recipe.$(p)Right-clicking an empty slot of the halo will save the recipe to that slot, and right-clicking a slot with a recipe saved will attempt to craft it from available items. Sneak-left click deletes a saved recipe.",
   "botania.page.craftingHalo2": "It has no taste if you cook it from the menu",
 
   "botania.entry.clip": "Lens Clip",
   "botania.tagline.clip": "A Mana Blaster upgrade that lets it have multiple lenses",
   "botania.page.clip0": "While a formidable and versatile tool, the $(1)Mana Blaster$(0)'s greatest downfall is its lack of an ability to hot-swap $(1)Lenses$(0). But no more. The $(1)Lens Clip$(0) will attach to a $(1)Mana Blaster$(0) in a crafting grid and allow it to store up to 6 lenses rather than just one.$(p)After all, Russian Roulette's just not the same without a gun...",
-  "botania.page.clip1": "Adding and removing $(1)Lenses$(0) works just as before; the lens is added or removed in the slot that the clip is currently on.$(p)To change this slot (and therefore the selected lens), simply shift-right click the $(1)Mana Blaster$(0) in the air.",
+  "botania.page.clip1": "Adding and removing $(1)Lenses$(0) works just as before; the lens is added or removed in the slot that the clip is currently on.$(p)To change this slot (and therefore the selected lens), simply sneak-right click the $(1)Mana Blaster$(0) in the air.",
   "botania.page.clip2": "An expansion of blasting",
 
   "botania.entry.cobbleRod": "Rod of the Depths",
@@ -2776,7 +2776,7 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of a Terra Shatterer",
-  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, having an active $(1)Stone of Temperance$(0) in one's inventory will prevent Shatterers or $(1)Terra Truncators$(0) from breaking any more than that. The stone can be toggled on/off with a shift-right click.",
+  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, having an active $(1)Stone of Temperance$(0) in one's inventory will prevent Shatterers or $(1)Terra Truncators$(0) from breaking any more than that. The stone can be toggled on/off with a sneak-right click.",
   "botania.page.temperanceStone1": "Don't lose it",
 
   "botania.entry.terraAxe": "Terra Truncator",
@@ -2796,7 +2796,7 @@
 
   "botania.entry.exchangeRod": "Rod of the Shifting Crust",
   "botania.tagline.exchangeRod": "A rod for swapping blocks",
-  "botania.page.exchangeRod0": "The $(1)Rod of the Shifting Crust$(0) is a magical device with the ability to swap blocks in the world at very high speeds. To use the rod, shift-right click a block to select it.$(p)After a block is selected, left-clicking any other block in the world with the rod will use $(4)Mana$(0) to swap it for the selected block, assuming the latter is present in the user's inventory.",
+  "botania.page.exchangeRod0": "The $(1)Rod of the Shifting Crust$(0) is a magical device with the ability to swap blocks in the world at very high speeds. To use the rod, sneak-right click a block to select it.$(p)After a block is selected, left-clicking any other block in the world with the rod will use $(4)Mana$(0) to swap it for the selected block, assuming the latter is present in the user's inventory.",
   "botania.page.exchangeRod1": "Right-clicking a block in the world will perform a larger transformation, swapping all highlighted blocks with the selected one. Blocks being placed (obviously) come from the user's inventory, and require $(4)Mana$(0) for placement. Only proper, full-sized blocks can be used for this swap-- no flowers, torches, or other shenanigans of that sort, though slabs are fine.",
   "botania.page.exchangeRod2": "Other rods or devices can supply blocks to the $(1)Rod of the Shifting Crust$(0).$(p)For example, a $(1)Rod of the Lands$(0) in a user's inventory will provide their $(1)Rod of the Shifting Crust$(0) with an endless supply of $(1)Dirt$(0) (assuming sufficient $(4)Mana$(0) to conjure each dirt block, of course).",
   "botania.page.exchangeRod3": "Bootlegged equal trade",
@@ -2930,7 +2930,7 @@
   "botania.entry.corporeaCrystalCube": "Corporea Crystal Cube",
   "botania.tagline.corporeaCrystalCube": "View and request items from a Corporea network",
   "botania.page.corporeaCrystalCube0": "A seer usually looks through a crystal ball to see the future. Well, a Corporea handler would look through a crystal cube to see the present. The $(1)Corporea Crystal Cube$(0) acts as a visual medium to interact with one's $(4)Corporea Network$(0). Placing the block down and giving it a $(1)Corporea Spark$(0) is the obvious first step to hooking it up to the network.",
-  "botania.page.corporeaCrystalCube1": "When the block is connected, right-clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.$(p)While there's an item selected, left-clicking the block will request one of that item from the network. Shift-left clicking requests a whole stack.",
+  "botania.page.corporeaCrystalCube1": "When the block is connected, right-clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.$(p)While there's an item selected, left-clicking the block will request one of that item from the network. Sneak-left clicking requests a whole stack.",
   "botania.page.corporeaCrystalCube3": "The $(1)Corporea Crystal Cube$(0) can be used alongside a $(1)Redstone Comparator$(0). This will output the amount of items of the type it's looking for in the system. The output value follows a logarithmic progression, or on layman's terms, every level requires twice as many of the item as the previous one, starting at 1. 0 items would be signal 0. 1 item for 1, 2 items for 2, 4 items for 3, 8 items for 4, 16 items for 5 and so on up to 15.",
   "botania.page.corporeaCrystalCube4": "Right-clicking on the block with a $(1)Wand of the Forest$(0) while sneaking locks (and unlocks) it, similarly to the $(1)Hovering Hourglass$(0). When locked, the monitored item can't be changed, just in case someone right-clicks it on accident.",
   "botania.page.corporeaCrystalCube2": "I can see forever",
@@ -2951,7 +2951,7 @@
   "botania.page.endStoneDecor4": "Making $(1)Pillar Ender Bricks$(0)",
 
   "botania.entry.spawnerMover": "Life Aggregator",
-  "botania.tagline.spawnerMover": "The ability to move spawners",
+  "botania.tagline.spawnerMover": "The ability to move Spawners",
   "botania.page.spawnerMover0": "By arranging $(1)Dragonstone$(0), $(1)Elementium$(0) and $(1)Gaia Spirits$(0) in a specific pattern, one can create a device that can contain the curious energies of a $(1)Monster Spawner$(0) and materialize it in another point in space.$(p)Unfortunately, the device will shatter after being used once.",
   "botania.page.spawnerMover1": "A spawner parcel",
 
@@ -2964,7 +2964,7 @@
   "botania.entry.blackHoleTalisman": "Black Hole Talisman",
   "botania.tagline.blackHoleTalisman": "Infinite storage of a block in a single slot",
   "botania.page.blackHoleTalisman0": "The void is a massive space full of... void, really. There's nothing there. But with some ingenuity, this space can be used to store items to your heart's content.$(p)The $(1)Black Hole Talisman$(0) utilizes powerful Gaia and Ender magic to allow for a virtually infinite quantity of a single type of block to be stored in this space.",
-  "botania.page.blackHoleTalisman1": "Right-clicking a block in the world will set the talisman to store that type of block. This can only be done if the talisman is empty. Next off, shift-right clicking the talisman in the air will enable or disable it. Whilst enabled and in the user's inventory it'll absorb any blocks of the type into it.$(p)Placing the item in a crafting grid allows one to extract stacks of the blocks in it.",
+  "botania.page.blackHoleTalisman1": "Right-clicking a block in the world will set the talisman to store that type of block. This can only be done if the talisman is empty. Next off, sneak-right clicking the talisman in the air will enable or disable it. Whilst enabled and in the user's inventory it'll absorb any blocks of the type into it.$(p)Placing the item in a crafting grid allows one to extract stacks of the blocks in it.",
   "botania.page.blackHoleTalisman2": "While the talisman has any contents in it, the blocks in it can be placed as if they were normal blocks stored in the inventory via a simple right-click with it.$(p)Right-clicking an inventory will try to fill it with the blocks stored in the talisman. Lastly, the talisman can provide the $(1)Rod of the Shifting Crust$(0) with the blocks it contains.",
   "botania.page.blackHoleTalisman3": "Technically incorrect, the worst type of incorrect",
 
@@ -3013,7 +3013,7 @@
   "botania.page.cosmeticBaubles9": "Not for bean sprouts",
   "botania.page.cosmeticBaubles10": "The best color",
   "botania.page.cosmeticBaubles11": "Tilting the umbrella too much",
-  "botania.page.cosmeticBaubles12": "The Neighbours' Club",
+  "botania.page.cosmeticBaubles12": "The Neighbors' Club",
   "botania.page.cosmeticBaubles13": "Nyaa",
   "botania.page.cosmeticBaubles14": "Don't get too ahead of yourself",
   "botania.page.cosmeticBaubles15": "Evil up!",
@@ -3227,7 +3227,7 @@
   "botania.page.gaiaRitual0": "The $(4)Ritual of Gaia$(0) is a procedure often enacted by the elves, which is the only way to acquire $(1)Gaia Spirits$(0), which are essences of the power of the Goddess of Gaia herself.$(p)This ritual required an $(4)Active$(0) $(1)Beacon$(0) with some $(1)Gaia Pylons$(0) (read on) one level above the beacon as the altar, as well as a single $(1)Terrasteel Ingot$(0) as a sacrifice.",
   "botania.page.gaiaRitual1": "Creating $(1)Gaia Pylons$(0)",
   "botania.page.gaiaRitual2": "Ritual of Gaia",
-  "botania.page.gaiaRitual3": "To start the ritual, simply shift-right click the $(1)Beacon$(0) block with a $(1)Terrasteel Ingot$(0), take a step back and prepare to fight for your life. Good preparation is required, as the fight with the $(4)Guardian of Gaia$(0) can be even harder than that of the $(4)Wither$(0). Upon defeating the $(4)Guardian$(0), one can collect their prize, a handful of $(1)Spirits of Gaia$(0).",
+  "botania.page.gaiaRitual3": "To start the ritual, simply sneak-right click the $(1)Beacon$(0) block with a $(1)Terrasteel Ingot$(0), take a step back and prepare to fight for your life. Good preparation is required, as the fight with the $(4)Guardian of Gaia$(0) can be even harder than that of the $(4)Wither$(0). Upon defeating the $(4)Guardian$(0), one can collect their prize, a handful of $(1)Spirits of Gaia$(0).",
   "botania.page.gaiaRitual4": "The common attire for this ritual is a set of Enchanted $(1)Elementium Armor$(0), a $(1)Terra Blade$(0) and a large assortment of $(4)Brews$(0) and $(4)Baubles$(0). The effect of the $(1)Beacon$(0) is nullified during the battle, so that should be taken in mind.$(p)The $(1)Guardian$(0) has a massive health pool, so preparation in the form of $(4)Enchantments$(0) and $(4)Brews$(0) is a must!",
   "botania.page.gaiaRitual5": "The difficulty and rewards bestowed by the ritual depend on the amount of people participating. Executing the ritual with over five people might be a recipe for disaster due to the chaos created, so collaborative rituals of that scale shouldn't be attempted.$(p)Lastly, staying away from the purple might be a good idea.",
 
@@ -3256,7 +3256,7 @@
 
   "botania.entry.flugelEye": "Eye of the Flügel",
   "botania.tagline.flugelEye": "The true power of a Flügel",
-  "botania.page.flugelEye0": "Unlike the fabricated $(1)Flügel Tiara$(0), the $(1)Eye of the Flügel$(0) contains primordial $(4)Flügel$(0) magic. Magic strong enough, in fact, to harness the $(4)Flügels$(0)' ability to recall themselves to a place they've visited.$(p)Shift-right clicking with this eye somewhere will bind it to that position. After that, holding right-click for a while will recall the user back to the aforementioned location.",
+  "botania.page.flugelEye0": "Unlike the fabricated $(1)Flügel Tiara$(0), the $(1)Eye of the Flügel$(0) contains primordial $(4)Flügel$(0) magic. Magic strong enough, in fact, to harness the $(4)Flügels$(0)' ability to recall themselves to a place they've visited.$(p)Sneak-right clicking with this eye somewhere will bind it to that position. After that, holding right-click for a while will recall the user back to the aforementioned location.",
   "botania.page.flugelEye1": "This teleportation ability not only costs $(4)Mana$(0) but can not be executed across two different dimensions, sadly enough.$(p)Aside from that, simply being in possession of an $(1)Eye of the Flügel$(0) allows a wearer of the $(1)Flügel Tiara$(0) to fly past the normal limits, at a higher cost, of course.",
 
   "botania.entry.thorRing": "Ring of Thor",
@@ -3265,8 +3265,8 @@
 
   "botania.entry.lokiRing": "Ring of Loki",
   "botania.tagline.lokiRing": "The power to be here, and there, and over there too",
-  "botania.page.lokiRing0": "One of the three mythic rings of the $(4)Aesir$(0), the $(1)Ring of Loki$(0) allows for the wearer to tap upon the Trickster God $(4)Loki$(0) to effectively be in multiple places at once.$(p)The setup for this ability requires, first and foremost, an empty hand. Shift-right clicking on a block with said empty hand while having the $(1)Ring of Loki$(0) equipped begins the procedure.",
-  "botania.page.lokiRing1": "Once the source block is selected, shift-right clicking on other blocks in the world will add them to the relative positions affected by this power. To finish the procedure, shift-right click the original block.$(p)Shift-right clicking on one of the blocks that has been selected will remove it. To reset a completed selection, shift-right click the ground twice.",
+  "botania.page.lokiRing0": "One of the three mythic rings of the $(4)Aesir$(0), the $(1)Ring of Loki$(0) allows for the wearer to tap upon the Trickster God $(4)Loki$(0) to effectively be in multiple places at once.$(p)The setup for this ability requires, first and foremost, an empty hand. Sneak-right clicking on a block with said empty hand while having the $(1)Ring of Loki$(0) equipped begins the procedure.",
+  "botania.page.lokiRing1": "Once the source block is selected, sneak-right clicking on other blocks in the world will add them to the relative positions affected by this power. To finish the procedure, sneak-right click the original block.$(p)Sneak-right clicking on one of the blocks that has been selected will remove it. To reset a completed selection, sneak-right click the ground twice.",
   "botania.page.lokiRing2": "After the selection is complete, when looking around, one will notice multiple boxes in relative positions to the selected block. When a block is placed while sneaking, the placing action is mimicked on all of those positions, allowing for one to place a large amount of blocks at once. This ability also extends to destruction using the $(1)Terra Shatterer$(0) or $(1)Terra Truncator$(0).",
   "botania.page.lokiRing3": "Such a power does not come for free of course. Using this ability costs $(4)Mana$(0) from the user's inventory per each block placed. Note that the more blocks that are selected, the more expensive $(4)each placed block$(0) becomes.$(p)",
 
@@ -3390,7 +3390,7 @@
   "botania.tagline.cacophonium": "Mimic mob sounds",
   "botania.page.cacophonium0": "This interesting instrument, the $(1)Cacophonium$(0), has the ability to mimic almost every living being's cries in nature, allowing for the \"musician\" to play them at will. Right-clicking with it on an entity has the instrument learn its sound. It can then be played by holding right-click.$(p)Why anyone would ever want to make this, however, is beyond moral comprehension.",
   "botania.page.cacophonium1": "Hibike! Cacophonium",
-  "botania.page.cacophonium2": "For maximum cacophony, the $(1)Cacophonium$(0) can be shift-right clicked onto a $(1)Note Block$(0), creating the ability to sound off animal or monster sounds on demand.$(p)You monster.",
+  "botania.page.cacophonium2": "For maximum cacophony, the $(1)Cacophonium$(0) can be sneak-right clicked onto a $(1)Note Block$(0), creating the ability to sound off animal or monster sounds on demand.$(p)You monster.",
 
   "botania.entry.pavement": "Portuguese Pavement",
   "botania.tagline.pavement": "Pavement for road building",
