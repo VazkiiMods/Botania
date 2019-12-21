@@ -11,7 +11,10 @@
       "type": "image",
       "text": "botania.page.azulejo1",
       "images": [
-        "botania:textures/gui/entries/azulejos.png"
+        "botania:textures/gui/entries/azulejos_0.png",
+        "botania:textures/gui/entries/azulejos_1.png",
+        "botania:textures/gui/entries/azulejos_2.png",
+        "botania:textures/gui/entries/azulejos_3.png"
       ]
     },
     {
