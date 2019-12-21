@@ -33,6 +33,8 @@ public class TileRedStringContainer extends TileRedString {
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
 	@Nullable
 	private LazyOptional<?> lastBoundInv = null;
+	@Nullable
+	private LazyOptional<?> proxiedInv = null;
 
 	public TileRedStringContainer() {
 		this(TYPE);
@@ -55,8 +57,21 @@ public class TileRedStringContainer extends TileRedString {
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			if(getTileAtBinding() != null) {
-				lastBoundInv = getTileAtBinding().getCapability(cap, side);
-				return lastBoundInv.cast();
+				LazyOptional<?> optional = getTileAtBinding().getCapability(cap, side);
+				if(!optional.isPresent()) {
+					invalidateLastCap();
+					return EMPTY.cast();
+				}
+				if(lastBoundInv == optional) {
+					return proxiedInv.cast();
+				}
+				if(proxiedInv != null) {
+					proxiedInv.invalidate();
+				}
+				lastBoundInv = optional;
+				proxiedInv = createProxyOptional(optional.cast());
+				return proxiedInv.cast();
+				
 			} else {
 				invalidateLastCap();
 				return EMPTY.cast();
@@ -66,10 +81,17 @@ public class TileRedStringContainer extends TileRedString {
 	}
 
 	private void invalidateLastCap() {
-		if(lastBoundInv != null) {
-			lastBoundInv.invalidate();
-			lastBoundInv = null;
+		if(proxiedInv != null) {
+			proxiedInv.invalidate();
+			proxiedInv = null;
 		}
+		lastBoundInv = null;
+	}
+
+	private LazyOptional<IItemHandler> createProxyOptional(LazyOptional<IItemHandler> original) {
+		LazyOptional<IItemHandler> proxy = LazyOptional.of(() -> original.orElse(EmptyHandler.INSTANCE));
+		original.addListener(orig -> proxy.invalidate());
+		return proxy;
 	}
 
 	@Override
