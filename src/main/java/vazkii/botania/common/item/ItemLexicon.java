@@ -98,14 +98,8 @@ public class ItemLexicon extends ItemMod implements IElvenItem {
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public static String getEdition() {
-		String version = getBook().version;
-		try {
-			return MathHelper.numberToOrdinal(Integer.parseInt(version));
-		} catch (NumberFormatException e) {
-			return I18n.format("botaniamisc.devEdition");
-		}
+		return getBook().contents.getSubtitle();
 	}
 
 	public static ITextComponent getTitle(ItemStack stack) {

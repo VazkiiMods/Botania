@@ -1,10 +1,4 @@
 {
-  "conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "gardenofglass"
-    }
-  ],
   "result": {
     "item": "botania:blaze_block"
   },

@@ -122,7 +122,7 @@ public class RenderLexicon {
 
 			GlStateManager.translatef(0F, 10F, 0F);
 			GlStateManager.scalef(0.6F, 0.6F, 0.6F);
-			font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), 0, 0, 0xA07100);
+			font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + ItemLexicon.getEdition(), 0, 0, 0xA07100);
 
 			if(quote == -1)
 				quote = mc.world.rand.nextInt(QUOTES.length);

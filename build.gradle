@@ -134,6 +134,10 @@ jar {
 processResources {
     // Exclude datagenerator .cache directory
     exclude '.cache'
+
+    filesMatching('data/botania/patchouli_books/lexicon/book.json') {
+        expand(['buildNumber': config.build_number])
+    }
 }
 
 task srcJar(type: Jar) {

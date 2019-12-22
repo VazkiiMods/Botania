@@ -57,6 +57,8 @@ public class ModTags {
 		public static final Tag<Item> DISPOSABLE = tag("disposable");
 		public static final Tag<Item> SEMI_DISPOSABLE = tag("semi_disposable");
 
+		public static final Tag<Item> DYES = tag("dyes");
+
 		public static final Tag<Item> PETALS = tag("petals");
 		public static final Tag<Item> PETALS_BLACK = tag("petals/black");
 		public static final Tag<Item> PETALS_BLUE = tag("petals/blue");
