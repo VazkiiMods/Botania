@@ -1,5 +1,5 @@
 r1.10 363
-This is the final release for Minecraft 1.12.x. Thanks for all the support!
+* This is the final release for Minecraft 1.12.x. Thanks for all the support!
 * Diva Charm no longer brainwashes boss mobs
 * Remove GregTech blacklist from Orechid since it's no longer necessary
 * Fix Albedo compatibility (Hubry)
