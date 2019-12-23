@@ -165,7 +165,7 @@
   "botania.nei.orechid": "Рудноцвет",
   "botania.nei.orechidIgnem": "Огненный Рудноцвет",
 
-  "nei.options.keys.gui.botania_corporea_request": "Запрос хранилищу",
+  "key.botania_corporea_request": "Запрос хранилищу",
 
   "botania.nei.lexicaSeparator": "Дополнительная информация:",
   "botania.nei.lexicaNoInfo": "(для этой записи нет дополнительной информации, извините!)",

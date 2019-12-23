@@ -158,7 +158,7 @@
   "botania.nei.runicAltar": "符文祭壇",
   "botania.nei.pureDaisy": "白雛菊",
   "botania.nei.lexica": "植物魔法辭典",
-  "nei.options.keys.gui.botania_corporea_request": "多媒體請求",
+  "key.botania_corporea_request": "多媒體請求",
 
   "botania.nei.lexicaSeparator": "詳細信息:",
   "botania.nei.lexicaNoInfo": "(並沒有這種東西,抱歉!)",

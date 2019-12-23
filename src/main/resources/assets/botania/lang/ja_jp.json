@@ -152,7 +152,7 @@
   "botania.nei.runicAltar": "ルーンの祭壇",
   "botania.nei.pureDaisy": "ピュアデイジー",
   "botania.nei.lexica": "ボタニア植物辞典",
-  "nei.options.keys.gui.botania_corporea_request": "コーポリアの要求",
+  "key.botania_corporea_request": "コーポリアの要求",
 
   "botania.nei.lexicaSeparator": "追加の情報:",
   "botania.nei.lexicaNoInfo": "(この項目には追加の情報は ありません。ごめんね！)",

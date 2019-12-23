@@ -167,7 +167,7 @@
   "botania.nei.orechid": "Orechid",
   "botania.nei.orechidIgnem": "Orechid Ignem",
 
-  "nei.options.keys.gui.botania_corporea_request": "Corporea Request",
+  "key.botania_corporea_request": "Corporea Request",
 
   "botania.nei.lexicaSeparator": "Extra Info:",
   "botania.nei.lexicaNoInfo": "(there's no Extra Info for this entry, sorry!)",
@@ -430,7 +430,7 @@
   "botania.baubletype.amulet": "Equippable in the \u00a7aAmulet\u00a77 slot",
   "botania.baubletype.ring": "Equippable in the \u00a7aRing\u00a77 slot",
   "botania.baubletype.belt": "Equippable in the \u00a7aBelt\u00a77 slot",
-  "botania.baubletooltip": "Press \u00a7b%s\u00a77 to open the Baubles menu",
+  "botania.baubletooltip": "Press \u00a7b%s\u00a77 to open the accessory menu",
 
   "item.botania.dice.poem0": "He deals the cards to find the answer,",
   "item.botania.dice.poem1": "The sacred geometry of chance,",
@@ -2999,7 +2999,7 @@
   "botania.page.corporeaIndex3": "The plural form of an item's name may only be used case it's a regular noun when it comes to the plural (suffixed by \"-s\", \"-es\" or \"-ies\"), the singular version works just as well for requests of multiple items, such as \"10 apple\".$(p)\"10 of this\" requests 10 items whose name equals the item in the player's hand, as expected.",
   "botania.page.corporeaIndex4": "Examples of complex requests include \"10 apples\", \"a stack of apples\", \"2 stacks of apples\", \"2 stacks and 20 apples\", \"half a stack of apples\", \"a dozen apples\", and so on.$(p)The index will also recognise more or less verbose forms of request, so \"2x stacks and 20x of apples\" is equal to \"2 stack 2 apple\" or \"2 stacks + 2 apples\".",
   "botania.page.corporeaIndex5": "Requesting with \"all\" or \"every\" will deliver every single item in the network that matches the criteria, so \"all apples\" will deliver all the apples in the network.$(p)On the other side, requesting \"count\", \"show\", \"display\" or \"tell\" won't request any, but will tell the requester how many exist in the network.",
-  "botania.page.corporeaIndex8": "While near a $(1)Corporea Index$(0), pressing C on an item in one's inventory (or, if one is using $(4)JustEnoughItems$(0), the JEI panel) will request 1 of said item.$(p)Using SHIFT will instead request a full stack, CTRL will request half a stack and SHIFT+CTRL a quarter of a stack.",
+  "botania.page.corporeaIndex8": "While near a $(1)Corporea Index$(0), pressing $(k:botania_corporea_request) on an item in one's inventory (or, if one is using $(4)JustEnoughItems$(0), the JEI panel) will request 1 of said item.$(p)Using SHIFT will instead request a full stack, CTRL will request half a stack and SHIFT+CTRL a quarter of a stack.",
   "botania.page.corporeaIndex6": "Lastly, while near a $(1)Corporea Index$(0), writing part of an item's name and pressing TAB in the chat menu will autocomplete the item's name.",
   "botania.page.corporeaIndex7": "A certain magical one at that",
 
@@ -3083,9 +3083,9 @@
 
   "botania.entry.bIntro": "An Introduction to Baubles",
   "botania.tagline.bIntro": "Accessories that provide power",
-  "botania.page.bIntro0": "$(4)Baubles$(0), also commonly referred to as $(4)Trinkets$(0) or $(4)Charms$(0) are pieces of equipment which offer all sorts of different effects, when worn.$(p)To equip them, one can press the $(4)B$(0) (configurable) key. There's four slots, one $(4)Amulet$(0) slot, two $(4)Ring$(0) slots and one $(4)Belt$(0) slot.",
-  "botania.page.bIntro1": "The $(4)Baubles Screen$(0)",
-  "botania.page.bIntro2": "It's to note that, if $(4)Thaumcraft$(0) or any other mod that uses the baubles system is installed, this inventory will be shared between the various mods.",
+  "botania.page.bIntro0": "$(4)Baubles$(0), also commonly referred to as $(4)Curios$(0), $(4)Trinkets$(0), or $(4)Charms$(0) are pieces of equipment which offer all sorts of different effects, when worn.$(p)To equip them, one can press the $(4)$(k:curios.open.desc)$(0) key.",
+  "botania.page.bIntro1": "The $(4)Curios Screen$(0)",
+  "botania.page.bIntro2": "It's to note that, if any other mod that uses the Curios system is installed, this inventory will be shared between the various mods.",
 
   "botania.entry.cosmeticBaubles": "Cosmetic Baubles",
   "botania.tagline.cosmeticBaubles": "Accessories that don't provide power",
