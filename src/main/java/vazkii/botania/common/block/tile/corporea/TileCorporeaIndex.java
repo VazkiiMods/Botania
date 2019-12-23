@@ -30,7 +30,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
@@ -212,7 +212,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)

@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public final class CorporeaRequestDefaultMatchers {
 
-	public static class CorporeaStringMatcher extends CorporeaRequestMatcher {
+	public static class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 
 		private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 		public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" , "*" };
@@ -66,7 +66,7 @@ public final class CorporeaRequestDefaultMatchers {
 				|| name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies");
 		}
 
-		public static CorporeaRequestMatcher createFromNBT(CompoundNBT tag) {
+		public static ICorporeaRequestMatcher createFromNBT(CompoundNBT tag) {
 			String expression = tag.getString(TAG_REQUEST_CONTENTS);
 			boolean contains = tag.getBoolean(TAG_REQUEST_CONTAINS);
 			return new CorporeaStringMatcher(expression, contains);
@@ -88,10 +88,10 @@ public final class CorporeaRequestDefaultMatchers {
 		}
 	}
 
-	public static class CorporeaItemStackMatcher extends CorporeaRequestMatcher {
+	public static class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
 		private static final String TAG_REQUEST_STACK = "requestStack";
 		private static final String TAG_REQUEST_CHECK_NBT = "requestCheckNBT";
-		
+
 		private final ItemStack match;
 		private final boolean checkNBT;
 
@@ -105,7 +105,7 @@ public final class CorporeaRequestDefaultMatchers {
 			return !stack.isEmpty() && !match.isEmpty() && stack.isItemEqual(match) && (!checkNBT || ItemStack.areItemStackTagsEqual(stack, match));
 		}
 
-		public static CorporeaRequestMatcher createFromNBT(CompoundNBT tag) {
+		public static ICorporeaRequestMatcher createFromNBT(CompoundNBT tag) {
 			return new CorporeaItemStackMatcher(ItemStack.read(tag.getCompound(TAG_REQUEST_STACK)), tag.getBoolean(TAG_REQUEST_CHECK_NBT));
 		}
 

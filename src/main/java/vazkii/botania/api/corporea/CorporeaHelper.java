@@ -78,7 +78,7 @@ public final class CorporeaHelper {
 	 * The higher level functions that use a List< IInventory > or a Map< IInventory, Integer > should be
 	 * called instead if the context for those exists to avoid having to get the values again.
 	 */
-	public static int getCountInNetwork(CorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
 		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
 		return getCountInNetwork(matcher, inventories);
 	}
@@ -88,7 +88,7 @@ public final class CorporeaHelper {
 	 * The higher level function that use a Map< IInventory, Integer > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static int getCountInNetwork(CorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
 		Map<InvWithLocation, Integer> map = getInventoriesWithMatchInNetwork(matcher, inventories);
 		return getCountInNetwork(matcher, map);
 	}
@@ -96,7 +96,7 @@ public final class CorporeaHelper {
 	/**
 	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
 	 */
-	public static int getCountInNetwork(CorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
+	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
 		int count = 0;
 
 		for(int value : inventories.values())
@@ -110,7 +110,7 @@ public final class CorporeaHelper {
 	 * The higher level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(CorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+	public static Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
 		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
 		return getInventoriesWithMatchInNetwork(matcher, inventories);
 	}
@@ -120,7 +120,7 @@ public final class CorporeaHelper {
 	 * The deeper level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(CorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+	public static Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
 		Map<InvWithLocation, Integer> countMap = new HashMap<>();
 		List<IWrappedInventory> wrappedInventories = BotaniaAPI.internalHandler.wrapInventory(inventories);
 		for (IWrappedInventory inv : wrappedInventories) {
@@ -135,16 +135,16 @@ public final class CorporeaHelper {
 	}
 
 	/**
-	 * Create a CorporeaRequestMatcher from an ItemStack and NBT-checkness.
+	 * Create a ICorporeaRequestMatcher from an ItemStack and NBT-checkness.
 	 */
-	public static CorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
+	public static ICorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
 		return new CorporeaItemStackMatcher(stack, checkNBT);
 	}
 
 	/**
-	 * Create a CorporeaRequestMatcher from a String.
+	 * Create a ICorporeaRequestMatcher from a String.
 	 */
-	public static CorporeaRequestMatcher createMatcher(String name) {
+	public static ICorporeaRequestMatcher createMatcher(String name) {
 		return new CorporeaStringMatcher(name);
 	}
 
@@ -175,7 +175,7 @@ public final class CorporeaHelper {
 	 * When requesting counting of items, individual stacks may exceed maxStackSize for
 	 * purposes of counting huge amounts.
 	 */
-	public static List<ItemStack> requestItem(CorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
+	public static List<ItemStack> requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, doit);
 		if(MinecraftForge.EVENT_BUS.post(event))

@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
@@ -42,15 +42,15 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final String TAG_REQUEST_CONTENTS = "requestContents";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
 
-	public static final Map<String, Function<CompoundNBT, CorporeaRequestMatcher>> corporeaMatcherDeserializers = new HashMap<>();
+	public static final Map<String, Function<CompoundNBT, ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new HashMap<>();
 	public static final Map<Class<?>, String> corporeaMatcherSerializers = new HashMap<>();
 
 	private boolean pendingRequest = false;
 	private BlockPos requestPos = BlockPos.ZERO;
-	private CorporeaRequestMatcher request;
+	private ICorporeaRequestMatcher request;
 	private int requestCount;
 	private int compValue;
-	
+
 	static {
 		addCorporeaRequestMatcher("string", CorporeaStringMatcher.class,CorporeaStringMatcher::createFromNBT);
 		addCorporeaRequestMatcher("item_stack", CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
@@ -60,7 +60,7 @@ public class TileCorporeaRetainer extends TileMod {
 		super(TYPE);
 	}
 
-	public void setPendingRequest(BlockPos pos, CorporeaRequestMatcher request, int requestCount) {
+	public void setPendingRequest(BlockPos pos, ICorporeaRequestMatcher request, int requestCount) {
 		if(pendingRequest)
 			return;
 
@@ -135,7 +135,7 @@ public class TileCorporeaRetainer extends TileMod {
 		requestCount = cmp.getInt(TAG_REQUEST_COUNT);
 	}
 	
-	public static void addCorporeaRequestMatcher(String type, Class<?> clazz, Function<CompoundNBT, CorporeaRequestMatcher> deserializer) {
+	public static void addCorporeaRequestMatcher(String type, Class<?> clazz, Function<CompoundNBT, ICorporeaRequestMatcher> deserializer) {
 		corporeaMatcherSerializers.put(clazz, type);
 		corporeaMatcherDeserializers.put(type, deserializer);
 	} 

@@ -16,21 +16,17 @@ import net.minecraft.nbt.CompoundNBT;
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
  * Needs to be registered over in {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer.corporeaMatchers}.
- * Needs one additional [static] method for deserialization, which can't really go here because Java doesn't like static abstract's.
+ * Needs one additional (static) method for deserialization, which can't really go here because Java doesn't like static abstract's.
  */
-public abstract class CorporeaRequestMatcher {
+public interface ICorporeaRequestMatcher {
 
 	/**
 	 * Returns whether the given stack matches the request's criteria.
-	 * Will always return false; subclasses should override.
 	 */
-	public boolean isStackValid(ItemStack stack) {
-		return false;
-	}
+	public boolean isStackValid(ItemStack stack);
 
 	/**
 	 * Serialize to NBT data, for the Corporea Retainer's benefit.
-	 * No-op; should be overridden by subclasses.
 	 */
-	public void writeToNBT(CompoundNBT tag) {}
+	public void writeToNBT(CompoundNBT tag);
 }

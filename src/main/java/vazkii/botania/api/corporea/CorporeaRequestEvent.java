@@ -19,7 +19,7 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class CorporeaRequestEvent extends Event {
 
-	public final CorporeaRequestMatcher request;
+	public final ICorporeaRequestMatcher request;
 	public final int count;
 	public final ICorporeaSpark spark;
 	/**
@@ -27,7 +27,7 @@ public class CorporeaRequestEvent extends Event {
 	 */
 	public final boolean realRequest;
 
-	public CorporeaRequestEvent(CorporeaRequestMatcher request, int count, ICorporeaSpark spark, boolean real) {
+	public CorporeaRequestEvent(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, boolean real) {
 		this.request = request;
 		this.count = count;
 		this.spark = spark;
