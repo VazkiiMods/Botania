@@ -17,7 +17,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import static vazkii.botania.api.corporea.CorporeaRequestDefaultMatchers.*;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -29,6 +28,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static vazkii.botania.api.corporea.CorporeaRequestDefaultMatchers.*;
 
 public class TileCorporeaRetainer extends TileMod {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_RETAINER)

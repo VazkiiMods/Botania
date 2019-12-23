@@ -20,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import static vazkii.botania.api.corporea.CorporeaRequestDefaultMatchers.*;
 import vazkii.botania.api.BotaniaAPI;
 
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import static vazkii.botania.api.corporea.CorporeaRequestDefaultMatchers.*;
 
 public final class CorporeaHelper {
 
@@ -98,7 +99,7 @@ public final class CorporeaHelper {
 	public static int getCountInNetwork(CorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
 		int count = 0;
 
-		for(int value: inventories.values())
+		for(int value : inventories.values())
 			count += value;
 
 		return count;
