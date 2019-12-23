@@ -52,7 +52,7 @@ public class TileCorporeaRetainer extends TileMod {
 	private int compValue;
 
 	static {
-		addCorporeaRequestMatcher("string", CorporeaStringMatcher.class,CorporeaStringMatcher::createFromNBT);
+		addCorporeaRequestMatcher("string", CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
 		addCorporeaRequestMatcher("item_stack", CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 	}
 
