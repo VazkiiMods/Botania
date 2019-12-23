@@ -13,9 +13,11 @@ package vazkii.botania.api.corporea;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
+import java.util.function.Function;
+
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
- * Needs to be registered over in {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer.corporeaMatchers}.
+ * Needs to be registered over in {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer#addCorporeaRequestMatcher}.
  * Needs one additional (static) method for deserialization, which can't really go here because Java doesn't like static abstract's.
  */
 public interface ICorporeaRequestMatcher {
@@ -23,10 +25,10 @@ public interface ICorporeaRequestMatcher {
 	/**
 	 * Returns whether the given stack matches the request's criteria.
 	 */
-	public boolean isStackValid(ItemStack stack);
+	boolean isStackValid(ItemStack stack);
 
 	/**
 	 * Serialize to NBT data, for the Corporea Retainer's benefit.
 	 */
-	public void writeToNBT(CompoundNBT tag);
+	void writeToNBT(CompoundNBT tag);
 }

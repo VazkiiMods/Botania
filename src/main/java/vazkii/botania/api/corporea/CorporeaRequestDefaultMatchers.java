@@ -13,11 +13,12 @@ package vazkii.botania.api.corporea;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
- * Needs to be registered over in {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer.corporeaMatchers}.
+ * Needs to be registered over in {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer#addCorporeaRequestMatcher}.
  */
 public final class CorporeaRequestDefaultMatchers {
 
@@ -78,12 +79,12 @@ public final class CorporeaRequestDefaultMatchers {
 			tag.putBoolean(TAG_REQUEST_CONTAINS, contains);
 		}
 
-		public boolean equalOrContain(String str) {
+		private boolean equalOrContain(String str) {
 			return contains ? str.contains(expression) : str.equals(expression);
 		}
 
 		// Copy from StringUtils
-		public static String stripControlCodes(String str) {
+		private static String stripControlCodes(String str) {
 			return patternControlCode.matcher(str).replaceAll("");
 		}
 	}
