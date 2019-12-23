@@ -19,20 +19,18 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class CorporeaRequestEvent extends Event {
 
-	public final Object request;
+	public final ICorporeaRequestMatcher request;
 	public final int count;
 	public final ICorporeaSpark spark;
-	public final boolean checkNBT;
 	/**
 	 * If false then items won't be pulled.
 	 */
 	public final boolean realRequest;
 
-	public CorporeaRequestEvent(Object request, int count, ICorporeaSpark spark, boolean nbt, boolean real) {
+	public CorporeaRequestEvent(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, boolean real) {
 		this.request = request;
 		this.count = count;
 		this.spark = spark;
-		checkNBT = nbt;
 		realRequest = real;
 	}
 

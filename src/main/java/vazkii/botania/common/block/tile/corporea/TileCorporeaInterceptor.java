@@ -19,6 +19,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -37,13 +38,13 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void interceptRequest(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}
+	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}
 
 	@Override
-	public void interceptRequestLast(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
+	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
 		List<ItemStack> filter = getFilter();
 		for(ItemStack stack : filter)
-			if(requestMatches(request, stack)) {
+			if(request.isStackValid(stack)) {
 				int missing = count;
 				for(ItemStack stack_ : stacks)
 					missing -= stack_.getCount();
@@ -63,19 +64,6 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				}
 			}
 
-	}
-
-	public boolean requestMatches(Object request, ItemStack filter) {
-		if(filter.isEmpty())
-			return false;
-
-		if(request instanceof ItemStack) {
-			ItemStack stack = (ItemStack) request;
-			return !stack.isEmpty() && stack.isItemEqual(filter) && ItemStack.areItemStackTagsEqual(filter, stack);
-		}
-
-		String name = (String) request;
-		return CorporeaHelper.stacksMatch(filter, name);
 	}
 
 	public List<ItemStack> getFilter() {

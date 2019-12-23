@@ -25,13 +25,13 @@ public interface ICorporeaInterceptor {
 	 * at this point, but the list of stacks is not complete. The request parameter can
 	 * be either a String or ItemStack.
 	 */
-	public void interceptRequest(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit);
+	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit);
 
 	/**
 	 * Intercepts a request after all the stacks have been found and processed. Both the
 	 * list of inventories and stacks is complete at this point. The request parameter can
 	 * be either a String or ItemStack.
 	 */
-	public void interceptRequestLast(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit);
+	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit);
 
 }
