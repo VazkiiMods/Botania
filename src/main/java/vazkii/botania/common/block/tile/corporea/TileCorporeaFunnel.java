@@ -60,7 +60,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				1, 2, 4, 8, 16, 32, 48, 64
 		};
 
-		for(Direction dir : MathHelper.HORIZONTALS) {
+		for(Direction dir : Direction.values()) {
 			List<ItemFrameEntity> frames = world.getEntitiesWithinAABB(ItemFrameEntity.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(ItemFrameEntity frame : frames) {
 				Direction orientation = frame.getHorizontalFacing();
