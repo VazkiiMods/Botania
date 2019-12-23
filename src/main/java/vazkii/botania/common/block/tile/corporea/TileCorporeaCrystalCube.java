@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -76,7 +77,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
 			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
-			doCorporeaRequest(requestTarget, count, spark);
+			doCorporeaRequest(CorporeaHelper.createMatcher(requestTarget, true), count, spark);
 		}
 	}
 
@@ -88,7 +89,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		itemCount = 0;
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
-			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, -1, spark, true, false);
+			List<ItemStack> stacks = CorporeaHelper.requestItem(CorporeaHelper.createMatcher(requestTarget, true), -1, spark, false);
 			for(ItemStack stack : stacks)
 				itemCount += stack.getCount();
 		}
@@ -131,11 +132,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
-		if(!(request instanceof ItemStack))
-			return;
-
-		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true);
 		spark.onItemsRequested(stacks);
 		boolean did = false;
 		for(ItemStack reqStack : stacks)

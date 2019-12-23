@@ -30,6 +30,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
@@ -211,11 +212,8 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
-		if(!(request instanceof String))
-			return;
-
-		List<ItemStack> stacks = CorporeaHelper.requestItem((String) request, count, spark, true);
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)
 			if(!stack.isEmpty()) {
@@ -286,7 +284,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						
 						CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(event.getPlayer(), name, count, spark);
 						if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
-							index.doCorporeaRequest(name, count, spark);
+							index.doCorporeaRequest(CorporeaHelper.createMatcher(name), count, spark);
 							
 							event.getPlayer().sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 							CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
