@@ -1,3 +1,12 @@
+r1.10 363
+* This is the final release for Minecraft 1.12.x. Thanks for all the support!
+* Diva Charm no longer brainwashes boss mobs
+* Remove GregTech blacklist from Orechid since it's no longer necessary
+* Fix Albedo compatibility (Hubry)
+* Fix shedding page crash (Hubry)
+* Fix error when equipping Botania baubles over other new Baubles (Hubry)
+* Fix lexicon sharing crashing when in off hand (Hubry)
+* Add Quartz blocks to Ore Dictionary (nekosune)
 r1.10 362
 *When matching recipe tags, also match the first items of nested lists. (codewarrior0)
 *Fix magnet ring working in spectator mode
