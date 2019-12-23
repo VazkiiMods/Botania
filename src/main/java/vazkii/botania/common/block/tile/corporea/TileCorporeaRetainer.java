@@ -25,6 +25,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -34,19 +35,17 @@ import static vazkii.botania.api.corporea.CorporeaRequestDefaultMatchers.*;
 public class TileCorporeaRetainer extends TileMod {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_RETAINER)
 	public static TileEntityType<TileCorporeaRetainer> TYPE;
-	private static final String TAG_PENDING_REQUEST = "pendingRequest";
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
-	private static final String TAG_REQUEST_TYPE = "requestType_";
-	private static final String TAG_REQUEST_CONTENTS = "requestContents";
+	private static final String TAG_REQUEST_TYPE = "requestType";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
 
 	public static final Map<String, Function<CompoundNBT, ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new HashMap<>();
 	public static final Map<Class<?>, String> corporeaMatcherSerializers = new HashMap<>();
 
-	private boolean pendingRequest = false;
 	private BlockPos requestPos = BlockPos.ZERO;
+	@Nullable
 	private ICorporeaRequestMatcher request;
 	private int requestCount;
 	private int compValue;
@@ -61,14 +60,13 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	public void setPendingRequest(BlockPos pos, ICorporeaRequestMatcher request, int requestCount) {
-		if(pendingRequest)
+		if(hasPendingRequest())
 			return;
 
-		requestPos = pos;
+		this.requestPos = pos;
 		this.request = request;
 		this.requestCount = requestCount;
-		pendingRequest = true;
-		
+
 		compValue = CorporeaHelper.signalStrengthForRequestSize(requestCount);
 		world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 	}
@@ -78,7 +76,7 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 	
 	public boolean hasPendingRequest() {
-		return pendingRequest;
+		return request != null;
 	}
 
 	public void fulfilRequest() {
@@ -91,8 +89,9 @@ public class TileCorporeaRetainer extends TileMod {
 			if(inv != null && inv.world.getTileEntity(inv.pos) instanceof ICorporeaRequestor) {
 				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.world.getTileEntity(inv.pos);
 				requestor.doCorporeaRequest(request, requestCount, spark);
-				pendingRequest = false;
-				
+
+				request = null;
+				requestCount = 0;
 				compValue = 0;
 				world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 			}
@@ -103,7 +102,6 @@ public class TileCorporeaRetainer extends TileMod {
 	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.putBoolean(TAG_PENDING_REQUEST, pendingRequest);
 		cmp.putInt(TAG_REQUEST_X, requestPos.getX());
 		cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
 		cmp.putInt(TAG_REQUEST_Z, requestPos.getZ());
@@ -121,7 +119,6 @@ public class TileCorporeaRetainer extends TileMod {
 	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
-		pendingRequest = cmp.getBoolean(TAG_PENDING_REQUEST);
 		int x = cmp.getInt(TAG_REQUEST_X);
 		int y = cmp.getInt(TAG_REQUEST_Y);
 		int z = cmp.getInt(TAG_REQUEST_Z);

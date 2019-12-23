@@ -50,8 +50,8 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					missing -= stack_.getCount();
 
 				if(missing > 0 && !world.getBlockState(getPos()).get(BotaniaStateProps.POWERED)) {
-					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true), 1 | 2);
-					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
+					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true));
+					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 
 					TileEntity requestor = source.getSparkInventory().world.getTileEntity(source.getSparkInventory().pos);
 					for(Direction dir : Direction.values()) {
@@ -66,7 +66,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 	}
 
-	public List<ItemStack> getFilter() {
+	private List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList<>();
 
 		for(Direction dir : Direction.values()) {

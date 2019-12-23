@@ -38,8 +38,8 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 	}
 
 	@Override
-	public void randomTick(BlockState state, World world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
+	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
