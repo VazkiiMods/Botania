@@ -157,7 +157,7 @@
   "botania.nei.runicAltar": "Altar Rúnico",
   "botania.nei.pureDaisy": "Margarida Pura",
   "botania.nei.lexica": "Lexica Botania",
-  "nei.options.keys.gui.botania_corporea_request": "Pedido Corporea",
+  "key.botania_corporea_request": "Pedido Corporea",
 
   "botania.nei.lexicaSeparator": "Informação extra:",
   "botania.nei.lexicaNoInfo": "(não há informação adicional aqui, desculpa!)",

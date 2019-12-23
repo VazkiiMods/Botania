@@ -162,7 +162,7 @@
   "botania.nei.runicAltar": "符文祭坛",
   "botania.nei.pureDaisy": "白雏菊",
   "botania.nei.lexica": "植物魔法辞典",
-  "nei.options.keys.gui.botania_corporea_request": "多媒体请求",
+  "key.botania_corporea_request": "多媒体请求",
 
   "botania.nei.lexicaSeparator": "详细信息:",
   "botania.nei.lexicaNoInfo": "(并没有这种东西,抱歉!)",
