@@ -2777,8 +2777,8 @@
   "botania.page.worldSeed1": "Where the heart is",
 
   "botania.entry.spellCloth": "Spellbinding Cloth",
-  "botania.tagline.spellCloth": "Cloth that can be combined to with items to remove enchants",
-  "botania.page.spellCloth0": "Combining $(1)Wool$(0) with some $(4)Mana$(0) in the form of a $(1)Mana Pearl$(0) allows for one to create a type of cloth that will absorb any $(4)Enchantments$(0) it comes in contact with.$(p)Combining the $(1)Spellbinding Cloth$(0) with any enchanted item in a crafting table will remove all enchants from that item at the cost of some of the cloth's durability.",
+  "botania.tagline.spellCloth": "Cloth that can be combined to with items to remove enchants or curses",
+  "botania.page.spellCloth0": "Combining $(1)Wool$(0) with some $(4)Mana$(0) in the form of a $(1)Mana Pearl$(0) allows for one to create a type of cloth that will absorb any $(4)Enchantments$(0) or $(4)Curses$(0) it comes in contact with.$(p)Combining the $(1)Spellbinding Cloth$(0) with any enchanted item in a crafting table will remove all enchants from that item at the cost of some of the cloth's durability.",
   "botania.page.spellCloth1": "Oldest item in the book",
 
   "botania.entry.thornChakram": "Thorn Chakram",
