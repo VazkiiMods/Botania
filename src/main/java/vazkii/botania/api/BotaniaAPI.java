@@ -29,6 +29,7 @@ import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -46,6 +47,9 @@ import java.util.function.Function;
 public final class BotaniaAPI {
 	@CapabilityInject(IFloatingFlower.class)
 	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
+
+	@CapabilityInject(IExoflameHeatable.class)
+	public static Capability<IExoflameHeatable> EXOFLAME_HEATABLE_CAP;
 
 	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
 
