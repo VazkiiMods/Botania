@@ -1,3 +1,22 @@
+r1.11 372
+* Welcome to Botania on Minecraft 1.14.x, almost an entire year in the making (efforts began around January for 1.13)
+* Shoutout to williewillus and Hubry for contributing significant chunks of effort to this port
+* Port to 1.14.4. All older worlds should be treated as incompatible, though it is possible items in chests can be carried forward.
+* Completely replace the old Lexica Botania with a book made with Vazkii's Patchouli mod
+* Replace Baubles integration with Curios integration
+* Spectrolus has a new mysterious feature...
+* Mana sparks can now be colored like corporea sparks to create separate networks
+* Stonecutting recipes for all Botania stone-like blocks
+* Tiny potato petting/jumping now show to others in multiplayer (very important)
+* Force relays now show a particle beam when being bound, as well as their existing binding if clicked in function mode
+* Radius highlights are now visible from below, useful for floating flowers
+* Rework Ring of Chordata for 1.13 swimming changes
+* [API NOTE] Modders: The API is not fully stable and breaking changes may still occur, as it is unknown how JAR-in-JAR or api distribution will work in 1.13+. Create addons at your own risk (join #modders in Vazkii's Discord to stay in touch with us).
+* Known Issue: Various cosmetics and on-body renders are positioned incorrectly
+* Known Issue: Lenses do not render on the Mana Blaster
+* Known Issue: Miscellaneous things in the Lexicon are missing or inconsistent
+* Known Issue: Double flowers can be collected without shears
+* Known Issue: Botania shears don't act as such
 r1.10 363
 * This is the final release for Minecraft 1.12.x. Thanks for all the support!
 * Diva Charm no longer brainwashes boss mobs
