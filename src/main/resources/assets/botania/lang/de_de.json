@@ -8,18 +8,9 @@
 
 
     "itemGroup.botania": "Botania",
-    "botaniamisc.nextPage": "Nächste Seite",
-    "botaniamisc.prevPage": "Vorherige Seite",
-    "botaniamisc.back": "Zurück",
-    "botaniamisc.craftingContainer": "Bei Herstellung zurückgegeben",
-    "botaniamisc.shapeless": "Formlose Herstellung",
-    "botaniamisc.oredict": "Ore Dictionary-Herstellung",
     "botaniamisc.statusUnknown": "Unbekannter Status",
     "botaniamisc.color": "%s gefärbt",
     "botaniamisc.manaUsage": "Manaverbrauch",
-    "botaniamisc.shiftToRead": "Shift-rechtsklicke, um mehr zu lesen",
-    "botaniamisc.clickToRecipe": "Shift-klicke, um Rezept zu sehen",
-    "botaniamisc.clickToIndex": "Shift-klicke für Index",
     "botaniamisc.flareColor": "Ladungen %s",
     "botaniamisc.outputtingPower": "Gibt Energie an Items ab",
     "botaniamisc.inputtingPower": "Nimmt Energie von Items auf",
