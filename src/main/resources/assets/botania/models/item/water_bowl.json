@@ -1,0 +1,10 @@
+{
+  "__comment0": "Temporary 1.14 dummy, forces the textures to be loaded and stitched so we can construct",
+  "__comment1": "the ModelDynBucket in code. Should be migrated to the new model json system soon (tm).",
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/waterbowl_base",
+    "layer1": "botania:items/waterbowl_fluid",
+    "layer2": "botania:items/waterbowl_cover"
+  }
+}
