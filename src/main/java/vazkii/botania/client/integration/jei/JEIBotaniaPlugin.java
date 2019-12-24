@@ -76,7 +76,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 		registry.registerSubtypeInterpreter(ModItems.twigWand, stack -> ItemTwigWand.getColor1(stack) + "_" + ItemTwigWand.getColor2(stack));
 		registry.registerSubtypeInterpreter(ModItems.flightTiara, stack -> String.valueOf(ItemFlightTiara.getVariant(stack)));
-		registry.registerSubtypeInterpreter(ModItems.lexicon, stack -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, true)));
+		registry.registerSubtypeInterpreter(ModItems.lexicon, stack -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false)));
 		registry.registerSubtypeInterpreter(ModItems.laputaShard, stack -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));
 		
 		for(Item item : new Item[]{ModItems.manaTablet, ModItems.manaRing, ModItems.manaRingGreater, ModItems.terraPick}) {
@@ -181,7 +181,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			List<Ingredient> inputs = recipe.getInputs();
 			List<ItemStack> outputs = recipe.getOutputs();
-			if(inputs.size() == 1 && outputs.size() == 1 && inputs.get(0).test(outputs.get(0))) {
+			if(inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0))) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}
 		}

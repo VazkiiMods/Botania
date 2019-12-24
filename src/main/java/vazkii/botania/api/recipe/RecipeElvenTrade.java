@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RecipeElvenTrade {
 	private final ResourceLocation id;
@@ -24,7 +25,12 @@ public class RecipeElvenTrade {
 		this.inputs = ImmutableList.copyOf(inputs);
 	}
 
-	public boolean matches(List<ItemStack> stacks, boolean remove) {
+	/**
+	 * Attempts to match the recipe
+	 * @param stacks Entire contents of the portal's buffer 
+	 * @return {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe otherwise
+	 */
+	public Optional<List<ItemStack>> match(List<ItemStack> stacks) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 		List<ItemStack> stacksToRemove = new ArrayList<>();
 
@@ -51,11 +57,19 @@ public class RecipeElvenTrade {
 				inputsMissing.remove(stackIndex);
 		}
 
-		if(remove)
-			for(ItemStack r : stacksToRemove)
-				stacks.remove(r);
+		return inputsMissing.isEmpty() ? Optional.of(stacksToRemove) : Optional.empty();
+	}
 
-		return inputsMissing.isEmpty();
+	/**
+	 * If the recipe does not contain the item, it will be destroyed upon entering the portal.
+	 */
+	public boolean containsItem(ItemStack stack) {
+		for(Ingredient input : inputs) {
+			if(input.test(stack)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public ResourceLocation getId() {
@@ -68,6 +82,10 @@ public class RecipeElvenTrade {
 
 	public List<ItemStack> getOutputs() {
 		return outputs;
+	}
+
+	public List<ItemStack> getOutputs(List<ItemStack> inputs) {
+		return getOutputs();
 	}
 
 	public void write(PacketBuffer buf) {
