@@ -15,7 +15,7 @@ No project is done with only one member, Botania is no exception, here's the cas
 <li><b>dylan4ever</b> for a bunch of texture work.<br></li>
 <li><b>Enterbrain</b> for a bunch of resources (both sound and graphical) from the RPG Maker VX Ace RTP.<br></li>
 <li><b>Flaxbeard</b> for the Rod of the Shaded Mesa, and for texture work when dylan isn't available.<br></li>
-<li><b>Futureazoo</b> for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that are available in the config.<br></li>
+<li><b>Futureazoo</b> for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that were available in the config.<br></li>
 <li><b>Gelbooru</b> (nsfw) for the cute catgirls in the downloads page.<br></li>
 <li><b>Haighyorkie</b> for being a goldfish and always being supportive with making videos to show off the mod.<br></li>
 <li><b>Kain Vinosec</b> for the music, from <i>The Nothing Battles</i> used in the Gaia Guardian fight.<br></li>
@@ -28,8 +28,9 @@ No project is done with only one member, Botania is no exception, here's the cas
 <li><b>Rorax</b> for the Pylon model and texture.<br></li>
 <li><b>ScottWears</b> for hosting my website.<br></li>
 <li><b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br></li>
+<li><b>TheIllusiveC4</b> for creating the Curios API.<br></li>
 <li><b>Tobbvald</b> for the Livingwood, Dreamwood and Lexica Botania textures and the alternate textures in the Unity texture pack style that are available in the config.<br></li>
 <li><b>wiiv</b> for a bunch more texture work both before and after dylan4ever left.<br></li>
-<li><b>williewillus</b> for undertaking the massive task that was porting Botania to 1.8, 1.9 and 1.10 and maintaining it during that time.<br></li>
+<li><b>williewillus</b> for porting and maintaining Botania throughout 1.8 to the present.<br></li>
 <li><b>WTFG33ks</b> for making the getting started video that's linked within the Lexica Botania.<br></li>
 </ul>
