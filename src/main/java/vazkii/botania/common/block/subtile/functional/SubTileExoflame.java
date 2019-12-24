@@ -65,9 +65,9 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 					}
 				}
 			}
-			if(did)
-				sync();
 		}
+		if(did)
+			sync();
 	}
 
 
