@@ -34,6 +34,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
+import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.AlfPortalTrigger;
@@ -48,6 +49,8 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.capability.NoopExoflameHeatable;
+import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -64,7 +67,6 @@ import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldCondition;
 import vazkii.botania.common.crafting.SyncHandler;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -108,6 +110,8 @@ public class Botania {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
+		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
+
 		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
 		thaumcraftLoaded = ModList.get().isLoaded("thaumcraft");
 		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
