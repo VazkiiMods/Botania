@@ -54,7 +54,7 @@
   "botaniamisc.hasClip": "&6Tiene cartucho de lentes",
   "botaniamisc.clipEmpty": "(Vacío)",
   "botaniamisc.armorset": "&bConjunto de armadura&r:",
-  "botaniamisc.craftToAddWill": "&aJuntar con un casco de terracero para añadir los siguientes efectos:",
+  "botaniamisc.craftToAddWill": "Juntar con un casco de terracero para añadir los siguientes efectos:",
   "botaniamisc.requestMsg": "Pedido %d x \"%s\" de %d. %d tomados.",
   "botaniamisc.nearIndex0": "!Índice de corporea cerca!",
   "botaniamisc.nearIndex1": "Todo lo que digas será",

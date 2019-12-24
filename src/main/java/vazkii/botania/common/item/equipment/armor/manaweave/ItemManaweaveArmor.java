@@ -19,6 +19,7 @@ import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -112,7 +113,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0"));
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1"));
+		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0").applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1").applyTextStyle(TextFormatting.GRAY));
 	}
 }

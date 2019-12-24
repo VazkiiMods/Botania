@@ -31,6 +31,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -115,9 +116,9 @@ public class ItemCacophonium extends ItemMod {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if(isDOIT(stack))
-			list.add(new TranslationTextComponent("botaniamisc.justDoIt"));
+			list.add(new TranslationTextComponent("botaniamisc.justDoIt").applyTextStyle(TextFormatting.GRAY));
 		else if(getSound(stack) != null)
-			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
+			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).applyTextStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull

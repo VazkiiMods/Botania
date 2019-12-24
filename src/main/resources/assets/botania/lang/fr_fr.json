@@ -54,7 +54,7 @@
   "botaniamisc.hasClip": "&6A une attache de lentille",
   "botaniamisc.clipEmpty": "(Vide)",
   "botaniamisc.armorset": "&bEnsemble d'armure&r:",
-  "botaniamisc.craftToAddWill": "&aFabriqué avec un casque en terracier pour ajouter l'effet suivant :",
+  "botaniamisc.craftToAddWill": "Fabriqué avec un casque en terracier pour ajouter l'effet suivant :",
   "botaniamisc.requestMsg": "Demande %d x \"%s\" sortant de %d. %d pris.",
   "botaniamisc.nearIndex0": "Index corporea proche !",
   "botaniamisc.nearIndex1": "Tout ce que vous direz pourra être",

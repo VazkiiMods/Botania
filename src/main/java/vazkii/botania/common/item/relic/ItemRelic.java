@@ -72,7 +72,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 				list.add(new StringTextComponent(""));
 				String name = stack.getTranslationKey() + ".poem";
 				for(int i = 0; i < 4; i++)
-					list.add(new TranslationTextComponent(name + i).applyTextStyle(TextFormatting.ITALIC));
+					list.add(new TranslationTextComponent(name + i).applyTextStyles(TextFormatting.GRAY, TextFormatting.ITALIC));
 			}
 		} else list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}
