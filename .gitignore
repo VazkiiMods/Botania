@@ -31,7 +31,6 @@ Thumbs.db
 ## Jars
 *.jar
 !/gradle/wrapper/gradle-wrapper.jar
-!GardenOfGlass.jar
 
 ### OSX (adds a lot of garbage)###
 .DS_Store
