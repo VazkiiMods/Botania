@@ -10,12 +10,16 @@
  */
 package vazkii.botania.common.item.brew;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.util.ActionResult;
@@ -25,6 +29,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Tuple;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -41,6 +46,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Map;
 
 public class ItemBrewBase extends ItemMod implements IBrewItem {
 
@@ -123,27 +129,69 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		ITextComponent cmp = new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getUnlocalizedName(stack)), 
+		return new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getUnlocalizedName(stack)),
 			new StringTextComponent(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
-		return cmp;
+	}
+
+	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
+	@OnlyIn(Dist.CLIENT)
+	public static void addPotionTooltip(List<EffectInstance> list, List<ITextComponent> lores, float durationFactor) {
+		List<Tuple<String, AttributeModifier>> list1 = Lists.newArrayList();
+		if (list.isEmpty()) {
+			lores.add((new TranslationTextComponent("effect.none")).applyTextStyle(TextFormatting.GRAY));
+		} else {
+			for(EffectInstance effectinstance : list) {
+				ITextComponent itextcomponent = new TranslationTextComponent(effectinstance.getEffectName());
+				Effect effect = effectinstance.getPotion();
+				Map<IAttribute, AttributeModifier> map = effect.getAttributeModifierMap();
+				if (!map.isEmpty()) {
+					for(Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
+						AttributeModifier attributemodifier = entry.getValue();
+						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierAmount(effectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+						list1.add(new Tuple<>(entry.getKey().getName(), attributemodifier1));
+					}
+				}
+
+				if (effectinstance.getAmplifier() > 0) {
+					itextcomponent.appendText(" ").appendSibling(new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
+				}
+
+				if (effectinstance.getDuration() > 20) {
+					itextcomponent.appendText(" (").appendText(EffectUtils.getPotionDurationString(effectinstance, durationFactor)).appendText(")");
+				}
+
+				lores.add(itextcomponent.applyTextStyle(effect.getEffectType().getColor()));
+			}
+		}
+
+		if (!list1.isEmpty()) {
+			lores.add(new StringTextComponent(""));
+			lores.add((new TranslationTextComponent("potion.whenDrank")).applyTextStyle(TextFormatting.DARK_PURPLE));
+
+			for(Tuple<String, AttributeModifier> tuple : list1) {
+				AttributeModifier attributemodifier2 = tuple.getB();
+				double d0 = attributemodifier2.getAmount();
+				double d1;
+				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
+					d1 = attributemodifier2.getAmount();
+				} else {
+					d1 = attributemodifier2.getAmount() * 100.0D;
+				}
+
+				if (d0 > 0.0D) {
+					lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + (String)tuple.getA()))).applyTextStyle(TextFormatting.BLUE));
+				} else if (d0 < 0.0D) {
+					d1 = d1 * -1.0D;
+					lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + (String)tuple.getA()))).applyTextStyle(TextFormatting.RED));
+				}
+			}
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		Brew brew = getBrew(stack);
-		for(EffectInstance effect : brew.getPotionEffects(stack)) {
-			TextFormatting format = !effect.getPotion().isBeneficial() ? TextFormatting.RED : TextFormatting.GRAY;
-			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
-			if(effect.getAmplifier() > 0) {
-				cmp.appendText(" ");
-				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
-			}
-			if(!effect.getPotion().isInstant()) {
-				cmp.appendText(" (" + EffectUtils.getPotionDurationString(effect, 1) + ")").applyTextStyle(TextFormatting.GRAY);
-			}
-			list.add(cmp.applyTextStyle(format));
-		}
+		addPotionTooltip(getBrew(stack).getPotionEffects(stack), list, 1);
 	}
 
 	@Override

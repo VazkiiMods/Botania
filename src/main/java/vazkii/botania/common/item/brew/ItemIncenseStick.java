@@ -64,19 +64,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 		}
 
 		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-		for(EffectInstance effect : brew.getPotionEffects(stack)) {
-			TextFormatting format = !effect.getPotion().isBeneficial() ? TextFormatting.RED : TextFormatting.GRAY;
-			EffectInstance longEffect = new EffectInstance(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
-			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
-			if(effect.getAmplifier() > 0) {
-				cmp.appendText(" ");
-				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
-			}
-			if(!effect.getPotion().isInstant()) {
-				cmp.appendSibling(new StringTextComponent(" (" + EffectUtils.getPotionDurationString(longEffect, 1) + ")").applyTextStyle(TextFormatting.GRAY));
-			}
-			list.add(cmp.applyTextStyle(format));
-		}
+		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 
 	@Override
