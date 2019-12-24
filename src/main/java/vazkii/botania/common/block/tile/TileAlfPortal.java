@@ -10,13 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -40,17 +37,15 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Optional;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
@@ -135,9 +130,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 					}
 				}
 
-			if(ticksSinceLastItem >= 4) {
-				if(!world.isRemote)
-					resolveRecipes();
+			if(!world.isRemote && !stacksIn.isEmpty() && ticksSinceLastItem >= 4) {
+				resolveRecipes();
 			}
 		}
 
@@ -159,14 +153,9 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	private boolean validateItemUsage(ItemStack inputStack) {
-		if(inputStack.getItem() == ModItems.lexicon)
-			return true;
-
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
-			for(Ingredient o : recipe.getInputs()) {
-				if(o.test(inputStack)) {
-					return true;
-				}
+			if(recipe.containsItem(inputStack)) {
+				return true;
 			}
 		}
 		if(inputStack.getItem() == Items.BREAD) //Don't teleport bread. (See also: #2403)
@@ -228,25 +217,16 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	private void resolveRecipes() {
-		int i = 0;
-		for(ItemStack stack : stacksIn) {
-			if(!stack.isEmpty() && stack.getItem() == ModItems.lexicon) {
-				if (!stack.getOrCreateTag().getBoolean(ItemLexicon.TAG_ELVEN_UNLOCK)) {
-					stack.getTag().putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
-					spawnItem(stack);
-					stacksIn.remove(i);
-					return;
-				}
-			}
-			i++;
-		}
-
 		List<BlockPos> pylons = locatePylons();
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
-			if(recipe.matches(stacksIn, false)) {
+			Optional<List<ItemStack>> match = recipe.match(stacksIn);
+			if(match.isPresent()) {
 				if(consumeMana(pylons, 500, false)) {
-					recipe.matches(stacksIn, true);
-					for(ItemStack output : recipe.getOutputs())
+					List<ItemStack> inputs = match.get();
+					for(ItemStack stack : inputs) {
+						stacksIn.remove(stack);
+					}
+					for(ItemStack output : recipe.getOutputs(inputs))
 						spawnItem(output.copy());
 				}
 				break;
