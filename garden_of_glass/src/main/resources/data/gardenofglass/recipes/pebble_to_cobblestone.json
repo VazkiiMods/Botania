@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "minecraft:cobblestone"
+  },
+  "ingredients": [
+    {
+      "item": "botania:pebble"
+    },
+    {
+      "item": "botania:pebble"
+    },
+    {
+      "item": "botania:pebble"
+    },
+    {
+      "item": "botania:pebble"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

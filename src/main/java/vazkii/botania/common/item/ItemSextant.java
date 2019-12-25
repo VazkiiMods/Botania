@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.LivingEntity;
@@ -20,6 +21,8 @@ import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -30,14 +33,23 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.patchouli.api.IStateMatcher;
+import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.multiblock.AbstractMultiblock;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemSextant extends ItemMod {
+	public static final ResourceLocation MULTIBLOCK_ID = prefix("sextant");
 	private static final int MAX_RADIUS = 256;
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
@@ -90,19 +102,37 @@ public class ItemSextant extends ItemMod {
 
 		double radius = calculateRadius(stack, (PlayerEntity) living);
 		if(1 < radius && radius <= MAX_RADIUS) {
+			IStateMatcher matcher = PatchouliAPI.instance.predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-			if(y != -1)
-				; // todo 1.14 use patchouli multiblocks Botania.proxy.setMultiblock(world, x, y, z, radius, Blocks.COBBLESTONE);
+			int iradius = (int) radius + 1;
+			if(y != -1) {
+				Map<BlockPos, IStateMatcher> map = new HashMap<>();
+				for(int i = 0; i < iradius * 2 + 1; i++)
+					for(int j = 0; j < iradius * 2 + 1; j++) {
+						int xp = x + i - iradius;
+						int zp = z + j - iradius;
+
+						if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
+							map.put(new BlockPos(xp - x, 0, zp - z), matcher);
+					}
+				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setResourceLocation(MULTIBLOCK_ID);
+				Botania.proxy.showMultiblock(sparse, "r = " + (int) radius, new BlockPos(x, y, z), Rotation.NONE);
+			}
+		}
+	}
+
+	private void reset(World world, ItemStack stack) {
+		ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
+		if (world.isRemote) {
+			Botania.proxy.clearSextantMultiblock();
 		}
 	}
 
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		// todo 1.14 use patchouli multiblocks Botania.proxy.removeSextantMultiblock();
-
 		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
 			RayTraceResult rtr = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 128);
@@ -113,9 +143,10 @@ public class ItemSextant extends ItemMod {
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getZ());
 				}
-			} else ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
-
-			player.setActiveHand(hand);
+				player.setActiveHand(hand);
+			}
+		} else {
+			reset(world, stack);
 		}
 
 		return ActionResult.newResult(ActionResultType.SUCCESS, stack);

@@ -13,11 +13,12 @@
   },
   "parent": "botania:challenge/root",
   "criteria": {
-    "dice": {
-      "trigger": "botania:relic_bind",
+    "guardian": {
+      "trigger": "minecraft:player_killed_entity",
       "conditions": {
-        "relic": {
-          "item": "botania:dice"
+        "entity": {
+          "type": "botania:doppleganger",
+          "nbt": "{hardMode:1b}"
         }
       }
     }

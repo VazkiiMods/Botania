@@ -14,6 +14,7 @@ public class WispParticleData implements IParticleData {
     public final float r, g, b;
     public final float maxAgeMul;
     public final boolean depthTest;
+    public final boolean noClip;
 
     public static WispParticleData wisp(float size, float r, float g, float b) {
         return wisp(size, r, g, b, 1);
@@ -28,18 +29,26 @@ public class WispParticleData implements IParticleData {
     }
 
     public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
-        return new WispParticleData(size, r, g, b, maxAgeMul, depthTest);
+        return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, false);
     }
 
-    private WispParticleData(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
+    private WispParticleData(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, boolean noClip) {
         this.size = size;
         this.r = r;
         this.g = g;
         this.b = b;
         this.maxAgeMul = maxAgeMul;
         this.depthTest = depthTest;
+        this.noClip = noClip;
     }
 
+    public WispParticleData withNoClip(boolean v) {
+        if (noClip == v) {
+            return this;
+        } else {
+            return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, v);
+        }
+    }
 
     @Nonnull
     @Override
@@ -55,6 +64,7 @@ public class WispParticleData implements IParticleData {
         buf.writeFloat(b);
         buf.writeFloat(maxAgeMul);
         buf.writeBoolean(depthTest);
+        buf.writeBoolean(noClip);
     }
 
     @Nonnull
@@ -83,12 +93,17 @@ public class WispParticleData implements IParticleData {
                 reader.expect(' ');
                 depth = reader.readBoolean();
             }
-            return new WispParticleData(size, r, g, b, mam, depth);
+            boolean noClip = false;
+            if (reader.canRead()) {
+                reader.expect(' ');
+                depth = reader.readBoolean();
+            }
+            return new WispParticleData(size, r, g, b, mam, depth, noClip);
         }
 
         @Override
         public WispParticleData read(@Nonnull ParticleType<WispParticleData> type, PacketBuffer buf) {
-            return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean());
+            return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean(), buf.readBoolean());
         }
     };
 }

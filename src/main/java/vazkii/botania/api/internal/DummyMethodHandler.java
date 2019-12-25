@@ -82,11 +82,6 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return 0;
 	}
 
-	@Override
-	public boolean isBotaniaFlower(World world, BlockPos pos) {
-		return false;
-	}
-
     @Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
 		return null;

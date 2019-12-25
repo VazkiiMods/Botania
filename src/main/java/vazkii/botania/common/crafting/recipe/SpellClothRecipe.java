@@ -65,7 +65,8 @@ public class SpellClothRecipe extends SpecialRecipe {
 		if(stackToDisenchant.isEmpty())
 			return ItemStack.EMPTY;
 
-		stackToDisenchant.getTag().remove("ench"); // Remove enchantments
+		stackToDisenchant.removeChildTag("Enchantments"); // Remove enchantments
+		stackToDisenchant.removeChildTag("RepairCost");
 		return stackToDisenchant;
 	}
 

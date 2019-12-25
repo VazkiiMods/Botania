@@ -57,8 +57,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(),
-				new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, AttributeModifier.Operation.ADDITION)
-						.setSaved(false));
+				new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 

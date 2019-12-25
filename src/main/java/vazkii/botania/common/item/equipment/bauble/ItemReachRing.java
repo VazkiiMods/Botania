@@ -25,7 +25,7 @@ public class ItemReachRing extends ItemBauble {
 	@Override
 	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(PlayerEntity.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION).setSaved(false));
+		attributes.put(PlayerEntity.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 }

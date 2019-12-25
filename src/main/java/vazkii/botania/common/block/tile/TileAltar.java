@@ -21,6 +21,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -111,6 +112,14 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		boolean hasFluidCapability = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
 		
 		if(getFluid() == Fluids.EMPTY) {
+			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
+			if (stack.getItem() instanceof FishBucketItem && ((FishBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
+				setFluid(Fluids.WATER);
+				((FishBucketItem) stack.getItem()).onLiquidPlaced(world, stack, getPos().up()); // Spawns the fish
+				item.setItem(new ItemStack(Items.BUCKET));
+				return true;
+			}
+
 			if(hasFluidCapability) {
 				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElseThrow(NullPointerException::new);
 

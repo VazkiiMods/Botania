@@ -150,7 +150,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	private EntityManaBurst getBurst(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
-		EntityManaBurst burst = new EntityManaBurst(player, hand);
+		EntityManaBurst burst = new EntityManaBurst(player);
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
 		burst.setSourceLens(getLens(stack));

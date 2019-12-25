@@ -12,32 +12,32 @@
 </div>
 
 <?php
-	$file = file('https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_us.lang');
+	$file = file_get_contents('https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_us.json');
+	$json = json_decode($file, true);
 	
-	$started_docs = false;
 	$opened_div = false;
 	
 	$current_entry = '';
-	foreach($file as $line) {
-		if($started_docs || trim($line) == '# LEXICON ENTRIES') {
-			$started_docs = true;
-			$entry_match = match_entry($line);
-			$page_match = match_page($line, $current_entry);
-			
-			if(sizeof($entry_match) > 0) {
-				$current_entry = $entry_match[1];
-				if($opened_div)
-					echo('</div>');
-					
-				echo("<br><a href='#$current_entry' class='entry-bookmark glyphicon glyphicon-bookmark' title='Permalink'></a> <b id='$current_entry-fake'>$entry_match[2]</b><div class='entry-text'>");
-				$opened_div = true;
-			}	
-				
-			if(sizeof($page_match) > 0) {
-				$page =  preg_replace('/&(.)((?:[^&])+)(?:(?:&(?:0|r))|$)/', "<span class='mc-color-$1'>$2</span>", $page_match[1]) . '<br>';
-				$no_control =  preg_replace('/&./', '', $page_match[1]);
-				if(strlen($no_control) > 50)
-					echo($page);
+	foreach($json as $key => $value) {
+		$entry_match = match_entry($key);
+		$page_match = match_page($key, $current_entry);
+
+		if(sizeof($entry_match) > 0) {
+			$current_entry = $entry_match[1];
+			if($opened_div)
+				echo('</div>');
+
+			echo("<br><a href='#$current_entry' class='entry-bookmark glyphicon glyphicon-bookmark' title='Permalink'></a> <b id='$current_entry-fake'>$value</b><div class='entry-text'>");
+			echo("\n");
+			$opened_div = true;
+		}
+
+		if(sizeof($page_match) > 0) {
+			$page =  preg_replace('/&(.)((?:[^&])+)(?:(?:&(?:0|r))|$)/', "<span class='mc-color-$1'>$2</span>", $value) . '<br>';
+			$no_control =  preg_replace('/&./', '', $value);
+			if(strlen($no_control) > 50) {
+				echo($page);
+				echo("\n");
 			}
 		}
 	}
@@ -50,11 +50,11 @@
 		return $matches;
 	}
 	
-	function match_entry($line) {
-		return match('botania\.entry\.(\w+)=(.+)', $line);
+	function match_entry($key) {
+		return match('botania\.entry\.(\w+)', $key);
 	}
 	
-	function match_page($line, $entry_name) {
-		return match("botania\.page\.$entry_name\d+=(.+)", $line);
+	function match_page($key, $entry_name) {
+		return match("botania\.page\.$entry_name\d+", $key);
 	}
 ?>

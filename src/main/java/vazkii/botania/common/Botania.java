@@ -34,6 +34,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
+import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.AlfPortalTrigger;
@@ -43,8 +44,13 @@ import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.capability.NoopExoflameHeatable;
+import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -61,7 +67,6 @@ import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldCondition;
 import vazkii.botania.common.crafting.SyncHandler;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -105,6 +110,8 @@ public class Botania {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
+		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
+
 		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
 		thaumcraftLoaded = ModList.get().isLoaded("thaumcraft");
 		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
@@ -139,83 +146,11 @@ public class Botania {
 
 			ModBanners.init();
 
-			// todo 1.14 make these canonical and move to where they belong
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), TileAlfPortal.MULTIBLOCK.getValue());
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), TileTerraPlate.MULTIBLOCK.getValue());
+			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), TileEnchanter.MULTIBLOCK.getValue());
+
 			String[][] pat = new String[][] {
-					{ "_", "W", "G", "W", "_" },
-					{ "W", "_", "_", "_", "W" },
-					{ "G", "_", "_", "_", "G" },
-					{ "W", "_", "_", "_", "W" },
-					{ "_", "W", "0", "W", "_" }
-			};
-			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'W', ModBlocks.livingwood,
-					'G', ModBlocks.livingwoodGlimmering,
-					'0', ModBlocks.alfPortal
-			);
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), mb);
-
-			pat = new String[][] {
-					{
-						"___",
-						"_P_",
-						"___"
-					},
-					{
-						"RLR",
-						"L0L",
-						"RLR"
-					}
-			};
-			mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'P', ModBlocks.terraPlate,
-					'R', ModBlocks.livingrock,
-					'0', ModBlocks.livingrock,
-					'L', Blocks.LAPIS_BLOCK
-			);
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), mb);
-
-			pat = new String[][] {
-					{
-						"_P_______P_",
-						"___________",
-						"___________",
-						"P_________P",
-						"___________",
-						"___________",
-						"_P_______P_",
-					},
-					{
-						"_F_______F_",
-						"___________",
-						"____F_F____",
-						"F____L____F",
-						"____F_F____",
-						"___________",
-						"_F_______F_",
-					},
-					{
-						"___________",
-						"____BBB____",
-						"___B_B_B___",
-						"___BB0BB___",
-						"___B_B_B___",
-						"____BBB____",
-						"___________",
-					}
-			};
-			mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'P', ModBlocks.manaPylon,
-					'L', Blocks.LAPIS_BLOCK,
-					'B', Blocks.OBSIDIAN,
-					'0', Blocks.OBSIDIAN,
-					'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
-			);
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), mb);
-
-			pat = new String[][] {
 					{
 						"P_______P",
 						"_________",
@@ -258,7 +193,7 @@ public class Botania {
 					return false;
 				}
 			});
-			mb = PatchouliAPI.instance.makeMultiblock(
+			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
 					pat,
 					'P', ModBlocks.gaiaPylon,
 					'B', Blocks.BEACON,

@@ -19,6 +19,7 @@ import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.CuriosCapability;
 import top.theillusivec4.curios.api.capability.ICurio;
 import top.theillusivec4.curios.api.imc.CurioIMCMessage;
+import vazkii.botania.common.capability.SimpleCapProvider;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
@@ -29,22 +30,6 @@ import java.util.function.Predicate;
 
 // Classloading-safe way to attach curio behaviour to our items
 public class CurioIntegration extends EquipmentHandler {
-
-	private static class Provider implements ICapabilityProvider {
-		private final ICurio curio;
-		private final LazyOptional<ICurio> curioCap;
-
-		Provider(ICurio curio) {
-			this.curio = curio;
-			curioCap = LazyOptional.of(() -> this.curio);
-		}
-
-		@Nonnull
-		@Override
-		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-			return CuriosCapability.ITEM.orEmpty(cap, curioCap);
-		}
-	}
 
 	@SubscribeEvent
 	public static void sendImc(InterModEnqueueEvent evt) {
@@ -80,7 +65,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	protected ICapabilityProvider initCap(ItemStack stack) {
-		return new Provider(new Wrapper(stack));
+		return new SimpleCapProvider<>(CuriosCapability.ITEM, new Wrapper(stack));
 	}
 
 	@Override

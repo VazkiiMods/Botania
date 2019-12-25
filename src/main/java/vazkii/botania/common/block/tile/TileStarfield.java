@@ -28,7 +28,11 @@ public class TileStarfield extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		if(!world.isDaytime() && world.isRemote) {
+		if(world.isRemote) {
+			world.calculateInitialSkylight(); // ensure isDayTime works properly by updating skylightSubtracted
+			if (world.isDaytime())
+				return;
+
 			double radius = 512;
 			int iter = 2;
 			for(int i = 0; i < iter; i++) {
@@ -46,9 +50,9 @@ public class TileStarfield extends TileMod implements ITickableTileEntity {
 				float s = 20F + (float) Math.random() * 20F;
 				int m = 50;
 
-                SparkleParticleData data = SparkleParticleData.sparkle(s, r, g, b, m);
-                world.addParticle(data, x, y, z, 0, 0, 0);
-            }
+				SparkleParticleData data = SparkleParticleData.sparkle(s, r, g, b, m);
+				Botania.proxy.addParticleForce(world, data, x, y, z, 0, 0, 0);
+			}
 		}
 	}
 

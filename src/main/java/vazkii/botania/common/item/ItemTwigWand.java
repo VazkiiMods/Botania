@@ -105,11 +105,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	private static boolean tryFormEnchanter(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		Direction.Axis axis = null;
-		if(TileEnchanter.canEnchanterExist(world, pos, Direction.Axis.X))
-			axis = Direction.Axis.X;
-		else if(TileEnchanter.canEnchanterExist(world, pos, Direction.Axis.Z))
-			axis = Direction.Axis.Z;
+		Direction.Axis axis = TileEnchanter.canEnchanterExist(world, pos);
 
 		if(axis != null) {
 			if(!world.isRemote) {

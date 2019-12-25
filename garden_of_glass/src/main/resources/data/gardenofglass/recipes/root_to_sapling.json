@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "minecraft:oak_sapling"
+  },
+  "ingredients": [
+    {
+      "item": "botania:living_root"
+    },
+    {
+      "item": "botania:living_root"
+    },
+    {
+      "item": "botania:living_root"
+    },
+    {
+      "item": "botania:living_root"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

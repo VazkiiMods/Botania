@@ -160,7 +160,7 @@ public class PacketBotaniaEffect {
 						float b = 0.4F + 0.3F * (float) Math.random();
 						float size = 0.125F + 0.125F * (float) Math.random();
 
-						WispParticleData data = WispParticleData.wisp(size, r, g, b);
+						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
 						world.addParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
 						break;
 					}

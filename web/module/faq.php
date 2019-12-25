@@ -15,7 +15,7 @@ Yes, <a href="https://github.com/Vazkii/Botania">yes it is</a>.</li><br>
 It's ready when it's ready. Please don't bicker about it over email, twitter or what have you all the time, it doesn't help.</li><br>
 
 <li id="q4-fake"><b>How can I contact you?</b> <a href="#q4">(permalink)</a><br>
-Check the <a href="http://vazkii.us/about-me/contact/">contact</a> section on my website. Please read this entire FAQ before you do. Please. Just... please.</li><br>
+Check <a href="https://vazkii.net/">my website</a>. Please read this entire FAQ before you do. Please. Just... please.</li><br>
 
 <li id="q5-fake"><b>Can the flowers in this mod be retroactively generated?</b> <a href="#q5">(permalink)</a><br>
 No, they can't, due to the method they use for generation. They're generated during biome decoration, so the amount of flowers depends on how many flowers would be in that biome to begin with. You can still get the mod's flowers easilly through creating Floral Fertilizer, which is a pretty early game item.</li><br>
@@ -38,14 +38,8 @@ I made a <a href="http://vazkii.us/br101/">website</a> to teach people how to re
 <li id="q11-fake"><b>I have a suggestion for botania. Where do I put it?</b> <a href="#q11">(permalink)</a><br>
 The best place for suggestions is the <a href="https://www.reddit.com/r/botania">/r/botania</a> subreddit. Before you do, however, please read <a href="http://vazkii.us/uncategorized/stuff-you-wont-see-in-botania/">this blog post</a>, so you don't suggest something that I've denied countless times already.</li><br>
 
-<li id="q12-fake"><b>My console is getting spammed with "true" or "false" in the 1.6 version. How do I fix that?</b> <a href="#q12">(permalink)</a><br>
-I accidentally a debug in, I fixed it in 1.7, if you don't want to update, don't place down Nightshades.<br></li><br>
-
-<li id="q13-fake"><b>My game has been very laggy since I installed botania, how can I fix it?</b> <a href="#q13">(permalink)</a><br>
-First off, make sure you are on the latest version, there have been lots of optimization patches, if you're still lagging, go check the mod's config. Try turning off the shaders, if that doesn't help, try setting the flower particle frequency to 0. If that doesn't do it either then I really don't know what will.</li><br>
-
 <li id="q14-fake"><b>Is the Terra Blade from Terraria?</b> <a href="#q14">(permalink)</a><br>
-<a href="http://vazkii.us/mod/Botania/terrablade.html">http://vazkii.us/mod/Botania/terrablade.html</a></li><br>
+<a href="https://botaniamod.net/terrablade.html">...</a></li><br>
 
 <li id="q15-fake"><b>Is there a Botania API? Can I make a Botania Addon?</b> <a href="#q15">(permalink)</a><br>
 Yes, there is <a href="https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/api">an API</a>. When it comes to making addons, you can make them, but please give me a poke about what you're going to add. I hold no ability to disallow you to add some things, given the mod's license, but I at least like to know what's being done. It's not required though.</li><br>

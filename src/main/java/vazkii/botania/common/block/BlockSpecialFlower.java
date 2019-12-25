@@ -35,7 +35,6 @@ import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -45,7 +44,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, IWandable, IWandHUD {
+public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 

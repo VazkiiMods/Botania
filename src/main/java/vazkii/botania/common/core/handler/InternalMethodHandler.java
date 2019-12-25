@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -28,7 +27,6 @@ import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -36,9 +34,7 @@ import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.item.ModItems;
@@ -116,12 +112,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public long getWorldElapsedTicks() {
 		return Botania.proxy.getWorldElapsedTicks();
-	}
-
-	@Override
-	public boolean isBotaniaFlower(World world, BlockPos pos) {
-		Block block = world.getBlockState(pos).getBlock();
-		return block instanceof BlockModFlower || block instanceof BlockFloatingFlower || block instanceof ISpecialFlower;
 	}
 
 	@Override

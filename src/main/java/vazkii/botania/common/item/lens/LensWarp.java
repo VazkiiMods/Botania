@@ -24,7 +24,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 public class LensWarp extends Lens {
 
-	private static final String TAG_WARPED = "botania:warped";
+	public static final String TAG_WARPED = "botania:warped";
 	
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
@@ -48,10 +48,4 @@ public class LensWarp extends Lens {
 		}
 		return dead;
 	}
-	
-	@Override
-	public int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
-		return entity.getPersistentData().getBoolean(TAG_WARPED) ? 0 : burst.getMana();
-	}
-
 }

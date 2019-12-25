@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:end_portal_frame"
+  },
+  "pattern": [
+    "OGO"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "item": "botania:life_essence"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  }
+}

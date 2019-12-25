@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:blaze_block"
+  },
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    }
+  }
+}

@@ -17,6 +17,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.MovingPistonBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
@@ -68,6 +70,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	public BlockPistonRelay(Properties builder) {
 		super(builder);
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@Override
+	public boolean canEntitySpawn(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityType<?> type) {
+		return false;
 	}
 
 	@Override

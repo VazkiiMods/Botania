@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:fertilizer",
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "tag": "botania:dyes"
+    },
+    {
+      "tag": "botania:dyes"
+    },
+    {
+      "tag": "botania:dyes"
+    },
+    {
+      "tag": "botania:dyes"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

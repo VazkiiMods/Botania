@@ -203,7 +203,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		setDelay(cmp.getInt(TAG_DELAY));
 		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
-	
+
 	public boolean isCharging() {
 		return dataManager.get(CHARGING);
 	}

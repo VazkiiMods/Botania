@@ -64,8 +64,6 @@ public interface IInternalMethodHandler {
 
 	public long getWorldElapsedTicks();
 
-	public boolean isBotaniaFlower(World world, BlockPos pos);
-
 	/**
 	 * Wrap inventories in the network into wrappers providing compatibility for storage mods.
 	 */

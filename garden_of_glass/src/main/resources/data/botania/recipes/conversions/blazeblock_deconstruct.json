@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "minecraft:blaze_powder",
+    "count": 9
+  },
+  "ingredients": [
+    {
+      "item": "botania:blaze_block"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

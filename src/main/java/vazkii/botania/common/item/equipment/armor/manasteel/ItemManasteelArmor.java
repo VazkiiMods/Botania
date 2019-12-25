@@ -131,12 +131,11 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		for (ItemStack armor : stacks) {
 			ITextComponent cmp = new StringTextComponent(" - ").appendSibling(armor.getDisplayName());
 			EquipmentSlotType slot = ((ArmorItem) armor.getItem()).getEquipmentSlot();
-			if (hasArmorSetItem(player, slot))
-				cmp.getStyle().setColor(TextFormatting.GREEN);
+			cmp.applyTextStyle(hasArmorSetItem(player, slot) ? TextFormatting.GREEN : TextFormatting.GRAY);
 			list.add(cmp);
 		}
 		if(hasPhantomInk(stack))
-			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
+			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").applyTextStyle(TextFormatting.GRAY));
 	}
 
 	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
@@ -186,15 +185,17 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	private ITextComponent getArmorSetTitle(PlayerEntity player) {
+		ITextComponent end = getArmorSetName()
+				.appendText(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
+				.applyTextStyle(TextFormatting.GRAY);
 		return new TranslationTextComponent("botaniamisc.armorset")
 				.appendText(" ")
-				.appendSibling(getArmorSetName())
-				.appendText(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")");
+				.appendSibling(end);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manasteel.desc"));
+		list.add(new TranslationTextComponent("botania.armorset.manasteel.desc").applyTextStyle(TextFormatting.GRAY));
 	}
 
 	@Override

@@ -100,21 +100,24 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	public static boolean hasMonocle(PlayerEntity player) {
-		ItemStack stack = EquipmentHandler.findOrEmpty(ModItems.monocle, player);
-		if(!stack.isEmpty()) {
-			Item item = stack.getItem();
-			if(item instanceof IBurstViewerBauble)
-				return true;
+		return EquipmentHandler.getAllWorn(player).map(inv -> {
+			for (int i = 0; i < inv.getSlots(); i++) {
+				ItemStack stack = inv.getStackInSlot(i);
+				if(!stack.isEmpty()) {
+					Item item = stack.getItem();
+					if(item instanceof IBurstViewerBauble)
+						return true;
 
-			if(item instanceof ICosmeticAttachable) {
-				ICosmeticAttachable attach = (ICosmeticAttachable) item;
-				ItemStack cosmetic = attach.getCosmeticItem(stack);
-				if(cosmetic != null && cosmetic.getItem() instanceof IBurstViewerBauble)
-					return true;
+					if(item instanceof ICosmeticAttachable) {
+						ICosmeticAttachable attach = (ICosmeticAttachable) item;
+						ItemStack cosmetic = attach.getCosmeticItem(stack);
+						if(!cosmetic.isEmpty() && cosmetic.getItem() instanceof IBurstViewerBauble)
+							return true;
+					}
+				}
 			}
-		}
-
-		return false;
+			return false;
+		}).orElse(false);
 	}
 
 }

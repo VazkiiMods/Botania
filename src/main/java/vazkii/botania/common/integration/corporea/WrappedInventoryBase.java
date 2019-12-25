@@ -11,6 +11,7 @@ package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 
@@ -29,11 +30,6 @@ public abstract class WrappedInventoryBase implements IWrappedInventory {
 	@Override
 	public ICorporeaSpark getSpark() {
 		return spark;
-	}
-
-	protected boolean isMatchingItemStack(Object matcher, boolean checkNBT, ItemStack stackAt) {
-		return matcher instanceof ItemStack ? CorporeaHelper.stacksMatch((ItemStack) matcher, stackAt, checkNBT)
-				: matcher instanceof String ? CorporeaHelper.stacksMatch(stackAt, (String) matcher) : false;
 	}
 
 	protected Collection<? extends ItemStack> breakDownBigStack(ItemStack stack) {

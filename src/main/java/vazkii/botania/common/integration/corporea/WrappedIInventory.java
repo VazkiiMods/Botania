@@ -49,7 +49,7 @@ public class WrappedIInventory extends WrappedInventoryBase {
 			ItemStack stackAt = inv.handler.getStackInSlot(i);
 			// WARNING: this code is very similar in all implementations of
 			// IWrappedInventory - keep it synch
-			if(isMatchingItemStack(request.matcher, request.checkNBT, stackAt)) {
+			if(request.matcher.isStackValid(stackAt)) {
 				int rem = Math.min(stackAt.getCount(), request.count == -1 ? stackAt.getCount() : request.count);
 				request.foundItems += stackAt.getCount();
 

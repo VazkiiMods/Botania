@@ -2,15 +2,25 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.imc.IMC;
+import vazkii.botania.api.imc.OreWeightMessage;
 import vazkii.botania.api.imc.PaintableBlockMessage;
 import vazkii.botania.common.lib.LibMisc;
 
 public class IMCSender {
 	public static void enqueue(InterModEnqueueEvent evt) {
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_COAL.getId(), 46525));
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_DIAMOND.getId(), 1265));
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_EMERALD.getId(), 780));
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_GOLD.getId(), 2970));
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_IRON.getId(), 20665));
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_LAPIS.getId(), 1285));
+		send(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_REDSTONE.getId(), 6885));
+		send(IMC.REGISTER_NETHER_ORE_WEIGHT, new OreWeightMessage(Tags.Blocks.ORES_QUARTZ.getId(), 19600));
 		/* Ore weights todo 1.13
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
@@ -19,30 +29,23 @@ public class IMCSender {
 		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics
 		addOreWeight("oreChimerite", 3970); // Ars Magica
 		addOreWeight("oreCinnabar",  2585); // Thaumcraft
-		addOreWeight("oreCoal", 46525); // Vanilla
 		addOreWeight("oreCopper", 8325); // IC2, Thermal Expansion, Tinkers' Construct, etc.
 		addOreWeight("oreDark", 1350); // EvilCraft
 		addOreWeight("oreDarkIron", 1700); // Factorization (older versions)
 		addOreWeight("oreFzDarkIron", 1700); // Factorization (newer versions)
-		addOreWeight("oreDiamond", 1265); // Vanilla
-		addOreWeight("oreEmerald", 780); // Vanilla
 		addOreWeight("oreGalena", 1000); // Factorization
-		addOreWeight("oreGold", 2970); // Vanilla
 		addOreWeight("oreInfusedAir", 925); // Thaumcraft
 		addOreWeight("oreInfusedEarth", 925); // Thaumcraft
 		addOreWeight("oreInfusedEntropy", 925); // Thaumcraft
 		addOreWeight("oreInfusedFire", 925); // Thaumcraft
 		addOreWeight("oreInfusedOrder", 925); // Thaumcraft
 		addOreWeight("oreInfusedWater", 925); // Thaumcraft
-		addOreWeight("oreIron", 20665); // Vanilla
-		addOreWeight("oreLapis", 1285); // Vanilla
 		addOreWeight("oreLead", 7985); // IC2, Thermal Expansion, Factorization, etc.
 		addOreWeight("oreMCropsEssence", 3085); // Magical Crops
 		addOreWeight("oreMithril", 8); // Thermal Expansion
 		addOreWeight("oreNickel", 2275); // Thermal Expansion
 		addOreWeight("oreOlivine", 1100); // Project RED
 		addOreWeight("orePlatinum", 365); // Thermal Expansion
-		addOreWeight("oreRedstone", 6885); // Vanilla
 		addOreWeight("oreRuby", 1100); // Project RED
 		addOreWeight("oreSapphire", 1100); // Project RED
 		addOreWeight("oreSilver", 6300); // Thermal Expansion, Factorization, etc.
@@ -58,7 +61,6 @@ public class IMCSender {
 		addOreWeight("oreOsmium", 6915); // Mekanism
 		addOreWeight("oreQuartzBlack", 5535); // Actually Additions
 
-		addOreWeightNether("oreQuartz", 19600); // Vanilla
 		addOreWeightNether("oreCobalt", 500); // Tinker's Construct
 		addOreWeightNether("oreArdite", 500); // Tinker's Construct
 		addOreWeightNether("oreFirestone", 5); // Railcraft

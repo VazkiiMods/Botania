@@ -53,7 +53,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	private void onEntityDamaged(LivingHurtEvent event) {
 		if(event.getSource().getImmediateSource() instanceof PlayerEntity
 				&& event.getEntityLiving() instanceof MobEntity
-				&& !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+				&& !event.getEntityLiving().world.isRemote
+				&& event.getEntityLiving().isNonBoss()
+				&& Math.random() < 0.6F) {
 			Runnable lambda = () -> {
 				MobEntity target = (MobEntity) event.getEntityLiving();
 				PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();

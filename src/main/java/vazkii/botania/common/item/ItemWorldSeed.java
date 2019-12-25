@@ -19,6 +19,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 
@@ -34,9 +36,11 @@ public class ItemWorldSeed extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		BlockPos coords = world.getSpawnPoint();
+		if (world.isRemote)
+			return new ActionResult<>(ActionResultType.SUCCESS, stack);
 
-		if(MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.posX, player.posY, player.posZ) > 24) {
+		BlockPos coords = world.getSpawnPoint();
+		if(world.getDimension().canRespawnHere() && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.posX, player.posY, player.posZ) > 24) {
 			player.rotationPitch = 0F;
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
@@ -46,15 +50,13 @@ public class ItemWorldSeed extends ItemMod {
 
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
-			for(int i = 0; i < 50; i++) {
-                world.addParticle(data, player.posX + Math.random() * player.getWidth(), player.posY - 1.6 + Math.random() * player.getHeight(), player.posZ + Math.random() * player.getWidth(), 0, 0, 0);
-            }
+			((ServerWorld) world).spawnParticle(data, player.posX, player.posY+ player.getHeight() / 2, player.posZ, 50, player.getWidth() / 8, player.getHeight() / 4, player.getWidth() / 8, 0);
 
 			stack.shrink(1);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			return new ActionResult<>(ActionResultType.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return new ActionResult<>(ActionResultType.PASS, stack);
 	}
 
 }

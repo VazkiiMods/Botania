@@ -42,9 +42,9 @@ public class BlockCorporeaRetainer extends BlockMod {
 
 		if(power && !powered) {
 			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
 		} else if(!power && powered)
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override

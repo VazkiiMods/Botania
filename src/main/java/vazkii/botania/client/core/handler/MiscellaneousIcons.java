@@ -11,11 +11,19 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelRotation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.BasicState;
+import net.minecraftforge.client.model.ForgeBlockStateV1;
+import net.minecraftforge.client.model.ModelDynBucket;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
@@ -23,6 +31,7 @@ import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
@@ -81,6 +90,12 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
+		// Water bowl
+		ModelDynBucket bowl = new ModelDynBucket(prefix("items/waterbowl_base"), prefix("items/waterbowl_fluid"), prefix("items/waterbowl_cover"), Fluids.WATER, false, true);
+		IModelState transform = ForgeBlockStateV1.Transforms.get("forge:default-item").get();
+		IBakedModel bakedBowl = bowl.bake(evt.getModelLoader(), ModelLoader.defaultTextureGetter(), new BasicState(transform, false), DefaultVertexFormats.ITEM);
+		evt.getModelRegistry().put(new ModelResourceLocation(ModItems.waterBowl.getRegistryName(), "inventory"), bakedBowl);
+
 		// Floating flower item models
 		for (Map.Entry<ResourceLocation, IBakedModel> e : evt.getModelRegistry().entrySet()) {
 			if (e.getValue() instanceof FloatingFlowerModel.Baked) {

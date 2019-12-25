@@ -19,6 +19,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -37,20 +38,20 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void interceptRequest(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}
+	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}
 
 	@Override
-	public void interceptRequestLast(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
+	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
 		List<ItemStack> filter = getFilter();
 		for(ItemStack stack : filter)
-			if(requestMatches(request, stack)) {
+			if(request.isStackValid(stack)) {
 				int missing = count;
 				for(ItemStack stack_ : stacks)
 					missing -= stack_.getCount();
 
 				if(missing > 0 && !world.getBlockState(getPos()).get(BotaniaStateProps.POWERED)) {
-					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true), 1 | 2);
-					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
+					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true));
+					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 
 					TileEntity requestor = source.getSparkInventory().world.getTileEntity(source.getSparkInventory().pos);
 					for(Direction dir : Direction.values()) {
@@ -65,20 +66,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 	}
 
-	public boolean requestMatches(Object request, ItemStack filter) {
-		if(filter.isEmpty())
-			return false;
-
-		if(request instanceof ItemStack) {
-			ItemStack stack = (ItemStack) request;
-			return !stack.isEmpty() && stack.isItemEqual(filter) && ItemStack.areItemStackTagsEqual(filter, stack);
-		}
-
-		String name = (String) request;
-		return CorporeaHelper.stacksMatch(filter, name);
-	}
-
-	public List<ItemStack> getFilter() {
+	private List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList<>();
 
 		for(Direction dir : Direction.values()) {

@@ -28,7 +28,6 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -39,7 +38,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements ISpecialFlower, IWandable, IWandHUD {
+public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements IWandable, IWandHUD {
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
 	public BlockFloatingSpecialFlower(Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
@@ -84,6 +83,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+		super.onBlockHarvested(world, pos, state, player);
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
 	}
 

@@ -11,7 +11,7 @@
       "tag": "forge:dusts/glowstone"
     },
     {
-      "tag": "botania:flowers/orange"
+      "item": "botania:orange_mystical_flower"
     }
   ],
   "type": "minecraft:crafting_shapeless"

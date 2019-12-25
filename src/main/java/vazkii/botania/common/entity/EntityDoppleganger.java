@@ -700,7 +700,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			}
 		}
 
-		if(!isAlive())
+		if(!isAlive() || players.isEmpty())
 			return;
 
 		boolean spawnMissiles = hardMode && ticksExisted % 15 < 4;
@@ -763,16 +763,15 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 						}
 
-						if(!players.isEmpty())
-							for(int pl = 0; pl < playerCount; pl++)
-								for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hardMode ? 6 : 3) : 1); i++) {
-									EntityPixie pixie = new EntityPixie(world);
-									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-									pixie.setPosition(posX + getWidth() / 2, posY + 2, posZ + getWidth() / 2);
-									pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
-											SpawnReason.MOB_SUMMONED, null, null);
-									world.addEntity(pixie);
-								}
+						for(int pl = 0; pl < playerCount; pl++)
+							for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hardMode ? 6 : 3) : 1); i++) {
+								EntityPixie pixie = new EntityPixie(world);
+								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
+								pixie.setPosition(posX + getWidth() / 2, posY + 2, posZ + getWidth() / 2);
+								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+										SpawnReason.MOB_SUMMONED, null, null);
+								world.addEntity(pixie);
+							}
 
 						tpDelay = hardMode ? dying ? 35 : 45 : dying ? 40 : 60;
 						spawnLandmines = true;
@@ -783,8 +782,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				if(spawnMissiles)
 					spawnMissile();
 			} else {
-				if(!players.isEmpty())
-					damageEntity(DamageSource.causePlayerDamage(players.get(0)), 0);
+				damageEntity(DamageSource.causePlayerDamage(players.get(0)), 0);
 			}
 		}
 	}
@@ -1014,6 +1012,11 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
+	@Override
+	public boolean canBeLeashedTo(PlayerEntity player) {
+		return false;
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	private static class DopplegangerMusic extends TickableSound {
 		private final EntityDoppleganger guardian;
@@ -1024,7 +1027,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();
 			this.z = guardian.getSource().getZ();
-			this.repeat = true;
+			// this.repeat = true; TODO restore once LWJGL3/vanilla bug fixed?
 		}
 
 		@Override

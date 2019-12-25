@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "botania:black_dye",
+    "botania:blue_dye",
+    "botania:brown_dye",
+    "botania:cyan_dye",
+    "botania:gray_dye",
+    "botania:green_dye",
+    "botania:light_blue_dye",
+    "botania:light_gray_dye",
+    "botania:lime_dye",
+    "botania:magenta_dye",
+    "botania:orange_dye",
+    "botania:pink_dye",
+    "botania:purple_dye",
+    "botania:red_dye",
+    "botania:white_dye",
+    "botania:yellow_dye"
+  ]
+}
