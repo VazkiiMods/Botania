@@ -108,7 +108,7 @@
   "botaniamisc.blockAway": "1 Block Away",
   "botaniamisc.blocksAway": "%s Blocks Away",
   "botaniamisc.clickToTeleport": "Right-click to teleport",
-  "botaniamisc.clickToRemoveWarp": "Sneak-left click to remove",
+  "botaniamisc.clickToRemoveWarp": "Sneak-punch to remove",
   "botaniamisc.unboundWarp": "Unbound Warp Point",
   "botaniamisc.clickToAddWarp": "Right-click to bind to this position",
   "botaniamisc.hasKeepIvy": "Has Resolute Ivy",
@@ -2712,7 +2712,7 @@
 
   "botania.entry.gravityRod": "Rod of the Shaded Mesa",
   "botania.tagline.gravityRod": "A rod for lifting and throwing mobs",
-  "botania.page.gravityRod0": "The $(1)Rod of the Shaded Mesa$(0) is a powerful artifact; legend has it that the first of these devices was found lying atop a dusky geographical feature next to a single crowbar.$(p)To use this device, aim it at a mob or item and hold right-click to pick it up. Releasing right-click will drop the held entity, while pressing left-click will toss it in a powerful burst.",
+  "botania.page.gravityRod0": "The $(1)Rod of the Shaded Mesa$(0) is a powerful artifact; legend has it that the first of these devices was found lying atop a dusky geographical feature next to a single crowbar.$(p)To use this device, aim it at a mob or item and hold right-click to pick it up. Releasing right-click will drop the held entity, while punching with it will toss the entity in a powerful burst.",
   "botania.page.gravityRod1": "This power does not come free, of course. Its use requires a constant drain of $(4)Mana$(0) from the user's inventory.",
   "botania.page.gravityRod2": "bun pls",
 
@@ -2725,7 +2725,7 @@
   "botania.entry.craftingHalo": "Assembly Halo",
   "botania.tagline.craftingHalo": "Portable crafting at its quickest",
   "botania.page.craftingHalo0": "Lugging around a $(1)Crafting Table$(0) is a generally troublesome task. The $(1)Assembly Halo$(0), however, can act as a portable $(1)Crafting Table$(0), as well as a quick-start crafting option. Holding the item displays a \"halo\" of recipes around the holder, and right-clicking the displayed $(1)Crafting Table$(0) will open a crafting interface.",
-  "botania.page.craftingHalo1": "As long as the item is kept in-inventory, it'll remember its last recipe.$(p)Right-clicking an empty slot of the halo will save the recipe to that slot, and right-clicking a slot with a recipe saved will attempt to craft it from available items. Sneak-left click deletes a saved recipe.",
+  "botania.page.craftingHalo1": "As long as the item is kept in-inventory, it'll remember its last recipe.$(p)Right-clicking an empty slot of the halo will save the recipe to that slot, and right-clicking a slot with a recipe saved will attempt to craft it from available items. Sneak-punching a saved recipe will delete it.",
   "botania.page.craftingHalo2": "It has no taste if you cook it from the menu",
 
   "botania.entry.clip": "Lens Clip",
@@ -2796,7 +2796,7 @@
 
   "botania.entry.exchangeRod": "Rod of the Shifting Crust",
   "botania.tagline.exchangeRod": "A rod for swapping blocks",
-  "botania.page.exchangeRod0": "The $(1)Rod of the Shifting Crust$(0) is a magical device with the ability to swap blocks in the world at very high speeds. To use the rod, sneak-right click a block to select it.$(p)After a block is selected, left-clicking any other block in the world with the rod will use $(4)Mana$(0) to swap it for the selected block, assuming the latter is present in the user's inventory.",
+  "botania.page.exchangeRod0": "The $(1)Rod of the Shifting Crust$(0) is a magical device with the ability to swap blocks in the world at very high speeds. To use the rod, sneak-right click a block to select it.$(p)After a block is selected, punching any other block in the world with the rod will use $(4)Mana$(0) to swap it for the selected block, assuming the latter is present in the user's inventory.",
   "botania.page.exchangeRod1": "Right-clicking a block in the world will perform a larger transformation, swapping all highlighted blocks with the selected one. Blocks being placed (obviously) come from the user's inventory, and require $(4)Mana$(0) for placement. Only proper, full-sized blocks can be used for this swap-- no flowers, torches, or other shenanigans of that sort, though slabs are fine.",
   "botania.page.exchangeRod2": "Other rods or devices can supply blocks to the $(1)Rod of the Shifting Crust$(0).$(p)For example, a $(1)Rod of the Lands$(0) in a user's inventory will provide their $(1)Rod of the Shifting Crust$(0) with an endless supply of $(1)Dirt$(0) (assuming sufficient $(4)Mana$(0) to conjure each dirt block, of course).",
   "botania.page.exchangeRod3": "Bootlegged equal trade",
