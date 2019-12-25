@@ -2743,6 +2743,11 @@
   "botania.page.worldSeed0": "$(1)World Seeds$(0) are energized pieces of elemental matter with the ability to return its user to the world spawn.$(p)If its user is 24 blocks or more from the world's spawnpoint, via right-click, will instantly teleport them to that location, consuming the seed in the process.",
   "botania.page.worldSeed1": "Where the heart is",
 
+  "botania.entry.spellCloth": "Spellbinding Cloth",
+  "botania.tagline.spellCloth": "Wipe enchantments and curses off items",
+  "botania.page.spellCloth0": "The combination of $(1)Manaweave Cloth$(0) and a $(1)Mana Pearl$(0)'s displacive properties yields a type of cloth that will dispel all $(4)Enchantments$(0) and $(4)Curses$(0) it comes into contact with.$(p)Combining the $(1)Spellbinding Cloth$(0) with any enchanted item in a crafting table will remove all enchantments and curses from that item, at the cost of some of the cloth's durability.",
+  "botania.page.spellCloth1": "Oldest item in the book",
+
   "botania.entry.thornChakram": "Thorn Chakram",
   "botania.tagline.thornChakram": "Throwable vine weapon that bounces and poisons",
   "botania.page.thornChakram0": "The $(1)Thorn Chakram$(0) is a thrown weapon crafted from $(1)Terrasteel$(0) and plant matter. When thrown, a chakram pierces through enemies, dealing damage and having a chance to poison. It bounces off blocks, and after about three seconds returns to its thrower, as a boomerang does.$(p)Up to 6 $(1)Thorn Chakrams$(0) can be stacked together, making them deadly in closed spaces.",
