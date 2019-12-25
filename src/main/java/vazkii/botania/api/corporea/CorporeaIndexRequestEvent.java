@@ -20,11 +20,11 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class CorporeaIndexRequestEvent extends Event {
 	public final ServerPlayerEntity requester;
-	public String request;
+	public ICorporeaRequestMatcher request;
 	public int requestCount;
 	public ICorporeaSpark indexSpark;
 	
-	public CorporeaIndexRequestEvent(ServerPlayerEntity requester, String request, int requestCount, ICorporeaSpark indexSpark) {
+	public CorporeaIndexRequestEvent(ServerPlayerEntity requester, ICorporeaRequestMatcher request, int requestCount, ICorporeaSpark indexSpark) {
 		this.requester = requester;
 		this.request = request;
 		this.requestCount = requestCount;

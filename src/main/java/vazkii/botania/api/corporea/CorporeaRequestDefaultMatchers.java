@@ -12,8 +12,11 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import org.apache.commons.lang3.text.WordUtils;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
-import java.util.function.Function;
 import java.util.regex.Pattern;
 
 /**
@@ -79,6 +82,12 @@ public final class CorporeaRequestDefaultMatchers {
 			tag.putBoolean(TAG_REQUEST_CONTAINS, contains);
 		}
 
+		@Override
+		@SuppressWarnings("deprecation")
+		public ITextComponent getRequestName() {
+			return new StringTextComponent(WordUtils.capitalizeFully(expression));
+		}
+
 		private boolean equalOrContain(String str) {
 			return contains ? str.contains(expression) : str.equals(expression);
 		}
@@ -103,7 +112,7 @@ public final class CorporeaRequestDefaultMatchers {
 
 		@Override
 		public boolean isStackValid(ItemStack stack) {
-			return !stack.isEmpty() && !match.isEmpty() && stack.isItemEqual(match) && (!checkNBT || ItemStack.areItemStackTagsEqual(stack, match));
+			return !stack.isEmpty() && !match.isEmpty() && stack.isItemEqual(match) && (!checkNBT || ItemNBTHelper.matchTag(match.getTag(), stack.getTag()));
 		}
 
 		public static ICorporeaRequestMatcher createFromNBT(CompoundNBT tag) {
@@ -115,6 +124,11 @@ public final class CorporeaRequestDefaultMatchers {
 			CompoundNBT cmp = match.write(new CompoundNBT());
 			tag.put(TAG_REQUEST_STACK, cmp);
 			tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
+		}
+
+		@Override
+		public ITextComponent getRequestName() {
+			return match.getDisplayName();
 		}
 	}
 

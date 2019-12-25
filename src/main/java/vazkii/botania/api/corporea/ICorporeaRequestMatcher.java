@@ -12,8 +12,7 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-
-import java.util.function.Function;
+import net.minecraft.util.text.ITextComponent;
 
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
@@ -31,4 +30,9 @@ public interface ICorporeaRequestMatcher {
 	 * Serialize to NBT data, for the Corporea Retainer's benefit.
 	 */
 	void writeToNBT(CompoundNBT tag);
+
+	/**
+	 * Returns the pretty name of the requested item, for printing request feedback on Corporea Indexes.
+	 */
+	ITextComponent getRequestName();
 }
