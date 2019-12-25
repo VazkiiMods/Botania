@@ -2770,7 +2770,7 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of a Terra Shatterer",
-  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, having an active $(1)Stone of Temperance$(0) in one's inventory will prevent Shatterers or $(1)Terra Truncators$(0) from breaking any more than that. The stone can be toggled on/off with a sneak-right click.",
+  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, having an active $(1)Stone of Temperance$(0) in one's inventory will prevent Shatterers from breaking any wider areas than that. The stone can be toggled on/off with a sneak-right click.",
   "botania.page.temperanceStone1": "Don't lose it",
 
   "botania.entry.terraAxe": "Terra Truncator",
@@ -2812,8 +2812,8 @@
 
   "botania.entry.sextant": "Worldshaper's Sextant",
   "botania.tagline.sextant": "A tool to help create circles",
-  "botania.page.sextant0": "In a world of cubes, the secrets of creating circles is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(1)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. To use the item, simply right-click and hold at a block to choose a circle's center, and look around to choose its radius.",
-  "botania.page.sextant1": "While right-click is held, a blue circle will appear in the world as a preview of the circle's shape. Upon release of the sextant, a mirage of $(1)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the circle.",
+  "botania.page.sextant0": "In a world of cubes, the secrets of creating circles is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(1)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. ",
+  "botania.page.sextant1": "To use the item, simply right-click and hold at a block to choose a circle's center, and look around to choose its radius; a blue circle will appear in the world as a preview of the circle's shape. Upon release of the sextant, a mirage of $(1)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the circle.",
   "botania.page.sextant2": "You sketch a circle, filling you with determination",
 
   "botania.entry.astrolabe": "Worldshaper's Astrolabe",
@@ -2915,8 +2915,8 @@
 
   "botania.entry.corporeaInterceptor": "Corporea Interceptor",
   "botania.tagline.corporeaInterceptor": "Catch unfulfillable requests",
-  "botania.page.corporeaInterceptor0": "The $(1)Corporea Interceptor$(0) does exactly as its name suggests: it intercepts Corporea requests for particular items-- specifically unfulfillable ones (items in $(1)Item Frames$(0) attached to the block designate which items it'll recognize).$(p)When a request is made for an item that the network doesn't have enough of to fulfill, but that the Interceptor recognizes, the Interceptor will trigger.",
-  "botania.page.corporeaInterceptor1": "When the Interceptor triggers, it emits a short redstone pulse. This can be used to do all sorts of things: for a start, crafting the required item with $(1)Crafty Crates$(0), or just lighting up a lamp indicating that the resource is out.",
+  "botania.page.corporeaInterceptor0": "The $(1)Corporea Interceptor$(0) does exactly as its name suggests: it intercepts Corporea requests for particular items-- specifically unfulfillable ones (items in $(1)Item Frames$(0) attached to the block designate which items it'll recognize).",
+  "botania.page.corporeaInterceptor1": "When a request is made for an item that the network can't fulfill, but that the Interceptor recognizes, the Interceptor will trigger, emitting a short redstone pulse. This can be used to do all sorts of things: for a start, crafting the required item with $(1)Crafty Crates$(0), or just lighting up a lamp indicating that the resource is out.",
   "botania.page.corporeaInterceptor2": "So many automation prospects",
 
   "botania.entry.corporeaCrystalCube": "Corporea Crystal Cube",
@@ -2949,7 +2949,7 @@
 
   "botania.entry.keepIvy": "Resolute Ivy",
   "botania.tagline.keepIvy": "Keep items after death",
-  "botania.page.keepIvy0": "Everyone knows that between death and resurrection, a dying person's items splatter all over the ground, generally causing a massive nuisance to said person. This can be avoided relatively simply: when a piece of $(1)Resolute Ivy$(0) is attached to an item in a crafting grid, the ivy will sacrifice itself at death to keep the item in its holder's inventory. After the fact, another piece will need to be applied again in the event of a second death.",
+  "botania.page.keepIvy0": "Everyone knows that a dying person's items splatter all over the ground: generally a massive nuisance. This issue can be avoided quite simply: when a piece of $(1)Resolute Ivy$(0) is attached to an item in a crafting grid, the ivy will sacrifice itself at death to keep the item in its holder's inventory. Afterwards, another piece would be needed for a second death.",
   "botania.page.keepIvy2": "There is, however, one restriction on the items the ivy can protect.$(p)For $(o)technical reasons$(), the ivy will not attach to an item that leaves something behind when used in a crafting recipe (like a $(1)Bucket of Water$(0) or a $(1)Mortar and Pestle$(0)).",
   "botania.page.keepIvy1": "Because people die if they are killed",
 
