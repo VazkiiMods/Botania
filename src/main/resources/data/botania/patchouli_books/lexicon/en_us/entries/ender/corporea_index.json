@@ -34,10 +34,6 @@
       "text": "botania.page.corporeaIndex8"
     },
     {
-      "type": "text",
-      "text": "botania.page.corporeaIndex6"
-    },
-    {
       "type": "crafting",
       "text": "botania.page.corporeaIndex7",
       "recipe": "botania:corporea_index"

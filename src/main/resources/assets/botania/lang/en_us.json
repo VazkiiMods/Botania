@@ -463,11 +463,11 @@
   "botania.challenge.orechid.desc": "Create a system that allows for the Orechid flower to be fully automated. Bonus points if the output is smelted and sorted.",
 
   "botania.challenge.mobTower": "Spawning Tower",
-  "botania.challenge.mobTower.desc": "Create a tower style mob farm. Mobs must be sorted and put into specific chambers. Spawners can be used. Bonus points if the farm functions at 100% efficiency without a player's interaction.",
+  "botania.challenge.mobTower.desc": "Create a tower style mob farm. Mobs must be sorted and put into specific chambers. Spawners can be used. Bonus points if the farm functions at 100%% efficiency without a player's interaction.",
   "botania.challenge.entropinnyumSetup": "Entropinnyum Setup",
   "botania.challenge.entropinnyumSetup.desc": "Create a system that automatically crafts TNT and safely feeds it to an Entropinnyum flower, creating mana. Bonus points if the sand and gunpowder required for the TNT don't need to be input manually.",
   "botania.challenge.spectrolusSetup": "Spectrolus Setup",
-  "botania.challenge.spectrolusSetup.desc": "Create a system that feeds a Spectrolus, generating mana. Aside from raw mana, no items may be input from outside the system. Bonus points if it operates at 100% efficiency, never wasting any wool.",
+  "botania.challenge.spectrolusSetup.desc": "Create a system that feeds a Spectrolus, generating mana. Aside from raw mana, no items may be input from outside the system. Bonus points if it operates at 100%% efficiency, never wasting any wool.",
   "botania.challenge.shulkMeNotSetup": "Shulk Me Not Setup",
   "botania.challenge.shulkMeNotSetup.desc": "Create a system that allows for a Shulk Me Not to produce mana automatically, without any mana, items or entities from outside the system. Bonus points if no unnecessary mob infighting happens.",
   "botania.challenge.potionBrewer": "Automated Brewing",
@@ -1709,7 +1709,7 @@
   "botania.entry.gardenOfGlass": "Garden of Glass",
   "botania.tagline.gardenOfGlass": "Your new challenge",
   "botania.page.gardenOfGlass0": "In the $(2)Garden of Glass$(0) nobody can hear you scream.$(p)You're alone in space.$(p)How exciting.",
-  "botania.page.gardenOfGlass1": "The $(2)Garden of Glass$(0) is a skyblock mode for Botania. It's aimed more for players who have some experience in the mod, but if you're new to it, you're more than welcome to try it out anyway.$(p)Most of $(4)Botania$(0) functions the same as it does on the ground, but some tweaks have been put in place to allow for skyblock-style gameplay, which are listed in the following pages.",
+  "botania.page.gardenOfGlass1": "The $(2)Garden of Glass$(0) is a skyblock mode for Botania. It's aimed more at players who have some experience in the mod, but if you're new to it, you're more than welcome to try it out anyway.$(p)Most of $(4)Botania$(0) functions the same as it does on the ground, but some tweaks have been put in place to allow for skyblock-style gameplay, which are listed in the following pages.",
   "botania.page.gardenOfGlass2": "After spawning in the $(1)Garden of Glass$(0), you'll find $(1)Living Roots$(0) under your feet. These can be crafted into $(1)Saplings$(0) and $(1)Floral Fertilizer$(0), or just used as $(1)Bone Meal$(0). Sneak-right clicking a $(1)Dirt$(0) or $(1)Grass$(0) block with an empty hand will rummage through the soil, yielding some $(1)Pebbles$(0); these can be converted into $(1)Cobblestone$(0). Filling a $(1)Petal Apothecary$(0) can be done with a $(1)Bowl$(0), which in turn can be filled by right-clicking it on a water block.",
   "botania.page.gardenOfGlass3": "Creating $(1)Saplings$(0)",
   "botania.page.gardenOfGlass4": "Creating $(1)Floral Fertilizer$(0)",
@@ -1738,7 +1738,7 @@
   "botania.page.flowers4": "Crafting the $(1)Pestle and Mortar$(0).",
   "botania.page.flowers5": "Grinding Petals into Powder.",
   "botania.page.flowers5.5": "Grinding mundane flowers into Powder.",
-  "botania.page.flowers6": "Right-clicking the $(1)Floral Powder$(0) on any $(1)Wool$(0) or $(1)Carpet$(0) will change its color to the color of the powder.$(p)By mixing the $(1)Floral Powder$(0) with some $(1)Bone Meal$(0), you'll create a different type of fertilizer. This $(1)Floral Fertilizer$(0) will grow a few $(1)Mystical Flowers$(0) in the nearby vicinity, if you ever run low on those.",
+  "botania.page.flowers6": "Right-clicking the $(1)Floral Powder$(0) on a colorable block will change its color to the color of the powder.$(p)By mixing the $(1)Floral Powder$(0) with some $(1)Bone Meal$(0), you'll create a different type of fertilizer. This $(1)Floral Fertilizer$(0) will grow a few $(1)Mystical Flowers$(0) in the nearby vicinity, if you ever run low on those.",
   "botania.page.flowers7": "Making fertilizer (any powder colors work)",
   "botania.page.flowers8": "Using typical flower substances also works",
   "botania.page.flowers10": "There're also some taller variants of the typical $(1)Mystical Flowers$(0) around the world. These can only be gathered with $(1)Shears$(0), but can be plucked for twice the petals a normal flower would yield. They're a bit too big for dye, though.",
@@ -1885,7 +1885,7 @@
 
   "botania.entry.rfGenerator": "Mana Fluxfield",
   "botania.tagline.rfGenerator": "Converts Mana into Forge Energy",
-  "botania.page.rfGenerator0": "By passing $(4)Mana$(0) through a field of redstone charge, it can be converted from natural energy to $(4)Forge Energy$(0).$(p)Any $(4)Mana Bursts$(0) received by the Fluxfield are converted into $(4)FE$(0), and sent to any nearby $(4)FE$(0) acceptors.",
+  "botania.page.rfGenerator0": "By passing $(4)Mana$(0) through a field of redstone charge, it can be converted from natural energy to $(4)Forge Energy$(0).$(p)Any $(4)Mana Bursts$(0) received by the Fluxfield are converted into $(4)FE$(0), and sent to any adjacent $(4)FE$(0) acceptors.",
   "botania.page.rfGenerator1": "Challenging the fabric of magic mod reality",
 
   "botania.entry.lens": "Mana Lenses",
@@ -1950,7 +1950,7 @@
   "botania.entry.redstoneSpreader": "Pulse Mana Spreader",
   "botania.tagline.redstoneSpreader": "A spreader that fires on a Redstone pulse",
   "botania.page.redstoneSpreader0": "By combining a $(1)Mana Spreader$(0) with a piece of $(1)Redstone$(0), a $(1)Pulse Mana Spreader$(0) is created, which (as the name implies) fires when given a $(4)redstone pulse$(0), regardless of target.$(p)Keep in mind that it still won't shoot a burst until the last one dissipates or is absorbed.",
-  "botania.page.redstoneSpreader1": "Li'l touch of redstone",
+  "botania.page.redstoneSpreader1": "Lil' touch of redstone",
 
   "botania.entry.manastar": "Manastar",
   "botania.tagline.manastar": "A flower for checking net mana flow",
@@ -2241,7 +2241,7 @@
   "botania.page.dandelifeon2": "Each location within the flower's 25x25 area of effect counts as a $(4)Cell$(0). Cells may be alive or dead; a cell counts as alive if its respective block is a $(1)Cellular Block$(0) (read on), or dead if it's anything else. The $(4)Neighbors$(0) of a cell are the eight cells surrounding any cell.",
   "botania.page.dandelifeon3": "Every step of the game, the following transitions happen to each cell simultaneously:$(p)$(4)1)$(0) Any live cell with exactly 2 or 3 live neighbours survives the step.$(p)$(4)2)$(0) Any live cell not satisfying condition 1 becomes dead.$(p)$(4)3)$(0) Any dead cell with exactly three live neighbours becomes a live cell.",
   "botania.page.dandelifeon4": "Aside from those, a few additional rules not present in a typical simulation of $(4)Conway's Game of Life$(0) are also present in the $(1)Dandelifeon$(0) procedures, listed in the following pages.",
-  "botania.page.dandelifeon5": "All cells have an $(4)age$(0), starting at zero (when manually placed). Whenever a cell survives a step, its age increases by one. Whenever a dead cell becomes a live cell, the age of the new live cell becomes the age of its oldest neighbour, plus one, capped at 100.",
+  "botania.page.dandelifeon5": "All cells have an $(4)age$(0); cells not created by the $(1)Dandelifeon$(0) start at zero. Whenever a cell survives a step, its age increases by one. Whenever a dead cell becomes a live cell, the age of the new live cell becomes the age of its oldest neighbour, plus one, capped at 100.",
   "botania.page.dandelifeon6": "The 3x3 zone centered around the $(1)Dandelifeon$(0) itself will absorb all cells that would otherwise generate in the area, converting them into (a frankly ludicrous amount of) $(4)Mana$(0). The older the cell that would be created, the more $(4)Mana$(0) it yields. Age-zero cells produce no $(4)Mana$(0).",
   "botania.page.dandelifeon10": "Whenever any live cells are absorbed by the 3x3 zone in the center, all other cells in the board die.$(p)Additionally, any cell within the range of two or more $(1)Dandelifeon$(0) flowers dies.",
   "botania.page.dandelifeon7": "$(1)Cellular Blocks$(0) are crafted with $(1)Cactus$(0), $(1)Carrots$(0), $(1)Potatoes$(0), and $(1)Beetroots$(0), and are extremely fragile. They won't yield anything when broken, nor can they be moved by $(1)Pistons$(0). They won't be generated by a $(1)Dandelifeon$(0) on any cell that doesn't contain air.$(p)However, when not within the range of a $(1)Dandelifeon$(0) they hold no other special properties.",
@@ -2337,7 +2337,7 @@
   "botania.page.brewery14b": "Pretend you have Incursio",
   "botania.page.brewery15a": "A simple brew, mimicking a $(1)Potion of Night Vision$(0). When quaffed, it gives its drinker a $(4)Night Vision$(0) effect.",
   "botania.page.brewery15b": "Does it come with a silence?",
-  "botania.page.brewery16a": "A simple brew, mimicking a $(1)Potion of Absorption$(0). When quaffed, it gives its drinker a $(4)Absorption IV$(0) effect.",
+  "botania.page.brewery16a": "A simple brew, mimicking the primary effect of a $(1)Golden Apple$(0). When quaffed, it gives its drinker a $(4)Absorption IV$(0) effect.",
   "botania.page.brewery16b": "You're gonna catch a cold",
 
   "botania.entry.flasks": "Brewing Flasks",
@@ -2375,7 +2375,7 @@
 
   "botania.entry.forestEye": "Eye of the Ancients",
   "botania.tagline.forestEye": "Animal detector",
-  "botania.page.forestEye0": "The Ancients who used to watch over the world always looked out for the living beings on it. The $(1)Eye of the Ancients$(0),while not an actual eye, is the next best thing.$(p)An adjacent $(1)Comparator$(0) will output a redstone signal proportional to the number of nearby animals it can find.",
+  "botania.page.forestEye0": "The Ancients who used to watch over the world always looked out for the living beings on it. The $(1)Eye of the Ancients$(0), while not an actual eye, is the next best thing.$(p)An adjacent $(1)Comparator$(0) will output a redstone signal proportional to the number of nearby animals it can find.",
   "botania.page.forestEye1": "Its count starts from 2; with 2 animals around, it outputs a signal of strength 1; with 3 animals, signal strength 2; and so on.$(p)Unfortunately, time has worn down the sight of the Ancients, so this block can only see animals for about 6 blocks in any direction.",
   "botania.page.forestEye2": "Now you see me...",
 
@@ -2557,7 +2557,7 @@
   "botania.page.terraPick0": "The $(1)Terra Shatterer$(0) is a tool that, due to the amount of $(1)Terrasteel$(0) required for its crafting, can store absolutely ludicrous amounts of $(4)Mana$(0).$(p)The tool functions very much like a $(1)Mana Tablet$(0) in that it can absorb $(4)Mana$(0) by being tossed on a $(1)Mana Pool$(0). However, any $(4)Mana$(0) absorbed can't be released again, so it's nonviable as a storage device.",
   "botania.page.terraPick1": "The amount of $(4)Mana$(0) stored on the tool defines its $(4)Rank$(0). Ranks progress as follows: $(4)D$(0), $(4)C$(0), $(4)B$(0), $(4)A$(0), $(4)S$(0), $(4)SS$(0); with $(4)D$(0) being the lowest rank and $(4)SS$(0) the highest.$(p)The amount of $(4)Mana$(0) required to advance from rank to rank increases exponentially as the rank does. To advance from $(4)D$(0) to $(4)C$(0), for example, a Shatterer requires just a few seconds of exposure to a $(1)Mana Pool$(0).",
   "botania.page.terraPick2": "To advance from rank $(4)C$(0) to rank $(4)B$(0), a full $(1)Mana Pool$(0) is required, and the cost increases by a tenfold each rank from there through $(4)SS$(0).$(p)The rank of the tool does not change its speed; rather, it increases the power of its $(4)Active Ability$(0).$(p)A right-click will toggle the Shatterer's ability on or off.",
-  "botania.page.terraPick3": "When the Shatterer's ability is active, it can break blocks in a wider surface area. At rank $(4)C$(0) it breaks in a narrow column, which increases to a square at rank $(4)B$(0); surface areas increase as ranks do. Note that the rank-$(4)D$(0) tool does not have an ability.$(p)Having the tool active consumes $(4)Mana$(0) from its internal storage passively, even if not being used to mine.",
+  "botania.page.terraPick3": "When the Shatterer's ability is active, it can break blocks in a wider surface area. At rank $(4)C$(0) it breaks in a narrow column, which increases to a square at rank $(4)B$(0); surface areas increase as ranks do. Note that the rank-$(4)D$(0) tool does not have an ability.",
   "botania.page.terraPick4": "Lastly, the tool takes damage for every single block broken, so a decent supply of $(4)Mana$(0) in the wielder's inventory is a must for higher ranks: the tool will use $(4)Mana$(0) for durability (like $(1)Manasteel Tools$(0)).$(p)Finally, a Shatterer on the ground will never despawn.",
   "botania.page.terraPick5": "WE'RE MINING IN THE DATABASE WOW WOW",
 
@@ -2705,7 +2705,7 @@
 
   "botania.entry.overgrowthSeed": "Overgrowth Seed",
   "botania.tagline.overgrowthSeed": "An elusive object that powers up flowers",
-  "botania.page.overgrowthSeed0": "An $(1)Overgrowth Seed$(0) is an elusive item that, when planted on $(1)Grass$(0), spells it into $(1)Enchanted Soil$(0). Flowers that are planted on this $(1)Enchanted Soil$(0) will function at double their normal speed-- rumor has it that its life-giving properties even prevent decay.",
+  "botania.page.overgrowthSeed0": "An $(1)Overgrowth Seed$(0) is an elusive item that, when planted on $(1)Grass$(0), spells it into $(1)Enchanted Soil$(0). Flowers that are planted on this $(1)Enchanted Soil$(0) will function at double their normal speed.",
   "botania.page.overgrowthSeed1": "Unfortunately, the bad news is that no method of actually creating these elusive seeds is known. They have, however, allegedly been spotted by historians in ancient structures and temples. Perhaps...?",
 
   "botania.entry.livingwoodBow": "Livingwood Bow",
@@ -2853,8 +2853,7 @@
   "botania.page.corporeaIndex3": "The Index can only understand simple plurals (those suffixed by \"-s\", \"-es\" or \"-ies\"), but will accept the singular even when requesting multiple items, like \"10 apple\".$(p)\"10 of this\" requests 10 items whose names match the held item's, as one might expect.",
   "botania.page.corporeaIndex4": "Quantifiers on plurals are possible: any of \"a stack of apples\", \"2 stacks of apples\", \"2 stacks and 20 apples\", \"half a stack of apples\", or \"a dozen apples\" will be understood.$(p)The index can handle requests of varying verbosity; \"2x stacks and 20x of apples\", \"2 stack 2 apple\", and \"2 stacks + 2 apples\" are all processed the same.",
   "botania.page.corporeaIndex5": "The words \"all\" or \"every\" will request every single item in the network matching the given criteria; for example, \"all apples\" will deliver every single apple (as well as every item renamed to \"apple\") in the network.$(p)The words \"count\", \"show\", \"display\" and \"tell\" won't retrieve any actual items, but will count them for the requester's convenience.",
-  "botania.page.corporeaIndex8": "When next to a $(1)Corporea Index$(0) and viewing the inventory (or a JEI recipe, if that's installed), pressing [$(k:botania_corporea_request)] while hovering over an item will request a copy of that item.$(p)Holding SHIFT while doing so will request a full stack of the item, holding CTRL will request half a stack, and holding both will request a quarter-stack.",
-  "botania.page.corporeaIndex6": "Lastly, near a $(1)Corporea Index$(0), typing part of an item's name and pressing TAB in the chat menu will autocomplete the name.",
+  "botania.page.corporeaIndex8": "When next to a $(1)Corporea Index$(0) and viewing an inventory (or a recipe), pressing [$(k:botania_corporea_request)] while hovering over an item will request a copy of that item.$(p)Holding SHIFT while doing so will request a full stack of the item, holding CTRL will request half a stack, and holding both will request a quarter-stack.",
   "botania.page.corporeaIndex7": "A certain magical one at that",
 
   "botania.entry.corporeaFunnel": "Corporea Funnel",
@@ -3294,7 +3293,7 @@
   "botania.page.phantomInk1": "Who you gonna call?",
 
   "botania.entry.blazeBlock": "Blaze Mesh",
-  "botania.tagline.blazeBlock": "Compact blazerod storage and renewable obsidian source",
+  "botania.tagline.blazeBlock": "Compact blaze rod storage and renewable obsidian source",
   "botania.page.blazeBlock0": "Mashing a bunch of blaze essences together yields a functional (if crude) decorative light block.$(p)Like a $(1)Block of Coal$(0), the $(1)Blaze Mesh$(0) can be burned in furnaces (or $(1)Endoflames$(0)). Strangely enough, when placed by a $(1)Pure Daisy$(0), it transforms into $(1)Obsidian$(0).",
   "botania.page.blazeBlock1": "0x1a4",
 
