@@ -13,7 +13,8 @@
       "type": "image",
       "text": "botania.page.flowers1",
       "images": [
-        "botania:textures/gui/entries/flowers_0.png;botania:textures/gui/entries/flowers_1.png"
+        "botania:textures/gui/entries/flowers_0.png",
+	"botania:textures/gui/entries/flowers_1.png"
       ]
     },
     {

@@ -1830,7 +1830,7 @@
   "botania.entry.spreader": "Mana Spreader",
   "botania.tagline.spreader": "Your essential Mana transporter",
   "botania.page.spreader0": "The $(1)Mana Spreader$(0) is the single most important tool a botanist needs to manipulate $(4)Mana$(0).$(p)This block shoots $(4)Mana$(0) from point A to point B. It faces a cardinal direction when placed, but sneak-right clicking it with a $(1)Wand of the Forest$(0) on a face points it elsewhere. It can be aimed at other blocks with a wand in $(4)Bind Mode$(0).",
-  "botania.page.spreader1": "Holding a $(1)Wand of the Forest$(0)",
+  "botania.page.spreader1": "The $(1)Mana Spreader$(0), as seen with a $(1)Wand of the Forest$(0) held",
   "botania.page.spreader2": "The $(1)Mana Spreader$(0) has a small internal buffer of $(4)Mana$(0), which will get filled by $(4)Generating Flora$(0) bound to it. (Flowers, when placed, auto-bind to the nearest spreader.) This buffer can be viewed by right-clicking the $(1)Spreader$(0) with a $(1)Wand of the Forest$(0) in hand.$(p)Note that the block needs to be right-clicked with a wand repeatedly to get a real-time view of its contents.",
   "botania.page.spreader3": "Holding a $(1)Wand of the Forest$(0) makes nearby spreaders display beams showing where the spreaders are aimed. Hovering over a spreader highlights its target. The sparkle that's shown is the point when $(4)Mana Loss$(0) starts to occur.$(p)As long as the target of the spreader can accept $(4)Mana$(0) (that is, can contain $(4)Mana$(0) and isn't full) the spreader will repeatedly fire $(4)Mana Bursts$(0), which travel to their destination and transfer their $(4)Mana$(0) to it.",
   "botania.page.spreader4": "The spreader will only fire another burst when the last one hits its target.$(p)Furthermore, a $(4)Mana Burst$(0) will start suffering $(4)Mana Loss$(0) after a small amount of time: this can be seen in the burst's appearance, as it thins at that point.",
@@ -2143,8 +2143,8 @@
 
   "botania.entry.marimorphosis": "Marimorphosis",
   "botania.tagline.marimorphosis": "Creates new stone types",
-  "botania.page.marimorphosis0": "The $(1)Marimorphosis$(0) is a flower that induces metamorphic transformations on nearby $(1)Stone$(0) blocks. These blocks are transmogrified into one of 8 different types of $(1)Metamorphic Stone$(0). All 8 types will generate at any location, but the type(s) that generate more will often depend on the biome. All varieties can be used for bricks, chiseled bricks, slabs, stairs, and even $(1)Petal Apothecary$(0) variants.",
-  "botania.page.marimorphosis1": "The various flavours of $(1)Metamorphic Stone$(0)",
+  "botania.page.marimorphosis0": "The $(1)Marimorphosis$(0) is a flower that induces metamorphic transformations in nearby $(1)Stone$(0) blocks. These blocks are transmogrified into one of 8 different types of $(1)Metamorphic Stone$(0). All 8 types will generate at any location, but the type(s) that generate more will often depend on the biome. All varieties can be used for bricks, chiseled bricks, slabs, stairs, and even $(1)Petal Apothecary$(0) variants.",
+  "botania.page.marimorphosis1": "The various flavors of $(1)Metamorphic Stone$(0)",
   "botania.page.marimorphosis3": "A color for everyone",
   "botania.page.marimorphosis2": "$(o)This flower is pretty gneiss$().",
 
@@ -2180,7 +2180,6 @@
   "botania.entry.hydroangeas": "Hydroangeas",
   "botania.tagline.hydroangeas": "Mana from water",
   "botania.page.hydroangeas0": "$(1)Hydroangeas$(0) flowers act as liquid-based passive generators. They suck up any $(1)still water$(0) in a 3x3 area (at the same altitude) around them, converting the water into $(4)Mana$(0). Unfortunately, even though they seem to function faster during $(4)Rain$(0), their base $(4)Mana$(0) throughput is still rather slow. In addition, they decay after around three days, making them nonviable for long-term Mana production.",
-  "botania.page.hydroangeas2": "A simple $(1)Hydroangeas$(0) system",
   "botania.page.hydroangeas1": "$(o)Under the seeeeeeaaaaaaa~",
 
   "botania.entry.thermalily": "Thermalily",
