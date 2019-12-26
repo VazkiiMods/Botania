@@ -88,10 +88,6 @@
       "type": "crafting",
       "text": "botania.page.decorativeBlocks23",
       "recipe": "botania:quartz_sunny"
-    },
-    {
-      "type": "text",
-      "text": "botania.page.decorativeBlocks16"
     }
   ]
 }

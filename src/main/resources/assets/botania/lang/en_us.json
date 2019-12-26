@@ -1699,17 +1699,12 @@
 
   "botania.entry.welcome": "Welcome To Botania",
   "botania.tagline.welcome": "Welcome to the Hotel Botania",
-  "botania.page.welcome0": "$(o)Welcome to Botania! I congratulate you on your fine choice to strap a sapling and a book together, or just to find this tome in a chest. Whichever applies.$(p)$(o)You can navigate this book using the arrows at the bottom of this page, your mouse wheel, or the arrow keys in your keyboard.",
-  "botania.page.welcome1": "$(o)Despite its appearance, Botania is in essence a \"tech mod\", by definition: it requires you to put to use ingenuity, thought, and redstone to create and progress. It would be good to keep that in mind.$(p)$(o)Of course you'll also be rewarded with cool toys, blocks, and equipment, just in case you were worried about that.",
-  "botania.page.welcome2": "$(o)Botania is a mod for anybody who likes to play this game for the purpose of building cool things. It is designed to be fully playable standalone, but is also playable with other mods.$(p)$(o)Outside a few special cases, everything in the mod is fully automatable with only Minecraft and itself.",
-  "botania.page.welcome3": "$(o)If you happen to find yourself feeling lost, try checking out the mod's Advancements or Challenges, both of which can be found on the left hand side of this book's main page.$(p)$(o)The book is laid out in a friendly way, with a fair number of helpful features, so before you jump in and start playing, take a bit of time to familiarize yourself with the uses of those.",
-  "botania.page.welcome4": "$(o)After this intro, you can start a tutorial that will teach you the basics of the mod in around ten minutes, give or take.$(p)$(o)However, it'll only teach you the very basics. So, after you have a good hold on those concepts, further research would be a good idea.",
-  "botania.page.welcome5": "$(o)If you're unsure as to what you want to learn about, hold SHIFT while browsing through the various categories to get a quick idea of what each entry's about.$(p)$(o)The \"Entry Index\" category is helpful for searching for a particular entry, as it contains every entry in the book in one place.",
-  "botania.page.welcome6": "$(o)And that's it for this introduction! You can move on to the tutorial now. I hope you enjoy playing with Botania as much as I enjoyed making it!$(p)$(o)~Vazkii, the mod author$(p)$(p)$(o)Continue by pressing the \"Back\" button on the bottom. Your right mouse button will have the same effect.",
-
-  "botania.entry.tutorial": "A Tutorial of the Basics",
-  "botania.tagline.tutorial": "Get set up quickly",
-  "botania.page.tutorial0": "While you could just go through the various entries in the book at your leisure, there's also a tutorial of sorts available. Clicking the buttons below will guide you through the basic concepts of Botania.$(p)You can choose between an ingame guided tour of this book, or just a short(-ish) video.",
+  "botania.page.welcome0": "$(o)Welcome to Botania! I congratulate you on the fine decision to strap a sapling and a book together. Or just on finding this tome in a chest. Whichever applies.$(p)$(o)You can navigate this book with the arrows at the bottom of this page, or scroll through pages with your mouse wheel.",
+  "botania.page.welcome1": "$(o)Despite its appearance, Botania is in essence a \"tech mod\": it requires you to put to use ingenuity, thought, and redstone to create and progress. Keep that in mind.$(p)$(o)Of course, you'll also be rewarded with cool toys, blocks, and equipment along the way.",
+  "botania.page.welcome2": "$(o)Botania is a mod for anybody who likes to play Minecraft because they like building cool things. It is designed to be fully playable standalone, but can also be played with other mods.$(p)$(o)With a few exceptions, everything in this mod can be fully automated with only Minecraft and itself.",
+  "botania.page.welcome3": "$(o)If you happen to find yourself feeling lost, try checking out the mod's Advancements or Challenges, both of which can be found on the left-hand side of this book's main page.$(p)$(o)The book is laid out in a user-friendly way with a fair number of helpful features, so before you jump in and start playing, take a bit of time to familiarize yourself with those.",
+  "botania.page.welcome5": "$(o)The \"Entry Index\" category is helpful for searching for a particular entry, as it contains every entry in the book in one place.",
+  "botania.page.welcome6": "$(o)And that's it for this introduction! I hope you enjoy playing with Botania as much as I enjoyed making it!$(p)$(o)~Vazkii, the mod author$(p)$(p)$(o)Continue by pressing the \"Back\" button on the bottom. Right-clicking has the same effect.",
 
   "botania.entry.gardenOfGlass": "Garden of Glass",
   "botania.tagline.gardenOfGlass": "Your new challenge",
@@ -3252,13 +3247,6 @@
   "botania.page.decorativeBlocks14": "Lavender Quartz",
   "botania.page.decorativeBlocks15": "Redquartz",
   "botania.page.decorativeBlocks23": "Sunny Quartz",
-  "botania.page.decorativeBlocks16": "A few blocks can be organized in methods different than normal to create new building blocks, such as $(1)Roof Tiles$(0) and a few new $(1)Bricks$(0).$(p)All these also can be crafted into both stairs and slabs.",
-  "botania.page.decorativeBlocks17": "Crafting $(1)Reed Blocks$(0)",
-  "botania.page.decorativeBlocks18": "Crafting $(1)Thatch$(0)",
-  "botania.page.decorativeBlocks19": "Crafting $(1)Roof Tiles$(0)",
-  "botania.page.decorativeBlocks20": "Crafting $(1)Hellish Bricks$(0)",
-  "botania.page.decorativeBlocks21": "Crafting $(1)Soul Bricks$(0)",
-  "botania.page.decorativeBlocks22": "Crafting $(1)Frosty Bricks$(0)",
 
   "botania.entry.dispenserTweaks": "Dispenser Planting",
   "botania.tagline.dispenserTweaks": "Dispensers planting seeds",
@@ -3270,10 +3258,6 @@
   "botania.page.shinyFlowers3": "Combining any color of $(1)Floating Flower$(0) with any flower that has an effect (any $(4)Functional or Generating Flower$(0), etc) in a crafting table will join the two, allowing for both the look and properties of a $(1)Floating Flower$(0) and the effects of the flower chosen in one block. Lastly, right-clicking a floating flower in the world with any type of $(1)Pasture Seed$(0) or a $(1)Snowball$(0) will change its look.",
   "botania.page.shinyFlowers1": "Pretty Pretty Shiny Shiny",
   "botania.page.shinyFlowers2": "Like Laputa but (a lot) tinier",
-
-  "botania.entry.shedding": "Natural Shedding",
-  "botania.tagline.shedding": "Things dropping other things",
-  "botania.page.shedding0": "The living and unliving beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, or for them to drop things, or for them to extrude substances. The following pages list some such items that can come from such entities.",
 
   "botania.entry.tinyPotato": "Tiny Potato",
   "botania.tagline.tinyPotato": "A potato friend for all of us",
@@ -3299,12 +3283,6 @@
   "botania.page.starfield0": "The $(1)Starfield Creator$(0) does exactly as it says, by releasing Elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.",
   "botania.page.starfield1": "Twinkle twinkle",
 
-  "botania.entry.dirtPath": "Trodden Dirt",
-  "botania.tagline.dirtPath": "This dirt is for walking",
-  "botania.page.dirtPath0": "$(1)Trodden Dirt$(0) is a type of soil that works perfectly for the creation of natural looking artificial paths through landscape. Similarly to $(1)Farmland$(0), it's slightly inset into the ground, walking on it also provides a small speed boost.",
-  "botania.page.dirtPath1": "Follow the yellow dirt road",
-  "botania.page.dirtPath2": "Also available in slabs",
-
   "botania.entry.mushrooms": "Shimmering Mushrooms",
   "botania.tagline.mushrooms": "Touch fuzzy, but don't get dizzy",
   "botania.page.mushrooms0": "Sprinkling some $(1)Floral Powder$(0) on $(1)Mushrooms$(0) seems to have the interesting effect of them mutating into the respective color of powder, gaining a new shape and getting the ability to emit dim light. They don't seem to do anything besides look interesting.$(p)These can also be seldom found deep underground in isolated patches.",
@@ -3314,14 +3292,6 @@
   "botania.tagline.phantomInk": "Make your armor and Trinkets invisible",
   "botania.page.phantomInk0": "Having your beautiful skin and accessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!$(p)Luckily, by tinging this horrendous armor with $(1)Phantom Ink$(0) in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use $(4)Mana$(0).",
   "botania.page.phantomInk1": "Who you gonna call?",
-
-  "botania.entry.stoneAlchemy": "Stone Alchemy",
-  "botania.tagline.stoneAlchemy": "Create new stone types",
-  "botania.page.stoneAlchemy0": "Using an $(1)Alchemy Catalyst$(0) proves to be a decently functional method of generating new types of $(1)Stone$(0). Simple deal, tossing a piece of $(1)Stone$(0) into the catalyzed pool will transform it into another in a cycle.$(p) Stairs and slabs can be made from the rough and brick variants of these.",
-  "botania.page.stoneAlchemy1": "Creating the stones",
-  "botania.page.stoneAlchemy2": "Brickage",
-  "botania.page.stoneAlchemy3": "Chiseling",
-
 
   "botania.entry.blazeBlock": "Blaze Mesh",
   "botania.tagline.blazeBlock": "Compact blaze storage and a renewable obsidian source",
@@ -3344,17 +3314,6 @@
   "botania.tagline.pavement": "Pavement for road building",
   "botania.page.pavement0": "$(1)Portuguese Pavement$(0) is a type of building block designed to be used to create detailed roads. It comes in various colors, all of which can be turned into slabs and stairs.$(p)For those with experience in the arts of multiparts and microblocks, these blocks provide a great looking method to create patterns.",
   "botania.page.pavement1": "These aren't slippery",
-
-  "botania.entry.tcIntegration": "Thaumcraft Integration",
-  "botania.tagline.tcIntegration": "Tidbits of integration with Thaumcraft",
-  "botania.page.tcIntegration0": "Often enough, the paths of $(4)Botany$(0) and $(4)Thaumaturgy$(0) cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of $(5)Thaumcraft$(0) can allow for combinations of these to form.",
-  "botania.page.tcIntegration1": "First and foremost, combining any of the $(1)Mana Metal$(0) helms with a set of $(1)Goggles of Revealing$(0) allows for a combination of both.$(p)The protection and regenerability of the armor works alongside the Goggles' abilities, but the $(4)Vis$(0) discount is lost.",
-  "botania.page.tcIntegration2": "Helmets of Revealing (works with any Botania helm)",
-  "botania.page.tcIntegration3": "Carrying on, $(4)Mana$(0) can also serve as an interesting type of Ink. Infusing a set of black $(1)Scribing Tools$(0) with $(4)Mana$(0) from a $(1)Mana Pool$(0) allows for them to use said $(4)Mana$(0) as their source of color.$(p)Refilling these tools works similarly to a $(1)Mana Tablet$(0), done by tossing it on top of the pool. Note that the tools do not come pre-filled.",
-  "botania.page.tcIntegration4": "Making the $(1)Botanurgist's Inkwell",
-  "botania.page.tcIntegration5": "Next off, there's a few varied resources or constructs that can work as paraphernalia for an $(1)Infusion Altar$(0), to lower its' instability, these come in the form of $(1)Glimmering Flowers, Floating Flowers and any variety of Pylons$(0).",
-  "botania.page.tcIntegration6a": "Perhaps insanity might not be the greatest tool in all of occasions. For those cases, a nice bath generally takes care of it. A brew might be a better format for such a task, though...",
-  "botania.page.tcIntegration6b": "The official frowny face",
 
   "botania.entry.bcIntegration": "Buildcraft Integration",
   "botania.tagline.bcIntegration": "Gates for interaction with Botania",
