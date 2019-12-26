@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.banners",
+  "category": "misc",
+  "icon": "botania:lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.banners0"
+    },
+    {
+      "type": "image",
+      "text": "botania.page.banners1",
+      "images": [
+        "botania:textures/gui/entries/banners.png"
+      ]
+    }
+  ]
+}
