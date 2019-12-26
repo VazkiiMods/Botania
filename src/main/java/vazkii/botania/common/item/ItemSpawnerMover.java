@@ -51,18 +51,8 @@ public class ItemSpawnerMover extends ItemMod {
 	}
 
 	@Nullable
-	private static CompoundNBT getSpawnerTag(ItemStack stack) {
-		CompoundNBT tag = stack.getTag();
-		if(tag != null && tag.contains(TAG_SPAWNER)) {
-			return tag.getCompound(TAG_SPAWNER);
-		}
-
-		return null;
-	}
-
-	@Nullable
 	private static ResourceLocation getEntityId(ItemStack stack) {
-		CompoundNBT tag = getSpawnerTag(stack);
+		CompoundNBT tag = stack.getChildTag(TAG_SPAWNER);
 		if(tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
 			if(tag.contains(TAG_ID)) {
