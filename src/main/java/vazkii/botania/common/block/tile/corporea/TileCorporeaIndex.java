@@ -10,9 +10,9 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -20,14 +20,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
-import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
@@ -255,9 +252,22 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		set.remove(index);
 	}
 
+	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
+		CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(player, request, count, this.getSpark());
+		if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
+			this.doCorporeaRequest(request, count, this.getSpark());
+
+			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), CorporeaHelper.lastRequestExtractions);
+		}
+	}
+
 	public static final class InputHandler {
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
+			if(event.getPlayer().isSpectator()) 
+				return;
+
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
 			if(!nearbyIndexes.isEmpty()) {
 				String msg = event.getMessage().toLowerCase().trim();
@@ -272,7 +282,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 								IRegexStacker stacker = patterns.get(pattern);
 								count = stacker.getCount(matcher);
 								name = stacker.getName(matcher).toLowerCase().trim();
-								pattern.toString();
 							}
 						}
 
@@ -281,14 +290,8 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 							if(!stack.isEmpty())
 								name = stack.getDisplayName().getString().toLowerCase().trim();
 						}
-						
-						CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(event.getPlayer(), name, count, spark);
-						if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
-							index.doCorporeaRequest(CorporeaHelper.createMatcher(name), count, spark);
-							
-							event.getPlayer().sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-							CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
-						}
+
+						index.performPlayerRequest(event.getPlayer(), CorporeaHelper.createMatcher(name), count);
 					}
 				}
 
@@ -303,11 +306,11 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 	}
 
-	public static interface IRegexStacker {
+	public interface IRegexStacker {
 
-		public int getCount(Matcher m);
+		int getCount(Matcher m);
 
-		public String getName(Matcher m);
+		String getName(Matcher m);
 
 	}
 

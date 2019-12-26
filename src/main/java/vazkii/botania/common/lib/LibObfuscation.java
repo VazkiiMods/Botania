@@ -13,4 +13,10 @@ package vazkii.botania.common.lib;
 public final class LibObfuscation {
 	// EntityLiving
 	public static final String GET_LIVING_SOUND = "func_184639_G";
+	
+	// RecipeBookGui
+	public static final String RECIPE_BOOK_PAGE = "field_193022_s";
+	
+	// RecipeBookPage
+	public static final String HOVERED_BUTTON = "field_194201_b";
 }
