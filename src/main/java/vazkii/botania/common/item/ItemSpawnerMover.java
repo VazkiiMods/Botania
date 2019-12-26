@@ -100,7 +100,9 @@ public class ItemSpawnerMover extends ItemMod {
 	}
 
 	private ActionResultType placeSpawner(ItemUseContext ctx) {
-		ActionResultType res = PlayerHelper.substituteUse(ctx, new ItemStack(Blocks.SPAWNER));
+		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
+		useStack.getOrCreateTag().put("BlockEntityTag", ctx.getItem().getChildTag(TAG_SPAWNER));
+		ActionResultType res = PlayerHelper.substituteUse(ctx, useStack);
 
 		if(res == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();
@@ -108,25 +110,14 @@ public class ItemSpawnerMover extends ItemMod {
 			ItemStack mover = ctx.getItem();
 
 			if(!world.isRemote) {
-				TileEntity te = world.getTileEntity(pos);
-				CompoundNBT tag = mover.getTag();
-				if (te instanceof MobSpawnerTileEntity && tag.contains(TAG_SPAWNER)) {
-					tag = tag.getCompound(TAG_SPAWNER);
-					tag.putInt("x", pos.getX());
-					tag.putInt("y", pos.getY());
-					tag.putInt("z", pos.getZ());
-					te.read(tag);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
-				}
-
 				if(ctx.getPlayer() != null)
 					ctx.getPlayer().sendBreakAnimation(ctx.getHand());
 				mover.shrink(1);
 			} else {
 				for(int i = 0; i < 100; i++) {
-                    SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
-                    world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
-                }
+					SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
+					world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+				}
 			}
 		}
 
@@ -142,9 +133,7 @@ public class ItemSpawnerMover extends ItemMod {
 		if(world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
 			if(!world.isRemote) {
 				TileEntity te = world.getTileEntity(pos);
-				CompoundNBT tag = new CompoundNBT();
-				tag.put(TAG_SPAWNER, te.write(new CompoundNBT()));
-				stack.setTag(tag);
+				stack.getOrCreateTag().put(TAG_SPAWNER, te.write(new CompoundNBT()));
 				world.destroyBlock(pos, false);
 				if(player != null) {
 					player.getCooldownTracker().setCooldown(this, 20);
@@ -156,9 +145,9 @@ public class ItemSpawnerMover extends ItemMod {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
 					float blue = (float) Math.random();
-                    WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.05F, red, green, blue);
-                    world.addParticle(data, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
-                }
+					WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.05F, red, green, blue);
+					world.addParticle(data, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
+				}
 			}
 			return true;
 		} else return false;
