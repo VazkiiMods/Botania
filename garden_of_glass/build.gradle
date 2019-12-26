@@ -27,7 +27,7 @@ def parseConfig(File config) {
 
 ext.config = parseConfig(file('../build.properties'))
 
-version = '1.0'
+version = '1.1'
 group = 'vazkii.botania' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'gardenofglass'
 

@@ -15,6 +15,7 @@ An extension to Botania that adds skyblock like gameplay.'''
 
 [[dependencies.gardenofglass]]
     modId="botania"
+    versionRange="NONE"
     mandatory=true
     ordering="AFTER"
     side="BOTH"
