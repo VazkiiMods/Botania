@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +22,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockBifrostPerm extends BlockMod {
+public class BlockBifrostPerm extends AbstractGlassBlock {
 	public BlockBifrostPerm(Properties builder) {
 		super(builder);
 	}
@@ -29,13 +30,12 @@ public class BlockBifrostPerm extends BlockMod {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if(rand.nextBoolean()) {
-            SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
-            world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
-        }
+		if (rand.nextBoolean()) {
+			SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
+			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getRenderLayer() {

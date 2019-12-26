@@ -10,20 +10,17 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.common.block.BlockMod;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaGlass extends BlockMod {
+public class BlockManaGlass extends AbstractGlassBlock {
 
 	public BlockManaGlass(Properties builder) {
 		super(builder);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getRenderLayer() {
