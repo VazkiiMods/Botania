@@ -116,20 +116,6 @@
   "botania.nei.orechidIgnem": "Огненный Рудноцвет",
 
   "key.botania_corporea_request": "Запрос хранилищу",
-<<<<<<< HEAD
-
-  "botania.nei.lexicaSeparator": "Дополнительная информация:",
-  "botania.nei.lexicaNoInfo": "(для этой записи нет дополнительной информации, извините!)",
-
-  "botania.nei.quickInfo:tile.livingwood0~0": "Вы можете создать Жизнедерево, поставив древесину рядом с Чистой маргариткой",
-  "botania.nei.quickInfo:tile.livingrock0~0": "Вы можете создать Жизнекамень, поставив камень рядом с Чистой маргариткой",
-
-  "botania.nei.quickInfo:item.bone~0": "У тебя будет плохое время",
-  "botania.nei.quickInfo:item.lexicon~0": "А чего ты ожидал?",
-  "botania.nei.quickInfo:item.terrasteel~4": "Вы можете получить Террасталь, положив нужные ингридиенты на Плиту земной агломерации.",
-  "botania.nei.quickInfo:item.enderAirBottle~15": "Вы можете получить это, щелкнув ПКМ пустым пузырьком, находясь в Эндер Мире.",
-=======
->>>>>>> 9bbf0a23df5a891cf0bd4545c07ef473ded454e9
 
   "botania.triggers.manaDetector": "Всплеск маны",
   "botania.triggers.manaEmpty": "Нет маны",
