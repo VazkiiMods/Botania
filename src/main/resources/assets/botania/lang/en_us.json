@@ -2557,7 +2557,7 @@
   "botania.page.terraPick0": "The $(1)Terra Shatterer$(0) is a tool that, due to the amount of $(1)Terrasteel$(0) required for its crafting, can store absolutely ludicrous amounts of $(4)Mana$(0).$(p)The tool functions very much like a $(1)Mana Tablet$(0) in that it can absorb $(4)Mana$(0) by being tossed on a $(1)Mana Pool$(0). However, any $(4)Mana$(0) absorbed can't be released again, so it's nonviable as a storage device.",
   "botania.page.terraPick1": "The amount of $(4)Mana$(0) stored on the tool defines its $(4)Rank$(0). Ranks progress as follows: $(4)D$(0), $(4)C$(0), $(4)B$(0), $(4)A$(0), $(4)S$(0), $(4)SS$(0); with $(4)D$(0) being the lowest rank and $(4)SS$(0) the highest.$(p)The amount of $(4)Mana$(0) required to advance from rank to rank increases exponentially as the rank does. To advance from $(4)D$(0) to $(4)C$(0), for example, a Shatterer requires just a few seconds of exposure to a $(1)Mana Pool$(0).",
   "botania.page.terraPick2": "To advance from rank $(4)C$(0) to rank $(4)B$(0), a full $(1)Mana Pool$(0) is required, and the cost increases by a tenfold each rank from there through $(4)SS$(0).$(p)The rank of the tool does not change its speed; rather, it increases the power of its $(4)Active Ability$(0).$(p)A right-click will toggle the Shatterer's ability on or off.",
-  "botania.page.terraPick3": "When the Shatterer's ability is active, it can break blocks in a wider surface area. At rank $(4)C$(0) it breaks in a narrow column, which increases to a square at rank $(4)B$(0); surface areas increase as ranks do. Note that the rank-$(4)D$(0) tool does not have an ability.",
+  "botania.page.terraPick3": "When the Shatterer's ability is active, it can break blocks in a wider surface area. At rank $(4)C$(0) it breaks in a narrow column, which increases to a square at rank $(4)B$(0); surface areas increase as ranks do. Note that the rank-$(4)D$(0) tool does not have an ability. The Shatterer, when active, continuously consumes its internal $(4)Mana$(0) when $(l)not$() mining.",
   "botania.page.terraPick4": "Lastly, the tool takes damage for every single block broken, so a decent supply of $(4)Mana$(0) in the wielder's inventory is a must for higher ranks: the tool will use $(4)Mana$(0) for durability (like $(1)Manasteel Tools$(0)).$(p)Finally, a Shatterer on the ground will never despawn.",
   "botania.page.terraPick5": "WE'RE MINING IN THE DATABASE WOW WOW",
 
@@ -2883,14 +2883,6 @@
   "botania.page.corporeaRetainer2": "As the $(1)Corporea Retainer$(0) is an addon to the Interceptor, it can proxy its requests through the latter, so it doesn't need a spark itself.$(p)The retainer can only memorize one request at a time; any additional incoming requests will be discarded instead of memorized. A $(1)Redstone Comparator$(0) can read whether a request is held.",
   "botania.page.corporeaRetainer3": "The nemesis of a goldfish",
 
-  "botania.entry.endStoneDecor": "Decorative End Blocks",
-  "botania.tagline.endStoneDecor": "Some end-themed decoration",
-  "botania.page.endStoneDecor0": "Similarly to other stone blocks, $(1)End Stone$(0) can be converted into bricks and chiseled bricks. The bricks can be used as stairs or slabs, just like normal $(1)Stone Bricks$(0) would.$(p)The bricks can also be crafted with $(1)Ender Pearls$(0) to create $(1)Ender Brick$(0) blocks, which are also stairable and slabbable.",
-  "botania.page.endStoneDecor1": "Making $(1)End Stone Bricks$(0)",
-  "botania.page.endStoneDecor2": "Making $(1)Chiseled End Stone Bricks$(0)",
-  "botania.page.endStoneDecor3": "$(1)Ender Bricks$(0)-- Purpur's a silly name",
-  "botania.page.endStoneDecor4": "Making $(1)Pillar Ender Bricks$(0)",
-
   "botania.entry.spawnerMover": "Life Aggregator",
   "botania.tagline.spawnerMover": "The ability to move Spawners",
   "botania.page.spawnerMover0": "When a $(1)Dragonstone$(0), $(1)Elementium$(0), $(1)Ender Air$(0), and $(1)Gaia Spirits$(0) are crafted in a specific pattern, they yield a device that can restrain the curious energies of a $(1)Monster Spawner$(0) and warp it to another point in space.$(p)Unfortunately, the device will shatter after being used once.",
@@ -3105,7 +3097,7 @@
 
   "botania.entry.invisibilityCloak": "Invisibility Cloak",
   "botania.tagline.invisibilityCloak": "Exactly what it says on the tin",
-  "botania.page.invisibilityCloak0": "No need to explain the $(1)Invisibility Cloak$(0).$(p)You wear it on your $(4)Body$(0) slot. It takes $(4)Mana$(0) from your inventory. It makes you and your $(4)Trinkets$(0) invisible.$(p)Symbiosis.",
+  "botania.page.invisibilityCloak0": "No need to explain the $(1)Invisibility Cloak$(0).$(p)You wear it on your $(4)Body$(0) slot. It takes $(4)Mana$(0) from your inventory. It makes you and your $(4)Trinkets$(0) invisible.$(p)Magic.",
   "botania.page.invisibilityCloak1": "You're a wizard, Steve",
 
   "botania.entry.cloudPendant": "Cirrus Amulet",
