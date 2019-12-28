@@ -24,13 +24,7 @@
               "source": "lastFlower",
               "target": "BlockEntityTag.lastFlower",
               "op": "replace"
-            }
-          ]
-        },
-        {
-          "function": "minecraft:copy_nbt",
-          "source": "block_entity",
-          "ops": [
+            },
             {
               "source": "lastFlowerTimes",
               "target": "BlockEntityTag.lastFlowerTimes",

@@ -24,13 +24,7 @@
               "source": "cooldown",
               "target": "BlockEntityTag.cooldown",
               "op": "replace"
-            }
-          ]
-        },
-        {
-          "function": "minecraft:copy_nbt",
-          "source": "block_entity",
-          "ops": [
+            },
             {
               "source": "passiveDecayTicks",
               "target": "BlockEntityTag.passiveDecayTicks",

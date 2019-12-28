@@ -109,6 +109,8 @@ public class BlockLootProvider implements IDataProvider {
         functionTable.put(ModSubtiles.rafflowsiaFloating, b -> genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWER, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
         functionTable.put(ModSubtiles.spectrolus, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
         functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
+        functionTable.put(ModSubtiles.thermalily, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
+        functionTable.put(ModSubtiles.thermalilyFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
     }
 
     @Override
@@ -138,11 +140,13 @@ public class BlockLootProvider implements IDataProvider {
 
     private static LootTable.Builder genCopyNbt(Block b, String... tags) {
         LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
-        LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
-                .acceptCondition(SurvivesExplosion.builder());
+        CopyNbt.Builder func = CopyNbt.func_215881_a(CopyNbt.Source.BLOCK_ENTITY);
         for (String tag : tags) {
-            pool = pool.acceptFunction(CopyNbt.func_215881_a(CopyNbt.Source.BLOCK_ENTITY).func_216056_a(tag, "BlockEntityTag." + tag));
+            func = func.func_216056_a(tag, "BlockEntityTag." + tag);
         }
+        LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
+                .acceptCondition(SurvivesExplosion.builder())
+                .acceptFunction(func);
         return LootTable.builder().addLootPool(pool);
     }
 
