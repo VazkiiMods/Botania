@@ -5,7 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "botania:elementium_block"
+      "tag": "forge:storage_blocks/elementium"
     }
   ],
   "type": "minecraft:crafting_shapeless"
