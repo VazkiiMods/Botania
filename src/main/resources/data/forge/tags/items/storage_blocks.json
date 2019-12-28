@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ingots/manasteel",
+    "#forge:ingots/terrasteel",
+    "#forge:ingots/elementium"
+  ]
+}
