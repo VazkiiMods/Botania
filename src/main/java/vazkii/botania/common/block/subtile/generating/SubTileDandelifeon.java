@@ -95,7 +95,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 				}
 			}
 
-		BlockPos pos = getPos();
+		BlockPos pos = getEffectivePos();
 
 		for(int[] change : changes) {
 			BlockPos pos_ = pos.add(-RANGE + change[0], 0, -RANGE + change[1]);
@@ -113,7 +113,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 		int diam = RANGE * 2 + 1;
 		int[][] table = new int[diam][diam];
 
-		BlockPos pos = getPos();
+		BlockPos pos = getEffectivePos();
 
 		for(int i = 0; i < diam; i++)
 			for(int j = 0; j < diam; j++) {
@@ -192,7 +192,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

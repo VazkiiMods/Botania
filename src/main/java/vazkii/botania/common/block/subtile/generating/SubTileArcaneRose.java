@@ -39,7 +39,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		if(getMana() >= getMaxMana())
 			return;
 
-		List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(PlayerEntity player : players)
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
@@ -47,7 +47,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 				return;
 			}
 
-		List<ExperienceOrbEntity> orbs = getWorld().getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ExperienceOrbEntity> orbs = getWorld().getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(ExperienceOrbEntity orb : orbs) {
 			if (orb.isAlive()) {
 				addMana(orb.getXpValue() * 35);
@@ -60,7 +60,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

@@ -36,6 +36,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 
 	// Must store position since red string spoofers are only active during tick
 	// But our main logic runs outside, in the event handler
+	// TODO not needed anymore with addition of getEffectivePos?
 	public static final Map<SubTileVinculotus, BlockPos> existingFlowers = new WeakHashMap<>();
 	private static final int RANGE = 64;
 
@@ -49,14 +50,14 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 
 		if(!getWorld().isRemote) {
 		    BlockPos pos = existingFlowers.get(this);
-		    if (pos == null || !pos.equals(getPos()))
-			    existingFlowers.put(this, getPos());
+		    if (pos == null || !pos.equals(getEffectivePos()))
+			    existingFlowers.put(this, getEffectivePos());
 		}
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getPos(), RANGE);
+        return new RadiusDescriptor.Circle(getEffectivePos(), RANGE);
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 				SubTileVinculotus flower = e.getKey();
 				BlockPos activePos = e.getValue();
 
-				if(flower == null || flower.redstoneSignal > 0 || flower.getMana() <= cost || flower.getWorld() != event.getEntityLiving().world || flower.getWorld().getTileEntity(flower.getPos()) != flower)
+				if(flower == null || flower.redstoneSignal > 0 || flower.getMana() <= cost || flower.getWorld() != event.getEntityLiving().world || flower.getWorld().getTileEntity(flower.getEffectivePos()) != flower)
 					continue;
 
 				double x = activePos.getX() + 0.5;

@@ -38,7 +38,7 @@ public class SubTileMedumone extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote && getMana() > 0) {
-			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for(LivingEntity entity : entities)
 				if(!(entity instanceof PlayerEntity)) {
@@ -57,7 +57,7 @@ public class SubTileMedumone extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

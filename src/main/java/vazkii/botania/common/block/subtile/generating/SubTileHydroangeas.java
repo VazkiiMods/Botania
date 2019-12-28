@@ -64,9 +64,9 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		if(cooldown > 0) {
 			cooldown--;
 			for(int i = 0; i < 3; i++) {
-                WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
-                world.addParticle(data, getPos().getX() + 0.5 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.5 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
-            }
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
+				world.addParticle(data, getEffectivePos().getX() + 0.5 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.5 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
+			}
 		}
 
 		if(burnTime == 0) {
@@ -75,7 +75,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 				Collections.shuffle(offsets);
 
 				for(BlockPos offset : offsets) {
-					BlockPos pos = getPos().add(offset);
+					BlockPos pos = getEffectivePos().add(offset);
 
 					IFluidState fstate = getWorld().getFluidState(pos);
 					Tag<Fluid> search = getMaterialToSearchFor();
@@ -118,7 +118,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	public void doBurnParticles() {
         WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.05F, 0.05F, 0.7F, 1);
-        world.addParticle(data, getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+        world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
     }
 
 	public Tag<Fluid> getMaterialToSearchFor() {
@@ -130,7 +130,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	public void playSound() {
-		getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
+		getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {
@@ -139,7 +139,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), 1);
+        return new RadiusDescriptor.Square(getEffectivePos(), 1);
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		boolean rain = getWorld().getBiome(getPos()).getPrecipitation() == Biome.RainType.RAIN && (getWorld().isRaining() || getWorld().isThundering());
+		boolean rain = getWorld().getBiome(getEffectivePos()).getPrecipitation() == Biome.RainType.RAIN && (getWorld().isRaining() || getWorld().isThundering());
 		return rain ? 2 : 3;
 	}
 

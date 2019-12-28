@@ -91,9 +91,9 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			} while(stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
-			int xp = getPos().getX() - RANGE + rand.nextInt(bound);
-			int yp = getPos().getY();
-			int zp = getPos().getZ() - RANGE + rand.nextInt(bound);
+			int xp = getEffectivePos().getX() - RANGE + rand.nextInt(bound);
+			int yp = getEffectivePos().getY();
+			int zp = getEffectivePos().getZ() - RANGE + rand.nextInt(bound);
 			
 			BlockPos pos = new BlockPos(xp, yp - 1, zp);
 			do {
@@ -177,7 +177,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

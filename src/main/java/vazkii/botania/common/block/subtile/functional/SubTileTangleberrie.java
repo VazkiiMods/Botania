@@ -41,9 +41,9 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(getMana() > 0) {
-			double x1 = getPos().getX() + 0.5;
-			double y1 = getPos().getY() + 0.5;
-			double z1 = getPos().getZ() + 0.5;
+			double x1 = getEffectivePos().getX() + 0.5;
+			double y1 = getEffectivePos().getY() + 0.5;
+			double z1 = getEffectivePos().getZ() + 0.5;
 
 			double maxDist = getMaxDistance();
 			double range = getRange();
@@ -91,7 +91,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getPos(), getRange());
+        return new RadiusDescriptor.Circle(getEffectivePos(), getRange());
 	}
 
 	@Override

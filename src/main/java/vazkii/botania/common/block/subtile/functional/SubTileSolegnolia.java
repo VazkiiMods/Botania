@@ -56,9 +56,7 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
 				.filter(f -> f.getWorld() == e.world)
-				.filter(f -> f.getWorld().getTileEntity(f.getPos()) == f)
-				.filter(f -> f.getDistanceSq(e.posX, e.posY, e.posZ) <= f.getRange() * f.getRange())
-				.findAny().isPresent();
+				.anyMatch(f -> f.getEffectivePos().distanceSq(e.posX, e.posY, e.posZ, false) <= f.getRange() * f.getRange());
 	}
 
 	@Override
@@ -77,7 +75,7 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getPos(), getRange());
+        return new RadiusDescriptor.Circle(getEffectivePos(), getRange());
 	}
 
 	public static class Mini extends SubTileSolegnolia {

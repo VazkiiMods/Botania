@@ -76,7 +76,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 			return;
 
 		if(ticksExisted % 10 == 0) {
-			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			List<BlockPos> validPositions = getCandidatePositions();
 			int slowdown = getSlowdownFactor();
 
@@ -116,13 +116,13 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public BlockState getUnderlyingBlock() {
-		return getWorld().getBlockState(getPos().down(isFloating() ? 1 : 2));
+		return getWorld().getBlockState(getEffectivePos().down(isFloating() ? 1 : 2));
 	}
 
 	private List<BlockPos> getCandidatePositions() {
 		int rangePlace = getRange();
 		int rangePlaceY = getRangeY();
-		BlockPos pos = getPos();
+		BlockPos pos = getEffectivePos();
 		BlockState filter = getUnderlyingBlock();
 		List<BlockPos> ret = new ArrayList<>();
 
@@ -168,7 +168,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), getRange());
+        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {

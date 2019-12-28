@@ -41,7 +41,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote && getMana() == 0) {
-			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(TNTEntity tnt : tnts) {
 				if(tnt.getFuse() == 1 && !tnt.removed && !getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
 					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
@@ -87,7 +87,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 }

@@ -68,7 +68,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 		eatLeaves : {
 			if(getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
-				BlockPos pos = getPos();
+				BlockPos pos = getEffectivePos();
 
 				nextCoord:
 				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-RANGE, 0, -RANGE),
@@ -109,7 +109,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

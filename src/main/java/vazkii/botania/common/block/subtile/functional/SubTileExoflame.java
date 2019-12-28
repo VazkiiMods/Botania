@@ -42,8 +42,8 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 
 		boolean did = false;
 
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-RANGE, -RANGE_Y, -RANGE),
-				getPos().add(RANGE, RANGE_Y, RANGE))) {
+		for(BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
+				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			TileEntity tile = getWorld().getTileEntity(pos);
 			if(tile != null) {
 				LazyOptional<IExoflameHeatable> cap = tile.getCapability(BotaniaAPI.EXOFLAME_HEATABLE_CAP);
@@ -73,7 +73,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getPos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

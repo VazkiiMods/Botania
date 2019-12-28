@@ -49,7 +49,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		super.tickFlower();
 
 		if(ticksExisted % 5 == 0) {
-			List<SlimeEntity> slimes = getWorld().getEntitiesWithinAABB(SlimeEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<SlimeEntity> slimes = getWorld().getEntitiesWithinAABB(SlimeEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(SlimeEntity slime : slimes) {
 				if(slime.getPersistentData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
@@ -78,7 +78,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

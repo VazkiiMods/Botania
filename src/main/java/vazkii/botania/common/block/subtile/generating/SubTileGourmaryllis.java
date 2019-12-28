@@ -65,20 +65,20 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				digestingMana = 0;
 				
 				float burpPitch = 1 - (lastFoodCount - 1) * 0.05F;
-				getWorld().playSound(null, getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
+				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
 				sync();
 			} else if(cooldown % munchInterval == 0) {
-				getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
+				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
 				
-				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.6, 0.4);
+				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.6, 0.4);
 				
-				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFood), getPos().getX()+offset.x, getPos().getY()+offset.y, getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFood), getEffectivePos().getX()+offset.x, getEffectivePos().getY()+offset.y, getEffectivePos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
 		int slowdown = getSlowdownFactor();
 
-		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 		for(ItemEntity item : items) {
 			ItemStack stack = item.getItem();
@@ -127,7 +127,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

@@ -67,9 +67,9 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			return;
 
 		// sheep need to enter the actual block space
-		List<Entity> targets = getWorld().getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(getPos()), Entity::isAlive);
+		List<Entity> targets = getWorld().getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(getEffectivePos()), Entity::isAlive);
 
-		AxisAlignedBB itemAABB = new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1));
+		AxisAlignedBB itemAABB = new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
 		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((ItemEntity) e).age >= slowdown);
 		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
@@ -115,7 +115,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

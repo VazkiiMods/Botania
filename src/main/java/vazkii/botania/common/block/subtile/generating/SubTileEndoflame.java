@@ -52,8 +52,8 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 		if(getWorld().isRemote) {
 			if(burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
-				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.7, 0.4);
-				getWorld().addParticle(ParticleTypes.FLAME, getPos().getX() + offset.x + Math.random() * 0.2, getPos().getY() + offset.y, getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
+				getWorld().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -63,7 +63,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 				if(getMana() < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
-					for(ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					for(ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
 						if(item.age >= 59 + slowdown && !item.removed) {
 							ItemStack stack = item.getItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
@@ -74,8 +74,8 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								stack.shrink(1);
-								getWorld().playSound(null, getPos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
-								getWorld().addBlockEvent(getPos(), getWorld().getBlockState(getPos()).getBlock(), START_BURN_EVENT, item.getEntityId());
+								getWorld().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
+								getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getEntityId());
 								sync();
 
 								return;
@@ -118,7 +118,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getPos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 
 		if(!getWorld().isRemote && !(getWorld().getDimension() instanceof EndDimension)) {
 			boolean did = false;
-			List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(PlayerEntity player : players) {
 				if(player.getActivePotionEffect(Effects.REGENERATION) == null && getMana() >= COST) {
 					player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 59, 2, true, true));
@@ -55,7 +55,7 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

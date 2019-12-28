@@ -49,7 +49,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 		boolean shouldAfffect = getMana() >= COST;
 
-		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
 		for(MobEntity entity : entities) {
 			List<PrioritizedGoal> entries = new ArrayList<>(entity.goalSelector.goals);
@@ -93,7 +93,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

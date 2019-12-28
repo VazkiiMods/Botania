@@ -44,12 +44,12 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 				float r = state == INCREASING ? 0.05F : 1F;
 				float b = state == INCREASING ? 1F : 0.05F;
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 7, r, 0.05F, b, 1);
-				world.addParticle(data, getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0, (float) Math.random() / 50, 0);
+				world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 50, 0);
 			}
 		} else {
 			int mana = 0;
 			for(Direction dir : MathHelper.HORIZONTALS) {
-				BlockPos pos = getPos().offset(dir);
+				BlockPos pos = getEffectivePos().offset(dir);
 				if(getWorld().isBlockLoaded(pos)) {
 					TileEntity tile = getWorld().getTileEntity(pos);
 					if(tile instanceof IManaPool)

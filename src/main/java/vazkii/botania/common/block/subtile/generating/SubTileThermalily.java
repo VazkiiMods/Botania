@@ -36,7 +36,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	@Override
 	public void doBurnParticles() {
         WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.7F, 0.05F, 0.05F, 1);
-        world.addParticle(data, getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+        world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
     }
 
 	@Override
@@ -46,7 +46,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void playSound() {
-		getWorld().playSound(null, getPos(), ModSounds.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
+		getWorld().playSound(null, getEffectivePos(), ModSounds.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
 	}
 
 	@Override

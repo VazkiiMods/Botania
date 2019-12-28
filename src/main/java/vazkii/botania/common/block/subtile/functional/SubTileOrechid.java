@@ -106,8 +106,8 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-RANGE, -RANGE_Y, -RANGE),
-				getPos().add(RANGE, RANGE_Y, RANGE))) {
+		for(BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
+				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			BlockState state = getWorld().getBlockState(pos);
 			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, getReplaceMatcher()))
 				possibleCoords.add(pos.toImmutable());
@@ -140,7 +140,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

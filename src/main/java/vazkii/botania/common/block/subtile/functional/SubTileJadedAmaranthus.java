@@ -43,9 +43,9 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 
 		if(ticksExisted % 30 == 0 && getMana() >= COST) {
 			BlockPos pos = new BlockPos(
-					getPos().getX() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1),
-					getPos().getY() + RANGE,
-					getPos().getZ() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1)
+					getEffectivePos().getX() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1),
+					getEffectivePos().getY() + RANGE,
+					getEffectivePos().getZ() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1)
 					);
 
 			BlockPos up = pos.up();
@@ -82,7 +82,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

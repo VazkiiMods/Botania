@@ -76,7 +76,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		boolean pulledAny = false;
 		int range = getRange();
 
-		BlockPos pos = getPos();
+		BlockPos pos = getEffectivePos();
 
 		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
@@ -212,7 +212,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), getRange());
+        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {

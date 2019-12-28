@@ -59,7 +59,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote && redstoneSignal == 0 && getWorld().isBlockLoaded(bindPos)) {
-			BlockPos pos = getPos();
+			BlockPos pos = getEffectivePos();
 
 			boolean did = false;
 
@@ -100,7 +100,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if(!bound && !pos.equals(bindPos) && pos.distanceSq(getPos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getPos())) {
+		if(!bound && !pos.equals(bindPos) && pos.distanceSq(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
 			sync();
 

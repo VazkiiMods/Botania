@@ -45,7 +45,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
+						BlockPos pos = getEffectivePos().add(i - RANGE, j - RANGE, k - RANGE);
 						BlockState state = getWorld().getBlockState(pos);
 						Block block = state.getBlock();
 						if(block instanceof CakeBlock) {
@@ -55,7 +55,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 							else getWorld().setBlockState(pos, state.with(CakeBlock.BITES, nextSlicesEaten), 1 | 2);
 
 							getWorld().playEvent(2001, pos, Block.getStateId(state));
-							getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+							getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							addMana(mana);
 							sync();
 							return;
@@ -66,7 +66,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

@@ -73,7 +73,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -rangeY; j < rangeY + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos = getPos().add(i, j, k);
+					BlockPos pos = getEffectivePos().add(i, j, k);
 					Block block = getWorld().getBlockState(pos).getBlock();
 					if(block == Blocks.SAND)
 						possibleCoords.add(pos);
@@ -86,7 +86,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), getRange());
+        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {

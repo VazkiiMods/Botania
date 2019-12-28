@@ -56,11 +56,11 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = getPos().getX() + getWorld().rand.nextInt(range * 2 + 1) - range;
-			int z = getPos().getZ() + getWorld().rand.nextInt(range * 2 + 1) - range;
+			int x = getEffectivePos().getX() + getWorld().rand.nextInt(range * 2 + 1) - range;
+			int z = getEffectivePos().getZ() + getWorld().rand.nextInt(range * 2 + 1) - range;
 
 			for(int i = 4; i > -2; i--) {
-				int y = getPos().getY() + i;
+				int y = getEffectivePos().getY() + i;
 				BlockPos pos = new BlockPos(x, y, z);
 				if(getWorld().isAirBlock(pos))
 					continue;
@@ -112,7 +112,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), getRange());
+        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public static class Mini extends SubTileAgricarnation {

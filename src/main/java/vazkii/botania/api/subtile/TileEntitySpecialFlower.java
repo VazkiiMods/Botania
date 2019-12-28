@@ -82,6 +82,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public boolean overgrowth = false;
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
 	public boolean overgrowthBoost = false;
+	private BlockPos positionOverride;
 
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
@@ -96,13 +97,15 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		if(tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 			if(coords != null) {
-				BlockPos currPos = pos;
-				setPos(coords);
+				positionOverride = coords;
 				tickFlower();
-				setPos(currPos);
 
 				return;
+			} else {
+				positionOverride = null;
 			}
+		} else {
+			positionOverride = null;
 		}
 
 		boolean special = isOnSpecialSoil();
@@ -141,7 +144,15 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		}
 	}
 
-	public void tickFlower() {
+	/**
+	 * @return Where this flower's effects are centered at. This can differ from the true TE location due to
+	 * red string spoofers.
+	 */
+	public final BlockPos getEffectivePos() {
+		return positionOverride != null ? positionOverride : getPos();
+	}
+
+	protected void tickFlower() {
 		ticksExisted++;
 		// todo 1.14 this isn't being markDirtied, but do we even want to keep this field around?
 	}

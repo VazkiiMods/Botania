@@ -64,7 +64,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-range, -range, -range), getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
+			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range + 1, range + 1, range + 1)), getSelector());
 
 			for(LivingEntity entity : entities) {
 				if(entity.hurtTime == 0 && getMana() >= manaToUse) {
@@ -99,7 +99,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), getRange());
+        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public static class Mini extends SubTileBellethorn {

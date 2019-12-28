@@ -36,8 +36,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	protected static SubTileBergamute getBergamuteNearby(float x, float y, float z) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.getWorld().getTileEntity(f.getPos()) == f)
-				.filter(f -> f.getDistanceSq(x, y, z) <= RANGE * RANGE)
+				.filter(f -> f.getEffectivePos().distanceSq(x, y, z, false) <= RANGE * RANGE)
 				.findAny().orElse(null);
 	}
 
@@ -58,7 +57,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getPos(), RANGE);
+        return new RadiusDescriptor.Circle(getEffectivePos(), RANGE);
 	}
 
 }

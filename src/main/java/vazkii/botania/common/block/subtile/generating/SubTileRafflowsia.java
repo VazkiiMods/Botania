@@ -58,7 +58,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
+						BlockPos pos = getEffectivePos().add(i - RANGE, j - RANGE, k - RANGE);
 
 						BlockState state = getWorld().getBlockState(pos);
 						if(state.isIn(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
@@ -101,7 +101,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), RANGE);
+        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

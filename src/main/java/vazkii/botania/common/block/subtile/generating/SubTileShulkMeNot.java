@@ -38,7 +38,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 		int generate = getMaxMana();
 		
 		World world = getWorld();
-		BlockPos pos = getPos();
+		BlockPos pos = getEffectivePos();
 		Vec3d posD = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
 		List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 		if(!world.isRemote)
@@ -84,7 +84,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(getPos(), RADIUS);
+		return new RadiusDescriptor.Circle(getEffectivePos(), RADIUS);
 	}
 	
 	@Override

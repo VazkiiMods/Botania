@@ -66,10 +66,10 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		if(getWorld().isRemote) {
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if ((activePositions >>> i & 1) > 0) {
-					BlockPos coords = getPos().add(POSITIONS[i]);
-                    SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
-                    world.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
-                }
+					BlockPos coords = getEffectivePos().add(POSITIONS[i]);
+					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
+					world.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
+				}
 			}
 
 			return;
@@ -80,7 +80,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			positionAt = 0;
 
 		BlockPos acoords = POSITIONS[positionAt];
-		BlockPos coords = getPos().add(acoords);
+		BlockPos coords = getEffectivePos().add(acoords);
 		World world = getWorld();
 		if(!world.isAirBlock(coords)) {
 			world.getProfiler().startSection("findRecipe");
@@ -138,7 +138,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			case UPDATE_ACTIVE_EVENT: activePositions = param; return true;
 			case RECIPE_COMPLETE_EVENT: {
 				if (getWorld().isRemote) {
-					BlockPos coords = getPos().add(POSITIONS[param]);
+					BlockPos coords = getEffectivePos().add(POSITIONS[param]);
 					for(int i = 0; i < 25; i++) {
 						double x = coords.getX() + Math.random();
 						double y = coords.getY() + Math.random() + 0.5;
@@ -157,7 +157,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getPos(), 1);
+        return new RadiusDescriptor.Square(getEffectivePos(), 1);
 	}
 
 	@Override

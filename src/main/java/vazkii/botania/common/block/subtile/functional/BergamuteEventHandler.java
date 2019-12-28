@@ -46,7 +46,7 @@ public class BergamuteEventHandler {
 
 					if (RAND.nextBoolean()) {
 						Color color = TilePool.PARTICLE_COLOR;
-						BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getPos().getX() + 0.3 + Math.random() * 0.5, berg.getPos().getY() + 0.5 + Math.random()  * 0.5, berg.getPos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+						BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random()  * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 					}
 				}
 			}

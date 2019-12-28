@@ -60,8 +60,8 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 			if(ticksExisted % 10 == 0 && range < getRange())
 				range++;
 
-			for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-range, -range, -range), getPos().add(range, range, range))) {
-				if(getPos().distanceSq(pos) < range * range) {
+			for(BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range, range, range))) {
+				if(getEffectivePos().distanceSq(pos) < range * range) {
 					BlockState state = getWorld().getBlockState(pos);
 					if(state.getMaterial() == Material.WATER) {
 						getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
@@ -110,7 +110,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(getPos(), range);
+		return new RadiusDescriptor.Circle(getEffectivePos(), range);
 	}
 
 	public static class Mini extends SubTileBubbell {

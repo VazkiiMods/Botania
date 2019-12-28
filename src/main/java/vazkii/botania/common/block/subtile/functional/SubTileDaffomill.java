@@ -53,9 +53,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(getWorld().rand.nextInt(4) == 0) {
-            WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
-            world.addParticle(data, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
-        }
+			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
+			world.addParticle(data, getEffectivePos().getX() + Math.random(), getEffectivePos().getY() + Math.random(), getEffectivePos().getZ() + Math.random(), orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
+		}
 
 		if(windTicks == 0 && getMana() > 0) {
 			windTicks = 20;
@@ -84,9 +84,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	private AxisAlignedBB aabbForOrientation() {
-		int x = getPos().getX();
-		int y = getPos().getY();
-		int z = getPos().getZ();
+		int x = getEffectivePos().getX();
+		int y = getEffectivePos().getY();
+		int z = getEffectivePos().getZ();
 		int w = 2;
 		int h = 3;
 		int l = 16;
@@ -139,8 +139,8 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	@Override
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();
-		aabb = new AxisAlignedBB(aabb.minX, getPos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
-        return new RadiusDescriptor.Rectangle(getPos(), aabb);
+		aabb = new AxisAlignedBB(aabb.minX, getEffectivePos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
+        return new RadiusDescriptor.Rectangle(getEffectivePos(), aabb);
 	}
 
 	@Override
