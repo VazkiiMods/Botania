@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#forge:ingots/manasteel",
-    "#forge:ingots/terrasteel",
-    "#forge:ingots/elementium"
+    "#forge:storage_blocks/manasteel",
+    "#forge:storage_blocks/terrasteel",
+    "#forge:storage_blocks/elementium"
   ]
 }
