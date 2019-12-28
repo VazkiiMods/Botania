@@ -189,6 +189,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		addItem(ModBlocks.livingrock);
 		addItem(ModBlocks.livingwood);
+		addItem(ModBlocks.livingwoodPlanks);
+		addItem(ModBlocks.livingwoodPlanksMossy);
+		addItem(ModBlocks.livingwoodFramed);
+		addItem(ModBlocks.livingwoodPatternFramed);
+		addItem(ModBlocks.livingwoodGlimmering);
 
 		addItem(ModBlocks.openCrate);
 		addItem(ModBlocks.craftCrate);
