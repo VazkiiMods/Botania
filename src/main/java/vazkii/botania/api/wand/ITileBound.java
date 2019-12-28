@@ -12,6 +12,8 @@ package vazkii.botania.api.wand;
 
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nullable;
+
 /**
  * Any TileEntity that implements this is technically bound
  * to something, and the binding will be shown when hovering
@@ -20,8 +22,9 @@ import net.minecraft.util.math.BlockPos;
 public interface ITileBound {
 
 	/**
-	 * Gets where this block is bound to, can return null.
+	 * Gets where this block is bound to
 	 */
+	@Nullable
 	public BlockPos getBinding();
 
 }

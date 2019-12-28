@@ -24,6 +24,7 @@ import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class TileRedString extends TileMod implements ITileBound, ITickableTileEntity {
 
@@ -73,6 +74,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 		return INFINITE_EXTENT_AABB;
 	}
 
+	@Nullable
 	@Override
 	public BlockPos getBinding() {
 		return binding;
@@ -83,11 +85,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 	}
 
 	public Direction getOrientation() {
-		BlockState state = world.getBlockState(getPos());
-		if(state.getProperties().contains(BotaniaStateProps.FACING))
-			return state.get(BotaniaStateProps.FACING);
-		
-		return Direction.WEST; // fallback
+		return getBlockState().get(BotaniaStateProps.FACING);
 	}
 
 	public TileEntity getTileAtBinding() {
@@ -103,10 +101,4 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 	public Block getBlockAtBinding() {
 		return getStateAtBinding().getBlock();
 	}
-
-	@Override
-	public boolean hasFastRenderer() {
-		return true;
-	}
-
 }
