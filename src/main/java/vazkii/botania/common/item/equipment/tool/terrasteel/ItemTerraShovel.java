@@ -1,3 +1,13 @@
+/**
+ * This class was created by <ToMe25>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ *
+ * File Created @ [Dec 30, 2019, 9:35 (GMT)]
+ */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,16 +27,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
 
-/**
- * This class was created by <ToMe25>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 30, 2019, 9:35 (GMT)]
- */
 public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialBreaker {
 
 	/**
