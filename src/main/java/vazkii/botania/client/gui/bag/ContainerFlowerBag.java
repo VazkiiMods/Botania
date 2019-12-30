@@ -87,7 +87,7 @@ public class ContainerFlowerBag extends Container {
 			} else {
 				Block b = Block.getBlockFromItem(itemstack.getItem());
 				int i = b instanceof BlockModFlower ? ((BlockModFlower) b).color.getId() : -1;
-				if(i < 16) {
+				if(i >= 0 && i < 16) {
 					Slot slot1 = inventorySlots.get(i);
 					if(slot1.isItemValid(itemstack) && !mergeItemStack(itemstack1, i, i + 1, true))
 						return ItemStack.EMPTY;
