@@ -1,9 +1,5 @@
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -38,9 +34,6 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 	 */
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final List<Material> MATERIALS = Arrays.asList(Material.ORGANIC, Material.EARTH, Material.SAND,
-			Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
-
 	public ItemTerraShovel(Properties props) {
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 	}
@@ -68,8 +61,7 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 			return;
 
 		World world = player.world;
-		Material mat = world.getBlockState(pos).getMaterial();
-		if (!MATERIALS.contains(mat))
+		if (world.getBlockState(pos).getHarvestTool() != net.minecraftforge.common.ToolType.SHOVEL)
 			return;
 
 		if (world.isAirBlock(pos))
@@ -89,7 +81,7 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), false);
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> state.getHarvestTool() == net.minecraftforge.common.ToolType.SHOVEL, false);
 	}
 
 	@Override
