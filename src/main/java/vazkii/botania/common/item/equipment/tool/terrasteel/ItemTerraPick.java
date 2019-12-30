@@ -156,7 +156,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public int getManaPerDmg() {
+	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}
 

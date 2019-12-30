@@ -37,7 +37,6 @@ import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
-import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -90,6 +89,7 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraShovel;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevealing;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
@@ -275,6 +275,9 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.TERRASTEEL_LEGS) public static Item terrasteelLegs;
 	@ObjectHolder(LibItemNames.TERRASTEEL_BOOTS) public static Item terrasteelBoots;
 	@ObjectHolder(LibItemNames.TERRA_SWORD) public static Item terraSword;
+	@ObjectHolder(LibItemNames.TERRA_PICK) public static Item terraPick;
+	@ObjectHolder(LibItemNames.TERRA_AXE) public static Item terraAxe;
+	@ObjectHolder(LibItemNames.TERRA_SHOVEL) public static Item terraShovel;
 	@ObjectHolder(LibItemNames.TINY_PLANET) public static Item tinyPlanet;
 	@ObjectHolder(LibItemNames.MANA_RING) public static Item manaRing;
 	@ObjectHolder(LibItemNames.AURA_RING) public static Item auraRing;
@@ -287,7 +290,6 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.MAGNET_RING) public static Item magnetRing;
 	@ObjectHolder(LibItemNames.WATER_RING) public static Item waterRing;
 	@ObjectHolder(LibItemNames.MINING_RING) public static Item miningRing;
-	@ObjectHolder(LibItemNames.TERRA_PICK) public static Item terraPick;
 	@ObjectHolder(LibItemNames.DIVA_CHARM) public static Item divaCharm;
 	@ObjectHolder(LibItemNames.FLIGHT_TIARA) public static Item flightTiara;
 	@ObjectHolder(LibItemNames.ENDER_DAGGER) public static Item enderDagger; // What you looking at?
@@ -429,7 +431,6 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.RECORD_GAIA2) public static Item recordGaia2;
 	@ObjectHolder(LibItemNames.TEMPERANCE_STONE) public static Item temperanceStone;
 	@ObjectHolder(LibItemNames.INCENSE_STICK) public static Item incenseStick;
-	@ObjectHolder(LibItemNames.TERRA_AXE) public static Item terraAxe;
 	@ObjectHolder(LibItemNames.WATER_BOWL) public static Item waterBowl;
 	@ObjectHolder(LibItemNames.OBEDIENCE_STICK) public static Item obedienceStick;
 	@ObjectHolder(LibItemNames.CACOPHONIUM) public static Item cacophonium;
@@ -572,6 +573,9 @@ public final class ModItems {
 		register(r, new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable()), LibItemNames.TERRASTEEL_LEGS);
 		register(r, new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable()), LibItemNames.TERRASTEEL_BOOTS);
 		register(r, new ItemTerraSword(unstackable()), LibItemNames.TERRA_SWORD);
+		register(r, new ItemTerraPick(unstackable()), LibItemNames.TERRA_PICK);
+		register(r, new ItemTerraAxe(unstackable()), LibItemNames.TERRA_AXE);
+		register(r, new ItemTerraShovel(unstackable()), LibItemNames.TERRA_SHOVEL);
 		register(r, new ItemTinyPlanet(unstackable()), LibItemNames.TINY_PLANET);
 		register(r, new ItemManaRing(unstackable()), LibItemNames.MANA_RING);
 		register(r, new ItemAuraRing(unstackable()), LibItemNames.AURA_RING);
@@ -584,7 +588,6 @@ public final class ModItems {
 		register(r, new ItemMagnetRing(unstackable()), LibItemNames.MAGNET_RING);
 		register(r, new ItemWaterRing(unstackable()), LibItemNames.WATER_RING);
 		register(r, new ItemMiningRing(unstackable()), LibItemNames.MINING_RING);
-		register(r, new ItemTerraPick(unstackable()), LibItemNames.TERRA_PICK);
 		register(r, new ItemDivaCharm(unstackable()), LibItemNames.DIVA_CHARM);
 		register(r, new ItemFlightTiara(unstackable()), LibItemNames.FLIGHT_TIARA);
 		register(r, new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()), LibItemNames.ENDER_DAGGER);
@@ -696,7 +699,6 @@ public final class ModItems {
 		register(r, new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable()), LibItemNames.RECORD_GAIA2);
 		register(r, new ItemTemperanceStone(unstackable()), LibItemNames.TEMPERANCE_STONE);
 		register(r, new ItemIncenseStick(unstackable()), LibItemNames.INCENSE_STICK);
-		register(r, new ItemTerraAxe(unstackable()), LibItemNames.TERRA_AXE);
 		register(r, new ItemWaterBowl(unstackable()), LibItemNames.WATER_BOWL);
 		register(r, new ItemObedienceStick(unstackable()), LibItemNames.OBEDIENCE_STICK);
 		register(r, new ItemCacophonium(unstackable()), LibItemNames.CACOPHONIUM);

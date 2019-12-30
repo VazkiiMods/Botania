@@ -50,16 +50,20 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
-		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
+		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
 		return true;
 	}
 
 	@Override
 	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
 		if (state.getBlockHardness(world, pos) != 0F)
-			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
+			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;
+	}
+
+	public int getManaPerDamage() {
+		return MANA_PER_DAMAGE;
 	}
 
 	@Nonnull
@@ -78,7 +82,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 				return ActionResultType.FAIL;
 
 			if(event.getResult() == Event.Result.ALLOW) {
-				ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
 				return ActionResultType.SUCCESS;
 			}
 
@@ -98,7 +102,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 					return ActionResultType.SUCCESS;
 				else {
 					world.setBlockState(pos, block1.getDefaultState());
-					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+					ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
 					return ActionResultType.SUCCESS;
 				}
 			}
@@ -109,7 +113,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
+		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}
 

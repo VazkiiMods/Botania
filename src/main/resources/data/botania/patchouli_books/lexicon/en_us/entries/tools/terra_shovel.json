@@ -1,0 +1,17 @@
+{
+  "name": "botania.entry.terraShovel",
+  "category": "tools",
+  "icon": "botania:terra_shovel",
+  "advancement": "botania:main/terrasteel_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.terraShovel0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.terraShovel1",
+      "recipe": "botania:terra_shovel"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:terra_shovel"
+  },
+  "pattern": [
+    " T ",
+    "TST",
+    " S "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:livingwood_twig"
+    },
+    "T": {
+      "tag": "forge:ingots/terrasteel"
+    }
+  }
+}

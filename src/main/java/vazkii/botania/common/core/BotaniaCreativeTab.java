@@ -189,6 +189,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		addItem(ModBlocks.livingrock);
 		addItem(ModBlocks.livingwood);
+		addItem(ModBlocks.livingwoodPlanks);
+		addItem(ModBlocks.livingwoodPlanksMossy);
+		addItem(ModBlocks.livingwoodGlimmering);
+		addItem(ModBlocks.livingwoodFramed);
+		addItem(ModBlocks.livingwoodPatternFramed);
 
 		addItem(ModBlocks.openCrate);
 		addItem(ModBlocks.craftCrate);
@@ -292,6 +297,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.flareChakram);
 		addItem(ModItems.terraPick);
 		addItem(ModItems.terraAxe);
+		addItem(ModItems.terraShovel);
 		addItem(ModItems.temperanceStone);
 		addItem(ModItems.terrasteelHelm);
 		if(Botania.thaumcraftLoaded)
@@ -478,6 +484,10 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.livingwoodWall);
 		addItem(ModFluffBlocks.livingwoodPlankStairs);
 		addItem(ModFluffBlocks.livingwoodPlankSlab);
+		addItem(ModBlocks.livingrockBrick);
+		addItem(ModBlocks.livingrockBrickCracked);
+		addItem(ModBlocks.livingrockBrickMossy);
+		addItem(ModBlocks.livingrockBrickChiseled);
 		addItem(ModFluffBlocks.livingrockStairs);
 		addItem(ModFluffBlocks.livingrockSlab);
 		addItem(ModFluffBlocks.livingrockWall);
@@ -504,25 +514,38 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.darkQuartz);
 		addItem(ModFluffBlocks.darkQuartzSlab);
 		addItem(ModFluffBlocks.darkQuartzStairs);
-
+		addItem(ModFluffBlocks.darkQuartzChiseled);
+		addItem(ModFluffBlocks.darkQuartzPillar);
 		addItem(ModFluffBlocks.manaQuartz);
 		addItem(ModFluffBlocks.manaQuartzSlab);
 		addItem(ModFluffBlocks.manaQuartzStairs);
+		addItem(ModFluffBlocks.manaQuartzChiseled);
+		addItem(ModFluffBlocks.manaQuartzPillar);
 		addItem(ModFluffBlocks.blazeQuartz);
 		addItem(ModFluffBlocks.blazeQuartzSlab);
 		addItem(ModFluffBlocks.blazeQuartzStairs);
+		addItem(ModFluffBlocks.blazeQuartzChiseled);
+		addItem(ModFluffBlocks.blazeQuartzPillar);
 		addItem(ModFluffBlocks.lavenderQuartz);
 		addItem(ModFluffBlocks.lavenderQuartzSlab);
 		addItem(ModFluffBlocks.lavenderQuartzStairs);
+		addItem(ModFluffBlocks.lavenderQuartzChiseled);
+		addItem(ModFluffBlocks.lavenderQuartzPillar);
 		addItem(ModFluffBlocks.redQuartz);
 		addItem(ModFluffBlocks.redQuartzSlab);
 		addItem(ModFluffBlocks.redQuartzStairs);
+		addItem(ModFluffBlocks.redQuartzChiseled);
+		addItem(ModFluffBlocks.redQuartzPillar);
 		addItem(ModFluffBlocks.elfQuartz);
 		addItem(ModFluffBlocks.elfQuartzSlab);
 		addItem(ModFluffBlocks.elfQuartzStairs);
+		addItem(ModFluffBlocks.elfQuartzChiseled);
+		addItem(ModFluffBlocks.elfQuartzPillar);
 		addItem(ModFluffBlocks.sunnyQuartz);
 		addItem(ModFluffBlocks.sunnyQuartzSlab);
 		addItem(ModFluffBlocks.sunnyQuartzStairs);
+		addItem(ModFluffBlocks.sunnyQuartzChiseled);
+		addItem(ModFluffBlocks.sunnyQuartzPillar);
 
 		addItem(ModFluffBlocks.biomeStoneForest);
 		addItem(ModFluffBlocks.biomeStonePlains);
@@ -548,6 +571,14 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.biomeBrickDesert);
 		addItem(ModFluffBlocks.biomeBrickTaiga);
 		addItem(ModFluffBlocks.biomeBrickMesa);
+		addItem(ModFluffBlocks.biomeChiseledBrickForest);
+		addItem(ModFluffBlocks.biomeChiseledBrickPlains);
+		addItem(ModFluffBlocks.biomeChiseledBrickMountain);
+		addItem(ModFluffBlocks.biomeChiseledBrickFungal);
+		addItem(ModFluffBlocks.biomeChiseledBrickSwamp);
+		addItem(ModFluffBlocks.biomeChiseledBrickDesert);
+		addItem(ModFluffBlocks.biomeChiseledBrickTaiga);
+		addItem(ModFluffBlocks.biomeChiseledBrickMesa);
 
 		addItem(ModFluffBlocks.biomeStoneForestStairs);
 		addItem(ModFluffBlocks.biomeStonePlainsStairs);
@@ -613,16 +644,19 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.bluePavement);
 		addItem(ModFluffBlocks.yellowPavement);
 		addItem(ModFluffBlocks.redPavement);
+		addItem(ModFluffBlocks.greenPavement);
 		addItem(ModFluffBlocks.whitePavementStair);
 		addItem(ModFluffBlocks.blackPavementStair);
 		addItem(ModFluffBlocks.bluePavementStair);
 		addItem(ModFluffBlocks.yellowPavementStair);
 		addItem(ModFluffBlocks.redPavementStair);
+		addItem(ModFluffBlocks.greenPavementStair);
 		addItem(ModFluffBlocks.whitePavementSlab);
 		addItem(ModFluffBlocks.blackPavementSlab);
 		addItem(ModFluffBlocks.bluePavementSlab);
 		addItem(ModFluffBlocks.yellowPavementSlab);
 		addItem(ModFluffBlocks.redPavementSlab);
+		addItem(ModFluffBlocks.greenPavementSlab);
 
 		addItem(ModItems.blackBowtie);
 		addItem(ModItems.blackTie);

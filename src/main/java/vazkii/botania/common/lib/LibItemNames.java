@@ -70,6 +70,9 @@ public final class LibItemNames {
 	public static final String TERRASTEEL_LEGS = "terrasteel_leggings";
 	public static final String TERRASTEEL_BOOTS = "terrasteel_boots";
 	public static final String TERRA_SWORD = "terra_sword";
+	public static final String TERRA_PICK = "terra_pick";
+	public static final String TERRA_AXE = "terra_axe";
+	public static final String TERRA_SHOVEL = "terra_shovel";
 	public static final String TINY_PLANET = "tiny_planet";
 	public static final String MANA_RING = "mana_ring";
 	public static final String AURA_RING = "aura_ring";
@@ -82,7 +85,6 @@ public final class LibItemNames {
 	public static final String MAGNET_RING = "magnet_ring";
 	public static final String WATER_RING = "water_ring";
 	public static final String MINING_RING = "mining_ring";
-	public static final String TERRA_PICK = "terra_pick";
 	public static final String DIVA_CHARM = "diva_charm";
 	public static final String FLIGHT_TIARA = "flight_tiara";
 	public static final String ENDER_DAGGER = "ender_dagger";
@@ -178,7 +180,6 @@ public final class LibItemNames {
 	public static final String RECORD_GAIA2 = "record_gaia_2";
 	public static final String TEMPERANCE_STONE = "temperance_stone";
 	public static final String INCENSE_STICK = "incense_stick";
-	public static final String TERRA_AXE = "terra_axe";
 	public static final String WATER_BOWL = "water_bowl";
 	public static final String OBEDIENCE_STICK = "obedience_stick";
 	public static final String CACOPHONIUM = "cacophonium";

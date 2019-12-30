@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,14 +48,14 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
-		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDmg());
+		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
 		return true;
 	}
 
 	@Override
 	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
 		if(state.getBlockHardness(world, pos) != 0F)
-			ToolCommons.damageItem(stack, 1, entity, getManaPerDmg());
+			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;
 	}
@@ -81,7 +80,7 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 		return ActionResultType.PASS;
 	}
 
-	public int getManaPerDmg() {
+	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}
 
