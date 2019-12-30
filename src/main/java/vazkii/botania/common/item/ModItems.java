@@ -555,7 +555,7 @@ public final class ModItems {
 		register(r, new ItemHorn(unstackable()), LibItemNames.GRASS_HORN);
 		register(r, new ItemHorn(unstackable()), LibItemNames.LEAVES_HORN);
 		register(r, new ItemHorn(unstackable()), LibItemNames.SNOW_HORN);
-		register(r, new ItemManaMirror(unstackable().defaultMaxDamage(1000).setNoRepair()), LibItemNames.MANA_MIRROR);
+		register(r, new ItemManaMirror(unstackable()), LibItemNames.MANA_MIRROR);
 		register(r, new ItemManasteelHelm(unstackable()), LibItemNames.MANASTEEL_HELM);
 		register(r, new ItemManasteelHelmRevealing(unstackable()), LibItemNames.MANASTEEL_HELM_R);
 		register(r, new ItemManasteelArmor(EquipmentSlotType.CHEST, unstackable()), LibItemNames.MANASTEEL_CHEST);
