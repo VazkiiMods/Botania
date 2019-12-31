@@ -88,10 +88,13 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 			Block block = world.getBlockState(pos).getBlock();
 
-			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) &&
+					(block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.COARSE_DIRT)) {
 				Block block1 = Blocks.GRASS_PATH;
-				if(block == block1)
+				if(block == block1 || block == Blocks.DIRT)
 					block1 = Blocks.FARMLAND;
+				else if(block == Blocks.COARSE_DIRT)
+					block1 = Blocks.DIRT;
 				
 				world.playSound(null, pos, block1.getDefaultState().getSoundType().getStepSound(),
 						SoundCategory.BLOCKS,

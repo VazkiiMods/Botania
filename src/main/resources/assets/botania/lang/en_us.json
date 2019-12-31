@@ -1433,7 +1433,7 @@
   "item.botania.temperance_stone": "Stone of Temperance",
   "item.botania.incense_stick": "Incense Stick",
   "item.botania.terra_axe": "Terra Truncator",
-  "item.botania.terra_shovel": "Terrasteel Shovel",
+  "item.botania.terra_shovel": "Terra Harvester",
   "item.botania.manasteel_nugget": "Manasteel Nugget",
   "item.botania.terrasteel_nugget": "Terrasteel Nugget",
   "item.botania.elementium_nugget": "Elementium Nugget",
@@ -2807,7 +2807,7 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of a Terrasteel Tools",
-  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active $(1)Stone of Temperance$(0) in one's inventory will prevent their $(1)Terra Shatterer$(0) and $(1)Terrasteel Shovel$(0) from breaking any more than a 3x3 area. This also affects the $(1)Terra Truncator$(0). The stone can be toggled on and off by shift-right clicking.",
+  "botania.page.temperanceStone0": "The $(1)Terra Shatterer$(0) is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active $(1)Stone of Temperance$(0) in one's inventory will prevent their $(1)Terra Shatterer$(0) and $(1)Terras Harvester$(0) from breaking any more than a 3x3 area. This also affects the $(1)Terra Truncator$(0). The stone can be toggled on and off by shift-right clicking.",
   "botania.page.temperanceStone1": "Don't lose it",
 
   "botania.entry.terraAxe": "Terra Truncator",
@@ -2815,10 +2815,10 @@
   "botania.page.terraAxe0": "The $(1)Terra Truncator$(0) is a greataxe of premium quality achievable only with $(1)Terrasteel$(0). When hitting a tree it'll take the whole thing down with speed, bringing all the logs and leaves along with it. Of course, this comes at a hefty cost of $(4)Mana$(0).$(p)This effect doesn't happen while sneaking or if the user has a $(1)Stone of Temperance$(0).",
   "botania.page.terraAxe1": "TIMBEEEEEEEER",
   
-  "botania.entry.terraShovel": "Terrasteel Shovel",
+  "botania.entry.terraShovel": "Terra Harvester",
   "botania.tagline.terraShovel": "The Terra Shatterer as a Shovel, but weaker.",
-  "botania.page.terraShovel0": "The $(1)Terrasteel Shovel$(0) is a shovel made from $(1)Terrasteel$(0) that can break an area of 5 by 5 blocks at the cost of $(4)Mana$(0).$(p)This effect doesn't happen while sneaking and is decreased to 3 by 3 blocks if the user has a $(1)Stone of Temperance$(0).",
-  "botania.page.terraShovel1": "Terrasteel Shovel",
+  "botania.page.terraShovel0": "The $(1)Terra Harvester$(0) is a shovel made from $(1)Terrasteel$(0) that can break an area of 5x5 blocks at the cost of $(4)Mana$(0).$(p)It can also create paths or farmland in that same area and it can fertilize crops for $(4)Mana$(0).$(p)This effect doesn't happen while sneaking and is decreased to 3x3 blocks if the user has a $(1)Stone of Temperance$(0).",
+  "botania.page.terraShovel1": "Harvest the World",
 
   "botania.entry.obedienceStick": "Floral Obedience Stick",
   "botania.tagline.obedienceStick": "Mass binding flowers to a spot",
@@ -3297,7 +3297,7 @@
 
   "botania.entry.thorRing": "Ring of Thor",
   "botania.tagline.thorRing": "Because the Terra Shatterer wasn't strong enough",
-  "botania.page.thorRing0": "One of the three mythic rings of the $(4)Aesir$(0), the $(1)Ring of Thor$(0), when worn, bestows upon the wearer the might of the Thunder God $(4)Thor$(0). This power drastically increases the strength of area of effect mining with a $(1)Terra Shatterer$(0) or a $(1)Terrasteel Shovel$(0).$(p)",
+  "botania.page.thorRing0": "One of the three mythic rings of the $(4)Aesir$(0), the $(1)Ring of Thor$(0), when worn, bestows upon the wearer the might of the Thunder God $(4)Thor$(0). This power drastically increases the strength of area of effect mining with a $(1)Terra Shatterer$(0) or a $(1)Terra Harvester$(0).$(p)",
 
   "botania.entry.lokiRing": "Ring of Loki",
   "botania.tagline.lokiRing": "The power to be here, and there, and over there too",
