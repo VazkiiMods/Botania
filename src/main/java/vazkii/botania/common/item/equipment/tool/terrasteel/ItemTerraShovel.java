@@ -212,7 +212,7 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 				boolean success = false;
 				while(pos1.getZ() <= endZ) {
 					while(pos1.getX() <= endX) {
-						success = success || bonemealCrop(ctx, pos1) == ActionResultType.SUCCESS;
+						success = bonemealCrop(ctx, pos1) == ActionResultType.SUCCESS || success;
 						pos1 = pos1.add(1, 0, 0);
 					}
 					pos1 = new BlockPos(startX, pos1.getY(), pos1.getZ() + 1);
