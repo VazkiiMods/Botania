@@ -126,6 +126,7 @@ public class FXWisp extends Particle {
 
 	private static void endRenderCommon() {
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();
 		GlStateManager.depthMask(true);
 		GL11.glPopAttrib();
