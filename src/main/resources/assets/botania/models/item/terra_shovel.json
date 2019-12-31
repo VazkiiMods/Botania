@@ -2,5 +2,13 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "botania:items/terrasteel_shovel"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:enabled": 1
+      },
+      "model": "botania:item/terra_shovel_enabled"
+    }
+  ]
 }
