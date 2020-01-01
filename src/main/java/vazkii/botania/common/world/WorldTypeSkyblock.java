@@ -16,6 +16,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.FlatGenerationSettings;
@@ -50,14 +51,17 @@ public class WorldTypeSkyblock extends WorldType {
 	@Nonnull
 	@Override
 	public ChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
-		FlatGenerationSettings settings = new FlatGenerationSettings();
-		settings.setBiome(Biomes.PLAINS);
-		settings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.AIR));
-		settings.updateLayers();
+		if (world.dimension.getType() == DimensionType.OVERWORLD) {
+			FlatGenerationSettings settings = new FlatGenerationSettings();
+			settings.setBiome(Biomes.PLAINS);
+			settings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.AIR));
+			settings.updateLayers();
 
-		BiomeProvider biomeProvider = BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.createSettings().setBiome(settings.getBiome()));
+			BiomeProvider biomeProvider = BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.createSettings().setBiome(settings.getBiome()));
 
-		return ChunkGeneratorType.FLAT.create(world, biomeProvider, settings);
+			return ChunkGeneratorType.FLAT.create(world, biomeProvider, settings);
+		}
+		return super.createChunkGenerator(world);
 	}
 
 	/* In skyblock worlds, do not darken the sky until player hits y=0 */
