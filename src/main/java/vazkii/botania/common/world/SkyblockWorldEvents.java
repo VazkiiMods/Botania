@@ -36,6 +36,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.ModTags;
@@ -156,7 +157,9 @@ public final class SkyblockWorldEvents {
 				ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 				pmp.setSpawnPoint(pos, true, player.world.getDimension().getType());
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
+				if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
+					player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
+				}
 			}
 
 			if(fabricated) {
