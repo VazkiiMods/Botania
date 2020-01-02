@@ -9,7 +9,8 @@
       "item": "botania:flight_tiara"
     },
     {
-      "tag": "forge:gems/quartz"
+      "item": "minecraft:quartz",
+      "__comment": "NB: Only vanilla quartz, using the tag causes recipe conflict with other tiara recipes"
     }
   ],
   "type": "minecraft:crafting_shapeless"

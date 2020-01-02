@@ -112,7 +112,6 @@ public class FXWisp extends Particle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
-		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.depthMask(false);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
@@ -128,7 +127,6 @@ public class FXWisp extends Particle {
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 		GlStateManager.disableBlend();
 		GlStateManager.depthMask(true);
-		GL11.glPopAttrib();
 	}
 
 	private static final IParticleRenderType NORMAL_RENDER = new IParticleRenderType() {

@@ -276,9 +276,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 				if(doGlide) {
 					float mul = 0.6F;
-					player.setMotion(player.getMotion().getX() * mul,
-							Math.max(-0.15F, player.getMotion().getY()),
-							player.getMotion().getZ() * mul);
+					player.setMotion(look.x * mul, Math.max(-0.15F, player.getMotion().getY()), look.z * mul);
 					player.fallDistance = 2F;
 				}
 			}

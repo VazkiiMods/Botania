@@ -51,9 +51,13 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public int getDamage(ItemStack stack) {
-		float mana = getMana(stack);
-		return 1000 - (int) (mana / TilePool.MAX_MANA * 1000);
+	public boolean showDurabilityBar(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		return 1 - getManaFractionForDisplay(stack);
 	}
 
 	@Override

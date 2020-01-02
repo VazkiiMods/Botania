@@ -1,3 +1,14 @@
+r1.11 373
+* Fix Life Aggregator placing pig spawners instead of the actual mob
+* Fix mana flame block being unnamed
+* (!) Fix loot tables not applying properly, which affects downstream mods like CraftTweaker
+* Corporea keybind requests no longer uses chat
+* Corporea keybind requests can now use the vanilla recipe book
+* Fix mana/elven glass having weird culling
+* Fix red string blocks not rendering their effect when holding a wand
+* Fix various bugs with flowers on red string spoofers (not rendering, particles in the wrong place, etc.)
+* Fix thermalilies not saving their cooldown when broken
+* Fix various items being missing from the creative tab
 r1.11 372
 * Welcome to Botania on Minecraft 1.14.x, almost an entire year in the making (efforts began around January for 1.13)
 * Shoutout to williewillus and Hubry for contributing significant chunks of effort to this port

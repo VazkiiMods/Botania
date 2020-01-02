@@ -55,9 +55,9 @@ public final class ShaderHelper {
 	private static boolean checkedIncompatibility = false;
 	private static boolean lighting;
 
-	private static void deleteShader(int id) {
+	private static void deleteProgram(int id) {
 		if (id != 0) {
-			GLX.glDeleteShader(id);
+			GLX.glDeleteProgram(id);
 		}
 	}
 
@@ -68,27 +68,27 @@ public final class ShaderHelper {
 			&& Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
 			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
 					(IResourceManagerReloadListener) manager -> {
-						deleteShader(pylonGlow);
+						deleteProgram(pylonGlow);
 						pylonGlow = 0;
-						deleteShader(enchanterRune);
+						deleteProgram(enchanterRune);
 						enchanterRune = 0;
-						deleteShader(manaPool);
+						deleteProgram(manaPool);
 						manaPool = 0;
-						deleteShader(doppleganger);
+						deleteProgram(doppleganger);
 						doppleganger = 0;
-						deleteShader(halo);
+						deleteProgram(halo);
 						halo = 0;
-						deleteShader(dopplegangerBar);
+						deleteProgram(dopplegangerBar);
 						dopplegangerBar = 0;
-						deleteShader(terraPlateRune);
+						deleteProgram(terraPlateRune);
 						terraPlateRune = 0;
-						deleteShader(filmGrain);
+						deleteProgram(filmGrain);
 						filmGrain = 0;
-						deleteShader(gold);
+						deleteProgram(gold);
 						gold = 0;
-						deleteShader(categoryButton);
+						deleteProgram(categoryButton);
 						categoryButton = 0;
-						deleteShader(alpha);
+						deleteProgram(alpha);
 						alpha = 0;
 
 						loadShaders(manager);
@@ -176,6 +176,10 @@ public final class ShaderHelper {
 			Botania.LOGGER.warn(GLX.glGetProgramInfoLog(program, 32768));
 			return 0;
 		}
+
+		// Free the shader immediately, it will stay alive until the program is deleted
+		GLX.glDeleteShader(vertId);
+		GLX.glDeleteShader(fragId);
 
 		return program;
 	}
