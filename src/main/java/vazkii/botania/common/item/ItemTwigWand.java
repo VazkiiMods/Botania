@@ -24,6 +24,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
+import net.minecraft.state.IProperty;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -185,7 +187,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 			if(player.canPlayerEdit(pos, side, stack)
 					&& (!(block instanceof CommandBlockBlock) || player.canUseCommandBlock())) {
-				BlockState newState = state.rotate(world, pos, Rotation.CLOCKWISE_90);
+				BlockState newState = rotate(state, side.getAxis());
 				if(newState != state) {
 					world.setBlockState(pos, newState);
 					return ActionResultType.SUCCESS;
@@ -224,6 +226,21 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		}
 
 		return ActionResultType.PASS;
+	}
+
+	private static BlockState rotate(BlockState old, Direction.Axis axis) {
+		for (IProperty<?> prop : old.getProperties()) {
+			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
+			    IProperty<Direction> facingProp = (IProperty<Direction>) prop;
+
+				Direction newDir = old.get(facingProp).rotateAround(axis);
+				if (facingProp.getAllowedValues().contains(newDir)) {
+					return old.with(facingProp, newDir);
+				}
+			}
+		}
+
+		return old.rotate(Rotation.CLOCKWISE_90);
 	}
 
 	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {

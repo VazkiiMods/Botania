@@ -146,6 +146,8 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.IntValue flowerPatchChance;
 		public final ForgeConfigSpec.DoubleValue flowerTallChance;
 		public final ForgeConfigSpec.IntValue mushroomQuantity;
+		
+		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon; 
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			blockBreakParticles = builder
@@ -217,6 +219,9 @@ public final class ConfigHandler {
 			mushroomQuantity = builder
 					.comment("The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.")
 					.defineInRange("worldgen.mushroom.quantity", 40, 0, Integer.MAX_VALUE);
+			gogSpawnWithLexicon = builder
+					.comment("Set this to false to disable spawning with a Lexica Botania in Garden of Glass worlds, if you are modifying the modpack's progression to not start with Botania.")
+					.define("gardenOfGlass.spawnWithLexicon", true);
 		}
 	}
 

@@ -12,7 +12,8 @@
       "type": "image",
       "text": "botania.page.marimorphosis1",
       "images": [
-        "botania:textures/gui/entries/metamorphic_stones.png"
+        "botania:textures/gui/entries/metamorphic_stones_0.png",
+	"botania:textures/gui/entries/metamorphic_stones_1.png"
       ]
     },
     {

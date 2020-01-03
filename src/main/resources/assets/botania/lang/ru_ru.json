@@ -3165,13 +3165,6 @@
   "botania.page.decorativeBlocks13": "Пламенный кварц",
   "botania.page.decorativeBlocks14": "Лавандовый кварц",
   "botania.page.decorativeBlocks15": "Красный кварц",
-  "botania.page.decorativeBlocks16": "Некоторые блоки могут быть созданы по особым рецептам, для создания новых строительных блоков. Это $(1)Тростниковый блок$(0), $(1)Солома$(0), $(1)Черепица$(0) и несколько новых видов $(1)кирпича$(0).$(p)Все они могут быть преобразованы в ступени или плиты.",
-  "botania.page.decorativeBlocks17": "Изготовление $(1)Тростникового блока$(0)",
-  "botania.page.decorativeBlocks18": "Изготовление $(1)Соломы$(0)",
-  "botania.page.decorativeBlocks19": "Изготовление $(1)Черепицы$(0)",
-  "botania.page.decorativeBlocks20": "Изготовление $(1)Адского кирпича$(0)",
-  "botania.page.decorativeBlocks21": "Изготовление $(1)Душевного кирпича$(0)",
-  "botania.page.decorativeBlocks22": "Изготовление $(1)Ледяного кирпича$(0)",
 
   "botania.entry.dispenserTweaks": "Подстройка раздатчика",
   "botania.tagline.dispenserTweaks": "Раздатчик сажает семена",

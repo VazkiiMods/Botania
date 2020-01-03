@@ -68,7 +68,7 @@ public class ItemFlowerBag extends ItemMod {
 			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
 				Block blk = Block.getBlockFromItem(stack.getItem());
 				return !stack.isEmpty()
-						&& blk instanceof BlockModFlower
+						&& blk.getClass() == BlockModFlower.class
 						&& slot == ((BlockModFlower) blk).color.getId();
 			}
 		};

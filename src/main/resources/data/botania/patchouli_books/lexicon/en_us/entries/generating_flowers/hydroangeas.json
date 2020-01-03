@@ -10,13 +10,6 @@
       "text": "botania.page.hydroangeas0"
     },
     {
-      "type": "image",
-      "text": "botania.page.hydroangeas2",
-      "images": [
-        "botania:textures/gui/entries/hydroangeas.png"
-      ]
-    },
-    {
       "type": "petal_apothecary",
       "text": "botania.page.hydroangeas1",
       "recipe": "botania:hydroangeas"
