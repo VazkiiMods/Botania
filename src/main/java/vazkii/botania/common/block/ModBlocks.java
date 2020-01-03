@@ -901,7 +901,7 @@ public final class ModBlocks {
 		register(r, TileEntityType.Builder.create(TileIncensePlate::new, incensePlate).build(null), LibBlockNames.INCENSE_PLATE);;
 		register(r, TileEntityType.Builder.create(TileHourglass::new, hourglass).build(null), LibBlockNames.HOURGLASS);;
 		register(r, TileEntityType.Builder.create(TileSparkChanger::new, sparkChanger).build(null), LibBlockNames.SPARK_CHANGER);;
-		register(r, TileEntityType.Builder.create(TileCocoon::new).build(null), LibBlockNames.COCOON);;
+		register(r, TileEntityType.Builder.create(TileCocoon::new, cocoon).build(null), LibBlockNames.COCOON);;
 		register(r, TileEntityType.Builder.create(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork).build(null), LibBlockNames.LIGHT_RELAY);;
 		register(r, TileEntityType.Builder.create(TileCacophonium::new, cacophonium).build(null), LibBlockNames.CACOPHONIUM);;
 		register(r, TileEntityType.Builder.create(TileBellows::new, bellows).build(null), LibBlockNames.BELLOWS);;

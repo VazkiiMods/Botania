@@ -123,7 +123,6 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 							blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
 					}
 				}
-				break;
 			}
 		}
 
