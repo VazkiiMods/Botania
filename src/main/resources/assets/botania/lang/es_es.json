@@ -2491,13 +2491,6 @@
   "botania.page.decorativeBlocks14": "Cuarzo lavanda",
   "botania.page.decorativeBlocks15": "Cuarzo rojo",
   "botania.page.decorativeBlocks23": "Cuarzo solar",
-  "botania.page.decorativeBlocks16": "Algunos bloques se pueden organizar en formas diferentes a la normal para crear nuevos bloques de construcción, tales como $(1)tejas$(0) algunos $(1)ladrillos$(0) nuevos.$(p)Todos estos pueden se transformados tanto en escaleras como en losas.",
-  "botania.page.decorativeBlocks17": "Creando $(1)bloque de caña$(0)",
-  "botania.page.decorativeBlocks18": "Creando $(1)bloque de paja$(0)",
-  "botania.page.decorativeBlocks19": "Creando $(1)tejas$(0)",
-  "botania.page.decorativeBlocks20": "Creando $(1)ladrillos infernales$(0)",
-  "botania.page.decorativeBlocks21": "Creando $(1)ladrillos de alma$(0)",
-  "botania.page.decorativeBlocks22": "Creando $(1)ladrillos de escarcha$(0)",
 
   "botania.entry.dispenserTweaks": "Retoques del dispensador",
   "botania.page.dispenserTweaks0": "Los $(1)dispensadores$(0), entre sus habilidades normales, pueden plantar todo tipo de cultivos como $(1)semillas$(0), $(1)patatas$(0), $(1)zanahorias$(0) e incluso $(1)verrugas$(0). El cultivo se planta en el bloque delante del dispensador.$(p)El $(1)dispensador$(0) puede usar la $(1)varita del bosque$(0) para acciones específicas como iniciar un $(1)altar rúnico$(0)",
