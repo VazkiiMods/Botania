@@ -902,6 +902,8 @@
   "block.botania.toggle_light_relay": "Toggle Luminizer",
   "block.botania.light_launcher": "Luminizer Launcher",
   "block.botania.livingrock_wall": "Livingrock Wall",
+  "block.botania.livingwood_wall": "Livingwood Wall",
+  "block.botania.dreamwood_wall": "Dreamwood Wall",
   "block.botania.livingwood_fence": "Livingwood Fence",
   "block.botania.dreamwood_fence": "Dreamwood Fence",
   "block.botania.livingwood_fence_gate": "Livingwood Fence Gate",

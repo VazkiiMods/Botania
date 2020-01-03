@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:dreamwood_wall",
+    "count": 6
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "botania:dreamwood"
+    }
+  }
+}
