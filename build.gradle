@@ -136,7 +136,9 @@ processResources {
     exclude '.cache'
 
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
-        expand(['buildNumber': config.build_number])
+        filter {
+            it.replaceAll("buildNumber", config.build_number)
+        }
     }
 }
 
