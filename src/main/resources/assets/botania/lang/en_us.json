@@ -1731,7 +1731,7 @@
 
   "botania.entry.flowers": "Mystical Flowers",
   "botania.tagline.flowers": "The roots of your studies",
-  "botania.page.flowers0": "Around the world, you may stumble upon a large variety of $(1)Mystical Flowers$(0). Spotting these flowers doesn't take much work, as they glow faintly and sparkle.$(p)They come in a total of $(4)16$(0) different colors.$(p)These flowers using can also be grown with $(1)Floral Fertilizer$(0) (read on).",
+  "botania.page.flowers0": "Around the world, you may stumble upon a large variety of $(1)Mystical Flowers$(0). Spotting these flowers doesn't take much work, as they glow faintly and sparkle.$(p)They come in a total of $(4)16$(0) different colors.$(p)These flowers can also be grown with $(1)Floral Fertilizer$(0) (read on).",
   "botania.page.flowers1": "Flowers as far as the eye can see...",
   "botania.page.flowers2": "These flowers can be plucked for $(1)Mystical Petals$(0), which are used in the creation of magical instruments and plants.$(p)Right-clicking a petal upon the ground will $(4)bury it$(0), making it emit particles.$(p)These petals can also be crushed into $(1)Floral Powders$(0), which function much like any mundane piece of dye.",
   "botania.page.flowers3": "Plucking petals off flowers.",
