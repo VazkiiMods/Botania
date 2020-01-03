@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:livingwood_wall"
+          "name": "botania:dreamwood_fence"
         }
       ],
       "conditions": [

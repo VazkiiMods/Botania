@@ -1,9 +1,7 @@
 {
   "replace": false,
   "values": [
-    "botania:dreamwood_wall",
     "botania:livingrock_wall",
-    "botania:livingwood_wall",
     "botania:metamorphic_desert_cobblestone_wall",
     "botania:metamorphic_forest_cobblestone_wall",
     "botania:metamorphic_fungal_cobblestone_wall",

@@ -12,6 +12,8 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
@@ -35,6 +37,8 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.WALL_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.FENCE_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.FENCE_GATE_SUFFIX;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -43,7 +47,8 @@ public final class ModFluffBlocks {
 
 	@ObjectHolder(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX) public static Block livingwoodStairs;
 	@ObjectHolder(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX) public static Block livingwoodSlab;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + WALL_SUFFIX) public static Block livingwoodWall;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX) public static Block livingwoodFence;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX) public static Block livingwoodFenceGate;
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX) public static Block livingwoodPlankStairs;
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX) public static Block livingwoodPlankSlab;
 	@ObjectHolder(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX) public static Block livingrockStairs;
@@ -53,7 +58,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX) public static Block livingrockBrickSlab;
 	@ObjectHolder(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX) public static Block dreamwoodStairs;
 	@ObjectHolder(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX) public static Block dreamwoodSlab;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + WALL_SUFFIX) public static Block dreamwoodWall;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX) public static Block dreamwoodFence;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX) public static Block dreamwoodFenceGate;
 	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX) public static Block dreamwoodPlankStairs;
 	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX) public static Block dreamwoodPlankSlab;
 
@@ -232,7 +238,8 @@ public final class ModFluffBlocks {
 		Block base = r.getValue(prefix(LibBlockNames.LIVING_WOOD));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + SLAB_SUFFIX);
-		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + WALL_SUFFIX);
+		register(r, new FenceBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + FENCE_SUFFIX);
+		register(r, new FenceGateBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX);
 
 		base = r.getValue(prefix(LibBlockNames.LIVING_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX);
@@ -250,7 +257,8 @@ public final class ModFluffBlocks {
 		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + SLAB_SUFFIX);
-		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + WALL_SUFFIX);
+		register(r, new FenceBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + FENCE_SUFFIX);
+		register(r, new FenceGateBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX);
 
 		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX);
@@ -320,7 +328,8 @@ public final class ModFluffBlocks {
 		
 		r.register(new ItemBlockMod(livingwoodStairs, props).setRegistryName(livingwoodStairs.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodSlab, props).setRegistryName(livingwoodSlab.getRegistryName()));
-		r.register(new ItemBlockMod(livingwoodWall, props).setRegistryName(livingwoodWall.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodFence, props).setRegistryName(livingwoodFence.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodFenceGate, props).setRegistryName(livingwoodFenceGate.getRegistryName()));
 		
 		r.register(new ItemBlockMod(livingwoodPlankStairs, props).setRegistryName(livingwoodPlankStairs.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodPlankSlab, props).setRegistryName(livingwoodPlankSlab.getRegistryName()));
@@ -334,7 +343,8 @@ public final class ModFluffBlocks {
 		
 		r.register(new ItemBlockMod(dreamwoodStairs, props).setRegistryName(dreamwoodStairs.getRegistryName()));
 		r.register(new ItemBlockMod(dreamwoodSlab, props).setRegistryName(dreamwoodSlab.getRegistryName()));
-		r.register(new ItemBlockMod(dreamwoodWall, props).setRegistryName(dreamwoodWall.getRegistryName()));
+		r.register(new ItemBlockMod(dreamwoodFence, props).setRegistryName(dreamwoodFence.getRegistryName()));
+		r.register(new ItemBlockMod(dreamwoodFenceGate, props).setRegistryName(dreamwoodFenceGate.getRegistryName()));
 		
 		r.register(new ItemBlockMod(dreamwoodPlankStairs, props).setRegistryName(dreamwoodPlankStairs.getRegistryName()));
 		r.register(new ItemBlockMod(dreamwoodPlankSlab, props).setRegistryName(dreamwoodPlankSlab.getRegistryName()));
