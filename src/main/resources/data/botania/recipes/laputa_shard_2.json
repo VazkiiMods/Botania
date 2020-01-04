@@ -9,8 +9,11 @@
       "item": "botania:life_essence"
     },
     {
+      "type": "forge:nbt",
       "item": "botania:laputa_shard",
-    "nbt": "{level:1}"
+      "nbt": {
+        "level": 1
+      }
     }
   ],
   "type": "minecraft:crafting_shapeless"
