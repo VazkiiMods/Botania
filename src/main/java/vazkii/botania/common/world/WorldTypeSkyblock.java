@@ -16,11 +16,13 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.biome.provider.OverworldBiomeProviderSettings;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.FlatLayerInfo;
+import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -52,14 +54,9 @@ public class WorldTypeSkyblock extends WorldType {
 	@Override
 	public ChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
 		if (world.dimension.getType() == DimensionType.OVERWORLD) {
-			FlatGenerationSettings settings = new FlatGenerationSettings();
-			settings.setBiome(Biomes.PLAINS);
-			settings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.AIR));
-			settings.updateLayers();
-
-			BiomeProvider biomeProvider = BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.createSettings().setBiome(settings.getBiome()));
-
-			return ChunkGeneratorType.FLAT.create(world, biomeProvider, settings);
+			OverworldGenSettings genSettings = SkyblockChunkGenerator.TYPE.createSettings();
+			OverworldBiomeProviderSettings biomeSettings = BiomeProviderType.VANILLA_LAYERED.createSettings().setWorldInfo(world.getWorldInfo()).setGeneratorSettings(genSettings);
+			return SkyblockChunkGenerator.TYPE.create(world, BiomeProviderType.VANILLA_LAYERED.create(biomeSettings), genSettings);
 		}
 		return super.createChunkGenerator(world);
 	}
