@@ -28,6 +28,9 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
+import java.util.function.Consumer;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
@@ -37,19 +40,8 @@ public final class ModManaAlchemyRecipes {
 	public static void register(RegisterRecipesEvent evt) {
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("rotten_flesh_to_leather"), new ItemStack(Items.LEATHER), Ingredient.fromItems(Items.ROTTEN_FLESH), 600));
 
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("oak_to_spruce_log"), new ItemStack(Blocks.SPRUCE_LOG), Ingredient.fromItems(Blocks.OAK_LOG), 40));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("spruce_to_birch_log"), new ItemStack(Blocks.BIRCH_LOG), Ingredient.fromItems(Blocks.SPRUCE_LOG), 40));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("birch_to_jungle_log"), new ItemStack(Blocks.JUNGLE_LOG), Ingredient.fromItems(Blocks.BIRCH_LOG), 40));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("jungle_to_acacia_log"), new ItemStack(Blocks.ACACIA_LOG), Ingredient.fromItems(Blocks.JUNGLE_LOG), 40));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("acacia_to_dark_oak_log"), new ItemStack(Blocks.DARK_OAK_LOG), Ingredient.fromItems(Blocks.ACACIA_LOG), 40));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("dark_oak_to_oak_log"), new ItemStack(Blocks.OAK_LOG), Ingredient.fromItems(Blocks.DARK_OAK_LOG), 40));
-
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("oak_to_spruce_sapling"), new ItemStack(Blocks.SPRUCE_SAPLING), Ingredient.fromItems(Blocks.OAK_SAPLING), 120));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("spruce_to_birch_sapling"), new ItemStack(Blocks.BIRCH_SAPLING), Ingredient.fromItems(Blocks.SPRUCE_SAPLING), 120));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("birch_to_jungle_sapling"), new ItemStack(Blocks.JUNGLE_SAPLING), Ingredient.fromItems(Blocks.BIRCH_SAPLING), 120));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("jungle_to_acacia_sapling"), new ItemStack(Blocks.ACACIA_SAPLING), Ingredient.fromItems(Blocks.JUNGLE_SAPLING), 120));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("acacia_to_dark_oak_sapling"), new ItemStack(Blocks.DARK_OAK_SAPLING), Ingredient.fromItems(Blocks.ACACIA_SAPLING), 120));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("dark_oak_to_oak_sapling"), new ItemStack(Blocks.OAK_SAPLING), Ingredient.fromItems(Blocks.DARK_OAK_SAPLING), 120));
+		cycle(evt.manaInfusion(), 40, "botania:log_cycle", Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.BIRCH_LOG, Blocks.JUNGLE_LOG, Blocks.ACACIA_LOG, Blocks.DARK_OAK_LOG);
+		cycle(evt.manaInfusion(), 120, "botania:sapling_cycle", Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.BIRCH_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.DARK_OAK_SAPLING);
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("glowstone_deconstruct"), new ItemStack(Items.GLOWSTONE_DUST, 4), Ingredient.fromItems(Blocks.GLOWSTONE), 25));
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("quartz_deconstruct"), new ItemStack(Items.QUARTZ, 4), Ingredient.fromItems(Blocks.QUARTZ_BLOCK), 25));
@@ -66,27 +58,13 @@ public final class ModManaAlchemyRecipes {
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("vine_to_lily_pad"), new ItemStack(Blocks.LILY_PAD), Ingredient.fromItems(Blocks.VINE), 320));
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("lily_pad_to_vine"), new ItemStack(Blocks.VINE), Ingredient.fromItems(Blocks.LILY_PAD), 320));
 
-		Item[] fishes = { Items.COD, Items.SALMON, Items.TROPICAL_FISH, Items.PUFFERFISH };
-		for(int i = 0; i < fishes.length; i++) {
-			Ingredient in = Ingredient.fromItems(fishes[i]);
-			ItemStack out = new ItemStack(i == fishes.length - 1 ? fishes[0] : fishes[i + 1]);
-			String id = String.format("%s_to_%s", fishes[i].getRegistryName().getPath(), out.getItem().getRegistryName().getPath());
-			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(new ResourceLocation(LibMisc.MOD_ID, id), out, in, 200));
-		}
-
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("cocoa_to_wheat"), new ItemStack(Items.WHEAT_SEEDS), Ingredient.fromItems(Items.COCOA_BEANS), 6000));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("wheat_to_potato"), new ItemStack(Items.POTATO), Ingredient.fromItems(Items.WHEAT), 6000));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("potato_to_carrot"), new ItemStack(Items.CARROT), Ingredient.fromItems(Items.POTATO), 6000));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("carrot_to_beetroot"), new ItemStack(Items.BEETROOT_SEEDS), Ingredient.fromItems(Items.CARROT), 6000));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("beetroot_to_melon"), new ItemStack(Items.MELON_SEEDS), Ingredient.fromItems(Items.BEETROOT_SEEDS), 6000));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("melon_to_pumpkin"), new ItemStack(Items.PUMPKIN_SEEDS), Ingredient.fromItems(Items.MELON_SEEDS), 6000));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("pumpkin_to_cocoa"), new ItemStack(Items.COCOA_BEANS), Ingredient.fromItems(Items.PUMPKIN_SEEDS), 6000));
+		cycle(evt.manaInfusion(), 200, "botania:fish_cycle", Items.COD, Items.SALMON, Items.TROPICAL_FISH, Items.PUFFERFISH);
+		cycle(evt.manaInfusion(), 6000, "botania:crop_cycle", Items.COCOA_BEANS, Items.WHEAT_SEEDS, Items.POTATO, Items.CARROT, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS);
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("potato_unpoison"), new ItemStack(Items.POTATO), Ingredient.fromItems(Items.POISONOUS_POTATO), 1200));
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("blaze_rod_to_nether_wart"), new ItemStack(Items.NETHER_WART), Ingredient.fromItems(Items.BLAZE_ROD), 4000));
 
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("gunpowder_to_flint"), new ItemStack(Items.FLINT), Ingredient.fromItems(Items.GUNPOWDER), 200));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("flint_to_gunpowder"), new ItemStack(Items.GUNPOWDER), Ingredient.fromItems(Items.FLINT), 200));
+		cycle(evt.manaInfusion(), 200, null, Items.GUNPOWDER, Items.FLINT);
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("book_to_name_tag"), new ItemStack(Items.NAME_TAG), Ingredient.fromItems(Items.WRITABLE_BOOK), 16000));
 
@@ -97,8 +75,7 @@ public final class ModManaAlchemyRecipes {
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("ender_pearl_from_ghast_tear"), new ItemStack(Items.ENDER_PEARL), Ingredient.fromItems(Items.GHAST_TEAR), 28000));
 
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("glowstone_to_redstone"), new ItemStack(Items.REDSTONE), Ingredient.fromItems(Items.GLOWSTONE_DUST), 300));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("redstone_to_glowstone"), new ItemStack(Items.GLOWSTONE_DUST), Ingredient.fromItems(Items.REDSTONE), 300));
+		cycle(evt.manaInfusion(), 300, null, Items.GLOWSTONE_DUST, Items.REDSTONE);
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("cobble_to_sand"), new ItemStack(Blocks.SAND), Ingredient.fromItems(Blocks.COBBLESTONE), 50));
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("terracotta_to_red_sand"), new ItemStack(Blocks.RED_SAND), Ingredient.fromItems(Blocks.TERRACOTTA), 50));
@@ -113,24 +90,12 @@ public final class ModManaAlchemyRecipes {
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("diorite_to_granite"), new ItemStack(Blocks.GRANITE), Ingredient.fromItems(Blocks.DIORITE), 200));
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("granite_to_andesite"), new ItemStack(Blocks.ANDESITE), Ingredient.fromItems(Blocks.GRANITE), 200));
 
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("fern_to_dead_bush"), new ItemStack(Blocks.DEAD_BUSH), Ingredient.fromItems(Blocks.FERN), 500));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("dead_bush_to_grass"), new ItemStack(Blocks.GRASS), Ingredient.fromItems(Blocks.DEAD_BUSH), 500));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("grass_to_fern"), new ItemStack(Blocks.FERN), Ingredient.fromItems(Blocks.GRASS), 500));
+		cycle(evt.manaInfusion(), 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.GRASS);
 
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("dandelion_to_poppy"), new ItemStack(Blocks.POPPY), Ingredient.fromItems(Blocks.DANDELION), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("poppy_to_blue_orchid"), new ItemStack(Blocks.BLUE_ORCHID), Ingredient.fromItems(Blocks.POPPY), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("blue_orchid_to_allium"), new ItemStack(Blocks.ALLIUM), Ingredient.fromItems(Blocks.BLUE_ORCHID), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("allium_to_azure_bluet"), new ItemStack(Blocks.AZURE_BLUET), Ingredient.fromItems(Blocks.ALLIUM), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("azure_bluet_to_red_tulip"), new ItemStack(Blocks.RED_TULIP), Ingredient.fromItems(Blocks.AZURE_BLUET), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("red_tulip_to_orange_tulip"), new ItemStack(Blocks.ORANGE_TULIP), Ingredient.fromItems(Blocks.RED_TULIP), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("orange_tulip_to_white_tulip"), new ItemStack(Blocks.WHITE_TULIP), Ingredient.fromItems(Blocks.ORANGE_TULIP), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("white_tulip_to_pink_tulip"), new ItemStack(Blocks.PINK_TULIP), Ingredient.fromItems(Blocks.WHITE_TULIP), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("pink_tulip_to_oxeye_daisy"), new ItemStack(Blocks.OXEYE_DAISY), Ingredient.fromItems(Blocks.PINK_TULIP), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("oxeye_daisy_to_sunflower"), new ItemStack(Blocks.SUNFLOWER), Ingredient.fromItems(Blocks.OXEYE_DAISY), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("sunflower_to_lilac"), new ItemStack(Blocks.LILAC), Ingredient.fromItems(Blocks.SUNFLOWER), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("lilac_to_rose_bush"), new ItemStack(Blocks.ROSE_BUSH), Ingredient.fromItems(Blocks.LILAC), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("rose_bush_to_peony"), new ItemStack(Blocks.PEONY), Ingredient.fromItems(Blocks.ROSE_BUSH), 400));
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("peony_to_dandelion"), new ItemStack(Blocks.DANDELION), Ingredient.fromItems(Blocks.PEONY), 400));
+		// NB: No wither rose is intentional
+		cycle(evt.manaInfusion(), 400, "botania:flower_cycle", Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID, Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.RED_TULIP, Blocks.ORANGE_TULIP,
+				Blocks.WHITE_TULIP, Blocks.PINK_TULIP, Blocks.OXEYE_DAISY, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY,
+				Blocks.SUNFLOWER, Blocks.LILAC, Blocks.ROSE_BUSH, Blocks.PEONY);
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 10000));
 		
@@ -147,6 +112,15 @@ public final class ModManaAlchemyRecipes {
 		evt.manaInfusion().accept(mini(ModSubtiles.marimorphosisChibi, ModSubtiles.marimorphosis));
 		evt.manaInfusion().accept(mini(ModSubtiles.rannuncarpusChibi, ModSubtiles.rannuncarpus));
 		evt.manaInfusion().accept(mini(ModSubtiles.solegnoliaChibi, ModSubtiles.solegnolia));
+	}
+
+	private static void cycle(Consumer<RecipeManaInfusion> consumer, int cost, @Nullable String group, IItemProvider... items) {
+		for(int i = 0; i < items.length; i++) {
+			Ingredient in = Ingredient.fromItems(items[i]);
+			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
+			String id = String.format("%s_to_%s", items[i].asItem().getRegistryName().getPath(), out.getItem().getRegistryName().getPath());
+			consumer.accept(RecipeManaInfusion.alchemy(new ResourceLocation(LibMisc.MOD_ID, id), out, in, cost, group));
+		}
 	}
 	
 	private static RecipeManaInfusion mini(IItemProvider mini, IItemProvider full) {

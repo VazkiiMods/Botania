@@ -19,6 +19,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.patchouli.PatchouliUtils;
+import vazkii.botania.common.Botania;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -32,13 +33,27 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider<String> variables) {
+		if (variables.has("recipes") && variables.has("group")) {
+			Botania.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
+		}
+
 		ImmutableList.Builder<RecipeManaInfusion> builder = ImmutableList.builder();
-		for(String s : variables.get("recipes").split(";")) {
-			RecipeManaInfusion recipe = BotaniaAPI.manaInfusionRecipes.get(new ResourceLocation(s));
-			if(recipe != null) {
-				builder.add(recipe);
+		if (variables.has("group")) {
+			String group = variables.get("group");
+			BotaniaAPI.manaInfusionRecipes.values().stream()
+					.filter(r -> r.getGroup().equals(group))
+					.forEach(builder::add);
+		} else {
+			for(String s : variables.get("recipes").split(";")) {
+				RecipeManaInfusion recipe = BotaniaAPI.manaInfusionRecipes.get(new ResourceLocation(s));
+				if(recipe != null) {
+					builder.add(recipe);
+				} else {
+					Botania.LOGGER.warn("Mana infusion template references nonexistent recipe {}", s);
+				}
 			}
 		}
+
 		this.recipes = builder.build();
 		this.hasCustomHeading = variables.has("heading");
 	}
