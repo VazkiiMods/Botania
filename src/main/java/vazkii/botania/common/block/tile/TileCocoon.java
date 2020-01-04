@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -23,6 +24,8 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.List;
+
 public class TileCocoon extends TileMod implements ITickableTileEntity{
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.COCOON)
@@ -31,6 +34,16 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
+	private static final List<EntityType<?>> SPECIALS = ImmutableList.of(
+			EntityType.HORSE, EntityType.MULE, EntityType.DONKEY,
+			EntityType.WOLF, EntityType.OCELOT, EntityType.CAT,
+			EntityType.PARROT, EntityType.LLAMA, EntityType.FOX, EntityType.PANDA,
+			EntityType.TURTLE
+	);
+	private static final List<EntityType<?>> NORMALS = ImmutableList.of(
+			EntityType.PIG, EntityType.COW, EntityType.CHICKEN, EntityType.RABBIT,
+			EntityType.SHEEP, EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH
+	);
 
 	public static final int TOTAL_TIME = 2400;
 	public static final int MAX_EMERALDS = 20;
@@ -71,47 +84,14 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				}
 				entity = villager;
 			} else {
-				float specialChance = 0.05F;
+				float specialChance = 0.075F;
 				if(Math.random() < specialChance) {
-					int entityType = world.rand.nextInt(5);
-					switch(entityType) {
-					case 0:
-						entity = EntityType.HORSE.create(world);
-						break;
-					case 1:
-						entity = EntityType.WOLF.create(world);
-						break;
-					case 2:
-						entity = EntityType.OCELOT.create(world);
-						break;
-					case 3:
-						entity = EntityType.PARROT.create(world);
-						break;
-					case 4:
-						entity = EntityType.LLAMA.create(world);
-						break;
-					}
+					entity = (MobEntity) SPECIALS.get(world.rand.nextInt(SPECIALS.size())).create(world);
 				} else {
-					int entityType = world.rand.nextInt(5);
-					switch(entityType) {
-					case 0:
-						entity = EntityType.SHEEP.create(world);
-						break;
-					case 1:
-						if(Math.random() < 0.01)
-							entity = EntityType.MOOSHROOM.create(world);
-						else entity = EntityType.COW.create(world);
-						break;
-					case 2:
-						entity = EntityType.PIG.create(world);
-						break;
-					case 3:
-						entity = EntityType.CHICKEN.create(world);
-						break;
-					case 4:
-						entity = EntityType.RABBIT.create(world);
-						break;
-					}
+					EntityType<?> type = NORMALS.get(world.rand.nextInt(NORMALS.size()));
+					if (type == EntityType.COW && Math.random() < 0.01)
+						type = EntityType.MOOSHROOM;
+					entity = (MobEntity) type.create(world);
 				}
 			}
 
