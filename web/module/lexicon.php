@@ -21,14 +21,14 @@
 		'right' => 'w',
 		'sprint' => 'CTRL'
 	];
-	$replacements = array_merge(array_combine(array_map("quote_keys", array_keys($default_keys)), array_values($default_keys)), [
+	$entry_cache = array();
+	$replacements = [
 		'/\$\((br|p)\)/' => "<br />",
 		'/\$\(li\)/' => " &bull; ",
-		'/\$\(([0-9a-o])\)([^$]+)(?:\$\([0r]?\)|(?=<)|$)/' => "<span class='mc-color-$1'>$2</span>",
+		'/\$\(([1-9a-o])\)([^$]+)(?:\$\([0r]?\)|(?=<)|$)/' => "<span class='mc-color-$1'>$2</span>",
 		'/\$\(thing\)([^$]+)(?:\$\([0r]?\)|(?=<)|$)/' => "<span class='mc-color-4'>$1</span>",
 		'/\$\(item\)([^$]+)(?:\$\([0r]?\)|(?=<)|$)/' => "<span class='mc-color-1'>$1</span>",
-		'/\$\(l:([^)]+)\)([^$]+)\$\(\/l\)/' => "<a href='$1'>$2</a>"
-	]);
+	];
 	
 	$opened_div = false;
 	
@@ -45,7 +45,11 @@
 			$opened_div = true;
 		}
 		if(sizeof($page_match) > 0) {
-			$page = preg_replace(array_keys($replacements), array_values($replacements), $value) . '<br />';
+			$page = preg_replace_callback('/\$\(k:([^)]*)\)/', 'key_resolve',
+				preg_replace_callback('/\$\(l:([^)]+)\)([^$]+)\$\(\/l\)/', 'link_resolve',
+
+				preg_replace(array_keys($replacements), array_values($replacements),
+				$value))) . '<br />';
 			$no_control = preg_replace('/\$\(.\)/', '', $value);
 			if(strlen($no_control) > 50) {
 				echo($page);
@@ -69,7 +73,21 @@
 	function match_page($key, $entry_name) {
 		return match("botania\.page\.$entry_name\d+", $key);
 	}
-	function quote_keys($key) {
-		return "/\\$\\(k:$key\\)/";
+	function key_resolve($match) {
+		global $default_keys; // i'm sorry, i don't know php
+		return (array_key_exists($match[1], $default_keys)
+			? $default_keys[$match[1]]
+			: "UNKNOWN KEY");
+	}
+	function link_resolve($match) {
+		$link = $match[1];
+		$res = [];
+		if(preg_match('|^\w+/(\w+)$|', $link, $res)) {
+			$entry_name = preg_replace_callback('/_(\w)/', function($repl) {
+				return strtoupper($repl[1]);
+			}, $res[1]);
+			$link = "#$entry_name-fake";
+		}
+		return "<a href='$link'>$match[2]</a>";
 	}
 ?>
