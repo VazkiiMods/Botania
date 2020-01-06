@@ -60,7 +60,7 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 	 * The amount of mana required to restore 1 point of damage.
 	 */
 	private static final int MANA_PER_DAMAGE = 100;
-	
+
 	/**
 	 * The amount of mana required to fertilize 1 crop.
 	 */
@@ -120,7 +120,7 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, filter, false);
 	}
-	
+
 	public static boolean isEnabled(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
 	}
@@ -149,79 +149,78 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 
 		if(player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
 			return ActionResultType.PASS;
-		else {
-			Block block = world.getBlockState(pos).getBlock();
 
-			int range = 2 + (!ItemThorRing.getThorRing(player).isEmpty() ? 1 : 0);
-			if (ItemTemperanceStone.hasTemperanceActive(player))
-				range = 1;
-			if(player.isSneaking() || !isEnabled(stack))
-				range = 0;
+		Block block = world.getBlockState(pos).getBlock();
+		BlockState converted = field_195955_e.get(block);
 
-			int startX = pos.getX() - range;
-			int endX = pos.getX() + range;
-			int endZ = pos.getZ() + range;
+		int range = 2 + (!ItemThorRing.getThorRing(player).isEmpty() ? 1 : 0);
+		if (ItemTemperanceStone.hasTemperanceActive(player))
+			range = 1;
+		if(player.isSneaking() || !isEnabled(stack))
+			range = 0;
 
-			if(block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.COARSE_DIRT || block == Blocks.FARMLAND) {
+		int startX = pos.getX() - range;
+		int endX = pos.getX() + range;
+		int endZ = pos.getZ() + range;
+
+		if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && converted != null) {
+			world.playSound(null, pos, converted.getSoundType().getStepSound(),
+					SoundCategory.BLOCKS,
+					(converted.getSoundType().getVolume() + 1.0F) / 2.0F,
+					converted.getSoundType().getPitch() * 0.8F);
+
+			if (world.isRemote)
+				return ActionResultType.SUCCESS;
+			else {
 				BlockPos pos1 = new BlockPos(startX, pos.getY(), pos.getZ() - range);
-				ActionResultType result = ActionResultType.PASS;
 				while(pos1.getZ() <= endZ) {
 					while(pos1.getX() <= endX) {
-						if(pos1.equals(pos)) {
-							result = tillBlock(pos1, ctx);
-							if(world.getBlockState(pos1).getBlock() == Blocks.FARMLAND) {
-								result = ActionResultType.SUCCESS;
-							}
-						}
-						else
-							tillBlock(pos1, ctx);
+						if(world.getBlockState(pos1).getBlock() == Blocks.GRASS_BLOCK && world.getBlockState(pos1.up()).getBlock().isAir(world.getBlockState(pos1.up()), world, pos1.up()) && player.canPlayerEdit(pos1, ctx.getFace(), stack))
+							world.setBlockState(pos1, converted);
 						pos1 = pos1.add(1, 0, 0);
 					}
 					pos1 = new BlockPos(startX, pos1.getY(), pos1.getZ() + 1);
 				}
-				return world.getBlockState(pos1).getBlock() == Blocks.FARMLAND ? ActionResultType.SUCCESS : result;
+				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+				return ActionResultType.SUCCESS;
 			}
-
-			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && block == Blocks.GRASS_BLOCK) {
-				Block block1 = Blocks.GRASS_PATH;
-
-				world.playSound(null, pos, block1.getDefaultState().getSoundType().getStepSound(),
-						SoundCategory.BLOCKS,
-						(block1.getDefaultState().getSoundType().getVolume() + 1.0F) / 2.0F,
-						block1.getDefaultState().getSoundType().getPitch() * 0.8F);
-
-				if (world.isRemote)
-					return ActionResultType.SUCCESS;
-				else {
-					BlockPos pos1 = new BlockPos(startX, pos.getY(), pos.getZ() - range);
-					while(pos1.getZ() <= endZ) {
-						while(pos1.getX() <= endX) {
-							if(world.getBlockState(pos1).getBlock() == Blocks.GRASS_BLOCK && world.getBlockState(pos1.up()).getBlock().isAir(world.getBlockState(pos1.up()), world, pos1.up()) && player.canPlayerEdit(pos1, ctx.getFace(), stack))
-								world.setBlockState(pos1, block1.getDefaultState());
-							pos1 = pos1.add(1, 0, 0);
-						}
-						pos1 = new BlockPos(startX, pos1.getY(), pos1.getZ() + 1);
-					}
-					ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
-					return ActionResultType.SUCCESS;
-				}
-			}
-
-			if(block instanceof IGrowable) {
-				BlockPos pos1 = new BlockPos(startX, pos.getY(), pos.getZ() - range);
-				boolean success = false;
-				while(pos1.getZ() <= endZ) {
-					while(pos1.getX() <= endX) {
-						success = bonemealCrop(ctx, pos1) == ActionResultType.SUCCESS || success;
-						pos1 = pos1.add(1, 0, 0);
-					}
-					pos1 = new BlockPos(startX, pos1.getY(), pos1.getZ() + 1);
-				}
-				return success ? ActionResultType.SUCCESS : ActionResultType.FAIL;
-			}
-
-			return ActionResultType.PASS;
 		}
+
+		converted = HOE_LOOKUP.get(block);
+		if(converted != null) {
+			BlockPos pos1 = new BlockPos(startX, pos.getY(), pos.getZ() - range);
+			ActionResultType result = ActionResultType.PASS;
+			while(pos1.getZ() <= endZ) {
+				while(pos1.getX() <= endX) {
+					if(pos1.equals(pos)) {
+						result = tillBlock(pos1, ctx);
+						if(world.getBlockState(pos1).getBlock() == converted.getBlock()) {
+							result = ActionResultType.SUCCESS;
+						}
+					}
+					else
+						tillBlock(pos1, ctx);
+					pos1 = pos1.add(1, 0, 0);
+				}
+				pos1 = new BlockPos(startX, pos1.getY(), pos1.getZ() + 1);
+			}
+			return world.getBlockState(pos1).getBlock() == converted.getBlock() ? ActionResultType.SUCCESS : result;
+		}
+
+		if(block instanceof IGrowable) {
+			BlockPos pos1 = new BlockPos(startX, pos.getY(), pos.getZ() - range);
+			boolean success = false;
+			while(pos1.getZ() <= endZ) {
+				while(pos1.getX() <= endX) {
+					success = bonemealCrop(ctx, pos1) == ActionResultType.SUCCESS || success;
+					pos1 = pos1.add(1, 0, 0);
+				}
+				pos1 = new BlockPos(startX, pos1.getY(), pos1.getZ() + 1);
+			}
+			return success ? ActionResultType.SUCCESS : ActionResultType.FAIL;
+		}
+
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -237,6 +236,7 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 			BlockRayTraceResult trace = new BlockRayTraceResult(new Vec3d(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D), ctx.getFace(), pos, false);
 			ItemUseContext ctx1 = new ItemUseContext(world, player, ctx.getHand(), stack, trace);
 			UseHoeEvent event = new UseHoeEvent(ctx1);
+
 			if(MinecraftForge.EVENT_BUS.post(event))
 				return ActionResultType.FAIL;
 
@@ -246,22 +246,21 @@ public class ItemTerraShovel extends ItemManasteelShovel implements ISequentialB
 			}
 
 			Block block = world.getBlockState(pos).getBlock();
+			BlockState converted = HOE_LOOKUP.get(block);
 
-			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) &&
-					(block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.COARSE_DIRT)) {
-				Block block1 = Blocks.FARMLAND;
-				if(block == Blocks.COARSE_DIRT)
-					block1 = Blocks.DIRT;
+			if (converted == null)
+				return ActionResultType.PASS;
 
-				world.playSound(null, pos, block1.getDefaultState().getSoundType().getStepSound(),
+			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
+				world.playSound(null, pos, converted.getSoundType().getStepSound(),
 						SoundCategory.BLOCKS,
-						(block1.getDefaultState().getSoundType().getVolume() + 1.0F) / 2.0F,
-						block1.getDefaultState().getSoundType().getPitch() * 0.8F);
+						(converted.getSoundType().getVolume() + 1.0F) / 2.0F,
+						converted.getSoundType().getPitch() * 0.8F);
 
 				if (world.isRemote)
 					return ActionResultType.SUCCESS;
 				else {
-					world.setBlockState(pos, block1.getDefaultState());
+					world.setBlockState(pos, converted);
 					ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
 					return ActionResultType.SUCCESS;
 				}
