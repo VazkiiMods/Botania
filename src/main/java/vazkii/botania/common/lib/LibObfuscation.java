@@ -19,4 +19,7 @@ public final class LibObfuscation {
 	
 	// RecipeBookPage
 	public static final String HOVERED_BUTTON = "field_194201_b";
+
+	// HoeItem
+	public static final String HOE_LOOKUP = "field_195973_b";
 }

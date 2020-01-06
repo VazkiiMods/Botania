@@ -12,10 +12,10 @@ package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -28,16 +28,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
 
+	protected static final Map<Block, BlockState> HOE_LOOKUP = ObfuscationReflectionHelper.getPrivateValue(HoeItem.class, null, LibObfuscation.HOE_LOOKUP);
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelShovel(Properties props) {
@@ -74,49 +78,48 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 
-		if(player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
+		if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
 			return ActionResultType.PASS;
-		else {
+
+		Block block = world.getBlockState(pos).getBlock();
+		BlockState converted = field_195955_e.get(block);
+
+		if (converted == null) {
 			UseHoeEvent event = new UseHoeEvent(ctx);
-			if(MinecraftForge.EVENT_BUS.post(event))
+
+			if (MinecraftForge.EVENT_BUS.post(event))
 				return ActionResultType.FAIL;
 
-			if(event.getResult() == Event.Result.ALLOW) {
+			if (event.getResult() == Event.Result.ALLOW) {
 				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
 				return ActionResultType.SUCCESS;
 			}
-
-			Block block = world.getBlockState(pos).getBlock();
-
-			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) &&
-					(block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.GRASS_PATH || block == Blocks.COARSE_DIRT)) {
-				Block block1 = Blocks.GRASS_PATH;
-				if(block == block1 || block == Blocks.DIRT)
-					block1 = Blocks.FARMLAND;
-				else if(block == Blocks.COARSE_DIRT)
-					block1 = Blocks.DIRT;
-				
-				world.playSound(null, pos, block1.getDefaultState().getSoundType().getStepSound(),
-						SoundCategory.BLOCKS,
-						(block1.getDefaultState().getSoundType().getVolume() + 1.0F) / 2.0F,
-						block1.getDefaultState().getSoundType().getPitch() * 0.8F);
-
-				if (world.isRemote)
-					return ActionResultType.SUCCESS;
-				else {
-					world.setBlockState(pos, block1.getDefaultState());
-					ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
-					return ActionResultType.SUCCESS;
-				}
-			}
-
-			return ActionResultType.PASS;
+			converted = HOE_LOOKUP.get(block);
 		}
+		if (converted == null)
+			return ActionResultType.PASS;
+
+		if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
+			world.playSound(null, pos, converted.getSoundType().getStepSound(),
+					SoundCategory.BLOCKS,
+					(converted.getSoundType().getVolume() + 1.0F) / 2.0F,
+					converted.getSoundType().getPitch() * 0.8F);
+
+			if (world.isRemote)
+				return ActionResultType.SUCCESS;
+			else {
+				world.setBlockState(pos, converted);
+				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+				return ActionResultType.SUCCESS;
+			}
+		}
+
+		return ActionResultType.PASS;
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true))
+		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}
 
