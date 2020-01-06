@@ -638,8 +638,8 @@ public final class ModItems {
 		register(r, new ItemManaInkwell(unstackable().setNoRepair()), LibItemNames.MANA_INKWELL);
 		register(r, new ItemVial(defaultBuilder()), LibItemNames.VIAL);
 		register(r, new ItemVial(defaultBuilder()), LibItemNames.FLASK);
-		register(r, new ItemBrewBase(unstackable(), 4, 32, new ItemStack(vial)), LibItemNames.BREW_VIAL);
-		register(r, new ItemBrewBase(unstackable(), 6, 24, new ItemStack(flask)), LibItemNames.BREW_FLASK);
+		register(r, new ItemBrewBase(unstackable(), 4, 32, () -> vial), LibItemNames.BREW_VIAL);
+		register(r, new ItemBrewBase(unstackable(), 6, 24, () -> flask), LibItemNames.BREW_FLASK);
 		register(r, new ItemBloodPendant(unstackable()), LibItemNames.BLOOD_PENDANT);
 		register(r, new ItemMissileRod(unstackable()), LibItemNames.MISSILE_ROD);
 		register(r, new ItemHolyCloak(unstackable()), LibItemNames.HOLY_CLOAK);

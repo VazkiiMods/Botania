@@ -45,7 +45,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	public ItemManasteelShovel(IItemTier mat, Properties props) {
-		super(mat, 1.5F, -3.5F, props);
+		super(mat, 1.5F, -3.0F, props);
 	}
 
 	@Override

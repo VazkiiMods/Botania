@@ -75,11 +75,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		super.fillItemGroup(tab, list);
 		if(isInGroup(tab)) {
-			for(int i = 0; i < 4; i++) {
+			for(int i = 0; i <= 20; i += 5) {
 				ItemStack s = new ItemStack(this);
-				s.getOrCreateTag().putInt(TAG_LEVEL, (i + 1) * 5 - 1);
+				s.getOrCreateTag().putInt(TAG_LEVEL, i);
 				list.add(s);
 			}
 		}

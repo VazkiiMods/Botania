@@ -34,6 +34,7 @@ public class RecipeManaInfusion {
 	private final int mana;
 	@Nullable
 	private BlockState catalystState;
+	private final String group;
 
 	public static RecipeManaInfusion conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
@@ -42,17 +43,26 @@ public class RecipeManaInfusion {
 	}
 
 	public static RecipeManaInfusion alchemy(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
-		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
+		return alchemy(id, output, input, mana, null);
+	}
+
+	public static RecipeManaInfusion alchemy(ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
+		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana, group);
 		ret.setCatalyst(alchemy.getDefaultState());
 		return ret;
 	}
 
 	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		this(id, output, input, mana, null);
+	}
+
+	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
 		this.id = id;
 		this.output = output;
 		this.input = input;
 		this.mana = mana;
 		Preconditions.checkArgument(mana < 100000);
+		this.group = group == null ? "" : group;
 	}
 
 	public final ResourceLocation getId() {
@@ -84,12 +94,17 @@ public class RecipeManaInfusion {
 		return mana;
 	}
 
+	public String getGroup() {
+		return group;
+	}
+
 	public void write(PacketBuffer buf) {
 		buf.writeResourceLocation(id);
 		input.write(buf);
 		buf.writeItemStack(output, false);
 		buf.writeVarInt(mana);
 		buf.writeInt(catalystState == null ? -1 : Block.getStateId(catalystState));
+		buf.writeString(group);
 	}
 
 	public static RecipeManaInfusion read(PacketBuffer buf) {
@@ -98,7 +113,8 @@ public class RecipeManaInfusion {
 		ItemStack output = buf.readItemStack();
 		int mana = buf.readVarInt();
 		int catalystId = buf.readInt();
-		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
+		String group = buf.readString();
+		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana, group);
 		ret.setCatalyst(catalystId == -1 ? null : Block.getStateById(catalystId));
 		return ret;
 	}

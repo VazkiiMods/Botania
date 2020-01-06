@@ -12,6 +12,7 @@ package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.IPlacementConfig;
@@ -48,6 +49,11 @@ public class ModFeatures {
 
 		register(r, MYSTICAL_FLOWERS, "mystical_flowers");
 		register(r, MYSTICAL_MUSHROOMS, "mystical_mushrooms");
+	}
+
+	@SubscribeEvent
+	public static void registerChunkGenerators(RegistryEvent.Register<ChunkGeneratorType<?, ?>> evt) {
+		register(evt.getRegistry(), SkyblockChunkGenerator.TYPE, "garden_of_glass");
 	}
 	
 	public static void addWorldgen() {
