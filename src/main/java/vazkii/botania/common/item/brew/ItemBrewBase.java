@@ -16,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
@@ -47,6 +48,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class ItemBrewBase extends ItemMod implements IBrewItem {
 
@@ -55,9 +57,9 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	private final int swigs;
 	private final int drinkSpeed;
-	private final ItemStack baseItem;
+	private final Supplier<Item> baseItem;
 
-	public ItemBrewBase(Properties builder, int swigs, int drinkSpeed, ItemStack baseItem) {
+	public ItemBrewBase(Properties builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
 		super(builder);
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
@@ -100,8 +102,9 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 			int swigs = getSwigsLeft(stack);
 			if(living instanceof PlayerEntity && !((PlayerEntity) living).abilities.isCreativeMode) {
 				if(swigs == 1) {
-					if(!((PlayerEntity) living).inventory.addItemStackToInventory(baseItem.copy()))
-						return baseItem.copy();
+					ItemStack result = new ItemStack(baseItem.get());
+					if(!((PlayerEntity) living).inventory.addItemStackToInventory(result))
+						return result;
 					else {
 						return ItemStack.EMPTY;
 					}
