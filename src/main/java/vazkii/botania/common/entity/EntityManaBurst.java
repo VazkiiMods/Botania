@@ -109,6 +109,8 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	boolean scanBeam = false;
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
+	BlockPos lastTriggeredPosition;
+
 	public EntityManaBurst(World world) {
 		this(TYPE, world);
 	}
@@ -527,8 +529,13 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 				if(!fake && !noParticles && (!world.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts())
 					onRecieverImpact((IManaReceiver) tile, tile.getPos());
 
-				if(block instanceof IManaTrigger)
-					((IManaTrigger) block).onBurstCollision(this, world, pos);
+				if(block instanceof IManaTrigger) {
+					if(!pos.equals(lastTriggeredPosition)){
+						//New block, store its position for next tick
+						lastTriggeredPosition = pos;
+						((IManaTrigger) block).onBurstCollision(this, world, pos);
+					}
+				}
 
 				boolean ghost = block instanceof IManaCollisionGhost;
 				dead = !ghost;
