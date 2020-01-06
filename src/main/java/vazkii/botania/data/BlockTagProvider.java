@@ -1,6 +1,7 @@
 package vazkii.botania.data;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.FenceBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
@@ -8,7 +9,6 @@ import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
@@ -45,6 +45,10 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .sorted(Comparator.comparing(Block::getRegistryName))
                 .toArray(Block[]::new));
 
+        getBuilder(BlockTags.FENCES).add(registry.stream().filter(botania)
+                .filter(b -> b instanceof FenceBlock)
+                .sorted(Comparator.comparing(Block::getRegistryName))
+                .toArray(Block[]::new));
 
         getBuilder(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
                 Arrays.stream(DyeColor.values())
