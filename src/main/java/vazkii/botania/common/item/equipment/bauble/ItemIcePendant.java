@@ -59,7 +59,7 @@ public class ItemIcePendant extends ItemBauble {
 				}
 			}
 		}
-		else if (entity.world.isRemote) {
+		else if (entity.world.isRemote && !entity.isSneaking()) {
 			if(entity.world.rand.nextFloat() >= 0.25F) {
 				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.posX + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.posY + 1.1, entity.posZ  + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
