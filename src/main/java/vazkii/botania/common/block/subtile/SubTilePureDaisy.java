@@ -34,8 +34,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
-	private static final int UPDATE_ACTIVE_EVENT = 0;
-	private static final int RECIPE_COMPLETE_EVENT = 1;
+	private static final int RECIPE_COMPLETE_EVENT = 0;
 
 	private static final BlockPos[] POSITIONS = {
 			new BlockPos(-1, 0, -1 ),
@@ -51,9 +50,6 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private int positionAt = 0;
 	private final int[] ticksRemaining = new int[POSITIONS.length];
 
-	// Bitfield of active positions, used clientside for particles
-	private int activePositions = 0;
-
 	public SubTilePureDaisy() {
 		super(TYPE);
 		Arrays.fill(ticksRemaining, -1);
@@ -65,7 +61,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 		if(getWorld().isRemote) {
 			for (int i = 0; i < POSITIONS.length; i++) {
-				if ((activePositions >>> i & 1) > 0) {
+				if (ticksRemaining[i] > 0) {
 					BlockPos coords = getEffectivePos().add(POSITIONS[i]);
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
 					world.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
@@ -88,36 +84,26 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			world.getProfiler().endSection();
 
 			if(recipe != null) {
-				if (ticksRemaining[positionAt] == -1)
+				if (ticksRemaining[positionAt] == -1) {
 					ticksRemaining[positionAt] = recipe.getTime();
+					sync();
+				}
+
 				ticksRemaining[positionAt]--;
 
 				if(ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = -1;
 
 					if(recipe.set(world,coords, this)) {
-						world.addBlockEvent(getPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
+						sync();
 						if(ConfigHandler.COMMON.blockBreakParticles.get())
 							getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
+
+				markDirty();
 			} else ticksRemaining[positionAt] = -1;
 		} else ticksRemaining[positionAt] = -1;
-
-		updateActivePositions();
-	}
-
-	private void updateActivePositions() {
-		int newActivePositions = 0;
-		for (int i = 0; i < ticksRemaining.length; i++) {
-			if (ticksRemaining[i] > -1) {
-				newActivePositions |= 1 << i;
-			}
-		}
-
-		if (newActivePositions != activePositions) {
-			getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), UPDATE_ACTIVE_EVENT, newActivePositions);
-		}
 	}
 
 	private RecipePureDaisy findRecipe(BlockPos coords) {
@@ -135,7 +121,6 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	@Override
 	public boolean receiveClientEvent(int type, int param) {
 		switch (type) {
-			case UPDATE_ACTIVE_EVENT: activePositions = param; return true;
 			case RECIPE_COMPLETE_EVENT: {
 				if (getWorld().isRemote) {
 					BlockPos coords = getEffectivePos().add(POSITIONS[param]);
@@ -164,9 +149,8 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	public void readFromPacketNBT(CompoundNBT cmp) {
 		positionAt = cmp.getInt(TAG_POSITION);
 
-		if(getWorld() != null && !getWorld().isRemote)
-			for(int i = 0; i < ticksRemaining.length; i++)
-				ticksRemaining[i] = cmp.getInt(TAG_TICKS_REMAINING + i);
+		for(int i = 0; i < ticksRemaining.length; i++)
+			ticksRemaining[i] = cmp.getInt(TAG_TICKS_REMAINING + i);
 	}
 
 	@Override
