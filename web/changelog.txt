@@ -1,3 +1,28 @@
+r1.11 374
+* Fix mana mirror counting as a tool (thus being enchantable)
+* Fix crash when shift clicking into flower bag (Vaelzan)
+* Fix GL state leak when rendering particles, fixes darkened water/etc
+* Fix non-overworld dimensions also being voided in GoG mode
+* Add option to disable the lexicon given by default in GoG mode
+* Fix flugel tiara gliding
+* Fix flugel tiara recipe conflicts
+* Fix terra firma rod not working
+* Make paintslinger lens able to dye concrete, concrete powder, glazed terracotta, as well as uncolored glass, glass pane, and terracotta (ToMe25)
+* Fix cocoon of caprice not working
+* Lexica Botania english text overhaul (Alwinfy)
+* Fix axe damage and shovel speed (ToMe25)
+* GoG worlds now use a dummied-out overworld generator, meaning they now retain biome and structure information. This will allow location-based farms to work.
+* Fix laputa shard upgrade recipes
+* Allow any two vanilla dyes to be used to craft fertilizer instead of just red or yellow
+* Add some new 1.13-14 stuff to mana alchemy recipe loops
+* Make new mobs available in cocoon
+* Add a bunch of crosslinks to the lexicon since Patchouli supports them (Alwinfy)
+* Fix brews not returning the container after finishing
+* Fix brew vials looking like flasks when partially full
+* Fix mana infusion slowing down after a while
+* Fix cacophonium acting like a shield and snowflake pendant working when sneaking (ToMe25)
+* Add livingwood and dreamwood fences and fencegates (ToMe25)
+* Fix pure daisy active particles desyncing
 r1.11 373
 * Fix Life Aggregator placing pig spawners instead of the actual mob
 * Fix mana flame block being unnamed
