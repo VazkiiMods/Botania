@@ -48,10 +48,12 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	};
 
 	private int positionAt = 0;
+	private final int[] prevTicksRemaining = new int[POSITIONS.length];
 	private final int[] ticksRemaining = new int[POSITIONS.length];
 
 	public SubTilePureDaisy() {
 		super(TYPE);
+		Arrays.fill(prevTicksRemaining, -1);
 		Arrays.fill(ticksRemaining, -1);
 	}
 
@@ -86,7 +88,6 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			if(recipe != null) {
 				if (ticksRemaining[positionAt] == -1) {
 					ticksRemaining[positionAt] = recipe.getTime();
-					sync();
 				}
 
 				ticksRemaining[positionAt]--;
@@ -95,15 +96,19 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 					ticksRemaining[positionAt] = -1;
 
 					if(recipe.set(world,coords, this)) {
-						sync();
 						if(ConfigHandler.COMMON.blockBreakParticles.get())
 							getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
 
-				markDirty();
 			} else ticksRemaining[positionAt] = -1;
 		} else ticksRemaining[positionAt] = -1;
+
+		if (!Arrays.equals(ticksRemaining, prevTicksRemaining)) {
+			markDirty();
+			sync();
+			System.arraycopy(ticksRemaining, 0, prevTicksRemaining, 0, POSITIONS.length);
+		}
 	}
 
 	private RecipePureDaisy findRecipe(BlockPos coords) {
