@@ -2931,7 +2931,7 @@
 
   "botania.entry.bIntro": "An Introduction to Trinkets",
   "botania.tagline.bIntro": "Accessories that provide power",
-  "botania.page.bIntro0": "$(thing)Trinkets$(0) (also known as $(thing)Curios$(0), $(thing)Baubles$(0), or $(thing)Charms$(0)) are accessories that offer all sorts of different effects when worn.$(p)To equip them, press [$(k:curios.open.desc)$(0)].",
+  "botania.page.bIntro0": "$(thing)Trinkets$(0) (also known as $(thing)Curios$(0), $(thing)Baubles$(0), or $(thing)Charms$(0)) are accessories that offer all sorts of different effects when worn.$(p)To equip them, press [$(k:curios.open.desc)].",
   "botania.page.bIntro1": "The $(thing)Curios Screen$(0)",
   "botania.page.bIntro2": "Do note that if any other mod uses the $(thing)Curios$(0) system, equipment slots must be shared with that mod's $(thing)Trinkets$(0) as well.",
 
@@ -3095,7 +3095,7 @@
 
   "botania.entry.dodgeRing": "Ring of Dexterous Motion",
   "botania.tagline.dodgeRing": "Sweep to the side to dodge attacks",
-  "botania.page.dodgeRing0": "The $(item)Ring of Dexterous Motion$(0) is a handy $(thing)Trinket$(0) for dodging damage during duels. Its wearer can double-tap $(k:left) or $(k:right) to hurl themselves to the side and dodge incoming attacks/mobs.$(p)Dodging has a short cooldown, and burns some of its user's hunger.",
+  "botania.page.dodgeRing0": "The $(item)Ring of Dexterous Motion$(0) is a handy $(thing)Trinket$(0) for dodging damage during duels. Its wearer can double-tap [$(k:left)] or [$(k:right)] to hurl themselves to the side and dodge incoming attacks/mobs.$(p)Dodging has a short cooldown, and burns some of its user's hunger.",
   "botania.page.dodgeRing1": "Dexterity bonus",
 
   "botania.entry.invisibilityCloak": "Invisibility Cloak",
