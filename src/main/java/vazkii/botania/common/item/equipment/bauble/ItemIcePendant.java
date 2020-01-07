@@ -11,6 +11,9 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -19,7 +22,10 @@ import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BlockParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -33,11 +39,30 @@ public class ItemIcePendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if(!entity.world.isRemote && !entity.isSneaking()) {
+		if (!entity.world.isRemote && !entity.isSneaking()) {
 			boolean lastOnGround = entity.onGround;
 			entity.onGround = true;
 			FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 			entity.onGround = lastOnGround;
+
+			int x = MathHelper.floor(entity.posX);
+			int y = MathHelper.floor(entity.posY);
+			int z = MathHelper.floor(entity.posZ);
+			BlockState blockstate = Blocks.SNOW.getDefaultState();
+
+			for(int l = 0; l < 4; ++l) {
+				x = MathHelper.floor(entity.posX + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+				z = MathHelper.floor(entity.posZ + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+				BlockPos blockpos = new BlockPos(x, y, z);
+				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).func_225486_c(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
+					entity.world.setBlockState(blockpos, blockstate);
+				}
+			}
+		}
+		else if (entity.world.isRemote) {
+			if(entity.world.rand.nextFloat() >= 0.25F) {
+				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.posX + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.posY + 1.1, entity.posZ  + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
+			}
 		}
 	}
 
