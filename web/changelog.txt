@@ -1,3 +1,5 @@
+r1.11 375
+* Hotfix: Fix botania-skyblock-spread applying to the player running the command, not the argument (also fixes it not working in command blocks)
 r1.11 374
 * Fix mana mirror counting as a tool (thus being enchantable)
 * Fix crash when shift clicking into flower bag (Vaelzan)
