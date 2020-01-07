@@ -12,9 +12,12 @@ package vazkii.botania.common.core.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -29,12 +32,13 @@ public class CommandSkyblockSpread {
 						.requires(s -> s.hasPermissionLevel(2))
 						.then(Commands.argument("player", EntityArgument.player())
 							.then(Commands.argument("range", IntegerArgumentType.integer(250, 1000000))
-								.executes(ctx -> run(ctx.getSource().asPlayer(), IntegerArgumentType.getInteger(ctx, "range"))))
-							.executes(ctx -> run(ctx.getSource().asPlayer(), DEFAULT_RANGE)))
+								.executes(ctx -> run(ctx, IntegerArgumentType.getInteger(ctx, "range"))))
+							.executes(ctx -> run(ctx, DEFAULT_RANGE)))
 		);
 	}
 
-	private static int run(ServerPlayerEntity player, int range) {
+	private static int run(CommandContext<CommandSource> ctx, int range) throws CommandSyntaxException {
+		PlayerEntity player = EntityArgument.getPlayer(ctx, "player");
 		int minDist = 100;
 		BlockPos spawn = player.world.getSpawnPoint();
 		int x, z;
