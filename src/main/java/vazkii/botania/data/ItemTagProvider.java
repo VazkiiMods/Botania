@@ -25,6 +25,7 @@ public class ItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.SLABS, ItemTags.SLABS);
         this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
         this.copy(BlockTags.WALLS, ItemTags.WALLS);
+        this.copy(BlockTags.FENCES, ItemTags.FENCES);
 
         this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
         this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
