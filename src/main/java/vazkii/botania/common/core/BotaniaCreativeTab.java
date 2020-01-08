@@ -481,8 +481,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.livingwoodStairs);
 		addItem(ModFluffBlocks.livingwoodSlab);
 		addItem(ModFluffBlocks.livingwoodWall);
-		addItem(ModFluffBlocks.livingwoodFence);
-		addItem(ModFluffBlocks.livingwoodFenceGate);
 		addItem(ModFluffBlocks.livingwoodPlankStairs);
 		addItem(ModFluffBlocks.livingwoodPlankSlab);
 		addItem(ModBlocks.livingrockBrick);
@@ -497,8 +495,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.dreamwoodStairs);
 		addItem(ModFluffBlocks.dreamwoodSlab);
 		addItem(ModFluffBlocks.dreamwoodWall);
-		addItem(ModFluffBlocks.dreamwoodFence);
-		addItem(ModFluffBlocks.dreamwoodFenceGate);
 		addItem(ModFluffBlocks.dreamwoodPlankStairs);
 		addItem(ModFluffBlocks.dreamwoodPlankSlab);
 		addItem(ModFluffBlocks.shimmerwoodPlankStairs);

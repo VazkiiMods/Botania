@@ -121,6 +121,12 @@ public class ItemCacophonium extends ItemMod {
 			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).applyTextStyle(TextFormatting.GRAY));
 	}
 
+	@Nonnull
+	@Override
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BLOCK;
+	}
+
 	@Override
 	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;

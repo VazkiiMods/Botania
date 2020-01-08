@@ -829,10 +829,6 @@
   "block.botania.livingrock_wall": "Livingrock Wall",
   "block.botania.livingwood_wall": "Livingwood Wall",
   "block.botania.dreamwood_wall": "Dreamwood Wall",
-  "block.botania.livingwood_fence": "Livingwood Fence",
-  "block.botania.dreamwood_fence": "Dreamwood Fence",
-  "block.botania.livingwood_fence_gate": "Livingwood Fence Gate",
-  "block.botania.dreamwood_fence_gate": "Dreamwood Fence Gate",
   "block.botania.metamorphic_forest_cobblestone_wall": "Metamorphic Forest Cobblestone Wall",
   "block.botania.metamorphic_plains_cobblestone_wall": "Metamorphic Plains Cobblestone Wall",
   "block.botania.metamorphic_mountain_cobblestone_wall": "Metamorphic Mountain Cobblestone Wall",
@@ -2722,8 +2718,8 @@
   "botania.page.crystalBow1": "An improved model, fixed reverting to a seed",
 
   "botania.entry.temperanceStone": "Stone of Temperance",
-  "botania.tagline.temperanceStone": "A limiter for the power of a Terra Shatterer",
-  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, having an active $(item)Stone of Temperance$(0) in one's inventory will prevent Shatterers from breaking any wider areas than that. The stone can be toggled on/off with a sneak-right click.",
+  "botania.tagline.temperanceStone": "A limiter for the power of the Terrasteel Tools",
+  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, having an active $(item)Stone of Temperance$(0) in one's inventory will prevent their $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) from breaking any wider areas than that. This also affects the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l). The stone can be toggled on/off with a sneak-right click.",
   "botania.page.temperanceStone1": "Don't lose it",
 
   "botania.entry.terraAxe": "Terra Truncator",
@@ -2798,7 +2794,7 @@
 
   "botania.entry.enderDagger": "Soulscribe",
   "botania.tagline.enderDagger": "A dagger that cuts through Endermen like butter",
-"botania.page.enderDagger0": "Those $(thing)Endermen$(0). They're the peskiest things since $(thing)Creepers$(0). (I swear, whoever came up with those things really needs to take it down a $(o)notch$().)$(p)However, a dagger crafted from a material with their energies can tear through them like a thousand-degree knife through butter.",
+  "botania.page.enderDagger0": "Those $(thing)Endermen$(0). They're the peskiest things since $(thing)Creepers$(0). (I swear, whoever came up with those things really needs to take it down a $(o)notch$().)$(p)However, a dagger crafted from a material with their energies can tear through them like a thousand-degree knife through butter.",
   "botania.page.enderDagger1": "Due to the concentration of energy, though, the dagger's only good for a few kills, and its compactness prevents the $(item)Manasteel$(0) in its recipe from healing with $(thing)Mana$(0), the way typical tools would. Still, killing those elongated little thieves is worth the trouble.",
   "botania.page.enderDagger2": "Strike my Soul",
 
