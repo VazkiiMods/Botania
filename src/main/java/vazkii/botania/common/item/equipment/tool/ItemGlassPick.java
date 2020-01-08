@@ -99,7 +99,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	@Override
-	public int getManaPerDmg() {
+	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}
 
