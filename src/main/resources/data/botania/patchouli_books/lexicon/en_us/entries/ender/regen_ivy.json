@@ -3,7 +3,7 @@
   "category": "ender",
   "icon": "botania:regen_ivy",
   "entry_color": "aa00",
-  "advancement": "botania:main/elf_lexicon_pickup",
+  "advancement": "botania:main/gaia_guardian_kill",
   "pages": [
     {
       "type": "text",
