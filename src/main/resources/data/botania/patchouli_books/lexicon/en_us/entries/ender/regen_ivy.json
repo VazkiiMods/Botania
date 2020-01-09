@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.regenIvy",
+  "category": "ender",
+  "icon": "botania:regen_ivy",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.regenIvy0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.regenIvy1"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.regenIvy2",
+      "recipe": "botania:regen_ivy"
+    }
+  ]
+}

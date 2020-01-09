@@ -144,6 +144,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.slingshot);
 		addItem(ModItems.vineBall);
 		addItem(ModItems.keepIvy);
+		addItem(ModItems.regenIvy);
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
 		addItem(ModBlocks.enchantedSoil);

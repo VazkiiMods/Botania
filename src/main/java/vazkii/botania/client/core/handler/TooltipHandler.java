@@ -18,6 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
+import vazkii.botania.common.item.ItemRegenIvy;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
@@ -27,6 +28,8 @@ public final class TooltipHandler {
 	public static void onTooltipEvent(ItemTooltipEvent event) {
 		if(event.getItemStack().hasTag() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
 			event.getToolTip().add(new TranslationTextComponent("botaniamisc.hasKeepIvy"));
+		if(event.getItemStack().hasTag() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemRegenIvy.TAG_REGEN, false))
+			event.getToolTip().add(new TranslationTextComponent("botaniamisc.hasRegenIvy"));
 	}
 
 }

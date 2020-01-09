@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:regen_ivy"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:ingots/elementium"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "botania:life_essence"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

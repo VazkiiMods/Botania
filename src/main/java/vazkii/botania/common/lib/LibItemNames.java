@@ -174,6 +174,7 @@ public final class LibItemNames {
 	public static final String LOKI_RING = "loki_ring";
 	public static final String DICE = "dice";
 	public static final String KEEP_IVY = "keep_ivy";
+	public static final String REGEN_IVY = "regen_ivy";
 	public static final String BLACK_HOLE_TALISMAN = "black_hole_talisman";
 	public static final String RECORD_GAIA1 = "record_gaia_1";
 	public static final String RECORD_GAIA2 = "record_gaia_2";

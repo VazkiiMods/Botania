@@ -23,6 +23,7 @@
     "botaniamisc.creativePool0": "Kreatives Manabecken, hat unendlich Mana",
     "botaniamisc.creativePool1": "Eines Egoisten würdig",
     "botaniamisc.toolRank": "%s&7-Rang",
+    "botaniamisc.hasRegenIvy": "Hat Zeitlosen Efeu",
 
     "botania.color0": "Weiß",
     "botania.color1": "Orange",
@@ -828,7 +829,7 @@
     "item.botania.spark_upgrade_isolated": "Spark Erweiterung: Isoliert",
     "item.botania.divining_rod": "Stab des üppigen Mantels",
     "item.botania.gravity_rod": "Stab der schattigen Mesa",
-    "item.botania.regenivy": "Zeitloser Efeu",
+    "item.botania.regen_ivy": "Zeitloser Efeu",
     "item.botania.mana_inkwell": "Tintenfass für Botaniker",
     "item.botania.vial": "Managlasampulle",
     "item.botania.flask": "Elfenglasflasche",
