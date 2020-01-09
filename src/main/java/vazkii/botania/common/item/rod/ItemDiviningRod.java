@@ -69,7 +69,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 
 			if(Tags.Blocks.ORES.contains(state.getBlock())) {
 				Random rand = new Random(state.hashCode() ^ seedxor);
-				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8);
+				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.rand.nextFloat(),
 						pos_.getY() + world.rand.nextFloat(),
 						pos_.getZ() + world.rand.nextFloat(),
