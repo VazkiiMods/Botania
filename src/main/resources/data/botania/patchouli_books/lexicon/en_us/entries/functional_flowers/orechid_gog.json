@@ -2,9 +2,9 @@
   "name": "botania.entry.orechid",
   "category": "functional_flowers",
   "icon": "botania:orechid",
-  "entry_color": "aa00",
-  "advancement": "botania:main/elf_lexicon_pickup",
-  "flag": "|debug,!mod:gardenofglass",
+  "priority": true,
+  "advancement": "botania:main/pure_daisy_pickup",
+  "flag": "|debug,mod:gardenofglass",
   "pages": [
     {
       "type": "text",
