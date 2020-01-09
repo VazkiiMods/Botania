@@ -53,10 +53,12 @@ import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ItemLaputaShard;
 import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -78,8 +80,11 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.registerSubtypeInterpreter(ModItems.flightTiara, stack -> String.valueOf(ItemFlightTiara.getVariant(stack)));
 		registry.registerSubtypeInterpreter(ModItems.lexicon, stack -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false)));
 		registry.registerSubtypeInterpreter(ModItems.laputaShard, stack -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));
-		
-		for(Item item : new Item[]{ModItems.manaTablet, ModItems.manaRing, ModItems.manaRingGreater, ModItems.terraPick}) {
+
+		registry.registerSubtypeInterpreter(ModItems.terraPick, stack -> String.valueOf(ItemTerraPick.getLevel(stack)) + ItemTerraPick.isTipped(stack));
+		registry.registerSubtypeInterpreter(ModItems.manaTablet, stack -> String.valueOf(((IManaItem) ModItems.manaTablet).getMana(stack)) + ItemManaTablet.isStackCreative(stack));
+
+		for(Item item : new Item[]{ModItems.manaRing, ModItems.manaRingGreater}) {
 			registry.registerSubtypeInterpreter(item, stack -> String.valueOf(((IManaItem) item).getMana(stack)));
 		}
 	}
