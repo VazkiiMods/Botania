@@ -68,7 +68,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
 						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
 						float f4 = slime.world.rand.nextFloat() * size * 0.5F * f1;
-						slime.world.addParticle(ParticleTypes.ITEM_SLIME, slime.posX + f2, slime.getBoundingBox().minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
+						slime.world.addParticle(ParticleTypes.ITEM_SLIME, slime.getX() + f2, slime.getBoundingBox().minY + f4, slime.getZ() + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}

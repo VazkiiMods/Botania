@@ -90,10 +90,10 @@ public class ItemAstrolabe extends ItemMod {
 			ItemsRemainingRenderHandler.set(stack, newSize + "x" + newSize);
 			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 			
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			return ActionResult.success(stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, PlayerEntity player) {

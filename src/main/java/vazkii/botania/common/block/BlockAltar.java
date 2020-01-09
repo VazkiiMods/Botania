@@ -29,7 +29,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
+import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -100,7 +100,7 @@ public class BlockAltar extends BlockMod {
 	}
 
 	@Override
-	public int getLightValue(@Nonnull BlockState state, IEnviromentBlockReader world, @Nonnull BlockPos pos) {
+	public int getLightValue(@Nonnull BlockState state, ILightReader world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);

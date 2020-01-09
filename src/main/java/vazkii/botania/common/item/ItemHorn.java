@@ -60,7 +60,7 @@ public class ItemHorn extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ItemHorn extends ItemMod {
 		if(!player.world.isRemote) {
 			if(time != getUseDuration(stack) && time % 5 == 0)
 				breakGrass(player.world, stack, new BlockPos(player));
-			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
 

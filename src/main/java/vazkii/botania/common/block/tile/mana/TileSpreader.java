@@ -391,7 +391,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				if(player instanceof ServerPlayerEntity)
 					((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
 			}
-			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
 			RayTraceResult pos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
 			if(pos instanceof BlockRayTraceResult && !world.isRemote) {
@@ -559,8 +559,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
-			int x = mc.mainWindow.getScaledWidth() / 2 - width;
-			int y = mc.mainWindow.getScaledHeight() / 2 + 50;
+			int x = mc.getWindow().getScaledWidth() / 2 - width;
+			int y = mc.getWindow().getScaledHeight() / 2 + 50;
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
@@ -578,8 +578,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			if(!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName().getString();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-				int x = mc.mainWindow.getScaledWidth() / 2 - width;
-				int y = mc.mainWindow.getScaledHeight() / 2 + 30;
+				int x = mc.getWindow().getScaledWidth() / 2 - width;
+				int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
 				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 				RenderHelper.enableGUIStandardItemLighting();
@@ -791,9 +791,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(getIdentifier().equals(expectedIdentity)) {
 			pingbackTicks = TICKS_ALLOWED_WITHOUT_PINGBACK;
 			Entity e = (Entity) burst;
-			lastPingbackX = e.posX;
-			lastPingbackY = e.posY;
-			lastPingbackZ = e.posZ;
+			lastPingbackX = e.getX();
+			lastPingbackY = e.getY();
+			lastPingbackZ = e.getZ();
 			setCanShoot(false);
 		}
 	}

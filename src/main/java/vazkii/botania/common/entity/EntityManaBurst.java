@@ -162,9 +162,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	private void superUpdate() {
-		this.lastTickPosX = this.posX;
-		this.lastTickPosY = this.posY;
-		this.lastTickPosZ = this.posZ;
+		this.lastTickPosX = this.getX();
+		this.lastTickPosY = this.getY();
+		this.lastTickPosZ = this.getZ();
 		// Botania - inline supersuperclass.tick()
 		{
 			if (!this.world.isRemote) {
@@ -219,9 +219,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		}
 
 		Vec3d vec3d = this.getMotion();
-		this.posX += vec3d.x;
-		this.posY += vec3d.y;
-		this.posZ += vec3d.z;
+		this.getX() += vec3d.x;
+		this.getY() += vec3d.y;
+		this.getZ() += vec3d.z;
 		float f = MathHelper.sqrt(horizontalMag(vec3d));
 		this.rotationYaw = (float)(MathHelper.atan2(vec3d.x, vec3d.z) * (double)(180F / (float)Math.PI));
 
@@ -247,7 +247,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if (this.isInWater()) {
 			for(int i = 0; i < 4; ++i) {
 				float f2 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, this.posX - vec3d.x * 0.25D, this.posY - vec3d.y * 0.25D, this.posZ - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+				this.world.addParticle(ParticleTypes.BUBBLE, this.getX() - vec3d.x * 0.25D, this.getY() - vec3d.y * 0.25D, this.getZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
 			}
 
 			f1 = 0.8F;
@@ -261,7 +261,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			this.setMotion(vec3d1.x, vec3d1.y - (double)this.getGravityVelocity(), vec3d1.z);
 		}
 
-		this.setPosition(this.posX, this.posY, this.posZ);
+		this.setPosition(this.getX(), this.getY(), this.getZ());
 	}
 
 	@Override
@@ -793,9 +793,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
-			int x = MathHelper.floor(entity.posX);
-			int y = MathHelper.floor(entity.posY);
-			int z = MathHelper.floor(entity.posZ);
+			int x = MathHelper.floor(entity.getX());
+			int y = MathHelper.floor(entity.getY());
+			int z = MathHelper.floor(entity.getZ());
 			coords = new BlockPos(x, y, z);
 			state = entity.world.getBlockState(coords);
 		}

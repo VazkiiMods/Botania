@@ -351,8 +351,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public void renderHUD(Minecraft mc) {
-		int xc = mc.mainWindow.getScaledWidth() / 2;
-		int yc = mc.mainWindow.getScaledHeight() / 2;
+		int xc = mc.getWindow().getScaledWidth() / 2;
+		int yc = mc.getWindow().getScaledHeight() / 2;
 
 		float angle = -90;
 		int radius = 24;

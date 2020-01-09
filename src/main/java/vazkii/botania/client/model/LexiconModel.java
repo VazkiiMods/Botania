@@ -1,6 +1,7 @@
 package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -12,7 +13,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
-import javax.vecmath.Matrix4f;
 import java.util.List;
 import java.util.Random;
 
@@ -25,12 +25,12 @@ public class LexiconModel implements IBakedModel {
 
 	@Nonnull
 	@Override
-	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+	public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack stack) {
 		if((cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
 				|| cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
 				&& ConfigHandler.CLIENT.lexicon3dModel.get())
-			return Pair.of(this, null);
-		return original.handlePerspective(cameraTransformType);
+			return this;
+		return original.handlePerspective(cameraTransformType, stack);
 	}
 
 	@Nonnull @Override public List<BakedQuad> getQuads(BlockState state, Direction side, @Nonnull Random rand) { return ImmutableList.of(); }

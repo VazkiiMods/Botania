@@ -120,8 +120,8 @@ public class PacketBotaniaEffect {
 						if(e1 == null || e2 == null)
 							return;
 
-						Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
-						Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
+						Vector3 orig = new Vector3(e1.getX() , e1.getY() + 0.25, e1.getZ());
+						Vector3 end = new Vector3(e2.getX(), e2.getY() + 0.25, e2.getZ());
 						Vector3 diff = end.subtract(orig);
 						Vector3 movement = diff.normalize().multiply(0.1);
 						int iters = (int) (diff.mag() / movement.mag());
@@ -233,9 +233,9 @@ public class PacketBotaniaEffect {
 						Entity entity = world.getEntityByID(message.args[0]);
 						if(entity != null) {
 							for(int i = 0; i < 15; i++) {
-								float x = (float) (entity.posX + Math.random());
-								float y = (float) (entity.posY + Math.random());
-								float z = (float) (entity.posZ + Math.random());
+								float x = (float) (entity.getX() + Math.random());
+								float y = (float) (entity.getY() + Math.random());
+								float z = (float) (entity.getZ() + Math.random());
                                 WispParticleData data = WispParticleData.wisp((float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
                                 world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
                             }
@@ -253,9 +253,9 @@ public class PacketBotaniaEffect {
 						if(target == null)
 							break;
 
-						double x = target.posX;
-						double y = target.posY;
-						double z = target.posZ;
+						double x = target.getX();
+						double y = target.getY();
+						double z = target.getZ();
 
 						SparkleParticleData data = SparkleParticleData.sparkle(1F, 1F, 1F, 0.25F, 3);
 						for(int i = 0; i < 50; i++)

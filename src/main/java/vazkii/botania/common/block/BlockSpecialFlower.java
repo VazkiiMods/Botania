@@ -20,6 +20,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
+import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
@@ -61,7 +62,7 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 	}
 
 	@Override
-	public int getLightValue(@Nonnull BlockState state, IEnviromentBlockReader world, @Nonnull BlockPos pos) {
+	public int getLightValue(@Nonnull BlockState state, ILightReader world, @Nonnull BlockPos pos) {
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TileEntitySpecialFlower) {
 			return ((TileEntitySpecialFlower) te).getLightValue();
@@ -152,14 +153,14 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && stack.getItem() instanceof ItemDye) {
 			DyeColor newColor = ((ItemDye) stack.getItem()).color;
 			DyeColor oldColor = state.get(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)
 				world.setBlockState(pos, state.with(BotaniaStateProps.COLOR, newColor), 1 | 2);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
 		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);

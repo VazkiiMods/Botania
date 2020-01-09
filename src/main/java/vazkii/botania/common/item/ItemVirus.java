@@ -72,7 +72,7 @@ public class ItemVirus extends ItemMod {
 						? EntityType.ZOMBIE_HORSE.create(player.world)
 						: EntityType.SKELETON_HORSE.create(player.world);
 				newHorse.setTamedBy(player);
-				newHorse.setPositionAndRotation(horse.posX, horse.posY, horse.posZ, horse.rotationYaw, horse.rotationPitch);
+				newHorse.setPositionAndRotation(horse.getX(), horse.getY(), horse.getZ(), horse.rotationYaw, horse.rotationPitch);
 
 				// Put the saddle back
 				if(!saddle.isEmpty())

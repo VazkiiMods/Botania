@@ -119,9 +119,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 						if(!player.world.isRemote)
 							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
 						else if(Math.abs(player.getMotion().getX()) > 0.1 || Math.abs(player.getMotion().getZ()) > 0.1) {
-							double x = event.getEntityLiving().posX - 0.5;
-							double y = event.getEntityLiving().posY - 0.5;
-							double z = event.getEntityLiving().posZ - 0.5;
+							double x = event.getEntityLiving().getX() - 0.5;
+							double y = event.getEntityLiving().getY() - 0.5;
+							double z = event.getEntityLiving().getZ() - 0.5;
 
 							player.getGameProfile().getName();
 							float r = 1F;
@@ -260,7 +260,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if(!wasSprting && isSprinting && cooldown == 0) {
 					p.setMotion(p.getMotion().add(look.x, 0, look.z));
-					p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+					p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 				} else if(cooldown > 0) {
 					if(maxCd - cooldown < 2)
@@ -470,11 +470,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 		Minecraft mc = Minecraft.getInstance();
 		mc.textureManager.bindTexture(textureHud);
-		int xo = mc.mainWindow.getScaledWidth() / 2 + 10;
+		int xo = mc.getWindow().getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.flightBarHeight.get();
+		int y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.flightBarHeight.get();
 		if(player.areEyesInFluid(FluidTags.WATER))
-			y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.flightBarBreathHeight.get();
+			y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.flightBarBreathHeight.get();
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 

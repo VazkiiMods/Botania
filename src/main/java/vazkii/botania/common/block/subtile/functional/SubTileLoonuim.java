@@ -200,7 +200,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			CompoundNBT cmp = e.getPersistentData().getCompound(TAG_ITEMSTACK_TO_DROP);
 			ItemStack stack = ItemStack.read(cmp);
 			event.getDrops().clear();
-			event.getDrops().add(new ItemEntity(e.world, e.posX, e.posY, e.posZ, stack));
+			event.getDrops().add(new ItemEntity(e.world, e.getX(), e.getY(), e.getZ(), stack));
 		}
 	}
 }

@@ -60,9 +60,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(player.getLookVec()).normalize();
 
-			double x = player.posX;
-			double y = player.posY;
-			double z = player.posZ;
+			double x = player.getX();
+			double y = player.getY();
+			double z = player.getZ();
 			BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos((int) x, (int) y, (int) z);
 
 			double lastX = 0;
@@ -112,13 +112,13 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			}
 
 			if(count > 0) {
-				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldownTracker().setCooldown(this, TIME);
 			}
 		}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	@Nonnull
@@ -168,9 +168,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, axis);
 		for(PlayerEntity p : players) {
-			int px = MathHelper.floor(p.posX);
-			int py = MathHelper.floor(p.posY) - 1;
-			int pz = MathHelper.floor(p.posZ);
+			int px = MathHelper.floor(p.getX());
+			int py = MathHelper.floor(p.getY()) - 1;
+			int pz = MathHelper.floor(p.getZ());
 			int dist = 5;
 			int diff = dist / 2;
 

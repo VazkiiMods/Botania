@@ -19,11 +19,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.BasicState;
-import net.minecraftforge.client.model.ForgeBlockStateV1;
-import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
@@ -140,7 +136,7 @@ public class MiscellaneousIcons {
 	
 	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		if(evt.getMap() != Minecraft.getInstance().getTextureMap())
+		if(!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
 			return;
 
 		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
@@ -202,7 +198,7 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
-		if(evt.getMap() != Minecraft.getInstance().getTextureMap())
+		if(!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
 			return;
 
 		alfPortalTex = get(evt.getMap(), "blocks/alfheim_portal_swirl");

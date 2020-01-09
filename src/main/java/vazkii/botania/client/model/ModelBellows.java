@@ -11,33 +11,33 @@
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.model.ModelRenderer;
 
 public class ModelBellows extends Model {
 
-	final RendererModel top;
-	final RendererModel base;
-	final RendererModel pipe;
-	final RendererModel funnel;
+	final ModelRenderer top;
+	final ModelRenderer base;
+	final ModelRenderer pipe;
+	final ModelRenderer funnel;
 
 	public ModelBellows() {
 		textureWidth = 64;
 		textureHeight = 32;
 		
-		top = new RendererModel(this, 0, 0);
+		top = new ModelRenderer(this, 0, 0);
         top.setRotationPoint(0.0F, 16.0F, 0.0F);
-        top.addBox(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
-        base = new RendererModel(this, 0, 9);
+        top.addCuboid(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
+        base = new ModelRenderer(this, 0, 9);
         base.setRotationPoint(0.0F, 16.0F, 0.0F);
-        base.addBox(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
-        pipe = new RendererModel(this, 0, 21);
+        base.addCuboid(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
+        pipe = new ModelRenderer(this, 0, 21);
         pipe.setRotationPoint(0.0F, 16.0F, 0.0F);
-        pipe.addBox(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
+        pipe.addCuboid(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
 		
-        funnel = new RendererModel(this, 40, 0);
+        funnel = new ModelRenderer(this, 40, 0);
         funnel.setRotationPoint(0.0F, 0.0F, 0.0F);
-        funnel.addBox(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
+        funnel.addCuboid(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
 	}
 
 	public void render(float fract) {

@@ -1,11 +1,14 @@
 package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.texture.ISprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -22,15 +25,12 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -74,12 +74,12 @@ public class FloatingFlowerModel implements IUnbakedModel {
 
     @Nonnull
     @Override
-    public Collection<ResourceLocation> getTextures(@Nonnull Function<ResourceLocation, IUnbakedModel> modelGetter, @Nonnull Set<String> missingTextureErrors) {
-        Set<ResourceLocation> ret = new HashSet<>();
+    public Collection<Material> getTextureDependencies(Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors){
+        Set<Material> ret = new HashSet<>();
         for (IUnbakedModel island : unbakedIslands.values()) {
-            ret.addAll(island.getTextures(modelGetter, missingTextureErrors));
+            ret.addAll(island.getTextureDependencies(modelGetter, missingTextureErrors));
         }
-        ret.addAll(unbakedFlower.getTextures(modelGetter, missingTextureErrors));
+        ret.addAll(unbakedFlower.getTextureDependencies(modelGetter, missingTextureErrors));
         return ret;
     }
 
@@ -158,10 +158,10 @@ public class FloatingFlowerModel implements IUnbakedModel {
 
         @Nonnull
         @Override
-        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
+        public IBakedModel handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType, MatrixStack ms) {
             // Use the item transforms from the islands since it looks better
-            Pair<? extends IBakedModel, Matrix4f> p = this.islands.values().iterator().next().handlePerspective(cameraTransformType);
-            return Pair.of(this, p.getRight());
+            this.islands.values().iterator().next().handlePerspective(cameraTransformType, ms);
+            return this;
         }
     }
 

@@ -58,7 +58,7 @@ public class ItemEnderAir extends ItemMod {
         if(!player.abilities.isCreativeMode)
             stack.shrink(1);
 
-        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
         if(!world.isRemote) {
             EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
@@ -66,6 +66,6 @@ public class ItemEnderAir extends ItemMod {
             world.addEntity(b);
         }
         else player.swingArm(hand);
-        return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+        return ActionResult.success(stack);
     }
 }

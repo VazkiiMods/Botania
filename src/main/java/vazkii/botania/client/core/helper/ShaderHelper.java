@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryUtil;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -57,7 +58,7 @@ public final class ShaderHelper {
 
 	private static void deleteProgram(int id) {
 		if (id != 0) {
-			GLX.glDeleteProgram(id);
+			GlStateManager.deleteProgram(id);
 		}
 	}
 
@@ -119,11 +120,11 @@ public final class ShaderHelper {
 
 		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		GlStateManager.disableLighting();
-		GLX.glUseProgram(shader);
+		GlStateManager.useProgram(shader);
 
 		if(shader != 0) {
-		    int time = GLX.glGetUniformLocation(shader, "time");
-		    GLX.glUniform1i(time, ClientTickHandler.ticksInGame);
+		    int time = GlStateManager.getUniformLocation(shader, "time");
+		    GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
 
 			if(callback != null)
 				callback.call(shader);
@@ -157,29 +158,29 @@ public final class ShaderHelper {
 	private static int createProgram(IResourceManager manager, String vert, String frag) {
 		int vertId = 0, fragId = 0, program;
 		if(vert != null)
-			vertId = createShader(manager, vert, GLX.GL_VERTEX_SHADER);
+			vertId = createShader(manager, vert, GL20.GL_VERTEX_SHADER);
 		if(frag != null)
-			fragId = createShader(manager, frag, GLX.GL_FRAGMENT_SHADER);
+			fragId = createShader(manager, frag, GL20.GL_FRAGMENT_SHADER);
 
-		program = GLX.glCreateProgram();
+		program = GlStateManager.createProgram();
 		if(program == 0)
 			return 0;
 
 		if(vert != null)
-			GLX.glAttachShader(program, vertId);
+			GlStateManager.attachShader(program, vertId);
 		if(frag != null)
-			GLX.glAttachShader(program, fragId);
+			GlStateManager.attachShader(program, fragId);
 
-		GLX.glLinkProgram(program);
-		if (GLX.glGetProgrami(program, GLX.GL_LINK_STATUS) == GL11.GL_FALSE) {
+		GlStateManager.linkProgram(program);
+		if (GlStateManager.getProgram(program, GL20.GL_LINK_STATUS) == GL11.GL_FALSE) {
 			Botania.LOGGER.warn("Error encountered when linking program containing VS {} and FS {}. Log output:", vert, frag);
-			Botania.LOGGER.warn(GLX.glGetProgramInfoLog(program, 32768));
+			Botania.LOGGER.warn(GlStateManager.getProgramInfoLog(program, 32768));
 			return 0;
 		}
 
 		// Free the shader immediately, it will stay alive until the program is deleted
-		GLX.glDeleteShader(vertId);
-		GLX.glDeleteShader(fragId);
+		GlStateManager.deleteShader(vertId);
+		GlStateManager.deleteShader(fragId);
 
 		return program;
 	}
@@ -187,22 +188,22 @@ public final class ShaderHelper {
 	private static int createShader(IResourceManager manager, String filename, int shaderType){
 		int shader = 0;
 		try {
-		    shader = GLX.glCreateShader(shaderType);
+		    shader = GlStateManager.createShader(shaderType);
 
 			if(shader == 0)
 				return 0;
 
-			GLX.glShaderSource(shader, readFileAsString(manager, filename));
-			GLX.glCompileShader(shader);
+			GlStateManager.shaderSource(shader, readFileAsString(manager, filename));
+			GlStateManager.compileShader(shader);
 
-			if (GLX.glGetShaderi(shader, GLX.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-				String s1 = StringUtils.trim(GLX.glGetShaderInfoLog(shader, 32768));
+			if (GlStateManager.getShader(shader, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+				String s1 = StringUtils.trim(GlStateManager.getShaderInfoLog(shader, 32768));
 				throw new IOException("Couldn't compile " + filename + ": " + s1);
 			}
 
 			return shader;
 		} catch(Exception e) {
-			GLX.glDeleteShader(shader);
+			GlStateManager.deleteShader(shader);
 			e.printStackTrace();
 			return -1;
 		}

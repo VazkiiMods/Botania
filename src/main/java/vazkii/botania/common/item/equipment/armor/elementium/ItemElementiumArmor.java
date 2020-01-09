@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -37,7 +37,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
-	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.elementiumHelm),
 			new ItemStack(ModItems.elementiumChest),
 			new ItemStack(ModItems.elementiumLegs),

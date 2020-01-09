@@ -92,8 +92,8 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if(event == START_BURN_EVENT) {
 			Entity e = getWorld().getEntityByID(param);
 			if(e != null) {
-				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
-				e.world.addParticle(ParticleTypes.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {

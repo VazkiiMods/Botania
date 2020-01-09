@@ -70,7 +70,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 		if(world.isRemote)
 			player.swingArm(hand);
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 }

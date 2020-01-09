@@ -49,7 +49,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 		PlayerEntity eplayer = (PlayerEntity) living;
 
 		double range = 24;
-		AxisAlignedBB aabb = new AxisAlignedBB(living.posX, living.posY, living.posZ, living.posX, living.posY, living.posZ).grow(range);
+		AxisAlignedBB aabb = new AxisAlignedBB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).grow(range);
 		List<LivingEntity> mobs = living.world.getEntitiesWithinAABB(LivingEntity.class, aabb, (Entity e) -> e instanceof IMob);
 
 		for(LivingEntity e : mobs) {

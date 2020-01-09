@@ -199,9 +199,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	public EntityManaBurst getBurst(World world, BlockPos pos, ItemStack stack) {
 		EntityManaBurst burst = new EntityManaBurst(world);
-		burst.posX = pos.getX() + 0.5;
-		burst.posY = pos.getY() + 0.5;
-		burst.posZ = pos.getZ() + 0.5;
+		burst.getX() = pos.getX() + 0.5;
+		burst.getY() = pos.getY() + 0.5;
+		burst.getZ() = pos.getZ() + 0.5;
 
 		burst.setColor(0x00EAFF);
 		burst.setMana(1);
@@ -244,9 +244,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				if(y != -1)
 					spawnBurst(entity.world, new BlockPos(x, y, z), lens);
 			} else if(burst.getTicksExisted() == placeTicks) {
-				int x = net.minecraft.util.math.MathHelper.floor(entity.posX);
+				int x = net.minecraft.util.math.MathHelper.floor(entity.getX());
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
-				int z = net.minecraft.util.math.MathHelper.floor(entity.posZ);
+				int z = net.minecraft.util.math.MathHelper.floor(entity.getZ());
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if(entity.world.isAirBlock(pos)) {
@@ -278,7 +278,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
-		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.posX, entity.posY, entity.posZ,
+		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
 				entity.getMotion().getX(), entity.getMotion().getY(), entity.getMotion().getZ());
 
 		return true;

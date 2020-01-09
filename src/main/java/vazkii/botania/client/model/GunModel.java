@@ -1,9 +1,13 @@
 package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.TransformationMatrix;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -14,26 +18,30 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resources.IResource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.client.model.SimpleModelTransform;
 import org.apache.commons.lang3.tuple.Pair;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class GunModel implements IBakedModel {
 	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
@@ -62,8 +70,15 @@ public class GunModel implements IBakedModel {
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if(!lens.isEmpty()) {
 				// TODO 1.14 : currently broken because it goes through the vanilla codepath which doesn't handle builtin/generated models
-				ModelResourceLocation mrl = new ModelResourceLocation(lens.getItem().getRegistryName(), "inventory");
-				IUnbakedModel unbaked = ModelLoaderRegistry.getModelOrMissing(mrl);
+				// todo 1.15 : check above statement lol
+				ResourceLocation loc = new ResourceLocation(lens.getItem().getRegistryName().getNamespace(), "models/item/" + lens.getItem().getRegistryName().getPath() + ".json");
+				IUnbakedModel unbaked;
+				try (IResource json = Minecraft.getInstance().getResourceManager().getResource(loc)) {
+					unbaked = BlockModel.deserialize(new InputStreamReader(json.getInputStream()));
+				} catch (IOException e) {
+					Botania.LOGGER.error("Missing flower model {}", loc);
+					unbaked = BlockModel.deserialize(ModelBakery.MISSING_MODEL_MESH);
+				}
 				return GunModel.this.getModel(unbaked, clip);
 			}
 			else return clip ? originalModelClip : originalModel;
@@ -98,8 +113,8 @@ public class GunModel implements IBakedModel {
 		CompositeBakedModel(ModelBakery bakery, IUnbakedModel lensUnbaked, IBakedModel gun) {
 			this.gun = gun;
 
-			final TRSRTransformation transform = new TRSRTransformation(new Vector3f(-0.2F, 0.4F, 0.8F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0), new Vector3f(0.625F, 0.625F, 0.625F), null);
-			IBakedModel lens = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), new BasicState(transform, false), DefaultVertexFormats.ITEM);
+			final TransformationMatrix transform = new TransformationMatrix(new Vector3f(-0.2F, 0.4F, 0.8F), Vector3f.POSITIVE_Y.getDegreesQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null);
+			IBakedModel lens = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), new SimpleModelTransform(transform), prefix("gun_lens_" + lensUnbaked.toString()));
 
 			for(Direction e : Direction.values())
 				faceQuads.put(e, new ArrayList<>());
@@ -132,11 +147,10 @@ public class GunModel implements IBakedModel {
 		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.EMPTY; }
 
 		@Override
-		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
-			Pair<? extends IBakedModel, Matrix4f> pair = gun.handlePerspective(cameraTransformType);
-			if(pair != null && pair.getRight() != null)
-				return Pair.of(this, pair.getRight());
-			return Pair.of(this, TRSRTransformation.identity().getMatrixVec());
+		public IBakedModel handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType, MatrixStack stack) {
+			// apply gun transforms to stack but use self model still
+			gun.handlePerspective(cameraTransformType, stack);
+			return this;
 		}
 	}
 

@@ -26,7 +26,7 @@ public class LensExplosive extends Lens {
 		if(!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if(!isManaBlock && !coords.equals(((BlockRayTraceResult) pos).getPos()))
-				entity.world.createExplosion(entity, entity.posX, entity.posY, entity.posZ,
+				entity.world.createExplosion(entity, entity.getX(), entity.getY(), entity.getZ(),
 						burst.getMana() / 50F, Explosion.Mode.BREAK);
 		} else dead = false;
 

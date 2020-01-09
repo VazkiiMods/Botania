@@ -45,14 +45,14 @@ public class ItemIcePendant extends ItemBauble {
 			FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 			entity.onGround = lastOnGround;
 
-			int x = MathHelper.floor(entity.posX);
-			int y = MathHelper.floor(entity.posY);
-			int z = MathHelper.floor(entity.posZ);
+			int x = MathHelper.floor(entity.getX());
+			int y = MathHelper.floor(entity.getY());
+			int z = MathHelper.floor(entity.getZ());
 			BlockState blockstate = Blocks.SNOW.getDefaultState();
 
 			for(int l = 0; l < 4; ++l) {
-				x = MathHelper.floor(entity.posX + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-				z = MathHelper.floor(entity.posZ + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+				x = MathHelper.floor(entity.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+				z = MathHelper.floor(entity.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
 				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).func_225486_c(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
 					entity.world.setBlockState(blockpos, blockstate);
@@ -61,7 +61,7 @@ public class ItemIcePendant extends ItemBauble {
 		}
 		else if (entity.world.isRemote && !entity.isSneaking()) {
 			if(entity.world.rand.nextFloat() >= 0.25F) {
-				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.posX + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.posY + 1.1, entity.posZ  + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
+				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.getX() + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ()  + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
 	}

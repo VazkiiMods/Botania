@@ -2,8 +2,8 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            name "forge"
+            url "https://files.minecraftforge.net/maven"
         }
     }
     dependencies {
@@ -82,29 +82,33 @@ sourceSets.main.resources {
 repositories {
     mavenCentral()
     maven {
-        url = "https://maven.blamejared.com"
+        name "yarn2mcp"
+        url "https://maven.tterrag.com/"
     }
     maven {
-        url = "https://dvs1.progwml6.com/files/maven"
+        url "https://maven.blamejared.com"
     }
     maven {
-        url = "https://minecraft.curseforge.com/api/maven/"
+        url "https://dvs1.progwml6.com/files/maven"
     }
     maven {
-        name = "curios"
-        url = "https://maven.theillusivec4.top/"
+        url "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name "curios"
+        url "https://maven.theillusivec4.top/"
     }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
-    compile fg.deobf("vazkii.patchouli:Patchouli:1.1-22.43") { transitive = false }
+    // compile fg.deobf("vazkii.patchouli:Patchouli:1.1-22.43") { transitive = false }
 
-    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
+    compileOnly fg.deobf("mezz.jei:jei-1.15.1:6.0.0.1:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.15.1:6.0.0.1")
     
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.1-2.0-beta:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.1-2.0-beta")
 }
 
 if (System.getenv().BUILD_NUMBER != null) { 

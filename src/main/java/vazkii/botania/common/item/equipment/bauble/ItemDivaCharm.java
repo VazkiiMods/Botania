@@ -66,7 +66,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 					if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;
 
-						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.posX - range, target.posY - range, target.posZ - range, target.posX + range, target.posY + range, target.posZ + range), Predicates.instanceOf(IMob.class));
+						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(IMob.class));
 						if(mobs.size() > 1) {
 							if(SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
 								target.heal(target.getMaxHealth());
@@ -75,8 +75,8 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 									((CreeperEntity) event.getEntityLiving()).timeSinceIgnited = 2;
 
 								ManaItemHandler.requestManaExact(amulet, player, cost, true);
-								player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
-								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.posX, target.posY, target.posZ, target.getEntityId()));
+								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId()));
 							}
 						}
 					}

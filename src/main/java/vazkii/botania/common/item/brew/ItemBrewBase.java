@@ -82,7 +82,7 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Nonnull
@@ -97,7 +97,7 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 			}
 
 			if(world.rand.nextBoolean())
-				world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
 
 			int swigs = getSwigsLeft(stack);
 			if(living instanceof PlayerEntity && !((PlayerEntity) living).abilities.isCreativeMode) {

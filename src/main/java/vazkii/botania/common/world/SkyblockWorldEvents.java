@@ -164,9 +164,9 @@ public final class SkyblockWorldEvents {
 
 			if(fabricated) {
 				persist.putBoolean(TAG_HAS_OWN_ISLAND, true);
-				persist.putDouble(TAG_ISLAND_X, player.posX);
-				persist.putDouble(TAG_ISLAND_Y, player.posY);
-				persist.putDouble(TAG_ISLAND_Z, player.posZ);
+				persist.putDouble(TAG_ISLAND_X, player.getX());
+				persist.putDouble(TAG_ISLAND_Y, player.getY());
+				persist.putDouble(TAG_ISLAND_Z, player.getZ());
 			}
 		} else {
 			double posX = persist.getDouble(TAG_ISLAND_X);

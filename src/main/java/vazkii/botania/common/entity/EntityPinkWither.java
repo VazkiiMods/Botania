@@ -82,25 +82,25 @@ public class EntityPinkWither extends WitherEntity {
 
 	private double getHeadX(int p_82214_1_) {
 		if (p_82214_1_ <= 0) {
-			return this.posX;
+			return this.getX();
 		} else {
 			float f = (this.renderYawOffset + (float)(180 * (p_82214_1_ - 1))) * ((float)Math.PI / 180F);
 			float f1 = MathHelper.cos(f);
-			return this.posX + (double)f1 * 1.3D;
+			return this.getX() + (double)f1 * 1.3D;
 		}
 	}
 
 	private double getHeadY(int p_82208_1_) {
-		return p_82208_1_ <= 0 ? this.posY + 3.0D : this.posY + 2.2D;
+		return p_82208_1_ <= 0 ? this.getY() + 3.0D : this.getY() + 2.2D;
 	}
 
 	private double getHeadZ(int p_82213_1_) {
 		if (p_82213_1_ <= 0) {
-			return this.posZ;
+			return this.getZ();
 		} else {
 			float f = (this.renderYawOffset + (float)(180 * (p_82213_1_ - 1))) * ((float)Math.PI / 180F);
 			float f1 = MathHelper.sin(f);
-			return this.posZ + (double)f1 * 1.3D;
+			return this.getZ() + (double)f1 * 1.3D;
 		}
 	}
 

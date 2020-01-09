@@ -89,8 +89,8 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		if(dispStack.isEmpty())
 			return;
 
-		int x = mc.mainWindow.getScaledWidth() / 2 + 15;
-		int y = mc.mainWindow.getScaledHeight() / 2 - 8;
+		int x = mc.getWindow().getScaledWidth() / 2 + 15;
+		int y = mc.getWindow().getScaledHeight() / 2 - 8;
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);

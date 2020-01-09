@@ -46,12 +46,12 @@ public class ItemPinkinator extends ItemMod {
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int range = 16;
-		List<WitherEntity> withers = world.getEntitiesWithinAABB(WitherEntity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+		List<WitherEntity> withers = world.getEntitiesWithinAABB(WitherEntity.class, new AxisAlignedBB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 		for(WitherEntity wither : withers)
 			if(!world.isRemote && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
 				wither.remove();
 				EntityPinkWither pink = new EntityPinkWither(world);
-				pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
+				pink.setLocationAndAngles(wither.getX(), wither.getY(), wither.getZ(), wither.rotationYaw, wither.rotationPitch);
 				pink.setNoAI(wither.isAIDisabled());
 				if (wither.hasCustomName()) {
 					pink.setCustomName(wither.getCustomName());
@@ -61,12 +61,12 @@ public class ItemPinkinator extends ItemMod {
 				world.addEntity(pink);
 				pink.spawnExplosionParticle();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);
+				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.getX(), player.getY(), player.getZ());
 				stack.shrink(1);
-				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+				return ActionResult.success(stack);
 			}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	@OnlyIn(Dist.CLIENT)

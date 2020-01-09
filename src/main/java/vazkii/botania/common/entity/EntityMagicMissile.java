@@ -132,9 +132,9 @@ public class EntityMagicMissile extends ThrowableEntity {
 		LivingEntity target = getTargetEntity();
 		if(target != null) {
 			if(lockY == -1) {
-				lockX = target.posX;
-				lockY = target.posY;
-				lockZ = target.posZ;
+				lockX = target.getX();
+				lockY = target.getY();
+				lockZ = target.getZ();
 			}
 
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);

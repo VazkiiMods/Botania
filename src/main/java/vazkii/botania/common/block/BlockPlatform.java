@@ -20,7 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +35,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost {
 
@@ -58,8 +59,8 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		if(variant == Variant.INFRANGIBLE
 				|| variant == Variant.ABSTRUSE
 					&& e != null
-					&& e.posY > pos.getY() + 0.9
-					&& !context.isSneaking()) {
+					&& e.getY() > pos.getY() + 0.9
+					&& !context.isDescending()) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
@@ -98,12 +99,13 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		return true;
 	}
 
-	public static boolean isValidBlock(BlockState state, World world, BlockPos pos) {
-		return state.isOpaqueCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL;
+	public static boolean isValidBlock(@Nullable BlockState state, World world, BlockPos pos) {
+		return state != null && (state.isOpaqueCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL);
 	}
 
+	@Nonnull
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		ItemStack currentStack = player.getHeldItem(hand);
 		if(!currentStack.isEmpty()
@@ -119,11 +121,11 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 					world.notifyBlockUpdate(pos, state, state, 3);
 				}
 
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 

@@ -83,7 +83,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	private void terraform(ItemStack par1ItemStack, World world, PlayerEntity player) {
@@ -135,7 +135,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
+					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for(int i = 0; i < 120; i++)
                     world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);

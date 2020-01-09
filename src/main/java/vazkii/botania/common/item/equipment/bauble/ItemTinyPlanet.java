@@ -40,9 +40,9 @@ public class ItemTinyPlanet extends ItemBauble {
 	
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		double x = player.posX;
-		double y = player.posY + player.getEyeHeight();
-		double z = player.posZ;
+		double x = player.getX();
+		double y = player.getY() + player.getEyeHeight();
+		double z = player.getZ();
 
 		applyEffect(player.world, x, y, z);
 	}
@@ -77,7 +77,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			float zTarget = (float) (z + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
-			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
+			Vector3 currentVec = new Vector3(entity.getX(), entity.getY(), entity.getZ());
 			Vector3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);

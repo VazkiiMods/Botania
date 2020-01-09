@@ -104,7 +104,7 @@ public class ItemItemFinder extends ItemBauble {
 			Entity e = player.world.getEntityByID(i);
 			if(e != null && Math.random() < 0.6) {
 				WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), Math.random() < 0.6);
-				player.world.addParticle(data, e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.getHeight(), e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
+				player.world.addParticle(data, e.getX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getY() + e.getHeight(), e.getZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public class ItemItemFinder extends ItemBauble {
 		if(!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
-			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 			for(Entity e : entities) {
 				if(e == player)
 					continue;

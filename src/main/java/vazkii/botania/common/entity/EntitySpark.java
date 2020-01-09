@@ -223,7 +223,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
 		if(e1 != null && e2 != null && !e1.world.isRemote) {
 			PacketHandler.sendTo((ServerPlayerEntity) player,
-					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.posX, e1.posY, e1.posZ,
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getX(), e1.getY(), e1.getZ(),
 							e1.getEntityId(), e2.getEntityId()));
 		}
 	}

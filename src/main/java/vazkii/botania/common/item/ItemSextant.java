@@ -149,7 +149,7 @@ public class ItemSextant extends ItemMod {
 			reset(world, stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	private static double calculateRadius(ItemStack stack, PlayerEntity player) {
@@ -181,8 +181,8 @@ public class ItemSextant extends ItemMod {
 		if(onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 30;
-			int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2;
+			int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 + 30;
+			int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2;
 
 			String s = Integer.toString((int) radius);
 			boolean inRange = 0 < radius && radius <= MAX_RADIUS;

@@ -388,7 +388,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
 		}
 
-		world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -398,8 +398,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name);
 
-		int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 - 11;
-		int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 + 30;
+		int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 - 11;
+		int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 + 30;
 
 		int u = outputting ? 22 : 0;
 		int v = 38;

@@ -53,9 +53,9 @@ public class LightningHandler {
 		Entity entity = Minecraft.getInstance().player;
 		TextureManager render = Minecraft.getInstance().textureManager;
 
-		double interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
-		double interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
-		double interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
+		double interpPosX = entity.lastTickPosX + (entity.getX() - entity.lastTickPosX) * frame;
+		double interpPosY = entity.lastTickPosY + (entity.getY() - entity.lastTickPosY) * frame;
+		double interpPosZ = entity.lastTickPosZ + (entity.getZ() - entity.lastTickPosZ) * frame;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translated(-interpPosX, -interpPosY, -interpPosZ);

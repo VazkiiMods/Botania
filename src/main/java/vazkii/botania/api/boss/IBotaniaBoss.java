@@ -11,7 +11,7 @@
 package vazkii.botania.api.boss;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.ServerBossInfo;
+import net.minecraft.world.server.ServerBossInfo;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.ShaderCallback;

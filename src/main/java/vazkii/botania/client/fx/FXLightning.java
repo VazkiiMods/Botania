@@ -254,7 +254,7 @@ public class FXLightning extends Particle {
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
 		Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
-		return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
+		return new Vector3((float) renderEntity.getX() - pos.x, (float) renderEntity.getY() + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.getZ() - pos.z);
 	}
 
 }

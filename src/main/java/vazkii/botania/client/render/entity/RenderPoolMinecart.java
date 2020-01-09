@@ -32,7 +32,7 @@ public class RenderPoolMinecart extends MinecartRenderer<EntityPoolMinecart> {
 	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull BlockState state) {
 		super.renderCartContents(poolCart, partialTicks, state);
 		RenderTilePool.cartMana = poolCart.getMana();
-		TileEntityRendererDispatcher.instance.getRenderer(TilePool.class).render(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);
+		TileEntityRendererDispatcher.instance.getRenderer(TilePool.class).render(null, poolCart.getX(), poolCart.getY(), poolCart.getZ(), ClientTickHandler.partialTicks, -1);
 	}
 
 

@@ -12,18 +12,18 @@ package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class ModelSpinningCubes extends Model {
 
-	private final RendererModel spinningCube;
+	private final ModelRenderer spinningCube;
 
 	public ModelSpinningCubes() {
-		spinningCube = new RendererModel(this, 42, 0);
-		spinningCube.addBox(0F, 0F, 0F, 1, 1, 1);
+		spinningCube = new ModelRenderer(this, 42, 0);
+		spinningCube.addCuboid(0F, 0F, 0F, 1, 1, 1);
 		spinningCube.setRotationPoint(0F, 0F, 0F);
 		spinningCube.setTextureSize(64, 64);
 	}

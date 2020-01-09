@@ -28,7 +28,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.Rotation;
@@ -111,7 +111,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			}
 	};
 
-	public static final LazyLoadBase<IMultiblock> MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', Blocks.LAPIS_BLOCK,
@@ -120,7 +120,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			'F', StateMatcher.fromPredicate(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
 	));
 
-	private static final LazyLoadBase<IMultiblock> FORMED_MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+	private static final LazyValue<IMultiblock> FORMED_MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', ModBlocks.enchanter,
@@ -478,8 +478,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD() {
 		if(manaRequired > 0 && !itemToEnchant.isEmpty()) {
-			int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20;
-			int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 8;
+			int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 + 20;
+			int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 - 8;
 
 			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}

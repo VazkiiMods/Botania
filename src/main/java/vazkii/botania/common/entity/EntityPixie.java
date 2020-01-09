@@ -87,9 +87,9 @@ public class EntityPixie extends FlyingEntity {
 	protected void updateAITasks() {
 		LivingEntity target = getAttackTarget();
 		if(target != null) {
-			double d0 = target.posX + target.getWidth() / 2 - posX;
-			double d1 = target.posY + target.getHeight() / 2 - posY;
-			double d2 = target.posZ + target.getWidth() / 2 - posZ;
+			double d0 = target.getX() + target.getWidth() / 2 - posX;
+			double d1 = target.getY() + target.getHeight() / 2 - posY;
+			double d2 = target.getZ() + target.getWidth() / 2 - posZ;
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			float mod = 0.45F;

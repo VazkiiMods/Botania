@@ -64,10 +64,10 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 				for(int i = 0; i < 50; i++) {
                     SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
-                    world.addParticle(data, e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 0, 0, 0);
+                    world.addParticle(data, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
                 }
 
-				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
+				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.getX(), e.getY(), e.getZ(), 1D, 0D, 0D);
 			}
 			return true;
 		} else {

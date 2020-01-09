@@ -53,7 +53,7 @@ public final class BossBarHandler {
 				Rectangle bgRect = currentBoss.getBossBarTextureRect();
 				Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
 				String name = evt.getBossInfo().getName().getFormattedText();
-				int c = Minecraft.getInstance().mainWindow.getScaledWidth() / 2;
+				int c = Minecraft.getInstance().getWindow().getScaledWidth() / 2;
 				int x = evt.getX();
 				int y = evt.getY();
 				int xf = x + (bgRect.width - fgRect.width) / 2;

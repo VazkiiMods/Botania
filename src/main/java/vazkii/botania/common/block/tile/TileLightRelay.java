@@ -123,9 +123,9 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
 					for(EnderPearlEntity pearl : enderPearls) {
 						pearl.setPositionAndUpdate(
-								endpoint.getX() + pearl.posX - pos.getX(),
-								endpoint.getY() + pearl.posY - pos.getY(),
-								endpoint.getZ() + pearl.posZ - pos.getZ()
+								endpoint.getX() + pearl.getX() - pos.getX(),
+								endpoint.getY() + pearl.getY() - pos.getY(),
+								endpoint.getZ() + pearl.getZ() - pos.getZ()
 								);
 					}
 				}

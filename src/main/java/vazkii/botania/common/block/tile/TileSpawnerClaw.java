@@ -113,10 +113,10 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 								return;
 							}
 
-							entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
+							entity.setLocationAndAngles(entity.getX(), entity.getY(), entity.getZ(), world.rand.nextFloat() * 360.0F, 0.0F);
 							if (entity instanceof MobEntity) {
 								MobEntity mobentity = (MobEntity)entity;
-								if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float)entity.posX, (float)entity.posY, (float)entity.posZ, logic)) {
+								if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float)entity.getX(), (float)entity.getY(), (float)entity.getZ(), logic)) {
 									continue;
 								}
 

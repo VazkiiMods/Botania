@@ -18,7 +18,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -52,7 +52,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL)
 	public static TileEntityType<TileAlfPortal> TYPE;
 
-	public static final LazyLoadBase<IMultiblock> MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
 					{ "W", " ", " ", " ", "W" },

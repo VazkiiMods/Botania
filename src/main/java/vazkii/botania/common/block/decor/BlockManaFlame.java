@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -52,7 +53,7 @@ public class BlockManaFlame extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		if(Botania.gardenOfGlassLoaded) {
 			ItemStack stack = player.getHeldItem(hand);
 			if(!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
@@ -60,11 +61,11 @@ public class BlockManaFlame extends BlockMod {
 					stack.shrink(1);
 					ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.lexicon));
 				}
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

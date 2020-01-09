@@ -70,7 +70,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemStack stack = ctx.getItem();
 				GlobalPos loc = GlobalPos.of(world.getDimension().getType(), pos);
 				ItemNBTHelper.set(stack, TAG_LOCATION, loc.serialize(NBTDynamicOps.INSTANCE));
-				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
 			return ActionResultType.SUCCESS;
@@ -81,9 +81,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		float x = (float) (living.posX - Math.random() * living.getWidth());
-		float y = (float) (living.posY + Math.random());
-		float z = (float) (living.posZ - Math.random() * living.getWidth());
+		float x = (float) (living.getX() - Math.random() * living.getWidth());
+		float y = (float) (living.getY() + Math.random());
+		float z = (float) (living.getZ() - Math.random() * living.getWidth());
 		WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
 		living.world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
     }
@@ -92,7 +92,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Nonnull
@@ -106,7 +106,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		int y = loc.getPos().getY();
 		int z = loc.getPos().getZ();
 
-		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.posX, living.posY, living.posZ) * 10);
+		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
 
 		if(loc.getDimension() == world.getDimension().getType()
 			&& (!(living instanceof PlayerEntity) || ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, cost, true))) {
@@ -119,8 +119,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.posX, entity.posY, entity.posZ, entity.getEntityId()));
-		entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getEntityId()));
+		entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override

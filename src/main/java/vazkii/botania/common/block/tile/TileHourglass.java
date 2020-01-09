@@ -203,8 +203,8 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD() {
 		Minecraft mc = Minecraft.getInstance();
-		int x = mc.mainWindow.getScaledWidth() / 2 + 10;
-		int y = mc.mainWindow.getScaledHeight() / 2 - 10;
+		int x = mc.getWindow().getScaledWidth() / 2 + 10;
+		int y = mc.getWindow().getScaledHeight() / 2 - 10;
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(!stack.isEmpty()) {

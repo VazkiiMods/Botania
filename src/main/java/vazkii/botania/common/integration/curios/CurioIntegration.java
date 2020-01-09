@@ -116,7 +116,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 		@Override
 		public void playEquipSound(LivingEntity entity) {
-			entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
+			entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
 		}
 
 		@Override

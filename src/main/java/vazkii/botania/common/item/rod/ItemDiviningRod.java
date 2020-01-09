@@ -55,11 +55,11 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				long seedxor = world.rand.nextLong();
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
-			} else world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			} else world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+			return ActionResult.success(stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {

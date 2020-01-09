@@ -59,8 +59,8 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 
 		// Botania - darken when in void
 		float insideVoid = 0;
-		if(mc.player.posY <= -2)
-			insideVoid = (float) Math.min(1F, -(mc.player.posY + 2) / 30F);
+		if(mc.player.getY() <= -2)
+			insideVoid = (float) Math.min(1F, -(mc.player.getY() + 2) / 30F);
 
 		f = Math.max(0F, f - insideVoid);
 		f1 = Math.max(0F, f1 - insideVoid);

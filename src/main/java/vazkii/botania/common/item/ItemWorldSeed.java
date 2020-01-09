@@ -40,17 +40,17 @@ public class ItemWorldSeed extends ItemMod {
 			return new ActionResult<>(ActionResultType.SUCCESS, stack);
 
 		BlockPos coords = world.getSpawnPoint();
-		if(world.getDimension().canRespawnHere() && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.posX, player.posY, player.posZ) > 24) {
+		if(world.getDimension().canRespawnHere() && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getX(), player.getY(), player.getZ()) > 24) {
 			player.rotationPitch = 0F;
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
 			while(!world.isCollisionBoxesEmpty(player, player.getBoundingBox()))
-				player.setPositionAndUpdate(player.posX, player.posY + 1, player.posZ);
+				player.setPositionAndUpdate(player.getX(), player.getY() + 1, player.getZ());
 
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
-			((ServerWorld) world).spawnParticle(data, player.posX, player.posY+ player.getHeight() / 2, player.posZ, 50, player.getWidth() / 8, player.getHeight() / 4, player.getWidth() / 8, 0);
+			((ServerWorld) world).spawnParticle(data, player.getX(), player.getY()+ player.getHeight() / 2, player.getZ(), 50, player.getWidth() / 8, player.getHeight() / 4, player.getWidth() / 8, 0);
 
 			stack.shrink(1);
 			return new ActionResult<>(ActionResultType.SUCCESS, stack);

@@ -1,7 +1,7 @@
 package vazkii.botania.client.model.armor;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -15,10 +15,11 @@ public class ModelArmor extends BipedModel {
 
 	// [VanillaCopy] ArmorStandArmorModel.setRotationAngles because armor stands are dumb
 	// This fixes the armor "breathing" and helmets always facing south on armor stands
+	// todo 1.15 recheck param names
 	@Override
-	public void setRotationAngles(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+	public void setAngles(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!(entity instanceof ArmorStandEntity)) {
-			super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+			super.setAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			return;
 		}
 
@@ -47,7 +48,7 @@ public class ModelArmor extends BipedModel {
 		this.bipedHeadwear.copyModelAngles(this.bipedHead);
 	}
 
-	protected void setRotateAngle(RendererModel modelRenderer, float x, float y, float z) {
+	protected void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;

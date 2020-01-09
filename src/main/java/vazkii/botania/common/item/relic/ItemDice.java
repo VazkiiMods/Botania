@@ -56,9 +56,9 @@ public class ItemDice extends ItemRelic {
 
 		if(isRightPlayer(player, stack)) {
 			if(world.isRemote)
-				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+				return ActionResult.success(stack);
 
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for(int i = 0; i < 6; i++) {
@@ -69,15 +69,15 @@ public class ItemDice extends ItemRelic {
 			if(possible.isEmpty()) {
 				player.sendMessage(new TranslationTextComponent("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 				stack.shrink(1);
-				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+				return ActionResult.success(stack);
 			} else {
 				int relic = possible.get(world.rand.nextInt(possible.size()));
 				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
-				return ActionResult.newResult(ActionResultType.SUCCESS, new ItemStack(getRelics()[relic]));
+				return ActionResult.success(new ItemStack(getRelics()[relic]));
 			}
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	@Override

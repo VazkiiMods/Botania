@@ -42,20 +42,20 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
 		if(!event.getSource().isUnblockable()) {
 			int range = 6;
-			List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range), Predicates.instanceOf(IMob.class));
+			List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(IMob.class));
 			for(IMob mob : (List<IMob>) mobs)
 				if(mob instanceof LivingEntity) {
 					LivingEntity entity = (LivingEntity) mob;
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.getAmount());
 				}
 
-			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.unholyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.unholyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 90; i++) {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;
 				float zMotion = (float) Math.sin(rad) * 0.2F;
                 WispParticleData data = WispParticleData.wisp(0.6F + (float) Math.random() * 0.2F, 0.4F + (float) Math.random() + 0.25F, 0F, 0F);
-                player.world.addParticle(data, player.posX, player.posY + 0.5, player.posZ, xMotion, 0F, zMotion);
+                player.world.addParticle(data, player.getX(), player.getY() + 0.5, player.getZ(), xMotion, 0F, zMotion);
             }
 
 			return true;

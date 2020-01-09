@@ -108,7 +108,7 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	public static IItemHandler getFakeInv(PlayerEntity player) {
@@ -417,9 +417,9 @@ public class ItemCraftingHalo extends ItemMod {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
-		double posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-		double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-		double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+		double posX = player.prevPosX + (player.getX() - player.prevPosX) * partialTicks;
+		double posY = player.prevPosY + (player.getY() - player.prevPosY) * partialTicks;
+		double posZ = player.prevPosZ + (player.getZ() - player.prevPosZ) * partialTicks;
 
 		GlStateManager.translated(posX - renderPosX, posY - renderPosY + player.getEyeHeight(), posZ - renderPosZ);
 
@@ -520,14 +520,14 @@ public class ItemCraftingHalo extends ItemMod {
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName().getString();
 			int l = mc.fontRenderer.getStringWidth(name);
-			int x = mc.mainWindow.getScaledWidth() / 2 - l / 2;
-			int y = mc.mainWindow.getScaledHeight() / 2 - 65;
+			int x = mc.getWindow().getScaledWidth() / 2 - l / 2;
+			int y = mc.getWindow().getScaledHeight() / 2 - 65;
 
 			AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
-			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.mainWindow.getScaledWidth() / 2 - 8, mc.mainWindow.getScaledHeight() / 2 - 52);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.getWindow().getScaledWidth() / 2 - 8, mc.getWindow().getScaledHeight() / 2 - 52);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
@@ -552,8 +552,8 @@ public class ItemCraftingHalo extends ItemMod {
 		Minecraft mc = Minecraft.getInstance();
 
 		if(!recipe[9].isEmpty()) {
-			int x = mc.mainWindow.getScaledWidth() / 2 - 45;
-			int y = mc.mainWindow.getScaledHeight() / 2 - 90;
+			int x = mc.getWindow().getScaledWidth() / 2 - 45;
+			int y = mc.getWindow().getScaledHeight() / 2 - 90;
 
 			AbstractGui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
@@ -583,10 +583,10 @@ public class ItemCraftingHalo extends ItemMod {
 		int yoff = 110;
 		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(warning, mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 	}
 }

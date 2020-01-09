@@ -11,36 +11,36 @@
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 
 public class ModelBrewery extends Model {
 
-	final RendererModel top;
-	final RendererModel pole;
-	final RendererModel bottom;
+	final ModelRenderer top;
+	final ModelRenderer pole;
+	final ModelRenderer bottom;
 	
-	final RendererModel plate;
+	final ModelRenderer plate;
 
 	public ModelBrewery() {
 		
 		textureWidth = 32;
 		textureHeight = 16;
 		
-		top = new RendererModel(this, 8, 0);
+		top = new ModelRenderer(this, 8, 0);
         top.setRotationPoint(0.0F, 16.0F, 0.0F);
-        top.addBox(-2.0F, -7.0F, -2.0F, 4, 1, 4, 0.0F);
-		pole = new RendererModel(this, 0, 0);
+        top.addCuboid(-2.0F, -7.0F, -2.0F, 4, 1, 4, 0.0F);
+		pole = new ModelRenderer(this, 0, 0);
         pole.setRotationPoint(0.0F, 16.0F, 0.0F);
-        pole.addBox(-1.0F, -6.0F, -1.0F, 2, 10, 2, 0.0F);
-        bottom = new RendererModel(this, 8, 5);
+        pole.addCuboid(-1.0F, -6.0F, -1.0F, 2, 10, 2, 0.0F);
+        bottom = new ModelRenderer(this, 8, 5);
         bottom.setRotationPoint(0.0F, 16.0F, 0.0F);
-        bottom.addBox(-2.0F, 4.0F, -2.0F, 4, 1, 4, 0.0F);
+        bottom.addCuboid(-2.0F, 4.0F, -2.0F, 4, 1, 4, 0.0F);
         
-        plate = new RendererModel(this, 8, 5);
+        plate = new ModelRenderer(this, 8, 5);
         plate.setRotationPoint(0.0F, 17.0F, 0.0F);
-        plate.addBox(5.0F, 0.0F, -2.0F, 4, 1, 4, 0.0F);
+        plate.addCuboid(5.0F, 0.0F, -2.0F, 4, 1, 4, 0.0F);
         
 	}
 
