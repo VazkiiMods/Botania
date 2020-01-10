@@ -90,7 +90,7 @@ public final class ModelHandler {
 
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
 		RenderTilePylon renderTilePylon = new RenderTilePylon();
-		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, new RenderTileAltar());
+		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);
 		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, new RenderTileSpreader());
 		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, new RenderTilePool());
 		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, new RenderTileRuneAltar());
@@ -118,20 +118,20 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileGaiaHead.TYPE, new RenderTileGaiaHead());
 		ClientRegistry.bindTileEntityRenderer(TileTeruTeruBozu.TYPE, new RenderTileTeruTeruBozu());
 		ClientRegistry.bindTileEntityRenderer(TileAvatar.TYPE, new RenderTileAvatar());
-		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, new RenderTileAnimatedTorch());
+		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, RenderTileAnimatedTorch::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, RenderPixie::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, RenderDoppleganger::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, RenderSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, RenderCorporeaSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, RenderPoolMinecart::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, RenderPinkWither::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, RenderManaStorm::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.TYPE, RenderPixie::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.TYPE, RenderDoppleganger::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.TYPE, RenderSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.TYPE, RenderCorporeaSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.TYPE, RenderPoolMinecart::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.TYPE, RenderPinkWither::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.TYPE, RenderManaStorm::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.TYPE, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 	}
 
 	private static void registerSubtiles() {

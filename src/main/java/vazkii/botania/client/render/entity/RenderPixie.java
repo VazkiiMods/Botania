@@ -28,22 +28,20 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
 	private final ShaderCallback callback = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = GLX.glGetUniformLocation(shader, "disfiguration");
+		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.025F);
-		GLX.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = GLX.glGetUniformLocation(shader, "grainIntensity");
+		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.05F);
-		GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderPixie(EntityRendererManager renderManager) {
-		super(renderManager, new ModelPixie(), 0.25F);
-		//setRenderPassModel(new ModelPixie());
-		shadowSize = 0.0F;
+		super(renderManager, new ModelPixie(), 0.0F);
 	}
 
 	@Nonnull
@@ -60,34 +58,4 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 		if(pixie.getPixieType() == 1)
 			ShaderHelper.releaseShader();
 	}
-
-	protected int setPixieBrightness(EntityPixie par1EntityPixie, int par2, float par3) {
-		if (par2 != 0)
-			return -1;
-		else {
-			bindTexture(getEntityTexture(par1EntityPixie));
-			float f1 = 1.0F;
-			GlStateManager.enableBlend();
-			GlStateManager.disableAlphaTest();
-			GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
-
-			if (par1EntityPixie.isInvisible())
-				GlStateManager.depthMask(false);
-			else
-				GlStateManager.depthMask(true);
-
-			char c0 = 61680;
-			int j = c0 % 65536;
-			int k = c0 / 65536;
-			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, j / 1.0F, k / 1.0F);
-			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GlStateManager.color4f(1.0F, 1.0F, 1.0F, f1);
-			return 1;
-		}
-	}
-
-	/*@Override
-	protected int shouldRenderPass(LivingEntity par1EntityLivingBase, int par2, float par3) {
-		return setPixieBrightness((EntityPixie)par1EntityLivingBase, par2, par3);
-	}*/
 }

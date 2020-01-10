@@ -10,13 +10,14 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.common.entity.EntityPixie;
 
 public class ModelPixie extends EntityModel<EntityPixie> {
-
 	public ModelRenderer body;
     public ModelRenderer leftWingT;
     public ModelRenderer leftWingB;
@@ -24,7 +25,6 @@ public class ModelPixie extends EntityModel<EntityPixie> {
     public ModelRenderer rightWingB;
 
     public ModelPixie() {
-    	
         textureWidth = 32;
         textureHeight = 32;
         
@@ -51,17 +51,13 @@ public class ModelPixie extends EntityModel<EntityPixie> {
     }
 
 	@Override
-	public void render(EntityPixie entity, float f, float f1, float f2, float f3, float f4, float f5) {
-		super.render(entity, f, f1, f2, f3, f4, f5);
-		
-		setAngles(entity, f, f1, f2, f3, f4);
-		
-		body.render(f5);
-		
-		leftWingT.render(f5);
-		leftWingB.render(f5);
-		rightWingT.render(f5);
-		rightWingB.render(f5);
+    public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float red, float green, float blue, float alpha) {
+		body.render(ms, buffer, light, overlay);
+
+		leftWingT.render(ms, buffer, light, overlay);
+		leftWingB.render(ms, buffer, light, overlay);
+		rightWingT.render(ms, buffer, light, overlay);
+		rightWingB.render(ms, buffer, light, overlay);
 	}
 	
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
