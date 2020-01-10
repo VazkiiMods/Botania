@@ -308,6 +308,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	
 	@Override
 	public int getComparatorInputOverride() {
-		return (int)(((double)getMana()/getMaxMana())*15);
+		return TilePool.calculateComparatorLevel(getMana(),getMaxMana());
 	}
 }
