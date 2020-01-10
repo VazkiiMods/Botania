@@ -10,6 +10,10 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -23,6 +27,7 @@ public class ModelAvatar extends Model {
 	public final ModelRenderer head;
 
 	public ModelAvatar() {
+		super(RenderType::getEntitySolid);
 		textureWidth = 32;
 		textureHeight = 32;
 		leftleg = new ModelRenderer(this, 0, 20);
@@ -49,14 +54,15 @@ public class ModelAvatar extends Model {
 		body.addCuboid(-3.0F, 0.0F, -2.0F, 6, 4, 4, 0.0F);
 	}
 
-	public void render() {
-		float f5 = 1F / 15F;
-		leftleg.render(f5);
-		rightarm.render(f5);
-		leftarm.render(f5);
-		head.render(f5);
-		rightleg.render(f5);
-		body.render(f5);
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		float scale = 1F / 15F; // todo 1.15 check this?
+		leftleg.render(ms, buffer, light, overlay, r, g, b, a);
+		rightarm.render(ms, buffer, light, overlay, r, g, b, a);
+		leftarm.render(ms, buffer, light, overlay, r, g, b, a);
+		head.render(ms, buffer, light, overlay, r, g, b, a);
+		rightleg.render(ms, buffer, light, overlay, r, g, b, a);
+		body.render(ms, buffer, light, overlay, r, g, b, a);
 	}
 
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

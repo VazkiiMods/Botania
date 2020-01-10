@@ -10,13 +10,19 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -31,8 +37,12 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 	private ItemEntity entity = null;
 	private ItemRenderer itemRenderer = null;
 
+	public RenderTileCorporeaCrystalCube(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nullable TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nullable TileCorporeaCrystalCube cube, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)
@@ -55,36 +65,28 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		double worldTicks = cube == null || cube.getWorld() == null ? 0 : time;
 
 		Minecraft mc = Minecraft.getInstance();
-		GlStateManager.pushMatrix();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(d0, d1, d2);
-		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
-		GlStateManager.scalef(1F, -1F, -1F);
-		GlStateManager.translatef(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		ms.push();
+		ms.translate(0.5F, 1.5F, 0.5F);
+		ms.scale(1F, -1F, -1F);
+		ms.translate(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
 
 		if(!stack.isEmpty()) {
-			GlStateManager.pushMatrix();
+		    ms.push();
 			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
-			GlStateManager.translatef(0F, 0.8F, 0F);
-			GlStateManager.scalef(s, s, s);
-			GlStateManager.rotatef(180F, 0F, 0F, 1F);
-			itemRenderer.doRender(entity, 0, 0, 0, 1F, f);
-			GlStateManager.popMatrix();
+			ms.translate(0F, 0.8F, 0F);
+			ms.scale(s, s, s);
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+			itemRenderer.render(entity, 0, f, ms, buffers, light);
+			ms.pop();
 		}
 
 		if (cubeModel != null) {
-			GlStateManager.pushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.translatef(-0.5F, 0.25F, -0.5F);
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(cubeModel, 1, 1, 1, 1);
-			GlStateManager.popMatrix();
+			ms.push();
+			ms.translate(-0.5F, 0.25F, -0.5F);
+			IVertexBuilder buffer = buffers.getBuffer(RenderType.getTranslucent());
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
+			ms.pop();
 		}
-
-		GlStateManager.color3f(1F, 1F, 1F);
 
 		if(!stack.isEmpty()) {
 			int count = cube.getItemCount();
@@ -102,24 +104,21 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			int colorShade = (color & 16579836) >> 2 | color & -16777216;
 
 			float s = 1F / 64F;
-			GlStateManager.scalef(s, s, s);
-			GlStateManager.disableLighting();
+			ms.scale(s, s, s);
 			int l = mc.fontRenderer.getStringWidth(countStr);
 
-			GlStateManager.translatef(0F, 55F, 0F);
+			ms.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for(int i = 0; i < 4; i++) {
-				GlStateManager.rotatef(90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0F, 0F, tr);
-				mc.fontRenderer.drawString(countStr, -l / 2, 0, color);
-				GlStateManager.translatef(0F, 0F, 0.1F);
-				mc.fontRenderer.drawString(countStr, -l / 2 + 1, 1, colorShade);
-				GlStateManager.translatef(0F, 0F, -tr - 0.1F);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.translate(0F, 0F, tr);
+				mc.fontRenderer.draw(countStr, -l / 2, 0, color, false, ms.peek().getModel(), buffers, false, 0, light);
+				ms.translate(0F, 0F, 0.1F);
+				mc.fontRenderer.draw(countStr, -l / 2 + 1, 1, colorShade, false, ms.peek().getModel(), buffers, false, 0, light);
+				ms.translate(0F, 0F, -tr - 0.1F);
 			}
-			GlStateManager.enableLighting();
 		}
 
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 }

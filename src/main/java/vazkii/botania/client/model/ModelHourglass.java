@@ -10,7 +10,11 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import org.lwjgl.opengl.GL11;
@@ -29,6 +33,7 @@ public class ModelHourglass extends Model {
     public ModelRenderer sandB;
 
 	public ModelHourglass() {
+		super(RenderType::getEntityTranslucent);
 		
 		textureWidth = 64;
 		textureHeight = 32;
@@ -57,55 +62,51 @@ public class ModelHourglass extends Model {
         sandB.addCuboid(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
 	}
 
-	public void render(float fract1, float fract2, boolean flip, int color) {
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		render(ms, buffer, light, overlay, r, g, b, a, 0, 1, false);
+	}
+
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
 		if(flip) {
-			float fract3 = fract1;
+			float tmp = fract1;
 			fract1 = fract2;
-			fract2 = fract3;
+			fract2 = tmp;
 		}
 
-		float f = 1F / 16F;
-		ring.render(f);
-		top.render(f);
-		bottom.render(f);
-		Color c = new Color(color);
-		GlStateManager.color3f(c.getRed() / 255F, c.getGreen() / 255F, c.getBlue() / 255F);
-
-		GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.enableNormalize();
+		float f = 1F / 16F; //todo 1.15 check
+		ring.render(ms, buffer, light, overlay, 1, 1, 1, a);
+		top.render(ms, buffer, light, overlay, 1, 1, 1, a);
+		bottom.render(ms, buffer, light, overlay, 1, 1, 1, a);
 
 		if(fract1 > 0) {
-			GlStateManager.pushMatrix();
+		    ms.push();
 			if(flip)
-				GlStateManager.translatef(-2.0F * f, 1.0F * f, -2.0F * f);
+				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			else {
-				GlStateManager.rotatef(180F, 0F, 0F, 1F);
-				GlStateManager.translatef(-2.0F * f, -5.0F * f, -2.0F * f);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			}
-			GlStateManager.scalef(1F, fract1, 1F);
-			sandT.render(f);
-			GlStateManager.popMatrix();
+			ms.scale(1F, fract1, 1F);
+			sandT.render(ms, buffer, light, overlay, r, g, b, a);
+			ms.pop();
 		}
 
 		if(fract2 > 0) {
-			GlStateManager.pushMatrix();
+			ms.push();
 			if(flip)
-				GlStateManager.translatef(-2.0F * f, -5.0F * f, -2.0F * f);
+				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			else {
-				GlStateManager.rotatef(180F, 0F, 0F, 1F);
-				GlStateManager.translatef(-2.0F * f, 1.0F * f, -2.0F * f);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			}
-			GlStateManager.scalef(1F, fract2, 1F);
-			sandB.render(f);
-			GlStateManager.popMatrix();
+			ms.scale(1F, fract2, 1F);
+			sandB.render(ms, buffer, light, overlay, r, g, b, a);
+			ms.pop();
 		}
 
-		GL11.glPopAttrib();
-
-		GlStateManager.color3f(1, 1, 1);
-		glassT.render(f);
-		glassB.render(f);
+		glassT.render(ms, buffer, light, overlay, 1, 1, 1, a);
+		glassB.render(ms, buffer, light, overlay, 1, 1, 1, a);
 	}
 
 }

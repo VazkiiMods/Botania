@@ -10,7 +10,10 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -22,6 +25,7 @@ public class ModelTeruTeruBozu extends Model {
 	public final ModelRenderer sadFace;
 
 	public ModelTeruTeruBozu() {
+		super(RenderType::getEntityCutoutNoCull); // todo 1.15 check if this is the appropriate layer
 		textureWidth = 64;
 		textureHeight = 32;
 		sadFace = new ModelRenderer(this, 32, 0);
@@ -41,13 +45,14 @@ public class ModelTeruTeruBozu extends Model {
 		setRotateAngle(cloth, 0.7853981633974483F, 2.2689280275926285F, 1.5707963267948966F);
 	}
 
-	public void render() {
-		float f5 = 1F / 16F;
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		float f5 = 1F / 16F; // todo 1.15 check this
 		if(Minecraft.getInstance().world.isRaining())
-			sadFace.render(f5);
-		else happyFace.render(f5);
-		thread.render(f5);
-		cloth.render(f5);
+			sadFace.render(ms, buffer, light, overlay, r, g, b, a);
+		else happyFace.render(ms, buffer, light, overlay, r, g, b, a);
+		thread.render(ms, buffer, light, overlay, r, g, b, a);
+		cloth.render(ms, buffer, light, overlay, r, g, b, a);
 	}
 
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

@@ -10,14 +10,22 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import vazkii.botania.client.core.handler.RedStringRenderer;
 import vazkii.botania.common.block.tile.string.TileRedString;
 
 public class RenderTileRedString extends TileEntityRenderer<TileRedString> {
 
+	public RenderTileRedString(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(TileRedString trs, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void render(TileRedString trs, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		// todo 1.15 move from RSR into the TESR itself
 		RedStringRenderer.redStringTiles.add(trs);
 	}
 

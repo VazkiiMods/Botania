@@ -10,11 +10,15 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.tile.TileSparkChanger;
 
@@ -22,26 +26,22 @@ import javax.annotation.Nonnull;
 
 public class RenderTileSparkChanger extends TileEntityRenderer<TileSparkChanger> {
 
+	public RenderTileSparkChanger(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nonnull TileSparkChanger tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(d0, d1, d2);
-		GlStateManager.rotatef(90F, 1F, 0F, 0F);
-		GlStateManager.translatef(1.0F, -0.125F, -0.25F);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+	public void render(@Nonnull TileSparkChanger tileentity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+		ms.translate(1.0F, -0.125F, -0.25F);
 		ItemStack stack = tileentity.getItemHandler().getStackInSlot(0);
 		if(!stack.isEmpty()) {
-			GlStateManager.pushMatrix();
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-			float s = 1.0F;
-			GlStateManager.scalef(s, s, s);
-			GlStateManager.rotatef(180F, 0F, 1F, 0F);
-			GlStateManager.translatef(0.5F, 0.5F, 0);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
-			GlStateManager.popMatrix();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+			ms.translate(0.5F, 0.5F, 0);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
 		}
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
 }

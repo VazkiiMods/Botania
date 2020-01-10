@@ -10,9 +10,14 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -29,14 +34,13 @@ public class RenderTileHourglass extends TileEntityRenderer<TileHourglass> {
 	final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOURGLASS);
 	final ModelHourglass model = new ModelHourglass();
 
+	public RenderTileHourglass(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nullable TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress) {
-		GlStateManager.pushMatrix();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(d0, d1, d2);
-		Minecraft.getInstance().textureManager.bindTexture(texture);
+	public void render(@Nullable TileHourglass hourglass, float ticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		ms.push();
 		boolean hasWorld = hourglass != null && hourglass.getWorld() != null;
 		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;
 		if(wtime != 0)
@@ -51,17 +55,21 @@ public class RenderTileHourglass extends TileEntityRenderer<TileHourglass> {
 		float activeFraction = stack.isEmpty() ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * ticks;
 		float fract1 = stack.isEmpty() ? 0 : activeFraction;
 		float fract2 = stack.isEmpty() ? 0 : 1F - activeFraction;
-		GlStateManager.translatef(x, y, z);
+		ms.translate(x, y, z);
 
 		float rot = hasWorld && hourglass.flip ? 180F : 1F;
 		if(hasWorld && hourglass.flipTicks > 0)
 			rot += (hourglass.flipTicks - ticks) * (180F / 4F);
-		GlStateManager.rotatef(rot, 0F, 0F, 1F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rot));
 
-		GlStateManager.scalef(1F, -1F, -1F);
-		model.render(fract1, fract2, hasWorld && hourglass.flip, hasWorld ? hourglass.getColor() : 0);
-		GlStateManager.scalef(1F, -1F, -1F);
-		GlStateManager.popMatrix();
+		ms.scale(1F, -1F, -1F);
+		int color = hasWorld ? hourglass.getColor() : 0;
+		float r = (color >> 16) / 255.0F;
+		float g = (color >> 8) / 255.0F;
+		float b = (color & 0xFF) / 255.0F;
+		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
+		model.render(ms, buffer, light, overlay, r, g, b, 1, fract1, fract2, hasWorld && hourglass.flip);
+		ms.pop();
 	}
 
 }

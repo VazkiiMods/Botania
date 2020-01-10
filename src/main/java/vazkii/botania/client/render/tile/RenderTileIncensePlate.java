@@ -11,11 +11,15 @@
 package vazkii.botania.client.render.tile;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -29,32 +33,27 @@ public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate>
 
 	private static final Map<Direction, Integer> ROTATIONS = ImmutableMap.of(Direction.NORTH, 180, Direction.SOUTH, 0, Direction.WEST, 270, Direction.EAST, 90);
 
+	public RenderTileIncensePlate(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
-	public void render(@Nonnull TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
-		if(!plate.getWorld().isBlockLoaded(plate.getPos())
-				|| plate.getWorld().getBlockState(plate.getPos()).getBlock() != ModBlocks.incensePlate)
-			return;
-
+	public void render(@Nonnull TileIncensePlate plate, float ticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ItemStack stack = plate.getItemHandler().getStackInSlot(0);
 		if(stack.isEmpty())
 			return;
 
-		Direction facing = plate.getWorld().getBlockState(plate.getPos()).get(BotaniaStateProps.CARDINALS);
+		Direction facing = plate.getBlockState().get(BotaniaStateProps.CARDINALS);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.translated(d0, d1, d2);
-		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
-		GlStateManager.rotatef(ROTATIONS.get(facing), 0F, 1F, 0F);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		ms.push();
+		ms.translate(0.5F, 1.5F, 0.5F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ROTATIONS.get(facing)));
 		float s = 0.6F;
-		GlStateManager.translatef(-0.11F, -1.35F, 0F);
-		GlStateManager.scalef(s, s, s);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
-		GlStateManager.color3f(1F, 1F, 1F);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.popMatrix();
+		ms.translate(-0.11F, -1.35F, 0F);
+		ms.scale(s, s, s);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+		ms.pop();
 	}
 
 }

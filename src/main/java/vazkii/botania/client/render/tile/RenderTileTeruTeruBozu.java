@@ -10,15 +10,21 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nullable;
@@ -28,37 +34,32 @@ public class RenderTileTeruTeruBozu extends TileEntityRenderer<TileTeruTeruBozu>
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
-	final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
+	private final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
+
+	public RenderTileTeruTeruBozu(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
 
 	@Override
-	public void render(@Nullable TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		GlStateManager.pushMatrix();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.disableCull();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(d0, d1, d2);
-		Minecraft.getInstance().textureManager.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
-		GlStateManager.rotatef(180F, 1F, 0F, 0F);
-		double time = Botania.proxy.getWorldElapsedTicks() + f;
+	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+		double time = Botania.proxy.getWorldElapsedTicks() + partialTicks;
 		boolean hasWorld = tileentity != null && tileentity.getWorld() != null;
 		if(hasWorld)
 			time += new Random(tileentity.getPos().hashCode()).nextInt(1000);
 
-		GlStateManager.translatef(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
+		ms.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {
-			GlStateManager.rotatef((float) (time * 0.3), 0F, 1F, 0F);
-			GlStateManager.rotatef(4F * (float) Math.sin(time * 0.05F), 0F, 0F, 1F);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) (time * 0.3)));
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(4F * (float) Math.sin(time * 0.05F)));
 			float s = 0.75F;
-			GlStateManager.scalef(s, s, s);
+			ms.scale(s, s, s);
 		}
 
-		model.render();
-		GlStateManager.color3f(1F, 1F, 1F);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableCull();
-		GlStateManager.popMatrix();
+		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(ClientProxy.dootDoot ? textureHalloween : texture));
+		model.render(ms, buffer, light, overlay, 1, 1, 1, 1);
+		ms.pop();
 	}
 
 }

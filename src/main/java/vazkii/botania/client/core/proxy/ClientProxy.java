@@ -73,14 +73,14 @@ public class ClientProxy implements IProxy {
 			new VertexFormat(ImmutableList.<VertexFormatElement>builder()
 					.add(DefaultVertexFormats.POSITION_3F)
 					.add(DefaultVertexFormats.TEX_2F)
-					.add(DefaultVertexFormats.TEX_2S)
+					.add(DefaultVertexFormats.LIGHT_ELEMENT)
 					.add(DefaultVertexFormats.NORMAL_3B)
 					.build());
 	public static final VertexFormat POSITION_TEX_LMAP =
 			new VertexFormat(ImmutableList.<VertexFormatElement>builder()
 					.add(DefaultVertexFormats.POSITION_3F)
 					.add(DefaultVertexFormats.TEX_2F)
-					.add(DefaultVertexFormats.TEX_2S)
+					.add(DefaultVertexFormats.LIGHT_ELEMENT)
 					.build());
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
