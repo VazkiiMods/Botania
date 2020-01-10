@@ -11,10 +11,14 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -97,13 +101,12 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.scaled(0.8, 0.8, 0.8);
-		GlStateManager.rotatef(-90, 0, 1, 0);
-		GlStateManager.rotatef(180, 1, 0, 0);
-		GlStateManager.translated(0.1625, -1.625, 0.40);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+		ms.scale(0.8F, 0.8F, 0.8F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+		ms.translate(0.1625, -1.625, 0.40);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 }

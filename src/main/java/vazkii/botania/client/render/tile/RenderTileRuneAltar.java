@@ -10,8 +10,11 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -28,10 +31,8 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 	private final ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
-	public void render(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {
-		GlStateManager.pushMatrix();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(x, y, z);
+	public void render(@Nonnull TileRuneAltar altar, float partticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		ms.push();
 
 		int items = 0;
 		for(int i = 0; i < altar.getSizeInventory(); i++)
@@ -47,23 +48,21 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
 		double time = ClientTickHandler.ticksInGame + partticks;
 
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
-			GlStateManager.pushMatrix();
-			GlStateManager.translatef(0.5F, 1.25F, 0.5F);
-			GlStateManager.rotatef(angles[i] + (float) time, 0F, 1F, 0F);
-			GlStateManager.translatef(1.125F, 0F, 0.25F);
-			GlStateManager.rotatef(90F, 0F, 1F, 0F);
-			GlStateManager.translated(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
+			ms.push();
+			ms.translate(0.5F, 1.25F, 0.5F);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angles[i] + (float) time));
+			ms.translate(1.125F, 0F, 0.25F);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+			ms.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getInstance();
 			if(!stack.isEmpty()) {
-				mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+				mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
 			}
-			GlStateManager.popMatrix();
+			ms.pop();
 		}
 
-		GlStateManager.disableAlphaTest();
 		GlStateManager.pushMatrix();
 		GlStateManager.translatef(0.5F, 1.8F, 0.5F);
 		GlStateManager.rotatef(180F, 1F, 0F, 1F);

@@ -10,9 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.LivingEntity;
@@ -38,13 +41,12 @@ public class ItemLavaPendant extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-		GlStateManager.rotatef(180, 0, 0, 1);
-		GlStateManager.translated(-0.5, -0.90, armor ? -0.4 : -0.25);
+		ms.scale(0.5F, 0.5F, 0.5F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+		ms.translate(-0.5, -0.90, armor ? -0.4 : -0.25);
 
 		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.pyroclastGem;
 		float f = gemIcon.getMinU();

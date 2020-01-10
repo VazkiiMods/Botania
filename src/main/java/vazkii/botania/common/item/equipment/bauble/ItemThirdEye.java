@@ -10,9 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
@@ -61,31 +64,30 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		GlStateManager.rotatef(180, 0, 0, 1);
-		GlStateManager.translated(-0.3, -0.6, armor ? -0.18 : -0.12);
-		GlStateManager.scaled(0.6, 0.6, 0.6);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+		ms.translate(-0.3, -0.6, armor ? -0.18 : -0.12);
+		ms.scale(0.6F, 0.6F, 0.6F);
 
 		for(int i = 0; i < 3; i++) {
-			GlStateManager.pushMatrix();
+		    ms.push();
 			float width = 1F / 16F;
 			switch (i) {
 			case 0: break;
 			case 1:
-				double scale1 = 0.75;
+				float scale1 = 0.75F;
 				width /= 2F;
 
-				GlStateManager.translated(0.15, 0.15, -0.05);
+				ms.translate(0.15, 0.15, -0.05);
 				double time = ClientTickHandler.total * 0.12;
 				double dist = 0.05;
-				GlStateManager.translated(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
+				ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
 
-				GlStateManager.scaled(scale1, scale1, scale1);
+				ms.scale(scale1, scale1, scale1);
 				break;
 			case 2:
-				GlStateManager.translated(0, 0, -0.05);
+				ms.translate(0, 0, -0.05);
 				break;
 			}
 
@@ -95,7 +97,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
 			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), width);
-			GlStateManager.popMatrix();
+			ms.pop();
 		}
 	}
 

@@ -521,7 +521,7 @@ public final class ModBlocks {
 			register(r, new BlockPetalBlock(color, builder), color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
 		}
 
-		register(r, new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_INDEX);
+		register(r, new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).nonOpaque()), LibBlockNames.CORPOREA_INDEX);
 		register(r, new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_FUNNEL);
 		
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
@@ -829,12 +829,12 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(naturaPylon, pylonProps), naturaPylon.getRegistryName());
 		register(r, new ItemBlockMod(gaiaPylon, pylonProps), gaiaPylon.getRegistryName());
 
-		register(r, new ItemBlockMod(teruTeruBozu, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.teruTeruBozu, TileTeruTeruBozu.class))), teruTeruBozu.getRegistryName());
-		register(r, new ItemBlockMod(avatar, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.avatar, TileAvatar.class))), avatar.getRegistryName());
-		register(r, new ItemBlockMod(bellows, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.bellows, TileBellows.class))), bellows.getRegistryName());
-		register(r, new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.brewery, TileBrewery.class))), brewery.getRegistryName());
-		register(r, new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaIndex, TileCorporeaIndex.class))), corporeaIndex.getRegistryName());
-		register(r, new ItemBlockMod(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.hourglass, TileHourglass.class))), hourglass.getRegistryName());
+		register(r, new ItemBlockMod(teruTeruBozu, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.teruTeruBozu, TileTeruTeruBozu.TYPE))), teruTeruBozu.getRegistryName());
+		register(r, new ItemBlockMod(avatar, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.avatar, TileAvatar.TYPE))), avatar.getRegistryName());
+		register(r, new ItemBlockMod(bellows, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.bellows, TileBellows.TYPE))), bellows.getRegistryName());
+		register(r, new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.brewery, TileBrewery.TYPE))), brewery.getRegistryName());
+		register(r, new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaIndex, TileCorporeaIndex.TYPE))), corporeaIndex.getRegistryName());
+		register(r, new ItemBlockMod(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.hourglass, TileHourglass.TYPE))), hourglass.getRegistryName());
 		return null;
 	}
 

@@ -10,9 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -141,18 +145,19 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(player);
 
-		GlStateManager.translatef(0F, 0.2F, 0F);
+		ms.translate(0F, 0.2F, 0F);
 
 		float s = 1.05F / 16F;
-		GlStateManager.scalef(s, s, s);
+		ms.scale(s, s, s);
 		if(model == null)
-			model = new BipedModel();
+			model = new BipedModel(1F);
 
-		model.bipedBody.render(1F);
+		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
+		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
+		model.bipedBody.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 	}
 
 	@Override

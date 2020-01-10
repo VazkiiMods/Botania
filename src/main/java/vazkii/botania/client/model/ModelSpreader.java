@@ -10,6 +10,9 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -29,8 +32,8 @@ public class ModelSpreader extends Model {
     final ModelRenderer inside;
 
 	public ModelSpreader() {
-		
-		textureWidth = 64;
+        super(RenderType::getEntitySolid);
+        textureWidth = 64;
 		textureHeight = 64;
 		
 		top = new ModelRenderer(this, 0, 0);
@@ -67,24 +70,25 @@ public class ModelSpreader extends Model {
         inside.addCuboid(-3.0F, -3.0F, -3.0F, 6, 6, 6, 0.0F);
 	}
 
-	public void render() {
-		float f = 1F / 16F;
+	@Override
+    public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		float f = 1F / 16F; // todo 1.15
 		
-		top.render(f);
-        sideL.render(f);
-        sideR.render(f);
-        back.render(f);
-        bottom.render(f);
+		top.render(ms, buffer, light, overlay, r, g, b, a);
+        sideL.render(ms, buffer, light, overlay, r, g, b, a);
+        sideR.render(ms, buffer, light, overlay, r, g, b, a);
+        back.render(ms, buffer, light, overlay, r, g, b, a);
+        bottom.render(ms, buffer, light, overlay, r, g, b, a);
         
-        holeT.render(f);
-        holeL.render(f);
-        holeR.render(f);
-        holeB.render(f);
+        holeT.render(ms, buffer, light, overlay, r, g, b, a);
+        holeL.render(ms, buffer, light, overlay, r, g, b, a);
+        holeR.render(ms, buffer, light, overlay, r, g, b, a);
+        holeB.render(ms, buffer, light, overlay, r, g, b, a);
 	}
 
-	public void renderCube() {
-		float f = 1F / 16F;
+	public void renderCube(MatrixStack ms, IVertexBuilder buffer, int light, int overlay) {
+		float f = 1F / 16F; // todo 1.15
 		
-		inside.render(f);
+		inside.render(ms, buffer, light, overlay);
 	}
 }

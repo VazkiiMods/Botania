@@ -175,7 +175,7 @@ public class ModelArmorManasteel extends ModelArmor {
 	}
 
 	@Override
-	public void render(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
 
 		helmAnchor.showModel = slot == EquipmentSlotType.HEAD;
 		bodyAnchor.showModel = slot == EquipmentSlotType.CHEST;
@@ -200,6 +200,6 @@ public class ModelArmorManasteel extends ModelArmor {
 			bipedLeftLeg = bootL;
 		}
 
-		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+		super.render(ms, buffer, light, overlay, r, g, b, a);
 	}
 }

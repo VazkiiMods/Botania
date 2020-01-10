@@ -97,7 +97,7 @@ public final class ModelHandler {
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
 		RenderTilePylon renderTilePylon = new RenderTilePylon();
 		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);
-		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, new RenderTileSpreader());
+		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, RenderTileSpreader::new);
 		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, new RenderTilePool());
 		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, new RenderTileRuneAltar());
 		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, renderTilePylon);

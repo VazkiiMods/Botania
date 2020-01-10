@@ -11,15 +11,19 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
@@ -65,7 +69,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 	}
 
 	@Override
-	public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if(player.isInvisible())
 			return;
 
@@ -81,14 +85,9 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 		name = name.toLowerCase();
 		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
-			renderFlower(player, flowerMap.get(name), partialTicks);
+			renderFlower(ms, buffers, player, flowerMap.get(name));
 
 		GlStateManager.popMatrix();
-	}
-
-	@Override
-	public boolean shouldCombineTextures() {
-		return false;
 	}
 
 	public static void firstStart() {
@@ -139,17 +138,17 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void renderFlower(PlayerEntity player, ItemStack flower, float partialTicks) {
-		GlStateManager.pushMatrix();
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.rotatef(180, 0, 0, 1);
-		GlStateManager.translated(0, -0.85, 0);
-		GlStateManager.rotatef(-90, 0, 1, 0);
-		GlStateManager.scaled(0.5, 0.5, 0.5);
+	private static void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+		ms.translate(0, -0.85, 0);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
+		ms.scale(0.5F, 0.5F, 0.5F);
+		// todo 1.15 shader
 		ShaderHelper.useShader(ShaderHelper.gold);
-		Minecraft.getInstance().getItemRenderer().renderItem(flower, player, ItemCameraTransforms.TransformType.NONE, false);
+		Minecraft.getInstance().getItemRenderer().renderItem(player, flower, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ShaderHelper.releaseShader();
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
 	private static class ThreadContributorListLoader extends Thread {

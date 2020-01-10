@@ -208,12 +208,8 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(!stack.isEmpty()) {
-			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
 			mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, stack, x, y);
-			GlStateManager.disableRescaleNormal();
-			RenderHelper.disableStandardItemLighting();
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);

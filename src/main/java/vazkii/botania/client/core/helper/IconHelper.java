@@ -17,11 +17,14 @@ import org.lwjgl.opengl.GL11;
 
 public final class IconHelper {
 
+	// todo 1.15 remove this and just render real generated models added using addSpecialModel
 	/**
 	 * Renders a sprite from the spritesheet with depth, like a "builtin/generated" item model.
 	 * Adapted from ItemRenderer.renderItemIn2D, 1.7.10
 	 */
+	@Deprecated
 	public static void renderIconIn3D(Tessellator tess, float p_78439_1_, float p_78439_2_, float p_78439_3_, float p_78439_4_, int width, int height, float thickness) {
+		/*
 		BufferBuilder wr = tess.getBuffer();
 		wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
 		wr.pos(0.0D, 0.0D, 0.0D).tex(p_78439_1_, p_78439_4_).normal(0, 0, 1).endVertex();
@@ -95,6 +98,7 @@ public final class IconHelper {
 		}
 
 		tess.draw();
+		*/
 
 	}
 

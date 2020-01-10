@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,8 +19,11 @@ import net.minecraft.block.ComparatorBlock;
 import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.block.RepeaterBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -38,7 +42,6 @@ import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
 
@@ -48,17 +51,16 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		AccessoryRenderHelper.translateToFace();
 		AccessoryRenderHelper.defaultTransforms();
-		GlStateManager.rotatef(180F, 0F, 1F, 0F);
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-		GlStateManager.translatef(0.5F, -0.2F, armor ? 0.12F : 0F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+		ms.scale(0.5F, 0.5F, 0.5F);
+		ms.translate(0.5F, -0.2F, armor ? 0.12F : 0F);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -92,9 +94,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		int x = mc.getWindow().getScaledWidth() / 2 + 15;
 		int y = mc.getWindow().getScaledHeight() / 2 - 8;
 
-		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
 	}

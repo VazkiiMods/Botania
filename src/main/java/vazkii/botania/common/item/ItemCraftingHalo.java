@@ -525,10 +525,7 @@ public class ItemCraftingHalo extends ItemMod {
 
 			AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.getWindow().getScaledWidth() / 2 - 8, mc.getWindow().getScaledHeight() / 2 - 52);
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
@@ -561,8 +558,6 @@ public class ItemCraftingHalo extends ItemMod {
 			AbstractGui.fill(x + 66, y + 14, x + 92, y + 40, 0x22000000);
 			AbstractGui.fill(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
 			for(int i = 0; i < 9; i++) {
 				ItemStack stack = recipe[i];
 				if(!stack.isEmpty()) {
@@ -577,7 +572,6 @@ public class ItemCraftingHalo extends ItemMod {
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, recipe[9], x + 72, y + 18);
 
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
 
 		int yoff = 110;

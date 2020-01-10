@@ -10,10 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
@@ -70,7 +73,7 @@ public class ItemItemFinder extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
 		float f = gemIcon.getMinU();
 		float f1 = gemIcon.getMaxU();
@@ -78,11 +81,10 @@ public class ItemItemFinder extends ItemBauble {
 		float f3 = gemIcon.getMaxV();
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 		AccessoryRenderHelper.translateToHeadLevel(living, partialTicks);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.rotatef(90F, 0F, 1F, 0F);
-		GlStateManager.rotatef(180F, 1F, 0F, 0F);
-		GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
-		GlStateManager.scalef(0.75F, 0.75F, 0.75F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+		ms.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
+		ms.scale(0.75F, 0.75F, 0.75F);
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
 	}
 

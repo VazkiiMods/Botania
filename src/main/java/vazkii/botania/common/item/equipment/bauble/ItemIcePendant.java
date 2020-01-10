@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
@@ -68,13 +71,12 @@ public class ItemIcePendant extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		GlStateManager.rotatef(180F, 1F, 0F, 0F);
-		GlStateManager.translatef(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
-		GlStateManager.rotatef(-45F, 0F, 0F, 1F);
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+		ms.translate(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-45F));
+		ms.scale(0.5F, 0.5F, 0.5F);
 
 		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
 		float f = gemIcon.getMinU();

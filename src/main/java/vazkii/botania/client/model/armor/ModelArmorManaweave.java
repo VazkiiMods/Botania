@@ -10,6 +10,8 @@
  */
 package vazkii.botania.client.model.armor;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -147,8 +149,8 @@ public class ModelArmorManaweave extends ModelArmor {
 	}
 
 	@Override
-	public void render(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+
 		helmAnchor.showModel = slot == EquipmentSlotType.HEAD;
 		bodyAnchor.showModel = slot == EquipmentSlotType.CHEST;
 		armRAnchor.showModel = slot == EquipmentSlotType.CHEST;
@@ -171,6 +173,6 @@ public class ModelArmorManaweave extends ModelArmor {
 			bipedLeftLeg = bootL;
 		}
 
-		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		super.render(ms, buffer, light, overlay, r, g, b, a);
 	}
 }

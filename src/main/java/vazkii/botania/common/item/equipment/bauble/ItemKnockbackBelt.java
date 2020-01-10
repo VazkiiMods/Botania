@@ -12,9 +12,13 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -42,17 +46,16 @@ public class ItemKnockbackBelt extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(texture);
-
-		GlStateManager.translatef(0F, 0.2F, 0F);
+	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ms.translate(0F, 0.2F, 0F);
 
 		float s = 1.05F / 16F;
-		GlStateManager.scalef(s, s, s);
+		ms.scale(s, s, s);
 
 		if(model == null)
-			model = new BipedModel();
+			model = new BipedModel(1.0F);
 
-		model.bipedBody.render(1F);
+		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
+		model.bipedBody.render(ms, buffer, light, OverlayTexture.DEFAULT_UV);
 	}
 }

@@ -10,9 +10,11 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -126,11 +128,13 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 	}
 
 	public static class TEISR extends ItemStackTileEntityRenderer {
+		private static final TilePylon DUMMY = new TilePylon();
+
 		@Override
-		public void renderByItem(ItemStack stack) {
+		public void render(ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
-				TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(TilePylon.class);
+				TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(DUMMY);
 				((RenderTilePylon) r).renderPylon(null, 0, 0, 0, 0);
 			}
 		}

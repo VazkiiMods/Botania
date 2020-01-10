@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DoublePlantBlock;
@@ -189,14 +190,14 @@ public class BlockLootProvider implements IDataProvider {
     private static LootTable.Builder genSlab(Block b) {
         LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
                 .acceptFunction(SetCount.builder(ConstantRange.of(2))
-                        .acceptCondition(BlockStateProperty.builder(b).with(SlabBlock.TYPE, SlabType.DOUBLE)))
+                        .acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(SlabBlock.TYPE, SlabType.DOUBLE))))
                 .acceptFunction(ExplosionDecay.builder());
         return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
     }
 
     private static LootTable.Builder genDoubleFlower(Block b) {
        LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-               .acceptCondition(BlockStateProperty.builder(b).with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+               .acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)));
        LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
                .acceptCondition(SurvivesExplosion.builder());
        return LootTable.builder().addLootPool(pool);

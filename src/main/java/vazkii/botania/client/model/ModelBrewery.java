@@ -11,6 +11,7 @@
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
@@ -24,7 +25,8 @@ public class ModelBrewery extends Model {
 	final ModelRenderer plate;
 
 	public ModelBrewery() {
-		
+		super(RenderType::getEntitySolid);
+
 		textureWidth = 32;
 		textureHeight = 16;
 		

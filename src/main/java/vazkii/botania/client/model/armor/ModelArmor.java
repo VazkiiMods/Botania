@@ -10,6 +10,7 @@ public class ModelArmor extends BipedModel {
 	protected final EquipmentSlotType slot;
 
 	public ModelArmor(EquipmentSlotType slot) {
+		super(1);
 		this.slot = slot;
 	}
 

@@ -69,7 +69,7 @@ public class EntityThrownItem extends ItemEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3d vec3 = new Vec3d(posX, posY, posZ);
+		Vec3d vec3 = getPositionVec();
 		Vec3d vec31 = getPositionVec().add(getMotion());
 
 		RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(vec3, vec31,
@@ -119,7 +119,7 @@ public class EntityThrownItem extends ItemEntity {
 					if (!world.isRemote) {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
-							item = new ItemEntity(world, posX, posY, posZ, getItem());
+							item = new ItemEntity(world, getX(), getY(), getZ(), getItem());
 							world.addEntity(item);
 						}
 						item.setMotion(getMotion().scale(0.25));
@@ -135,7 +135,7 @@ public class EntityThrownItem extends ItemEntity {
 			if (!world.isRemote) {
 				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
-					item = new ItemEntity(world, posX, posY, posZ, getItem());
+					item = new ItemEntity(world, getX(), getY(), getZ(), getItem());
 					world.addEntity(item);
 				}
 				item.setMotion(getMotion());

@@ -16,6 +16,7 @@ import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.IPlacementConfig;
+import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
@@ -59,9 +60,9 @@ public class ModFeatures {
 	public static void addWorldgen() {
 		for(Biome biome : ForgeRegistries.BIOMES) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
-				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(MYSTICAL_FLOWERS, new MysticalFlowerConfig(), Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
+				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(new MysticalFlowerConfig()).createDecoratedFeature(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}
-			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(MYSTICAL_MUSHROOMS, new MysticalFlowerConfig(), Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
+			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.configure(new MysticalFlowerConfig()).createDecoratedFeature(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 		}
 	}
 }
