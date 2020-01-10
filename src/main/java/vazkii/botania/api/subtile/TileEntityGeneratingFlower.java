@@ -305,4 +305,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	public int getMana() {
 		return mana;
 	}
+	
+	@Override
+	public int getComparatorInputOverride() {
+		return (int)(((double)getMana()/getMaxMana())*15);
+	}
 }
