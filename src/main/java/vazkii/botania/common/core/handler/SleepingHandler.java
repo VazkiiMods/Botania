@@ -16,15 +16,15 @@ public final class SleepingHandler {
 
 	@SubscribeEvent
 	public static void trySleep(PlayerSleepInBedEvent event) {
-    World world = event.getPlayer().world;
-    if(!world.isRemote()) {
-      boolean nearGuardian = ((ServerWorld) world).getEntities()
-          .filter(e -> e instanceof EntityDoppleganger)
-          .anyMatch(e -> ((EntityDoppleganger) e).getPlayersAround().contains(event.getPlayer()));
+		World world = event.getPlayer().world;
+		if(!world.isRemote()) {
+			boolean nearGuardian = ((ServerWorld) world).getEntities()
+					.filter(e -> e instanceof EntityDoppleganger)
+					.anyMatch(e -> ((EntityDoppleganger) e).getPlayersAround().contains(event.getPlayer()));
 
-      if(nearGuardian) {
-        event.setResult(PlayerEntity.SleepResult.NOT_SAFE);
-      }
-    }
+			if(nearGuardian) {
+				event.setResult(PlayerEntity.SleepResult.NOT_SAFE);
+			}
+		}
 	}
 }
