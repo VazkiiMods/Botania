@@ -144,7 +144,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 			if(time < 10)
 				setMotion(getMotion().getX(), Math.abs(getMotion().getY()), getMotion().getZ());
 
-			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
+			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
 			if(targetList.contains(target)) {
 				LivingEntity thrower = getThrower();
 				if(thrower != null) {
@@ -183,7 +183,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 			setTarget(null);
 
 		double range = 12;
-		AxisAlignedBB bounds = new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range);
+		AxisAlignedBB bounds = new AxisAlignedBB(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
 		List entities;
 		if(isEvil()) {
 			entities = world.getEntitiesWithinAABB(PlayerEntity.class, bounds);

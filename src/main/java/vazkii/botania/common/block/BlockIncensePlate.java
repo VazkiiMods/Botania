@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -49,14 +50,14 @@ public class BlockIncensePlate extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getHeldItem(hand);
 		boolean did = false;
 
 		if(world.isRemote)
-			return true;
+			return ActionResultType.SUCCESS;
 
 		if(plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setStackInSlot(0, stack.copy());
@@ -78,7 +79,7 @@ public class BlockIncensePlate extends BlockMod {
 		if(did)
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 
-		return did;
+		return did ? ActionResultType.SUCCESS : ActionResultType.PASS;
 	}
 
 	@Override

@@ -82,7 +82,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 			return ActionResultType.PASS;
 
 		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = field_195955_e.get(block);
+		BlockState converted = SHOVEL_LOOKUP.get(block);
 
 		if (converted == null) {
 			UseHoeEvent event = new UseHoeEvent(ctx);

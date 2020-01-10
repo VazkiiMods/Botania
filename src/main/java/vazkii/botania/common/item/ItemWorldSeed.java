@@ -45,7 +45,7 @@ public class ItemWorldSeed extends ItemMod {
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while(!world.isCollisionBoxesEmpty(player, player.getBoundingBox()))
+			while(!world.doesNotCollide(player, player.getBoundingBox()))
 				player.setPositionAndUpdate(player.getX(), player.getY() + 1, player.getZ());
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);

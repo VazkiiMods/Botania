@@ -61,10 +61,10 @@ public final class AstrolabePreviewHandler {
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			
 			ShaderHelper.useShader(ShaderHelper.alpha, shader -> {
-				int alpha = GLX.glGetUniformLocation(shader, "alpha");
+				int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, 0.4F);
-				GLX.glUniform1(alpha, ShaderHelper.FLOAT_BUF);
+				GlStateManager.uniform1(alpha, ShaderHelper.FLOAT_BUF);
 			});
 			
 			for(BlockPos coord : coords)

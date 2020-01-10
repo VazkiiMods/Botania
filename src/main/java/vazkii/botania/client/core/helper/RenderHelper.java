@@ -112,10 +112,10 @@ public final class RenderHelper {
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		Tessellator var15 = Tessellator.getInstance();
 		var15.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-		var15.getBuffer().pos(par3, par2, z).color(var8, var9, var10, var7).endVertex();
-		var15.getBuffer().pos(par1, par2, z).color(var8, var9, var10, var7).endVertex();
-		var15.getBuffer().pos(par1, par4, z).color(var12, var13, var14, var11).endVertex();
-		var15.getBuffer().pos(par3, par4, z).color(var12, var13, var14, var11).endVertex();
+		var15.getBuffer().vertex(par3, par2, z).color(var8, var9, var10, var7).endVertex();
+		var15.getBuffer().vertex(par1, par2, z).color(var8, var9, var10, var7).endVertex();
+		var15.getBuffer().vertex(par1, par4, z).color(var12, var13, var14, var11).endVertex();
+		var15.getBuffer().vertex(par3, par4, z).color(var12, var13, var14, var11).endVertex();
 		var15.draw();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GlStateManager.disableBlend();
@@ -130,10 +130,10 @@ public final class RenderHelper {
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6, float f, float f1) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tessellator.getBuffer().pos(par1, par2 + par6, z).tex(par3 * f, (par4 + par6) * f1).endVertex();
-		tessellator.getBuffer().pos(par1 + par5, par2 + par6, z).tex((par3 + par5) * f, (par4 + par6) * f1).endVertex();
-		tessellator.getBuffer().pos(par1 + par5, par2, z).tex((par3 + par5) * f, par4 * f1).endVertex();
-		tessellator.getBuffer().pos(par1, par2, z).tex(par3 * f, par4 * f1).endVertex();
+		tessellator.getBuffer().vertex(par1, par2 + par6, z).texture(par3 * f, (par4 + par6) * f1).endVertex();
+		tessellator.getBuffer().vertex(par1 + par5, par2 + par6, z).texture((par3 + par5) * f, (par4 + par6) * f1).endVertex();
+		tessellator.getBuffer().vertex(par1 + par5, par2, z).texture((par3 + par5) * f, par4 * f1).endVertex();
+		tessellator.getBuffer().vertex(par1, par2, z).texture(par3 * f, par4 * f1).endVertex();
 		tessellator.draw();
 	}
 
@@ -173,11 +173,11 @@ public final class RenderHelper {
 			float r = ((color & 0xFF0000) >> 16) / 255F;
 			float g = ((color & 0xFF00) >> 8) / 255F;
 			float b = (color & 0xFF) / 255F;
-			tessellator.getBuffer().pos(0, 0, 0).color(r, g, b, 1F - f2).endVertex();
-			tessellator.getBuffer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
-			tessellator.getBuffer().pos(0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
-			tessellator.getBuffer().pos(0, f3, 1F * f4).color(0, 0, 0, 0).endVertex();
-			tessellator.getBuffer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getBuffer().vertex(0, 0, 0).color(r, g, b, 1F - f2).endVertex();
+			tessellator.getBuffer().vertex(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getBuffer().vertex(0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getBuffer().vertex(0, f3, 1F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getBuffer().vertex(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
 			tessellator.draw();
 		}
 
@@ -223,14 +223,14 @@ public final class RenderHelper {
 
 		BufferBuilder buf = Tessellator.getInstance().getBuffer();
 		buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
-		buf.pos(centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
+		buf.vertex(centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
 
 		for(int i = degs; i > 0; i--) {
 			double rad = (i - 90) / 180F * Math.PI;
-			buf.pos(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
+			buf.vertex(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
 		}
 
-		buf.pos(centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
+		buf.vertex(centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
 		Tessellator.getInstance().draw();
 
 		GlStateManager.disableBlend();

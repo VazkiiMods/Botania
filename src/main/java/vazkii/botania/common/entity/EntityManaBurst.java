@@ -162,9 +162,6 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	private void superUpdate() {
-		this.lastTickPosX = this.getX();
-		this.lastTickPosY = this.getY();
-		this.lastTickPosZ = this.getZ();
 		// Botania - inline supersuperclass.tick()
 		{
 			if (!this.world.isRemote) {
@@ -201,7 +198,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		}
 		*/
 
-		RayTraceResult raytraceresult = ProjectileHelper.func_221267_a(this, axisalignedbb, (p_213880_1_) -> {
+		RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, axisalignedbb, (p_213880_1_) -> {
 			return !p_213880_1_.isSpectator() && p_213880_1_.canBeCollidedWith(); // && p_213880_1_ != this.ignoreEntity;
 		}, RayTraceContext.BlockMode.OUTLINE, true);
 		/*
@@ -213,15 +210,15 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
 			if (raytraceresult.getType() == RayTraceResult.Type.BLOCK && this.world.getBlockState(((BlockRayTraceResult)raytraceresult).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
 				this.setPortal(((BlockRayTraceResult)raytraceresult).getPos());
-			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)){
 				this.onImpact(raytraceresult);
 			}
 		}
 
 		Vec3d vec3d = this.getMotion();
-		this.getX() += vec3d.x;
-		this.getY() += vec3d.y;
-		this.getZ() += vec3d.z;
+		double d0 = this.getX() + vec3d.x;
+		double d1 = this.getY() + vec3d.y;
+		double d2 = this.getZ() + vec3d.z;
 		float f = MathHelper.sqrt(horizontalMag(vec3d));
 		this.rotationYaw = (float)(MathHelper.atan2(vec3d.x, vec3d.z) * (double)(180F / (float)Math.PI));
 
@@ -247,7 +244,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if (this.isInWater()) {
 			for(int i = 0; i < 4; ++i) {
 				float f2 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, this.getX() - vec3d.x * 0.25D, this.getY() - vec3d.y * 0.25D, this.getZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+				this.world.addParticle(ParticleTypes.BUBBLE, d0 - vec3d.x * 0.25D, d1 - vec3d.y * 0.25D, d2 - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
 			}
 
 			f1 = 0.8F;
@@ -261,7 +258,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			this.setMotion(vec3d1.x, vec3d1.y - (double)this.getGravityVelocity(), vec3d1.z);
 		}
 
-		this.setPosition(this.getX(), this.getY(), this.getZ());
+		this.setPosition(d0, d1, d2);
 	}
 
 	@Override
@@ -438,14 +435,14 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 			if(!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				Botania.proxy.addParticleForce(world, data, posX, posY, posZ, 0, 0, 0);
+				Botania.proxy.addParticleForce(world, data, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
 			if(ConfigHandler.CLIENT.subtlePowerSystem.get()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -453,9 +450,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 				double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard relative luminance calculation
 
-				double savedPosX = posX;
-				double savedPosY = posY;
-				double savedPosZ = posZ;
+				double iterX = getX();
+				double iterY = getY();
+				double iterZ = getZ();
 
 				Vector3 currentPos = Vector3.fromEntity(this);
 				Vector3 oldPos = new Vector3(prevPosX, prevPosY, prevPosZ);
@@ -472,27 +469,23 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
-					world.addParticle(data, posX, posY, posZ,
+					world.addParticle(data, iterX, iterY, iterZ,
 							(float) -getMotion().getX() * 0.01F,
 							(float) -getMotion().getY() * 0.01F,
 							(float) -getMotion().getZ() * 0.01F);
 
-					posX += diffVecNorm.x * distance;
-					posY += diffVecNorm.y * distance;
-					posZ += diffVecNorm.z * distance;
+					iterX += diffVecNorm.x * distance;
+					iterY += diffVecNorm.y * distance;
+					iterZ += diffVecNorm.z * distance;
 
-					currentPos = Vector3.fromEntity(this);
+					currentPos = new Vector3(iterX, iterY, iterZ);
 					diffVec = oldPos.subtract(currentPos);
 					if(getPersistentData().contains(ItemTinyPlanet.TAG_ORBIT))
 						break;
 				} while(Math.abs(diffVec.mag()) > distance);
 
 				WispParticleData data = WispParticleData.wisp(0.1F * size, or, og, ob, depth);
-				world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
-
-				posX = savedPosX;
-				posY = savedPosY;
-				posZ = savedPosZ;
+				world.addParticle(data, iterX, iterY, iterZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 			}
 		}
 	}
@@ -559,10 +552,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 				if(!ConfigHandler.CLIENT.subtlePowerSystem.get())
 					for(int i = 0; i < 4; i++) {
 						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
-						world.addParticle(data, posX, posY, posZ, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+						world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 					}
 				SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
-				world.addParticle(data, (float) posX, (float) posY, (float) posZ, 0, 0, 0);
+				world.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
 			}
 
 			remove();

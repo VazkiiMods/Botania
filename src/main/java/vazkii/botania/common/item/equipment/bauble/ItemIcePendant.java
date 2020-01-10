@@ -54,7 +54,7 @@ public class ItemIcePendant extends ItemBauble {
 				x = MathHelper.floor(entity.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
 				z = MathHelper.floor(entity.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
-				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).func_225486_c(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
+				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).getTemperatureCached(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
 					entity.world.setBlockState(blockpos, blockstate);
 				}
 			}

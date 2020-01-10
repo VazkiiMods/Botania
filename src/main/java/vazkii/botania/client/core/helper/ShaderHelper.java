@@ -143,7 +143,7 @@ public final class ShaderHelper {
 
 	public static boolean useShaders() {
 		// usePostProcess equivalent to hasShaders
-		return ConfigHandler.CLIENT.useShaders.get() && GLX.usePostProcess && checkIncompatibleMods();
+		return ConfigHandler.CLIENT.useShaders.get() && checkIncompatibleMods();
 	}
 	
 	private static boolean checkIncompatibleMods() {

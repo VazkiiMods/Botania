@@ -124,7 +124,7 @@ public final class PlayerHelper {
 	 */
 	public static ActionResultType substituteUse(ItemUseContext ctx, ItemStack toUse) {
 		ItemStack save = ItemStack.EMPTY;
-		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.func_221533_k());
+		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.isInside());
 		ItemUseContext newCtx;
 
 		if(ctx.getPlayer() != null) {

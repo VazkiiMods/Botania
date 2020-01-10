@@ -317,11 +317,9 @@ public final class HUDHandler {
 			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x - 20, y);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recipe.getOutput(), x + 26, y);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, recipe.getOutput(), x + 26, y);
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			GlStateManager.disableLighting();
 			GlStateManager.disableBlend();
@@ -349,10 +347,8 @@ public final class HUDHandler {
 			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
 			if(tile.locked)
 				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(target, w / 2 + 10, h / 2 - 10);
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
 
 		profiler.endSection();
@@ -370,10 +366,8 @@ public final class HUDHandler {
 
 		AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
 		AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
-		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRenderer.drawStringWithShadow(txt0, x + 20, y, 0xFFFFFF);
 		mc.fontRenderer.drawStringWithShadow(txt1, x + 20, y + 14, 0xFFFFFF);
@@ -412,10 +406,8 @@ public final class HUDHandler {
 		int x = mc.getWindow().getScaledWidth() / 2 + 55;
 		int y = mc.getWindow().getScaledHeight() / 2 + 12;
 
-		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(bindDisplay, x, y);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		GlStateManager.disableDepthTest();
 		if(properlyBound) {

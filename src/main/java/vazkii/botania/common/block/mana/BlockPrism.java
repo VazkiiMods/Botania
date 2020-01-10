@@ -16,7 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -60,18 +60,11 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 		builder.add(BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 
-	@Nonnull
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
-	}
-
-	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
-			return false;
+			return ActionResultType.PASS;
 
 		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
@@ -88,7 +81,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 		}
 
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override

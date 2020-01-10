@@ -20,7 +20,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -83,13 +83,6 @@ public class BlockAltar extends BlockMod {
 		return SHAPE;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Nonnull
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
-
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if(!world.isRemote && entity instanceof ItemEntity) {
@@ -108,16 +101,16 @@ public class BlockAltar extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-			return true;
+			return ActionResultType.SUCCESS;
 		} else if(tile.isEmpty() && tile.getFluid() == Fluids.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		else {
 			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
@@ -132,7 +125,7 @@ public class BlockAltar extends BlockMod {
 					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
 
-				return true;
+				return ActionResultType.SUCCESS;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.abilities.isCreativeMode)
 					player.setHeldItem(hand, drain(Fluids.LAVA, stack));
@@ -141,7 +134,7 @@ public class BlockAltar extends BlockMod {
 				world.updateComparatorOutputLevel(pos, this);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
-				return true;
+				return ActionResultType.SUCCESS;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && tile.getFluid() != Fluids.EMPTY && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = new ItemStack(tile.getFluid().getFilledBucket());
 				if(stack.getCount() == 1)
@@ -155,11 +148,11 @@ public class BlockAltar extends BlockMod {
 				world.updateComparatorOutputLevel(pos, this);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

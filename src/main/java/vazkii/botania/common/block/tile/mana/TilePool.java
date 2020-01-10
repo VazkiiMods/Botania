@@ -414,10 +414,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);
 
-		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(tablet, x - 20, y);
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(pool, x + 26, y);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		GlStateManager.disableLighting();
 		GlStateManager.disableBlend();

@@ -199,9 +199,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	public EntityManaBurst getBurst(World world, BlockPos pos, ItemStack stack) {
 		EntityManaBurst burst = new EntityManaBurst(world);
-		burst.getX() = pos.getX() + 0.5;
-		burst.getY() = pos.getY() + 0.5;
-		burst.getZ() = pos.getZ() + 0.5;
+		burst.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
 		burst.setColor(0x00EAFF);
 		burst.setMana(1);

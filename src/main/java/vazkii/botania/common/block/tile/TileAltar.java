@@ -382,14 +382,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 					ItemStack stack = recipe.getOutput();
 
-					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				}
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
@@ -399,7 +396,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				angle += anglePer;
 			}
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0 && getFluid() == Fluids.WATER) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);

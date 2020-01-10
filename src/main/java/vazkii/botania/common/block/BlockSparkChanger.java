@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -65,7 +66,7 @@ public class BlockSparkChanger extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack pstack = player.getHeldItem(hand);
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
@@ -74,16 +75,16 @@ public class BlockSparkChanger extends BlockMod {
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 			ItemHandlerHelper.giveItemToPlayer(player, cstack);
-			return true;
+			return ActionResultType.SUCCESS;
 		} else if(!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
 			changer.getItemHandler().setStackInSlot(0, pstack.split(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

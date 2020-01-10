@@ -304,7 +304,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 				for(Entity e : getPassengers()) {
 					e.stopRiding();
-					e.setPositionAndUpdate(posX, posY, posZ);
+					e.setPositionAndUpdate(getX(), getY(), getZ());
 				}
 				remove();
 			} else {
@@ -321,13 +321,11 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					double sin = Math.sin(rad);
 					double s = 0.4;
 
-                    SparkleParticleData data = SparkleParticleData.sparkle(1.2F, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 10);
-                    world.addParticle(data, posX + cos * s, posY - 0.5, posZ + sin * s, 0, 0, 0);
-                }
+					SparkleParticleData data = SparkleParticleData.sparkle(1.2F, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 10);
+					world.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
+				}
 
-				posX += motVec.x;
-				posY += motVec.y;
-				posZ += motVec.z;
+				setPosition(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 			}
 		}
 

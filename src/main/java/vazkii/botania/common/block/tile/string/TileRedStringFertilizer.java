@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,7 +44,7 @@ public class TileRedStringFertilizer extends TileRedString {
 		return block instanceof IGrowable && ((IGrowable) block).canUseBonemeal(world, rand, binding, world.getBlockState(binding));
 	}
 
-	public void grow(World world, Random rand) {
+	public void grow(ServerWorld world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 		if(block instanceof IGrowable)

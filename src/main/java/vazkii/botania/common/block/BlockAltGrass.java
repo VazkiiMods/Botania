@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -57,15 +58,15 @@ public class BlockAltGrass extends BlockMod {
 	}
 	
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack held = player.getHeldItem(hand);
 		if(held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState(), 1 | 2);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		
-		return false;
+		return ActionResultType.PASS;
 	}
 	
 	@Override

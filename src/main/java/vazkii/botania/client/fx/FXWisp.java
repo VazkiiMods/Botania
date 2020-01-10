@@ -91,9 +91,9 @@ public class FXWisp extends Particle {
 	// [VanillaCopy] of super, without drag when onGround is true
 	@Override
 	public void tick() {
-		this.prevPosX = this.getX();
-		this.prevPosY = this.getY();
-		this.prevPosZ = this.getZ();
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
 
 		if (this.age++ >= this.maxAge)
 		{

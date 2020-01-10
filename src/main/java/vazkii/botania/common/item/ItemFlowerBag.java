@@ -96,11 +96,11 @@ public class ItemFlowerBag extends ItemMod {
 		if(Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
 			int color = ((BlockModFlower) Block.getBlockFromItem(entityStack.getItem())).color.getId();
 
-			for(int i = 0; i < event.getEntityPlayer().inventory.getSizeInventory(); i++) {
-				if(i == event.getEntityPlayer().inventory.currentItem)
+			for(int i = 0; i < event.getPlayer().inventory.getSizeInventory(); i++) {
+				if(i == event.getPlayer().inventory.currentItem)
 					continue; // prevent item deletion
 
-				ItemStack bag = event.getEntityPlayer().inventory.getStackInSlot(i);
+				ItemStack bag = event.getPlayer().inventory.getStackInSlot(i);
 				if(!bag.isEmpty() && bag.getItem() == this) {
 					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 
@@ -112,12 +112,12 @@ public class ItemFlowerBag extends ItemMod {
 					if(numPickedUp > 0) {
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
-							event.getItem().world.playSound(null, event.getEntityPlayer().getX(), event.getEntityPlayer().getY(), event.getEntityPlayer().getZ(),
+							event.getItem().world.playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(),
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
-						((ServerPlayerEntity) event.getEntityPlayer()).connection.sendPacket(new SCollectItemPacket(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), numPickedUp));
-						event.getEntityPlayer().openContainer.detectAndSendChanges();
+						((ServerPlayerEntity) event.getPlayer()).connection.sendPacket(new SCollectItemPacket(event.getItem().getEntityId(), event.getPlayer().getEntityId(), numPickedUp));
+						event.getPlayer().openContainer.detectAndSendChanges();
 
 						return;
 					}

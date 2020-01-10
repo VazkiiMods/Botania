@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +46,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	@SubscribeEvent
 	public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
-		TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos(), event.getHand());
+		TileRedStringInterceptor.onInteract(event.getPlayer(), event.getWorld(), event.getPos(), event.getHand());
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random update) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
 		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 

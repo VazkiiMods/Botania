@@ -62,19 +62,19 @@ public class EntityFlameRing extends Entity {
 				double z = Math.sin(rad) * renderRadius;
 
 				WispParticleData data1 = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
-				world.addParticle(data1, posX + x, posY - 0.2, posZ + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
+				world.addParticle(data1, getX() + x, getY() - 0.2, getZ() + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
 
 				float gs = (float) Math.random() * 0.15F;
 				float smokeRadius = (float) (renderRadius - Math.random() * renderRadius * 0.9);
 				x = Math.cos(rad) * smokeRadius;
 				z = Math.sin(rad) * smokeRadius;
-                WispParticleData data = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, gs, gs, gs, 1);
-                world.addParticle(data, posX + x, posY - 0.2, posZ + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
-            }
+				WispParticleData data = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, gs, gs, gs, 1);
+				world.addParticle(data, getX() + x, getY() - 0.2, getZ() + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
+			}
 		}
 
 		if(world.rand.nextInt(20) == 0)
-			world.playSound(posX, posY, posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
+			world.playSound(getX(), getY(), getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
 
 		if(world.isRemote)
 			return;
@@ -85,14 +85,14 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if(ticksExisted > 45) {
-			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(radius, radius, radius);
+			AxisAlignedBB boundingBox = new AxisAlignedBB(getX(), getY(), getZ(), getX(), getY(), getZ()).grow(radius, radius, radius);
 			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, boundingBox);
 
 			if(entities.isEmpty())
 				return;
 
 			for(LivingEntity entity : entities) {
-				if(entity == null || MathHelper.pointDistancePlane(posX, posY, entity.getX(), entity.getY()) > radius)
+				if(entity == null || MathHelper.pointDistancePlane(getX(), getY(), entity.getX(), entity.getY()) > radius)
 					continue;
 
 				entity.setFire(4);

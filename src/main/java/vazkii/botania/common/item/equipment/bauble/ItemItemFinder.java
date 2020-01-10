@@ -173,7 +173,7 @@ public class ItemItemFinder extends ItemBauble {
 						boolean foundCap = false;
 						for(Direction e : Direction.values()) {
 							if(scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
-								blockPosBuilder.add(new LongNBT(pos_.toLong()));
+								blockPosBuilder.add(LongNBT.of(pos_.toLong()));
 								foundCap = true;
 								break;
 							}
@@ -181,7 +181,7 @@ public class ItemItemFinder extends ItemBauble {
 						if(!foundCap && tile instanceof IInventory) {
 							IInventory inv = (IInventory) tile;
 							if(scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack))
-								blockPosBuilder.add(new LongNBT(pos_.toLong()));
+								blockPosBuilder.add(LongNBT.of(pos_.toLong()));
 						}
 					}
 				}

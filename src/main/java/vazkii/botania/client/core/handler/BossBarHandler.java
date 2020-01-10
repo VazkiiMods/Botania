@@ -97,12 +97,12 @@ public final class BossBarHandler {
 
 		@Override
 		public void call(int shader) {
-			int startXUniform = GLX.glGetUniformLocation(shader, "startX");
-			int startYUniform = GLX.glGetUniformLocation(shader, "startY");
+			int startXUniform = GlStateManager.getUniformLocation(shader, "startX");
+			int startYUniform = GlStateManager.getUniformLocation(shader, "startY");
 
 
-			GLX.glUniform1i(startXUniform, x);
-			GLX.glUniform1i(startYUniform, y);
+			GlStateManager.uniform1(startXUniform, x);
+			GlStateManager.uniform1(startYUniform, y);
 
 			if(callback != null)
 				callback.call(shader);

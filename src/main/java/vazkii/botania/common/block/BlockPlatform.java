@@ -68,11 +68,6 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	}
 
 	@Override
-	public boolean canRenderInLayer(BlockState state, @Nonnull BlockRenderLayer layer) {
-		return true;
-	}
-
-	@Override
 	public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
 		return variant != Variant.INFRANGIBLE;
 	}

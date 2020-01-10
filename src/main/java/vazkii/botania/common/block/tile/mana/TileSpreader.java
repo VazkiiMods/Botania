@@ -563,9 +563,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			int y = mc.getWindow().getScaledHeight() / 2 + 50;
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
-			RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
-			RenderHelper.disableStandardItemLighting();
 			GlStateManager.disableLighting();
 			GlStateManager.disableBlend();
 		}
@@ -582,9 +580,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
 				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
-				RenderHelper.enableGUIStandardItemLighting();
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
-				RenderHelper.disableStandardItemLighting();
 			}
 
 			GlStateManager.disableLighting();

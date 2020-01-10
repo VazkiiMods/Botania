@@ -48,7 +48,7 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
+	public ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
 		return new ResourceLocation(LibResources.MODEL_PIXIE);
 	}
 

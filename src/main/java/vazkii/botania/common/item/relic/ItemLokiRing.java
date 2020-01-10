@@ -63,7 +63,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		PlayerEntity player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing.isEmpty() || !player.isSneaking())
 			return;

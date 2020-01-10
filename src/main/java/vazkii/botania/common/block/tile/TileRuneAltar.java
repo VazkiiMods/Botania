@@ -377,7 +377,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					GlStateManager.color4f(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
 
-					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					if(progress == 1F) {
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
 						GlStateManager.translatef(0F, 0F, 100F);
@@ -386,13 +385,11 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					}
 
 					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
-					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 					if(progress == 1F)
 						mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
 				}
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
@@ -402,7 +399,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 				angle += anglePer;
 			}
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);

@@ -40,7 +40,7 @@ public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntityManaStorm entity) {
+	public ResourceLocation getEntityTexture(@Nonnull EntityManaStorm entity) {
 		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 

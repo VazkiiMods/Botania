@@ -11,12 +11,13 @@ package vazkii.botania.client.model;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -47,9 +48,9 @@ public class PlatformModel implements IDynamicBakedModel {
 		if(!(state.getBlock() instanceof BlockPlatform))
 			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
-		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+		RenderType layer = MinecraftForgeClient.getRenderLayer();
 		if(layer == null) {
-			layer = BlockRenderLayer.SOLID; // workaround for when this isn't set (digging, etc.)
+			layer = RenderType.getSolid(); // workaround for when this isn't set (digging, etc.)
 		}
 
 		BlockState heldState = data.getData(BotaniaStateProps.HELD_STATE);
@@ -60,7 +61,7 @@ public class PlatformModel implements IDynamicBakedModel {
 		}
 
 		Minecraft mc = Minecraft.getInstance();
-		if(heldState == null && layer == BlockRenderLayer.SOLID) {
+		if(heldState == null && layer == RenderType.getSolid()) {
 			// No camo
 			return original.getQuads(state, side, rand, data);
 		} else if(heldState != null) {
@@ -69,7 +70,7 @@ public class PlatformModel implements IDynamicBakedModel {
 			if(heldState.getBlock() == ModBlocks.manaGlass)
 				return ImmutableList.of();
 
-			if(heldState.getBlock().canRenderInLayer(heldState, layer)) {
+			if(RenderTypeLookup.canRenderInLayer(heldState, layer)) {
 				// Steal camo's model
 				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModel(heldState);
 

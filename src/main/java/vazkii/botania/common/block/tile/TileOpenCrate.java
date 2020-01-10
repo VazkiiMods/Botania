@@ -63,7 +63,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 	}
 
 	public boolean canEject() {
-		return world.isCollisionBoxesEmpty(null, new AxisAlignedBB(pos.down()));
+		return world.doesNotCollide(new AxisAlignedBB(pos.down()));
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {

@@ -63,19 +63,19 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			double x = player.getX();
 			double y = player.getY();
 			double z = player.getZ();
-			BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos((int) x, (int) y, (int) z);
+			BlockPos.Mutable pos = new BlockPos.Mutable((int) x, (int) y, (int) z);
 
 			double lastX = 0;
 			double lastY = -1;
 			double lastZ = 0;
-			BlockPos.MutableBlockPos lastChecker = new BlockPos.MutableBlockPos();
+			BlockPos.Mutable lastChecker = new BlockPos.Mutable();
 
 			int count = 0;
 			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player, stack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
-			BlockPos.MutableBlockPos placePos = new BlockPos.MutableBlockPos();
+			BlockPos.Mutable placePos = new BlockPos.Mutable();
 			while (count < maxlen) {
 				lastChecker.setPos(lastX, lastY, lastZ);
 

@@ -83,7 +83,7 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 	public void handleStatusUpdate(byte id) {
 		if(id == 3) {
 			for(int j = 0; j < 16; j++) {
-				world.addParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ModItems.vineBall)), posX, posY, posZ, Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
+				world.addParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ModItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
 		}
 	}

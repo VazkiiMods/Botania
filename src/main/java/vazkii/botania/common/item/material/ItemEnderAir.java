@@ -35,11 +35,11 @@ public class ItemEnderAir extends ItemMod {
 
         if(correctStack && ender) {
             if (event.getWorld().isRemote) {
-                event.getEntityPlayer().swingArm(event.getHand());
+                event.getPlayer().swingArm(event.getHand());
             } else {
                 ItemStack stack1 = new ItemStack(ModItems.enderAirBottle);
 
-                ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
+                ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), stack1);
 
                 stack.shrink(1);
 

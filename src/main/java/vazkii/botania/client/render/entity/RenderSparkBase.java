@@ -106,7 +106,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntitySparkBase entity) {
+	public ResourceLocation getEntityTexture(@Nonnull EntitySparkBase entity) {
 		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 

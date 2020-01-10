@@ -63,9 +63,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 				int x = guiLeft + slot.xPos;
 				int y = guiTop + slot.yPos;
-				RenderHelper.enableGUIStandardItemLighting();
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-				RenderHelper.disableStandardItemLighting();
 				mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 			}
 	}

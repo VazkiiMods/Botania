@@ -69,12 +69,12 @@ public class EntitySignalFlare extends Entity {
 
 				for(int i = 0; i < 3; i++) {
 					WispParticleData data = WispParticleData.wisp((float) Math.random() * 5 + 1F, r / 255F, g / 255F, b / 255F);
-					Botania.proxy.addParticleForce(world, data, posX, posY, posZ + 0.5, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
+					Botania.proxy.addParticleForce(world, data, getX(), getY(), getZ() + 0.5, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) getY())), (float) (Math.random() - 0.5F));
 				}
 
 				for(int i = 0; i < 4; i++) {
 					WispParticleData data = WispParticleData.wisp((float) Math.random() * 15 + 8F, r / 255F, g / 255F, b / 255F);
-					Botania.proxy.addParticleForce(world, data, posX + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), posZ + 0.5, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
+					Botania.proxy.addParticleForce(world, data, getX() + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), getZ() + 0.5, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 				}
 			}
 		}

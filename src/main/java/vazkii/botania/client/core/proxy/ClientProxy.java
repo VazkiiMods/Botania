@@ -10,10 +10,14 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
@@ -21,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,6 +48,10 @@ import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
@@ -61,16 +70,18 @@ import java.util.Map;
 public class ClientProxy implements IProxy {
 
 	public static final VertexFormat POSITION_TEX_LMAP_NORMAL =
-			new VertexFormat()
-					.addElement(DefaultVertexFormats.POSITION_3F)
-					.addElement(DefaultVertexFormats.TEX_2F)
-					.addElement(DefaultVertexFormats.TEX_2S)
-					.addElement(DefaultVertexFormats.NORMAL_3B);
+			new VertexFormat(ImmutableList.<VertexFormatElement>builder()
+					.add(DefaultVertexFormats.POSITION_3F)
+					.add(DefaultVertexFormats.TEX_2F)
+					.add(DefaultVertexFormats.TEX_2S)
+					.add(DefaultVertexFormats.NORMAL_3B)
+					.build());
 	public static final VertexFormat POSITION_TEX_LMAP =
-			new VertexFormat()
-					.addElement(DefaultVertexFormats.POSITION_3F)
-					.addElement(DefaultVertexFormats.TEX_2F)
-					.addElement(DefaultVertexFormats.TEX_2S);
+			new VertexFormat(ImmutableList.<VertexFormatElement>builder()
+					.add(DefaultVertexFormats.POSITION_3F)
+					.add(DefaultVertexFormats.TEX_2F)
+					.add(DefaultVertexFormats.TEX_2S)
+					.build());
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
@@ -110,6 +121,41 @@ public class ClientProxy implements IProxy {
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
 		});
+
+		registerRenderTypes();
+	}
+
+	private static void registerRenderTypes() {
+		RenderTypeLookup.setRenderLayer(ModBlocks.defaultAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.forestAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.plainsAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.mountainAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.fungalAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.swampAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.desertAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.taigaAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.mesaAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.mossyAltar, RenderType.getCutout());
+
+		RenderTypeLookup.setRenderLayer(ModBlocks.manaGlass, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModFluffBlocks.managlassPane, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModBlocks.elfGlass, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModFluffBlocks.alfglassPane, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModBlocks.bifrost, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModFluffBlocks.bifrostPane, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModBlocks.bifrostPerm, RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModBlocks.prism, RenderType.getTranslucent());
+
+		RenderTypeLookup.setRenderLayer(ModBlocks.starfield, RenderType.getCutoutMipped());
+		RenderTypeLookup.setRenderLayer(ModBlocks.abstrusePlatform, t -> true);
+		RenderTypeLookup.setRenderLayer(ModBlocks.infrangiblePlatform, t -> true);
+		RenderTypeLookup.setRenderLayer(ModBlocks.spectralPlatform, t -> true);
+
+		Registry.BLOCK.stream().filter(b -> b.getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
+				.forEach(b -> {
+					if (b instanceof BlockFloatingFlower)
+						RenderTypeLookup.setRenderLayer(b, RenderType.getCutout());
+				});
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {

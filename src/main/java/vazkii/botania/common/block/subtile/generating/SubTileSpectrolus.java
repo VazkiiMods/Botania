@@ -145,9 +145,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
-			RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
-			RenderHelper.disableStandardItemLighting();
 		}
 
 		GlStateManager.disableLighting();

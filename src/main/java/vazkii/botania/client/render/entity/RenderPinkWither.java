@@ -28,7 +28,7 @@ public class RenderPinkWither extends WitherRenderer {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(WitherEntity entity) {
+	public ResourceLocation getEntityTexture(WitherEntity entity) {
 		return resource;
 	}
 

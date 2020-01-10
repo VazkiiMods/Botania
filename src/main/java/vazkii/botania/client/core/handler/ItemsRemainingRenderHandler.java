@@ -48,14 +48,12 @@ public final class ItemsRemainingRenderHandler {
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 			GlStateManager.color4f(1F, 1F, 1F, alpha);
-			RenderHelper.enableGUIStandardItemLighting();
 			int xp = x + (int) (16F * (1F - alpha));
 			GlStateManager.translatef(xp, y, 0F);
 			GlStateManager.scalef(alpha, 1F, 1F);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, 0, 0);
 			GlStateManager.scalef(1F / alpha,1F, 1F);
 			GlStateManager.translatef(-xp, -y, 0F);
-			RenderHelper.disableStandardItemLighting();
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 
