@@ -12,12 +12,16 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -72,14 +76,12 @@ public class ItemCloudPendant extends ItemBauble {
 		ms.translate(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
 		ms.scale(0.5F, 0.5F, 0.5F);
 
-		TextureAtlasSprite gemIcon = stack.getItem() == ModItems.superCloudPendant
+		IBakedModel model = stack.getItem() == ModItems.superCloudPendant
 				? MiscellaneousIcons.INSTANCE.nimbusGem
 				: MiscellaneousIcons.INSTANCE.cirrusGem;
-		float f = gemIcon.getMinU();
-		float f1 = gemIcon.getMaxU();
-		float f2 = gemIcon.getMinV();
-		float f3 = gemIcon.getMaxV();
-		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}
 
 	public int getMaxAllowedJumps() {

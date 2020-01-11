@@ -12,12 +12,16 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -74,18 +78,17 @@ public class ItemItemFinder extends ItemBauble {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
-		float f = gemIcon.getMinU();
-		float f1 = gemIcon.getMaxU();
-		float f2 = gemIcon.getMinV();
-		float f3 = gemIcon.getMaxV();
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 		AccessoryRenderHelper.translateToHeadLevel(living, partialTicks);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
 		ms.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
 		ms.scale(0.75F, 0.75F, 0.75F);
-		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
+
+		IBakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}
 
 	protected void tickClient(ItemStack stack, PlayerEntity player) {

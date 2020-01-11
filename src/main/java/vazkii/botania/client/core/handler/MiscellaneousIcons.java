@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -57,24 +58,18 @@ public class MiscellaneousIcons {
 	corporeaIconStar,
 	sparkWorldIcon,
 	manaDetectorIcon,
-	runeAltarTriggerIcon,
-	terrasteelHelmWillIcon;
+	runeAltarTriggerIcon;
 
 	public final TextureAtlasSprite[] sparkUpgradeIcons = new TextureAtlasSprite[4];
-	public final TextureAtlasSprite[] kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 	// public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
-	public final TextureAtlasSprite[] tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
-	public final TextureAtlasSprite[] thirdEyeLayers = new TextureAtlasSprite[3];
+	public final IBakedModel[] tiaraWingIcons = new IBakedModel[ItemFlightTiara.WING_TYPES];
+	public final IBakedModel[] thirdEyeLayers = new IBakedModel[3];
 
-	// begin dank_memes
 	public TextureAtlasSprite tailIcon = null;
-	public TextureAtlasSprite phiFlowerIcon = null;
-	public TextureAtlasSprite goldfishIcon = null;
-	public TextureAtlasSprite nerfBatIcon = null;
-	// end dank_memes
 
-	// Icons for baubles that don't render their own model on the player
-	public TextureAtlasSprite
+	public IBakedModel goldfishModel,
+	phiFlowerModel,
+	nerfBatModel,
 	bloodPendantChain,
 	bloodPendantGem,
 	snowflakePendantGem,
@@ -82,7 +77,33 @@ public class MiscellaneousIcons {
 	pyroclastGem,
 	crimsonGem,
 	cirrusGem,
-	nimbusGem;
+	nimbusGem,
+	terrasteelHelmWillModel;
+
+	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
+
+	@SubscribeEvent
+	public void onModelRegister(ModelRegistryEvent evt) {
+		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
+		ModelLoader.addSpecialModel(prefix("icon/phiflower"));
+		ModelLoader.addSpecialModel(prefix("icon/nerfbat"));
+		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
+			ModelLoader.addSpecialModel(prefix("icon/gate_weapon_" + i));
+		}
+		ModelLoader.addSpecialModel(prefix("icon/will_flame"));
+		for (int i = 0; i < thirdEyeLayers.length; i++) {
+			ModelLoader.addSpecialModel(prefix("icon/third_eye_" + i));
+		}
+		ModelLoader.addSpecialModel(prefix("icon/lava_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/super_lava_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/itemfinder_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/cloud_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/super_cloud_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/ice_pendant_gem"));
+		for (int i = 0; i < tiaraWingIcons.length; i++) {
+			ModelLoader.addSpecialModel(prefix("icon/tiara_wing_" + (i + 1)));
+		}
+	}
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
@@ -132,6 +153,28 @@ public class MiscellaneousIcons {
 
 		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
 		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/mana_pump_head"));
+
+		// Icons
+		goldfishModel = evt.getModelRegistry().get(prefix("icon/goldfish"));
+		phiFlowerModel = evt.getModelRegistry().get(prefix("icon/phiflower"));
+		nerfBatModel = evt.getModelRegistry().get(prefix("icon/nerfbat"));
+		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
+			kingKeyWeaponModels[i] = evt.getModelRegistry().get(prefix("icon/gate_weapon_" + i));
+		}
+		terrasteelHelmWillModel = evt.getModelRegistry().get(prefix("icon/will_flame"));
+		for (int i = 0; i < thirdEyeLayers.length; i++) {
+			thirdEyeLayers[i] = evt.getModelRegistry().get(prefix("icon/third_eye_" + i));
+		}
+		pyroclastGem = evt.getModelRegistry().get(prefix("icon/lava_pendant_gem"));
+		crimsonGem = evt.getModelRegistry().get(prefix("icon/super_lava_pendant_gem"));
+		itemFinderGem = evt.getModelRegistry().get(prefix("icon/itemfinder_gem"));
+
+		cirrusGem = evt.getModelRegistry().get(prefix("icon/cloud_pendant_gem"));
+		nimbusGem = evt.getModelRegistry().get(prefix("icon/super_cloud_pendant_gem"));
+		snowflakePendantGem = evt.getModelRegistry().get(prefix("icon/ice_pendant_gem"));
+		for (int i = 0; i < tiaraWingIcons.length; i++) {
+			tiaraWingIcons[i] = evt.getModelRegistry().get(prefix("icon/tiara_wing_" + (i + 1)));
+		}
 	}
 	
 	@SubscribeEvent
@@ -161,39 +204,15 @@ public class MiscellaneousIcons {
 		}
 
 		evt.addSprite(prefix("items/special_tail"));
-		evt.addSprite(prefix("items/special_phiflower"));
-		evt.addSprite(prefix("items/special_goldfish"));
-		evt.addSprite(prefix("items/special_nerfbat"));
 
-		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			evt.addSprite(prefix("items/gate_weapon_" + i));
-
-		for(int i = 0; i < 3; i++)
-			evt.addSprite(prefix("items/third_eye_" + i));
-
+		/*
 		evt.addSprite(prefix("items/triggers/mana_detector"));
 		evt.addSprite(prefix("items/triggers/rune_altar_can_craft"));
 
-		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			register(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name()));
 		}
 		*/
-
-		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			evt.addSprite(prefix("items/headpiece_tiara_wing_" + (i + 1)));
-		}
-
-		evt.addSprite(prefix("items/will_flame"));
-
-		evt.addSprite(prefix("items/pendant_blood_chain"));
-		evt.addSprite(prefix("items/pendant_blood_gem"));
-		evt.addSprite(prefix("items/pendant_ice_gem"));
-		evt.addSprite(prefix("items/headpiece_item_finder_gem"));
-		evt.addSprite(prefix("items/pendant_lava_gem"));
-		evt.addSprite(prefix("items/pendant_lava_super_gem"));
-		evt.addSprite(prefix("items/pendant_cloud_gem"));
-		evt.addSprite(prefix("items/pendant_cloud_super_gem"));
 	}
 
 	@SubscribeEvent
@@ -222,39 +241,15 @@ public class MiscellaneousIcons {
 		}
 
 		tailIcon = get(evt.getMap(), "items/special_tail");
-		phiFlowerIcon = get(evt.getMap(), "items/special_phiflower");
-		goldfishIcon = get(evt.getMap(), "items/special_goldfish");
-		nerfBatIcon = get(evt.getMap(), "items/special_nerfbat");
 
-		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			kingKeyWeaponIcons[i] = get(evt.getMap(), "items/gate_weapon_" + i);
-		
-		for(int i = 0; i < 3; i++)
-			thirdEyeLayers[i] = get(evt.getMap(), "items/third_eye_" + i);
-
+		/*
 		manaDetectorIcon = get(evt.getMap(), "items/triggers/mana_detector");
 		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/rune_altar_can_craft");
 
-		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			manaLevelTriggerIcons.put(s, get(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name())));
 		}
 		*/
-
-		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = get(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
-		}
-
-		terrasteelHelmWillIcon = get(evt.getMap(), "items/will_flame");
-
-		bloodPendantChain = get(evt.getMap(), "items/pendant_blood_chain");
-		bloodPendantGem = get(evt.getMap(), "items/pendant_blood_gem");
-		snowflakePendantGem = get(evt.getMap(), "items/pendant_ice_gem");
-		itemFinderGem = get(evt.getMap(), "items/headpiece_item_finder_gem");
-		pyroclastGem = get(evt.getMap(), "items/pendant_lava_gem");
-		crimsonGem = get(evt.getMap(), "items/pendant_lava_super_gem");
-		cirrusGem = get(evt.getMap(), "items/pendant_cloud_gem");
-		nimbusGem = get(evt.getMap(), "items/pendant_cloud_super_gem");
 	}
 
 	private TextureAtlasSprite get(AtlasTexture map, String name) {

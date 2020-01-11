@@ -1,10 +1,13 @@
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
@@ -14,17 +17,9 @@ public class LayerTerraHelmet extends LayerRenderer<AbstractClientPlayerEntity, 
     }
 
     @Override
-    public void render(AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        GlStateManager.pushMatrix();
-        ItemStack helm = player.inventory.armorItemInSlot(3);
+    public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        ItemStack helm = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
         if(!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm)
-            ItemTerrasteelHelm.renderOnPlayer(helm, player, partialTicks);
-
-        GlStateManager.popMatrix();
-    }
-
-    @Override
-    public boolean shouldCombineTextures() {
-        return false;
+            ItemTerrasteelHelm.renderOnPlayer(ms, buffers, light, helm, player, partialTicks);
     }
 }

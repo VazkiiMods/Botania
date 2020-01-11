@@ -12,11 +12,15 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -48,11 +52,9 @@ public class ItemLavaPendant extends ItemBauble {
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
 		ms.translate(-0.5, -0.90, armor ? -0.4 : -0.25);
 
-		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.pyroclastGem;
-		float f = gemIcon.getMinU();
-		float f1 = gemIcon.getMaxU();
-		float f2 = gemIcon.getMinV();
-		float f3 = gemIcon.getMaxV();
-		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
+		IBakedModel model = MiscellaneousIcons.INSTANCE.pyroclastGem;
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}
 }

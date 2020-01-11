@@ -15,6 +15,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
@@ -79,7 +80,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		
 		if(name.equals("haighyorkie"))
-			renderGoldfish(player);
+			renderGoldfish(ms, buffers, light, player);
 
 		firstStart();
 
@@ -119,22 +120,16 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		}
 	}
 
-	private static void renderGoldfish(PlayerEntity player) {
-		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.goldfishIcon;
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		GlStateManager.translatef(0, player.getEyeHeight(), 0);
+	private static void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers, int light, PlayerEntity player) {
+		ms.push();
+		ms.translate(0, player.getEyeHeight(), 0);
 		AccessoryRenderHelper.rotateIfSneaking(player);
-		GlStateManager.rotatef(180F, 0F, 0F, 1F);
-		GlStateManager.rotatef(90F, 0F, 1F, 0F);
-		GlStateManager.scalef(0.4F, 0.4F, 0.4F);
-		GlStateManager.translatef(-0.5F, 1.6F, 0F);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 16F);
-		GlStateManager.popMatrix();
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+		ms.scale(0.4F, 0.4F, 0.4F);
+		ms.translate(-0.5F, 1.6F, 0F);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffers.getBuffer(Atlases.getEntityTranslucent()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+		ms.pop();
 	}
 
 	@SuppressWarnings("deprecation")

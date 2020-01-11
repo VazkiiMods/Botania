@@ -13,11 +13,16 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
@@ -299,8 +304,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		int meta = getVariant(stack);
 		if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-			TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+			IBakedModel icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 
 			boolean flying = ((PlayerEntity) player).abilities.isFlying;
 
@@ -311,17 +315,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float i = 0.15F;
 			float s = 1F;
 
-			GlStateManager.pushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
-
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-
-			float lbx = GLX.lastBrightnessX;
-			float lby = GLX.lastBrightnessY;
+			ms.push();
+			boolean fullbright = false;
 
 			switch (meta) {
 			case 1: { // Jibril
@@ -344,7 +339,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				h = 0.5F;
 				rx = 20F;
 				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
+				fullbright = true;
 				break;
 			}
 			case 5: { // Kuroyukihime
@@ -360,7 +355,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				break;
 			}
 			case 7: { // Lyfa
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
+				fullbright = true;
 				h = -0.1F;
 				rz = 0F;
 				ry = -rx;
@@ -373,7 +368,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				break;
 			}
 			case 9: { // The One
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
+				fullbright = true;
 				rz = 180F;
 				rx = 0F;
 				h = 1.1F;
@@ -386,43 +381,35 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float mul = 32F / 20F;
 			s *= mul;
 
-			float f = icon.getMinU();
-			float f1 = icon.getMaxU();
-			float f2 = icon.getMinV();
-			float f3 = icon.getMaxV();
-			float sr = 1F / s;
-
 			AccessoryRenderHelper.rotateIfSneaking(player);
 
-			GlStateManager.translatef(0F, h, i);
+			ms.translate(0F, h, i);
 
-			GlStateManager.rotatef(rz, 0F, 0F, 1F);
-			GlStateManager.rotatef(rx, 1F, 0F, 0F);
-			GlStateManager.rotatef(ry, 0F, 1F, 0F);
-			GlStateManager.scalef(s, s, s);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
-			GlStateManager.scalef(sr, sr, sr);
-			GlStateManager.rotatef(-ry, 0F, 1F, 0F);
-			GlStateManager.rotatef(-rx, 1F, 0F, 0F);
-			GlStateManager.rotatef(-rz, 0F, 0F, 1F);
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rz));
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rx));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ry));
+			ms.scale(s, s, s);
+
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+					.render(ms.peek(), buffer, null, model, 1, 1, 1, fullbright ? 0xF000F0 : light, OverlayTexture.DEFAULT_UV);
+
+			ms.pop();
 
 			if(meta != 2) { // Sephiroth
-				GlStateManager.scalef(-1F, 1F, 1F);
-				GlStateManager.rotatef(rz, 0F, 0F, 1F);
-				GlStateManager.rotatef(rx, 1F, 0F, 0F);
-				GlStateManager.rotatef(ry, 0F, 1F, 0F);
-				GlStateManager.scalef(s, s, s);
-				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
-				GlStateManager.scalef(sr, sr, sr);
-				GlStateManager.rotatef(-ry, 1F, 0F, 0F);
-				GlStateManager.rotatef(-rx, 1F, 0F, 0F);
-				GlStateManager.rotatef(-rz, 0F, 0F, 1F);
+				ms.scale(-1F, 1F, 1F);
+				ms.push();
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rz));
+				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rx));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ry));
+				ms.scale(s, s, s);
+				Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+						.render(ms.peek(), buffer, null, model, 1, 1, 1, fullbright ? 0xF000F0 : light, OverlayTexture.DEFAULT_UV);
+				ms.pop();
 			}
 
-			GlStateManager.color3f(1F, 1F, 1F);
-			GlStateManager.popMatrix();
-
-			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lbx, lby);
+			ms.pop();
 
 			if(meta == 1)
 				renderHalo(player, partialTicks);
