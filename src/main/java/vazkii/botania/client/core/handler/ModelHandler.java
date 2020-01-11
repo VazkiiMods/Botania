@@ -108,7 +108,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileEntitySpecialFlower.class, renderTileFloatingFlower);
 		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, new RenderTileTinyPotato());
 		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, new RenderTileStarfield());
-		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, new RenderTileBrewery());
+		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
 		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, new RenderTileTerraPlate());
 		ClientRegistry.bindTileEntityRenderer(TileRedStringComparator.TYPE, RenderTileRedString::new);
 		ClientRegistry.bindTileEntityRenderer(TileRedStringContainer.TYPE, RenderTileRedString::new);

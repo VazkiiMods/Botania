@@ -10,14 +10,20 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -400,28 +406,29 @@ public class ItemCraftingHalo extends ItemMod {
 		PlayerEntity player = Minecraft.getInstance().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 		if(!stack.isEmpty())
-			render(stack, player, event.getPartialTicks());
+			render(stack, player, event.getMatrixStack(), event.getPartialTicks());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(ItemStack stack, PlayerEntity player, float partialTicks) {
+	public void render(ItemStack stack, PlayerEntity player, MatrixStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
 		Tessellator tess = Tessellator.getInstance();
+		IRenderTypeBuffer.Impl buffers = mc.getBufferBuilders().getEntityVertexConsumers();
 
-		double renderPosX = mc.getRenderManager().renderPosX;
-		double renderPosY = mc.getRenderManager().renderPosY;
-		double renderPosZ = mc.getRenderManager().renderPosZ;
+		double renderPosX = mc.getRenderManager().info.getProjectedView().getX();
+		double renderPosY = mc.getRenderManager().info.getProjectedView().getY();
+		double renderPosZ = mc.getRenderManager().info.getProjectedView().getZ();
 
-		GlStateManager.pushMatrix();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		ms.push();
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
 		double posX = player.prevPosX + (player.getX() - player.prevPosX) * partialTicks;
-		double posY = player.prevPosY + (player.getY() - player.prevPosY) * partialTicks;
+		double posY = player.prevPosY + (player.getY() - player.prevPosY) * partialTicks + player.getEyeHeight();
 		double posZ = player.prevPosZ + (player.getZ() - player.prevPosZ) * partialTicks;
 
-		GlStateManager.translated(posX - renderPosX, posY - renderPosY + player.getEyeHeight(), posZ - renderPosZ);
+		ms.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
 
 
 		float base = getRotationBase(stack);
@@ -442,67 +449,66 @@ public class ItemCraftingHalo extends ItemMod {
 		for(int seg = 0; seg < SEGMENTS; seg++) {
 			boolean inside = false;
 			float rotationAngle = (seg + 0.5F) * segAngles + shift;
-			GlStateManager.pushMatrix();
-			GlStateManager.rotatef(rotationAngle, 0F, 1F, 0F);
-			GlStateManager.translatef(s * m, -0.75F, 0F);
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotationAngle));
+			ms.translate(s * m, -0.75F, 0F);
 
 			if(segmentLookedAt == seg)
 				inside = true;
 
 			ItemStack slotStack = getItemForSlot(stack, seg);
 			if(!slotStack.isEmpty()) {
-				mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-				RenderHelper.enableStandardItemLighting();
 				float scale = seg == 0 ? 0.9F : 0.8F;
-				GlStateManager.scalef(scale, scale, scale);
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
+				ms.scale(scale, scale, scale);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
-				GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
-				Minecraft.getInstance().getItemRenderer().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI);
-				RenderHelper.disableStandardItemLighting();
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
+				Minecraft.getInstance().getItemRenderer().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI, 0xF000F0, OverlayTexture.DEFAULT_UV, ms, buffers);
 			}
-			GlStateManager.popMatrix();
+			ms.pop();
 
-			GlStateManager.pushMatrix();
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 			float a = alpha;
 			if(inside) {
 				a += 0.3F;
 				y0 = -y;
 			}
 
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 			if(seg % 2 == 0)
-				GlStateManager.color4f(0.6F, 0.6F, 0.6F, a);
-			else GlStateManager.color4f(1F, 1F, 1F, a);
+				RenderSystem.color4f(0.6F, 0.6F, 0.6F, a);
+			else RenderSystem.color4f(1F, 1F, 1F, a);
 
-			GlStateManager.disableCull();
+			RenderSystem.disableCull();
 			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
 			mc.textureManager.bindTexture(item.getGlowResource());
 			tess.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			for(int i = 0; i < segAngles; i++) {
+				Matrix4f mat = ms.peek().getModel();
 				float ang = i + seg * segAngles + shift;
-				double xp = Math.cos(ang * Math.PI / 180F) * s;
-				double zp = Math.sin(ang * Math.PI / 180F) * s;
+				float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
+				float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
 
-				tess.getBuffer().pos(xp * m, y, zp * m).tex(u, v).endVertex();
-				tess.getBuffer().pos(xp, y0, zp).tex(u, 0).endVertex();
+				tess.getBuffer().vertex(mat, xp * m, y, zp * m).texture(u, v).endVertex();
+				tess.getBuffer().vertex(mat, xp, y0, zp).texture(u, 0).endVertex();
 
-				xp = Math.cos((ang + 1) * Math.PI / 180F) * s;
-				zp = Math.sin((ang + 1) * Math.PI / 180F) * s;
+				xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
+				zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				tess.getBuffer().pos(xp, y0, zp).tex(0, 0).endVertex();
-				tess.getBuffer().pos(xp * m, y, zp * m).tex(0, v).endVertex();
+				tess.getBuffer().vertex(mat, xp, y0, zp).texture(0, 0).endVertex();
+				tess.getBuffer().vertex(mat, xp * m, y, zp * m).texture(0, v).endVertex();
 			}
 			y0 = 0;
 			tess.draw();
-			GlStateManager.enableCull();
-			GlStateManager.popMatrix();
+			RenderSystem.enableCull();
+			ms.pop();
 		}
-		GlStateManager.popMatrix();
+		ms.pop();
+		buffers.draw();
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -514,8 +520,6 @@ public class ItemCraftingHalo extends ItemMod {
 	public static void renderHUD(PlayerEntity player, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		int slot = getSegmentLookedAt(stack, player);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName().getString();
