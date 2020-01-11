@@ -107,12 +107,6 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
-		// Water bowl
-		ModelDynBucket bowl = new ModelDynBucket(prefix("items/waterbowl_base"), prefix("items/waterbowl_fluid"), prefix("items/waterbowl_cover"), Fluids.WATER, false, true);
-		IModelState transform = ForgeBlockStateV1.Transforms.get("forge:default-item").get();
-		IBakedModel bakedBowl = bowl.bake(evt.getModelLoader(), ModelLoader.defaultTextureGetter(), new BasicState(transform, false), DefaultVertexFormats.ITEM);
-		evt.getModelRegistry().put(new ModelResourceLocation(ModItems.waterBowl.getRegistryName(), "inventory"), bakedBowl);
-
 		// Floating flower item models
 		for (Map.Entry<ResourceLocation, IBakedModel> e : evt.getModelRegistry().entrySet()) {
 			if (e.getValue() instanceof FloatingFlowerModel.Baked) {
@@ -253,7 +247,7 @@ public class MiscellaneousIcons {
 	}
 
 	private TextureAtlasSprite get(AtlasTexture map, String name) {
-		return map.getSprite(new ResourceLocation(LibMisc.MOD_ID, name));
+		return map.getSprite(prefix(name));
 	}
 
 	private MiscellaneousIcons() {}
