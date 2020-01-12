@@ -28,7 +28,7 @@
       "tag": "forge:storage_blocks/lapis"
     },
     "M": {
-      "item": "botania:manasteel_block"
+      "tag": "forge:storage_blocks/manasteel"
     }
   }
 }

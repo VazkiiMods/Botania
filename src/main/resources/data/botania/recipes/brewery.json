@@ -19,7 +19,7 @@
       "item": "minecraft:brewing_stand"
     },
     "M": {
-      "item": "botania:manasteel_block"
+      "tag": "forge:storage_blocks/manasteel"
     }
   }
 }
