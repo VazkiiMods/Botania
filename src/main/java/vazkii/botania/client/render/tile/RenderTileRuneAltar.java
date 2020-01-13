@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -29,6 +30,10 @@ import javax.annotation.Nonnull;
 public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
 	private final ModelSpinningCubes cubes = new ModelSpinningCubes();
+
+	public RenderTileRuneAltar(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
 
 	@Override
 	public void render(@Nonnull TileRuneAltar altar, float partticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {

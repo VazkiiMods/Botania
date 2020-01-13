@@ -10,6 +10,9 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -31,6 +34,7 @@ public class ModelPylonNatura extends Model implements IPylonModel {
     private final ModelRenderer shardrfb;
     
 	public ModelPylonNatura() {
+		super(RenderType::getEntityTranslucent);
 		
 		textureWidth = 64;
 		textureHeight = 64;
@@ -81,28 +85,24 @@ public class ModelPylonNatura extends Model implements IPylonModel {
 	}
 
 	@Override
-	public void renderCrystal() {
-		float f = 1F / 16F;
-		
-		shardrft.render(f);
-        shardlbt.render(f);
-        shardrbt.render(f);
-        shardlft.render(f);
+	public void renderCrystal(MatrixStack ms, IVertexBuilder buffer, int light, int overlay) {
+		shardrft.render(ms, buffer, light, overlay);
+        shardlbt.render(ms, buffer, light, overlay);
+        shardrbt.render(ms, buffer, light, overlay);
+        shardlft.render(ms, buffer, light, overlay);
         
-        shardrfb.render(f);
-        shardlbb.render(f);
-        shardrbb.render(f);
-        shardlfb.render(f);
+        shardrfb.render(ms, buffer, light, overlay);
+        shardlbb.render(ms, buffer, light, overlay);
+        shardrbb.render(ms, buffer, light, overlay);
+        shardlfb.render(ms, buffer, light, overlay);
 	}
 
 	@Override
-	public void renderRing() {
-		float f = 1F / 16F;
-		
-        platef.render(f);
-        plateb.render(f);
-        platel.render(f);
-        plater.render(f);
+	public void renderRing(MatrixStack ms, IVertexBuilder buffer, int light, int overlay) {
+        platef.render(ms, buffer, light, overlay);
+        plateb.render(ms, buffer, light, overlay);
+        platel.render(ms, buffer, light, overlay);
+        plater.render(ms, buffer, light, overlay);
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
@@ -110,5 +110,10 @@ public class ModelPylonNatura extends Model implements IPylonModel {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
+	}
+
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		throw new UnsupportedOperationException("unimplemented");
 	}
 }

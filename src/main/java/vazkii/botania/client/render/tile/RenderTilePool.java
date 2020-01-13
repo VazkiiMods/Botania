@@ -10,15 +10,20 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -38,27 +43,23 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 	// Overrides for when we call this TESR from a cart
 	public static int cartMana = -1;
 
+	public RenderTilePool(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nullable TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nullable TilePool pool, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
 				|| !(pool.getBlockState().getBlock() instanceof BlockPool)))
 			return;
 
-		GlStateManager.pushMatrix();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.enableRescaleNormal();
+		ms.push();
 
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		if (pool == null) { // A null pool means we are calling the TESR without a pool (on a minecart). Adjust accordingly
-			GlStateManager.translatef(0, 0, -1);
-		} else {
-			GlStateManager.translated(d0, d1, d2);
+			ms.translate(0, 0, -1);
 		}
 
 		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
-
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
@@ -68,13 +69,14 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
-			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(pool.getWorld().getBlockState(pool.getPos()));
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
+			BlockState state = pool.getBlockState();
+			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
+			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getBlockLayer(state));
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+					.render(ms.peek(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}
 
-		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
-		GlStateManager.color4f(1, 1, 1, 1);
-		GlStateManager.enableRescaleNormal();
+		ms.translate(0.5F, 1.5F, 0.5F);
 
 		int mana = pool == null ? cartMana : pool.getCurrentMana();
 		int cap = pool == null ? -1 : pool.manaCap;
@@ -129,7 +131,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}
-		GlStateManager.popMatrix();
+		ms.pop();
 
 		cartMana = -1;
 	}

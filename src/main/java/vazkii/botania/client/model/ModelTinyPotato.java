@@ -10,6 +10,9 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -18,6 +21,7 @@ public class ModelTinyPotato extends Model {
 	final ModelRenderer potato;
 
 	public ModelTinyPotato() {
+		super(RenderType::getEntitySolid);
 		textureWidth = 16;
 		textureHeight = 16;
 
@@ -27,8 +31,8 @@ public class ModelTinyPotato extends Model {
 		potato.setTextureSize(64, 32);
 	}
 
-	public void render() {
-		potato.render(1F / 16F);
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		potato.render(ms, buffer, light, overlay, r, g, b, a);
 	}
-
 }

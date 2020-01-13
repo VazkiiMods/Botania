@@ -10,6 +10,9 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -26,7 +29,8 @@ public class ModelPylonMana extends Model implements IPylonModel {
     private final ModelRenderer shardrb;
     
 	public ModelPylonMana() {
-		
+		super(RenderType::getEntityTranslucent);
+
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -63,28 +67,29 @@ public class ModelPylonMana extends Model implements IPylonModel {
 	}
 
 	@Override
-	public void renderCrystal() {
-		float f = 1F / 16F;
-		
-		shardlf.render(f);
-        shardrf.render(f);
-        shardlb.render(f);
-        shardrb.render(f);
+	public void renderCrystal(MatrixStack ms, IVertexBuilder buffer, int light, int overlay) {
+		shardlf.render(ms, buffer, light, overlay);
+        shardrf.render(ms, buffer, light, overlay);
+        shardlb.render(ms, buffer, light, overlay);
+        shardrb.render(ms, buffer, light, overlay);
 	}
 
 	@Override
-	public void renderRing() {
-		float f = 1F / 16F;
-		
-        platef.render(f);
-        plateb.render(f);
-        platel.render(f);
-        plater.render(f);
+	public void renderRing(MatrixStack ms, IVertexBuilder buffer, int light, int overlay) {
+        platef.render(ms, buffer, light, overlay);
+        plateb.render(ms, buffer, light, overlay);
+        platel.render(ms, buffer, light, overlay);
+        plater.render(ms, buffer, light, overlay);
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
+	}
+
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		throw new UnsupportedOperationException("unimplemented");
 	}
 }

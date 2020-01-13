@@ -1,5 +1,8 @@
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -14,7 +17,8 @@ public class ModelCloak extends Model {
 	public ModelRenderer sideR;
 	
 	public ModelCloak() {
-		
+		super(RenderType::getEntityCutout);
+
 		textureWidth = 64;
 		textureHeight = 64;
 		float s = 0.01F;
@@ -35,10 +39,11 @@ public class ModelCloak extends Model {
 		
 	}
 
-	public void render(float f5) {
-		collar.render(f5);
-		sideL.render(f5);
-		sideR.render(f5);
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		collar.render(ms, buffer, light, overlay, r, g, b, a);
+		sideL.render(ms, buffer, light, overlay, r, g, b, a);
+		sideR.render(ms, buffer, light, overlay, r, g, b, a);
 	}
 
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

@@ -13,8 +13,10 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -80,25 +82,19 @@ public class ItemHolyCloak extends ItemBauble {
 		ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
 		AccessoryRenderHelper.rotateIfSneaking(player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
+		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 		float s = 1F / 16F;
-		GlStateManager.scalef(s, s, s);
+		ms.scale(s, s, s);
 		if(model == null)
 			model = new ModelCloak();
 
-		GlStateManager.enableLighting();
-		GlStateManager.enableRescaleNormal();
-
 		Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
-		model.render(1F);
+		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(item.getCloakTexture()));
+		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 
-		int light = 15728880;
-		int lightmapX = light % 65536;
-		int lightmapY = light / 65536;
-		GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-		Minecraft.getInstance().textureManager.bindTexture(item.getCloakGlowTexture());
-		model.render(1F);
+		buffer = buffers.getBuffer(model.getLayer(item.getCloakGlowTexture()));
+		model.render(ms, buffer, 0xF000F0, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {

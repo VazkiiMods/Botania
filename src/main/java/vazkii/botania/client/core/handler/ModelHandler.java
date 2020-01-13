@@ -95,12 +95,11 @@ public final class ModelHandler {
 		registerSubtiles();
 
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
-		RenderTilePylon renderTilePylon = new RenderTilePylon();
 		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);
 		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, RenderTileSpreader::new);
-		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, new RenderTilePool());
-		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, new RenderTileRuneAltar());
-		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, renderTilePylon);
+		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, RenderTilePool::new);
+		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, RenderTileRuneAltar::new);
+		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, RenderTilePylon::new);
 		ClientRegistry.bindTileEntityRenderer(TileEnchanter.TYPE, new RenderTileEnchanter());
 		ClientRegistry.bindTileEntityRenderer(TileAlfPortal.TYPE, RenderTileAlfPortal::new);
 		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, renderTileFloatingFlower);

@@ -10,25 +10,31 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effects;
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.CuriosCapability;
 import top.theillusivec4.curios.api.inventory.CurioStackHandler;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -41,24 +47,19 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 	}
 
 	@Override
-	public void render(@Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		dispatchRenders(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		dispatchRenders(ms, buffers, light, player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
 
-		// todo 1.13 recheck what this was checking for (make sure to account for config+invis)
-		/*
-		if(!h.getStackInSlot(3).isEmpty())
-			renderManaTablet(player);
-		*/
+		if (ConfigHandler.CLIENT.renderAccessories.get() && player.getActivePotionEffect(Effects.INVISIBILITY) == null) {
+			renderManaTablet(ms, buffers, player);
+		}
 	}
 
 	// Like LayerCurios, but with Botania-specific logic
-	private void dispatchRenders(PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-	    GlStateManager.pushMatrix();
+	private void dispatchRenders(MatrixStack ms, IRenderTypeBuffer buffers, int light, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ms.push();
 		CuriosAPI.getCuriosHandler(player).ifPresent(handler -> {
 			Map<String, CurioStackHandler> curios = handler.getCurioMap();
-			if(player.isSneaking()) {
-				GlStateManager.translatef(0, 0.2F, 0);
-			}
 
 			for(Map.Entry<String, CurioStackHandler> e : curios.entrySet()) {
 			    for(int i = 0; i < e.getValue().getSlots(); i++) {
@@ -77,10 +78,9 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 							ItemStack cosmetic = attachable.getCosmeticItem(stack);
 							cosmetic.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
 								if(c.hasRender(e.getKey(), player)) {
-								    GlStateManager.pushMatrix();
-									GlStateManager.color4f(1F, 1F, 1F, 1F);
-									c.doRender(e.getKey(), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
-									GlStateManager.popMatrix();
+									ms.push();
+									c.render(e.getKey(), ms, buffers, light, player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+									ms.pop();
 								}
 							});
 						}
@@ -88,48 +88,36 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 				}
 			}
 		});
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
-	@SuppressWarnings("deprecation")
-	private void renderManaTablet(PlayerEntity player) {
+	private void renderManaTablet(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player) {
 		boolean renderedOne = false;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
-				GlStateManager.pushMatrix();
-				Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+				ms.push();
 				AccessoryRenderHelper.rotateIfSneaking(player);
 				boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.LEGS).isEmpty();
-				GlStateManager.rotatef(90, 0, 1, 0);
-				GlStateManager.rotatef(180, 0, 0, 1);
-				GlStateManager.translated(0, -0.6, 0);
-				GlStateManager.scaled(0.55, 0.55, 0.55);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+				ms.translate(0, -0.6, 0);
+				ms.scale(0.55F, 0.55F, 0.55F);
 
 				if (renderedOne)
-					GlStateManager.translatef(0F, 0F, armor ? 0.55F : 0.5F);
+					ms.translate(0F, 0F, armor ? 0.55F : 0.5F);
 				else
-					GlStateManager.translatef(0F, 0F, armor ? -0.55F : -0.5F);
+					ms.translate(0F, 0F, armor ? -0.55F : -0.5F);
 
-				GlStateManager.scalef(0.75F, 0.75F, 0.75F);
+				ms.scale(0.75F, 0.75F, 0.75F);
 
-				GlStateManager.color3f(1F, 1F, 1F);
-				int light = 15728880;
-				int lightmapX = light % 65536;
-				int lightmapY = light / 65536;
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
-				GlStateManager.popMatrix();
+				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, 0xF000F0, OverlayTexture.DEFAULT_UV, ms, buffers);
+				ms.pop();
 
 				if(renderedOne)
 					return;
 				renderedOne = true;
 			}
 		}
-	}
-
-	@Override
-	public boolean shouldCombineTextures() {
-		return false;
 	}
 }

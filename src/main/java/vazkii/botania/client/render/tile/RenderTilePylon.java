@@ -12,9 +12,12 @@ package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -48,83 +51,88 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 	// Overrides for when we call this TESR without an actual pylon
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 
+	public RenderTilePylon(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void render(@Nonnull TilePylon pylon, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if(!pylon.getWorld().isBlockLoaded(pylon.getPos()) || !(pylon.getBlockState().getBlock() instanceof BlockPylon))
 			return;
 
-		renderPylon(pylon, d0, d1, d2, pticks);
+		renderPylon(pylon, pticks, ms, buffers, light, overlay);
 	}
 	
-	private void renderPylon(@Nullable TilePylon pylon, double d0, double d1, double d2, float pticks) {
+	private void renderPylon(@Nullable TilePylon pylon, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		BlockPylon.Variant type = pylon == null ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
 		IPylonModel model;
+		ResourceLocation texture;
 		switch(type) {
 		default:
 		case MANA: {
 			model = manaModel;
-			Minecraft.getInstance().textureManager.bindTexture(MANA_TEXTURE);
+			texture = MANA_TEXTURE;
 			break;
 		}
 		case NATURA: {
 			model = naturaModel;
-			Minecraft.getInstance().textureManager.bindTexture(NATURA_TEXTURE);
+			texture = NATURA_TEXTURE;
 			break;
 		}
 		case GAIA: {
 			model = gaiaModel;
-			Minecraft.getInstance().textureManager.bindTexture(GAIA_TEXTURE);
+			texture = GAIA_TEXTURE;
 			break;
 		}
 		}
 
-		GlStateManager.pushMatrix();
+		ms.push();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
-		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
+		float worldTime = ClientTickHandler.ticksInGame + pticks;
 
 		worldTime += pylon == null ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
 
-		GlStateManager.translated(d0, d1 + (pylon == null ? 1.35 : 1.5), d2);
-		GlStateManager.scalef(1.0F, -1.0F, -1.0F);
+		ms.translate(0, pylon == null ? 1.35 : 1.5, 0);
+		ms.scale(1.0F, -1.0F, -1.0F);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translatef(0.5F, 0F, -0.5F);
+		ms.push();
+		ms.translate(0.5F, 0F, -0.5F);
 		if(pylon != null)
-			GlStateManager.rotatef((float) worldTime * 1.5F, 0F, 1F, 0F);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(worldTime * 1.5F));
 
-		model.renderRing(); 
+		IVertexBuilder buffer = buffers.getBuffer(RenderType.getEntityTranslucent(texture));
+		model.renderRing(ms, buffer, light, overlay);
 		if(pylon != null)
-			GlStateManager.translated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
-		GlStateManager.popMatrix();
+			ms.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
+		ms.pop();
 
-		GlStateManager.pushMatrix();
+		ms.push();
 		if(pylon != null)
-			GlStateManager.translated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
+			ms.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
-		GlStateManager.translatef(0.5F, 0F, -0.5F);
+		ms.translate(0.5F, 0F, -0.5F);
 		if(pylon != null)
-			GlStateManager.rotatef((float) -worldTime, 0F, 1F, 0F);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-worldTime));
 
 		GlStateManager.disableCull();
 		GlStateManager.disableAlphaTest();
 
 		if(pylon != null)
 			ShaderHelper.useShader(ShaderHelper.pylonGlow);
-		model.renderCrystal();
+		// todo 1.15 custom render layer
+		model.renderCrystal(ms, buffer, light, overlay);
 		if(pylon != null)
 			ShaderHelper.releaseShader();
 
 		GlStateManager.enableAlphaTest();
 		GlStateManager.enableCull();
-		GlStateManager.popMatrix();
+		ms.pop();
 
 		GlStateManager.disableBlend();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
 	public static class TEISR extends ItemStackTileEntityRenderer {
@@ -135,7 +143,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
 				TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(DUMMY);
-				((RenderTilePylon) r).renderPylon(null, 0, 0, 0, 0);
+				((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
 			}
 		}
 	}
