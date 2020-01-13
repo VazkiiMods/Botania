@@ -186,7 +186,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			List<Ingredient> inputs = recipe.getInputs();
 			List<ItemStack> outputs = recipe.getOutputs();
-			if(inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0))) {
+			if(inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0)) && outputs.get(0).getItem() != ModItems.lexicon) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}
 		}
