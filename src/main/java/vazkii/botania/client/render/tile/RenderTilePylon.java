@@ -132,6 +132,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
 				TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(TilePylon.class);
 				((RenderTilePylon) r).renderPylon(null, 0, 0, 0, 0);
+				GlStateManager.enableBlend();
 			}
 		}
 	}
