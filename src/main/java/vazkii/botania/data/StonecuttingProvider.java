@@ -15,10 +15,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -53,6 +57,13 @@ public class StonecuttingProvider extends RecipeProvider {
         consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickSlab, 2));
         consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickStairs));
         consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModBlocks.livingrockBrickChiseled));
+        
+        List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
+                .map(ResourceLocationHelper::prefix)
+                .map(ForgeRegistries.ITEMS::getValue).collect(Collectors.toList());
+		for (Item azulejo : allAzulejos) {
+			consumer.accept(azulejoStonecutting(allAzulejos, azulejo));
+		}
     }
 
     private static void registerForQuartz(String variant, Consumer<IFinishedRecipe> consumer) {
@@ -120,6 +131,11 @@ public class StonecuttingProvider extends RecipeProvider {
 
     private static IFinishedRecipe stonecutting(IItemProvider input, IItemProvider output, int count) {
         return new Result(idFor(input, output), IRecipeSerializer.STONECUTTING, Ingredient.fromItems(input), output.asItem(), count);
+    }
+
+    private static IFinishedRecipe azulejoStonecutting(List<? extends IItemProvider> inputs, IItemProvider output) {
+		Ingredient input = Ingredient.fromItems(inputs.stream().filter(obj -> output != obj).toArray(IItemProvider[]::new));
+		return new Result(prefix("stonecutting/" + output.asItem().getRegistryName().getPath()), IRecipeSerializer.STONECUTTING, input, output.asItem(), 1);
     }
 
     // Wrapper without advancements

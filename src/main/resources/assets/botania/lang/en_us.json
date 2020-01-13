@@ -3267,7 +3267,7 @@
 
   "botania.entry.azulejo": "Azulejos",
   "botania.tagline.azulejo": "Blue-and-white decorative tiles",
-  "botania.page.azulejo0": "$(item)Azulejos$(0) are decorative blocks, textured with tileable patterns of blue and white, crafted simply from a piece of $(item)Lapis Lazuli$(0) and a $(item)Block of Quartz$(0).$(p)The sixteen different designs can be cycled through on a crafting grid.",
+  "botania.page.azulejo0": "$(item)Azulejos$(0) are decorative blocks, textured with tileable patterns of blue and white, crafted simply from a piece of $(item)Lapis Lazuli$(0) and a $(item)Block of Quartz$(0).$(p)The sixteen different designs can be cycled through on a crafting grid or freely exchanged between in a stonecutter.",
   "botania.page.azulejo1": "The various patterns",
   "botania.page.azulejo2": "Crafting $(item)Azulejos$(0)",
   "botania.page.azulejo3": "Cycling through the patterns",
