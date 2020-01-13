@@ -1,7 +1,9 @@
 package vazkii.botania.common.network;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -89,14 +91,17 @@ public class PacketSyncRecipes {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            BotaniaAPI.brewRecipes = brew;
-            BotaniaAPI.elvenTradeRecipes = elven;
-            BotaniaAPI.manaInfusionRecipes = manaInfusion;
-            BotaniaAPI.petalRecipes = petal;
-            BotaniaAPI.pureDaisyRecipes = pureDaisy;
-            BotaniaAPI.runeAltarRecipes = runeAltar;
-        });
+        if(ctx.get().getDirection().getReceptionSide().isClient())
+            ctx.get().enqueueWork(() -> {
+                if(Minecraft.getInstance().isSingleplayer())
+                    return;
+                BotaniaAPI.brewRecipes = brew;
+                BotaniaAPI.elvenTradeRecipes = elven;
+                BotaniaAPI.manaInfusionRecipes = manaInfusion;
+                BotaniaAPI.petalRecipes = petal;
+                BotaniaAPI.pureDaisyRecipes = pureDaisy;
+                BotaniaAPI.runeAltarRecipes = runeAltar;
+            });
         ctx.get().setPacketHandled(true);
     }
 }

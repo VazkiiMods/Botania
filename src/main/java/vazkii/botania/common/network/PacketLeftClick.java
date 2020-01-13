@@ -15,9 +15,8 @@ public class PacketLeftClick {
 	}
 
 	public static void handle(PacketLeftClick msg, Supplier<NetworkEvent.Context> ctx) {
-		ctx.get().enqueueWork(() -> {
-			((ItemTerraSword) ModItems.terraSword).trySpawnBurst(ctx.get().getSender());
-		});
+		if (ctx.get().getDirection().getReceptionSide().isServer())
+			ctx.get().enqueueWork(() -> ((ItemTerraSword) ModItems.terraSword).trySpawnBurst(ctx.get().getSender()));
 		ctx.get().setPacketHandled(true);
 	}
 }

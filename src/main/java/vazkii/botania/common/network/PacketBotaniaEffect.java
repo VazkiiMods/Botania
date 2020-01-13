@@ -64,6 +64,10 @@ public class PacketBotaniaEffect {
 
 	public static class Handler {
 		public static void handle(final PacketBotaniaEffect message, final Supplier<NetworkEvent.Context> ctx) {
+			if (ctx.get().getDirection().getReceptionSide().isServer()) {
+				ctx.get().setPacketHandled(true);
+				return;
+			}
 			ctx.get().enqueueWork(new Runnable() {
 				// Use anon - lambda causes classloading issues
 				@Override
@@ -76,13 +80,13 @@ public class PacketBotaniaEffect {
 						int hex = placeColor.colorValue;
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
-		int b = hex & 0xFF;
-		for(int i = 0; i < 10; i++) {
-			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.rand));
-			SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
-			world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
-		}
-		break;
+						int b = hex & 0xFF;
+						for (int i = 0; i < 10; i++) {
+							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.rand));
+							SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
+							world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
+						}
+						break;
 					}
 					case ARENA_INDICATOR: {
 						SparkleParticleData data = SparkleParticleData.sparkle(5F, 1, 0, 1, 120);
