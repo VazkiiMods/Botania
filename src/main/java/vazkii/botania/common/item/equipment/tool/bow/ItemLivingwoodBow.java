@@ -34,6 +34,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	public static final int MANA_PER_DAMAGE = 40;
@@ -165,5 +166,10 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
 	}
 }

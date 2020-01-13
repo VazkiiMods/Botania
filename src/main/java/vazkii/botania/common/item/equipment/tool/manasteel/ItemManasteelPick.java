@@ -30,6 +30,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, ISortableTool {
@@ -47,9 +48,8 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
-		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
-		return true;
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}
 
 	@Override

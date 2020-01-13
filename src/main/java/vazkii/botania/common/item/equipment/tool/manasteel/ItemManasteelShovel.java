@@ -38,6 +38,7 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
 
@@ -59,11 +60,8 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	@Override
-	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
-		if (state.getBlockHardness(world, pos) != 0F)
-			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
-
-		return true;
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}
 
 	public int getManaPerDamage() {
@@ -73,6 +71,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
+		if (super.onItemUse(ctx) == ActionResultType.SUCCESS)
+			return ActionResultType.SUCCESS;
+
 		ItemStack stack = ctx.getItem();
 		PlayerEntity player = ctx.getPlayer();
 		World world = ctx.getWorld();
@@ -81,21 +82,17 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
 			return ActionResultType.PASS;
 
-		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = field_195955_e.get(block);
+		UseHoeEvent event = new UseHoeEvent(ctx);
+		if (MinecraftForge.EVENT_BUS.post(event))
+			return ActionResultType.FAIL;
 
-		if (converted == null) {
-			UseHoeEvent event = new UseHoeEvent(ctx);
-
-			if (MinecraftForge.EVENT_BUS.post(event))
-				return ActionResultType.FAIL;
-
-			if (event.getResult() == Event.Result.ALLOW) {
-				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
-				return ActionResultType.SUCCESS;
-			}
-			converted = HOE_LOOKUP.get(block);
+		if (event.getResult() == Event.Result.ALLOW) {
+			ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+			return ActionResultType.SUCCESS;
 		}
+
+		Block block = world.getBlockState(pos).getBlock();
+		BlockState converted = HOE_LOOKUP.get(block);
 		if (converted == null)
 			return ActionResultType.PASS;
 

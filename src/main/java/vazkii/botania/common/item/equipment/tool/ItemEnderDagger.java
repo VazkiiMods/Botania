@@ -26,6 +26,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 public class ItemEnderDagger extends ItemManasteelSword {
 
@@ -43,6 +44,11 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 		stack.damageItem(1, attacker, e -> e.sendBreakAnimation(Hand.MAIN_HAND));
 		return true;
+	}
+
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return amount;
 	}
 
 	@Override
