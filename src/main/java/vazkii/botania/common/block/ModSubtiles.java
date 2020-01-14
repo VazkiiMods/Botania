@@ -1,6 +1,7 @@
 package vazkii.botania.common.block;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -14,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
-import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
@@ -153,7 +153,7 @@ public class ModSubtiles {
 		return new ResourceLocation(orig.getNamespace(), orig.getPath() + "_chibi");
 	}
 
-	private static final List<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>> TYPES = ImmutableList.<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>>of(
+	public static final List<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>> TYPES = ImmutableList.<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>>of(
 			Pair.of(SubTilePureDaisy::new, LibBlockNames.SUBTILE_PUREDAISY),
 			Pair.of(SubTileManastar::new, LibBlockNames.SUBTILE_MANASTAR),
 			Pair.of(SubTileEndoflame::new, LibBlockNames.SUBTILE_ENDOFLAME),
@@ -212,8 +212,8 @@ public class ModSubtiles {
 		Block.Properties floatProps = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
-			register(r, new BlockSpecialFlower(props, type.getLeft()), type.getValue());
-			register(r, new BlockFloatingSpecialFlower(floatProps, type.getLeft()), floating(type.getValue()));
+			register(r, new BlockSpecialFlower(props, type.getFirst()), type.getSecond());
+			register(r, new BlockFloatingSpecialFlower(floatProps, type.getFirst()), floating(type.getSecond()));
 		}
 	}
 
@@ -224,11 +224,11 @@ public class ModSubtiles {
 		Item.Properties props = ModItems.defaultBuilder();
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
-			Block block = b.getValue(type.getRight());
-			Block floating = b.getValue(floating(type.getRight()));
+			Block block = b.getValue(type.getSecond());
+			Block floating = b.getValue(floating(type.getSecond()));
 
-			register(r, new ItemBlockSpecialFlower(block, props), type.getRight());
-			register(r, new ItemBlockSpecialFlower(floating, props), floating(type.getRight()));
+			register(r, new ItemBlockSpecialFlower(block, props), type.getSecond());
+			register(r, new ItemBlockSpecialFlower(floating, props), floating(type.getSecond()));
 		}
 	}
 
@@ -238,9 +238,9 @@ public class ModSubtiles {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
-			Block block = b.getValue(type.getRight());
-			Block floating = b.getValue(floating(type.getRight()));
-			register(r, TileEntityType.Builder.create(type.getLeft(), block, floating).build(null), type.getRight());
+			Block block = b.getValue(type.getSecond());
+			Block floating = b.getValue(floating(type.getSecond()));
+			register(r, TileEntityType.Builder.create(type.getFirst(), block, floating).build(null), type.getSecond());
 		}
 	}
 }

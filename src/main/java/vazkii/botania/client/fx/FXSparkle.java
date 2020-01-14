@@ -12,6 +12,7 @@ package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
@@ -70,7 +71,8 @@ public class FXSparkle extends Particle {
 	}
 
 	@Override
-	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+	public void buildGeometry(IVertexBuilder buffer, ActiveRenderInfo info, float partialTicks) {
+		/* todo 1.15 redo this in a modern way (using TexturedParticle)
 		int part = particle + age/multiplier;
 
 		float var8 = part % 8 / 8.0F;
@@ -89,6 +91,7 @@ public class FXSparkle extends Particle {
 		buffer.pos(var13 - rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 - rotationYZ * var12 + rotationXZ * var12).tex(var9, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
 		buffer.pos(var13 + rotationX * var12 + rotationXY * var12, var14 + rotationZ * var12, var15 + rotationYZ * var12 + rotationXZ * var12).tex(var8, var10).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
 		buffer.pos(var13 + rotationX * var12 - rotationXY * var12, var14 - rotationZ * var12, var15 + rotationYZ * var12 - rotationXZ * var12).tex(var8, var11).color(particleRed * var16, particleGreen * var16, particleBlue * var16, 1).endVertex();
+		*/
 	}
 
 	@Override
@@ -137,13 +140,13 @@ public class FXSparkle extends Particle {
 	{
 		BlockPos blockpos = new BlockPos(x, y, z);
 		Vec3d vec3d = new Vec3d(x - (double)blockpos.getX(), y - (double)blockpos.getY(), z - (double)blockpos.getZ());
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 		Direction direction = Direction.UP;
 		double d0 = Double.MAX_VALUE;
 
 		for(Direction direction1 : new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP}) {
-			blockpos$mutableblockpos.setPos(blockpos).move(direction1);
-			if (!Block.isOpaque(this.world.getBlockState(blockpos$mutableblockpos).getCollisionShape(this.world, blockpos$mutableblockpos))) {
+			blockpos$mutable.setPos(blockpos).move(direction1);
+			if (!this.world.getBlockState(blockpos$mutable).isFullCube(this.world, blockpos$mutable)) {
 				double d1 = vec3d.getCoordinate(direction1.getAxis());
 				double d2 = direction1.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1.0D - d1 : d1;
 				if (d2 < d0) {

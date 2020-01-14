@@ -10,17 +10,24 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.BlockLightRelay;
@@ -34,12 +41,13 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
 	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
 
-	@Override
-	public void render(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
-		if(!tile.getWorld().isBlockLoaded(tile.getPos()))
-			return;
+	public RenderTileLightRelay(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
 
-		BlockState state = tile.getWorld().getBlockState(tile.getPos());
+	@Override
+	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		BlockState state = tile.getBlockState();
 		if(!(state.getBlock() instanceof BlockLightRelay))
 			return;
 
@@ -53,64 +61,46 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
 		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(x + 0.5, y + 0.3, z + 0.5);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
+		ms.push();
+		ms.translate(0.5, 0.3, 0.5);
 
 		double time = ClientTickHandler.ticksInGame + pticks;
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 		float scale = 0.75F;
-		GlStateManager.scalef(scale, scale, scale);
-		Tessellator tessellator = Tessellator.getInstance();
+		ms.scale(scale, scale, scale);
 
-		GlStateManager.pushMatrix();
-		float r = 180.0F - mc.getRenderManager().playerViewY;
-		GlStateManager.rotatef(r, 0F, 1F, 0F);
-		GlStateManager.rotatef(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
+		ms.multiply(mc.getRenderManager().getRotation());
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
 		float off = 0.25F;
-		GlStateManager.translatef(0F, off, 0F);
-		GlStateManager.rotatef((float) time, 0F, 0F, 1F);
-		GlStateManager.translatef(0F, -off, 0F);
+		ms.translate(0F, off, 0F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion((float) time));
+		ms.translate(0F, -off, 0F);
 
-		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
-		renderIcon(tessellator, iicon);
-		ShaderHelper.releaseShader();
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.LIGHT_RELAY);
+		renderIcon(ms, buffer, iicon);
 
-		GlStateManager.popMatrix();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.disableBlend();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
-	private void renderIcon(Tessellator tess, TextureAtlasSprite icon) {
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		float size = f1 - f;
+	private void renderIcon(MatrixStack ms, IVertexBuilder buffer, TextureAtlasSprite icon) {
+		float size = icon.getMaxU() - icon.getMinU();
 		float pad = size / 8F;
-		f += pad;
-		f1 -= pad;
-		f2 += pad;
-		f3 -= pad;
+		float f = icon.getMinU() + pad;
+		float f1 = icon.getMaxU() - pad;
+		float f2 = icon.getMinV() + pad;
+		float f3 = icon.getMaxV() - pad;
 
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		tess.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP_NORMAL);
-		tess.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).lightmap(240, 240).normal(0, 1, 0).endVertex();
-		tess.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).lightmap(240, 240).normal(0, 1, 0).endVertex();
-		tess.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).lightmap(240, 240).normal(0, 1, 0).endVertex();
-		tess.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).lightmap(240, 240).normal(0, 1, 0).endVertex();
-		tess.draw();
+		Matrix4f mat = ms.peek().getModel();
+		int fullbright = 0xF000F0;
+		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f, f3).light(fullbright).endVertex();
+		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f1, f3).light(fullbright).endVertex();
+		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f1, f2).light(fullbright).endVertex();
+		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f, f2).light(fullbright).endVertex();
 
 	}
 

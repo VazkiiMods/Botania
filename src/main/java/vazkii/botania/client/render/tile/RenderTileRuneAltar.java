@@ -12,27 +12,30 @@ package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
 import javax.annotation.Nonnull;
 
 public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
-
-	private final ModelSpinningCubes cubes = new ModelSpinningCubes();
+	private final ModelRenderer spinningCube = new ModelRenderer(64, 32, 42, 0);
 
 	public RenderTileRuneAltar(TileEntityRendererDispatcher manager) {
 		super(manager);
+		spinningCube.addCuboid(0F, 0F, 0F, 1, 1, 1);
+		spinningCube.setRotationPoint(0F, 0F, 0F);
+		spinningCube.setTextureSize(64, 64);
 	}
 
 	@Override
@@ -71,8 +74,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		ms.push();
 		ms.translate(0.5F, 1.8F, 0.5F);
 		ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(180F));
-		int repeat = 15;
-		cubes.renderSpinningCubes(2, repeat, repeat);
+		renderSpinningCubes(ms, buffers, overlay, 2, 15);
 		ms.pop();
 
 		ms.translate(0F, 0.2F, 0F);
@@ -85,5 +87,48 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		}
 
 		ms.pop();
+	}
+
+	private void renderSpinningCubes(MatrixStack ms, IRenderTypeBuffer buffers, int overlay, int cubes, int iters) {
+		for (int curIter = iters; curIter > 0; curIter--) {
+			final float modifier = 6F;
+			final float rotationModifier = 0.2F;
+			final float radiusBase = 0.35F;
+			final float radiusMod = 0.05F;
+
+			double ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks - 1.3 * (iters - curIter);
+			float offsetPerCube = 360 / cubes;
+
+			ms.push();
+			ms.translate(-0.025F, 0.85F, -0.025F);
+			for(int i = 0; i < cubes; i++) {
+				float offset = offsetPerCube * i;
+				float deg = (int) (ticks / rotationModifier % 360F + offset);
+				float rad = deg * (float) Math.PI / 180F;
+				float radiusX = (float) (radiusBase + radiusMod * Math.sin(ticks / modifier));
+				float radiusZ = (float) (radiusBase + radiusMod * Math.cos(ticks / modifier));
+				float x =  (float) (radiusX * Math.cos(rad));
+				float z = (float) (radiusZ * Math.sin(rad));
+				float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
+
+				ms.push();
+				ms.translate(x, y, z);
+				float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
+				float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
+				float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
+
+				ms.multiply(new Vector3f(xRotate, yRotate, zRotate).getDegreesQuaternion(deg));
+				float alpha = 1;
+				if(curIter < iters) {
+					alpha = (float) curIter / (float) iters * 0.4F;
+				}
+
+				IVertexBuilder buffer = buffers.getBuffer(curIter < iters ? RenderHelper.SPINNING_CUBE_GHOST : RenderHelper.SPINNING_CUBE);
+				spinningCube.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
+
+				ms.pop();
+			}
+			ms.pop();
+		}
 	}
 }

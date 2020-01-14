@@ -11,7 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -36,13 +36,16 @@ import java.util.OptionalDouble;
 import java.util.Random;
 
 public final class RenderHelper {
-	private static final RenderType STAR_LAYER;
+	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
 	public static final RenderType LINE_1;
 	public static final RenderType LINE_4;
 	public static final RenderType LINE_5;
 	public static final RenderType LINE_8;
+	public static final RenderType LIGHT_RELAY;
+	public static final RenderType SPINNING_CUBE;
+	public static final RenderType SPINNING_CUBE_GHOST;
 	public static final RenderType ICON_OVERLAY;
 	public static final RenderType BABYLON_ICON;
 	public static final RenderType MANA_POOL_WATER;
@@ -64,7 +67,7 @@ public final class RenderHelper {
 				.writeMaskState(colorMask)
 				.transparency(lightningTransparency)
 				.build(false);
-		STAR_LAYER = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
+		STAR = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
 
 		glState = RenderType.State.builder().transparency(translucentTransparency).cull(disableCull).build(false);
 		RECTANGLE = RenderType.of(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
@@ -78,6 +81,16 @@ public final class RenderHelper {
 		LINE_5 = RenderType.of(LibResources.PREFIX_MOD + "line_5", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).alpha(new RenderState.AlphaState(0.05F)).build(true);
+		// todo 1.15: need normals?
+		LIGHT_RELAY = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 64, glState));
+
+		glState = RenderType.State.builder().texture(new RenderState.TextureState()).build(false);
+		SPINNING_CUBE = RenderType.of(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
+
+		glState = RenderType.State.builder().texture(new RenderState.TextureState()).transparency(translucentTransparency).build(false);
+		SPINNING_CUBE_GHOST = RenderType.of(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
 
 		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).lightmap(enableLightmap).build(true);
 		ICON_OVERLAY = RenderType.of(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 128, glState);
@@ -106,7 +119,7 @@ public final class RenderHelper {
 	}
 
 	public static void renderStar(MatrixStack ms, IRenderTypeBuffer buffers, int color, float xScale, float yScale, float zScale, long seed) {
-		IVertexBuilder buffer = buffers.getBuffer(STAR_LAYER);
+		IVertexBuilder buffer = buffers.getBuffer(STAR);
 
 		float ticks = (ClientTickHandler.ticksInGame % 200) + ClientTickHandler.partialTicks;
 		if (ticks >= 100)
@@ -167,13 +180,13 @@ public final class RenderHelper {
 		Minecraft mc = Minecraft.getInstance();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 
-		GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
+		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
-		GlStateManager.colorMask(false, false, false, false);
-		GlStateManager.depthMask(false);
-		GL11.glStencilFunc(GL11.GL_NEVER, 1, 0xFF);
-		GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
-		GL11.glStencilMask(0xFF);
+		RenderSystem.colorMask(false, false, false, false);
+		RenderSystem.depthMask(false);
+		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
+		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
+		RenderSystem.stencilMask(0xFF);
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 
 		mc.textureManager.bindTexture(new ResourceLocation(LibResources.GUI_MANA_HUD));
@@ -183,15 +196,15 @@ public final class RenderHelper {
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableTexture();
-		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.colorMask(true, true, true, true);
-		GlStateManager.depthMask(true);
-		GL11.glStencilMask(0x00);
-		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
+		RenderSystem.disableLighting();
+		RenderSystem.disableTexture();
+		RenderSystem.shadeModel(GL11.GL_SMOOTH);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		RenderSystem.colorMask(true, true, true, true);
+		RenderSystem.depthMask(true);
+		RenderSystem.stencilMask(0x00);
+		RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 
 		BufferBuilder buf = Tessellator.getInstance().getBuffer();
 		buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
@@ -205,9 +218,9 @@ public final class RenderHelper {
 		buf.vertex(centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
 		Tessellator.getInstance().draw();
 
-		GlStateManager.disableBlend();
-		GlStateManager.enableTexture();
-		GlStateManager.shadeModel(GL11.GL_FLAT);
+		RenderSystem.disableBlend();
+		RenderSystem.enableTexture();
+		RenderSystem.shadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 

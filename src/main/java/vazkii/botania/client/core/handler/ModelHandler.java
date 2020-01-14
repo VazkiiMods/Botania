@@ -8,10 +8,12 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -34,6 +36,7 @@ import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.*;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
@@ -94,7 +97,6 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(prefix("block/mana_pump_head"));
 		registerSubtiles();
 
-		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
 		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);
 		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, RenderTileSpreader::new);
 		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, RenderTilePool::new);
@@ -102,9 +104,12 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, RenderTilePylon::new);
 		ClientRegistry.bindTileEntityRenderer(TileEnchanter.TYPE, RenderTileEnchanter::new);
 		ClientRegistry.bindTileEntityRenderer(TileAlfPortal.TYPE, RenderTileAlfPortal::new);
-		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, renderTileFloatingFlower);
+		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, RenderTileFloatingFlower::new);
 		// TODO 1.14 this seems highly questionable.
-		ClientRegistry.bindTileEntityRenderer(TileEntitySpecialFlower.class, renderTileFloatingFlower);
+		ModSubtiles.TYPES.stream()
+				.map(Pair::getSecond)
+				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
+				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
 		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, new RenderTileTinyPotato());
 		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, new RenderTileStarfield());
 		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
@@ -123,7 +128,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileHourglass.TYPE, RenderTileHourglass::new);
 		ClientRegistry.bindTileEntityRenderer(TileSparkChanger.TYPE, RenderTileSparkChanger::new);
 		ClientRegistry.bindTileEntityRenderer(TileCocoon.TYPE, RenderTileCocoon::new);
-		ClientRegistry.bindTileEntityRenderer(TileLightRelay.TYPE, new RenderTileLightRelay());
+		ClientRegistry.bindTileEntityRenderer(TileLightRelay.TYPE, RenderTileLightRelay::new);
 		ClientRegistry.bindTileEntityRenderer(TileBellows.TYPE, RenderTileBellows::new);
 		ClientRegistry.bindTileEntityRenderer(TileGaiaHead.TYPE, new RenderTileGaiaHead());
 		ClientRegistry.bindTileEntityRenderer(TileTeruTeruBozu.TYPE, RenderTileTeruTeruBozu::new);
