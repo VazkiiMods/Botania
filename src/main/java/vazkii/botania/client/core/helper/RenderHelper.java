@@ -33,10 +33,41 @@ import vazkii.botania.client.lib.LibResources;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.Random;
-import java.util.function.Consumer;
 
 public final class RenderHelper {
+	private static final RenderType STAR_LAYER;
+	public static final RenderType RECTANGLE;
+	public static final RenderType CIRCLE;
+	public static final RenderType LINE_1;
+	public static final RenderType LINE_4;
+	public static final RenderType LINE_5;
+	public static final RenderType LINE_8;
+
+	// todo 1.15 AT's for necessary fields
+	static {
+		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
+		RenderType.State glState = RenderType.State.builder().shadeModel(new RenderState.ShadeModelState(true))
+				.writeMaskState(new RenderState.WriteMaskState(true, false))
+				.transparency(lightningTransparency)
+				.build(false);
+		STAR_LAYER = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
+
+		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
+		RenderState.CullState disableCull = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228491_A_");
+		glState = RenderType.State.builder().transparency(translucentTransparency).cull(disableCull).build(false);
+		RECTANGLE = RenderType.of(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
+		CIRCLE = RenderType.of(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
+
+		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
+		RenderState.WriteMaskState colorMask = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228496_F_");
+
+		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
+		LINE_4 = RenderType.of(LibResources.PREFIX_MOD + "line_4", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
+		LINE_5 = RenderType.of(LibResources.PREFIX_MOD + "line_5", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
+		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
+	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
 		drawTexturedModalRect(par1, par2, z, par3, par4, par5, par6, 0.00390625F, 0.00390625F);
@@ -50,16 +81,6 @@ public final class RenderHelper {
 		tessellator.getBuffer().vertex(par1 + par5, par2, z).texture((par3 + par5) * f, par4 * f1).endVertex();
 		tessellator.getBuffer().vertex(par1, par2, z).texture(par3 * f, par4 * f1).endVertex();
 		tessellator.draw();
-	}
-
-	private static final RenderType STAR_LAYER;
-	static {
-		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
-		RenderType.State glState = RenderType.State.builder().shadeModel(new RenderState.ShadeModelState(true))
-				.writeMaskState(new RenderState.WriteMaskState(true, false))
-				.transparency(lightningTransparency)
-				.build(false);
-		STAR_LAYER = RenderType.of("botania:star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
 	}
 
 	public static void renderStar(MatrixStack ms, IRenderTypeBuffer buffers, int color, float xScale, float yScale, float zScale, long seed) {
@@ -103,16 +124,20 @@ public final class RenderHelper {
 		ms.pop();
 	}
 
+	public static void triangleFan(Runnable center, Runnable... vertices) {
+		triangleFan(center, Arrays.asList(vertices));
+	}
+
 	/**
 	 * With a buffer in GL_TRIANGLES mode, emulates GL_TRIANGLE_FAN on the CPU.
 	 * This is because batching of GL_TRIANGLE_FAN makes no sense (the vertices would bleed into one massive fan)
 	 * Primitive restart would also work but it's not easy to use in Minecraft
 	 */
-	public static void triangleFan(Runnable center, Runnable... vertices) {
-		for (int i = 0; i < vertices.length - 1; i++) {
+	public static void triangleFan(Runnable center, List<Runnable> vertices) {
+		for (int i = 0; i < vertices.size() - 1; i++) {
 			center.run();
-			vertices[i].run();
-			vertices[i + 1].run();
+			vertices.get(i).run();
+			vertices.get(i + 1).run();
 		}
 	}
 

@@ -38,7 +38,6 @@ import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
-import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
@@ -105,9 +104,6 @@ public class ClientProxy implements IProxy {
 		} catch (IOException e) {
 			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
-
-		if(ConfigHandler.CLIENT.boundBlockWireframe.get())
-			MinecraftForge.EVENT_BUS.register(BoundTileRenderer.class);
 
 		if(ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
 			LocalDateTime now = LocalDateTime.now();

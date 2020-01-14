@@ -35,6 +35,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityMagicLandmine;
@@ -43,21 +44,13 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
-import java.awt.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class BlockHighlightRenderHandler {
-	private static final RenderType RECTANGLE;
-	private static final RenderType CIRCLE;
-	static {
-		// todo 1.15 check GL state, AT's for the fields
-		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
-		RenderState.CullState disableCull = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228491_A_");
-		RenderType.State glState = RenderType.State.builder().transparency(translucentTransparency).cull(disableCull).build(false);
-		RECTANGLE = RenderType.of("botania:rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
-		CIRCLE = RenderType.of("botania:circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLE_FAN, 256, false, true, glState);
-	}
 
 	private BlockHighlightRenderHandler() {}
 
@@ -133,7 +126,7 @@ public final class BlockHighlightRenderHandler {
 		float x = (float) (aabb.maxX - aabb.minX - f);
 		float z = (float) (aabb.maxZ - aabb.minZ - f);
 
-		IVertexBuilder buffer = buffers.getBuffer(RECTANGLE);
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
 		Matrix4f mat = ms.peek().getModel();
 		buffer.vertex(mat, x, f, f).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
 		buffer.vertex(mat, f, f, f).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
@@ -175,30 +168,32 @@ public final class BlockHighlightRenderHandler {
 		int step = totalAngles / drawAngles;
 
 		radius -= f;
-		IVertexBuilder buffer = buffers.getBuffer(CIRCLE);
-		// todo 1.15 ! TRIANGLE_FAN GL draw mode means we can't batch up everything like we're doing right now--they'll all run together
-		// todo 1.15 we must either draw between each circle or use a different draw mode (probably switch to GL_TRIANGLES)
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.CIRCLE);
 		Matrix4f mat = ms.peek().getModel();
-		buffer.vertex(mat, 0, f, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+
+		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+		List<Runnable> vertexFuncs = new ArrayList<>();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			buffer.vertex(mat, xp, f, zp).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex());
 		}
-		buffer.vertex(mat, 0, f, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 
 		radius += f;
 		float f1 = f + f / 4F;
-		alpha = 64;
-		buffer.vertex(mat, 0, f1, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+		int alpha2 = 64;
+
+		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha2).endVertex();
+		vertexFuncs.clear();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			buffer.vertex(mat, xp, f1, zp).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha2).endVertex());
 		}
-		buffer.vertex(mat, 0, f1, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 		ms.pop();
 	}
 
