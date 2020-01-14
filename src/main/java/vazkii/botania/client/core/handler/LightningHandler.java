@@ -67,12 +67,12 @@ public class LightningHandler {
 		render.bindTexture(outsideResource);
 		int counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(0, false);
 			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 			}
 			counter++;
 		}
@@ -81,12 +81,12 @@ public class LightningHandler {
 		render.bindTexture(insideResource);
 		counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(1, true);
 			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 			}
 			counter++;
 		}

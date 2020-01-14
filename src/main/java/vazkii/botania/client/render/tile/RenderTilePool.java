@@ -98,7 +98,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 					ms.scale(s, s, s);
 
 					IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
-					renderIcon(ms, buffer, overlayIcon, alpha);
+					IconHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
 
 					ms.pop();
 				}

@@ -1,5 +1,6 @@
 package vazkii.botania.client.fx;
 
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -65,7 +66,7 @@ public class FXLightning extends Particle {
 	}
 
 	@Override
-	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo info, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+	public void buildGeometry(IVertexBuilder buffer, ActiveRenderInfo info, float partialTicks) {
 		LightningHandler.queuedLightningBolts.offer(this);
 	}
 
@@ -109,27 +110,27 @@ public class FXLightning extends Particle {
 		int b = color & 0xFF;
 		int a = (int) (mainAlpha * rendersegment.light * 0xFF);
 
-		wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-		wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-		wr.pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-		wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
+		wr.vertex(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+		wr.vertex(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+		wr.vertex(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+		wr.vertex(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
 
 		if(rendersegment.next == null) {
 			Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
 
-			wr.pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).tex(0, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-			wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-			wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-			wr.pos(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).tex(0, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
+			wr.vertex(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).texture(0, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+			wr.vertex(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+			wr.vertex(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+			wr.vertex(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).texture(0, 1).light(0xF000F0).color(r, g, b, a).endVertex();
 		}
 
 		if(rendersegment.prev == null) {
 			Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
 
-			wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-			wr.pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).tex(0, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-			wr.pos(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).tex(0, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
-			wr.pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
+			wr.vertex(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+			wr.vertex(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).texture(0, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+			wr.vertex(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).texture(0, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+			wr.vertex(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
 		}
 		}
 	}
