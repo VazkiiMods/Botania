@@ -68,23 +68,22 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 			ms.pop();
 		}
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translatef(0.5F, 1.8F, 0.5F);
-		GlStateManager.rotatef(180F, 1F, 0F, 1F);
+		ms.push();
+		ms.translate(0.5F, 1.8F, 0.5F);
+		ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(180F));
 		int repeat = 15;
 		cubes.renderSpinningCubes(2, repeat, repeat);
-		GlStateManager.popMatrix();
+		ms.pop();
 
-		GlStateManager.translatef(0F, 0.2F, 0F);
+		ms.translate(0F, 0.2F, 0F);
 		float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
 
 		if(scale != 0) {
 			int seed = altar.getPos().getX() ^ altar.getPos().getY() ^ altar.getPos().getZ();
-			GlStateManager.translatef(0.5F, 0.7F, 0.5F);
-			RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);
+			ms.translate(0.5F, 0.7F, 0.5F);
+			RenderHelper.renderStar(ms, buffers, 0x00E4D7, scale, scale, scale, seed);
 		}
-		GlStateManager.enableAlphaTest();
 
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 }

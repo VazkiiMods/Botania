@@ -10,7 +10,9 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -27,15 +29,12 @@ public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 	}
 
 	@Override
-	public void doRender(@Nonnull EntityManaStorm storm, double x, double y, double z, float something, float pticks) {
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(x, y, z);
+	public void render(EntityManaStorm storm, float yaw, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+		ms.push();
 		float maxScale = 1.95F;
 		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
-		RenderHelper.renderStar(0x00FF00, scale, scale, scale, storm.getUniqueID().getMostSignificantBits());
-		GlStateManager.disableBlend();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
+		RenderHelper.renderStar(ms, buffers, 0x00FF00, scale, scale, scale, storm.getUniqueID().getMostSignificantBits());
+		ms.pop();
 	}
 
 	@Nonnull

@@ -116,7 +116,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileRedStringInterceptor.TYPE, RenderTileRedString::new);
 		ClientRegistry.bindTileEntityRenderer(TileRedStringRelay.TYPE, RenderTileRedString::new);
 		ClientRegistry.bindTileEntityRenderer(TilePrism.TYPE, RenderTilePrism::new);
-		ClientRegistry.bindTileEntityRenderer(TileCorporeaIndex.TYPE, new RenderTileCorporeaIndex());
+		ClientRegistry.bindTileEntityRenderer(TileCorporeaIndex.TYPE, RenderTileCorporeaIndex::new);
 		ClientRegistry.bindTileEntityRenderer(TilePump.TYPE, RenderTilePump::new);
 		ClientRegistry.bindTileEntityRenderer(TileCorporeaCrystalCube.TYPE, RenderTileCorporeaCrystalCube::new);
 		ClientRegistry.bindTileEntityRenderer(TileIncensePlate.TYPE, RenderTileIncensePlate::new);

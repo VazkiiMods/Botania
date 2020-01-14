@@ -176,6 +176,8 @@ public final class BlockHighlightRenderHandler {
 
 		radius -= f;
 		IVertexBuilder buffer = buffers.getBuffer(CIRCLE);
+		// todo 1.15 ! TRIANGLE_FAN GL draw mode means we can't batch up everything like we're doing right now--they'll all run together
+		// todo 1.15 we must either draw between each circle or use a different draw mode (probably switch to GL_TRIANGLES)
 		Matrix4f mat = ms.peek().getModel();
 		buffer.vertex(mat, 0, f, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {
