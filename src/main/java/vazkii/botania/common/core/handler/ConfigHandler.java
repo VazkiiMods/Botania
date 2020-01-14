@@ -40,6 +40,7 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue debugInfo;
 		public final ForgeConfigSpec.BooleanValue matrixMode;
 		public final ForgeConfigSpec.BooleanValue referencesEnabled;
+		public final ForgeConfigSpec.BooleanValue splashesEnabled;
 
 		public Client(ForgeConfigSpec.Builder builder) {
 			useShaders = builder
@@ -108,6 +109,9 @@ public final class ConfigHandler {
 			referencesEnabled = builder
 					.comment("Set this to false to disable the references in the flower tooltips. (You monster D:)")
 					.define("references", true);
+			splashesEnabled = builder
+					.comment("Set this to false to disable Botania's splashes in the main menu.")
+					.define("splashes", true);
 		}
 	}
 
