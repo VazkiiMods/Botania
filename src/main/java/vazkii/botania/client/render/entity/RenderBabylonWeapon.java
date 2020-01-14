@@ -76,7 +76,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		Minecraft.getInstance().textureManager.bindTexture(babylon);
 
 		Tessellator tes = Tessellator.getInstance();
-		ShaderHelper.useShader(ShaderHelper.halo);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
 		Random rand = new Random(weapon.getUniqueID().getMostSignificantBits());
 		GlStateManager.rotatef(-90F, 1F, 0F, 0F);
 		GlStateManager.translatef(0F, -0.3F + rand.nextFloat() * 0.1F, 1F);

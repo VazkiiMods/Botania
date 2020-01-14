@@ -149,6 +149,6 @@ public final class LibResources {
 	public static final String SHADER_GOLD_FRAG = PREFIX_SHADER + "gold.frag";
 	public static final String SHADER_CATEGORY_BUTTON_FRAG = PREFIX_SHADER + "category_button.frag";
 	public static final String SHADER_ALPHA_FRAG = PREFIX_SHADER + "alpha.frag";
-	public static final String SHADER_ALPHA_VERT = PREFIX_SHADER + "alpha.vert";
+	public static final String SHADER_PASSTHROUGH_VERT = PREFIX_SHADER + "passthrough.vert";
 
 }

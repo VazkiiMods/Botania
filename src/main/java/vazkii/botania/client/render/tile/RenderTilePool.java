@@ -17,8 +17,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -28,6 +30,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.ModBlocks;
@@ -92,68 +95,47 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		if(pool != null) {
 			Block below = pool.getWorld().getBlockState(pool.getPos().down()).getBlock();
 			if(below instanceof IPoolOverlayProvider) {
-				TextureAtlasSprite overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.getPos());
-				if(overlay != null) {
-					GlStateManager.pushMatrix();
-					GlStateManager.enableBlend();
-					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-					GlStateManager.disableAlphaTest();
-					GlStateManager.color4f(1F, 1F, 1F, 1 * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
-					GlStateManager.translatef(-0.5F, -1F - 0.43F, -0.5F);
-					GlStateManager.rotatef(90F, 1F, 0F, 0F);
-					GlStateManager.scalef(s, s, s);
+				TextureAtlasSprite overlayIcon = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.getPos());
+				if(overlayIcon != null) {
+					ms.push();
+					float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
+					ms.translate(-0.5F, -1F - 0.43F, -0.5F);
+					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+					ms.scale(s, s, s);
 
-					renderIcon(0, 0, overlay, 16, 16, 240);
+					IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
+					renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
 
-					GlStateManager.enableAlphaTest();
-					GlStateManager.disableBlend();
-					GlStateManager.popMatrix();
+					ms.pop();
 				}
 			}
 		}
 
 		if(waterLevel > 0) {
 			s = 1F / 256F * 14F;
-			GlStateManager.pushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.disableAlphaTest();
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
-			GlStateManager.translatef(w, -1F - (0.43F - waterLevel), w);
-			GlStateManager.rotatef(90F, 1F, 0F, 0F);
-			GlStateManager.scalef(s, s, s);
+			ms.push();
+			ms.translate(w, -1F - (0.43F - waterLevel), w);
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+			ms.scale(s, s, s);
 
-			ShaderHelper.useShader(ShaderHelper.manaPool);
-			renderIcon(0, 0, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 240);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.MANA_POOL);
+			renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 1);
 			ShaderHelper.releaseShader();
 
-			GlStateManager.enableAlphaTest();
-			GlStateManager.disableBlend();
-			GlStateManager.popMatrix();
+			ms.pop();
 		}
 		ms.pop();
 
 		cartMana = -1;
 	}
 
-	private void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
-		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP);
-		tessellator.getBuffer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).lightmap(brightness, brightness).endVertex();
-		tessellator.getBuffer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).lightmap(brightness, brightness).endVertex();
-		tessellator.getBuffer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).lightmap(brightness, brightness).endVertex();
-		tessellator.getBuffer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).lightmap(brightness, brightness).endVertex();
-		tessellator.draw();
-	}
-
-	private BlockState poolForVariant(BlockPool.Variant v) {
-		switch (v) {
-			default:
-			case DEFAULT: return ModBlocks.manaPool.getDefaultState();
-			case CREATIVE: return ModBlocks.creativePool.getDefaultState();
-			case DILUTED: return ModBlocks.dilutedPool.getDefaultState();
-			case FABULOUS: return ModBlocks.fabulousPool.getDefaultState();
-		}
+	private void renderIcon(MatrixStack ms, IVertexBuilder buffer, int x, int y, TextureAtlasSprite icon, int width, int height, float alpha) {
+		Matrix4f mat = ms.peek().getModel();
+		int fullbright = 0xF000F0;
+		buffer.vertex(mat, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).light(fullbright).endVertex();
+		buffer.vertex(mat, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).light(fullbright).endVertex();
+		buffer.vertex(mat, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).light(fullbright).endVertex();
+		buffer.vertex(mat, x, y, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMinV()).light(fullbright).endVertex();
 	}
 
 }

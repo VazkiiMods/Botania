@@ -71,7 +71,7 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 		else if(view instanceof EnderDragonEntity)
 			type = SkullBlock.Types.DRAGON;
 
-		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback);
 		original.render(x, y, z, facing, rotationIn, type, profile, destroyStage, animationProgress);
 		ShaderHelper.releaseShader();
 	}

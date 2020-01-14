@@ -53,7 +53,7 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 	@Override
 	public void doRender(@Nonnull EntityPixie pixie, double par2, double par4, double par6, float par8, float par9) {
 		if(pixie.getPixieType() == 1)
-			ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.DOPPLEGANGER, callback);
 		super.doRender(pixie, par2, par4, par6, par8, par9);
 		if(pixie.getPixieType() == 1)
 			ShaderHelper.releaseShader();

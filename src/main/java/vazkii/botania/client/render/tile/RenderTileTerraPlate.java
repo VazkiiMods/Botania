@@ -55,7 +55,7 @@ public class RenderTileTerraPlate extends TileEntityRenderer<TileTerraPlate> {
 
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
-		ShaderHelper.useShader(ShaderHelper.terraPlateRune);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.TERRA_PLATE);
 		renderIcon(0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay, 1, 1, 240);
 		ShaderHelper.releaseShader();
 

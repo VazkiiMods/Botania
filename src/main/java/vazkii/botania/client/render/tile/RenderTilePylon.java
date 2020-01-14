@@ -121,7 +121,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		GlStateManager.disableAlphaTest();
 
 		if(pylon != null)
-			ShaderHelper.useShader(ShaderHelper.pylonGlow);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.PYLON_GLOW);
 		// todo 1.15 custom render layer
 		model.renderCrystal(ms, buffer, light, overlay);
 		if(pylon != null)

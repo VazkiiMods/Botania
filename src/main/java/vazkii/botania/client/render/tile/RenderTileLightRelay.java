@@ -78,7 +78,7 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		GlStateManager.translatef(0F, -off, 0F);
 
 		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		ShaderHelper.useShader(ShaderHelper.halo);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
 		renderIcon(tessellator, iicon);
 		ShaderHelper.releaseShader();
 

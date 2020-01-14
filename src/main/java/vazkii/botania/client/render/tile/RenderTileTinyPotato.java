@@ -87,23 +87,23 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 		boolean usedShader = false;
 		if (matches(name, "gaia")) {
-			ShaderHelper.useShader(ShaderHelper.doppleganger);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.DOPPLEGANGER);
 			name = removeFromFront(name, "gaia");
 			usedShader = true;
 		} else if (matches(name, "hot")) {
-			ShaderHelper.useShader(ShaderHelper.halo);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
 			name = removeFromFront(name, "hot");
 			usedShader = true;
 		} else if (matches(name, "magic")) {
-			ShaderHelper.useShader(ShaderHelper.enchanterRune);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.ENCHANTER_RUNE);
 			name = removeFromFront(name, "magic");
 			usedShader = true;
 		} else if (matches(name, "gold")) {
-			ShaderHelper.useShader(ShaderHelper.gold);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
 			name = removeFromFront(name, "gold");
 			usedShader = true;
 		} else if (matches(name, "snoop")) {
-			ShaderHelper.useShader(ShaderHelper.terraPlateRune);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.TERRA_PLATE);
 			name = removeFromFront(name, "snoop");
 			usedShader = true;
 		}
@@ -302,7 +302,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 					GlStateManager.rotatef(180F, 1F, 0F, 0F);
 					GlStateManager.rotatef(180F, 0F, 1F, 0F);
 					GlStateManager.translatef(0F, 0F, 0F);
-					ShaderHelper.useShader(ShaderHelper.gold);
+					ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
 					renderItem(ms, buffers, light, overlay, icon);
 					ShaderHelper.releaseShader();
 				}

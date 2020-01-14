@@ -140,7 +140,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
 		ms.scale(0.5F, 0.5F, 0.5F);
 		// todo 1.15 shader
-		ShaderHelper.useShader(ShaderHelper.gold);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
 		Minecraft.getInstance().getItemRenderer().renderItem(player, flower, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ShaderHelper.releaseShader();
 		ms.pop();

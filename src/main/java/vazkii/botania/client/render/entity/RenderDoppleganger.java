@@ -77,7 +77,7 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 			grainIntensity = 0.05F + dopple.hurtTime * ((1F - 0.15F) / 10F);
 		}
 
-		ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.DOPPLEGANGER, callback);
 		super.doRender(dopple, par2, par4, par6, par8, par9);
 		ShaderHelper.releaseShader();
 	}

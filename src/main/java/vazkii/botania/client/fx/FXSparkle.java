@@ -11,6 +11,7 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
@@ -174,20 +175,20 @@ public class FXSparkle extends Particle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
-		GlStateManager.depthMask(false);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-		GlStateManager.disableLighting();
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
+		RenderSystem.depthMask(false);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
+		RenderSystem.disableLighting();
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 0.75F);
 		textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
 		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 	}
 
 	private static void endRenderCommon() {
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
+		RenderSystem.disableBlend();
+		RenderSystem.depthMask(true);
 	}
 
 	private static final IParticleRenderType NORMAL_RENDER = new IParticleRenderType() {
@@ -212,7 +213,7 @@ public class FXSparkle extends Particle {
 		@Override
 		public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
-			ShaderHelper.useShader(ShaderHelper.filmGrain);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.FILM_GRAIN);
 		}
 
 		@Override

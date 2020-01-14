@@ -93,7 +93,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 				GlStateManager.translatef(-2.5F, -2.5F, 0F);
 			}
 
-			ShaderHelper.useShader(ShaderHelper.enchanterRune);
+			ShaderHelper.useShader(ShaderHelper.BotaniaShader.ENCHANTER_RUNE);
 			renderIcon(0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay, 5, 5, 240);
 			ShaderHelper.releaseShader();
 		}

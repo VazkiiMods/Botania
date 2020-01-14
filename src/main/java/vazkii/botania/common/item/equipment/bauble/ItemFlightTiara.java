@@ -438,7 +438,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		else GlStateManager.rotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
 
 		Tessellator tes = Tessellator.getInstance();
-		ShaderHelper.useShader(ShaderHelper.halo);
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
 		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		tes.getBuffer().pos(-0.75, 0, -0.75).tex(0, 0).endVertex();
 		tes.getBuffer().pos(-0.75, 0, 0.75).tex(0, 1).endVertex();

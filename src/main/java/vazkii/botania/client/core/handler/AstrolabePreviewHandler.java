@@ -59,7 +59,7 @@ public final class AstrolabePreviewHandler {
 			}
 		}
 
-		ShaderHelper.useShader(ShaderHelper.alpha, shader -> {
+		ShaderHelper.useShader(ShaderHelper.BotaniaShader.ALPHA, shader -> {
 			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);
 			ShaderHelper.FLOAT_BUF.put(0, 0.4F);

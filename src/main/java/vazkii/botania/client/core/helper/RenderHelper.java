@@ -14,7 +14,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
@@ -44,6 +43,7 @@ public final class RenderHelper {
 	public static final RenderType LINE_4;
 	public static final RenderType LINE_5;
 	public static final RenderType LINE_8;
+	public static final RenderType ICON_OVERLAY;
 
 	// todo 1.15 AT's for necessary fields
 	static {
@@ -63,10 +63,15 @@ public final class RenderHelper {
 		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
 		RenderState.WriteMaskState colorMask = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228496_F_");
 
-		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
-		LINE_4 = RenderType.of(LibResources.PREFIX_MOD + "line_4", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
-		LINE_5 = RenderType.of(LibResources.PREFIX_MOD + "line_5", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
-		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false));
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
+		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		LINE_4 = RenderType.of(LibResources.PREFIX_MOD + "line_4", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		LINE_5 = RenderType.of(LibResources.PREFIX_MOD + "line_5", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+
+		RenderState.TextureState mipmapBlockAtlasTexture = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228521_m_");
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).build(true);
+		ICON_OVERLAY = RenderType.of(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 128, glState);
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
