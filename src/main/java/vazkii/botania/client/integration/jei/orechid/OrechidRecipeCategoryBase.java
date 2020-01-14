@@ -37,14 +37,16 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	private final IDrawableStatic overlay;
 	private final IDrawable icon;
 	private final ItemStack iconStack;
+	private final ItemStack inputStack;
 
-	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, String localizedName) {
+	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, ItemStack inputStack, String localizedName) {
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		background = guiHelper.createBlankDrawable(168, 64);
 		this.localizedName = localizedName;
 		this.icon = guiHelper.createDrawableIngredient(iconStack);
 		this.iconStack = iconStack;
+		this.inputStack = inputStack;
 	}
 
 	@Nonnull
@@ -71,7 +73,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 
 	@Override
 	public void setIngredients(T recipe, IIngredients ingredients) {
-		ingredients.setInput(VanillaTypes.ITEM, new ItemStack(Blocks.STONE, 64));
+		ingredients.setInput(VanillaTypes.ITEM, inputStack);
 
 		final int myWeight = recipe.entry.getValue();
 		final int amount = Math.max(1, Math.round((float) myWeight * 64 / getTotalOreWeight(getOreWeights(), myWeight)));

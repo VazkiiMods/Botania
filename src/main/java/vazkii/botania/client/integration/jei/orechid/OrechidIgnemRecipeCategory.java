@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.orechid;
 
 import mezz.jei.api.helpers.IGuiHelper;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -24,7 +25,8 @@ public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<Orechi
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "orechid_ignem");
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(ModSubtiles.orechidIgnem), I18n.format("botania.nei.orechidIgnem"));
+		super(guiHelper, new ItemStack(ModSubtiles.orechidIgnem), new ItemStack(Blocks.NETHERRACK, 64), 
+				I18n.format("botania.nei.orechidIgnem"));
 	}
 
 	@Nonnull
