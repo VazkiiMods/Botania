@@ -13,9 +13,11 @@ package vazkii.botania.client.render.entity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -29,6 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
@@ -54,32 +57,22 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		float charge = Math.min(10F, Math.max(live, weapon.getChargeTicks()) + partialTicks);
 		float chargeMul = charge / 10F;
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
 		ms.push();
 		float s = 1.5F;
 		ms.scale(s, s, s);
-		GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-		GlStateManager.rotatef(45F, 0F, 0F, 1F);
-		GlStateManager.color4f(1F, 1F, 1F, chargeMul);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(45F));
 
-		GlStateManager.disableLighting();
+		// todo 1.15 get the alpha in to the BMR
+		// GlStateManager.color4f(1F, 1F, 1F, chargeMul);
+
 		IBakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffers.getBuffer(Atlases.getEntityTranslucent()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 
-		GlStateManager.disableCull();
-		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		GlStateManager.color4f(1F, 1F, 1F, chargeMul);
-
-		Minecraft.getInstance().textureManager.bindTexture(babylon);
-
-		Tessellator tes = Tessellator.getInstance();
-		ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
 		Random rand = new Random(weapon.getUniqueID().getMostSignificantBits());
-		GlStateManager.rotatef(-90F, 1F, 0F, 0F);
-		GlStateManager.translatef(0F, -0.3F + rand.nextFloat() * 0.1F, 1F);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90F));
+		ms.translate(0F, -0.3F + rand.nextFloat() * 0.1F, 1F);
 
 		s = chargeMul;
 		if(live > delay)
@@ -87,20 +80,15 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		s *= 2F;
 		ms.scale(s, s, s);
 
-		GlStateManager.rotatef(charge * 9F + (weapon.ticksExisted + partialTicks) * 0.5F + rand.nextFloat() * 360F, 0F, 1F, 0F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(charge * 9F + (weapon.ticksExisted + partialTicks) * 0.5F + rand.nextFloat() * 360F));
 
-		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tes.getBuffer().pos(-1, 0, -1).tex(0, 0).endVertex();
-		tes.getBuffer().pos(-1, 0, 1).tex(0, 1).endVertex();
-		tes.getBuffer().pos(1, 0, 1).tex(1, 1).endVertex();
-		tes.getBuffer().pos(1, 0, -1).tex(1, 0).endVertex();
-		tes.draw();
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.BABYLON_ICON);
+		Matrix4f mat = ms.peek().getModel();
+		buffer.vertex(mat, -1, 0, -1).color(1, 1, 1, chargeMul).texture(0, 0).endVertex();
+		buffer.vertex(mat, -1, 0, 1).color(1, 1, 1, chargeMul).texture(0, 1).endVertex();
+		buffer.vertex(mat, 1, 0, 1).color(1, 1, 1, chargeMul).texture(1, 1).endVertex();
+		buffer.vertex(mat, 1, 0, -1).color(1, 1, 1, chargeMul).texture(1, 0).endVertex();
 
-		ShaderHelper.releaseShader();
-
-		GlStateManager.enableLighting();
-		GlStateManager.shadeModel(GL11.GL_FLAT);
-		GlStateManager.enableCull();
 		ms.pop();
 	}
 

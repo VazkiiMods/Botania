@@ -950,7 +950,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public int getBossBarShaderProgram(boolean background) {
-		return background ? 0 : ShaderHelper.dopplegangerBar;
+		return background ? 0 : ShaderHelper.getShader(ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR).orElse(0);
 	}
 
 	@OnlyIn(Dist.CLIENT)

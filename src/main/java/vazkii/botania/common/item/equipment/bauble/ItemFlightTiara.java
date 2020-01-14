@@ -304,7 +304,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		int meta = getVariant(stack);
 		if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-			IBakedModel icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+			IBakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 
 			boolean flying = ((PlayerEntity) player).abilities.isFlying;
 

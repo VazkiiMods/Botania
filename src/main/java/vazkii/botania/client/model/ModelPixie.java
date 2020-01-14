@@ -12,9 +12,14 @@ package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
+import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
 public class ModelPixie extends EntityModel<EntityPixie> {
@@ -24,7 +29,16 @@ public class ModelPixie extends EntityModel<EntityPixie> {
     public ModelRenderer rightWingT;
     public ModelRenderer rightWingB;
 
+	private static boolean evil = false;
+    private static RenderType pixieLayer(ResourceLocation texture) {
+        RenderType normal = RenderType.getEntityCutoutNoCull(texture);
+        return evil
+              ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderPixie.SHADER_CALLBACK, normal)
+              : normal;
+    }
+
     public ModelPixie() {
+        super(ModelPixie::pixieLayer);
         textureWidth = 32;
         textureHeight = 32;
         
@@ -68,10 +82,13 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 
 	@Override
 	public void setAngles(EntityPixie entity, float f, float f1, float f2, float f3, float f4) {
+		evil = entity.getPixieType() == 1;
 		rightWingT.rotateAngleY = -(MathHelper.cos(f2 * 1.7F) * (float)Math.PI * 0.5F);
 		leftWingT.rotateAngleY = MathHelper.cos(f2 * 1.7F) * (float)Math.PI * 0.5F;
 		rightWingB.rotateAngleY = -(MathHelper.cos(f2 * 1.7F) * (float)Math.PI * 0.25F);
 		leftWingB.rotateAngleY = MathHelper.cos(f2 * 1.7F) * (float)Math.PI * 0.25F;
 	}
+
+
 
 }

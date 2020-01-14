@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.OptionalInt;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -89,24 +90,32 @@ public final class ShaderHelper {
 		}
 	}
 
-	public static void useShader(BotaniaShader shader, ShaderCallback callback) {
-		if(!useShaders())
-			return;
+	public static OptionalInt getShader(BotaniaShader shader) {
+		ShaderProgram prog = PROGRAMS.get(shader);
+		return prog == null ? OptionalInt.empty() : OptionalInt.of(prog.getProgram());
+	}
 
+	public static void useShader(BotaniaShader shader, ShaderCallback callback) {
 		ShaderProgram prog = PROGRAMS.get(shader);
 		if(prog == null)
+			return;
+		useShader(prog.getProgram(), callback);
+	}
+
+	public static void useShader(int shader, ShaderCallback callback) {
+		if(!useShaders())
 			return;
 
 		// todo 1.15 is this still necessary? only has an effect without a vsh and we now have passthrough vsh for every program
 		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		GlStateManager.disableLighting();
-		ShaderLinkHelper.useProgram(prog.getProgram());
+		ShaderLinkHelper.useProgram(shader);
 
-		int time = GlStateManager.getUniformLocation(prog.getProgram(), "time");
+		int time = GlStateManager.getUniformLocation(shader, "time");
 		GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
 
 		if(callback != null)
-			callback.call(prog.getProgram());
+			callback.call(shader);
 	}
 
 	public static void useShader(BotaniaShader shader) {

@@ -10,12 +10,10 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -26,7 +24,7 @@ import javax.annotation.Nonnull;
 
 public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
-	private final ShaderCallback callback = shader -> {
+	public static final ShaderCallback SHADER_CALLBACK = shader -> {
 		// Frag Uniforms
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
@@ -48,14 +46,5 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 	@Override
 	public ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
 		return new ResourceLocation(LibResources.MODEL_PIXIE);
-	}
-
-	@Override
-	public void doRender(@Nonnull EntityPixie pixie, double par2, double par4, double par6, float par8, float par9) {
-		if(pixie.getPixieType() == 1)
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.DOPPLEGANGER, callback);
-		super.doRender(pixie, par2, par4, par6, par8, par9);
-		if(pixie.getPixieType() == 1)
-			ShaderHelper.releaseShader();
 	}
 }

@@ -44,34 +44,51 @@ public final class RenderHelper {
 	public static final RenderType LINE_5;
 	public static final RenderType LINE_8;
 	public static final RenderType ICON_OVERLAY;
+	public static final RenderType BABYLON_ICON;
+	public static final RenderType MANA_POOL_WATER;
+	public static final RenderType TERRA_PLATE;
+	public static final RenderType ENCHANTER;
 
 	// todo 1.15 AT's for necessary fields
 	static {
 		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
-		RenderType.State glState = RenderType.State.builder().shadeModel(new RenderState.ShadeModelState(true))
-				.writeMaskState(new RenderState.WriteMaskState(true, false))
+		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
+		RenderState.TextureState mipmapBlockAtlasTexture = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228521_m_");
+		RenderState.CullState disableCull = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228491_A_");
+		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
+		RenderState.WriteMaskState colorMask = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228496_F_");
+		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
+		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
+
+		RenderType.State glState = RenderType.State.builder().shadeModel(smoothShade)
+				.writeMaskState(colorMask)
 				.transparency(lightningTransparency)
 				.build(false);
 		STAR_LAYER = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
 
-		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
-		RenderState.CullState disableCull = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228491_A_");
 		glState = RenderType.State.builder().transparency(translucentTransparency).cull(disableCull).build(false);
 		RECTANGLE = RenderType.of(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 		CIRCLE = RenderType.of(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
 
-		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
-		RenderState.WriteMaskState colorMask = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228496_F_");
-
 		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_4 = RenderType.of(LibResources.PREFIX_MOD + "line_4", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_5 = RenderType.of(LibResources.PREFIX_MOD + "line_5", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
-		RenderState.TextureState mipmapBlockAtlasTexture = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228521_m_");
-		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).build(true);
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).lightmap(enableLightmap).build(true);
 		ICON_OVERLAY = RenderType.of(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 128, glState);
+
+		RenderState.TextureState babylonTexture = new RenderState.TextureState(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
+		glState = RenderType.State.builder().texture(babylonTexture).transparency(translucentTransparency).cull(disableCull).shadeModel(smoothShade).build(true);
+		BABYLON_ICON = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormats.POSITION_COLOR_TEXTURE, GL11.GL_QUADS, 64, glState));
+
+		MANA_POOL_WATER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY);
+		TERRA_PLATE = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY);
+		ENCHANTER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY);
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {

@@ -11,7 +11,6 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,21 +18,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
@@ -104,7 +98,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 					ms.scale(s, s, s);
 
 					IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
-					renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
+					renderIcon(ms, buffer, overlayIcon, alpha);
 
 					ms.pop();
 				}
@@ -118,24 +112,14 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
 			ms.scale(s, s, s);
 
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.MANA_POOL);
-			renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 1);
-			ShaderHelper.releaseShader();
+			IVertexBuilder buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
+			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 1);
 
 			ms.pop();
 		}
 		ms.pop();
 
 		cartMana = -1;
-	}
-
-	private void renderIcon(MatrixStack ms, IVertexBuilder buffer, int x, int y, TextureAtlasSprite icon, int width, int height, float alpha) {
-		Matrix4f mat = ms.peek().getModel();
-		int fullbright = 0xF000F0;
-		buffer.vertex(mat, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).light(fullbright).endVertex();
-		buffer.vertex(mat, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).light(fullbright).endVertex();
-		buffer.vertex(mat, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).light(fullbright).endVertex();
-		buffer.vertex(mat, x, y, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMinV()).light(fullbright).endVertex();
 	}
 
 }

@@ -100,7 +100,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, RenderTilePool::new);
 		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, RenderTileRuneAltar::new);
 		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, RenderTilePylon::new);
-		ClientRegistry.bindTileEntityRenderer(TileEnchanter.TYPE, new RenderTileEnchanter());
+		ClientRegistry.bindTileEntityRenderer(TileEnchanter.TYPE, RenderTileEnchanter::new);
 		ClientRegistry.bindTileEntityRenderer(TileAlfPortal.TYPE, RenderTileAlfPortal::new);
 		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, renderTileFloatingFlower);
 		// TODO 1.14 this seems highly questionable.
@@ -108,7 +108,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, new RenderTileTinyPotato());
 		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, new RenderTileStarfield());
 		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
-		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, new RenderTileTerraPlate());
+		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, RenderTileTerraPlate::new);
 		ClientRegistry.bindTileEntityRenderer(TileRedStringComparator.TYPE, RenderTileRedString::new);
 		ClientRegistry.bindTileEntityRenderer(TileRedStringContainer.TYPE, RenderTileRedString::new);
 		ClientRegistry.bindTileEntityRenderer(TileRedStringDispenser.TYPE, RenderTileRedString::new);
