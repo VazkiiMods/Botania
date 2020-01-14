@@ -21,6 +21,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
+import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -58,7 +59,7 @@ public final class ClientTickHandler {
 	@SubscribeEvent
 	public static void clientTickEnd(TickEvent.ClientTickEvent event) {
 		if(event.phase == TickEvent.Phase.END) {
-			RedStringRenderer.tick();
+			RenderTileRedString.tick();
 			ItemsRemainingRenderHandler.tick();
 
 			if(Minecraft.getInstance().world == null) {

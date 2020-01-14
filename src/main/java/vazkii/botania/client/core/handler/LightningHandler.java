@@ -45,9 +45,7 @@ public class LightningHandler {
 		IProfiler profiler = Minecraft.getInstance().getProfiler();
 
 		profiler.startSection("botania-particles");
-		profiler.startSection("redString");
-		RedStringRenderer.renderAll();
-		profiler.endStartSection("lightning");
+		profiler.startSection("lightning");
 
 		float frame = event.getPartialTicks();
 		Entity entity = Minecraft.getInstance().player;
