@@ -1,9 +1,9 @@
 package vazkii.botania.common.network;
 
+import com.google.common.base.Stopwatch;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -12,6 +12,7 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.common.Botania;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -103,5 +104,44 @@ public class PacketSyncRecipes {
                 BotaniaAPI.runeAltarRecipes = runeAltar;
             });
         ctx.get().setPacketHandled(true);
+    }
+    
+    // The login packet wraps the proper one because directly extending it will cause a freeze on the handshake.
+    public static class Login implements ILoginPacket {
+        private final PacketSyncRecipes wrapped;
+        private int loginIndex;
+        
+        public Login() {
+            this(new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.elvenTradeRecipes, 
+                    BotaniaAPI.manaInfusionRecipes, BotaniaAPI.petalRecipes, 
+                    BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes));
+        }
+
+        public Login(PacketSyncRecipes packet) {
+            this.wrapped = packet;
+        }
+        
+        public static Login decode(PacketBuffer buf) {
+            return new Login(PacketSyncRecipes.decode(buf));
+        }
+
+        public void encode(PacketBuffer buf) {
+            wrapped.encode(buf);
+        }
+
+        public void handle(Supplier<NetworkEvent.Context> ctx) {
+            wrapped.handle(ctx);
+            PacketHandler.HANDLER.reply(new PacketAck(), ctx.get());
+        }
+
+        @Override
+        public void setLoginIndex(int index) {
+            this.loginIndex = index;
+        }
+
+        @Override
+        public int getLoginIndex() {
+            return loginIndex;
+        }
     }
 }
