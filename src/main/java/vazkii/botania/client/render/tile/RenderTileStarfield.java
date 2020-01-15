@@ -10,156 +10,105 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.common.block.tile.TileStarfield;
 
-import java.awt.*;
+import java.awt.Color;
 import java.nio.FloatBuffer;
+import java.util.List;
 import java.util.Random;
 
-// This is copied from the vanilla end portal TESR, relevant edits are commented
+// [VanillaCopy] end portal TESR, relevant edits are commented
 public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
-	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
-	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
 	private static final Random RANDOM = new Random(31100L);
-	private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
-	private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
-	private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
+	private static List<RenderType> field_228881_e_ = ObfuscationReflectionHelper.getPrivateValue(TileStarfield.class, null, "field_228881_e_");
+
+	public RenderTileStarfield(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
 
 	@Override
-	public void render(TileStarfield tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage) {
-		GlStateManager.disableLighting();
+	public void render(TileStarfield p_225616_1_, float p_225616_2_, MatrixStack p_225616_3_, IRenderTypeBuffer p_225616_4_, int p_225616_5_, int p_225616_6_) {
+
 		RANDOM.setSeed(31100L);
-		GlStateManager.getMatrix(2982, MODELVIEW);
-		GlStateManager.getMatrix(2983, PROJECTION);
-		double d0 = x * x + y * y + z * z;
+		double d0 = p_225616_1_.getPos().distanceSq(this.dispatcher.renderInfo.getProjectedView(), true);
 		int i = this.getPasses(d0);
 		float f = this.getOffset();
-		boolean flag = false;
+		Matrix4f matrix4f = p_225616_3_.peek().getModel();
+		this.func_228883_a_(p_225616_1_, f, 0.15F, matrix4f, p_225616_4_.getBuffer(field_228881_e_.get(0)));
 
-		for(int j = 0; j < i; ++j) {
-			GlStateManager.pushMatrix();
-			float f1 = 2.0F / (float)(18 - j);
-			if (j == 0) {
-				this.bindTexture(END_SKY_TEXTURE);
-				f1 = 0.15F;
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			}
-
-			if (j >= 1) {
-				this.bindTexture(END_PORTAL_TEXTURE);
-				flag = true;
-				Minecraft.getInstance().gameRenderer.setupFogColor(true);
-			}
-
-			if (j == 1) {
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-			}
-
-			GlStateManager.texGenMode(GlStateManager.TexGen.S, 9216);
-			GlStateManager.texGenMode(GlStateManager.TexGen.T, 9216);
-			GlStateManager.texGenMode(GlStateManager.TexGen.R, 9216);
-			GlStateManager.texGenParam(GlStateManager.TexGen.S, 9474, this.getBuffer(1.0F, 0.0F, 0.0F, 0.0F));
-			GlStateManager.texGenParam(GlStateManager.TexGen.T, 9474, this.getBuffer(0.0F, 1.0F, 0.0F, 0.0F));
-			GlStateManager.texGenParam(GlStateManager.TexGen.R, 9474, this.getBuffer(0.0F, 0.0F, 1.0F, 0.0F));
-			GlStateManager.enableTexGen(GlStateManager.TexGen.S);
-			GlStateManager.enableTexGen(GlStateManager.TexGen.T);
-			GlStateManager.enableTexGen(GlStateManager.TexGen.R);
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5890);
-			GlStateManager.pushMatrix();
-			GlStateManager.loadIdentity();
-			GlStateManager.translatef(0.5F, 0.5F, 0.0F);
-			GlStateManager.scalef(0.5F, 0.5F, 1.0F);
-			float f2 = (float)(j + 1);
-			GlStateManager.translatef(17.0F / f2, (2.0F + f2 / 1.5F) * ((float) Util.milliTime() % 800000.0F / 800000.0F), 0.0F);
-			GlStateManager.rotatef((f2 * f2 * 4321.0F + f2 * 9.0F) * 2.0F, 0.0F, 0.0F, 1.0F);
-			GlStateManager.scalef(4.5F - f2 / 4.0F, 4.5F - f2 / 4.0F, 1.0F);
-			GlStateManager.multMatrix(PROJECTION);
-			GlStateManager.multMatrix(MODELVIEW);
-			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder bufferbuilder = tessellator.getBuffer();
-			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			float f3 = (RANDOM.nextFloat() * 0.5F + 0.1F) * f1;
-			float f4 = (RANDOM.nextFloat() * 0.5F + 0.4F) * f1;
-			float f5 = (RANDOM.nextFloat() * 0.5F + 0.5F) * f1;
-
-			// Botania: change color based on time
-			Color color = Color.getHSBColor(Util.milliTime() / 20F % 360 / 360F, 1F, 1F);
-			f3 = color.getRed() / 255F;
-			f4 = color.getGreen() / 255F;
-			f5 = color.getBlue() / 255F;
-
-			f3 *= f1; f4 *= f1; f5 *= f1;
-
-			// Botania: render up face only
-			{
-				bufferbuilder.pos(x, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x + 1.0D, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
-				bufferbuilder.pos(x, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
-			}
-
-			tessellator.draw();
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5888);
-			this.bindTexture(END_SKY_TEXTURE);
-		}
-
-		GlStateManager.disableBlend();
-		GlStateManager.disableTexGen(GlStateManager.TexGen.S);
-		GlStateManager.disableTexGen(GlStateManager.TexGen.T);
-		GlStateManager.disableTexGen(GlStateManager.TexGen.R);
-		GlStateManager.enableLighting();
-		if (flag) {
-			Minecraft.getInstance().gameRenderer.setupFogColor(false);
+		for(int j = 1; j < i; ++j) {
+			this.func_228883_a_(p_225616_1_, f, 2.0F / (float)(18 - j), matrix4f, p_225616_4_.getBuffer(field_228881_e_.get(j)));
 		}
 
 	}
 
-	private int getPasses(double p_191286_1_) {
-		int i;
+	private void func_228883_a_(TileStarfield p_228883_1_, float p_228883_2_, float p_228883_3_, Matrix4f p_228883_4_, IVertexBuilder p_228883_5_) {
+		float f = (RANDOM.nextFloat() * 0.5F + 0.1F) * p_228883_3_;
+		float f1 = (RANDOM.nextFloat() * 0.5F + 0.4F) * p_228883_3_;
+		float f2 = (RANDOM.nextFloat() * 0.5F + 0.5F) * p_228883_3_;
+
+		// Botania: change color based on time
+		Color color = Color.getHSBColor(Util.milliTime() / 20F % 360 / 360F, 1F, 1F);
+		f = color.getRed() / 255F * p_228883_3_;
+		f1 = color.getGreen() / 255F * p_228883_3_;
+		f2 = color.getBlue() / 255F * p_228883_3_;
+
+		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, f, f1, f2, Direction.SOUTH);
+		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f, f1, f2, Direction.NORTH);
+		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.EAST);
+		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.WEST);
+		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f, f1, f2, Direction.DOWN);
+		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, p_228883_2_, p_228883_2_, 1.0F, 1.0F, 0.0F, 0.0F, f, f1, f2, Direction.UP);
+	}
+
+	private void func_228884_a_(TileStarfield p_228884_1_, Matrix4f p_228884_2_, IVertexBuilder p_228884_3_, float p_228884_4_, float p_228884_5_, float p_228884_6_, float p_228884_7_, float p_228884_8_, float p_228884_9_, float p_228884_10_, float p_228884_11_, float p_228884_12_, float p_228884_13_, float p_228884_14_, Direction p_228884_15_) {
+		if (p_228884_15_ == Direction.UP) { // Botania: up face only
+			p_228884_3_.vertex(p_228884_2_, p_228884_4_, p_228884_6_, p_228884_8_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.vertex(p_228884_2_, p_228884_5_, p_228884_6_, p_228884_9_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.vertex(p_228884_2_, p_228884_5_, p_228884_7_, p_228884_10_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.vertex(p_228884_2_, p_228884_4_, p_228884_7_, p_228884_11_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+		}
+
+	}
+
+	protected int getPasses(double p_191286_1_) {
 		if (p_191286_1_ > 36864.0D) {
-			i = 1;
+			return 1;
 		} else if (p_191286_1_ > 25600.0D) {
-			i = 3;
+			return 3;
 		} else if (p_191286_1_ > 16384.0D) {
-			i = 5;
+			return 5;
 		} else if (p_191286_1_ > 9216.0D) {
-			i = 7;
+			return 7;
 		} else if (p_191286_1_ > 4096.0D) {
-			i = 9;
+			return 9;
 		} else if (p_191286_1_ > 1024.0D) {
-			i = 11;
+			return 11;
 		} else if (p_191286_1_ > 576.0D) {
-			i = 13;
-		} else if (p_191286_1_ > 256.0D) {
-			i = 14;
+			return 13;
 		} else {
-			i = 15;
+			return p_191286_1_ > 256.0D ? 14 : 15;
 		}
-
-		return i;
 	}
 
-	private float getOffset() {
+	protected float getOffset() {
 		return 0.24F; // Botania: move to bottom of block space
-	}
-
-	private FloatBuffer getBuffer(float p_147525_1_, float p_147525_2_, float p_147525_3_, float p_147525_4_) {
-		this.buffer.clear();
-		this.buffer.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
-		this.buffer.flip();
-		return this.buffer;
 	}
 }

@@ -111,7 +111,7 @@ public final class ModelHandler {
 				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
 				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
 		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, new RenderTileTinyPotato());
-		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, new RenderTileStarfield());
+		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, RenderTileStarfield::new);
 		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
 		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, RenderTileTerraPlate::new);
 		ClientRegistry.bindTileEntityRenderer(TileRedStringComparator.TYPE, RenderTileRedString::new);

@@ -14,21 +14,25 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -61,7 +65,14 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
 	private static final ModelTinyPotato model = new ModelTinyPotato();
+	private final ModelRenderer potato = new ModelRenderer(16, 16, 0, 0);
 
+	public RenderTileTinyPotato(TileEntityRendererDispatcher manager) {
+		super(manager);
+		potato.addCuboid(0F, 0F, 0F, 4, 6, 4);
+		potato.setRotationPoint(-2F, 18F, -2F);
+		potato.setTextureSize(64, 32);
+	}
 
 	private static boolean matches(String name, String match) {
 		return name.equals(match) || name.startsWith(match + " ");
@@ -69,6 +80,26 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	private static String removeFromFront(String name, String match) {
 		return name.substring(match.length()).trim();
+	}
+
+	public Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
+		if (matches(name, "gaia")) {
+			return Pair.of(ShaderHelper.BotaniaShader.DOPPLEGANGER, removeFromFront(name, "gaia"));
+		} else if (matches(name, "hot")) {
+			return Pair.of(ShaderHelper.BotaniaShader.HALO, removeFromFront(name, "hot"));
+		} else if (matches(name, "magic")) {
+			return Pair.of(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, removeFromFront(name, "magic"));
+		} else if (matches(name, "gold")) {
+			return Pair.of(ShaderHelper.BotaniaShader.GOLD, removeFromFront(name, "gold"));
+		} else if (matches(name, "snoop")) {
+			return Pair.of(ShaderHelper.BotaniaShader.TERRA_PLATE, removeFromFront(name, "snoop"));
+		} else {
+			return Pair.of(null, name);
+		}
+	}
+
+	public RenderType getRenderLayer(String name) {
+
 	}
 
 	@Override
@@ -86,27 +117,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		String name = potato.name.getString().toLowerCase().trim();
 
 		boolean usedShader = false;
-		if (matches(name, "gaia")) {
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.DOPPLEGANGER);
-			name = removeFromFront(name, "gaia");
-			usedShader = true;
-		} else if (matches(name, "hot")) {
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
-			name = removeFromFront(name, "hot");
-			usedShader = true;
-		} else if (matches(name, "magic")) {
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.ENCHANTER_RUNE);
-			name = removeFromFront(name, "magic");
-			usedShader = true;
-		} else if (matches(name, "gold")) {
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
-			name = removeFromFront(name, "gold");
-			usedShader = true;
-		} else if (matches(name, "snoop")) {
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.TERRA_PLATE);
-			name = removeFromFront(name, "snoop");
-			usedShader = true;
-		}
+
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);
