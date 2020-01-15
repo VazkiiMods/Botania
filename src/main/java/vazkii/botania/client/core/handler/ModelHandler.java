@@ -110,7 +110,7 @@ public final class ModelHandler {
 				.map(Pair::getSecond)
 				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
 				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
-		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, new RenderTileTinyPotato());
+		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, RenderTileTinyPotato::new);
 		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, RenderTileStarfield::new);
 		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
 		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, RenderTileTerraPlate::new);
@@ -130,7 +130,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileCocoon.TYPE, RenderTileCocoon::new);
 		ClientRegistry.bindTileEntityRenderer(TileLightRelay.TYPE, RenderTileLightRelay::new);
 		ClientRegistry.bindTileEntityRenderer(TileBellows.TYPE, RenderTileBellows::new);
-		ClientRegistry.bindTileEntityRenderer(TileGaiaHead.TYPE, new RenderTileGaiaHead());
+		ClientRegistry.bindTileEntityRenderer(TileGaiaHead.TYPE, RenderTileGaiaHead::new);
 		ClientRegistry.bindTileEntityRenderer(TileTeruTeruBozu.TYPE, RenderTileTeruTeruBozu::new);
 		ClientRegistry.bindTileEntityRenderer(TileAvatar.TYPE, RenderTileAvatar::new);
 		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, RenderTileAnimatedTorch::new);

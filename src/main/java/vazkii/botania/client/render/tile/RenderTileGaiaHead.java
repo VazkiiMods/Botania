@@ -36,10 +36,8 @@ import javax.annotation.Nullable;
 public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 	private SkullTileEntityRenderer original = null;
 
-	@Override
-	public void setRendererDispatcher(@Nonnull TileEntityRendererDispatcher dispatcher) {
-		original = instance;
-		super.setRendererDispatcher(dispatcher);
+	public RenderTileGaiaHead(TileEntityRendererDispatcher manager) {
+		super(manager);
 	}
 
 	@Override

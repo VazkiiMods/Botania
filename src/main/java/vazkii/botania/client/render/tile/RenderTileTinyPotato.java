@@ -49,9 +49,9 @@ import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
@@ -59,19 +59,19 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
-	private static final ModelTinyPotato model = new ModelTinyPotato();
-	private final ModelRenderer potato = new ModelRenderer(16, 16, 0, 0);
+	private final ModelRenderer potatoModel = new ModelRenderer(16, 16, 0, 0);
 
 	public RenderTileTinyPotato(TileEntityRendererDispatcher manager) {
 		super(manager);
-		potato.addCuboid(0F, 0F, 0F, 4, 6, 4);
-		potato.setRotationPoint(-2F, 18F, -2F);
-		potato.setTextureSize(64, 32);
+		potatoModel.addCuboid(0F, 0F, 0F, 4, 6, 4);
+		potatoModel.setRotationPoint(-2F, 18F, -2F);
+		potatoModel.setTextureSize(64, 32);
 	}
 
 	private static boolean matches(String name, String match) {
@@ -82,7 +82,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		return name.substring(match.length()).trim();
 	}
 
-	public Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
+	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
 		if (matches(name, "gaia")) {
 			return Pair.of(ShaderHelper.BotaniaShader.DOPPLEGANGER, removeFromFront(name, "gaia"));
 		} else if (matches(name, "hot")) {
@@ -98,7 +98,16 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		}
 	}
 
-	public RenderType getRenderLayer(String name) {
+	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
+		RenderType base;
+		if ("kyle hyde".equals(name)) {
+			base = RenderType.getEntitySolid(textureGrayscale);
+		} else if (ClientProxy.dootDoot) {
+			base = RenderType.getEntitySolid(textureHalloween);
+		} else {
+			base = RenderType.getEntitySolid(texture);
+		}
+		return shader == null ? base : new ShaderWrappedRenderLayer(shader, null, base);
 
 	}
 
@@ -107,20 +116,19 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		if(potato.getBlockState().getBlock() != ModBlocks.tinyPotato)
 			return;
 
-		GlStateManager.pushMatrix();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(x, y, z);
+		ms.push();
 
 		Minecraft mc = Minecraft.getInstance();
 		mc.textureManager.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
 		String name = potato.name.getString().toLowerCase().trim();
+		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
+		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
+		name = shaderStrippedName.getSecond();
+		RenderType layer = getRenderLayer(shader, name);
 
-		boolean usedShader = false;
+		ms.translate(0.5F, 1.5F, 0.5F);
+		ms.scale(1F, -1F, -1F);
 
-
-		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
-		GlStateManager.scalef(1F, -1F, -1F);
 		Direction potatoFacing = potato.getBlockState().get(BotaniaStateProps.CARDINALS);
 		float rotY = 0;
 		switch(potatoFacing) {
@@ -130,7 +138,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			case EAST: rotY = 270F; break;
 			case WEST: rotY = 90F; break;
 		}
-		GlStateManager.rotatef(rotY, 0F, 1F, 0F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotY));
 
 		float jump = potato.jumpTicks;
 		if (jump > 0)
@@ -139,49 +147,87 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
 
-		GlStateManager.translatef(0F, up, 0F);
-		GlStateManager.rotatef(rotZ, 0F, 0F, 1F);
+		ms.translate(0F, up, 0F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotZ));
 
-		GlStateManager.pushMatrix();
+		ms.push();
+		float r = 1;
+		float g = 1;
+		float b = 1;
 		switch (name) {
 		case "pahimar":
-			GlStateManager.scalef(1F, 0.3F, 1F);
-			GlStateManager.translatef(0F, 3.5F, 0F);
-			break;
-		case "kyle hyde":
-			mc.textureManager.bindTexture(textureGrayscale);
+			ms.scale(1F, 0.3F, 1F);
+			ms.translate(0F, 3.5F, 0F);
 			break;
 		case "dinnerbone":
 		case "grumm":
-			GlStateManager.rotatef(180F, 0F, 0F, 1F);
-			GlStateManager.translatef(0F, -2.625F, 0F);
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+			ms.translate(0F, -2.625F, 0F);
 			break;
 		case "aureylian":
-			GlStateManager.color3f(1F, 0.5F, 1F);
+			g = 0.5F;
 			break;
 		}
 
+		IVertexBuilder buffer = buffers.getBuffer(layer);
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if (render)
-			model.render();
+			potatoModel.render(ms, buffer, light, overlay, r, g, b, 1);
 		if (name.equals("kingdaddydmac")) {
-			GlStateManager.translatef(0.5F, 0F, 0F);
-			model.render();
+			ms.translate(0.5F, 0F, 0F);
+			potatoModel.render(ms, buffer, light, overlay, r, g, b, 1);
 		}
+		ms.pop();
 
-		if (usedShader)
-			ShaderHelper.releaseShader();
+		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
-		GlStateManager.popMatrix();
+		ms.push();
+		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, partialTicks, ms, buffers, light, overlay));
+		ms.pop();
 
-		GlStateManager.pushMatrix();
-		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.rotatef(-rotZ, 0F, 0F, 1F);
+		GlStateManager.rotatef(-rotY, 0F, 1F, 0F);
+		ms.scale(1F, -1F, -1F);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.rotatef(180F, 0, 0, 1);
-		GlStateManager.translatef(0F, -1F, 0F);
+		renderName(potato, name, ms, buffers, light);
+	}
+
+	private void renderName(TileTinyPotato potato, String name, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+		Minecraft mc = Minecraft.getInstance();
+		RayTraceResult pos = mc.objectMouseOver;
+		if (!name.isEmpty() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK
+				&& potato.getPos().equals(((BlockRayTraceResult) pos).getPos())) {
+			ms.push();
+			ms.translate(0F, -0.6F, 0F);
+			ms.multiply(mc.getRenderManager().getRotation());
+			float f1 = 0.016666668F * 1.6F;
+			ms.scale(-f1, -f1, f1);
+			ms.translate(0.0F, 0F / f1, 0.0F);
+			int halfWidth = mc.fontRenderer.getStringWidth(potato.name.getString()) / 2;
+
+			float opacity = Minecraft.getInstance().gameSettings.func_216840_a(0.25F);
+			int opacityRGB = (int)(opacity * 255.0F) << 24;
+			mc.fontRenderer.draw(potato.name.getFormattedText(), -halfWidth, 0, 0x20FFFFFF, false, ms.peek().getModel(), buffers, true, opacityRGB, light);
+			mc.fontRenderer.draw(potato.name.getFormattedText(), -halfWidth, 0, 0xFFFFFFFF, false, ms.peek().getModel(), buffers, true, 0, light);
+			if (name.equals("pahimar") || name.equals("soaryn")) {
+				ms.translate(0F, 14F, 0F);
+				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
+				halfWidth = mc.fontRenderer.getStringWidth(str) / 2;
+
+				mc.fontRenderer.draw(str, -halfWidth, 0, 0x20FFFFFF, false, ms.peek().getModel(), buffers, true, opacityRGB, light);
+				mc.fontRenderer.draw(str, -halfWidth, 0, 0xFFFFFFFF, false, ms.peek().getModel(), buffers, true, 0, light);
+			}
+
+			ms.pop();
+		}
+	}
+
+	private void renderItems(TileTinyPotato potato, Direction facing, String name, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+		ms.translate(0F, -1F, 0F);
 		float s = 1F / 3.5F;
-		GlStateManager.scalef(s, s, s);
+		ms.scale(s, s, s);
 
 		for(int i = 0; i < potato.getSizeInventory(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
@@ -189,9 +235,9 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				continue;
 
 			ms.push();
-			Direction side = Direction.class.getEnumConstants()[i];
+			Direction side = Direction.values()[i];
 			if(side.getAxis() != Axis.Y) {
-				float sideAngle = side.getHorizontalAngle() - potatoFacing.getHorizontalAngle();
+				float sideAngle = side.getHorizontalAngle() - facing.getHorizontalAngle();
 				side = Direction.fromAngle(sideAngle);
 			}
 
@@ -199,50 +245,50 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato;
 
 			switch(side) {
-			case UP:
-				if(mySon)
-					ms.translate(0F, 0.6F, 0.5F);
-				else if(block)
-					ms.translate(0F, 0.3F, 0.5F);
-				ms.translate(0F, -0.5F, -0.4F);
-				break;
-			case DOWN:
-				ms.translate(0, -2.3F, -0.88F);
-				if(mySon)
-					ms.translate(0, .65F, 0.6F);
-				else if(block)
-					ms.translate(0, 1, 0.6F);
-				break;
-			case NORTH:
-				ms.translate(0, -1.9F, 0.02F);
-				if(mySon)
-					ms.translate(0, 1, 0.6F);
-				else if(block)
-					ms.translate(0, 1, 0.6F);
-				break;
-			case SOUTH:
-				ms.translate(0, -1.6F, -0.89F);
-				if(mySon)
-					ms.translate(0, 1.4F, 0.5F);
-				else if(block)
-					ms.translate(0, 1.0F, 0.5F);
-				break;
-			case EAST:
-				if(mySon)
-					ms.translate(-0.4F, 0.65F, 0F);
-				else if(block)
-					ms.translate(-0.4F, 0.8F, 0F);
-				else GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				ms.translate(-0.3F, -1.9F, 0.04F);
-				break;
-			case WEST:
-				if(mySon)
-					ms.translate(1F, 0.65F, 1F);
-				else if(block)
-					ms.translate(1F, 0.8F, 1F);
-				else GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				ms.translate(-0.3F, -1.9F, -0.92F);
-				break;
+				case UP:
+					if(mySon)
+						ms.translate(0F, 0.6F, 0.5F);
+					else if(block)
+						ms.translate(0F, 0.3F, 0.5F);
+					ms.translate(0F, -0.5F, -0.4F);
+					break;
+				case DOWN:
+					ms.translate(0, -2.3F, -0.88F);
+					if(mySon)
+						ms.translate(0, .65F, 0.6F);
+					else if(block)
+						ms.translate(0, 1, 0.6F);
+					break;
+				case NORTH:
+					ms.translate(0, -1.9F, 0.02F);
+					if(mySon)
+						ms.translate(0, 1, 0.6F);
+					else if(block)
+						ms.translate(0, 1, 0.6F);
+					break;
+				case SOUTH:
+					ms.translate(0, -1.6F, -0.89F);
+					if(mySon)
+						ms.translate(0, 1.4F, 0.5F);
+					else if(block)
+						ms.translate(0, 1.0F, 0.5F);
+					break;
+				case EAST:
+					if(mySon)
+						ms.translate(-0.4F, 0.65F, 0F);
+					else if(block)
+						ms.translate(-0.4F, 0.8F, 0F);
+					else ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+					ms.translate(-0.3F, -1.9F, 0.04F);
+					break;
+				case WEST:
+					if(mySon)
+						ms.translate(1F, 0.65F, 1F);
+					else if(block)
+						ms.translate(1F, 0.8F, 1F);
+					else ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+					ms.translate(-0.3F, -1.9F, -0.92F);
+					break;
 			}
 
 			if (mySon)
@@ -250,7 +296,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			else if(block)
 				ms.scale(0.5F, 0.5F, 0.5F);
 			if(block && side != Direction.NORTH)
-				GlStateManager.rotatef(180F, 0, 1, 0);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
 			renderItem(ms, buffers, light, overlay, stack);
 			ms.pop();
 		}
@@ -288,101 +334,35 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(15F));
 				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
 			} else if (name.equals("jibril")) {
-				GlStateManager.scalef(1.5F, 1.5F, 1.5F);
-				GlStateManager.translatef(0F, -0.8F, 0F);
-				GlStateManager.rotatef(90F, 0F, 1F, 0F);
+				ms.scale(1.5F, 1.5F, 1.5F);
+				ms.translate(0F, -0.8F, 0F);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
 				ItemFlightTiara.renderHalo(null, partialTicks);
-				GlStateManager.disableBlend();
-				GlStateManager.disableLighting();
 			} else if (name.equals("kingdaddydmac")) {
-				GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-				GlStateManager.rotatef(180F, 0F, 0F, 1F);
-				GlStateManager.rotatef(90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0F, -3F, 0.65F);
+				ms.scale(0.5F, 0.5F, 0.5F);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+				ms.translate(0F, -3F, 0.65F);
 				ItemStack ring = new ItemStack(ModItems.manaRing);
 				renderItem(ms, buffers, light, overlay, ring);
-				GlStateManager.translatef(0F, 0F, -4F);
+				ms.translate(0F, 0F, -4F);
 				renderItem(ms, buffers, light, overlay, ring);
 
-				GlStateManager.scalef(0.8F, 0.8F, 0.8F);
-				GlStateManager.translatef(1.25F, -1.25F, 2.25F);
+				ms.scale(0.8F, 0.8F, 0.8F);
+				ms.translate(1.25F, -1.25F, 2.25F);
 				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
 			} else if (ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
 				if (!icon.isEmpty()) {
-					GlStateManager.rotatef(180F, 1F, 0F, 0F);
-					GlStateManager.rotatef(180F, 0F, 1F, 0F);
-					GlStateManager.translatef(0F, 0F, 0F);
+					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 					ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
 					renderItem(ms, buffers, light, overlay, icon);
 					ShaderHelper.releaseShader();
 				}
 			}
 		}
-		GlStateManager.popMatrix();
-
-		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, x, y, z, partialTicks, destroyStage));
-
-		GlStateManager.rotatef(-rotZ, 0F, 0F, 1F);
-		GlStateManager.rotatef(-rotY, 0F, 1F, 0F);
-		GlStateManager.color3f(1F, 1F, 1F);
-		GlStateManager.scalef(1F, -1F, -1F);
-
-		RayTraceResult pos = mc.objectMouseOver;
-		if (!name.isEmpty() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK
-				&& potato.getPos().equals(((BlockRayTraceResult) pos).getPos())) {
-			GlStateManager.pushMatrix();
-			GlStateManager.translatef(0F, -0.6F, 0F);
-			GlStateManager.rotatef(-mc.getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
-			GlStateManager.rotatef(mc.getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
-			float f = 1.6F;
-			float f1 = 0.016666668F * f;
-			GlStateManager.scalef(-f1, -f1, f1);
-			GlStateManager.disableLighting();
-			GlStateManager.translatef(0.0F, 0F / f1, 0.0F);
-			GlStateManager.depthMask(false);
-			GlStateManager.enableBlend();
-			GLX.glBlendFuncSeparate(770, 771, 1, 0);
-			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder worldrenderer = tessellator.getBuffer();
-			GlStateManager.disableTexture();
-			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			int i = mc.fontRenderer.getStringWidth(potato.name.getString()) / 2;
-			worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-			worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-			worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-			worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-			tessellator.draw();
-			GlStateManager.enableTexture();
-			GlStateManager.depthMask(true);
-			mc.fontRenderer.drawString(potato.name.getFormattedText(), -i, 0, 0xFFFFFF);
-			if (name.equals("pahimar") || name.equals("soaryn")) {
-				GlStateManager.translatef(0F, 14F, 0F);
-				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
-				GlStateManager.depthMask(false);
-				GlStateManager.enableBlend();
-				GLX.glBlendFuncSeparate(770, 771, 1, 0);
-				GlStateManager.disableTexture();
-				worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-				i = mc.fontRenderer.getStringWidth(str) / 2;
-				worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-				worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-				worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-				worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-				tessellator.draw();
-				GlStateManager.enableTexture();
-				GlStateManager.depthMask(true);
-				mc.fontRenderer.drawString(str, -mc.fontRenderer.getStringWidth(str) / 2, 0, 0xFFFFFF);
-			}
-
-			GlStateManager.enableLighting();
-			GlStateManager.disableBlend();
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
-			GlStateManager.scalef(1F / -f1, 1F / -f1, 1F / f1);
-			GlStateManager.popMatrix();
-		}
-
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
 	private void renderModel(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, IBakedModel model) {

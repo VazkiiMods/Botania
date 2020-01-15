@@ -10,6 +10,8 @@
  */
 package vazkii.botania.api.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.eventbus.api.Event;
@@ -21,17 +23,19 @@ public class TinyPotatoRenderEvent extends Event {
 
 	public final TileEntity tile;
 	public final ITextComponent name;
-	public final double x, y, z;
 	public final float partTicks;
-	public final int destroyStage;
+	public final MatrixStack ms;
+	public final IRenderTypeBuffer buffers;
+	public final int light;
+	public final int overlay;
 
-	public TinyPotatoRenderEvent(TileEntity tile, ITextComponent name, double x, double y, double z, float partTicks, int destroyStage) {
+	public TinyPotatoRenderEvent(TileEntity tile, ITextComponent name, float partTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		this.tile = tile;
 		this.name = name;
-		this.x = x;
-		this.y = y;
-		this.z = z;
 		this.partTicks = partTicks;
-		this.destroyStage = destroyStage;
+		this.ms = ms;
+		this.buffers = buffers;
+		this.light = light;
+		this.overlay = overlay;
 	}
 }

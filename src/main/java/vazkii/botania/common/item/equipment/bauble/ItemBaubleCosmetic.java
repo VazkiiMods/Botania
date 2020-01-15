@@ -16,10 +16,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -85,7 +87,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		if(variant.isHead) {
 			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 			AccessoryRenderHelper.translateToFace();
@@ -93,137 +94,139 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			switch (variant) {
 			case RED_GLASSES:
 			case ENGINEER_GOGGLES:
-				scale(1.25F);
-				GlStateManager.translatef(0F, -0.085F, 0.045F);
-				renderItem(stack);
+				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.translate(0F, -0.085F, 0.045F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case EYEPATCH:
-				scale(0.55F);
-				GlStateManager.translatef(-0.45F, -0.25F, 0F);
-				renderItem(stack);
+				ms.scale(0.55F, 0.55F, 0.55F);
+				ms.translate(-0.45F, -0.25F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case WICKED_EYEPATCH:
-				scale(0.55F);
-				GlStateManager.translatef(0.45F, -0.25F, 0F);
-				renderItem(stack);
+				ms.scale(0.55F, 0.55F, 0.55F);
+				ms.translate(0.45F, -0.25F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case RED_RIBBONS:
-				scale(0.9F);
-				GlStateManager.translatef(0F, 0.75F, 1F);
-				renderItem(stack);
+				ms.scale(0.9F, 0.9F, 0.9F);
+				ms.translate(0F, 0.75F, 1F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case PINK_FLOWER_BUD:
-				GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0.4F, 0.6F, 0.45F);
-				renderItem(stack);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.translate(0.4F, 0.6F, 0.45F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case POLKA_DOTTED_BOWS:
-				GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0.65F, 0.3F, 0.5F);
-				renderItem(stack);
-				GlStateManager.translatef(0F, 0F, -1F);
-				renderItem(stack);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.translate(0.65F, 0.3F, 0.5F);
+				renderItem(stack, ms, buffers, light);
+				ms.translate(0F, 0F, -1F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case BLUE_BUTTERFLY:
-				GlStateManager.translatef(-0.75F, 0.1F, 1F);
-				GlStateManager.pushMatrix();
-				GlStateManager.rotatef(45F, 0F, 1F, 0F);
-				renderItem(stack);
-				GlStateManager.popMatrix();
+				ms.translate(-0.75F, 0.1F, 1F);
+				ms.push();
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(45F));
+				renderItem(stack, ms, buffers, light);
+				ms.pop();
 
-				GlStateManager.translatef(0F, 0F, -0.75F);
-				GlStateManager.rotatef(-45F, 0F, 1F, 0F);
-				renderItem(stack);
+				ms.translate(0F, 0F, -0.75F);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-45F));
+				renderItem(stack, ms, buffers, light);
 				break;
 			case CAT_EARS:
-				GlStateManager.translatef(0F, 0.25F, 0.25F);
-				renderItem(stack);
+				ms.translate(0F, 0.25F, 0.25F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case GOOGLY_EYES:
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.scalef(1.5F, 1.5F, 1F);
-				GlStateManager.translatef(0F, -0.05F, 0F);
-				renderItem(stack);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.scale(1.5F, 1.5F, 1F);
+				ms.translate(0F, -0.05F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case CLOCK_EYE:
-				scale(0.75F);
-				GlStateManager.translatef(-0.25F, -0.1F, 0F);
-				GlStateManager.rotatef(180F, 0F, 0F, 1F);
-				renderItem(stack);
+				ms.scale(0.75F, 0.75F, 0.75F);
+				ms.translate(-0.25F, -0.1F, 0F);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				renderItem(stack, ms, buffers, light);
 				break;
 			case UNICORN_HORN:
-				scale(1.25F);
-				GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0F, 0.4F, 0F);
-				renderItem(stack);
+				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.translate(0F, 0.4F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case DEVIL_HORNS:
-				GlStateManager.translatef(0F, 0.2F, 0.25F);
-				renderItem(stack);
+				ms.translate(0F, 0.2F, 0.25F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case HYPER_PLUS:
-				scale(0.35F);
-				GlStateManager.translatef(-0.7F, 1F, -0.5F);
-				renderItem(stack);
-				GlStateManager.translatef(1.45F, 0F, 0F);
-				renderItem(stack);
+				ms.scale(0.35F, 0.35F, 0.35F);
+				ms.translate(-0.7F, 1F, -0.5F);
+				renderItem(stack, ms, buffers, light);
+				ms.translate(1.45F, 0F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case ANCIENT_MASK:
-				scale(1.25F);
-				GlStateManager.translatef(0F, 0.025F, 0.01F);
-				renderItem(stack);
+				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.translate(0F, 0.025F, 0.01F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case EERIE_MASK:
-				renderItem(stack);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case ALIEN_ANTENNA:
-				scale(0.9F);
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(0F, 0.75F, -1F);
-				renderItem(stack);
+				ms.scale(0.9F, 0.9F, 0.9F);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.translate(0F, 0.75F, -1F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case ANAGLYPH_GLASSES:
-				scale(1.25F);
-				GlStateManager.translatef(0F, -0.025F, 0F);
-				renderItem(stack);
+				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.translate(0F, -0.025F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case ORANGE_SHADES:
-				scale(1.25f);
-				GlStateManager.translatef(0F, 0.04F, 0F);
+				ms.scale(1.25f, 1.25f, 1.25f);
+				ms.translate(0F, 0.04F, 0F);
+				/* todo 1.15
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GlStateManager.color4f(1F, 1F, 1F, 0.7F);
-				renderItem(stack);
+				 */
+				renderItem(stack, ms, buffers, light);
 				break;
 			case GROUCHO_GLASSES:
-				scale(1.5F);
-				GlStateManager.translatef(0F, -0.2125F, 0F);
-				renderItem(stack);
+				ms.scale(1.5F, 1.5F, 1.5F);
+				ms.translate(0F, -0.2125F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case THICK_EYEBROWS:
-				scale(0.5F);
-				GlStateManager.translatef(-0.4F, 0.05F, 0F);
-				renderItem(stack);
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(-0.775F, 0F, 0F);
-				renderItem(stack);
+				ms.scale(0.5F, 0.5F, 0.5F);
+				ms.translate(-0.4F, 0.05F, 0F);
+				renderItem(stack, ms, buffers, light);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.translate(-0.775F, 0F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case TINY_POTATO_MASK:
-				scale(1.25F);
-				GlStateManager.translatef(0F, 0.025F, 0F);
-				renderItem(stack);
+				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.translate(0F, 0.025F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case QUESTGIVER_MARK:
-				scale(0.8F);
-				GlStateManager.translatef(0F, 1F, 0.3F);
-				renderItem(stack);
+				ms.scale(0.8F, 0.8F, 0.8F);
+				ms.translate(0F, 1F, 0.3F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case THINKING_HAND:
-				scale(0.9f);
-				GlStateManager.translatef(0.2F, -0.5F, 0F);
-				GlStateManager.scalef(-1, 1, 1);
-				GlStateManager.rotatef(15F, 0F, 0F, 1F);
-				renderItem(stack);
+				ms.scale(0.9f, 0.9f, 0.9f);
+				ms.translate(0.2F, -0.5F, 0F);
+				ms.scale(-1, 1, 1);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(15F));
+				renderItem(stack, ms, buffers, light);
 				break;
 			default:
 				break;
@@ -234,48 +237,48 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			AccessoryRenderHelper.defaultTransforms();
 			switch (variant) {
 			case BLACK_BOWTIE:
-				GlStateManager.translatef(0F, 0.15F, 0F);
-				renderItem(stack);
+				ms.translate(0F, 0.15F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case BLACK_TIE:
 			case PUFFY_SCARF:
-				GlStateManager.translatef(0F, -0.15F, 0F);
-				renderItem(stack);
+				ms.translate(0F, -0.15F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case WITCH_PIN:
-				scale(0.35F);
-				GlStateManager.translatef(-0.35F, 0.35F, 0.15F);
-				renderItem(stack);
+				ms.scale(0.35F, 0.35F, 0.35F);
+				ms.translate(-0.35F, 0.35F, 0.15F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case DEVIL_TAIL:
-				GlStateManager.rotatef(90F, 0F, 1F, 0F);
-				GlStateManager.translatef(0.5F, -0.75F, 0F);
-				renderItem(stack);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.translate(0.5F, -0.75F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
-				scale(0.9F);
-				GlStateManager.translatef(0.9F, 0.35F, 0F);
-				renderItem(stack);
-				GlStateManager.translatef(-1.3F, -0.5F, 0.5F);
-				GlStateManager.rotatef(180F, 0F, 0F, 1F);
-				GlStateManager.rotatef(180F, 1F, 0F, 0F);
+				ms.scale(0.9F, 0.9F, 0.9F);
+				ms.translate(0.9F, 0.35F, 0F);
+				renderItem(stack, ms, buffers, light);
+				ms.translate(-1.3F, -0.5F, 0.5F);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
 				renderKamuiBlack(stack);
 				break;
 			case FOUR_LEAF_CLOVER:
-				scale(0.5F);
-				GlStateManager.translatef(0.35F, 0.3F, -0.075F);
-				renderItem(stack);
+				ms.scale(0.5F, 0.5F, 0.5F);
+				ms.translate(0.35F, 0.3F, -0.075F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case BOTANIST_EMBLEM:
-				scale(0.5F);
-				GlStateManager.translatef(0F, -0.75F, 0F);
-				renderItem(stack);
+				ms.scale(0.5F, 0.5F, 0.5F);
+				ms.translate(0F, -0.75F, 0F);
+				renderItem(stack, ms, buffers, light);
 				break;
 			case LUSITANIC_SHIELD:
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(0.035F, -0.2F, 0.55F);
-				GlStateManager.rotatef(8F, 0F, 0F, 1F);
-				renderItem(stack);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.translate(0.035F, -0.2F, 0.55F);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(8F));
+				renderItem(stack, ms, buffers, light);
 				break;
 			default:
 				break;
@@ -283,14 +286,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		}
 	}
 
-	public static void scale(float f) {
-		GlStateManager.scalef(f, f, f);
-	}
-
-	public static void renderItem(ItemStack stack) {
-		GlStateManager.pushMatrix();
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
-		GlStateManager.popMatrix();
+	public static void renderItem(ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 
 	// todo 1.13 recheck vanilla copying
