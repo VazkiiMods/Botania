@@ -12,7 +12,7 @@ public final class AccessoryRenderHelper {
      * Rotates the render for a bauble correctly if the player is sneaking.
      */
     public static void rotateIfSneaking(LivingEntity player) {
-        if(player.shouldRenderSneaking())
+        if(player.isCrouching())
             applySneakingRotation();
     }
 

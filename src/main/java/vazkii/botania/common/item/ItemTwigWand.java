@@ -233,14 +233,49 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 			    IProperty<Direction> facingProp = (IProperty<Direction>) prop;
 
-				Direction newDir = old.get(facingProp).rotateAround(axis);
-				if (facingProp.getAllowedValues().contains(newDir)) {
+			    Direction oldDir = old.get(facingProp);
+				Direction newDir = rotateAround(oldDir, axis);
+				if (oldDir != newDir && facingProp.getAllowedValues().contains(newDir)) {
 					return old.with(facingProp, newDir);
 				}
 			}
 		}
 
 		return old.rotate(Rotation.CLOCKWISE_90);
+	}
+
+	private static Direction rotateAround(Direction old, Direction.Axis axis) {
+		switch (axis) {
+			case X: {
+				switch (old) {
+					case DOWN: return Direction.SOUTH;
+					case SOUTH: return Direction.UP;
+					case UP: return Direction.NORTH;
+					case NORTH: return Direction.DOWN;
+				}
+				break;
+			}
+			case Y: {
+				switch (old) {
+					case NORTH: return Direction.EAST;
+					case EAST: return Direction.SOUTH;
+					case SOUTH: return Direction.WEST;
+					case WEST: return Direction.NORTH;
+				}
+				break;
+			}
+			case Z: {
+				switch (old) {
+					case DOWN: return Direction.WEST;
+					case WEST: return Direction.UP;
+					case UP: return Direction.EAST;
+					case EAST: return Direction.DOWN;
+				}
+				break;
+			}
+		}
+
+		return old;
 	}
 
 	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {

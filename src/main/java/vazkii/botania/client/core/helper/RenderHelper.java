@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +44,7 @@ public final class RenderHelper {
 	public static final RenderType LINE_4;
 	public static final RenderType LINE_5;
 	public static final RenderType LINE_8;
+	public static final RenderType SPARK;
 	public static final RenderType LIGHT_RELAY;
 	public static final RenderType SPINNING_CUBE;
 	public static final RenderType SPINNING_CUBE_GHOST;
@@ -51,6 +53,7 @@ public final class RenderHelper {
 	public static final RenderType MANA_POOL_WATER;
 	public static final RenderType TERRA_PLATE;
 	public static final RenderType ENCHANTER;
+	public static final RenderType HALO;
 
 	// todo 1.15 AT's for necessary fields
 	static {
@@ -82,8 +85,9 @@ public final class RenderHelper {
 		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
-		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).alpha(new RenderState.AlphaState(0.05F)).build(true);
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).alpha(new RenderState.AlphaState(0.05F)).lightmap(enableLightmap).build(true);
 		// todo 1.15: need normals?
+		SPARK = RenderType.of(LibResources.PREFIX_MOD + "spark", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 256, glState);
 		LIGHT_RELAY = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 64, glState));
 
 		glState = RenderType.State.builder().texture(new RenderState.TextureState()).build(false);
@@ -102,6 +106,10 @@ public final class RenderHelper {
 		MANA_POOL_WATER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY);
 		TERRA_PLATE = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY);
 		ENCHANTER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY);
+
+		RenderState.TextureState haloTexture = new RenderState.TextureState(ItemFlightTiara.textureHalo, false, true);
+		glState = RenderType.State.builder().texture(haloTexture).transparency(translucentTransparency).cull(disableCull).shadeModel(smoothShade).build(true);
+		HALO = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "halo", DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 64, glState));
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {

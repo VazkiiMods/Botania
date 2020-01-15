@@ -709,8 +709,6 @@ public final class ModItems {
 		register(r, new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable()), LibItemNames.MANAWEAVE_LEGS);
 		register(r, new ItemManaweaveArmor(EquipmentSlotType.FEET, unstackable()), LibItemNames.MANAWEAVE_BOOTS);
 		register(r, new ItemAutocraftingHalo(unstackable()), LibItemNames.AUTOCRAFTING_HALO);
-		Item head = new ItemGaiaHead(ModBlocks.gaiaHead, ModBlocks.gaiaHeadWall, defaultBuilder().rarity(Rarity.UNCOMMON));
-		register(r, head, ModBlocks.gaiaHead.getRegistryName());
 		register(r, new ItemSextant(unstackable()), LibItemNames.SEXTANT);
 		register(r, new ItemSpeedUpBelt(unstackable()), LibItemNames.SPEED_UP_BELT);
 		register(r, new ItemBaubleBox(unstackable()), LibItemNames.BAUBLE_BOX);

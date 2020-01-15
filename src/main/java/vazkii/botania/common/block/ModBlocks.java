@@ -18,6 +18,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -97,6 +98,7 @@ import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
@@ -819,6 +821,8 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(brewery, props), brewery.getRegistryName());
 		register(r, new ItemBlockMod(corporeaIndex, props), corporeaIndex.getRegistryName());
 		register(r, new ItemBlockMod(hourglass, props), hourglass.getRegistryName());
+		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON));
+		register(r, head, gaiaHead.getRegistryName());
 		return null;
 	}
 
@@ -835,6 +839,8 @@ public final class ModBlocks {
 		register(r, new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.brewery, TileBrewery.TYPE))), brewery.getRegistryName());
 		register(r, new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.corporeaIndex, TileCorporeaIndex.TYPE))), corporeaIndex.getRegistryName());
 		register(r, new ItemBlockMod(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(ModBlocks.hourglass, TileHourglass.TYPE))), hourglass.getRegistryName());
+		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON).setTEISR(() -> () -> new TEISR(ModBlocks.gaiaHead, TileGaiaHead.TYPE)));
+		register(r, head, gaiaHead.getRegistryName());
 		return null;
 	}
 

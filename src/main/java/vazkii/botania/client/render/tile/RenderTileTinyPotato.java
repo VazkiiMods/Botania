@@ -337,7 +337,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				ms.scale(1.5F, 1.5F, 1.5F);
 				ms.translate(0F, -0.8F, 0F);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
-				ItemFlightTiara.renderHalo(null, partialTicks);
+				ItemFlightTiara.renderHalo(null, ms, buffers, partialTicks);
 			} else if (name.equals("kingdaddydmac")) {
 				ms.scale(0.5F, 0.5F, 0.5F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));

@@ -10,7 +10,11 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -20,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.entity.EntitySparkBase;
 
@@ -34,67 +39,47 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 	}
 
 	@Override
-	public void doRender(@Nonnull T tEntity, double par2, double par4, double par6, float par8, float par9) {
+	public void render(@Nonnull T tEntity, float yaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(par2, par4, par6);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
+		ms.push();
 
-		double time = ClientTickHandler.ticksInGame + par9;
-		time += new Random(tEntity.getEntityId()).nextInt();
-
+		double time = ClientTickHandler.ticksInGame + partialTicks + new Random(tEntity.getEntityId()).nextInt();
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
-		GlStateManager.color4f(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
+		int alpha = (int) ((0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0F);
+		int iconColor = 0xFFFFFF | (alpha << 24);
 
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
-		GlStateManager.scalef(scale, scale, scale);
-		bindEntityTexture(tEntity);
-		Tessellator tessellator = Tessellator.getInstance();
+		ms.scale(scale, scale, scale);
 
-		GlStateManager.pushMatrix();
-		float r = 180.0F - renderManager.playerViewY;
-		GlStateManager.rotatef(r, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotatef(-renderManager.playerViewX, 1F, 0F, 0F);
-		renderIcon(tessellator, iicon);
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.SPARK);
+		ms.push();
+		ms.multiply(renderManager.getRotation());
+		renderIcon(ms, buffer, iicon, iconColor);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
-		GlStateManager.scalef(0.2F, 0.2F, 0.2F);
-		colorStar(tEntity, a);
-		renderIcon(tessellator, MiscellaneousIcons.INSTANCE.corporeaIconStar);
-		GlStateManager.popMatrix();
+		ms.push();
+		ms.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
+		ms.scale(0.2F, 0.2F, 0.2F);
+		int starColor = tEntity.getNetwork().colorValue | ((int) (a * 255.0F) << 24);
+		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar, starColor);
+		ms.pop();
 
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
 		if (spinningIcon != null) {
-			GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * -0.2F, 0.24F + (float) Math.cos(time / 20) * -0.2F, 0.005F);
-			GlStateManager.scalef(0.2F, 0.2F, 0.2F);
-			renderIcon(tessellator, spinningIcon);
+			ms.translate(-0.02F + (float) Math.sin(time / 20) * -0.2F, 0.24F + (float) Math.cos(time / 20) * -0.2F, 0.005F);
+			ms.scale(0.2F, 0.2F, 0.2F);
+			renderIcon(ms, buffer, spinningIcon, iconColor);
 		}
 
-		GlStateManager.popMatrix();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		renderCallback(tEntity, par9);
+		ms.pop();
+		renderCallback(tEntity, partialTicks, ms, buffers);
 
-		GlStateManager.disableBlend();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
 	protected TextureAtlasSprite getBaseIcon(T entity) {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;
-	}
-
-	private void colorStar(T entity, float a) {
-		int hex = entity.getNetwork().colorValue;
-		int r = (hex & 0xFF0000) >> 16;
-		int g = (hex & 0xFF00) >> 8;
-		int b = hex & 0xFF;
-		GlStateManager.color4f(r / 255F, g / 255F, b / 255F, a);
 	}
 
 	@Nullable
@@ -102,7 +87,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		return null;
 	}
 
-	protected void renderCallback(T entity, float pticks) {}
+	protected void renderCallback(T entity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers) {}
 
 	@Nonnull
 	@Override
@@ -110,7 +95,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 
-	private void renderIcon(Tessellator tess, TextureAtlasSprite icon) {
+	private void renderIcon(MatrixStack ms, IVertexBuilder buffer, TextureAtlasSprite icon, int color) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -118,13 +103,17 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
+		int fullbright = 0xF000F0;
+		int a = (color >> 24) & 0xFF;
+		int r = (color >> 16) & 0xFF;
+		int g = (color >> 8) & 0xFF;
+		int b = color & 0xFF;
 
-		tess.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP_NORMAL);
-		tess.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		tess.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		tess.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		tess.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		tess.draw();
+		Matrix4f mat = ms.peek().getModel();
+		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(r, g, b, a).texture(f, f3).light(fullbright).endVertex();
+		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(r, g, b, a).texture(f1, f3).light(fullbright).endVertex();
+		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(r, g, b, a).texture(f1, f2).light(fullbright).endVertex();
+		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(r, g, b, a).texture(f, f2).light(fullbright).endVertex();
 	}
 
 }

@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -63,6 +64,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -70,7 +72,7 @@ import java.util.List;
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
-	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+	public static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
 
 	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";
@@ -412,44 +414,27 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			ms.pop();
 
 			if(meta == 1)
-				renderHalo(player, partialTicks);
+				renderHalo(player, ms, buffers, partialTicks);
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHalo(LivingEntity player, float partialTicks) {
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, 240, 240);
-		GlStateManager.disableLighting();
-		GlStateManager.disableCull();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-
-		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
-
+	public static void renderHalo(@Nullable LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, float partialTicks) {
 		if(player != null)
 			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		GlStateManager.translatef(0, 1.5F, 0);
-		GlStateManager.rotatef(30, 1, 0, -1);
-		GlStateManager.translatef(-0.1F, -0.5F, -0.1F);
+		ms.translate(0, 1.5F, 0);
+		ms.multiply(new Vector3f(1, 0, -1).getDegreesQuaternion(30));
+		ms.translate(-0.1F, -0.5F, -0.1F);
 		if(player != null)
-			GlStateManager.rotatef(player.ticksExisted + partialTicks, 0, 1, 0);
-		else GlStateManager.rotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
-
-		Tessellator tes = Tessellator.getInstance();
-		ShaderHelper.useShader(ShaderHelper.BotaniaShader.HALO);
-		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tes.getBuffer().pos(-0.75, 0, -0.75).tex(0, 0).endVertex();
-		tes.getBuffer().pos(-0.75, 0, 0.75).tex(0, 1).endVertex();
-		tes.getBuffer().pos(0.75, 0, 0.75).tex(1, 1).endVertex();
-		tes.getBuffer().pos(0.75, 0, -0.75).tex(1, 0).endVertex();
-		tes.draw();
-		ShaderHelper.releaseShader();
-
-		GlStateManager.enableLighting();
-		GlStateManager.shadeModel(GL11.GL_FLAT);
-		GlStateManager.enableCull();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(player.ticksExisted + partialTicks));
+		else ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(Botania.proxy.getWorldElapsedTicks()));
+		
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.HALO);
+		Matrix4f mat = ms.peek().getModel();
+		buffer.vertex(mat, -0.75F, 0, -0.75F).texture(0, 0).endVertex();
+		buffer.vertex(mat, -0.75F, 0, 0.75F).texture(0, 1).endVertex();
+		buffer.vertex(mat, 0.75F, 0, 0.75F).texture(1, 1).endVertex();
+		buffer.vertex(mat, 0.75F, 0, -0.75F).texture(1, 0).endVertex();
 	}
 
 	@OnlyIn(Dist.CLIENT)
