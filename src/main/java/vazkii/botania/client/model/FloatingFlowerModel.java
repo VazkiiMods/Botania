@@ -1,30 +1,36 @@
 package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.TransformationMatrix;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.texture.ISprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.BakedModelWrapper;
-import net.minecraftforge.client.model.BasicState;
-import net.minecraftforge.client.model.ICustomModelLoader;
+import net.minecraftforge.client.model.IModelConfiguration;
+import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.ModelStateComposition;
+import net.minecraftforge.client.model.ModelTransformComposition;
+import net.minecraftforge.client.model.SimpleModelTransform;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.client.model.geometry.IModelGeometry;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -42,65 +48,37 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class FloatingFlowerModel implements IUnbakedModel {
-    private static final FloatingFlowerModel INIT = new FloatingFlowerModel(null);
-
-    @Nullable
-    private final ResourceLocation flower;
-
-    @Nullable
-    private IUnbakedModel unbakedFlower = null;
-
+public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> {
+    private IUnbakedModel unbakedFlower;
     private final Map<IFloatingFlower.IslandType, IUnbakedModel> unbakedIslands = new HashMap<>();
 
-    private FloatingFlowerModel(@Nullable ResourceLocation flower) {
-        this.flower = flower;
-        if (flower != null)
-            this.unbakedFlower = ModelLoaderRegistry.getModelOrMissing(flower);
-        for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.getRegisteredIslandTypeModels().entrySet()) {
-            IUnbakedModel unbakedIsland = ModelLoaderRegistry.getModelOrMissing(e.getValue());
-            unbakedIslands.put(e.getKey(), unbakedIsland);
-        }
+    private FloatingFlowerModel(@Nullable IUnbakedModel flower) {
+        this.unbakedFlower = flower;
     }
 
     @Nonnull
     @Override
-    public Collection<ResourceLocation> getDependencies() {
-        List<ResourceLocation> ret = new ArrayList<>(BotaniaAPIClient.getRegisteredIslandTypeModels().values());
-        if (flower != null)
-            ret.add(flower);
-        return ret;
-    }
-
-    @Nonnull
-    @Override
-    public Collection<Material> getTextureDependencies(Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors){
+    public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
         Set<Material> ret = new HashSet<>();
-        for (IUnbakedModel island : unbakedIslands.values()) {
-            ret.addAll(island.getTextureDependencies(modelGetter, missingTextureErrors));
+        for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.getRegisteredIslandTypeModels().entrySet()) {
+            IUnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
+            ret.addAll(unbakedIsland.getTextureDependencies(modelGetter, missingTextureErrors));
+            unbakedIslands.put(e.getKey(), unbakedIsland);
         }
         ret.addAll(unbakedFlower.getTextureDependencies(modelGetter, missingTextureErrors));
         return ret;
     }
 
-    @Nonnull
-    @Override
-    public IUnbakedModel process(ImmutableMap<String, String> customData) {
-        // Forge is big dumb and passes this in *with the quote markers*...
-        String flowerPath = customData.get("flower");
-        return new FloatingFlowerModel(new ResourceLocation(flowerPath.substring(1, flowerPath.length() - 1)));
-    }
-
     @Nullable
     @Override
-    public IBakedModel bake(ModelBakery bakery, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, ISprite sprite, VertexFormat format) {
-        final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null));
-        IModelState comp = new ModelStateComposition(transform, sprite.getState());
-        IBakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, new BasicState(comp, false), format);
+    public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation name) {
+        final TransformationMatrix moveFlower = new TransformationMatrix(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null).blockCenterToCorner();
+        IModelTransform comp = new ModelTransformComposition(new SimpleModelTransform(moveFlower), transform);
+        IBakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, comp, name);
 
         Map<IFloatingFlower.IslandType, IBakedModel> bakedIslands = new HashMap<>();
         for (Map.Entry<IFloatingFlower.IslandType, IUnbakedModel> e : unbakedIslands.entrySet()) {
-            IBakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, sprite, format);
+            IBakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, transform, name);
             bakedIslands.put(e.getKey(), bakedIsland);
         }
         return new Baked(bakedFlower, bakedIslands);
@@ -165,21 +143,17 @@ public class FloatingFlowerModel implements IUnbakedModel {
         }
     }
 
-    public enum Loader implements ICustomModelLoader {
+    public enum Loader implements IModelLoader<FloatingFlowerModel> {
         INSTANCE;
 
         @Override
         public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {}
 
-        @Override
-        public boolean accepts(ResourceLocation modelLocation) {
-            return modelLocation.getNamespace().equals("botania_special") && modelLocation.getPath().equals("models/floating_flower");
-        }
-
         @Nonnull
         @Override
-        public IUnbakedModel loadModel(@Nonnull ResourceLocation modelLocation) {
-            return FloatingFlowerModel.INIT;
+        public FloatingFlowerModel read(JsonDeserializationContext ctx, JsonObject model) {
+            BlockModel flower = ctx.deserialize(model.getAsJsonObject("flower"), BlockModel.class);
+            return new FloatingFlowerModel(flower);
         }
     }
 }
