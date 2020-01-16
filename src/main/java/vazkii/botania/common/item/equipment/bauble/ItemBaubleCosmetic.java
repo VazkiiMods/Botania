@@ -12,20 +12,28 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -36,8 +44,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
@@ -262,7 +273,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				ms.translate(-1.3F, -0.5F, 0.5F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-				renderKamuiBlack(stack);
+				RenderHelper.renderItemCustomColor(player, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.DEFAULT_UV);
 				break;
 			case FOUR_LEAF_CLOVER:
 				ms.scale(0.5F, 0.5F, 0.5F);
@@ -288,64 +299,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	public static void renderItem(ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
 		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
-	}
-
-	// todo 1.13 recheck vanilla copying
-	private static void renderKamuiBlack(ItemStack stack) {
-
-		// Modified copy of RenderItem.renderItem(stack, transformtype)
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-
-		IBakedModel model = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack);
-
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.alphaFunc(516, 0.1F);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFuncSeparate(770, 771, 1, 0);
-		GlStateManager.pushMatrix();
-		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.NONE, false);
-
-		renderModel(model, stack, 0xFF00004C);
-
-		GlStateManager.cullFace(GlStateManager.CullFace.BACK);
-		GlStateManager.popMatrix();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.disableBlend();
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
-	}
-
-	// Adapted from RenderItem.renderModel(model, stack), added extra color param
-	private static void renderModel(IBakedModel model, ItemStack stack, int color) {
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder worldrenderer = tessellator.getBuffer();
-		worldrenderer.begin(7, DefaultVertexFormats.ITEM);
-
-		for(Direction enumfacing : Direction.values()) {
-			renderQuads(worldrenderer, model.getQuads(null, enumfacing, random), color, stack);
-		}
-
-		renderQuads(worldrenderer, model.getQuads(null, null, random), color, stack);
-		tessellator.draw();
-	}
-
-	// Copy of RenderItem.renderQuads
-	private static void renderQuads(BufferBuilder renderer, List<BakedQuad> quads, int color, ItemStack stack) {
-		boolean flag = color == -1 && !stack.isEmpty();
-		int i = 0;
-
-		for(int j = quads.size(); i < j; ++i) {
-			BakedQuad bakedquad = quads.get(i);
-			int k = color;
-
-			if(flag && bakedquad.hasTintIndex()) {
-				k = Minecraft.getInstance().getItemColors().getColor(stack, bakedquad.getTintIndex());
-				k = k | -16777216;
-			}
-
-			net.minecraftforge.client.model.pipeline.LightUtil.renderQuadColor(renderer, bakedquad, k);
-		}
 	}
 
 }

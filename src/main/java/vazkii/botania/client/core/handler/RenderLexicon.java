@@ -1,10 +1,11 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.base.Joiner;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.model.BookModel;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -32,7 +33,6 @@ import java.util.List;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class RenderLexicon {
 	private static final BookModel model = new BookModel();
-	// todo 1.12 improve
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT);
 	private static final ResourceLocation elvenTexture = new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN);
 
@@ -57,34 +57,42 @@ public class RenderLexicon {
 			return;
 		evt.setCanceled(true);
 		try {
-			renderItemInFirstPerson(mc.player, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress());
+			// todo 1.15 need the buffers, MinecraftForge#6444 renderItemInFirstPerson(mc.player, evt.getMatrixStack(), evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress());
 		} catch (Throwable throwable) {
 			Botania.LOGGER.warn("Failed to render lexicon");
 		}
 	}
 
-	private static void renderItemInFirstPerson(AbstractClientPlayerEntity player, float partialTicks, float interpPitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress) throws Throwable {
+	private static void renderItemInFirstPerson(AbstractClientPlayerEntity player, MatrixStack ms, float partialTicks, float interpPitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress) throws Throwable {
 		// Cherry picked from ItemRenderer.renderItemInFirstPerson
-		boolean flag = hand == Hand.MAIN_HAND;
-		HandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
-		GlStateManager.pushMatrix();
-		boolean flag1 = enumhandside == HandSide.RIGHT;
+		// todo 1.15 modernize to match FirstPersonRenderer
+		boolean mainHand = hand == Hand.MAIN_HAND;
+		HandSide side = mainHand ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
+		ms.push();
+		boolean rightSide = side == HandSide.RIGHT;
 		float f = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
 		float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2F));
 		float f2 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
-		int i = flag1 ? 1 : -1;
-		GlStateManager.translated(i * f, f1, f2);
-		transformSideFirstPerson(enumhandside, equipProgress);
-		transformFirstPerson(enumhandside, swingProgress);
-		doRender(enumhandside, partialTicks, stack);
-		GlStateManager.popMatrix();
+		int i = rightSide ? 1 : -1;
+		ms.translate(i * f, f1, f2);
+		ms.translate(i * 0.56F, -0.44F + equipProgress * -0.8F, -0.72F);
+		ms.translate(rightSide ? 0.2F : 0.52F, -0.125F, side == HandSide.RIGHT ? 0.6F : 0.25F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rightSide ? 60F : 120F));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-30F));
+		float f3 = MathHelper.sin(swingProgress * swingProgress * (float)Math.PI);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(i * (45.0F + f3 * -20.0F)));
+		float f11 = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(i * f11 * -20.0F));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(f11 * -80.0F));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(i * -45.0F));
+		doRender(ms, side, partialTicks, stack);
+		ms.pop();
 	}
 
-	private static void doRender(HandSide side, float partialTicks, ItemStack stack) {
+	private static void doRender(MatrixStack ms, HandSide side, float partialTicks, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 
-		GlStateManager.pushMatrix();
-		GlStateManager.color3f(1F, 1F, 1F);
+		ms.push();
 		mc.textureManager.bindTexture(((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? elvenTexture : texture);
 		float opening;
 		float pageFlip;
@@ -97,9 +105,9 @@ public class RenderLexicon {
 			else ticks -= partialTicks;
 		}
 
-		GlStateManager.translated(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - (side == HandSide.RIGHT ? 0.035F : 0.01F) * ticks);
-		GlStateManager.rotatef(87.5F + ticks * (side == HandSide.RIGHT ? 8 : 12), 0F, 1F, 0F);
-		GlStateManager.rotatef(ticks * 2.85F, 0F, 0F, 1F);
+		ms.translate(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - (side == HandSide.RIGHT ? 0.035F : 0.01F) * ticks);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(87.5F + ticks * (side == HandSide.RIGHT ? 8 : 12)));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(ticks * 2.85F));
 		opening = ticks / 12F;
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
@@ -108,20 +116,20 @@ public class RenderLexicon {
 
 		pageFlip = pageFlipTicks / 5F;
 
-		model.render(0F, 0F, pageFlip, opening, 0F, 1F / 16F);
+		// todo 1.15 model.render(0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 		if(ticks < 3) {
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			GlStateManager.rotatef(180F, 0F, 0F, 1F);
-			GlStateManager.translatef(-0.30F, -0.24F, -0.07F);
-			GlStateManager.scalef(0.0030F, 0.0030F, -0.0030F);
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+			ms.translate(-0.30F, -0.24F, -0.07F);
+			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
 
 			String title = ItemLexicon.getTitle(stack).getFormattedText();
 
 			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
 
-			GlStateManager.translatef(0F, 10F, 0F);
-			GlStateManager.scalef(0.6F, 0.6F, 0.6F);
+			ms.translate(0F, 10F, 0F);
+			ms.scale(0.6F, 0.6F, 0.6F);
 			font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + ItemLexicon.getEdition(), 0, 0, 0xA07100);
 
 			if(quote == -1)
@@ -129,50 +137,23 @@ public class RenderLexicon {
 
 			String quoteStr = QUOTES[quote];
 
-			GlStateManager.translatef(-5F, 15F, 0F);
+			ms.translate(-5F, 15F, 0F);
 			renderText(0, 0, 140, 100, 0, false, 0x79ff92, quoteStr);
-			GlStateManager.color3f(1F, 1F, 1F);
 
-			GlStateManager.translatef(8F, 110F, 0F);
+			ms.translate(8F, 110F, 0F);
 			font.drawString(I18n.format("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
 
-			GlStateManager.translatef(0F, 10F, 0F);
+			ms.translate(0F, 10F, 0F);
 			font.drawString(TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.format("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
-			GlStateManager.translatef(0F, -30F, 0F);
+			ms.translate(0F, -30F, 0F);
 
 			String authorTitle = I18n.format("botaniamisc.lexiconcover2");
 			int len = font.getStringWidth(authorTitle);
 			font.drawString(authorTitle, 58 - len / 2, -8, 0xD69700);
 		}
 
-		GlStateManager.popMatrix();
-	}
-
-	// Copy - ItemRenderer.transformSideFirstPerson
-	// Arg - Side, EquipProgress
-	private static void transformSideFirstPerson(HandSide p_187459_1_, float p_187459_2_)
-	{
-		int i = p_187459_1_ == HandSide.RIGHT ? 1 : -1;
-		GlStateManager.translatef(i * 0.56F, -0.44F + p_187459_2_ * -0.8F, -0.72F);
-	}
-
-	// Copy with modification - ItemRenderer.transformFirstPerson
-	// Arg - Side, SwingProgress
-	private static void transformFirstPerson(HandSide p_187453_1_, float p_187453_2_)
-	{
-		int i = p_187453_1_ == HandSide.RIGHT ? 1 : -1;
-		// Botania - added
-		GlStateManager.translatef(p_187453_1_ == HandSide.RIGHT ? 0.2F : 0.52F, -0.125F, p_187453_1_ == HandSide.RIGHT ? 0.6F : 0.25F);
-		GlStateManager.rotatef(p_187453_1_ == HandSide.RIGHT ? 60F : 120F, 0F, 1F, 0F);
-		GlStateManager.rotatef(30F, 0F, 0F, -1F);
-		// End add
-		float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float)Math.PI);
-		GlStateManager.rotatef(i * (45.0F + f * -20.0F), 0.0F, 1.0F, 0.0F);
-		float f1 = MathHelper.sin(MathHelper.sqrt(p_187453_2_) * (float)Math.PI);
-		GlStateManager.rotatef(i * f1 * -20.0F, 0.0F, 0.0F, 1.0F);
-		GlStateManager.rotatef(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotatef(i * -45.0F, 0.0F, 1.0F, 0.0F);
+		ms.pop();
 	}
 
 	private static void renderText(int x, int y, int width, int height, int paragraphSize, boolean useUnicode, int color, String unlocalizedText) {

@@ -63,24 +63,11 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 		BlockState state = tile.getWorld().getBlockState(tile.getPos());
 		IBakedModel model = brd.getModelForState(state);
-		renderModelBrightnessColor(brd.getBlockModelRenderer(), state, model,  data);
+		// todo 1.15: won't work until MinecraftForge#6442 is merged
+		brd.renderBlock(state, ms, buffers, light, overlay, data);
 
 		ms.pop();
 
-	}
-
-	// [VanillaCopy] Like BlockModelRenderer.renderModelBrightnessColor,
-	// but no colors and call the getQuads overload with modeldata
-	private static void renderModelBrightnessColor(BlockModelRenderer renderer, BlockState state, IBakedModel modelIn, IModelData data) {
-		Random random = new Random();
-
-		for(Direction direction : Direction.values()) {
-			random.setSeed(42L);
-			renderer.renderModelBrightnessColorQuads(1, 1, 1, 1, modelIn.getQuads(state, direction, random, data));
-		}
-
-		random.setSeed(42L);
-		renderer.renderModelBrightnessColorQuads(1, 1, 1, 1, modelIn.getQuads(state, null, random, data));
 	}
 
 }
