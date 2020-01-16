@@ -153,57 +153,59 @@ public class ModSubtiles {
 		return new ResourceLocation(orig.getNamespace(), orig.getPath() + "_chibi");
 	}
 
-	public static final List<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>> TYPES = ImmutableList.<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>>of(
-			Pair.of(SubTilePureDaisy::new, LibBlockNames.SUBTILE_PUREDAISY),
-			Pair.of(SubTileManastar::new, LibBlockNames.SUBTILE_MANASTAR),
-			Pair.of(SubTileEndoflame::new, LibBlockNames.SUBTILE_ENDOFLAME),
-			Pair.of(SubTileHydroangeas::new, LibBlockNames.SUBTILE_HYDROANGEAS),
-			Pair.of(SubTileThermalily::new, LibBlockNames.SUBTILE_THERMALILY),
-			Pair.of(SubTileArcaneRose::new, LibBlockNames.SUBTILE_ARCANE_ROSE),
-			Pair.of(SubTileMunchdew::new, LibBlockNames.SUBTILE_MUNCHDEW),
-			Pair.of(SubTileEntropinnyum::new, LibBlockNames.SUBTILE_ENTROPINNYUM),
-			Pair.of(SubTileKekimurus::new, LibBlockNames.SUBTILE_KEKIMURUS),
-			Pair.of(SubTileGourmaryllis::new, LibBlockNames.SUBTILE_GOURMARYLLIS),
-			Pair.of(SubTileNarslimmus::new, LibBlockNames.SUBTILE_NARSLIMMUS),
-			Pair.of(SubTileSpectrolus::new, LibBlockNames.SUBTILE_SPECTROLUS),
-			Pair.of(SubTileDandelifeon::new, LibBlockNames.SUBTILE_DANDELIFEON),
-			Pair.of(SubTileRafflowsia::new, LibBlockNames.SUBTILE_RAFFLOWSIA),
-			Pair.of(SubTileShulkMeNot::new, LibBlockNames.SUBTILE_SHULK_ME_NOT),
-			Pair.of(SubTileBellethorn::new, LibBlockNames.SUBTILE_BELLETHORN),
-			Pair.of(SubTileBellethorn.Mini::new, chibi(LibBlockNames.SUBTILE_BELLETHORN)),
-			Pair.of(SubTileBergamute::new, LibBlockNames.SUBTILE_BERGAMUTE),
-			Pair.of(SubTileDreadthorn::new, LibBlockNames.SUBTILE_DREADTHORN),
-			Pair.of(SubTileHeiseiDream::new, LibBlockNames.SUBTILE_HEISEI_DREAM),
-			Pair.of(SubTileTigerseye::new, LibBlockNames.SUBTILE_TIGERSEYE),
-			Pair.of(SubTileJadedAmaranthus::new, LibBlockNames.SUBTILE_JADED_AMARANTHUS),
-			Pair.of(SubTileOrechid::new, LibBlockNames.SUBTILE_ORECHID),
-			Pair.of(SubTileFallenKanade::new, LibBlockNames.SUBTILE_FALLEN_KANADE),
-			Pair.of(SubTileExoflame::new, LibBlockNames.SUBTILE_EXOFLAME),
-			Pair.of(SubTileAgricarnation::new, LibBlockNames.SUBTILE_AGRICARNATION),
-			Pair.of(SubTileAgricarnation.Mini::new, chibi(LibBlockNames.SUBTILE_AGRICARNATION)),
-			Pair.of(SubTileHopperhock::new, LibBlockNames.SUBTILE_HOPPERHOCK),
-			Pair.of(SubTileHopperhock.Mini::new, chibi(LibBlockNames.SUBTILE_HOPPERHOCK)),
-			Pair.of(SubTileTangleberrie::new, LibBlockNames.SUBTILE_TANGLEBERRIE),
-			Pair.of(SubTileJiyuulia::new, LibBlockNames.SUBTILE_JIYUULIA),
-			Pair.of(SubTileRannuncarpus::new, LibBlockNames.SUBTILE_RANNUNCARPUS),
-			Pair.of(SubTileRannuncarpus.Mini::new, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS)),
-			Pair.of(SubTileHyacidus::new, LibBlockNames.SUBTILE_HYACIDUS),
-			Pair.of(SubTilePollidisiac::new, LibBlockNames.SUBTILE_POLLIDISIAC),
-			Pair.of(SubTileClayconia::new, LibBlockNames.SUBTILE_CLAYCONIA),
-			Pair.of(SubTileClayconia.Mini::new, chibi(LibBlockNames.SUBTILE_CLAYCONIA)),
-			Pair.of(SubTileLoonuim::new, LibBlockNames.SUBTILE_LOONIUM),
-			Pair.of(SubTileDaffomill::new, LibBlockNames.SUBTILE_DAFFOMILL),
-			Pair.of(SubTileVinculotus::new, LibBlockNames.SUBTILE_VINCULOTUS),
-			Pair.of(SubTileSpectranthemum::new, LibBlockNames.SUBTILE_SPECTRANTHEMUM),
-			Pair.of(SubTileMedumone::new, LibBlockNames.SUBTILE_MEDUMONE),
-			Pair.of(SubTileMarimorphosis::new, LibBlockNames.SUBTILE_MARIMORPHOSIS),
-			Pair.of(SubTileMarimorphosis.Mini::new, chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
-			Pair.of(SubTileBubbell::new, LibBlockNames.SUBTILE_BUBBELL),
-			Pair.of(SubTileBubbell.Mini::new, chibi(LibBlockNames.SUBTILE_BUBBELL)),
-			Pair.of(SubTileSolegnolia::new, LibBlockNames.SUBTILE_SOLEGNOLIA),
-			Pair.of(SubTileSolegnolia.Mini::new, chibi(LibBlockNames.SUBTILE_SOLEGNOLIA)),
-			Pair.of(SubTileOrechidIgnem::new, LibBlockNames.SUBTILE_ORECHID_IGNEM)
-	);
+	public static List<Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation>> getTypes() {
+		return ImmutableList.of(
+				Pair.of(SubTilePureDaisy::new, LibBlockNames.SUBTILE_PUREDAISY),
+				Pair.of(SubTileManastar::new, LibBlockNames.SUBTILE_MANASTAR),
+				Pair.of(SubTileEndoflame::new, LibBlockNames.SUBTILE_ENDOFLAME),
+				Pair.of(SubTileHydroangeas::new, LibBlockNames.SUBTILE_HYDROANGEAS),
+				Pair.of(SubTileThermalily::new, LibBlockNames.SUBTILE_THERMALILY),
+				Pair.of(SubTileArcaneRose::new, LibBlockNames.SUBTILE_ARCANE_ROSE),
+				Pair.of(SubTileMunchdew::new, LibBlockNames.SUBTILE_MUNCHDEW),
+				Pair.of(SubTileEntropinnyum::new, LibBlockNames.SUBTILE_ENTROPINNYUM),
+				Pair.of(SubTileKekimurus::new, LibBlockNames.SUBTILE_KEKIMURUS),
+				Pair.of(SubTileGourmaryllis::new, LibBlockNames.SUBTILE_GOURMARYLLIS),
+				Pair.of(SubTileNarslimmus::new, LibBlockNames.SUBTILE_NARSLIMMUS),
+				Pair.of(SubTileSpectrolus::new, LibBlockNames.SUBTILE_SPECTROLUS),
+				Pair.of(SubTileDandelifeon::new, LibBlockNames.SUBTILE_DANDELIFEON),
+				Pair.of(SubTileRafflowsia::new, LibBlockNames.SUBTILE_RAFFLOWSIA),
+				Pair.of(SubTileShulkMeNot::new, LibBlockNames.SUBTILE_SHULK_ME_NOT),
+				Pair.of(SubTileBellethorn::new, LibBlockNames.SUBTILE_BELLETHORN),
+				Pair.of(SubTileBellethorn.Mini::new, chibi(LibBlockNames.SUBTILE_BELLETHORN)),
+				Pair.of(SubTileBergamute::new, LibBlockNames.SUBTILE_BERGAMUTE),
+				Pair.of(SubTileDreadthorn::new, LibBlockNames.SUBTILE_DREADTHORN),
+				Pair.of(SubTileHeiseiDream::new, LibBlockNames.SUBTILE_HEISEI_DREAM),
+				Pair.of(SubTileTigerseye::new, LibBlockNames.SUBTILE_TIGERSEYE),
+				Pair.of(SubTileJadedAmaranthus::new, LibBlockNames.SUBTILE_JADED_AMARANTHUS),
+				Pair.of(SubTileOrechid::new, LibBlockNames.SUBTILE_ORECHID),
+				Pair.of(SubTileFallenKanade::new, LibBlockNames.SUBTILE_FALLEN_KANADE),
+				Pair.of(SubTileExoflame::new, LibBlockNames.SUBTILE_EXOFLAME),
+				Pair.of(SubTileAgricarnation::new, LibBlockNames.SUBTILE_AGRICARNATION),
+				Pair.of(SubTileAgricarnation.Mini::new, chibi(LibBlockNames.SUBTILE_AGRICARNATION)),
+				Pair.of(SubTileHopperhock::new, LibBlockNames.SUBTILE_HOPPERHOCK),
+				Pair.of(SubTileHopperhock.Mini::new, chibi(LibBlockNames.SUBTILE_HOPPERHOCK)),
+				Pair.of(SubTileTangleberrie::new, LibBlockNames.SUBTILE_TANGLEBERRIE),
+				Pair.of(SubTileJiyuulia::new, LibBlockNames.SUBTILE_JIYUULIA),
+				Pair.of(SubTileRannuncarpus::new, LibBlockNames.SUBTILE_RANNUNCARPUS),
+				Pair.of(SubTileRannuncarpus.Mini::new, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS)),
+				Pair.of(SubTileHyacidus::new, LibBlockNames.SUBTILE_HYACIDUS),
+				Pair.of(SubTilePollidisiac::new, LibBlockNames.SUBTILE_POLLIDISIAC),
+				Pair.of(SubTileClayconia::new, LibBlockNames.SUBTILE_CLAYCONIA),
+				Pair.of(SubTileClayconia.Mini::new, chibi(LibBlockNames.SUBTILE_CLAYCONIA)),
+				Pair.of(SubTileLoonuim::new, LibBlockNames.SUBTILE_LOONIUM),
+				Pair.of(SubTileDaffomill::new, LibBlockNames.SUBTILE_DAFFOMILL),
+				Pair.of(SubTileVinculotus::new, LibBlockNames.SUBTILE_VINCULOTUS),
+				Pair.of(SubTileSpectranthemum::new, LibBlockNames.SUBTILE_SPECTRANTHEMUM),
+				Pair.of(SubTileMedumone::new, LibBlockNames.SUBTILE_MEDUMONE),
+				Pair.of(SubTileMarimorphosis::new, LibBlockNames.SUBTILE_MARIMORPHOSIS),
+				Pair.of(SubTileMarimorphosis.Mini::new, chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
+				Pair.of(SubTileBubbell::new, LibBlockNames.SUBTILE_BUBBELL),
+				Pair.of(SubTileBubbell.Mini::new, chibi(LibBlockNames.SUBTILE_BUBBELL)),
+				Pair.of(SubTileSolegnolia::new, LibBlockNames.SUBTILE_SOLEGNOLIA),
+				Pair.of(SubTileSolegnolia.Mini::new, chibi(LibBlockNames.SUBTILE_SOLEGNOLIA)),
+				Pair.of(SubTileOrechidIgnem::new, LibBlockNames.SUBTILE_ORECHID_IGNEM)
+		);
+	}
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
@@ -211,7 +213,7 @@ public class ModSubtiles {
 		Block.Properties props = Block.Properties.from(Blocks.POPPY);
 		Block.Properties floatProps = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
 
-		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
+		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
 			register(r, new BlockSpecialFlower(props, type.getFirst()), type.getSecond());
 			register(r, new BlockFloatingSpecialFlower(floatProps, type.getFirst()), floating(type.getSecond()));
 		}
@@ -223,7 +225,7 @@ public class ModSubtiles {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
 
-		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
+		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
 			Block block = b.getValue(type.getSecond());
 			Block floating = b.getValue(floating(type.getSecond()));
 
@@ -237,7 +239,7 @@ public class ModSubtiles {
 		IForgeRegistry<Block> b = ForgeRegistries.BLOCKS;
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 
-		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : TYPES) {
+		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
 			Block block = b.getValue(type.getSecond());
 			Block floating = b.getValue(floating(type.getSecond()));
 			register(r, TileEntityType.Builder.create(type.getFirst(), block, floating).build(null), type.getSecond());

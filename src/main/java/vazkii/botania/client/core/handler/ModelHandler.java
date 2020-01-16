@@ -31,6 +31,7 @@ import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderManaStorm;
+import vazkii.botania.client.render.entity.RenderNoop;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
@@ -74,6 +75,7 @@ import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntityPixie;
@@ -106,7 +108,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileAlfPortal.TYPE, RenderTileAlfPortal::new);
 		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, RenderTileFloatingFlower::new);
 		// TODO 1.14 this seems highly questionable.
-		ModSubtiles.TYPES.stream()
+		ModSubtiles.getTypes().stream()
 				.map(Pair::getSecond)
 				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
 				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
@@ -135,6 +137,8 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileAvatar.TYPE, RenderTileAvatar::new);
 		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, RenderTileAnimatedTorch::new);
 
+		RenderingRegistry.registerEntityRenderingHandler(EntityManaBurst.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(TileLightRelay.EntityPlayerMover.TYPE, RenderNoop::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.TYPE, RenderPixie::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.TYPE, RenderDoppleganger::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.TYPE, RenderSpark::new);

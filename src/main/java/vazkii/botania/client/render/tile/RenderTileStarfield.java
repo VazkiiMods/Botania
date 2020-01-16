@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.tileentity.EndPortalTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -37,7 +38,7 @@ import java.util.Random;
 // [VanillaCopy] end portal TESR, relevant edits are commented
 public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 	private static final Random RANDOM = new Random(31100L);
-	private static List<RenderType> field_228881_e_ = ObfuscationReflectionHelper.getPrivateValue(TileStarfield.class, null, "field_228881_e_");
+	private static List<RenderType> field_228881_e_ = ObfuscationReflectionHelper.getPrivateValue(EndPortalTileEntityRenderer.class, null, "field_228881_e_");
 
 	public RenderTileStarfield(TileEntityRendererDispatcher manager) {
 		super(manager);
