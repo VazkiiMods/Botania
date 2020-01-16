@@ -16,53 +16,20 @@ public final class LibResources {
 
 	public static final String PREFIX_MOD = LibMisc.MOD_ID + ":";
 
-	public static final String PREFIX_LANG = "/assets/botania/lang/";
 	public static final String PREFIX_SHADER = "shader/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
 	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
-	public static final String PREFIX_OBJ_MODEL = PREFIX_MOD + "model/";
-	public static final String PREFIX_CATEGORIES = PREFIX_GUI + "categories/";
-
-	public static final String EMTPY_TEXTURE = "empty_texture";
 
 	public static final String GUI_MANA_HUD = PREFIX_GUI + "mana_hud.png";
-	public static final String GUI_LEXICON = PREFIX_GUI + "lexicon.png";
-	public static final String GUI_PAPER = PREFIX_GUI + "paper.png";
-	public static final String GUI_CRAFTING_OVERLAY = PREFIX_GUI + "crafting_overlay.png";
-	public static final String GUI_MANA_INFUSION_OVERLAY = PREFIX_GUI + "mana_infusion_overlay.png";
-	public static final String GUI_PURE_DAISY_OVERLAY = PREFIX_GUI + "pure_daisy_overlay.png";
-	public static final String GUI_PETAL_OVERLAY = PREFIX_GUI + "petal_overlay.png";
-	public static final String GUI_TERRASTEEL_OVERLAY = PREFIX_GUI + "terrasteel_overlay.png";
-	public static final String GUI_ELVEN_TRADE_OVERLAY = PREFIX_GUI + "elven_trade_overlay.png";
-	public static final String GUI_SHEDDING_OVERLAY = PREFIX_GUI + "shedding_overlay.png";
-	public static final String GUI_MULTIBLOCK_OVERLAY = PREFIX_GUI + "multiblock_overlay.png";
 	public static final String GUI_CREATIVE = "botania.png";
 	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
 	public static final String GUI_BOSS_BAR = PREFIX_GUI + "boss_bar.png";
-	public static final String GUI_POTIONS = PREFIX_GUI + "potions.png";
-	public static final String GUI_NEI_BLANK = PREFIX_GUI + "nei_blank.png";
-	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "nei_brewery.png";
 	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flower_bag.png";
 	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "bauble_box.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hud_icons.png";
-	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
-	public static final String GUI_DOG = PREFIX_GUI + "dog.png";
-	public static final String GUI_FLOWEY = PREFIX_GUI + "flowey.png";
-
-	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
-	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
-	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pure_daisy.png";
-	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
-	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
-	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elven_garde.png";
-	public static final String ENTRY_HYDROANGEAS = PREFIX_ENTRIES + "hydroangeas.png";
-	public static final String ENTRY_CRAFT_CRATE = PREFIX_ENTRIES + "craft_crate.png";
-	public static final String ENTRY_AZULEJOS = PREFIX_ENTRIES + "azulejos.png";
-	public static final String ENTRY_METAMORPHIC_STONES = PREFIX_ENTRIES + "metamorphic_stones.png";
-	public static final String ENTRY_BANNERS = PREFIX_ENTRIES + "banners.png";
 
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader_mana.png";
 	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreader_redstone.png";
@@ -134,8 +101,6 @@ public final class LibResources {
 	public static final String MISC_RAINBOW = PREFIX_MISC + "rainbow.png";
 	public static final String MISC_PLANET = PREFIX_MISC + "planet";
 
-	public static final String CATEGORY_INDEX = PREFIX_CATEGORIES + "index.png";
-
 	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylon_glow.frag";
 	public static final String SHADER_ENCHANTER_RUNE_FRAG = PREFIX_SHADER + "enchanter_rune.frag";
 	public static final String SHADER_MANA_POOL_FRAG = PREFIX_SHADER + "mana_pool.frag";
@@ -146,7 +111,6 @@ public final class LibResources {
 	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
 	public static final String SHADER_GOLD_FRAG = PREFIX_SHADER + "gold.frag";
-	public static final String SHADER_CATEGORY_BUTTON_FRAG = PREFIX_SHADER + "category_button.frag";
 	public static final String SHADER_ALPHA_FRAG = PREFIX_SHADER + "alpha.frag";
 	public static final String SHADER_PASSTHROUGH_VERT = PREFIX_SHADER + "passthrough.vert";
 
