@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -376,7 +377,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes.values())
 				if(recipe.matches(itemHandler)) {
-					GlStateManager.color4f(1F, 1F, 1F, 1F);
+					RenderSystem.color4f(1F, 1F, 1F, 1F);
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 0, 8, 22, 15);
 
@@ -390,9 +391,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				GlStateManager.translated(xPos, yPos, 0);
+				RenderSystem.translated(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				GlStateManager.translated(-xPos, -yPos, 0);
+				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}

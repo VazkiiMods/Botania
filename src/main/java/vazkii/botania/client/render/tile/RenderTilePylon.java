@@ -87,9 +87,6 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		}
 
 		ms.push();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		float worldTime = ClientTickHandler.ticksInGame + pticks;
 
@@ -131,7 +128,6 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		GlStateManager.enableCull();
 		ms.pop();
 
-		GlStateManager.disableBlend();
 		ms.pop();
 	}
 

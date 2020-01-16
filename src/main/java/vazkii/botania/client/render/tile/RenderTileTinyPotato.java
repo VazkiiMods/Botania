@@ -13,6 +13,7 @@ package vazkii.botania.client.render.tile;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
@@ -185,8 +186,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, partialTicks, ms, buffers, light, overlay));
 		ms.pop();
 
-		GlStateManager.rotatef(-rotZ, 0F, 0F, 1F);
-		GlStateManager.rotatef(-rotY, 0F, 1F, 0F);
+		RenderSystem.rotatef(-rotZ, 0F, 0F, 1F);
+		RenderSystem.rotatef(-rotY, 0F, 1F, 0F);
 		ms.scale(1F, -1F, -1F);
 
 		renderName(potato, name, ms, buffers, light);

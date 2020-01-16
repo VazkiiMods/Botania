@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -55,14 +56,14 @@ public class LightningHandler {
 		double interpPosY = entity.lastTickPosY + (entity.getY() - entity.lastTickPosY) * frame;
 		double interpPosZ = entity.lastTickPosZ + (entity.getZ() - entity.lastTickPosZ) * frame;
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(-interpPosX, -interpPosY, -interpPosZ);
+		RenderSystem.pushMatrix();
+		RenderSystem.translated(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.getInstance();
 
-		GlStateManager.depthMask(false);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		RenderSystem.depthMask(false);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		render.bindTexture(outsideResource);
 		int counter = 0;
@@ -94,11 +95,11 @@ public class LightningHandler {
 
 		queuedLightningBolts.clear();
 
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		RenderSystem.disableBlend();
+		RenderSystem.depthMask(true);
 
-		GlStateManager.translated(interpPosX, interpPosY, interpPosZ);
-		GlStateManager.popMatrix();
+		RenderSystem.translated(interpPosX, interpPosY, interpPosZ);
+		RenderSystem.popMatrix();
 
 		profiler.endSection();
 		profiler.endSection();

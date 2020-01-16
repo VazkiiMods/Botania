@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.elventrade;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -93,11 +94,11 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrad
 
 	@Override
 	public void draw(RecipeElvenTrade recipe, double mouseX, double mouseY) {
-		GlStateManager.enableAlphaTest();
-		GlStateManager.enableBlend();
+		RenderSystem.enableAlphaTest();
+		RenderSystem.enableBlend();
 		overlay.draw(0, 4);
-		GlStateManager.disableBlend();
-		GlStateManager.disableAlphaTest();
+		RenderSystem.disableBlend();
+		RenderSystem.disableAlphaTest();
 
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;

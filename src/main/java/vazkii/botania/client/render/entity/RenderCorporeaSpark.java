@@ -52,7 +52,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
 		float scalef = 1F / 6F;
 		ms.scale(scalef, scalef, scalef);
-		GlStateManager.color4f(1F, 1F, 1F, absTime / 10);
+		//todo 1.15 GlStateManager.color4f(1F, 1F, 1F, absTime / 10);
 		ms.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
 		TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, null).getParticleTexture();

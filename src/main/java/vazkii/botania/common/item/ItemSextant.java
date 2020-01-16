@@ -11,9 +11,12 @@
 package vazkii.botania.common.item;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -193,18 +196,18 @@ public class ItemSextant extends ItemMod {
 
 			if(inRange) {
 				radius += 4;
-				GlStateManager.disableTexture();
-				GlStateManager.lineWidth(3F);
-				GL11.glBegin(GL11.GL_LINE_STRIP);
-				GlStateManager.color4f(0F, 1F, 1F, 1F);
+				RenderSystem.disableTexture();
+				RenderSystem.lineWidth(3F);
+				Tessellator.getInstance().getBuffer().begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+				RenderSystem.color4f(0F, 1F, 1F, 1F);
 				for(int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double yp = y + Math.sin(radian) * radius;
-					GL11.glVertex2d(xp, yp);
+					Tessellator.getInstance().getBuffer().vertex(xp, yp, 0).endVertex();
 				}
-				GL11.glEnd();
-				GlStateManager.enableTexture();
+				Tessellator.getInstance().draw();
+				RenderSystem.enableTexture();
 			}
 		}
 	}

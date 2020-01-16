@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
@@ -136,8 +137,6 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		ItemStack stack = new ItemStack(ModBlocks.getWool(nextColor));
 		int color = getColor();
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
@@ -148,8 +147,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 		}
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		RenderSystem.disableLighting();
 	}
 
 	@Override

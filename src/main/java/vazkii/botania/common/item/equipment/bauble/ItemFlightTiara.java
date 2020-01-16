@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -362,7 +363,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rz = 0F;
 				ry = -rx;
 				rx = 0F;
-				GlStateManager.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
+				// todo 1.15
+				RenderSystem.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
 				break;
 			}
 			case 8: { // Mega Ultra Chicken
@@ -375,7 +377,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rx = 0F;
 				h = 1.1F;
 				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-				GlStateManager.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+				// todo 1.15
+				RenderSystem.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 			}
 			}
 
@@ -460,26 +463,26 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float trans = 1F;
 			if(i == segs - 1) {
 				trans = (float) last / (float) segTime;
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.disableAlphaTest();
+				RenderSystem.enableBlend();
+				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				RenderSystem.disableAlphaTest();
 			}
 
-			GlStateManager.color4f(1F, 1F, 1F, trans);
+			RenderSystem.color4f(1F, 1F, 1F, trans);
 			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
 			x += 8;
 		}
 
 		if(player.abilities.isFlying) {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
+			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if(width > 0)
 				AbstractGui.fill(xo, y - 2, xo + 80, y - 1, 0x88000000);
 			AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
-		GlStateManager.enableAlphaTest();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.enableAlphaTest();
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 		mc.textureManager.bindTexture(AbstractGui.GUI_ICONS_LOCATION);
 	}
 

@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
@@ -57,7 +58,7 @@ public final class TooltipAdditionDisplayHandler {
 		float huePer = width == 0 ? 0F : 1F / width;
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
-		GlStateManager.disableDepthTest();
+		RenderSystem.disableDepthTest();
 		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for(int i = 0; i < rainbowWidth; i++)
 			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
@@ -66,14 +67,14 @@ public final class TooltipAdditionDisplayHandler {
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-		GlStateManager.disableLighting();
+		RenderSystem.disableLighting();
 		font.drawStringWithShadow(rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if(!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
-		GlStateManager.enableLighting();
-		GlStateManager.enableDepthTest();
+		RenderSystem.enableLighting();
+		RenderSystem.enableDepthTest();
 		GL11.glPopAttrib();
 	}
 
@@ -81,7 +82,7 @@ public final class TooltipAdditionDisplayHandler {
 		float fraction = display.getManaFractionForDisplay(stack);
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
-		GlStateManager.disableDepthTest();
+		RenderSystem.disableDepthTest();
 		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		AbstractGui.fill(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
 		AbstractGui.fill(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);

@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
@@ -367,21 +368,21 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			float anglePer = 360F / amt;
 			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
 				if(recipe.matches(itemHandler)) {
-					GlStateManager.enableBlend();
-					GlStateManager.enableRescaleNormal();
-					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					RenderSystem.enableBlend();
+					RenderSystem.enableRescaleNormal();
+					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 					float progress = (float) mana / (float) manaToGet;
 
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					GlStateManager.color4f(1F, 1F, 1F, 1F);
+					RenderSystem.color4f(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if(progress == 1F) {
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-						GlStateManager.translatef(0F, 0F, 100F);
+						RenderSystem.translatef(0F, 0F, 100F);
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-						GlStateManager.translatef(0F, 0F, -100F);
+						RenderSystem.translatef(0F, 0F, -100F);
 					}
 
 					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
@@ -393,9 +394,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				GlStateManager.translated(xPos, yPos, 0);
+				RenderSystem.translated(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				GlStateManager.translated(-xPos, -yPos, 0);
+				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}

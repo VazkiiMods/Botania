@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -240,13 +241,11 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		int color = getColor();
 		String filter = I18n.format("botaniamisc.filter" + filterType);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		int x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
 		int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
 		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
-		GlStateManager.disableBlend();
+		RenderSystem.disableLighting();
 	}
 
 	@Override

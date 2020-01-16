@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -925,19 +926,16 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public int bossBarRenderCallback(int x, int y) {
-		GlStateManager.pushMatrix();
+		RenderSystem.pushMatrix();
 		int px = x + 160;
 		int py = y + 12;
 
 		Minecraft mc = Minecraft.getInstance();
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.enableRescaleNormal();
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRenderer.drawStringWithShadow("" + playerCount, px + 15, py + 4, 0xFFFFFF);
-		GlStateManager.popMatrix();
+		RenderSystem.popMatrix();
 
 		return 5;
 	}

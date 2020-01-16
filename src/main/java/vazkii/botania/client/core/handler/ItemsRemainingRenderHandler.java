@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,20 +43,20 @@ public final class ItemsRemainingRenderHandler {
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
-			GlStateManager.disableAlphaTest();
-			GlStateManager.enableBlend();
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			RenderSystem.disableAlphaTest();
+			RenderSystem.enableBlend();
+			RenderSystem.enableRescaleNormal();
+			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			GlStateManager.color4f(1F, 1F, 1F, alpha);
+			RenderSystem.color4f(1F, 1F, 1F, alpha);
 			int xp = x + (int) (16F * (1F - alpha));
-			GlStateManager.translatef(xp, y, 0F);
-			GlStateManager.scalef(alpha, 1F, 1F);
+			RenderSystem.translatef(xp, y, 0F);
+			RenderSystem.scalef(alpha, 1F, 1F);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, 0, 0);
-			GlStateManager.scalef(1F / alpha,1F, 1F);
-			GlStateManager.translatef(-xp, -y, 0F);
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
-			GlStateManager.enableBlend();
+			RenderSystem.scalef(1F / alpha,1F, 1F);
+			RenderSystem.translatef(-xp, -y, 0F);
+			RenderSystem.color4f(1F, 1F, 1F, 1F);
+			RenderSystem.enableBlend();
 
 			String text = "";
 
@@ -78,8 +79,8 @@ public final class ItemsRemainingRenderHandler {
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
 			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
 
-			GlStateManager.disableBlend();
-			GlStateManager.enableAlphaTest();
+			RenderSystem.disableBlend();
+			RenderSystem.enableAlphaTest();
 		}
 	}
 

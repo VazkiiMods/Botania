@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.shader.IShaderManager;
 import net.minecraft.client.shader.ShaderLinkHelper;
@@ -108,7 +109,7 @@ public final class ShaderHelper {
 
 		// todo 1.15 is this still necessary? only has an effect without a vsh and we now have passthrough vsh for every program
 		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-		GlStateManager.disableLighting();
+		RenderSystem.disableLighting();
 		ShaderLinkHelper.useProgram(shader);
 
 		int time = GlStateManager.getUniformLocation(shader, "time");
@@ -125,7 +126,7 @@ public final class ShaderHelper {
 	public static void releaseShader() {
 		// todo 1.15 see above
 		if(lighting)
-			GlStateManager.enableLighting();
+			RenderSystem.enableLighting();
 		ShaderLinkHelper.useProgram(0);
 	}
 

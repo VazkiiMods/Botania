@@ -12,6 +12,7 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -61,15 +62,15 @@ public final class BossBarHandler {
 				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
 				int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
 
-				GlStateManager.color4f(1F, 1F, 1F, 1F);
+				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(x, y);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				RenderSystem.enableBlend();
+				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
 				mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
-				GlStateManager.enableBlend();
+				RenderSystem.enableBlend();
 				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}
 		}

@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -404,12 +405,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		int u = outputting ? 22 : 0;
 		int v = 38;
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		mc.textureManager.bindTexture(HUDHandler.manaBar);
 		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);
@@ -417,8 +418,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(tablet, x - 20, y);
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(pool, x + 26, y);
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		RenderSystem.disableLighting();
+		RenderSystem.disableBlend();
 	}
 
 	@Override

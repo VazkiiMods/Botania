@@ -11,6 +11,7 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
@@ -115,21 +116,21 @@ public class FXWisp extends Particle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
-		GlStateManager.depthMask(false);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-		GlStateManager.disableLighting();
+		RenderSystem.depthMask(false);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
+		RenderSystem.disableLighting();
 
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 0.75F);
 		textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
 		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 	}
 
 	private static void endRenderCommon() {
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
+		RenderSystem.disableBlend();
+		RenderSystem.depthMask(true);
 	}
 
 	private static final IParticleRenderType NORMAL_RENDER = new IParticleRenderType() {
@@ -154,13 +155,13 @@ public class FXWisp extends Particle {
 		@Override
 		public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
-			GlStateManager.disableDepthTest();
+			RenderSystem.disableDepthTest();
 		}
 
 		@Override
 		public void finishRender(Tessellator tessellator) {
 			tessellator.draw();
-			GlStateManager.enableDepthTest();
+			RenderSystem.enableDepthTest();
 			endRenderCommon();
 		}
 

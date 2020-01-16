@@ -98,10 +98,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 
 		int x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
 		int y = mc.getWindow().getScaledHeight() / 2 - 15;
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		mc.fontRenderer.drawStringWithShadow(speed, x, y, color);
-		GlStateManager.disableBlend();
 	}
 
 }

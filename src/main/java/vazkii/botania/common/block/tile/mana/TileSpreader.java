@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
@@ -555,8 +556,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		if(!lens.isEmpty()) {
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = mc.getWindow().getScaledWidth() / 2 - width;
@@ -564,15 +563,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
-			GlStateManager.disableLighting();
-			GlStateManager.disableBlend();
+			RenderSystem.disableLighting();
 		}
 
 		if(receiver != null) {
 			TileEntity receiverTile = (TileEntity) receiver;
 			ItemStack recieverStack = new ItemStack(world.getBlockState(receiverTile.getPos()).getBlock());
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName().getString();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
@@ -583,11 +579,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			}
 
-			GlStateManager.disableLighting();
-			GlStateManager.disableBlend();
+			RenderSystem.disableLighting();
 		}
 
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 	}
 
 	@Override

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.entity.LivingEntity;
@@ -105,14 +106,14 @@ public class ItemDodgeRing extends ItemBauble {
 		if(!player.abilities.isFlying) {
 			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
+			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if(width > 0) {
 				AbstractGui.fill(xo, y - 2, xo + 40, y - 1, 0x88000000);
 				AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 
-		GlStateManager.enableAlphaTest();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.enableAlphaTest();
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 	}
 }

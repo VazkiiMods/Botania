@@ -13,6 +13,7 @@ package vazkii.botania.client.core.handler;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.Atlases;
@@ -76,7 +77,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 		String name = player.getDisplayName().getString();
 
-		GlStateManager.pushMatrix();
+		RenderSystem.pushMatrix();
 		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
 		
 		if(name.equals("haighyorkie"))
@@ -88,7 +89,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
 			renderFlower(ms, buffers, player, flowerMap.get(name));
 
-		GlStateManager.popMatrix();
+		RenderSystem.popMatrix();
 	}
 
 	public static void firstStart() {

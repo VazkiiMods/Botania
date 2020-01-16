@@ -66,7 +66,6 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 					AbstractGui.fill(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
 					ItemStack item = craft.getItemHandler().getStackInSlot(index);
-					GlStateManager.enableRescaleNormal();
 					mc.getItemRenderer().renderItemAndEffectIntoGUI(item, xp, yp);
 				}
 		}
