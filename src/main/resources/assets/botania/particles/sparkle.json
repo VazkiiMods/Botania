@@ -1,2 +1,8 @@
 {
+  "textures": [
+    "botania:sparkle_0",
+    "botania:sparkle_1",
+    "botania:sparkle_2",
+    "botania:sparkle_3"
+  ]
 }

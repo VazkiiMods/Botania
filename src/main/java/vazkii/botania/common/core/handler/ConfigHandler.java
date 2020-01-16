@@ -38,7 +38,6 @@ public final class ConfigHandler {
 
 		public final ForgeConfigSpec.BooleanValue staticFloaters;
 		public final ForgeConfigSpec.BooleanValue debugInfo;
-		public final ForgeConfigSpec.BooleanValue matrixMode;
 		public final ForgeConfigSpec.BooleanValue referencesEnabled;
 
 		public Client(ForgeConfigSpec.Builder builder) {
@@ -102,9 +101,6 @@ public final class ConfigHandler {
 			debugInfo = builder
 					.comment("Set to false to disable Botania's messages in the F3 debug screen")
 					.define("debug_info", true);
-			matrixMode = builder
-					.comment("Set this to true if you are the chosen one. For lovers of glitch art and just general mad people.")
-					.define("matrix_mode", false);
 			referencesEnabled = builder
 					.comment("Set this to false to disable the references in the flower tooltips. (You monster D:)")
 					.define("references", true);

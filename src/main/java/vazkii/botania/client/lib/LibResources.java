@@ -124,7 +124,6 @@ public final class LibResources {
 	public static final String MODEL_AVATAR_TORNADO = PREFIX_MODEL + "avatar_tornado.png";
 	public static final String MODEL_AVATAR_DIRT = PREFIX_MODEL + "avatar_dirt.png";
 
-	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wisp_large.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wisp_small.png";
 	public static final String MISC_HALO = PREFIX_MISC + "halo.png";

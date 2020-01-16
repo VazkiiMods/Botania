@@ -35,8 +35,8 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 
 public class FXWisp extends SpriteTexturedParticle {
-	private static final Field BLUR = ObfuscationReflectionHelper.findField(Texture.class, "field_174940_b");
-	private static final Field MIPMAP = ObfuscationReflectionHelper.findField(Texture.class, "field_174941_c");
+	public static final Field BLUR = ObfuscationReflectionHelper.findField(Texture.class, "field_174940_b");
+	public static final Field MIPMAP = ObfuscationReflectionHelper.findField(Texture.class, "field_174941_c");
 	private static boolean lastBlur;
 	private static boolean lastMipmap;
 
@@ -54,7 +54,7 @@ public class FXWisp extends SpriteTexturedParticle {
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
-		particleAlpha = 0.5F;
+		particleAlpha = 0.375F;
 		particleGravity = 0;
 		particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F * size;
 		moteParticleScale = particleScale;
@@ -121,7 +121,6 @@ public class FXWisp extends SpriteTexturedParticle {
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
 		RenderSystem.disableLighting();
 
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 0.75F);
 		textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
 		// todo 1.15 method to save last blur mipmap not present, remove workaround when MinecraftForge#6450 merged
 		try {
