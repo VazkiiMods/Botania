@@ -15,6 +15,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
@@ -83,7 +84,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		if (cubeModel != null) {
 			ms.push();
 			ms.translate(-0.5F, 0.25F, -0.5F);
-			IVertexBuilder buffer = buffers.getBuffer(RenderType.getTranslucent());
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
 			ms.pop();
 		}

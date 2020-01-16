@@ -104,36 +104,43 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		if(spreader.paddingColor != null) {
 			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).getDefaultState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(carpet);
-			buffer = buffers.getBuffer(RenderTypeLookup.getBlockLayer(carpet));
+			buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(carpet));
 
-			ms.translate(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;
 
-			ms.translate(0, -f - 0.001F, 0);
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.translate(0, f + 0.001F, 0);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
-
-			ms.translate(-0.001F, 0, 0);
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(270));
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.translate(0, 0.001F, 0);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
-
-			ms.translate(0, 15 * f + 0.001F, -0.001F);
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.translate(0, -0.001F, 0.001F);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
-
-			ms.translate(15 * f + 0.001F, f, 0.001F);
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(270));
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.translate(-0.001F, 0, -0.001F);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
-
-			ms.translate(-0.001F, -1 + f + 0.001F, -f + 0.001F);
+			// back
+			ms.push();
 			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+			ms.translate(-0.5F, 0.5F - f, 0.5F);
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
+
+			// left
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-90));
+			ms.translate(0.5F, 0.5F, -0.5F - f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
+
+			// right
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90));
+			ms.translate(-1.5F, 0.5F , -0.5F - f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
+
+			// top
+			ms.push();
+			ms.translate(-0.5F, -0.5F, -0.5F - f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
+
+			// bottom
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+			ms.translate(-0.5F, -1.5F - f, -0.5F + f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
 		}
 
 		ms.pop();

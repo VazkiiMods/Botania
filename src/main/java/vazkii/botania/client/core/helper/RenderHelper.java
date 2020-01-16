@@ -78,11 +78,11 @@ public final class RenderHelper {
 				.writeMaskState(colorMask)
 				.transparency(lightningTransparency)
 				.build(false);
-		STAR = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
+		STAR = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 
 		glState = RenderType.State.builder().transparency(translucentTransparency).cull(disableCull).build(false);
 		RECTANGLE = RenderType.of(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
-		CIRCLE = RenderType.of(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, true, glState);
+		CIRCLE = RenderType.of(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 
 		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
@@ -180,14 +180,15 @@ public final class RenderHelper {
 	}
 
 	/**
-	 * With a buffer in GL_TRIANGLES mode, emulates GL_TRIANGLE_FAN on the CPU.
+	 * With a buffer in GL_QUADS mode, emulates GL_TRIANGLE_FAN on the CPU.
 	 * This is because batching of GL_TRIANGLE_FAN makes no sense (the vertices would bleed into one massive fan)
-	 * Primitive restart would also work but it's not easy to use in Minecraft
+	 * Uses GL_QUADS instead of GL_TRIANGLE and repeats the final vertex because Minecraft BufferBuilders assume quads :(
 	 */
 	public static void triangleFan(Runnable center, List<Runnable> vertices) {
 		for (int i = 0; i < vertices.size() - 1; i++) {
 			center.run();
 			vertices.get(i).run();
+			vertices.get(i + 1).run();
 			vertices.get(i + 1).run();
 		}
 	}

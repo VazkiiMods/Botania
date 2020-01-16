@@ -56,8 +56,6 @@ public class ModelBrewery extends Model {
 	}
 
 	public void render(@Nullable TileBrewery brewery, double time, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		float f = 1F / 16F; // todo 1.15
-
 		float offset = (float) Math.sin(time / 40) * 0.1F + 0.05F;
 		boolean hasTile = brewery != null;
 		int plates = hasTile ? brewery.getSizeInventory() - 1 : 7;
