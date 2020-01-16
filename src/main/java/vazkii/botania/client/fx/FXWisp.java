@@ -21,17 +21,24 @@ import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 
 public class FXWisp extends SpriteTexturedParticle {
+	private static final Field BLUR = ObfuscationReflectionHelper.findField(Texture.class, "field_174940_b");
+	private static final Field MIPMAP = ObfuscationReflectionHelper.findField(Texture.class, "field_174941_c");
+	private static boolean lastBlur;
+	private static boolean lastMipmap;
 
 	private final boolean depthTest;
 	private final float moteParticleScale;
@@ -116,13 +123,19 @@ public class FXWisp extends SpriteTexturedParticle {
 
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 0.75F);
 		textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-		// todo 1.15 method to save last blur mipmap not present, needs forge update
-		textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmapDirect(true, false);
+		// todo 1.15 method to save last blur mipmap not present, remove workaround when MinecraftForge#6450 merged
+		try {
+			Texture tex = textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
+			lastBlur = BLUR.getBoolean(tex);
+			lastMipmap = MIPMAP.getBoolean(tex);
+			tex.setBlurMipmapDirect(true, false);
+		} catch (IllegalAccessException ignored) {
+		}
 		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 	}
 
 	private static void endRenderCommon() {
-		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).restoreLastBlurMipmap();
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmapDirect(lastBlur, lastMipmap);
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
