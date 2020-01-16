@@ -52,10 +52,6 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 		ms.push();
 
-		if (pool == null) { // A null pool means we are calling the TESR without a pool (on a minecart). Adjust accordingly
-			ms.translate(0, 0, -1);
-		}
-
 		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
 
 		if (fab) {
@@ -68,7 +64,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			int blue = color & 0xFF;
 			BlockState state = pool.getBlockState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getBlockLayer(state));
+			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(state));
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 					.render(ms.peek(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}

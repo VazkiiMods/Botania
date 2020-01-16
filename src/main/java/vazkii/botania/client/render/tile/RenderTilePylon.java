@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -132,13 +133,13 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 	}
 
 	public static class TEISR extends ItemStackTileEntityRenderer {
-		private static final TilePylon DUMMY = new TilePylon();
+		private static final LazyValue<TilePylon> DUMMY = new LazyValue<>(TilePylon::new);
 
 		@Override
 		public void render(ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
-				TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(DUMMY);
+				TileEntityRenderer<TilePylon> r = TileEntityRendererDispatcher.instance.getRenderer(DUMMY.getValue());
 				((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
 			}
 		}

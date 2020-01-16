@@ -11,6 +11,8 @@
 package vazkii.botania.client.core.proxy;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -47,9 +49,13 @@ import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockModDoubleFlower;
+import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
@@ -132,6 +138,7 @@ public class ClientProxy implements IProxy {
 		RenderTypeLookup.setRenderLayer(ModBlocks.taigaAltar, RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.mesaAltar, RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.mossyAltar, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.ghostRail, RenderType.getCutout());
 
 		RenderTypeLookup.setRenderLayer(ModBlocks.manaGlass, RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModFluffBlocks.managlassPane, RenderType.getTranslucent());
@@ -149,7 +156,7 @@ public class ClientProxy implements IProxy {
 
 		Registry.BLOCK.stream().filter(b -> b.getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
-					if (b instanceof BlockFloatingFlower)
+					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock || b instanceof TallFlowerBlock)
 						RenderTypeLookup.setRenderLayer(b, RenderType.getCutout());
 				});
 	}

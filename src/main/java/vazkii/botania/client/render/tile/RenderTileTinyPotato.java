@@ -191,6 +191,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		ms.scale(1F, -1F, -1F);
 
 		renderName(potato, name, ms, buffers, light);
+		ms.pop();
 	}
 
 	private void renderName(TileTinyPotato potato, String name, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
@@ -303,6 +304,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		}
 		ms.pop();
 
+		ms.push();
 		if (!name.isEmpty()) {
 			ContributorFancinessHandler.firstStart();
 
