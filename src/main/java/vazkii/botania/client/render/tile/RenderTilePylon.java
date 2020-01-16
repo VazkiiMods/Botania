@@ -26,7 +26,7 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.IPylonModel;
 import vazkii.botania.client.model.ModelPylonGaia;
@@ -41,9 +41,9 @@ import java.util.Random;
 
 public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 
-	private static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
-	private static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
-	private static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_GAIA);
+	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
+	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
+	public static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_GAIA);
 
 	private final ModelPylonMana manaModel = new ModelPylonMana();
 	private final ModelPylonNatura naturaModel = new ModelPylonNatura();
@@ -68,21 +68,25 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		BlockPylon.Variant type = pylon == null ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
 		IPylonModel model;
 		ResourceLocation texture;
+		RenderType shaderLayer;
 		switch(type) {
 		default:
 		case MANA: {
 			model = manaModel;
 			texture = MANA_TEXTURE;
+			shaderLayer = RenderHelper.MANA_PYLON_GLOW;
 			break;
 		}
 		case NATURA: {
 			model = naturaModel;
 			texture = NATURA_TEXTURE;
+			shaderLayer = RenderHelper.NATURA_PYLON_GLOW;
 			break;
 		}
 		case GAIA: {
 			model = gaiaModel;
 			texture = GAIA_TEXTURE;
+			shaderLayer = RenderHelper.GAIA_PYLON_GLOW;
 			break;
 		}
 		}
@@ -101,7 +105,9 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		if(pylon != null)
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(worldTime * 1.5F));
 
-		IVertexBuilder buffer = buffers.getBuffer(RenderType.getEntityTranslucent(texture));
+		RenderType layer = RenderType.getEntityTranslucent(texture);
+
+		IVertexBuilder buffer = buffers.getBuffer(layer);
 		model.renderRing(ms, buffer, light, overlay);
 		if(pylon != null)
 			ms.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
@@ -115,18 +121,9 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		if(pylon != null)
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-worldTime));
 
-		GlStateManager.disableCull();
-		GlStateManager.disableAlphaTest();
-
-		if(pylon != null)
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.PYLON_GLOW);
-		// todo 1.15 custom render layer
+		buffer = buffers.getBuffer(shaderLayer);
 		model.renderCrystal(ms, buffer, light, overlay);
-		if(pylon != null)
-			ShaderHelper.releaseShader();
 
-		GlStateManager.enableAlphaTest();
-		GlStateManager.enableCull();
 		ms.pop();
 
 		ms.pop();

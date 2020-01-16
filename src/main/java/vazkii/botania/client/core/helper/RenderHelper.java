@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 import java.util.Arrays;
@@ -62,17 +63,23 @@ public final class RenderHelper {
 	public static final RenderType TERRA_PLATE;
 	public static final RenderType ENCHANTER;
 	public static final RenderType HALO;
+	public static final RenderType MANA_PYLON_GLOW;
+	public static final RenderType NATURA_PYLON_GLOW;
+	public static final RenderType GAIA_PYLON_GLOW;
 
 	// todo 1.15 AT's for necessary fields
 	static {
 		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
 		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
 		RenderState.TextureState mipmapBlockAtlasTexture = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228521_m_");
-		RenderState.CullState disableCull = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228491_A_");
+		RenderState.CullState disableCull = new RenderState.CullState(false);
 		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
 		RenderState.WriteMaskState colorMask = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228496_F_");
 		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
 		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
+		RenderState.OverlayState enableOverlay = new RenderState.OverlayState(true);
+		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
+		RenderState.AlphaState zeroAlpha = new RenderState.AlphaState(0);
 
 		RenderType.State glState = RenderType.State.builder().shadeModel(smoothShade)
 				.writeMaskState(colorMask)
@@ -118,6 +125,15 @@ public final class RenderHelper {
 		RenderState.TextureState haloTexture = new RenderState.TextureState(ItemFlightTiara.textureHalo, false, true);
 		glState = RenderType.State.builder().texture(haloTexture).transparency(translucentTransparency).cull(disableCull).shadeModel(smoothShade).build(true);
 		HALO = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "halo", DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 64, glState));
+
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.MANA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		MANA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "mana_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
+
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.NATURA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		NATURA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "natura_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
+
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.GAIA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		GAIA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "gaia_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {

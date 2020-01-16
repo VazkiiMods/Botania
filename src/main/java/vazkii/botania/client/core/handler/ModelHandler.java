@@ -10,6 +10,7 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
@@ -75,13 +76,19 @@ import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.entity.EntityFallingStar;
+import vazkii.botania.common.entity.EntityFlameRing;
+import vazkii.botania.common.entity.EntityMagicLandmine;
+import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntityPoolMinecart;
+import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
+import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -139,6 +146,12 @@ public final class ModelHandler {
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityManaBurst.TYPE, RenderNoop::new);
 		RenderingRegistry.registerEntityRenderingHandler(TileLightRelay.EntityPlayerMover.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySignalFlare.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFlameRing.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMagicLandmine.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFallingStar.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityThrownItem.TYPE, m -> new ItemRenderer(m, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.TYPE, RenderPixie::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.TYPE, RenderDoppleganger::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.TYPE, RenderSpark::new);
