@@ -30,7 +30,7 @@ public class ModParticles {
     public static class FactoryHandler {
         @SubscribeEvent
         public static void registerFactories(ParticleFactoryRegisterEvent evt) {
-            Minecraft.getInstance().particles.registerFactory(ModParticles.WISP, new WispParticleType.Factory());
+            Minecraft.getInstance().particles.registerFactory(ModParticles.WISP, WispParticleType.Factory::new);
             Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE, new SparkleParticleType.Factory());
         }
     }

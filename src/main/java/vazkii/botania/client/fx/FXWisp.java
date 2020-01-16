@@ -13,11 +13,14 @@ package vazkii.botania.client.fx;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
@@ -28,12 +31,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 
-public class FXWisp extends Particle {
+public class FXWisp extends SpriteTexturedParticle {
 
-	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
-	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
-
-	protected float particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
 	private final boolean depthTest;
 	private final float moteParticleScale;
 	private final int moteHalfLife;
@@ -48,8 +47,9 @@ public class FXWisp extends Particle {
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
+		particleAlpha = 0.5F;
 		particleGravity = 0;
-		particleScale *= size;
+		particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F * size;
 		moteParticleScale = particleScale;
 		maxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 		this.depthTest = depthTest;
@@ -64,26 +64,18 @@ public class FXWisp extends Particle {
 	}
 
 	@Override
-	public void buildGeometry(IVertexBuilder buffer, ActiveRenderInfo info, float partialTicks) {
-		/* todo 1.15 redo in modern way (TexturedParticle)
+	public float getScale(float p_217561_1_) {
 		float agescale = (float)age / (float) moteHalfLife;
 		if (agescale > 1F)
 			agescale = 2 - agescale;
 
-		particleScale = moteParticleScale * agescale;
+		particleScale = moteParticleScale * agescale * 0.5F;
+		return particleScale;
+	}
 
-		float f10 = 0.5F * particleScale;
-		float f11 = (float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
-		float f12 = (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
-		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
-		int combined = 15 << 20 | 15 << 4;
-		int k3 = combined >> 16 & 0xFFFF;
-		int l3 = combined & 0xFFFF;
-		buffer.pos(f11 - rotationX * f10 - rotationXY * f10, f12 - rotationZ * f10, f13 - rotationYZ * f10 - rotationXZ * f10).tex(0, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		buffer.pos(f11 - rotationX * f10 + rotationXY * f10, f12 + rotationZ * f10, f13 - rotationYZ * f10 + rotationXZ * f10).tex(1, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		buffer.pos(f11 + rotationX * f10 + rotationXY * f10, f12 + rotationZ * f10, f13 + rotationYZ * f10 + rotationXZ * f10).tex(1, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		buffer.pos(f11 + rotationX * f10 - rotationXY * f10, f12 - rotationZ * f10, f13 + rotationYZ * f10 - rotationXZ * f10).tex(0, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		*/
+	@Override
+	protected int getBrightnessForRender(float partialTicks) {
+		return 0xF000F0;
 	}
 
 	@Nonnull
@@ -123,11 +115,14 @@ public class FXWisp extends Particle {
 		RenderSystem.disableLighting();
 
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 0.75F);
-		textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
+		textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
+		// todo 1.15 method to save last blur mipmap not present, needs forge update
+		textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmapDirect(true, false);
 		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 	}
 
 	private static void endRenderCommon() {
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).restoreLastBlurMipmap();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
