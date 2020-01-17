@@ -15,6 +15,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -55,7 +56,13 @@ public class BlockstateProvider extends BlockStateProvider {
                     || b == ModBlocks.pump || b == ModBlocks.incensePlate || b == ModBlocks.felPumpkin || b == ModBlocks.solidVines)
                 return;
 
-            if (b == ModBlocks.gaiaHead || b == ModBlocks.gaiaHeadWall) {
+            if (b instanceof BlockAltGrass) {
+                ModelFile model = models().getExistingFile(prefix("block/" + b.getRegistryName().getPath()));
+                getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
+                        new ConfiguredModel(model, 0, 90, false),
+                        new ConfiguredModel(model, 0, 180, false),
+                        new ConfiguredModel(model, 0, 270, false));
+            } else if (b == ModBlocks.gaiaHead || b == ModBlocks.gaiaHeadWall) {
                 ModelFile file = models().getExistingFile(new ResourceLocation("block/soul_sand"));
                 getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
             } else if (b instanceof BlockPetalBlock) {
