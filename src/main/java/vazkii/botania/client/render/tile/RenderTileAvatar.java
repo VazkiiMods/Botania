@@ -53,10 +53,11 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 	public void render(@Nullable TileAvatar avatar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if (avatar != null)
 			if (!avatar.getWorld().isBlockLoaded(avatar.getPos())
-					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)
+					|| avatar.getBlockState().getBlock() != ModBlocks.avatar)
 				return;
 
-		Direction facing = avatar != null && avatar.getWorld() != null ? avatar.getWorld().getBlockState(avatar.getPos()).get(BotaniaStateProps.CARDINALS) : Direction.SOUTH;
+		ms.push();
+		Direction facing = avatar != null && avatar.getWorld() != null ? avatar.getBlockState().get(BotaniaStateProps.CARDINALS) : Direction.SOUTH;
 
 		ms.translate(0.5F, 1.6F, 0.5F);
 		ms.scale(1F, -1F, -1F);
@@ -64,31 +65,28 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1);
 
-		if (avatar == null) {
-			ms.pop();
-			return;
-		}
+		if (avatar != null) {
+			ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
+			if (!stack.isEmpty()) {
+				ms.push();
+				float s = 0.6F;
+				ms.scale(s, s, s);
+				ms.translate(-0.5F, 2F, -0.25F);
+				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-70));
+				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
+				ms.pop();
 
-		ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
-		if(!stack.isEmpty()) {
-			ms.push();
-			float s = 0.6F;
-			ms.scale(s, s, s);
-			ms.translate(-0.5F, 2F, -0.25F);
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-70));
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
-			ms.pop();
+				IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
+				buffer = buffers.getBuffer(RenderType.getEntityTranslucent(wieldable.getOverlayResource(avatar, stack)));
+				s = 1.01F;
 
-			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
-			buffer = buffers.getBuffer(RenderType.getEntityTranslucent(wieldable.getOverlayResource(avatar, stack)));
-			s = 1.01F;
-
-			ms.push();
-			ms.scale(s, s, s);
-			ms.translate(0F, -0.01F, 0F);
-			float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
-			model.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha + 0.183F);
-			ms.pop();
+				ms.push();
+				ms.scale(s, s, s);
+				ms.translate(0F, -0.01F, 0F);
+				float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
+				model.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha + 0.183F);
+				ms.pop();
+			}
 		}
 		ms.pop();
 	}

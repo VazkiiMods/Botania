@@ -47,16 +47,21 @@ public class BlockstateProvider extends BlockStateProvider {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
             if (b instanceof FenceBlock || b instanceof FenceGateBlock || b instanceof PaneBlock
-                    || b instanceof SlabBlock || b instanceof StairsBlock || b instanceof WallBlock
+                    || b instanceof SlabBlock || b instanceof WallBlock
                     || b instanceof FlowerBlock || b instanceof BlockAltar || b == ModBlocks.tinyPotato
                     || b instanceof BlockRedString || b instanceof BlockFloatingFlower || b instanceof BlockModMushroom
                     || b instanceof BlockModDoubleFlower || b.getRegistryName().getPath().contains("quartz")
-                    || b.getRegistryName().getPath().contains("metamorphic")
+                    || (b.getRegistryName().getPath().contains("metamorphic") && !b.getRegistryName().getPath().contains("stairs"))
                     || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
                     || b == ModBlocks.pump || b == ModBlocks.incensePlate || b == ModBlocks.felPumpkin || b == ModBlocks.solidVines)
                 return;
 
-            if (b instanceof BlockAltGrass) {
+            if (b instanceof StairsBlock) {
+                ModelFile stair = models().getExistingFile(prefix("block/stairs/" + b.getRegistryName().getPath()));
+                ModelFile inner = models().getExistingFile(prefix("block/stairs/" + b.getRegistryName().getPath() + "_inner"));
+                ModelFile outer = models().getExistingFile(prefix("block/stairs/" + b.getRegistryName().getPath() + "_outer"));
+                stairsBlock((StairsBlock) b, stair, inner, outer);
+            } else if (b instanceof BlockAltGrass) {
                 ModelFile model = models().getExistingFile(prefix("block/" + b.getRegistryName().getPath()));
                 getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
                         new ConfiguredModel(model, 0, 90, false),
