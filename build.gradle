@@ -57,8 +57,6 @@ minecraft {
             }
         }
         data {
-            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
-            properties 'forge.logging.console.level': 'debug'
             properties 'fml.earlyprogresswindow': 'false'
             workingDirectory project.file('run')
             mods {
@@ -66,7 +64,8 @@ minecraft {
                     source sourceSets.main
                 }
             }
-            args '--mod', 'botania', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'botania', '--all', '--existing', '"' + file('src/main/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources/') + '"'
         }
     }
     // replace 'GRADLE:BUILD', config.build_number

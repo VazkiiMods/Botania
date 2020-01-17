@@ -1,5 +1,5 @@
 {
-  "comment0": "Combination of block/corporea_crystal_cube_glass/corporea_crystal_cube_base",
+  "comment0": "Combination of block/corporea_crystal_cube_glass/corporea_crystal_cube",
   "comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
   "parent": "minecraft:block/block",
   "textures": {
