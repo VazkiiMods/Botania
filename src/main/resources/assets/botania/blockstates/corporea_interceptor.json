@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "powered=false": { "model": "botania:block/corporea_interceptor" },
-    "powered=true": { "model": "botania:block/corporea_interceptor" }
-  }
-}

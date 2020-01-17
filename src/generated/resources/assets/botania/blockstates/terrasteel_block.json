@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "botania:block/terrasteel_block"
+    }
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "facing=x": { "model": "botania:block/mana_enchanter" },
-    "facing=z": { "model": "botania:block/mana_enchanter" }
-  }
-}

@@ -1,5 +1,6 @@
 package vazkii.botania.data;
 
+import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
@@ -38,6 +39,7 @@ import net.minecraft.world.storage.loot.functions.ExplosionDecay;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockCacophonium;
 import vazkii.botania.common.block.BlockModDoubleFlower;
@@ -57,6 +59,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class BlockLootProvider implements IDataProvider {
@@ -67,6 +70,7 @@ public class BlockLootProvider implements IDataProvider {
     public BlockLootProvider(DataGenerator generator) {
         this.generator = generator;
 
+        Stopwatch s = Stopwatch.createStarted();
         for (Block b : ForgeRegistries.BLOCKS) {
             if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
                 continue;
@@ -112,10 +116,12 @@ public class BlockLootProvider implements IDataProvider {
         functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
         functionTable.put(ModSubtiles.thermalily, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
         functionTable.put(ModSubtiles.thermalilyFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
+        Botania.LOGGER.info("BLP constructed in {}", s.elapsed(TimeUnit.MILLISECONDS));
     }
 
     @Override
     public void act(DirectoryCache cache) throws IOException {
+        Stopwatch s = Stopwatch.createStarted();
         Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
         for (Block b : ForgeRegistries.BLOCKS) {
@@ -124,11 +130,13 @@ public class BlockLootProvider implements IDataProvider {
             Function<Block, LootTable.Builder> func = functionTable.getOrDefault(b, BlockLootProvider::genRegular);
             tables.put(b.getRegistryName(), func.apply(b));
         }
+        Botania.LOGGER.info("BLP run in {}", s.elapsed(TimeUnit.MILLISECONDS));
 
         for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
             Path path = getPath(generator.getOutputFolder(), e.getKey());
             IDataProvider.save(GSON, cache, LootTableManager.toJson(e.getValue().setParameterSet(LootParameterSets.BLOCK).build()), path);
         }
+        Botania.LOGGER.info("BLP written in {}", s.elapsed(TimeUnit.MILLISECONDS));
     }
 
     private static Path getPath(Path root, ResourceLocation id) {

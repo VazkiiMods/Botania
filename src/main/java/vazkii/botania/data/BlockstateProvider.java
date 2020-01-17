@@ -51,6 +51,7 @@ public class BlockstateProvider extends BlockStateProvider {
                     || b instanceof BlockRedString || b instanceof BlockFloatingFlower || b instanceof BlockModMushroom
                     || b instanceof BlockModDoubleFlower || b.getRegistryName().getPath().contains("quartz")
                     || b.getRegistryName().getPath().contains("metamorphic")
+                    || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
                     || b == ModBlocks.pump || b == ModBlocks.incensePlate || b == ModBlocks.felPumpkin || b == ModBlocks.solidVines)
                 return;
 

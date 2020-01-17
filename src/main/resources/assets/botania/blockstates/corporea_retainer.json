@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "powered=true": { "model": "botania:block/corporea_retainer" },
-    "powered=false": { "model": "botania:block/corporea_retainer" }
-  }
-}
