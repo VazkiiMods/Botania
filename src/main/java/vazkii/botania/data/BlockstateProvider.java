@@ -50,7 +50,7 @@ public class BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
-            if (b instanceof FlowerBlock || b instanceof BlockAltar || b == ModBlocks.tinyPotato
+            if (b instanceof FlowerBlock || b == ModBlocks.tinyPotato
                     || b instanceof BlockRedString || b instanceof BlockFloatingFlower || b instanceof BlockModMushroom
                     || b instanceof BlockModDoubleFlower
                     || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
