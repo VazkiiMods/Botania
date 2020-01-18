@@ -119,7 +119,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 		ms.push();
 
-		Minecraft mc = Minecraft.getInstance();
 		String name = potato.name.getString().toLowerCase().trim();
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
