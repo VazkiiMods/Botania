@@ -21,7 +21,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -108,8 +107,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		LivingEntity thrower = entity.getThrower();
 
 		for(LivingEntity living : entities) {
-			if(living == thrower
-				|| ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled())
+			if(living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity 
+							&& ((PlayerEntity) thrower).canAttackPlayer(((PlayerEntity) living)))
 				continue;
 
 			if(living.hurtTime == 0) {
