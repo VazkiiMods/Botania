@@ -50,7 +50,7 @@ public class BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
-            if (b instanceof FenceBlock || b instanceof FenceGateBlock || b instanceof PaneBlock
+            if (b instanceof PaneBlock
                     || b instanceof WallBlock
                     || b instanceof FlowerBlock || b instanceof BlockAltar || b == ModBlocks.tinyPotato
                     || b instanceof BlockRedString || b instanceof BlockFloatingFlower || b instanceof BlockModMushroom
@@ -79,6 +79,16 @@ public class BlockstateProvider extends BlockStateProvider {
                 ModelFile inner = models().getExistingFile(prefix("block/stairs/" + name + "_inner"));
                 ModelFile outer = models().getExistingFile(prefix("block/stairs/" + name + "_outer"));
                 stairsBlock((StairsBlock) b, stair, inner, outer);
+            } else if (b instanceof FenceBlock) {
+                ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
+                ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
+                fourWayBlock((FenceBlock) b, post, side);
+            } else if (b instanceof FenceGateBlock) {
+                ModelFile gate = models().getExistingFile(prefix("block/" + name));
+                ModelFile gateOpen = models().getExistingFile(prefix("block/" + name + "_open"));
+                ModelFile wall = models().getExistingFile(prefix("block/" + name + "_wall"));
+                ModelFile wallOpen = models().getExistingFile(prefix("block/" + name + "_wall_open"));
+                fenceGateBlock((FenceGateBlock) b, gate, gateOpen, wall, wallOpen);
             } else if (b instanceof BlockAltGrass) {
                 ModelFile model = models().getExistingFile(prefix("block/" + name));
                 getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
