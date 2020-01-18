@@ -72,7 +72,7 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
     @Nullable
     @Override
     public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation name) {
-        final TransformationMatrix moveFlower = new TransformationMatrix(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null).blockCenterToCorner();
+        final TransformationMatrix moveFlower = new TransformationMatrix(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
         IModelTransform comp = new ModelTransformComposition(new SimpleModelTransform(moveFlower), transform);
         IBakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, comp, name);
 
@@ -85,13 +85,11 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
     }
 
     public static class Baked extends BakedModelWrapper<IBakedModel> {
-        private final Map<IFloatingFlower.IslandType, IBakedModel> islands;
         private final Map<IFloatingFlower.IslandType, List<BakedQuad>> genQuads = new HashMap<>();
         private final Map<IFloatingFlower.IslandType, Map<Direction, List<BakedQuad>>> faceQuads = new HashMap<>();
 
         Baked(IBakedModel flower, Map<IFloatingFlower.IslandType, IBakedModel> islands) {
             super(flower);
-            this.islands = islands;
             Random rand = new Random();
             for (Map.Entry<IFloatingFlower.IslandType, IBakedModel> e : islands.entrySet()) {
                 rand.setSeed(42);
@@ -137,8 +135,7 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
         @Nonnull
         @Override
         public IBakedModel handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType, MatrixStack ms) {
-            // Use the item transforms from the islands since it looks better
-            this.islands.values().iterator().next().handlePerspective(cameraTransformType, ms);
+            super.handlePerspective(cameraTransformType, ms);
             return this;
         }
     }
