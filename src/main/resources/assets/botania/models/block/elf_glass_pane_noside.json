@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside",
+  "textures": {
+    "edge": "botania:blocks/elfglasspane",
+    "pane": "botania:blocks/elfglass"
+  }
+}

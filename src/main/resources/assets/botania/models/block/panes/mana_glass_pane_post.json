@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_glass_pane_post",
-  "textures": {
-    "edge": "botania:blocks/mana_glass_pane",
-    "pane": "botania:blocks/mana_glass"
-  }
-}

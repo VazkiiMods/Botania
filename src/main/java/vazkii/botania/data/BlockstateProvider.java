@@ -50,12 +50,9 @@ public class BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
-            if (b instanceof PaneBlock
-                    || b instanceof WallBlock
-                    || b instanceof FlowerBlock || b instanceof BlockAltar || b == ModBlocks.tinyPotato
+            if (b instanceof FlowerBlock || b instanceof BlockAltar || b == ModBlocks.tinyPotato
                     || b instanceof BlockRedString || b instanceof BlockFloatingFlower || b instanceof BlockModMushroom
                     || b instanceof BlockModDoubleFlower
-                    || (b.getRegistryName().getPath().contains("metamorphic") && b.getRegistryName().getPath().contains("wall"))
                     || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
                     || b == ModBlocks.pump || b == ModBlocks.incensePlate || b == ModBlocks.felPumpkin || b == ModBlocks.solidVines)
                 return;
@@ -75,10 +72,14 @@ public class BlockstateProvider extends BlockStateProvider {
                         .partialState().with(SlabBlock.TYPE, SlabType.TOP).setModels(new ConfiguredModel(file, 180, 0, true))
                         .partialState().with(SlabBlock.TYPE, SlabType.DOUBLE).setModels(new ConfiguredModel(fullFile));
             } else if (b instanceof StairsBlock) {
-                ModelFile stair = models().getExistingFile(prefix("block/stairs/" + name));
-                ModelFile inner = models().getExistingFile(prefix("block/stairs/" + name + "_inner"));
-                ModelFile outer = models().getExistingFile(prefix("block/stairs/" + name + "_outer"));
+                ModelFile stair = models().getExistingFile(prefix("block/" + name));
+                ModelFile inner = models().getExistingFile(prefix("block/" + name + "_inner"));
+                ModelFile outer = models().getExistingFile(prefix("block/" + name + "_outer"));
                 stairsBlock((StairsBlock) b, stair, inner, outer);
+            } else if (b instanceof WallBlock) {
+                ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
+                ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
+                wallBlock((WallBlock) b, post, side);
             } else if (b instanceof FenceBlock) {
                 ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
                 ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
@@ -89,6 +90,13 @@ public class BlockstateProvider extends BlockStateProvider {
                 ModelFile wall = models().getExistingFile(prefix("block/" + name + "_wall"));
                 ModelFile wallOpen = models().getExistingFile(prefix("block/" + name + "_wall_open"));
                 fenceGateBlock((FenceGateBlock) b, gate, gateOpen, wall, wallOpen);
+            } else if (b instanceof PaneBlock) {
+                ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
+                ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
+                ModelFile sideAlt = models().getExistingFile(prefix("block/" + name + "_side_alt"));
+                ModelFile noSide = models().getExistingFile(prefix("block/" + name + "_noside"));
+                ModelFile noSideAlt = models().getExistingFile(prefix("block/" + name + "_noside_alt"));
+                paneBlock((PaneBlock) b, post, side, sideAlt, noSide, noSideAlt);
             } else if (b instanceof BlockAltGrass) {
                 ModelFile model = models().getExistingFile(prefix("block/" + name));
                 getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),

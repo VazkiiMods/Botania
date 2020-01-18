@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-      "bottom": "botania:blocks/dreamwood1",
-      "top": "botania:blocks/dreamwood1",
-      "side": "botania:blocks/dreamwood1"
-  }
-}
