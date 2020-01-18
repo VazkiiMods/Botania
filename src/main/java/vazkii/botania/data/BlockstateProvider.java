@@ -1,5 +1,6 @@
 package vazkii.botania.data;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.FlowerBlock;
@@ -53,7 +54,7 @@ public class BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
-            if (b instanceof BlockRedString || b instanceof BlockFloatingFlower
+            if (b instanceof BlockFloatingFlower
                     || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
                     || b == ModBlocks.solidVines)
                 return;
@@ -116,6 +117,8 @@ public class BlockstateProvider extends BlockStateProvider {
             } else if (b instanceof BlockPetalBlock) {
                 ModelFile file = models().getExistingFile(prefix("block/petal_block"));
                 getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
+            } else if (b instanceof BlockRedString) {
+                redStringBlock(b);
             } else if (b == ModBlocks.elfGlass) {
                 ConfiguredModel[] files = IntStream.rangeClosed(0, 3)
                         .mapToObj(i -> models().getExistingFile(prefix("block/" + name + "_" + i)))
@@ -136,5 +139,16 @@ public class BlockstateProvider extends BlockStateProvider {
                 simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
             }
         });
+    }
+
+    private void redStringBlock(Block b) {
+        ModelFile file = models().getExistingFile(prefix("block/" + b.getRegistryName().getPath()));
+        getVariantBuilder(b)
+                .partialState().with(BotaniaStateProps.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
+                .partialState().with(BotaniaStateProps.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))
+                .partialState().with(BotaniaStateProps.FACING, Direction.WEST).setModels(new ConfiguredModel(file, 0, 270, false))
+                .partialState().with(BotaniaStateProps.FACING, Direction.EAST).setModels(new ConfiguredModel(file, 0, 90, false))
+                .partialState().with(BotaniaStateProps.FACING, Direction.DOWN).setModels(new ConfiguredModel(file, 90, 0, false))
+                .partialState().with(BotaniaStateProps.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
     }
 }

@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "botania:block/red_string_dispenser",
+      "x": 90
+    },
+    "facing=up": {
+      "model": "botania:block/red_string_dispenser",
+      "x": 270
+    },
+    "facing=north": {
+      "model": "botania:block/red_string_dispenser"
+    },
+    "facing=south": {
+      "model": "botania:block/red_string_dispenser",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "botania:block/red_string_dispenser",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "botania:block/red_string_dispenser",
+      "y": 90
+    }
+  }
+}
