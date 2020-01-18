@@ -15,6 +15,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -35,7 +36,7 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemPinkinator extends ItemMod {
+public class ItemPinkinator extends Item {
 
 	public ItemPinkinator(Properties builder) {
 		super(builder);

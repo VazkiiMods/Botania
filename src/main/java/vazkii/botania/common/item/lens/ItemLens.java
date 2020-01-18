@@ -32,14 +32,14 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
-public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
+public class ItemLens extends Item implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 	public static final int PROP_NONE = 0,
 			PROP_POWER = 1,
 			PROP_ORIENTATION = 1 << 1,

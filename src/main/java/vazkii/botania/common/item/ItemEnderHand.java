@@ -16,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -31,7 +32,7 @@ import vazkii.botania.common.item.rod.ItemExchangeRod;
 
 import javax.annotation.Nonnull;
 
-public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProvider {
+public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvider {
 
 	private static final int COST_PROVIDE = 5;
 	private static final int COST_SELF = 250;

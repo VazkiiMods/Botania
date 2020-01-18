@@ -51,7 +51,6 @@ public class ModelBellows extends Model {
 	}
 
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float alpha, float fract) {
-		float f5 = 1F / 16F; // todo 1.15 check this
 		base.render(ms, buffer, light, overlay, r, g, b, alpha);
 		pipe.render(ms, buffer, light, overlay, r, g, b, alpha);
 

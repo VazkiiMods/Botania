@@ -25,7 +25,7 @@ public class ModelTeruTeruBozu extends Model {
 	public final ModelRenderer sadFace;
 
 	public ModelTeruTeruBozu() {
-		super(RenderType::getEntityCutoutNoCull); // todo 1.15 check if this is the appropriate layer
+		super(RenderType::getEntityCutoutNoCull);
 		textureWidth = 64;
 		textureHeight = 32;
 		sadFace = new ModelRenderer(this, 32, 0);
@@ -47,7 +47,6 @@ public class ModelTeruTeruBozu extends Model {
 
 	@Override
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
-		float f5 = 1F / 16F; // todo 1.15 check this
 		if(Minecraft.getInstance().world.isRaining())
 			sadFace.render(ms, buffer, light, overlay, r, g, b, a);
 		else happyFace.render(ms, buffer, light, overlay, r, g, b, a);

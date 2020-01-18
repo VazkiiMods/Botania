@@ -45,13 +45,13 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWireframeCoordinateListProvider {
+public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeCoordinateListProvider {
 
 	private static final int RANGE = 3;
 	private static final int COST = 40;

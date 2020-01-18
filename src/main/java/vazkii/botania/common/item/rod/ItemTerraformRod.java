@@ -18,6 +18,7 @@ import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
@@ -34,14 +35,13 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
+public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
 	private static final int COST_PER = 55;
 
 	// todo 1.13 migrate rest of these

@@ -19,11 +19,11 @@ import net.minecraft.util.ActionResultType;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
-public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProvider {
+public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvider {
 
 	static final int COST = 150;
 

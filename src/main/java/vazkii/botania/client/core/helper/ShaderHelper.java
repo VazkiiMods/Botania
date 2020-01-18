@@ -66,7 +66,6 @@ public final class ShaderHelper {
 	
 	private static boolean hasIncompatibleMods = false;
 	private static boolean checkedIncompatibility = false;
-	private static boolean lighting;
 
 	@SuppressWarnings("deprecation")
 	public static void initShaders() {
@@ -107,9 +106,6 @@ public final class ShaderHelper {
 		if(!useShaders())
 			return;
 
-		// todo 1.15 is this still necessary? only has an effect without a vsh and we now have passthrough vsh for every program
-		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-		RenderSystem.disableLighting();
 		ShaderLinkHelper.useProgram(shader);
 
 		int time = GlStateManager.getUniformLocation(shader, "time");
@@ -124,9 +120,6 @@ public final class ShaderHelper {
 	}
 
 	public static void releaseShader() {
-		// todo 1.15 see above
-		if(lighting)
-			RenderSystem.enableLighting();
 		ShaderLinkHelper.useProgram(0);
 	}
 

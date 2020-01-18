@@ -27,11 +27,11 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityFlameRing;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
-public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
+public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_FIRE);
 

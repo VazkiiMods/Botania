@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -22,7 +23,7 @@ import vazkii.botania.common.entity.EntityThornChakram;
 
 import javax.annotation.Nonnull;
 
-public class ItemThornChakram extends ItemMod {
+public class ItemThornChakram extends Item {
 
 	public ItemThornChakram(Properties builder) {
 		super(builder);

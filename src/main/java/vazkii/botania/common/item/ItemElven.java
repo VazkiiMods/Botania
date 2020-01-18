@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.IElvenItem;
 
-public class ItemElven extends ItemMod implements IElvenItem {
+public class ItemElven extends Item implements IElvenItem {
 	public ItemElven(Properties props) {
 		super(props);
 	}

@@ -15,6 +15,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -44,7 +45,7 @@ import vazkii.patchouli.common.network.message.MessageOpenBookGui;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemLexicon extends ItemMod implements IElvenItem {
+public class ItemLexicon extends Item implements IElvenItem {
 
     public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 

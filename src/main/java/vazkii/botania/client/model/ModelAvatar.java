@@ -56,7 +56,6 @@ public class ModelAvatar extends Model {
 
 	@Override
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
-		float scale = 1F / 15F; // todo 1.15 check this?
 		leftleg.render(ms, buffer, light, overlay, r, g, b, a);
 		rightarm.render(ms, buffer, light, overlay, r, g, b, a);
 		leftarm.render(ms, buffer, light, overlay, r, g, b, a);

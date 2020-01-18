@@ -13,10 +13,10 @@ package vazkii.botania.common.item.brew;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
-public class ItemVial extends ItemMod implements IBrewContainer {
+public class ItemVial extends Item implements IBrewContainer {
 
 	public ItemVial(Properties builder) {
 		super(builder);

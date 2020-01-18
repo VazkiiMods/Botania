@@ -33,7 +33,7 @@ import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.WeakHashMap;
 
-public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
+public class ItemSmeltRod extends Item implements IManaUsingItem {
 
 	private static final int TIME = 10;
 	private static final int COST = 300;

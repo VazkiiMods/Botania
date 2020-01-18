@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +22,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 
-public class ItemCraftPattern extends ItemMod {
+public class ItemCraftPattern extends Item {
 	public final CratePattern pattern;
 
 	public ItemCraftPattern(CratePattern pattern, Properties props) {

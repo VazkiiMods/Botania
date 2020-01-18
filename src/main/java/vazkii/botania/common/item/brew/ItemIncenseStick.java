@@ -28,12 +28,12 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer {
+public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;

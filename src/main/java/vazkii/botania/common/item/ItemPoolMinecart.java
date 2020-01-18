@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.state.properties.RailShape;
@@ -24,7 +25,7 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 
 import javax.annotation.Nonnull;
 
-public class ItemPoolMinecart extends ItemMod {
+public class ItemPoolMinecart extends Item {
 
 	public ItemPoolMinecart(Properties builder) {
 		super(builder);

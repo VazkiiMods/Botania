@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
@@ -26,7 +27,7 @@ import vazkii.botania.common.entity.EntityVineBall;
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-public class ItemSlingshot extends ItemMod {
+public class ItemSlingshot extends Item {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
 

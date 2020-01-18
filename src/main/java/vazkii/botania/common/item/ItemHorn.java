@@ -16,6 +16,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.tags.BlockTags;
@@ -38,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemHorn extends ItemMod {
+public class ItemHorn extends Item {
 	public ItemHorn(Properties props) {
 		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),

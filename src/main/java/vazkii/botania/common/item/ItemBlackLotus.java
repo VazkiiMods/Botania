@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
@@ -29,7 +30,7 @@ import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
-public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
+public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	private static final int MANA_PER = 8000;
 	private static final int MANA_PER_T2 = 100000;

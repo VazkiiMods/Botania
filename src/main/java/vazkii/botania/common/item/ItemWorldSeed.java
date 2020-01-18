@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -26,7 +27,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemWorldSeed extends ItemMod {
+public class ItemWorldSeed extends Item {
 
 	public ItemWorldSeed(Properties builder) {
 		super(builder);

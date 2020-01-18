@@ -68,7 +68,6 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
 		Matrix4f model = ms.peek().getModel();
 		Matrix3f normal = ms.peek().getNormal();
-		// todo 1.15 these normals are 100% wrong lol
 		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();
 		buffer.vertex(model, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();
 		buffer.vertex(model, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();

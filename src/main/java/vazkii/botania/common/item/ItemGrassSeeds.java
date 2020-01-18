@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
@@ -39,7 +40,7 @@ import java.util.Random;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
+public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	/**
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.

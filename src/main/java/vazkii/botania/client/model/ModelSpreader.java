@@ -72,8 +72,6 @@ public class ModelSpreader extends Model {
 
 	@Override
     public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
-		float f = 1F / 16F; // todo 1.15
-		
 		top.render(ms, buffer, light, overlay, r, g, b, a);
         sideL.render(ms, buffer, light, overlay, r, g, b, a);
         sideR.render(ms, buffer, light, overlay, r, g, b, a);
@@ -87,8 +85,6 @@ public class ModelSpreader extends Model {
 	}
 
 	public void renderCube(MatrixStack ms, IVertexBuilder buffer, int light, int overlay) {
-		float f = 1F / 16F; // todo 1.15
-		
 		inside.render(ms, buffer, light, overlay);
 	}
 }

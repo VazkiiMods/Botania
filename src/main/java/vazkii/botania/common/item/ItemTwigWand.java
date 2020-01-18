@@ -71,7 +71,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
-public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
+public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";

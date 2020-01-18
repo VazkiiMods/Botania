@@ -16,6 +16,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -49,7 +50,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemFlowerBag extends ItemMod {
+public class ItemFlowerBag extends Item {
 	public ItemFlowerBag(Properties props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onPickupItem);

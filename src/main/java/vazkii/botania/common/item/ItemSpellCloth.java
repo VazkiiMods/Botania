@@ -10,11 +10,12 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class ItemSpellCloth extends ItemMod {
+public class ItemSpellCloth extends Item {
 
 	public ItemSpellCloth(Properties builder) {
 		super(builder);

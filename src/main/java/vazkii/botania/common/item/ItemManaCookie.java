@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Locale;
 
-public class ItemManaCookie extends ItemMod {
+public class ItemManaCookie extends Item {
 
 	public ItemManaCookie(Properties props) {
 		super(props);

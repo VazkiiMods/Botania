@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +24,7 @@ import vazkii.botania.common.entity.EntitySpark;
 
 import javax.annotation.Nonnull;
 
-public class ItemSpark extends ItemMod implements IManaGivingItem {
+public class ItemSpark extends Item implements IManaGivingItem {
 
 	public ItemSpark(Properties builder) {
 		super(builder);

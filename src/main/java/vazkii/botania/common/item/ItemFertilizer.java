@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +23,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemFertilizer extends ItemMod {
+public class ItemFertilizer extends Item {
 
 	public ItemFertilizer(Properties props) {
 		super(props);

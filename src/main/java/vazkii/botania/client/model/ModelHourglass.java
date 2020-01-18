@@ -74,7 +74,7 @@ public class ModelHourglass extends Model {
 			fract2 = tmp;
 		}
 
-		float f = 1F / 16F; //todo 1.15 check
+		float f = 1F / 16F;
 		ring.render(ms, buffer, light, overlay, 1, 1, 1, a);
 		top.render(ms, buffer, light, overlay, 1, 1, 1, a);
 		bottom.render(ms, buffer, light, overlay, 1, 1, 1, a);

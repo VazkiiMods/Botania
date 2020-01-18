@@ -15,12 +15,12 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResultType;
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class ItemManaResource extends ItemMod {
+public class ItemManaResource extends Item {
 	public ItemManaResource(Properties props) {
 		super(props);
 	}

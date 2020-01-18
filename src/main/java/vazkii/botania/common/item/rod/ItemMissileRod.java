@@ -12,6 +12,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.tileentity.TileEntity;
@@ -29,11 +30,10 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityMagicMissile;
-import vazkii.botania.common.item.ItemMod;
 
 import javax.annotation.Nonnull;
 
-public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
+public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
 

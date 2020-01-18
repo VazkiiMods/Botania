@@ -16,7 +16,6 @@ public class ModelArmor extends BipedModel {
 
 	// [VanillaCopy] ArmorStandArmorModel.setRotationAngles because armor stands are dumb
 	// This fixes the armor "breathing" and helmets always facing south on armor stands
-	// todo 1.15 recheck param names
 	@Override
 	public void setAngles(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!(entity instanceof ArmorStandEntity)) {

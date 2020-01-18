@@ -74,7 +74,6 @@ public class PlatformModel implements IDynamicBakedModel {
 				// Steal camo's model
 				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModel(heldState);
 
-				// todo possible to reimplement calling camo's smart model stuff too?
 				return model.getQuads(heldState, side, rand, EmptyModelData.INSTANCE);
 			}
 		}

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -23,7 +24,7 @@ import vazkii.botania.api.item.IAncientWillContainer;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemAncientWill extends ItemMod {
+public class ItemAncientWill extends Item {
 	public final IAncientWillContainer.AncientWillType type;
 
 	public ItemAncientWill(IAncientWillContainer.AncientWillType variant, Properties props) {

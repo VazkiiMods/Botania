@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -25,7 +26,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import javax.annotation.Nonnull;
 import java.util.function.BiFunction;
 
-public class ItemObedienceStick extends ItemMod {
+public class ItemObedienceStick extends Item {
 
 	public ItemObedienceStick(Properties props) {
 		super(props);

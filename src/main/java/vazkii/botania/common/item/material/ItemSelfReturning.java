@@ -12,9 +12,9 @@ package vazkii.botania.common.item.material;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
-public class ItemSelfReturning extends ItemMod {
+public class ItemSelfReturning extends Item {
 
 	public ItemSelfReturning(Item.Properties builder) {
 		super(builder);

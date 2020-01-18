@@ -32,11 +32,11 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
-public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvider, IAvatarWieldable {
+public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
 

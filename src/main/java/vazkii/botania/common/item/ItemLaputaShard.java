@@ -17,6 +17,7 @@ import net.minecraft.block.FallingBlock;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -51,7 +52,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanetExcempt {
+public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExcempt {
 
 	private static final String TAG_STATE = "_state";
 	private static final String TAG_TILE = "_tile";

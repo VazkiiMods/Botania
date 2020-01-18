@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -31,7 +32,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemTemperanceStone extends ItemMod {
+public class ItemTemperanceStone extends Item {
 	public static final String TAG_ACTIVE = "active";
 
 	public ItemTemperanceStone(Properties builder) {
