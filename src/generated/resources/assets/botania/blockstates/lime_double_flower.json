@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "botania:block/lime_double_flower_top"
+    },
+    "half=lower": {
+      "model": "botania:block/lime_double_flower"
+    }
+  }
+}

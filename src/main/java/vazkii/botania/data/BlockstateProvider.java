@@ -7,8 +7,10 @@ import net.minecraft.block.PaneBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +23,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.BlockModDoubleFlower;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
@@ -50,9 +53,8 @@ public class BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
-            if (b instanceof FlowerBlock || b == ModBlocks.tinyPotato
-                    || b instanceof BlockRedString || b instanceof BlockFloatingFlower || b instanceof BlockModMushroom
-                    || b instanceof BlockModDoubleFlower
+            if (b == ModBlocks.tinyPotato
+                    || b instanceof BlockRedString || b instanceof BlockFloatingFlower
                     || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
                     || b == ModBlocks.pump || b == ModBlocks.incensePlate || b == ModBlocks.felPumpkin || b == ModBlocks.solidVines)
                 return;
@@ -97,6 +99,12 @@ public class BlockstateProvider extends BlockStateProvider {
                 ModelFile noSide = models().getExistingFile(prefix("block/" + name + "_noside"));
                 ModelFile noSideAlt = models().getExistingFile(prefix("block/" + name + "_noside_alt"));
                 paneBlock((PaneBlock) b, post, side, sideAlt, noSide, noSideAlt);
+            } else if (b instanceof TallFlowerBlock) {
+                ModelFile bottom = models().getExistingFile(prefix("block/" + name));
+                ModelFile top = models().getExistingFile(prefix("block/" + name + "_top"));
+                getVariantBuilder(b)
+                        .partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER).setModels(new ConfiguredModel(bottom))
+                        .partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
             } else if (b instanceof BlockAltGrass) {
                 ModelFile model = models().getExistingFile(prefix("block/" + name));
                 getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),

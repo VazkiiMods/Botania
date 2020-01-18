@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "botania:block/brown_double_flower_top"
+    },
+    "half=lower": {
+      "model": "botania:block/brown_double_flower"
+    }
+  }
+}
