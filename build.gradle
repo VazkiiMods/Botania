@@ -36,7 +36,6 @@ minecraft {
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
-            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
             properties 'fml.earlyprogresswindow': 'false'
             workingDirectory project.file('run')
@@ -47,7 +46,6 @@ minecraft {
             }
         }
         server {
-            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run')
             mods {
@@ -64,7 +62,9 @@ minecraft {
                     source sourceSets.main
                 }
             }
-            args '--mod', 'botania', '--all', '--existing', '"' + file('src/main/resources/') + '"',
+            args '--mod', 'botania', '--all',
+                    '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
                     '--output', '"' + file('src/generated/resources/') + '"'
         }
     }

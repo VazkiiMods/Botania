@@ -13,6 +13,7 @@ public class DataGenerators {
         evt.getGenerator().addProvider(new BlockTagProvider(evt.getGenerator()));
         evt.getGenerator().addProvider(new ItemTagProvider(evt.getGenerator()));
         evt.getGenerator().addProvider(new StonecuttingProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new FloatingFlowerModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
         evt.getGenerator().addProvider(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
     }
 }

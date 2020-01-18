@@ -46,6 +46,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> {
     private IUnbakedModel unbakedFlower;
     private final Map<IFloatingFlower.IslandType, IUnbakedModel> unbakedIslands = new HashMap<>();
@@ -143,6 +145,8 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 
     public enum Loader implements IModelLoader<FloatingFlowerModel> {
         INSTANCE;
+
+        public static final ResourceLocation ID = prefix("floating_flower");
 
         @Override
         public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {}
