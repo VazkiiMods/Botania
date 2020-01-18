@@ -53,10 +53,9 @@ public class BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
         .forEach(b -> {
-            if (b == ModBlocks.tinyPotato
-                    || b instanceof BlockRedString || b instanceof BlockFloatingFlower
+            if (b instanceof BlockRedString || b instanceof BlockFloatingFlower
                     || b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
-                    || b == ModBlocks.pump || b == ModBlocks.incensePlate || b == ModBlocks.felPumpkin || b == ModBlocks.solidVines)
+                    || b == ModBlocks.solidVines)
                 return;
 
             String name = b.getRegistryName().getPath();
@@ -127,6 +126,12 @@ public class BlockstateProvider extends BlockStateProvider {
                 ModelFile onFile = models().getExistingFile(prefix("block/" + name + "_powered"));
                 getVariantBuilder(b).partialState().with(BotaniaStateProps.POWERED, false).setModels(new ConfiguredModel(offFile));
                 getVariantBuilder(b).partialState().with(BotaniaStateProps.POWERED, true).setModels(new ConfiguredModel(onFile));
+            } else if (b == ModBlocks.tinyPotato || b == ModBlocks.felPumpkin || b == ModBlocks.pump) {
+                ModelFile file = models().getExistingFile(prefix("block/" + name));
+                horizontalBlock(b, file);
+            } else if (b == ModBlocks.incensePlate) {
+                ModelFile file = models().getExistingFile(prefix("block/" + name));
+                horizontalBlock(b, file, 0);
             } else {
                 simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
             }

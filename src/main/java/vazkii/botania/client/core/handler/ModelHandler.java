@@ -103,7 +103,7 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(prefix("block/corporea_crystal_cube_glass"));
-		ModelLoader.addSpecialModel(prefix("block/mana_pump_head"));
+		ModelLoader.addSpecialModel(prefix("block/pump_head"));
 		registerSubtiles();
 
 		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);

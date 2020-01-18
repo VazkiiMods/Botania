@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "botania:block/pump"
+    },
+    "facing=south": {
+      "model": "botania:block/pump",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "botania:block/pump",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "botania:block/pump",
+      "y": 90
+    }
+  }
+}

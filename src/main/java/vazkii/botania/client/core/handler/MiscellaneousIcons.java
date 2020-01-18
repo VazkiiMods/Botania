@@ -146,7 +146,7 @@ public class MiscellaneousIcons {
 		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
 
 		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
-		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/mana_pump_head"));
+		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/pump_head"));
 
 		// Icons
 		goldfishModel = evt.getModelRegistry().get(prefix("icon/goldfish"));

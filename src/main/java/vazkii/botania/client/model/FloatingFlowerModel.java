@@ -1,6 +1,5 @@
 package vazkii.botania.client.model;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -25,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.ModelTransformComposition;
 import net.minecraftforge.client.model.SimpleModelTransform;
 import net.minecraftforge.client.model.data.EmptyModelData;
@@ -52,7 +50,7 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
     private IUnbakedModel unbakedFlower;
     private final Map<IFloatingFlower.IslandType, IUnbakedModel> unbakedIslands = new HashMap<>();
 
-    private FloatingFlowerModel(@Nullable IUnbakedModel flower) {
+    private FloatingFlowerModel(IUnbakedModel flower) {
         this.unbakedFlower = flower;
     }
 
