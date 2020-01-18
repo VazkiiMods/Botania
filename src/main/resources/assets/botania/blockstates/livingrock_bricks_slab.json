@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "type=bottom": { "model": "botania:block/slabs/livingrock_bricks" },
-    "type=top": { "model": "botania:block/slabs/livingrock_bricks", "x": 180, "uvlock": true },
-    "type=double": { "model": "botania:block/livingrock_brick" }
-  }
-}

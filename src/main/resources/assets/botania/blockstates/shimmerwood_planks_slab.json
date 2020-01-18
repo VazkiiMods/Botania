@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "type=bottom": { "model": "botania:block/slabs/shimmerwood_planks" },
-    "type=top": { "model": "botania:block/slabs/shimmerwood_planks", "x": 180, "uvlock": true },
-    "type=double": { "model": "botania:block/shimmerwood_planks" }
-  }
-}

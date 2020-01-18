@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "top": "botania:blocks/biomestone10",
-    "bottom": "botania:blocks/biomestone10",
-    "side": "botania:blocks/biomestone10"
-  }
-}
