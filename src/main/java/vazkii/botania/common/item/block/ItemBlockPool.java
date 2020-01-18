@@ -12,6 +12,7 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -26,7 +27,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemBlockPool extends ItemBlockMod {
+public class ItemBlockPool extends BlockItem {
 
 	public ItemBlockPool(Block block, Properties props) {
 		super(block, props);
