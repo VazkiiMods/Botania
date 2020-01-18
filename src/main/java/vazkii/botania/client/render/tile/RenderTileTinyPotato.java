@@ -120,7 +120,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		ms.push();
 
 		Minecraft mc = Minecraft.getInstance();
-		mc.textureManager.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
 		String name = potato.name.getString().toLowerCase().trim();
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
@@ -186,8 +185,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, partialTicks, ms, buffers, light, overlay));
 		ms.pop();
 
-		RenderSystem.rotatef(-rotZ, 0F, 0F, 1F);
-		RenderSystem.rotatef(-rotY, 0F, 1F, 0F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-rotZ));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-rotY));
 		ms.scale(1F, -1F, -1F);
 
 		renderName(potato, name, ms, buffers, light);
@@ -359,6 +358,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				if (!icon.isEmpty()) {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+					// todo 1.15
 					ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
 					renderItem(ms, buffers, light, overlay, icon);
 					ShaderHelper.releaseShader();
@@ -378,7 +378,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	private void renderBlock(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, Block block) {
 		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(block.getDefaultState());
-		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getBlockLayer(block.getDefaultState()));
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(block.getDefaultState()));
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, null, model, 1, 1, 1, light, overlay);
 	}
 }
