@@ -71,6 +71,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
 	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
 	private static final String TAG_IS_SPRINTING = "isSprinting";
+	private static final String TAG_BOOST_PENDING = "boostPending";
 
 	private static final List<String> playersWithFlight = Collections.synchronizedList(new ArrayList<>());
 	private static final int COST = 35;
@@ -262,11 +263,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					p.setMotion(p.getMotion().add(look.x, 0, look.z));
 					p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
+					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if(cooldown > 0) {
-					if(maxCd - cooldown < 2)
+					if(ItemNBTHelper.getBoolean(stack, TAG_BOOST_PENDING, false)) {
 						player.moveRelative(5F, new Vec3d(0F, 0F, 1F));
-					else if(maxCd - cooldown < 10)
-						player.setSprinting(false);
+						ItemNBTHelper.removeEntry(stack, TAG_BOOST_PENDING);
+					}
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
 				}
 			} else {
