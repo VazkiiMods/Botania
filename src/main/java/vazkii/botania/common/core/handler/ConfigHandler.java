@@ -158,7 +158,7 @@ public final class ConfigHandler {
 					.comment("Set this to false to remove the block breaking particles from the flowers and other items in the mod.")
 					.define("blockBreakingParticles.enabled", true);
 			blockBreakParticlesTool = builder
-					.comment("Set this to false to remove the block breaking particles from the Mana Shatterer, as there can be a good amount in higher levels.")
+					.comment("Set this to false to remove the block breaking particles from the Terra Shatterer, as there can be a good amount in higher levels.")
 					.define("blockBreakingParticlesTool.enabled", true);
 			chargingAnimationEnabled = builder
 					.comment("Set this to false to disable the animation when an item is charging on top of a mana pool")
