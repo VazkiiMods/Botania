@@ -14,35 +14,39 @@ import vazkii.botania.common.lib.LibMisc;
 public class IMCSender {
 	public static void enqueue(InterModEnqueueEvent evt) {
 		// Vanilla
-		addOreWeight("coal", 64762);
-		addOreWeight("diamond", 985);
-		addOreWeight("emerald", 4561);
-		addOreWeight("gold", 2619);
-		addOreWeight("iron", 29183);
-		addOreWeight("lapis", 1000);
-		addOreWeight("redstone", 7172);
+		addOreWeight("coal", 67415);
+		addOreWeight("diamond", 883);
+		addOreWeight("emerald", 1239);
+		addOreWeight("gold", 2647);
+		addOreWeight("iron", 29371);
+		addOreWeight("lapis", 1079);
+		addOreWeight("redstone", 7654);
 		// Common Metals
-		addOreWeight("aluminium", 3940);
-		addOreWeight("aluminum", 3940);
-		addOreWeight("copper", 6066);
-		addOreWeight("galena", 1000);
-		addOreWeight("lead", 7985);
-		addOreWeight("mithril", 1582);
+		addOreWeight("aluminium", 13762);
+		addOreWeight("aluminum", 13762);
+		addOreWeight("copper", 5567);
+		addOreWeight("ferrous", 558);
+		addOreWeight("galena", 4096);
+		addOreWeight("lead", 4093);
+		addOreWeight("mithril", 558);
 		addOreWeight("nickel", 2275);
 		addOreWeight("osmium", 6915);
-		addOreWeight("platinum", 365);
-		addOreWeight("silver", 6300);
-		addOreWeight("tin", 10229);
-		addOreWeight("tungsten", 3520);
-		addOreWeight("uranium", 1337);
-		addOreWeight("zinc", 6485);
+		addOreWeight("platinum", 956);
+		addOreWeight("silver", 4315);
+		addOreWeight("tin", 8251);
+		addOreWeight("tungsten", 140);
+		addOreWeight("uranium", 230);
+		addOreWeight("zinc", 838);
 		// Common Gems
 		addOreWeight("amber", 2075);
-		addOreWeight("ruby", 5177);
-		addOreWeight("sapphire", 4641);
+		addOreWeight("ruby", 1384);
+		addOreWeight("sapphire", 1287);
 		addOreWeight("topaz", 6436);
+		addOreWeight("amethyst", 1307);
 		// Big Reactors / Extreme Reactors
 		addOreWeight("yellorite", 3520);
+		// Blue Power
+		addOreWeight("teslatite", 4312);
 		// EvilCraft
 		addOreWeight("dark", 1350);
 		// Forestry
@@ -58,6 +62,8 @@ public class IMCSender {
 		// Simple Ores 2
 		addOreWeight("mythril", 6485);
 		addOreWeight("adamantium", 1469);
+		// Silent Mechanisms
+		addOreWeight("bismuth", 2407);
 		// Thaumcraft
 		addOreWeight("cinnabar",  2585);
 
