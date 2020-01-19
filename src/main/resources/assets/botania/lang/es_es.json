@@ -1277,15 +1277,15 @@
 
 
   "botania.entry.welcome": "Bienvenido a Botania",
-  "botania.page.welcome0": "&o¿Qué es la paz?¿Es la falta de combate?¿Es estar años sentado tranquilamente en el jardín, rodeado por flores?¿Es observar un reino que eres capaz de considerarlo como propio?¿Es completar casi todas la tareas conocidas por el hombre?¿Es poder ver la cantidad de recursos en constante incremento a medida que tus colecciones crecen?",
-  "botania.page.welcome1": "&o¿Es la paz algo que se puede obtener con facilidad, sin trabajar, o algo más difícil de conseguir?$(p)Digamos por un momento - ni siquiera un segundo - que la paz es realmente la ausencia de labor; días tranquilos con flores rodeándote.",
-  "botania.page.welcome2": "&oAños viendo pasar el tiempo mientras observas tu flora hace toda tarea imaginable, sin ayuda externa de maquinas contaminantes u ordenadores enredados entre cables y tuberías.$(p)Ahora imaginas que todo de lo que hablamos sería posible.",
-  "botania.page.welcome3": "&oImagina que gracias a tu esfuerzo - Tu cultivo de flores, tu manipulación de maná, tu conocimiento de los mecanismos del mundo y la redstone - pudieras alcanzar ese estado de ensueño. Imagina que que pudieras tener todo lo que puedas desear automatizado con flores. Flores, algo de magia y tu propio ingenio.",
-  "botania.page.welcome4": "&oCon la ayuda de este libro, tus sueños se convertirán en realidad.$(p)El nombre de este libro puede engañoso. A pesar de llamarse Lexica Botania, este tomo trata de más cosas que solo flores. Se centra en una variedad de aparatos tanto mágicos y como rayanos en lo tecnológico.",
-  "botania.page.welcome5": "&oContiene los secretos de los elfos, quienes hace tiempo huyeron de este mundo, así como posibles pistas de los orígenes del propio mundo. Para cualquiera con un conocimiento básico de redstone y la creatividad para usarlo, este libro ofrece respuestas a casi cada problema conocido por el hombre, sin la necesidad de escuelas de magia o maquinaria ajenas.",
-  "botania.page.welcome6": "&oEste libro contiene instrucciones de como realizar casi cualquier cosa que uno pudiera necesitar, haciendo uso solo de su contenido y de lo que está disponible en el mundo de Minecrat, asumiendo que estás por la labor de juntarlos de formas ingeniosas.$(p)Pruébalo, te maravillaras de lo que se puede hacer sin interferencia externa.",
-  "botania.page.welcome7": "&oLa escuela de botánica no es solo para los que tienen la habilidad de procesos mentales complejos.$(p)Introducirse en el arte es fácil y la recompensa enorme. Un gran rango de accesorios e instrumentos mágicos podrán potenciar a aquel que decida estudiar las múltiples opciones que contiene.",
-  "botania.page.welcome8": "&oQuerido lector, te doy la bienvenida al reino de Botania.&r$(p)- Escrito por &nGideon Seymour&r, escritor invitado. (Adaptado para su uso)",
+  "botania.page.welcome0": "$(o)¿Qué es la paz?¿Es la falta de combate?¿Es estar años sentado tranquilamente en el jardín, rodeado por flores?¿Es observar un reino que eres capaz de considerarlo como propio?¿Es completar casi todas la tareas conocidas por el hombre?¿Es poder ver la cantidad de recursos en constante incremento a medida que tus colecciones crecen?",
+  "botania.page.welcome1": "$(o)¿Es la paz algo que se puede obtener con facilidad, sin trabajar, o algo más difícil de conseguir?$(p)Digamos por un momento - ni siquiera un segundo - que la paz es realmente la ausencia de labor; días tranquilos con flores rodeándote.",
+  "botania.page.welcome2": "$(o)Años viendo pasar el tiempo mientras observas tu flora hace toda tarea imaginable, sin ayuda externa de maquinas contaminantes u ordenadores enredados entre cables y tuberías.$(p)Ahora imaginas que todo de lo que hablamos sería posible.",
+  "botania.page.welcome3": "$(o)Imagina que gracias a tu esfuerzo - Tu cultivo de flores, tu manipulación de maná, tu conocimiento de los mecanismos del mundo y la redstone - pudieras alcanzar ese estado de ensueño. Imagina que que pudieras tener todo lo que puedas desear automatizado con flores. Flores, algo de magia y tu propio ingenio.",
+  "botania.page.welcome4": "$(o)Con la ayuda de este libro, tus sueños se convertirán en realidad.$(p)El nombre de este libro puede engañoso. A pesar de llamarse Lexica Botania, este tomo trata de más cosas que solo flores. Se centra en una variedad de aparatos tanto mágicos y como rayanos en lo tecnológico.",
+  "botania.page.welcome5": "$(o)Contiene los secretos de los elfos, quienes hace tiempo huyeron de este mundo, así como posibles pistas de los orígenes del propio mundo. Para cualquiera con un conocimiento básico de redstone y la creatividad para usarlo, este libro ofrece respuestas a casi cada problema conocido por el hombre, sin la necesidad de escuelas de magia o maquinaria ajenas.",
+  "botania.page.welcome6": "$(o)Este libro contiene instrucciones de como realizar casi cualquier cosa que uno pudiera necesitar, haciendo uso solo de su contenido y de lo que está disponible en el mundo de Minecrat, asumiendo que estás por la labor de juntarlos de formas ingeniosas.$(p)Pruébalo, te maravillaras de lo que se puede hacer sin interferencia externa.",
+  "botania.page.welcome7": "$(o)La escuela de botánica no es solo para los que tienen la habilidad de procesos mentales complejos.$(p)Introducirse en el arte es fácil y la recompensa enorme. Un gran rango de accesorios e instrumentos mágicos podrán potenciar a aquel que decida estudiar las múltiples opciones que contiene.",
+  "botania.page.welcome8": "$(o)Querido lector, te doy la bienvenida al reino de Botania.$(r)$(p)- Escrito por &nGideon Seymour$(r), escritor invitado. (Adaptado para su uso)",
 
   "botania.entry.tutorial": "Un tutorial de los fundamentos",
   "botania.page.tutorial0": "Mientras que se puede ir leyendo la diversas entradas del libro como se quiera, existe una \"visita guiada\" disponible. Haciendo clic en el botón inferior te guiará a través de la páginas necesarias para entender los conceptos básicos de Botania.",
@@ -1310,7 +1310,7 @@
 
   "botania.entry.lexicon": "Lexica Botania",
   "botania.page.lexicon0": "El $(item)Lexica Botania$(0). es el depósito de todo el conocimiento de todos materias relacionadas con la botánica. Pero seguro que ya lo sabias.$(p)Toda la información está almacenada aquí, como es de esperar. Por conveniencia, si un bloque tiene una entrada, se le puede hacer shift-clic derecho con el $(item)Lexica Botania$(0) para abrirla.",
-  "botania.page.lexicon3": "Todas las entradas escritas en &oitálicas&r son entradas $(thing)básicas$(0), que contienen los conocimiento fundamentales para jugar con Botania. Se deberían priorizar sobre otros, la mayoría de las secciones contienen uno o más de estas, así que echarles un vistazo sería una buena idea.",
+  "botania.page.lexicon3": "Todas las entradas escritas en $(o)itálicas$(r) son entradas $(thing)básicas$(0), que contienen los conocimiento fundamentales para jugar con Botania. Se deberían priorizar sobre otros, la mayoría de las secciones contienen uno o más de estas, así que echarles un vistazo sería una buena idea.",
   "botania.page.lexicon1": "Creando el $(item)Lexica Botania$(0).",
   "botania.page.lexicon2": "El título del $(item)Lexica Botania$(0) se puede cambiar. Colocándolo en un $(item)yunque$(0) y renombrándolo no solo cambia su cubierta sino también su título.$(p)La edición del libro mostrada equivale a la versión de $(thing)Botania$(0) que estás usando y no, no me importa un bledo la cuarta pared.",
 
@@ -1351,7 +1351,7 @@
   "botania.page.wand3": "Los pétalos usados determinan los colores que tiene la varita.",
 
   "botania.entry.runeAltar": "Altar rúnico",
-  "botania.page.runeAltar21": "La creación rúnica es bastante importante para el avance en la magia botánica. Antes que nada, este tipo de creaciones requiere de un conocimiento decente de la $(item)manipulación de maná$(0). Antes de continuar con más detalle, echarle un vistazo a las entradas importantes (esas en &oitálicas&r) de esta sección del $(item)Lexica Botania$(0) puede ser revelador.",
+  "botania.page.runeAltar21": "La creación rúnica es bastante importante para el avance en la magia botánica. Antes que nada, este tipo de creaciones requiere de un conocimiento decente de la $(item)manipulación de maná$(0). Antes de continuar con más detalle, echarle un vistazo a las entradas importantes (esas en $(o)itálicas$(r)) de esta sección del $(item)Lexica Botania$(0) puede ser revelador.",
   "botania.page.runeAltar0": "Las $(item)runas$(0) son componentes extremadamente importantes de complejos aparatos mágicos o flores.$(p)Para crear estos, se necesita un $(item)altar rúnico$(0).$(p)Para utilizar este $(item)altar rúnico$(0), empieza colocando, vía clic derecho o arrojando, los componentes de la runa que quieres crear.",
   "botania.page.runeAltar1": "Procede vinculando un $(item)esparcidor de maná$(0) al altar y haz clic derecho sobre él con una $(item)varita del bosque$(0).$(p)Debe ser obvio cuando el altar ha recibido suficiente $(thing)maná$(0). Cuando esto pase, arroja una $(item)piedra viviente$(0) sobre el altar y haz clic derecho con la varita para recoger tu runa.",
   "botania.page.runeAltar2": "Creando el $(item)altar rúnico$(0).",
@@ -1427,7 +1427,7 @@
   "botania.entry.sparks": "Chispas",
   "botania.page.sparks0": "Las $(item)chispas$(0) son entidades interesantes. Creadas de una combinación de energía pura y $(thing)maná$(0), tienen la capacidad de colocarse encima de algunos bloques que contengan o acepten $(thing)maná$(0), principalmente, $(item)pilas de maná$(0).$(p)Algunos bloques tienen la habilidad de captar $(thing)maná$(0) a través las $(item)chispas$(0), pero por ahora su uso parece limitado a ciertos bloques.",
   "botania.page.sparks1": "Si se coloca una $(item)chispa$(0) encima de una $(item)pila de maná$(0) y encima de otro bloque aceptor, este podrá acceder remotamente a la reserva de $(thing)maná$(0) cuando lo necesite, siempre que no esté muy lejos.$(p)Para quitar una $(item)chispa$(0) haz shif-clic derecho con una $(item)varita del bosque$(0). Un clic derecho muestra a que otras $(item)chispas$(0) puede transferir.",
-  "botania.page.sparks2": "&oLevanta tu cuchador&r",
+  "botania.page.sparks2": "$(o)Levanta tu cuchador$(r)",
 
   "botania.entry.sparkUpgrades": "Mejora de chispas",
   "botania.page.sparkUpgrades0": "Según parece, las $(thing)chispas$(0) son más versátiles de lo que parecía en un principio. Una variedad de $(item)aumentos$(0) se les puede colocar para potenciar sus habilidades. Cabe reseñar que los aumentos solo se pueden colocar en $(item)chispas$(0) que estén sobre $(item)pilas de maná$(0).$(p)Una $(item)chispa$(0) solo puede tener un solo $(item)aumento$(0) a la vez.",
@@ -1508,7 +1508,7 @@
 
   "botania.entry.manastar": "Manastrella",
   "botania.page.manastar0": "Las imprecisas medidas de la $(item)varita del bosque$(0) no son capaces de decir si la $(item)pila de maná$(0) está teniendo pérdida o ganancia.$(p)Creando una $(item)manastrella$(0) y colocándola junto a tus pilas, esta brillará en rojo si hay pérdida o azul si hay ganancia. La medida se hace cada pocos segundos.",
-  "botania.page.manastar1": "♪&rI'm a shooting star leaping through the skies&r♪.",
+  "botania.page.manastar1": "♪$(r)I'm a shooting star leaping through the skies$(r)♪.",
 
   "botania.entry.dreamwoodSpreader": "Esparcidor de maná élfico",
   "botania.page.dreamwoodSpreader0": "En pocas palabras, la $(item)madera viviente$(0) transfiere mejor el $(thing)maná$(0) que la $(item)piedra viviente$(0). Incluye algunos ajustes como $(item)elementio$(0) o $(item)pétalos de maná$(0) y obtendrás un $(item)esparcidor de maná$(0) que puede transferir más maná y por más tiempo sin $(thing)pérdida de maná$(0).$(p)El lado negativo es que no se puede convertir en un $(item)esparcidor de maná de redstone$(0).",
@@ -1555,109 +1555,109 @@
 
   "botania.entry.jadedAmaranthus": "Amaranto harto",
   "botania.page.jadedAmaranthus0": "A todo el mundo le gusta las flores ¿cierto?. El $(item)amaranto harto$(0) esta hecho con ese fin.$(p)Alimentándolo con $(thing)maná$(0) hará crecer rápidamente nuevas $(item)flores místicas$(0) a su alrededor, en todos los bloques en que se pueda.",
-  "botania.page.jadedAmaranthus1": "&oEra este o clematis.&r",
-  "botania.page.jadedAmaranthus2": "&oEspera un minuto, ¿acabas de invocar un manojo de flores en un turno?.$(p)Sí, ¿y?$(p)Eso va contra las normas, ¿verdad?$(p)Que le den a las normas, ¡tengo maná!",
+  "botania.page.jadedAmaranthus1": "$(o)Era este o clematis.$(r)",
+  "botania.page.jadedAmaranthus2": "$(o)Espera un minuto, ¿acabas de invocar un manojo de flores en un turno?.$(p)Sí, ¿y?$(p)Eso va contra las normas, ¿verdad?$(p)Que le den a las normas, ¡tengo maná!",
 
   "botania.entry.bellethorne": "Bellapúa",
   "botania.page.bellethorne0": "La $(item)bellapúa$(0) es una flor maravillosa y maligna. Utiliza $(thing)maná$(0) para infligir daño lentamente a cualquier ser vivo a su alrededor (excepto $(thing)jugadores$(0)).",
-  "botania.page.bellethorne1": "&oCada rosa tiene su espina&r.",
+  "botania.page.bellethorne1": "$(o)Cada rosa tiene su espina$(r).",
 
   "botania.entry.dreadthorne": "Temepúa",
   "botania.page.dreadthorne0": "La $(item)temepúa$(0) es una equivalente ligeramente más específica de la $(item)bellapúa$(0), por la que , en vez de a todas las criaturas, solo dañará a animales $(thing)adultos$(0) y a ninguno más.",
-  "botania.page.dreadthorne1": "&oNo Sr.Bond, espero que usted muera&r.",
+  "botania.page.dreadthorne1": "$(o)No Sr.Bond, espero que usted muera$(r).",
 
   "botania.entry.heiseiDream": "Sueño de Heisei",
   "botania.page.heiseiDream0": "El $(item)sueño de Heisei$(0) despertará, usando $(thing)maná$(0), los sentimientos de furia y venganza de las $(thing)criaturas$(0) cercanas, haciendo que se enfrenten entre ellos.",
-  "botania.page.heiseiDream1": "♪&oUna era agradable matará a la gente&r♪.",
-  "botania.page.heiseiDream2": "♪&oHesei, estaba roto, roto. ¿Quién fue el que mintió sobre la paz? Ves, está olvidado, olvidado, incluso el castigo culpó al altar. Eh, está rompiéndose, rompiéndose, al final, incluso el significado de temblar es asesinado.$(p)Bueno,¿a dónde vamos? Vamos a algún sitio, ¿de quién eres aliado? ¿A quién reemplazo?&r♪",
+  "botania.page.heiseiDream1": "♪$(o)Una era agradable matará a la gente$(r)♪.",
+  "botania.page.heiseiDream2": "♪$(o)Hesei, estaba roto, roto. ¿Quién fue el que mintió sobre la paz? Ves, está olvidado, olvidado, incluso el castigo culpó al altar. Eh, está rompiéndose, rompiéndose, al final, incluso el significado de temblar es asesinado.$(p)Bueno,¿a dónde vamos? Vamos a algún sitio, ¿de quién eres aliado? ¿A quién reemplazo?$(r)♪",
 
   "botania.entry.tigerseye": "Tigróculo",
   "botania.page.tigerseye0": "Es un hecho conocido que a los $(thing)creepers$(0) les asustan los $(thing)gatos$(0).$(p)El $(item)tigróculo$(0) aprovecha esa debilidad, emitiendo una aura felina, petrificando a todos los $(thing)creepers$(0) cercanos, evitando que exploten. También tiene el efecto de hacerles huir de los $(thing)jugadores$(0)",
-  "botania.page.tigerseye1": "&oIncrementando el desafío a nuestro rivales&r.",
+  "botania.page.tigerseye1": "$(o)Incrementando el desafío a nuestro rivales$(r).",
 
   "botania.entry.orechid": "Menarquídea",
   "botania.page.orechid0": "A pesar que el minar está bien, una fuente de menas renovable, y sedentaria, se hace necesaria. La $(item)menarquídea$(0) usará $(thing)maná$(0) para generar $(item)menas$(0) en los bloques de $(item)piedra$(0).$(p)Las menas se generan al azar, pero parece sesgado hacia los más comunes que hacia los más escasos.",
-  "botania.page.orechid1": "&oNo es caca de dragón&r.",
+  "botania.page.orechid1": "$(o)No es caca de dragón$(r).",
 
   "botania.entry.orechidIgnem": "Menarquídea ígnea",
   "botania.page.orechidIgnem0": "La $(item)menarquídea$(0) es una gran flor. Su habilidad de crear menas puras con $(thing)maná$(0) puede ser una gran ayuda para la vida del botánico sedentario. Sin embargo, no puede crear menas del $(thing)Inframundo$(0). Solucionar eso es fácil, cambiando los pétalos un poco. creará menas del $(thing)Inframundo$(0) pero en $(item)infiedra$(0). Las flor tiene que estar en el $(thing)Inframundo$(0) para funcionar.",
-  "botania.page.orechidIgnem1": "&oEmpieza a hacer calor&r.",
+  "botania.page.orechidIgnem1": "$(o)Empieza a hacer calor$(r).",
 
   "botania.entry.fallenKanade": "Kanade caída",
   "botania.page.fallenKanade0": "La $(item)Kanae caída$(0) es una flor con propiedades angelicales, usará $(thing)maná$(0) de las $(thing)pilas de maná$(0) cercanas para otorgar un efecto de regeneración a los $(thing)jugadores$(0) cercanos.",
   "botania.page.fallenKanade0a": "La $(item)Kanae caída$(0) es una flor con propiedades angelicales, usará $(thing)maná$(0) de las $(thing)pilas de maná$(0) cercanas para otorgar un efecto de regeneración a los $(thing)jugadores$(0) cercanos.$(p)Es interesante que los $(thing)magos de la sangre$(0) colocan extraño conjuros en sus altares que impiden funcionar a esta flor, esto es algo a tener en cuenta.",
-  "botania.page.fallenKanade1": "&oHandSonic, cuarta versión&r.",
-  "botania.page.fallenKanade2": "&oTe desposaré. No importa que clase de enfermedad tengas, incluso si no puedes caminar o estar de pie, o incluso si no puedes tener hijos, te desposaré. No importa donde o como te conocí, me enamoré de ti.$(p)Si encontrarme contigo de nuevo, con una probabilidad de uno entre seis mil millones e incluso si no te pudieras mover, te desposaría&r.",
+  "botania.page.fallenKanade1": "$(o)HandSonic, cuarta versión$(r).",
+  "botania.page.fallenKanade2": "$(o)Te desposaré. No importa que clase de enfermedad tengas, incluso si no puedes caminar o estar de pie, o incluso si no puedes tener hijos, te desposaré. No importa donde o como te conocí, me enamoré de ti.$(p)Si encontrarme contigo de nuevo, con una probabilidad de uno entre seis mil millones e incluso si no te pudieras mover, te desposaría$(r).",
 
   "botania.entry.exoflame": "Exollama",
   "botania.page.exoflame0": "A diferencia de su equivalente generadora, la $(item)exollama$(0) utiliza $(thing)maná$(0) como medio de generar calor.$(p)Cualquier $(item)horno$(0) cercano a la $(item)exollama$(0) será alimentado y recibirá un aumento de velocidad, con un coste de algo de $(thing)maná$(0).",
-  "botania.page.exoflame1": "&o♪But we should be going nowhere fast♪&r.",
+  "botania.page.exoflame1": "$(o)♪But we should be going nowhere fast♪$(r).",
 
   "botania.entry.agricarnation": "Agricarnación",
   "botania.page.agricarnation0": "El lento crecimiento de los cultivos ha sido siempre el problema de alimentar a las masas. La $(item)agricarnación$(0) es una flor que convierte $(thing)maná$(0) en un tipo de fertilizante, haciendo que la vida vegetal cercana crezca más deprisa.",
-  "botania.page.agricarnation1": "&o♪Grandola Vila Morena♪&r...",
+  "botania.page.agricarnation1": "$(o)♪Grandola Vila Morena♪$(r)...",
 
   "botania.entry.hopperhock": "Tolvalcea",
   "botania.page.hopperhock0": "La $(item)tolvalcea$(0) recogerá objetos sus alrededores. Aportarle $(thing)maná$(0) es opcional, pero incrementará su rango.$(p)Los objetos recogidos se colocarán en los inventarios adyacentes (ej. $(item)cofres$(0)). Colocando $(item)marcos$(0) sobre cualquiera de los inventarios especificará que objetos puede entrar o no en ellos.",
   "botania.page.hopperhock1": "Cualquier inventario que no tenga $(item)marco$(0) adyacente podrá aceptar cualquier objeto, pero los inventarios con con marco tendrán prioridad.$(p)La regla usada para distribuir los objetos se puede cambiar haciendo shift-clic derecho en la flor con una $(item)varita del bosque$(0).",
-  "botania.page.hopperhock2": "&oSupongo que cogeré mi loli y me piro&r.",
+  "botania.page.hopperhock2": "$(o)Supongo que cogeré mi loli y me piro$(r).",
 
   "botania.entry.tangleberrie": "Enredabaya",
   "botania.page.tangleberrie0": "La $(item)enredabaya$(0) es una flor que, con el coste de una pequeñas cantidad de $(thing)maná$(0), mantendrá cualquier animal o monstruo cercano dentro de un círculo protector, evitándoles salir.",
-  "botania.page.tangleberrie1": "&oEnredados, indomable y frozen&r.",
+  "botania.page.tangleberrie1": "$(o)Enredados, indomable y frozen$(r).",
 
   "botania.entry.jiyuulia": "Jiyuulia",
   "botania.page.jiyuulia0": "La $(item)jiyuulia$(0) es una flor que, por un pequeño coste de $(thing)maná$(0), mantendrá a todo animal o monstruo circundante a raya, protegiendo un área circular al impedirles entrar en ella.",
-  "botania.page.jiyuulia1": "&oHR HD DT obra maestra&r.",
+  "botania.page.jiyuulia1": "$(o)HR HD DT obra maestra$(r).",
 
   "botania.entry.rannuncarpus": "Ranuncarpo",
   "botania.page.rannuncarpus0": "Esta flor, el $(item)ranuncarpo$(0), es bastante útil ya que recogerá cualquier bloque en sus cercanías que esté como objeto caído y lo colocará. Sin embargo, esta flor solo coloca los bloques recogidos encima de un bloque específico, para especificar este, colócalo justo debajo de la tierra en la que esta plantada.",
   "botania.page.rannuncarpus1": "Los objetos tipo bloque, tales como la $(item)caña de azúcar$(0) también funcionarán, muy similar a cualquier otro tipo de bloque, se colocarán si de forma normal pudiera hacerse.$(p)Por último, darle $(thing)maná$(0) a la flor es opcional, pero incrementará su rango.",
-  "botania.page.rannuncarpus2": "¿&oEl cajón de arena de Yanille&r?",
+  "botania.page.rannuncarpus2": "¿$(o)El cajón de arena de Yanille$(r)?",
 
   "botania.entry.hyacidus": "Hiácido",
   "botania.page.hyacidus0": "Por alguna razón el veneno no mata. El hiácido, debido a eso, se puede usar para envenenar a criaturas cercanas, dejándolas después de un rato a falta de un golpe.",
-  "botania.page.hyacidus1": "&oAcero es inmune&r.",
+  "botania.page.hyacidus1": "$(o)Acero es inmune$(r).",
 
   "botania.entry.pollidisiac": "Polidisíaco",
   "botania.page.pollidisiac0": "A los animales les encanta comer, en realidad parece que es lo único que hacen. Un interesante comportamiento que muestran es que solo quieren alimentarse de lo que se les da de comer.$(p)El $(item)polidisíaco$(0) hará eso, con un coste de $(item)maná$(0), dará de comer cualquier alimento cercano ($(item)trigo$(0), $(item)zanahorias$(0), etc) a los animales poniéndoles de \"mejor humor\".",
-  "botania.page.pollidisiac1": "&oLa cocina del infierno&r.",
+  "botania.page.pollidisiac1": "$(o)La cocina del infierno$(r).",
 
   "botania.entry.clayconia": "Arciconia",
   "botania.page.clayconia0": "La $(item)arcinonia$(0) en esencia es una sencilla flor. Todo lo que hace es humedecer la arena que esté cerca, convirtiéndola en $(item)arcilla$(0), este proceso utiliza una cantidad apreciable de $(thing)maná$(0), pero nada demasiado exagerado.",
-  "botania.page.clayconia1": "&oVaya broma macabra&r.",
+  "botania.page.clayconia1": "$(o)Vaya broma macabra$(r).",
 
   "botania.entry.loonium": "Botinia",
   "botania.page.loonium0": "Cualquier aventurero cansado sabe que las $(thing)mazmorras$(0) pueden contener objetos valiosos. La $(item)botinia$(0) puede, usando una cantidad enorme de $(thing)maná$(0), materializar estos objetos y dejarlos caer en la cercanía.",
-  "botania.page.loonium1": "&o♪Tank Tank Heal Tank♪&r!",
+  "botania.page.loonium1": "$(o)♪Tank Tank Heal Tank♪$(r)!",
 
   "botania.entry.daffomill": "Polinillo",
   "botania.page.daffomill0": "El $(item)polinillo$(0) funciona como un ventilador. Empuja, con un pequeño coste de $(thing)maná$(0), a todo objeto que se encuentre delante suyo.$(p)Haciendo shift-clic derecho con una $(item)varita del bosque$(0) cambia su orientación. Para ver hacia donde mira puedes saber por las sutiles partículas de viento que emite.",
-  "botania.page.daffomill1": "&o¿Aeroturbinas? soy muy fan&r.",
+  "botania.page.daffomill1": "$(o)¿Aeroturbinas? soy muy fan$(r).",
 
   "botania.entry.vinculotus": "Vinculoto",
   "botania.page.vinculotus0": "El $(item)vinculoto$(0) tiene el poder de crear una distorsión en el poder de los $(thing)endermans$(0) de teletransportación dentro de un amplio radio a su alrededor. Por el coste de algo de $(thing)maná$(0), siempre que un $(thing)enderman$(0) fuera a teletransportarse, en vez de eso, será transportado al sitio del $(item)vinculoto$(0).",
-  "botania.page.vinculotus1": "&oPuedes tocar este loto negro con tus dedos&r.",
+  "botania.page.vinculotus1": "$(o)Puedes tocar este loto negro con tus dedos$(r).",
 
   "botania.entry.spectranthemum": "Espectrantemo",
   "botania.page.spectranthemum0": "Transportar objetos a grandes distancias puede ser una ardua tarea. Los canales de agua y los $(item)polinillos$(0) no siempre funcionarán. El $(item)espectrantemo$(0), gastando $(thing)maná$(0), dobla el tejido de la realidad de cualquier objeto cercano caído que no contenga $(thing)maná$(0), teletransportándolo a otro sitio en el mundo. Una vez transportado, un objeto no puede ser movido de nuevo por una de estas flores.",
   "botania.page.spectranthemum1": "Para especificar a donde van los objetos, se debería usar una $(item)varita del bosque$(0) en modo vínculo y vincular la flor a un bloque en cualquier sitio, de la misma manera que con una pila. Esto solo funciona a 12 bloques de distancia. Para ver a que bloque está vinculada en vez de ver de que pila extrae $(thing)maná$(0), debe estar en modo sigilo mientras se mira con la varita.",
-  "botania.page.spectranthemum2": "esta flor está gobernada por el $(thing)axioma de la carga de chuncks$(0), por lo que no funcionará en chuncks no cargados. Este aspecto no ha sido cubierto en su totalidad en el presente lexicón.$(p)&oLecturas recomendadas:\"Chunks y Chicken\", \"Anclas del mundo\".",
-  "botania.page.spectranthemum3": "&o(n)Asusta(n+2)me&r.",
+  "botania.page.spectranthemum2": "esta flor está gobernada por el $(thing)axioma de la carga de chuncks$(0), por lo que no funcionará en chuncks no cargados. Este aspecto no ha sido cubierto en su totalidad en el presente lexicón.$(p)$(o)Lecturas recomendadas:\"Chunks y Chicken\", \"Anclas del mundo\".",
+  "botania.page.spectranthemum3": "$(o)(n)Asusta(n+2)me$(r).",
 
   "botania.entry.medumone": "Medumona",
   "botania.page.medumone0": "La $(item)medumona$(0) es una flor con la habilidad capaz de para en seco a una criatura.$(p)Mientras reciba $(thing)maná$(0), parará a cualquier entidad cercana en su movimiento con un poderoso efecto de lentitud, siempre que no sean jugadores.",
-  "botania.page.medumone1": "&oEstos créditos parecen falsos&r...",
+  "botania.page.medumone1": "$(o)Estos créditos parecen falsos$(r)...",
 
   "botania.entry.marimorphosis": "Marimorfosis",
   "botania.page.marimorphosis0": "La $(item)marimorfosis$(0) es una flor que ejecuta transformaciones metamórficas en loas bloques de $(item)piedra$(0) cercanos. Estos bloques se metamorfosean en 8 tipos diferentes de $(item)piedra metamórfica$(0). Los 8 tipos se generarán, pero el tipo generado con mayor frecuencia depende del bioma. Todos ellos se pueden usar para hacer ladrillos, ladrillos cincelados, losas, escaleras e incluso variantes de la $(item)botica de pétalos$(0).",
   "botania.page.marimorphosis1": "Los varios tipos de $(item)piedra metamórfica$(0).",
   "botania.page.marimorphosis3": "Colorida como una canción de ClariS",
-  "botania.page.marimorphosis2": "&oEsta flor es muy gneis&r.",
+  "botania.page.marimorphosis2": "$(o)Esta flor es muy gneis$(r).",
 
   "botania.entry.bubbell": "Burbumpana",
   "botania.page.bubbell0": "Construir debajo del agua no es fácil. Eliminar el agua bajo el mar es increíblemente problemático y lleva tiempo. Colocando una $(item)burbumpana$(0) debajo del agua y proveyéndola con $(thing)maná$(0) (mejor a priori), esta empezará a crear una cúpula de aire que mantendrá el agua a raya. La cúpula tiene como doce bloques de radio. Se necesita $(thing)maná$(0) para mantenerla funcionando constantemente.",
-  "botania.page.bubbell1": "&oComo algún juego casual&r.",
+  "botania.page.bubbell1": "$(o)Como algún juego casual$(r).",
 
   "botania.entry.solegnolia": "Solegnolia",
   "botania.page.solegnolia0": "El $(item)anillo de magnetización$(0) es una herramienta bastante útil para quien quiera que esté excavando o recolectando. Sin embargo, tiene el problema que recoge objetos no deseados cerca de sistemas complejos.$(p)La $(item)solegnolia$(0) interfiere con el anillo y evita que cualquier objeto cercano sea atraído por el portador. Usa un poquito de $(thing)maná$(0) para esto, pero nada considerable.",
@@ -1673,69 +1673,69 @@
   "botania.page.daybloom1": "Estas flores tienden a competir entre ellas por la luz del sol que llega, haciendo que cualquier otra del mismo tipo adyacente a ella en cualquiera de las cuatro direcciones cardinales resultará en una reducción de la eficiencia de la producción de $(thing)maná$(0). Esto solo le ocurre a las $(item)flordías$(0) y las $(item)nochedonas$(0). Estas flores producen mucho, así que quizás sea buena idea cambiarse pronto a usar $(item)endollamas$(0) u otros tipos.",
   "botania.page.daybloom1a": "Colocarle otras $(item)flordías$(0) adyacentes en cualquiera de las cuatro direcciones cardinales, provocará un reducción en la eficiencia de la producción de $(thing)maná$(0). Esto solo le ocurre a las $(item)flordías$(0) y las $(item)nochedonas$(0).$(p)Las $(item)flordías$(0) no son muy resistentes, después de un tiempo se marchitarán y morirán. Además, estas flores producen mucho, así que quizás sea buena idea cambiarse pronto a usar $(item)endollamas$(0) u otros tipos.",
   "botania.page.daybloom3": "Menos es más",
-  "botania.page.daybloom2": "&oEmpezando un nuevo día&r.",
-  "botania.page.daybloom4": "&o¿Cuánta gente hay por ahí le han hecho daño en algún tipo de aventura amorosa?¿Y cuántas veces has jurado que nunca volverás a amar nunca más?¿Cuántas solitarias noches en vela?¿Cuántas mentiras?¿Cuántas peleas?¿Y por qué querrías ir a través de todo eso de nuevo?\"Amar es sufrir\" te oí decir. El amor tiene una forma cruel y amarga de vengarse por toda la fe que hayas tenido en tu cerebro. (...)",
-  "botania.page.daybloom5": "&o¿Cómo puede ser que lo que más necesitas puede dejarte sintiéndote como un fantasma? No quieres volver a sentirte triste y perdido de nuevo. Un día podrías estar leyendo un viejo libro en un día lluvioso. Ves una foto de ella sonriéndote mientras aún estabais juntos. Podrías estar caminando calle abajo y a quién tendrías oportunidad de encontrarte. Mas que la misma sonrisa que no dejas de pensar en ella continuamente...",
+  "botania.page.daybloom2": "$(o)Empezando un nuevo día$(r).",
+  "botania.page.daybloom4": "$(o)¿Cuánta gente hay por ahí le han hecho daño en algún tipo de aventura amorosa?¿Y cuántas veces has jurado que nunca volverás a amar nunca más?¿Cuántas solitarias noches en vela?¿Cuántas mentiras?¿Cuántas peleas?¿Y por qué querrías ir a través de todo eso de nuevo?\"Amar es sufrir\" te oí decir. El amor tiene una forma cruel y amarga de vengarse por toda la fe que hayas tenido en tu cerebro. (...)",
+  "botania.page.daybloom5": "$(o)¿Cómo puede ser que lo que más necesitas puede dejarte sintiéndote como un fantasma? No quieres volver a sentirte triste y perdido de nuevo. Un día podrías estar leyendo un viejo libro en un día lluvioso. Ves una foto de ella sonriéndote mientras aún estabais juntos. Podrías estar caminando calle abajo y a quién tendrías oportunidad de encontrarte. Mas que la misma sonrisa que no dejas de pensar en ella continuamente...",
 
   "botania.entry.nightshade": "Nochedona",
   "botania.page.nightshade0": "La $(item)nochedona$(0) es la equivalente oscura de la $(item)flordía$(0), ya que genera $(thing)maná$(0) de forma pasiva en cualquier situación en la que la $(item)flordía$(0) no pueda, siempre que sea de noche.$(p)De forma similar a su equivalente, sufren de perdida de eficiencia por tener otras adyacentes.",
   "botania.page.nightshade0a": "La $(item)nochedona$(0) es la equivalente oscura de la $(item)flordía$(0), ya que genera $(thing)maná$(0) de forma pasiva en cualquier situación en la que la $(item)flordía$(0) no pueda, siempre que sea de noche.$(p)Al igual que su brillante equivalente, sufren de perdida de eficiencia por tener otras adyacentes y no son muy resistentes, después de un tiempo se marchitarán y morirán.",
-  "botania.page.nightshade1": "&oLa sombra del día&r.",
+  "botania.page.nightshade1": "$(o)La sombra del día$(r).",
 
   "botania.entry.endoflame": "Endollama",
   "botania.page.endoflame0": "Mientras que la $(item)flordía$(0) esta bien y es buena, un botánico requiere medios más efectivos de generar $(thing)maná$(0).$(p)La $(item)endollama$(0) hace exactamente eso, absorberá cualquier objeto o bloque combustible caido en los alrededores (aunque un por vez) y los quemará para generar maná pasivamente mientras dure el combustible.",
   "botania.page.endoflame1": "Aunque hay una excepción, la $(item)endollama$(0) no quemará algo que de un subproducto, un ejemplo son los $(item)cubos con lava$(0), que tienen $(item)cubos$(0) como subproducto.$(p)Debido a su comportamiento, una $(item)caja abierta$(0), puedes leer sobre ella en las sección de $(thing)aparatos naturales$(0), puede que sea un buen paso hacia ser autosostenible.",
-  "botania.page.endoflame2": "&oNo es nitor&r.",
+  "botania.page.endoflame2": "$(o)No es nitor$(r).",
 
   "botania.entry.hydroangeas": "Hidrortensia",
   "botania.page.hydroangeas0": "Mientras que la generación pasiva de $(thing)maná$(0) se puede conseguir con $(item)flordías$(0), hacerlo de diferentes formas puede ser útil. Las $(item)hidrortensias$(0) sorberán $(item)agua quieta$(0) en un área 3x3 a su alrededor, a la misma altura, generando $(thing)maná$(0) haciendo esto. También parecen funcionar más rápido con $(item)lluvia$(0), ¿quién lo hubiese pensado?",
   "botania.page.hydroangeas0a": "Las $(item)hidrortensias$(0) sorberán cualquier $(item)agua quieta$(0) en un área 3x3 a su alrededor, a la misma altura, generando $(thing)maná$(0) haciendo esto. También parecen funcionar más rápido con $(item)lluvia$(0), ¿quién lo hubiese pensado?$(p)De forma similar a las $(item)flordías$(0), estas flores no son muy resistentes, después de un tiempo se marchitarán y morirán.",
   "botania.page.hydroangeas2": "Un sencillo sistema de $(item)hidrortensias$(0)",
   "botania.page.hydroangeas3": "Estas flores, similarmente a las $(item)flordías$(0) o las $(item)nochedonas$(0) tendrán una reducción de la producción si se colocan en un patrón demasiado compacto. Teniendo dos $(item)hidrortensias$(0) en dos bloques contiguos, incluyendo las diagonales, reducirá drásticamente la tasa de producción de ambas, debido al entrecruzamiento de sus raíces. Teniendo aún más en un espacio reducido reducirá más su potencias. Las partículas azules entre ellas indican esto.",
-  "botania.page.hydroangeas1": "¿&oSerá hidropónico&r?",
+  "botania.page.hydroangeas1": "¿$(o)Será hidropónico$(r)?",
 
   "botania.entry.thermalily": "Termolila",
   "botania.page.thermalily0": "Llega un punto el que la energía de generación lenta, como la $(item)hidrortensia$(0) o la $(item)endollama$(0), no son suficientes. Para responder a eso está la $(item)termolila$(0), que funciona de forma similar a la $(item)hidrortensia$(0) pero con $(item)lava$(0), y producirá grandes cantidades de $(thing)maná$(0) a chorros al consumir $(item)lava$(0). Al hacer esto la flor se calienta y necesitará algo de tiempo para enfriarse antes de poder a funcionar de nuevo.",
-  "botania.page.thermalily1": "&oEstilo 0108&r.",
+  "botania.page.thermalily1": "$(o)Estilo 0108$(r).",
 
   "botania.entry.arcanerose": "Rosa arcana",
   "botania.page.arcanerose0": "Los $(thing)puntos de experiencia$(0) son una forma de magia. La $(item)rosa arcana$(0) puede aprovecharlo y absorber la experiencia de los jugadores cercanos que estén en el suelo,convirtiéndola en $(thing)maná$(0).",
-  "botania.page.arcanerose1": "&oCuando se invoca esta carta, lanza una moneda&r.",
+  "botania.page.arcanerose1": "$(o)Cuando se invoca esta carta, lanza una moneda$(r).",
 
   "botania.entry.munchdew": "Tragarrocio",
   "botania.page.munchdew0": "Generando la forma de energía natural que es el $(thing)maná$(0) debería ser un buen proceso cuando se haga a través de otros materiales vivientes. Usando el $(item)tragarrocio$(0), cualquier hoja cercana a la flor será comida y convertida en $(thing)maná$(0).$(p)Cabe notar que ningún brote o otro tipo de objeto caerán de las hojas.",
   "botania.page.munchdew1": "Esta flor emite una considerable cantidad de maná por árbol consumido.$(p)Sin embargo, tras comerse todas las hojas disponibles, cuando ne quede ninguna, se tomará un descanso y solo podrá comer de nuevo después de alrededor de un minuto.",
-  "botania.page.munchdew2": "&oPagas la cena, Shibazaki&r.",
+  "botania.page.munchdew2": "$(o)Pagas la cena, Shibazaki$(r).",
 
   "botania.entry.entropinnyum": "Entropinia",
   "botania.page.entropinnyum0": "Para generar un estallido de $(thing)maná$(0), se requeriría un estallido cerca. Incendiando un bloque de $(item)TNT$(0) en las cercanías de una $(item)entropinia$(0), si este no cae al agua, la flor absorberá toda la entropía generada por la explosión, creando una enorme cantidad de $(thing)maná$(0) y anulando todo posible daño. Por último, para absorber la explosión, la flor no debe tener nada de $(thing)maná$(0) almacenado o sino el proceso fallará.",
-  "botania.page.entropinnyum1": "&oLos tipos duros no miran las explosiones&r.",
+  "botania.page.entropinnyum1": "$(o)Los tipos duros no miran las explosiones$(r).",
 
   "botania.entry.kekimurus": "Kekimuro",
   "botania.page.kekimurus0": "La $(item)tarta$(0) es deliciosa, a todo el mundo le gusta, incluidas las flores.$(p)El Kekimuro es un de esos entusiastas de la $(item)tarta$(0) y comerá de cualquiera que este a su alrededor, usando sus ricos nutrientes para crear $(thing)maná$(0).",
-  "botania.page.kekimurus1": "&oTarta en tartera&r",
+  "botania.page.kekimurus1": "$(o)Tarta en tartera$(r)",
 
   "botania.entry.gourmaryllis": "Gurmerilia",
   "botania.page.gourmaryllis0": "La $(item)gurmerilia$(0) es una flor hambrienta. Comerá cualquier comida junto a ella, y la convertirá en $(thing)maná$(0).$(p)aunque hay un problema, solo puede comer un trozo de comida por vez, generando $(thing)maná$(0) cuando lo hace. Cualquier otro tipo de comida que encuentre también se la zampará, pero no generará nada de maná de esta comida.",
   "botania.page.gourmaryllis1": "La cantidad de tiempo que le lleva digerir una exquisitez depende de su valor nutricional, por así decirlo, los puntos de hambre que llena.$(p)así que, un $(item)filete$(0) le llevará cuatros segundos en ser digerido, una $(item)zanahoria$(0) serán dos, una barra de $(item)pan$(0) serán dos y medio, y así sucesivamente.",
   "botania.page.gourmaryllis2": "La cantidad de $(thing)maná$(0) generado también hace uso de este valor, pero de una manera donde cuanto más nutritiva sea la comida, más eficiente es la generación. Por ejemplo un solo $(item)filete$(0) producirá más $(item)maná$(0) que dos $(item)zanahorias$(0), tanto en números absolutos como por segundo.",
-  "botania.page.gourmaryllis3": "&oUn caldero mongol para los nuevos residentes&r.",
-  "botania.page.gourmaryllis4": "&oBueno, si los hombres se comen a sí mismos tras la muerte, es imposible pensar algo menos horroroso y pesimista. Pero sabéis que vuestra crueldad conduce a, pensar, que incluso los hombres se comen a si mismos vivos tal como vosotros.$(p)Vivo estaba Job cuando dijo:\"¿Por qué me sigues tan inhumanamente, tu que me estas comiendo vivo y hartándote de mi carne?\". ¿Quieres ver a un Job como este?(...)",
-  "botania.page.gourmaryllis5": "&oMira al hombre perseguido por las denuncias y acusado de crímenes, y contempla a quienes se lo están comiendo. El alguacil se lo come, el carcelero se lo come, el escriba se lo come, el demandante se lo come, el abogado se lo come, el fiscal se lo come, el juez se lo come y sin haber sido sentenciado ya se lo han comido. Los hombres son peor que los cuervos. (...)",
-  "botania.page.gourmaryllis6": "&oEl triste que se colgó, solo se lo comen los cuervos tras su ejecución y muerte, mientras que el que es juzgado, sin haber sido ejecutado o condenado ya se lo han comido.$(p)La verdero mal son los hombres que se comen mutuamente y los que se comprometen a ello son los más grandes, los que comen a los más pequeños. Por eso vosotros, hombres, sois la sal del mundo.",
+  "botania.page.gourmaryllis3": "$(o)Un caldero mongol para los nuevos residentes$(r).",
+  "botania.page.gourmaryllis4": "$(o)Bueno, si los hombres se comen a sí mismos tras la muerte, es imposible pensar algo menos horroroso y pesimista. Pero sabéis que vuestra crueldad conduce a, pensar, que incluso los hombres se comen a si mismos vivos tal como vosotros.$(p)Vivo estaba Job cuando dijo:\"¿Por qué me sigues tan inhumanamente, tu que me estas comiendo vivo y hartándote de mi carne?\". ¿Quieres ver a un Job como este?(...)",
+  "botania.page.gourmaryllis5": "$(o)Mira al hombre perseguido por las denuncias y acusado de crímenes, y contempla a quienes se lo están comiendo. El alguacil se lo come, el carcelero se lo come, el escriba se lo come, el demandante se lo come, el abogado se lo come, el fiscal se lo come, el juez se lo come y sin haber sido sentenciado ya se lo han comido. Los hombres son peor que los cuervos. (...)",
+  "botania.page.gourmaryllis6": "$(o)El triste que se colgó, solo se lo comen los cuervos tras su ejecución y muerte, mientras que el que es juzgado, sin haber sido ejecutado o condenado ya se lo han comido.$(p)La verdero mal son los hombres que se comen mutuamente y los que se comprometen a ello son los más grandes, los que comen a los más pequeños. Por eso vosotros, hombres, sois la sal del mundo.",
 
   "botania.entry.narslimmus": "Narslimo",
   "botania.page.narslimmus0": "Existe algún tipo de poder desconocido en el universo que crea $(item)slimes$(0) en lugares aleatorios. $(thing)Chuncks de slime$(0) los llaman. El $(item)narslimo$(0) es una flor que tiene la habilidad de utilizar esa energía. Si se coloca cerca de un $(item)slime$(0) creado por ese poder, lo destruirá, recolectando todo el $(thing)maná$(0) generado por la entropía. Cuanto más grande sea el $(item)slime$(0), más $(thing)maná$(0) se genera. También hace un poco de desorden pegajoso.",
-  "botania.page.narslimmus1": "&oMantente pegado a mí",
+  "botania.page.narslimmus1": "$(o)Mantente pegado a mí",
 
   "botania.entry.spectrolus": "Espectrolo",
   "botania.page.spectrolus0": "El $(item)espectrolo$(0) es una flor que tiene cierto aprecio por los diferentes tonos de $(item)lana$(0). Absorberá cada bloque de $(item)lana$(0) que caiga cerca y generará $(thing)maná$(0) con ellos.$(p)Pero existe una condición. Es quisquillosa el lo tocante a los colores que quiere. Empieza por el blanco y tras de absorber un bloque de $(item)lana$(0) rotará al siguiente color del espectro.",
   "botania.page.spectrolus1": "Mientra que consume toda la $(item)lana$(0) cercana, solo generará maná si es del color que quiere, así que arrojarle $(item)lana$(0) al azar es una estrategia derrochadora.$(p)El color que absorberá correctamente se puede ver pasando por encima de la flor la $(item)varita del bosque$(0).",
-  "botania.page.spectrolus2": "&oFlor con sabor a frutas&r.",
+  "botania.page.spectrolus2": "$(o)Flor con sabor a frutas$(r).",
 
   "botania.entry.pylon": "Pilón de maná",
   "botania.page.pylon0": "El $(item)pilón de maná$(0) es una estructura que puede extraer energía de la tierra y usarla para potenciar procesos de encantamiento.$(p)Por ejemplo, colocar uno junto a una $(item)mesa de encantamiento$(0) como si fuese una $(item)librería$(0) incrementará el poder que puede transmitir, dos son suficientes para que alcance el $(thing)nivel 30$(0).",
-  "botania.page.pylon1": "&o¡Construye pilones adicionales!&r",
+  "botania.page.pylon1": "$(o)¡Construye pilones adicionales!$(r)",
 
   "botania.entry.manaEnchanting": "Encantando con maná",
   "botania.page.manaEnchanting0": "Utilizando el poder mágico emitido por los $(item)pilones de maná$(0), se puede crear una estructura para encantar usando libros pero sin consumirlos, llamada $(item)encantador de maná$(0).$(p)Construir uno de estos requiere bastante de espacio y materiales.",
@@ -2146,7 +2146,7 @@
   "botania.page.enderHand1a": "Es como el 4G de los $(item)cofres del Fin",
 
   "botania.entry.enderDagger": "Escribalma",
-  "botania.page.enderDagger0": "Esos $(thing)endermans$(0). Son la cosa más molesta después de los $(thing)creepers$(0). Juro, que la persona que los creó debió tomar &onotch&r con su bebida.$(p)Sin embargo, infundiendo una daga normal con algo de su energía, se puede crear el $(item)escribalma$(0), una daga que corta los $(item)endermans$(0) como si fueran mantequilla.",
+  "botania.page.enderDagger0": "Esos $(thing)endermans$(0). Son la cosa más molesta después de los $(thing)creepers$(0). Juro, que la persona que los creó debió tomar $(o)notch$(r) con su bebida.$(p)Sin embargo, infundiendo una daga normal con algo de su energía, se puede crear el $(item)escribalma$(0), una daga que corta los $(item)endermans$(0) como si fueran mantequilla.",
   "botania.page.enderDagger1": "Debido al tipo de infusión, la daga solo dura unos pocos golpes y la energía que irradia evita que el $(item)manacero$(0) absorba $(thing)maná$(0) para prevenir daño, como hacen otras herramientas. Aún así, todo sea por matar a eso monstruos.",
   "botania.page.enderDagger2": "♪Strike my Soul♪",
 
@@ -2228,7 +2228,7 @@
 
   "botania.entry.keepIvy": "Hiedra resuelta",
   "botania.page.keepIvy0": "Todo el mundo sabe que ser resucitado, todas tus cosas se desperdigan en el suelo, siendo un incordio. Solucionar esto es muy sencillo. Colocando un trozo de $(item)hiedra resuelta$(0) a un objeto en la rejilla de trabajo, el objeto persistirá en tu inventario tras la muerte. La hiedra se marchitará tras el hecho y tendrá que colocarse de nuevo si se quiere que el objeto sobreviva a otra vez.",
-  "botania.page.keepIvy2": "Existe, sin embargo, una restricción a los objetos que pueden modificar con la hiedra.$(p)por &orazones técnicas&r, la hiedra no se puede colocar en ningún objeto que, al usarse en la mesa de trabajo, devuelva algo a cambio, como los $(item)cubos con agua$(0) o los $(item)morteros$(0).",
+  "botania.page.keepIvy2": "Existe, sin embargo, una restricción a los objetos que pueden modificar con la hiedra.$(p)por $(o)razones técnicas$(r), la hiedra no se puede colocar en ningún objeto que, al usarse en la mesa de trabajo, devuelva algo a cambio, como los $(item)cubos con agua$(0) o los $(item)morteros$(0).",
   "botania.page.keepIvy1": "Porque la gente se muere al asesinarla",
 
   "botania.entry.blackHoleTalisman": "Talismán de agujero negro",
@@ -2352,8 +2352,8 @@
   "botania.page.superTravelBelt1": "No hay tiempo para adivinanzas, sigue mi plan",
 
   "botania.entry.itemFinder": "El Espectador",
-  "botania.page.itemFinder0": "$(item)El Espectador$(0) es una diadema que permite al portador tener una mejor percepción del mundo. Mientras se sostenga un objeto, cualquier contenedor(cofres, vagonetas, hornos, etc) que tenga ese objeto, $(item)objetos dejados caer$(0) de ese tipo, $(thing)mobs$(0) que tengan ese objeto equipado&o(...)&r",
-  "botania.page.itemFinder1": "&o(...)&r $(thing)jugadores$(0) que tengan el objeto en su inventario y $(thing)aldeanos$(0) que quieran intercambiar ese o por ese objeto resplandecerán con un colorido brillo, permitiéndoles ser fácilmente localizados.$(p)Mientras se está en sigilo todos los objetos en el suelo brillaran, independientemente de que objeto sea.",
+  "botania.page.itemFinder0": "$(item)El Espectador$(0) es una diadema que permite al portador tener una mejor percepción del mundo. Mientras se sostenga un objeto, cualquier contenedor(cofres, vagonetas, hornos, etc) que tenga ese objeto, $(item)objetos dejados caer$(0) de ese tipo, $(thing)mobs$(0) que tengan ese objeto equipado$(o)(...)$(r)",
+  "botania.page.itemFinder1": "$(o)(...)$(r) $(thing)jugadores$(0) que tengan el objeto en su inventario y $(thing)aldeanos$(0) que quieran intercambiar ese o por ese objeto resplandecerán con un colorido brillo, permitiéndoles ser fácilmente localizados.$(p)Mientras se está en sigilo todos los objetos en el suelo brillaran, independientemente de que objeto sea.",
   "botania.page.itemFinder2": "¿Oyes sus voces?",
 
   "botania.entry.superLavaPendant": "Colgante carmesí",
@@ -2391,12 +2391,12 @@
 
   "botania.entry.elfMessage": "Un mensaje del Elven Garde",
   "botania.page.elfMessage0": "",
-  "botania.page.elfMessage1": "&oSaludos. Hemos notado que nuestro portal se ha abierto con un vínculo a otro mundo. Son noticias impactantes. Les agradecemos enormemente por proveernos de una recopilación del conocimiento de su mundo, nos hemos puesto al día de lo que ha pasado desde que lo abandonamos, hace ya un tiempo de eso, es bueno ver que todo marcha bien.",
-  "botania.page.elfMessage2": "&oTras ciertas deliberaciones en el alto consejo de Elven Garde, se ha decidido cooperar con ustedes. Como pueden ver, leyendo su \"Lexica Botania\" nos ha mostrado una buena cantidad de recursos de su mundo que estaríamos encantados de obtener, ya que no existen en nuestras tierras.",
-  "botania.page.elfMessage3": "&oEl vínculo que ha establecido es bastante débil, ningún ser vivo podría pasar, como deben ya saber. Sin embargo, hay una parte positiva en esto, el vínculo entrelaza el tejido del tiempo entre nuestros mundos de una forma que no se mantienen en sincronía, por esa razón han recibido su libro tan rápido.",
-  "botania.page.elfMessage4": "&oEn cuanto a maná y otras energías mágicas, tenemos en abundancia, no se preocupen por que se cierre en portal en nuestro lado. Poniéndolo en perspectiva, para el avance de nuestras civilizaciones, nos comprometemos en acepta una serie de recursos de su mundo que carecemos a cambio de recurosos carentes en su mundo.",
-  "botania.page.elfMessage5": "&oNos hemos tomado la libertad de asignar a nuestros mejores escribas a recopilar una gran colección de conocimiento de nuestro mundo que deseamos compartir, podrán encontrarlo en su libro junto al suyo. Esperamos que les resulte revelador y les anime a invertir en nuestros materiales.",
-  "botania.page.elfMessage6": "&oPor último pero no menos importante, les avisamos de antemano que tengan en cuenta que si deciden enviar algo que no hemos acordado intercambiar, asumiremos que es un regalo y nos lo quedaremos. Esperamos intercambiar recursos con ustedes.$(p)Atentamente, el Alto Consejo de Elven Garde.",
+  "botania.page.elfMessage1": "$(o)Saludos. Hemos notado que nuestro portal se ha abierto con un vínculo a otro mundo. Son noticias impactantes. Les agradecemos enormemente por proveernos de una recopilación del conocimiento de su mundo, nos hemos puesto al día de lo que ha pasado desde que lo abandonamos, hace ya un tiempo de eso, es bueno ver que todo marcha bien.",
+  "botania.page.elfMessage2": "$(o)Tras ciertas deliberaciones en el alto consejo de Elven Garde, se ha decidido cooperar con ustedes. Como pueden ver, leyendo su \"Lexica Botania\" nos ha mostrado una buena cantidad de recursos de su mundo que estaríamos encantados de obtener, ya que no existen en nuestras tierras.",
+  "botania.page.elfMessage3": "$(o)El vínculo que ha establecido es bastante débil, ningún ser vivo podría pasar, como deben ya saber. Sin embargo, hay una parte positiva en esto, el vínculo entrelaza el tejido del tiempo entre nuestros mundos de una forma que no se mantienen en sincronía, por esa razón han recibido su libro tan rápido.",
+  "botania.page.elfMessage4": "$(o)En cuanto a maná y otras energías mágicas, tenemos en abundancia, no se preocupen por que se cierre en portal en nuestro lado. Poniéndolo en perspectiva, para el avance de nuestras civilizaciones, nos comprometemos en acepta una serie de recursos de su mundo que carecemos a cambio de recurosos carentes en su mundo.",
+  "botania.page.elfMessage5": "$(o)Nos hemos tomado la libertad de asignar a nuestros mejores escribas a recopilar una gran colección de conocimiento de nuestro mundo que deseamos compartir, podrán encontrarlo en su libro junto al suyo. Esperamos que les resulte revelador y les anime a invertir en nuestros materiales.",
+  "botania.page.elfMessage6": "$(o)Por último pero no menos importante, les avisamos de antemano que tengan en cuenta que si deciden enviar algo que no hemos acordado intercambiar, asumiremos que es un regalo y nos lo quedaremos. Esperamos intercambiar recursos con ustedes.$(p)Atentamente, el Alto Consejo de Elven Garde.",
 
   "botania.entry.elfResources": "Los recursos de Alfheim",
   "botania.page.elfResources0": "$(thing)Alfheim$(0) contiene una gran variedad de recursos exquisitos. Tristemente, la mayoría son sumamente escasos y difíciles de obtener por la competencia entre varios clanes. A los elfos les interesa intercambiar materiales tales como $(item)madera onírica$(0), $(item)elementio$(0), $(item)polvo de hada$(0) o $(item)piedra de dragón$(0), originarios de sus tierras.",
@@ -2432,13 +2432,13 @@
   "botania.page.relicInfo1": "De acuerdo con los textos originales, la misma reliquia no puede ser concedida a nadie dos veces, así que mantenerlas a salvo es prioritario. Quizás algo como la $(item)hiedra resuelta$(0) sería una buena inversión.$(p)Es interesante que al conseguir una reliquia también otorga a este lexicón con el conocimiento de como usarla. Qué útil.",
 
   "botania.entry.infiniteFruit": "La fruta de Grisaia",
-  "botania.page.infiniteFruit0": "La reliquia conocida como $(item)la fruta de Grisaia$(0) esta investida con el poder de nutrir eternamente a la brava alma que se la ganó, Se puede comer como cualquier otra comida, pero en vez de usar materia para alimentar usará $(thing)maná& del inventario.$(p)Espero que te guste el sabor a manzana.",
+  "botania.page.infiniteFruit0": "La reliquia conocida como $(item)la fruta de Grisaia$(0) esta investida con el poder de nutrir eternamente a la brava alma que se la ganó, Se puede comer como cualquier otra comida, pero en vez de usar materia para alimentar usará $(thing)maná$(0) del inventario.$(p)Espero que te guste el sabor a manzana.",
 
   "botania.entry.kingKey": "Llave de la ley real",
   "botania.page.kingKey0": "La $(item)llave de la ley real$(0) es una poderosa reliquia con la habilidad de materializar armas a placer. Manteniendo apretado el clic derecho con la llave convocará una variedad de arma desde... algún sitio. Hasta veinte armas se pueden crear de vez. Soltando el agarre sobre la llave lanzará a gran velocidad todas las armas a la vez hacia donde esté mirando el convocador.Estas armas explotarán al entrar en contacto con algo.",
 
   "botania.entry.flugelEye": "Ojo de los Flügel",
-  "botania.page.flugelEye0": "Al contrario que la fabricada $(item)tiara de los Flügel$(0), el &ojo de los Flügel$(0) contiene la magia primordial $(thing)Flügel$(0). Una magia lo suficientemente fuerte, de hecho, para emplear la habilidad de los Flügel para ir a un sitio que ya han visitado.$(p)Haciendo shift-clic derecho con este ojo en algún sitio lo vinculará a esa posición.Después de esos, manteniendo apretador el clic derecho por un rato llevará al usuario a la localización vinculada.",
+  "botania.page.flugelEye0": "Al contrario que la fabricada $(item)tiara de los Flügel$(0), el $(o)jo de los Flügel$(0) contiene la magia primordial $(thing)Flügel$(0). Una magia lo suficientemente fuerte, de hecho, para emplear la habilidad de los Flügel para ir a un sitio que ya han visitado.$(p)Haciendo shift-clic derecho con este ojo en algún sitio lo vinculará a esa posición.Después de esos, manteniendo apretador el clic derecho por un rato llevará al usuario a la localización vinculada.",
   "botania.page.flugelEye1": "Esta habilidad de teletransporte no solo cuesta $(thing)maná$(0) pero tampoco se puede usar entre dimensiones, tristemente.$(p)A parte de eso, estar en posesión de un $(item)ojo de los Flügel$(0) permite al portador de la $(item)tiara de los Flügel$(0) volar superando los límites normales, con un coste mayor, por supuesto.",
 
   "botania.entry.thorRing": "Anillo de Thor",
@@ -2455,13 +2455,13 @@
 
   "botania.entry.elvenLore": "Conocimiento élfico - La Ruptura",
   "botania.page.elvenLore0": "Parece que esta sección del lexicón es solo un manojo de papeles. Por su aspecto, parecen que han sido sacados de un documento de las bibliotecas de Elven Garde.$(p)Sus contenidos deberían ser conocimientos históricos, pero no parece que nada relevante sobre estudios de botánica.",
-  "botania.page.elvenLore1": "&oHan pasado algunos milenios desde La Ruptura. La cantidad de nosotros que de verdad sabe sobre lo que en realidad ocurrió ese día es mínima. Nidavellir se rompió y pese a la increíble resistencia de los enanos, gran parte de su tecnología y civilización fue erradicada. Muspelheim, que estaba(...)",
-  "botania.page.elvenLore2": "&opreviamente en la otra punta de Árbol del Mundo, chocó con Midgard, fundiendo los dos mundos en un apocalipsis, erradicando cualquier rastro de vida en ese mundo. Hay teorías que dicen que Hel estuvo también involucrado en el evento, aunque ninguna fue nunca confirmada. Fisuras en el terreno de (...)",
-  "botania.page.elvenLore3": "&oJotunheim se abrieron, masacrando a los Gigantes que vivían allí, su estado actual se desconoce. Niflheim pareció mantenerse, al contrario que Muspelheim, cabe señalar. Como no contenía forma de vida conocida, se puede decir que los daños son irrelevantes. Por último,(...)",
-  "botania.page.elvenLore4": "&onosotros los elfos de Alfheim, el daño en nuestro mundo se dividió. Los clanes Salamandra y Ondina sufrieron un diezmo en su población, debido a la inestabilidad de sus entornos volcánico y acuático, respectivamente. La mayoría de las Sílfide salieron indemnes debido a su extraordinaria capacidad de vuelo, (...)",
-  "botania.page.elvenLore5": "&olos Spriggan también tuvieron escasas secuelas. Durante ese tiempo las perspectivas de nuestra civilización eran escasas y nuestras opciones de refugio eran chozas de madera onírica, así, con fortuna, la reconstrucción resultó tediosa. Allewyn, nuestra emisaria en Asgard presenció este hecho, todo ocurrió más deprisa (...)",
-  "botania.page.elvenLore6": "&oque el nacimiento de un hada. Thor rompiendo el Bifrost con Mjolnir, su mando para evacuar toda la civilización elfa residente en Midgrad, afortunadamente estuvo aquí ilesa, o al menos eso dicen los registros, en cualquier caso, algunos milenios después, lleva ya tiempo muerta. Ahora nuestra principal preocupación es el estado de Midgrad.(...)",
-  "botania.page.elvenLore7": "&oLa caída de Bifrost rompió la interacción entre los distintos mundos, pero la cantidad de residuos de maná que dejamos atrás habrán permanecido e infundido el mundo con vida por doquier, sea esta animal, floral o fúngica, de esencia natural o mágica. Esperamos que sea suficiente para crear vida inteligente que pueda usarlo.",
+  "botania.page.elvenLore1": "$(o)Han pasado algunos milenios desde La Ruptura. La cantidad de nosotros que de verdad sabe sobre lo que en realidad ocurrió ese día es mínima. Nidavellir se rompió y pese a la increíble resistencia de los enanos, gran parte de su tecnología y civilización fue erradicada. Muspelheim, que estaba(...)",
+  "botania.page.elvenLore2": "$(o)previamente en la otra punta de Árbol del Mundo, chocó con Midgard, fundiendo los dos mundos en un apocalipsis, erradicando cualquier rastro de vida en ese mundo. Hay teorías que dicen que Hel estuvo también involucrado en el evento, aunque ninguna fue nunca confirmada. Fisuras en el terreno de (...)",
+  "botania.page.elvenLore3": "$(o)Jotunheim se abrieron, masacrando a los Gigantes que vivían allí, su estado actual se desconoce. Niflheim pareció mantenerse, al contrario que Muspelheim, cabe señalar. Como no contenía forma de vida conocida, se puede decir que los daños son irrelevantes. Por último,(...)",
+  "botania.page.elvenLore4": "$(o)nosotros los elfos de Alfheim, el daño en nuestro mundo se dividió. Los clanes Salamandra y Ondina sufrieron un diezmo en su población, debido a la inestabilidad de sus entornos volcánico y acuático, respectivamente. La mayoría de las Sílfide salieron indemnes debido a su extraordinaria capacidad de vuelo, (...)",
+  "botania.page.elvenLore5": "$(o)los Spriggan también tuvieron escasas secuelas. Durante ese tiempo las perspectivas de nuestra civilización eran escasas y nuestras opciones de refugio eran chozas de madera onírica, así, con fortuna, la reconstrucción resultó tediosa. Allewyn, nuestra emisaria en Asgard presenció este hecho, todo ocurrió más deprisa (...)",
+  "botania.page.elvenLore6": "$(o)que el nacimiento de un hada. Thor rompiendo el Bifrost con Mjolnir, su mando para evacuar toda la civilización elfa residente en Midgrad, afortunadamente estuvo aquí ilesa, o al menos eso dicen los registros, en cualquier caso, algunos milenios después, lleva ya tiempo muerta. Ahora nuestra principal preocupación es el estado de Midgrad.(...)",
+  "botania.page.elvenLore7": "$(o)La caída de Bifrost rompió la interacción entre los distintos mundos, pero la cantidad de residuos de maná que dejamos atrás habrán permanecido e infundido el mundo con vida por doquier, sea esta animal, floral o fúngica, de esencia natural o mágica. Esperamos que sea suficiente para crear vida inteligente que pueda usarlo.",
 
   "botania.entry.unstableBlocks": "Cubos inestables",
   "botania.page.unstableBlocks0": "Toquiteando con objetos infundidos con $(thing)maná$(0) de alto poder ha llevado a la creación de estos cubitos. Parecen emitir una radiación visual en forma de luz coloreada, pero no parece que que tenga otro efecto más que atractivo visual.",
