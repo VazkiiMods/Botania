@@ -68,6 +68,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";
+	private static final String TAG_GLIDING = "gliding";
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
 	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
@@ -273,7 +274,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
 				}
 			} else {
-				boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
+				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
+				boolean doGlide = player.isSneaking() && !player.onGround && (player.getMotion().getY() < -.7F || wasGliding);
 				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
 					newTime++;
 
@@ -282,6 +284,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					player.setMotion(look.x * mul, Math.max(-0.15F, player.getMotion().getY()), look.z * mul);
 					player.fallDistance = 2F;
 				}
+				ItemNBTHelper.setBoolean(stack, TAG_GLIDING, doGlide);
 			}
 
 			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
