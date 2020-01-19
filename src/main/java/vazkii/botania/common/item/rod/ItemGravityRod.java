@@ -75,7 +75,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		if(ticksCooldown > 0)
 			ticksCooldown--;
 
-		ticksTillExpire--;
+		if (ticksTillExpire >= 0) 
+			ticksTillExpire--;
 		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 
@@ -220,7 +221,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						}
 						item.remove();
 					} else {
-						item.setMotion(item.getMotion().mul(3, 1.5, 3));
+						item.setMotion(moveVector.multiply(3, 1.5, 3).toVec3D());
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}
