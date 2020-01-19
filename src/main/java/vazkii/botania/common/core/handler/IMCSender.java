@@ -28,7 +28,8 @@ public class IMCSender {
 		addOreWeight("ferrous", 558);
 		addOreWeight("galena", 4096);
 		addOreWeight("lead", 4093);
-		addOreWeight("mithril", 558);
+		addOreWeight("mithril", 6485);
+		addOreWeight("mythril", 6485);
 		addOreWeight("nickel", 2275);
 		addOreWeight("osmium", 6915);
 		addOreWeight("platinum", 956);
@@ -43,7 +44,7 @@ public class IMCSender {
 		addOreWeight("sapphire", 1287);
 		addOreWeight("topaz", 6436);
 		addOreWeight("amethyst", 1307);
-		// Big Reactors / Extreme Reactors
+		// Extreme Reactors
 		addOreWeight("yellorite", 3520);
 		// Blue Power
 		addOreWeight("teslatite", 4312);
@@ -60,7 +61,6 @@ public class IMCSender {
 		addOreWeight("sulfur", 1105);
 		addOreWeight("sulphur", 1105);
 		// Simple Ores 2
-		addOreWeight("mythril", 6485);
 		addOreWeight("adamantium", 1469);
 		// Silent Mechanisms
 		addOreWeight("bismuth", 2407);
@@ -99,7 +99,7 @@ public class IMCSender {
 		addOreWeightNether("ardite", 500);
 		addOreWeightNether("cobalt", 500);
 
-		/* Ore weights TODO 1.14
+		/* Ore weights TODO 1.14 / 1.15
 		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics certusQuartz, certus/quartz or quartz/certus?
 		addOreWeight("oreQuartzBlack", 5535); // Actually Additions quartzBlock, quartz/black or black/quartz?
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite haditeCoal, hadite/coal or coal/hadite?
