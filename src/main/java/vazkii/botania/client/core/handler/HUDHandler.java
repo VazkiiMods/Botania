@@ -79,14 +79,16 @@ public final class HUDHandler {
 
 	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
+	@SubscribeEvent
+	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getInstance();
 		IProfiler profiler = mc.getProfiler();
+		ItemStack main = mc.player.getHeldItemMainhand();
+		ItemStack offhand = mc.player.getHeldItemOffhand();
 
-		if(event.getType() == ElementType.HEALTH) {
+		if(event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");
-
+			
 			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
 			if(!tiara.isEmpty()) {
 				profiler.startSection("flugelTiara");
@@ -101,19 +103,6 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
-			profiler.endSection();
-		}
-	}
-
-	@SubscribeEvent
-	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
-		Minecraft mc = Minecraft.getInstance();
-		IProfiler profiler = mc.getProfiler();
-		ItemStack main = mc.player.getHeldItemMainhand();
-		ItemStack offhand = mc.player.getHeldItemOffhand();
-
-		if(event.getType() == ElementType.ALL) {
-			profiler.startSection("botania-hud");
 			RayTraceResult pos = mc.objectMouseOver;
 
 			if(pos != null) {

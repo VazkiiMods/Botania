@@ -33,6 +33,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ForgeIngameGui;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -474,9 +475,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		mc.textureManager.bindTexture(textureHud);
 		int xo = mc.mainWindow.getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.flightBarHeight.get();
-		if(player.areEyesInFluid(FluidTags.WATER))
-			y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.flightBarBreathHeight.get();
+		int y = mc.mainWindow.getScaledHeight() - ForgeIngameGui.right_height;
+		ForgeIngameGui.right_height += 10;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 
