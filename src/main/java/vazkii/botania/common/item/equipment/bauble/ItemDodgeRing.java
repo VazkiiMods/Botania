@@ -16,6 +16,7 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,8 +38,8 @@ public class ItemDodgeRing extends ItemBauble {
 	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";
 	public static final int MAX_CD = 20;
 
-	private static boolean oldLeftDown, oldRightDown;
-	private static int leftDown, rightDown;
+	private static boolean oldLeftDown, oldRightDown, oldForwardDown, oldBackDown;
+	private static int leftDown, rightDown, forwardDown, backDown;
 
 	public ItemDodgeRing(Properties props) {
 		super(props);
@@ -55,23 +56,37 @@ public class ItemDodgeRing extends ItemBauble {
 		if(ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
 			return;
 
-		int threshold = 4;
+		int threshold = 5;
 		if(mc.gameSettings.keyBindLeft.isKeyDown() && !oldLeftDown) {
 			int oldLeft = leftDown;
 			leftDown = ClientTickHandler.ticksInGame;
 
 			if(leftDown - oldLeft < threshold)
-				dodge(mc.player, true);
+				dodge(mc.player, Direction.WEST);
 		} else if(mc.gameSettings.keyBindRight.isKeyDown() && !oldRightDown) {
 			int oldRight = rightDown;
 			rightDown = ClientTickHandler.ticksInGame;
 
 			if(rightDown - oldRight < threshold)
-				dodge(mc.player, false);
+				dodge(mc.player, Direction.EAST);
+		} else if(mc.gameSettings.keyBindForward.isKeyDown() && !oldForwardDown) {
+			int oldForward = forwardDown;
+			forwardDown = ClientTickHandler.ticksInGame;
+
+			if(forwardDown - oldForward < threshold)
+				dodge(mc.player, Direction.NORTH);
+		} else if(mc.gameSettings.keyBindBack.isKeyDown() && !oldBackDown) {
+			int oldBack = backDown;
+			backDown = ClientTickHandler.ticksInGame;
+
+			if(backDown - oldBack < threshold)
+				dodge(mc.player, Direction.SOUTH);
 		}
 
 		oldLeftDown = mc.gameSettings.keyBindLeft.isKeyDown();
 		oldRightDown = mc.gameSettings.keyBindRight.isKeyDown();
+		oldForwardDown = mc.gameSettings.keyBindForward.isKeyDown();
+		oldBackDown = mc.gameSettings.keyBindBack.isKeyDown();
 	}
 
 
@@ -82,15 +97,20 @@ public class ItemDodgeRing extends ItemBauble {
 			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
 	}
 
-	private static void dodge(PlayerEntity player, boolean left) {
-		if(player.abilities.isFlying || !player.onGround || player.moveForward > 0.2 || player.moveForward < -0.2)
+	private static void dodge(PlayerEntity player, Direction dir) {
+		if(player.abilities.isFlying || !player.onGround || dir == Direction.UP || dir == Direction.DOWN)
 			return;
 
 		float yaw = player.rotationYaw;
 		float x = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
 		float z = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
+		if(dir == Direction.NORTH || dir == Direction.SOUTH) {
+			x = MathHelper.cos(-yaw * 0.017453292F);
+			z = MathHelper.sin(yaw * 0.017453292F);
+		}
 		Vector3 lookVec = new Vector3(x, 0, z);
-		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, left ? 1 : -1, 0)).multiply(1.25);
+		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, dir == Direction.WEST || dir == Direction.NORTH? 1 :
+			(dir == Direction.EAST || dir == Direction.SOUTH? -1 : 0), 0)).multiply(1.25);
 
 		player.setMotion(sideVec.toVec3D());
 
