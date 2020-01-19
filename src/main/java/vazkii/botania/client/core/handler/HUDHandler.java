@@ -88,19 +88,21 @@ public final class HUDHandler {
 
 		if(event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");
-			
-			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
-			if(!tiara.isEmpty()) {
-				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(mc.player, tiara);
-				profiler.endSection();
-			}
 
-			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
-			if(!dodgeRing.isEmpty()) {
-				profiler.startSection("dodgeRing");
-				ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
-				profiler.endSection();
+			if (Minecraft.getInstance().playerController.shouldDrawHUD()) {
+				ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
+				if(!tiara.isEmpty()) {
+					profiler.startSection("flugelTiara");
+					ItemFlightTiara.renderHUD(mc.player, tiara);
+					profiler.endSection();
+				}
+
+				ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
+				if(!dodgeRing.isEmpty()) {
+					profiler.startSection("dodgeRing");
+					ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
+					profiler.endSection();
+				}
 			}
 
 			RayTraceResult pos = mc.objectMouseOver;
