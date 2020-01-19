@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SubTileOrechid extends TileEntityFunctionalFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":orechid")
@@ -46,7 +47,6 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private static final int DELAY_GOG = 2;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
-	private static final int TRIES = 20;
 
 	public SubTileOrechid(TileEntityType<?> type) {
 		super(type);
@@ -84,23 +84,23 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	@Nullable
 	private BlockState getOreToPut() {
 		Map<ResourceLocation, Integer> map = getOreMap();
-		List<WeightedRandom.Item> values = map.entrySet().stream()
-				.map(e -> new TagRandomItem(e.getValue(), e.getKey()))
+		List<TagRandomItem> values = map.entrySet().stream()
+				.flatMap(e -> {
+					Tag<Block> tag = BlockTags.getCollection().get(e.getKey());
+					if (tag != null && !tag.getAllElements().isEmpty()) {
+						return Stream.of(new TagRandomItem(e.getValue(), tag));
+					} else {
+						return Stream.empty();
+					}
+				})
 				.collect(Collectors.toList());
 
 		if (WeightedRandom.getTotalWeight(values) == 0) {
 			return null;
 		}
 
-		for (int i = 0; i < TRIES; i++) {
-			ResourceLocation ore = ((TagRandomItem) WeightedRandom.getRandomItem(getWorld().rand, values)).s;
-			Tag<Block> tag = BlockTags.getCollection().get(ore);
-			if(tag != null && !tag.getAllElements().isEmpty()) {
-				return tag.getRandomElement(getWorld().getRandom()).getDefaultState();
-			}
-		}
-
-		return null;
+		Tag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
+		return ore.getRandomElement(getWorld().getRandom()).getDefaultState();
 	}
 
 	private BlockPos getCoordsToPut() {
@@ -160,11 +160,11 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	private static class TagRandomItem extends WeightedRandom.Item {
 
-		public final ResourceLocation s;
+		public final Tag<Block> tag;
 
-		public TagRandomItem(int weight, ResourceLocation s) {
+		public TagRandomItem(int weight, Tag<Block> tag) {
 			super(weight);
-			this.s = s;
+			this.tag = tag;
 		}
 
 	}
