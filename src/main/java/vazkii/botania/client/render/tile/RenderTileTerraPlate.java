@@ -45,6 +45,7 @@ public class RenderTileTerraPlate extends TileEntityRenderer<TileTerraPlate> {
 		float max = TileTerraPlate.MAX_MANA / 10F;
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 
+		ms.push();
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
 		ms.translate(0F, 0F, -3F / 16F - 0.001F);
 

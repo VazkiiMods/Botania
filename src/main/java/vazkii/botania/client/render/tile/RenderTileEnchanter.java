@@ -54,6 +54,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 		else if(enchanter.stage == TileEnchanter.State.DO_ENCHANT)
 			alphaMod = 1F;
 
+		ms.push();
 		if(!enchanter.itemToEnchant.isEmpty()) {
 			if(item == null)
 				item = new ItemEntity(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
@@ -85,7 +86,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 			}
 
 			IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ENCHANTER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay, 5, 5, 240);
+			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay, 5, 5, alpha);
 		}
 
 		ms.pop();
