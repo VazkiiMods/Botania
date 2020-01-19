@@ -14,33 +14,33 @@ import vazkii.botania.common.lib.LibMisc;
 public class IMCSender {
 	public static void enqueue(InterModEnqueueEvent evt) {
 		// Vanilla
-		addOreWeight("coal", 46525);
-		addOreWeight("diamond", 1265);
-		addOreWeight("emerald", 780);
-		addOreWeight("gold", 2970);
-		addOreWeight("iron", 20665);
-		addOreWeight("lapis", 1285);
-		addOreWeight("redstone", 6885);
+		addOreWeight("coal", 64762);
+		addOreWeight("diamond", 985);
+		addOreWeight("emerald", 4561);
+		addOreWeight("gold", 2619);
+		addOreWeight("iron", 29183);
+		addOreWeight("lapis", 1000);
+		addOreWeight("redstone", 7172);
 		// Common Metals
 		addOreWeight("aluminium", 3940);
 		addOreWeight("aluminum", 3940);
-		addOreWeight("copper", 8325);
+		addOreWeight("copper", 6066);
 		addOreWeight("galena", 1000);
 		addOreWeight("lead", 7985);
-		addOreWeight("mithril", 8);
+		addOreWeight("mithril", 1582);
 		addOreWeight("nickel", 2275);
 		addOreWeight("osmium", 6915);
 		addOreWeight("platinum", 365);
 		addOreWeight("silver", 6300);
-		addOreWeight("tin", 9450);
+		addOreWeight("tin", 10229);
 		addOreWeight("tungsten", 3520);
 		addOreWeight("uranium", 1337);
 		addOreWeight("zinc", 6485);
 		// Common Gems
 		addOreWeight("amber", 2075);
-		addOreWeight("ruby", 1100);
-		addOreWeight("sapphire", 1100);
-		addOreWeight("topaz", 1100);
+		addOreWeight("ruby", 5177);
+		addOreWeight("sapphire", 4641);
+		addOreWeight("topaz", 6436);
 		// Big Reactors / Extreme Reactors
 		addOreWeight("yellorite", 3520);
 		// EvilCraft
@@ -57,7 +57,7 @@ public class IMCSender {
 		addOreWeight("sulphur", 1105);
 		// Simple Ores 2
 		addOreWeight("mythril", 6485);
-		addOreWeight("adamantium", 2275);
+		addOreWeight("adamantium", 1469);
 		// Thaumcraft
 		addOreWeight("cinnabar",  2585);
 
