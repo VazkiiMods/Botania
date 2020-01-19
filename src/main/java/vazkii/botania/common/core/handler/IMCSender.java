@@ -41,9 +41,6 @@ public class IMCSender {
 		addOreWeight("ruby", 1100);
 		addOreWeight("sapphire", 1100);
 		addOreWeight("topaz", 1100);
-		// Ars Magica
-		addOreWeight("chimerite", 3970);
-		addOreWeight("vinteum", 5925);
 		// Big Reactors / Extreme Reactors
 		addOreWeight("yellorite", 3520);
 		// EvilCraft
@@ -57,7 +54,7 @@ public class IMCSender {
 		addOreWeight("olivine", 1100);
 		// Railcraft
 		addOreWeight("sulfur", 1105);
-		addOreWeight("sulfphur", 1105);
+		addOreWeight("sulphur", 1105);
 		// Simple Ores 2
 		addOreWeight("mythril", 6485);
 		addOreWeight("adamantium", 2275);
@@ -66,8 +63,6 @@ public class IMCSender {
 
 		// Vanilla
 		addOreWeightNether("quartz", 19600);
-		// Magical Crops
-		addOreWeightNether("nether/essence", 2460);
 		// Mystical Agriculture
 		addOreWeight("nether/inferium", 10000);
 		addOreWeight("nether/prosperity", 7420);
@@ -99,17 +94,7 @@ public class IMCSender {
 		addOreWeightNether("cobalt", 500);
 
 		/* Ore weights TODO 1.14
-		addOreWeight("oreBlueTopaz", 3195); // Ars Magica blueTopaz, blue/topaz or topaz/blue?
 		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics certusQuartz, certus/quartz or quartz/certus?
-		addOreWeight("oreDarkIron", 1700); // Factorization (older versions) darkIron, dark/iron or iron/dark?
-		addOreWeight("oreFzDarkIron", 1700); // Factorization (newer versions) fzDarkIron, fz/darkIron, fz/dark/iron, fz/iron/dark, dark/iron/fz or iron/dark/fz?
-		addOreWeight("oreInfusedAir", 925); // Thaumcraft infused/air or infusedAir?
-		addOreWeight("oreInfusedEarth", 925); // Thaumcraft infused/earth or infusedEarth?
-		addOreWeight("oreInfusedEntropy", 925); // Thaumcraft infused/entropy or infusedEntropy?
-		addOreWeight("oreInfusedFire", 925); // Thaumcraft infused/fire or infusedFire?
-		addOreWeight("oreInfusedOrder", 925); // Thaumcraft infused/order or infusedOrder?
-		addOreWeight("oreInfusedWater", 925); // Thaumcraft infused/water or infusedWater?
-		addOreWeight("oreMCropsEssence", 3085); // Magical Crops mcropsEssence, mcrops/essence or essence/mcrops?
 		addOreWeight("oreQuartzBlack", 5535); // Actually Additions quartzBlock, quartz/black or black/quartz?
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite haditeCoal, hadite/coal or coal/hadite?
 		*/
