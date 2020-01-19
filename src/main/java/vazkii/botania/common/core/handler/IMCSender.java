@@ -39,11 +39,12 @@ public class IMCSender {
 		addOreWeight("uranium", 230);
 		addOreWeight("zinc", 838);
 		// Common Gems
-		addOreWeight("amber", 2075);
+		addOreWeight("amber", 902);
 		addOreWeight("ruby", 1384);
 		addOreWeight("sapphire", 1287);
 		addOreWeight("topaz", 6436);
 		addOreWeight("amethyst", 1307);
+		addOreWeight("malachite", 160);
 		// Extreme Reactors
 		addOreWeight("yellorite", 3520);
 		// Blue Power
@@ -51,7 +52,7 @@ public class IMCSender {
 		// EvilCraft
 		addOreWeight("dark", 1350);
 		// Forestry
-		addOreWeight("apatite", 1595);
+		addOreWeight("apatite", 250);
 		// Mystical Agriculture
 		addOreWeight("inferium", 10000);
 		addOreWeight("prosperity", 7420);
