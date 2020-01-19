@@ -55,6 +55,7 @@ import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -139,6 +140,7 @@ public class ClientProxy implements IProxy {
 		RenderTypeLookup.setRenderLayer(ModBlocks.mesaAltar, RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.mossyAltar, RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.ghostRail, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.solidVines, RenderType.getCutout());
 
 		RenderTypeLookup.setRenderLayer(ModBlocks.manaGlass, RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModFluffBlocks.managlassPane, RenderType.getTranslucent());
@@ -156,7 +158,8 @@ public class ClientProxy implements IProxy {
 
 		Registry.BLOCK.stream().filter(b -> b.getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
-					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock || b instanceof TallFlowerBlock)
+					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
+							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom)
 						RenderTypeLookup.setRenderLayer(b, RenderType.getCutout());
 				});
 	}
