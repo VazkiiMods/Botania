@@ -20,8 +20,11 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.forgespi.language.IModInfo;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -42,9 +45,11 @@ public final class DebugHandler {
 		World world = Minecraft.getInstance().world;
 		if(ConfigHandler.CLIENT.debugInfo.get() && Minecraft.getInstance().gameSettings.showDebugInfo) {
 			event.getLeft().add("");
-			String version = LibMisc.VERSION;
-			if(version.contains("GRADLE"))
-				version = "N/A";
+			String version = ModList.get().getModContainerById(LibMisc.MOD_ID)
+					.map(ModContainer::getModInfo)
+					.map(IModInfo::getVersion)
+					.map(Object::toString)
+					.orElse("N/A");
 
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 

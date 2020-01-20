@@ -8,7 +8,6 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.0.+'
-        // classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
 
@@ -69,10 +68,6 @@ minecraft {
             args '--mod', 'botania', '--all', '--output', file('src/generated/resources/')
         }
     }
-    // replace 'GRADLE:BUILD', config.build_number
-    // replace 'GRADLE:VERSION', config.version
-
-    // replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 }
 
 sourceSets.main.resources {

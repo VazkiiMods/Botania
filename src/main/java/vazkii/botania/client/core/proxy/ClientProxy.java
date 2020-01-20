@@ -151,19 +151,6 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public String getLastVersion() {
-		String s = PersistentVariableHelper.lastBotaniaVersion;
-
-		if(s == null)
-			return "N/A";
-
-		if(s.indexOf("-") > 0)
-			return s.split("-")[1];
-
-		return s;
-	}
-
-	@Override
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;
 	}
