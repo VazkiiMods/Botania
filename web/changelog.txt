@@ -1,3 +1,33 @@
+r1.11 376
+* Big round of bugfixes and enhancements. 1.15 progress can be tracked on github, and we are close!
+* Snowflake pendant now has a snow effect (ToMe25)
+* Fix Rod of Plentiful Mantle's particles being blocked by other blocks
+* Fix Rannuncarpus slowing down as available positions decrease
+* Add GoG-specific Orechid entry
+* Show creative tablets and tipped terra shatterer in JEI
+* Fix GoG seed drops not working and move them to a loot table
+* Sleep check event now fired with side (stfwi)
+* Fix Tangleberrie not pushing back strong enough
+* Add some block tags and change some recipes to use them (ToMe25)
+* Fix botania axes being unable to strip logs
+* Add stonecutting recipes to convert between Azulejos
+* Fix GL state leak in pylon renders
+* Check packet directions
+* Ensure lexicon alfportal recipe is visible in JEI
+* Fix orechid ignem JEI not working
+* Fix JEI for Botania stuff not working until you F3+T
+* Fix Chakrams being invisible
+* Fix Terra Blade not damaging mobs if PVP is off
+* Cocoon of Caprice now spawns aquatic mobs separately if it is adjacent to water, spawned mobs are placed in the water
+* Fix HUD bars (Tiara, etc) being weird
+* Fix missing cobblestone pure daisy recipe
+* Fix Rod of Shaded Mesa not launching entities
+* Orechid now filters out empty tags before picking one
+* Restore some orechid compatibility with other mods
+* Ring of Dexterous Motion can now be used in forward and backward directions
+* Flugel Tiara gliding now interacts properly with the Tornado Rod
+* Fix a bunch of lexicon formatting errors in non-English languages
+* Call for contribution: the lexicon has changed quite a bit and some of the translations are getting quite a bit behind. If you can speak English and a non-English language we welcome your translation efforts. Contact us on Discord or Github for further information.
 r1.11 375
 * Hotfix: Fix botania-skyblock-spread applying to the player running the command, not the argument (also fixes it not working in command blocks)
 r1.11 374
