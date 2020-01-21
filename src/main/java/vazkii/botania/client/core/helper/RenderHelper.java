@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
@@ -27,6 +28,7 @@ import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +37,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
@@ -66,6 +69,7 @@ public final class RenderHelper {
 	public static final RenderType MANA_PYLON_GLOW;
 	public static final RenderType NATURA_PYLON_GLOW;
 	public static final RenderType GAIA_PYLON_GLOW;
+	public static final RenderType ASTROLABE_PREVIEW;
 
 	// todo 1.15 AT's for necessary fields
 	static {
@@ -80,6 +84,7 @@ public final class RenderHelper {
 		RenderState.OverlayState enableOverlay = new RenderState.OverlayState(true);
 		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
 		RenderState.AlphaState zeroAlpha = new RenderState.AlphaState(0);
+		RenderState.AlphaState oneTenthAlpha = new RenderState.AlphaState(0.004F);
 
 		RenderType.State glState = RenderType.State.builder().shadeModel(smoothShade)
 				.writeMaskState(colorMask)
@@ -134,6 +139,16 @@ public final class RenderHelper {
 
 		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.GAIA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		GAIA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "gaia_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
+
+		// Same as entity_translucent, with no depth test and a shader
+		glState = RenderType.State.builder().depthTest(new RenderState.DepthTestState(GL11.GL_ALWAYS)).texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		ShaderCallback cb = shader -> {
+			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
+			ShaderHelper.FLOAT_BUF.position(0);
+			ShaderHelper.FLOAT_BUF.put(0, 0.4F);
+			GlStateManager.uniform1(alpha, ShaderHelper.FLOAT_BUF);
+		};
+		ASTROLABE_PREVIEW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState));
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
