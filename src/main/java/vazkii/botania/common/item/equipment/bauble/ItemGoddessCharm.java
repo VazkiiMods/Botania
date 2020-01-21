@@ -64,9 +64,9 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		AccessoryRenderHelper.translateToFace();
-		AccessoryRenderHelper.defaultTransforms();
+		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+		AccessoryRenderHelper.translateToFace(ms);
+		AccessoryRenderHelper.defaultTransforms(ms);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 		ms.translate(0.5F, 0.2F, 0.45F);
 		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);

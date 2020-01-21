@@ -102,7 +102,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
+		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
 		ms.scale(0.8F, 0.8F, 0.8F);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));

@@ -146,7 +146,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.rotateIfSneaking(player);
+		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 
 		ms.translate(0F, 0.2F, 0F);
 

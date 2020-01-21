@@ -80,7 +80,7 @@ public class ItemHolyCloak extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
-		AccessoryRenderHelper.rotateIfSneaking(player);
+		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 

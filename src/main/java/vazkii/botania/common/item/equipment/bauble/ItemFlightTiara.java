@@ -386,7 +386,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float mul = 32F / 20F;
 			s *= mul;
 
-			AccessoryRenderHelper.rotateIfSneaking(player);
+			AccessoryRenderHelper.rotateIfSneaking(ms, player);
 
 			ms.translate(0F, h, i);
 
@@ -424,7 +424,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	@OnlyIn(Dist.CLIENT)
 	public static void renderHalo(@Nullable LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, float partialTicks) {
 		if(player != null)
-			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
+			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
 		ms.translate(0, 1.5F, 0);
 		ms.multiply(new Vector3f(1, 0, -1).getDegreesQuaternion(30));
 		ms.translate(-0.1F, -0.5F, -0.1F);

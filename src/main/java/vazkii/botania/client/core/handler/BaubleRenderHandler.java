@@ -97,7 +97,7 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				ms.push();
-				AccessoryRenderHelper.rotateIfSneaking(player);
+				AccessoryRenderHelper.rotateIfSneaking(ms, player);
 				boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.LEGS).isEmpty();
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));

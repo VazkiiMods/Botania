@@ -79,7 +79,7 @@ public class ItemItemFinder extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		AccessoryRenderHelper.translateToHeadLevel(living, partialTicks);
+		AccessoryRenderHelper.translateToHeadLevel(ms, living, partialTicks);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
 		ms.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);

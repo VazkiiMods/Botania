@@ -54,9 +54,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		AccessoryRenderHelper.translateToFace();
-		AccessoryRenderHelper.defaultTransforms();
+		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+		AccessoryRenderHelper.translateToFace(ms);
+		AccessoryRenderHelper.defaultTransforms(ms);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
 		ms.scale(0.5F, 0.5F, 0.5F);
 		ms.translate(0.5F, -0.2F, armor ? 0.12F : 0F);

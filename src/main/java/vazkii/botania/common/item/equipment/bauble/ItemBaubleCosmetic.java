@@ -99,9 +99,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 		if(variant.isHead) {
-			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-			AccessoryRenderHelper.translateToFace();
-			AccessoryRenderHelper.defaultTransforms();
+			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+			AccessoryRenderHelper.translateToFace(ms);
+			AccessoryRenderHelper.defaultTransforms(ms);
 			switch (variant) {
 			case RED_GLASSES:
 			case ENGINEER_GOGGLES:
@@ -243,9 +243,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			}
 		} else { // body cosmetics
-			AccessoryRenderHelper.rotateIfSneaking(player);
-			AccessoryRenderHelper.translateToChest();
-			AccessoryRenderHelper.defaultTransforms();
+			AccessoryRenderHelper.rotateIfSneaking(ms, player);
+			AccessoryRenderHelper.translateToChest(ms);
+			AccessoryRenderHelper.defaultTransforms(ms);
 			switch (variant) {
 			case BLACK_BOWTIE:
 				ms.translate(0F, 0.15F, 0F);

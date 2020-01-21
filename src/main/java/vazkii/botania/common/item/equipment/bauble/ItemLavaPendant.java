@@ -46,7 +46,7 @@ public class ItemLavaPendant extends ItemBauble {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.rotateIfSneaking(player);
+		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		ms.scale(0.5F, 0.5F, 0.5F);
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));

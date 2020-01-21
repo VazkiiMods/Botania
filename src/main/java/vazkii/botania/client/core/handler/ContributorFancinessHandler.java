@@ -77,8 +77,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 		String name = player.getDisplayName().getString();
 
-		RenderSystem.pushMatrix();
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
+		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
 		
 		if(name.equals("haighyorkie"))
 			renderGoldfish(ms, buffers, light, player);
@@ -89,7 +88,6 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
 			renderFlower(ms, buffers, player, flowerMap.get(name));
 
-		RenderSystem.popMatrix();
 	}
 
 	public static void firstStart() {
@@ -124,7 +122,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 	private static void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers, int light, PlayerEntity player) {
 		ms.push();
 		ms.translate(0, player.getEyeHeight(), 0);
-		AccessoryRenderHelper.rotateIfSneaking(player);
+		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
 		ms.scale(0.4F, 0.4F, 0.4F);

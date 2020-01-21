@@ -70,7 +70,7 @@ public class ItemCloudPendant extends ItemBauble {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.rotateIfSneaking(player);
+		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
 		ms.translate(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
