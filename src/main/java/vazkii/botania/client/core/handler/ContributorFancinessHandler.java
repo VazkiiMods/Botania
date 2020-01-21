@@ -36,6 +36,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -138,10 +139,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		ms.translate(0, -0.85, 0);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
 		ms.scale(0.5F, 0.5F, 0.5F);
-		// todo 1.15 shader
-		ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
-		Minecraft.getInstance().getItemRenderer().renderItem(player, flower, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
-		ShaderHelper.releaseShader();
+		RenderHelper.renderItemModelGold(player, flower, ItemCameraTransforms.TransformType.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 	}
 

@@ -49,6 +49,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -357,10 +358,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				if (!icon.isEmpty()) {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
-					// todo 1.15
-					ShaderHelper.useShader(ShaderHelper.BotaniaShader.GOLD);
-					renderItem(ms, buffers, light, overlay, icon);
-					ShaderHelper.releaseShader();
+					RenderHelper.renderItemModelGold(null, icon, ItemCameraTransforms.TransformType.HEAD, ms, buffers, null, light, overlay);
 				}
 			}
 		}

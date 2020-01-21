@@ -16,6 +16,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -28,23 +29,32 @@ import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.lib.LibObfuscation;
 
+import javax.annotation.Nullable;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.OptionalDouble;
 import java.util.Random;
 
@@ -70,6 +80,7 @@ public final class RenderHelper {
 	public static final RenderType NATURA_PYLON_GLOW;
 	public static final RenderType GAIA_PYLON_GLOW;
 	public static final RenderType ASTROLABE_PREVIEW;
+	public static final RenderType ENTITY_TRANSLUCENT_GOLD;
 
 	// todo 1.15 AT's for necessary fields
 	static {
@@ -149,6 +160,9 @@ public final class RenderHelper {
 			GlStateManager.uniform1(alpha, ShaderHelper.FLOAT_BUF);
 		};
 		ASTROLABE_PREVIEW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState));
+
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 128, true, true, glState));
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
@@ -334,5 +348,35 @@ public final class RenderHelper {
 			buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}
 
+	}
+
+	private static final MethodHandle RENDER_BAKED_ITEM_MODEL = LibObfuscation.getMethod(ItemRenderer.class, "func_229114_a_", IBakedModel.class, ItemStack.class, int.class, int.class, MatrixStack.class, IVertexBuilder.class);
+
+	// [VanillaCopy] Portions of ItemRenderer.renderItem
+	// Does not support TEISRs
+	public static void renderItemModelGold(@Nullable LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType transform, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable World world, int light, int overlay) {
+		ItemRenderer ir = Minecraft.getInstance().getItemRenderer();
+		if (!stack.isEmpty()) {
+			IBakedModel ibakedmodel = ir.getItemModelWithOverrides(stack, world, entity);
+			ms.push();
+			boolean flag = transform == ItemCameraTransforms.TransformType.GUI;
+			boolean flag1 = flag || transform == ItemCameraTransforms.TransformType.GROUND || transform == ItemCameraTransforms.TransformType.FIXED;
+			if (stack.getItem() == Items.TRIDENT && flag1) {
+				ibakedmodel = ir.getItemModelMesher().getModelManager().getModel(new ModelResourceLocation("minecraft:trident#inventory"));
+			}
+
+			ibakedmodel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(ms, ibakedmodel, transform, false);
+			ms.translate(-0.5D, -0.5D, -0.5D);
+			if (!ibakedmodel.isBuiltInRenderer() && (stack.getItem() != Items.TRIDENT || flag1)) {
+				IVertexBuilder ivertexbuilder = ItemRenderer.getArmorVertexConsumer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasEffect());
+				try {
+					RENDER_BAKED_ITEM_MODEL.invokeExact(ir, ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
+				} catch (Throwable ex) {
+					throw new RuntimeException("Error calling renderBakedItemModel", ex);
+				}
+			}
+
+			ms.pop();
+		}
 	}
 }
