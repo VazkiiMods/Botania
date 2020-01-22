@@ -63,7 +63,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 				float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
 
 				if(distance > maxDist && distance < range) {
-					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity());
+					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity(entity));
 					if(getWorld().rand.nextInt(3) == 0) {
                         world.addParticle(data, x2 + Math.random() * entity.getWidth(), y2 + Math.random() * entity.getHeight(), z2 + Math.random() * entity.getWidth(), 0, 0, 0);
                     }
@@ -85,8 +85,8 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 		return 7;
 	}
 
-	float getMotionVelocity() {
-		return 0.05F;
+	float getMotionVelocity(LivingEntity entity) {
+		return Math.max(entity.getAIMoveSpeed() / 2F, 0.05F);
 	}
 
 	@Override

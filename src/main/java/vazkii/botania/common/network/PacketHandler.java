@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.FMLHandshakeHandler;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -14,7 +15,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import vazkii.botania.common.lib.LibMisc;
 
 public final class PacketHandler {
-	private static final String PROTOCOL = "2";
+	private static final String PROTOCOL = "3";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
 			new ResourceLocation(LibMisc.MOD_ID, "chan"),
 			() -> PROTOCOL,
@@ -31,6 +32,18 @@ public final class PacketHandler {
 		HANDLER.registerMessage(id++, PacketItemAge.class, PacketItemAge::encode, PacketItemAge::decode, PacketItemAge::handle);
 		HANDLER.registerMessage(id++, PacketSyncRecipes.class, PacketSyncRecipes::encode, PacketSyncRecipes::decode, PacketSyncRecipes::handle);
 		HANDLER.registerMessage(id++, PacketIndexKeybindRequest.class, PacketIndexKeybindRequest::encode, PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle);
+		
+		HANDLER.messageBuilder(PacketSyncRecipes.Login.class, id++)
+				.loginIndex(ILoginPacket::getLoginIndex, ILoginPacket::setLoginIndex)
+				.encoder(PacketSyncRecipes.Login::encode).decoder(PacketSyncRecipes.Login::decode)
+				.consumer(FMLHandshakeHandler.biConsumerFor((hh, msg, ctx) -> msg.handle(ctx)))
+				.markAsLoginPacket().add();
+
+		HANDLER.messageBuilder(PacketAck.class, id++)
+				.loginIndex(ILoginPacket::getLoginIndex, ILoginPacket::setLoginIndex)
+				.encoder((packet, buf) -> {}).decoder(PacketAck::decode)
+				.consumer(FMLHandshakeHandler.indexFirst((hh, msg, ctx) -> msg.handle(ctx)))
+				.add();
 	}
 
 	/**

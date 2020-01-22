@@ -62,7 +62,6 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	private void runSimulation() {
 		int[][] table = getCellTable();
 		List<int[]> changes = new ArrayList<>();
-		new ArrayList();
 		boolean wipe = false;
 
 		for(int i = 0; i < table.length; i++)
@@ -178,7 +177,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 			if(gen < 0)
 				world.removeBlock(pos, false);
 			else ((TileCell) tile).setGeneration(this, gen);
-		} else if(gen >= 0 && blockAt.isAir(stateAt, getWorld(), pos)) {
+		} else if(gen >= 0 && stateAt.isAir(getWorld(), pos)) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
 			tile = world.getTileEntity(pos);
 			((TileCell) tile).setGeneration(this, gen);

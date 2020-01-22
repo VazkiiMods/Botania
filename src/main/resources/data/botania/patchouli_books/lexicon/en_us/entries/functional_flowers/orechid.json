@@ -4,6 +4,7 @@
   "icon": "botania:orechid",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
+  "flag": "|debug,!mod:gardenofglass",
   "pages": [
     {
       "type": "text",

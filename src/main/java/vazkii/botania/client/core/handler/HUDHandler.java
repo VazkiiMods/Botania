@@ -80,32 +80,6 @@ public final class HUDHandler {
 
 	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
-		Minecraft mc = Minecraft.getInstance();
-		IProfiler profiler = mc.getProfiler();
-
-		if(event.getType() == ElementType.HEALTH) {
-			profiler.startSection("botania-hud");
-
-			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
-			if(!tiara.isEmpty()) {
-				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(mc.player, tiara);
-				profiler.endSection();
-			}
-
-			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
-			if(!dodgeRing.isEmpty()) {
-				profiler.startSection("dodgeRing");
-				ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
-				profiler.endSection();
-			}
-
-			profiler.endSection();
-		}
-	}
-
 	@SubscribeEvent
 	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getInstance();
@@ -115,6 +89,23 @@ public final class HUDHandler {
 
 		if(event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");
+
+			if (Minecraft.getInstance().playerController.shouldDrawHUD()) {
+				ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
+				if(!tiara.isEmpty()) {
+					profiler.startSection("flugelTiara");
+					ItemFlightTiara.renderHUD(mc.player, tiara);
+					profiler.endSection();
+				}
+
+				ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
+				if(!dodgeRing.isEmpty()) {
+					profiler.startSection("dodgeRing");
+					ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
+					profiler.endSection();
+				}
+			}
+
 			RayTraceResult pos = mc.objectMouseOver;
 
 			if(pos != null) {

@@ -36,11 +36,6 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String getLastVersion() {
-		return LibMisc.BUILD;
-	}
-
-	@Override
 	public long getWorldElapsedTicks() {
 		return ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getGameTime();
 	}

@@ -248,6 +248,6 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	@Nonnull
 	@Override
 	public ItemStack getItem() {
-		return stack;
+		return getItemStack();
 	}
 }

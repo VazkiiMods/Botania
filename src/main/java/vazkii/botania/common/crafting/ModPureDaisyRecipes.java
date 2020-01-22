@@ -29,7 +29,7 @@ public final class ModPureDaisyRecipes {
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("livingrock"), Tags.Blocks.STONE, ModBlocks.livingrock.getDefaultState()));
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("livingwood"), BlockTags.LOGS, ModBlocks.livingwood.getDefaultState()));
 
-		evt.pureDaisy().accept(new RecipePureDaisy(prefix("cobblestone"), Tags.Blocks.STONE, ModBlocks.livingrock.getDefaultState()));
+		evt.pureDaisy().accept(new RecipePureDaisy(prefix("cobblestone"), Tags.Blocks.NETHERRACK, Blocks.COBBLESTONE.getDefaultState()));
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("sand"), Blocks.SOUL_SAND, Blocks.SAND.getDefaultState()));
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("packed_ice"), Blocks.ICE, Blocks.PACKED_ICE.getDefaultState()));
 		evt.pureDaisy().accept(new RecipePureDaisy(prefix("blue_ice"), Blocks.PACKED_ICE, Blocks.BLUE_ICE.getDefaultState()));

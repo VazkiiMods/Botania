@@ -32,13 +32,12 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
 
 		public final ForgeConfigSpec.IntValue manaBarHeight;
-		public final ForgeConfigSpec.IntValue flightBarHeight;
-		public final ForgeConfigSpec.IntValue flightBarBreathHeight;
 		public final ForgeConfigSpec.IntValue glSecondaryTextureUnit;
 
 		public final ForgeConfigSpec.BooleanValue staticFloaters;
 		public final ForgeConfigSpec.BooleanValue debugInfo;
 		public final ForgeConfigSpec.BooleanValue referencesEnabled;
+		public final ForgeConfigSpec.BooleanValue splashesEnabled;
 
 		public Client(ForgeConfigSpec.Builder builder) {
 			useShaders = builder
@@ -86,12 +85,6 @@ public final class ConfigHandler {
 			manaBarHeight = builder
 					.comment("The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.")
 					.defineInRange("hud.mana_bar.height", 29, 0, Integer.MAX_VALUE);
-			flightBarHeight = builder
-					.comment("The height of the Flugel Tiara flight bar. You can change this if you have a mod that adds a bar in that spot.")
-					.defineInRange("hud.flight_bar.height", 49, 0, Integer.MAX_VALUE);
-			flightBarBreathHeight = builder
-					.comment("The height of the Flugel Tiara flight bar if your breath bar is shown. You can change this if you have a mod that adds a bar in that spot.")
-					.defineInRange("hud.flight_bar_breath.height", 59, 0, Integer.MAX_VALUE);
 			glSecondaryTextureUnit = builder
 					.comment("The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING")
 					.defineInRange("shaders.secondary_unit", 7, 0, Integer.MAX_VALUE);
@@ -104,6 +97,9 @@ public final class ConfigHandler {
 			referencesEnabled = builder
 					.comment("Set this to false to disable the references in the flower tooltips. (You monster D:)")
 					.define("references", true);
+			splashesEnabled = builder
+					.comment("Set this to false to disable Botania's splashes in the main menu.")
+					.define("splashes", true);
 		}
 	}
 
@@ -150,7 +146,7 @@ public final class ConfigHandler {
 					.comment("Set this to false to remove the block breaking particles from the flowers and other items in the mod.")
 					.define("blockBreakingParticles.enabled", true);
 			blockBreakParticlesTool = builder
-					.comment("Set this to false to remove the block breaking particles from the Mana Shatterer, as there can be a good amount in higher levels.")
+					.comment("Set this to false to remove the block breaking particles from the Terra Shatterer, as there can be a good amount in higher levels.")
 					.define("blockBreakingParticlesTool.enabled", true);
 			chargingAnimationEnabled = builder
 					.comment("Set this to false to disable the animation when an item is charging on top of a mana pool")

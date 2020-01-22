@@ -13,8 +13,7 @@
       "item": "botania:mana_tablet"
     },
     "I": {
-      "__comment": "TODO tag",
-      "item": "botania:terrasteel_ingot"
+      "tag": "forge:ingots/terrasteel"
     },
     "L": {
       "item": "botania:livingwood_twig"

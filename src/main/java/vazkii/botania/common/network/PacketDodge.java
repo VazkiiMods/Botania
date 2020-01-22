@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -32,19 +33,20 @@ public class PacketDodge {
 	}
 
 	public static void handle(PacketDodge msg, Supplier<NetworkEvent.Context> ctx) {
-		ctx.get().enqueueWork(() -> {
-			ServerPlayerEntity player = ctx.get().getSender();
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+		if (ctx.get().getDirection().getReceptionSide().isServer())
+			ctx.get().enqueueWork(() -> {
+				ServerPlayerEntity player = ctx.get().getSender();
+				player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
-			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
-			if(ringStack.isEmpty()) {
-				player.connection.disconnect(new TranslationTextComponent("botaniamisc.invalidDodge"));
-				return;
-			}
+				ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
+				if (ringStack.isEmpty()) {
+					player.connection.disconnect(new TranslationTextComponent("botaniamisc.invalidDodge"));
+					return;
+				}
 
-			player.addExhaustion(0.3F);
-			ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
-		});
+				player.addExhaustion(0.3F);
+				ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
+			});
 		ctx.get().setPacketHandled(true);
 	}
 }

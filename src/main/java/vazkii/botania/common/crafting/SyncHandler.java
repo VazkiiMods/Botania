@@ -78,12 +78,4 @@ public class SyncHandler {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-    public static class CommonEvents {
-        @SubscribeEvent
-        public static void serverLogin(PlayerEvent.PlayerLoggedInEvent evt) {
-            PacketHandler.sendNonLocal((ServerPlayerEntity) evt.getPlayer(), syncPacket());
-        }
-    }
-
 }

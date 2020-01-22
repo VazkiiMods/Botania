@@ -19,8 +19,6 @@ public interface IProxy {
 
 	boolean isClientPlayerWearingMonocle();
 
-	String getLastVersion();
-
 	long getWorldElapsedTicks();
 
 	default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {

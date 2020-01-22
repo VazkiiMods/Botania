@@ -42,6 +42,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -77,10 +78,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";
+	private static final String TAG_GLIDING = "gliding";
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
 	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
 	private static final String TAG_IS_SPRINTING = "isSprinting";
+	private static final String TAG_BOOST_PENDING = "boostPending";
 
 	private static final List<String> playersWithFlight = Collections.synchronizedList(new ArrayList<>());
 	private static final int COST = 35;
@@ -272,15 +275,17 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					p.setMotion(p.getMotion().add(look.x, 0, look.z));
 					p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
+					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if(cooldown > 0) {
-					if(maxCd - cooldown < 2)
+					if(ItemNBTHelper.getBoolean(stack, TAG_BOOST_PENDING, false)) {
 						player.moveRelative(5F, new Vec3d(0F, 0F, 1F));
-					else if(maxCd - cooldown < 10)
-						player.setSprinting(false);
+						ItemNBTHelper.removeEntry(stack, TAG_BOOST_PENDING);
+					}
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
 				}
 			} else {
-				boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
+				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
+				boolean doGlide = player.isSneaking() && !player.onGround && (player.getMotion().getY() < -.7F || wasGliding);
 				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
 					newTime++;
 
@@ -289,6 +294,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					player.setMotion(look.x * mul, Math.max(-0.15F, player.getMotion().getY()), look.z * mul);
 					player.fallDistance = 2F;
 				}
+				ItemNBTHelper.setBoolean(stack, TAG_GLIDING, doGlide);
 			}
 
 			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
@@ -449,9 +455,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		mc.textureManager.bindTexture(textureHud);
 		int xo = mc.getWindow().getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.flightBarHeight.get();
-		if(player.areEyesInFluid(FluidTags.WATER))
-			y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.flightBarBreathHeight.get();
+		int y = mc.getWindow().getScaledHeight() - ForgeIngameGui.right_height;
+		ForgeIngameGui.right_height += 10;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 

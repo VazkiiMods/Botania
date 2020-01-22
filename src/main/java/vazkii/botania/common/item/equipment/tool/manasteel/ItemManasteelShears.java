@@ -33,6 +33,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
@@ -96,6 +97,11 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 		}
 
 		return false;
+	}
+
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
 	}
 
 	@Override

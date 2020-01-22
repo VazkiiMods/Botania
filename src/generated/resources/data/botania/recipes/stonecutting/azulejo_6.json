@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "botania:azulejo_0"
+    },
+    {
+      "item": "botania:azulejo_1"
+    },
+    {
+      "item": "botania:azulejo_2"
+    },
+    {
+      "item": "botania:azulejo_3"
+    },
+    {
+      "item": "botania:azulejo_4"
+    },
+    {
+      "item": "botania:azulejo_5"
+    },
+    {
+      "item": "botania:azulejo_7"
+    },
+    {
+      "item": "botania:azulejo_8"
+    },
+    {
+      "item": "botania:azulejo_9"
+    },
+    {
+      "item": "botania:azulejo_10"
+    },
+    {
+      "item": "botania:azulejo_11"
+    },
+    {
+      "item": "botania:azulejo_12"
+    },
+    {
+      "item": "botania:azulejo_13"
+    },
+    {
+      "item": "botania:azulejo_14"
+    },
+    {
+      "item": "botania:azulejo_15"
+    }
+  ],
+  "result": "botania:azulejo_6",
+  "count": 1
+}

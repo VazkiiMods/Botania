@@ -35,18 +35,19 @@ public class PacketIndexKeybindRequest {
 	}
 
 	public static void handle(PacketIndexKeybindRequest message, Supplier<NetworkEvent.Context> ctx) {
-		ctx.get().enqueueWork(() -> {
-			ServerPlayerEntity player = ctx.get().getSender();
-			if (player.isSpectator())
-				return;
+		if (ctx.get().getDirection().getReceptionSide().isServer())
+			ctx.get().enqueueWork(() -> {
+				ServerPlayerEntity player = ctx.get().getSender();
+				if (player.isSpectator())
+					return;
 
-			boolean checkNBT = message.stack.getTag() != null && !message.stack.getTag().isEmpty();
-			for (TileCorporeaIndex index : TileCorporeaIndex.InputHandler.getNearbyIndexes(player)) {
-				if (index.getSpark() != null) {
-					index.performPlayerRequest(player, CorporeaHelper.createMatcher(message.stack, checkNBT), message.stack.getCount());
+				boolean checkNBT = message.stack.getTag() != null && !message.stack.getTag().isEmpty();
+				for (TileCorporeaIndex index : TileCorporeaIndex.InputHandler.getNearbyIndexes(player)) {
+					if (index.getSpark() != null) {
+						index.performPlayerRequest(player, CorporeaHelper.createMatcher(message.stack, checkNBT), message.stack.getCount());
+					}
 				}
-			}
-		});
+			});
 		ctx.get().setPacketHandled(true);
 	}
 }

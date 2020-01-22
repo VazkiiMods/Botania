@@ -8,38 +8,25 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
-public class OrechidIgnemRecipeCategory implements IRecipeCategory<OrechidIgnemRecipeWrapper> {
+public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<OrechidIgnemRecipeWrapper> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "orechid_ignem");
-	private final IDrawableStatic background;
-	private final String localizedName;
-	private final IDrawableStatic overlay;
-	private final IDrawable icon;
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(168, 64);
-		localizedName = I18n.format("botania.nei.orechidIgnem");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
-				0, 0, 64, 46);
-		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.orechidIgnem));
+		super(guiHelper, new ItemStack(ModSubtiles.orechidIgnem), new ItemStack(Blocks.NETHERRACK, 64), 
+				I18n.format("botania.nei.orechidIgnem"));
 	}
 
 	@Nonnull
@@ -54,50 +41,8 @@ public class OrechidIgnemRecipeCategory implements IRecipeCategory<OrechidIgnemR
 		return OrechidIgnemRecipeWrapper.class;
 	}
 
-	@Nonnull
 	@Override
-	public String getTitle() {
-		return localizedName;
-	}
-
-	@Nonnull
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
-	@Nonnull
-	@Override
-	public IDrawable getIcon() {
-		return icon;
-	}
-
-	@Override
-	public void setIngredients(OrechidIgnemRecipeWrapper recipe, IIngredients ingredients) {
-
-	}
-
-
-	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull OrechidIgnemRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		final IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
-
-		itemStacks.init(0, true, 40, 12);
-		itemStacks.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
-
-		itemStacks.init(1, true, 70, 12);
-		itemStacks.set(1, new ItemStack(ModSubtiles.orechidIgnem));
-
-		itemStacks.init(2, true, 99, 12);
-		itemStacks.set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-	}
-
-	@Override
-	public void draw(OrechidIgnemRecipeWrapper recipe, double mouseX, double mouseY) {
-		RenderSystem.enableAlphaTest();
-		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
-		RenderSystem.disableBlend();
-		RenderSystem.disableAlphaTest();
+	protected Map<ResourceLocation, Integer> getOreWeights() {
+		return BotaniaAPI.oreWeightsNether;
 	}
 }

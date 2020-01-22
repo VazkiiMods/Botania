@@ -24,31 +24,16 @@ public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_DOG = "dog";
-	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
-	private static final String TAG_LAST_BOTANIA_VERSION = "lastBotaniaVersion";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
-	public static String lastBotaniaVersion = "";
 
 	public static void save() throws IOException {
 		CompoundNBT cmp = new CompoundNBT();
-
-		/*
-		CompoundNBT notesCmp = new CompoundNBT();
-		for(String s : GuiLexicon.notes.keySet()) {
-			String note = GuiLexicon.notes.get(s);
-			if(note != null && !note.trim().isEmpty())
-				notesCmp.putString(s, note);
-		}
-		cmp.put(TAG_LEXICON_NOTES, notesCmp);
-		 */
-
 		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.putBoolean(TAG_DOG, dog);
-		cmp.putString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
 
 		injectNBTToFile(cmp, getCacheFile());
 	}
@@ -56,29 +41,8 @@ public final class PersistentVariableHelper {
 	public static void load() throws IOException {
 		CompoundNBT cmp = getCacheCompound();
 
-		if(cmp.contains(TAG_LEXICON_NOTES)) {
-			CompoundNBT notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
-			Set<String> keys = notesCmp.keySet();
-			// GuiLexicon.notes.clear();
-			for(String key : keys)
-				;// GuiLexicon.notes.put(key, notesCmp.getString(key));
-		}
-
-		lastBotaniaVersion = cmp.contains(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
-
 		firstLoad = cmp.contains(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
-		if(firstLoad)
-			lastBotaniaVersion = LibMisc.VERSION;
-
 		dog = cmp.getBoolean(TAG_DOG);
-	}
-
-	public static void saveSafe() {
-		try {
-			save();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void setCacheFile(File f) {

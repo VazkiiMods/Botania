@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -40,22 +41,18 @@ public class TileCell extends TileMod {
 		super(TYPE);
 	}
 
-	public void setGeneration(TileEntity flower, int gen) {
+	public void setGeneration(SubTileDandelifeon flower, int gen) {
 		generation = gen;
 		if(!ticked) {
-			flowerCoords = flower.getPos();
+			flowerCoords = flower.getEffectivePos();
 			validCoords = getPos();
 			ticked = true;
-		} else if(!matchCoords(validCoords, this) || !matchCoords(flowerCoords, flower))
+		} else if(!validCoords.equals(getPos()) || !flowerCoords.equals(flower.getEffectivePos()))
 			world.removeBlock(pos, false);
 	}
 
-	public boolean isSameFlower(TileEntity flower) {
-		return matchCoords(validCoords, this) && matchCoords(flowerCoords, flower);
-	}
-
-	private boolean matchCoords(BlockPos coords, TileEntity tile) {
-		return coords.equals(tile.getPos());
+	public boolean isSameFlower(SubTileDandelifeon flower) {
+		return validCoords.equals(getPos()) && flowerCoords.equals(flower.getEffectivePos());
 	}
 
 	public int getGeneration() {

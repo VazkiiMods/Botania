@@ -92,6 +92,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 				setMana(stack, mana);
 				list.add(stack);
 			}
+			ItemStack stack = new ItemStack(this);
+			setMana(stack, CREATIVE_MANA[1]);
+			setTipped(stack);
+			list.add(stack);
 		}
 	}
 

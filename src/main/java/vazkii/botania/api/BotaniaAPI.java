@@ -45,6 +45,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 public final class BotaniaAPI {
+	public static int apiVersion() {
+		return 94;
+	}
+
 	@CapabilityInject(IFloatingFlower.class)
 	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
 

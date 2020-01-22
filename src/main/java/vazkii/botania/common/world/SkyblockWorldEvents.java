@@ -21,15 +21,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -37,11 +38,12 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.ModTags;
 
-import java.awt.*;
+import java.awt.Color;
 
 public final class SkyblockWorldEvents {
 
@@ -125,20 +127,12 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
+	private static final ResourceLocation TARGET_LOOT_TABLE = new ResourceLocation("blocks/grass");
+	
 	@SubscribeEvent
-	public static void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if(Botania.gardenOfGlassLoaded && event.getState().getBlock() == Blocks.GRASS) {
-			ItemStack stackToRemove = ItemStack.EMPTY;
-			for(ItemStack stack : event.getDrops())
-				if(stack.getItem() == Items.WHEAT_SEEDS && event.getWorld().getRandom().nextInt(4) == 0) {
-					stackToRemove = stack;
-					break;
-				}
-
-			if(!stackToRemove.isEmpty()) {
-				event.getDrops().remove(stackToRemove);
-				event.getDrops().add(new ItemStack(event.getWorld().getRandom().nextBoolean() ? Items.PUMPKIN_SEEDS : Items.MELON_SEEDS));
-			}
+	public static void loadLoot(LootTableLoadEvent event) {
+		if (Botania.gardenOfGlassLoaded && event.getName().equals(TARGET_LOOT_TABLE)) {
+			event.getTable().addPool(LootHandler.getInjectPool("gog_grass"));
 		}
 	}
 

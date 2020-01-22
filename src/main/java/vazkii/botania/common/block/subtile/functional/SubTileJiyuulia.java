@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibMisc;
@@ -33,8 +34,8 @@ public class SubTileJiyuulia extends SubTileTangleberrie {
 	}
 
 	@Override
-	float getMotionVelocity() {
-		return -super.getMotionVelocity() * 2;
+	float getMotionVelocity(LivingEntity entity) {
+		return -super.getMotionVelocity(entity) * 2;
 	}
 
 	@Override

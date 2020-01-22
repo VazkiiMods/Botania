@@ -27,12 +27,13 @@ public class PacketItemAge {
 	}
 
 	public static void handle(PacketItemAge message, Supplier<NetworkEvent.Context> ctx) {
-		ctx.get().enqueueWork(() -> {
-			Entity e = Minecraft.getInstance().world.getEntityByID(message.entityId);
-			if(e instanceof ItemEntity) {
-				((ItemEntity) e).age = message.age;
-			}
-		});
+		if (ctx.get().getDirection().getReceptionSide().isClient())
+			ctx.get().enqueueWork(() -> {
+				Entity e = Minecraft.getInstance().world.getEntityByID(message.entityId);
+				if (e instanceof ItemEntity) {
+					((ItemEntity) e).age = message.age;
+				}
+			});
 		ctx.get().setPacketHandled(true);
 	}
 }
