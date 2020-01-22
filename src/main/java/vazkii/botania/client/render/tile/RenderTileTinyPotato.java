@@ -209,7 +209,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			float opacity = Minecraft.getInstance().gameSettings.func_216840_a(0.25F);
 			int opacityRGB = (int)(opacity * 255.0F) << 24;
 			mc.fontRenderer.draw(potato.name.getFormattedText(), -halfWidth, 0, 0x20FFFFFF, false, ms.peek().getModel(), buffers, true, opacityRGB, light);
-			mc.fontRenderer.draw(potato.name.getFormattedText(), -halfWidth, 0, 0xFFFFFFFF, false, ms.peek().getModel(), buffers, true, 0, light);
+			mc.fontRenderer.draw(potato.name.getFormattedText(), -halfWidth, 0, 0xFFFFFFFF, false, ms.peek().getModel(), buffers, false, 0, light);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
 				ms.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
@@ -311,23 +311,25 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			ms.translate(0F, 1F, 0F);
 			ms.scale(scale, scale, scale);
 			if (name.equals("phi") || name.equals("vazkii")) {
-				ms.translate(0.45F, 0F, 0.4F);
+				ms.push();
+				ms.translate(-0.15, 0.1, 0.4);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 				ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(20));
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
+				ms.pop();
 
 				if (name.equals("vazkii")) {
-					ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(-20));
 					ms.scale(1.25F, 1.25F, 1.25F);
-					ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-					ms.translate(-1.5F, -1.3F, -0.75F);
+					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+					ms.translate(0.2, -1.25, 0);
 					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
 				}
 			} else if (name.equals("haighyorkie")) {
 				ms.scale(1.25F, 1.25F, 1.25F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
-				ms.translate(-0.5F, -1.2F, -0.4F);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.translate(-0.5F, -1.2F, -0.075F);
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
 			} else if (name.equals("martysgames") || name.equals("marty")) {
 				ms.scale(0.7F, 0.7F, 0.7F);
@@ -344,20 +346,22 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				ms.scale(0.5F, 0.5F, 0.5F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
-				ms.translate(0F, -3F, 0.65F);
+				ms.push();
+				ms.translate(0F, -2.5F, 0.65F);
 				ItemStack ring = new ItemStack(ModItems.manaRing);
 				renderItem(ms, buffers, light, overlay, ring);
 				ms.translate(0F, 0F, -4F);
 				renderItem(ms, buffers, light, overlay, ring);
+				ms.pop();
 
-				ms.scale(0.8F, 0.8F, 0.8F);
-				ms.translate(1.25F, -1.25F, 2.25F);
+				ms.translate(1.5, -4, -2.5);
 				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
 			} else if (ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
 				if (!icon.isEmpty()) {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+					ms.translate(0, -0.75, -0.5);
 					RenderHelper.renderItemModelGold(null, icon, ItemCameraTransforms.TransformType.HEAD, ms, buffers, null, light, overlay);
 				}
 			}
@@ -374,8 +378,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	}
 
 	private void renderBlock(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, Block block) {
-		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(block.getDefaultState());
-		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(block.getDefaultState()));
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, null, model, 1, 1, 1, light, overlay);
+		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockAsEntity(block.getDefaultState(), ms, buffers, light, overlay);
 	}
 }
