@@ -531,7 +531,6 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 				if(block instanceof IManaTrigger) {
 					if(!pos.equals(lastTriggeredPosition)){
-						//New block, store its position for next tick
 						lastTriggeredPosition = pos;
 						((IManaTrigger) block).onBurstCollision(this, world, pos);
 					}
