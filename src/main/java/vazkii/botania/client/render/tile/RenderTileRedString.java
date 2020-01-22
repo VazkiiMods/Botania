@@ -40,7 +40,7 @@ public class RenderTileRedString extends TileEntityRenderer<TileRedString> {
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if(sizeAlpha > 0F && !hasWand)
 			sizeAlpha -= 0.1F;
-		else if(sizeAlpha < 1F &&hasWand)
+		else if(sizeAlpha < 1F && hasWand)
 			sizeAlpha += 0.1F;
 	}
 
@@ -50,6 +50,10 @@ public class RenderTileRedString extends TileEntityRenderer<TileRedString> {
 
 	@Override
 	public void render(TileRedString tile, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		if (sizeAlpha < 0) {
+			return;
+		}
+
 		int color = 0xFF0000 | ((int) (sizeAlpha * 255) << 24);
 
 		Direction dir = tile.getOrientation();
