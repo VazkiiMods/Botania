@@ -47,12 +47,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public int getLightValue(@Nonnull BlockState state, IEnviromentBlockReader world, @Nonnull BlockPos pos) {
-		TileEntity tile = world.getTileEntity(pos);
-		return tile instanceof TileEntitySpecialFlower ? ((TileEntitySpecialFlower) tile).getLightValue() : lightValue;
-	}
-
-	@Override
 	public boolean hasComparatorInputOverride(BlockState state) {
 		return true;
 	}

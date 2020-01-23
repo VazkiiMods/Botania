@@ -299,13 +299,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public void renderHUD(Minecraft mc) {}
 
 	/**
-	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)
-	 */
-	public int getLightValue() {
-		return 0;
-	}
-
-	/**
 	 * Gets the comparator input value for this SubTileEntity
 	 */
 	public int getComparatorInputOverride() {

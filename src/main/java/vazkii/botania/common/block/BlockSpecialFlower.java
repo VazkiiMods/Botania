@@ -61,14 +61,6 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 	}
 
 	@Override
-	public int getLightValue(@Nonnull BlockState state, IEnviromentBlockReader world, @Nonnull BlockPos pos) {
-		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof TileEntitySpecialFlower) {
-			return ((TileEntitySpecialFlower) te).getLightValue();
-		} else return 0;
-	}
-
-	@Override
 	public boolean hasComparatorInputOverride(BlockState state) {
 		return true;
 	}
