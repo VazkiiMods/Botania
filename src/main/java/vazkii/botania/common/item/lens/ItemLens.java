@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -64,8 +65,10 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		int storedColor = getStoredColor(par1ItemStack);
-		if(storedColor != -1)
-			stacks.add(new TranslationTextComponent("botaniamisc.color", new TranslationTextComponent("botania.color" + storedColor)));
+		if(storedColor != -1) {
+			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
+			stacks.add(new TranslationTextComponent("botaniamisc.color", colorName).applyTextStyle(TextFormatting.GRAY));
+		}
 	}
 
 	@Nonnull
