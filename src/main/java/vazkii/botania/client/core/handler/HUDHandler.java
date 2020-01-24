@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
@@ -278,8 +279,11 @@ public final class HUDHandler {
 			else return;
 		}
 
-		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F));
-		RenderSystem.color4f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1 - (color.getRed() / 255F));
+		int color = MathHelper.hsvToRGB(0.55F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F);
+		int r = (color >> 16 & 0xFF);
+		int g = (color >> 8 & 0xFF);
+		int b = color & 0xFF;
+		RenderSystem.color4f(r / 255F, g / 255F, b / 255F, 1 - (r / 255F));
 		mc.textureManager.bindTexture(manaBar);
 
 		RenderSystem.enableBlend();
@@ -426,8 +430,10 @@ public final class HUDHandler {
 
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, 100, 3);
 
-		Color color_ = new Color(color);
-		RenderSystem.color4f(color_.getRed() / 255F, color_.getGreen() / 255F, color_.getBlue() / 255F, alpha);
+		float red = (color >> 16 & 0xFF) / 255F;
+		float green = (color >> 8 & 0xFF) / 255F;
+		float blue = (color & 0xFF) / 255F;
+		RenderSystem.color4f(red, green, blue, alpha);
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
 		RenderSystem.color4f(1, 1, 1, 1);
 	}

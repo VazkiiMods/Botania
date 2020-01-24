@@ -74,10 +74,12 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 					double x = pos.getX() + 0.5;
 					double y = pos.getY() + 0.5;
 					double z = pos.getZ() + 0.5;
-					Color color = new Color(brew.getColor(stack));
-					float r = color.getRed() / 255F;
-					float g = color.getGreen() / 255F;
-					float b = color.getBlue() / 255F;
+
+					int color = brew.getColor(stack);
+					float r = (color >> 16 & 0xFF) / 255F;
+					float g = (color >> 8 & 0xFF) / 255F;
+					float b = (color & 0xFF) / 255F;
+
                     WispParticleData data1 = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, r, g, b);
                     world.addParticle(data1, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.005F, 0.005F - (float) Math.random() * 0.01F);
                     WispParticleData data = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, 0.2F, 0.2F, 0.2F);

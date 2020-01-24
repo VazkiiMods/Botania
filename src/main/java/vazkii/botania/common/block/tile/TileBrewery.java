@@ -124,10 +124,10 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 			if(recipe != null) {
 				if(mana != manaLastTick) {
-					Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
-					float r = color.getRed() / 255F;
-					float g = color.getGreen() / 255F;
-					float b = color.getBlue() / 255F;
+					int color = recipe.getBrew().getColor(itemHandler.getStackInSlot(0));
+					float r = (color >> 16 & 0xFF) / 255F;
+					float g = (color >> 8 & 0xFF) / 255F;
+					float b = (color & 0xFF) / 255F;
 					for(int i = 0; i < 5; i++) {
                         WispParticleData data1 = WispParticleData.wisp(0.1F + (float) Math.random() * 0.05F, r, g, b);
                         world.addParticle(data1, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
@@ -170,10 +170,9 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		if(event == CRAFT_EFFECT_EVENT) {
 			if(world.isRemote) {
 				for(int i = 0; i < 25; i++) {
-					Color c = new Color(param);
-					float r = c.getRed() / 255F;
-					float g = c.getGreen() / 255F;
-					float b = c.getBlue() / 255F;
+					float r = (param >> 16 & 0xFF) / 255F;
+					float g = (param >> 8 & 0xFF) / 255F;
+					float b = (param & 0xFF) / 255F;
                     SparkleParticleData data1 = SparkleParticleData.sparkle((float) Math.random() * 2F + 0.5F, r, g, b, 10);
                     world.addParticle(data1, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
                     for(int j = 0; j < 2; j++) {

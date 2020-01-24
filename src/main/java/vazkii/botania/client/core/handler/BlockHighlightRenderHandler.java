@@ -26,6 +26,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -44,7 +45,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -95,7 +95,7 @@ public final class BlockHighlightRenderHandler {
 				int r = (int) (105 * gs);
 				int g = (int) (25 * gs);
 				int b = (int) (145 * gs);
-				Color color = new Color(r, g, b);
+				int color = r << 16 | g << 8 | b;
 
 				int alpha = 32;
 				if(e.ticksExisted < 8)
@@ -111,7 +111,7 @@ public final class BlockHighlightRenderHandler {
 		buffers.draw();
 	}
 
-	private static void renderRectangle(MatrixStack ms, IRenderTypeBuffer buffers, AxisAlignedBB aabb, boolean inner, @Nullable Color color, byte alpha) {
+	private static void renderRectangle(MatrixStack ms, IRenderTypeBuffer buffers, AxisAlignedBB aabb, boolean inner, @Nullable Integer color, byte alpha) {
 		double renderPosX = Minecraft.getInstance().getRenderManager().info.getProjectedView().getX();
 		double renderPosY = Minecraft.getInstance().getRenderManager().info.getProjectedView().getY();
 		double renderPosZ = Minecraft.getInstance().getRenderManager().info.getProjectedView().getZ();
@@ -120,7 +120,10 @@ public final class BlockHighlightRenderHandler {
 		ms.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
 
 		if(color == null)
-			color = Color.getHSBColor(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+			color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int r = (color >> 16 & 0xFF);
+		int g = (color >> 8 & 0xFF);
+		int b = (color & 0xFF);
 
 		float f = 1F / 16F;
 		float x = (float) (aabb.maxX - aabb.minX - f);
@@ -128,20 +131,20 @@ public final class BlockHighlightRenderHandler {
 
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
 		Matrix4f mat = ms.peek().getModel();
-		buffer.vertex(mat, x, f, f).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
-		buffer.vertex(mat, f, f, f).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
-		buffer.vertex(mat, f, f, z).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
-		buffer.vertex(mat, x, f, z).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
+		buffer.vertex(mat, x, f, f).color(r, g, b, alpha).endVertex();
+		buffer.vertex(mat, f, f, f).color(r, g, b, alpha).endVertex();
+		buffer.vertex(mat, f, f, z).color(r, g, b, alpha).endVertex();
+		buffer.vertex(mat, x, f, z).color(r, g, b, alpha).endVertex();
 
 		if(inner) {
 			x += f;
 			z += f;
 			float f1 = f + f / 4F;
 			alpha *= 2;
-			buffer.vertex(mat, x, f1, 0).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
-			buffer.vertex(mat, 0, f1, 0).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
-			buffer.vertex(mat, 0, f1, z).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
-			buffer.vertex(mat, x, f1, z).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
+			buffer.vertex(mat, x, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.vertex(mat, 0, f1, z).color(r, g, b, alpha).endVertex();
+			buffer.vertex(mat, x, f1, z).color(r, g, b, alpha).endVertex();
 		}
 
 		ms.pop();
@@ -157,8 +160,10 @@ public final class BlockHighlightRenderHandler {
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
 		ms.translate(x - renderPosX, y - renderPosY, z - renderPosZ);
-		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
-		Color colorRGB = new Color(color);
+		int color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int r = (color >> 16 & 0xFF);
+		int g = (color >> 8 & 0xFF);
+		int b = (color & 0xFF);
 
 		int alpha = 32;
 		float f = 1F / 16F;
@@ -171,13 +176,13 @@ public final class BlockHighlightRenderHandler {
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.CIRCLE);
 		Matrix4f mat = ms.peek().getModel();
 
-		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex();
+		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(r, g, b, alpha).endVertex();
 		List<Runnable> vertexFuncs = new ArrayList<>();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha).endVertex());
+			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(r, g, b, alpha).endVertex());
 		}
 		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 
@@ -185,13 +190,13 @@ public final class BlockHighlightRenderHandler {
 		float f1 = f + f / 4F;
 		int alpha2 = 64;
 
-		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha2).endVertex();
+		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha2).endVertex();
 		vertexFuncs.clear();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue(), alpha2).endVertex());
+			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(r, g, b, alpha2).endVertex());
 		}
 		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 		ms.pop();

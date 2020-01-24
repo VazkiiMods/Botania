@@ -16,6 +16,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -36,7 +37,6 @@ import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 
 public class ItemLens extends Item implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
@@ -128,7 +128,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 			return 0xFFFFFF;
 
 		if(storedColor == 16)
-			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
+			return MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
 		return DyeColor.byId(storedColor).colorValue;
 	}

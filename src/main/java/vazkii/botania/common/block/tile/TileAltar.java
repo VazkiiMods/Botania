@@ -272,10 +272,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				if(Math.random() >= 0.97) {
 					ICustomApothecaryColor comp = getFlowerComponent(stackAt);
-					Color color = new Color(comp == null ? 0x888888 : comp.getParticleColor(stackAt));
-					float red = color.getRed() / 255F;
-					float green = color.getGreen() / 255F;
-					float blue = color.getBlue() / 255F;
+
+					int color = comp == null ? 0x888888 : comp.getParticleColor(stackAt);
+					float red = (color >> 16 & 0xFF) / 255F;
+					float green = (color >> 8 & 0xFF) / 255F;
+					float blue = (color & 0xFF) / 255F;
 					if(Math.random() >= 0.75F)
 						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
                     SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);

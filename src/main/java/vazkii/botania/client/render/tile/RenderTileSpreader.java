@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -33,7 +34,6 @@ import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.Random;
 
 public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
@@ -74,10 +74,10 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 
 		float r = 1, g = 1, b = 1;
 		if(spreader.isULTRA_SPREADER()) {
-			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
-			r = color.getRed() / 255F;
-			g = color.getGreen() / 255F;
-			b = color.getBlue() / 255F;
+			int color = MathHelper.hsvToRGB((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			r = (color >> 16 & 0xFF) / 255F;
+			g = (color >> 8 & 0xFF) / 255F;
+			b = (color & 0xFF) / 255F;
 		}
 		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
 		model.render(ms, buffer, light, overlay, r, g, b, 1);

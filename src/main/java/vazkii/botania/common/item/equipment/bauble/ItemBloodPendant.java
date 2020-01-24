@@ -133,10 +133,10 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 
 		model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
-		Color color = new Color(Minecraft.getInstance().getItemColors().getColor(stack, 1));
-		float r = color.getRed() / 255F;
-		float g = color.getGreen() / 255F;
-		float b = color.getBlue() / 255F;
+		int color = Minecraft.getInstance().getItemColors().getColor(stack, 1);
+		float r = (color >> 16 & 0xFF) / 255F;
+		float g = (color >> 8 & 0xFF) / 255F;
+		float b = (color & 0xFF) / 255F;
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.render(ms.peek(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.DEFAULT_UV);
 	}

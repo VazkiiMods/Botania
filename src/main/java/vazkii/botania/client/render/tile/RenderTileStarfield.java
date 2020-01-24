@@ -27,10 +27,10 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.common.block.tile.TileStarfield;
 
-import java.awt.Color;
 import java.nio.FloatBuffer;
 import java.util.List;
 import java.util.Random;
@@ -66,10 +66,10 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 		float f2 = (RANDOM.nextFloat() * 0.5F + 0.5F) * p_228883_3_;
 
 		// Botania: change color based on time
-		Color color = Color.getHSBColor(Util.milliTime() / 20F % 360 / 360F, 1F, 1F);
-		f = color.getRed() / 255F * p_228883_3_;
-		f1 = color.getGreen() / 255F * p_228883_3_;
-		f2 = color.getBlue() / 255F * p_228883_3_;
+		int color = MathHelper.hsvToRGB(Util.milliTime() / 20F % 360 / 360F, 1F, 1F);
+		f = (color >> 16 & 0xFF) / 255F * p_228883_3_;
+		f1 = (color >> 8 & 0xFF) / 255F * p_228883_3_;
+		f2 = (color & 0xFF) / 255F * p_228883_3_;
 
 		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, f, f1, f2, Direction.SOUTH);
 		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f, f1, f2, Direction.NORTH);

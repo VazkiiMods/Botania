@@ -38,6 +38,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
@@ -67,7 +68,6 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -299,10 +299,10 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		Vector3 currentPos = orig;
 		for(int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
-			Color color = Color.getHSBColor(hue, 1F, 1F);
-			float r = color.getRed() / 255F;
-			float g = color.getGreen() / 255F;
-			float b = color.getBlue() / 255F;
+			int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+			float r = (color >> 16 & 0xFF) / 255F;
+			float g = (color >> 8 & 0xFF) / 255F;
+			float b = (color & 0xFF) / 255F;
 
 			SparkleParticleData data = SparkleParticleData.noClip(0.5F, r, g, b, 4);
 			world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);

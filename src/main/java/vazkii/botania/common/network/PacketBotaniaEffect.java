@@ -8,6 +8,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -17,7 +18,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
 
-import java.awt.*;
 import java.util.function.Supplier;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
@@ -135,10 +135,10 @@ public class PacketBotaniaEffect {
 						Vector3 currentPos = orig;
 						for(int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
-							Color color = Color.getHSBColor(hue, 1F, 1F);
-							float r = Math.min(1F, color.getRed() / 255F + 0.4F);
-							float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
-							float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
+							int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
+							float g = Math.min(1F, (color >> 8 & 0xFF) / 255F + 0.4F);
+							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
 
 							SparkleParticleData data = SparkleParticleData.noClip(1, r, g, b, 12);
 							world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);

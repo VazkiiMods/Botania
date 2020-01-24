@@ -17,8 +17,6 @@ import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
 
-import java.awt.*;
-
 public class LensFlare extends Lens {
 
 	@Override
@@ -52,7 +50,7 @@ public class LensFlare extends Lens {
 
 		TileEntity tile = (TileEntity) spreader;
 		if(storedColor == 16) {
-			hex = Color.HSBtoRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
+			hex = MathHelper.hsvToRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if(storedColor >= 0) {
 			hex = DyeColor.byId(storedColor).colorValue;
 		}

@@ -420,10 +420,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if(lens != null && !lens.doParticles(this, getSourceLens()))
 			return;
 
-		Color color = new Color(getColor());
-		float r = color.getRed() / 255F;
-		float g = color.getGreen() / 255F;
-		float b = color.getBlue() / 255F;
+		int color = getColor();
+		float r = (color >> 16 & 0xFF) / 255F;
+		float g = (color >> 8 & 0xFF) / 255F;
+		float b = (color & 0xFF) / 255F;
 		float osize = getParticleSize();
 		float size = osize;
 
@@ -540,10 +540,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 		if(dead && isAlive()) {
 			if(!fake && world.isRemote) {
-				Color color = new Color(getColor());
-				float r = color.getRed() / 255F;
-				float g = color.getGreen() / 255F;
-				float b = color.getBlue() / 255F;
+				int color = getColor();
+				float r = (color >> 16 & 0xFF) / 255F;
+				float g = (color >> 8 & 0xFF) / 255F;
+				float b = (color & 0xFF) / 255F;
 
 				int mana = getMana();
 				int maxMana = getStartingMana();

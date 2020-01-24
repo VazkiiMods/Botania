@@ -71,7 +71,7 @@ import java.util.List;
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL)
 	public static TileEntityType<TilePool> TYPE;
-	public static final Color PARTICLE_COLOR = new Color(0x00C6FF);
+	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
 
@@ -255,7 +255,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(world.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			if(Math.random() > particleChance) {
-				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, 2F);
+				float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
+				float green = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
+				float blue = (PARTICLE_COLOR & 0xFF) / 255F;
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 			return;

@@ -89,9 +89,12 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 		if(getWorld().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
-			Color color = new Color(getColor());
+			int color = getColor();
+			float red = (color >> 16 & 0xFF) / 255F;
+			float green = (color >> 8 & 0xFF) / 255F;
+			float blue = (color & 0xFF) / 255F;
 			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random()  * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random()  * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 		}
 	}
 

@@ -27,6 +27,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,7 +40,6 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.awt.*;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -126,7 +126,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getColor() {
-		return Color.HSBtoRGB(ticksExisted / 100F, 1F, 1F);
+		return MathHelper.hsvToRGB(ticksExisted / 100F, 1F, 1F);
 	}
 
 	@OnlyIn(Dist.CLIENT)

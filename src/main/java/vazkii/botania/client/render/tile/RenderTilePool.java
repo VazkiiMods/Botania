@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -32,7 +33,6 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.Random;
 
 public class RenderTilePool extends TileEntityRenderer<TilePool> {
@@ -57,7 +57,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
-			int color = Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
+			int color = MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
 
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;

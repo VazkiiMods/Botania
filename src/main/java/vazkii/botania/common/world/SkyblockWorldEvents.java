@@ -43,8 +43,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.ModTags;
 
-import java.awt.Color;
-
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
@@ -181,7 +179,11 @@ public final class SkyblockWorldEvents {
 					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.getDefaultState() : Blocks.DIRT.getDefaultState());
 		world.setBlockState(pos.add(-1, -2, 0), Blocks.WATER.getDefaultState());
 		world.setBlockState(pos.add(1, 2, 1), ModBlocks.manaFlame.getDefaultState());
-		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());
+		int r = 70 + world.rand.nextInt(185);
+		int g = 70 + world.rand.nextInt(185);
+		int b = 70 + world.rand.nextInt(185);
+		int color = r << 16 | g << 8 | b;
+		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(color);
 
 		int[][] rootPositions = new int[][] {
 			{ -1, -3, -1 },

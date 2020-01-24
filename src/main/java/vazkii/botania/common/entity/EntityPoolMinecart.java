@@ -122,12 +122,15 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 
 		if(world.isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
-			Color color = TilePool.PARTICLE_COLOR;
+			int color = TilePool.PARTICLE_COLOR;
+			float red = (color >> 16 & 0xFF) / 255F;
+			float green = (color >> 8 & 0xFF) / 255F;
+			float blue = (color & 0xFF) / 255F;
 			double x = MathHelper.floor(getX());
 			double y = MathHelper.floor(getY());
 			double z = MathHelper.floor(getZ());
 			if(Math.random() > particleChance) {
-				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, (float) color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, 2F);
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 		}

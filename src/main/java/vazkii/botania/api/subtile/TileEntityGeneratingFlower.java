@@ -98,13 +98,17 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		if(getWorld().isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
-			Color color = new Color(getColor());
+			int color = getColor();
+			float red = (color >> 16 & 0xFF) / 255F;
+			float green = (color >> 8 & 0xFF) / 255F;
+			float blue = (color & 0xFF) / 255F;
+
 			if(Math.random() > particleChance) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
 				double z = getPos().getZ() + offset.z;
-				BotaniaAPI.internalHandler.sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		}
 
