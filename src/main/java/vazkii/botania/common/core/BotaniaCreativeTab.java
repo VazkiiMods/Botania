@@ -94,6 +94,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.pebble);
 		addItem(ModItems.manaweaveCloth);
 		addItem(ModItems.manaPowder);
+		addItem(ModItems.infusedNautilusShell);
 		addItem(ModBlocks.manasteelBlock);
 		addItem(ModBlocks.terrasteelBlock);
 		addItem(ModBlocks.elementiumBlock);

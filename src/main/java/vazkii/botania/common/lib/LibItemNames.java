@@ -253,5 +253,6 @@ public final class LibItemNames {
 	public static final String PEBBLE = "pebble";
 	public static final String MANAWEAVE_CLOTH = "manaweave_cloth";
 	public static final String MANA_POWDER = "mana_powder";
+	public static final String INFUSED_NAUTILUS_SHELL = "infused_nautilus_shell";
 	
 }

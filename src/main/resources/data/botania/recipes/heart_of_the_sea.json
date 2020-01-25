@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "minecraft:heart_of_the_sea"
+  },
+  "pattern": [
+    " M ",
+    "MSM",
+    " M "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "tag": "forge:ingots/manasteel"
+    },
+    "S": {
+      "item": "botania:infused_nautilus_shell"
+    }
+  }
+}

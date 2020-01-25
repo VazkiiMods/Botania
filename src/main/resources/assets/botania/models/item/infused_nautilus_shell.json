@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/infused_nautilus_shell"
+  }
+}
