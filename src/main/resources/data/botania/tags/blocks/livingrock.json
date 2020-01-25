@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "botania:livingrock"
+    "botania:livingrock",
+    "botania:shimmerrock"
   ]
 }
