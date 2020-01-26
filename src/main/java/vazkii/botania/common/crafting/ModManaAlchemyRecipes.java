@@ -11,7 +11,6 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -99,6 +98,8 @@ public final class ModManaAlchemyRecipes {
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 10000));
 		
+		cycle(evt.manaInfusion(), 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES);
+
 		if(Botania.gardenOfGlassLoaded) {
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("prismarine_shard_gog"), new ItemStack(Items.PRISMARINE_SHARD), Ingredient.fromItems(Items.QUARTZ), 1000));
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("prismarine_crystals_gog"), new ItemStack(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.PRISMARINE_SHARD), 500));
