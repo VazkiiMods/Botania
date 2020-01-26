@@ -192,7 +192,6 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.PEBBLE) public static Item pebble;
 	@ObjectHolder(LibItemNames.MANAWEAVE_CLOTH) public static Item manaweaveCloth;
 	@ObjectHolder(LibItemNames.MANA_POWDER) public static Item manaPowder;
-	@ObjectHolder(LibItemNames.INFUSED_NAUTILUS_SHELL) public static Item infusedNautilusShell;
 	
 	@ObjectHolder(LibItemNames.LENS_NORMAL) public static Item lensNormal;
 	@ObjectHolder(LibItemNames.LENS_SPEED) public static Item lensSpeed;
@@ -495,7 +494,6 @@ public final class ModItems {
 		register(r, new ItemMod(defaultBuilder()), LibItemNames.PEBBLE);
 		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANAWEAVE_CLOTH);
 		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANA_POWDER);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.INFUSED_NAUTILUS_SHELL);
 		register(r, new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE), LibItemNames.LENS_NORMAL);
 		register(r, new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE), LibItemNames.LENS_SPEED);
 		register(r, new ItemLens(unstackable(), new LensPower(), ItemLens.PROP_POWER), LibItemNames.LENS_POWER);

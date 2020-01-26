@@ -60,8 +60,6 @@ public final class ModManaInfusionRecipes {
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_quartz"), new ItemStack(ModItems.manaQuartz), Ingredient.fromItems(Items.QUARTZ), 250));
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), Ingredient.fromItems(Items.POTATO), 1337));
 
-		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("infused_nautilus_shell"), new ItemStack(ModItems.infusedNautilusShell), Ingredient.fromItems(Items.NAUTILUS_SHELL), 21000));
-
 		if(Botania.thaumcraftLoaded) {
 			Item inkwell = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "scribing_tools"));
 			evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_inkwell"), new ItemStack(ModItems.manaInkwell), Ingredient.fromItems(inkwell), 35000));
