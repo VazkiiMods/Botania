@@ -3,17 +3,20 @@
     "item": "minecraft:heart_of_the_sea"
   },
   "pattern": [
-    " M ",
-    "MSM",
-    " M "
+    " I ",
+    "INI",
+    " P "
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
-    "M": {
+    "I": {
       "tag": "forge:ingots/manasteel"
     },
-    "S": {
+    "N": {
       "item": "botania:infused_nautilus_shell"
-    }
+    },
+    "P": {
+      "item": "botania:mana_paerl"
+     }
   }
 }
