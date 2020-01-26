@@ -58,8 +58,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 					}
 			},
 			'P', ModBlocks.terraPlate,
-			'R', "#botania:livingrock",
-			'0', "#botania:livingrock",
+			'R', "#botania:terra_plate_base",
+			'0', "#botania:terra_plate_base",
 			'L', "#forge:storage_blocks/lapis"
 	));
 
