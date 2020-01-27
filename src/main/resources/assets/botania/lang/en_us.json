@@ -2292,7 +2292,7 @@
   "botania.page.manaAlchemy24": "Transmuting $(item)Tall Grasses$(0)",
   "botania.page.manaAlchemy25": "Transmuting mundane flowers",
   "botania.page.manaAlchemy26": "Transmuting stones",
-  "botania.page.manaAlchemy29": "Converting between $(item)Apples$(0) and $(item)Sweet Berries$(0)",
+  "botania.page.manaAlchemy28": "Converting between $(item)Apples$(0) and $(item)Sweet Berries$(0)",
 
   "botania.entry.brewery": "Botanical Brewery",
   "botania.tagline.brewery": "Create brews: better potions",
