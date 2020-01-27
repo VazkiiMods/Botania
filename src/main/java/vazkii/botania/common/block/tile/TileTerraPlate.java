@@ -11,8 +11,6 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -22,7 +20,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
@@ -61,9 +58,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 					}
 			},
 			'P', ModBlocks.terraPlate,
-			'R', ModBlocks.livingrock,
-			'0', ModBlocks.livingrock,
-			'L', Blocks.LAPIS_BLOCK
+			'R', "#botania:terra_plate_base",
+			'0', "#botania:terra_plate_base",
+			'L', "#forge:storage_blocks/lapis"
 	));
 
 	private static final String TAG_MANA = "mana";
