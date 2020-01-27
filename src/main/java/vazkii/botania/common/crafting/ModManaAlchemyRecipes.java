@@ -98,11 +98,10 @@ public final class ModManaAlchemyRecipes {
 
 		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), Ingredient.fromItems(Items.POPPED_CHORUS_FRUIT), 10000));
 
-		evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("heart_of_the_sea"), new ItemStack(Items.HEART_OF_THE_SEA), Ingredient.fromItems(Items.NAUTILUS_SHELL), 20000));
-
 		if(Botania.gardenOfGlassLoaded) {
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("prismarine_shard_gog"), new ItemStack(Items.PRISMARINE_SHARD), Ingredient.fromItems(Items.QUARTZ), 1000));
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("prismarine_crystals_gog"), new ItemStack(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.PRISMARINE_SHARD), 500));
+			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("heart_of_the_sea"), new ItemStack(Items.HEART_OF_THE_SEA), Ingredient.fromItems(Items.NAUTILUS_SHELL), 20000));
 		}
 
 		evt.manaInfusion().accept(mini(ModSubtiles.agricarnationChibi, ModSubtiles.agricarnation));

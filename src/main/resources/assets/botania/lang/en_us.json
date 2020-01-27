@@ -1708,6 +1708,7 @@
   "botania.page.gardenOfGlass9": "Entering the $(thing)Nether$(0) might seem difficult under these conditions-- worry not, however, as $(l:misc/blaze_block)$(item)Blaze Meshes$(0)$(/l) (as mentioned previously) can be converted into $(item)Obsidian$(0). To get these lamps, spawn $(item)Blazes$(0) from $(l:devices/fel_pumpkin)$(item)Fel Pumpkins$(0)$(/l).$(p)Since there's no easily accessible $(item)Flint$(0) on an island in space, a $(item)Fire Charge$(0) will have to do for portal-opening.",
   "botania.page.gardenOfGlass11": "The $(item)Mana Flash$(0) present in the starting area will allow a player without a $(l:basics/lexicon)$(item)Lexica Botania$(0)$(/l) to exchange a $(item)Sapling$(0) for one, by right-clicking the $(item)Sapling$(0) on the $(item)Mana Flash$(0).",
   "botania.page.gardenOfGlass12": "Lastly, a way to reach the End",
+  "botania.page.gardenOfGlass14": "Creating the $(item)Heart of the Sea$(0)",
 
   "botania.entry.lexicon": "Lexica Botania",
   "botania.tagline.lexicon": "What you're reading right now, dummy",
@@ -2292,7 +2293,6 @@
   "botania.page.manaAlchemy25": "Transmuting mundane flowers",
   "botania.page.manaAlchemy26": "Transmuting stones",
   "botania.page.manaAlchemy27": "Converting $(item)Chorus Fruit$(0) into $(item)Chorus Flowers$(0)",
-  "botania.page.manaAlchemy28": "Creating the $(item)Heart of the Sea$(0)",
 
   "botania.entry.brewery": "Botanical Brewery",
   "botania.tagline.brewery": "Create brews: better potions",
