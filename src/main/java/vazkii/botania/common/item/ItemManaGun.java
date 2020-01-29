@@ -39,7 +39,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.advancements.ManaGunTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -91,7 +91,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 				if(!world.isRemote) {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
-					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.getX(), player.getY(), player.getZ());
+					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
 				} else {
 					player.swingArm(hand);
 					player.setMotion(player.getMotion().subtract(burst.getMotion().mul(0.1, 0.3, 0.1)));

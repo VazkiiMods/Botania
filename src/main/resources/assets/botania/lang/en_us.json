@@ -6,6 +6,7 @@
   "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
   "itemGroup.botania": "Botania",
+  "botania.landing": "Magic, Tech. Naturally.$(br2)Botania is a tech mod themed around natural magic. The main concept is to create magical flowers and devices utilizing the power of the earth, in the form of $(thing)Mana$().",
   "botania.desc": "Botania description here.",
 
   "generator.botania-skyblock": "Garden of Glass",
@@ -127,23 +128,7 @@
   "botania.triggers.manaFull": "Mana Full",
   "botania.triggers.runeAltarCanCraft": "Altar Can Craft",
 
-  "botania.color0": "White",
-  "botania.color1": "Orange",
-  "botania.color2": "Magenta",
-  "botania.color3": "Light Blue",
-  "botania.color4": "Yellow",
-  "botania.color5": "Lime",
-  "botania.color6": "Pink",
-  "botania.color7": "Gray",
-  "botania.color8": "Light Gray",
-  "botania.color9": "Cyan",
-  "botania.color10": "Purple",
-  "botania.color11": "Blue",
-  "botania.color12": "Brown",
-  "botania.color13": "Green",
-  "botania.color14": "Red",
-  "botania.color15": "Black",
-  "botania.color16": "Rainbow",
+  "botania.color.rainbow": "Rainbow",
 
   "botania.rank0": "\u00a7cD",
   "botania.rank1": "\u00a7eC",
@@ -1724,6 +1709,7 @@
   "botania.page.gardenOfGlass9": "Entering the $(thing)Nether$(0) might seem difficult under these conditions-- worry not, however, as $(l:misc/blaze_block)$(item)Blaze Meshes$(0)$(/l) (as mentioned previously) can be converted into $(item)Obsidian$(0). To get these lamps, spawn $(item)Blazes$(0) from $(l:devices/fel_pumpkin)$(item)Fel Pumpkins$(0)$(/l).$(p)Since there's no easily accessible $(item)Flint$(0) on an island in space, a $(item)Fire Charge$(0) will have to do for portal-opening.",
   "botania.page.gardenOfGlass11": "The $(item)Mana Flash$(0) present in the starting area will allow a player without a $(l:basics/lexicon)$(item)Lexica Botania$(0)$(/l) to exchange a $(item)Sapling$(0) for one, by right-clicking the $(item)Sapling$(0) on the $(item)Mana Flash$(0).",
   "botania.page.gardenOfGlass12": "Lastly, a way to reach the End",
+  "botania.page.gardenOfGlass14": "Creating the $(item)Heart of the Sea$(0)",
 
   "botania.entry.lexicon": "Lexica Botania",
   "botania.tagline.lexicon": "What you're reading right now, dummy",
@@ -1804,7 +1790,7 @@
 
   "botania.entry.terrasteel": "Terrasteel",
   "botania.tagline.terrasteel": "Powerful metal derived from Mana and nature",
-  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesizing it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
+  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesizing it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) or $(l:tools/rainbow_rod)$(item)Shimmerrock$(0)$(/l). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
   "botania.page.terrasteel1": "Creating the plate",
   "botania.page.terrasteel2": "After the plate is set up and ready to receive $(thing)Mana$(0), tossing one $(l:mana/pool)$(item)Manasteel Ingot, Mana Diamond and Mana Pearl$(0)$(/l) each upon the plate will begin the infusion.$(p)Picking up any of the items will halt the infusion, causing severe $(thing)Mana Loss$(0) (all mana transferred to the plate is lost). The infusion uses about half a $(l:mana/pool)$(item)Mana Pool$(0)$(/l)'s worth of Mana to create a single piece of $(thing)Terrasteel$(0); multiple $(l:mana/sparks)$(item)Sparks$(0)$(/l) passing it $(thing)Mana$(0) will accelerate the process.",
   "botania.page.terrasteel3": "Creating $(item)Terrasteel$(0) (there's $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) under the plate)",
@@ -2303,11 +2289,11 @@
   "botania.page.manaAlchemy20": "Breaking $(item)Cobblestone$(0) into $(item)Sand$(0)",
   "botania.page.manaAlchemy21": "Breaking $(item)Hardened Clay$(0) into $(item)Red Sand$(0)",
   "botania.page.manaAlchemy22": "Breaking down $(item)Clay$(0) and $(item)Bricks$(0)",
-  "botania.page.manaAlchemy27": "Converting $(item)Chorus Fruit$(0) into $(item)Chorus Flowers$(0)",
   "botania.page.manaAlchemy23": "Making $(item)Coarse Dirt$(0)",
   "botania.page.manaAlchemy24": "Transmuting $(item)Tall Grasses$(0)",
   "botania.page.manaAlchemy25": "Transmuting mundane flowers",
   "botania.page.manaAlchemy26": "Transmuting stones",
+  "botania.page.manaAlchemy27": "Converting $(item)Chorus Fruit$(0) into $(item)Chorus Flowers$(0)",
 
   "botania.entry.brewery": "Botanical Brewery",
   "botania.tagline.brewery": "Create brews: better potions",

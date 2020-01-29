@@ -94,10 +94,12 @@ public class BlockAltar extends BlockMod {
 
 	@Override
 	public int getLightValue(@Nonnull BlockState state, ILightReader world, @Nonnull BlockPos pos) {
-		if(world.getBlockState(pos).getBlock() != this)
-			return world.getBlockState(pos).getLightValue(world, pos);
-		TileAltar tile = (TileAltar) world.getTileEntity(pos);
-		return tile != null && tile.getFluid() == Fluids.LAVA ? 15 : 0;
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileAltar && ((TileAltar) te).getFluid() == Fluids.LAVA) {
+			return 15;
+		} else {
+			return super.getLightValue(state, world, pos);
+		}
 	}
 
 	@Override

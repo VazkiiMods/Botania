@@ -90,21 +90,16 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		if(world.isRemote || stack.isEmpty() || !item.isAlive())
 			return false;
 
-		if(getBlockState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Item.getItemFromBlock(Blocks.VINE)) {
-			ItemStack[] tmp = new ItemStack[getSizeInventory()];
-			for(int i = 0; i < getSizeInventory(); i++) {
-				tmp[i] = itemHandler.getStackInSlot(i);
-				itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-			}
+		if(getBlockState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Blocks.VINE.asItem()) {
+			CompoundNBT tmp = new CompoundNBT();
+			writePacketNBT(tmp);
 
 			stack.shrink(1);
 			world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
 
 			TileEntity newAltar = world.getTileEntity(getPos());
 			if(newAltar instanceof TileAltar) {
-				for(int i = 0; i < getSizeInventory(); i++) {
-					((TileAltar) newAltar).getItemHandler().setStackInSlot(i, tmp[i]);
-				}
+				((TileAltar) newAltar).readPacketNBT(tmp);
 			}
 
 			return true;

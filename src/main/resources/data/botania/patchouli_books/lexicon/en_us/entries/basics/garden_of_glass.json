@@ -63,6 +63,11 @@
       "type": "crafting",
       "text": "botania.page.gardenOfGlass12",
       "recipe": "gardenofglass:end_portal_frame"
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.gardenOfGlass14",
+      "recipes": "botania:heart_of_the_sea"
     }
   ],
   "extra_recipe_mappings": {

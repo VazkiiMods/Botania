@@ -13,12 +13,7 @@
   "parent": "botania:main/rune_pickup",
   "criteria": {
     "shoot": {
-      "trigger": "botania:use_item_success",
-      "conditions": {
-        "item": {
-          "item": "botania:mana_gun"
-        }
-      }
+      "trigger": "botania:fire_mana_blaster"
     }
   }
 }

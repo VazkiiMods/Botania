@@ -54,7 +54,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "elven"), (stack, world, living) -> isElvenItem(stack) ? 1 : 0);
 	}
 
-	private static Book getBook() {
+	public static Book getBook() {
 		return BookRegistry.INSTANCE.books.get(ModItems.lexicon.getRegistryName());
 	}
 

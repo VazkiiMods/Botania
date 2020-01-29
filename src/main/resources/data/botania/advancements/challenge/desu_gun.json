@@ -15,12 +15,9 @@
   "parent": "botania:challenge/root",
   "criteria": {
     "use_gun": {
-      "trigger": "botania:use_item_success",
+      "trigger": "botania:fire_mana_blaster",
       "conditions": {
-        "item": {
-          "item": "botania:mana_gun",
-          "nbt": "{\"display\": { \"Name\": \"desu gun\" }}"
-        }
+        "desu": true
       }
     }
   }

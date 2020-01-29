@@ -24,6 +24,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
+def mc_version = "1.15.1"
 version = "${config.version}-${config.build_number}"
 group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = config.mod_name
@@ -31,7 +32,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: "${config.mc_mappings}"
+    mappings channel: 'snapshot', version: "20200115-mixed-1.15.1"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -95,7 +96,7 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
+    minecraft "net.minecraftforge:forge:${mc_version}-30.0.41"
     compile fg.deobf("vazkii.patchouli:Patchouli:1.1-25.4") { transitive = false }
 
     compileOnly fg.deobf("mezz.jei:jei-1.15.1:6.0.0.1:api")
@@ -173,8 +174,8 @@ task incrementBuildNumber {
             config.toProperties().store(it, "")
         }
 
-        file('web/versions.ini').append("\n${project.version}=${config.mc_version}")
-        file("${config.dir_repo}/version/${config.mc_version}.txt").write("${project.version}")
+        file('web/versions.ini').append("\n${project.version}=${mc_version}")
+        file("${config.dir_repo}/version/${mc_version}.txt").write("${project.version}")
     }
 }
 
@@ -259,7 +260,7 @@ curseforge {
 		    See http://botaniamod.net/changelog.php#${version}
         """
         releaseType = "release"
-        addGameVersion "${config.mc_version}"
+        addGameVersion "${mc_version}"
         relations {
             requiredLibrary 'curios'
             optionalLibrary 'quark'

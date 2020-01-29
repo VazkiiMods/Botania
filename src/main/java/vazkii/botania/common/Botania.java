@@ -39,6 +39,7 @@ import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
+import vazkii.botania.common.advancements.ManaGunTrigger;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -211,6 +212,7 @@ public class Botania {
 			CriteriaTriggers.register(DopplegangerNoArmorTrigger.INSTANCE);
 			CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
 			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
+			CriteriaTriggers.register(ManaGunTrigger.INSTANCE);
 
 			CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 
