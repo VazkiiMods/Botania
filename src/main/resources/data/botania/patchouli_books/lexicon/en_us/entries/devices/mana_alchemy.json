@@ -142,6 +142,11 @@
       "type": "mana_infusion",
       "text": "botania.page.manaAlchemy23",
       "recipes": "botania:coarse_dirt"
+    },
+    {
+      "type": "mana_infusion",
+      "text": "botania.page.manaAlchemy28",
+      "group": "botania:berry_cycle"
     }
   ]
 }
