@@ -6,7 +6,7 @@
 <div class='warning-txt'>
 	<ul>
 		<li>This page is a verbatim copy of the Lexica Botania you can craft ingame by combining a Book with any type of Sapling. It, however, does not contain any recipes or images. Usage of the ingame guide is encouraged.</li>
-		<li>The contents of this page are fed from the <a href="https://github.com/Vazkii/Botania/blob/master/src/main/resources/assets/botania/lang/en_US.lang"> bleeding-edge lang file</a> and may be ahead of the Botania version currently out.</li>
+		<li>The contents of this page are fed from the <a href="https://github.com/Vazkii/Botania/blob/master/src/main/resources/assets/botania/lang/en_us.json"> bleeding-edge lang file</a> and may be ahead of the Botania version currently out.</li>
 		<li>This page contains spoilers for unlockables!</li>
 	</ul>
 </div>
