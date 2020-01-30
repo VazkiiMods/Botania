@@ -108,7 +108,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 		for(LivingEntity living : entities) {
 			if(living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity 
-							&& ((PlayerEntity) thrower).canAttackPlayer(((PlayerEntity) living)))
+							&& !((PlayerEntity) thrower).canAttackPlayer(((PlayerEntity) living)))
 				continue;
 
 			if(living.hurtTime == 0) {
