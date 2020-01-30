@@ -54,7 +54,6 @@ import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ItemLaputaShard;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ItemManaTablet;
-import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -76,7 +75,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.registerSubtypeInterpreter(ModItems.incenseStick, ItemBrewBase::getSubtype);
 		registry.registerSubtypeInterpreter(ModItems.bloodPendant, ItemBrewBase::getSubtype);
 
-		registry.registerSubtypeInterpreter(ModItems.twigWand, stack -> ItemTwigWand.getColor1(stack) + "_" + ItemTwigWand.getColor2(stack));
 		registry.registerSubtypeInterpreter(ModItems.flightTiara, stack -> String.valueOf(ItemFlightTiara.getVariant(stack)));
 		registry.registerSubtypeInterpreter(ModItems.lexicon, stack -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false)));
 		registry.registerSubtypeInterpreter(ModItems.laputaShard, stack -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));

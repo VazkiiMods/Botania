@@ -39,23 +39,7 @@ import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
-import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
-import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
-import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
-import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
-import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
-import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
-import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
+import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.item.brew.ItemVial;
@@ -744,6 +728,7 @@ public final class ModItems {
 		register(r, PhantomInkRecipe.SERIALIZER, "phantom_ink_apply");
 		register(r, SpellClothRecipe.SERIALIZER, "spell_cloth_apply");
 		register(r, TerraPickTippingRecipe.SERIALIZER, "terra_pick_tipping");
+		register(r, TwigWandRecipe.SERIALIZER, "twig_wand");
 	}
 
 	@SubscribeEvent
