@@ -1,6 +1,6 @@
 {
   "name": "item.botania.lexicon",
-  "landing_text": "Landing",
+  "landing_text": "botania.landing",
   "version": "buildNumber",
   "book_texture": "patchouli:textures/gui/book_green.png",
   "model": "botania:lexicon",
