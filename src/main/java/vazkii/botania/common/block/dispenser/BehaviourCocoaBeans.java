@@ -33,7 +33,7 @@ public class BehaviourCocoaBeans extends DefaultDispenseItemBehavior {
 		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
-		BlockItemUseContext ctx = new DirectionalPlaceContext(source.getWorld(), source.getBlockPos(), facing, new ItemStack(block), facing.getOpposite());
+		BlockItemUseContext ctx = new DirectionalPlaceContext(source.getWorld(), source.getBlockPos().offset(facing), facing, new ItemStack(block), facing.getOpposite());
 		BlockState cocoa = block.getStateForPlacement(ctx);
 		if(cocoa != null && world.isAirBlock(pos)) {
 			world.setBlockState(pos, cocoa);
