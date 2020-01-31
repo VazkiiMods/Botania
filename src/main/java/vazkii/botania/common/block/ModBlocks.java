@@ -828,18 +828,18 @@ public final class ModBlocks {
 
 	@OnlyIn(Dist.CLIENT)
 	private static Void registerWithTEISRS(IForgeRegistry<Item> r) {
-		Item.Properties pylonProps = ModItems.defaultBuilder().setTEISR(() -> () -> new RenderTilePylon.TEISR());
+		Item.Properties pylonProps = ModItems.defaultBuilder().setISTER(() -> () -> new RenderTilePylon.TEISR());
 		register(r, new BlockItem(manaPylon, pylonProps), manaPylon.getRegistryName());
 		register(r, new BlockItem(naturaPylon, pylonProps), naturaPylon.getRegistryName());
 		register(r, new BlockItem(gaiaPylon, pylonProps), gaiaPylon.getRegistryName());
 
-		register(r, new BlockItem(teruTeruBozu, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(teruTeruBozu))), teruTeruBozu.getRegistryName());
-		register(r, new BlockItem(avatar, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(avatar))), avatar.getRegistryName());
-		register(r, new BlockItem(bellows, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(bellows))), bellows.getRegistryName());
-		register(r, new BlockItem(brewery, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(brewery))), brewery.getRegistryName());
-		register(r, new BlockItem(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(corporeaIndex))), corporeaIndex.getRegistryName());
-		register(r, new BlockItem(hourglass, ModItems.defaultBuilder().setTEISR(() -> () -> new TEISR(hourglass))), hourglass.getRegistryName());
-		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON).setTEISR(() -> () -> new TEISR(gaiaHead)));
+		register(r, new BlockItem(teruTeruBozu, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(teruTeruBozu))), teruTeruBozu.getRegistryName());
+		register(r, new BlockItem(avatar, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(avatar))), avatar.getRegistryName());
+		register(r, new BlockItem(bellows, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(bellows))), bellows.getRegistryName());
+		register(r, new BlockItem(brewery, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(brewery))), brewery.getRegistryName());
+		register(r, new BlockItem(corporeaIndex, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(corporeaIndex))), corporeaIndex.getRegistryName());
+		register(r, new BlockItem(hourglass, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(hourglass))), hourglass.getRegistryName());
+		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON).setISTER(() -> () -> new TEISR(gaiaHead)));
 		register(r, head, gaiaHead.getRegistryName());
 		return null;
 	}

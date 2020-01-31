@@ -37,6 +37,7 @@ public class LexiconModel implements IBakedModel {
 	@Override public boolean isAmbientOcclusion() { return false; }
 	@Override public boolean isGui3d() { return false; }
 	@Override public boolean isBuiltInRenderer() { return false; }
+	@Override public boolean isSideLit() { return original.isSideLit(); }
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return original.getParticleTexture(); }
 	@SuppressWarnings("deprecation") @Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 	@Nonnull @Override public ItemOverrideList getOverrides() { return original.getOverrides(); }

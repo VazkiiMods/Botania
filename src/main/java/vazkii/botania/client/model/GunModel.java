@@ -91,6 +91,7 @@ public class GunModel implements IBakedModel {
 	@Override public boolean isBuiltInRenderer() { return originalModel.isBuiltInRenderer(); }
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return originalModel.getParticleTexture(); }
 	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return originalModel.getItemCameraTransforms(); }
+	@Override public boolean isSideLit() { return originalModel.isSideLit(); }
 
 	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
 
@@ -116,7 +117,7 @@ public class GunModel implements IBakedModel {
 				BlockModel bm = (BlockModel) lensUnbaked;
 				lensBaked = new ItemModelGenerator()
 						.makeItemModel(ModelLoader.defaultTextureGetter(), bm)
-						.bake(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name);
+						.bake(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name, false);
 			} else {
 				lensBaked = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), transform, name);
 			}

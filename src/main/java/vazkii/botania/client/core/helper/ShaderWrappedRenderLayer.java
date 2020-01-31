@@ -31,8 +31,8 @@ public class ShaderWrappedRenderLayer extends RenderType {
 	}
 
 	@Override
-	public Optional<RenderType> getTexture() {
-		return delegate.getTexture();
+	public Optional<RenderType> getAffectedOutline() {
+		return delegate.getAffectedOutline();
 	}
 
 	@Override

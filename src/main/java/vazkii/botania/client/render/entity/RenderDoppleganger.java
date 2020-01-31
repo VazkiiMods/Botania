@@ -95,7 +95,7 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 	}
 
 	@Override
-	protected boolean func_225622_a_(EntityDoppleganger dopple, boolean fallback) {
+	protected boolean func_225622_a_(EntityDoppleganger dopple) {
 		return true;
 	}
 

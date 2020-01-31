@@ -24,7 +24,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.15.1"
+def mc_version = "1.15.2"
 version = "${config.version}-${config.build_number}"
 group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = config.mod_name
@@ -32,7 +32,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: "20200115-mixed-1.15.1"
+    mappings channel: 'snapshot', version: "20200123-mixed-1.15.2"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -96,14 +96,14 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-30.0.41"
-    compile fg.deobf("vazkii.patchouli:Patchouli:1.1-25.4") { transitive = false }
+    minecraft "net.minecraftforge:forge:${mc_version}-31.0.14"
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.1-25.10") { transitive = false }
 
-    compileOnly fg.deobf("mezz.jei:jei-1.15.1:6.0.0.1:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.15.1:6.0.0.1")
+    compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
     
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.1-2.0-beta:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.1-2.0-beta")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0-beta2:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0-beta2")
 }
 
 if (System.getenv().BUILD_NUMBER != null) { 

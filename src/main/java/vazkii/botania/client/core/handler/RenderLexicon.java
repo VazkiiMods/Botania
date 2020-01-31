@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderSpecificHandEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.client.lib.LibResources;
@@ -48,7 +48,7 @@ public class RenderLexicon {
 	private static int quote = -1;
 
 	@SubscribeEvent
-	public static void renderItem(RenderSpecificHandEvent evt) {
+	public static void renderItem(RenderHandEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
 		if(!ConfigHandler.CLIENT.lexicon3dModel.get()
 				|| mc.gameSettings.thirdPersonView != 0

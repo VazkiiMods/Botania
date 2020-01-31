@@ -313,7 +313,7 @@ public final class RenderHelper {
 			IVertexBuilder ivertexbuilder = ItemRenderer.getArmorVertexConsumer(buffers, rendertype, true, stack.hasEffect());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
-			stack.getItem().getTileEntityItemStackRenderer().render(stack, ms, buffers, light, overlay);
+			stack.getItem().getItemStackTileEntityRenderer().render(stack, ms, buffers, light, overlay);
 		}
 
 		ms.pop();
