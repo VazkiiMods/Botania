@@ -37,7 +37,7 @@ import java.util.Random;
 public class BlockModMushroom extends MushroomBlock implements IHornHarvestable, ICustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
-	private final DyeColor color;
+	public final DyeColor color;
 
 	public BlockModMushroom(DyeColor color, Properties builder) {
 		super(builder);
