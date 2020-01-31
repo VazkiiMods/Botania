@@ -39,9 +39,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import javax.annotation.Nonnull;
 
 public class FXSparkle extends SpriteTexturedParticle {
-	private static boolean lastBlur;
-	private static boolean lastMipmap;
-
 	private final boolean corrupt;
 	public final boolean fake;
 	public final int particle = 16;
@@ -167,19 +164,13 @@ public class FXSparkle extends SpriteTexturedParticle {
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
 		RenderSystem.disableLighting();
 		textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-		// todo 1.15 see same spot in FXWisp
-		try {
-			Texture tex = textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-			lastBlur = FXWisp.BLUR.getBoolean(tex);
-			lastMipmap = FXWisp.MIPMAP.getBoolean(tex);
-			tex.setBlurMipmapDirect(true, false);
-		} catch (IllegalAccessException ignored) {
-		}
+		Texture tex = textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
+		tex.setBlurMipmap(true, false);
 		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 	}
 
 	private static void endRenderCommon() {
-		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmapDirect(lastBlur, lastMipmap);
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).restoreLastBlurMipmap();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);

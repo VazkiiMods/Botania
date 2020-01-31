@@ -35,11 +35,6 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 
 public class FXWisp extends SpriteTexturedParticle {
-	public static final Field BLUR = ObfuscationReflectionHelper.findField(Texture.class, "field_174940_b");
-	public static final Field MIPMAP = ObfuscationReflectionHelper.findField(Texture.class, "field_174941_c");
-	private static boolean lastBlur;
-	private static boolean lastMipmap;
-
 	private final boolean depthTest;
 	private final float moteParticleScale;
 	private final int moteHalfLife;
@@ -122,19 +117,12 @@ public class FXWisp extends SpriteTexturedParticle {
 		RenderSystem.disableLighting();
 
 		textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-		// todo 1.15 method to save last blur mipmap not present, remove workaround when MinecraftForge#6450 merged
-		try {
-			Texture tex = textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-			lastBlur = BLUR.getBoolean(tex);
-			lastMipmap = MIPMAP.getBoolean(tex);
-			tex.setBlurMipmapDirect(true, false);
-		} catch (IllegalAccessException ignored) {
-		}
+		textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmap(true, false);
 		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 	}
 
 	private static void endRenderCommon() {
-		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmapDirect(lastBlur, lastMipmap);
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).restoreLastBlurMipmap();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
