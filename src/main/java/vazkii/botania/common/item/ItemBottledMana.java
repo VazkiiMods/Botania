@@ -211,7 +211,7 @@ public class ItemBottledMana extends Item {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		stacks.add(new TranslationTextComponent("botaniamisc.bottleTooltip"));
 	}
 
@@ -237,13 +237,13 @@ public class ItemBottledMana extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 20;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.DRINK;
 	}
 

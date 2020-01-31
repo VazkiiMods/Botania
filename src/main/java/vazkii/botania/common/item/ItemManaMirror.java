@@ -62,18 +62,18 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		if(world.isRemote)
 			return;
 
-		IManaPool pool = getManaPool(par1ItemStack);
+		IManaPool pool = getManaPool(stack);
 		if(!(pool instanceof DummyPool)) {
 			if(pool == null)
-				setMana(par1ItemStack, 0);
+				setMana(stack, 0);
 			else {
-				pool.recieveMana(getManaBacklog(par1ItemStack));
-				setManaBacklog(par1ItemStack, 0);
-				setMana(par1ItemStack, pool.getCurrentMana());
+				pool.recieveMana(getManaBacklog(stack));
+				setManaBacklog(stack, 0);
+				setMana(stack, pool.getCurrentMana());
 			}
 		}
 	}

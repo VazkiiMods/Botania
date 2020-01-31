@@ -339,37 +339,37 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT par1nbtTagCompound) {
-		super.writeAdditional(par1nbtTagCompound);
-		par1nbtTagCompound.putInt(TAG_TICKS_EXISTED, getTicksExisted());
-		par1nbtTagCompound.putInt(TAG_COLOR, getColor());
-		par1nbtTagCompound.putInt(TAG_MANA, getMana());
-		par1nbtTagCompound.putInt(TAG_STARTING_MANA, getStartingMana());
-		par1nbtTagCompound.putInt(TAG_MIN_MANA_LOSS, getMinManaLoss());
-		par1nbtTagCompound.putFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
-		par1nbtTagCompound.putFloat(TAG_GRAVITY, getGravity());
+	public void writeAdditional(CompoundNBT tag) {
+		super.writeAdditional(tag);
+		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
+		tag.putInt(TAG_COLOR, getColor());
+		tag.putInt(TAG_MANA, getMana());
+		tag.putInt(TAG_STARTING_MANA, getStartingMana());
+		tag.putInt(TAG_MIN_MANA_LOSS, getMinManaLoss());
+		tag.putFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
+		tag.putFloat(TAG_GRAVITY, getGravity());
 
 		ItemStack stack = getSourceLens();
 		CompoundNBT lensCmp = new CompoundNBT();
 		if(!stack.isEmpty())
 			lensCmp = stack.write(lensCmp);
-		par1nbtTagCompound.put(TAG_LENS_STACK, lensCmp);
+		tag.put(TAG_LENS_STACK, lensCmp);
 
 		BlockPos coords = getBurstSourceBlockPos();
-		par1nbtTagCompound.putInt(TAG_SPREADER_X, coords.getX());
-		par1nbtTagCompound.putInt(TAG_SPREADER_Y, coords.getY());
-		par1nbtTagCompound.putInt(TAG_SPREADER_Z, coords.getZ());
+		tag.putInt(TAG_SPREADER_X, coords.getX());
+		tag.putInt(TAG_SPREADER_Y, coords.getY());
+		tag.putInt(TAG_SPREADER_Z, coords.getZ());
 
-		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_X, getMotion().getX());
-		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Y, getMotion().getY());
-		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Z, getMotion().getZ());
+		tag.putDouble(TAG_LAST_MOTION_X, getMotion().getX());
+		tag.putDouble(TAG_LAST_MOTION_Y, getMotion().getY());
+		tag.putDouble(TAG_LAST_MOTION_Z, getMotion().getZ());
 
 		UUID identity = getShooterUUID();
 		boolean hasShooter = identity != null;
-		par1nbtTagCompound.putBoolean(TAG_HAS_SHOOTER, hasShooter);
+		tag.putBoolean(TAG_HAS_SHOOTER, hasShooter);
 		if(hasShooter) {
-			par1nbtTagCompound.putLong(TAG_SHOOTER_UUID_MOST, identity.getMostSignificantBits());
-			par1nbtTagCompound.putLong(TAG_SHOOTER_UUID_LEAST, identity.getLeastSignificantBits());
+			tag.putLong(TAG_SHOOTER_UUID_MOST, identity.getMostSignificantBits());
+			tag.putLong(TAG_SHOOTER_UUID_LEAST, identity.getLeastSignificantBits());
 		}
 	}
 

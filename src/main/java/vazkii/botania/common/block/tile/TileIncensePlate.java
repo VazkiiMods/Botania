@@ -119,17 +119,17 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.putInt(TAG_TIME_LEFT, timeLeft);
-		par1nbtTagCompound.putBoolean(TAG_BURNING, burning);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
+		tag.putInt(TAG_TIME_LEFT, timeLeft);
+		tag.putBoolean(TAG_BURNING, burning);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
-		timeLeft = par1nbtTagCompound.getInt(TAG_TIME_LEFT);
-		burning = par1nbtTagCompound.getBoolean(TAG_BURNING);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		timeLeft = tag.getInt(TAG_TIME_LEFT);
+		burning = tag.getBoolean(TAG_BURNING);
 	}
 
 	public boolean acceptsItem(ItemStack stack) {

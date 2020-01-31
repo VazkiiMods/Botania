@@ -45,7 +45,7 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
 		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}

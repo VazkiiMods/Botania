@@ -125,7 +125,7 @@ public class ItemCacophonium extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 

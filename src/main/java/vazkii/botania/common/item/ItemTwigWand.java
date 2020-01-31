@@ -311,11 +311,11 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		getBindingAttempt(par1ItemStack).ifPresent(coords -> {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		getBindingAttempt(stack).ifPresent(coords -> {
 			TileEntity tile = world.getTileEntity(coords);
 			if(!(tile instanceof IWandBindable))
-				setBindingAttempt(par1ItemStack, UNBOUND_POS);
+				setBindingAttempt(stack, UNBOUND_POS);
 		});
 	}
 
@@ -348,7 +348,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public Rarity getRarity(ItemStack par1ItemStack) {
+	public Rarity getRarity(ItemStack stack) {
 		return Rarity.RARE;
 	}
 

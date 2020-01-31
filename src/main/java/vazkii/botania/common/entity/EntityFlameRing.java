@@ -101,7 +101,7 @@ public class EntityFlameRing extends Entity {
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
+	public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
 		return false;
 	}
 

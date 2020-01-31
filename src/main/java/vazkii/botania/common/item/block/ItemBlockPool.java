@@ -39,7 +39,7 @@ public class ItemBlockPool extends BlockItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
+	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
 		if(((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE)
 			for(int i = 0; i < 2; i++)
 				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i).applyTextStyle(TextFormatting.GRAY));

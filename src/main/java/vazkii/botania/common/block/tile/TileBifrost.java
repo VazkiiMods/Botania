@@ -42,16 +42,16 @@ public class TileBifrost extends TileMod implements ITickableTileEntity {
 
 	@Nonnull
 	@Override
-	public CompoundNBT write(CompoundNBT par1nbtTagCompound) {
-		CompoundNBT ret = super.write(par1nbtTagCompound);
+	public CompoundNBT write(CompoundNBT tag) {
+		CompoundNBT ret = super.write(tag);
 		ret.putInt(TAG_TICKS, ticks);
 		return ret;
 	}
 
 	@Override
-	public void read(CompoundNBT par1nbtTagCompound) {
-		super.read(par1nbtTagCompound);
-		ticks = par1nbtTagCompound.getInt(TAG_TICKS);
+	public void read(CompoundNBT tag) {
+		super.read(tag);
+		ticks = tag.getInt(TAG_TICKS);
 	}
 
 }

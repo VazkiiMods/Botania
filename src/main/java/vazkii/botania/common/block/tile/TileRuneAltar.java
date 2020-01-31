@@ -295,19 +295,19 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
 
-		par1nbtTagCompound.putInt(TAG_MANA, mana);
-		par1nbtTagCompound.putInt(TAG_MANA_TO_GET, manaToGet);
+		tag.putInt(TAG_MANA, mana);
+		tag.putInt(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
 
-		mana = par1nbtTagCompound.getInt(TAG_MANA);
-		manaToGet = par1nbtTagCompound.getInt(TAG_MANA_TO_GET);
+		mana = tag.getInt(TAG_MANA);
+		manaToGet = tag.getInt(TAG_MANA_TO_GET);
 	}
 
 	@Override

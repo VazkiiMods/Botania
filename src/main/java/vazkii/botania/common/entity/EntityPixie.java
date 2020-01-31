@@ -117,9 +117,9 @@ public class EntityPixie extends FlyingEntity {
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
-		if(getPixieType() == 0 && par1DamageSource.getTrueSource() != summoner || getPixieType() == 1 && par1DamageSource.getTrueSource() instanceof PlayerEntity)
-			return super.attackEntityFrom(par1DamageSource, par2);
+	public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
+		if(getPixieType() == 0 && source.getTrueSource() != summoner || getPixieType() == 1 && source.getTrueSource() instanceof PlayerEntity)
+			return super.attackEntityFrom(source, amount);
 		return false;
 	}
 

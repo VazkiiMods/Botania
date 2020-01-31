@@ -58,24 +58,24 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(Screen.hasShiftDown())
-			addHiddenTooltip(par1ItemStack, world, stacks, flags);
+			addHiddenTooltip(stack, world, stacks, flags);
 		else stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("key.curios.open.desc");
 
 		if(key != null)
 			stacks.add(new TranslationTextComponent("botania.baubletooltip", key));
 
-		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
+		ItemStack cosmetic = getCosmeticItem(stack);
 		if(!cosmetic.isEmpty())
 			stacks.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
 
-		if(hasPhantomInk(par1ItemStack))
+		if(hasPhantomInk(stack))
 			stacks.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
 	}
 

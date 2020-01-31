@@ -25,8 +25,8 @@ public class TileMod extends TileEntity {
 
 	@Nonnull
 	@Override
-	public CompoundNBT write(CompoundNBT par1nbtTagCompound) {
-		CompoundNBT ret = super.write(par1nbtTagCompound);
+	public CompoundNBT write(CompoundNBT tag) {
+		CompoundNBT ret = super.write(tag);
 		writePacketNBT(ret);
 		return ret;
 	}
@@ -38,9 +38,9 @@ public class TileMod extends TileEntity {
 	}
 
 	@Override
-	public void read(CompoundNBT par1nbtTagCompound) {
-		super.read(par1nbtTagCompound);
-		readPacketNBT(par1nbtTagCompound);
+	public void read(CompoundNBT tag) {
+		super.read(tag);
+		readPacketNBT(tag);
 	}
 
 	public void writePacketNBT(CompoundNBT cmp) {}

@@ -63,8 +63,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		int storedColor = getStoredColor(par1ItemStack);
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		int storedColor = getStoredColor(stack);
 		if(storedColor != -1) {
 			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
 			stacks.add(new TranslationTextComponent("botaniamisc.color", colorName).applyTextStyle(TextFormatting.GRAY));

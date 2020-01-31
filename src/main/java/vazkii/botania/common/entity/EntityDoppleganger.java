@@ -373,7 +373,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
+	public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
 		Entity e = source.getTrueSource();
 		if (e instanceof PlayerEntity && isTruePlayer(e) && getInvulTime() == 0) {
 			PlayerEntity player = (PlayerEntity) e;
@@ -382,7 +382,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				playersWhoAttacked.add(player.getUniqueID());
 
 			int cap = 25;
-			return super.attackEntityFrom(source, Math.min(cap, par2));
+			return super.attackEntityFrom(source, Math.min(cap, amount));
 		}
 
 		return false;
@@ -400,8 +400,8 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	protected void damageEntity(@Nonnull DamageSource source, float par2) {
-		super.damageEntity(source, par2);
+	protected void damageEntity(@Nonnull DamageSource source, float amount) {
+		super.damageEntity(source, amount);
 
 		Entity attacker = source.getImmediateSource();
 		if(attacker != null) {

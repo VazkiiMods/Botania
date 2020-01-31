@@ -262,9 +262,9 @@ public class ItemAstrolabe extends Item {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> tip, ITooltipFlag flags) {
-		Block block = getBlock(par1ItemStack);
-		int size = getSize(par1ItemStack);
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tip, ITooltipFlag flags) {
+		Block block = getBlock(stack);
+		int size = getSize(stack);
 
 		tip.add(new StringTextComponent(size + " x " + size));
 		if (block != Blocks.AIR)

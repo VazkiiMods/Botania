@@ -71,8 +71,8 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		}
 	}
 
-	private static boolean isBoot(ItemStack par1ItemStack) {
-		String name = par1ItemStack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
+	private static boolean isBoot(ItemStack stack) {
+		String name = stack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}
 

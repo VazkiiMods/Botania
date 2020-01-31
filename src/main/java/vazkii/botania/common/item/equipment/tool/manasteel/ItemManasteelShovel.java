@@ -54,8 +54,8 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
-		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
+	public boolean hitEntity(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
+		ToolCommons.damageItem(stack, 1, attacker, getManaPerDamage());
 		return true;
 	}
 
@@ -115,7 +115,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
 		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}

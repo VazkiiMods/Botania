@@ -68,7 +68,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
 		if(player instanceof PlayerEntity)
 			onArmorTick(stack, world, (PlayerEntity) player);
 	}

@@ -66,19 +66,19 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.putBoolean(TAG_ENABLED, enabled);
-		par1nbtTagCompound.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
-		par1nbtTagCompound.putInt(TAG_MANA, mana);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
+		tag.putBoolean(TAG_ENABLED, enabled);
+		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
+		tag.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
-		enabled = par1nbtTagCompound.getBoolean(TAG_ENABLED);
-		ticksElapsed = par1nbtTagCompound.getInt(TAG_TICKS_ELAPSED);
-		mana = par1nbtTagCompound.getInt(TAG_MANA);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		enabled = tag.getBoolean(TAG_ENABLED);
+		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
+		mana = tag.getInt(TAG_MANA);
 	}
 
 	@Override

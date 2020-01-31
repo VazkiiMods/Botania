@@ -165,17 +165,17 @@ public final class RenderHelper {
 		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 128, true, true, glState));
 	}
 
-	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
-		drawTexturedModalRect(par1, par2, z, par3, par4, par5, par6, 0.00390625F, 0.00390625F);
+	public static void drawTexturedModalRect(int x, int y, float z, int u, int v, int width, int height) {
+		drawTexturedModalRect(x, y, z, u, v, width, height, 0.00390625F, 0.00390625F);
 	}
 
-	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6, float f, float f1) {
+	public static void drawTexturedModalRect(int x, int y, float z, int u, int v, int width, int height, float f, float f1) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tessellator.getBuffer().vertex(par1, par2 + par6, z).texture(par3 * f, (par4 + par6) * f1).endVertex();
-		tessellator.getBuffer().vertex(par1 + par5, par2 + par6, z).texture((par3 + par5) * f, (par4 + par6) * f1).endVertex();
-		tessellator.getBuffer().vertex(par1 + par5, par2, z).texture((par3 + par5) * f, par4 * f1).endVertex();
-		tessellator.getBuffer().vertex(par1, par2, z).texture(par3 * f, par4 * f1).endVertex();
+		tessellator.getBuffer().vertex(x, y + height, z).texture(u * f, (v + height) * f1).endVertex();
+		tessellator.getBuffer().vertex(x + width, y + height, z).texture((u + width) * f, (v + height) * f1).endVertex();
+		tessellator.getBuffer().vertex(x + width, y, z).texture((u + width) * f, v * f1).endVertex();
+		tessellator.getBuffer().vertex(x, y, z).texture(u * f, v * f1).endVertex();
 		tessellator.draw();
 	}
 

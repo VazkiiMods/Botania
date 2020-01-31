@@ -35,14 +35,14 @@ public class ItemStarSword extends ItemManasteelSword {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		super.inventoryTick(par1ItemStack, world, par3Entity, par4, par5);
-		if(par3Entity instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) par3Entity;
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		super.inventoryTick(stack, world, entity, slot, selected);
+		if(entity instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) entity;
 			EffectInstance haste = player.getActivePotionEffect(Effects.HASTE);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !world.isRemote) {
+			if(player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote) {
 				RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 48);
 				if(pos.getType() == RayTraceResult.Type.BLOCK) {
 					Vector3 posVec = Vector3.fromBlockPos(((BlockRayTraceResult) pos).getPos());
@@ -65,7 +65,7 @@ public class ItemStarSword extends ItemManasteelSword {
 						world.addEntity(bonusStar);
 					}
 
-					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
+					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}

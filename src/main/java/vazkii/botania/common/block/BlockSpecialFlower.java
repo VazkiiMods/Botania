@@ -112,10 +112,10 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 	}
 
 	@Override
-	public boolean eventReceived(BlockState state, World world, BlockPos pos, int par5, int par6) {
-		super.eventReceived(state, world, pos, par5, par6);
+	public boolean eventReceived(BlockState state, World world, BlockPos pos, int event, int param) {
+		super.eventReceived(state, world, pos, event, param);
 		TileEntity tileentity = world.getTileEntity(pos);
-		return tileentity != null && tileentity.receiveClientEvent(par5, par6);
+		return tileentity != null && tileentity.receiveClientEvent(event, param);
 	}
 
 	@Override

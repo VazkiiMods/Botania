@@ -36,8 +36,8 @@ public class ItemSlingshot extends Item {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, LivingEntity living, int par4) {
-		int j = getUseDuration(par1ItemStack) - par4;
+	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int duration) {
+		int j = getUseDuration(stack) - duration;
 
 		if(!world.isRemote && (!(living instanceof PlayerEntity) || ((PlayerEntity) living).abilities.isCreativeMode || PlayerHelper.hasAmmo((PlayerEntity) living, AMMO_FUNC))) {
 			float f = j / 20.0F;
@@ -58,13 +58,13 @@ public class ItemSlingshot extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 

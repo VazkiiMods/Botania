@@ -64,12 +64,12 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -86,8 +86,8 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 		return ActionResult.success(player.getHeldItem(hand));
 	}
 
-	private void terraform(ItemStack par1ItemStack, World world, PlayerEntity player) {
-		int range = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 22 : 16;
+	private void terraform(ItemStack stack, World world, PlayerEntity player) {
+		int range = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 22 : 16;
 
 		BlockPos startCenter = new BlockPos(player).down();
 
@@ -128,7 +128,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 		int cost = COST_PER * blocks.size();
 
-		if(world.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, true)) {
+		if(world.isRemote || ManaItemHandler.requestManaExactForTool(stack, player, cost, true)) {
 			if(!world.isRemote)
 				for(CoordsWithBlock block : blocks)
 					world.setBlockState(block, block.block.getDefaultState());

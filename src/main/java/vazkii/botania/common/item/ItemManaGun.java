@@ -301,9 +301,9 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isDamaged())
-			par1ItemStack.setDamage(par1ItemStack.getDamage() - 1);
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		if(stack.isDamaged())
+			stack.setDamage(stack.getDamage() - 1);
 	}
 
 	@Override

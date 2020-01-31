@@ -88,7 +88,7 @@ public class BlockTinyPotato extends BlockMod {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity par5EntityLiving, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if (stack.hasDisplayName())
 			((TileTinyPotato) world.getTileEntity(pos)).name = stack.getDisplayName();
 	}
