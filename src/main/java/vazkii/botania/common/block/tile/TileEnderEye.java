@@ -60,7 +60,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 		}
 
 		if(looking != wasLooking)
-			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, looking), 1 | 2);
+			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, looking));
 	}
 
 }

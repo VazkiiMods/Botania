@@ -111,7 +111,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 		if(axis != null) {
 			if(!world.isRemote) {
-				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
+				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
 				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
 			} else {

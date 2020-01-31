@@ -106,7 +106,7 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 							if(first && !stateSet.isValidPosition(world, pos)) break;
 							first = false;
 							
-							world.setBlockState(pos, stateSet, 1 | 2);
+							world.setBlockState(pos, stateSet);
 							world.playEvent(2001, pos, Block.getStateId(stateSet));
 							pos = pos.down();
 						} else break;

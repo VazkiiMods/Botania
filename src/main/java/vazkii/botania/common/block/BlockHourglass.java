@@ -114,7 +114,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		if(state.get(BotaniaStateProps.POWERED))
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override

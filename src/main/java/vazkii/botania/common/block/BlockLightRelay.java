@@ -81,7 +81,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
+		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override

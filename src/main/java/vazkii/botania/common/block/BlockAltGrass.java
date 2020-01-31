@@ -63,7 +63,7 @@ public class BlockAltGrass extends BlockMod {
 		ItemStack held = player.getHeldItem(hand);
 		if(held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
-			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState(), 1 | 2);
+			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState());
 			return ActionResultType.SUCCESS;
 		}
 		

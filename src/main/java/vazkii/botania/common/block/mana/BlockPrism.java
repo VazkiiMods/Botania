@@ -91,9 +91,9 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 
 		if(!world.isRemote) {
 			if(power && !powered)
-				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 1 | 2);
+				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
 			else if(!power && powered)
-				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
+				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 		}
 	}
 

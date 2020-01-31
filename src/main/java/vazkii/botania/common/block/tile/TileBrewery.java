@@ -84,7 +84,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes.values())
 				if(recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
 					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
 				}
 		}
 
@@ -97,7 +97,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes.values())
 				if(recipe.matches(itemHandler)) {
 					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
 				}
 
 			if(recipe == null)
@@ -119,7 +119,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		if(recipe != null) {
 			if(!recipe.matches(itemHandler)) {
 				recipe = null;
-				world.setBlockState(pos, ModBlocks.brewery.getDefaultState(), 1 | 2);
+				world.setBlockState(pos, ModBlocks.brewery.getDefaultState());
 			}
 
 			if(recipe != null) {

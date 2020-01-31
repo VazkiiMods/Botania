@@ -211,7 +211,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 					if(!player.abilities.isCreativeMode) {
 						removeFromInventory(player, stack, state.getBlock(), true);
 					}
-					world.setBlockState(pos, state, 1 | 2);
+					world.setBlockState(pos, state);
 					state.getBlock().onBlockPlacedBy(world, pos, state, player, placeStack);
 				}
 				displayRemainderCounter(player, stack);

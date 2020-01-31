@@ -136,7 +136,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		}
 
 		if(closeNow) {
-			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState(), 1 | 2);
+			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState());
 			for(int i = 0; i < 36; i++)
 				blockParticle(state);
 			closeNow = false;
@@ -144,7 +144,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
-			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 		} else if(explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.Mode.DESTROY);
@@ -193,7 +193,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {
-				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 				return true;
 			}
 		}

@@ -151,7 +151,7 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 			DyeColor newColor = ((ItemDye) stack.getItem()).color;
 			DyeColor oldColor = state.get(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)
-				world.setBlockState(pos, state.with(BotaniaStateProps.COLOR, newColor), 1 | 2);
+				world.setBlockState(pos, state.with(BotaniaStateProps.COLOR, newColor));
 			return ActionResultType.SUCCESS;
 		}
 
