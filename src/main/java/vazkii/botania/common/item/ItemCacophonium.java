@@ -48,6 +48,7 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.invoke.MethodHandle;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class ItemCacophonium extends Item {
 
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
+	private static final MethodHandle GET_AMBIENT_SOUND = LibObfuscation.getMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND);
 
 	public ItemCacophonium(Properties props) {
 		super(props);
@@ -72,9 +74,9 @@ public class ItemCacophonium extends Item {
 				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			else {
 				try {
-					sound = (SoundEvent) ObfuscationReflectionHelper.findMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND).invoke(living);
-				} catch (InvocationTargetException | IllegalAccessException ignored) {
-					Botania.LOGGER.debug("Couldn't get living sound");
+					sound = (SoundEvent) GET_AMBIENT_SOUND.invokeExact(living);
+				} catch (Throwable ex) {
+					Botania.LOGGER.debug("Couldn't get living sound", ex);
 				}
 			}
 
