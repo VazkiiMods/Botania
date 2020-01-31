@@ -30,7 +30,7 @@ public abstract class BlockRedString extends BlockMod {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.FACING, context.getNearestLookingDirection());
+		return getDefaultState().with(BotaniaStateProps.FACING, context.getNearestLookingDirection().getOpposite());
 	}
 
 	@Override
