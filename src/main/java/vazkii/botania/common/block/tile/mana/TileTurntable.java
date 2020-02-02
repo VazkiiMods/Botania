@@ -79,7 +79,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
-		if((player != null && player.isSneaking()) || (player == null && !ItemTwigWand.getBindMode(wand))
+		if((player != null && player.isSneaking()) || (player == null && !ItemTwigWand.getBindMode(wand)))
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
