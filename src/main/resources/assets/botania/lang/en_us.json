@@ -1923,7 +1923,7 @@
   "botania.entry.manaTablet": "Mana Tablet",
   "botania.tagline.manaTablet": "Portable Mana Storage",
   "botania.page.manaTablet0": "Using $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l) to transport $(thing)Mana$(0) is all well and good, but there are other ways of getting the stuff around, too.$(p)The $(item)Mana Tablet$(0) is a portable item that can carry $(thing)Mana$(0) within itself.$(p)In addition, other items in an inventory can draw from it for their own use, making this an essential tool.",
-  "botania.page.manaTablet1": "Tossing a tablet on top of a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) will allow for transport of $(thing)Mana$(0) between the former and latter.$(p)Sneak-right clicking the $(l:mana/pool)$(item)Mana Pool$(0)$(/l) with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) will change which way the $(thing)Mana$(0) will flow.$(p)Unlike normal items, these will never despawn from the ground.",
+  "botania.page.manaTablet1": "Tossing a tablet on top of a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) will allow for transport of $(thing)Mana$(0) between the former and latter.$(p)Sneak-right clicking (or using a $(item)Dispenser$(0)) on the $(l:mana/pool)$(item)Mana Pool$(0)$(/l) with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) will change which way the $(thing)Mana$(0) will flow.$(p)Unlike normal items, these will never despawn from the ground.",
   "botania.page.manaTablet2": "Sadly, it doesn't have wifi",
 
   "botania.entry.manaMirror": "Mana Mirror",
@@ -2069,7 +2069,7 @@
   "botania.entry.hopperhock": "Hopperhock",
   "botania.tagline.hopperhock": "Picks up items",
   "botania.page.hopperhock0": "The $(item)Hopperhock$(0) will simply pick up items around it and put them in adjacent inventories (like $(item)Chests$(0)). $(thing)Mana$(0) is optional but will increase its range, if provided.$(p)Placing $(item)Item Frames$(0) on any of the adjacent inventories will specify which items can or can't go in them.",
-  "botania.page.hopperhock1": "Any inventory which has no $(item)Item Frame$(0) adjacent to it can accept any items, but labelled inventories will take priority.$(p)The rule used to sort items can be changed by sneak-right clicking the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).",
+  "botania.page.hopperhock1": "Any inventory which has no $(item)Item Frame$(0) adjacent to it can accept any items, but labelled inventories will take priority.$(p)The rule used to sort items can be changed by sneak-right clicking (or using a $(item)Dispenser$(0)) on the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).",
   "botania.page.hopperhock2": "$(o)Hungry hungry flowers$().",
 
   "botania.entry.tangleberrie": "Tangleberrie",
@@ -2262,6 +2262,7 @@
   "botania.entry.turntable": "Spreader Turntable",
   "botania.tagline.turntable": "Spin spreaders around",
   "botania.page.turntable0": "The $(item)Spreader Turntable$(0), as its name implies, continually rotates a $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l) placed upon it. Placing a spreader on a turntable will start its rotation; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); sneak-right clicking it will change its direction.",
+  "botania.page.turntable2": "Similarly, a $(item)Dispenser$(0) with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Bind Mode$(0) will change the speed, and one in $(thing)Function Mode$(0) will change the direction.",
   "botania.page.turntable1": "You spin me right round",
 
   "botania.entry.manaAlchemy": "Alchemising with Mana",
@@ -2774,7 +2775,7 @@
   "botania.entry.pistonRelay": "Force Relay",
   "botania.tagline.pistonRelay": "Remote piston extension",
   "botania.page.pistonRelay0": "It seems that $(item)Pistons$(0) and $(thing)Mana$(0) react in strange ways. The former, when infused with the latter, yields the $(item)Force Relay$(0), a block that tears the fabric of space. When one of these is pushed by a $(item)Piston$(0), the block it's bound is pushed the exact same way.$(p)To bind it to a block, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l), then right-click on the block you want to bind it to.",
-  "botania.page.pistonRelay1": "To retrieve a $(item)Force Relay$(0), sneak-right click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); any other attempts to retrieve it (including $(thing)Silk Touch$(0)) will destroy it.$(p)Furthermore, this block is highly unstable, and may create uncanny effects; care should be taken. It also ignores pushes and pulls from $(item)Sticky Pistons$(0) entirely, allowing for the building of piston \"frames.\"",
+  "botania.page.pistonRelay1": "To retrieve a $(item)Force Relay$(0), sneak-right click it, or use a $(item)Dispenser$(0) on it, with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); any other attempts to retrieve it (including $(thing)Silk Touch$(0)) will destroy it.$(p)Furthermore, this block is highly unstable, and may create uncanny effects; care should be taken. It also ignores pushes and pulls from $(item)Sticky Pistons$(0) entirely, allowing for the building of piston \"frames.\"",
   "botania.page.pistonRelay2": "Infusing a $(item)Piston$(0) with $(thing)Mana$(0).",
 
   "botania.entry.enderHand": "Hand of Ender",
