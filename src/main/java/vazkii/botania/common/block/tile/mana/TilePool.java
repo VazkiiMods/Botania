@@ -385,7 +385,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
 		}
 
-		world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		if(player == null) {
+			world.playSound(null, getPos(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		} else {
+			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
