@@ -58,6 +58,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
+import vazkii.botania.common.item.lens.LensWarp;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -570,6 +571,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	private void onRecieverImpact(IManaReceiver tile, BlockPos pos) {
+		if (getPersistentData().getBoolean(LensWarp.TAG_WARPED))
+			return;
+
 		ILensEffect lens = getLensInstance();
 		int mana = getMana();
 		
