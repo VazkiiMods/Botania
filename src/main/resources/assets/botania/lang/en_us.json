@@ -2261,7 +2261,7 @@
 
   "botania.entry.turntable": "Spreader Turntable",
   "botania.tagline.turntable": "Spin spreaders around",
-  "botania.page.turntable0": "The $(item)Spreader Turntable$(0), as its name implies, continually rotates a $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l) placed upon it. Placing a spreader on a turntable will start its rotation; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); sneak-right clicking it will change its direction.",
+  "botania.page.turntable0": "The $(item)Spreader Turntable$(0), as its name implies, continually rotates a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) placed upon it. Placing a spreader on a turntable will start its rotation; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); sneak-right clicking it will change its direction.",
   "botania.page.turntable2": "Similarly, a $(item)Dispenser$(0) with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Bind Mode$(0) will change the speed, and one in $(thing)Function Mode$(0) will change the direction.",
   "botania.page.turntable1": "You spin me right round",
 
