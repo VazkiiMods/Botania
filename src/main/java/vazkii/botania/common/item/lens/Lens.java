@@ -37,7 +37,7 @@ public class Lens  {
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
 	
 	public int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
-		return entity.getPersistentData().getBoolean(LensWarp.TAG_WARPED) ? 0 : burst.getMana();
+		return burst.getMana();
 	}
 
 }
