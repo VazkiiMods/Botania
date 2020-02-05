@@ -26,7 +26,6 @@ import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -78,8 +77,8 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
 
-	public void onWanded(PlayerEntity player, ItemStack wand) {
-		if((player != null && player.isSneaking()) || (player == null && !ItemTwigWand.getBindMode(wand)))
+	public void onWanded(PlayerEntity player, ItemStack wand, Direction side) {
+		if((player != null && player.isSneaking()) || (player == null && side == Direction.DOWN))
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
