@@ -19,7 +19,6 @@ import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ICompositableLens;
-import vazkii.botania.common.item.lens.ItemLens;
 
 import javax.annotation.Nonnull;
 
@@ -74,7 +73,7 @@ public class CompositeLensRecipe extends SpecialRecipe {
 				return ItemStack.EMPTY;
 
 			ItemStack lensCopy = lens.copy();
-			((ItemLens) lens.getItem()).setCompositeLens(lensCopy, secondLens);
+			lensItem.setCompositeLens(lensCopy, secondLens);
 
 			return lensCopy;
 		}
