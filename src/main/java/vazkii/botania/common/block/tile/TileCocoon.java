@@ -123,6 +123,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				if(entity instanceof AgeableEntity)
 					((AgeableEntity) entity).setGrowingAge(-24000);
 				entity.onInitialSpawn(world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
+				entity.enablePersistence();
 				world.addEntity(entity);
 				entity.spawnExplosionParticle();
 			}
