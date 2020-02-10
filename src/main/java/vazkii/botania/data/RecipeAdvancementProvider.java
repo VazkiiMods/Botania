@@ -166,11 +166,7 @@ public class RecipeAdvancementProvider extends RecipeProvider {
 		});
 		CompletableFuture<Unit> completablefuture = resourceManager.reloadResourcesAndThen(Util.getServerExecutor(),
 				Util.getServerExecutor(), list1, CompletableFuture.completedFuture(Unit.INSTANCE));
-		BooleanSupplier isDone = completablefuture::isDone;
-		while (!isDone.getAsBoolean()) {
-			Thread.yield();
-			LockSupport.parkNanos("waiting for tasks", 100000L);
-		}
+		completablefuture.join();
 		return recipeManager;
 	}
 
