@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:mushroom_13"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:mushroom_13"
+      }
+    },
+    "has_required_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          [
+            {
+              "item": "minecraft:red_mushroom"
+            },
+            {
+              "item": "minecraft:brown_mushroom"
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_required_item"
+    ]
+  ]
+}

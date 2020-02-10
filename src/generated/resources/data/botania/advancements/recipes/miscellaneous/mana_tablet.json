@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:mana_tablet"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:mana_tablet"
+      }
+    },
+    "has_required_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          [
+            {
+              "tag": "forge:gems/mana_diamond"
+            },
+            {
+              "item": "botania:mana_pearl"
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_required_item"
+    ]
+  ]
+}

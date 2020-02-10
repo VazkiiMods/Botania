@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:dye_silver"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:dye_silver"
+      }
+    },
+    "has_required_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          [
+            {
+              "item": "minecraft:azure_bluet"
+            },
+            {
+              "item": "minecraft:white_tulip"
+            },
+            {
+              "item": "minecraft:oxeye_daisy"
+            },
+            {
+              "tag": "botania:petals/light_gray"
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_required_item"
+    ]
+  ]
+}
