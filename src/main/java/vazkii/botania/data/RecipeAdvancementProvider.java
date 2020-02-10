@@ -78,11 +78,12 @@ public class RecipeAdvancementProvider extends RecipeProvider {
 			new ItemStack(ModFluffBlocks.livingwoodSlab), new ItemStack(ModFluffBlocks.dreamwoodSlab),
 			new ItemStack(Blocks.FERN), new ItemStack(Blocks.GRASS), new ItemStack(Items.WHEAT_SEEDS),
 			new ItemStack(ModItems.pestleAndMortar), new ItemStack(Items.FIRE_CHARGE),
-			new ItemStack(ModItems.magnetRing), new ItemStack(ModItems.manaRing), new ItemStack(Items.STRING) };
+			new ItemStack(ModItems.magnetRing), new ItemStack(ModItems.manaRing), new ItemStack(Items.STRING),
+			new ItemStack(Items.SUGAR), new ItemStack(Items.FILLED_MAP) };
 	private static final Tag<?>[] triggerTagBlacklist = new Tag[] { ItemTags.LOGS, ItemTags.PLANKS,
 			Tags.Items.RODS_WOODEN, ModTags.Items.LIVINGROCK, ModTags.Items.LIVINGWOOD, ItemTags.SAPLINGS,
 			ModTags.Items.FLOATING_FLOWERS, Tags.Items.LEATHER, Tags.Items.DYES, Tags.Items.STONE,
-			Tags.Items.COBBLESTONE, Tags.Items.GLASS, Tags.Items.STORAGE_BLOCKS_QUARTZ };
+			Tags.Items.COBBLESTONE, Tags.Items.GLASS, Tags.Items.GEMS_QUARTZ, Tags.Items.STORAGE_BLOCKS_QUARTZ };
 
 	public RecipeAdvancementProvider(DataGenerator generatorIn) {
 		super(generatorIn);
