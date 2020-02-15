@@ -55,7 +55,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			world.addEntity(entity);
 
-			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
 			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 
 			ctx.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, player != null ? SoundCategory.PLAYERS : SoundCategory.BLOCKS, 1F, 1F);

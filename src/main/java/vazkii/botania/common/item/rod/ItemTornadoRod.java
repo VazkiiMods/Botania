@@ -14,11 +14,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -71,7 +69,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 			} else if(isFlying(stack)) {
 				if(held) {
 					player.fallDistance = 0F;
-					double my =  IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25;
+					double my =  IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vec3d oldMot = player.getMotion();
 					player.setMotion(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
 

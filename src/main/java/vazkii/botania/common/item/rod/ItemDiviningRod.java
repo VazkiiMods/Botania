@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -51,7 +50,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 		ItemStack stack = p.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
-				int range = IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? 20 : 15;
+				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);

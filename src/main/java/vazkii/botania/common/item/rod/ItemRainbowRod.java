@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -71,7 +70,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 			BlockPos.Mutable lastChecker = new BlockPos.Mutable();
 
 			int count = 0;
-			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player, stack);
+			boolean prof = IManaProficiencyArmor.hasProficiency(player, stack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 

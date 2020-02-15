@@ -22,7 +22,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -87,7 +86,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	}
 
 	private void terraform(ItemStack stack, World world, PlayerEntity player) {
-		int range = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 22 : 16;
+		int range = IManaProficiencyArmor.hasProficiency(player, stack) ? 22 : 16;
 
 		BlockPos startCenter = new BlockPos(player).down();
 

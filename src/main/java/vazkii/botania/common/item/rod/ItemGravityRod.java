@@ -20,7 +20,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -213,7 +212,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
 					if(item instanceof ItemEntity) {
 						((ItemEntity) item).setPickupDelay(20);
-						float mot = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 2.25F : 1.5F;
+						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setMotion(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if(!player.world.isRemote) {
 							EntityThrownItem thrown = new EntityThrownItem(item.world, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);

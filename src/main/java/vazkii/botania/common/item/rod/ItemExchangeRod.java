@@ -45,7 +45,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -119,7 +118,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		PlayerEntity player = (PlayerEntity) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 3 : 1;
+		int extraRangeNew = IManaProficiencyArmor.hasProficiency(player, stack) ? 3 : 1;
 		if(extraRange != extraRangeNew)
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
 
