@@ -9,6 +9,8 @@
   "botania.landing": "Magic, Tech. Naturally.$(br2)Botania is a tech mod themed around natural magic. The main concept is to create magical flowers and devices utilizing the power of the earth, in the form of $(thing)Mana$().",
   "botania.desc": "Botania description here.",
 
+  "attribute.name.botania.pixieSpawnChance": "Pixie Spawn Chance",
+
   "generator.botania-skyblock": "Garden of Glass",
   "generator.botania-skyblock.info": "Not recommended for Botania newcomers",
 

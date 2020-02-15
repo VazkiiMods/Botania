@@ -11,7 +11,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -20,7 +19,7 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
 import java.util.List;
 
-public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
+public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	public ItemElementiumArmor(EquipmentSlotType type, Properties props) {
 		super(type, BotaniaAPI.ELEMENTIUM_ARMOR_MAT, props);
