@@ -16,6 +16,7 @@ import net.minecraft.client.util.Splashes;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.SimpleReloadableResourceManager;
+import net.minecraft.util.Unit;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +26,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.List;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -38,15 +38,15 @@ public class SplashHandler {
 		((SimpleReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(new SplashResourceListener());
 	}
 
-	private static class SplashResourceListener extends ReloadListener<List<String>> {
+	private static class SplashResourceListener extends ReloadListener<Unit> {
 		@Override
 		@Nonnull
-		protected List<String> prepare(IResourceManager resourceManagerIn, IProfiler profilerIn) {
-			return Collections.emptyList();
+		protected Unit prepare(@Nonnull IResourceManager resourceManager, @Nonnull IProfiler profiler) {
+			return Unit.INSTANCE;
 		}
 
 		@Override
-		protected void apply(List<String> list, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+		protected void apply(@Nonnull Unit unused, @Nonnull IResourceManager resourceManager, @Nonnull IProfiler profiler) {
 			if (!ConfigHandler.CLIENT.splashesEnabled.get())
 				return;
 

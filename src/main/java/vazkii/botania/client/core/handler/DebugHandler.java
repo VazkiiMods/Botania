@@ -65,7 +65,6 @@ public final class DebugHandler {
 			if(Screen.hasControlDown() && Screen.hasShiftDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
 				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
-				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.CLIENT.glSecondaryTextureUnit.get());
 
 				GLCapabilities caps = GL.getCapabilities();
 				event.getLeft().add(PREFIX + "OpenGL Context");
