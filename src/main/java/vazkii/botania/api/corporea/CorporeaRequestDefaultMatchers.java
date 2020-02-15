@@ -128,7 +128,7 @@ public final class CorporeaRequestDefaultMatchers {
 
 		@Override
 		public ITextComponent getRequestName() {
-			return match.getDisplayName();
+			return match.getTextComponent();
 		}
 	}
 
