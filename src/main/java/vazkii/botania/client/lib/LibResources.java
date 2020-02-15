@@ -42,8 +42,8 @@ public final class LibResources {
 	public static final String MODEL_PYLON_MANA = PREFIX_MODEL + "pylon_mana.png";
 	public static final String MODEL_PYLON_NATURA = PREFIX_MODEL + "pylon_natura.png";
 	public static final String MODEL_PYLON_GAIA = PREFIX_MODEL + "pylon_gaia.png";
-	public static final String MODEL_LEXICA_DEFAULT = PREFIX_MODEL + "lexicon_default.png";
-	public static final String MODEL_LEXICA_ELVEN = PREFIX_MODEL + "lexicon_elven.png";
+	public static final String MODEL_LEXICA_DEFAULT = PREFIX_MOD + "model/lexicon_default";
+	public static final String MODEL_LEXICA_ELVEN = PREFIX_MOD + "model/lexicon_elven";
 	public static final String MODEL_MANASTEEL_0 = PREFIX_MODEL + "manasteel_0.png";
 	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel_1.png";
 	public static final String MODEL_MANASTEEL_2 = PREFIX_MODEL + "manasteel_2.png";

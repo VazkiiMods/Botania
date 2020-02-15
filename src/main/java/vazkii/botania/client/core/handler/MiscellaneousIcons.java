@@ -10,6 +10,8 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.Material;
+import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.model.ModelRotation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -32,13 +34,16 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibObfuscation;
 
+import java.lang.invoke.MethodHandle;
 import java.util.Map;
+import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class MiscellaneousIcons {
-
+	private static final MethodHandle MATERIALS = LibObfuscation.getGetter(ModelBakery.class, "field_177602_b");
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
 	public TextureAtlasSprite
@@ -83,7 +88,10 @@ public class MiscellaneousIcons {
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
 	@SubscribeEvent
-	public void onModelRegister(ModelRegistryEvent evt) {
+	public void onModelRegister(ModelRegistryEvent evt) throws Throwable {
+		Set<Material> materials = (Set<Material>) MATERIALS.invokeExact();
+		materials.add(RenderLexicon.TEXTURE);
+		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
 		ModelLoader.addSpecialModel(prefix("icon/phiflower"));
 		ModelLoader.addSpecialModel(prefix("icon/nerfbat"));
