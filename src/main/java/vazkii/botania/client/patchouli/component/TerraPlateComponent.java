@@ -16,7 +16,8 @@ import net.minecraft.item.ItemStack;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.api.VariableHolder;
+
+import java.util.function.Function;
 
 /**
  * Patchouli custom component that draws provided stacks arranged like the Terrestial Agglomeration Plate multiblock.
@@ -24,13 +25,9 @@ import vazkii.patchouli.api.VariableHolder;
  * Parameters: corner, center, edge, plate can be provided to override default blocks.
  */
 public class TerraPlateComponent implements ICustomComponent {
-	@VariableHolder
 	public String corner = "botania:livingrock";
-	@VariableHolder
 	public String center = "botania:livingrock";
-	@VariableHolder
 	public String edge = "minecraft:lapis_block";
-	@VariableHolder
 	public String plate = "botania:terra_plate";
 
 	private transient int x, y;
@@ -73,5 +70,13 @@ public class TerraPlateComponent implements ICustomComponent {
 		RenderSystem.translatef(0F, 0F, -10.0f);
 
 		RenderSystem.popMatrix();
+	}
+
+	@Override
+	public void onVariablesAvailable(Function<String, String> lookup) {
+		corner = lookup.apply(corner);
+		center = lookup.apply(center);
+		edge = lookup.apply(edge);
+		plate = lookup.apply(plate);
 	}
 }

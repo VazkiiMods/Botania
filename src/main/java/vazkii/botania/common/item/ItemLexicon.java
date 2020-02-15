@@ -91,9 +91,9 @@ public class ItemLexicon extends Item implements IElvenItem {
 		if(playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player=  (ServerPlayerEntity) playerIn;
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getX(), player.getY(), player.getZ());
-			NetworkHandler.sendToPlayer(new MessageOpenBookGui(book.resourceLoc.toString()), (ServerPlayerEntity) playerIn);
+			NetworkHandler.sendToPlayer(new MessageOpenBookGui(book.id), (ServerPlayerEntity) playerIn);
 			SoundEvent sfx = PatchouliSounds.getSound(book.openSound, PatchouliSounds.book_open);
-			worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), sfx, SoundCategory.PLAYERS, 1F, (float) (0.7 + Math.random() * 0.4));
+			playerIn.playSound(sfx, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);

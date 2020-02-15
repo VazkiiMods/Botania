@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -24,6 +25,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ILightReader;
 import net.minecraftforge.client.model.data.IModelData;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -61,10 +64,10 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
 
 		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
-		BlockState state = tile.getWorld().getBlockState(tile.getPos());
-		IBakedModel model = brd.getModelForState(state);
-		// todo 1.15: won't work until MinecraftForge#6442 is merged
-		brd.renderBlock(state, ms, buffers, light, overlay, data);
+		BlockState state = tile.getBlockState();
+
+		IBakedModel ibakedmodel = brd.getModelForState(state);
+		brd.getBlockModelRenderer().renderModel(ms.peek(), buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(state)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
 
 		ms.pop();
 

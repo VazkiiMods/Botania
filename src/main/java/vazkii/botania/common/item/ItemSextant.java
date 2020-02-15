@@ -121,7 +121,7 @@ public class ItemSextant extends Item {
 						if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
 							map.put(new BlockPos(xp - x, 0, zp - z), matcher);
 					}
-				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setResourceLocation(MULTIBLOCK_ID);
+				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Botania.proxy.showMultiblock(sparse, "r = " + (int) radius, new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}

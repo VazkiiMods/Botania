@@ -35,7 +35,6 @@ public class MysticalFlowerConfig implements IFeatureConfig {
     @Nonnull
     @Override
     public <T> Dynamic<T> serialize(@Nonnull DynamicOps<T> ops) {
-        // todo 1.14
         return new Dynamic<>(ops);
     }
 

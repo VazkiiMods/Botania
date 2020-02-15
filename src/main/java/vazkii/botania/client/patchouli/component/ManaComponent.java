@@ -16,9 +16,9 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
-import vazkii.patchouli.api.VariableHolder;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 /**
  * A custom component that renders a mana bar.
@@ -29,7 +29,6 @@ public class ManaComponent implements ICustomComponent {
 	private transient int x, y;
 	private transient int[] manaValues;
 
-	@VariableHolder
 	public String mana;
 
 	@Override
@@ -59,5 +58,10 @@ public class ManaComponent implements ICustomComponent {
 
 		String ratioString = I18n.format("botaniamisc.ratio", ratio);
 		font.drawString(ratioString, x + 102 / 2 - font.getStringWidth(ratioString) / 2, y + 15, 0x99000000);
+	}
+
+	@Override
+	public void onVariablesAvailable(Function<String, String> lookup) {
+		mana = lookup.apply(mana);
 	}
 }
