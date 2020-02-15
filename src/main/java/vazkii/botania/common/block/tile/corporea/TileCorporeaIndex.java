@@ -257,7 +257,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
 			this.doCorporeaRequest(request, count, this.getSpark());
 
-			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), CorporeaHelper.lastRequestExtractions);
 		}
 	}

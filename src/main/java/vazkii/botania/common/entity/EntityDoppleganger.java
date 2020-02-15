@@ -177,7 +177,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		//check difficulty
 		if(world.getDifficulty() == Difficulty.PEACEFUL) {
 			if(!world.isRemote)
-				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").applyTextStyle(TextFormatting.RED));
 			return false;
 		}
 
@@ -187,7 +187,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			if(world.isRemote) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").applyTextStyle(TextFormatting.RED));
 			}
 
 			return false;
@@ -202,7 +202,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").applyTextStyle(TextFormatting.RED));
 			}
 
 			return false;
