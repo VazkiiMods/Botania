@@ -56,8 +56,6 @@ public interface IInternalMethodHandler {
 
 	public ItemStack getBindDisplayForFlowerType(TileEntitySpecialFlower e);
 
-	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
-
 	public ResourceLocation getDefaultBossBarTexture();
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
