@@ -126,11 +126,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	@Override
-	public ToolType getSortingType(ItemStack stack) {
-		return ToolType.SHOVEL;
-	}
-
-	@Override
 	public int getSortingPriority(ItemStack stack) {
 		return ToolCommons.getToolPriority(stack);
 	}

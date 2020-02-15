@@ -19,11 +19,6 @@ import net.minecraft.item.ItemStack;
 public interface ISortableTool {
 
 	/**
-	 * Gets the type of tool that this is. A pick, axe or shovel.
-	 */
-	public ToolType getSortingType(ItemStack stack);
-
-	/**
 	 * Gets the priority that this tool should have when being sorted. The
 	 * tool with the highest priority will be picked. The way this is specified
 	 * should be (tool-level) * 100 + (tool-modifier) * 10 + (efficiency-level).
@@ -39,9 +34,5 @@ public interface ISortableTool {
 	 * that one in particular is priority 0 so it's never picked.
 	 */
 	public int getSortingPriority(ItemStack stack);
-
-	public static enum ToolType {
-		PICK, AXE, SHOVEL
-	}
 
 }

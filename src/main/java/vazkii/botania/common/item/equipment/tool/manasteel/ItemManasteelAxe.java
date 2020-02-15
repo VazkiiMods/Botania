@@ -87,11 +87,6 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 	}
 
 	@Override
-	public ToolType getSortingType(ItemStack stack) {
-		return ToolType.AXE;
-	}
-
-	@Override
 	public int getSortingPriority(ItemStack stack) {
 		return ToolCommons.getToolPriority(stack);
 	}

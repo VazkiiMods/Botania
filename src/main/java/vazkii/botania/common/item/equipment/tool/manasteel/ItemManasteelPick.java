@@ -96,11 +96,6 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 	}
 
 	@Override
-	public ToolType getSortingType(ItemStack stack) {
-		return ToolType.PICK;
-	}
-
-	@Override
 	public int getSortingPriority(ItemStack stack) {
 		return ToolCommons.getToolPriority(stack);
 	}
