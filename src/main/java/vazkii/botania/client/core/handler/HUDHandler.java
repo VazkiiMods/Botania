@@ -207,9 +207,8 @@ public final class HUDHandler {
 						creative = true;
 				}
 
-				Map<Integer, ItemStack> acc = ManaItemHandler.getManaAccesories(player);
-				for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
-					ItemStack stack = entry.getValue();
+				List<ItemStack> acc = ManaItemHandler.getManaAccesories(player);
+				for (ItemStack stack : acc) {
 					Item item = stack.getItem();
 					if(!((IManaItem) item).isNoExport(stack)) {
 						totalMana += ((IManaItem) item).getMana(stack);
