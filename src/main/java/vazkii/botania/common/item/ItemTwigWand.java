@@ -42,6 +42,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -346,10 +347,12 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		list.add(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.GRAY));
 	}
 
-	@Nonnull
 	@Override
-	public Rarity getRarity(ItemStack stack) {
-		return Rarity.RARE;
+	public String getHighlightTip(ItemStack stack, String displayName) {
+		ITextComponent mode = new StringTextComponent(" (")
+				.appendSibling(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.DARK_GREEN))
+				.appendText(")");
+		return displayName + mode.getFormattedText();
 	}
 
 	public static ItemStack forColors(int color1, int color2) {

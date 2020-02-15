@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -33,7 +32,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -62,14 +60,12 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
-import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -117,8 +113,6 @@ public final class HUDHandler {
 
 				if(PlayerHelper.hasAnyHeldItem(mc.player)) {
 					if(PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand));
-
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
 							((IWandHUD) block).renderHUD(mc, mc.world, bpos);
@@ -236,29 +230,6 @@ public final class HUDHandler {
 
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 		}
-	}
-
-	private static void renderWandModeDisplay(ItemStack stack) {
-		Minecraft mc = Minecraft.getInstance();
-		IProfiler profiler = mc.getProfiler();
-
-		profiler.startSection("wandMode");
-		int ticks = mc.ingameGUI.remainingHighlightTicks;
-		ticks -= 15;
-		if(ticks > 0) {
-			int alpha = Math.min(255, (int) (ticks * 256.0F / 10.0F));
-			int color = 0x00CC00 + (alpha << 24);
-			String disp = I18n.format(ItemTwigWand.getModeString(stack));
-
-			int x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(disp) / 2;
-			int y = mc.getWindow().getScaledHeight() - 70;
-
-			RenderSystem.enableBlend();
-			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			mc.fontRenderer.drawStringWithShadow(disp, x, y, color);
-			RenderSystem.disableBlend();
-		}
-		profiler.endSection();
 	}
 
 	private static void renderManaInvBar(boolean hasCreative, int totalMana, int totalMaxMana) {

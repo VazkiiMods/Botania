@@ -454,7 +454,7 @@ public final class ModItems {
 			register(r, new ItemDye(color, defaultBuilder()), color.getName() + LibItemNames.DYE_SUFFIX);
 		}
 		register(r, new ItemSelfReturning(unstackable()), LibItemNames.PESTLE_AND_MORTAR);
-		register(r, new ItemTwigWand(unstackable()), LibItemNames.TWIG_WAND);
+		register(r, new ItemTwigWand(unstackable().rarity(Rarity.RARE)), LibItemNames.TWIG_WAND);
 		register(r, new Item(defaultBuilder()), LibItemNames.MANASTEEL_INGOT);
 		register(r, new Item(defaultBuilder()), LibItemNames.MANA_PEARL);
 		register(r, new Item(defaultBuilder()), LibItemNames.MANA_DIAMOND);
