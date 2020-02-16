@@ -148,9 +148,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.NONE, 10);
+		BlockRayTraceResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if(!player.world.isRemote && raycast.getType() == RayTraceResult.Type.BLOCK) {
-			Direction face = ((BlockRayTraceResult) raycast).getFace();
+			Direction face = raycast.getFace();
 			breakOtherBlock(player, stack, pos, pos, face);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, face);
 			// ^ Doable with API access through the IInternalMethodHandler.
@@ -177,8 +177,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(world.isAirBlock(pos))
 			return;
 
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 		boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
 		boolean doX = thor || side.getXOffset() == 0;
 		boolean doY = thor || side.getYOffset() == 0;

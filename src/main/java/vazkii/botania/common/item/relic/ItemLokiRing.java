@@ -70,14 +70,14 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		ItemStack heldItemStack = event.getItemStack();
 		BlockPos originCoords = getOriginPos(lokiRing);
-		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.ANY, 10F);
+		BlockRayTraceResult lookPos = ToolCommons.raytraceFromEntity(player, 10F, true);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 
 		if(lookPos.getType() != RayTraceResult.Type.BLOCK)
 			return;
 
-		BlockPos hit = ((BlockRayTraceResult) lookPos).getPos();
+		BlockPos hit = lookPos.getPos();
 		if(heldItemStack.isEmpty()) {
 			if(!event.getWorld().isRemote) {
 				if(originCoords.getY() == -1) {
@@ -111,7 +111,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					ItemStack saveHeld = heldItemStack.copy();
 					BlockRayTraceResult newHit = new BlockRayTraceResult(
-							lookPos.getHitVec().subtract(pos.getX(), pos.getY(), pos.getZ()),
+							lookPos.getHitVec().add(pos.getX(), pos.getY(), pos.getZ()),
 							((BlockRayTraceResult) lookPos).getFace(), pos, false);
 					heldItemStack.onItemUse(new ItemUseContext(player, event.getHand(), newHit));
 					if(player.isCreative())

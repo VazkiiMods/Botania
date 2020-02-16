@@ -135,10 +135,10 @@ public class ItemSextant extends ItemMod {
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
-			RayTraceResult rtr = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 128);
+			BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);
 			if(rtr.getType() == RayTraceResult.Type.BLOCK) {
 				if(!world.isRemote) {
-					BlockPos pos = ((BlockRayTraceResult) rtr).getPos();
+					BlockPos pos = rtr.getPos();
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getX());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getZ());
