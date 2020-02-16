@@ -182,8 +182,21 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
-		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
+		Minecraft mc = Minecraft.getInstance();
+		if (getLokiRing(player) == stack) {
+			BlockPos currentBuildCenter = getOriginPos(stack);
+			if (currentBuildCenter.getY() != -1) {
+				return currentBuildCenter;
+			} else if (mc.objectMouseOver instanceof BlockRayTraceResult
+					&& mc.objectMouseOver.getType() == RayTraceResult.Type.BLOCK
+					&& !getCursorList(stack).isEmpty()) {
+				return ((BlockRayTraceResult) mc.objectMouseOver).getPos();
+			}
+		}
+
+		return null;
 	}
 
 	private static ItemStack getLokiRing(PlayerEntity player) {
