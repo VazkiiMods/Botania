@@ -23,7 +23,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 public class ManaGunClipRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<ManaGunClipRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunClipRecipe::new);
+	public static final SpecialRecipeSerializer<ManaGunClipRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunClipRecipe::new);
 
 	public ManaGunClipRecipe(ResourceLocation id) {
 		super(id);

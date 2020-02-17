@@ -23,7 +23,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import javax.annotation.Nonnull;
 
 public class TerraPickTippingRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<TerraPickTippingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(TerraPickTippingRecipe::new);
+	public static final SpecialRecipeSerializer<TerraPickTippingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(TerraPickTippingRecipe::new);
 
 	public TerraPickTippingRecipe(ResourceLocation id) {
 		super(id);

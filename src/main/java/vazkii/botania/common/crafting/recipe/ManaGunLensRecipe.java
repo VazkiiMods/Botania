@@ -24,7 +24,7 @@ import vazkii.botania.common.item.ItemManaGun;
 import javax.annotation.Nonnull;
 
 public class ManaGunLensRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<ManaGunLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunLensRecipe::new);
+	public static final SpecialRecipeSerializer<ManaGunLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunLensRecipe::new);
 
 	public ManaGunLensRecipe(ResourceLocation id) {
 		super(id);

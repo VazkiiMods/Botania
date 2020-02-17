@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LensDyeingRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
+	public static final SpecialRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
 
 	private final List<Ingredient> dyes = Arrays.asList(
 			Ingredient.fromTag(Tags.Items.DYES_WHITE), Ingredient.fromTag(Tags.Items.DYES_ORANGE),

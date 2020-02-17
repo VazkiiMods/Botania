@@ -12,6 +12,7 @@ package vazkii.botania.common.lib;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
@@ -33,6 +34,11 @@ public class ModTags {
 		public static final Tag<Item> NUGGETS_ELEMENTIUM = forgeTag("nuggets/elementium");
 		public static final Tag<Item> NUGGETS_MANASTEEL = forgeTag("nuggets/manasteel");
 		public static final Tag<Item> NUGGETS_TERRASTEEL = forgeTag("nuggets/terrasteel");
+
+		public static final Tag<Item> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
+		public static final Tag<Item> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
+		public static final Tag<Item> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
+		public static final Tag<Item> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 
 		public static final Tag<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final Tag<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
@@ -95,6 +101,44 @@ public class ModTags {
 		public static final Tag<Item> RUNES_WATER = tag("runes/water");
 		public static final Tag<Item> RUNES_WINTER = tag("runes/winter");
 		public static final Tag<Item> RUNES_WRATH = tag("runes/wrath");
+		
+		public static Tag<Item> getFlowerTag(DyeColor color) {
+			switch (color) {
+			default:
+			case WHITE:
+				return PETALS_WHITE;
+			case ORANGE:
+				return PETALS_ORANGE;
+			case MAGENTA:
+				return PETALS_MAGENTA;
+			case LIGHT_BLUE:
+				return PETALS_LIGHT_BLUE;
+			case YELLOW:
+				return PETALS_YELLOW;
+			case LIME:
+				return PETALS_LIME;
+			case PINK:
+				return PETALS_PINK;
+			case GRAY:
+				return PETALS_GRAY;
+			case LIGHT_GRAY:
+				return PETALS_LIGHT_GRAY;
+			case CYAN:
+				return PETALS_CYAN;
+			case PURPLE:
+				return PETALS_PURPLE;
+			case BLUE:
+				return PETALS_BLUE;
+			case BROWN:
+				return PETALS_BROWN;
+			case GREEN:
+				return PETALS_GREEN;
+			case RED:
+				return PETALS_RED;
+			case BLACK:
+				return PETALS_BLACK;
+			}
+		}
 
 		private static Tag<Item> tag(String name) {
 			return new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, name));
@@ -122,6 +166,11 @@ public class ModTags {
 		public static final Tag<Block> LIVINGROCK = tag("livingrock");
 		public static final Tag<Block> LIVINGWOOD = tag("livingwood");
 
+		public static final Tag<Block> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
+		public static final Tag<Block> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
+		public static final Tag<Block> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
+		public static final Tag<Block> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
+
 		public static final Tag<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
 		public static final Tag<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 
@@ -130,6 +179,10 @@ public class ModTags {
 
 		private static Tag<Block> tag(String name) {
 			return new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, name));
+		}
+
+		private static Tag<Block> forgeTag(String name) {
+			return new BlockTags.Wrapper(new ResourceLocation("forge", name));
 		}
 	}
 

@@ -23,7 +23,7 @@ import vazkii.botania.api.item.ICosmeticBauble;
 import javax.annotation.Nonnull;
 
 public class CosmeticAttachRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CosmeticAttachRecipe::new);
+	public static final SpecialRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CosmeticAttachRecipe::new);
 
 	public CosmeticAttachRecipe(ResourceLocation id) {
 		super(id);
