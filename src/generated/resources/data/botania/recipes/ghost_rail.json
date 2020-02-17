@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:rail"
+    },
+    {
+      "item": "botania:spectral_platform"
+    }
+  ],
+  "result": {
+    "item": "botania:ghost_rail"
+  }
+}

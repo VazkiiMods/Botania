@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:cosmetic_bauble",
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "botania:black_petal"
+    },
+    "S": {
+      "item": "botania:mana_string"
+    }
+  },
+  "result": {
+    "item": "botania:cosmetic_googly_eyes"
+  }
+}

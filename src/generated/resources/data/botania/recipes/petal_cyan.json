@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:petal",
+  "ingredients": [
+    {
+      "item": "botania:cyan_mystical_flower"
+    }
+  ],
+  "result": {
+    "item": "botania:cyan_petal",
+    "count": 2
+  }
+}

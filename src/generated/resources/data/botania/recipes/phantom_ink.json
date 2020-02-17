@@ -1,0 +1,80 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:mana_pearl"
+    },
+    {
+      "tag": "forge:dyes"
+    },
+    [
+      {
+        "item": "minecraft:glass"
+      },
+      {
+        "item": "minecraft:white_stained_glass"
+      },
+      {
+        "item": "minecraft:orange_stained_glass"
+      },
+      {
+        "item": "minecraft:magenta_stained_glass"
+      },
+      {
+        "item": "minecraft:light_blue_stained_glass"
+      },
+      {
+        "item": "minecraft:yellow_stained_glass"
+      },
+      {
+        "item": "minecraft:lime_stained_glass"
+      },
+      {
+        "item": "minecraft:pink_stained_glass"
+      },
+      {
+        "item": "minecraft:gray_stained_glass"
+      },
+      {
+        "item": "minecraft:light_gray_stained_glass"
+      },
+      {
+        "item": "minecraft:cyan_stained_glass"
+      },
+      {
+        "item": "minecraft:purple_stained_glass"
+      },
+      {
+        "item": "minecraft:blue_stained_glass"
+      },
+      {
+        "item": "minecraft:brown_stained_glass"
+      },
+      {
+        "item": "minecraft:green_stained_glass"
+      },
+      {
+        "item": "minecraft:red_stained_glass"
+      },
+      {
+        "item": "minecraft:black_stained_glass"
+      }
+    ],
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": {
+    "item": "botania:phantom_ink",
+    "count": 4
+  }
+}

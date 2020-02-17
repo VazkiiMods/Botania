@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "tag": "botania:livingrock"
+    }
+  },
+  "result": {
+    "item": "botania:livingrock_bricks",
+    "count": 4
+  }
+}

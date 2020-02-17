@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " FC",
+    " TW",
+    "T  "
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:cobblestone"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "F": {
+      "tag": "botania:runes/fire"
+    },
+    "W": {
+      "tag": "botania:runes/water"
+    }
+  },
+  "result": {
+    "item": "botania:cobble_rod"
+  }
+}

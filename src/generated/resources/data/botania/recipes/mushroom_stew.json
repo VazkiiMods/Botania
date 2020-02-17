@@ -1,0 +1,111 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      {
+        "item": "botania:white_mushroom"
+      },
+      {
+        "item": "botania:orange_mushroom"
+      },
+      {
+        "item": "botania:magenta_mushroom"
+      },
+      {
+        "item": "botania:light_blue_mushroom"
+      },
+      {
+        "item": "botania:yellow_mushroom"
+      },
+      {
+        "item": "botania:lime_mushroom"
+      },
+      {
+        "item": "botania:pink_mushroom"
+      },
+      {
+        "item": "botania:gray_mushroom"
+      },
+      {
+        "item": "botania:light_gray_mushroom"
+      },
+      {
+        "item": "botania:cyan_mushroom"
+      },
+      {
+        "item": "botania:purple_mushroom"
+      },
+      {
+        "item": "botania:blue_mushroom"
+      },
+      {
+        "item": "botania:brown_mushroom"
+      },
+      {
+        "item": "botania:green_mushroom"
+      },
+      {
+        "item": "botania:red_mushroom"
+      },
+      {
+        "item": "botania:black_mushroom"
+      }
+    ],
+    [
+      {
+        "item": "botania:white_mushroom"
+      },
+      {
+        "item": "botania:orange_mushroom"
+      },
+      {
+        "item": "botania:magenta_mushroom"
+      },
+      {
+        "item": "botania:light_blue_mushroom"
+      },
+      {
+        "item": "botania:yellow_mushroom"
+      },
+      {
+        "item": "botania:lime_mushroom"
+      },
+      {
+        "item": "botania:pink_mushroom"
+      },
+      {
+        "item": "botania:gray_mushroom"
+      },
+      {
+        "item": "botania:light_gray_mushroom"
+      },
+      {
+        "item": "botania:cyan_mushroom"
+      },
+      {
+        "item": "botania:purple_mushroom"
+      },
+      {
+        "item": "botania:blue_mushroom"
+      },
+      {
+        "item": "botania:brown_mushroom"
+      },
+      {
+        "item": "botania:green_mushroom"
+      },
+      {
+        "item": "botania:red_mushroom"
+      },
+      {
+        "item": "botania:black_mushroom"
+      }
+    ],
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "item": "minecraft:mushroom_stew"
+  }
+}

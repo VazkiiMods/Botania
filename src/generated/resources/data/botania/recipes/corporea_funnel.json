@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:dropper"
+    },
+    {
+      "item": "botania:corporea_spark"
+    }
+  ],
+  "result": {
+    "item": "botania:corporea_funnel"
+  }
+}

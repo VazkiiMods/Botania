@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:petal_block_deconstruct",
+  "ingredients": [
+    {
+      "item": "botania:magenta_petal_block"
+    }
+  ],
+  "result": {
+    "item": "botania:magenta_petal",
+    "count": 9
+  }
+}

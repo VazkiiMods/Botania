@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:dye",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:dandelion"
+      },
+      {
+        "tag": "botania:petals/yellow"
+      }
+    ],
+    {
+      "item": "botania:pestle_and_mortar"
+    }
+  ],
+  "result": {
+    "item": "botania:yellow_dye"
+  }
+}

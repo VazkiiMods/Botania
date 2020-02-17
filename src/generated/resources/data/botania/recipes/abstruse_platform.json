@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "343",
+    "0P0"
+  ],
+  "key": {
+    "0": {
+      "item": "botania:livingwood"
+    },
+    "P": {
+      "item": "botania:mana_pearl"
+    },
+    "3": {
+      "item": "botania:framed_livingwood"
+    },
+    "4": {
+      "item": "botania:pattern_framed_livingwood"
+    }
+  },
+  "result": {
+    "item": "botania:abstruse_platform",
+    "count": 2
+  }
+}

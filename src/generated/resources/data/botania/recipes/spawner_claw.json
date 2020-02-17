@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BSB",
+    "PMP",
+    "PEP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:prismarine_bricks"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "S": {
+      "tag": "forge:ingots/elementium"
+    },
+    "E": {
+      "item": "botania:ender_air_bottle"
+    },
+    "M": {
+      "tag": "forge:storage_blocks/manasteel"
+    }
+  },
+  "result": {
+    "item": "botania:spawner_claw"
+  }
+}

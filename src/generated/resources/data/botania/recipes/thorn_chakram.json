@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VTV",
+    "VVV"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:ingots/terrasteel"
+    },
+    "V": {
+      "item": "minecraft:vine"
+    }
+  },
+  "result": {
+    "item": "botania:thorn_chakram",
+    "count": 2
+  }
+}

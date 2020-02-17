@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VVV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "minecraft:vine"
+    }
+  },
+  "result": {
+    "item": "botania:vine_ball"
+  }
+}

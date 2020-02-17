@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:lens_normal"
+    },
+    {
+      "tag": "botania:runes/summer"
+    }
+  ],
+  "result": {
+    "item": "botania:lens_bounce"
+  }
+}

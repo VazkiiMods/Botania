@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:mana_glass"
+    }
+  },
+  "result": {
+    "item": "botania:mana_glass_pane",
+    "count": 16
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:shimmerrock"
+    }
+  },
+  "result": {
+    "item": "botania:shimmerrock_stairs",
+    "count": 4
+  }
+}

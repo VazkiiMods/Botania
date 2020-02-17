@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:pavement_slab",
+  "pattern": [
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:green_pavement"
+    }
+  },
+  "result": {
+    "item": "botania:green_pavement_slab",
+    "count": 6
+  }
+}

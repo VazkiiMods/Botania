@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:mana_quartz"
+    }
+  },
+  "result": {
+    "item": "botania:mana_quartz_pillar",
+    "count": 2
+  }
+}

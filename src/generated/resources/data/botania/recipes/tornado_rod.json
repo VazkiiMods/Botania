@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  F",
+    " T ",
+    "R  "
+  ],
+  "key": {
+    "R": {
+      "tag": "botania:runes/air"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "item": "botania:tornado_rod"
+  }
+}

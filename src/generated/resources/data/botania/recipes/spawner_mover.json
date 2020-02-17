@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EIE",
+    "ADA",
+    "EIE"
+  ],
+  "key": {
+    "A": {
+      "item": "botania:ender_air_bottle"
+    },
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "E": {
+      "item": "botania:life_essence"
+    },
+    "I": {
+      "tag": "forge:ingots/elementium"
+    }
+  },
+  "result": {
+    "item": "botania:spawner_mover"
+  }
+}

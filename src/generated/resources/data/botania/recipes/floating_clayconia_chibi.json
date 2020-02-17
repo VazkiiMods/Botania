@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "botania:floating_flowers"
+    },
+    {
+      "item": "botania:clayconia_chibi"
+    }
+  ],
+  "result": {
+    "item": "botania:floating_clayconia_chibi"
+  }
+}

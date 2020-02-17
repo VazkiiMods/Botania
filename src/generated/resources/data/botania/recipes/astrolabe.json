@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " EG",
+    "EEE",
+    "GED"
+  ],
+  "key": {
+    "D": {
+      "item": "botania:dreamwood"
+    },
+    "E": {
+      "tag": "forge:ingots/elementium"
+    },
+    "G": {
+      "item": "botania:life_essence"
+    }
+  },
+  "result": {
+    "item": "botania:astrolabe"
+  }
+}

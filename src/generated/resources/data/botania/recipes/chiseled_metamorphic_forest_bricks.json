@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:metamorphic_forest_bricks_slab"
+    }
+  },
+  "result": {
+    "item": "botania:chiseled_metamorphic_forest_bricks",
+    "count": 4
+  }
+}

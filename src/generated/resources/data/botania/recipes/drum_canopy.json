@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WLW",
+    "WHW",
+    "WLW"
+  ],
+  "key": {
+    "W": {
+      "tag": "botania:livingwood"
+    },
+    "H": {
+      "item": "botania:horn_leaves"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "botania:drum_canopy"
+  }
+}

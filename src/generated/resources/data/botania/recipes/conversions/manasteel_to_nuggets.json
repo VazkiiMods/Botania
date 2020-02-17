@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/manasteel"
+    }
+  ],
+  "result": {
+    "item": "botania:manasteel_nugget",
+    "count": 9
+  }
+}

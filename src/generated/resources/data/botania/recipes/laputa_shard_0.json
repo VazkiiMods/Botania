@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SFS",
+    "PDP",
+    "ASE"
+  ],
+  "key": {
+    "P": {
+      "tag": "forge:gems/prismarine"
+    },
+    "A": {
+      "tag": "botania:runes/air"
+    },
+    "S": {
+      "item": "botania:life_essence"
+    },
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "E": {
+      "tag": "botania:runes/earth"
+    },
+    "F": {
+      "tag": "botania:mundane_floating_flowers"
+    }
+  },
+  "result": {
+    "item": "botania:laputa_shard"
+  }
+}

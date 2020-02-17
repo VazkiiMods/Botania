@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "W W",
+    "W W"
+  ],
+  "key": {
+    "W": {
+      "item": "botania:livingwood_planks"
+    }
+  },
+  "result": {
+    "item": "botania:open_crate"
+  }
+}

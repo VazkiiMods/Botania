@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:petal",
+  "ingredients": [
+    {
+      "item": "botania:lime_mystical_flower"
+    }
+  ],
+  "result": {
+    "item": "botania:lime_petal",
+    "count": 2
+  }
+}

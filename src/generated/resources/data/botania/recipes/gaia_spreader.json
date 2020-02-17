@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:spreader",
+  "pattern": [
+    "ESD"
+  ],
+  "key": {
+    "S": {
+      "item": "botania:elven_spreader"
+    },
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "E": {
+      "item": "botania:life_essence"
+    }
+  },
+  "result": {
+    "item": "botania:gaia_spreader"
+  }
+}

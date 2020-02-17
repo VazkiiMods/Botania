@@ -1,0 +1,25 @@
+{
+  "type": "botania:armor_upgrade",
+  "pattern": [
+    "TRT",
+    "SAS",
+    " S "
+  ],
+  "key": {
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "S": {
+      "tag": "forge:ingots/terrasteel"
+    },
+    "R": {
+      "tag": "botania:runes/autumn"
+    },
+    "A": {
+      "item": "botania:manasteel_leggings"
+    }
+  },
+  "result": {
+    "item": "botania:terrasteel_leggings"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:shimmerrock"
+    ]
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:bifrost_perm"
+          }
+        ]
+      }
+    },
+    "has_alt_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rainbow_rod"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:shimmerrock"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_alt_item",
+      "has_the_recipe"
+    ]
+  ]
+}
