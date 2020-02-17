@@ -37,7 +37,7 @@ import java.util.function.Predicate;
 public abstract class EquipmentHandler {
 	public static EquipmentHandler instance;
 
-	public static void init() { //todo maybe support baubles when/if that gets released
+	public static void init() {
 		if(Botania.curiosLoaded) {
 			instance = new CurioIntegration();
 			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
