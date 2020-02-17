@@ -47,19 +47,6 @@ public class ContainerBaubleBox extends Container {
 		this.box = box;
 		IItemHandlerModifiable baubleBoxInv = (IItemHandlerModifiable) box.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
 
-        /* todo 1.13 remove these slots from the gui texture and provide a button to open curios gui instead
-        baubles = BaublesApi.getBaublesHandler(player);
-
-		addSlotToContainer(new SlotBauble(player, baubles, 0, 8, 8 + 0 * 18));
-		addSlotToContainer(new SlotBauble(player, baubles, 1, 8, 8 + 1 * 18));
-		addSlotToContainer(new SlotBauble(player, baubles, 2, 8, 8 + 2 * 18));
-		addSlotToContainer(new SlotBauble(player, baubles, 3, 8, 8 + 3 * 18));
-		
-		addSlotToContainer(new SlotBauble(player, baubles, 4, 27, 8 + 0 * 18));
-		addSlotToContainer(new SlotBauble(player, baubles, 5, 27, 8 + 1 * 18));
-		addSlotToContainer(new SlotBauble(player, baubles, 6, 27, 8 + 2 * 18));
-		*/
-
 		for(i = 0; i < 4; ++i)
 			for(j = 0; j < 6; ++j) {
 				int k = j + i * 6;
