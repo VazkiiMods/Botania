@@ -94,7 +94,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getItem();
 
-				if(!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()))) {
+				if(!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
 					Block expected = ModBlocks.getWool(nextColor);
 
 					if(expected.asItem() == stack.getItem()) {
