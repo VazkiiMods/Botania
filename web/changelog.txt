@@ -1,3 +1,21 @@
+r1.11 377
+* Fix cell blocks not respecting red string spoofers
+* Potential fix for lighting issues. Please reset/relight any affected areas and continue monitoring.
+* Fix desu gun advancement requirements not being consistent with the name requirements
+* Fix desu gun model not using the handheld transforms
+* Fix mossifying an apothecary losing the fluid inside
+* Delay burst entity creation until we're sure there's enough mana, should improve performance
+* Entropic and Damaging bursts fired by a player now deal player damage
+* Add Heart of the Sea recipe for GoG (ToMe25)
+* Allow T.A. Plate to be built with shimmerrock
+* Readd lexicon konami code Easter egg
+* Add mana infusion recipe for sweet berries (ToMe25)
+* Fix terra blade burst logic error
+* Fix wand of the forest recipe spam
+* Fix dispensers not planting cocoa beans properly
+* Fix more cases where warped bursts transfer mana
+* Fix the flugel tiara flight meter draining in spectator and creative
+* Fix redirective lens pointing spreaders to 0, 0
 r1.11 376
 * Big round of bugfixes and enhancements. 1.15 progress can be tracked on github, and we are close!
 * Snowflake pendant now has a snow effect (ToMe25)

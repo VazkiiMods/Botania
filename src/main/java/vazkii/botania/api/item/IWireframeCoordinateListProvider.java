@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -34,7 +35,10 @@ public interface IWireframeCoordinateListProvider {
 	 * This is useful to indicate the precedence of some position over the others.
 	 * @return The position of a single wireframe to draw thicker than all the others.
 	 */
-	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack);
+	@Nullable
+	default BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
+		return null;
+	}
 
 
 }

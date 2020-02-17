@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,6 +18,8 @@ import net.minecraft.block.BushBlock;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SeaPickleBlock;
+import net.minecraft.block.SweetBerryBushBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntityType;
@@ -29,14 +32,18 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.Set;
+
 public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":agricarnation")
 	public static TileEntityType<SubTileAgricarnation> TYPE;
 
+	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANTS, Material.CACTUS, Material.ORGANIC,
+			Material.LEAVES, Material.GOURD, Material.OCEAN_PLANT, Material.BAMBOO);
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
 
-	public SubTileAgricarnation(TileEntityType<?> type) {
+	protected SubTileAgricarnation(TileEntityType<?> type) {
 		super(type);
 	}
 
@@ -84,16 +91,27 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 		return true;
 	}
 
+	/**
+	 * @return Whether the block at {@code pos} grows "naturally". That is, whether its IGrowable action is simply
+	 * growing itself, instead of something like spreading around or creating flowers around, etc, and whether this
+	 * action would have happened normally over time without bonemeal.
+	 */
 	private boolean isPlant(BlockPos pos) {
 		BlockState state = getWorld().getBlockState(pos);
 		Block block = state.getBlock();
-		if(block == Blocks.GRASS_BLOCK || BlockTags.LEAVES.contains(block) || block instanceof BushBlock && !(block instanceof CropsBlock) && !(block instanceof SaplingBlock))
+
+		// Grass spreads when ticked
+		if(block == Blocks.GRASS_BLOCK)
 			return false;
 
-		Material mat = state.getMaterial();
-		return (mat == Material.PLANTS || mat == Material.CACTUS || mat == Material.ORGANIC || mat == Material.LEAVES || mat == Material.GOURD)
+		// Exclude all BushBlock except known vanilla subclasses
+		if (block instanceof BushBlock && !(block instanceof CropsBlock)
+				&& !(block instanceof SaplingBlock) && !(block instanceof SweetBerryBushBlock))
+			return false;
+
+		return MATERIALS.contains(state.getMaterial())
 				&& block instanceof IGrowable
-				&& ((IGrowable) block).canGrow(getWorld(), pos, getWorld().getBlockState(pos), getWorld().isRemote);
+				&& ((IGrowable) block).canGrow(getWorld(), pos, state, getWorld().isRemote);
 	}
 
 	@Override

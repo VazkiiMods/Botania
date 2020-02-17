@@ -52,8 +52,8 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 			if(!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
 				continue;
 
-			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, RayTraceContext.FluidMode.NONE, 64);
-			if(pos.getType() == RayTraceResult.Type.BLOCK && ((BlockRayTraceResult) pos).getPos().equals(getPos())) {
+			BlockRayTraceResult hit = ToolCommons.raytraceFromEntity(player, 64, false);
+			if(hit.getType() == RayTraceResult.Type.BLOCK && hit.getPos().equals(getPos())) {
 				looking = true;
 				break;
 			}

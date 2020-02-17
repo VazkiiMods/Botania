@@ -267,7 +267,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			Vector3 look = new Vector3(p.getLookVec()).multiply(1, 0, 1).normalize();
 
 			if(flying) {
-				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
+				if(time > 0 && !p.isSpectator() && !p.isCreative()
+						&& !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
 					newTime--;
 				final int maxCd = 80;
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);

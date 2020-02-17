@@ -43,7 +43,7 @@ public class LensRedirect extends Lens {
 					VoxelShape collideShape = entity.world.getBlockState(coords).getCollisionShape(entity.world, coords);
 					if(collideShape.isEmpty())
 						axis = new AxisAlignedBB(coords, coords.add(1, 1, 1));
-					else axis = collideShape.getBoundingBox(); // todo 1.13 more granular collisions?
+					else axis = collideShape.getBoundingBox().offset(coords); // todo 1.13 more granular collisions?
 
 					if(!sourceVec.isInside(axis))
 						sourceVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);

@@ -23,7 +23,7 @@ Botania is a mod that adds nature magic to Minecraft'''
 [[dependencies.botania]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.1-22,)"
+    versionRange="[1.14.4-1.1-25,)"
     side="BOTH"
 
 [[dependencies.botania]]

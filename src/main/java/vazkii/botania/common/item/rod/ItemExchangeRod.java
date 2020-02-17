@@ -383,9 +383,4 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return ImmutableList.of();
 	}
 
-	@Override
-	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
-		return null;
-	}
-
 }

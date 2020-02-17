@@ -15,6 +15,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -23,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.Mod;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
@@ -59,5 +62,20 @@ public class ItemBlockSpecialFlower extends BlockItem {
 			if(!lore.getString().equals(key))
 				tooltip.add(lore.applyTextStyles(TextFormatting.ITALIC, TextFormatting.GRAY));
 		}
+	}
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		CompoundNBT tag = stack.getChildTag("BlockEntityTag");
+		return tag != null && tag.contains(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS);
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		CompoundNBT tag = stack.getChildTag("BlockEntityTag");
+		if (tag != null) {
+			return tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (double) BotaniaAPI.internalHandler.getPassiveFlowerDecay();
+		}
+		return 0;
 	}
 }

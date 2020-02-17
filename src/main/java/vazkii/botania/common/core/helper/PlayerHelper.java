@@ -126,6 +126,7 @@ public final class PlayerHelper {
 		if(ctx.getPlayer() != null) {
 			save = ctx.getPlayer().getHeldItem(ctx.getHand());
 			ctx.getPlayer().setHeldItem(ctx.getHand(), toUse);
+			// Need to construct a new one still to refresh the itemstack
 			newCtx = new ItemUseContext(ctx.getPlayer(), ctx.getHand(), hit);
 		} else {
 			newCtx = new ItemUseContext(ctx.getWorld(), null, ctx.getHand(), toUse, hit);

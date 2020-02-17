@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
@@ -94,6 +95,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getEntityLiving() instanceof SlimeEntity
+				&& event.getSpawnReason() == SpawnReason.NATURAL
 				&& event.getResult() != Event.Result.DENY
 				&& isSlimeChunk(event.getEntityLiving().world, event.getX(), event.getZ()))
 			event.getEntityLiving().getPersistentData().putBoolean(TAG_WORLD_SPAWNED, true);
