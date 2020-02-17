@@ -115,15 +115,6 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
-		// Floating flower item models
-		for (Map.Entry<ResourceLocation, IBakedModel> e : evt.getModelRegistry().entrySet()) {
-			if (e.getValue() instanceof FloatingFlowerModel.Baked) {
-				ResourceLocation stripVariant = new ResourceLocation(e.getKey().getNamespace(), e.getKey().getPath());
-				ModelResourceLocation itemPath = new ModelResourceLocation(stripVariant, "inventory");
-				evt.getModelRegistry().put(itemPath, e.getValue());
-			}
-		}
-
 		// Platforms
 		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
 		IBakedModel abstruse = evt.getModelRegistry().get(abstruseName);
