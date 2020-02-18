@@ -16,6 +16,16 @@
         ]
       }
     },
+    "has_alt_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:book"
+          }
+        ]
+      }
+    },
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
@@ -26,6 +36,7 @@
   "requirements": [
     [
       "has_item",
+      "has_alt_item",
       "has_the_recipe"
     ]
   ]

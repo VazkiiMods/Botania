@@ -74,6 +74,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	@Override
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
 		specialRecipe(consumer, AncientWillRecipe.SERIALIZER);
+		specialRecipe(consumer, BannerRecipe.SERIALIZER);
 		specialRecipe(consumer, BlackHoleTalismanExtractRecipe.SERIALIZER);
 		specialRecipe(consumer, CompositeLensRecipe.SERIALIZER);
 		specialRecipe(consumer, CosmeticAttachRecipe.SERIALIZER);
