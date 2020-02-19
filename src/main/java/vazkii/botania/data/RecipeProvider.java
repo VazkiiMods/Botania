@@ -2263,9 +2263,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		wallShape(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm, 16).build(consumer);
 
 		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.azulejo0)
-				.addIngredient(Tags.Items.GEMS_LAPIS)
+				.addIngredient(Tags.Items.DYES_BLUE)
 				.addIngredient(ModTags.Items.BLOCKS_QUARTZ)
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_LAPIS))
+				.addCriterion("has_item", hasItem(Tags.Items.DYES_BLUE))
 				.build(consumer);
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)

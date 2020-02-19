@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:gems/lapis"
+      "tag": "forge:dyes/blue"
     },
     {
       "tag": "forge:storage_blocks/quartz"
