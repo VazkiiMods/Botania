@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -36,6 +37,7 @@ import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.advancements.LokiPlaceTrigger;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -107,6 +109,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			event.setCancellationResult(ActionResultType.SUCCESS);
 		} else {
 			ItemStack original = stack.copy();
+			int successes = 0;
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = hit.add(cursor);
 				if(ManaItemHandler.requestManaExact(lokiRing, player, cost, false)) {
@@ -124,8 +127,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 					if (result == ActionResultType.SUCCESS) {
 						ManaItemHandler.requestManaExact(lokiRing, player, cost, true);
+						successes++;
 					}
 				}
+			}
+			if (player instanceof ServerPlayerEntity) {
+				LokiPlaceTrigger.INSTANCE.trigger((ServerPlayerEntity) player, lokiRing, successes);
 			}
 		}
 	}

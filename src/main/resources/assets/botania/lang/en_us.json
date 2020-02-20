@@ -411,9 +411,8 @@
   "advancement.botania:odinRing.desc": "Be rewarded the Ring of Odin for a heroic feat",
   "advancement.botania:lokiRing": "Arithmetic",
   "advancement.botania:lokiRing.desc": "Be rewarded the Ring of Loki for a heroic feat",
+  "advancement.botania:lokiRingMany.desc": "Place over 255 additional blocks at once with the Ring of Loki",
 
-  "advancement.botania:nullFlower": "Take it Easy",
-  "advancement.botania:nullFlower.desc": "Find a bug that lets you have an undefined Botania Flower. Don't forget to report it!",
   "advancement.botania:desuGun": "Two-Faced Lovers",
   "advancement.botania:desuGun.desc": "ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN",
 
