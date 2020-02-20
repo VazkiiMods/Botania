@@ -681,7 +681,6 @@
     "item.botania.rune_wrath": "Rune des Zorns",
     "item.botania.rune_envy": "Rune des Neides",
     "item.botania.rune_pride": "Rune des Hochmutes",
-    "item.botania.signalflare": "Signalpistole",
     "item.botania.mana_tablet": "Manatablett",
     "item.botania.mana_gun": "Mana-Blaster",
     "item.botania.composite_lens": "Verbundmanalinse: %s %s",
@@ -1450,7 +1449,6 @@
 
     "botania.entry.aIntro": "Das Portal nach Alfheim",
 
-    "botania.entry.unstableBlocks": "Instabile Würfel",
 
     "botania.entry.decorativeBlocks": "Dekorative Blöcke",
     "botania.page.decorativeBlocks1": "Lebesteinziegel",
