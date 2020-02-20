@@ -1076,8 +1076,6 @@
   "effect.botania.allure": "Charme",
   "effect.botania.clear": "Absolution",
 
-  "botania.gui.lexicon.header": "Lexica Botania, Edition %s Table des matières",
-  "botania.gui.lexicon.wip": "(Ce passage est un travail en cours. Ce n'est même pas sa forme finale)",
 
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Supportez le vide",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Combat pour la quiétude",

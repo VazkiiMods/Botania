@@ -485,7 +485,6 @@
   "block.botania.block빨간색Quartz": "붉은석영 블럭",
   "block.botania.chiseled빨간색Quartz": "조각 된 붉은석영 블럭",
   "block.botania.pillar빨간색Quartz": "붉은석영 블럭 기둥",
-  "block.botania.quartzSlab빨간색Half": "붉은석영 반블럭",
   "block.botania.quartzStairs빨간색": "붉은석영 계단",
   "block.botania.elf_quartz": "요정의석영 블럭",
   "block.botania.chiseled_elf_quartz": "조각 된 요정의석영 블럭",
@@ -1180,8 +1179,6 @@
   "effect.botania.allure": "매력",
   "effect.botania.clear": "면죄",
 
-  "botania.gui.lexicon.header": "보타니아 사전, %s 번째 제본판  목차 - 배우길 원하는 카테고리를 클릭하세요. :",
-  "botania.gui.lexicon.wip": "(이 부분은 작성중입니다. 내용이 완전하지 않을수도 있습니다.)",
 
   "item.banner.botania_flower.black": "검은색 신비로운 꽃",
   "item.banner.botania_flower.red": "빨간색 신비로운 꽃",

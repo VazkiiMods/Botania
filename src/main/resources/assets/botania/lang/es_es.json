@@ -1213,8 +1213,6 @@
   "effect.botania.allure": "Atracción",
   "effect.botania.clear": "Absolución",
 
-  "botania.gui.lexicon.header": "Lexica Botania, %s edición tabla de contenidos",
-  "botania.gui.lexicon.wip": "(Esta entrada es Trabajo en Curso. No está en su forma final)",
 
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Endure Emptiness",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Fight For Quiescence",

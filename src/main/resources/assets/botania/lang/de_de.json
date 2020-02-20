@@ -1198,9 +1198,6 @@
     "item.banner.botania_sword.orange": "Oranges Schwert",
     "item.banner.botania_sword.white": "Weißes Schwert",
 
-    "botania.gui.lexicon.header": "Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:",
-    "botania.gui.lexicon.wip": "(Dieser Eintag ist Work In Progress. Er ist noch nicht einmal in seiner finalen Form)",
-
     "botania.category.basics": "Basis",
     "botania.category.mana": "Manamanipulation",
     "botania.category.functionalFlowers": "Funktionelle Flora",
