@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:lens_normal"
+    },
+    {
+      "item": "botania:abstruse_platform"
+    }
+  ],
+  "result": {
+    "item": "botania:lens_phantom"
+  }
+}

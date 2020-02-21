@@ -16,7 +16,7 @@
     {
       "type": "crafting",
       "text": "botania.page.manaGear1",
-      "recipe": "botania:manasteel_pickaxe"
+      "recipe": "botania:manasteel_pick"
     },
     {
       "type": "crafting",

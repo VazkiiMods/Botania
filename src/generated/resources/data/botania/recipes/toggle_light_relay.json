@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:light_relay"
+    },
+    {
+      "item": "minecraft:lever"
+    }
+  ],
+  "result": {
+    "item": "botania:toggle_light_relay"
+  }
+}

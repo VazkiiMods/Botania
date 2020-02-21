@@ -22,7 +22,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 public class SpellClothRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<SpellClothRecipe> SERIALIZER = new SpecialRecipeSerializer<>(SpellClothRecipe::new);
+	public static final SpecialRecipeSerializer<SpellClothRecipe> SERIALIZER = new SpecialRecipeSerializer<>(SpellClothRecipe::new);
 
 	public SpellClothRecipe(ResourceLocation id) {
 		super(id);

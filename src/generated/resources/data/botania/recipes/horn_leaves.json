@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:horn_grass"
+    },
+    {
+      "tag": "minecraft:leaves"
+    }
+  ],
+  "result": {
+    "item": "botania:horn_leaves"
+  }
+}

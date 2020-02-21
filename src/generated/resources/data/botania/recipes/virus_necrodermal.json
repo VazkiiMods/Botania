@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:pixie_dust"
+    },
+    {
+      "item": "botania:vine_ball"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:zombie_head"
+    }
+  ],
+  "result": {
+    "item": "botania:virus_necrodermal"
+  }
+}

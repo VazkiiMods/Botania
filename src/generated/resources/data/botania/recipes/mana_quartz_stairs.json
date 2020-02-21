@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:mana_quartz"
+    }
+  },
+  "result": {
+    "item": "botania:mana_quartz_stairs",
+    "count": 4
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AOA",
+    "OSO",
+    "DOD"
+  ],
+  "key": {
+    "A": {
+      "item": "botania:ender_air_bottle"
+    },
+    "S": {
+      "item": "botania:corporea_spark"
+    },
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "botania:corporea_index"
+  }
+}

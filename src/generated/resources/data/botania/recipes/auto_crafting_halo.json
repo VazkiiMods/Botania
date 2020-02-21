@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:crafting_halo"
+    },
+    {
+      "tag": "forge:gems/mana_diamond"
+    }
+  ],
+  "result": {
+    "item": "botania:auto_crafting_halo"
+  }
+}

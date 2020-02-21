@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "IYI",
+    "IEI"
+  ],
+  "key": {
+    "E": {
+      "tag": "forge:gems/emerald"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "Y": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "botania:itemfinder"
+  }
+}

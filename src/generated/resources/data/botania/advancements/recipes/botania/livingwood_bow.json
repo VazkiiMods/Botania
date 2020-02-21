@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:livingwood_bow"
+    ]
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:mana_string"
+          }
+        ]
+      }
+    },
+    "has_twig": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:livingwood_twig"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:livingwood_bow"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_twig",
+      "has_the_recipe"
+    ]
+  ]
+}

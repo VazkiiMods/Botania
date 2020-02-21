@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:light_relay"
+    },
+    {
+      "tag": "forge:dusts/redstone"
+    }
+  ],
+  "result": {
+    "item": "botania:detector_light_relay"
+  }
+}

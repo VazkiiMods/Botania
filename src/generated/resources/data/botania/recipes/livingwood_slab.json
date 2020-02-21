@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:livingwood"
+    }
+  },
+  "result": {
+    "item": "botania:livingwood_slab",
+    "count": 6
+  }
+}

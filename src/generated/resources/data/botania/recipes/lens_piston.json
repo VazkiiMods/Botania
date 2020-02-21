@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:lens_normal"
+    },
+    {
+      "item": "botania:piston_relay"
+    }
+  ],
+  "result": {
+    "item": "botania:lens_piston"
+  }
+}

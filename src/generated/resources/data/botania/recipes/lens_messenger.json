@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "L": {
+      "item": "botania:lens_normal"
+    }
+  },
+  "result": {
+    "item": "botania:lens_messenger"
+  }
+}

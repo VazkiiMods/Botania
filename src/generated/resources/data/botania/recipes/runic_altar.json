@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SPS"
+  ],
+  "key": {
+    "P": [
+      {
+        "item": "botania:mana_pearl"
+      },
+      {
+        "tag": "forge:gems/mana_diamond"
+      }
+    ],
+    "S": {
+      "tag": "botania:livingrock"
+    }
+  },
+  "result": {
+    "item": "botania:runic_altar"
+  }
+}

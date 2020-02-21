@@ -681,7 +681,6 @@
     "item.botania.rune_wrath": "Rune des Zorns",
     "item.botania.rune_envy": "Rune des Neides",
     "item.botania.rune_pride": "Rune des Hochmutes",
-    "item.botania.signalflare": "Signalpistole",
     "item.botania.mana_tablet": "Manatablett",
     "item.botania.mana_gun": "Mana-Blaster",
     "item.botania.composite_lens": "Verbundmanalinse: %s %s",
@@ -1199,9 +1198,6 @@
     "item.banner.botania_sword.orange": "Oranges Schwert",
     "item.banner.botania_sword.white": "Weißes Schwert",
 
-    "botania.gui.lexicon.header": "Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:",
-    "botania.gui.lexicon.wip": "(Dieser Eintag ist Work In Progress. Er ist noch nicht einmal in seiner finalen Form)",
-
     "botania.category.basics": "Basis",
     "botania.category.mana": "Manamanipulation",
     "botania.category.functionalFlowers": "Funktionelle Flora",
@@ -1450,7 +1446,6 @@
 
     "botania.entry.aIntro": "Das Portal nach Alfheim",
 
-    "botania.entry.unstableBlocks": "Instabile Würfel",
 
     "botania.entry.decorativeBlocks": "Dekorative Blöcke",
     "botania.page.decorativeBlocks1": "Lebesteinziegel",

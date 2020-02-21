@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:seeds",
+  "ingredients": [
+    {
+      "item": "botania:grass_seeds"
+    },
+    {
+      "item": "minecraft:green_dye"
+    }
+  ],
+  "result": {
+    "item": "botania:vivid_seeds"
+  }
+}

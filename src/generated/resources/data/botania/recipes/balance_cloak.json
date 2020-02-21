@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "RWR",
+    "RSR"
+  ],
+  "key": {
+    "R": {
+      "tag": "forge:gems/emerald"
+    },
+    "S": {
+      "item": "botania:life_essence"
+    },
+    "W": {
+      "item": "minecraft:light_gray_wool"
+    }
+  },
+  "result": {
+    "item": "botania:balance_cloak"
+  }
+}

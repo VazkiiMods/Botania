@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ESE",
+    "SRS"
+  ],
+  "key": {
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "S": {
+      "tag": "botania:livingrock"
+    },
+    "E": {
+      "tag": "forge:ingots/elementium"
+    }
+  },
+  "result": {
+    "item": "botania:spark_changer"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "IBI",
+    "SSS"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "S": {
+      "tag": "botania:livingrock"
+    },
+    "I": {
+      "tag": "forge:ingots/manasteel"
+    }
+  },
+  "result": {
+    "item": "botania:pump"
+  }
+}

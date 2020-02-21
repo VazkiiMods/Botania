@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "botania:livingrock_bricks"
+    }
+  },
+  "result": {
+    "item": "botania:chiseled_livingrock_bricks",
+    "count": 4
+  }
+}

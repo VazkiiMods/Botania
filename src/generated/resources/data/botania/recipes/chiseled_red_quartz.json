@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:red_quartz_slab"
+    }
+  },
+  "result": {
+    "item": "botania:chiseled_red_quartz"
+  }
+}

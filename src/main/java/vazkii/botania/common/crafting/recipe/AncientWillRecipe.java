@@ -23,7 +23,7 @@ import vazkii.botania.common.item.ItemAncientWill;
 import javax.annotation.Nonnull;
 
 public class AncientWillRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<AncientWillRecipe> SERIALIZER = new SpecialRecipeSerializer<>(AncientWillRecipe::new);
+	public static final SpecialRecipeSerializer<AncientWillRecipe> SERIALIZER = new SpecialRecipeSerializer<>(AncientWillRecipe::new);
 
 	public AncientWillRecipe(ResourceLocation id) {
 		super(id);

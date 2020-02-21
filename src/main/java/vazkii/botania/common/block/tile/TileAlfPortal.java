@@ -12,6 +12,8 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -32,6 +34,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -43,9 +46,11 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
@@ -77,6 +82,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 	private boolean explode = false;
+	@Nullable
+	private UUID breadPlayer = null;
 
 	public TileAlfPortal() {
 		super(TYPE);
@@ -124,7 +131,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 					if (consume) {
 						item.remove();
-						if (validateItemUsage(stack))
+						if (validateItemUsage(item))
 							addItem(stack);
 						ticksSinceLastItem = 0;
 					}
@@ -149,17 +156,29 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.Mode.DESTROY);
 			explode = false;
+
+			if (!world.isRemote && breadPlayer != null) {
+				PlayerEntity entity = world.getPlayerByUuid(breadPlayer);
+				if (entity instanceof ServerPlayerEntity) {
+					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayerEntity) entity, getPos());
+				}
+			}
+			breadPlayer = null;
 		}
 	}
 
-	private boolean validateItemUsage(ItemStack inputStack) {
+	private boolean validateItemUsage(ItemEntity entity) {
+		ItemStack inputStack = entity.getItem();
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			if(recipe.containsItem(inputStack)) {
 				return true;
 			}
 		}
-		if(inputStack.getItem() == Items.BREAD) //Don't teleport bread. (See also: #2403)
+		if(inputStack.getItem() == Items.BREAD) {
+			//Don't teleport bread. (See also: #2403)
 			explode = true;
+			breadPlayer = entity.getThrowerId();
+		}
 
 		return false;
 	}

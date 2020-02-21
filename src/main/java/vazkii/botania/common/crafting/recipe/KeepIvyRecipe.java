@@ -24,7 +24,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 public class KeepIvyRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SpecialRecipeSerializer<>(KeepIvyRecipe::new);
+	public static final SpecialRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SpecialRecipeSerializer<>(KeepIvyRecipe::new);
 
 	public KeepIvyRecipe(ResourceLocation id) {
 		super(id);

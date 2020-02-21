@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GDD",
+    " TD",
+    "T G"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "T": {
+      "item": "botania:dreamwood_twig"
+    },
+    "G": {
+      "item": "botania:life_essence"
+    }
+  },
+  "result": {
+    "item": "botania:missile_rod"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:bone_meal"
+    },
+    [
+      {
+        "item": "botania:white_dye"
+      },
+      {
+        "item": "botania:orange_dye"
+      },
+      {
+        "item": "botania:magenta_dye"
+      },
+      {
+        "item": "botania:light_blue_dye"
+      },
+      {
+        "item": "botania:yellow_dye"
+      },
+      {
+        "item": "botania:lime_dye"
+      },
+      {
+        "item": "botania:pink_dye"
+      },
+      {
+        "item": "botania:gray_dye"
+      },
+      {
+        "item": "botania:light_gray_dye"
+      },
+      {
+        "item": "botania:cyan_dye"
+      },
+      {
+        "item": "botania:purple_dye"
+      },
+      {
+        "item": "botania:blue_dye"
+      },
+      {
+        "item": "botania:brown_dye"
+      },
+      {
+        "item": "botania:green_dye"
+      },
+      {
+        "item": "botania:red_dye"
+      },
+      {
+        "item": "botania:black_dye"
+      }
+    ],
+    [
+      {
+        "item": "botania:white_dye"
+      },
+      {
+        "item": "botania:orange_dye"
+      },
+      {
+        "item": "botania:magenta_dye"
+      },
+      {
+        "item": "botania:light_blue_dye"
+      },
+      {
+        "item": "botania:yellow_dye"
+      },
+      {
+        "item": "botania:lime_dye"
+      },
+      {
+        "item": "botania:pink_dye"
+      },
+      {
+        "item": "botania:gray_dye"
+      },
+      {
+        "item": "botania:light_gray_dye"
+      },
+      {
+        "item": "botania:cyan_dye"
+      },
+      {
+        "item": "botania:purple_dye"
+      },
+      {
+        "item": "botania:blue_dye"
+      },
+      {
+        "item": "botania:brown_dye"
+      },
+      {
+        "item": "botania:green_dye"
+      },
+      {
+        "item": "botania:red_dye"
+      },
+      {
+        "item": "botania:black_dye"
+      }
+    ],
+    [
+      {
+        "item": "botania:white_dye"
+      },
+      {
+        "item": "botania:orange_dye"
+      },
+      {
+        "item": "botania:magenta_dye"
+      },
+      {
+        "item": "botania:light_blue_dye"
+      },
+      {
+        "item": "botania:yellow_dye"
+      },
+      {
+        "item": "botania:lime_dye"
+      },
+      {
+        "item": "botania:pink_dye"
+      },
+      {
+        "item": "botania:gray_dye"
+      },
+      {
+        "item": "botania:light_gray_dye"
+      },
+      {
+        "item": "botania:cyan_dye"
+      },
+      {
+        "item": "botania:purple_dye"
+      },
+      {
+        "item": "botania:blue_dye"
+      },
+      {
+        "item": "botania:brown_dye"
+      },
+      {
+        "item": "botania:green_dye"
+      },
+      {
+        "item": "botania:red_dye"
+      },
+      {
+        "item": "botania:black_dye"
+      }
+    ],
+    [
+      {
+        "item": "botania:white_dye"
+      },
+      {
+        "item": "botania:orange_dye"
+      },
+      {
+        "item": "botania:magenta_dye"
+      },
+      {
+        "item": "botania:light_blue_dye"
+      },
+      {
+        "item": "botania:yellow_dye"
+      },
+      {
+        "item": "botania:lime_dye"
+      },
+      {
+        "item": "botania:pink_dye"
+      },
+      {
+        "item": "botania:gray_dye"
+      },
+      {
+        "item": "botania:light_gray_dye"
+      },
+      {
+        "item": "botania:cyan_dye"
+      },
+      {
+        "item": "botania:purple_dye"
+      },
+      {
+        "item": "botania:blue_dye"
+      },
+      {
+        "item": "botania:brown_dye"
+      },
+      {
+        "item": "botania:green_dye"
+      },
+      {
+        "item": "botania:red_dye"
+      },
+      {
+        "item": "botania:black_dye"
+      }
+    ]
+  ],
+  "result": {
+    "item": "botania:fertilizer"
+  }
+}

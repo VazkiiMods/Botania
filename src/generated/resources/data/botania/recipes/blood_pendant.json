@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PGP",
+    "DP "
+  ],
+  "key": {
+    "P": {
+      "tag": "forge:gems/prismarine"
+    },
+    "D": {
+      "tag": "forge:gems/mana_diamond"
+    },
+    "G": {
+      "item": "minecraft:ghast_tear"
+    }
+  },
+  "result": {
+    "item": "botania:blood_pendant"
+  }
+}

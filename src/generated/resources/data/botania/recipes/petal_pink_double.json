@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:petal_double",
+  "ingredients": [
+    {
+      "item": "botania:pink_double_flower"
+    }
+  ],
+  "result": {
+    "item": "botania:pink_petal",
+    "count": 4
+  }
+}

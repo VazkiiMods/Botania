@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RSR",
+    "QEQ",
+    "RDR"
+  ],
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz_block"
+    },
+    "R": {
+      "item": "minecraft:golden_carrot"
+    },
+    "S": {
+      "tag": "botania:runes/earth"
+    },
+    "D": {
+      "tag": "forge:gems/mana_diamond"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "botania:third_eye"
+  }
+}

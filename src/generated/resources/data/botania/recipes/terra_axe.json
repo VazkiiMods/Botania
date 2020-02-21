@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTG",
+    "TST",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "botania:livingwood_twig"
+    },
+    "T": {
+      "tag": "forge:ingots/terrasteel"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    }
+  },
+  "result": {
+    "item": "botania:terra_axe"
+  }
+}

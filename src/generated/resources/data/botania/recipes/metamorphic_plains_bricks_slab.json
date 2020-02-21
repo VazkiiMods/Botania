@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_brick_slab",
+  "pattern": [
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:metamorphic_plains_bricks"
+    }
+  },
+  "result": {
+    "item": "botania:metamorphic_plains_bricks_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PRP",
+    "PLP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "forge:gems/prismarine"
+    },
+    "R": {
+      "tag": "botania:runes/air"
+    },
+    "L": {
+      "item": "botania:lens_normal"
+    }
+  },
+  "result": {
+    "item": "botania:lens_influence"
+  }
+}

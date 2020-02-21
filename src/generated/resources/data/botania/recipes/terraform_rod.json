@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " WT",
+    "ARS",
+    "GM "
+  ],
+  "key": {
+    "A": {
+      "tag": "botania:runes/autumn"
+    },
+    "R": {
+      "item": "botania:dirt_rod"
+    },
+    "S": {
+      "tag": "botania:runes/spring"
+    },
+    "T": {
+      "tag": "forge:ingots/terrasteel"
+    },
+    "G": {
+      "item": "botania:grass_seeds"
+    },
+    "W": {
+      "tag": "botania:runes/winter"
+    },
+    "M": {
+      "tag": "botania:runes/summer"
+    }
+  },
+  "result": {
+    "item": "botania:terraform_rod"
+  }
+}

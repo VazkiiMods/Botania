@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LSL",
+    "SPS",
+    "LSL"
+  ],
+  "key": {
+    "P": {
+      "item": "botania:mana_pearl"
+    },
+    "S": {
+      "tag": "forge:stone"
+    },
+    "L": {
+      "tag": "botania:livingrock"
+    }
+  },
+  "result": {
+    "item": "botania:tiny_planet"
+  }
+}

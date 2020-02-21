@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/elementium"
+    }
+  ],
+  "result": {
+    "item": "botania:elementium_nugget",
+    "count": 9
+  }
+}

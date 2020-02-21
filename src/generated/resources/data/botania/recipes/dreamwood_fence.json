@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BSB",
+    "BSB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:dreamwood_planks"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "botania:dreamwood_fence",
+    "count": 3
+  }
+}

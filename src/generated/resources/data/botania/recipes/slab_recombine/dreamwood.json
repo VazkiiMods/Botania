@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:dreamwood_slab"
+    }
+  },
+  "result": {
+    "item": "botania:dreamwood"
+  }
+}

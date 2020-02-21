@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:terra_axe"
+    ]
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/terrasteel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:terra_axe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_the_recipe"
+    ]
+  ]
+}

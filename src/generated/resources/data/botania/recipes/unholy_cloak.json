@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "RWR",
+    "RSR"
+  ],
+  "key": {
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "S": {
+      "item": "botania:life_essence"
+    },
+    "W": {
+      "item": "minecraft:black_wool"
+    }
+  },
+  "result": {
+    "item": "botania:unholy_cloak"
+  }
+}

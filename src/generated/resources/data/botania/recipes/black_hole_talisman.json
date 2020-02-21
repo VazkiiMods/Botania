@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "EAE",
+    " E "
+  ],
+  "key": {
+    "A": {
+      "item": "botania:ender_air_bottle"
+    },
+    "E": {
+      "tag": "forge:ingots/elementium"
+    },
+    "G": {
+      "item": "botania:life_essence"
+    }
+  },
+  "result": {
+    "item": "botania:black_hole_talisman"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:livingrock_bricks"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    }
+  ],
+  "result": {
+    "item": "botania:mossy_livingrock_bricks"
+  }
+}

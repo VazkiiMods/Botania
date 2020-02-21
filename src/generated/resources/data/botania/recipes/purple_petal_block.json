@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:petal_block",
+  "pattern": [
+    "PPP",
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "botania:purple_petal"
+    }
+  },
+  "result": {
+    "item": "botania:purple_petal_block"
+  }
+}

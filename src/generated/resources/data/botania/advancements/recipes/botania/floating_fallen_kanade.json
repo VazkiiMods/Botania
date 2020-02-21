@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:floating_fallen_kanade"
+    ]
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:fallen_kanade"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:floating_fallen_kanade"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_the_recipe"
+    ]
+  ]
+}

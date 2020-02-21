@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SMD",
+    " WT",
+    "  W"
+  ],
+  "key": {
+    "S": {
+      "item": "botania:redstone_spreader"
+    },
+    "D": {
+      "tag": "forge:gems/mana_diamond"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "W": {
+      "tag": "botania:livingwood"
+    },
+    "M": {
+      "tag": "botania:runes/mana"
+    }
+  },
+  "result": {
+    "item": "botania:mana_gun"
+  }
+}

@@ -23,7 +23,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 public class PhantomInkRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SpecialRecipeSerializer<>(PhantomInkRecipe::new);
+	public static final SpecialRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SpecialRecipeSerializer<>(PhantomInkRecipe::new);
 
 	public PhantomInkRecipe(ResourceLocation id) {
 		super(id);

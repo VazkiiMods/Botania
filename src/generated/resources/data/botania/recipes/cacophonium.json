@@ -1,0 +1,63 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "tag": "forge:ingots/brass",
+          "type": "forge:tag_empty"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " G ",
+          "GNG",
+          "GG "
+        ],
+        "key": {
+          "N": {
+            "item": "minecraft:note_block"
+          },
+          "G": {
+            "tag": "forge:ingots/gold"
+          }
+        },
+        "result": {
+          "item": "botania:cacophonium"
+        }
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " G ",
+          "GNG",
+          "GG "
+        ],
+        "key": {
+          "N": {
+            "item": "minecraft:note_block"
+          },
+          "G": [
+            {
+              "tag": "forge:ingots/gold"
+            },
+            {
+              "tag": "forge:ingots/brass"
+            }
+          ]
+        },
+        "result": {
+          "item": "botania:cacophonium"
+        }
+      }
+    }
+  ]
+}

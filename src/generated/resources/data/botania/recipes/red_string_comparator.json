@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "RMS",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "tag": "botania:livingrock"
+    },
+    "S": {
+      "item": "botania:red_string"
+    },
+    "M": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "result": {
+    "item": "botania:red_string_comparator"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:livingrock_bricks"
+    }
+  },
+  "result": {
+    "item": "botania:livingrock_bricks_stairs",
+    "count": 4
+  }
+}

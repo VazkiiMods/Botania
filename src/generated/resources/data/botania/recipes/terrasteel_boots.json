@@ -1,0 +1,25 @@
+{
+  "type": "botania:armor_upgrade",
+  "pattern": [
+    "TRT",
+    "SAS",
+    " S "
+  ],
+  "key": {
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "S": {
+      "tag": "forge:ingots/terrasteel"
+    },
+    "R": {
+      "tag": "botania:runes/winter"
+    },
+    "A": {
+      "item": "botania:manasteel_boots"
+    }
+  },
+  "result": {
+    "item": "botania:terrasteel_boots"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:chests/wooden"
+    },
+    {
+      "item": "botania:corporea_spark"
+    }
+  ],
+  "result": {
+    "item": "botania:corporea_retainer"
+  }
+}

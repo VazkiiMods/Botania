@@ -24,7 +24,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 public class BlackHoleTalismanExtractRecipe extends SpecialRecipe {
-	public static final IRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SpecialRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
+	public static final SpecialRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SpecialRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
 
 	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {
 		super(id);

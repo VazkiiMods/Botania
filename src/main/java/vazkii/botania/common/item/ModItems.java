@@ -709,6 +709,7 @@ public final class ModItems {
 		IForgeRegistry<IRecipeSerializer<?>> r = evt.getRegistry();
 		register(r, AncientWillRecipe.SERIALIZER, "ancient_will_attach");
 		register(r, ArmorUpgradeRecipe.SERIALIZER, "armor_upgrade");
+		register(r, BannerRecipe.SERIALIZER, "banner_pattern_apply");
 		register(r, BlackHoleTalismanExtractRecipe.SERIALIZER, "black_hole_talisman_extract");
 		register(r, CompositeLensRecipe.SERIALIZER, "composite_lens");
 		register(r, CosmeticAttachRecipe.SERIALIZER, "cosmetic_attach");

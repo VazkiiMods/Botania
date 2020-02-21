@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    " P ",
+    "ADS"
+  ],
+  "key": {
+    "P": {
+      "tag": "botania:petals/pink"
+    },
+    "A": {
+      "tag": "botania:runes/water"
+    },
+    "S": {
+      "tag": "botania:runes/spring"
+    },
+    "D": {
+      "tag": "forge:gems/mana_diamond"
+    }
+  },
+  "result": {
+    "item": "botania:goddess_charm"
+  }
+}

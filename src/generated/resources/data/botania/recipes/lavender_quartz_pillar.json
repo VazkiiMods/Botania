@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:lavender_quartz"
+    }
+  },
+  "result": {
+    "item": "botania:lavender_quartz_pillar",
+    "count": 2
+  }
+}

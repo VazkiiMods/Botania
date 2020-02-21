@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_brick",
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:metamorphic_mountain_stone"
+    }
+  },
+  "result": {
+    "item": "botania:metamorphic_mountain_bricks",
+    "count": 4
+  }
+}

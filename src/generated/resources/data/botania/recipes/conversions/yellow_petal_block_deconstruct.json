@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:petal_block_deconstruct",
+  "ingredients": [
+    {
+      "item": "botania:yellow_petal_block"
+    }
+  ],
+  "result": {
+    "item": "botania:yellow_petal",
+    "count": 9
+  }
+}

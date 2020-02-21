@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "GWG",
+    "GSG"
+  ],
+  "key": {
+    "S": {
+      "item": "botania:life_essence"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    },
+    "G": {
+      "tag": "forge:dusts/glowstone"
+    }
+  },
+  "result": {
+    "item": "botania:holy_cloak"
+  }
+}
