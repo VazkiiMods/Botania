@@ -16,7 +16,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -45,16 +44,13 @@ import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.OptionalDouble;
 import java.util.Random;
 
@@ -63,9 +59,10 @@ public final class RenderHelper {
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
 	public static final RenderType LINE_1;
-	public static final RenderType LINE_4;
-	public static final RenderType LINE_5;
-	public static final RenderType LINE_8;
+	public static final RenderType LINE_1_NO_DEPTH;
+	public static final RenderType LINE_4_NO_DEPTH;
+	public static final RenderType LINE_5_NO_DEPTH;
+	public static final RenderType LINE_8_NO_DEPTH;
 	public static final RenderType SPARK;
 	public static final RenderType LIGHT_RELAY;
 	public static final RenderType SPINNING_CUBE;
@@ -82,20 +79,20 @@ public final class RenderHelper {
 	public static final RenderType ASTROLABE_PREVIEW;
 	public static final RenderType ENTITY_TRANSLUCENT_GOLD;
 
-	// todo 1.15 AT's for necessary fields
 	static {
 		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
 		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
-		RenderState.TextureState mipmapBlockAtlasTexture = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228521_m_");
+		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
 		RenderState.CullState disableCull = new RenderState.CullState(false);
 		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
-		RenderState.WriteMaskState colorMask = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228496_F_");
+		RenderState.WriteMaskState colorMask = new RenderState.WriteMaskState(true, false);
 		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
 		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
 		RenderState.OverlayState enableOverlay = new RenderState.OverlayState(true);
 		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
 		RenderState.AlphaState zeroAlpha = new RenderState.AlphaState(0);
 		RenderState.AlphaState oneTenthAlpha = new RenderState.AlphaState(0.004F);
+		RenderState.DepthTestState noDepth = new RenderState.DepthTestState(GL11.GL_ALWAYS);
 
 		RenderType.State glState = RenderType.State.builder().shadeModel(smoothShade)
 				.writeMaskState(colorMask)
@@ -109,12 +106,14 @@ public final class RenderHelper {
 
 		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
 		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
-		LINE_4 = RenderType.of(LibResources.PREFIX_MOD + "line_4", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
-		LINE_5 = RenderType.of(LibResources.PREFIX_MOD + "line_5", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
-		LINE_8 = RenderType.of(LibResources.PREFIX_MOD + "line_8", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		LINE_1_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		LINE_4_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		LINE_5_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		LINE_8_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
 		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).alpha(new RenderState.AlphaState(0.05F)).lightmap(enableLightmap).build(true);
 		// todo 1.15: need normals?

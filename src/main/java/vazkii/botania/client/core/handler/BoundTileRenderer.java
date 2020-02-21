@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,10 +19,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -36,12 +35,10 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
@@ -59,10 +56,10 @@ import java.util.Map;
 public final class BoundTileRenderer {
 	private static final IRenderTypeBuffer.Impl LINE_BUFFERS = IRenderTypeBuffer.immediate(Util.make(() -> {
 		Map<RenderType, BufferBuilder> ret = new IdentityHashMap<>();
-		ret.put(RenderHelper.LINE_1, new BufferBuilder(RenderHelper.LINE_1.getExpectedBufferSize()));
-		ret.put(RenderHelper.LINE_4, new BufferBuilder(RenderHelper.LINE_4.getExpectedBufferSize()));
-		ret.put(RenderHelper.LINE_5, new BufferBuilder(RenderHelper.LINE_5.getExpectedBufferSize()));
-		ret.put(RenderHelper.LINE_8, new BufferBuilder(RenderHelper.LINE_8.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.getExpectedBufferSize()));
 		return ret;
 	}), Tessellator.getInstance().getBuffer());
 	private BoundTileRenderer() {}
@@ -76,7 +73,7 @@ public final class BoundTileRenderer {
 		ms.push();
 
 		PlayerEntity player = Minecraft.getInstance().player;
-		int color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int color = 0xFF000000 | MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if(!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
 			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
@@ -112,6 +109,7 @@ public final class BoundTileRenderer {
 		});
 
 		ms.pop();
+		RenderSystem.disableDepthTest();
 		LINE_BUFFERS.draw();
 	}
 
@@ -147,13 +145,13 @@ public final class BoundTileRenderer {
 
 			ms.scale(1F, 1F, 1F);
 
-			IVertexBuilder buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5 : RenderHelper.LINE_1);
+			IVertexBuilder buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
 			for(AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
 			}
 
-			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8 : RenderHelper.LINE_4);
+			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
 			for(AxisAlignedBB axis : list) {
