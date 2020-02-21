@@ -145,20 +145,17 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		BlockPos pos = ctx.getPos();
 		PlayerEntity player = ctx.getPlayer();
 
-		if(((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.containsKey(player.getUniqueID())) {
-			GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
-			GlobalPos currentPos = GlobalPos.of(world.getDimension().getType(), pos.toImmutable());
-
+		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
+		if(bindPos != null && bindPos.getDimension() == world.getDimension().getType()) {
 			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
-			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(bindPos, currentPos);
-			BlockPistonRelay.WorldData.get(world).markDirty();
+			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(world);
+			data.mapping.put(bindPos.getPos(), pos.toImmutable());
+			data.markDirty();
 
-			if(bindPos.getDimension() == currentPos.getDimension()) {
-				PacketHandler.sendToNearby(world, pos,
-						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-								bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
-								pos.getX(), pos.getY(), pos.getZ()));
-			}
+			PacketHandler.sendToNearby(world, pos,
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
+							bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
+							pos.getX(), pos.getY(), pos.getZ()));
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return true;
