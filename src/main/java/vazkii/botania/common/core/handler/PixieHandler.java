@@ -15,6 +15,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -54,7 +55,7 @@ public final class PixieHandler {
 	}
 
 	@SubscribeEvent
-	public static void playerJoin(EntityJoinWorldEvent evt) {
+	public static void playerJoin(PlayerEvent.PlayerLoggedInEvent evt) {
 		if (evt.getEntity() instanceof PlayerEntity) {
 			((PlayerEntity) evt.getEntity()).getAttributes().registerAttribute(PIXIE_SPAWN_CHANCE);
 		}
