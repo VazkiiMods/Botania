@@ -27,6 +27,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.state.properties.PistonType;
+import net.minecraft.tileentity.PistonTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
@@ -77,8 +78,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if(!world.isRemote)
+		if(!world.isRemote) {
 			mapCoords(world.getDimension().getType(), pos, 2);
+		}
 	}
 
 	private void mapCoords(DimensionType type, BlockPos pos, int time) {
@@ -97,8 +99,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		return coordsToCheck.getOrDefault(key, 0);
 	}
 
-	private Block getBlockAt(GlobalPos key) {
-		return getStateAt(key).getBlock();
+	private TileEntity getTeAt(GlobalPos key) {
+		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+		if(server == null)
+			return null;
+		return server.getWorld(key.getDimension()).getTileEntity(key.getPos());
 	}
 
 	private BlockState getStateAt(GlobalPos key) {
@@ -194,11 +199,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 				if(checkedCoords.contains(s))
 					continue;
 
-				Block block = getBlockAt(s);
-				if(block == Blocks.MOVING_PISTON) {
-					BlockState state = getStateAt(s);
+				BlockState state = getStateAt(s);
+				if(state.getBlock() == Blocks.MOVING_PISTON) {
 					boolean sticky = PistonType.STICKY == state.get(MovingPistonBlock.TYPE);
-					Direction dir = state.get(MovingPistonBlock.FACING);
+					Direction dir = ((PistonTileEntity) getTeAt(s)).getMotionDirection();
 
 					if(getTimeInCoords(s) == 0) {
 						BlockPos newPos;
@@ -207,9 +211,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 						{
 							int x = s.getPos().getX(), y = s.getPos().getY(), z = s.getPos().getZ();
 							BlockPos pos = s.getPos();
-							if(world.isAirBlock(pos.offset(dir)))
+							if(world.isAirBlock(pos.offset(dir))) {
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
-							else if(!world.isRemote) {
+							} else {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
 								world.addEntity(new ItemEntity(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
 							}
