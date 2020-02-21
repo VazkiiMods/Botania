@@ -324,9 +324,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float h = 0.2F;
 			float i = 0.15F;
 			float s = 1F;
+			int color = -1;
+			boolean fullbright = false;
 
 			ms.push();
-			boolean fullbright = false;
 
 			switch (meta) {
 			case 1: { // Jibril
@@ -370,8 +371,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rz = 0F;
 				ry = -rx;
 				rx = 0F;
-				// todo 1.15
-				RenderSystem.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
+				float alpha = 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F;
+				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 				break;
 			}
 			case 8: { // Mega Ultra Chicken
@@ -384,8 +385,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rx = 0F;
 				h = 1.1F;
 				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-				// todo 1.15
-				RenderSystem.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+				float alpha = 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 			}
 			}
 
@@ -403,10 +404,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ry));
 			ms.scale(s, s, s);
 
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-					.render(ms.peek(), buffer, null, model, 1, 1, 1, fullbright ? 0xF000F0 : light, OverlayTexture.DEFAULT_UV);
-
+			RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
 			ms.pop();
 
 			if(meta != 2) { // Sephiroth
@@ -416,8 +414,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rx));
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ry));
 				ms.scale(s, s, s);
-				Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-						.render(ms.peek(), buffer, null, model, 1, 1, 1, fullbright ? 0xF000F0 : light, OverlayTexture.DEFAULT_UV);
+				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
 				ms.pop();
 			}
 

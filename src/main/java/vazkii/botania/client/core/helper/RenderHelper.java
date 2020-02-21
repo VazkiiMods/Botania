@@ -301,10 +301,12 @@ public final class RenderHelper {
 	/**
 	 * @param color Must include alpha
 	 */
-	// [VanillaCopy] ItemRenderer.renderItem with simplifications + color support
-	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	// [VanillaCopy] ItemRenderer.renderItem with simplifications + color support + custom model
+	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, @Nullable IBakedModel model) {
 		ms.push();
-		IBakedModel model = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, entity);
+		if (model == null) {
+			model = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, entity);
+		}
 		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(ms, model, ItemCameraTransforms.TransformType.NONE, false);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 		if (!model.isBuiltInRenderer()) {
@@ -317,6 +319,10 @@ public final class RenderHelper {
 		}
 
 		ms.pop();
+	}
+
+	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		renderItemCustomColor(entity, stack, color, ms, buffers, light, overlay, null);
 	}
 
 	// [VanillaCopy] ItemRenderer with custom color
@@ -333,7 +339,7 @@ public final class RenderHelper {
 		renderBakedItemQuads(ms, buffer, color, model.getQuads((BlockState)null, (Direction)null, random), stack, light, overlay);
 	}
 
-	// [VanillaCopy] ItemRenderer, with custom color
+	// [VanillaCopy] ItemRenderer, with custom color + alpha support
 	private static void renderBakedItemQuads(MatrixStack ms, IVertexBuilder buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
 		MatrixStack.Entry matrixstack$entry = ms.peek();
 
@@ -343,7 +349,6 @@ public final class RenderHelper {
 			float f = (float)(i >> 16 & 255) / 255.0F;
 			float f1 = (float)(i >> 8 & 255) / 255.0F;
 			float f2 = (float)(i & 255) / 255.0F;
-			// Botania: support alpha
 			float alpha = ((color >> 24) & 0xFF) / 255.0F;
 			buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}

@@ -202,12 +202,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case ORANGE_SHADES:
 				ms.scale(1.25f, 1.25f, 1.25f);
 				ms.translate(0F, 0.04F, 0F);
-				/* todo 1.15
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.color4f(1F, 1F, 1F, 0.7F);
-				 */
-				renderItem(stack, ms, buffers, light);
+				int color = 0xFFFFFF | (178 << 24);
+				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV);
 				break;
 			case GROUCHO_GLASSES:
 				ms.scale(1.5F, 1.5F, 1.5F);
