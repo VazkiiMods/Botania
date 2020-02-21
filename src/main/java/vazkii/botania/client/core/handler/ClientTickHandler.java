@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
@@ -26,7 +27,11 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibObfuscation;
 import vazkii.patchouli.client.book.gui.GuiBook;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Field;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class ClientTickHandler {
@@ -39,6 +44,7 @@ public final class ClientTickHandler {
 	public static float partialTicks = 0;
 	public static float delta = 0;
 	public static float total = 0;
+	private static final Field RENDER_PARTIAL_TICKS_PAUSED = ObfuscationReflectionHelper.findField(Minecraft.class, "field_193996_ah");
 
 	private static void calcDelta() {
 		float oldTotal = total;
@@ -48,9 +54,20 @@ public final class ClientTickHandler {
 
 	@SubscribeEvent
 	public static void renderTick(TickEvent.RenderTickEvent event) {
-		if(event.phase == TickEvent.Phase.START)
+		Minecraft mc = Minecraft.getInstance();
+		if(event.phase == TickEvent.Phase.START) {
 			partialTicks = event.renderTickTime;
-		else {
+
+			if (mc.isGamePaused()) {
+				// If game is paused, need to use the saved value. The event is always fired with the "true" value which
+				// keeps updating when paused. See RenderTickEvent fire site for details
+				try {
+					partialTicks = (float) RENDER_PARTIAL_TICKS_PAUSED.get(mc);
+				} catch (IllegalAccessException ignored) {
+					// fall back to jittery one
+				}
+			}
+		} else {
 			calcDelta();
 		}
 	}
@@ -66,8 +83,7 @@ public final class ClientTickHandler {
 				SubTileVinculotus.existingFlowers.clear();
 			}
 
-			Screen gui = Minecraft.getInstance().currentScreen;
-			if(gui == null || !gui.isPauseScreen()) {
+			if(!Minecraft.getInstance().isGamePaused()) {
 				ticksInGame++;
 				partialTicks = 0;
 
@@ -87,6 +103,7 @@ public final class ClientTickHandler {
 			}
 
 			int ticksToOpen = 10;
+			Screen gui = Minecraft.getInstance().currentScreen;
 			if(gui instanceof GuiBook && ((GuiBook) gui).book.getBookItem().getItem() == ModItems.lexicon) {
 				if(ticksWithLexicaOpen < 0)
 					ticksWithLexicaOpen = 0;
