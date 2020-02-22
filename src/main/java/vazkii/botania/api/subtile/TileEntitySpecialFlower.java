@@ -125,7 +125,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 		if(cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
-			if(hasWorld() && getWorld().getBlockState(getPos()).isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
+			if(hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
 		}
