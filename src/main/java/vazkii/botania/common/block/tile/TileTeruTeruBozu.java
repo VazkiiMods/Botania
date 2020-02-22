@@ -38,7 +38,7 @@ public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
 		}
 
 		if(wasRaining != isRaining)
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		wasRaining = isRaining;
 	}
 

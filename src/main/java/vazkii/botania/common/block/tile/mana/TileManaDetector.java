@@ -33,10 +33,10 @@ public class TileManaDetector extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		boolean state = world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
+		boolean state = getBlockState().get(BotaniaStateProps.POWERED);
 		boolean expectedState = world.getEntitiesWithinAABB(ThrowableEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 		if(state != expectedState && !world.isRemote)
-			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, expectedState));
+			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, expectedState));
 
 		if(expectedState)
 			for(int i = 0; i < 4; i++) {

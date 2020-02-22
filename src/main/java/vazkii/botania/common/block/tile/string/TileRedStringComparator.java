@@ -38,7 +38,7 @@ public class TileRedStringComparator extends TileRedString {
 		} else comparatorValue = 0;
 
 		if(origVal != comparatorValue)
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 	}
 
 	public int getComparatorValue() {

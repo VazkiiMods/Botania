@@ -159,7 +159,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 		if(newSignal != signal) {
 			signal = newSignal;
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
 
 		manaLastTick = mana;

@@ -42,7 +42,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 		if (world.isRemote)
 			return;
 
-		boolean wasLooking = world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
+		boolean wasLooking = getBlockState().get(BotaniaStateProps.POWERED);
 		int range = 80;
 		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
@@ -60,7 +60,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 		}
 
 		if(looking != wasLooking)
-			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, looking), 1 | 2);
+			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, looking), 1 | 2);
 	}
 
 }
