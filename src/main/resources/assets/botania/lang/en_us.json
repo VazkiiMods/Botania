@@ -12,10 +12,6 @@
   "generator.botania-skyblock": "Garden of Glass",
   "generator.botania-skyblock.info": "Not recommended for Botania newcomers",
 
-  "_comment5": "Something that is not localized, translators, do NOT change this line.",
-  "_comment6": "You do not need to copy this into your lang file",
-  "botaniamisc.noloc": "botaniamisc.noloc",
-
   "botaniamisc.statusUnknown": "Unknown Status",
   "botaniamisc.color": "%s Tinted",
   "botaniamisc.manaUsage": "Mana Usage",
