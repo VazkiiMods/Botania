@@ -50,6 +50,9 @@ public final class ColorHandler {
 		// Pool
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
+					if(tintIndex != 0)
+						return -1;
+					
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
@@ -76,7 +79,7 @@ public final class ColorHandler {
 				);
 
 		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> ((BlockPetalBlock) state.getBlock()).color.colorValue,
+		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.colorValue : -1,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -102,7 +105,7 @@ public final class ColorHandler {
 
 		ItemColors items = Minecraft.getInstance().getItemColors();
 
-		items.register((s, t) -> Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F),
+		items.register((s, t) -> t == 0 ? Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
 						ModItems.lifeEssence, ModItems.gaiaIngot);
 
 		items.register((s, t) ->
@@ -111,14 +114,14 @@ public final class ColorHandler {
 						: -1,
 						ModItems.twigWand);
 
-		IItemColor petalHandler = (s, t) -> ((ItemPetal) s.getItem()).color.colorValue;
-		IItemColor dyeHandler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
+		IItemColor petalHandler = (s, t) -> t == 0 ? ((ItemPetal) s.getItem()).color.colorValue : -1;
+		IItemColor dyeHandler = (s, t) -> t == 0 ? ((Item16Colors) s.getItem()).color.colorValue : -1;
 		for(DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
 			items.register(dyeHandler, ModItems.getDye(color));
 		}
 
-		items.register((s, t) -> Minecraft.getInstance().getBlockColors().getColor(((BlockItem)s.getItem()).getBlock().getDefaultState(), null, null, t),
+		items.register((s, t) -> t == 0 ? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) s.getItem()).getBlock().getDefaultState(), null, null, t) : -1,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -129,7 +132,7 @@ public final class ColorHandler {
 
 		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
 
-		items.register((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float)s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
+		items.register((s, t) -> t == 0 ? Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
 
 		items.register((s, t) -> {
 			if(t != 1)
