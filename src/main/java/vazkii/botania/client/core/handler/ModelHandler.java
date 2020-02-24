@@ -78,8 +78,12 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModelHandler {
+	static boolean registeredModels = false; 
+	
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
+		registeredModels = true;
+		
 		ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.INSTANCE);
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));

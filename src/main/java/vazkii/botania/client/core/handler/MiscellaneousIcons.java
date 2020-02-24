@@ -31,6 +31,7 @@ import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
@@ -90,6 +91,11 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
+		if (!ModelHandler.registeredModels) {
+			Botania.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
+			return;
+		}
+		
 		// Water bowl
 		ModelDynBucket bowl = new ModelDynBucket(prefix("items/waterbowl_base"), prefix("items/waterbowl_fluid"), prefix("items/waterbowl_cover"), Fluids.WATER, false, true);
 		IModelState transform = ForgeBlockStateV1.Transforms.get("forge:default-item").get();
