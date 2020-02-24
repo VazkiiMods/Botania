@@ -62,8 +62,8 @@ public final class ColorHandler {
 						}
 					}
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS){
-						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-						int fabulousColor = MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
+						float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.005F;
+						int fabulousColor = MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F);
 						return MathHelper.multiplyColor(fabulousColor, color);
 					}
 					return color;
