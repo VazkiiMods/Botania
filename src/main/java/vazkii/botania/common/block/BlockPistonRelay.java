@@ -144,13 +144,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
-		if(!event.getWorld().getWorld().isRemote && event.getWorld().getDimension().getType() == DimensionType.OVERWORLD)
+		if(!event.getWorld().getWorld().isRemote)
 			WorldData.get(event.getWorld().getWorld());
 	}
 
 	@SubscribeEvent
 	public void onWorldUnload(WorldEvent.Unload event) {
-		if(!event.getWorld().getWorld().isRemote && event.getWorld().getDimension().getType() == DimensionType.OVERWORLD)
+		if(!event.getWorld().getWorld().isRemote)
 			WorldData.get(event.getWorld().getWorld()).markDirty();
 	}
 
