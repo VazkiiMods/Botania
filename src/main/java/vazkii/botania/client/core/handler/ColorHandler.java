@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.FoliageColors;
 import net.minecraft.world.biome.BiomeColors;
 import vazkii.botania.api.BotaniaAPI;
@@ -36,7 +37,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
 
-import java.awt.*;
+import java.awt.Color;
 
 public final class ColorHandler {
 
@@ -52,19 +53,20 @@ public final class ColorHandler {
 				(state, world, pos, tintIndex) -> {
 					if(tintIndex != 0)
 						return -1;
-					
-					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
-						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
-					} else {
-						if(world != null && pos != null) {
-							TileEntity te = world.getTileEntity(pos);
-							if(te instanceof TilePool) {
-								return ((TilePool) te).color.colorValue;
-							}
+
+					int color = DyeColor.WHITE.colorValue;
+					if(world != null && pos != null) {
+						TileEntity te = world.getTileEntity(pos);
+						if(te instanceof TilePool) {
+							color = ((TilePool) te).color.colorValue;
 						}
-						return DyeColor.WHITE.colorValue;
 					}
+					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS){
+						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+						int fabulousColor = MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
+						return MathHelper.multiplyColor(fabulousColor, color);
+					}
+					return color;
 				},
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool
 				);
