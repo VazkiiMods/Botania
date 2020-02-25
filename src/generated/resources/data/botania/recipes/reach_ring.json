@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RE ",
+    "E E",
+    " E "
+  ],
+  "key": {
+    "R": {
+      "tag": "botania:runes/pride"
+    },
+    "E": {
+      "tag": "forge:ingots/elementium"
+    }
+  },
+  "result": {
+    "item": "botania:reach_ring"
+  }
+}

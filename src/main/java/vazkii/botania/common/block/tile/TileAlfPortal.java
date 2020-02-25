@@ -12,6 +12,8 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -32,6 +34,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -43,9 +46,12 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
@@ -77,6 +83,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 	private boolean explode = false;
+	@Nullable
+	private UUID breadPlayer = null;
 
 	public TileAlfPortal() {
 		super(TYPE);
@@ -84,12 +92,11 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		BlockState iBlockState = world.getBlockState(getPos());
-		if(iBlockState.get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+		if(getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
 		}
-		AlfPortalState state = iBlockState.get(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
 		AlfPortalState newState = getValidState();
 
 		ticksOpen++;
@@ -124,7 +131,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 					if (consume) {
 						item.remove();
-						if (validateItemUsage(stack))
+						if (validateItemUsage(item))
 							addItem(stack);
 						ticksSinceLastItem = 0;
 					}
@@ -144,22 +151,34 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
-			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		} else if(explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.Mode.DESTROY);
 			explode = false;
+
+			if (!world.isRemote && breadPlayer != null) {
+				PlayerEntity entity = world.getPlayerByUuid(breadPlayer);
+				if (entity instanceof ServerPlayerEntity) {
+					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayerEntity) entity, getPos());
+				}
+			}
+			breadPlayer = null;
 		}
 	}
 
-	private boolean validateItemUsage(ItemStack inputStack) {
+	private boolean validateItemUsage(ItemEntity entity) {
+		ItemStack inputStack = entity.getItem();
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			if(recipe.containsItem(inputStack)) {
 				return true;
 			}
 		}
-		if(inputStack.getItem() == Items.BREAD) //Don't teleport bread. (See also: #2403)
+		if(inputStack.getItem() == Items.BREAD) {
+			//Don't teleport bread. (See also: #2403)
 			explode = true;
+			breadPlayer = entity.getThrowerId();
+		}
 
 		return false;
 	}
@@ -189,11 +208,11 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	public boolean onWanded() {
-		AlfPortalState state = world.getBlockState(getPos()).get(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {
-				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+				world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 				return true;
 			}
 		}
@@ -203,7 +222,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private AxisAlignedBB getPortalAABB() {
 		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
-		if(world.getBlockState(getPos()).get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
+		if(getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
 			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
 
 		return aabb;
@@ -298,20 +317,15 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	public List<BlockPos> locatePylons() {
-		List<BlockPos> list = new ArrayList<>();
 		int range = 5;
 
 		BlockState pylonState = ModBlocks.naturaPylon.getDefaultState();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++)
-				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos = getPos().add(i, j, k);
-					if(world.getBlockState(pos) == pylonState && world.getBlockState(pos.down()).getBlock() instanceof BlockPool)
-						list.add(pos);
-				}
-
-		return list;
+		return BlockPos.getAllInBox(getPos().add(-range, -range, -range), getPos().add(range, range, range))
+				.filter(world::isBlockLoaded)
+				.filter(p -> world.getBlockState(p) == pylonState && world.getBlockState(p.down()).getBlock() instanceof BlockPool)
+				.map(BlockPos::toImmutable)
+				.collect(Collectors.toList());
 	}
 
 	public void lightPylons() {

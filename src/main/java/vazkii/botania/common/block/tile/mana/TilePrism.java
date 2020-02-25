@@ -38,7 +38,7 @@ public class TilePrism extends TileSimpleInventory {
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		boolean active = !world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
+		boolean active = !getBlockState().get(BotaniaStateProps.POWERED);
 		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
 		if(active) {
@@ -87,7 +87,7 @@ public class TilePrism extends TileSimpleInventory {
 		super.markDirty();
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		if(world != null && !world.isRemote) {
-			BlockState state = world.getBlockState(pos);
+			BlockState state = getBlockState();
 			boolean hasLens = !itemHandler.getStackInSlot(0).isEmpty();
 			if (state.getBlock() != ModBlocks.prism || state.get(BotaniaStateProps.HAS_LENS) != hasLens) {
 				BlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.getDefaultState();

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WCW",
+    "W W",
+    "W W"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "W": {
+      "item": "botania:dreamwood_planks"
+    }
+  },
+  "result": {
+    "item": "botania:crafty_crate"
+  }
+}

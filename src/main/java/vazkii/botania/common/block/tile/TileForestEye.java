@@ -36,7 +36,7 @@ public class TileForestEye extends TileMod implements ITickableTileEntity {
 		int entityCount = world.getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
 		if(entityCount != entities) {
 			entities = entityCount;
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
 	}
 

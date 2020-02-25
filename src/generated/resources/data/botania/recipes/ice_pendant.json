@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WS ",
+    "S S",
+    "MSR"
+  ],
+  "key": {
+    "R": {
+      "tag": "botania:runes/water"
+    },
+    "S": {
+      "item": "botania:mana_string"
+    },
+    "W": {
+      "tag": "botania:runes/winter"
+    },
+    "M": {
+      "tag": "forge:ingots/manasteel"
+    }
+  },
+  "result": {
+    "item": "botania:ice_pendant"
+  }
+}

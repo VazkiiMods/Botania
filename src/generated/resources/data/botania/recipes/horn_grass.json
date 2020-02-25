@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "WSW",
+    "WW "
+  ],
+  "key": {
+    "S": {
+      "item": "botania:grass_seeds"
+    },
+    "W": {
+      "tag": "botania:livingwood"
+    }
+  },
+  "result": {
+    "item": "botania:horn_grass"
+  }
+}

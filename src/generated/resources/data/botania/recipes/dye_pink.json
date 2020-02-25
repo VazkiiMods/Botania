@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:dye",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:pink_tulip"
+      },
+      {
+        "tag": "botania:petals/pink"
+      }
+    ],
+    {
+      "item": "botania:pestle_and_mortar"
+    }
+  ],
+  "result": {
+    "item": "botania:pink_dye"
+  }
+}

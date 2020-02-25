@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:azulejo_9"
+    ]
+  },
+  "criteria": {
+    "has_azulejo": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:azulejo_0"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:azulejo_9"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_azulejo",
+      "has_the_recipe"
+    ]
+  ]
+}

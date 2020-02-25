@@ -91,7 +91,8 @@ public class ExoflameFurnaceHandler {
 					this.recipeType = ExoflameFurnaceHandler.getRecipeType(furnace);
 				}
 				if (currentRecipe != null) { // This is already more caching than Mojang does
-					if(ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe)) {
+					if(currentRecipe.matches(furnace, furnace.getWorld())
+							&& ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe)) {
 						return true;
 					}
 				}

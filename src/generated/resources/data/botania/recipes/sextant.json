@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " TI",
+    " TT",
+    "III"
+  ],
+  "key": {
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "I": {
+      "tag": "forge:ingots/manasteel"
+    }
+  },
+  "result": {
+    "item": "botania:sextant"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:nuggets/terrasteel"
+    }
+  },
+  "result": {
+    "item": "botania:terrasteel_ingot"
+  }
+}

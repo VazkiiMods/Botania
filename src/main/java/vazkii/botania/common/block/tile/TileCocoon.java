@@ -85,7 +85,8 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 			for (Direction d : Direction.values()) {
 				if (d != Direction.UP) {
 					BlockPos blockPos = pos.offset(d);
-					if (world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
+					if (world.isBlockLoaded(blockPos)
+							&& world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
 						validWater.add(blockPos);
 					}
 				}
@@ -123,6 +124,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				if(entity instanceof AgeableEntity)
 					((AgeableEntity) entity).setGrowingAge(-24000);
 				entity.onInitialSpawn(world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
+				entity.enablePersistence();
 				world.addEntity(entity);
 				entity.spawnExplosionParticle();
 			}

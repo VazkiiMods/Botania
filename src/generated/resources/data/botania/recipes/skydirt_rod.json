@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:dirt_rod"
+    },
+    {
+      "item": "botania:pixie_dust"
+    },
+    {
+      "tag": "botania:runes/air"
+    }
+  ],
+  "result": {
+    "item": "botania:skydirt_rod"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:spark"
+    },
+    {
+      "item": "botania:pixie_dust"
+    },
+    {
+      "item": "botania:ender_air_bottle"
+    }
+  ],
+  "result": {
+    "item": "botania:corporea_spark"
+  }
+}

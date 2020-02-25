@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SGS",
+    "BPB",
+    "SGS"
+  ],
+  "key": {
+    "P": {
+      "item": "botania:mana_pearl"
+    },
+    "B": {
+      "item": "minecraft:brewing_stand"
+    },
+    "S": {
+      "tag": "botania:livingrock"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result": {
+    "item": "botania:alchemy_catalyst"
+  }
+}

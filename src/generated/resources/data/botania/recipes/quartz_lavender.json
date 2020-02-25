@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQQ",
+    "QCQ",
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "tag": "forge:gems/quartz"
+    },
+    "C": [
+      {
+        "item": "minecraft:allium"
+      },
+      {
+        "item": "minecraft:pink_tulip"
+      },
+      {
+        "item": "minecraft:lilac"
+      },
+      {
+        "item": "minecraft:peony"
+      }
+    ]
+  },
+  "result": {
+    "item": "botania:quartz_lavender",
+    "count": 8
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_apothecary",
+  "pattern": [
+    "SSS",
+    "SAS",
+    "SSS"
+  ],
+  "key": {
+    "A": {
+      "item": "botania:apothecary_default"
+    },
+    "S": {
+      "item": "botania:metamorphic_forest_cobblestone"
+    }
+  },
+  "result": {
+    "item": "botania:apothecary_forest"
+  }
+}

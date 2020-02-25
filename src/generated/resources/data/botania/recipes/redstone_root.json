@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/redstone"
+    },
+    [
+      {
+        "item": "minecraft:fern"
+      },
+      {
+        "item": "minecraft:grass"
+      }
+    ]
+  ],
+  "result": {
+    "item": "botania:redstone_root"
+  }
+}

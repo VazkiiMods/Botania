@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:dye_double",
+  "ingredients": [
+    {
+      "item": "minecraft:sunflower"
+    },
+    {
+      "item": "botania:pestle_and_mortar"
+    }
+  ],
+  "result": {
+    "item": "botania:yellow_dye",
+    "count": 2
+  }
+}

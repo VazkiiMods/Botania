@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_cobble_wall",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:metamorphic_forest_cobblestone"
+    }
+  },
+  "result": {
+    "item": "botania:metamorphic_forest_cobblestone_wall",
+    "count": 6
+  }
+}

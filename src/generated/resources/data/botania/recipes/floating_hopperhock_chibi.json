@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "botania:floating_flowers"
+    },
+    {
+      "item": "botania:hopperhock_chibi"
+    }
+  ],
+  "result": {
+    "item": "botania:floating_hopperhock_chibi"
+  }
+}

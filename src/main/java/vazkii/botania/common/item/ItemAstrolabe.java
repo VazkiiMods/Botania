@@ -186,7 +186,7 @@ public class ItemAstrolabe extends ItemMod {
 
 	public static List<BlockPos> getBlocksToPlace(ItemStack stack, PlayerEntity player) {
 		List<BlockPos> coords = new ArrayList<>();
-		BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.SOURCE_ONLY, 5);
+		BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 5, true);
 		if(rtr.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos pos = rtr.getPos();
 			BlockState state = player.world.getBlockState(pos);

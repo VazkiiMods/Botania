@@ -52,14 +52,6 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}
 
-	@Override
-	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
-		if(state.getBlockHardness(world, pos) != 0F)
-			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
-
-		return true;
-	}
-
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {

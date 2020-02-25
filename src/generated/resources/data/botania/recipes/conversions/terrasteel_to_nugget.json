@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/terrasteel"
+    }
+  ],
+  "result": {
+    "item": "botania:terrasteel_nugget",
+    "count": 9
+  }
+}

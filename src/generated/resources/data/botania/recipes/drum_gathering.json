@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WLW",
+    "WEW",
+    "WLW"
+  ],
+  "key": {
+    "E": {
+      "tag": "forge:ingots/elementium"
+    },
+    "W": {
+      "item": "botania:dreamwood"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "botania:drum_gathering"
+  }
+}

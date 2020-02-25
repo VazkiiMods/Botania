@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SPS",
+    " C ",
+    "CCC"
+  ],
+  "key": {
+    "P": {
+      "tag": "botania:petals"
+    },
+    "S": {
+      "item": "minecraft:cobblestone_slab"
+    },
+    "C": {
+      "tag": "forge:cobblestone"
+    }
+  },
+  "result": {
+    "item": "botania:apothecary_default"
+  }
+}

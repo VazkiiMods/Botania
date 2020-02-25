@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:lens_normal"
+    },
+    {
+      "item": "minecraft:firework_rocket"
+    },
+    {
+      "tag": "forge:ingots/elementium"
+    }
+  ],
+  "result": {
+    "item": "botania:lens_firework"
+  }
+}

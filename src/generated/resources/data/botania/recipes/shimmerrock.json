@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "botania:livingrock"
+    },
+    {
+      "item": "botania:bifrost_perm"
+    }
+  ],
+  "result": {
+    "item": "botania:shimmerrock"
+  }
+}

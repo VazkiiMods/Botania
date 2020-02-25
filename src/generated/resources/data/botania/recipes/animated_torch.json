@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D",
+    "T"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:dusts/mana"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "result": {
+    "item": "botania:animated_torch"
+  }
+}

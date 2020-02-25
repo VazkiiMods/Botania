@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:bread"
+    },
+    "title": {
+      "translate": "advancement.botania:alfPortalBread"
+    },
+    "description": {
+      "translate": "advancement.botania:alfPortalBread.desc"
+    },
+    "frame": "challenge",
+    "hidden": true
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "bread": {
+      "trigger": "botania:alf_portal_bread"
+    }
+  }
+}

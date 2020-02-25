@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "CPC",
+    "BBB"
+  ],
+  "key": {
+    "P": {
+      "item": "botania:pixie_dust"
+    },
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "C": {
+      "item": "botania:thorn_chakram"
+    }
+  },
+  "result": {
+    "item": "botania:flare_chakram",
+    "count": 2
+  }
+}

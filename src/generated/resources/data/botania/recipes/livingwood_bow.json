@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " TS",
+    "T S",
+    " TS"
+  ],
+  "key": {
+    "S": {
+      "item": "botania:mana_string"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "result": {
+    "item": "botania:livingwood_bow"
+  }
+}

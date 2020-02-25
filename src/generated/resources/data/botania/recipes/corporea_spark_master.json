@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:corporea_spark"
+    },
+    {
+      "tag": "forge:gems/dragonstone"
+    }
+  ],
+  "result": {
+    "item": "botania:corporea_spark_master"
+  }
+}

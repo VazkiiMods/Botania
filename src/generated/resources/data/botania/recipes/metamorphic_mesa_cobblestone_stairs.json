@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_cobble_stairs",
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:metamorphic_mesa_cobblestone"
+    }
+  },
+  "result": {
+    "item": "botania:metamorphic_mesa_cobblestone_stairs",
+    "count": 4
+  }
+}

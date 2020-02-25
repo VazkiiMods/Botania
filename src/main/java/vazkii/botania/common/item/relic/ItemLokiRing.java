@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -24,8 +25,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -35,8 +37,10 @@ import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.advancements.LokiPlaceTrigger;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibMisc;
@@ -63,40 +67,38 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		PlayerEntity player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing.isEmpty() || !player.isSneaking())
 			return;
 
-		ItemStack heldItemStack = event.getItemStack();
-		BlockPos originCoords = getOriginPos(lokiRing);
-		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, RayTraceContext.FluidMode.ANY, 10F);
+		ItemStack stack = event.getItemStack();
+		BlockRayTraceResult lookPos = ToolCommons.raytraceFromEntity(player, 10F, true);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 
 		if(lookPos.getType() != RayTraceResult.Type.BLOCK)
 			return;
 
-		BlockPos hit = ((BlockRayTraceResult) lookPos).getPos();
-		if(heldItemStack.isEmpty()) {
+		BlockPos hit = lookPos.getPos();
+		if(stack.isEmpty()) {
+			BlockPos originCoords = getOriginPos(lokiRing);
 			if(!event.getWorld().isRemote) {
 				if(originCoords.getY() == -1) {
+					// Initiate a new pending list of positions
 					setOriginPos(lokiRing, hit);
 					setCursorList(lokiRing, null);
 				} else {
 					if(originCoords.equals(hit)) {
+						// Finalize the pending list of positions
 						setOriginPos(lokiRing, new BlockPos(0, -1, 0));
 					} else {
-						addCursor : {
-							BlockPos relPos = hit.subtract(originCoords);
+						// Toggle offsets on or off from the pending list of positions
+						BlockPos relPos = hit.subtract(originCoords);
 
-							for(BlockPos cursor : cursors)
-								if(cursor.equals(relPos)) {
-									cursors.remove(cursor);
-									setCursorList(lokiRing, cursors);
-									break addCursor;
-								}
-
+						if (cursors.remove(relPos)) {
+							setCursorList(lokiRing, cursors);
+						} else {
 							addCursor(lokiRing, relPos);
 						}
 					}
@@ -106,17 +108,31 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			event.setCanceled(true);
 			event.setCancellationResult(ActionResultType.SUCCESS);
 		} else {
+			ItemStack original = stack.copy();
+			int successes = 0;
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = hit.add(cursor);
-				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
-					ItemStack saveHeld = heldItemStack.copy();
-					BlockRayTraceResult newHit = new BlockRayTraceResult(
-							lookPos.getHitVec().subtract(pos.getX(), pos.getY(), pos.getZ()),
-							((BlockRayTraceResult) lookPos).getFace(), pos, false);
-					heldItemStack.onItemUse(new ItemUseContext(player, event.getHand(), newHit));
-					if(player.isCreative())
-						player.setHeldItem(event.getHand(), saveHeld);
+				if(ManaItemHandler.requestManaExact(lokiRing, player, cost, false)) {
+					Vec3d lookHit = lookPos.getHitVec();
+					Vec3d newHitVec = new Vec3d(pos.getX() + MathHelper.frac(lookHit.getX()), pos.getY() + MathHelper.frac(lookHit.getY()), pos.getZ() + MathHelper.frac(lookHit.getZ()));
+					BlockRayTraceResult newHit = new BlockRayTraceResult(newHitVec, lookPos.getFace(), pos, false);
+					ItemUseContext ctx = new ItemUseContext(player, event.getHand(), newHit);
+
+					ActionResultType result;
+					if (player.isCreative()) {
+						result = PlayerHelper.substituteUse(ctx, original.copy());
+					} else {
+						result = stack.onItemUse(ctx);
+					}
+
+					if (result == ActionResultType.SUCCESS) {
+						ManaItemHandler.requestManaExact(lokiRing, player, cost, true);
+						successes++;
+					}
 				}
+			}
+			if (player instanceof ServerPlayerEntity) {
+				LokiPlaceTrigger.INSTANCE.trigger((ServerPlayerEntity) player, lokiRing, successes);
 			}
 		}
 	}
@@ -173,8 +189,21 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
-		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
+		Minecraft mc = Minecraft.getInstance();
+		if (getLokiRing(player) == stack) {
+			BlockPos currentBuildCenter = getOriginPos(stack);
+			if (currentBuildCenter.getY() != -1) {
+				return currentBuildCenter;
+			} else if (mc.objectMouseOver instanceof BlockRayTraceResult
+					&& mc.objectMouseOver.getType() == RayTraceResult.Type.BLOCK
+					&& !getCursorList(stack).isEmpty()) {
+				return ((BlockRayTraceResult) mc.objectMouseOver).getPos();
+			}
+		}
+
+		return null;
 	}
 
 	private static ItemStack getLokiRing(PlayerEntity player) {

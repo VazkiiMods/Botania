@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -67,8 +68,9 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				pos.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos_);
 
-			if(Tags.Blocks.ORES.contains(state.getBlock())) {
-				Random rand = new Random(state.hashCode() ^ seedxor);
+			Block block = state.getBlock();
+			if(Tags.Blocks.ORES.contains(block)) {
+				Random rand = new Random(block.getRegistryName().hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.rand.nextFloat(),
 						pos_.getY() + world.rand.nextFloat(),

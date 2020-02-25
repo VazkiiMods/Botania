@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:minecart"
+    },
+    {
+      "item": "botania:mana_pool"
+    }
+  ],
+  "result": {
+    "item": "botania:pool_minecart"
+  }
+}

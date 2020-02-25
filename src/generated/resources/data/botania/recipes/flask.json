@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G G",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "item": "botania:elf_glass"
+    }
+  },
+  "result": {
+    "item": "botania:flask",
+    "count": 3
+  }
+}

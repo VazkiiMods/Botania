@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "botania:floating_flowers"
+    },
+    {
+      "item": "botania:fallen_kanade"
+    }
+  ],
+  "result": {
+    "item": "botania:floating_fallen_kanade"
+  }
+}

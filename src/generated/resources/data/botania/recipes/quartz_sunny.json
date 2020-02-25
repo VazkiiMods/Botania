@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQQ",
+    "QCQ",
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "tag": "forge:gems/quartz"
+    },
+    "C": {
+      "item": "minecraft:sunflower"
+    }
+  },
+  "result": {
+    "item": "botania:quartz_sunny",
+    "count": 8
+  }
+}

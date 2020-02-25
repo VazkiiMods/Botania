@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "DLD"
+  ],
+  "key": {
+    "D": {
+      "item": "botania:dreamwood"
+    },
+    "L": {
+      "item": "botania:light_relay"
+    }
+  },
+  "result": {
+    "item": "botania:light_launcher"
+  }
+}

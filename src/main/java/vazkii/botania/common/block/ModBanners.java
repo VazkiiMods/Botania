@@ -10,38 +10,46 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BannerPattern;
+import net.minecraft.util.IItemProvider;
+import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.common.item.ModItems;
 
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public final class ModBanners {
 
+	public static final Map<IRegistryDelegate<Item>, BannerPattern> PATTERNS = new LinkedHashMap<>();
+
 	public static void init() {
-		addPattern("flower", "flr", new ItemStack(ModItems.livingwoodTwig));
-		addPattern("lexicon", "lex", new ItemStack(ModItems.lexicon));
-		addPattern("logo", "lgo", new ItemStack(ModItems.terrasteel));
-		addPattern("sapling", "spl", new ItemStack(ModItems.dreamwoodTwig));
-		addPattern("tiny_potato", "tpt", new ItemStack(ModBlocks.tinyPotato));
+		addPattern("flower", "flr", ModItems.livingwoodTwig);
+		addPattern("lexicon", "lex", ModItems.lexicon);
+		addPattern("logo", "lgo", ModItems.terrasteel);
+		addPattern("sapling", "spl", ModItems.dreamwoodTwig);
+		addPattern("tiny_potato", "tpt", ModBlocks.tinyPotato);
 
-		addPattern("spark_dispersive", "sds", new ItemStack(ModItems.sparkUpgradeDispersive));
-		addPattern("spark_dominant", "sdm", new ItemStack(ModItems.sparkUpgradeDominant));
-		addPattern("spark_recessive", "src", new ItemStack(ModItems.sparkUpgradeRecessive));
-		addPattern("spark_isolated", "sis", new ItemStack(ModItems.sparkUpgradeIsolated));
+		addPattern("spark_dispersive", "sds", ModItems.sparkUpgradeDispersive);
+		addPattern("spark_dominant", "sdm", ModItems.sparkUpgradeDominant);
+		addPattern("spark_recessive", "src", ModItems.sparkUpgradeRecessive);
+		addPattern("spark_isolated", "sis", ModItems.sparkUpgradeIsolated);
 
-		addPattern("fish", "fis", new ItemStack(Items.COD));
-		addPattern("axe", "axe", new ItemStack(Items.IRON_AXE));
-		addPattern("hoe", "hoe", new ItemStack(Items.IRON_HOE));
-		addPattern("pickaxe", "pik", new ItemStack(Items.IRON_PICKAXE));
-		addPattern("shovel", "shv", new ItemStack(Items.IRON_SHOVEL));
-		addPattern("sword", "srd", new ItemStack(Items.IRON_SWORD));
+		addPattern("fish", "fis", Items.COD);
+		addPattern("axe", "axe", Items.IRON_AXE);
+		addPattern("hoe", "hoe", Items.IRON_HOE);
+		addPattern("pickaxe", "pik", Items.IRON_PICKAXE);
+		addPattern("shovel", "shv", Items.IRON_SHOVEL);
+		addPattern("sword", "srd", Items.IRON_SWORD);
 	}
 
-	private static void addPattern(String name, String id, ItemStack craftingItem) {
+	private static void addPattern(String name, String id, IItemProvider craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
-		BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, craftingItem);
+		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, new ItemStack(craftingItem));
+		PATTERNS.put(craftingItem.asItem().delegate, pattern);
 	}
 }

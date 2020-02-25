@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "D D",
+    "DD "
+  ],
+  "key": {
+    "D": {
+      "item": "botania:dreamwood"
+    }
+  },
+  "result": {
+    "item": "botania:clip"
+  }
+}

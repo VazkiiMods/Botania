@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:dye",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:poppy"
+      },
+      {
+        "item": "minecraft:red_tulip"
+      },
+      {
+        "tag": "botania:petals/red"
+      }
+    ],
+    {
+      "item": "botania:pestle_and_mortar"
+    }
+  ],
+  "result": {
+    "item": "botania:red_dye"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " TD",
+    " TT",
+    "T  "
+  ],
+  "key": {
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "D": {
+      "tag": "forge:gems/mana_diamond"
+    }
+  },
+  "result": {
+    "item": "botania:divining_rod"
+  }
+}

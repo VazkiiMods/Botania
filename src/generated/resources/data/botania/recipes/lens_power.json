@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:lens_normal"
+    },
+    {
+      "tag": "botania:runes/fire"
+    }
+  ],
+  "result": {
+    "item": "botania:lens_power"
+  }
+}

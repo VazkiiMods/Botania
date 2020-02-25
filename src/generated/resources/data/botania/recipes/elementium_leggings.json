@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:ingots/elementium"
+    }
+  },
+  "result": {
+    "item": "botania:elementium_leggings"
+  }
+}

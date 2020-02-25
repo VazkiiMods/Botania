@@ -159,7 +159,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 			if(newSignal != signal) {
 				signal = newSignal;
-				world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+				world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 			}
 
 			updateRecipe();

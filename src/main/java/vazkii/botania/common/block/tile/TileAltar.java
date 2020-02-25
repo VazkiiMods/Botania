@@ -123,13 +123,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				if(!drainWater.isEmpty() && drainWater.getFluid() == Fluids.WATER && drainWater.getAmount() == FluidAttributes.BUCKET_VOLUME) {
 				    setFluid(Fluids.WATER);
-					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 					fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
 				} else if(!drainLava.isEmpty() && drainLava.getFluid() == Fluids.LAVA && drainLava.getAmount() == FluidAttributes.BUCKET_VOLUME) {
 					setFluid(Fluids.LAVA);
-					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 					fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
@@ -160,7 +160,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					world.addEntity(outputItem);
 					
 					setFluid(Fluids.EMPTY);
-					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 					
 					world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 					

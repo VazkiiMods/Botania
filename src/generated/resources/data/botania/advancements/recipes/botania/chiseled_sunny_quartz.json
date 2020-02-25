@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:chiseled_sunny_quartz"
+    ]
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:sunny_quartz_slab"
+          }
+        ]
+      }
+    },
+    "has_base_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:sunny_quartz"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:chiseled_sunny_quartz"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_base_item",
+      "has_the_recipe"
+    ]
+  ]
+}

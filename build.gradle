@@ -94,7 +94,7 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-28.1.92"
-    compile fg.deobf("vazkii.patchouli:Patchouli:1.1-25.126") { transitive = false }
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.14.4-1.1-25.135") { transitive = false }
 
     compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:pixie_dust"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "botania:ender_air_bottle"
+    }
+  ],
+  "result": {
+    "item": "botania:keep_ivy"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:fabulous_pool"
+    ]
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:shimmerrock"
+          }
+        ]
+      }
+    },
+    "has_alt_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rainbow_rod"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:fabulous_pool"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_alt_item",
+      "has_the_recipe"
+    ]
+  ]
+}

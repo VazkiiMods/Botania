@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "CPC",
+    "SDS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "C": {
+      "item": "botania:manaweave_cloth"
+    },
+    "P": {
+      "item": "botania:fel_pumpkin"
+    },
+    "D": {
+      "item": "botania:pixie_dust"
+    }
+  },
+  "result": {
+    "item": "botania:cocoon"
+  }
+}

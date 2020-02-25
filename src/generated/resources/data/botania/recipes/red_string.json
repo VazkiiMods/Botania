@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:red_string",
+  "ingredients": [
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "item": "botania:pixie_dust"
+    },
+    {
+      "item": "botania:ender_air_bottle"
+    }
+  ],
+  "result": {
+    "item": "botania:red_string"
+  }
+}

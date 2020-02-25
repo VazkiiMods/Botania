@@ -1,0 +1,20 @@
+{
+  "type": "botania:twig_wand",
+  "group": "botania:twig_wand",
+  "pattern": [
+    " PS",
+    " SP",
+    "S  "
+  ],
+  "key": {
+    "P": {
+      "tag": "botania:petals"
+    },
+    "S": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "result": {
+    "item": "botania:twig_wand"
+  }
+}

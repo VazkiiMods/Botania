@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LTL",
+    "TGT",
+    "LTL"
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "G": {
+      "item": "botania:life_essence"
+    },
+    "L": {
+      "tag": "botania:livingwood"
+    }
+  },
+  "result": {
+    "item": "botania:mana_bomb"
+  }
+}

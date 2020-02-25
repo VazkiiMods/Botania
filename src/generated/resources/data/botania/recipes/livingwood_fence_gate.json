@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SBS",
+    "SBS"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:livingwood_planks"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "botania:livingwood_fence_gate",
+    "count": 3
+  }
+}

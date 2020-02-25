@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:gems/mana_diamond"
+    }
+  },
+  "result": {
+    "item": "botania:mana_diamond_block"
+  }
+}

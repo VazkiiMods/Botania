@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:spreader",
+  "pattern": [
+    "WWW",
+    "GP ",
+    "WWW"
+  ],
+  "key": {
+    "P": {
+      "tag": "botania:petals"
+    },
+    "W": {
+      "tag": "botania:livingwood"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result": {
+    "item": "botania:mana_spreader"
+  }
+}

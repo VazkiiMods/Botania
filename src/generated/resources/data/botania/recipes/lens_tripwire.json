@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:lens_normal"
+    },
+    {
+      "item": "minecraft:tripwire_hook"
+    },
+    {
+      "tag": "forge:ingots/elementium"
+    }
+  ],
+  "result": {
+    "item": "botania:lens_tripwire"
+  }
+}

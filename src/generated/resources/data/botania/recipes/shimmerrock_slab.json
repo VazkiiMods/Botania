@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:shimmerrock"
+    }
+  },
+  "result": {
+    "item": "botania:shimmerrock_slab",
+    "count": 6
+  }
+}

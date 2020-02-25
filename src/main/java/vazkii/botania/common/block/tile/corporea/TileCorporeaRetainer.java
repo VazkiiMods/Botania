@@ -68,7 +68,7 @@ public class TileCorporeaRetainer extends TileMod {
 		this.requestCount = requestCount;
 
 		compValue = CorporeaHelper.signalStrengthForRequestSize(requestCount);
-		world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
+		world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
 	}
 	
 	public int getComparatorValue() {
@@ -93,7 +93,7 @@ public class TileCorporeaRetainer extends TileMod {
 				request = null;
 				requestCount = 0;
 				compValue = 0;
-				world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
+				world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
 			}
 		}
 	}

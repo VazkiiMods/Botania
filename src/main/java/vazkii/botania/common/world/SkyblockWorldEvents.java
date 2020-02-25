@@ -106,8 +106,7 @@ public final class SkyblockWorldEvents {
 					event.setCancellationResult(ActionResultType.SUCCESS);
 				}
 			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
-				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), player,
-						RayTraceContext.FluidMode.SOURCE_ONLY, 4.5F);
+				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
 				if(rtr.getType() == RayTraceResult.Type.BLOCK) {
 					BlockPos pos = rtr.getPos();
 					if(event.getWorld().getBlockState(pos).getMaterial() == Material.WATER) {

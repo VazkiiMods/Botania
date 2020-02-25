@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GN",
+    "IN",
+    " N"
+  ],
+  "key": {
+    "G": {
+      "item": "botania:mana_glass"
+    },
+    "I": {
+      "tag": "forge:ingots/manasteel"
+    },
+    "N": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "botania:monocle"
+  }
+}

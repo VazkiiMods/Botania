@@ -93,7 +93,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		if(newSignal != signal) {
 			signal = newSignal;
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
 	}
 

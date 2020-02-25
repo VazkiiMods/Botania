@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "0M1",
+    "283"
+  ],
+  "key": {
+    "0": {
+      "tag": "botania:runes/water"
+    },
+    "1": {
+      "tag": "botania:runes/fire"
+    },
+    "2": {
+      "tag": "botania:runes/earth"
+    },
+    "3": {
+      "tag": "botania:runes/air"
+    },
+    "8": {
+      "tag": "botania:runes/mana"
+    },
+    "L": {
+      "tag": "forge:storage_blocks/lapis"
+    },
+    "M": {
+      "tag": "forge:storage_blocks/manasteel"
+    }
+  },
+  "result": {
+    "item": "botania:terra_plate"
+  }
+}

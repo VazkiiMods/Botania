@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "ALA",
+    " R "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "A": {
+      "tag": "forge:gems/lapis"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "L": {
+      "item": "botania:lens_normal"
+    }
+  },
+  "result": {
+    "item": "botania:lens_mine"
+  }
+}

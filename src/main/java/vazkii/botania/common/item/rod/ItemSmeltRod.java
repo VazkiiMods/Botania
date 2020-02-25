@@ -80,10 +80,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
-		RayTraceResult ray = ToolCommons.raytraceFromEntity(p.world, p, RayTraceContext.FluidMode.NONE, 32);
+		BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(p, 32, false);
 
-		if(ray.getType() == RayTraceResult.Type.BLOCK) {
-			BlockRayTraceResult pos = (BlockRayTraceResult) ray;
+		if(pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockState state = p.world.getBlockState(pos.getPos());
 
 			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
