@@ -8,6 +8,10 @@
       "type": "text",
       "text": "botania.page.turntable0"
     },
+	{
+      "type": "text",
+      "text": "botania.page.turntable2"
+    },
     {
       "type": "crafting",
       "text": "botania.page.turntable1",
