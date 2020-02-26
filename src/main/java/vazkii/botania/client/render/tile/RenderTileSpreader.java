@@ -11,16 +11,16 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
@@ -30,7 +30,6 @@ import vazkii.botania.api.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import javax.annotation.Nonnull;
@@ -48,8 +47,6 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 	private static final ResourceLocation textureDwHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD_HALLOWEEN);
 	private static final ResourceLocation textureGHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA_HALLOWEEN);
 
-	private static final ModelSpreader model = new ModelSpreader();
-
 	public RenderTileSpreader(TileEntityRendererDispatcher manager) {
 		super(manager);
 	}
@@ -58,17 +55,21 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 	public void render(@Nonnull TileSpreader spreader, float ticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
 
-		ms.translate(0.5F, 1.5F, 0.5F);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(spreader.rotationX + 90F));
-		ms.translate(0F, -1F, 0F);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(spreader.rotationY));
-		ms.translate(0F, 1F, 0F);
+		ms.translate(0.5F, 0.5, 0.5F);
+
+		Quaternion transform = Vector3f.POSITIVE_Y.getDegreesQuaternion(spreader.rotationX + 90F);
+		transform.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(spreader.rotationY));
+		ms.multiply(transform);
+
+		ms.translate(-0.5F, -0.5F, -0.5F);
+		//ms.translate(0F, -1F, 0F);
+		//ms.translate(0F, 1F, 0F);
 
 		ResourceLocation texture = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : spreader.isULTRA_SPREADER() ? textureG : RenderTileSpreader.texture;
 		if(ClientProxy.dootDoot)
 			texture = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : spreader.isULTRA_SPREADER() ? textureGHalloween : textureHalloween;
 
-		ms.scale(1F, -1F, -1F);
+		//ms.scale(1F, -1F, -1F);
 
 		double time = ClientTickHandler.ticksInGame + ticks;
 
@@ -79,16 +80,21 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			g = (color >> 8 & 0xFF) / 255F;
 			b = (color & 0xFF) / 255F;
 		}
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
-		model.render(ms, buffer, light, overlay, r, g, b, 1);
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		IBakedModel bakedModel = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(spreader.getBlockState());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, spreader.getBlockState(),
+						bakedModel, r, g, b, light, overlay);
 
 		ms.push();
 		double worldTicks = spreader.getWorld() == null ? 0 : time;
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) worldTicks % 360));
 		ms.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
-		model.renderCube(ms, buffer, light, overlay);
+		// model.renderCube(ms, buffer, light, overlay);
+		// todo 1.15 migrate the cube too
 		ms.pop();
-		ms.scale(1F, -1F, -1F);
+
+		ms.translate(0.5, 1.5, 0.5);
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
 		if(!stack.isEmpty()) {
