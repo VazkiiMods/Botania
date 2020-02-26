@@ -65,7 +65,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			b = (color & 0xFF) / 255F;
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(spreader.getBlockState()));
 		IBakedModel bakedModel = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(spreader.getBlockState());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.render(ms.peek(), buffer, spreader.getBlockState(),
