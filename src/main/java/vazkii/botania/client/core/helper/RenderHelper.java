@@ -162,7 +162,7 @@ public final class RenderHelper {
 		ASTROLABE_PREVIEW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState));
 
 		glState = RenderType.State.builder().texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 128, true, true, glState));
+		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "entity_translucent_gold", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 128, true, true, glState));
 	}
 
 	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height) {
