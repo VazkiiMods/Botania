@@ -867,60 +867,58 @@ public final class ModBlocks {
 				defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
 				swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar
 		).build(null), LibBlockNames.ALTAR);
-		register(r, TileEntityType.Builder.create(TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader).build(null), LibBlockNames.SPREADER);;
-		register(r, TileEntityType.Builder.create(TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool).build(null), LibBlockNames.POOL);;
-		register(r, TileEntityType.Builder.create(TileRuneAltar::new, runeAltar).build(null), LibBlockNames.RUNE_ALTAR);;
-		register(r, TileEntityType.Builder.create(TilePylon::new, manaPylon, naturaPylon, gaiaPylon).build(null), LibBlockNames.PYLON);;
-		register(r, TileEntityType.Builder.create(TileDistributor::new, distributor).build(null), LibBlockNames.DISTRIBUTOR);;
-		register(r, TileEntityType.Builder.create(TileManaVoid::new, manaVoid).build(null), LibBlockNames.MANA_VOID);;
-		register(r, TileEntityType.Builder.create(TileManaDetector::new, manaDetector).build(null), LibBlockNames.MANA_DETECTOR);;
-		register(r, TileEntityType.Builder.create(TileEnchanter::new, enchanter).build(null), LibBlockNames.ENCHANTER);;
-		register(r, TileEntityType.Builder.create(TileTurntable::new, turntable).build(null), LibBlockNames.TURNTABLE);;
-		register(r, TileEntityType.Builder.create(TileTinyPlanet::new, tinyPlanet).build(null), LibBlockNames.TINY_PLANET);;
-		register(r, TileEntityType.Builder.create(TileOpenCrate::new, openCrate).build(null), LibBlockNames.OPEN_CRATE);;
-		register(r, TileEntityType.Builder.create(TileCraftCrate::new, craftCrate).build(null), LibBlockNames.CRAFT_CRATE);;
-		register(r, TileEntityType.Builder.create(TileForestEye::new, forestEye).build(null), LibBlockNames.FOREST_EYE);;
-		register(r, TileEntityType.Builder.create(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform).build(null), LibBlockNames.PLATFORM);;
-		register(r, TileEntityType.Builder.create(TileAlfPortal::new, alfPortal).build(null), LibBlockNames.ALF_PORTAL);;
-		register(r, TileEntityType.Builder.create(TileBifrost::new, bifrost).build(null), LibBlockNames.BIFROST);;
+		register(r, TileEntityType.Builder.create(TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader).build(null), LibBlockNames.SPREADER);
+		register(r, TileEntityType.Builder.create(TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool).build(null), LibBlockNames.POOL);
+		register(r, TileEntityType.Builder.create(TileRuneAltar::new, runeAltar).build(null), LibBlockNames.RUNE_ALTAR);
+		register(r, TileEntityType.Builder.create(TilePylon::new, manaPylon, naturaPylon, gaiaPylon).build(null), LibBlockNames.PYLON);
+		register(r, TileEntityType.Builder.create(TileDistributor::new, distributor).build(null), LibBlockNames.DISTRIBUTOR);
+		register(r, TileEntityType.Builder.create(TileManaVoid::new, manaVoid).build(null), LibBlockNames.MANA_VOID);
+		register(r, TileEntityType.Builder.create(TileManaDetector::new, manaDetector).build(null), LibBlockNames.MANA_DETECTOR);
+		register(r, TileEntityType.Builder.create(TileEnchanter::new, enchanter).build(null), LibBlockNames.ENCHANTER);
+		register(r, TileEntityType.Builder.create(TileTurntable::new, turntable).build(null), LibBlockNames.TURNTABLE);
+		register(r, TileEntityType.Builder.create(TileTinyPlanet::new, tinyPlanet).build(null), LibBlockNames.TINY_PLANET);
+		register(r, TileEntityType.Builder.create(TileOpenCrate::new, openCrate).build(null), LibBlockNames.OPEN_CRATE);
+		register(r, TileEntityType.Builder.create(TileCraftCrate::new, craftCrate).build(null), LibBlockNames.CRAFT_CRATE);
+		register(r, TileEntityType.Builder.create(TileForestEye::new, forestEye).build(null), LibBlockNames.FOREST_EYE);
+		register(r, TileEntityType.Builder.create(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform).build(null), LibBlockNames.PLATFORM);
+		register(r, TileEntityType.Builder.create(TileAlfPortal::new, alfPortal).build(null), LibBlockNames.ALF_PORTAL);
+		register(r, TileEntityType.Builder.create(TileBifrost::new, bifrost).build(null), LibBlockNames.BIFROST);
 		register(r, TileEntityType.Builder.create(TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new)).build(null), LibBlockNames.MINI_ISLAND);
-		register(r, TileEntityType.Builder.create(TileTinyPotato::new, tinyPotato).build(null), LibBlockNames.TINY_POTATO);;
-		register(r, TileEntityType.Builder.create(TileSpawnerClaw::new, spawnerClaw).build(null), LibBlockNames.SPAWNER_CLAW);;
-		register(r, TileEntityType.Builder.create(TileEnderEye::new, enderEye).build(null), LibBlockNames.ENDER_EYE_BLOCK);;
-		register(r, TileEntityType.Builder.create(TileStarfield::new, starfield).build(null), LibBlockNames.STARFIELD);;
-		register(r, TileEntityType.Builder.create(TileRFGenerator::new, rfGenerator).build(null), LibBlockNames.FLUXFIELD);;
-		register(r, TileEntityType.Builder.create(TileBrewery::new, brewery).build(null), LibBlockNames.BREWERY);;
-		register(r, TileEntityType.Builder.create(TileTerraPlate::new, terraPlate).build(null), LibBlockNames.TERRA_PLATE);;
-		register(r, TileEntityType.Builder.create(TileRedStringContainer::new, redStringContainer).build(null), LibBlockNames.RED_STRING_CONTAINER);;
-		register(r, TileEntityType.Builder.create(TileRedStringDispenser::new, redStringDispenser).build(null), LibBlockNames.RED_STRING_DISPENSER);;
-		register(r, TileEntityType.Builder.create(TileRedStringFertilizer::new, redStringFertilizer).build(null), LibBlockNames.RED_STRING_FERTILIZER);;
-		register(r, TileEntityType.Builder.create(TileRedStringComparator::new, redStringComparator).build(null), LibBlockNames.RED_STRING_COMPARATOR);;
-		register(r, TileEntityType.Builder.create(TileRedStringRelay::new, redStringRelay).build(null), LibBlockNames.RED_STRING_RELAY);;
-		register(r, TileEntityType.Builder.create(TileManaFlame::new, manaFlame).build(null), LibBlockNames.MANA_FLAME);;
-		register(r, TileEntityType.Builder.create(TilePrism::new, prism).build(null), LibBlockNames.PRISM);;
-		register(r, TileEntityType.Builder.create(TileCorporeaIndex::new, corporeaIndex).build(null), LibBlockNames.CORPOREA_INDEX);;
-		register(r, TileEntityType.Builder.create(TileCorporeaFunnel::new, corporeaFunnel).build(null), LibBlockNames.CORPOREA_FUNNEL);;
-		register(r, TileEntityType.Builder.create(TilePump::new, pump).build(null), LibBlockNames.PUMP);;
-		register(r, TileEntityType.Builder.create(TileFakeAir::new, fakeAir).build(null), LibBlockNames.FAKE_AIR);;
-		register(r, TileEntityType.Builder.create(TileCorporeaInterceptor::new, corporeaInterceptor).build(null), LibBlockNames.CORPOREA_INTERCEPTOR);;
-		register(r, TileEntityType.Builder.create(TileCorporeaCrystalCube::new, corporeaCrystalCube).build(null), LibBlockNames.CORPOREA_CRYSTAL_CUBE);;
-		register(r, TileEntityType.Builder.create(TileIncensePlate::new, incensePlate).build(null), LibBlockNames.INCENSE_PLATE);;
-		register(r, TileEntityType.Builder.create(TileHourglass::new, hourglass).build(null), LibBlockNames.HOURGLASS);;
-		register(r, TileEntityType.Builder.create(TileSparkChanger::new, sparkChanger).build(null), LibBlockNames.SPARK_CHANGER);;
-		register(r, TileEntityType.Builder.create(TileCocoon::new, cocoon).build(null), LibBlockNames.COCOON);;
-		register(r, TileEntityType.Builder.create(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork).build(null), LibBlockNames.LIGHT_RELAY);;
-		register(r, TileEntityType.Builder.create(TileCacophonium::new, cacophonium).build(null), LibBlockNames.CACOPHONIUM);;
-		register(r, TileEntityType.Builder.create(TileBellows::new, bellows).build(null), LibBlockNames.BELLOWS);;
-		register(r, TileEntityType.Builder.create(TileCell::new, cellBlock).build(null), LibBlockNames.CELL_BLOCK);;
-		register(r, TileEntityType.Builder.create(TileRedStringInterceptor::new, redStringInterceptor).build(null), LibBlockNames.RED_STRING_INTERCEPTOR);;
-		register(r, TileEntityType.Builder.create(TileGaiaHead::new, gaiaHead, gaiaHeadWall).build(null), LibBlockNames.GAIA_HEAD);;
-		register(r, TileEntityType.Builder.create(TileCorporeaRetainer::new, corporeaRetainer).build(null), LibBlockNames.CORPOREA_RETAINER);;
-		register(r, TileEntityType.Builder.create(TileTeruTeruBozu::new, teruTeruBozu).build(null), LibBlockNames.TERU_TERU_BOZU);;
-		register(r, TileEntityType.Builder.create(TileAvatar::new, avatar).build(null), LibBlockNames.AVATAR);;
-		register(r, TileEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null), LibBlockNames.ANIMATED_TORCH);;
+		register(r, TileEntityType.Builder.create(TileTinyPotato::new, tinyPotato).build(null), LibBlockNames.TINY_POTATO);
+		register(r, TileEntityType.Builder.create(TileSpawnerClaw::new, spawnerClaw).build(null), LibBlockNames.SPAWNER_CLAW);
+		register(r, TileEntityType.Builder.create(TileEnderEye::new, enderEye).build(null), LibBlockNames.ENDER_EYE_BLOCK);
+		register(r, TileEntityType.Builder.create(TileStarfield::new, starfield).build(null), LibBlockNames.STARFIELD);
+		register(r, TileEntityType.Builder.create(TileRFGenerator::new, rfGenerator).build(null), LibBlockNames.FLUXFIELD);
+		register(r, TileEntityType.Builder.create(TileBrewery::new, brewery).build(null), LibBlockNames.BREWERY);
+		register(r, TileEntityType.Builder.create(TileTerraPlate::new, terraPlate).build(null), LibBlockNames.TERRA_PLATE);
+		register(r, TileEntityType.Builder.create(TileRedStringContainer::new, redStringContainer).build(null), LibBlockNames.RED_STRING_CONTAINER);
+		register(r, TileEntityType.Builder.create(TileRedStringDispenser::new, redStringDispenser).build(null), LibBlockNames.RED_STRING_DISPENSER);
+		register(r, TileEntityType.Builder.create(TileRedStringFertilizer::new, redStringFertilizer).build(null), LibBlockNames.RED_STRING_FERTILIZER);
+		register(r, TileEntityType.Builder.create(TileRedStringComparator::new, redStringComparator).build(null), LibBlockNames.RED_STRING_COMPARATOR);
+		register(r, TileEntityType.Builder.create(TileRedStringRelay::new, redStringRelay).build(null), LibBlockNames.RED_STRING_RELAY);
+		register(r, TileEntityType.Builder.create(TileManaFlame::new, manaFlame).build(null), LibBlockNames.MANA_FLAME);
+		register(r, TileEntityType.Builder.create(TilePrism::new, prism).build(null), LibBlockNames.PRISM);
+		register(r, TileEntityType.Builder.create(TileCorporeaIndex::new, corporeaIndex).build(null), LibBlockNames.CORPOREA_INDEX);
+		register(r, TileEntityType.Builder.create(TileCorporeaFunnel::new, corporeaFunnel).build(null), LibBlockNames.CORPOREA_FUNNEL);
+		register(r, TileEntityType.Builder.create(TilePump::new, pump).build(null), LibBlockNames.PUMP);
+		register(r, TileEntityType.Builder.create(TileFakeAir::new, fakeAir).build(null), LibBlockNames.FAKE_AIR);
+		register(r, TileEntityType.Builder.create(TileCorporeaInterceptor::new, corporeaInterceptor).build(null), LibBlockNames.CORPOREA_INTERCEPTOR);
+		register(r, TileEntityType.Builder.create(TileCorporeaCrystalCube::new, corporeaCrystalCube).build(null), LibBlockNames.CORPOREA_CRYSTAL_CUBE);
+		register(r, TileEntityType.Builder.create(TileIncensePlate::new, incensePlate).build(null), LibBlockNames.INCENSE_PLATE);
+		register(r, TileEntityType.Builder.create(TileHourglass::new, hourglass).build(null), LibBlockNames.HOURGLASS);
+		register(r, TileEntityType.Builder.create(TileSparkChanger::new, sparkChanger).build(null), LibBlockNames.SPARK_CHANGER);
+		register(r, TileEntityType.Builder.create(TileCocoon::new, cocoon).build(null), LibBlockNames.COCOON);
+		register(r, TileEntityType.Builder.create(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork).build(null), LibBlockNames.LIGHT_RELAY);
+		register(r, TileEntityType.Builder.create(TileCacophonium::new, cacophonium).build(null), LibBlockNames.CACOPHONIUM);
+		register(r, TileEntityType.Builder.create(TileBellows::new, bellows).build(null), LibBlockNames.BELLOWS);
+		register(r, TileEntityType.Builder.create(TileCell::new, cellBlock).build(null), LibBlockNames.CELL_BLOCK);
+		register(r, TileEntityType.Builder.create(TileRedStringInterceptor::new, redStringInterceptor).build(null), LibBlockNames.RED_STRING_INTERCEPTOR);
+		register(r, TileEntityType.Builder.create(TileGaiaHead::new, gaiaHead, gaiaHeadWall).build(null), LibBlockNames.GAIA_HEAD);
+		register(r, TileEntityType.Builder.create(TileCorporeaRetainer::new, corporeaRetainer).build(null), LibBlockNames.CORPOREA_RETAINER);
+		register(r, TileEntityType.Builder.create(TileTeruTeruBozu::new, teruTeruBozu).build(null), LibBlockNames.TERU_TERU_BOZU);
+		register(r, TileEntityType.Builder.create(TileAvatar::new, avatar).build(null), LibBlockNames.AVATAR);
+		register(r, TileEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null), LibBlockNames.ANIMATED_TORCH);
 	}
-
-
 
 	public static Block getFlower(DyeColor color) {
 		switch (color) {
@@ -963,50 +961,6 @@ public final class ModBlocks {
 			case GREEN: return greenMushroom;
 			case RED: return redMushroom;
 			case BLACK: return blackMushroom;
-		}
-	}
-
-	public static Block getWool(DyeColor color) {
-		switch (color) {
-			default:
-			case WHITE: return Blocks.WHITE_WOOL;
-			case ORANGE: return Blocks.ORANGE_WOOL;
-			case MAGENTA: return Blocks.MAGENTA_WOOL;
-			case LIGHT_BLUE: return Blocks.LIGHT_BLUE_WOOL;
-			case YELLOW: return Blocks.YELLOW_WOOL;
-			case LIME: return Blocks.LIME_WOOL;
-			case PINK: return Blocks.PINK_WOOL;
-			case GRAY: return Blocks.GRAY_WOOL;
-			case LIGHT_GRAY: return Blocks.LIGHT_GRAY_WOOL;
-			case CYAN: return Blocks.CYAN_WOOL;
-			case PURPLE: return Blocks.PURPLE_WOOL;
-			case BLUE: return Blocks.BLUE_WOOL;
-			case BROWN: return Blocks.BROWN_WOOL;
-			case GREEN: return Blocks.GREEN_WOOL;
-			case RED: return Blocks.RED_WOOL;
-			case BLACK: return Blocks.BLACK_WOOL;
-		}
-	}
-
-	public static Block getCarpet(DyeColor color) {
-		switch (color) {
-			default:
-			case WHITE: return Blocks.WHITE_CARPET;
-			case ORANGE: return Blocks.ORANGE_CARPET;
-			case MAGENTA: return Blocks.MAGENTA_CARPET;
-			case LIGHT_BLUE: return Blocks.LIGHT_BLUE_CARPET;
-			case YELLOW: return Blocks.YELLOW_CARPET;
-			case LIME: return Blocks.LIME_CARPET;
-			case PINK: return Blocks.PINK_CARPET;
-			case GRAY: return Blocks.GRAY_CARPET;
-			case LIGHT_GRAY: return Blocks.LIGHT_GRAY_CARPET;
-			case CYAN: return Blocks.CYAN_CARPET;
-			case PURPLE: return Blocks.PURPLE_CARPET;
-			case BLUE: return Blocks.BLUE_CARPET;
-			case BROWN: return Blocks.BROWN_CARPET;
-			case GREEN: return Blocks.GREEN_CARPET;
-			case RED: return Blocks.RED_CARPET;
-			case BLACK: return Blocks.BLACK_CARPET;
 		}
 	}
 

@@ -92,9 +92,9 @@ public class ItemDye extends Item16Colors {
 
 	private BlockState recolor(Block original, DyeColor color) {
 		if (ColorHelper.CARPET_MAP.containsValue(original.delegate)) {
-			return ModBlocks.getCarpet(color).getDefaultState();
+			return ColorHelper.CARPET_MAP.get(color).get().getDefaultState();
 		} else {
-			return ModBlocks.getWool(color).getDefaultState();
+			return ColorHelper.WOOL_MAP.get(color).get().getDefaultState();
 		}
 	}
 
