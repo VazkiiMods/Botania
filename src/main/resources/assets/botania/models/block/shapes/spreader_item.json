@@ -1,0 +1,121 @@
+{
+  "__comment": "Combination of spreader and spreader_inside",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#material"
+  },
+  "elements": [
+    {
+      "name": "inside",
+      "from": [5, 5, 5],
+      "to": [11, 11, 11],
+      "faces": {
+        "north": {"uv": [2, 2, 14, 14], "texture": "#inside"},
+        "east": {"uv": [2, 2, 14, 14], "texture": "#inside"},
+        "south": {"uv": [2, 2, 14, 14], "texture": "#inside"},
+        "west": {"uv": [2, 2, 14, 14], "texture": "#inside"},
+        "up": {"uv": [2, 2, 14, 14], "texture": "#inside"},
+        "down": {"uv": [2, 2, 14, 14], "texture": "#inside"}
+      }
+    },
+    {
+      "name": "bottom",
+      "from": [1, 1, 1],
+      "to": [15, 2, 15],
+      "faces": {
+        "north": {"uv": [1, 1, 15, 2], "texture": "#material", "tintindex": 0},
+        "east": {"uv": [1, 1, 15, 2], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [1, 1, 15, 2], "texture": "#material", "tintindex": 0},
+        "west": {"uv": [1, 1, 15, 2], "texture": "#material", "tintindex": 0},
+        "up": {"uv": [1, 1, 15, 15], "texture": "#material", "tintindex": 0},
+        "down": {"uv": [1, 1, 15, 15], "texture": "#material", "tintindex": 0}
+      }
+    },
+    {
+      "name": "back",
+      "from": [1, 2, 14],
+      "to": [15, 14, 15],
+      "faces": {
+        "north": {"uv": [0, 0, 14, 12], "texture": "#material", "tintindex": 0},
+        "east": {"uv": [0, 0, 1, 12], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [0, 0, 14, 12], "texture": "#material", "tintindex": 0},
+        "west": {"uv": [0, 0, 1, 12], "texture": "#material", "tintindex": 0},
+        "up": {"uv": [0, 0, 14, 1], "texture": "#material", "tintindex": 0},
+        "down": {"uv": [0, 0, 14, 1], "texture": "#material", "tintindex": 0}
+      }
+    },
+    {
+      "name": "top",
+      "from": [1, 14, 1],
+      "to": [15, 15, 15],
+      "faces": {
+        "north": {"uv": [0, 0, 14, 1], "texture": "#material", "tintindex": 0},
+        "east": {"uv": [0, 0, 14, 1], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [0, 0, 14, 1], "texture": "#material", "tintindex": 0},
+        "west": {"uv": [0, 0, 14, 1], "texture": "#material", "tintindex": 0},
+        "up": {"uv": [1, 1, 15, 15], "texture": "#material", "tintindex": 0},
+        "down": {"uv": [1, 1, 15, 15], "texture": "#material", "tintindex": 0}
+      }
+    },
+    {
+      "name": "west",
+      "from": [1, 2, 2],
+      "to": [2, 14, 14],
+      "faces": {
+        "east": {"uv": [2, 2, 14, 14], "texture": "#side", "tintindex": 0},
+        "west": {"uv": [2, 2, 14, 14], "texture": "#side", "tintindex": 0}
+      }
+    },
+    {
+      "name": "east",
+      "from": [14, 2, 2],
+      "to": [15, 14, 14],
+      "faces": {
+        "east": {"uv": [2, 2, 14, 14], "texture": "#side", "tintindex": 0},
+        "west": {"uv": [2, 2, 14, 14], "texture": "#side", "tintindex": 0}
+      }
+    },
+    {
+      "name": "front_bottom",
+      "from": [6, 2, 1],
+      "to": [10, 6, 2],
+      "faces": {
+        "north": {"uv": [0, 0, 4, 4], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [0, 0, 4, 4], "texture": "#material", "tintindex": 0},
+        "up": {"uv": [0, 0, 4, 1], "texture": "#material", "tintindex": 0}
+      }
+    },
+    {
+      "name": "front_top",
+      "from": [6, 10, 1],
+      "to": [10, 14, 2],
+      "faces": {
+        "north": {"uv": [0, 0, 4, 4], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [0, 0, 4, 4], "texture": "#material", "tintindex": 0},
+        "down": {"uv": [0, 0, 4, 1], "texture": "#material", "tintindex": 0}
+      }
+    },
+    {
+      "name": "front_left",
+      "from": [1, 2, 1],
+      "to": [6, 14, 2],
+      "faces": {
+        "north": {"uv": [1, 1, 5, 13], "texture": "#material", "tintindex": 0},
+        "east": {"uv": [1, 1, 2, 13], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [1, 1, 5, 13], "texture": "#material", "tintindex": 0},
+        "west": {"uv": [1, 1, 2, 13], "texture": "#material", "tintindex": 0}
+      }
+    },
+    {
+      "name": "front_right",
+      "from": [10, 2, 1],
+      "to": [15, 14, 2],
+      "faces": {
+        "north": {"uv": [12, 1, 16, 13], "texture": "#material", "tintindex": 0},
+        "east": {"uv": [15, 1, 16, 13], "texture": "#material", "tintindex": 0},
+        "south": {"uv": [12, 1, 16, 13], "texture": "#material", "tintindex": 0},
+        "west": {"uv": [15, 1, 16, 13], "texture": "#material", "tintindex": 0}
+      }
+    }
+  ]
+}

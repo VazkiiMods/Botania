@@ -31,14 +31,6 @@ public final class LibResources {
 	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "bauble_box.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hud_icons.png";
 
-	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader_mana.png";
-	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreader_redstone.png";
-	public static final String MODEL_SPREADER_DREAMWOOD = PREFIX_MODEL + "spreader_dreamwood.png";
-	public static final String MODEL_SPREADER_GAIA = PREFIX_MODEL + "spreader_gaia.png";
-	public static final String MODEL_SPREADER_HALLOWEEN = PREFIX_MODEL + "spreader_mana_halloween.png";
-	public static final String MODEL_SPREADER_REDSTONE_HALLOWEEN = PREFIX_MODEL + "spreader_redstone_halloween.png";
-	public static final String MODEL_SPREADER_DREAMWOOD_HALLOWEEN = PREFIX_MODEL + "spreader_dreamwood_halloween.png";
-	public static final String MODEL_SPREADER_GAIA_HALLOWEEN = PREFIX_MODEL + "spreader_gaia_halloween.png";
 	public static final String MODEL_PYLON_MANA = PREFIX_MODEL + "pylon_mana.png";
 	public static final String MODEL_PYLON_NATURA = PREFIX_MODEL + "pylon_natura.png";
 	public static final String MODEL_PYLON_GAIA = PREFIX_MODEL + "pylon_gaia.png";

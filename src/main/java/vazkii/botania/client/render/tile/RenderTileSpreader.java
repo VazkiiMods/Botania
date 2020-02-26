@@ -28,6 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
@@ -37,22 +38,12 @@ import java.util.Random;
 
 public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
-	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
-	private static final ResourceLocation textureDw = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD);
-	private static final ResourceLocation textureG = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA);
-	
-	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_HALLOWEEN);
-	private static final ResourceLocation textureRsHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE_HALLOWEEN);
-	private static final ResourceLocation textureDwHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD_HALLOWEEN);
-	private static final ResourceLocation textureGHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA_HALLOWEEN);
-
 	public RenderTileSpreader(TileEntityRendererDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull TileSpreader spreader, float ticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nonnull TileSpreader spreader, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
 
 		ms.translate(0.5F, 0.5, 0.5F);
@@ -62,16 +53,8 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		ms.multiply(transform);
 
 		ms.translate(-0.5F, -0.5F, -0.5F);
-		//ms.translate(0F, -1F, 0F);
-		//ms.translate(0F, 1F, 0F);
 
-		ResourceLocation texture = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : spreader.isULTRA_SPREADER() ? textureG : RenderTileSpreader.texture;
-		if(ClientProxy.dootDoot)
-			texture = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : spreader.isULTRA_SPREADER() ? textureGHalloween : textureHalloween;
-
-		//ms.scale(1F, -1F, -1F);
-
-		double time = ClientTickHandler.ticksInGame + ticks;
+		double time = ClientTickHandler.ticksInGame + partialTicks;
 
 		float r = 1, g = 1, b = 1;
 		if(spreader.isULTRA_SPREADER()) {
@@ -80,6 +63,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			g = (color >> 8 & 0xFF) / 255F;
 			b = (color & 0xFF) / 255F;
 		}
+
 		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
 		IBakedModel bakedModel = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(spreader.getBlockState());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
@@ -87,11 +71,14 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 						bakedModel, r, g, b, light, overlay);
 
 		ms.push();
-		double worldTicks = spreader.getWorld() == null ? 0 : time;
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) worldTicks % 360));
-		ms.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
-		// model.renderCube(ms, buffer, light, overlay);
-		// todo 1.15 migrate the cube too
+		ms.translate(0.5, 0.5, 0.5);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) time % 360));
+		ms.translate(-0.5, -0.5, -0.5);
+		ms.translate(0F, (float) Math.sin(time / 20.0) * 0.05F, 0F);
+		IBakedModel cube = getInsideModel(spreader);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, spreader.getBlockState(),
+						cube, 1, 1, 1, light, overlay);
 		ms.pop();
 
 		ms.translate(0.5, 1.5, 0.5);
@@ -150,5 +137,17 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		}
 
 		ms.pop();
+	}
+
+	private IBakedModel getInsideModel(TileSpreader tile) {
+		if (tile.isULTRA_SPREADER()) {
+			return MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
+		} else if (tile.isDreamwood()) {
+			return MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
+		} else if (tile.isRedstone()) {
+			return MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
+		} else {
+			return MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+		}
 	}
 }

@@ -104,6 +104,10 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(prefix("block/corporea_crystal_cube_glass"));
 		ModelLoader.addSpecialModel(prefix("block/pump_head"));
+		ModelLoader.addSpecialModel(prefix("block/elven_spreader_inside"));
+		ModelLoader.addSpecialModel(prefix("block/gaia_spreader_inside"));
+		ModelLoader.addSpecialModel(prefix("block/mana_spreader_inside"));
+		ModelLoader.addSpecialModel(prefix("block/redstone_spreader_inside"));
 		registerSubtiles();
 
 		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);

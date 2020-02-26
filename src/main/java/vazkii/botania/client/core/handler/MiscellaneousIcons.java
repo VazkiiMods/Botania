@@ -83,7 +83,12 @@ public class MiscellaneousIcons {
 	crimsonGem,
 	cirrusGem,
 	nimbusGem,
-	terrasteelHelmWillModel;
+	terrasteelHelmWillModel,
+	elvenSpreaderInside,
+	gaiaSpreaderInside,
+	manaSpreaderInside,
+	redstoneSpreaderInside
+	;
 
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
@@ -146,6 +151,10 @@ public class MiscellaneousIcons {
 
 		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
 		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/pump_head"));
+		elvenSpreaderInside = evt.getModelRegistry().get(prefix("block/elven_spreader_inside"));
+		gaiaSpreaderInside = evt.getModelRegistry().get(prefix("block/gaia_spreader_inside"));
+		manaSpreaderInside = evt.getModelRegistry().get(prefix("block/mana_spreader_inside"));
+		redstoneSpreaderInside = evt.getModelRegistry().get(prefix("block/redstone_spreader_inside"));
 
 		// Icons
 		goldfishModel = evt.getModelRegistry().get(prefix("icon/goldfish"));

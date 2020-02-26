@@ -1,8 +1,7 @@
 {
   "parent": "botania:block/shapes/spreader",
   "textures": {
-    "inside": "botania:model/spreader_item/elven_inside",
-    "side": "botania:model/spreader_item/elven_side",
+    "side": "botania:blocks/elven_spreader_side",
     "material": "botania:blocks/dreamwood0"
   }
 }
