@@ -31,6 +31,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import javax.annotation.Nonnull;
@@ -57,7 +58,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		double time = ClientTickHandler.ticksInGame + partialTicks;
 
 		float r = 1, g = 1, b = 1;
-		if(spreader.isULTRA_SPREADER()) {
+		if(spreader.getVariant() == BlockSpreader.Variant.GAIA) {
 			int color = MathHelper.hsvToRGB((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			r = (color >> 16 & 0xFF) / 255F;
 			g = (color >> 8 & 0xFF) / 255F;
@@ -140,14 +141,11 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 	}
 
 	private IBakedModel getInsideModel(TileSpreader tile) {
-		if (tile.isULTRA_SPREADER()) {
-			return MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
-		} else if (tile.isDreamwood()) {
-			return MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
-		} else if (tile.isRedstone()) {
-			return MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
-		} else {
-			return MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+		switch (tile.getVariant()) {
+			case GAIA: return MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
+			case REDSTONE: return MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
+			case ELVEN: return MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
+			default: case MANA: return MiscellaneousIcons.INSTANCE.manaSpreaderInside;
 		}
 	}
 }

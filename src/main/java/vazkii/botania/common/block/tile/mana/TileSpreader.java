@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
@@ -58,6 +59,7 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -125,10 +127,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private final String outputKey = "";
 
 	// End Map Maker Tags
-
-	public static final boolean staticRedstone = false;
-	public static final boolean staticDreamwood = false;
-	public static final boolean staticUltra = false;
 
 	UUID identity;
 
@@ -199,7 +197,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			TileEntity tileAt = world.getTileEntity(pos.offset(dir));
 			if(world.isBlockLoaded(pos.offset(dir)) && tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
-				if(wasInNetwork && (pool != receiver || isRedstone())) {
+				if(wasInNetwork && (pool != receiver || getVariant() == BlockSpreader.Variant.REDSTONE)) {
 					if(pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey()))
 						continue;
 
@@ -243,7 +241,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		boolean shouldShoot = !redstone;
 
-		boolean isredstone = isRedstone();
+		boolean isredstone = getVariant() == BlockSpreader.Variant.REDSTONE;
 		if(isredstone)
 			shouldShoot = redstone && !redstoneLastTick;
 
@@ -438,8 +436,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	private void tryShootBurst() {
-		if((receiver != null || isRedstone()) && !invalidTentativeBurst) {
-			if(canShootBurst && (isRedstone() || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
+		boolean redstone = getVariant() == BlockSpreader.Variant.REDSTONE;
+		if((receiver != null || redstone) && !invalidTentativeBurst) {
+			if(canShootBurst && (redstone || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
 				if(burst != null) {
 					if(!world.isRemote) {
@@ -455,19 +454,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		}
 	}
 
-	public boolean isRedstone() {
-		updateContainingBlockInfo();
-		return world == null ? staticRedstone : getBlockState().getBlock() == ModBlocks.redstoneSpreader;
-	}
-
-	public boolean isDreamwood() {
-		updateContainingBlockInfo();
-		return world == null ? staticDreamwood : getBlockState().getBlock() == ModBlocks.elvenSpreader;
-	}
-
-	public boolean isULTRA_SPREADER() {
-		updateContainingBlockInfo();
-		return world == null ? staticUltra : getBlockState().getBlock() == ModBlocks.gaiaSpreader;
+	public BlockSpreader.Variant getVariant() {
+		Block b = getBlockState().getBlock();
+		if (b instanceof BlockSpreader) {
+			return ((BlockSpreader) b).variant;
+		} else {
+			return BlockSpreader.Variant.MANA;
+		}
 	}
 
 	public void checkForReceiver() {
@@ -497,10 +490,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	private EntityManaBurst getBurst(boolean fake) {
-		boolean dreamwood = isDreamwood();
-		boolean ultra = isULTRA_SPREADER();
+		boolean dreamwood = getVariant() == BlockSpreader.Variant.ELVEN;
+		boolean ultra = getVariant() == BlockSpreader.Variant.GAIA;
+		boolean redstone = getVariant() == BlockSpreader.Variant.REDSTONE;
 		int maxMana = ultra ? 640 : dreamwood ? 240 : 160;
-		int color = isRedstone() ? 0xFF2020 : dreamwood ? 0xFF45C4 : 0x20FF20;
+		int color = redstone ? 0xFF2020 : dreamwood ? 0xFF45C4 : 0x20FF20;
 		int ticksBeforeManaLoss = ultra ? 120 : dreamwood ? 80 : 60;
 		float manaLossPerTick = ultra ? 20F : 4F;
 		float motionModifier = ultra ? 2F : dreamwood ? 1.25F : 1F;
@@ -551,7 +545,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
-		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
+		int color;
+		switch (getVariant()) {
+			case REDSTONE: color = 0xFF0000; break;
+			case ELVEN: color = 0xFF00AE; break;
+			default: color = 0x00FF00; break;
+		}
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
@@ -638,7 +637,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public int getMaxMana() {
-		return isULTRA_SPREADER() ? ULTRA_MAX_MANA : MAX_MANA;
+		return getVariant() == BlockSpreader.Variant.GAIA ? ULTRA_MAX_MANA : MAX_MANA;
 	}
 
 	@Override
