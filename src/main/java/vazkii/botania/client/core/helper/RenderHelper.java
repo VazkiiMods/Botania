@@ -16,6 +16,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -164,18 +165,8 @@ public final class RenderHelper {
 		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 128, true, true, glState));
 	}
 
-	public static void drawTexturedModalRect(int x, int y, float z, int u, int v, int width, int height) {
-		drawTexturedModalRect(x, y, z, u, v, width, height, 0.00390625F, 0.00390625F);
-	}
-
-	public static void drawTexturedModalRect(int x, int y, float z, int u, int v, int width, int height, float f, float f1) {
-		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tessellator.getBuffer().vertex(x, y + height, z).texture(u * f, (v + height) * f1).endVertex();
-		tessellator.getBuffer().vertex(x + width, y + height, z).texture((u + width) * f, (v + height) * f1).endVertex();
-		tessellator.getBuffer().vertex(x + width, y, z).texture((u + width) * f, v * f1).endVertex();
-		tessellator.getBuffer().vertex(x, y, z).texture(u * f, v * f1).endVertex();
-		tessellator.draw();
+	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height) {
+		AbstractGui.blit(x, y, u, v, width, height, 256, 256);
 	}
 
 	public static void renderStar(MatrixStack ms, IRenderTypeBuffer buffers, int color, float xScale, float yScale, float zScale, long seed) {

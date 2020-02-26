@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -86,7 +85,7 @@ public final class BossBarHandler {
 			ShaderHelper.useShader(program, barUniformCallback);
 		}
 
-		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, w, h);
+		RenderHelper.drawTexturedModalRect(x, y, u, v, w, h);
 
 		if(useShader)
 			ShaderHelper.releaseShader();

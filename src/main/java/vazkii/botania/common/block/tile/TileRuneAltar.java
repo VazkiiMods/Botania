@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -376,7 +375,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
 					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
+					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if(progress == 1F) {
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);

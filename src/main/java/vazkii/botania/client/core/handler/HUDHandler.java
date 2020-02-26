@@ -67,8 +67,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class HUDHandler {
@@ -258,7 +256,7 @@ public final class HUDHandler {
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
+		RenderHelper.drawTexturedModalRect(x, y, 0, 251, width, 5);
 		RenderSystem.disableBlend();
 		RenderSystem.color4f(1, 1, 1, 1);
 	}
@@ -280,7 +278,7 @@ public final class HUDHandler {
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 			mc.textureManager.bindTexture(manaBar);
-			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
+			RenderHelper.drawTexturedModalRect(x, y, u, v, 22, 15);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x - 20, y);
@@ -391,20 +389,20 @@ public final class HUDHandler {
 
 		RenderSystem.color4f(1F, 1F, 1F, alpha);
 		mc.textureManager.bindTexture(manaBar);
-		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 0, 102, 5);
+		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 102, 5);
 
 		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
 
 		if(manaPercentage == 0 && mana > 0)
 			manaPercentage = 1;
 
-		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, 100, 3);
+		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 5, 100, 3);
 
 		float red = (color >> 16 & 0xFF) / 255F;
 		float green = (color >> 8 & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;
 		RenderSystem.color4f(red, green, blue, alpha);
-		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
+		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 5, Math.min(100, manaPercentage), 3);
 		RenderSystem.color4f(1, 1, 1, 1);
 	}
 }

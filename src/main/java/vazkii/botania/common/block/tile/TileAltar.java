@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -23,7 +22,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FishBucketItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -59,7 +57,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -375,7 +372,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				if(recipe.matches(itemHandler)) {
 					RenderSystem.color4f(1F, 1F, 1F, 1F);
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 0, 8, 22, 15);
+					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 					ItemStack stack = recipe.getOutput();
 

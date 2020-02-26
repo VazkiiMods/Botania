@@ -11,28 +11,20 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GLX;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -51,13 +43,10 @@ import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -472,7 +461,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			}
 
 			RenderSystem.color4f(1F, 1F, 1F, trans);
-			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
+			RenderHelper.drawTexturedModalRect(x, y, u, v, 9, 9);
 			x += 8;
 		}
 
