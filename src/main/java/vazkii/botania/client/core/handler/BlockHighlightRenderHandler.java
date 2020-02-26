@@ -12,6 +12,7 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -60,6 +61,10 @@ public final class BlockHighlightRenderHandler {
 		RayTraceResult pos = mc.objectMouseOver;
 		MatrixStack ms = event.getMatrixStack();
 		IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuffer());
+		/* Needed because RenderState.CullState doesn't actually disable if you pass false, it keeps the current state.
+		   And we go into this method with cull enabled.
+		   */
+		RenderSystem.disableCull();
 
 		ms.push();
 
