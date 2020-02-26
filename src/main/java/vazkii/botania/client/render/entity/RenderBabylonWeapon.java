@@ -41,8 +41,6 @@ import java.util.Random;
 
 public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 
-	private static final ResourceLocation babylon = new ResourceLocation(LibResources.MISC_BABYLON);
-
 	public RenderBabylonWeapon(EntityRendererManager renderManager) {
 		super(renderManager);
 	}

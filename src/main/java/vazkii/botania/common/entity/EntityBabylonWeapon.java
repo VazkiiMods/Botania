@@ -85,6 +85,11 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
+	public boolean isInRangeToRenderDist(double dist) {
+		return dist < 64 * 64;
+	}
+
+	@Override
 	public boolean isImmuneToExplosions() {
 		return true;
 	}

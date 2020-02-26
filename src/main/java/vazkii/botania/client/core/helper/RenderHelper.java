@@ -184,7 +184,6 @@ public final class RenderHelper {
 		ms.scale(xScale, yScale, zScale);
 
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
-			// todo 1.15 compose the quaternions before multiplying into ms?
 			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(random.nextFloat() * 360F));
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(random.nextFloat() * 360F));
 			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(random.nextFloat() * 360F));
