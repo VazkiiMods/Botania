@@ -12,7 +12,6 @@ package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
 	public static final Direction[] HORIZONTALS = { Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST };
@@ -20,9 +19,8 @@ public final class MathHelper {
 		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 	}
 
-	// Backwards compatibility
 	public static float pointDistancePlane(double x1, double y1, double x2, double y2) {
-		return VanillaPacketDispatcher.pointDistancePlane(x1, y1, x2, y2);
+		return (float) Math.hypot(x1 - x2, y1 - y2);
 	}
 
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
