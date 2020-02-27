@@ -51,6 +51,7 @@ import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 public final class BoundTileRenderer {
@@ -128,25 +129,20 @@ public final class BoundTileRenderer {
 		World world = Minecraft.getInstance().world;
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		drawWireframe : {
-			List<AxisAlignedBB> list = null;
+		List<AxisAlignedBB> list;
 
-			if(block instanceof IWireframeAABBProvider)
-				list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
-			else{
-				VoxelShape shape = state.getShape(world, pos);
-				if (!shape.isEmpty()) {
-					list = Collections.singletonList(shape.getBoundingBox().offset(pos));
-				}
-			}
+		if(block instanceof IWireframeAABBProvider)
+			list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
+		else{
+			VoxelShape shape = state.getShape(world, pos);
+			list = shape.toBoundingBoxList().stream().map(b -> b.offset(pos)).collect(Collectors.toList());
+		}
 
-			if(list == null)
-				break drawWireframe;
-
+		if (!list.isEmpty()) {
 			ms.scale(1F, 1F, 1F);
 
 			IVertexBuilder buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
-			for(AxisAlignedBB axis : list) {
+			for (AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
 			}
@@ -154,7 +150,7 @@ public final class BoundTileRenderer {
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
-			for(AxisAlignedBB axis : list) {
+			for (AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
 			}
