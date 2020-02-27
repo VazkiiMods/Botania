@@ -23,9 +23,11 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -56,7 +58,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	private static final int COST = 40;
 
 	private static final String TAG_BLOCK_NAME = "blockName";
-	private static final String TAG_TARGET_BLOCK_NAME = "targetState";
+	private static final String TAG_TARGET_BLOCK_NAME = "targetBlock";
 	private static final String TAG_SWAPPING = "swapping";
 	private static final String TAG_SELECT_X = "selectX";
 	private static final String TAG_SELECT_Y = "selectY";
@@ -89,13 +91,13 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			}
 		} else if(canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 			BlockState state = getState(stack);
-			List<BlockPos> swap = getBlocksToSwap(world, stack, state, pos, null);
+			List<BlockPos> swap = getTargetPositions(world, stack, state, pos, wstate.getBlock());
 			if(swap.size() > 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, true);
 				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Z, pos.getZ());
-				setTarget(stack, wstate);
+				setTarget(stack, wstate.getBlock());
 			}
 		}
 
@@ -132,8 +134,8 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			int x = ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0);
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
-			BlockState target = getTargetState(stack);
-			List<BlockPos> swap = getBlocksToSwap(world, stack, state, new BlockPos(x, y, z), target);
+			Block target = getTargetState(stack);
+			List<BlockPos> swap = getTargetPositions(world, stack, state, new BlockPos(x, y, z), target);
 			if(swap.size() == 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
@@ -147,14 +149,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		}
 	}
 
-	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, BlockState swapState, BlockPos pos, BlockState targetState) {
-		// If we have no target block passed in, infer it to be
-		// the block which the swapping is centered on (presumably the block
-		// which the player is looking at)
-		if(targetState == null) {
-			targetState = world.getBlockState(pos);
-		}
-
+	public List<BlockPos> getTargetPositions(World world, ItemStack stack, BlockState toPlace, BlockPos pos, Block toReplace) {
 		// Our result list
 		List<BlockPos> coordsList = new ArrayList<>();
 
@@ -172,12 +167,12 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 					// If this block is not our target, ignore it, as we don't need
 					// to consider replacing it
-					if(currentState != targetState)
+					if(currentState.getBlock() != toReplace)
 						continue;
 
 					// If this block is already the block we're swapping to,
 					// we don't need to swap again
-					if(currentState == swapState)
+					if(currentState == toPlace)
 						continue;
 
 					// Check to see if the block is visible on any side:
@@ -343,12 +338,13 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCK_NAME, false));
 	}
 
-	private void setTarget(ItemStack stack, BlockState state) {
-		ItemNBTHelper.setCompound(stack, TAG_TARGET_BLOCK_NAME, NBTUtil.writeBlockState(state));
+	private void setTarget(ItemStack stack, Block block) {
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, block.getRegistryName().toString());
 	}
 
-	public static BlockState getTargetState(ItemStack stack) {
-		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_TARGET_BLOCK_NAME, false));
+	public static Block getTargetState(ItemStack stack) {
+		ResourceLocation id = new ResourceLocation(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
+		return Registry.BLOCK.getOrDefault(id);
 	}
 
 	@Override
@@ -363,7 +359,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
 		if(pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
-			BlockState target = null;
+			Block target = Minecraft.getInstance().world.getBlockState(bPos).getBlock();
 			if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
 						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
@@ -374,7 +370,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			}
 
 			if(!player.world.isAirBlock(bPos)) {
-				List<BlockPos> coordsList = getBlocksToSwap(player.world, stack, state, bPos, target);
+				List<BlockPos> coordsList = getTargetPositions(player.world, stack, state, bPos, target);
 				coordsList.removeIf(bPos::equals);
 				return coordsList;
 			}
