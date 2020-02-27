@@ -982,7 +982,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModTags.Items.PETALS))
 				.build(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
 		ShapedRecipeBuilder.shapedRecipe(ModItems.manaTablet)
-				.key('P', ModTags.Items.GEMS_MANA_DIAMOND)
+				.key('P', Ingredient.fromItemListStream(Stream.of(
+						new Ingredient.SingleItemList(new ItemStack(ModItems.manaPearl)),
+						new Ingredient.TagList(ModTags.Items.GEMS_MANA_DIAMOND))))
 				.key('S', ModTags.Items.LIVINGROCK)
 				.patternLine("SSS")
 				.patternLine("SPS")
