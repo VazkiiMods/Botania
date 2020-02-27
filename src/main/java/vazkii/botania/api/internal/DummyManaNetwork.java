@@ -14,7 +14,6 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.mana.TileSignature;
 
 import java.util.Set;
 
@@ -36,12 +35,12 @@ public class DummyManaNetwork implements IManaNetwork {
 	}
 
 	@Override
-	public Set<TileSignature> getAllCollectorsInWorld(World world) {
+	public Set<TileEntity> getAllCollectorsInWorld(World world) {
 		return ImmutableSet.of();
 	}
 
 	@Override
-	public Set<TileSignature> getAllPoolsInWorld(World world) {
+	public Set<TileEntity> getAllPoolsInWorld(World world) {
 		return ImmutableSet.of();
 	}
 

@@ -18,7 +18,6 @@ import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
-import vazkii.botania.api.mana.TileSignature;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -31,12 +30,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	private final WeakHashMap<World, Set<TileSignature>> manaPools = new WeakHashMap<>();
-	private final WeakHashMap<World, Set<TileSignature>> manaCollectors = new WeakHashMap<>();
+	private final WeakHashMap<World, Set<TileEntity>> manaPools = new WeakHashMap<>();
+	private final WeakHashMap<World, Set<TileEntity>> manaCollectors = new WeakHashMap<>();
 
 	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
-		Map<World, Set<TileSignature>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
+		Map<World, Set<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
 		if(event.action == Action.ADD)
 			add(map, event.tile);
 		else remove(map, event.tile);
@@ -70,47 +69,44 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return isIn(tile, manaPools);
 	}
 
-	private boolean isIn(TileEntity tile, Map<World, Set<TileSignature>> map) {
-		Set<TileSignature> set = map.get(tile.getWorld());
-		return set != null && set.contains(new TileSignature(tile, tile.getWorld().isRemote));
+	private boolean isIn(TileEntity tile, Map<World, Set<TileEntity>> map) {
+		Set<TileEntity> set = map.get(tile.getWorld());
+		return set != null && set.contains(tile);
 	}
 
-	private TileEntity getClosest(Set<TileSignature> tiles, BlockPos pos, boolean remoteCheck, int limit) {
+	private TileEntity getClosest(Set<TileEntity> tiles, BlockPos pos, boolean remoteCheck, int limit) {
 		return tiles.stream()
-				.filter(ts -> ts.isRemote() == remoteCheck)
-				.map(TileSignature::getTile)
-				.filter(t -> !t.isRemoved())
-				.filter(t -> t.getPos().distanceSq(pos) <= limit * limit)
+				.filter(t -> t.getWorld().isRemote == remoteCheck && !t.isRemoved()
+						&& t.getPos().distanceSq(pos) <= limit * limit)
 				.reduce(BinaryOperator.minBy(Comparator.comparing(t -> t.getPos().distanceSq(pos), Double::compare)))
 				.orElse(null);
 	}
 
-	private void remove(Map<World, Set<TileSignature>> map, TileEntity tile) {
+	private void remove(Map<World, Set<TileEntity>> map, TileEntity tile) {
 		World world = tile.getWorld();
 
 		if(!map.containsKey(world))
 			return;
 
-		map.get(world).remove(new TileSignature(tile, tile.getWorld().isRemote));
+		map.get(world).remove(tile);
 	}
 
-	private void add(Map<World, Set<TileSignature>> map, TileEntity tile) {
+	private void add(Map<World, Set<TileEntity>> map, TileEntity tile) {
 		World world = tile.getWorld();
-		map.putIfAbsent(world, new HashSet<>());
-		map.get(world).add(new TileSignature(tile, tile.getWorld().isRemote));
+		map.computeIfAbsent(world, k -> new HashSet<>()).add(tile);
 	}
 
 	@Override
-	public Set<TileSignature> getAllCollectorsInWorld(World world) {
+	public Set<TileEntity> getAllCollectorsInWorld(World world) {
 		return getAllInWorld(manaCollectors, world);
 	}
 
 	@Override
-	public Set<TileSignature> getAllPoolsInWorld(World world) {
+	public Set<TileEntity> getAllPoolsInWorld(World world) {
 		return getAllInWorld(manaPools, world);
 	}
 
-	private Set<TileSignature> getAllInWorld(Map<World, Set<TileSignature>> map, World world) {
+	private Set<TileEntity> getAllInWorld(Map<World, Set<TileEntity>> map, World world) {
 		return map.getOrDefault(world, new HashSet<>());
 	}
 

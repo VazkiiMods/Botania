@@ -17,13 +17,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
- * A block that implements this can provide an IIcon (block icons only)
+ * A block that implements this can provide a sprite
  * to be used as an overlay for the mana pool, similarly to the mana void
  * and catalysts.
  */
 public interface IPoolOverlayProvider {
-
+	/**
+	 * @return A sprite to render. Must be stitched to the main block/item atlas.
+	 */
 	@OnlyIn(Dist.CLIENT)
-	public TextureAtlasSprite getIcon(World world, BlockPos pos);
+	TextureAtlasSprite getIcon(World world, BlockPos pos);
 
 }
