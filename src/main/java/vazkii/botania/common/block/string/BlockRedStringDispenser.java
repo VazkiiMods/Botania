@@ -13,6 +13,7 @@ package vazkii.botania.common.block.string;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -27,7 +28,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 
 	public BlockRedStringDispenser(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, Direction.DOWN).with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN).with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override

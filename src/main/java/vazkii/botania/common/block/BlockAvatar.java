@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -31,7 +32,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -46,20 +46,20 @@ public class BlockAvatar extends BlockMod {
 
 	protected BlockAvatar(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CARDINALS, Direction.NORTH));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if(state.get(BotaniaStateProps.CARDINALS).getAxis() == Direction.Axis.X)
+		if(state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X)
 			return X_AABB;
 		else return Z_AABB;
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.CARDINALS);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class BlockAvatar extends BlockMod {
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing().getOpposite());
+		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Nonnull
@@ -114,12 +114,12 @@ public class BlockAvatar extends BlockMod {
 	@Nonnull
 	@Override
 	public BlockState mirror(@Nonnull BlockState state, Mirror mirror) {
-		return state.with(BotaniaStateProps.CARDINALS, mirror.mirror(state.get(BotaniaStateProps.CARDINALS)));
+		return state.with(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.get(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Nonnull
 	@Override
 	public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
-		return state.with(BotaniaStateProps.CARDINALS, rot.rotate(state.get(BotaniaStateProps.CARDINALS)));
+		return state.with(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.get(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 }

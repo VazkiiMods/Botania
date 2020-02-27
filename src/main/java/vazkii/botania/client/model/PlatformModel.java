@@ -21,9 +21,9 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TilePlatform;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -48,8 +48,8 @@ public class PlatformModel extends BakedModelWrapper<IBakedModel> {
 			layer = RenderType.getSolid(); // workaround for when this isn't set (digging, etc.)
 		}
 
-		BlockState heldState = data.getData(BotaniaStateProps.HELD_STATE);
-		BlockPos heldPos = data.getData(BotaniaStateProps.HELD_POS);
+		BlockState heldState = data.getData(TilePlatform.HELD_STATE);
+		BlockPos heldPos = data.getData(TilePlatform.HELD_POS);
 
 		if (heldPos == null) {
 			return ImmutableList.of();

@@ -3,7 +3,6 @@ package vazkii.botania.data;
 import net.minecraft.block.Block;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.PaneBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SlabBlock;
@@ -11,6 +10,7 @@ import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.Direction;
@@ -22,12 +22,7 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockAltGrass;
-import vazkii.botania.common.block.BlockAltar;
-import vazkii.botania.common.block.BlockModDoubleFlower;
-import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -143,11 +138,11 @@ public class BlockstateProvider extends BlockStateProvider {
     private void redStringBlock(Block b) {
         ModelFile file = models().getExistingFile(prefix("block/" + b.getRegistryName().getPath()));
         getVariantBuilder(b)
-                .partialState().with(BotaniaStateProps.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
-                .partialState().with(BotaniaStateProps.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))
-                .partialState().with(BotaniaStateProps.FACING, Direction.WEST).setModels(new ConfiguredModel(file, 0, 270, false))
-                .partialState().with(BotaniaStateProps.FACING, Direction.EAST).setModels(new ConfiguredModel(file, 0, 90, false))
-                .partialState().with(BotaniaStateProps.FACING, Direction.DOWN).setModels(new ConfiguredModel(file, 90, 0, false))
-                .partialState().with(BotaniaStateProps.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
+                .partialState().with(BlockStateProperties.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
+                .partialState().with(BlockStateProperties.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))
+                .partialState().with(BlockStateProperties.FACING, Direction.WEST).setModels(new ConfiguredModel(file, 0, 270, false))
+                .partialState().with(BlockStateProperties.FACING, Direction.EAST).setModels(new ConfiguredModel(file, 0, 90, false))
+                .partialState().with(BlockStateProperties.FACING, Direction.DOWN).setModels(new ConfiguredModel(file, 90, 0, false))
+                .partialState().with(BlockStateProperties.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
     }
 }

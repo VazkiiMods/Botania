@@ -20,7 +20,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -57,6 +56,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -180,14 +180,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		return false;
 	}
-	
+
+	@Nullable
 	private ICustomApothecaryColor getFlowerComponent(ItemStack stack) {
 		ICustomApothecaryColor c = null;
 		if(stack.getItem() instanceof ICustomApothecaryColor)
 			c = (ICustomApothecaryColor) stack.getItem();
-		else if(stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof ICustomApothecaryColor)
-			c = (ICustomApothecaryColor) ((BlockItem) stack.getItem()).getBlock();
-		
 		return c;
 	}
 

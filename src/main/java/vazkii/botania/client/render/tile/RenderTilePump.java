@@ -1,17 +1,15 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import vazkii.botania.api.state.BotaniaStateProps;
+import net.minecraft.state.properties.BlockStateProperties;
 import vazkii.botania.common.block.tile.mana.TilePump;
 
 public class RenderTilePump extends TileEntityRenderer<TilePump> {
@@ -26,7 +24,7 @@ public class RenderTilePump extends TileEntityRenderer<TilePump> {
         ms.push();
         ms.translate(0.5, 0, 0.5);
         float angle = 0;
-        switch (pump.getBlockState().get(BotaniaStateProps.CARDINALS)) {
+        switch (pump.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING)) {
             default:
             case NORTH: break;
             case SOUTH:

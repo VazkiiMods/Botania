@@ -13,6 +13,7 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -28,7 +29,6 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
@@ -150,7 +150,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 		int l = 20;
 
 		AxisAlignedBB axis = null;
-		switch(world.getBlockState(tePos).get(BotaniaStateProps.CARDINALS)) {
+		switch(world.getBlockState(tePos).get(BlockStateProperties.HORIZONTAL_FACING)) {
 		case NORTH :
 			axis = new AxisAlignedBB(tePos.add(-w, -h, -l), tePos.add(w + 1, h, 0));
 			break;

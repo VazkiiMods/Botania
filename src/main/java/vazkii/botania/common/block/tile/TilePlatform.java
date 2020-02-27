@@ -23,14 +23,17 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class TilePlatform extends TileMod {
+	public static final ModelProperty<BlockState> HELD_STATE = new ModelProperty<>();
+	public static final ModelProperty<BlockPos> HELD_POS = new ModelProperty<>();
+
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PLATFORM)
 	public static TileEntityType<TilePlatform> TYPE;
 	private static final String TAG_CAMO = "camo";
@@ -102,8 +105,8 @@ public class TilePlatform extends TileMod {
 	@Override
 	public IModelData getModelData() {
 		return new ModelDataMap.Builder()
-				.withInitial(BotaniaStateProps.HELD_POS, getPos())
-				.withInitial(BotaniaStateProps.HELD_STATE, camoState)
+				.withInitial(HELD_POS, getPos())
+				.withInitial(HELD_STATE, camoState)
 				.build();
 	}
 }

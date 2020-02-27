@@ -13,9 +13,9 @@ package vazkii.botania.api.recipe;
 import net.minecraft.item.ItemStack;
 
 /**
- * An Item or Block that implements this interface can have a special particle color in the Petal Apothecary.
+ * An Item that implements this interface can have a special particle color when in the Petal Apothecary.
  */
 public interface ICustomApothecaryColor {
-	public int getParticleColor(ItemStack stack);
+	int getParticleColor(ItemStack stack);
 
 }
