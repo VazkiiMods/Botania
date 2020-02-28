@@ -2055,13 +2055,13 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	private void registerFloatingFlowers(Consumer<IFinishedRecipe> consumer) {
 		for (Block block : new Block[]{
-				ModSubtiles.pureDaisy, ModSubtiles.manastar, ModSubtiles.hydroangeas, ModSubtiles.thermalily,
-				ModSubtiles.rosaArcana, ModSubtiles.munchdew, ModSubtiles.entropinnyum, ModSubtiles.kekimurus,
-				ModSubtiles.gourmaryllis, ModSubtiles.narslimmus, ModSubtiles.spectrolus, ModSubtiles.dandelifeon,
-				ModSubtiles.rafflowsia, ModSubtiles.shulkMeNot, ModSubtiles.bellethorn, ModSubtiles.bellethornChibi,
-				ModSubtiles.bergamute, ModSubtiles.dreadthorn, ModSubtiles.heiseiDream, ModSubtiles.tigerseye,
-				ModSubtiles.jadedAmaranthus, ModSubtiles.orechid, ModSubtiles.fallenKanade, ModSubtiles.exoflame,
-				ModSubtiles.agricarnation, ModSubtiles.agricarnationChibi, ModSubtiles.hopperhock,
+				ModSubtiles.pureDaisy, ModSubtiles.manastar, ModSubtiles.hydroangeas, ModSubtiles.endoflame,
+				ModSubtiles.thermalily, ModSubtiles.rosaArcana, ModSubtiles.munchdew, ModSubtiles.entropinnyum,
+				ModSubtiles.kekimurus, ModSubtiles.gourmaryllis, ModSubtiles.narslimmus, ModSubtiles.spectrolus,
+				ModSubtiles.dandelifeon, ModSubtiles.rafflowsia, ModSubtiles.shulkMeNot, ModSubtiles.bellethorn,
+				ModSubtiles.bellethornChibi, ModSubtiles.bergamute, ModSubtiles.dreadthorn, ModSubtiles.heiseiDream,
+				ModSubtiles.tigerseye, ModSubtiles.jadedAmaranthus, ModSubtiles.orechid, ModSubtiles.fallenKanade,
+				ModSubtiles.exoflame, ModSubtiles.agricarnation, ModSubtiles.agricarnationChibi, ModSubtiles.hopperhock,
 				ModSubtiles.hopperhockChibi, ModSubtiles.tangleberrie, ModSubtiles.jiyuulia, ModSubtiles.rannuncarpus,
 				ModSubtiles.rannuncarpusChibi, ModSubtiles.hyacidus, ModSubtiles.pollidisiac, ModSubtiles.clayconia,
 				ModSubtiles.clayconiaChibi, ModSubtiles.loonium, ModSubtiles.daffomill, ModSubtiles.vinculotus,
