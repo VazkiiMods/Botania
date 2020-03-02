@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.TNTEntity;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
@@ -43,7 +44,8 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		if(!getWorld().isRemote && getMana() == 0) {
 			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(TNTEntity tnt : tnts) {
-				if(tnt.getFuse() == 1 && !tnt.removed && !getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
+				IFluidState fluid = getWorld().getFluidState(new BlockPos(tnt));
+				if(tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
 					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
 					addMana(getMaxMana());
