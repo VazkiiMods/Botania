@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -37,7 +38,7 @@ public class ItemKeepIvy extends ItemMod {
 		super(props);
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onPlayerDrops(LivingDropsEvent event) {
 		if(!(event.getEntityLiving() instanceof PlayerEntity))
 			return;
