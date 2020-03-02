@@ -13,12 +13,13 @@ package vazkii.botania.common.item;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -62,6 +63,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
@@ -413,7 +415,6 @@ public class ItemCraftingHalo extends Item {
 	@OnlyIn(Dist.CLIENT)
 	public void render(ItemStack stack, PlayerEntity player, MatrixStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
-		Tessellator tess = Tessellator.getInstance();
 		IRenderTypeBuffer.Impl buffers = mc.getBufferBuilders().getEntityVertexConsumers();
 
 		double renderPosX = mc.getRenderManager().info.getProjectedView().getX();
@@ -421,8 +422,6 @@ public class ItemCraftingHalo extends Item {
 		double renderPosZ = mc.getRenderManager().info.getProjectedView().getZ();
 
 		ms.push();
-		RenderSystem.enableBlend();
-		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
 		double posX = player.prevPosX + (player.getX() - player.prevPosX) * partialTicks;
@@ -430,7 +429,6 @@ public class ItemCraftingHalo extends Item {
 		double posZ = player.prevPosZ + (player.getZ() - player.prevPosZ) * partialTicks;
 
 		ms.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
-
 
 		float base = getRotationBase(stack);
 		int angles = 360;
@@ -446,6 +444,8 @@ public class ItemCraftingHalo extends Item {
 		float y0 = 0;
 
 		int segmentLookedAt = getSegmentLookedAt(stack, player);
+		ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
+		RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
 
 		for(int seg = 0; seg < SEGMENTS; seg++) {
 			boolean inside = false;
@@ -471,41 +471,33 @@ public class ItemCraftingHalo extends Item {
 
 			ms.push();
 			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
-			float a = alpha;
+			float r = 1, g = 1, b = 1, a = alpha;
 			if(inside) {
 				a += 0.3F;
 				y0 = -y;
 			}
 
-			RenderSystem.enableBlend();
-			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			if(seg % 2 == 0) {
+				r = g = b = 0.6F;
+			}
 
-			if(seg % 2 == 0)
-				RenderSystem.color4f(0.6F, 0.6F, 0.6F, a);
-			else RenderSystem.color4f(1F, 1F, 1F, a);
-
-			RenderSystem.disableCull();
-			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
-			mc.textureManager.bindTexture(item.getGlowResource());
-			tess.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			IVertexBuilder buffer = buffers.getBuffer(layer);
 			for(int i = 0; i < segAngles; i++) {
 				Matrix4f mat = ms.peek().getModel();
 				float ang = i + seg * segAngles + shift;
 				float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
 				float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
 
-				tess.getBuffer().vertex(mat, xp * m, y, zp * m).texture(u, v).endVertex();
-				tess.getBuffer().vertex(mat, xp, y0, zp).texture(u, 0).endVertex();
+				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).texture(u, v).endVertex();
+				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).texture(u, 0).endVertex();
 
 				xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
 				zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				tess.getBuffer().vertex(mat, xp, y0, zp).texture(0, 0).endVertex();
-				tess.getBuffer().vertex(mat, xp * m, y, zp * m).texture(0, v).endVertex();
+				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).texture(0, 0).endVertex();
+				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).texture(0, v).endVertex();
 			}
 			y0 = 0;
-			tess.draw();
-			RenderSystem.enableCull();
 			ms.pop();
 		}
 		ms.pop();

@@ -46,6 +46,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nullable;
@@ -56,6 +57,7 @@ import java.util.OptionalDouble;
 import java.util.Random;
 
 public final class RenderHelper {
+	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY;
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
@@ -82,7 +84,7 @@ public final class RenderHelper {
 
 	static {
 		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
-		RenderState.TransparencyState translucentTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
+		TRANSLUCENT_TRANSPARENCY = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
 		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
 		RenderState.CullState disableCull = new RenderState.CullState(false);
 		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
@@ -101,22 +103,22 @@ public final class RenderHelper {
 				.build(false);
 		STAR = RenderType.of(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderType.State.builder().transparency(translucentTransparency).cull(disableCull).build(false);
+		glState = RenderType.State.builder().transparency(TRANSLUCENT_TRANSPARENCY).cull(disableCull).build(false);
 		RECTANGLE = RenderType.of(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 		CIRCLE = RenderType.of(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).build(false);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).build(false);
 		LINE_1 = RenderType.of(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(1))).layering(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
 		LINE_1_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(4))).layering(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
 		LINE_4_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(5))).layering(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
 		LINE_5_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
-		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(translucentTransparency).writeMaskState(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.builder().lineWidth(new RenderState.LineState(OptionalDouble.of(8))).layering(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
 		LINE_8_NO_DEPTH = RenderType.of(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
-		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).alpha(new RenderState.AlphaState(0.05F)).lightmap(enableLightmap).build(true);
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(TRANSLUCENT_TRANSPARENCY).alpha(new RenderState.AlphaState(0.05F)).lightmap(enableLightmap).build(true);
 		// todo 1.15: need normals?
 		SPARK = RenderType.of(LibResources.PREFIX_MOD + "spark", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 256, glState);
 		LIGHT_RELAY = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 64, glState));
@@ -124,14 +126,14 @@ public final class RenderHelper {
 		glState = RenderType.State.builder().texture(new RenderState.TextureState()).build(false);
 		SPINNING_CUBE = RenderType.of(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderType.State.builder().texture(new RenderState.TextureState()).transparency(translucentTransparency).build(false);
+		glState = RenderType.State.builder().texture(new RenderState.TextureState()).transparency(TRANSLUCENT_TRANSPARENCY).build(false);
 		SPINNING_CUBE_GHOST = RenderType.of(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(translucentTransparency).lightmap(enableLightmap).build(true);
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(TRANSLUCENT_TRANSPARENCY).lightmap(enableLightmap).build(true);
 		ICON_OVERLAY = RenderType.of(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 128, glState);
 
 		RenderState.TextureState babylonTexture = new RenderState.TextureState(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
-		glState = RenderType.State.builder().texture(babylonTexture).transparency(translucentTransparency).cull(disableCull).shadeModel(smoothShade).build(true);
+		glState = RenderType.State.builder().texture(babylonTexture).transparency(TRANSLUCENT_TRANSPARENCY).cull(disableCull).shadeModel(smoothShade).build(true);
 		BABYLON_ICON = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormats.POSITION_COLOR_TEXTURE, GL11.GL_QUADS, 64, glState));
 
 		MANA_POOL_WATER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY);
@@ -139,20 +141,20 @@ public final class RenderHelper {
 		ENCHANTER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY);
 
 		RenderState.TextureState haloTexture = new RenderState.TextureState(ItemFlightTiara.textureHalo, false, true);
-		glState = RenderType.State.builder().texture(haloTexture).transparency(translucentTransparency).cull(disableCull).shadeModel(smoothShade).build(true);
+		glState = RenderType.State.builder().texture(haloTexture).transparency(TRANSLUCENT_TRANSPARENCY).cull(disableCull).shadeModel(smoothShade).build(true);
 		HALO = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "halo", DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 64, glState));
 
-		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.MANA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.MANA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		MANA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "mana_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
 
-		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.NATURA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.NATURA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		NATURA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "natura_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
 
-		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.GAIA_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.GAIA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		GAIA_PYLON_GLOW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, RenderType.of(LibResources.PREFIX_MOD + "gaia_pylon_glow", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState));
 
 		// Same as entity_translucent, with no depth test and a shader
-		glState = RenderType.State.builder().depthTest(new RenderState.DepthTestState(GL11.GL_ALWAYS)).texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderType.State.builder().depthTest(new RenderState.DepthTestState(GL11.GL_ALWAYS)).texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		ShaderCallback cb = shader -> {
 			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);
@@ -161,8 +163,16 @@ public final class RenderHelper {
 		};
 		ASTROLABE_PREVIEW = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, RenderType.of(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState));
 
-		glState = RenderType.State.builder().texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(translucentTransparency).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "entity_translucent_gold", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 128, true, true, glState));
+		glState = RenderType.State.builder().texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		ENTITY_TRANSLUCENT_GOLD = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, RenderType.of(LibResources.PREFIX_MOD + "entity_translucent_gold", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, true, true, glState));
+	}
+
+	public static RenderType getHaloLayer(ResourceLocation texture) {
+		RenderType.State glState = RenderType.State.builder()
+				.texture(new RenderState.TextureState(texture, true, false))
+				.cull(new RenderState.CullState(false))
+				.transparency(TRANSLUCENT_TRANSPARENCY).build(false);
+		return RenderType.of(LibResources.PREFIX_MOD + "crafting_halo", DefaultVertexFormats.POSITION_COLOR_TEXTURE, GL11.GL_QUADS, 64, false, true, glState);
 	}
 
 	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height) {
