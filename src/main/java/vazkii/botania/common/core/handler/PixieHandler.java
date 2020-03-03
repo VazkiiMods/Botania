@@ -2,6 +2,7 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -55,9 +56,12 @@ public final class PixieHandler {
 	}
 
 	@SubscribeEvent
-	public static void playerJoin(PlayerEvent.PlayerLoggedInEvent evt) {
+	public static void playerJoin(EntityJoinWorldEvent evt) {
 		if (evt.getEntity() instanceof PlayerEntity) {
-			((PlayerEntity) evt.getEntity()).getAttributes().registerAttribute(PIXIE_SPAWN_CHANCE);
+			AbstractAttributeMap attributes = ((PlayerEntity) evt.getEntity()).getAttributes();
+			if (attributes.getAttributeInstance(PIXIE_SPAWN_CHANCE) == null) {
+				attributes.registerAttribute(PIXIE_SPAWN_CHANCE);
+			}
 		}
 	}
 
@@ -66,7 +70,7 @@ public final class PixieHandler {
 		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			double chance = player.getAttribute(PIXIE_SPAWN_CHANCE).getValue();
-			ItemStack stack = PlayerHelper.getFirstHeldItem(player, s -> true);
+			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
 
 			if(Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.world);
@@ -77,7 +81,7 @@ public final class PixieHandler {
 				}
 
 				float dmg = 4;
-				if(!stack.isEmpty() && stack.getItem() == ModItems.elementiumSword)
+				if(!sword.isEmpty())
 					dmg += 2;
 
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
