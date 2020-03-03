@@ -104,7 +104,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		int oldCompValue = compValue;
 		compValue = CorporeaHelper.signalStrengthForRequestSize(itemCount);
 		if(compValue != oldCompValue)
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 	}
 
 	@Override

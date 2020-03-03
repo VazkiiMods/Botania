@@ -115,10 +115,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		if(player == null || world.isRemote)
+		if(world.isRemote)
 			return false;
 
-		if(!player.isSneaking()) {
+		if(player == null || player.isSneaking()) {
+			spawnAsEntity(world, pos, new ItemStack(this));
+			world.destroyBlock(pos, false);
+                } else {
 			GlobalPos clicked = GlobalPos.of(world.getDimension().getType(), pos.toImmutable());
 			if(ItemTwigWand.getBindMode(stack)) {
 				activeBindingAttempts.put(player.getUniqueID(), clicked);
@@ -132,9 +135,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 									dest.getX(), dest.getY(), dest.getZ()));
 				}
 			}
-		} else {
-			spawnAsEntity(world, pos, new ItemStack(this));
-			world.destroyBlock(pos, false);
 		}
 
 		return true;

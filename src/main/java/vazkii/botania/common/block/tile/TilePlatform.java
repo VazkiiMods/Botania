@@ -74,7 +74,7 @@ public class TilePlatform extends TileMod {
 
 	private void swap(TilePlatform tile, boolean empty) {
 		tile.camoState = empty ? null : camoState;
-		world.notifyBlockUpdate(tile.getPos(), world.getBlockState(tile.getPos()), world.getBlockState(tile.getPos()), 3);
+		world.notifyBlockUpdate(tile.getPos(), tile.getBlockState(), tile.getBlockState(), 3);
 	}
 
 	@Override

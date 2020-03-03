@@ -85,7 +85,8 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 			for (Direction d : Direction.values()) {
 				if (d != Direction.UP) {
 					BlockPos blockPos = pos.offset(d);
-					if (world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
+					if (world.isBlockLoaded(blockPos)
+							&& world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
 						validWater.add(blockPos);
 					}
 				}

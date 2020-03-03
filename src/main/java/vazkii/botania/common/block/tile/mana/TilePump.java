@@ -97,7 +97,7 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 		hasCartOnTop = false;
 
 		if(comparator != lastComparator)
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		lastComparator = comparator;
 	}
 

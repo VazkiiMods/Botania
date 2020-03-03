@@ -199,10 +199,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	@Override
 	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null)
-			return false;
-
-		if(player.isSneaking()) {
+		if(player == null || player.isSneaking()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();
 

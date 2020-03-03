@@ -123,7 +123,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	@Override
 	public Direction getAvatarFacing() {
-		return world.getBlockState(getPos()).get(BlockStateProperties.HORIZONTAL_FACING);
+		return getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override

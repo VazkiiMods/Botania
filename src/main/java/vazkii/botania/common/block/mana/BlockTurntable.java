@@ -53,7 +53,7 @@ public class BlockTurntable extends BlockMod implements IWandable, IWandHUD {
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		((TileTurntable) world.getTileEntity(pos)).onWanded(player, stack);
+		((TileTurntable) world.getTileEntity(pos)).onWanded(player, stack, side);
 		return true;
 	}
 

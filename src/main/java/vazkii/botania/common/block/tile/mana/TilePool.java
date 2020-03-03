@@ -122,7 +122,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		if(old != this.mana) {
 			markDirty();
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 			markDispatchable();
 		}
 	}
@@ -374,10 +374,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null)
-			return;
-
-		if(player.isSneaking()) {
+		if(player == null || player.isSneaking()) {
 			outputting = !outputting;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
@@ -390,7 +387,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		if(player == null) {
+			world.playSound(null, getPos(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		} else {
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)

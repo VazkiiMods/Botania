@@ -76,7 +76,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 				flip = !flip;
 				flipTicks = 4;
 				if(!world.isRemote) {
-					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true), 1);
+					world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, true), 1);
 					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 				}
 

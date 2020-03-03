@@ -241,7 +241,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 	@Override
 	public void tick() {
-		BlockState state = world.getBlockState(getPos());
+		BlockState state = getBlockState();
 		Direction.Axis axis = state.get(BotaniaStateProps.ENCHANTER_DIRECTION);
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {

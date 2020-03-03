@@ -127,7 +127,7 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 	}
 
 	public TileEntity getLinkedTile() {
-		Direction side = world.getBlockState(getPos()).get(BlockStateProperties.HORIZONTAL_FACING);
+		Direction side = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 		return world.getTileEntity(getPos().offset(side));
 	}
 

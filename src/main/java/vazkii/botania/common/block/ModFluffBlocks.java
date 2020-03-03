@@ -321,7 +321,7 @@ public final class ModFluffBlocks {
 		base = r.getValue(prefix(LibBlockNames.ELF_GLASS));
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.ELF_GLASS + "_pane");
 
-		base = r.getValue(prefix(LibBlockNames.BIFROST));
+		base = r.getValue(prefix(LibBlockNames.BIFROST_PERM));
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.BIFROST + "_pane");
 	}
 	

@@ -146,15 +146,6 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty() && stack.getItem() instanceof ItemDye) {
-			DyeColor newColor = ((ItemDye) stack.getItem()).color;
-			DyeColor oldColor = state.get(BotaniaStateProps.COLOR);
-			if(newColor != oldColor)
-				world.setBlockState(pos, state.with(BotaniaStateProps.COLOR, newColor));
-			return ActionResultType.SUCCESS;
-		}
-
 		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
 	}
 

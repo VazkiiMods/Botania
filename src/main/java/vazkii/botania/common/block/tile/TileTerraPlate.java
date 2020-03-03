@@ -102,7 +102,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 						else item.setItem(new ItemStack(ModItems.terrasteel));
 					world.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
-					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 			}
@@ -167,7 +167,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
-		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+		world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 	}
 
 	@Override

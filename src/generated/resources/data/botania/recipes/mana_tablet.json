@@ -6,9 +6,14 @@
     "SSS"
   ],
   "key": {
-    "P": {
-      "tag": "forge:gems/mana_diamond"
-    },
+    "P": [
+      {
+        "item": "botania:mana_pearl"
+      },
+      {
+        "tag": "forge:gems/mana_diamond"
+      }
+    ],
     "S": {
       "tag": "botania:livingrock"
     }

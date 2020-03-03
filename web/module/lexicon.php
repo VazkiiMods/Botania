@@ -17,8 +17,6 @@
 	$default_keys = [
 		'botania_corporea_request' => 'c',
 		'curios.open.desc' => 'k',
-		'left' => 'a',
-		'right' => 'w',
 		'sprint' => 'CTRL'
 	];
 	$entry_cache = array();
@@ -51,7 +49,7 @@
 				preg_replace(array_keys($replacements), array_values($replacements),
 				$value))) . '<br />';
 			$no_control = preg_replace('/\$\(.\)/', '', $value);
-			if(strlen($no_control) > 50) {
+			if(strlen($no_control) > 50 || strcmp($no_control, "no") == 0) {
 				echo($page);
 				echo("\n");
 			}

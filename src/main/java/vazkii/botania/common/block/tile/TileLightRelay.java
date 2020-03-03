@@ -118,7 +118,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				BlockPos endpoint = getEndpoint();
 
 				if(endpoint != null) {
-					AxisAlignedBB aabb = world.getBlockState(pos).getShape(world, pos).getBoundingBox().offset(pos);
+					AxisAlignedBB aabb = getBlockState().getShape(world, pos).getBoundingBox().offset(pos);
 					float range = 0.5F;
 					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
 					for(EnderPearlEntity pearl : enderPearls) {
@@ -183,7 +183,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	}
 
 	public BlockPos getNextDestination() {
-		BlockState state = world.getBlockState(pos);
+		BlockState state = getBlockState();
 		if(state.getBlock() == ModBlocks.lightRelayToggle && state.get(BotaniaStateProps.POWERED))
 			return null;
 		else if(state.getBlock() == ModBlocks.lightRelayFork) {

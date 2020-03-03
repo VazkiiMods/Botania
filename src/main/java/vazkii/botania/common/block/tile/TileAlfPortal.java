@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
@@ -91,12 +92,11 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		BlockState iBlockState = world.getBlockState(getPos());
-		if(iBlockState.get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+		if(getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
 		}
-		AlfPortalState state = iBlockState.get(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
 		AlfPortalState newState = getValidState();
 
 		ticksOpen++;
@@ -151,7 +151,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
-			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState));
+			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 		} else if(explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.Mode.DESTROY);
@@ -208,11 +208,11 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	public boolean onWanded() {
-		AlfPortalState state = world.getBlockState(getPos()).get(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {
-				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState));
+				world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 				return true;
 			}
 		}
@@ -222,7 +222,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private AxisAlignedBB getPortalAABB() {
 		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
-		if(world.getBlockState(getPos()).get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
+		if(getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
 			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
 
 		return aabb;
@@ -317,20 +317,15 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	public List<BlockPos> locatePylons() {
-		List<BlockPos> list = new ArrayList<>();
 		int range = 5;
 
 		BlockState pylonState = ModBlocks.naturaPylon.getDefaultState();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++)
-				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos = getPos().add(i, j, k);
-					if(world.getBlockState(pos) == pylonState && world.getBlockState(pos.down()).getBlock() instanceof BlockPool)
-						list.add(pos);
-				}
-
-		return list;
+		return BlockPos.getAllInBox(getPos().add(-range, -range, -range), getPos().add(range, range, range))
+				.filter(world::isBlockLoaded)
+				.filter(p -> world.getBlockState(p) == pylonState && world.getBlockState(p.down()).getBlock() instanceof BlockPool)
+				.map(BlockPos::toImmutable)
+				.collect(Collectors.toList());
 	}
 
 	public void lightPylons() {
