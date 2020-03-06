@@ -24,6 +24,7 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.block.mana.BlockSpreader.Variant;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -43,6 +44,16 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 
 	private static final ModelSpreader model = new ModelSpreader();
 
+	private ResourceLocation getTextureLocation(TileSpreader spreader) {
+		boolean doot = ClientProxy.dootDoot;
+		switch(spreader.getVariant()) {
+			default: case MANA: return doot ? texture   : textureHalloween;
+			case REDSTONE:      return doot ? textureRs : textureRsHalloween;
+			case ELVEN:         return doot ? textureDw : textureDwHalloween;
+			case GAIA:          return doot ? textureG  : textureGHalloween;
+		}
+	}
+
 	@Override
 	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
 		GlStateManager.pushMatrix();
@@ -56,16 +67,14 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		GlStateManager.rotatef(spreader.rotationY, 1F, 0F, 0F);
 		GlStateManager.translatef(0F, 1F, 0F);
 
-		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : spreader.isULTRA_SPREADER() ? textureG : texture;
-		if(ClientProxy.dootDoot)
-			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : spreader.isULTRA_SPREADER() ? textureGHalloween : textureHalloween;
+		ResourceLocation r = getTextureLocation(spreader);
 
 		Minecraft.getInstance().textureManager.bindTexture(r);
 		GlStateManager.scalef(1F, -1F, -1F);
 
 		double time = ClientTickHandler.ticksInGame + ticks;
 
-		if(spreader.isULTRA_SPREADER()) {
+		if(spreader.getVariant() == Variant.GAIA) {
 			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			GlStateManager.color3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
