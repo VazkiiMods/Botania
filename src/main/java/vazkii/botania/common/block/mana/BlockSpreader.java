@@ -51,10 +51,28 @@ import java.util.List;
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWireframeAABBProvider {
 	private static final VoxelShape RENDER_SHAPE = makeCuboidShape(1, 1, 1, 15, 15, 15);
 	public enum Variant {
-		MANA,
-		REDSTONE,
-		ELVEN,
-		GAIA
+		MANA     (160, 1000, 0x20FF20, 0x00FF00, 60,  4f,  1f),
+		REDSTONE (160, 1000, 0xFF2020, 0xFF0000, 60,  4f,  1f),
+		ELVEN    (240, 1000, 0xFF45C4, 0xFF00AE, 80,  4f,  1.25f),
+		GAIA     (640, 6400, 0x20FF20, 0x00FF00, 120, 20f, 2f);
+
+		public final int burstMana;
+		public final int manaCapacity;
+		public final int color;
+		public final int hudColor;
+		public final int preLossTicks;
+		public final float lossPerTick;
+		public final float motionModifier;
+
+		private Variant(int bm, int mc, int c, int hc, int plt, float lpt, float mm) {
+			burstMana = bm;
+			manaCapacity = mc;
+			color = c;
+			hudColor = hc;
+			preLossTicks = plt;
+			lossPerTick = lpt;
+			motionModifier = mm;
+		}
 	}
 
 	public final Variant variant;

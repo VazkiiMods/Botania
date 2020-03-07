@@ -78,8 +78,6 @@ import java.util.UUID;
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPREADER)
 	public static TileEntityType<TileSpreader> TYPE;
-	private static final int MAX_MANA = 1000;
-	private static final int ULTRA_MAX_MANA = 6400;
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -490,16 +488,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	private EntityManaBurst getBurst(boolean fake) {
-		boolean dreamwood = getVariant() == BlockSpreader.Variant.ELVEN;
-		boolean ultra = getVariant() == BlockSpreader.Variant.GAIA;
-		boolean redstone = getVariant() == BlockSpreader.Variant.REDSTONE;
-		int maxMana = ultra ? 640 : dreamwood ? 240 : 160;
-		int color = redstone ? 0xFF2020 : dreamwood ? 0xFF45C4 : 0x20FF20;
-		int ticksBeforeManaLoss = ultra ? 120 : dreamwood ? 80 : 60;
-		float manaLossPerTick = ultra ? 20F : 4F;
-		float motionModifier = ultra ? 2F : dreamwood ? 1.25F : 1F;
+		BlockSpreader.Variant variant = getVariant();
 		float gravity = 0F;
-		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
+		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		if(!lens.isEmpty() && lens.getItem() instanceof ILensEffect)
@@ -545,12 +536,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
-		int color;
-		switch (getVariant()) {
-			case REDSTONE: color = 0xFF0000; break;
-			case ELVEN: color = 0xFF00AE; break;
-			default: color = 0x00FF00; break;
-		}
+		int color = getVariant().hudColor;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
@@ -637,7 +623,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public int getMaxMana() {
-		return getVariant() == BlockSpreader.Variant.GAIA ? ULTRA_MAX_MANA : MAX_MANA;
+		return getVariant().manaCapacity;
 	}
 
 	@Override
