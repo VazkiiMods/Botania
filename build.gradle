@@ -13,11 +13,13 @@ buildscript {
 
 plugins {
     id 'org.hidetake.ssh' version '2.10.1'
+    id "com.diffplug.gradle.spotless" version "3.27.2"
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
+apply plugin: 'pmd'
 // apply plugin: 'com.matthewprenger.cursegradle'
 
 ext.configFile = file('build.properties')
@@ -104,6 +106,21 @@ dependencies {
     
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0")
+}
+
+spotless {
+    java {
+        target '**/vazkii/botania/**/*.java'
+        targetExclude '**/buildcraft/*.java', '**/thaumcraft/*.java'
+
+        indentWithTabs()
+        licenseHeaderFile( 'spotless/license_template.txt')
+        eclipse().configFile 'spotless/eclipseformat.xml'
+        importOrderFile 'spotless/eclipse.importorder'
+    }
+}
+pmd {
+    ruleSets = ["java-braces"]
 }
 
 if (System.getenv().BUILD_NUMBER != null) { 
