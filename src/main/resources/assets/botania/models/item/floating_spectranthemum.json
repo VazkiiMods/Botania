@@ -1,4 +1,0 @@
-{
-  "parent": "builtin/entity",
-  "__comment": "Replaced on startup during ModelBakeEvent"
-}

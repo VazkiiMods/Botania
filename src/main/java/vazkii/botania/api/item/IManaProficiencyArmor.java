@@ -25,35 +25,31 @@ import vazkii.botania.api.mana.ManaProficiencyEvent;
  * armor set, where only one piece implements it.
  */
 public interface IManaProficiencyArmor {
-	
+
 	default boolean shouldGiveProficiency(ItemStack armorStack, EquipmentSlotType slot, PlayerEntity player, ItemStack rod) {
 		return false;
 	}
 
-	public final static class Helper {
-		
-		public static boolean hasProficiency(PlayerEntity player, ItemStack rod) {
-			boolean proficient = false;
-			
-			for(EquipmentSlotType e: EquipmentSlotType.values()) {
-				if(e.getSlotType() != EquipmentSlotType.Group.ARMOR)
-					continue;
-				ItemStack armor = player.getItemStackFromSlot(e);
-				if(!armor.isEmpty()) {
-					Item item = armor.getItem();
-					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
-						proficient = true;
-						break;
-					}
+	static boolean hasProficiency(PlayerEntity player, ItemStack rod) {
+		boolean proficient = false;
+
+		for(EquipmentSlotType e: EquipmentSlotType.values()) {
+			if(e.getSlotType() != EquipmentSlotType.Group.ARMOR)
+				continue;
+			ItemStack armor = player.getItemStackFromSlot(e);
+			if(!armor.isEmpty()) {
+				Item item = armor.getItem();
+				if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
+					proficient = true;
+					break;
 				}
 			}
-			
-			ManaProficiencyEvent event = new ManaProficiencyEvent(player, rod, proficient);
-			MinecraftForge.EVENT_BUS.post(event);
-			
-			return event.isProficient();
 		}
 
+		ManaProficiencyEvent event = new ManaProficiencyEvent(player, rod, proficient);
+		MinecraftForge.EVENT_BUS.post(event);
+
+		return event.isProficient();
 	}
 
 }

@@ -51,11 +51,11 @@ public class Vector3
 	}
 
 	public static Vector3 fromEntity(Entity e) {
-		return new Vector3(e.posX, e.posY, e.posZ);
+		return new Vector3(e.getX(), e.getY(), e.getZ());
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.posX, e.posY - e.getYOffset() + e.getHeight() / 2, e.posZ);
+		return new Vector3(e.getX(), e.getY() - e.getYOffset() + e.getHeight() / 2, e.getZ());
 	}
 
 	public static Vector3 fromTileEntity(TileEntity e) {

@@ -10,16 +10,23 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ILightReader;
 import net.minecraftforge.client.model.data.IModelData;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -30,8 +37,12 @@ import java.util.Random;
 
 public class RenderTileFloatingFlower extends TileEntityRenderer {
 
+	public RenderTileFloatingFlower(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+	public void render(@Nonnull TileEntity tile, float t, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if (ConfigHandler.CLIENT.staticFloaters.get())
 			return;
 
@@ -39,44 +50,27 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 		if (!data.hasProperty(BotaniaStateProps.FLOATING_DATA))
 			return;
 
-		GlStateManager.pushMatrix();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(d0, d1, d2);
+		ms.push();
 
 		double worldTime = ClientTickHandler.ticksInGame + t;
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 
-		GlStateManager.translatef(0.5F, 0, 0.5F);
-		GlStateManager.rotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);
-		GlStateManager.translated(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
+		ms.translate(0.5F, 0, 0.5F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-((float) worldTime * 0.5F)));
+		ms.translate(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
 
-		GlStateManager.rotatef(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
-		GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
-
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(4F * (float) Math.sin(worldTime * 0.04F)));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
 
 		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
-		BlockState state = tile.getWorld().getBlockState(tile.getPos());
-		IBakedModel model = brd.getModelForState(state);
-		renderModelBrightnessColor(brd.getBlockModelRenderer(), state, model,  data);
+		BlockState state = tile.getBlockState();
 
-		GlStateManager.popMatrix();
+		IBakedModel ibakedmodel = brd.getModelForState(state);
+		brd.getBlockModelRenderer().renderModel(ms.peek(), buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(state)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
 
-	}
+		ms.pop();
 
-	// [VanillaCopy] Like BlockModelRenderer.renderModelBrightnessColor,
-	// but no colors and call the getQuads overload with modeldata
-	private static void renderModelBrightnessColor(BlockModelRenderer renderer, BlockState state, IBakedModel modelIn, IModelData data) {
-		Random random = new Random();
-
-		for(Direction direction : Direction.values()) {
-			random.setSeed(42L);
-			renderer.renderModelBrightnessColorQuads(1, 1, 1, 1, modelIn.getQuads(state, direction, random, data));
-		}
-
-		random.setSeed(42L);
-		renderer.renderModelBrightnessColorQuads(1, 1, 1, 1, modelIn.getQuads(state, null, random, data));
 	}
 
 }

@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +29,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -66,32 +68,32 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
-			return false;
+			return ActionResultType.PASS;
 
 		if(hourglass.lock) {
 			if(!player.world.isRemote)
 				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"));
-			return true;
+			return ActionResultType.FAIL;
 		}
 
 		if(hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setStackInSlot(0, stack.copy());
 			hourglass.markDirty();
 			stack.setCount(0);
-			return true;
+			return ActionResultType.SUCCESS;
 		} else if(!hgStack.isEmpty()) {
 			ItemHandlerHelper.giveItemToPlayer(player, hgStack);
 			hourglass.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			hourglass.markDirty();
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -110,9 +112,9 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		if(state.get(BotaniaStateProps.POWERED))
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override

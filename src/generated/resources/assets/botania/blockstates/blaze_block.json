@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "botania:block/blaze_block"
+    }
+  }
+}

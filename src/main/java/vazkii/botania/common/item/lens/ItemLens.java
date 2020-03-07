@@ -16,6 +16,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -33,14 +34,13 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 
-public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
+public class ItemLens extends Item implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 	public static final int PROP_NONE = 0,
 			PROP_POWER = 1,
 			PROP_ORIENTATION = 1 << 1,
@@ -63,8 +63,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		int storedColor = getStoredColor(par1ItemStack);
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		int storedColor = getStoredColor(stack);
 		if(storedColor != -1) {
 			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
 			stacks.add(new TranslationTextComponent("botaniamisc.color", colorName).applyTextStyle(TextFormatting.GRAY));
@@ -131,7 +131,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			return 0xFFFFFF;
 
 		if(storedColor == 16)
-			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
+			return MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
 		return DyeColor.byId(storedColor).colorValue;
 	}

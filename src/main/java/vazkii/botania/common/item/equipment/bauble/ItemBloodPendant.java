@@ -10,11 +10,18 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -113,29 +120,25 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		AccessoryRenderHelper.rotateIfSneaking(player);
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		GlStateManager.rotatef(180F, 1F, 0F, 0F);
-		GlStateManager.translatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+		ms.translate(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
+		ms.scale(0.5F, 0.5F, 0.5F);
 
-		for (TextureAtlasSprite icon : new TextureAtlasSprite[]{MiscellaneousIcons.INSTANCE.bloodPendantChain, MiscellaneousIcons.INSTANCE.bloodPendantGem}) {
-			float f = icon.getMinU();
-			float f1 = icon.getMaxU();
-			float f2 = icon.getMinV();
-			float f3 = icon.getMaxV();
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
+		IBakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 
-			Color color = new Color(Minecraft.getInstance().getItemColors().getColor(stack, 1));
-			GlStateManager.color3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-		}
-		GlStateManager.color3f(1, 1, 1);
+		model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
+		int color = Minecraft.getInstance().getItemColors().getColor(stack, 1);
+		float r = (color >> 16 & 0xFF) / 255F;
+		float g = (color >> 8 & 0xFF) / 255F;
+		float b = (color & 0xFF) / 255F;
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.DEFAULT_UV);
 	}
 
 	@Override

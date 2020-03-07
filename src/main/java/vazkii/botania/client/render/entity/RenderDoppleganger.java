@@ -10,9 +10,12 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.platform.GLX;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BipedModel;
@@ -21,6 +24,7 @@ import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
@@ -33,40 +37,40 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 	private static float grainIntensity = DEFAULT_GRAIN_INTENSITY;
 	private static float disfiguration = DEFAULT_DISFIGURATION;
 
-	public static final ShaderCallback callback = shader -> {
+	private static final ShaderCallback CALLBACK = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = GLX.glGetUniformLocation(shader, "disfiguration");
+		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, disfiguration);
-		GLX.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = GLX.glGetUniformLocation(shader, "grainIntensity");
+		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-		GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public static final ShaderCallback defaultCallback = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = GLX.glGetUniformLocation(shader, "disfiguration");
+		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_DISFIGURATION);
-		GLX.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = GLX.glGetUniformLocation(shader, "grainIntensity");
+		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_GRAIN_INTENSITY);
-		GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderDoppleganger(EntityRendererManager renderManager) {
-		super(renderManager, new PlayerModel<>(0.0F, false), 0F);
+		super(renderManager, new Model(), 0F);
 	}
 
 	@Override
-	public void doRender(@Nonnull EntityDoppleganger dopple, double par2, double par4, double par6, float par8, float par9) {
+	public void render(@Nonnull EntityDoppleganger dopple, float yaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
 		int invulTime = dopple.getInvulTime();
 		if(invulTime > 0) {
 			grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;
@@ -76,20 +80,34 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 			grainIntensity = 0.05F + dopple.hurtTime * ((1F - 0.15F) / 10F);
 		}
 
-		ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
-		super.doRender(dopple, par2, par4, par6, par8, par9);
-		ShaderHelper.releaseShader();
+		super.render(dopple, yaw, partialTicks, ms, buffers, light);
 	}
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
+	public ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
 		Minecraft mc = Minecraft.getInstance();
 
 		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayerEntity))
 			return DefaultPlayerSkin.getDefaultSkin(entity.getUniqueID());
 
 		return ((AbstractClientPlayerEntity) mc.getRenderViewEntity()).getLocationSkin();
+	}
+
+	@Override
+	protected boolean func_225622_a_(EntityDoppleganger dopple) {
+		return true;
+	}
+
+	private static class Model extends BipedModel<EntityDoppleganger> {
+		private static RenderType makeRenderType(ResourceLocation texture) {
+			RenderType normal = RenderType.getEntityTranslucent(texture);
+			return new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, CALLBACK, normal);
+		}
+
+		Model() {
+			super(Model::makeRenderType, 0, 0, 64, 64);
+		}
 	}
 
 }

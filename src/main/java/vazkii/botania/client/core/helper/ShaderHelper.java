@@ -10,15 +10,17 @@
  */
 package vazkii.botania.client.core.helper;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.shader.IShaderManager;
+import net.minecraft.client.shader.ShaderLinkHelper;
+import net.minecraft.client.shader.ShaderLoader;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
-import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -26,40 +28,44 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.OptionalInt;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ShaderHelper {
+	public enum BotaniaShader {
+		PYLON_GLOW(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_PYLON_GLOW_FRAG),
+		ENCHANTER_RUNE(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_ENCHANTER_RUNE_FRAG),
+		MANA_POOL(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_MANA_POOL_FRAG),
+		DOPPLEGANGER(LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG),
+		HALO(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_HALO_FRAG),
+		DOPPLEGANGER_BAR(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_DOPLLEGANGER_BAR_FRAG),
+		TERRA_PLATE(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_TERRA_PLATE_RUNE_FRAG),
+		FILM_GRAIN(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_FILM_GRAIN_FRAG),
+		GOLD(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_GOLD_FRAG),
+		ALPHA(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_ALPHA_FRAG);
+
+		public final String vertexShaderPath;
+		public final String fragmentShaderPath;
+
+		BotaniaShader(String vertexShaderPath, String fragmentShaderPath) {
+			this.vertexShaderPath = vertexShaderPath;
+			this.fragmentShaderPath = fragmentShaderPath;
+		}
+	}
 	// Scratch buffer to use for uniforms
 	public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
-	public static int pylonGlow = 0;
-	public static int enchanterRune = 0;
-	public static int manaPool = 0;
-	public static int doppleganger = 0;
-	public static int halo = 0;
-	public static int dopplegangerBar = 0;
-	public static int terraPlateRune = 0;
-	public static int filmGrain = 0;
-	public static int gold = 0;
-	public static int categoryButton = 0;
-	public static int alpha = 0;
+	private static final Map<BotaniaShader, ShaderProgram> PROGRAMS = new EnumMap<>(BotaniaShader.class);
 	
 	private static boolean hasIncompatibleMods = false;
 	private static boolean checkedIncompatibility = false;
-	private static boolean lighting;
-
-	private static void deleteProgram(int id) {
-		if (id != 0) {
-			GLX.glDeleteProgram(id);
-		}
-	}
 
 	@SuppressWarnings("deprecation")
 	public static void initShaders() {
@@ -68,29 +74,8 @@ public final class ShaderHelper {
 			&& Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
 			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
 					(IResourceManagerReloadListener) manager -> {
-						deleteProgram(pylonGlow);
-						pylonGlow = 0;
-						deleteProgram(enchanterRune);
-						enchanterRune = 0;
-						deleteProgram(manaPool);
-						manaPool = 0;
-						deleteProgram(doppleganger);
-						doppleganger = 0;
-						deleteProgram(halo);
-						halo = 0;
-						deleteProgram(dopplegangerBar);
-						dopplegangerBar = 0;
-						deleteProgram(terraPlateRune);
-						terraPlateRune = 0;
-						deleteProgram(filmGrain);
-						filmGrain = 0;
-						deleteProgram(gold);
-						gold = 0;
-						deleteProgram(categoryButton);
-						categoryButton = 0;
-						deleteProgram(alpha);
-						alpha = 0;
-
+						PROGRAMS.values().forEach(ShaderLinkHelper::deleteShader);
+						PROGRAMS.clear();
 						loadShaders(manager);
 					});
 		}
@@ -100,49 +85,46 @@ public final class ShaderHelper {
 		if(!useShaders())
 			return;
 
-		pylonGlow = createProgram(manager, null, LibResources.SHADER_PYLON_GLOW_FRAG);
-		enchanterRune = createProgram(manager, null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
-		manaPool = createProgram(manager, null, LibResources.SHADER_MANA_POOL_FRAG);
-		doppleganger = createProgram(manager, LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG);
-		halo = createProgram(manager, null, LibResources.SHADER_HALO_FRAG);
-		dopplegangerBar = createProgram(manager, null, LibResources.SHADER_DOPLLEGANGER_BAR_FRAG);
-		terraPlateRune = createProgram(manager, null, LibResources.SHADER_TERRA_PLATE_RUNE_FRAG);
-		filmGrain = createProgram(manager, null, LibResources.SHADER_FILM_GRAIN_FRAG);
-		gold = createProgram(manager, null, LibResources.SHADER_GOLD_FRAG);
-		categoryButton = createProgram(manager, null, LibResources.SHADER_CATEGORY_BUTTON_FRAG);
-		alpha = createProgram(manager, LibResources.SHADER_ALPHA_VERT, LibResources.SHADER_ALPHA_FRAG);
+		for (BotaniaShader shader : BotaniaShader.values()) {
+			createProgram(manager, shader);
+		}
+	}
+
+	public static OptionalInt getShader(BotaniaShader shader) {
+		ShaderProgram prog = PROGRAMS.get(shader);
+		return prog == null ? OptionalInt.empty() : OptionalInt.of(prog.getProgram());
+	}
+
+	public static void useShader(BotaniaShader shader, ShaderCallback callback) {
+		ShaderProgram prog = PROGRAMS.get(shader);
+		if(prog == null)
+			return;
+		useShader(prog.getProgram(), callback);
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {
 		if(!useShaders())
 			return;
 
-		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-		GlStateManager.disableLighting();
-		GLX.glUseProgram(shader);
+		ShaderLinkHelper.useProgram(shader);
 
-		if(shader != 0) {
-		    int time = GLX.glGetUniformLocation(shader, "time");
-		    GLX.glUniform1i(time, ClientTickHandler.ticksInGame);
+		int time = GlStateManager.getUniformLocation(shader, "time");
+		GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
 
-			if(callback != null)
-				callback.call(shader);
-		}
+		if(callback != null)
+			callback.call(shader);
 	}
 
-	public static void useShader(int shader) {
+	public static void useShader(BotaniaShader shader) {
 		useShader(shader, null);
 	}
 
 	public static void releaseShader() {
-		if(lighting)
-			GlStateManager.enableLighting();
-		useShader(0);
+		ShaderLinkHelper.useProgram(0);
 	}
 
 	public static boolean useShaders() {
-		// usePostProcess equivalent to hasShaders
-		return ConfigHandler.CLIENT.useShaders.get() && GLX.usePostProcess && checkIncompatibleMods();
+		return ConfigHandler.CLIENT.useShaders.get() && checkIncompatibleMods();
 	}
 	
 	private static boolean checkIncompatibleMods() {
@@ -154,65 +136,55 @@ public final class ShaderHelper {
 		return !hasIncompatibleMods;
 	}
 
-	private static int createProgram(IResourceManager manager, String vert, String frag) {
-		int vertId = 0, fragId = 0, program;
-		if(vert != null)
-			vertId = createShader(manager, vert, GLX.GL_VERTEX_SHADER);
-		if(frag != null)
-			fragId = createShader(manager, frag, GLX.GL_FRAGMENT_SHADER);
-
-		program = GLX.glCreateProgram();
-		if(program == 0)
-			return 0;
-
-		if(vert != null)
-			GLX.glAttachShader(program, vertId);
-		if(frag != null)
-			GLX.glAttachShader(program, fragId);
-
-		GLX.glLinkProgram(program);
-		if (GLX.glGetProgrami(program, GLX.GL_LINK_STATUS) == GL11.GL_FALSE) {
-			Botania.LOGGER.warn("Error encountered when linking program containing VS {} and FS {}. Log output:", vert, frag);
-			Botania.LOGGER.warn(GLX.glGetProgramInfoLog(program, 32768));
-			return 0;
-		}
-
-		// Free the shader immediately, it will stay alive until the program is deleted
-		GLX.glDeleteShader(vertId);
-		GLX.glDeleteShader(fragId);
-
-		return program;
-	}
-
-	private static int createShader(IResourceManager manager, String filename, int shaderType){
-		int shader = 0;
+	private static void createProgram(IResourceManager manager, BotaniaShader shader) {
 		try {
-		    shader = GLX.glCreateShader(shaderType);
-
-			if(shader == 0)
-				return 0;
-
-			GLX.glShaderSource(shader, readFileAsString(manager, filename));
-			GLX.glCompileShader(shader);
-
-			if (GLX.glGetShaderi(shader, GLX.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-				String s1 = StringUtils.trim(GLX.glGetShaderInfoLog(shader, 32768));
-				throw new IOException("Couldn't compile " + filename + ": " + s1);
-			}
-
-			return shader;
-		} catch(Exception e) {
-			GLX.glDeleteShader(shader);
-			e.printStackTrace();
-			return -1;
+			ShaderLoader vert = createShader(manager, shader.vertexShaderPath, ShaderLoader.ShaderType.VERTEX);
+			ShaderLoader frag = createShader(manager, shader.fragmentShaderPath, ShaderLoader.ShaderType.FRAGMENT);
+			int progId = ShaderLinkHelper.createProgram();
+			ShaderProgram prog = new ShaderProgram(progId, vert, frag);
+			ShaderLinkHelper.linkProgram(prog);
+			PROGRAMS.put(shader, prog);
+		} catch (IOException ex) {
+			Botania.LOGGER.error("Failed to load program {}", shader.name(), ex);
 		}
 	}
 
-	private static String readFileAsString(IResourceManager manager, String filename) throws Exception {
-		InputStream in = manager.getResource(new ResourceLocation(LibMisc.MOD_ID, filename)).getInputStream();
+	private static ShaderLoader createShader(IResourceManager manager, String filename, ShaderLoader.ShaderType shaderType) throws IOException {
+		ResourceLocation loc = prefix(filename);
+		try (InputStream is = new BufferedInputStream(manager.getResource(loc).getInputStream())) {
+			return ShaderLoader.func_216534_a(shaderType, loc.toString(), is);
+		}
+	}
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
-			return reader.lines().collect(Collectors.joining("\n"));
+	private static class ShaderProgram implements IShaderManager {
+		private final int program;
+		private final ShaderLoader vert;
+		private final ShaderLoader frag;
+
+		private ShaderProgram(int program, ShaderLoader vert, ShaderLoader frag) {
+			this.program = program;
+			this.vert = vert;
+			this.frag = frag;
+		}
+
+		@Override
+		public int getProgram() {
+			return program;
+		}
+
+		@Override
+		public void markDirty() {
+
+		}
+
+		@Override
+		public ShaderLoader getVertexShaderLoader() {
+			return vert;
+		}
+
+		@Override
+		public ShaderLoader getFragmentShaderLoader() {
+			return frag;
 		}
 	}
 

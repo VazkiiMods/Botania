@@ -11,8 +11,9 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
 
-public class Item16Colors extends ItemMod {
+public class Item16Colors extends Item {
 	public final DyeColor color;
 
 	public Item16Colors(DyeColor color, Properties props) {

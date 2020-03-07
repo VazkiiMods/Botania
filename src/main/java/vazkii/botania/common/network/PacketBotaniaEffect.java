@@ -8,6 +8,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -17,7 +18,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
 
-import java.awt.*;
 import java.util.function.Supplier;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
@@ -124,8 +124,8 @@ public class PacketBotaniaEffect {
 						if(e1 == null || e2 == null)
 							return;
 
-						Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
-						Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
+						Vector3 orig = new Vector3(e1.getX() , e1.getY() + 0.25, e1.getZ());
+						Vector3 end = new Vector3(e2.getX(), e2.getY() + 0.25, e2.getZ());
 						Vector3 diff = end.subtract(orig);
 						Vector3 movement = diff.normalize().multiply(0.1);
 						int iters = (int) (diff.mag() / movement.mag());
@@ -135,10 +135,10 @@ public class PacketBotaniaEffect {
 						Vector3 currentPos = orig;
 						for(int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
-							Color color = Color.getHSBColor(hue, 1F, 1F);
-							float r = Math.min(1F, color.getRed() / 255F + 0.4F);
-							float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
-							float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
+							int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
+							float g = Math.min(1F, (color >> 8 & 0xFF) / 255F + 0.4F);
+							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
 
 							SparkleParticleData data = SparkleParticleData.noClip(1, r, g, b, 12);
 							world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
@@ -237,9 +237,9 @@ public class PacketBotaniaEffect {
 						Entity entity = world.getEntityByID(message.args[0]);
 						if(entity != null) {
 							for(int i = 0; i < 15; i++) {
-								float x = (float) (entity.posX + Math.random());
-								float y = (float) (entity.posY + Math.random());
-								float z = (float) (entity.posZ + Math.random());
+								float x = (float) (entity.getX() + Math.random());
+								float y = (float) (entity.getY() + Math.random());
+								float z = (float) (entity.getZ() + Math.random());
                                 WispParticleData data = WispParticleData.wisp((float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
                                 world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
                             }
@@ -257,9 +257,9 @@ public class PacketBotaniaEffect {
 						if(target == null)
 							break;
 
-						double x = target.posX;
-						double y = target.posY;
-						double z = target.posZ;
+						double x = target.getX();
+						double y = target.getY();
+						double z = target.getZ();
 
 						SparkleParticleData data = SparkleParticleData.sparkle(1F, 1F, 1F, 0.25F, 3);
 						for(int i = 0; i < 50; i++)

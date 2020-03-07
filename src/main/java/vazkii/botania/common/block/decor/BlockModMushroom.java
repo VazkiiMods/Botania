@@ -23,6 +23,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IHornHarvestable;
@@ -50,7 +51,7 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 	}
 
 	@Override
-	public void tick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
+	public void scheduledTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
 
 	// [VanillaCopy] super, without light level requirement
 	@Override

@@ -2,8 +2,8 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            name "forge"
+            url "https://files.minecraftforge.net/maven"
         }
     }
     dependencies {
@@ -24,7 +24,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.14.4"
+def mc_version = "1.15.2"
 version = "${config.version}-${config.build_number}"
 group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = config.mod_name
@@ -32,11 +32,10 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: "20191111-1.14.3"
+    mappings channel: 'snapshot', version: "20200123-mixed-1.15.2"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
-            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
             properties 'fml.earlyprogresswindow': 'false'
             workingDirectory project.file('run')
@@ -47,7 +46,6 @@ minecraft {
             }
         }
         server {
-            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run')
             mods {
@@ -57,8 +55,6 @@ minecraft {
             }
         }
         data {
-            properties 'forge.logging.markers': 'REGISTRIES,REGISTRYDUMP'
-            properties 'forge.logging.console.level': 'debug'
             properties 'fml.earlyprogresswindow': 'false'
             workingDirectory project.file('run')
             mods {
@@ -66,7 +62,10 @@ minecraft {
                     source sourceSets.main
                 }
             }
-            args '--mod', 'botania', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'botania', '--all',
+                    '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources/') + '"'
         }
     }
 }
@@ -78,29 +77,33 @@ sourceSets.main.resources {
 repositories {
     mavenCentral()
     maven {
-        url = "https://maven.blamejared.com"
+        name "yarn2mcp"
+        url "https://maven.tterrag.com/"
     }
     maven {
-        url = "https://dvs1.progwml6.com/files/maven"
+        url "https://maven.blamejared.com"
     }
     maven {
-        url = "https://minecraft.curseforge.com/api/maven/"
+        url "https://dvs1.progwml6.com/files/maven"
     }
     maven {
-        name = "curios"
-        url = "https://maven.theillusivec4.top/"
+        url "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name "curios"
+        url "https://maven.theillusivec4.top/"
     }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-28.1.92"
-    compile fg.deobf("vazkii.patchouli:Patchouli:1.14.4-1.1-25.135") { transitive = false }
+    minecraft "net.minecraftforge:forge:${mc_version}-31.1.12"
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-28.142") { transitive = false }
 
-    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.11")
+    compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
     
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.14.4-1.0.2")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0")
 }
 
 if (System.getenv().BUILD_NUMBER != null) { 

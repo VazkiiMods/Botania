@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTUtil;
@@ -46,7 +47,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemAstrolabe extends ItemMod {
+public class ItemAstrolabe extends Item {
 
 	private static final String TAG_BLOCKSTATE = "blockstate";
 	private static final String TAG_SIZE = "size";
@@ -90,10 +91,10 @@ public class ItemAstrolabe extends ItemMod {
 			ItemsRemainingRenderHandler.set(stack, newSize + "x" + newSize);
 			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 			
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			return ActionResult.success(stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, PlayerEntity player) {
@@ -261,9 +262,9 @@ public class ItemAstrolabe extends ItemMod {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> tip, ITooltipFlag flags) {
-		Block block = getBlock(par1ItemStack);
-		int size = getSize(par1ItemStack);
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tip, ITooltipFlag flags) {
+		Block block = getBlock(stack);
+		int size = getSize(stack);
 
 		tip.add(new StringTextComponent(size + " x " + size));
 		if (block != Blocks.AIR)

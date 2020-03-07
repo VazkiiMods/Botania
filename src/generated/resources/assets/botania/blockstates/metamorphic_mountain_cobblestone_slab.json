@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "botania:block/metamorphic_mountain_cobblestone_slab",
+      "x": 180,
+      "uvlock": true
+    },
+    "type=bottom": {
+      "model": "botania:block/metamorphic_mountain_cobblestone_slab"
+    },
+    "type=double": {
+      "model": "botania:block/metamorphic_mountain_cobblestone"
+    }
+  }
+}

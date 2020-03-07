@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/infused_grass"
+      },
+      {
+        "model": "botania:block/infused_grass",
+        "y": 90
+      },
+      {
+        "model": "botania:block/infused_grass",
+        "y": 180
+      },
+      {
+        "model": "botania:block/infused_grass",
+        "y": 270
+      }
+    ]
+  }
+}

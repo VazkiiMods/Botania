@@ -18,6 +18,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -55,14 +56,14 @@ public class BlockTeruTeruBozu extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
 			if(!player.abilities.isCreativeMode)
 				stack.shrink(1);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	private boolean isSunflower(ItemStack stack) {

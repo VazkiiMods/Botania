@@ -44,9 +44,6 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {}
-
-	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
 	@Override

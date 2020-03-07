@@ -17,12 +17,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
+import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
@@ -105,9 +106,11 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		return super.onBlockActivated(state, world, pos, player, hand, hit)
-			|| ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit) || super.onBlockActivated(state, world, pos, player, hand, hit);
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+		ActionResultType tileResult = ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
+		if (tileResult.isAccepted())
+			return tileResult;
+		else return super.onUse(state, world, pos, player, hand, hit);
 	}
 
 	@Override

@@ -44,4 +44,5 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<OrechidReci
 	protected Map<ResourceLocation, Integer> getOreWeights() {
 		return BotaniaAPI.oreWeights;
 	}
+
 }

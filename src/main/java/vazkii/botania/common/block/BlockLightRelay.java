@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +27,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
@@ -57,9 +59,9 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override
@@ -78,8 +80,8 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override

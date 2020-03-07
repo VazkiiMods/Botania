@@ -12,7 +12,6 @@ package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
 	public static final Direction[] HORIZONTALS = { Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST };
@@ -20,9 +19,8 @@ public final class MathHelper {
 		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 	}
 
-	// Backwards compatibility
 	public static float pointDistancePlane(double x1, double y1, double x2, double y2) {
-		return VanillaPacketDispatcher.pointDistancePlane(x1, y1, x2, y2);
+		return (float) Math.hypot(x1 - x2, y1 - y2);
 	}
 
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
@@ -33,6 +31,19 @@ public final class MathHelper {
 			finalVector = finalVector.normalize();
 
 		entity.setMotion(finalVector.multiply(modifier).toVec3D());
+	}
+
+	public static int multiplyColor(int c1, int c2) {
+		int r1 = (c1 & 0xFF0000) >> 16;
+		int r2 = (c2 & 0xFF0000) >> 16;
+		int g1 = (c1 & 0x00FF00) >> 8;
+		int g2 = (c2 & 0x00FF00) >> 8;
+		int b1 = (c1 & 0x0000FF);
+		int b2 = (c2 & 0x0000FF);
+		int r = (int)(r1 * (r2 / 255.0F));
+		int g = (int)(g1 * (g2 / 255.0F));
+		int b = (int)(b1 * (b2 / 255.0F));
+		return c1 & ~0xFFFFFF | r << 16 | g << 8 | b;
 	}
 
 	private static final String[] ORDINAL_SUFFIXES = new String[]{ "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };

@@ -17,7 +17,9 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +30,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import javax.annotation.Nonnull;
@@ -40,23 +41,23 @@ public class BlockIncensePlate extends BlockMod {
 
 	protected BlockIncensePlate(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CARDINALS, Direction.SOUTH));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.CARDINALS);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getHeldItem(hand);
 		boolean did = false;
 
 		if(world.isRemote)
-			return true;
+			return ActionResultType.SUCCESS;
 
 		if(plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setStackInSlot(0, stack.copy());
@@ -78,12 +79,12 @@ public class BlockIncensePlate extends BlockMod {
 		if(did)
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 
-		return did;
+		return did ? ActionResultType.SUCCESS : ActionResultType.PASS;
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing().getOpposite());
+		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class BlockIncensePlate extends BlockMod {
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if(state.get(BotaniaStateProps.CARDINALS).getAxis() == Direction.Axis.X) {
+		if(state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
 			return Z_SHAPE;

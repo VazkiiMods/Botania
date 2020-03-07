@@ -56,7 +56,7 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
 				.filter(f -> f.getWorld() == e.world)
-				.anyMatch(f -> f.getEffectivePos().distanceSq(e.posX, e.posY, e.posZ, false) <= f.getRange() * f.getRange());
+				.anyMatch(f -> f.getEffectivePos().distanceSq(e.getX(), e.getY(), e.getZ(), false) <= f.getRange() * f.getRange());
 	}
 
 	@Override

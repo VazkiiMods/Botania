@@ -12,7 +12,9 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -34,7 +36,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -43,7 +45,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable, IPhantomInkable {
+public abstract class ItemBauble extends Item implements ICosmeticAttachable, IPhantomInkable {
 
 	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
 	private static final String TAG_BAUBLE_UUID_LEAST = "baubleUUIDLeast";
@@ -56,24 +58,24 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(Screen.hasShiftDown())
-			addHiddenTooltip(par1ItemStack, world, stacks, flags);
+			addHiddenTooltip(stack, world, stacks, flags);
 		else stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("key.curios.open.desc");
 
 		if(key != null)
 			stacks.add(new TranslationTextComponent("botania.baubletooltip", key));
 
-		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
+		ItemStack cosmetic = getCosmeticItem(stack);
 		if(!cosmetic.isEmpty())
 			stacks.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
 
-		if(hasPhantomInk(par1ItemStack))
+		if(hasPhantomInk(stack))
 			stacks.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
 	}
 
@@ -159,5 +161,5 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {}
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
 }

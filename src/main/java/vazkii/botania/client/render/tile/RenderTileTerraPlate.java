@@ -10,16 +10,24 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.TileTerraPlate;
@@ -28,51 +36,27 @@ import javax.annotation.Nonnull;
 
 public class RenderTileTerraPlate extends TileEntityRenderer<TileTerraPlate> {
 
+	public RenderTileTerraPlate(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nonnull TileTerraPlate plate, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nonnull TileTerraPlate plate, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		float max = TileTerraPlate.MAX_MANA / 10F;
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(d0, d1, d2);
 
-		GlStateManager.rotatef(90F, 1F, 0F, 0F);
-		GlStateManager.translatef(0F, 0F, -3F / 16F - 0.001F);
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+		ms.translate(0F, 0F, -3F / 16F - 0.001F);
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.disableAlphaTest();
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
-		if(ShaderHelper.useShaders())
-			GlStateManager.color4f(1F, 1F, 1F, alpha);
-		else {
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
-			GlStateManager.color4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
-		}
 
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
+		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay, 1, 1, alpha);
 
-		ShaderHelper.useShader(ShaderHelper.terraPlateRune);
-		renderIcon(0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay, 1, 1, 240);
-		ShaderHelper.releaseShader();
-
-		GlStateManager.enableAlphaTest();
-		GlStateManager.disableBlend();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
-	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
-		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP);
-		tessellator.getBuffer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).lightmap(brightness, brightness).endVertex();
-		tessellator.getBuffer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).lightmap(brightness, brightness).endVertex();
-		tessellator.getBuffer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).lightmap(brightness, brightness).endVertex();
-		tessellator.getBuffer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).lightmap(brightness, brightness).endVertex();
-		tessellator.draw();
-	}
+
 
 }

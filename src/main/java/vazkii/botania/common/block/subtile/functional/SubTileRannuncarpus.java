@@ -150,22 +150,16 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		ItemStack recieverStack = new ItemStack(filter.getBlock());
 		int color = getColor();
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!recieverStack.isEmpty()) {
 			ITextComponent stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
-			int x = mc.mainWindow.getScaledWidth() / 2 - width;
-			int y = mc.mainWindow.getScaledHeight() / 2 + 30;
+			int x = mc.getWindow().getScaledWidth() / 2 - width;
+			int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
-			RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
-			RenderHelper.disableStandardItemLighting();
 		}
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
 	}
 
 	@Override

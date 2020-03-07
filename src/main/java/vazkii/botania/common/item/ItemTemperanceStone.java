@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -31,7 +32,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemTemperanceStone extends ItemMod {
+public class ItemTemperanceStone extends Item {
 	public static final String TAG_ACTIVE = "active";
 
 	public ItemTemperanceStone(Properties builder) {
@@ -45,8 +46,8 @@ public class ItemTemperanceStone extends ItemMod {
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 0.3F, 0.1F);
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 0.3F, 0.1F);
+		return ActionResult.success(stack);
 	}
 
 	@Override

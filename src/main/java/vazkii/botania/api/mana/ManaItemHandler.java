@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.mana;
 
+import com.google.common.collect.Iterables;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +19,7 @@ import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +35,9 @@ public final class ManaItemHandler {
 	 */
 	public static List<ItemStack> getManaItems(PlayerEntity player) {
 		if (player == null)
-			return new ArrayList<>();
+			return Collections.emptyList();
 
-		List<ItemStack> toReturn = new ArrayList<ItemStack>();
+		List<ItemStack> toReturn = new ArrayList<>();
 		player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(mainInv -> {
 			int size = mainInv.getSlots();
 
@@ -57,23 +59,22 @@ public final class ManaItemHandler {
 	 * Gets a list containing all mana-holding items in a player's accessories inventory.
 	 * @return The list of items
 	 */
-	public static Map<Integer, ItemStack> getManaAccesories(PlayerEntity player) {
+	public static List<ItemStack> getManaAccesories(PlayerEntity player) {
 		if (player == null)
-			return new HashMap<Integer, ItemStack>();
+			return Collections.emptyList();
 
 		IItemHandler acc = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
 		if (acc == null)
-			return new HashMap<Integer, ItemStack>();
+			return Collections.emptyList();
 
 
-		Map<Integer, ItemStack> toReturn = new HashMap<Integer, ItemStack>();
-		int size = acc.getSlots();
+		List<ItemStack> toReturn = new ArrayList<>(acc.getSlots());
 
-		for(int slot = 0; slot < size; slot++) {
+		for(int slot = 0; slot < acc.getSlots(); slot++) {
 			ItemStack stackInSlot = acc.getStackInSlot(slot);
 
 			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
-				toReturn.put(slot, stackInSlot);
+				toReturn.add(stackInSlot);
 			}
 		}
 
@@ -92,26 +93,8 @@ public final class ManaItemHandler {
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items) {
-			if(stackInSlot == stack)
-				continue;
-			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
-			if(manaItem.canExportManaToItem(stackInSlot, stack) && manaItem.getMana(stackInSlot) > 0) {
-				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
-					continue;
-
-				int mana = Math.min(manaToGet, manaItem.getMana(stackInSlot));
-
-				if(remove)
-					manaItem.addMana(stackInSlot, -mana);
-
-				return mana;
-			}
-		}
-
-		Map<Integer, ItemStack> acc = getManaAccesories(player);
-		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
-			ItemStack stackInSlot = entry.getValue();
+		List<ItemStack> acc = getManaAccesories(player);
+		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
@@ -143,24 +126,8 @@ public final class ManaItemHandler {
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items) {
-			if(stackInSlot == stack)
-				continue;
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if(manaItemSlot.canExportManaToItem(stackInSlot, stack) && manaItemSlot.getMana(stackInSlot) > manaToGet) {
-				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
-					continue;
-
-				if(remove)
-					manaItemSlot.addMana(stackInSlot, -manaToGet);
-
-				return true;
-			}
-		}
-
-		Map<Integer, ItemStack> acc = getManaAccesories(player);
-		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
-			ItemStack stackInSlot = entry.getValue();
+		List<ItemStack> acc = getManaAccesories(player);
+		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
@@ -190,30 +157,8 @@ public final class ManaItemHandler {
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items) {
-			if(stackInSlot == stack)
-				continue;
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if(manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
-					continue;
-
-				int received;
-				if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
-					received = manaToSend;
-				else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
-
-
-				if(add)
-					manaItemSlot.addMana(stackInSlot, manaToSend);
-
-				return received;
-			}
-		}
-
-		Map<Integer, ItemStack> acc = getManaAccesories(player);
-		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
-			ItemStack stackInSlot = entry.getValue();
+		List<ItemStack> acc = getManaAccesories(player);
+		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
@@ -249,24 +194,8 @@ public final class ManaItemHandler {
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items) {
-			if(stackInSlot == stack)
-				continue;
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
-					continue;
-
-				if(add)
-					manaItemSlot.addMana(stackInSlot, manaToSend);
-
-				return true;
-			}
-		}
-
-		Map<Integer, ItemStack> acc = getManaAccesories(player);
-		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
-			ItemStack stackInSlot = entry.getValue();
+		List<ItemStack> acc = getManaAccesories(player);
+		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();

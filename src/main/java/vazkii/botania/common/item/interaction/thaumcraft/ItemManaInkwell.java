@@ -17,11 +17,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
-public class ItemManaInkwell extends ItemMod implements IManaItem {
+public class ItemManaInkwell extends Item implements IManaItem {
 
 	private static final int COST_PER_USE = 50;
 	private static final int USES = 150;

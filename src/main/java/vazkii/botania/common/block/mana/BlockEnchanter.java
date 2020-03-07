@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -61,11 +62,11 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
-			return false;
+			return ActionResultType.PASS;
 
 		boolean stackEnchantable = !stack.isEmpty()
 				&& stack.getItem() != Items.BOOK
@@ -78,7 +79,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 				player.setHeldItem(hand, ItemStack.EMPTY);
 				enchanter.sync();
 			} else {
-				return false;
+				return ActionResultType.PASS;
 			}
 		} else if(enchanter.stage == TileEnchanter.State.IDLE) {
 			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
@@ -86,7 +87,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 			enchanter.sync();
 		}
 
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
-import vazkii.botania.api.state.BotaniaStateProps;
+import net.minecraft.state.properties.BlockStateProperties;
 import vazkii.botania.common.block.BlockMod;
 
 public abstract class BlockRedString extends BlockMod {
@@ -25,12 +25,12 @@ public abstract class BlockRedString extends BlockMod {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.FACING);
+		builder.add(BlockStateProperties.FACING);
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.FACING, context.getNearestLookingDirection());
+		return getDefaultState().with(BlockStateProperties.FACING, context.getNearestLookingDirection().getOpposite());
 	}
 
 	@Override

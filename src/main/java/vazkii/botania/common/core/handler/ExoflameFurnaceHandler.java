@@ -28,6 +28,7 @@ import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.capability.SimpleCapProvider;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -39,19 +40,8 @@ public class ExoflameFurnaceHandler {
 
 	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "exoflame_heatable");
 
-	private static final MethodHandle CAN_SMELT;
-	private static final MethodHandle RECIPE_TYPE;
-
-	static {
-		try {
-			Field recipeType = ObfuscationReflectionHelper.findField(AbstractFurnaceTileEntity.class, "field_214014_c");
-			RECIPE_TYPE = MethodHandles.lookup().unreflectGetter(recipeType);
-			Method canSmelt = ObfuscationReflectionHelper.findMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);
-			CAN_SMELT = MethodHandles.lookup().unreflect(canSmelt);
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to reflect furnace");
-		}
-	}
+	private static final MethodHandle CAN_SMELT = LibObfuscation.getMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);
+	private static final MethodHandle RECIPE_TYPE = LibObfuscation.getGetter(AbstractFurnaceTileEntity.class, "field_214014_c");
 
 	@SubscribeEvent
 	public static void attachFurnaceCapability(AttachCapabilitiesEvent<TileEntity> event) {

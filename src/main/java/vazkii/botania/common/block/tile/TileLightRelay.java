@@ -32,6 +32,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
@@ -48,7 +49,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,9 +123,9 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
 					for(EnderPearlEntity pearl : enderPearls) {
 						pearl.setPositionAndUpdate(
-								endpoint.getX() + pearl.posX - pos.getX(),
-								endpoint.getY() + pearl.posY - pos.getY(),
-								endpoint.getZ() + pearl.posZ - pos.getZ()
+								endpoint.getX() + pearl.getX() - pos.getX(),
+								endpoint.getY() + pearl.getY() - pos.getY(),
+								endpoint.getZ() + pearl.getZ() - pos.getZ()
 								);
 					}
 				}
@@ -304,30 +304,31 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 				for(Entity e : getPassengers()) {
 					e.stopRiding();
-					e.setPositionAndUpdate(posX, posY, posZ);
+					e.setPositionAndUpdate(getX(), getY(), getZ());
 				}
 				remove();
 			} else {
 				Vector3 thisVec = Vector3.fromEntity(this);
 				Vector3 motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
 
-				Color color;
+				int color;
 
 				int count = 4;
 				for(int i = 0; i < count; i++) {
-					color = Color.getHSBColor(ticksExisted / 36F + 1F / count * i, 1F, 1F);
+					color = MathHelper.hsvToRGB(ticksExisted / 36F + 1F / count * i, 1F, 1F);
 					double rad = Math.PI * 2.0 / count * i + ticksExisted / Math.PI;
 					double cos = Math.cos(rad);
 					double sin = Math.sin(rad);
 					double s = 0.4;
 
-                    SparkleParticleData data = SparkleParticleData.sparkle(1.2F, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 10);
-                    world.addParticle(data, posX + cos * s, posY - 0.5, posZ + sin * s, 0, 0, 0);
-                }
+					int r = (color >> 16) & 0xFF;
+					int g = (color >> 8) & 0xFF;
+					int b = color & 0xFF;
+					SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
+					world.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
+				}
 
-				posX += motVec.x;
-				posY += motVec.y;
-				posZ += motVec.z;
+				setPosition(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 			}
 		}
 

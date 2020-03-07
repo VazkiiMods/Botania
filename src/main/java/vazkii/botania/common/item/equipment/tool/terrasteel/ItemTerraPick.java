@@ -101,11 +101,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(par1ItemStack));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(stack));
 		ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
-		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
+		if(getMana(stack) == Integer.MAX_VALUE)
 			stacks.add(new TranslationTextComponent("botaniamisc.getALife").applyTextStyle(TextFormatting.RED));
 	}
 
@@ -120,10 +120,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(level != 0) {
 			setEnabled(stack, !isEnabled(stack));
 			if(!world.isRemote)
-				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
 		}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	@Nonnull
@@ -134,15 +134,15 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		super.inventoryTick(par1ItemStack, world, par3Entity, par4, par5);
-		if(isEnabled(par1ItemStack)) {
-			int level = getLevel(par1ItemStack);
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		super.inventoryTick(stack, world, entity, slot, selected);
+		if(isEnabled(stack)) {
+			int level = getLevel(stack);
 
 			if(level == 0)
-				setEnabled(par1ItemStack, false);
-			else if(par3Entity instanceof PlayerEntity && !((PlayerEntity) par3Entity).isSwingInProgress)
-				addMana(par1ItemStack, -level);
+				setEnabled(stack, false);
+			else if(entity instanceof PlayerEntity && !((PlayerEntity) entity).isSwingInProgress)
+				addMana(stack, -level);
 		}
 	}
 

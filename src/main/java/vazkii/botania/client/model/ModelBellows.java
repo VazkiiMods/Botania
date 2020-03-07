@@ -10,53 +10,61 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.model.ModelRenderer;
 
 public class ModelBellows extends Model {
 
-	final RendererModel top;
-	final RendererModel base;
-	final RendererModel pipe;
-	final RendererModel funnel;
+	final ModelRenderer top;
+	final ModelRenderer base;
+	final ModelRenderer pipe;
+	final ModelRenderer funnel;
 
 	public ModelBellows() {
+		super(RenderType::getEntityCutout);
 		textureWidth = 64;
 		textureHeight = 32;
 		
-		top = new RendererModel(this, 0, 0);
+		top = new ModelRenderer(this, 0, 0);
         top.setRotationPoint(0.0F, 16.0F, 0.0F);
-        top.addBox(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
-        base = new RendererModel(this, 0, 9);
+        top.addCuboid(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
+        base = new ModelRenderer(this, 0, 9);
         base.setRotationPoint(0.0F, 16.0F, 0.0F);
-        base.addBox(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
-        pipe = new RendererModel(this, 0, 21);
+        base.addCuboid(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
+        pipe = new ModelRenderer(this, 0, 21);
         pipe.setRotationPoint(0.0F, 16.0F, 0.0F);
-        pipe.addBox(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
+        pipe.addCuboid(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
 		
-        funnel = new RendererModel(this, 40, 0);
+        funnel = new ModelRenderer(this, 40, 0);
         funnel.setRotationPoint(0.0F, 0.0F, 0.0F);
-        funnel.addBox(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
+        funnel.addCuboid(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
 	}
 
-	public void render(float fract) {
-		float f5 = 1F / 16F;
-		base.render(f5);
-		pipe.render(f5);
+	@Override
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+		render(ms, buffer, light, overlay, r, g, b, a, 1);
+	}
 
-		//float fract = Math.max(0.1F, (float) (Math.sin(((double) ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.5F);
+	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float alpha, float fract) {
+		base.render(ms, buffer, light, overlay, r, g, b, alpha);
+		pipe.render(ms, buffer, light, overlay, r, g, b, alpha);
+
 		float mov = (1F - fract) * 0.5F;
 
-		GlStateManager.translatef(0F, mov, 0F);
-		top.render(f5);
-		GlStateManager.translatef(0F, -mov, 0F);
+		ms.translate(0F, mov, 0F);
+		top.render(ms, buffer, light, overlay, r, g, b, alpha);
+		ms.translate(0F, -mov, 0F);
 
-		GlStateManager.rotatef(180F, 1F, 0F, 0F);
-		GlStateManager.translatef(-0.19F, -1.375F, -0.19F);
-		GlStateManager.scalef(1F, fract, 1F);
-		funnel.render(f5);
-		GlStateManager.scalef(1F, 1F / fract, 1F);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+		ms.translate(-0.19F, -1.375F, -0.19F);
+		ms.scale(1F, fract, 1F);
+		funnel.render(ms, buffer, light, overlay, r, g, b, alpha);
+		ms.scale(1F, 1F / fract, 1F);
 	}
 
 

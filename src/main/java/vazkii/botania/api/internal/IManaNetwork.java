@@ -13,7 +13,6 @@ package vazkii.botania.api.internal;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.mana.TileSignature;
 
 import java.util.Set;
 
@@ -56,12 +55,12 @@ public interface IManaNetwork {
 	 * passed in. Note that this is the actual set and not a copy, make sure to
 	 * clone the set if you intend to change it in any way.
 	 */
-	public Set<TileSignature> getAllCollectorsInWorld(World world);
+	public Set<TileEntity> getAllCollectorsInWorld(World world);
 
 	/**
 	 * Gets the set of all Mana Pools in the dimension passed in. Note that this
 	 * is the actual set and not a copy, make sure to clone the set if you intend
 	 * to change it in any way.
 	 */
-	public Set<TileSignature> getAllPoolsInWorld(World world);
+	public Set<TileEntity> getAllPoolsInWorld(World world);
 }

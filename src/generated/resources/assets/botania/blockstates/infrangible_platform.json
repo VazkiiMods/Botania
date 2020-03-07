@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "botania:block/infrangible_platform"
+    }
+  }
+}

@@ -46,8 +46,8 @@ public class TileFakeAir extends TileMod {
 
 	@Nonnull
 	@Override
-	public CompoundNBT write(CompoundNBT par1nbtTagCompound) {
-		CompoundNBT ret = super.write(par1nbtTagCompound);
+	public CompoundNBT write(CompoundNBT tag) {
+		CompoundNBT ret = super.write(tag);
 		ret.putInt(TAG_FLOWER_X, flowerPos.getX());
 		ret.putInt(TAG_FLOWER_Y, flowerPos.getY());
 		ret.putInt(TAG_FLOWER_Z, flowerPos.getZ());
@@ -55,12 +55,12 @@ public class TileFakeAir extends TileMod {
 	}
 
 	@Override
-	public void read(CompoundNBT par1nbtTagCompound) {
-		super.read(par1nbtTagCompound);
+	public void read(CompoundNBT tag) {
+		super.read(tag);
 		flowerPos = new BlockPos(
-				par1nbtTagCompound.getInt(TAG_FLOWER_X),
-				par1nbtTagCompound.getInt(TAG_FLOWER_Y),
-				par1nbtTagCompound.getInt(TAG_FLOWER_Z)
+				tag.getInt(TAG_FLOWER_X),
+				tag.getInt(TAG_FLOWER_Y),
+				tag.getInt(TAG_FLOWER_Z)
 				);
 	}
 

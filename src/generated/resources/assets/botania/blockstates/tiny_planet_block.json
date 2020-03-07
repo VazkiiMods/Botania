@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "botania:block/tiny_planet_block"
+    }
+  }
+}

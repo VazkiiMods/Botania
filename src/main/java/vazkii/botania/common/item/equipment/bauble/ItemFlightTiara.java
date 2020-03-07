@@ -10,20 +10,21 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.platform.GLX;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -33,7 +34,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.ForgeIngameGui;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -42,13 +43,10 @@ import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -57,6 +55,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -64,7 +63,7 @@ import java.util.List;
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
-	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+	public static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
 
 	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";
@@ -122,9 +121,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 						if(!player.world.isRemote)
 							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
 						else if(Math.abs(player.getMotion().getX()) > 0.1 || Math.abs(player.getMotion().getZ()) > 0.1) {
-							double x = event.getEntityLiving().posX - 0.5;
-							double y = event.getEntityLiving().posY - 0.5;
-							double z = event.getEntityLiving().posZ - 0.5;
+							double x = event.getEntityLiving().getX() - 0.5;
+							double y = event.getEntityLiving().getY() - 0.5;
+							double z = event.getEntityLiving().getZ() - 0.5;
 
 							player.getGameProfile().getName();
 							float r = 1F;
@@ -264,7 +263,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if(!wasSprting && isSprinting && cooldown == 0) {
 					p.setMotion(p.getMotion().add(look.x, 0, look.z));
-					p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+					p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if(cooldown > 0) {
@@ -301,11 +300,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		int meta = getVariant(stack);
 		if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-			TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+			IBakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 
 			boolean flying = ((PlayerEntity) player).abilities.isFlying;
 
@@ -315,18 +313,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float h = 0.2F;
 			float i = 0.15F;
 			float s = 1F;
+			int color = -1;
+			boolean fullbright = false;
 
-			GlStateManager.pushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
-
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-
-			float lbx = GLX.lastBrightnessX;
-			float lby = GLX.lastBrightnessY;
+			ms.push();
 
 			switch (meta) {
 			case 1: { // Jibril
@@ -349,7 +339,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				h = 0.5F;
 				rx = 20F;
 				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
+				fullbright = true;
 				break;
 			}
 			case 5: { // Kuroyukihime
@@ -365,12 +355,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				break;
 			}
 			case 7: { // Lyfa
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
+				fullbright = true;
 				h = -0.1F;
 				rz = 0F;
 				ry = -rx;
 				rx = 0F;
-				GlStateManager.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
+				float alpha = 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F;
+				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 				break;
 			}
 			case 8: { // Mega Ultra Chicken
@@ -378,12 +369,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				break;
 			}
 			case 9: { // The One
-				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
+				fullbright = true;
 				rz = 180F;
 				rx = 0F;
 				h = 1.1F;
 				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-				GlStateManager.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+				float alpha = 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 			}
 			}
 
@@ -391,83 +383,54 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float mul = 32F / 20F;
 			s *= mul;
 
-			float f = icon.getMinU();
-			float f1 = icon.getMaxU();
-			float f2 = icon.getMinV();
-			float f3 = icon.getMaxV();
-			float sr = 1F / s;
+			AccessoryRenderHelper.rotateIfSneaking(ms, player);
 
-			AccessoryRenderHelper.rotateIfSneaking(player);
+			ms.translate(0F, h, i);
 
-			GlStateManager.translatef(0F, h, i);
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rz));
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rx));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ry));
+			ms.scale(s, s, s);
 
-			GlStateManager.rotatef(rz, 0F, 0F, 1F);
-			GlStateManager.rotatef(rx, 1F, 0F, 0F);
-			GlStateManager.rotatef(ry, 0F, 1F, 0F);
-			GlStateManager.scalef(s, s, s);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
-			GlStateManager.scalef(sr, sr, sr);
-			GlStateManager.rotatef(-ry, 0F, 1F, 0F);
-			GlStateManager.rotatef(-rx, 1F, 0F, 0F);
-			GlStateManager.rotatef(-rz, 0F, 0F, 1F);
+			RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
+			ms.pop();
 
 			if(meta != 2) { // Sephiroth
-				GlStateManager.scalef(-1F, 1F, 1F);
-				GlStateManager.rotatef(rz, 0F, 0F, 1F);
-				GlStateManager.rotatef(rx, 1F, 0F, 0F);
-				GlStateManager.rotatef(ry, 0F, 1F, 0F);
-				GlStateManager.scalef(s, s, s);
-				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
-				GlStateManager.scalef(sr, sr, sr);
-				GlStateManager.rotatef(-ry, 1F, 0F, 0F);
-				GlStateManager.rotatef(-rx, 1F, 0F, 0F);
-				GlStateManager.rotatef(-rz, 0F, 0F, 1F);
+				ms.scale(-1F, 1F, 1F);
+				ms.push();
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rz));
+				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rx));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ry));
+				ms.scale(s, s, s);
+				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
+				ms.pop();
 			}
 
-			GlStateManager.color3f(1F, 1F, 1F);
-			GlStateManager.popMatrix();
-
-			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lbx, lby);
+			ms.pop();
 
 			if(meta == 1)
-				renderHalo(player, partialTicks);
+				renderHalo(player, ms, buffers, partialTicks);
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHalo(LivingEntity player, float partialTicks) {
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, 240, 240);
-		GlStateManager.disableLighting();
-		GlStateManager.disableCull();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-
-		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
-
+	public static void renderHalo(@Nullable LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, float partialTicks) {
 		if(player != null)
-			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		GlStateManager.translatef(0, 1.5F, 0);
-		GlStateManager.rotatef(30, 1, 0, -1);
-		GlStateManager.translatef(-0.1F, -0.5F, -0.1F);
+			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+		ms.translate(0, 1.5F, 0);
+		ms.multiply(new Vector3f(1, 0, -1).getDegreesQuaternion(30));
+		ms.translate(-0.1F, -0.5F, -0.1F);
 		if(player != null)
-			GlStateManager.rotatef(player.ticksExisted + partialTicks, 0, 1, 0);
-		else GlStateManager.rotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
-
-		Tessellator tes = Tessellator.getInstance();
-		ShaderHelper.useShader(ShaderHelper.halo);
-		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tes.getBuffer().pos(-0.75, 0, -0.75).tex(0, 0).endVertex();
-		tes.getBuffer().pos(-0.75, 0, 0.75).tex(0, 1).endVertex();
-		tes.getBuffer().pos(0.75, 0, 0.75).tex(1, 1).endVertex();
-		tes.getBuffer().pos(0.75, 0, -0.75).tex(1, 0).endVertex();
-		tes.draw();
-		ShaderHelper.releaseShader();
-
-		GlStateManager.enableLighting();
-		GlStateManager.shadeModel(GL11.GL_FLAT);
-		GlStateManager.enableCull();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(player.ticksExisted + partialTicks));
+		else ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(Botania.proxy.getWorldElapsedTicks()));
+		
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.HALO);
+		Matrix4f mat = ms.peek().getModel();
+		buffer.vertex(mat, -0.75F, 0, -0.75F).texture(0, 0).endVertex();
+		buffer.vertex(mat, -0.75F, 0, 0.75F).texture(0, 1).endVertex();
+		buffer.vertex(mat, 0.75F, 0, 0.75F).texture(1, 1).endVertex();
+		buffer.vertex(mat, 0.75F, 0, -0.75F).texture(1, 0).endVertex();
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -477,9 +440,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 		Minecraft mc = Minecraft.getInstance();
 		mc.textureManager.bindTexture(textureHud);
-		int xo = mc.mainWindow.getScaledWidth() / 2 + 10;
+		int xo = mc.getWindow().getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = mc.mainWindow.getScaledHeight() - ForgeIngameGui.right_height;
+		int y = mc.getWindow().getScaledHeight() - ForgeIngameGui.right_height;
 		ForgeIngameGui.right_height += 10;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
@@ -492,26 +455,26 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float trans = 1F;
 			if(i == segs - 1) {
 				trans = (float) last / (float) segTime;
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.disableAlphaTest();
+				RenderSystem.enableBlend();
+				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				RenderSystem.disableAlphaTest();
 			}
 
-			GlStateManager.color4f(1F, 1F, 1F, trans);
-			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
+			RenderSystem.color4f(1F, 1F, 1F, trans);
+			RenderHelper.drawTexturedModalRect(x, y, u, v, 9, 9);
 			x += 8;
 		}
 
 		if(player.abilities.isFlying) {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
+			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if(width > 0)
 				AbstractGui.fill(xo, y - 2, xo + 80, y - 1, 0x88000000);
 			AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
-		GlStateManager.enableAlphaTest();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.enableAlphaTest();
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 		mc.textureManager.bindTexture(AbstractGui.GUI_ICONS_LOCATION);
 	}
 

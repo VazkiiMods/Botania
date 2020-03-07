@@ -16,6 +16,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
@@ -47,7 +48,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemManaGun extends ItemMod implements IManaUsingItem {
+public class ItemManaGun extends Item implements IManaUsingItem {
 
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
@@ -77,18 +78,18 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		if(player.isSneaking() && hasClip(stack)) {
 			rotatePos(stack);
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(world.isRemote)
 				player.swingArm(hand);
 			ItemStack lens = getLens(stack);
 			ItemsRemainingRenderHandler.set(lens, -2);
 			stack.setDamage(effCd);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			return ActionResult.success(stack);
 		} else if(stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
-					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
 				} else {
@@ -97,11 +98,11 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				}
 				stack.setDamage(effCd);
 			} else if(!world.isRemote)
-				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			return ActionResult.success(stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
@@ -300,9 +301,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isDamaged())
-			par1ItemStack.setDamage(par1ItemStack.getDamage() - 1);
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		if(stack.isDamaged())
+			stack.setDamage(stack.getDamage() - 1);
 	}
 
 	@Override

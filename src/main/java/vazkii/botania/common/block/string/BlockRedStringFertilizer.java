@@ -13,11 +13,12 @@ package vazkii.botania.common.block.string;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.state.BotaniaStateProps;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 
@@ -28,7 +29,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 
 	public BlockRedStringFertilizer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, Direction.DOWN));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Override
@@ -42,7 +43,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 	}
 
 	@Override
-	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public void grow(@Nonnull ServerWorld world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		((TileRedStringFertilizer) world.getTileEntity(pos)).grow(world, rand);
 	}
 

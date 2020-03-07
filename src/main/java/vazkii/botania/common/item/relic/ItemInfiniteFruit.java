@@ -50,9 +50,9 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.canEat(false) && isRightPlayer(player, stack)) {
 			player.setActiveHand(hand);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			return ActionResult.success(stack);
 		}
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		}
 	}
 
-	private static boolean isBoot(ItemStack par1ItemStack) {
-		String name = par1ItemStack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
+	private static boolean isBoot(ItemStack stack) {
+		String name = stack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}
 

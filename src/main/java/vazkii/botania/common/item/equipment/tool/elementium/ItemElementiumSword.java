@@ -1,19 +1,28 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import net.minecraft.item.ItemStack;
+import com.google.common.collect.Multimap;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.inventory.EquipmentSlotType;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IPixieSpawner;
+import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
-public class ItemElementiumSword extends ItemManasteelSword implements IPixieSpawner {
+import javax.annotation.Nonnull;
+
+public class ItemElementiumSword extends ItemManasteelSword {
 
 	public ItemElementiumSword(Properties props) {
 		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
 	}
 
+	@Nonnull
 	@Override
-	public float getPixieChance(ItemStack stack) {
-		return 0.05F;
+	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
+		Multimap<String, AttributeModifier> ret = super.getAttributeModifiers(slot);
+		if (slot == EquipmentSlotType.MAINHAND) {
+			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE.getName(), PixieHandler.makeModifier(slot, "Sword modifier", 0.05));
+		}
+		return ret;
 	}
 
 }

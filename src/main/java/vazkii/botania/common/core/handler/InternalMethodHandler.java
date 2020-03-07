@@ -75,10 +75,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
-	}
-
-	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
         SparkleParticleData data = SparkleParticleData.sparkle(size, r, g, b, m);
         world.addParticle(data, x, y, z, 0, 0, 0);

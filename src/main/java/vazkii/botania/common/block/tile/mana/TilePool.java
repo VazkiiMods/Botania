@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -63,14 +63,13 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL)
 	public static TileEntityType<TilePool> TYPE;
-	public static final Color PARTICLE_COLOR = new Color(0x00C6FF);
+	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
 
@@ -254,7 +253,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(world.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			if(Math.random() > particleChance) {
-				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, 2F);
+				float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
+				float green = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
+				float blue = (PARTICLE_COLOR & 0xFF) / 255F;
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 			return;
@@ -388,7 +390,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(player == null) {
 			world.playSound(null, getPos(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 		} else {
-			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 		}
 	}
 
@@ -399,29 +401,27 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name);
 
-		int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 - 11;
-		int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 + 30;
+		int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 - 11;
+		int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 + 30;
 
 		int u = outputting ? 22 : 0;
 		int v = 38;
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		mc.textureManager.bindTexture(HUDHandler.manaBar);
-		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		RenderHelper.drawTexturedModalRect(x, y, u, v, 22, 15);
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);
 
-		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(tablet, x - 20, y);
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(pool, x + 26, y);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		RenderSystem.disableLighting();
+		RenderSystem.disableBlend();
 	}
 
 	@Override

@@ -21,16 +21,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.mana.TileSignature;
+import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
 import vazkii.patchouli.client.book.gui.GuiBook;
 
-import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
@@ -75,7 +73,7 @@ public final class ClientTickHandler {
 	@SubscribeEvent
 	public static void clientTickEnd(TickEvent.ClientTickEvent event) {
 		if(event.phase == TickEvent.Phase.END) {
-			RedStringRenderer.tick();
+			RenderTileRedString.tick();
 			ItemsRemainingRenderHandler.tick();
 
 			if(Minecraft.getInstance().world == null) {
@@ -90,11 +88,7 @@ public final class ClientTickHandler {
 				PlayerEntity player = Minecraft.getInstance().player;
 				if(player != null) {
 					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {
-							if(!sig.isRemote())
-								continue;
-
-							TileEntity tile = sig.getTile();
+						for(TileEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {
 							if(tile instanceof IManaCollector)
 								((IManaCollector) tile).onClientDisplayTick();
 						}

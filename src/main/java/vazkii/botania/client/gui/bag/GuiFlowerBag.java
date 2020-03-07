@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.bag;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.RenderHelper;
@@ -51,7 +52,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		Minecraft mc = Minecraft.getInstance();
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
@@ -63,9 +64,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 				int x = guiLeft + slot.xPos;
 				int y = guiTop + slot.yPos;
-				RenderHelper.enableGUIStandardItemLighting();
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-				RenderHelper.disableStandardItemLighting();
 				mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 			}
 	}

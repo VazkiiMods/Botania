@@ -36,7 +36,7 @@ public class PacketDodge {
 		if (ctx.get().getDirection().getReceptionSide().isServer())
 			ctx.get().enqueueWork(() -> {
 				ServerPlayerEntity player = ctx.get().getSender();
-				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+				player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 				ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
 				if (ringStack.isEmpty()) {

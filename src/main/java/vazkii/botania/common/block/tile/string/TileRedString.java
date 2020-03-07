@@ -13,13 +13,13 @@ package vazkii.botania.common.block.tile.string;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -85,7 +85,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 	}
 
 	public Direction getOrientation() {
-		return getBlockState().get(BotaniaStateProps.FACING);
+		return getBlockState().get(BlockStateProperties.FACING);
 	}
 
 	public TileEntity getTileAtBinding() {

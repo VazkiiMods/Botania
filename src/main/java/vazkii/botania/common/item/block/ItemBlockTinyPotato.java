@@ -13,6 +13,7 @@ package vazkii.botania.common.item.block;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -22,11 +23,11 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemBlockTinyPotato extends ItemBlockMod {
+public class ItemBlockTinyPotato extends BlockItem {
 
 	private static final List<String> TYPOS = Arrays.asList("vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii", "vazkil", "vaskil", "vazkill", "vaskill", "vaski");
 
-	private static final String NOT_MY_NAME[] = {
+	private static final String[] NOT_MY_NAME = {
 			"Six letter word just to get me along",
 			"It's a intricacy and I'm coding on my mod and I,",
 			"I keep fixin', and keepin' it together",

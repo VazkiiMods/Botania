@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "type=bottom": { "model": "botania:block/slabs/metamorphic_desert_stone" },
-    "type=top": { "model": "botania:block/slabs/metamorphic_desert_stone", "x": 180, "uvlock": true },
-    "type=double": { "model": "botania:block/metamorphic/desert_stone" }
-  }
-}

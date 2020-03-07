@@ -53,13 +53,7 @@ public interface IHornHarvestable {
 		/**
 		 * Horn of the Covering, for snow
 		 */
-		COVERING;
-
-		public static EnumHornType getTypeForMeta(int meta) {
-			EnumHornType[] values = EnumHornType.values();
-			return values[Math.min(values.length - 1, meta)];
-		}
-
+		COVERING
 	};
 
 }

@@ -34,8 +34,7 @@ public final class BotaniaAPIClient {
 	 * Call this during {@link net.minecraftforge.client.event.ModelRegistryEvent}.
 	 *
 	 * @param islandType The islandtype to register
-	 * @param model      The model, may be {@link ResourceLocation} to point directly into the models folder or
-	 *                   {@link ModelResourceLocation} to go through the blockstate jsons.
+	 * @param model      The model, only {@link ResourceLocation} allowed, no {@link ModelResourceLocation} allowed.
 	 */
 	public static void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
 		islandTypeModels.put(islandType, model);

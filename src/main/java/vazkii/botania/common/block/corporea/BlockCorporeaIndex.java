@@ -35,9 +35,4 @@ public class BlockCorporeaIndex extends BlockCorporeaBase {
 	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaIndex();
 	}
-
-	@Override
-	public boolean isSolid(BlockState state) {
-		return false;
-	}
 }

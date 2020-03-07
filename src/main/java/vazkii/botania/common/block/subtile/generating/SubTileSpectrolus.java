@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
@@ -26,6 +27,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,7 +40,6 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.awt.*;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -84,21 +85,21 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					sheep.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
 
 					ItemStack morbid = new ItemStack(sheep.isBurning() ? Items.COOKED_MUTTON : Items.MUTTON);
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.posX, target.posY + target.getEyeHeight(), target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
-					ItemStack wool = new ItemStack(ModBlocks.getWool(sheep.getFleeceColor()));
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.posX, target.posY + target.getEyeHeight(), target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getFleeceColor()).get());
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getItem();
 
-				if(!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()))) {
-					Block expected = ModBlocks.getWool(nextColor);
+				if(!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
+					Block expected = ColorHelper.WOOL_MAP.get(nextColor).get();
 
 					if(expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
-						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.posX, target.posY, target.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.getX(), target.getY(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 					}
 
 					target.remove();
@@ -125,7 +126,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getColor() {
-		return Color.HSBtoRGB(ticksExisted / 100F, 1F, 1F);
+		return MathHelper.hsvToRGB(ticksExisted / 100F, 1F, 1F);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -133,25 +134,20 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public void renderHUD(Minecraft mc) {
 		super.renderHUD(mc);
 
-		ItemStack stack = new ItemStack(ModBlocks.getWool(nextColor));
+		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
 		int color = getColor();
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
-			int x = mc.mainWindow.getScaledWidth() / 2 - width;
-			int y = mc.mainWindow.getScaledHeight() / 2 + 30;
+			int x = mc.getWindow().getScaledWidth() / 2 - width;
+			int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
-			RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
-			RenderHelper.disableStandardItemLighting();
 		}
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		RenderSystem.disableLighting();
 	}
 
 	@Override

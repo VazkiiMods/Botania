@@ -10,134 +10,142 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelSpreader;
+import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
-import vazkii.botania.common.block.mana.BlockSpreader.Variant;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.Random;
 
 public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
-	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
-	private static final ResourceLocation textureDw = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD);
-	private static final ResourceLocation textureG = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA);
-	
-	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_HALLOWEEN);
-	private static final ResourceLocation textureRsHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE_HALLOWEEN);
-	private static final ResourceLocation textureDwHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD_HALLOWEEN);
-	private static final ResourceLocation textureGHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA_HALLOWEEN);
-
-	private static final ModelSpreader model = new ModelSpreader();
-
-	private ResourceLocation getTextureLocation(TileSpreader spreader) {
-		boolean doot = ClientProxy.dootDoot;
-		switch(spreader.getVariant()) {
-			default: case MANA: return doot ? texture   : textureHalloween;
-			case REDSTONE:      return doot ? textureRs : textureRsHalloween;
-			case ELVEN:         return doot ? textureDw : textureDwHalloween;
-			case GAIA:          return doot ? textureG  : textureGHalloween;
-		}
+	public RenderTileSpreader(TileEntityRendererDispatcher manager) {
+		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
-		GlStateManager.pushMatrix();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(d0, d1, d2);
+	public void render(@Nonnull TileSpreader spreader, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		ms.push();
 
-		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
-		GlStateManager.rotatef(spreader.rotationX + 90F, 0F, 1F, 0F);
-		GlStateManager.translatef(0F, -1F, 0F);
-		GlStateManager.rotatef(spreader.rotationY, 1F, 0F, 0F);
-		GlStateManager.translatef(0F, 1F, 0F);
+		ms.translate(0.5F, 0.5, 0.5F);
 
-		ResourceLocation r = getTextureLocation(spreader);
+		Quaternion transform = Vector3f.POSITIVE_Y.getDegreesQuaternion(spreader.rotationX + 90F);
+		transform.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(spreader.rotationY));
+		ms.multiply(transform);
 
-		Minecraft.getInstance().textureManager.bindTexture(r);
-		GlStateManager.scalef(1F, -1F, -1F);
+		ms.translate(-0.5F, -0.5F, -0.5F);
 
-		double time = ClientTickHandler.ticksInGame + ticks;
+		double time = ClientTickHandler.ticksInGame + partialTicks;
 
-		if(spreader.getVariant() == Variant.GAIA) {
-			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
-			GlStateManager.color3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
+		float r = 1, g = 1, b = 1;
+		if(spreader.getVariant() == BlockSpreader.Variant.GAIA) {
+			int color = MathHelper.hsvToRGB((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			r = (color >> 16 & 0xFF) / 255F;
+			g = (color >> 8 & 0xFF) / 255F;
+			b = (color & 0xFF) / 255F;
 		}
-		model.render();
-		GlStateManager.color3f(1F, 1F, 1F);
 
-		GlStateManager.pushMatrix();
-		double worldTicks = spreader.getWorld() == null ? 0 : time;
-		GlStateManager.rotatef((float) worldTicks % 360, 0F, 1F, 0F);
-		GlStateManager.translatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
-		model.renderCube();
-		GlStateManager.popMatrix();
-		GlStateManager.scalef(1F, -1F, -1F);
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(spreader.getBlockState()));
+		IBakedModel bakedModel = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(spreader.getBlockState());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, spreader.getBlockState(),
+						bakedModel, r, g, b, light, overlay);
+
+		ms.push();
+		ms.translate(0.5, 0.5, 0.5);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) time % 360));
+		ms.translate(-0.5, -0.5, -0.5);
+		ms.translate(0F, (float) Math.sin(time / 20.0) * 0.05F, 0F);
+		IBakedModel cube = getInsideModel(spreader);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, spreader.getBlockState(),
+						cube, 1, 1, 1, light, overlay);
+		ms.pop();
+
+		ms.translate(0.5, 1.5, 0.5);
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
 		if(!stack.isEmpty()) {
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-			stack.getItem();
-			GlStateManager.pushMatrix();
-			GlStateManager.translatef(0.0F, -1F, -0.4675F);
-			GlStateManager.rotatef(180, 0, 0, 1);
-			GlStateManager.rotatef(180, 1, 0, 0);
-			GlStateManager.scalef(1.0F, 1.0F, 1.0F);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
-			GlStateManager.popMatrix();
+			ms.push();
+			ms.translate(0.0F, -1F, -0.4675F);
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+			ms.scale(1.0F, 1.0F, 1.0F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, overlay, ms, buffers);
+			ms.pop();
 		}
 
 		if(spreader.paddingColor != null) {
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).get().getDefaultState();
+			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(carpet);
+			buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(carpet));
 
-			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).getDefaultState();
-
-			GlStateManager.translatef(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;
 
-			GlStateManager.translatef(0, -f - 0.001F, 0);
-			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translatef(0, f + 0.001F, 0);
-			GlStateManager.rotatef(-90, 0, 1, 0);
+			// back
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+			ms.translate(-0.5F, 0.5F - f, 0.5F);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
 
-			GlStateManager.translatef(-0.001F, 0, 0);
-			GlStateManager.rotatef(270, 0, 0, 1);
-			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translatef(0, 0.001F, 0);
-			GlStateManager.rotatef(-90, 0, 1, 0);
+			// left
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-90));
+			ms.translate(0.5F, 0.5F, -0.5F - f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
 
-			GlStateManager.translatef(0, 15 * f + 0.001F, -0.001F);
-			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translatef(0, -0.001F, 0.001F);
-			GlStateManager.rotatef(-90, 0, 1, 0);
+			// right
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90));
+			ms.translate(-1.5F, 0.5F , -0.5F - f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
 
-			GlStateManager.translatef(15 * f + 0.001F, f, 0.001F);
-			GlStateManager.rotatef(270, 0, 0, 1);
-			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translatef(-0.001F, 0, -0.001F);
-			GlStateManager.rotatef(-90, 0, 1, 0);
+			// top
+			ms.push();
+			ms.translate(-0.5F, -0.5F, -0.5F - f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
 
-			GlStateManager.translatef(-0.001F, -1 + f + 0.001F, -f + 0.001F);
-			GlStateManager.rotatef(90, 1, 0, 0);
-			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			// bottom
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+			ms.translate(-0.5F, -1.5F - f, -0.5F + f);
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
+			ms.pop();
 		}
 
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.popMatrix();
+		ms.pop();
+	}
+
+	private IBakedModel getInsideModel(TileSpreader tile) {
+		switch (tile.getVariant()) {
+			case GAIA: return MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
+			case REDSTONE: return MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
+			case ELVEN: return MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
+			default: case MANA: return MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+		}
 	}
 }

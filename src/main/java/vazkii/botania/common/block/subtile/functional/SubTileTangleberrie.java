@@ -56,9 +56,9 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 				if(entity instanceof PlayerEntity || !entity.isNonBoss())
 					continue;
 
-				double x2 = entity.posX;
-				double y2 = entity.posY;
-				double z2 = entity.posZ;
+				double x2 = entity.getX();
+				double y2 = entity.getY();
+				double z2 = entity.getZ();
 
 				float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
 

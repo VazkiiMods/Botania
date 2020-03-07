@@ -11,9 +11,12 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -40,20 +43,19 @@ public class ItemTinyPlanet extends ItemBauble {
 	
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		double x = player.posX;
-		double y = player.posY + player.getEyeHeight();
-		double z = player.posZ;
+		double x = player.getX();
+		double y = player.getY() + player.getEyeHeight();
+		double z = player.getZ();
 
 		applyEffect(player.world, x, y, z);
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-		GlStateManager.translatef(0, -1.5F, 0.5F);
-		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
+	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ms.scale(0.5F, 0.5F, 0.5F);
+		ms.translate(0, -1.5F, 0.5F);
+		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockAsEntity(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.DEFAULT_UV);
 	}
 
 	public static void applyEffect(World world, double x, double y, double z) {
@@ -77,7 +79,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			float zTarget = (float) (z + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
-			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
+			Vector3 currentVec = new Vector3(entity.getX(), entity.getY(), entity.getZ());
 			Vector3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);

@@ -12,11 +12,11 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -29,11 +29,10 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityMagicMissile;
-import vazkii.botania.common.item.ItemMod;
 
 import javax.annotation.Nonnull;
 
-public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
+public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
 
@@ -46,12 +45,12 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -60,12 +59,12 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(!(living instanceof PlayerEntity)) return;
 		PlayerEntity player = (PlayerEntity) living;
 
-		if(count != getUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
-			if(spawnMissile(player.world, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
+		if(count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
+			if(spawnMissile(player.world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1)))
 				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
 
             SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-            player.world.addParticle(data, player.posX, player.posY + 2.4, player.posZ, 0, 0, 0);
+            player.world.addParticle(data, player.getX(), player.getY() + 2.4, player.getZ(), 0, 0, 0);
         }
 	}
 
@@ -91,7 +90,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Override

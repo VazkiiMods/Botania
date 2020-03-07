@@ -84,7 +84,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes.values())
 				if(recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
 					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
 				}
 		}
 
@@ -97,7 +97,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes.values())
 				if(recipe.matches(itemHandler)) {
 					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
 				}
 
 			if(recipe == null)
@@ -119,15 +119,15 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		if(recipe != null) {
 			if(!recipe.matches(itemHandler)) {
 				recipe = null;
-				world.setBlockState(pos, ModBlocks.brewery.getDefaultState(), 1 | 2);
+				world.setBlockState(pos, ModBlocks.brewery.getDefaultState());
 			}
 
 			if(recipe != null) {
 				if(mana != manaLastTick) {
-					Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
-					float r = color.getRed() / 255F;
-					float g = color.getGreen() / 255F;
-					float b = color.getBlue() / 255F;
+					int color = recipe.getBrew().getColor(itemHandler.getStackInSlot(0));
+					float r = (color >> 16 & 0xFF) / 255F;
+					float g = (color >> 8 & 0xFF) / 255F;
+					float b = (color & 0xFF) / 255F;
 					for(int i = 0; i < 5; i++) {
                         WispParticleData data1 = WispParticleData.wisp(0.1F + (float) Math.random() * 0.05F, r, g, b);
                         world.addParticle(data1, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
@@ -170,10 +170,9 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		if(event == CRAFT_EFFECT_EVENT) {
 			if(world.isRemote) {
 				for(int i = 0; i < 25; i++) {
-					Color c = new Color(param);
-					float r = c.getRed() / 255F;
-					float g = c.getGreen() / 255F;
-					float b = c.getBlue() / 255F;
+					float r = (param >> 16 & 0xFF) / 255F;
+					float g = (param >> 8 & 0xFF) / 255F;
+					float b = (param & 0xFF) / 255F;
                     SparkleParticleData data1 = SparkleParticleData.sparkle((float) Math.random() * 2F + 0.5F, r, g, b, 10);
                     world.addParticle(data1, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
                     for(int j = 0; j < 2; j++) {
@@ -198,17 +197,17 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
 
-		par1nbtTagCompound.putInt(TAG_MANA, mana);
+		tag.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
 
-		mana = par1nbtTagCompound.getInt(TAG_MANA);
+		mana = tag.getInt(TAG_MANA);
 	}
 
 	@Override
@@ -255,8 +254,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	public void renderHUD(Minecraft mc) {
 		int manaToGet = getManaCost();
 		if(manaToGet > 0) {
-			int x = mc.mainWindow.getScaledWidth() / 2 + 20;
-			int y = mc.mainWindow.getScaledHeight() / 2 - 8;
+			int x = mc.getWindow().getScaledWidth() / 2 + 20;
+			int y = mc.getWindow().getScaledHeight() / 2 - 8;
 
 			if(recipe == null)
 				return;

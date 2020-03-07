@@ -26,7 +26,7 @@ public class LensDamage extends Lens {
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		if (entity.world.isRemote)
 			return;
-		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
+		AxisAlignedBB axis = new AxisAlignedBB(entity.getX(), entity.getY(), entity.getZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 		for(LivingEntity living : entities) {
 			if(living instanceof PlayerEntity)

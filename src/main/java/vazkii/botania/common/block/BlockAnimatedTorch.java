@@ -17,6 +17,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -46,13 +47,13 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult hit) {
 		if(hand == Hand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand).isEmpty()) {
 			((TileAnimatedTorch) worldIn.getTileEntity(pos)).handRotate();
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 	
 	@Override
@@ -116,11 +117,6 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
 		return SHAPE;
-	}
-
-	@Override
-	public boolean isSolid(BlockState state) {
-		return false;
 	}
 
 	@Override

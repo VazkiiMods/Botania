@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -20,9 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.FishBucketItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -58,7 +56,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -182,14 +180,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		return false;
 	}
-	
+
+	@Nullable
 	private ICustomApothecaryColor getFlowerComponent(ItemStack stack) {
 		ICustomApothecaryColor c = null;
 		if(stack.getItem() instanceof ICustomApothecaryColor)
 			c = (ICustomApothecaryColor) stack.getItem();
-		else if(stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof ICustomApothecaryColor)
-			c = (ICustomApothecaryColor) ((BlockItem) stack.getItem()).getBlock();
-		
 		return c;
 	}
 
@@ -233,7 +229,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if(didAny) {
-			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 			ServerPlayerEntity mp = (ServerPlayerEntity) player;
 			mp.container.detectAndSendChanges();
 		}
@@ -266,10 +262,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				if(Math.random() >= 0.97) {
 					ICustomApothecaryColor comp = getFlowerComponent(stackAt);
-					Color color = new Color(comp == null ? 0x888888 : comp.getParticleColor(stackAt));
-					float red = color.getRed() / 255F;
-					float green = color.getGreen() / 255F;
-					float blue = color.getBlue() / 255F;
+
+					int color = comp == null ? 0x888888 : comp.getParticleColor(stackAt);
+					float red = (color >> 16 & 0xFF) / 255F;
+					float green = (color >> 8 & 0xFF) / 255F;
+					float blue = (color & 0xFF) / 255F;
 					if(Math.random() >= 0.75F)
 						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
                     SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
@@ -354,8 +351,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
-		int xc = mc.mainWindow.getScaledWidth() / 2;
-		int yc = mc.mainWindow.getScaledHeight() / 2;
+		int xc = mc.getWindow().getScaledWidth() / 2;
+		int yc = mc.getWindow().getScaledHeight() / 2;
 
 		float angle = -90;
 		int radius = 24;
@@ -371,30 +368,26 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes.values())
 				if(recipe.matches(itemHandler)) {
-					GlStateManager.color4f(1F, 1F, 1F, 1F);
+					RenderSystem.color4f(1F, 1F, 1F, 1F);
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 0, 8, 22, 15);
+					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 					ItemStack stack = recipe.getOutput();
 
-					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				}
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				GlStateManager.translated(xPos, yPos, 0);
+				RenderSystem.translated(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				GlStateManager.translated(-xPos, -yPos, 0);
+				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0 && getFluid() == Fluids.WATER) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);

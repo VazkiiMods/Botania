@@ -11,27 +11,30 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 
-public class FXWisp extends Particle {
-
-	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
-	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
-
-	protected float particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F;
+public class FXWisp extends SpriteTexturedParticle {
 	private final boolean depthTest;
 	private final float moteParticleScale;
 	private final int moteHalfLife;
@@ -46,8 +49,9 @@ public class FXWisp extends Particle {
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
+		particleAlpha = 0.375F;
 		particleGravity = 0;
-		particleScale *= size;
+		particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F * size;
 		moteParticleScale = particleScale;
 		maxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 		this.depthTest = depthTest;
@@ -62,24 +66,18 @@ public class FXWisp extends Particle {
 	}
 
 	@Override
-	public void renderParticle(BufferBuilder buffer, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+	public float getScale(float p_217561_1_) {
 		float agescale = (float)age / (float) moteHalfLife;
 		if (agescale > 1F)
 			agescale = 2 - agescale;
 
-		particleScale = moteParticleScale * agescale;
+		particleScale = moteParticleScale * agescale * 0.5F;
+		return particleScale;
+	}
 
-		float f10 = 0.5F * particleScale;
-		float f11 = (float)(prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
-		float f12 = (float)(prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
-		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
-		int combined = 15 << 20 | 15 << 4;
-		int k3 = combined >> 16 & 0xFFFF;
-		int l3 = combined & 0xFFFF;
-		buffer.pos(f11 - rotationX * f10 - rotationXY * f10, f12 - rotationZ * f10, f13 - rotationYZ * f10 - rotationXZ * f10).tex(0, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		buffer.pos(f11 - rotationX * f10 + rotationXY * f10, f12 + rotationZ * f10, f13 - rotationYZ * f10 + rotationXZ * f10).tex(1, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		buffer.pos(f11 + rotationX * f10 + rotationXY * f10, f12 + rotationZ * f10, f13 + rotationYZ * f10 + rotationXZ * f10).tex(1, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		buffer.pos(f11 + rotationX * f10 - rotationXY * f10, f12 - rotationZ * f10, f13 + rotationYZ * f10 - rotationXZ * f10).tex(0, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+	@Override
+	protected int getBrightnessForRender(float partialTicks) {
+		return 0xF000F0;
 	}
 
 	@Nonnull
@@ -112,21 +110,22 @@ public class FXWisp extends Particle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
-		GlStateManager.depthMask(false);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-		GlStateManager.disableLighting();
+		RenderSystem.depthMask(false);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
+		RenderSystem.disableLighting();
 
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
-		textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
-		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+		textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
+		textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).setBlurMipmap(true, false);
+		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 	}
 
 	private static void endRenderCommon() {
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).restoreLastBlurMipmap();
+		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
+		RenderSystem.disableBlend();
+		RenderSystem.depthMask(true);
 	}
 
 	private static final IParticleRenderType NORMAL_RENDER = new IParticleRenderType() {
@@ -151,13 +150,13 @@ public class FXWisp extends Particle {
 		@Override
 		public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
-			GlStateManager.disableDepthTest();
+			RenderSystem.disableDepthTest();
 		}
 
 		@Override
 		public void finishRender(Tessellator tessellator) {
 			tessellator.draw();
-			GlStateManager.enableDepthTest();
+			RenderSystem.enableDepthTest();
 			endRenderCommon();
 		}
 

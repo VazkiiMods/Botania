@@ -24,6 +24,7 @@ import net.minecraft.entity.passive.horse.LlamaEntity;
 import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
@@ -38,7 +39,7 @@ import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class ItemVirus extends ItemMod {
+public class ItemVirus extends Item {
 	public ItemVirus(Properties builder) {
 		super(builder);
 	}
@@ -72,7 +73,7 @@ public class ItemVirus extends ItemMod {
 						? EntityType.ZOMBIE_HORSE.create(player.world)
 						: EntityType.SKELETON_HORSE.create(player.world);
 				newHorse.setTamedBy(player);
-				newHorse.setPositionAndRotation(horse.posX, horse.posY, horse.posZ, horse.rotationYaw, horse.rotationPitch);
+				newHorse.setPositionAndRotation(horse.getX(), horse.getY(), horse.getZ(), horse.rotationYaw, horse.rotationPitch);
 
 				// Put the saddle back
 				if(!saddle.isEmpty())

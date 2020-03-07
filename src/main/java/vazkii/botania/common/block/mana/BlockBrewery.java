@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -57,20 +58,20 @@ public class BlockBrewery extends BlockMod implements IWandHUD {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
 		if(player.isSneaking()) {
 			if(brew.recipe == null && !state.get(BotaniaStateProps.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		} else {
 			ItemStack stack = player.getHeldItem(hand);
 			if(!stack.isEmpty())
-				return brew.addItem(player, stack, hand);
+				return brew.addItem(player, stack, hand) ? ActionResultType.SUCCESS : ActionResultType.PASS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

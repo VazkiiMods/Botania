@@ -10,8 +10,8 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -53,7 +53,7 @@ public final class BossBarHandler {
 				Rectangle bgRect = currentBoss.getBossBarTextureRect();
 				Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
 				String name = evt.getBossInfo().getName().getFormattedText();
-				int c = Minecraft.getInstance().mainWindow.getScaledWidth() / 2;
+				int c = Minecraft.getInstance().getWindow().getScaledWidth() / 2;
 				int x = evt.getX();
 				int y = evt.getY();
 				int xf = x + (bgRect.width - fgRect.width) / 2;
@@ -61,15 +61,15 @@ public final class BossBarHandler {
 				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
 				int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
 
-				GlStateManager.color4f(1F, 1F, 1F, 1F);
+				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(x, y);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				RenderSystem.enableBlend();
+				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
 				mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
-				GlStateManager.enableBlend();
+				RenderSystem.enableBlend();
 				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}
 		}
@@ -85,7 +85,7 @@ public final class BossBarHandler {
 			ShaderHelper.useShader(program, barUniformCallback);
 		}
 
-		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, w, h);
+		RenderHelper.drawTexturedModalRect(x, y, u, v, w, h);
 
 		if(useShader)
 			ShaderHelper.releaseShader();
@@ -97,12 +97,12 @@ public final class BossBarHandler {
 
 		@Override
 		public void call(int shader) {
-			int startXUniform = GLX.glGetUniformLocation(shader, "startX");
-			int startYUniform = GLX.glGetUniformLocation(shader, "startY");
+			int startXUniform = GlStateManager.getUniformLocation(shader, "startX");
+			int startYUniform = GlStateManager.getUniformLocation(shader, "startY");
 
 
-			GLX.glUniform1i(startXUniform, x);
-			GLX.glUniform1i(startYUniform, y);
+			GlStateManager.uniform1(startXUniform, x);
+			GlStateManager.uniform1(startYUniform, y);
 
 			if(callback != null)
 				callback.call(shader);

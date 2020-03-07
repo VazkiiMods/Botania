@@ -1,6 +1,7 @@
 package vazkii.botania.common.world;
 
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGeneratorType;
@@ -20,11 +21,11 @@ public class SkyblockChunkGenerator extends OverworldChunkGenerator {
     public void makeBase(IWorld worldIn, IChunk chunkIn) {}
 
     @Override
-    public void generateSurface(IChunk chunkIn) {}
+    public void buildSurface(WorldGenRegion region, IChunk chunkIn) {}
 
     @Override
     public void decorate(WorldGenRegion region) {}
 
     @Override
-    public void carve(IChunk chunkIn, GenerationStage.Carving carvingSettings) {}
+    public void carve(BiomeManager biomeManager, IChunk chunkIn, GenerationStage.Carving carvingSettings) {}
 }

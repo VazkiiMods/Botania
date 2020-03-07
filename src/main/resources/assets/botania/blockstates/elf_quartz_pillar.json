@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "axis=x": { "model": "botania:block/quartz/elf_quartz_pillar", "x": 90, "y": 90 },
-    "axis=y": { "model": "botania:block/quartz/elf_quartz_pillar" },
-    "axis=z": { "model": "botania:block/quartz/elf_quartz_pillar", "x": 90 }
-  }
-}

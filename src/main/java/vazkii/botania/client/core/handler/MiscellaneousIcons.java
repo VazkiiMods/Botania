@@ -10,6 +10,8 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.Material;
+import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.model.ModelRotation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -18,12 +20,9 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.BasicState;
-import net.minecraftforge.client.model.ForgeBlockStateV1;
-import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
@@ -36,13 +35,16 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibObfuscation;
 
+import java.lang.invoke.MethodHandle;
 import java.util.Map;
+import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class MiscellaneousIcons {
-
+	private static final MethodHandle MATERIALS = LibObfuscation.getGetter(ModelBakery.class, "field_177602_b");
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
 	public TextureAtlasSprite
@@ -62,24 +64,18 @@ public class MiscellaneousIcons {
 	corporeaIconStar,
 	sparkWorldIcon,
 	manaDetectorIcon,
-	runeAltarTriggerIcon,
-	terrasteelHelmWillIcon;
+	runeAltarTriggerIcon;
 
 	public final TextureAtlasSprite[] sparkUpgradeIcons = new TextureAtlasSprite[4];
-	public final TextureAtlasSprite[] kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 	// public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
-	public final TextureAtlasSprite[] tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
-	public final TextureAtlasSprite[] thirdEyeLayers = new TextureAtlasSprite[3];
+	public final IBakedModel[] tiaraWingIcons = new IBakedModel[ItemFlightTiara.WING_TYPES];
+	public final IBakedModel[] thirdEyeLayers = new IBakedModel[3];
 
-	// begin dank_memes
 	public TextureAtlasSprite tailIcon = null;
-	public TextureAtlasSprite phiFlowerIcon = null;
-	public TextureAtlasSprite goldfishIcon = null;
-	public TextureAtlasSprite nerfBatIcon = null;
-	// end dank_memes
 
-	// Icons for baubles that don't render their own model on the player
-	public TextureAtlasSprite
+	public IBakedModel goldfishModel,
+	phiFlowerModel,
+	nerfBatModel,
 	bloodPendantChain,
 	bloodPendantGem,
 	snowflakePendantGem,
@@ -87,7 +83,41 @@ public class MiscellaneousIcons {
 	pyroclastGem,
 	crimsonGem,
 	cirrusGem,
-	nimbusGem;
+	nimbusGem,
+	terrasteelHelmWillModel,
+	elvenSpreaderInside,
+	gaiaSpreaderInside,
+	manaSpreaderInside,
+	redstoneSpreaderInside
+	;
+
+	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
+
+	@SubscribeEvent
+	public void onModelRegister(ModelRegistryEvent evt) throws Throwable {
+		Set<Material> materials = (Set<Material>) MATERIALS.invokeExact();
+		materials.add(RenderLexicon.TEXTURE);
+		materials.add(RenderLexicon.ELVEN_TEXTURE);
+		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
+		ModelLoader.addSpecialModel(prefix("icon/phiflower"));
+		ModelLoader.addSpecialModel(prefix("icon/nerfbat"));
+		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
+			ModelLoader.addSpecialModel(prefix("icon/gate_weapon_" + i));
+		}
+		ModelLoader.addSpecialModel(prefix("icon/will_flame"));
+		for (int i = 0; i < thirdEyeLayers.length; i++) {
+			ModelLoader.addSpecialModel(prefix("icon/third_eye_" + i));
+		}
+		ModelLoader.addSpecialModel(prefix("icon/lava_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/super_lava_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/itemfinder_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/cloud_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/super_cloud_pendant_gem"));
+		ModelLoader.addSpecialModel(prefix("icon/ice_pendant_gem"));
+		for (int i = 0; i < tiaraWingIcons.length; i++) {
+			ModelLoader.addSpecialModel(prefix("icon/tiara_wing_" + (i + 1)));
+		}
+	}
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
@@ -95,22 +125,6 @@ public class MiscellaneousIcons {
 			Botania.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
-		
-		// Water bowl
-		ModelDynBucket bowl = new ModelDynBucket(prefix("items/waterbowl_base"), prefix("items/waterbowl_fluid"), prefix("items/waterbowl_cover"), Fluids.WATER, false, true);
-		IModelState transform = ForgeBlockStateV1.Transforms.get("forge:default-item").get();
-		IBakedModel bakedBowl = bowl.bake(evt.getModelLoader(), ModelLoader.defaultTextureGetter(), new BasicState(transform, false), DefaultVertexFormats.ITEM);
-		evt.getModelRegistry().put(new ModelResourceLocation(ModItems.waterBowl.getRegistryName(), "inventory"), bakedBowl);
-
-		// Floating flower item models
-		for (Map.Entry<ResourceLocation, IBakedModel> e : evt.getModelRegistry().entrySet()) {
-			if (e.getValue() instanceof FloatingFlowerModel.Baked) {
-				ResourceLocation stripVariant = new ResourceLocation(e.getKey().getNamespace(), e.getKey().getPath());
-				ModelResourceLocation itemPath = new ModelResourceLocation(stripVariant, "inventory");
-				evt.getModelRegistry().put(itemPath, e.getValue());
-			}
-		}
-
 		// Platforms
 		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
 		IBakedModel abstruse = evt.getModelRegistry().get(abstruseName);
@@ -141,12 +155,38 @@ public class MiscellaneousIcons {
 		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
 
 		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
-		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/mana_pump_head"));
+		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/pump_head"));
+		elvenSpreaderInside = evt.getModelRegistry().get(prefix("block/elven_spreader_inside"));
+		gaiaSpreaderInside = evt.getModelRegistry().get(prefix("block/gaia_spreader_inside"));
+		manaSpreaderInside = evt.getModelRegistry().get(prefix("block/mana_spreader_inside"));
+		redstoneSpreaderInside = evt.getModelRegistry().get(prefix("block/redstone_spreader_inside"));
+
+		// Icons
+		goldfishModel = evt.getModelRegistry().get(prefix("icon/goldfish"));
+		phiFlowerModel = evt.getModelRegistry().get(prefix("icon/phiflower"));
+		nerfBatModel = evt.getModelRegistry().get(prefix("icon/nerfbat"));
+		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
+			kingKeyWeaponModels[i] = evt.getModelRegistry().get(prefix("icon/gate_weapon_" + i));
+		}
+		terrasteelHelmWillModel = evt.getModelRegistry().get(prefix("icon/will_flame"));
+		for (int i = 0; i < thirdEyeLayers.length; i++) {
+			thirdEyeLayers[i] = evt.getModelRegistry().get(prefix("icon/third_eye_" + i));
+		}
+		pyroclastGem = evt.getModelRegistry().get(prefix("icon/lava_pendant_gem"));
+		crimsonGem = evt.getModelRegistry().get(prefix("icon/super_lava_pendant_gem"));
+		itemFinderGem = evt.getModelRegistry().get(prefix("icon/itemfinder_gem"));
+
+		cirrusGem = evt.getModelRegistry().get(prefix("icon/cloud_pendant_gem"));
+		nimbusGem = evt.getModelRegistry().get(prefix("icon/super_cloud_pendant_gem"));
+		snowflakePendantGem = evt.getModelRegistry().get(prefix("icon/ice_pendant_gem"));
+		for (int i = 0; i < tiaraWingIcons.length; i++) {
+			tiaraWingIcons[i] = evt.getModelRegistry().get(prefix("icon/tiara_wing_" + (i + 1)));
+		}
 	}
 	
 	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		if(evt.getMap() != Minecraft.getInstance().getTextureMap())
+		if(!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
 			return;
 
 		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
@@ -171,44 +211,20 @@ public class MiscellaneousIcons {
 		}
 
 		evt.addSprite(prefix("items/special_tail"));
-		evt.addSprite(prefix("items/special_phiflower"));
-		evt.addSprite(prefix("items/special_goldfish"));
-		evt.addSprite(prefix("items/special_nerfbat"));
 
-		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			evt.addSprite(prefix("items/gate_weapon_" + i));
-
-		for(int i = 0; i < 3; i++)
-			evt.addSprite(prefix("items/third_eye_" + i));
-
+		/*
 		evt.addSprite(prefix("items/triggers/mana_detector"));
 		evt.addSprite(prefix("items/triggers/rune_altar_can_craft"));
 
-		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			register(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name()));
 		}
 		*/
-
-		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			evt.addSprite(prefix("items/headpiece_tiara_wing_" + (i + 1)));
-		}
-
-		evt.addSprite(prefix("items/will_flame"));
-
-		evt.addSprite(prefix("items/pendant_blood_chain"));
-		evt.addSprite(prefix("items/pendant_blood_gem"));
-		evt.addSprite(prefix("items/pendant_ice_gem"));
-		evt.addSprite(prefix("items/headpiece_item_finder_gem"));
-		evt.addSprite(prefix("items/pendant_lava_gem"));
-		evt.addSprite(prefix("items/pendant_lava_super_gem"));
-		evt.addSprite(prefix("items/pendant_cloud_gem"));
-		evt.addSprite(prefix("items/pendant_cloud_super_gem"));
 	}
 
 	@SubscribeEvent
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
-		if(evt.getMap() != Minecraft.getInstance().getTextureMap())
+		if(!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
 			return;
 
 		alfPortalTex = get(evt.getMap(), "blocks/alfheim_portal_swirl");
@@ -232,43 +248,19 @@ public class MiscellaneousIcons {
 		}
 
 		tailIcon = get(evt.getMap(), "items/special_tail");
-		phiFlowerIcon = get(evt.getMap(), "items/special_phiflower");
-		goldfishIcon = get(evt.getMap(), "items/special_goldfish");
-		nerfBatIcon = get(evt.getMap(), "items/special_nerfbat");
 
-		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			kingKeyWeaponIcons[i] = get(evt.getMap(), "items/gate_weapon_" + i);
-		
-		for(int i = 0; i < 3; i++)
-			thirdEyeLayers[i] = get(evt.getMap(), "items/third_eye_" + i);
-
+		/*
 		manaDetectorIcon = get(evt.getMap(), "items/triggers/mana_detector");
 		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/rune_altar_can_craft");
 
-		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			manaLevelTriggerIcons.put(s, get(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name())));
 		}
 		*/
-
-		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = get(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
-		}
-
-		terrasteelHelmWillIcon = get(evt.getMap(), "items/will_flame");
-
-		bloodPendantChain = get(evt.getMap(), "items/pendant_blood_chain");
-		bloodPendantGem = get(evt.getMap(), "items/pendant_blood_gem");
-		snowflakePendantGem = get(evt.getMap(), "items/pendant_ice_gem");
-		itemFinderGem = get(evt.getMap(), "items/headpiece_item_finder_gem");
-		pyroclastGem = get(evt.getMap(), "items/pendant_lava_gem");
-		crimsonGem = get(evt.getMap(), "items/pendant_lava_super_gem");
-		cirrusGem = get(evt.getMap(), "items/pendant_cloud_gem");
-		nimbusGem = get(evt.getMap(), "items/pendant_cloud_super_gem");
 	}
 
 	private TextureAtlasSprite get(AtlasTexture map, String name) {
-		return map.getSprite(new ResourceLocation(LibMisc.MOD_ID, name));
+		return map.getSprite(prefix(name));
 	}
 
 	private MiscellaneousIcons() {}

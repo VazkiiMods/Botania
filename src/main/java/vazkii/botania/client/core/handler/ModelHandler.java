@@ -8,10 +8,13 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -29,11 +32,13 @@ import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderManaStorm;
+import vazkii.botania.client.render.entity.RenderNoop;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.*;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
@@ -61,16 +66,29 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
+import vazkii.botania.common.block.tile.string.TileRedStringComparator;
+import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
+import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
+import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
+import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.entity.EntityFallingStar;
+import vazkii.botania.common.entity.EntityFlameRing;
+import vazkii.botania.common.entity.EntityMagicLandmine;
+import vazkii.botania.common.entity.EntityMagicMissile;
+import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntityPoolMinecart;
+import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
+import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -83,59 +101,77 @@ public final class ModelHandler {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
 		registeredModels = true;
-		
-		ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.INSTANCE);
+
+		ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
 		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(prefix("block/corporea_crystal_cube_glass"));
-		ModelLoader.addSpecialModel(prefix("block/mana_pump_head"));
+		ModelLoader.addSpecialModel(prefix("block/pump_head"));
+		ModelLoader.addSpecialModel(prefix("block/elven_spreader_inside"));
+		ModelLoader.addSpecialModel(prefix("block/gaia_spreader_inside"));
+		ModelLoader.addSpecialModel(prefix("block/mana_spreader_inside"));
+		ModelLoader.addSpecialModel(prefix("block/redstone_spreader_inside"));
 		registerSubtiles();
 
-		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
-		RenderTilePylon renderTilePylon = new RenderTilePylon();
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, renderTilePylon);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingFlower.class, renderTileFloatingFlower);
+		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);
+		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, RenderTileSpreader::new);
+		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, RenderTilePool::new);
+		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, RenderTileRuneAltar::new);
+		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, RenderTilePylon::new);
+		ClientRegistry.bindTileEntityRenderer(TileEnchanter.TYPE, RenderTileEnchanter::new);
+		ClientRegistry.bindTileEntityRenderer(TileAlfPortal.TYPE, RenderTileAlfPortal::new);
+		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, RenderTileFloatingFlower::new);
 		// TODO 1.14 this seems highly questionable.
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpecialFlower.class, renderTileFloatingFlower);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTinyPotato.class, new RenderTileTinyPotato());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileStarfield.class, new RenderTileStarfield());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderTilePump());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaCrystalCube.class, new RenderTileCorporeaCrystalCube());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileIncensePlate.class, new RenderTileIncensePlate());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileHourglass.class, new RenderTileHourglass());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSparkChanger.class, new RenderTileSparkChanger());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileLightRelay.class, new RenderTileLightRelay());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileGaiaHead());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAnimatedTorch.class, new RenderTileAnimatedTorch());
+		ModSubtiles.getTypes().stream()
+				.map(Pair::getSecond)
+				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
+				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
+		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, RenderTileTinyPotato::new);
+		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, RenderTileStarfield::new);
+		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
+		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, RenderTileTerraPlate::new);
+		ClientRegistry.bindTileEntityRenderer(TileRedStringComparator.TYPE, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(TileRedStringContainer.TYPE, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(TileRedStringDispenser.TYPE, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(TileRedStringFertilizer.TYPE, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(TileRedStringInterceptor.TYPE, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(TileRedStringRelay.TYPE, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(TilePrism.TYPE, RenderTilePrism::new);
+		ClientRegistry.bindTileEntityRenderer(TileCorporeaIndex.TYPE, RenderTileCorporeaIndex::new);
+		ClientRegistry.bindTileEntityRenderer(TilePump.TYPE, RenderTilePump::new);
+		ClientRegistry.bindTileEntityRenderer(TileCorporeaCrystalCube.TYPE, RenderTileCorporeaCrystalCube::new);
+		ClientRegistry.bindTileEntityRenderer(TileIncensePlate.TYPE, RenderTileIncensePlate::new);
+		ClientRegistry.bindTileEntityRenderer(TileHourglass.TYPE, RenderTileHourglass::new);
+		ClientRegistry.bindTileEntityRenderer(TileSparkChanger.TYPE, RenderTileSparkChanger::new);
+		ClientRegistry.bindTileEntityRenderer(TileCocoon.TYPE, RenderTileCocoon::new);
+		ClientRegistry.bindTileEntityRenderer(TileLightRelay.TYPE, RenderTileLightRelay::new);
+		ClientRegistry.bindTileEntityRenderer(TileBellows.TYPE, RenderTileBellows::new);
+		ClientRegistry.bindTileEntityRenderer(TileGaiaHead.TYPE, RenderTileGaiaHead::new);
+		ClientRegistry.bindTileEntityRenderer(TileTeruTeruBozu.TYPE, RenderTileTeruTeruBozu::new);
+		ClientRegistry.bindTileEntityRenderer(TileAvatar.TYPE, RenderTileAvatar::new);
+		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, RenderTileAnimatedTorch::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, RenderPixie::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, RenderDoppleganger::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, RenderSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, RenderCorporeaSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, RenderPoolMinecart::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, RenderPinkWither::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, RenderManaStorm::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityManaBurst.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(TileLightRelay.EntityPlayerMover.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySignalFlare.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFlameRing.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMagicLandmine.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFallingStar.TYPE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityThrownItem.TYPE, m -> new ItemRenderer(m, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.TYPE, RenderPixie::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.TYPE, RenderDoppleganger::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.TYPE, RenderSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.TYPE, RenderCorporeaSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.TYPE, RenderPoolMinecart::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.TYPE, RenderPinkWither::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.TYPE, RenderManaStorm::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.TYPE, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 	}
 
 	private static void registerSubtiles() {

@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -65,12 +66,12 @@ public class BlockCocoon extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		return addStack(world, pos, stack, player.abilities.isCreativeMode);
 	}
 	
-	private boolean addStack(World world, BlockPos pos, ItemStack stack, boolean creative) {
+	private ActionResultType addStack(World world, BlockPos pos, ItemStack stack, boolean creative) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
 		Item item = stack.getItem();
 		
@@ -89,10 +90,10 @@ public class BlockCocoon extends BlockMod {
 				}
 			}
 
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

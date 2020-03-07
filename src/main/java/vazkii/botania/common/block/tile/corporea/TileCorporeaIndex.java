@@ -220,7 +220,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static boolean isInRangeOfIndex(PlayerEntity player, TileCorporeaIndex index) {
-		return player.dimension == index.world.getDimension().getType() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.world.isRemote ? 0 : 1.6)) < 5;
+		return player.dimension == index.world.getDimension().getType() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.getX(), player.getZ()) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.getY() + (player.world.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -257,7 +257,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
 			this.doCorporeaRequest(request, count, this.getSpark());
 
-			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), CorporeaHelper.lastRequestExtractions);
 		}
 	}

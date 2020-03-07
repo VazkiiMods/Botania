@@ -454,30 +454,30 @@ public final class ModItems {
 			register(r, new ItemDye(color, defaultBuilder()), color.getName() + LibItemNames.DYE_SUFFIX);
 		}
 		register(r, new ItemSelfReturning(unstackable()), LibItemNames.PESTLE_AND_MORTAR);
-		register(r, new ItemTwigWand(unstackable()), LibItemNames.TWIG_WAND);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANASTEEL_INGOT);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANA_PEARL);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANA_DIAMOND);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.LIVINGWOOD_TWIG);
+		register(r, new ItemTwigWand(unstackable().rarity(Rarity.RARE)), LibItemNames.TWIG_WAND);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANASTEEL_INGOT);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANA_PEARL);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANA_DIAMOND);
+		register(r, new Item(defaultBuilder()), LibItemNames.LIVINGWOOD_TWIG);
 		register(r, new ItemManaResource(defaultBuilder()), LibItemNames.TERRASTEEL_INGOT);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.LIFE_ESSENCE);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.REDSTONE_ROOT);
+		register(r, new Item(defaultBuilder()), LibItemNames.LIFE_ESSENCE);
+		register(r, new Item(defaultBuilder()), LibItemNames.REDSTONE_ROOT);
 		register(r, new ItemElven(defaultBuilder()), LibItemNames.ELEMENTIUM_INGOT);
 		register(r, new ItemElven(defaultBuilder()), LibItemNames.PIXIE_DUST);
 		register(r, new ItemElven(defaultBuilder()), LibItemNames.DRAGONSTONE);
 		register(r, new ItemSelfReturning(defaultBuilder()), LibItemNames.PLACEHOLDER);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.RED_STRING);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.DREAMWOOD_TWIG);
+		register(r, new Item(defaultBuilder()), LibItemNames.RED_STRING);
+		register(r, new Item(defaultBuilder()), LibItemNames.DREAMWOOD_TWIG);
 		register(r, new ItemManaResource(defaultBuilder()), LibItemNames.GAIA_INGOT);
 		register(r, new ItemEnderAir(defaultBuilder()), LibItemNames.ENDER_AIR_BOTTLE);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANA_STRING);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANASTEEL_NUGGET);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.TERRASTEEL_NUGGET);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.ELEMENTIUM_NUGGET);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANA_STRING);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANASTEEL_NUGGET);
+		register(r, new Item(defaultBuilder()), LibItemNames.TERRASTEEL_NUGGET);
+		register(r, new Item(defaultBuilder()), LibItemNames.ELEMENTIUM_NUGGET);
 		register(r, new ItemManaResource(defaultBuilder()), LibItemNames.LIVING_ROOT);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.PEBBLE);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANAWEAVE_CLOTH);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.MANA_POWDER);
+		register(r, new Item(defaultBuilder()), LibItemNames.PEBBLE);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANAWEAVE_CLOTH);
+		register(r, new Item(defaultBuilder()), LibItemNames.MANA_POWDER);
 		register(r, new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE), LibItemNames.LENS_NORMAL);
 		register(r, new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE), LibItemNames.LENS_SPEED);
 		register(r, new ItemLens(unstackable(), new LensPower(), ItemLens.PROP_POWER), LibItemNames.LENS_POWER);
@@ -571,13 +571,13 @@ public final class ModItems {
 		register(r, new ItemDivaCharm(unstackable()), LibItemNames.DIVA_CHARM);
 		register(r, new ItemFlightTiara(unstackable()), LibItemNames.FLIGHT_TIARA);
 		register(r, new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()), LibItemNames.ENDER_DAGGER);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_DARK);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_MANA);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_BLAZE);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_LAVENDER);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_RED);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_ELVEN);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.QUARTZ_SUNNY);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_DARK);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_MANA);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_BLAZE);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_LAVENDER);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_RED);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_ELVEN);
+		register(r, new Item(defaultBuilder()), LibItemNames.QUARTZ_SUNNY);
 		register(r, new ItemWaterRod(unstackable()), LibItemNames.WATER_ROD);
 		register(r, new ItemElementiumHelm(unstackable()), LibItemNames.ELEMENTIUM_HELM);
 		register(r, new ItemElementiumHelmRevealing(unstackable()), LibItemNames.ELEMENTIUM_HELM_R);
@@ -629,7 +629,7 @@ public final class ModItems {
 		register(r, new ItemBlackLotus(defaultBuilder()), LibItemNames.BLACK_LOTUS);
 		register(r, new ItemBlackLotus(defaultBuilder()), LibItemNames.BLACKER_LOTUS);
 		register(r, new ItemMonocle(unstackable()), LibItemNames.MONOCLE);
-		register(r, new ItemMod(unstackable()), LibItemNames.CLIP);
+		register(r, new Item(unstackable()), LibItemNames.CLIP);
 		register(r, new ItemCobbleRod(unstackable()), LibItemNames.COBBLE_ROD);
 		register(r, new ItemSmeltRod(unstackable()), LibItemNames.SMELT_ROD);
 		register(r, new ItemWorldSeed(defaultBuilder()), LibItemNames.WORLD_SEED);
@@ -663,7 +663,7 @@ public final class ModItems {
 		
 		register(r, new ItemSwapRing(unstackable()), LibItemNames.SWAP_RING);
 		register(r, new ItemFlowerBag(unstackable()), LibItemNames.FLOWER_BAG);
-		register(r, new ItemMod(defaultBuilder()), LibItemNames.PHANTOM_INK);
+		register(r, new Item(defaultBuilder()), LibItemNames.PHANTOM_INK);
 		register(r, new ItemPoolMinecart(unstackable()), LibItemNames.POOL_MINECART);
 		register(r, new ItemPinkinator(unstackable()), LibItemNames.PINKINATOR);
 		register(r, new ItemInfiniteFruit(unstackable()), LibItemNames.INFINITE_FRUIT);
@@ -692,8 +692,6 @@ public final class ModItems {
 		register(r, new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable()), LibItemNames.MANAWEAVE_LEGS);
 		register(r, new ItemManaweaveArmor(EquipmentSlotType.FEET, unstackable()), LibItemNames.MANAWEAVE_BOOTS);
 		register(r, new ItemAutocraftingHalo(unstackable()), LibItemNames.AUTOCRAFTING_HALO);
-		Item head = new ItemGaiaHead(ModBlocks.gaiaHead, ModBlocks.gaiaHeadWall, defaultBuilder().rarity(Rarity.UNCOMMON));
-		register(r, head, ModBlocks.gaiaHead.getRegistryName());
 		register(r, new ItemSextant(unstackable()), LibItemNames.SEXTANT);
 		register(r, new ItemSpeedUpBelt(unstackable()), LibItemNames.SPEED_UP_BELT);
 		register(r, new ItemBaubleBox(unstackable()), LibItemNames.BAUBLE_BOX);
@@ -704,8 +702,6 @@ public final class ModItems {
 		register(r, new ItemThirdEye(unstackable()), LibItemNames.THIRD_EYE);
 		register(r, new ItemAstrolabe(unstackable()), LibItemNames.ASTROLABE);
 		register(r, new ItemGoddessCharm(unstackable()), LibItemNames.GODDESS_CHARM);
-
-		registerOreDictionary();
 	}
 
 	@SubscribeEvent
@@ -746,30 +742,6 @@ public final class ModItems {
 			ScreenManager.registerFactory(bag, GuiFlowerBag::new);
 			ScreenManager.registerFactory(box, GuiBaubleBox::new);
 		});
-	}
-
-
-	private static void registerOreDictionary() {
-	    /* TODO 1.13 reevaluate these
-		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
-		OreDictionary.registerOre(LibOreDict.MANA_PEARL, new ItemStack(manaPearl));
-		OreDictionary.registerOre(LibOreDict.LIVINGWOOD_TWIG, new ItemStack(livingwoodTwig));
-		OreDictionary.registerOre(LibOreDict.LIFE_ESSENCE, new ItemStack(lifeEssence));
-		OreDictionary.registerOre(LibOreDict.REDSTONE_ROOT, new ItemStack(redstoneRoot));
-		OreDictionary.registerOre(LibOreDict.PIXIE_DUST, new ItemStack(pixieDust));
-		OreDictionary.registerOre(LibOreDict.PLACEHOLDER, new ItemStack(placeholder));
-		OreDictionary.registerOre(LibOreDict.RED_STRING, new ItemStack(redString));
-		OreDictionary.registerOre(LibOreDict.DREAMWOOD_TWIG, new ItemStack(dreamwoodTwig));
-		OreDictionary.registerOre(LibOreDict.GAIA_INGOT, new ItemStack(gaiaIngot));
-		OreDictionary.registerOre(LibOreDict.ENDER_AIR_BOTTLE, new ItemStack(enderAirBottle));
-		OreDictionary.registerOre(LibOreDict.MANA_STRING, new ItemStack(manaString));
-		OreDictionary.registerOre(LibOreDict.ROOT, new ItemStack(livingroot));
-		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(pebble));
-		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaweaveCloth));
-
-		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
-		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
-		*/
 	}
 	
 	public static Item getPetal(DyeColor color) {

@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
@@ -294,19 +294,19 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
 
-		par1nbtTagCompound.putInt(TAG_MANA, mana);
-		par1nbtTagCompound.putInt(TAG_MANA_TO_GET, manaToGet);
+		tag.putInt(TAG_MANA, mana);
+		tag.putInt(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
 
-		mana = par1nbtTagCompound.getInt(TAG_MANA);
-		manaToGet = par1nbtTagCompound.getInt(TAG_MANA_TO_GET);
+		mana = tag.getInt(TAG_MANA);
+		manaToGet = tag.getInt(TAG_MANA_TO_GET);
 	}
 
 	@Override
@@ -351,8 +351,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public void renderHUD(Minecraft mc) {
-		int xc = mc.mainWindow.getScaledWidth() / 2;
-		int yc = mc.mainWindow.getScaledHeight() / 2;
+		int xc = mc.getWindow().getScaledWidth() / 2;
+		int yc = mc.getWindow().getScaledHeight() / 2;
 
 		float angle = -90;
 		int radius = 24;
@@ -367,42 +367,38 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			float anglePer = 360F / amt;
 			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
 				if(recipe.matches(itemHandler)) {
-					GlStateManager.enableBlend();
-					GlStateManager.enableRescaleNormal();
-					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					RenderSystem.enableBlend();
+					RenderSystem.enableRescaleNormal();
+					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 					float progress = (float) mana / (float) manaToGet;
 
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					GlStateManager.color4f(1F, 1F, 1F, 1F);
-					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
+					RenderSystem.color4f(1F, 1F, 1F, 1F);
+					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
-					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					if(progress == 1F) {
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-						GlStateManager.translatef(0F, 0F, 100F);
+						RenderSystem.translatef(0F, 0F, 100F);
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-						GlStateManager.translatef(0F, 0F, -100F);
+						RenderSystem.translatef(0F, 0F, -100F);
 					}
 
 					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
-					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 					if(progress == 1F)
 						mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
 				}
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				GlStateManager.translated(xPos, yPos, 0);
+				RenderSystem.translated(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				GlStateManager.translated(-xPos, -yPos, 0);
+				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);

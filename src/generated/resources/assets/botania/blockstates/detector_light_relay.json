@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "botania:block/detector_light_relay"
+    }
+  }
+}

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,7 +22,7 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimpl
 
 import javax.annotation.Nonnull;
 
-public class ItemWaterBowl extends ItemMod  {
+public class ItemWaterBowl extends Item {
 
 	public ItemWaterBowl(Properties builder) {
 		super(builder);

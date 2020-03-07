@@ -15,7 +15,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -63,7 +63,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return name;
 	}
 
-	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.manaweaveHelm),
 			new ItemStack(ModItems.manaweaveChest),
 			new ItemStack(ModItems.manaweaveLegs),

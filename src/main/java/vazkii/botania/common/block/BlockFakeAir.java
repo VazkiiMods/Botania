@@ -20,14 +20,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.common.block.tile.TileFakeAir;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockFakeAir extends AirBlock {
-
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
 	public BlockFakeAir(Properties builder) {
 		super(builder);
@@ -44,7 +43,7 @@ public class BlockFakeAir extends AirBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		if(shouldRemove(world, pos))
 			world.setBlockState(pos, rand.nextInt(10) == 0 ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState());
 	}

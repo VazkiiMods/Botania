@@ -11,14 +11,14 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
-import vazkii.botania.common.item.block.ItemBlockMod;
 
 import javax.annotation.Nonnull;
 
-public class ItemPetal extends ItemBlockMod implements ICustomApothecaryColor {
+public class ItemPetal extends BlockItem implements ICustomApothecaryColor {
 	public final DyeColor color;
 
 	public ItemPetal(Block buriedPetals, DyeColor color, Properties props) {

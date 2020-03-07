@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/cross_tinted",
+  "textures": {
+    "cross": "botania:blocks/flower1"
+  }
+}

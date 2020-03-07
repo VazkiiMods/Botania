@@ -16,6 +16,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -49,7 +50,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemFlowerBag extends ItemMod {
+public class ItemFlowerBag extends Item {
 	public ItemFlowerBag(Properties props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onPickupItem);
@@ -96,11 +97,11 @@ public class ItemFlowerBag extends ItemMod {
 		if(Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
 			int color = ((BlockModFlower) Block.getBlockFromItem(entityStack.getItem())).color.getId();
 
-			for(int i = 0; i < event.getEntityPlayer().inventory.getSizeInventory(); i++) {
-				if(i == event.getEntityPlayer().inventory.currentItem)
+			for(int i = 0; i < event.getPlayer().inventory.getSizeInventory(); i++) {
+				if(i == event.getPlayer().inventory.currentItem)
 					continue; // prevent item deletion
 
-				ItemStack bag = event.getEntityPlayer().inventory.getStackInSlot(i);
+				ItemStack bag = event.getPlayer().inventory.getStackInSlot(i);
 				if(!bag.isEmpty() && bag.getItem() == this) {
 					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 
@@ -112,12 +113,12 @@ public class ItemFlowerBag extends ItemMod {
 					if(numPickedUp > 0) {
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
-							event.getItem().world.playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ,
+							event.getItem().world.playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(),
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
-						((ServerPlayerEntity) event.getEntityPlayer()).connection.sendPacket(new SCollectItemPacket(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), numPickedUp));
-						event.getEntityPlayer().openContainer.detectAndSendChanges();
+						((ServerPlayerEntity) event.getPlayer()).connection.sendPacket(new SCollectItemPacket(event.getItem().getEntityId(), event.getPlayer().getEntityId(), numPickedUp));
+						event.getPlayer().openContainer.detectAndSendChanges();
 
 						return;
 					}
@@ -136,7 +137,7 @@ public class ItemFlowerBag extends ItemMod {
 				buf.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Nonnull

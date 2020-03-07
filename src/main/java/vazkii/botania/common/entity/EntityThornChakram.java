@@ -116,7 +116,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 			double r = 0.1;
 			double m = 0.1;
 			for(int i = 0; i < 3; i++)
-				world.addParticle(ParticleTypes.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				world.addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
 
 		// Server state control
@@ -134,7 +134,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
-		ItemEntity item = new ItemEntity(world, posX, posY, posZ, stack);
+		ItemEntity item = new ItemEntity(world, getX(), getY(), getZ(), stack);
 		world.addEntity(item);
 		remove();
 	}

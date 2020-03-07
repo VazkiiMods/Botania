@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -45,7 +46,7 @@ public class BlockTerraPlate extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty()
 				&& (stack.getItem() == ModItems.manaSteel || stack.getItem() == ModItems.manaPearl || stack.getItem() == ModItems.manaDiamond)) {
@@ -57,10 +58,10 @@ public class BlockTerraPlate extends BlockMod {
 				world.addEntity(item);
 			}
 
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

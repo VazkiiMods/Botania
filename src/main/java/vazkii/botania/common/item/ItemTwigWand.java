@@ -38,9 +38,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -67,11 +69,10 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
-public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
+public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
@@ -111,7 +112,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 		if(axis != null) {
 			if(!world.isRemote) {
-				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
+				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
 				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
 			} else {
@@ -144,22 +145,19 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		BlockPos pos = ctx.getPos();
 		PlayerEntity player = ctx.getPlayer();
 
-		if(((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.containsKey(player.getUniqueID())) {
-			GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
-			GlobalPos currentPos = GlobalPos.of(world.getDimension().getType(), pos.toImmutable());
-
+		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
+		if(bindPos != null && bindPos.getDimension() == world.getDimension().getType()) {
 			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
-			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(bindPos, currentPos);
-			BlockPistonRelay.WorldData.get(world).markDirty();
+			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(world);
+			data.mapping.put(bindPos.getPos(), pos.toImmutable());
+			data.markDirty();
 
-			if(bindPos.getDimension() == currentPos.getDimension()) {
-				PacketHandler.sendToNearby(world, pos,
-						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-								bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
-								pos.getX(), pos.getY(), pos.getZ()));
-			}
+			PacketHandler.sendToNearby(world, pos,
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
+							bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
+							pos.getX(), pos.getY(), pos.getZ()));
 
-			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return true;
 		}
 		return false;
@@ -233,14 +231,49 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 			    IProperty<Direction> facingProp = (IProperty<Direction>) prop;
 
-				Direction newDir = old.get(facingProp).rotateAround(axis);
-				if (facingProp.getAllowedValues().contains(newDir)) {
+			    Direction oldDir = old.get(facingProp);
+				Direction newDir = rotateAround(oldDir, axis);
+				if (oldDir != newDir && facingProp.getAllowedValues().contains(newDir)) {
 					return old.with(facingProp, newDir);
 				}
 			}
 		}
 
 		return old.rotate(Rotation.CLOCKWISE_90);
+	}
+
+	private static Direction rotateAround(Direction old, Direction.Axis axis) {
+		switch (axis) {
+			case X: {
+				switch (old) {
+					case DOWN: return Direction.SOUTH;
+					case SOUTH: return Direction.UP;
+					case UP: return Direction.NORTH;
+					case NORTH: return Direction.DOWN;
+				}
+				break;
+			}
+			case Y: {
+				switch (old) {
+					case NORTH: return Direction.EAST;
+					case EAST: return Direction.SOUTH;
+					case SOUTH: return Direction.WEST;
+					case WEST: return Direction.NORTH;
+				}
+				break;
+			}
+			case Z: {
+				switch (old) {
+					case DOWN: return Direction.WEST;
+					case WEST: return Direction.UP;
+					case UP: return Direction.EAST;
+					case EAST: return Direction.DOWN;
+				}
+				break;
+			}
+		}
+
+		return old;
 	}
 
 	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {
@@ -264,10 +297,10 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		Vector3 currentPos = orig;
 		for(int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
-			Color color = Color.getHSBColor(hue, 1F, 1F);
-			float r = color.getRed() / 255F;
-			float g = color.getGreen() / 255F;
-			float b = color.getBlue() / 255F;
+			int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+			float r = (color >> 16 & 0xFF) / 255F;
+			float g = (color >> 8 & 0xFF) / 255F;
+			float b = (color & 0xFF) / 255F;
 
 			SparkleParticleData data = SparkleParticleData.noClip(0.5F, r, g, b, 4);
 			world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
@@ -276,11 +309,11 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		getBindingAttempt(par1ItemStack).ifPresent(coords -> {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		getBindingAttempt(stack).ifPresent(coords -> {
 			TileEntity tile = world.getTileEntity(coords);
 			if(!(tile instanceof IWandBindable))
-				setBindingAttempt(par1ItemStack, UNBOUND_POS);
+				setBindingAttempt(stack, UNBOUND_POS);
 		});
 	}
 
@@ -294,7 +327,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			else player.playSound(ModSounds.ding, 0.1F, 1F);
 		}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	@Override
@@ -311,10 +344,12 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		list.add(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.GRAY));
 	}
 
-	@Nonnull
 	@Override
-	public Rarity getRarity(ItemStack par1ItemStack) {
-		return Rarity.RARE;
+	public String getHighlightTip(ItemStack stack, String displayName) {
+		ITextComponent mode = new StringTextComponent(" (")
+				.appendSibling(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.DARK_GREEN))
+				.appendText(")");
+		return displayName + mode.getFormattedText();
 	}
 
 	public static ItemStack forColors(int color1, int color2) {

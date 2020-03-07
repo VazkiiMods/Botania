@@ -174,25 +174,25 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.putInt(TAG_TIME, time);
-		par1nbtTagCompound.putFloat(TAG_TIME_FRACTION, timeFraction);
-		par1nbtTagCompound.putBoolean(TAG_FLIP, flip);
-		par1nbtTagCompound.putInt(TAG_FLIP_TICKS, flipTicks);
-		par1nbtTagCompound.putBoolean(TAG_MOVE, move);
-		par1nbtTagCompound.putBoolean(TAG_LOCK, lock);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
+		tag.putInt(TAG_TIME, time);
+		tag.putFloat(TAG_TIME_FRACTION, timeFraction);
+		tag.putBoolean(TAG_FLIP, flip);
+		tag.putInt(TAG_FLIP_TICKS, flipTicks);
+		tag.putBoolean(TAG_MOVE, move);
+		tag.putBoolean(TAG_LOCK, lock);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
-		time = par1nbtTagCompound.getInt(TAG_TIME);
-		timeFraction = par1nbtTagCompound.getFloat(TAG_TIME_FRACTION);
-		flip = par1nbtTagCompound.getBoolean(TAG_FLIP);
-		flipTicks = par1nbtTagCompound.getInt(TAG_FLIP_TICKS);
-		move = par1nbtTagCompound.getBoolean(TAG_MOVE);
-		lock = par1nbtTagCompound.getBoolean(TAG_LOCK);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		time = tag.getInt(TAG_TIME);
+		timeFraction = tag.getFloat(TAG_TIME_FRACTION);
+		flip = tag.getBoolean(TAG_FLIP);
+		flipTicks = tag.getInt(TAG_FLIP_TICKS);
+		move = tag.getBoolean(TAG_MOVE);
+		lock = tag.getBoolean(TAG_LOCK);
 	}
 
 	@Override
@@ -203,17 +203,13 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD() {
 		Minecraft mc = Minecraft.getInstance();
-		int x = mc.mainWindow.getScaledWidth() / 2 + 10;
-		int y = mc.mainWindow.getScaledHeight() / 2 - 10;
+		int x = mc.getWindow().getScaledWidth() / 2 + 10;
+		int y = mc.getWindow().getScaledHeight() / 2 - 10;
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(!stack.isEmpty()) {
-			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
 			mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, stack, x, y);
-			GlStateManager.disableRescaleNormal();
-			RenderHelper.disableStandardItemLighting();
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);

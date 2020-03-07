@@ -37,8 +37,6 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
 
-import java.awt.Color;
-
 public final class ColorHandler {
 
 	public static void init() {
@@ -64,7 +62,7 @@ public final class ColorHandler {
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS){
 						float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.005F;
 						int fabulousColor = MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F);
-						return MathHelper.multiplyColor(fabulousColor, color);
+						return vazkii.botania.common.core.helper.MathHelper.multiplyColor(fabulousColor, color);
 					}
 					return color;
 				},
@@ -75,7 +73,7 @@ public final class ColorHandler {
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-					return Color.HSBtoRGB(time * 5 % 360 / 360F, 0.4F, 0.9F);
+					return MathHelper.hsvToRGB(time * 5 % 360 / 360F, 0.4F, 0.9F);
 				},
 				ModBlocks.gaiaSpreader
 				);
@@ -107,7 +105,7 @@ public final class ColorHandler {
 
 		ItemColors items = Minecraft.getInstance().getItemColors();
 
-		items.register((s, t) -> t == 0 ? Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
+		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
 						ModItems.lifeEssence, ModItems.gaiaIngot);
 
 		items.register((s, t) ->
@@ -130,11 +128,11 @@ public final class ColorHandler {
 				ModBlocks.petalBlockBrown, ModBlocks.petalBlockGreen, ModBlocks.petalBlockRed, ModBlocks.petalBlockBlack,
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.gaiaSpreader);
 
-		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
+		items.register((s, t) -> t == 1 ? MathHelper.hsvToRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 
-		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
+		items.register((s, t) -> t == 1 ? MathHelper.hsvToRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
 
-		items.register((s, t) -> t == 0 ? Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
+		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float)s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
 
 		items.register((s, t) -> {
 			if(t != 1)
@@ -144,13 +142,13 @@ public final class ColorHandler {
 			if(brew == BotaniaAPI.fallbackBrew)
 				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
 
-			Color color = new Color(brew.getColor(s));
+			int color = brew.getColor(s);
 			double speed = s.getItem() == ModItems.brewFlask || s.getItem() == ModItems.brewVial ? 0.1 : 0.2;
 			int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
 
-			int r = Math.max(0, Math.min(255, color.getRed() + add));
-			int g = Math.max(0, Math.min(255, color.getGreen() + add));
-			int b = Math.max(0, Math.min(255, color.getBlue() + add));
+			int r = Math.max(0, Math.min(255, (color >> 16 & 0xFF) + add));
+			int g = Math.max(0, Math.min(255, (color >> 8 & 0xFF) + add));
+			int b = Math.max(0, Math.min(255, (color & 0xFF) + add));
 
 			return r << 16 | g << 8 | b;
 		}, ModItems.bloodPendant, ModItems.incenseStick, ModItems.brewFlask, ModItems.brewVial);
@@ -162,18 +160,25 @@ public final class ColorHandler {
 
 			if(t == 2) {
 				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, Hand.MAIN_HAND);
-				Color color = new Color(props.color);
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
 				int c = (int) (255 * mul);
 
-				return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
+				int r = (props.color >> 16 & 0xFF) + c;
+				int g = (props.color >> 8 & 0xFF) + c;
+				int b = (props.color & 0xFF) + c;
+
+				int cr = MathHelper.clamp(r, 0, 255);
+				int cg = MathHelper.clamp(g, 0, 255);
+				int cb = MathHelper.clamp(b, 0, 255);
+
+				return cr << 16 | cg << 8 | cb;
 			} else return -1;
 		}, ModItems.manaGun);
 
-		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.milliTime() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
+		items.register((s, t) -> t == 1 ? MathHelper.hsvToRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.milliTime() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
 
-		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
+		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? MathHelper.hsvToRGB(0.375F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
 		dyeHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
 		items.register(dyeHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,

@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "powered=true": { "model": "botania:block/ender_eye_block_powered" },
-    "powered=false": { "model": "botania:block/ender_eye_block" }
-  }
-}

@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -51,9 +52,9 @@ public class BlockRuneAltar extends BlockMod implements IWandable {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		if(world.isRemote)
-			return true;
+			return ActionResultType.SUCCESS;
 
 		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
@@ -62,19 +63,19 @@ public class BlockRuneAltar extends BlockMod implements IWandable {
 			if(altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		} else if(altar.isEmpty() && stack.isEmpty()) {
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-			return true;
+			return ActionResultType.SUCCESS;
 		} else if(!stack.isEmpty()) {
 			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-			return result;
+			return result ? ActionResultType.SUCCESS : ActionResultType.PASS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

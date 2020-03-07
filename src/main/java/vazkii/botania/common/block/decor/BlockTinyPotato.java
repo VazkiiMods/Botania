@@ -19,7 +19,9 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -30,7 +32,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -45,12 +46,12 @@ public class BlockTinyPotato extends BlockMod {
 	public BlockTinyPotato(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState()
-				.with(BotaniaStateProps.CARDINALS, Direction.SOUTH));
+				.with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.CARDINALS);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class BlockTinyPotato extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), hit.getFace());
@@ -78,16 +79,16 @@ public class BlockTinyPotato extends BlockMod {
 				((ServerWorld) world).spawnParticle(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0 ,0, 0, 0);
 			}
 		}
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, ctx.getPlacementHorizontalFacing().getOpposite());
+		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, ctx.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity par5EntityLiving, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if (stack.hasDisplayName())
 			((TileTinyPotato) world.getTileEntity(pos)).name = stack.getDisplayName();
 	}

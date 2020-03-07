@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.server.MinecraftServer;
@@ -34,7 +35,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
+public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -61,18 +62,18 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		if(world.isRemote)
 			return;
 
-		IManaPool pool = getManaPool(par1ItemStack);
+		IManaPool pool = getManaPool(stack);
 		if(!(pool instanceof DummyPool)) {
 			if(pool == null)
-				setMana(par1ItemStack, 0);
+				setMana(stack, 0);
 			else {
-				pool.recieveMana(getManaBacklog(par1ItemStack));
-				setManaBacklog(par1ItemStack, 0);
-				setMana(par1ItemStack, pool.getCurrentMana());
+				pool.recieveMana(getManaBacklog(stack));
+				setManaBacklog(stack, 0);
+				setMana(stack, pool.getCurrentMana());
 			}
 		}
 	}
@@ -87,7 +88,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			TileEntity tile = world.getTileEntity(ctx.getPos());
 			if(tile instanceof IManaPool) {
 				bindPool(ctx.getItem(), tile);
-				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 				return ActionResultType.SUCCESS;
 			}
 		}

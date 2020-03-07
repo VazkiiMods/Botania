@@ -39,26 +39,22 @@ public final class PlayerHelper {
 				|| !player.getHeldItemOffhand().isEmpty() && template.isAssignableFrom(player.getHeldItemOffhand().getItem().getClass());
 	}
 
-	// Checks main hand, then off hand for this item. Null otherwise.
 	public static ItemStack getFirstHeldItem(PlayerEntity player, Item item) {
+		return getFirstHeldItem(player, s -> s.getItem() == item);
+	}
+
+	public static ItemStack getFirstHeldItem(PlayerEntity player, Predicate<ItemStack> pred) {
 		ItemStack main = player.getHeldItemMainhand();
 		ItemStack offhand = player.getHeldItemOffhand();
-		if(!main.isEmpty() && item == main.getItem()) {
+		if(!main.isEmpty() && pred.test(main)) {
 			return main;
-		} else if(!offhand.isEmpty() && item == offhand.getItem()) {
+		} else if(!offhand.isEmpty() && pred.test(offhand)) {
 			return offhand;
 		} else return ItemStack.EMPTY;
 	}
 
-	// Checks main hand, then off hand for this item class. Null otherwise.
 	public static ItemStack getFirstHeldItemClass(PlayerEntity player, Class<?> template) {
-		ItemStack main = player.getHeldItemMainhand();
-		ItemStack offhand = player.getHeldItemOffhand();
-		if(!main.isEmpty() && template.isAssignableFrom(main.getItem().getClass())) {
-			return main;
-		} else if(!offhand.isEmpty() && template.isAssignableFrom(offhand.getItem().getClass())) {
-			return offhand;
-		} else return ItemStack.EMPTY;
+		return getFirstHeldItem(player, s -> template.isAssignableFrom(s.getItem().getClass()));
 	}
 
 	public static ItemStack getAmmo(PlayerEntity player, Predicate<ItemStack> ammoFunc) {
@@ -124,7 +120,7 @@ public final class PlayerHelper {
 	 */
 	public static ActionResultType substituteUse(ItemUseContext ctx, ItemStack toUse) {
 		ItemStack save = ItemStack.EMPTY;
-		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.func_221533_k());
+		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.isInside());
 		ItemUseContext newCtx;
 
 		if(ctx.getPlayer() != null) {

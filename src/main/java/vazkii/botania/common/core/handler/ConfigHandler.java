@@ -32,11 +32,9 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
 
 		public final ForgeConfigSpec.IntValue manaBarHeight;
-		public final ForgeConfigSpec.IntValue glSecondaryTextureUnit;
 
 		public final ForgeConfigSpec.BooleanValue staticFloaters;
 		public final ForgeConfigSpec.BooleanValue debugInfo;
-		public final ForgeConfigSpec.BooleanValue matrixMode;
 		public final ForgeConfigSpec.BooleanValue referencesEnabled;
 		public final ForgeConfigSpec.BooleanValue splashesEnabled;
 
@@ -86,18 +84,12 @@ public final class ConfigHandler {
 			manaBarHeight = builder
 					.comment("The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.")
 					.defineInRange("hud.mana_bar.height", 29, 0, Integer.MAX_VALUE);
-			glSecondaryTextureUnit = builder
-					.comment("The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING")
-					.defineInRange("shaders.secondary_unit", 7, 0, Integer.MAX_VALUE);
 			staticFloaters = builder
 					.comment("Set this to true if you use lots of floating flowers and are experiencing rendering lag. Will disable the floating flowers' animations and render them statically for a major performance boost. Hit F3+A in-world after toggling this.")
 					.define("static_floaters", false);
 			debugInfo = builder
 					.comment("Set to false to disable Botania's messages in the F3 debug screen")
 					.define("debug_info", true);
-			matrixMode = builder
-					.comment("Set this to true if you are the chosen one. For lovers of glitch art and just general mad people.")
-					.define("matrix_mode", false);
 			referencesEnabled = builder
 					.comment("Set this to false to disable the references in the flower tooltips. (You monster D:)")
 					.define("references", true);

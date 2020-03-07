@@ -175,7 +175,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		if(evt.getTarget() instanceof ItemEntity) {
 			int entityId = evt.getTarget().getEntityId();
 			int age = ((ItemEntity) evt.getTarget()).age;
-			PacketHandler.sendTo((ServerPlayerEntity) evt.getEntityPlayer(), new PacketItemAge(entityId, age));
+			PacketHandler.sendTo((ServerPlayerEntity) evt.getPlayer(), new PacketItemAge(entityId, age));
 		}
 	}
 }

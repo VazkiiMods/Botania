@@ -20,7 +20,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -32,7 +31,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityThrownItem;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
@@ -40,7 +39,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemGravityRod extends ItemMod implements IManaUsingItem {
+public class ItemGravityRod extends Item implements IManaUsingItem {
 	private static final Tag<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
@@ -136,7 +135,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 			if(target != null) {
 				if(BLACKLIST.contains(target.getType()))
-					return ActionResult.newResult(ActionResultType.FAIL, stack);
+					return ActionResult.fail(stack);
 
 				if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true)) {
 					if(target instanceof ItemEntity)
@@ -163,7 +162,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
                         WispParticleData data = WispParticleData.wisp(s, r, 0F, b);
-                        world.addParticle(data, target.posX + target.getWidth() / 2, target.posY + target.getHeight() / 2, target.posZ + target.getWidth() / 2, xm, ym, zm);
+                        world.addParticle(data, target.getX() + target.getWidth() / 2, target.getY() + target.getHeight() / 2, target.getZ() + target.getWidth() / 2, xm, ym, zm);
                     }
 
 					MathHelper.setEntityMotionFromVector(target, target3, 0.3333333F);
@@ -173,10 +172,10 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
-				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+				return ActionResult.success(stack);
 			}
 		}
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	@Override
@@ -213,10 +212,10 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
 					if(item instanceof ItemEntity) {
 						((ItemEntity) item).setPickupDelay(20);
-						float mot = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 2.25F : 1.5F;
+						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setMotion(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if(!player.world.isRemote) {
-							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (ItemEntity) item);
+							EntityThrownItem thrown = new EntityThrownItem(item.world, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);
 							item.world.addEntity(thrown);
 						}
 						item.remove();

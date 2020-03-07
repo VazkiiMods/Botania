@@ -20,7 +20,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -58,7 +58,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL)
 	public static TileEntityType<TileAlfPortal> TYPE;
 
-	public static final LazyLoadBase<IMultiblock> MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
 					{ "W", " ", " ", " ", "W" },
@@ -143,7 +143,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		}
 
 		if(closeNow) {
-			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState(), 1 | 2);
+			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState());
 			for(int i = 0; i < 36; i++)
 				blockParticle(state);
 			closeNow = false;
@@ -151,7 +151,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
-			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 		} else if(explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.Mode.DESTROY);
@@ -212,7 +212,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {
-				world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+				world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 				return true;
 			}
 		}

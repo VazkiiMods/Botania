@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
@@ -26,7 +27,7 @@ import vazkii.botania.common.entity.EntityVineBall;
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-public class ItemSlingshot extends ItemMod {
+public class ItemSlingshot extends Item {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
 
@@ -35,8 +36,8 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, LivingEntity living, int par4) {
-		int j = getUseDuration(par1ItemStack) - par4;
+	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int duration) {
+		int j = getUseDuration(stack) - duration;
 
 		if(!world.isRemote && (!(living instanceof PlayerEntity) || ((PlayerEntity) living).abilities.isCreativeMode || PlayerHelper.hasAmmo((PlayerEntity) living, AMMO_FUNC))) {
 			float f = j / 20.0F;
@@ -52,18 +53,18 @@ public class ItemSlingshot extends ItemMod {
 			ball.shoot(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
 			ball.setMotion(ball.getMotion().scale(1.6));
 			world.addEntity(ball);
-			world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		}
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
@@ -73,10 +74,10 @@ public class ItemSlingshot extends ItemMod {
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.abilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.setActiveHand(hand);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			return ActionResult.success(stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 }

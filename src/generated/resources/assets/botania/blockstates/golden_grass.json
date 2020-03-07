@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/golden_grass"
+      },
+      {
+        "model": "botania:block/golden_grass",
+        "y": 90
+      },
+      {
+        "model": "botania:block/golden_grass",
+        "y": 180
+      },
+      {
+        "model": "botania:block/golden_grass",
+        "y": 270
+      }
+    ]
+  }
+}

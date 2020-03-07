@@ -1,0 +1,7 @@
+{
+  "parent": "block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/bellethorn"
+  }
+}

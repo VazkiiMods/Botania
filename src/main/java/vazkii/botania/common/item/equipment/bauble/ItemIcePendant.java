@@ -10,13 +10,20 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.LivingEntity;
@@ -45,43 +52,40 @@ public class ItemIcePendant extends ItemBauble {
 			FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 			entity.onGround = lastOnGround;
 
-			int x = MathHelper.floor(entity.posX);
-			int y = MathHelper.floor(entity.posY);
-			int z = MathHelper.floor(entity.posZ);
+			int x = MathHelper.floor(entity.getX());
+			int y = MathHelper.floor(entity.getY());
+			int z = MathHelper.floor(entity.getZ());
 			BlockState blockstate = Blocks.SNOW.getDefaultState();
 
 			for(int l = 0; l < 4; ++l) {
-				x = MathHelper.floor(entity.posX + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-				z = MathHelper.floor(entity.posZ + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+				x = MathHelper.floor(entity.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+				z = MathHelper.floor(entity.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
-				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).func_225486_c(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
+				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).getTemperatureCached(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
 					entity.world.setBlockState(blockpos, blockstate);
 				}
 			}
 		}
 		else if (entity.world.isRemote && !entity.isSneaking()) {
 			if(entity.world.rand.nextFloat() >= 0.25F) {
-				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.posX + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.posY + 1.1, entity.posZ  + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
+				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.getX() + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ()  + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		GlStateManager.rotatef(180F, 1F, 0F, 0F);
-		GlStateManager.translatef(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
-		GlStateManager.rotatef(-45F, 0F, 0F, 1F);
-		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+		ms.translate(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-45F));
+		ms.scale(0.5F, 0.5F, 0.5F);
 
-		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
-		float f = gemIcon.getMinU();
-		float f1 = gemIcon.getMaxU();
-		float f2 = gemIcon.getMinV();
-		float f3 = gemIcon.getMaxV();
-		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
+		IBakedModel model = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}
 
 }

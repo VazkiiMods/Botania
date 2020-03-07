@@ -16,7 +16,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -31,12 +30,12 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
+public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIVINING);
 
@@ -52,15 +51,15 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 		ItemStack stack = p.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
-				int range = IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? 20 : 15;
+				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
-			} else world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
-			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+			} else world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+			return ActionResult.success(stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.PASS, stack);
+		return ActionResult.pass(stack);
 	}
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {

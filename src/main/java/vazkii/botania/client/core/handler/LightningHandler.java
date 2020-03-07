@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -45,36 +46,34 @@ public class LightningHandler {
 		IProfiler profiler = Minecraft.getInstance().getProfiler();
 
 		profiler.startSection("botania-particles");
-		profiler.startSection("redString");
-		RedStringRenderer.renderAll();
-		profiler.endStartSection("lightning");
+		profiler.startSection("lightning");
 
 		float frame = event.getPartialTicks();
 		Entity entity = Minecraft.getInstance().player;
 		TextureManager render = Minecraft.getInstance().textureManager;
 
-		double interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
-		double interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
-		double interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
+		double interpPosX = entity.lastTickPosX + (entity.getX() - entity.lastTickPosX) * frame;
+		double interpPosY = entity.lastTickPosY + (entity.getY() - entity.lastTickPosY) * frame;
+		double interpPosZ = entity.lastTickPosZ + (entity.getZ() - entity.lastTickPosZ) * frame;
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translated(-interpPosX, -interpPosY, -interpPosZ);
+		RenderSystem.pushMatrix();
+		RenderSystem.translated(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.getInstance();
 
-		GlStateManager.depthMask(false);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		RenderSystem.depthMask(false);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		render.bindTexture(outsideResource);
 		int counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(0, false);
 			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 			}
 			counter++;
 		}
@@ -83,12 +82,12 @@ public class LightningHandler {
 		render.bindTexture(insideResource);
 		counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(1, true);
 			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 			}
 			counter++;
 		}
@@ -96,11 +95,11 @@ public class LightningHandler {
 
 		queuedLightningBolts.clear();
 
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		RenderSystem.disableBlend();
+		RenderSystem.depthMask(true);
 
-		GlStateManager.translated(interpPosX, interpPosY, interpPosZ);
-		GlStateManager.popMatrix();
+		RenderSystem.translated(interpPosX, interpPosY, interpPosZ);
+		RenderSystem.popMatrix();
 
 		profiler.endSection();
 		profiler.endSection();

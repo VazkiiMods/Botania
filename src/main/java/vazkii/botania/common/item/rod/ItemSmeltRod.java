@@ -21,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -33,7 +32,7 @@ import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
@@ -41,7 +40,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.WeakHashMap;
 
-public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
+public class ItemSmeltRod extends Item implements IManaUsingItem {
 
 	private static final int TIME = 10;
 	private static final int COST = 300;
@@ -55,12 +54,12 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -68,7 +67,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Override
@@ -105,8 +104,8 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						if(data.progress <= 0) {
 							if(!p.world.isRemote) {
 								p.world.setBlockState(pos.getPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
-								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
-								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
+								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
 								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
@@ -125,7 +124,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 				}
 
 				if(!decremented)
-					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
+					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
 				else {
 					for(int i = 0; i < 2; i++) {
 						double x = pos.getPos().getX() + Math.random();
@@ -135,7 +134,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
                         p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
                     }
 					if(time % 10 == 0)
-						p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 				}
 			}
 		}

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -22,7 +23,7 @@ import vazkii.botania.common.entity.EntityVineBall;
 
 import javax.annotation.Nonnull;
 
-public class ItemVineBall extends ItemMod {
+public class ItemVineBall extends Item {
 
 	public ItemVineBall(Properties builder) {
 		super(builder);
@@ -34,7 +35,7 @@ public class ItemVineBall extends ItemMod {
 		if(!player.abilities.isCreativeMode)
 			player.getHeldItem(hand).shrink(1);
 
-		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
 		if(!world.isRemote) {
 			EntityVineBall ball = new EntityVineBall(player, true);
@@ -42,7 +43,7 @@ public class ItemVineBall extends ItemMod {
 			world.addEntity(ball);
 		}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 }

@@ -124,7 +124,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 						worldIn.addEntity(abstractarrowentity);
 					}
 
-					worldIn.playSound((PlayerEntity)null, playerentity.posX, playerentity.posY, playerentity.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					worldIn.playSound((PlayerEntity)null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 					if (!flag1 && !playerentity.abilities.isCreativeMode) {
 						itemstack.shrink(1);
 						if (itemstack.isEmpty()) {
@@ -153,7 +153,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
 		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}

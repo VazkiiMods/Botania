@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "botania:block/red_pavement_slab",
+      "x": 180,
+      "uvlock": true
+    },
+    "type=bottom": {
+      "model": "botania:block/red_pavement_slab"
+    },
+    "type=double": {
+      "model": "botania:block/red_pavement"
+    }
+  }
+}

@@ -10,10 +10,17 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -98,21 +105,19 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderOnPlayer(ItemStack stack, PlayerEntity player, float partialTicks) {
+	public static void renderOnPlayer(MatrixStack ms, IRenderTypeBuffer buffers, int light, ItemStack stack, PlayerEntity player, float partialTicks) {
 		if(hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
-			GlStateManager.pushMatrix();
-			float f = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinU();
-			float f1 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxU();
-			float f2 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinV();
-			float f3 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxV();
-			AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.rotatef(90F, 0F, 1F, 0F);
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
-			GlStateManager.translatef(-0.26F, -1.45F, -0.39F);
-			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getWidth(), MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getHeight(), 1F / 16F);
-			GlStateManager.popMatrix();
+			ms.push();
+			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+			ms.translate(-0.26F, -1.45F, -0.39F);
+			ms.scale(0.5F, 0.5F, 0.5F);
+			IBakedModel model = MiscellaneousIcons.INSTANCE.terrasteelHelmWillModel;
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
+					.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+			ms.pop();
 		}
 	}
 

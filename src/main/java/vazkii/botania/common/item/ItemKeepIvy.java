@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class ItemKeepIvy extends ItemMod {
+public class ItemKeepIvy extends Item {
 
 	public static final String TAG_KEEP = "Botania_keepIvy";
 

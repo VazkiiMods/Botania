@@ -30,14 +30,14 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemRelic extends ItemMod implements IRelic {
+public class ItemRelic extends Item implements IRelic {
 
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 

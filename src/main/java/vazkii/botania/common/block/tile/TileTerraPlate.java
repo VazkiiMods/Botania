@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -44,7 +44,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	public static TileEntityType<TileTerraPlate> TYPE;
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
-	public static final LazyLoadBase<IMultiblock> MULTIBLOCK = new LazyLoadBase<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			new String[][] {
 					{
 							"___",
@@ -100,7 +100,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 						if(otherItem != item)
 							otherItem.remove();
 						else item.setItem(new ItemStack(ModItems.terrasteel));
-					world.playSound(null, item.posX, item.posY, item.posZ, ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
+					world.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);

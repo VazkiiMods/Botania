@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
@@ -38,7 +39,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
 	}
 

@@ -15,20 +15,18 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.IModRecipe;
-import vazkii.patchouli.api.VariableHolder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Patchouli custom component that draws a rotating circle of items from the defined recipe.
  */
 public class RotatingRecipeComponent extends RotatingItemListComponentBase {
-	@VariableHolder
 	@SerializedName("recipe_name")
 	public String recipeName;
 
-	@VariableHolder
 	@SerializedName("recipe_type")
 	public String recipeType;
 
@@ -44,5 +42,11 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 		}
 		IModRecipe recipe = map.get(new ResourceLocation(recipeName));
 		return recipe.getInputs();
+	}
+
+	@Override
+	public void onVariablesAvailable(Function<String, String> lookup) {
+		recipeName = lookup.apply(recipeName);
+		recipeType = lookup.apply(recipeType);
 	}
 }

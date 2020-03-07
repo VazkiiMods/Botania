@@ -10,9 +10,12 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -34,7 +37,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	}
 
 	@Override
-	public void renderCallback(EntityCorporeaSpark entity, float pticks) {
+	public void renderCallback(EntityCorporeaSpark entity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers) {
 		int time = entity.getItemDisplayTicks();
 		if(time == 0)
 			return;
@@ -45,16 +48,13 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		if(stack.isEmpty())
 			return;
 
-		GlStateManager.pushMatrix();
-		GlStateManager.rotatef(90F, 1F, 0F, 0F);
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
 		float scalef = 1F / 6F;
-		GlStateManager.scalef(scalef, scalef, scalef);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, absTime / 10);
-		GlStateManager.translatef(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
+		ms.scale(scalef, scalef, scalef);
+		//todo 1.15 GlStateManager.color4f(1F, 1F, 1F, absTime / 10);
+		ms.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, null).getParticleTexture();
 
 		if(icon != null) {
@@ -70,20 +70,19 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 			int shift = pieces / 2;
 
 			float scale = 1F / pieces * 3F;
-			GlStateManager.scalef(scale, scale, 1F);
+			ms.scale(scale, scale, 1F);
 			for(int i = -shift; i < shift; i++) {
-				GlStateManager.translatef(gap * i, 0F, 0F);
+				ms.translate(gap * i, 0F, 0F);
 				for(int j = -shift; j < shift; j++) {
-					GlStateManager.translatef(0F, gap * j, 0F);
-					IconHelper.renderIconIn3D(Tessellator.getInstance(), minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getWidth() / pieces, icon.getHeight() / pieces, 1F / 8F);
-					GlStateManager.translatef(0F, -gap * j, 0F);
+					ms.translate(0F, gap * j, 0F);
+					// todo 1.15 do this another way IconHelper.renderIconIn3D(Tessellator.getInstance(), minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getWidth() / pieces, icon.getHeight() / pieces, 1F / 8F);
+					ms.translate(0F, -gap * j, 0F);
 				}
-				GlStateManager.translatef(-gap * i, 0F, 0F);
+				ms.translate(-gap * i, 0F, 0F);
 			}
 		}
 
-		GlStateManager.disableBlend();
-		GlStateManager.popMatrix();
+		ms.pop();
 	}
 
 }

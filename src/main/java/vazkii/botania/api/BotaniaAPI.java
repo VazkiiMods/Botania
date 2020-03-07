@@ -11,6 +11,7 @@
 package vazkii.botania.api;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.IArmorMaterial;
@@ -37,6 +38,7 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.common.core.handler.PixieHandler;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -355,5 +357,10 @@ public final class BotaniaAPI {
 		if(brewMap.containsKey(key))
 			return brewMap.get(key);
 		return fallbackBrew;
+	}
+
+	// todo 1.15 this is temporary, move when moving API to interface
+	public static IAttribute getPixieSpawnChanceAttribute() {
+		return PixieHandler.PIXIE_SPAWN_CHANCE;
 	}
 }

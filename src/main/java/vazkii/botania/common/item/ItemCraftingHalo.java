@@ -10,14 +10,21 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -26,6 +33,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.inventory.container.WorkbenchContainer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
@@ -55,6 +63,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
@@ -66,7 +75,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class ItemCraftingHalo extends ItemMod {
+public class ItemCraftingHalo extends Item {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.CRAFTING_TABLE);
@@ -108,7 +117,7 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	public static IItemHandler getFakeInv(PlayerEntity player) {
@@ -400,29 +409,26 @@ public class ItemCraftingHalo extends ItemMod {
 		PlayerEntity player = Minecraft.getInstance().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 		if(!stack.isEmpty())
-			render(stack, player, event.getPartialTicks());
+			render(stack, player, event.getMatrixStack(), event.getPartialTicks());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(ItemStack stack, PlayerEntity player, float partialTicks) {
+	public void render(ItemStack stack, PlayerEntity player, MatrixStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
-		Tessellator tess = Tessellator.getInstance();
+		IRenderTypeBuffer.Impl buffers = mc.getBufferBuilders().getEntityVertexConsumers();
 
-		double renderPosX = mc.getRenderManager().renderPosX;
-		double renderPosY = mc.getRenderManager().renderPosY;
-		double renderPosZ = mc.getRenderManager().renderPosZ;
+		double renderPosX = mc.getRenderManager().info.getProjectedView().getX();
+		double renderPosY = mc.getRenderManager().info.getProjectedView().getY();
+		double renderPosZ = mc.getRenderManager().info.getProjectedView().getZ();
 
-		GlStateManager.pushMatrix();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		ms.push();
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
-		double posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-		double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-		double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+		double posX = player.prevPosX + (player.getX() - player.prevPosX) * partialTicks;
+		double posY = player.prevPosY + (player.getY() - player.prevPosY) * partialTicks + player.getEyeHeight();
+		double posZ = player.prevPosZ + (player.getZ() - player.prevPosZ) * partialTicks;
 
-		GlStateManager.translated(posX - renderPosX, posY - renderPosY + player.getEyeHeight(), posZ - renderPosZ);
-
+		ms.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
 
 		float base = getRotationBase(stack);
 		int angles = 360;
@@ -438,71 +444,64 @@ public class ItemCraftingHalo extends ItemMod {
 		float y0 = 0;
 
 		int segmentLookedAt = getSegmentLookedAt(stack, player);
+		ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
+		RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
 
 		for(int seg = 0; seg < SEGMENTS; seg++) {
 			boolean inside = false;
 			float rotationAngle = (seg + 0.5F) * segAngles + shift;
-			GlStateManager.pushMatrix();
-			GlStateManager.rotatef(rotationAngle, 0F, 1F, 0F);
-			GlStateManager.translatef(s * m, -0.75F, 0F);
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotationAngle));
+			ms.translate(s * m, -0.75F, 0F);
 
 			if(segmentLookedAt == seg)
 				inside = true;
 
 			ItemStack slotStack = getItemForSlot(stack, seg);
 			if(!slotStack.isEmpty()) {
-				mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-				RenderHelper.enableStandardItemLighting();
 				float scale = seg == 0 ? 0.9F : 0.8F;
-				GlStateManager.scalef(scale, scale, scale);
-				GlStateManager.rotatef(180F, 0F, 1F, 0F);
-				GlStateManager.translatef(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
+				ms.scale(scale, scale, scale);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
-				GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
-				Minecraft.getInstance().getItemRenderer().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI);
-				RenderHelper.disableStandardItemLighting();
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
+				Minecraft.getInstance().getItemRenderer().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI, 0xF000F0, OverlayTexture.DEFAULT_UV, ms, buffers);
 			}
-			GlStateManager.popMatrix();
+			ms.pop();
 
-			GlStateManager.pushMatrix();
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
-			float a = alpha;
+			ms.push();
+			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+			float r = 1, g = 1, b = 1, a = alpha;
 			if(inside) {
 				a += 0.3F;
 				y0 = -y;
 			}
 
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			if(seg % 2 == 0) {
+				r = g = b = 0.6F;
+			}
 
-			if(seg % 2 == 0)
-				GlStateManager.color4f(0.6F, 0.6F, 0.6F, a);
-			else GlStateManager.color4f(1F, 1F, 1F, a);
-
-			GlStateManager.disableCull();
-			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
-			mc.textureManager.bindTexture(item.getGlowResource());
-			tess.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			IVertexBuilder buffer = buffers.getBuffer(layer);
 			for(int i = 0; i < segAngles; i++) {
+				Matrix4f mat = ms.peek().getModel();
 				float ang = i + seg * segAngles + shift;
-				double xp = Math.cos(ang * Math.PI / 180F) * s;
-				double zp = Math.sin(ang * Math.PI / 180F) * s;
+				float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
+				float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
 
-				tess.getBuffer().pos(xp * m, y, zp * m).tex(u, v).endVertex();
-				tess.getBuffer().pos(xp, y0, zp).tex(u, 0).endVertex();
+				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).texture(u, v).endVertex();
+				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).texture(u, 0).endVertex();
 
-				xp = Math.cos((ang + 1) * Math.PI / 180F) * s;
-				zp = Math.sin((ang + 1) * Math.PI / 180F) * s;
+				xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
+				zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				tess.getBuffer().pos(xp, y0, zp).tex(0, 0).endVertex();
-				tess.getBuffer().pos(xp * m, y, zp * m).tex(0, v).endVertex();
+				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).texture(0, 0).endVertex();
+				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).texture(0, v).endVertex();
 			}
 			y0 = 0;
-			tess.draw();
-			GlStateManager.enableCull();
-			GlStateManager.popMatrix();
+			ms.pop();
 		}
-		GlStateManager.popMatrix();
+		ms.pop();
+		buffers.draw();
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -514,21 +513,16 @@ public class ItemCraftingHalo extends ItemMod {
 	public static void renderHUD(PlayerEntity player, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		int slot = getSegmentLookedAt(stack, player);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName().getString();
 			int l = mc.fontRenderer.getStringWidth(name);
-			int x = mc.mainWindow.getScaledWidth() / 2 - l / 2;
-			int y = mc.mainWindow.getScaledHeight() / 2 - 65;
+			int x = mc.getWindow().getScaledWidth() / 2 - l / 2;
+			int y = mc.getWindow().getScaledHeight() / 2 - 65;
 
 			AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
-			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.mainWindow.getScaledWidth() / 2 - 8, mc.mainWindow.getScaledHeight() / 2 - 52);
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.getWindow().getScaledWidth() / 2 - 8, mc.getWindow().getScaledHeight() / 2 - 52);
 
 			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
@@ -552,8 +546,8 @@ public class ItemCraftingHalo extends ItemMod {
 		Minecraft mc = Minecraft.getInstance();
 
 		if(!recipe[9].isEmpty()) {
-			int x = mc.mainWindow.getScaledWidth() / 2 - 45;
-			int y = mc.mainWindow.getScaledHeight() / 2 - 90;
+			int x = mc.getWindow().getScaledWidth() / 2 - 45;
+			int y = mc.getWindow().getScaledHeight() / 2 - 90;
 
 			AbstractGui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
@@ -561,8 +555,6 @@ public class ItemCraftingHalo extends ItemMod {
 			AbstractGui.fill(x + 66, y + 14, x + 92, y + 40, 0x22000000);
 			AbstractGui.fill(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
-			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
 			for(int i = 0; i < 9; i++) {
 				ItemStack stack = recipe[i];
 				if(!stack.isEmpty()) {
@@ -577,16 +569,15 @@ public class ItemCraftingHalo extends ItemMod {
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, recipe[9], x + 72, y + 18);
 
-			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
 
 		int yoff = 110;
 		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(warning, mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 	}
 }

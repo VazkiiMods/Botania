@@ -10,12 +10,16 @@ public class PaintableBlockMessage {
     private final IRegistryDelegate<Block> block;
     private final Function<DyeColor, Block> transformer;
 
+    public PaintableBlockMessage(Function<DyeColor, Block> transformer, Block block) {
+    	this(transformer, block.delegate);
+    }
+
     /**
      * @param transformer Lookup function from color to destination block
      * @param block The block being converted
      */
-    public PaintableBlockMessage(Function<DyeColor, Block> transformer, Block block) {
-        this.block = block.delegate;
+    public PaintableBlockMessage(Function<DyeColor, Block> transformer, IRegistryDelegate<Block> block) {
+        this.block = block;
         this.transformer = transformer;
     }
 

@@ -20,6 +20,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -31,7 +32,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -40,7 +40,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 
 public class EntityPoolMinecart extends AbstractMinecartEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart")
@@ -122,12 +121,15 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 
 		if(world.isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
-			Color color = TilePool.PARTICLE_COLOR;
-			double x = MathHelper.floor(posX);
-			double y = MathHelper.floor(posY);
-			double z = MathHelper.floor(posZ);
+			int color = TilePool.PARTICLE_COLOR;
+			float red = (color >> 16 & 0xFF) / 255F;
+			float green = (color >> 8 & 0xFF) / 255F;
+			float blue = (color & 0xFF) / 255F;
+			double x = MathHelper.floor(getX());
+			double y = MathHelper.floor(getY());
+			double z = MathHelper.floor(getZ());
 			if(Math.random() > particleChance) {
-				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, (float) color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, 2F);
+				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 		}
@@ -148,7 +150,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 
 				if(tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
-					Direction pumpDir = world.getBlockState(posP).get(BotaniaStateProps.CARDINALS);
+					Direction pumpDir = world.getBlockState(posP).get(BlockStateProperties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;
 

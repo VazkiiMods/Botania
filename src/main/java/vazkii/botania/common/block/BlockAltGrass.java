@@ -17,12 +17,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
@@ -57,19 +59,19 @@ public class BlockAltGrass extends BlockMod {
 	}
 	
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack held = player.getHeldItem(hand);
 		if(held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
-			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState(), 1 | 2);
-			return true;
+			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState());
+			return ActionResultType.SUCCESS;
 		}
 		
-		return false;
+		return ActionResultType.PASS;
 	}
 	
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);

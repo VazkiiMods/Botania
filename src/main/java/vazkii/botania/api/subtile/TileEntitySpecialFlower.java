@@ -24,6 +24,7 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -237,7 +238,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	/**
 	 * Called when a player right clicks this sub tile.
 	 */
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult hit) { return false; }
+	public ActionResultType onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult hit) { return ActionResultType.PASS; }
 
 	/**
 	 * Called when this sub tile is added to the world.

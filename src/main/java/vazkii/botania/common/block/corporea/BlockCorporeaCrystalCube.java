@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -54,20 +55,20 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements IWand
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty()) {
 			if(stack.getItem() == ModItems.twigWand && player.isSneaking())
-				return false;
+				return ActionResultType.PASS;
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			if(cube.locked) {
 				if(!world.isRemote)
 					player.sendStatusMessage(new TranslationTextComponent("botaniamisc.crystalCubeLocked"), false);
 			} else
 				cube.setRequestTarget(stack);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

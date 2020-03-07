@@ -11,11 +11,13 @@
 package vazkii.botania.client.patchouli.component;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.item.ItemStack;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.api.VariableHolder;
+
+import java.util.function.Function;
 
 /**
  * Patchouli custom component that draws provided stacks arranged like the Terrestial Agglomeration Plate multiblock.
@@ -23,13 +25,9 @@ import vazkii.patchouli.api.VariableHolder;
  * Parameters: corner, center, edge, plate can be provided to override default blocks.
  */
 public class TerraPlateComponent implements ICustomComponent {
-	@VariableHolder
 	public String corner = "botania:livingrock";
-	@VariableHolder
 	public String center = "botania:livingrock";
-	@VariableHolder
 	public String edge = "minecraft:lapis_block";
-	@VariableHolder
 	public String plate = "botania:terra_plate";
 
 	private transient int x, y;
@@ -47,30 +45,38 @@ public class TerraPlateComponent implements ICustomComponent {
 
 	@Override
 	public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
-		GlStateManager.pushMatrix();
-		GlStateManager.translatef(0F, 0F, -10.0f);
+		RenderSystem.pushMatrix();
+		RenderSystem.translatef(0F, 0F, -10.0f);
 		context.renderItemStack(x + 13, y + 1, mouseX, mouseY, cornerBlock);
 
-		GlStateManager.translatef(0F, 0F, 5F);
+		RenderSystem.translatef(0F, 0F, 5F);
 		context.renderItemStack(x + 20, y + 4, mouseX, mouseY, middleBlock);
 		context.renderItemStack(x + 7, y + 4, mouseX, mouseY, middleBlock);
 
-		GlStateManager.translatef(0F, 0F, 5F);
+		RenderSystem.translatef(0F, 0F, 5F);
 		context.renderItemStack(x + 13, y + 8, mouseX, mouseY, cornerBlock);
 		context.renderItemStack(x + 27, y + 8, mouseX, mouseY, centerBlock);
 		context.renderItemStack(x, y + 8, mouseX, mouseY, cornerBlock);
 
-		GlStateManager.translatef(0F, 0F, 5F);
+		RenderSystem.translatef(0F, 0F, 5F);
 		context.renderItemStack(x + 7, y + 12, mouseX, mouseY, middleBlock);
 		context.renderItemStack(x + 20, y + 12, mouseX, mouseY, middleBlock);
 
-		GlStateManager.translatef(0F, 0F, 5F);
+		RenderSystem.translatef(0F, 0F, 5F);
 		context.renderItemStack(x + 14, y + 15, mouseX, mouseY, cornerBlock);
 
-		GlStateManager.translatef(0F, 0F, 5F);
+		RenderSystem.translatef(0F, 0F, 5F);
 		context.renderItemStack(x + 13, y, mouseX, mouseY, plateBlock);
-		GlStateManager.translatef(0F, 0F, -10.0f);
+		RenderSystem.translatef(0F, 0F, -10.0f);
 
-		GlStateManager.popMatrix();
+		RenderSystem.popMatrix();
+	}
+
+	@Override
+	public void onVariablesAvailable(Function<String, String> lookup) {
+		corner = lookup.apply(corner);
+		center = lookup.apply(center);
+		edge = lookup.apply(edge);
+		plate = lookup.apply(plate);
 	}
 }

@@ -18,6 +18,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -47,13 +48,15 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.invoke.MethodHandle;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class ItemCacophonium extends ItemMod {
+public class ItemCacophonium extends Item {
 
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
+	private static final MethodHandle GET_AMBIENT_SOUND = LibObfuscation.getMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND);
 
 	public ItemCacophonium(Properties props) {
 		super(props);
@@ -71,9 +74,9 @@ public class ItemCacophonium extends ItemMod {
 				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			else {
 				try {
-					sound = (SoundEvent) ObfuscationReflectionHelper.findMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND).invoke(living);
-				} catch (InvocationTargetException | IllegalAccessException ignored) {
-					Botania.LOGGER.debug("Couldn't get living sound");
+					sound = (SoundEvent) GET_AMBIENT_SOUND.invokeExact(living);
+				} catch (Throwable ex) {
+					Botania.LOGGER.debug("Couldn't get living sound", ex);
 				}
 			}
 
@@ -122,7 +125,7 @@ public class ItemCacophonium extends ItemMod {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -132,13 +135,13 @@ public class ItemCacophonium extends ItemMod {
 		ItemStack stack = player.getHeldItem(hand);
 		if(getSound(stack) != null)
 			player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
-			playSound(player.world, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
+			playSound(player.world, stack, player.getX(), player.getY(), player.getZ(), SoundCategory.PLAYERS, 0.9F);
 	}
 
 	public static void playSound(World world, ItemStack stack, double x, double y, double z, SoundCategory category, float volume) {

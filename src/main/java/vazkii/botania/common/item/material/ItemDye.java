@@ -79,11 +79,11 @@ public class ItemDye extends Item16Colors {
 	}
 
 	private boolean shouldRecolor(Block block) {
-		DyeColor woolColor = ColorHelper.WOOL_MAP.inverse().get(block);
+		DyeColor woolColor = ColorHelper.WOOL_MAP.inverse().get(block.delegate);
 		if(woolColor != null)
 			return woolColor != this.color;
 
-		DyeColor carpetColor = ColorHelper.CARPET_MAP.inverse().get(block);
+		DyeColor carpetColor = ColorHelper.CARPET_MAP.inverse().get(block.delegate);
 		if(carpetColor != null)
 			return carpetColor != this.color;
 
@@ -91,10 +91,10 @@ public class ItemDye extends Item16Colors {
 	}
 
 	private BlockState recolor(Block original, DyeColor color) {
-		if (ColorHelper.CARPET_MAP.values().contains(original)) {
-			return ModBlocks.getCarpet(color).getDefaultState();
+		if (ColorHelper.CARPET_MAP.containsValue(original.delegate)) {
+			return ColorHelper.CARPET_MAP.get(color).get().getDefaultState();
 		} else {
-			return ModBlocks.getWool(color).getDefaultState();
+			return ColorHelper.WOOL_MAP.get(color).get().getDefaultState();
 		}
 	}
 

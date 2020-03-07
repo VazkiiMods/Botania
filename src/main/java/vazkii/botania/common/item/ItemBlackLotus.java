@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
@@ -29,7 +30,7 @@ import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
-public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
+public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	private static final int MANA_PER = 8000;
 	private static final int MANA_PER_T2 = 100000;
@@ -55,7 +56,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.shrink(1);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.world, tile.getPos());
-			PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
+			PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.getX(), tile.getPos().getY() + 0.5, item.getZ()));
 		}
 
 		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);

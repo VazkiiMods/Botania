@@ -12,6 +12,7 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,7 +35,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class ItemBlockSpecialFlower extends ItemBlockMod {
+public class ItemBlockSpecialFlower extends BlockItem {
 	private static final Tag<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
 	private static final Tag<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
 	private static final Tag<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;

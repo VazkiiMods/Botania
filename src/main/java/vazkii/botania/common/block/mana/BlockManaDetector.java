@@ -47,7 +47,7 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 	}
 
 	@Override
-	public int getWeakPower(BlockState state, IBlockReader par1iBlockAccess, BlockPos pos, Direction side) {
+	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 

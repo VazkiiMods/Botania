@@ -37,7 +37,7 @@ public class LensTripwire extends Lens {
 			if(entity.world.isRemote)
 				return;
 
-			AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(0.25);
+			AxisAlignedBB axis = new AxisAlignedBB(entity.getX(), entity.getY(), entity.getZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(0.25);
 			List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 			if(!entities.isEmpty()) {
 				Entity e = (Entity) burst;

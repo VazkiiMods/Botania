@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.runicaltar;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -89,12 +90,12 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 
 	@Override
 	public void draw(RecipeRuneAltar recipe, double mouseX, double mouseY) {
-		GlStateManager.enableAlphaTest();
-		GlStateManager.enableBlend();
+		RenderSystem.enableAlphaTest();
+		RenderSystem.enableBlend();
 		overlay.draw();
 		HUDHandler.renderManaBar(28, 113, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
-		GlStateManager.disableBlend();
-		GlStateManager.disableAlphaTest();
+		RenderSystem.disableBlend();
+		RenderSystem.disableAlphaTest();
 	}
 
 	@Override

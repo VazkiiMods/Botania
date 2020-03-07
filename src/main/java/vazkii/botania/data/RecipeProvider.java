@@ -38,7 +38,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.IngredientNBT;
+import net.minecraftforge.common.crafting.NBTIngredient;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -2660,8 +2660,8 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	// Blame Forge for making the constructor protected. 
 	// TODO maybe use a bit fuzzier ingredient, it will break if any mod throws random NBT data at the item
-	private static IngredientNBT nbtIngredient(ItemStack stack) {
-		return new IngredientNBT(stack) {};
+	private static NBTIngredient nbtIngredient(ItemStack stack) {
+		return new NBTIngredient(stack) {};
 	}
 	
 	@Override

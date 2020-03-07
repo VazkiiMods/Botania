@@ -21,7 +21,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -53,7 +53,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	private final LazyLoadBase<BipedModel> model;
+	private final LazyValue<BipedModel> model;
 	public final EquipmentSlotType type;
 
 	public ItemManasteelArmor(EquipmentSlotType type, Properties props) {
@@ -63,12 +63,12 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	public ItemManasteelArmor(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
 		super(mat, type, props);
 		this.type = type;
-		this.model = DistExecutor.runForDist(() -> () -> new LazyLoadBase<>(() -> this.provideArmorModelForSlot(type)),
+		this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> this.provideArmorModelForSlot(type)),
 				() -> () -> null);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
 		if(player instanceof PlayerEntity)
 			onArmorTick(stack, world, (PlayerEntity) player);
 	}
@@ -138,7 +138,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").applyTextStyle(TextFormatting.GRAY));
 	}
 
-	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.manasteelHelm),
 			new ItemStack(ModItems.manasteelChest),
 			new ItemStack(ModItems.manasteelLegs),

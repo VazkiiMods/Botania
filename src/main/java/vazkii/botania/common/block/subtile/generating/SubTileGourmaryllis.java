@@ -99,7 +99,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();

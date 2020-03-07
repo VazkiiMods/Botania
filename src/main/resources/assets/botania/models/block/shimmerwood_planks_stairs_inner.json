@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "botania:blocks/shimmerwoodplanks",
+    "top": "botania:blocks/shimmerwoodplanks",
+    "side": "botania:blocks/shimmerwoodplanks"
+  }
+}

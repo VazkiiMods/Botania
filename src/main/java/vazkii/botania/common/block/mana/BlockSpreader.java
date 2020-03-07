@@ -21,6 +21,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -124,20 +125,20 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
-			return false;
+			return ActionResultType.PASS;
 
 		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = player.getHeldItem(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
-		boolean wool = !heldItem.isEmpty() && ColorHelper.WOOL_MAP.values().contains(Block.getBlockFromItem(heldItem.getItem()));
+		boolean wool = !heldItem.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(heldItem.getItem()).delegate);
 
 		if(!heldItem.isEmpty())
 			if(heldItem.getItem() == ModItems.twigWand)
-				return false;
+				return ActionResultType.PASS;
 
 		if(lens.isEmpty() && isHeldItemLens) {
 			if (!player.abilities.isCreativeMode)
@@ -153,18 +154,18 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 
 		if(wool && spreader.paddingColor == null) {
 			Block block = Block.getBlockFromItem(heldItem.getItem());
-			spreader.paddingColor = ColorHelper.WOOL_MAP.inverse().get(block);
+			spreader.paddingColor = ColorHelper.WOOL_MAP.inverse().get(block.delegate);
 			heldItem.shrink(1);
 			if(heldItem.isEmpty())
 				player.setHeldItem(hand, ItemStack.EMPTY);
 		} else if(heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
-			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor));
+			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor).get());
 			ItemHandlerHelper.giveItemToPlayer(player, pad);
 			spreader.paddingColor = null;
 			spreader.markDirty();
 		}
 
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override
@@ -177,7 +178,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 			TileSpreader inv = (TileSpreader) tile;
 
 			if(inv.paddingColor != null) {
-				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor));
+				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor).get());
 				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 			}
 

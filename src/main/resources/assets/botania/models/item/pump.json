@@ -1,5 +1,5 @@
 {
-  "Comment0": "Combination of block/mana_pump and block/mana_pump_head",
+  "Comment0": "Combination of block/pump and block/pump_head",
   "Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
   "parent": "minecraft:block/block",
   "textures": {

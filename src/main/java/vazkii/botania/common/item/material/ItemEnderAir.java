@@ -15,14 +15,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
-import vazkii.botania.common.item.ItemMod;
+import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class ItemEnderAir extends ItemMod {
+public class ItemEnderAir extends Item {
     public ItemEnderAir(Properties props) {
         super(props);
     }
@@ -35,11 +35,11 @@ public class ItemEnderAir extends ItemMod {
 
         if(correctStack && ender) {
             if (event.getWorld().isRemote) {
-                event.getEntityPlayer().swingArm(event.getHand());
+                event.getPlayer().swingArm(event.getHand());
             } else {
                 ItemStack stack1 = new ItemStack(ModItems.enderAirBottle);
 
-                ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
+                ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), stack1);
 
                 stack.shrink(1);
 
@@ -58,7 +58,7 @@ public class ItemEnderAir extends ItemMod {
         if(!player.abilities.isCreativeMode)
             stack.shrink(1);
 
-        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
         if(!world.isRemote) {
             EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
@@ -66,6 +66,6 @@ public class ItemEnderAir extends ItemMod {
             world.addEntity(b);
         }
         else player.swingArm(hand);
-        return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+        return ActionResult.success(stack);
     }
 }

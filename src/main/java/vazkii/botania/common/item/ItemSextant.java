@@ -11,11 +11,15 @@
 package vazkii.botania.common.item;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
@@ -48,7 +52,7 @@ import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemSextant extends ItemMod {
+public class ItemSextant extends Item {
 	public static final ResourceLocation MULTIBLOCK_ID = prefix("sextant");
 	private static final int MAX_RADIUS = 256;
 	private static final String TAG_SOURCE_X = "sourceX";
@@ -61,12 +65,12 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -117,7 +121,7 @@ public class ItemSextant extends ItemMod {
 						if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
 							map.put(new BlockPos(xp - x, 0, zp - z), matcher);
 					}
-				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setResourceLocation(MULTIBLOCK_ID);
+				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Botania.proxy.showMultiblock(sparse, "r = " + (int) radius, new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}
@@ -149,7 +153,7 @@ public class ItemSextant extends ItemMod {
 			reset(world, stack);
 		}
 
-		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
+		return ActionResult.success(stack);
 	}
 
 	private static double calculateRadius(ItemStack stack, PlayerEntity player) {
@@ -181,8 +185,8 @@ public class ItemSextant extends ItemMod {
 		if(onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 30;
-			int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2;
+			int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 + 30;
+			int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2;
 
 			String s = Integer.toString((int) radius);
 			boolean inRange = 0 < radius && radius <= MAX_RADIUS;
@@ -193,18 +197,18 @@ public class ItemSextant extends ItemMod {
 
 			if(inRange) {
 				radius += 4;
-				GlStateManager.disableTexture();
-				GlStateManager.lineWidth(3F);
-				GL11.glBegin(GL11.GL_LINE_STRIP);
-				GlStateManager.color4f(0F, 1F, 1F, 1F);
+				RenderSystem.disableTexture();
+				RenderSystem.lineWidth(3F);
+				Tessellator.getInstance().getBuffer().begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+				RenderSystem.color4f(0F, 1F, 1F, 1F);
 				for(int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double yp = y + Math.sin(radian) * radius;
-					GL11.glVertex2d(xp, yp);
+					Tessellator.getInstance().getBuffer().vertex(xp, yp, 0).endVertex();
 				}
-				GL11.glEnd();
-				GlStateManager.enableTexture();
+				Tessellator.getInstance().draw();
+				RenderSystem.enableTexture();
 			}
 		}
 	}

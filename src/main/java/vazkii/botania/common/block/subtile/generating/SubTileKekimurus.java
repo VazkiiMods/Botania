@@ -52,7 +52,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 							int nextSlicesEaten = state.get(CakeBlock.BITES) + 1;
 							if(nextSlicesEaten > 6)
 								getWorld().removeBlock(pos, false);
-							else getWorld().setBlockState(pos, state.with(CakeBlock.BITES, nextSlicesEaten), 1 | 2);
+							else getWorld().setBlockState(pos, state.with(CakeBlock.BITES, nextSlicesEaten));
 
 							getWorld().playEvent(2001, pos, Block.getStateId(state));
 							getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);

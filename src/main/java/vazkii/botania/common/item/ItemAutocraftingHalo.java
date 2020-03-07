@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -22,7 +23,7 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_CYAN);
 
-	public ItemAutocraftingHalo(Properties props) {
+	public ItemAutocraftingHalo(Item.Properties props) {
 		super(props);
 	}
 

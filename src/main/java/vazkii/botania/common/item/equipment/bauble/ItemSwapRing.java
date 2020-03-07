@@ -19,8 +19,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.item.ISortableTool;
-import vazkii.botania.api.item.ISortableTool.ToolType;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public class ItemSwapRing extends ItemBauble {
@@ -49,7 +49,7 @@ public class ItemSwapRing extends ItemBauble {
 
 			Material mat = state.getMaterial();
 			if(ToolCommons.materialsPick.contains(mat))
-				typeToFind = ToolType.PICK;
+				typeToFind = ToolType.PICKAXE;
 			else if(ToolCommons.materialsShovel.contains(mat))
 				typeToFind = ToolType.SHOVEL;
 			else if(ToolCommons.materialsAxe.contains(mat))
@@ -60,14 +60,14 @@ public class ItemSwapRing extends ItemBauble {
 			return;
 
 		ItemStack bestTool = currentStack;
-		int bestToolPriority = tool.getSortingType(currentStack) == typeToFind ? tool.getSortingPriority(currentStack) : -1;
+		int bestToolPriority = currentStack.getToolTypes().contains(typeToFind) ? tool.getSortingPriority(currentStack) : -1;
 		int bestSlot = -1;
 
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
 			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
 				ISortableTool toolInSlot = (ISortableTool) stackInSlot.getItem();
-				if(toolInSlot.getSortingType(stackInSlot).equals(typeToFind)) {
+				if(stackInSlot.getToolTypes().contains(typeToFind)) {
 					int priority = toolInSlot.getSortingPriority(stackInSlot);
 					if(priority > bestToolPriority) {
 						bestTool = stackInSlot;

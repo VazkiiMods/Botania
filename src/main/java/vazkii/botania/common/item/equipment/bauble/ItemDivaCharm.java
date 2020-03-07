@@ -11,10 +11,14 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -66,7 +70,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 					if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;
 
-						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.posX - range, target.posY - range, target.posZ - range, target.posX + range, target.posY + range, target.posZ + range), Predicates.instanceOf(IMob.class));
+						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(IMob.class));
 						if(mobs.size() > 1) {
 							if(SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
 								target.heal(target.getMaxHealth());
@@ -75,8 +79,8 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 									((CreeperEntity) event.getEntityLiving()).timeSinceIgnited = 2;
 
 								ManaItemHandler.requestManaExact(amulet, player, cost, true);
-								player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
-								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.posX, target.posY, target.posZ, target.getEntityId()));
+								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId()));
 							}
 						}
 					}
@@ -97,13 +101,12 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.scaled(0.8, 0.8, 0.8);
-		GlStateManager.rotatef(-90, 0, 1, 0);
-		GlStateManager.rotatef(180, 1, 0, 0);
-		GlStateManager.translated(0.1625, -1.625, 0.40);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+		ms.scale(0.8F, 0.8F, 0.8F);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+		ms.translate(0.1625, -1.625, 0.40);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 }

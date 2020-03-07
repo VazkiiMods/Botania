@@ -1,12 +1,12 @@
 package vazkii.botania.common.integration.curios;
 
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,8 +24,6 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 // Classloading-safe way to attach curio behaviour to our items
@@ -85,7 +83,7 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, LivingEntity entity) {
+		public void onCurioTick(String identifier, int index, LivingEntity entity) {
 			getItem().onWornTick(stack, entity);
 		}
 
@@ -116,7 +114,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 		@Override
 		public void playEquipSound(LivingEntity entity) {
-			entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
+			entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
 		}
 
 		@Override
@@ -130,8 +128,8 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public void doRender(String identifier, LivingEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			getItem().doRender(stack, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+		public void render(String identifier, MatrixStack ms, IRenderTypeBuffer buffers, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			getItem().doRender(stack, livingEntity, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
 		}
 	}
 }

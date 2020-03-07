@@ -4,14 +4,13 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -20,7 +19,7 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
 import java.util.List;
 
-public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
+public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	public ItemElementiumArmor(EquipmentSlotType type, Properties props) {
 		super(type, BotaniaAPI.ELEMENTIUM_ARMOR_MAT, props);
@@ -37,7 +36,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
-	private static final LazyLoadBase<ItemStack[]> armorSet = new LazyLoadBase<>(() -> new ItemStack[] {
+	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.elementiumHelm),
 			new ItemStack(ModItems.elementiumChest),
 			new ItemStack(ModItems.elementiumLegs),

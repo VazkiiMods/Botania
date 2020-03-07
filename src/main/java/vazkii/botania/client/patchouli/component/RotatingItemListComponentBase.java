@@ -11,6 +11,7 @@
 package vazkii.botania.client.patchouli.component;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.crafting.Ingredient;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -65,10 +66,10 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 		double xPos = x + Math.cos(angle * Math.PI / 180D) * radius + 32;
 		double yPos = y + Math.sin(angle * Math.PI / 180D) * radius + 32;
 
-		GlStateManager.pushMatrix(); // This translation makes it not stuttery. It does not affect the tooltip as that is drawn separately later.
-		GlStateManager.translated(xPos - (int) xPos, yPos - (int) yPos, 0);
+		RenderSystem.pushMatrix(); // This translation makes it not stuttery. It does not affect the tooltip as that is drawn separately later.
+		RenderSystem.translated(xPos - (int) xPos, yPos - (int) yPos, 0);
 		context.renderIngredient((int) xPos, (int) yPos, mouseX, mouseY, ingredient);
-		GlStateManager.popMatrix();
+		RenderSystem.popMatrix();
 	}
 
 }

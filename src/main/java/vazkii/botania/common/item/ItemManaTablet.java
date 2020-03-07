@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -30,7 +31,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
+public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
 	public static final int MAX_MANA = 500000;
 
@@ -60,8 +61,8 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(isStackCreative(par1ItemStack))
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		if(isStackCreative(stack))
 			stacks.add(new TranslationTextComponent("botaniamisc.creative").applyTextStyle(TextFormatting.GRAY));
 	}
 

@@ -10,9 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -59,15 +63,13 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		GlStateManager.pushMatrix();
-		AccessoryRenderHelper.translateToHeadLevel(player, partialTicks);
-		AccessoryRenderHelper.translateToFace();
-		AccessoryRenderHelper.defaultTransforms();
-		GlStateManager.rotatef(-90F, 0F, 1F, 0F);
-		GlStateManager.translatef(0.5F, 0.2F, 0.45F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
-		GlStateManager.popMatrix();
+	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+		AccessoryRenderHelper.translateToFace(ms);
+		AccessoryRenderHelper.defaultTransforms(ms);
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+		ms.translate(0.5F, 0.2F, 0.45F);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 
 	@Override

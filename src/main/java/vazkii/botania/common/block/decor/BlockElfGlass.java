@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.IElvenItem;
 
-public class BlockElfGlass extends BlockManaGlass implements IElvenItem {
+public class BlockElfGlass extends AbstractGlassBlock implements IElvenItem {
 
 	public BlockElfGlass(Properties builder) {
 		super(builder);

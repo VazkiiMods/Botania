@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "top": "botania:blocks/shimmerrock",
-    "bottom": "botania:blocks/shimmerrock",
-    "side": "botania:blocks/shimmerrock"
-  }
-}

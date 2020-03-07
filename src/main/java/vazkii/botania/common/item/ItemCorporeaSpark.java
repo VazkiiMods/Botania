@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -22,7 +23,7 @@ import vazkii.botania.common.entity.EntityCorporeaSpark;
 
 import javax.annotation.Nonnull;
 
-public class ItemCorporeaSpark extends ItemMod {
+public class ItemCorporeaSpark extends Item {
 
 	public ItemCorporeaSpark(Properties props) {
 		super(props);

@@ -108,23 +108,23 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
 		CompoundNBT cmp = new CompoundNBT();
 		if(!requestTarget.isEmpty())
 			cmp = requestTarget.write(cmp);
-		par1nbtTagCompound.put(TAG_REQUEST_TARGET, cmp);
-		par1nbtTagCompound.putInt(TAG_ITEM_COUNT, itemCount);
-		par1nbtTagCompound.putBoolean(TAG_LOCK, locked);
+		tag.put(TAG_REQUEST_TARGET, cmp);
+		tag.putInt(TAG_ITEM_COUNT, itemCount);
+		tag.putBoolean(TAG_LOCK, locked);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
-		CompoundNBT cmp = par1nbtTagCompound.getCompound(TAG_REQUEST_TARGET);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		CompoundNBT cmp = tag.getCompound(TAG_REQUEST_TARGET);
 		requestTarget = ItemStack.read(cmp);
-		itemCount = par1nbtTagCompound.getInt(TAG_ITEM_COUNT);
-		locked = par1nbtTagCompound.getBoolean(TAG_LOCK);
+		itemCount = tag.getInt(TAG_ITEM_COUNT);
+		locked = tag.getBoolean(TAG_LOCK);
 	}
 
 	public int getComparatorValue() {

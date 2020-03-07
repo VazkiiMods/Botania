@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -61,7 +62,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.ServerBossInfo;
+import net.minecraft.world.server.ServerBossInfo;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -176,7 +177,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		//check difficulty
 		if(world.getDifficulty() == Difficulty.PEACEFUL) {
 			if(!world.isRemote)
-				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").applyTextStyle(TextFormatting.RED));
 			return false;
 		}
 
@@ -186,7 +187,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			if(world.isRemote) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").applyTextStyle(TextFormatting.RED));
 			}
 
 			return false;
@@ -201,7 +202,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").applyTextStyle(TextFormatting.RED));
 			}
 
 			return false;
@@ -372,7 +373,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
+	public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
 		Entity e = source.getTrueSource();
 		if (e instanceof PlayerEntity && isTruePlayer(e) && getInvulTime() == 0) {
 			PlayerEntity player = (PlayerEntity) e;
@@ -381,7 +382,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				playersWhoAttacked.add(player.getUniqueID());
 
 			int cap = 25;
-			return super.attackEntityFrom(source, Math.min(cap, par2));
+			return super.attackEntityFrom(source, Math.min(cap, amount));
 		}
 
 		return false;
@@ -399,8 +400,8 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	@Override
-	protected void damageEntity(@Nonnull DamageSource source, float par2) {
-		super.damageEntity(source, par2);
+	protected void damageEntity(@Nonnull DamageSource source, float amount) {
+		super.damageEntity(source, amount);
 
 		Entity attacker = source.getImmediateSource();
 		if(attacker != null) {
@@ -427,7 +428,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-		world.addParticle(ParticleTypes.EXPLOSION_EMITTER, posX, posY, posZ, 1D, 0D, 0D);
+		world.addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 
 	@Override
@@ -469,18 +470,13 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				continue;
 
 			PlayerEntity saveLastAttacker = attackingPlayer;
-			double savePosX = posX;
-			double savePosY = posY;
-			double savePosZ = posZ;
+			Vec3d savePos = getPositionVec();
 
 			attackingPlayer = player; // Fake attacking player as the killer
-			posX = player.posX;       // Spoof pos so drops spawn at the player
-			posY = player.posY;
-			posZ = player.posZ;
+			// Spoof pos so drops spawn at the player
+			setPosition(player.getX(), player.getY(), player.getZ());
 			super.dropLoot(DamageSource.causePlayerDamage(player), wasRecentlyHit);
-			posX = savePosX;
-			posY = savePosY;
-			posZ = savePosZ;
+			setPosition(savePos.getX(), savePos.getY(), savePos.getZ());
 			attackingPlayer = saveLastAttacker;
 		}
 
@@ -593,7 +589,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	}
 
 	private void keepInsideArena(PlayerEntity player) {
-		if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
+		if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
 			Vector3 motion = sourceVector.subtract(playerVector).normalize();
@@ -627,7 +623,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 							for(int j = 0; j < 1 + world.rand.nextInt(hardMode ? 8 : 5); j++) {
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-								pixie.setPosition(posX + getWidth() / 2, posY + 2, posZ + getWidth() / 2);
+								pixie.setPosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
 								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
@@ -641,8 +637,8 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 					if(!entity.isImmuneToFire())
 						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					float range = 6F;
-					entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1,
-							posZ + 0.5 + Math.random() * range - range / 2);
+					entity.setPosition(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
+							getZ() + 0.5 + Math.random() * range - range / 2);
 					entity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if(entity instanceof WitherSkeletonEntity && hardMode) {
@@ -676,7 +672,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		if(world.getDifficulty() == Difficulty.PEACEFUL)
 			remove();
 
-		smashBlocksAround(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ), 1);
+		smashBlocksAround(MathHelper.floor(getX()), MathHelper.floor(getY()), MathHelper.floor(getZ()), 1);
 
 		List<PlayerEntity> players = getPlayersAround();
 
@@ -692,7 +688,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 				}
 
 				//also see SleepingHandler
-				if(player.isSleeping()) player.wakeUpPlayer(true, true, false);
+				if(player.isSleeping()) player.wakeUp(true, true);
 				
 				clearPotions(player);
 				keepInsideArena(player);
@@ -752,7 +748,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 							int count = dying && hardMode ? 7 : 6;
 							for(int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + rand.nextInt(20);
-								int y = (int) players.get(rand.nextInt(players.size())).posY;
+								int y = (int) players.get(rand.nextInt(players.size())).getY();
 								int z = source.getZ() - 10 + rand.nextInt(20);
 
 								EntityMagicLandmine landmine = new EntityMagicLandmine(world);
@@ -767,7 +763,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 							for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hardMode ? 6 : 3) : 1); i++) {
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-								pixie.setPosition(posX + getWidth() / 2, posY + 2, posZ + getWidth() / 2);
+								pixie.setPosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
 								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
@@ -817,7 +813,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 	private void spawnMissile() {
 		EntityMagicMissile missile = new EntityMagicMissile(this, true);
-		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
+		missile.setPosition(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if(missile.findTarget()) {
 			playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 			world.addEntity(missile);
@@ -826,7 +822,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 	private void teleportRandomly() {
 		//choose a location to teleport to
-		double oldX = posX, oldY = posY, oldZ = posZ;
+		double oldX = getX(), oldY = getY(), oldZ = getZ();
 		double newX, newY = source.getY(), newZ;
 		int tries = 0;
 
@@ -930,20 +926,16 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public int bossBarRenderCallback(int x, int y) {
-		GlStateManager.pushMatrix();
+		RenderSystem.pushMatrix();
 		int px = x + 160;
 		int py = y + 12;
 
 		Minecraft mc = Minecraft.getInstance();
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		GlStateManager.enableRescaleNormal();
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRenderer.drawStringWithShadow("" + playerCount, px + 15, py + 4, 0xFFFFFF);
-		GlStateManager.popMatrix();
+		RenderSystem.popMatrix();
 
 		return 5;
 	}
@@ -956,7 +948,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public int getBossBarShaderProgram(boolean background) {
-		return background ? 0 : ShaderHelper.dopplegangerBar;
+		return background ? 0 : ShaderHelper.getShader(ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR).orElse(0);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -967,19 +959,19 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
 		if(shaderCallback == null)
 			shaderCallback = shader1 -> {
-				int grainIntensityUniform = GLX.glGetUniformLocation(shader1, "grainIntensity");
-				int hpFractUniform = GLX.glGetUniformLocation(shader1, "hpFract");
+				int grainIntensityUniform = GlStateManager.getUniformLocation(shader1, "grainIntensity");
+				int hpFractUniform = GlStateManager.getUniformLocation(shader1, "hpFract");
 
 				float time = getInvulTime();
 				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
 
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-				GLX.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+				GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
-				GLX.glUniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
+				GlStateManager.uniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
 			};
 
 			return background ? null : shaderCallback;

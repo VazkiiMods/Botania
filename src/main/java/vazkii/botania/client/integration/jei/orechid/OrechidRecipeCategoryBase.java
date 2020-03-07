@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.orechid;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -116,11 +117,11 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 
 	@Override
 	public void draw(T recipe, double mouseX, double mouseY) {
-		GlStateManager.enableAlphaTest();
-		GlStateManager.enableBlend();
+		RenderSystem.enableAlphaTest();
+		RenderSystem.enableBlend();
 		overlay.draw(48, 0);
-		GlStateManager.disableBlend();
-		GlStateManager.disableAlphaTest();
+		RenderSystem.disableBlend();
+		RenderSystem.disableAlphaTest();
 	}
 
 }

@@ -1,5 +1,6 @@
 package vazkii.botania.client.fx;
 
+import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.particles.ParticleType;
@@ -11,9 +12,17 @@ public class WispParticleType extends ParticleType<WispParticleData> {
     }
 
     public static class Factory implements IParticleFactory<WispParticleData> {
+        private final IAnimatedSprite sprite;
+
+        public Factory(IAnimatedSprite sprite) {
+            this.sprite = sprite;
+        }
+
         @Override
         public Particle makeParticle(WispParticleData data, World world, double x, double y, double z, double mx, double my, double mz) {
-            return new FXWisp(world, x, y, z, mx, my, mz, data.size, data.r, data.g, data.b, data.depthTest, data.maxAgeMul, data.noClip);
+            FXWisp ret = new FXWisp(world, x, y, z, mx, my, mz, data.size, data.r, data.g, data.b, data.depthTest, data.maxAgeMul, data.noClip);
+            ret.selectSpriteRandomly(sprite);
+            return ret;
         }
     }
 }

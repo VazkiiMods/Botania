@@ -10,44 +10,50 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.TileCocoon;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
 
+	public RenderTileCocoon(TileEntityRendererDispatcher manager) {
+		super(manager);
+	}
+
 	@Override
-	public void render(@Nonnull TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nonnull TileCocoon cocoon, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if(cocoon.timePassed % modval < 10) {
-			float mod = (cocoon.timePassed + f) % modval;
+			float mod = (cocoon.timePassed + partialTicks) % modval;
 			float v = mod / 5 * (float) Math.PI * 2;
-			rot = (float) Math.sin(v) * (float) Math.log(cocoon.timePassed + f);
+			rot = (float) Math.sin(v) * (float) Math.log(cocoon.timePassed + partialTicks);
 		}
 
-		GlStateManager.pushMatrix();
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.translated(d0, d1, d2 + 1);
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.translatef(0.5F, 0, 0F);
-		GlStateManager.rotatef(rot, 1F, 0F, 0F);
-		GlStateManager.translatef(-0.5F, 0, 0F);
-		BlockState state = cocoon.getWorld().getBlockState(cocoon.getPos());
+		ms.push();
+		ms.translate(0, 0, 1);
+		ms.translate(0.5, 0, 0);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rot));
+		ms.translate(-0.5, 0, 0);
+		BlockState state = cocoon.getBlockState();
 		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
-		GlStateManager.color3f(1F, 1F, 1F);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.popMatrix();
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getBlockLayer(state));
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, state, model, 1, 1, 1, light, overlay);
+		ms.pop();
 	}
 }

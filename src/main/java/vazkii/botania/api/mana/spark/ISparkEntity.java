@@ -35,19 +35,8 @@ public interface ISparkEntity {
 	 */
 	public void registerTransfer(ISparkEntity entity);
 
-	/**
-	 * Gets which upgrade is in this Spark.<br>
-	 * 0: None<br>
-	 * 1: Dispersive<br>
-	 * 2: Dominant<br>
-	 * 3: Recessive<br>
-	 * 4: Isolated
-	 */
 	public SparkUpgradeType getUpgrade();
 
-	/**
-	 * Sets the upgrade on this Spark. See {@link ISparkEntity#getUpgrade}
-	 */
 	public void setUpgrade(SparkUpgradeType upgrade);
 
 	/**

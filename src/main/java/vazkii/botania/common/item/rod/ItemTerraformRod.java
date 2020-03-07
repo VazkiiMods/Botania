@@ -18,10 +18,10 @@ import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -34,14 +34,13 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
+public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
 	private static final int COST_PER = 55;
 
 	// todo 1.13 migrate rest of these
@@ -64,12 +63,12 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -83,11 +82,11 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
-	private void terraform(ItemStack par1ItemStack, World world, PlayerEntity player) {
-		int range = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 22 : 16;
+	private void terraform(ItemStack stack, World world, PlayerEntity player) {
+		int range = IManaProficiencyArmor.hasProficiency(player, stack) ? 22 : 16;
 
 		BlockPos startCenter = new BlockPos(player).down();
 
@@ -128,14 +127,14 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		int cost = COST_PER * blocks.size();
 
-		if(world.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, true)) {
+		if(world.isRemote || ManaItemHandler.requestManaExactForTool(stack, player, cost, true)) {
 			if(!world.isRemote)
 				for(CoordsWithBlock block : blocks)
 					world.setBlockState(block, block.block.getDefaultState());
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
+					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for(int i = 0; i < 120; i++)
                     world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);

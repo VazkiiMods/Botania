@@ -45,8 +45,11 @@ public class BergamuteEventHandler {
 					evt.setResultSound(new WrappedSound(sound, MULTIPLIER));
 
 					if (RAND.nextBoolean()) {
-						Color color = TilePool.PARTICLE_COLOR;
-						BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random()  * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+						int color = TilePool.PARTICLE_COLOR;
+						float red = (color >> 16 & 0xFF) / 255F;
+						float green = (color >> 8 & 0xFF) / 255F;
+						float blue = (color & 0xFF) / 255F;
+						BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random()  * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 					}
 				}
 			}

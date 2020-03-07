@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +22,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePump;
 
@@ -35,24 +35,24 @@ public class BlockPump extends BlockMod {
 
 	public BlockPump(Properties builder) {
 		super(builder);
-		setDefaultState(getStateContainer().getBaseState().with(BotaniaStateProps.CARDINALS, Direction.SOUTH));
+		setDefaultState(getStateContainer().getBaseState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.CARDINALS);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing().getOpposite());
+		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if(state.get(BotaniaStateProps.CARDINALS).getAxis() == Direction.Axis.X) {
+		if(state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
 			return Z_SHAPE;

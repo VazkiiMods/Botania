@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -19,7 +20,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -66,19 +66,19 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.putBoolean(TAG_ENABLED, enabled);
-		par1nbtTagCompound.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
-		par1nbtTagCompound.putInt(TAG_MANA, mana);
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
+		tag.putBoolean(TAG_ENABLED, enabled);
+		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
+		tag.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
-		enabled = par1nbtTagCompound.getBoolean(TAG_ENABLED);
-		ticksElapsed = par1nbtTagCompound.getInt(TAG_TICKS_ELAPSED);
-		mana = par1nbtTagCompound.getInt(TAG_MANA);
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		enabled = tag.getBoolean(TAG_ENABLED);
+		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
+		mana = tag.getInt(TAG_MANA);
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	@Override
 	public Direction getAvatarFacing() {
-		return getBlockState().get(BotaniaStateProps.CARDINALS);
+		return getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override

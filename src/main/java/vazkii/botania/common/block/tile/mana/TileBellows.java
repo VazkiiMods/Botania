@@ -16,6 +16,7 @@ import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -25,7 +26,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
@@ -127,7 +127,7 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 	}
 
 	public TileEntity getLinkedTile() {
-		Direction side = getBlockState().get(BotaniaStateProps.CARDINALS);
+		Direction side = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 		return world.getTileEntity(getPos().offset(side));
 	}
 

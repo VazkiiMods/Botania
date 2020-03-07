@@ -16,6 +16,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.UseAction;
@@ -46,7 +47,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class ItemBottledMana extends ItemMod {
+public class ItemBottledMana extends Item {
 	private static final int SWIGS = 6;
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
@@ -75,8 +76,8 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 3 : { // Mini Explosion
 			if(!living.world.isRemote)
-				living.world.createExplosion(null, living.posX, living.posY,
-						living.posZ, 0.25F, Explosion.Mode.NONE);
+				living.world.createExplosion(null, living.getX(), living.getY(),
+						living.getZ(), 0.25F, Explosion.Mode.NONE);
 			break;
 		}
 		case 4 : { // Mega Jump
@@ -120,14 +121,14 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 9 : { // Highest Possible
-			int x = MathHelper.floor(living.posX);
-			int z = MathHelper.floor(living.posZ);
+			int x = MathHelper.floor(living.getX());
+			int z = MathHelper.floor(living.getZ());
 			for(int i = 256; i > 0; i--) {
 				Block block = living.world.getBlockState(new BlockPos(x, i, z)).getBlock();
 				if(!block.isAir(living.world.getBlockState(new BlockPos(x, i, z)), living.world, new BlockPos(x, i, z))) {
 					if(living instanceof ServerPlayerEntity) {
 						ServerPlayerEntity mp = (ServerPlayerEntity) living;
-						mp.connection.setPlayerLocation(living.posX, i, living.posZ, living.rotationYaw, living.rotationPitch);
+						mp.connection.setPlayerLocation(living.getX(), i, living.getZ(), living.rotationYaw, living.rotationPitch);
 					}
 					break;
 				}
@@ -148,14 +149,14 @@ public class ItemBottledMana extends ItemMod {
 		case 12 : { // Flare
 			if(!living.world.isRemote) {
 				EntitySignalFlare flare = new EntitySignalFlare(living.world);
-				flare.setPosition(living.posX, living.posY, living.posZ);
+				flare.setPosition(living.getX(), living.getY(), living.getZ());
 				flare.setColor(living.world.rand.nextInt(16));
 				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.world.rand.nextFloat() - living.world.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				living.world.addEntity(flare);
 
 				int range = 5;
-				List<LivingEntity> entities = living.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
+				List<LivingEntity> entities = living.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range));
 				for(LivingEntity entity : entities)
 					if(entity != living && (!(entity instanceof PlayerEntity) || ServerLifecycleHooks.getCurrentServer() == null || ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
 						entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 5));
@@ -166,7 +167,7 @@ public class ItemBottledMana extends ItemMod {
 		case 13 : { // Pixie Friend
 			if(!living.world.isRemote) {
 				EntityPixie pixie = new EntityPixie(living.world);
-				pixie.setPosition(living.posX, living.posY + 1.5, living.posZ);
+				pixie.setPosition(living.getX(), living.getY() + 1.5, living.getZ());
 				living.world.addEntity(pixie);
 			}
 			break;
@@ -210,7 +211,7 @@ public class ItemBottledMana extends ItemMod {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		stacks.add(new TranslationTextComponent("botaniamisc.bottleTooltip"));
 	}
 
@@ -218,7 +219,7 @@ public class ItemBottledMana extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Nonnull
@@ -236,13 +237,13 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 20;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.DRINK;
 	}
 

@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +22,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 
-public class ItemOvergrowthSeed extends ItemMod {
+public class ItemOvergrowthSeed extends Item {
 
 	public ItemOvergrowthSeed(Properties props) {
 		super(props);

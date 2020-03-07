@@ -16,6 +16,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.tags.BlockTags;
@@ -38,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemHorn extends ItemMod {
+public class ItemHorn extends Item {
 	public ItemHorn(Properties props) {
 		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),
@@ -47,12 +48,12 @@ public class ItemHorn extends ItemMod {
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack par1ItemStack) {
+	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
@@ -60,7 +61,7 @@ public class ItemHorn extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.success(player.getHeldItem(hand));
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class ItemHorn extends ItemMod {
 		if(!player.world.isRemote) {
 			if(time != getUseDuration(stack) && time % 5 == 0)
 				breakGrass(player.world, stack, new BlockPos(player));
-			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
 

@@ -41,7 +41,7 @@ public class LensPiston extends Lens {
 					if(state.getPushReaction() == PushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN
 							&& state.getBlockHardness(entity.world, pos_) >= 0 && tile == null) {
 						entity.world.destroyBlock(rtr.getPos(), false);
-						entity.world.setBlockState(pos_, state, 1 | 2);
+						entity.world.setBlockState(pos_, state);
 					}
 				}
 			}

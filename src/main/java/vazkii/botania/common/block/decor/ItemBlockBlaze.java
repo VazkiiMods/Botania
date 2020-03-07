@@ -1,13 +1,13 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.item.block.ItemBlockMod;
 
-public class ItemBlockBlaze extends ItemBlockMod {
+public class ItemBlockBlaze extends BlockItem {
     public ItemBlockBlaze(Block block, Properties props) {
         super(block, props);
     }

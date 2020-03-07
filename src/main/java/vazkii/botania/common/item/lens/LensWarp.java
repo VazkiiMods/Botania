@@ -34,16 +34,16 @@ public class LensWarp extends Lens {
 		BlockPos hit = ((BlockRayTraceResult) pos).getPos();
 		Block block = entity.world.getBlockState(hit).getBlock();
 		if(block == ModBlocks.pistonRelay) {
-			GlobalPos key = ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(GlobalPos.of(entity.world.getDimension().getType(), hit));
-			if(key != null) {
-				if(key.getDimension() == entity.world.getDimension().getType()) {
-					entity.setPosition(key.getPos().getX() + 0.5, key.getPos().getY() + 0.5, key.getPos().getZ() + 0.5);
-					burst.setCollidedAt(key.getPos());
-					
-					entity.getPersistentData().putBoolean(TAG_WARPED, true);
-					
-					return false;
-				}
+			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(entity.world);
+			BlockPos dest = data.mapping.get(hit);
+
+			if(dest != null) {
+				entity.setPosition(dest.getX() + 0.5, dest.getY() + 0.5, dest.getZ() + 0.5);
+				burst.setCollidedAt(dest);
+
+				entity.getPersistentData().putBoolean(TAG_WARPED, true);
+
+				return false;
 			}
 		}
 		return dead;
