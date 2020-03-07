@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 17, 2015, 6:36:43 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -30,6 +28,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.client.fx.WispParticleData;
@@ -42,8 +41,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntityPoolMinecart extends AbstractMinecartEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart")
-	public static EntityType<EntityPoolMinecart> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart") public static EntityType<EntityPoolMinecart> TYPE;
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
@@ -97,7 +95,6 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 		this.setMotion(getMotion().mul(f, 0, f));
 	}
 
-
 	@Nonnull
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
@@ -119,7 +116,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	public void tick() {
 		super.tick();
 
-		if(world.isRemote) {
+		if (world.isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
 			int color = TilePool.PARTICLE_COLOR;
 			float red = (color >> 16 & 0xFF) / 255F;
@@ -128,7 +125,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 			double x = MathHelper.floor(getX());
 			double y = MathHelper.floor(getY());
 			double z = MathHelper.floor(getZ());
-			if(Math.random() > particleChance) {
+			if (Math.random() > particleChance) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
@@ -139,42 +136,42 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for(Direction dir : vazkii.botania.common.core.helper.MathHelper.HORIZONTALS) {
+		for (Direction dir : vazkii.botania.common.core.helper.MathHelper.HORIZONTALS) {
 			BlockPos posP = pos.offset(dir);
 			Block block = world.getBlockState(posP).getBlock();
-			if(block == ModBlocks.pump) {
+			if (block == ModBlocks.pump) {
 				BlockPos posP_ = posP.offset(dir);
 				TileEntity tile = world.getTileEntity(posP_);
 				TileEntity tile_ = world.getTileEntity(posP);
 				TilePump pump = (TilePump) tile_;
 
-				if(tile instanceof IManaPool) {
+				if (tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
 					Direction pumpDir = world.getBlockState(posP).get(BlockStateProperties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;
 
-					if(pumpDir == dir) { // Pool -> Cart
+					if (pumpDir == dir) { // Pool -> Cart
 						can = true;
 
-						if(!pump.hasRedstone) {
+						if (!pump.hasRedstone) {
 							int cartMana = getMana();
 							int poolMana = pool.getCurrentMana();
 							int transfer = Math.min(TRANSFER_RATE, poolMana);
 							int actualTransfer = Math.min(TilePool.MAX_MANA - cartMana, transfer);
-							if(actualTransfer > 0) {
+							if (actualTransfer > 0) {
 								pool.recieveMana(-transfer);
 								setMana(cartMana + actualTransfer);
 								did = true;
 							}
 						}
-					} else if(pumpDir == dir.getOpposite()) { // Cart -> Pool
+					} else if (pumpDir == dir.getOpposite()) { // Cart -> Pool
 						can = true;
 
-						if(!pump.hasRedstone && !pool.isFull()) {
+						if (!pump.hasRedstone && !pool.isFull()) {
 							int cartMana = getMana();
 							int transfer = Math.min(TRANSFER_RATE, cartMana);
-							if(transfer > 0) {
+							if (transfer > 0) {
 								pool.recieveMana(transfer);
 								setMana(cartMana - transfer);
 								did = true;
@@ -182,14 +179,15 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 						}
 					}
 
-					if(did) {
+					if (did) {
 						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, posP_);
 						pump.hasCart = true;
-						if(!pump.active)
+						if (!pump.active) {
 							pump.setActive(true);
+						}
 					}
 
-					if(can) {
+					if (can) {
 						pump.hasCartOnTop = true;
 						pump.comparator = (int) ((double) getMana() / (double) TilePool.MAX_MANA * 15); // different from TilePool.calculateComparatorLevel, kept for compatibility
 					}

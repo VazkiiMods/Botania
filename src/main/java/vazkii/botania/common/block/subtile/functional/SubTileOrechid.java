@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 11, 2014, 5:40:55 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -21,6 +19,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -30,6 +29,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +38,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SubTileOrechid extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":orechid")
-	public static TileEntityType<SubTileOrechid> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":orechid") public static TileEntityType<SubTileOrechid> TYPE;
 
 	private static final int COST = 17500;
 	private static final int COST_GOG = 700;
@@ -60,18 +59,20 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().isRemote || redstoneSignal > 0 || !canOperate())
+		if (getWorld().isRemote || redstoneSignal > 0 || !canOperate()) {
 			return;
+		}
 
 		int cost = getCost();
-		if(getMana() >= cost && ticksExisted % getDelay() == 0) {
+		if (getMana() >= cost && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
-			if(coords != null) {
+			if (coords != null) {
 				BlockState state = getOreToPut();
-				if(state != null) {
+				if (state != null) {
 					getWorld().setBlockState(coords, state);
-					if(ConfigHandler.COMMON.blockBreakParticles.get())
+					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
 						getWorld().playEvent(2001, coords, Block.getStateId(state));
+					}
 					getWorld().playSound(null, coords, ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					addMana(-cost);
@@ -106,15 +107,17 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
 				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			BlockState state = getWorld().getBlockState(pos);
-			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, getReplaceMatcher()))
+			if (state.getBlock().isReplaceableOreGen(state, getWorld(), pos, getReplaceMatcher())) {
 				possibleCoords.add(pos.toImmutable());
+			}
 		}
 
-		if(possibleCoords.isEmpty())
+		if (possibleCoords.isEmpty()) {
 			return null;
+		}
 		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
@@ -140,7 +143,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

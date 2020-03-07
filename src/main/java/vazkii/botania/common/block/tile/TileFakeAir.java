@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 10, 2015, 10:24:48 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -15,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -23,8 +22,7 @@ import javax.annotation.Nonnull;
 
 public class TileFakeAir extends TileMod {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FAKE_AIR)
-	public static TileEntityType<TileFakeAir> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FAKE_AIR) public static TileEntityType<TileFakeAir> TYPE;
 	private static final String TAG_FLOWER_X = "flowerX";
 	private static final String TAG_FLOWER_Y = "flowerY";
 	private static final String TAG_FLOWER_Z = "flowerZ";
@@ -61,7 +59,7 @@ public class TileFakeAir extends TileMod {
 				tag.getInt(TAG_FLOWER_X),
 				tag.getInt(TAG_FLOWER_Y),
 				tag.getInt(TAG_FLOWER_Z)
-				);
+		);
 	}
 
 }

@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 17, 2015, 5:07:25 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketBuffer;
@@ -20,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 public class RecipePureDaisy {
@@ -39,7 +39,8 @@ public class RecipePureDaisy {
 	 * @param id    The ID for this recipe.
 	 * @param input The input for the recipe. Can be a Block, BlockState, or Tag&lt;Block&gt;.
 	 * @param state The blockstate to be placed upon recipe completion.
-	 * @param time  The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not total time.
+	 * @param time  The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not
+	 *              total time.
 	 *              The Pure Daisy only ticks one block at a time in a round robin fashion.
 	 */
 	public RecipePureDaisy(ResourceLocation id, Object input, BlockState state, int time) {
@@ -48,11 +49,12 @@ public class RecipePureDaisy {
 		this.input = input;
 		this.outputState = state;
 		this.time = time;
-		if(input != null
+		if (input != null
 				&& !(input instanceof Block)
 				&& !(input instanceof BlockState)
-				&& !(input instanceof Tag && checkBlockTag((Tag) input)))
+				&& !(input instanceof Tag && checkBlockTag((Tag) input))) {
 			throw new IllegalArgumentException("input must be a Tag<Block>, Block, or IBlockState");
+		}
 	}
 
 	private static boolean checkBlockTag(Tag<?> tag) {
@@ -63,11 +65,13 @@ public class RecipePureDaisy {
 	 * This gets called every tick, please be careful with your checks.
 	 */
 	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
-		if(input instanceof Block)
+		if (input instanceof Block) {
 			return state.getBlock() == input;
+		}
 
-		if(input instanceof BlockState)
+		if (input instanceof BlockState) {
 			return state == input;
+		}
 
 		return ((Tag<Block>) input).contains(state.getBlock());
 	}
@@ -78,8 +82,9 @@ public class RecipePureDaisy {
 	 * it otherwise. You may return false to cancel the normal particles and do your own.
 	 */
 	public boolean set(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
-		if(!world.isRemote)
+		if (!world.isRemote) {
 			world.setBlockState(pos, outputState);
+		}
 		return true;
 	}
 
@@ -119,10 +124,17 @@ public class RecipePureDaisy {
 		ResourceLocation id = buf.readResourceLocation();
 		Object input;
 		switch (buf.readVarInt()) {
-			case 0: input = new BlockTags.Wrapper(buf.readResourceLocation()); break;
-			case 1: input = Registry.BLOCK.getByValue(buf.readVarInt()); break;
-			case 2: input = Block.getStateById(buf.readVarInt()); break;
-			default: throw new RuntimeException("Unknown input discriminator");
+		case 0:
+			input = new BlockTags.Wrapper(buf.readResourceLocation());
+			break;
+		case 1:
+			input = Registry.BLOCK.getByValue(buf.readVarInt());
+			break;
+		case 2:
+			input = Block.getStateById(buf.readVarInt());
+			break;
+		default:
+			throw new RuntimeException("Unknown input discriminator");
 		}
 		BlockState output = Block.getStateById(buf.readVarInt());
 		int time = buf.readVarInt();

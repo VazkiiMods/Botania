@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [15/11/2015, 19:13:10 (GMT)]
  */
 package vazkii.botania.common.item.lens;
 
@@ -14,6 +12,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
+
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
 
@@ -26,8 +25,9 @@ public class LensFlare extends Lens {
 
 	@Override
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		if(!redstone)
+		if (!redstone) {
 			emitParticles(stack, spreader, redstone);
+		}
 	}
 
 	@Override
@@ -49,9 +49,9 @@ public class LensFlare extends Lens {
 		int hex = -1;
 
 		TileEntity tile = (TileEntity) spreader;
-		if(storedColor == 16) {
+		if (storedColor == 16) {
 			hex = MathHelper.hsvToRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
-		} else if(storedColor >= 0) {
+		} else if (storedColor >= 0) {
 			hex = DyeColor.byId(storedColor).colorValue;
 		}
 
@@ -59,8 +59,8 @@ public class LensFlare extends Lens {
 		float g = ((hex & 0xFF00) >> 8) / 255F;
 		float b = (hex & 0xFF) / 255F;
 
-        WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
-        tile.getWorld().addParticle(data, tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, mx, my, mz);
-    }
+		WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
+		tile.getWorld().addParticle(data, tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, mx, my, mz);
+	}
 
 }

@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
@@ -6,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
+
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.imc.OreWeightMessage;
@@ -67,7 +76,7 @@ public class IMCSender {
 		// Silent Mechanisms
 		addOreWeight("bismuth", 2407);
 		// Thaumcraft
-		addOreWeight("cinnabar",  2585);
+		addOreWeight("cinnabar", 2585);
 
 		// Vanilla
 		addOreWeightNether("quartz", 19600);
@@ -108,31 +117,39 @@ public class IMCSender {
 		*/
 
 		sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_MAP.get(color).get(), Blocks.GLASS));
-		for(IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values())
+		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_MAP.get(color).get(), b));
+		}
 
 		sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get(), Blocks.GLASS_PANE));
-		for(IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_PANE_MAP.values())
+		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_PANE_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get(), b));
+		}
 
 		sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.TERRACOTTA_MAP.get(color).get(), Blocks.TERRACOTTA));
-		for(IRegistryDelegate<Block> b : ColorHelper.TERRACOTTA_MAP.values())
+		for (IRegistryDelegate<Block> b : ColorHelper.TERRACOTTA_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.TERRACOTTA_MAP.get(color).get(), b.get()));
+		}
 
-		for(IRegistryDelegate<Block> b : ColorHelper.GLAZED_TERRACOTTA_MAP.values())
+		for (IRegistryDelegate<Block> b : ColorHelper.GLAZED_TERRACOTTA_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get(), b));
+		}
 
-		for(IRegistryDelegate<Block> b : ColorHelper.WOOL_MAP.values())
+		for (IRegistryDelegate<Block> b : ColorHelper.WOOL_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.WOOL_MAP.get(color).get(), b));
+		}
 
-		for(IRegistryDelegate<Block> b : ColorHelper.CARPET_MAP.values())
+		for (IRegistryDelegate<Block> b : ColorHelper.CARPET_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.CARPET_MAP.get(color).get(), b));
-		
-		for(IRegistryDelegate<Block> b : ColorHelper.CONCRETE_MAP.values())
+		}
+
+		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.CONCRETE_MAP.get(color).get(), b));
-		
-		for(IRegistryDelegate<Block> b : ColorHelper.CONCRETE_POWDER_MAP.values())
+		}
+
+		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_POWDER_MAP.values()) {
 			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get(), b));
+		}
 	}
 
 	public static void sendToSelf(String method, Object thing) {

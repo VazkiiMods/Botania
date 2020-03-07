@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 23, 2015, 7:21:52 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
@@ -17,9 +15,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.ToolType;
+
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -31,45 +29,49 @@ public class ItemSwapRing extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if(entity.world.isRemote && !(entity instanceof PlayerEntity))
+		if (entity.world.isRemote && !(entity instanceof PlayerEntity)) {
 			return;
+		}
 
 		PlayerEntity player = (PlayerEntity) entity;
 		ItemStack currentStack = player.getHeldItemMainhand();
-		if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ISortableTool))
+		if (currentStack.isEmpty() || !(currentStack.getItem() instanceof ISortableTool)) {
 			return;
+		}
 
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
 
 		BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(player, 4.5F, false);
 		ToolType typeToFind = null;
 
-		if(player.isSwingInProgress && pos.getType() == RayTraceResult.Type.BLOCK) {
+		if (player.isSwingInProgress && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockState state = entity.world.getBlockState(pos.getPos());
 
 			Material mat = state.getMaterial();
-			if(ToolCommons.materialsPick.contains(mat))
+			if (ToolCommons.materialsPick.contains(mat)) {
 				typeToFind = ToolType.PICKAXE;
-			else if(ToolCommons.materialsShovel.contains(mat))
+			} else if (ToolCommons.materialsShovel.contains(mat)) {
 				typeToFind = ToolType.SHOVEL;
-			else if(ToolCommons.materialsAxe.contains(mat))
+			} else if (ToolCommons.materialsAxe.contains(mat)) {
 				typeToFind = ToolType.AXE;
+			}
 		}
 
-		if(typeToFind == null)
+		if (typeToFind == null) {
 			return;
+		}
 
 		ItemStack bestTool = currentStack;
 		int bestToolPriority = currentStack.getToolTypes().contains(typeToFind) ? tool.getSortingPriority(currentStack) : -1;
 		int bestSlot = -1;
 
-		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
-			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
 				ISortableTool toolInSlot = (ISortableTool) stackInSlot.getItem();
-				if(stackInSlot.getToolTypes().contains(typeToFind)) {
+				if (stackInSlot.getToolTypes().contains(typeToFind)) {
 					int priority = toolInSlot.getSortingPriority(stackInSlot);
-					if(priority > bestToolPriority) {
+					if (priority > bestToolPriority) {
 						bestTool = stackInSlot;
 						bestToolPriority = priority;
 						bestSlot = i;
@@ -78,7 +80,7 @@ public class ItemSwapRing extends ItemBauble {
 			}
 		}
 
-		if(bestSlot != -1) {
+		if (bestSlot != -1) {
 			player.setHeldItem(Hand.MAIN_HAND, bestTool);
 			player.inventory.setInventorySlotContents(bestSlot, currentStack);
 		}

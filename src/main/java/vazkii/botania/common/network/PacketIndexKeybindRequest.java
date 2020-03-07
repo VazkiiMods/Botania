@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [gru 25 2019, 19:33]
  */
 package vazkii.botania.common.network;
 
@@ -14,6 +12,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
@@ -35,11 +34,12 @@ public class PacketIndexKeybindRequest {
 	}
 
 	public static void handle(PacketIndexKeybindRequest message, Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isServer())
+		if (ctx.get().getDirection().getReceptionSide().isServer()) {
 			ctx.get().enqueueWork(() -> {
 				ServerPlayerEntity player = ctx.get().getSender();
-				if (player.isSpectator())
+				if (player.isSpectator()) {
 					return;
+				}
 
 				boolean checkNBT = message.stack.getTag() != null && !message.stack.getTag().isEmpty();
 				for (TileCorporeaIndex index : TileCorporeaIndex.InputHandler.getNearbyIndexes(player)) {
@@ -48,6 +48,7 @@ public class PacketIndexKeybindRequest {
 					}
 				}
 			});
+		}
 		ctx.get().setPacketHandled(true);
 	}
 }

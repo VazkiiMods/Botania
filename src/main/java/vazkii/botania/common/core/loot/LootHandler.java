@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.core.loot;
 
 import net.minecraft.util.ResourceLocation;
@@ -7,6 +15,7 @@ import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
@@ -26,8 +35,11 @@ public final class LootHandler {
 			case "simple_dungeon":
 			case "spawn_bonus_chest":
 			case "stronghold_corridor":
-			case "village_blacksmith": evt.getTable().addPool(getInjectPool(file)); break;
-			default: break;
+			case "village_blacksmith":
+				evt.getTable().addPool(getInjectPool(file));
+				break;
+			default:
+				break;
 			}
 		}
 	}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 29, 2015, 7:54:40 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
@@ -16,6 +14,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.DamageSource;
@@ -26,14 +25,15 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import net.minecraft.item.Item;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -47,8 +47,9 @@ public class ItemRelic extends Item implements IRelic {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if(!world.isRemote && entity instanceof PlayerEntity)
+		if (!world.isRemote && entity instanceof PlayerEntity) {
 			updateRelic(stack, (PlayerEntity) entity);
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -59,22 +60,27 @@ public class ItemRelic extends Item implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	public void addBindInfo(List<ITextComponent> list, ItemStack stack) {
-		if(Screen.hasShiftDown()) {
-			if(!hasUUID(stack)) {
+		if (Screen.hasShiftDown()) {
+			if (!hasUUID(stack)) {
 				list.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
 			} else {
-				if(!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID()))
+				if (!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID())) {
 					list.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
-				else list.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
+				} else {
+					list.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
+				}
 			}
 
-			if(stack.getItem() == ModItems.dice) {
+			if (stack.getItem() == ModItems.dice) {
 				list.add(new StringTextComponent(""));
 				String name = stack.getTranslationKey() + ".poem";
-				for(int i = 0; i < 4; i++)
+				for (int i = 0; i < 4; i++) {
 					list.add(new TranslationTextComponent(name + i).applyTextStyles(TextFormatting.GRAY, TextFormatting.ITALIC));
+				}
 			}
-		} else list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
+		} else {
+			list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
+		}
 	}
 
 	public boolean shouldDamageWrongPlayer() {
@@ -87,21 +93,24 @@ public class ItemRelic extends Item implements IRelic {
 	}
 
 	public void updateRelic(ItemStack stack, PlayerEntity player) {
-		if(stack.isEmpty() || !(stack.getItem() instanceof IRelic))
+		if (stack.isEmpty() || !(stack.getItem() instanceof IRelic)) {
 			return;
+		}
 
 		boolean rightPlayer = true;
 
-		if(!hasUUID(stack)) {
+		if (!hasUUID(stack)) {
 			bindToUUID(player.getUniqueID(), stack);
-			if(player instanceof ServerPlayerEntity)
+			if (player instanceof ServerPlayerEntity) {
 				RelicBindTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
+			}
 		} else if (!getSoulbindUUID(stack).equals(player.getUniqueID())) {
 			rightPlayer = false;
 		}
 
-		if(!rightPlayer && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
+		if (!rightPlayer && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())) {
 			player.attackEntityFrom(damageSource(), 2);
+		}
 	}
 
 	public boolean isRightPlayer(PlayerEntity player, ItemStack stack) {
@@ -119,7 +128,7 @@ public class ItemRelic extends Item implements IRelic {
 
 	@Override
 	public UUID getSoulbindUUID(ItemStack stack) {
-		if(ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID)) {
+		if (ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID)) {
 			try {
 				return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
 			} catch (IllegalArgumentException ex) { // Bad UUID in tag

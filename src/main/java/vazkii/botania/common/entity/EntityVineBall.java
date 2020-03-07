@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 26, 2014, 7:32:16 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
@@ -35,11 +34,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Map;
 
 @OnlyIn(
@@ -47,8 +48,7 @@ import java.util.Map;
 	_interface = IRendersAsItem.class
 )
 public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
-	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball")
-	public static EntityType<EntityVineBall> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball") public static EntityType<EntityVineBall> TYPE;
 
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityVineBall.class, DataSerializers.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
@@ -81,8 +81,8 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleStatusUpdate(byte id) {
-		if(id == 3) {
-			for(int j = 0; j < 16; j++) {
+		if (id == 3) {
+			for (int j = 0; j < 16; j++) {
 				world.addParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ModItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
 		}
@@ -90,32 +90,36 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult rtr) {
-		if(!world.isRemote) {
-			if(rtr.getType() == RayTraceResult.Type.BLOCK) {
+		if (!world.isRemote) {
+			if (rtr.getType() == RayTraceResult.Type.BLOCK) {
 				Direction dir = ((BlockRayTraceResult) rtr).getFace();
 
-				if(dir.getAxis() != Direction.Axis.Y) {
+				if (dir.getAxis() != Direction.Axis.Y) {
 					BlockPos pos = ((BlockRayTraceResult) rtr).getPos().offset(dir);
 					boolean first = true;
-					while(pos.getY() > 0) {
+					while (pos.getY() > 0) {
 						BlockState state = world.getBlockState(pos);
 						Block block = state.getBlock();
-						if(block.isAir(state, world, pos)) {
+						if (block.isAir(state, world, pos)) {
 							BlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
-							
-							if(first && !stateSet.isValidPosition(world, pos)) break;
+
+							if (first && !stateSet.isValidPosition(world, pos)) {
+								break;
+							}
 							first = false;
-							
+
 							world.setBlockState(pos, stateSet);
 							world.playEvent(2001, pos, Block.getStateId(stateSet));
 							pos = pos.down();
-						} else break;
+						} else {
+							break;
+						}
 					}
 				}
 
 			}
 
-			this.world.setEntityState(this, (byte)3);
+			this.world.setEntityState(this, (byte) 3);
 			remove();
 		}
 	}

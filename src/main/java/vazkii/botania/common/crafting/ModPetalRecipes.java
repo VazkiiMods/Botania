@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 22], 2014], 2:22:21 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
 
@@ -18,6 +16,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
@@ -81,7 +80,7 @@ public final class ModPetalRecipes {
 		evt.apothecary().accept(make(ModSubtiles.rosaArcana, pink, pink, purple, purple, lime, runeMana));
 		evt.apothecary().accept(make(ModSubtiles.munchdew, lime, lime, red, red, green, runeGluttony));
 		evt.apothecary().accept(make(ModSubtiles.entropinnyum, red, red, gray, gray, white, white, runeWrath, runeFire));
-		evt.apothecary().accept(make(ModSubtiles.kekimurus, white, white, orange, orange, brown, brown,runeGluttony, pixieDust));
+		evt.apothecary().accept(make(ModSubtiles.kekimurus, white, white, orange, orange, brown, brown, runeGluttony, pixieDust));
 		evt.apothecary().accept(make(ModSubtiles.gourmaryllis, lightGray, lightGray, yellow, yellow, red, runeFire, runeSummer));
 		evt.apothecary().accept(make(ModSubtiles.narslimmus, lime, lime, green, green, black, runeSummer, runeWater));
 		evt.apothecary().accept(make(ModSubtiles.spectrolus, red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust));
@@ -95,13 +94,16 @@ public final class ModPetalRecipes {
 		evt.apothecary().accept(make(ModSubtiles.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust));
 		evt.apothecary().accept(make(ModSubtiles.tigerseye, yellow, brown, orange, lime, runeAutumn));
 
-		if(Botania.gardenOfGlassLoaded)
+		if (Botania.gardenOfGlassLoaded) {
 			evt.apothecary().accept(make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red));
-		else evt.apothecary().accept(make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust));
+		} else {
+			evt.apothecary().accept(make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust));
+		}
 
 		evt.apothecary().accept(make(ModSubtiles.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust));
-		if(ConfigHandler.COMMON.fallenKanadeEnabled.get())
+		if (ConfigHandler.COMMON.fallenKanadeEnabled.get()) {
 			evt.apothecary().accept(make(ModSubtiles.fallenKanade, white, white, yellow, yellow, orange, runeSpring));
+		}
 		evt.apothecary().accept(make(ModSubtiles.exoflame, red, red, gray, lightGray, runeFire, runeSummer));
 		evt.apothecary().accept(make(ModSubtiles.agricarnation, lime, lime, green, yellow, runeSpring, redstoneRoot));
 		evt.apothecary().accept(make(ModSubtiles.hopperhock, gray, gray, lightGray, lightGray, runeAir, redstoneRoot));

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 14, 2014, 7:34:56 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
@@ -21,6 +19,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -41,7 +40,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public ItemTerraSword(Properties props) {
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 		MinecraftForge.EVENT_BUS.addListener(this::leftClick);
-        MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
+		MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
 	}
 
 	private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
@@ -106,22 +105,23 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 		LivingEntity thrower = entity.getThrower();
 
-		for(LivingEntity living : entities) {
-			if(living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity 
-							&& !((PlayerEntity) thrower).canAttackPlayer(((PlayerEntity) living)))
+		for (LivingEntity living : entities) {
+			if (living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity
+					&& !((PlayerEntity) thrower).canAttackPlayer(((PlayerEntity) living))) {
 				continue;
+			}
 
-			if(living.hurtTime == 0) {
+			if (living.hurtTime == 0) {
 				int cost = MANA_PER_DAMAGE / 3;
 				int mana = burst.getMana();
-				if(mana >= cost) {
+				if (mana >= cost) {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.TERRASTEEL_ITEM_TIER.getAttackDamage();
-					if(!burst.isFake() && !entity.world.isRemote) {
+					if (!burst.isFake() && !entity.world.isRemote) {
 						DamageSource source = DamageSource.MAGIC;
-						if(thrower instanceof PlayerEntity) {
+						if (thrower instanceof PlayerEntity) {
 							source = DamageSource.causePlayerDamage((PlayerEntity) thrower);
-						} else if(thrower != null) {
+						} else if (thrower != null) {
 							source = DamageSource.causeMobDamage(thrower);
 						}
 						living.attackEntityFrom(source, damage);

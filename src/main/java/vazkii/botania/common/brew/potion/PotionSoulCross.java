@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 2, 2014, 10:31:48 PM (GMT)]
  */
 package vazkii.botania.common.brew.potion;
 
@@ -17,6 +15,7 @@ import net.minecraft.potion.EffectType;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -30,10 +29,11 @@ public class PotionSoulCross extends Effect {
 	@SubscribeEvent
 	public static void onEntityKill(LivingDeathEvent event) {
 		Entity killer = event.getSource().getTrueSource();
-		if(killer instanceof LivingEntity) {
+		if (killer instanceof LivingEntity) {
 			LivingEntity living = (LivingEntity) killer;
-			if(living.isPotionActive(ModPotions.soulCross))
+			if (living.isPotionActive(ModPotions.soulCross)) {
 				living.heal(event.getEntityLiving().getMaxHealth() / 20);
+			}
 		}
 	}
 

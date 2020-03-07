@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 24, 2014, 5:58:16 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
@@ -20,6 +18,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -56,27 +55,32 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		if(!(living instanceof PlayerEntity)) return;
+		if (!(living instanceof PlayerEntity)) {
+			return;
+		}
 		PlayerEntity player = (PlayerEntity) living;
 
-		if(count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
-			if(spawnMissile(player.world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1)))
+		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
+			if (spawnMissile(player.world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
 				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
+			}
 
-            SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-            player.world.addParticle(data, player.getX(), player.getY() + 2.4, player.getZ(), 0, 0, 0);
-        }
+			SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
+			player.world.addParticle(data, player.getX(), player.getY() + 2.4, player.getZ(), 0, 0, 0);
+		}
 	}
 
 	public boolean spawnMissile(World world, LivingEntity thrower, double x, double y, double z) {
 		EntityMagicMissile missile;
-		if(thrower != null)
+		if (thrower != null) {
 			missile = new EntityMagicMissile(thrower, false);
-		else missile = new EntityMagicMissile(world);
+		} else {
+			missile = new EntityMagicMissile(world);
+		}
 
 		missile.setPosition(x, y, z);
-		if(missile.findTarget()) {
-			if(!world.isRemote) {
+		if (missile.findTarget()) {
+			if (!world.isRemote) {
 				missile.playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				world.addEntity(missile);
 			}
@@ -102,13 +106,15 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
 		World world = te.getWorld();
-		if(tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled())
-			if(spawnMissile(world, null, te.getPos().getX() + 0.5 + (Math.random() - 0.5 * 0.1), te.getPos().getY() + 2.5 + (Math.random() - 0.5 * 0.1), te.getPos().getZ() + (Math.random() - 0.5 * 0.1))) {
-				if(!world.isRemote)
+		if (tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
+			if (spawnMissile(world, null, te.getPos().getX() + 0.5 + (Math.random() - 0.5 * 0.1), te.getPos().getY() + 2.5 + (Math.random() - 0.5 * 0.1), te.getPos().getZ() + (Math.random() - 0.5 * 0.1))) {
+				if (!world.isRemote) {
 					tile.recieveMana(-COST_AVATAR);
-                SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-                world.addParticle(data, te.getPos().getX() + 0.5, te.getPos().getY() + 2.5, te.getPos().getZ() + 0.5, 0, 0, 0);
-            }
+				}
+				SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
+				world.addParticle(data, te.getPos().getX() + 0.5, te.getPos().getY() + 2.5, te.getPos().getZ() + 0.5, 0, 0, 0);
+			}
+		}
 	}
 
 	@Override

@@ -1,36 +1,29 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 9, 2014, 9:55:07 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix3f;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
@@ -44,15 +37,16 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 	@Override
 	public void render(@Nonnull TileAlfPortal portal, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		AlfPortalState state = portal.getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
-		if(state == AlfPortalState.OFF)
+		if (state == AlfPortalState.OFF) {
 			return;
+		}
 
 		ms.push();
 		ms.translate(-1F, 1F, 0.25F);
 
 		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 
-		if(state == AlfPortalState.ON_X) {
+		if (state == AlfPortalState.ON_X) {
 			ms.translate(1.25F, 0F, 1.75F);
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 		}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 29, 2015, 8:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -19,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -30,8 +29,7 @@ import java.util.List;
 import java.util.Set;
 
 public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis")
-	public static TileEntityType<SubTileMarimorphosis> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis") public static TileEntityType<SubTileMarimorphosis> TYPE;
 
 	private static final int COST = 12;
 	private static final int RANGE = 8;
@@ -62,17 +60,19 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
-		if(getWorld().isRemote || redstoneSignal > 0)
+		if (getWorld().isRemote || redstoneSignal > 0) {
 			return;
+		}
 
-		if(getMana() >= COST && ticksExisted % 2 == 0) {
+		if (getMana() >= COST && ticksExisted % 2 == 0) {
 			BlockPos coords = getCoordsToPut();
-			if(coords != null) {
+			if (coords != null) {
 				BlockState state = getStoneToPut(coords);
-				if(state != null) {
+				if (state != null) {
 					getWorld().setBlockState(coords, state);
-					if(ConfigHandler.COMMON.blockBreakParticles.get())
+					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
 						getWorld().playEvent(2001, coords, Block.getStateId(state));
+					}
 
 					addMana(-COST);
 					sync();
@@ -87,28 +87,39 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		List<Block> values = new ArrayList<>();
 		for (Type type : TYPES) {
 			int times = 1;
-			if (types.contains(type))
+			if (types.contains(type)) {
 				times = 12;
+			}
 
 			Block block = biomeTypeToBlock(type);
-			for (int j = 0; j < times; j++)
+			for (int j = 0; j < times; j++) {
 				values.add(block);
+			}
 		}
 
 		return values.get(getWorld().rand.nextInt(values.size())).getDefaultState();
 	}
 
 	private Block biomeTypeToBlock(Type biomeType) {
-		switch(biomeType.getName()) {
-			default: throw new IllegalArgumentException("Should have verified type is suitable already: " + biomeType);
-			case "FOREST": return ModFluffBlocks.biomeStoneForest;
-			case "PLAINS": return ModFluffBlocks.biomeStonePlains;
-			case "MOUNTAIN": return ModFluffBlocks.biomeStoneMountain;
-			case "MUSHROOM": return ModFluffBlocks.biomeStoneFungal;
-			case "SWAMP": return ModFluffBlocks.biomeStoneSwamp;
-			case "SANDY": return ModFluffBlocks.biomeStoneDesert;
-			case "COLD": return ModFluffBlocks.biomeStoneTaiga;
-			case "MESA": return ModFluffBlocks.biomeStoneMesa;
+		switch (biomeType.getName()) {
+		default:
+			throw new IllegalArgumentException("Should have verified type is suitable already: " + biomeType);
+		case "FOREST":
+			return ModFluffBlocks.biomeStoneForest;
+		case "PLAINS":
+			return ModFluffBlocks.biomeStonePlains;
+		case "MOUNTAIN":
+			return ModFluffBlocks.biomeStoneMountain;
+		case "MUSHROOM":
+			return ModFluffBlocks.biomeStoneFungal;
+		case "SWAMP":
+			return ModFluffBlocks.biomeStoneSwamp;
+		case "SANDY":
+			return ModFluffBlocks.biomeStoneDesert;
+		case "COLD":
+			return ModFluffBlocks.biomeStoneTaiga;
+		case "MESA":
+			return ModFluffBlocks.biomeStoneMesa;
 		}
 	}
 
@@ -119,21 +130,23 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		int rangeY = getRangeY();
 
 		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -rangeY, -range),
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -rangeY, -range),
 				getEffectivePos().add(range, rangeY, range))) {
 			BlockState state = getWorld().getBlockState(pos);
-			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, matcher))
+			if (state.getBlock().isReplaceableOreGen(state, getWorld(), pos, matcher)) {
 				possibleCoords.add(pos.toImmutable());
+			}
 		}
 
-		if(possibleCoords.isEmpty())
+		if (possibleCoords.isEmpty()) {
 			return null;
+		}
 		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
+		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {
@@ -160,15 +173,21 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileMarimorphosis {
-		@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis_chibi")
-		public static TileEntityType<SubTileMarimorphosis.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis_chibi") public static TileEntityType<SubTileMarimorphosis.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);
 		}
 
-		@Override public int getRange() { return RANGE_MINI; }
-		@Override public int getRangeY() { return RANGE_Y_MINI; }
+		@Override
+		public int getRange() {
+			return RANGE_MINI;
+		}
+
+		@Override
+		public int getRangeY() {
+			return RANGE_Y_MINI;
+		}
 	}
 
 }

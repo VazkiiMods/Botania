@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2015, 11:05:41 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
@@ -17,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.item.crafting.IRecipeType;
@@ -25,17 +24,17 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
-import net.minecraft.item.Item;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.WeakHashMap;
@@ -72,37 +71,40 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int time) {
-		if(!(living instanceof PlayerEntity)) return;
+		if (!(living instanceof PlayerEntity)) {
+			return;
+		}
 		PlayerEntity p = (PlayerEntity) living;
 		IInventory dummyInv = new Inventory(1);
 
-		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
+		if (!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false)) {
 			return;
+		}
 
 		BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(p, 32, false);
 
-		if(pos.getType() == RayTraceResult.Type.BLOCK) {
+		if (pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockState state = p.world.getBlockState(pos.getPos());
 
 			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
-			Optional<ItemStack> maybeResult= p.world.getRecipeManager()
+			Optional<ItemStack> maybeResult = p.world.getRecipeManager()
 					.getRecipe(IRecipeType.SMELTING, dummyInv, p.world)
 					.map(r -> r.getCraftingResult(dummyInv));
 
-			if(maybeResult.isPresent()
+			if (maybeResult.isPresent()
 					&& !maybeResult.get().isEmpty()
 					&& maybeResult.get().getItem() instanceof BlockItem) {
 				ItemStack result = maybeResult.get();
 				boolean decremented = false;
 
-				if(playerData.containsKey(p)) {
+				if (playerData.containsKey(p)) {
 					SmeltData data = playerData.get(p);
 
-					if(data.equalPos(pos)) {
+					if (data.equalPos(pos)) {
 						data.progress--;
 						decremented = true;
-						if(data.progress <= 0) {
-							if(!p.world.isRemote) {
+						if (data.progress <= 0) {
+							if (!p.world.isRemote) {
 								p.world.setBlockState(pos.getPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
 								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
 								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
@@ -113,7 +115,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 							}
 
 							WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
-							for(int i = 0; i < 25; i++) {
+							for (int i = 0; i < 25; i++) {
 								double x = pos.getPos().getX() + Math.random();
 								double y = pos.getPos().getY() + Math.random();
 								double z = pos.getPos().getZ() + Math.random();
@@ -123,18 +125,19 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 					}
 				}
 
-				if(!decremented)
+				if (!decremented) {
 					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
-				else {
-					for(int i = 0; i < 2; i++) {
+				} else {
+					for (int i = 0; i < 2; i++) {
 						double x = pos.getPos().getX() + Math.random();
 						double y = pos.getPos().getY() + Math.random();
 						double z = pos.getPos().getZ() + Math.random();
-                        WispParticleData data = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
-                        p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
-                    }
-					if(time % 10 == 0)
+						WispParticleData data = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+						p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
+					}
+					if (time % 10 == 0) {
 						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+					}
 				}
 			}
 		}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 20, 2014, 12:12:58 AM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -47,28 +45,31 @@ public class ItemOpenBucket extends Item {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.SOURCE_ONLY);
 		ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
-		if (ret != null) return ret;
+		if (ret != null) {
+			return ret;
+		}
 		if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
 			return new ActionResult<>(ActionResultType.PASS, itemstack);
 		} else if (raytraceresult.getType() != RayTraceResult.Type.BLOCK) {
 			return new ActionResult<>(ActionResultType.PASS, itemstack);
 		} else {
-			BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)raytraceresult;
+			BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceresult;
 			BlockPos blockpos = blockraytraceresult.getPos();
 			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, blockraytraceresult.getFace(), itemstack)) {
 				BlockState blockstate1 = worldIn.getBlockState(blockpos);
 				if (blockstate1.getBlock() instanceof IBucketPickupHandler) {
-					Fluid fluid = ((IBucketPickupHandler)blockstate1.getBlock()).pickupFluid(worldIn, blockpos, blockstate1);
+					Fluid fluid = ((IBucketPickupHandler) blockstate1.getBlock()).pickupFluid(worldIn, blockpos, blockstate1);
 					if (fluid != Fluids.EMPTY) {
 						playerIn.addStat(Stats.ITEM_USED.get(this));
 						playerIn.playSound(fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 						// Botania: some particles
-						for(int x = 0; x < 5; x++)
+						for (int x = 0; x < 5; x++) {
 							worldIn.addParticle(ParticleTypes.POOF, blockpos.getX() + Math.random(), blockpos.getY() + Math.random(), blockpos.getZ() + Math.random(), 0, 0, 0);
+						}
 
 						ItemStack itemstack1 = itemstack; // this.fillBucket(itemstack, playerIn, fluid.getFilledBucket());
 						if (!worldIn.isRemote) {
-							CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)playerIn, new ItemStack(fluid.getFilledBucket()));
+							CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) playerIn, new ItemStack(fluid.getFilledBucket()));
 						}
 
 						return new ActionResult<>(ActionResultType.SUCCESS, itemstack1);
@@ -81,7 +82,5 @@ public class ItemOpenBucket extends Item {
 			}
 		}
 	}
-
-
 
 }

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 13, 2014, 7:45:37 PM (GMT)]
  */
 package vazkii.botania.common.core.proxy;
 
@@ -14,9 +12,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibMisc;
 
 public class ServerProxy implements IProxy {
 

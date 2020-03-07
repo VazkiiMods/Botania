@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 3, 2014, 1:44:29 AM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -17,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 
@@ -29,7 +28,7 @@ public class BlockDistributor extends BlockMod {
 	public BlockDistributor(Properties builder) {
 		super(builder);
 	}
-	
+
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {

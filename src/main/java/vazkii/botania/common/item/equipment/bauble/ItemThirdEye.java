@@ -1,27 +1,22 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [22/10/2016, 20:18:44 (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
@@ -33,11 +28,11 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 
 import java.util.List;
 
@@ -51,18 +46,20 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if(!(living instanceof PlayerEntity))
+		if (!(living instanceof PlayerEntity)) {
 			return;
+		}
 		PlayerEntity eplayer = (PlayerEntity) living;
 
 		double range = 24;
 		AxisAlignedBB aabb = new AxisAlignedBB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).grow(range);
 		List<LivingEntity> mobs = living.world.getEntitiesWithinAABB(LivingEntity.class, aabb, (Entity e) -> e instanceof IMob);
 
-		for(LivingEntity e : mobs) {
+		for (LivingEntity e : mobs) {
 			EffectInstance potion = e.getActivePotionEffect(Effects.GLOWING);
-			if((potion == null || potion.getDuration() <= 2) && ManaItemHandler.requestManaExact(stack, eplayer, COST, true))
+			if ((potion == null || potion.getDuration() <= 2) && ManaItemHandler.requestManaExact(stack, eplayer, COST, true)) {
 				e.addPotionEffect(new EffectInstance(Effects.GLOWING, 12, 0));
+			}
 		}
 	}
 
@@ -74,10 +71,11 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 		ms.translate(-0.3, -0.6, armor ? -0.18 : -0.12);
 		ms.scale(0.6F, 0.6F, 0.6F);
 
-		for(int i = 0; i < 3; i++) {
-		    ms.push();
+		for (int i = 0; i < 3; i++) {
+			ms.push();
 			switch (i) {
-			case 0: break;
+			case 0:
+				break;
 			case 1:
 				float scale1 = 0.75F;
 

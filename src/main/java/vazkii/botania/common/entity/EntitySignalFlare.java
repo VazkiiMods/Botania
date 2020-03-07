@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 3, 2014, 7:10:32 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -22,6 +20,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
@@ -29,8 +28,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntitySignalFlare extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":signal_flare")
-	public static EntityType<EntitySignalFlare> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":signal_flare") public static EntityType<EntitySignalFlare> TYPE;
 	private static final String COLOR_TAG = "color";
 	private static final String FIRED_Y_TAG = "firedY";
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
@@ -53,26 +51,28 @@ public class EntitySignalFlare extends Entity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		if(ticksExisted++ >= 100)
+		if (ticksExisted++ >= 100) {
 			remove();
+		}
 
-		if(!removed) {
-			if(ticksExisted % 10 == 0)
+		if (!removed) {
+			if (ticksExisted % 10 == 0) {
 				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1F, 1F);
+			}
 
 			int color = getColor();
-			if(color < 16 && color >= 0) {
+			if (color < 16 && color >= 0) {
 				int hex = DyeColor.byId(color).colorValue;
 				int r = (hex & 0xFF0000) >> 16;
 				int g = (hex & 0xFF00) >> 8;
 				int b = hex & 0xFF;
 
-				for(int i = 0; i < 3; i++) {
+				for (int i = 0; i < 3; i++) {
 					WispParticleData data = WispParticleData.wisp((float) Math.random() * 5 + 1F, r / 255F, g / 255F, b / 255F);
 					Botania.proxy.addParticleForce(world, data, getX(), getY(), getZ() + 0.5, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) getY())), (float) (Math.random() - 0.5F));
 				}
 
-				for(int i = 0; i < 4; i++) {
+				for (int i = 0; i < 4; i++) {
 					WispParticleData data = WispParticleData.wisp((float) Math.random() * 15 + 8F, r / 255F, g / 255F, b / 255F);
 					Botania.proxy.addParticleForce(world, data, getX() + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), getZ() + 0.5, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 				}

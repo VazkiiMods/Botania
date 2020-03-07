@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2015, 4:39:58 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
 
@@ -14,6 +12,7 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.core.helper.Vector3;
@@ -31,25 +30,26 @@ public class LensMagnet extends Lens {
 		boolean magnetized = entity.getPersistentData().contains(TAG_MAGNETIZED);
 		int range = 3;
 
-		magnetize : {
+		magnetize: {
 			for (BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
 					basePos.add(range, range, range))) {
-				if(entity.world.getTileEntity(pos) instanceof IManaReceiver) {
+				if (entity.world.getTileEntity(pos) instanceof IManaReceiver) {
 					TileEntity tile = entity.world.getTileEntity(pos);
 
-					if(magnetized) {
+					if (magnetized) {
 						int magX = entity.getPersistentData().getInt(TAG_MAGNETIZED_X);
 						int magY = entity.getPersistentData().getInt(TAG_MAGNETIZED_Y);
 						int magZ = entity.getPersistentData().getInt(TAG_MAGNETIZED_Z);
-						if(tile.getPos().getX() != magX || tile.getPos().getY() != magY || tile.getPos().getZ() != magZ)
+						if (tile.getPos().getX() != magX || tile.getPos().getY() != magY || tile.getPos().getZ() != magZ) {
 							continue;
+						}
 					}
 
 					IManaReceiver receiver = (IManaReceiver) tile;
 
 					BlockPos srcCoords = burst.getBurstSourceBlockPos();
 
-					if(tile.getPos().distanceSq(srcCoords) > 9 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+					if (tile.getPos().distanceSq(srcCoords) > 9 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 						Vector3 burstVec = Vector3.fromEntity(entity);
 						Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
 						Vector3 motionVec = new Vector3(entity.getMotion());
@@ -59,7 +59,7 @@ public class LensMagnet extends Lens {
 						Vector3 differenceVec = normalMotionVec.subtract(magnetVec).multiply(motionVec.mag() * 0.1);
 
 						Vector3 finalMotionVec = motionVec.subtract(differenceVec);
-						if(!magnetized) {
+						if (!magnetized) {
 							finalMotionVec = finalMotionVec.multiply(0.75);
 							entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
 							entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());

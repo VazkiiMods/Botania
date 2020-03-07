@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 13, 2014, 7:14:54 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
@@ -29,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -37,6 +36,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
+
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -71,20 +71,23 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		if (super.onItemUse(ctx) == ActionResultType.SUCCESS)
+		if (super.onItemUse(ctx) == ActionResultType.SUCCESS) {
 			return ActionResultType.SUCCESS;
+		}
 
 		ItemStack stack = ctx.getItem();
 		PlayerEntity player = ctx.getPlayer();
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 
-		if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
+		if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack)) {
 			return ActionResultType.PASS;
+		}
 
 		UseHoeEvent event = new UseHoeEvent(ctx);
-		if (MinecraftForge.EVENT_BUS.post(event))
+		if (MinecraftForge.EVENT_BUS.post(event)) {
 			return ActionResultType.FAIL;
+		}
 
 		if (event.getResult() == Event.Result.ALLOW) {
 			ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
@@ -93,8 +96,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 		Block block = world.getBlockState(pos).getBlock();
 		BlockState converted = HOE_LOOKUP.get(block);
-		if (converted == null)
+		if (converted == null) {
 			return ActionResultType.PASS;
+		}
 
 		if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
 			world.playSound(null, pos, converted.getSoundType().getStepSound(),
@@ -102,9 +106,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 					(converted.getSoundType().getVolume() + 1.0F) / 2.0F,
 					converted.getSoundType().getPitch() * 0.8F);
 
-			if (world.isRemote)
+			if (world.isRemote) {
 				return ActionResultType.SUCCESS;
-			else {
+			} else {
 				world.setBlockState(pos, converted);
 				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
 				return ActionResultType.SUCCESS;
@@ -116,8 +120,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true))
+		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
+		}
 	}
 
 	@Override

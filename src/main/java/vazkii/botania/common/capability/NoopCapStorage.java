@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 23, 2019, 18:50]
  */
 package vazkii.botania.common.capability;
 
@@ -24,6 +22,5 @@ public class NoopCapStorage<T> implements Capability.IStorage<T> {
 	}
 
 	@Override
-	public void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {
-	}
+	public void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {}
 }

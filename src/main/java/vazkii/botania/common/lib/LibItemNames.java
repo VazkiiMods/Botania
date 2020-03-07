@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 14, 2014, 5:49:06 PM (GMT)]
  */
 package vazkii.botania.common.lib;
 
@@ -19,7 +17,7 @@ public final class LibItemNames {
 	public static final String DYE_SUFFIX = "_" + DYE;
 	public static final String PESTLE_AND_MORTAR = "pestle_and_mortar";
 	public static final String TWIG_WAND = "twig_wand";
-	
+
 	public static final String RUNE_WATER = "rune_water";
 	public static final String RUNE_FIRE = "rune_fire";
 	public static final String RUNE_EARTH = "rune_earth";
@@ -87,7 +85,7 @@ public final class LibItemNames {
 	public static final String DIVA_CHARM = "diva_charm";
 	public static final String FLIGHT_TIARA = "flight_tiara";
 	public static final String ENDER_DAGGER = "ender_dagger";
-	
+
 	public static final String QUARTZ_DARK = "quartz_dark";
 	public static final String QUARTZ_MANA = "quartz_mana";
 	public static final String QUARTZ_BLAZE = "quartz_blaze";
@@ -253,5 +251,5 @@ public final class LibItemNames {
 	public static final String PEBBLE = "pebble";
 	public static final String MANAWEAVE_CLOTH = "manaweave_cloth";
 	public static final String MANA_POWDER = "mana_powder";
-	
+
 }

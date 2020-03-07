@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [02/10/2016, 18:27:42 (GMT)]
  */
 package vazkii.botania.common.item.lens;
 
@@ -15,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
 
@@ -33,13 +32,14 @@ public class LensTripwire extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
-		if(burst.isFake()) {
-			if(entity.world.isRemote)
+		if (burst.isFake()) {
+			if (entity.world.isRemote) {
 				return;
+			}
 
 			AxisAlignedBB axis = new AxisAlignedBB(entity.getX(), entity.getY(), entity.getZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(0.25);
 			List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
-			if(!entities.isEmpty()) {
+			if (!entities.isEmpty()) {
 				Entity e = (Entity) burst;
 				e.getPersistentData().putBoolean(TAG_TRIPPED, true);
 			}

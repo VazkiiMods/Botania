@@ -1,23 +1,20 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 25, 2014, 10:30:39 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -55,7 +53,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	private void onEntityDamaged(LivingHurtEvent event) {
-		if(event.getSource().getImmediateSource() instanceof PlayerEntity
+		if (event.getSource().getImmediateSource() instanceof PlayerEntity
 				&& event.getEntityLiving() instanceof MobEntity
 				&& !event.getEntityLiving().world.isRemote
 				&& event.getEntityLiving().isNonBoss()
@@ -65,18 +63,19 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 				PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
 				ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
-				if(!amulet.isEmpty()) {
+				if (!amulet.isEmpty()) {
 					final int cost = 250;
-					if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
+					if (ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;
 
 						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(IMob.class));
-						if(mobs.size() > 1) {
-							if(SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
+						if (mobs.size() > 1) {
+							if (SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
 								target.heal(target.getMaxHealth());
 								target.revive();
-								if(target instanceof CreeperEntity)
+								if (target instanceof CreeperEntity) {
 									((CreeperEntity) event.getEntityLiving()).timeSinceIgnited = 2;
+								}
 
 								ManaItemHandler.requestManaExact(amulet, player, cost, true);
 								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);

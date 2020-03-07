@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.block;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -15,6 +24,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
@@ -94,7 +104,7 @@ public class ModSubtiles {
 	@ObjectHolder("solegnolia") public static Block solegnolia;
 	@ObjectHolder("solegnolia_chibi") public static Block solegnoliaChibi;
 	@ObjectHolder("orechid_ignem") public static Block orechidIgnem;
-	
+
 	@ObjectHolder("floating_pure_daisy") public static Block pureDaisyFloating;
 	@ObjectHolder("floating_manastar") public static Block manastarFloating;
 	@ObjectHolder("floating_hydroangeas") public static Block hydroangeasFloating;
@@ -144,7 +154,7 @@ public class ModSubtiles {
 	@ObjectHolder("floating_solegnolia") public static Block solegnoliaFloating;
 	@ObjectHolder("floating_solegnolia_chibi") public static Block solegnoliaChibiFloating;
 	@ObjectHolder("floating_orechid_ignem") public static Block orechidIgnemFloating;
-	
+
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
 	}

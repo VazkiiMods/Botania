@@ -1,17 +1,16 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 23 2019, 3:04 PM (GMT)]
  */
 package vazkii.botania.client.patchouli;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.ArrayList;
@@ -25,27 +24,27 @@ public class PatchouliUtils {
 	 * looping back ingredients that run out of matched stacks, until the ingredients reach the length
 	 * of the longest ingredient in the recipe set.
 	 *
-	 * @param ingredients           List of ingredients in the specific slot
-	 * @param longestIngredientSize Longest ingredient in the entire recipe
-	 * @return Serialized Patchouli ingredient string
+	 * @param  ingredients           List of ingredients in the specific slot
+	 * @param  longestIngredientSize Longest ingredient in the entire recipe
+	 * @return                       Serialized Patchouli ingredient string
 	 */
 	public static String interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
-		if(ingredients.size() == 1) {
+		if (ingredients.size() == 1) {
 			return PatchouliAPI.instance.serializeIngredient(ingredients.get(0));
 		}
 
-		ItemStack[] empty = {ItemStack.EMPTY};
+		ItemStack[] empty = { ItemStack.EMPTY };
 		List<ItemStack[]> stacks = new ArrayList<>();
-		for(Ingredient ingredient : ingredients) {
-			if(ingredient != null && !ingredient.hasNoMatchingItems()) {
+		for (Ingredient ingredient : ingredients) {
+			if (ingredient != null && !ingredient.hasNoMatchingItems()) {
 				stacks.add(ingredient.getMatchingStacks());
 			} else {
 				stacks.add(empty);
 			}
 		}
 		StringJoiner joiner = new StringJoiner(",");
-		for(int i = 0; i < longestIngredientSize; i++) {
-			for(ItemStack[] stack : stacks) {
+		for (int i = 0; i < longestIngredientSize; i++) {
+			for (ItemStack[] stack : stacks) {
 				joiner.add(PatchouliAPI.instance.serializeItemStack(stack[i % stack.length]));
 			}
 		}

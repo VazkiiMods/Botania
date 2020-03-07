@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 6, 2014, 9:55:23 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
 
@@ -24,6 +22,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
+
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 
 import java.util.Map;
@@ -68,18 +67,19 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	/*
-	 * No way to modify the loot context so we're gonna go braindead hack workaround here:
-	 * - When block starting to break, if the tool doesn't have silktouch already, add it and add a "temp silk touch" flag
-	 * - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
- 	 */
+	* No way to modify the loot context so we're gonna go braindead hack workaround here:
+	* - When block starting to break, if the tool doesn't have silktouch already, add it and add a "temp silk touch" flag
+	* - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
+	*/
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
 		BlockState state = player.world.getBlockState(pos);
 		boolean isGlass = state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.contains(state.getBlock());
 		boolean hasSilk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
-		if (hasSilk || !isGlass)
+		if (hasSilk || !isGlass) {
 			return super.onBlockStartBreak(itemstack, pos, player);
+		}
 
 		itemstack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		itemstack.getTag().putBoolean(TAG_SILK_HACK, true);

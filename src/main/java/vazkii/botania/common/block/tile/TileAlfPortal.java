@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 9, 2014, 8:51:55 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -27,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
@@ -47,6 +46,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,8 +55,7 @@ import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL)
-	public static TileEntityType<TileAlfPortal> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL) public static TileEntityType<TileAlfPortal> TYPE;
 
 	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			new String[][] {
@@ -83,8 +82,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 	private boolean explode = false;
-	@Nullable
-	private UUID breadPlayer = null;
+	@Nullable private UUID breadPlayer = null;
 
 	public TileAlfPortal() {
 		super(TYPE);
@@ -92,7 +90,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		if(getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+		if (getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
 		}
@@ -106,16 +104,18 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
 		MinecraftForge.EVENT_BUS.post(event);
 
-		if(ticksOpen > 60) {
+		if (ticksOpen > 60) {
 			ticksSinceLastItem++;
-			if(world.isRemote && ConfigHandler.CLIENT.elfPortalParticlesEnabled.get())
+			if (world.isRemote && ConfigHandler.CLIENT.elfPortalParticlesEnabled.get()) {
 				blockParticle(state);
+			}
 
 			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, aabb);
-			if(!world.isRemote)
-				for(ItemEntity item : items) {
-					if(!item.isAlive())
+			if (!world.isRemote) {
+				for (ItemEntity item : items) {
+					if (!item.isAlive()) {
 						continue;
+					}
 
 					ItemStack stack = item.getItem();
 					boolean consume;
@@ -131,28 +131,33 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 					if (consume) {
 						item.remove();
-						if (validateItemUsage(item))
+						if (validateItemUsage(item)) {
 							addItem(stack);
+						}
 						ticksSinceLastItem = 0;
 					}
 				}
+			}
 
-			if(!world.isRemote && !stacksIn.isEmpty() && ticksSinceLastItem >= 4) {
+			if (!world.isRemote && !stacksIn.isEmpty() && ticksSinceLastItem >= 4) {
 				resolveRecipes();
 			}
 		}
 
-		if(closeNow) {
+		if (closeNow) {
 			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState());
-			for(int i = 0; i < 36; i++)
+			for (int i = 0; i < 36; i++) {
 				blockParticle(state);
+			}
 			closeNow = false;
-		} else if(newState != state) {
-			if(newState == AlfPortalState.OFF)
-				for(int i = 0; i < 36; i++)
+		} else if (newState != state) {
+			if (newState == AlfPortalState.OFF) {
+				for (int i = 0; i < 36; i++) {
 					blockParticle(state);
+				}
+			}
 			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
-		} else if(explode) {
+		} else if (explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.Mode.DESTROY);
 			explode = false;
@@ -169,12 +174,12 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
-			if(recipe.containsItem(inputStack)) {
+		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
+			if (recipe.containsItem(inputStack)) {
 				return true;
 			}
 		}
-		if(inputStack.getItem() == Items.BREAD) {
+		if (inputStack.getItem() == Items.BREAD) {
 			//Don't teleport bread. (See also: #2403)
 			explode = true;
 			breadPlayer = entity.getThrowerId();
@@ -188,16 +193,43 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 		// Pick one of the inner positions
 		switch (world.rand.nextInt(9)) {
-			default:
-			case 0: dh = 0; dy = 1; break;
-			case 1: dh = 0; dy = 2; break;
-			case 2: dh = 0; dy = 3; break;
-			case 3: dh = -1; dy = 1; break;
-			case 4: dh = -1; dy = 2; break;
-			case 5: dh = -1; dy = 3; break;
-			case 6: dh = 1; dy = 1; break;
-			case 7: dh = 1; dy = 2; break;
-			case 8: dh = 1; dy = 3; break;
+		default:
+		case 0:
+			dh = 0;
+			dy = 1;
+			break;
+		case 1:
+			dh = 0;
+			dy = 2;
+			break;
+		case 2:
+			dh = 0;
+			dy = 3;
+			break;
+		case 3:
+			dh = -1;
+			dy = 1;
+			break;
+		case 4:
+			dh = -1;
+			dy = 2;
+			break;
+		case 5:
+			dh = -1;
+			dy = 3;
+			break;
+		case 6:
+			dh = 1;
+			dy = 1;
+			break;
+		case 7:
+			dh = 1;
+			dy = 2;
+			break;
+		case 8:
+			dh = 1;
+			dy = 3;
+			break;
 		}
 		double dx = state == AlfPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfPortalState.ON_Z ? 0 : dh;
@@ -209,9 +241,9 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	public boolean onWanded() {
 		AlfPortalState state = getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
-		if(state == AlfPortalState.OFF) {
+		if (state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
-			if(newState != AlfPortalState.OFF) {
+			if (newState != AlfPortalState.OFF) {
 				world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
 				return true;
 			}
@@ -222,8 +254,9 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private AxisAlignedBB getPortalAABB() {
 		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
-		if(getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
+		if (getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X) {
 			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
+		}
 
 		return aabb;
 	}
@@ -231,22 +264,24 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private void addItem(ItemStack stack) {
 		int size = stack.getCount();
 		stack.setCount(1);
-		for(int i = 0; i < size; i++)
+		for (int i = 0; i < size; i++) {
 			stacksIn.add(stack.copy());
+		}
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
-		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
+		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
-			if(match.isPresent()) {
-				if(consumeMana(pylons, 500, false)) {
+			if (match.isPresent()) {
+				if (consumeMana(pylons, 500, false)) {
 					List<ItemStack> inputs = match.get();
-					for(ItemStack stack : inputs) {
+					for (ItemStack stack : inputs) {
 						stacksIn.remove(stack);
 					}
-					for(ItemStack output : recipe.getOutputs(inputs))
+					for (ItemStack output : recipe.getOutputs(inputs)) {
 						spawnItem(output.copy());
+					}
 				}
 				break;
 			}
@@ -267,7 +302,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
-		for(ItemStack stack : stacksIn) {
+		for (ItemStack stack : stacksIn) {
 			CompoundNBT stackcmp = stack.write(new CompoundNBT());
 			cmp.put(TAG_STACK + i, stackcmp);
 			i++;
@@ -282,7 +317,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();
-		for(int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			CompoundNBT stackcmp = cmp.getCompound(TAG_STACK + i);
 			ItemStack stack = ItemStack.read(stackcmp);
 			stacksIn.add(stack);
@@ -303,16 +338,19 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private AlfPortalState getValidState() {
 		Rotation rot = MULTIBLOCK.getValue().validate(world, getPos());
-		if (rot == null)
+		if (rot == null) {
 			return AlfPortalState.OFF;
+		}
 
 		lightPylons();
 		switch (rot) {
-			default:
-			case NONE:
-			case CLOCKWISE_180: return AlfPortalState.ON_Z;
-			case CLOCKWISE_90:
-			case COUNTERCLOCKWISE_90: return AlfPortalState.ON_X;
+		default:
+		case NONE:
+		case CLOCKWISE_180:
+			return AlfPortalState.ON_Z;
+		case CLOCKWISE_90:
+		case COUNTERCLOCKWISE_90:
+			return AlfPortalState.ON_X;
 		}
 	}
 
@@ -329,28 +367,30 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	public void lightPylons() {
-		if(ticksOpen < 50)
+		if (ticksOpen < 50) {
 			return;
+		}
 
 		List<BlockPos> pylons = locatePylons();
-		for(BlockPos pos : pylons) {
+		for (BlockPos pos : pylons) {
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile instanceof TilePylon) {
+			if (tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
 				pylon.centerPos = getPos();
 			}
 		}
 
-		if(ticksOpen == 50)
+		if (ticksOpen == 50) {
 			consumeMana(pylons, 200000, true);
+		}
 	}
 
 	public boolean consumeMana(List<BlockPos> pylons, int totalCost, boolean close) {
 		List<TilePool> consumePools = new ArrayList<>();
 		int consumed = 0;
 
-		if(pylons.size() < 2) {
+		if (pylons.size() < 2) {
 			closeNow = true;
 			return false;
 		}
@@ -358,31 +398,32 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		int costPer = Math.max(1, totalCost / pylons.size());
 		int expectedConsumption = costPer * pylons.size();
 
-		for(BlockPos pos : pylons) {
+		for (BlockPos pos : pylons) {
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile instanceof TilePylon) {
+			if (tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
 				pylon.centerPos = getPos();
 			}
 
 			tile = world.getTileEntity(pos.down());
-			if(tile instanceof TilePool) {
+			if (tile instanceof TilePool) {
 				TilePool pool = (TilePool) tile;
 
-				if(pool.getCurrentMana() < costPer) {
+				if (pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;
-				} else if(!world.isRemote) {
+				} else if (!world.isRemote) {
 					consumePools.add(pool);
 					consumed += costPer;
 				}
 			}
 		}
 
-		if(consumed >= expectedConsumption) {
-			for(TilePool pool : consumePools)
+		if (consumed >= expectedConsumption) {
+			for (TilePool pool : consumePools) {
 				pool.recieveMana(-costPer);
+			}
 			return true;
 		}
 

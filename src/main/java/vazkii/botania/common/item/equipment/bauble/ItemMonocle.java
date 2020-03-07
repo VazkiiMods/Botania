@@ -1,17 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2015, 3:03:18 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -22,7 +20,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,6 +34,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
@@ -67,8 +65,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	public static void renderHUD(PlayerEntity player) {
 		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult ray = mc.objectMouseOver;
-		if(ray == null || ray.getType() != RayTraceResult.Type.BLOCK)
+		if (ray == null || ray.getType() != RayTraceResult.Type.BLOCK) {
 			return;
+		}
 		BlockPos pos = ((BlockRayTraceResult) ray).getPos();
 		BlockState state = player.world.getBlockState(pos);
 		Block block = state.getBlock();
@@ -77,19 +76,20 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		ItemStack dispStack = ItemStack.EMPTY;
 		String text = "";
 
-		if(block == Blocks.REDSTONE_WIRE) {
+		if (block == Blocks.REDSTONE_WIRE) {
 			dispStack = new ItemStack(Items.REDSTONE);
 			text = TextFormatting.RED + "" + state.get(RedstoneWireBlock.POWER);
-		} else if(block == Blocks.REPEATER) {
+		} else if (block == Blocks.REPEATER) {
 			dispStack = new ItemStack(Blocks.REPEATER);
 			text = "" + state.get(RepeaterBlock.DELAY);
-		} else if(block == Blocks.COMPARATOR) {
+		} else if (block == Blocks.COMPARATOR) {
 			dispStack = new ItemStack(Blocks.COMPARATOR);
 			text = state.get(ComparatorBlock.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
 		}
 
-		if(dispStack.isEmpty())
+		if (dispStack.isEmpty()) {
 			return;
+		}
 
 		int x = mc.getWindow().getScaledWidth() / 2 + 15;
 		int y = mc.getWindow().getScaledHeight() / 2 - 8;
@@ -103,16 +103,18 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		return EquipmentHandler.getAllWorn(player).map(inv -> {
 			for (int i = 0; i < inv.getSlots(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
-				if(!stack.isEmpty()) {
+				if (!stack.isEmpty()) {
 					Item item = stack.getItem();
-					if(item instanceof IBurstViewerBauble)
+					if (item instanceof IBurstViewerBauble) {
 						return true;
+					}
 
-					if(item instanceof ICosmeticAttachable) {
+					if (item instanceof ICosmeticAttachable) {
 						ICosmeticAttachable attach = (ICosmeticAttachable) item;
 						ItemStack cosmetic = attach.getCosmeticItem(stack);
-						if(!cosmetic.isEmpty() && cosmetic.getItem() instanceof IBurstViewerBauble)
+						if (!cosmetic.isEmpty() && cosmetic.getItem() instanceof IBurstViewerBauble) {
 							return true;
+						}
 					}
 				}
 			}

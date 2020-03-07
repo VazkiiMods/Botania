@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -14,10 +23,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -81,18 +92,21 @@ public class FXLightning extends Particle {
 
 		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;
 		float mainAlpha;
-		if(pass == 0)
+		if (pass == 0) {
 			mainAlpha = (1 - boltAge) * 0.4F;
-		else mainAlpha = 1 - boltAge * 0.5F;
+		} else {
+			mainAlpha = 1 - boltAge * 0.5F;
+		}
 
 		int expandTime = (int) (length * speed);
 
 		int renderstart = (int) ((expandTime / 2 - maxAge + age) / (float) (expandTime / 2) * segmentCount);
 		int renderend = (int) ((age + expandTime) / (float) expandTime * segmentCount);
 
-		for(FXLightningSegment rendersegment : segments) {
-			if(rendersegment.segmentNo < renderstart || rendersegment.segmentNo > renderend)
+		for (FXLightningSegment rendersegment : segments) {
+			if (rendersegment.segmentNo < renderstart || rendersegment.segmentNo > renderend) {
 				continue;
+			}
 
 			Vector3 playerVec = getRelativeViewVector(rendersegment.startPoint.point).multiply(-1);
 
@@ -106,32 +120,32 @@ public class FXLightning extends Particle {
 
 			int color = inner ? colorInner : colorOuter;
 			int r = (color & 0xFF0000) >> 16;
-		int g = (color & 0xFF00) >> 8;
-		int b = color & 0xFF;
-		int a = (int) (mainAlpha * rendersegment.light * 0xFF);
+			int g = (color & 0xFF00) >> 8;
+			int b = color & 0xFF;
+			int a = (int) (mainAlpha * rendersegment.light * 0xFF);
 
-		wr.vertex(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
-		wr.vertex(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
-		wr.vertex(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
-		wr.vertex(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
-
-		if(rendersegment.next == null) {
-			Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
-
-			wr.vertex(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).texture(0, 0).light(0xF000F0).color(r, g, b, a).endVertex();
 			wr.vertex(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
-			wr.vertex(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
-			wr.vertex(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).texture(0, 1).light(0xF000F0).color(r, g, b, a).endVertex();
-		}
-
-		if(rendersegment.prev == null) {
-			Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
-
 			wr.vertex(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
-			wr.vertex(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).texture(0, 0).light(0xF000F0).color(r, g, b, a).endVertex();
-			wr.vertex(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).texture(0, 1).light(0xF000F0).color(r, g, b, a).endVertex();
 			wr.vertex(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
-		}
+			wr.vertex(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+
+			if (rendersegment.next == null) {
+				Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
+
+				wr.vertex(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).texture(0, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+				wr.vertex(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+				wr.vertex(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+				wr.vertex(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).texture(0, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+			}
+
+			if (rendersegment.prev == null) {
+				Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
+
+				wr.vertex(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).texture(0.5F, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+				wr.vertex(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).texture(0, 0).light(0xF000F0).color(r, g, b, a).endVertex();
+				wr.vertex(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).texture(0, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+				wr.vertex(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).texture(0.5F, 1).light(0xF000F0).color(r, g, b, a).endVertex();
+			}
 		}
 	}
 
@@ -141,7 +155,7 @@ public class FXLightning extends Particle {
 
 		FXLightningSegment prev;
 
-		for(FXLightningSegment segment : oldSegments) {
+		for (FXLightningSegment segment : oldSegments) {
 			prev = segment.prev;
 
 			Vector3 subsegment = segment.diff.multiply(1F / splits);
@@ -152,7 +166,7 @@ public class FXLightning extends Particle {
 			newpoints[0] = segment.startPoint;
 			newpoints[splits] = segment.endPoint;
 
-			for(int i = 1; i < splits; i++) {
+			for (int i = 1; i < splits; i++) {
 				Vector3 randoff = segment.diff.perpendicular().normalize().rotate(rand.nextFloat() * 360, segment.diff);
 				randoff = randoff.multiply((rand.nextFloat() - 0.5F) * amount * 2);
 
@@ -161,13 +175,14 @@ public class FXLightning extends Particle {
 				newpoints[i] = new FXLightningBoltPoint(basepoint, randoff);
 			}
 
-			for(int i = 0; i < splits; i++) {
+			for (int i = 0; i < splits; i++) {
 				FXLightningSegment next = new FXLightningSegment(newpoints[i], newpoints[i + 1], segment.light, segment.segmentNo * splits + i, segment.splitNo);
 				next.prev = prev;
-				if (prev != null)
+				if (prev != null) {
 					prev.next = next;
+				}
 
-				if(i != 0 && rand.nextFloat() < splitChance) {
+				if (i != 0 && rand.nextFloat() < splitChance) {
 					Vector3 splitrot = next.diff.xCrossProduct().rotate(rand.nextFloat() * 360, next.diff);
 					Vector3 diff = next.diff.rotate((rand.nextFloat() * 0.66F + 0.33F) * splitAngle, splitrot).multiply(splitLength);
 
@@ -184,8 +199,9 @@ public class FXLightning extends Particle {
 				segments.add(next);
 			}
 
-			if(segment.next != null)
+			if (segment.next != null) {
 				segment.next.prev = prev;
+			}
 		}
 
 		segmentCount *= splits;
@@ -197,15 +213,18 @@ public class FXLightning extends Particle {
 		RayTraceContext ctx = new RayTraceContext(start.toVec3D(), end.toVec3D(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, viewer);
 		RayTraceResult mop = world.rayTraceBlocks(ctx);
 
-		if(mop.getType() == RayTraceResult.Type.BLOCK) {
+		if (mop.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos pos = ((BlockRayTraceResult) mop).getPos();
 			Block block = world.getBlockState(pos).getBlock();
 
-			if(world.isAirBlock(pos))
+			if (world.isAirBlock(pos)) {
 				return prevresistance;
+			}
 
 			return prevresistance + block.getExplosionResistance() + 0.3F;
-		} else return prevresistance;
+		} else {
+			return prevresistance;
+		}
 	}
 
 	private void calculateCollisionAndDiffs() {
@@ -213,25 +232,28 @@ public class FXLightning extends Particle {
 
 		segments.sort((o1, o2) -> {
 			int comp = Integer.compare(o1.splitNo, o2.splitNo);
-			if (comp == 0)
+			if (comp == 0) {
 				return Integer.compare(o1.segmentNo, o2.segmentNo);
-			else return comp;
+			} else {
+				return comp;
+			}
 		});
 
 		int lastSplitCalc = 0;
 		int lastActiveSegment = 0;// unterminated
 		float splitResistance = 0;
 
-		for(FXLightningSegment segment : segments) {
-			if(segment.splitNo > lastSplitCalc) {
+		for (FXLightningSegment segment : segments) {
+			if (segment.splitNo > lastSplitCalc) {
 				lastactivesegment.put(lastSplitCalc, lastActiveSegment);
 				lastSplitCalc = segment.splitNo;
 				lastActiveSegment = lastactivesegment.get(splitParents.get(segment.splitNo));
 				splitResistance = lastActiveSegment < segment.segmentNo ? 50 : 0;
 			}
 
-			if(splitResistance >= 40 * segment.light)
+			if (splitResistance >= 40 * segment.light) {
 				continue;
+			}
 
 			splitResistance = rayTraceResistance(segment.startPoint.point, segment.endPoint.point, splitResistance);
 			lastActiveSegment = segment.segmentNo;
@@ -240,15 +262,16 @@ public class FXLightning extends Particle {
 
 		lastSplitCalc = 0;
 		lastActiveSegment = lastactivesegment.get(0);
-		for(Iterator<FXLightningSegment> iterator = segments.iterator(); iterator.hasNext();) {
+		for (Iterator<FXLightningSegment> iterator = segments.iterator(); iterator.hasNext();) {
 			FXLightningSegment segment = iterator.next();
-			if(lastSplitCalc != segment.splitNo) {
+			if (lastSplitCalc != segment.splitNo) {
 				lastSplitCalc = segment.splitNo;
 				lastActiveSegment = lastactivesegment.get(segment.splitNo);
 			}
 
-			if(segment.segmentNo > lastActiveSegment)
+			if (segment.segmentNo > lastActiveSegment) {
 				iterator.remove();
+			}
 			segment.calcEndDiffs();
 		}
 	}

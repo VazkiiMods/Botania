@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * <p>
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * <p>
- * File Created @ [Jul 23, 2014, 5:32:11 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -26,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -34,8 +33,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Optional;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPAWNER_CLAW)
-	public static TileEntityType<TileSpawnerClaw> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPAWNER_CLAW) public static TileEntityType<TileSpawnerClaw> TYPE;
 	private static final String TAG_MANA = "mana";
 
 	private int mana = 0;
@@ -47,7 +45,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	@Override
 	public void tick() {
 		TileEntity tileBelow = world.getTileEntity(pos.down());
-		if(mana >= 5 && tileBelow instanceof MobSpawnerTileEntity) {
+		if (mana >= 5 && tileBelow instanceof MobSpawnerTileEntity) {
 			MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileBelow;
 			AbstractSpawner logic = spawner.getSpawnerBaseLogic();
 
@@ -59,7 +57,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 				BlockPos blockpos = logic.getSpawnerPosition();
 				if (world.isRemote) {
 					// Botania - use own particles
-					if(Math.random() > 0.5) {
+					if (Math.random() > 0.5) {
 						WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, 2F);
 						world.addParticle(data, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0, -(-0.025F - 0.005F * (float) Math.random()), 0);
 					}
@@ -68,7 +66,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 					}
 
 					logic.prevMobRotation = logic.mobRotation;
-					logic.mobRotation = (logic.mobRotation + (double)(1000.0F / ((float)logic.spawnDelay + 200.0F))) % 360.0D;
+					logic.mobRotation = (logic.mobRotation + (double) (1000.0F / ((float) logic.spawnDelay + 200.0F))) % 360.0D;
 				} else {
 					// Botania - consume mana
 					this.mana -= 6;
@@ -84,7 +82,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 					boolean flag = false;
 
-					for(int i = 0; i < logic.spawnCount; ++i) {
+					for (int i = 0; i < logic.spawnCount; ++i) {
 						CompoundNBT compoundnbt = logic.spawnData.getNbt();
 						Optional<EntityType<?>> optional = EntityType.readEntityType(compoundnbt);
 						if (!optional.isPresent()) {
@@ -94,9 +92,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 						ListNBT listnbt = compoundnbt.getList("Pos", 6);
 						int j = listnbt.size();
-						double d0 = j >= 1 ? listnbt.getDouble(0) : (double)blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)logic.spawnRange + 0.5D;
-						double d1 = j >= 2 ? listnbt.getDouble(1) : (double)(blockpos.getY() + world.rand.nextInt(3) - 1);
-						double d2 = j >= 3 ? listnbt.getDouble(2) : (double)blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)logic.spawnRange + 0.5D;
+						double d0 = j >= 1 ? listnbt.getDouble(0) : (double) blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) logic.spawnRange + 0.5D;
+						double d1 = j >= 2 ? listnbt.getDouble(1) : (double) (blockpos.getY() + world.rand.nextInt(3) - 1);
+						double d2 = j >= 3 ? listnbt.getDouble(2) : (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) logic.spawnRange + 0.5D;
 						if (world.doesNotCollide(optional.get().func_220328_a(d0, d1, d2))) {
 							Entity entity = EntityType.func_220335_a(compoundnbt, world, (p_221408_6_) -> {
 								p_221408_6_.setLocationAndAngles(d0, d1, d2, p_221408_6_.rotationYaw, p_221408_6_.rotationPitch);
@@ -107,7 +105,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 								return;
 							}
 
-							int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), (double)(blockpos.getX() + 1), (double)(blockpos.getY() + 1), (double)(blockpos.getZ() + 1))).grow((double)logic.spawnRange)).size();
+							int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).grow((double) logic.spawnRange)).size();
 							if (k >= logic.maxNearbyEntities) {
 								logic.resetTimer();
 								return;
@@ -115,20 +113,20 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 							entity.setLocationAndAngles(entity.getX(), entity.getY(), entity.getZ(), world.rand.nextFloat() * 360.0F, 0.0F);
 							if (entity instanceof MobEntity) {
-								MobEntity mobentity = (MobEntity)entity;
-								if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float)entity.getX(), (float)entity.getY(), (float)entity.getZ(), logic)) {
+								MobEntity mobentity = (MobEntity) entity;
+								if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ(), logic)) {
 									continue;
 								}
 
 								if (logic.spawnData.getNbt().size() == 1 && logic.spawnData.getNbt().contains("id", 8)) {
-									((MobEntity)entity).onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)), SpawnReason.SPAWNER, (ILivingEntityData)null, (CompoundNBT)null);
+									((MobEntity) entity).onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)), SpawnReason.SPAWNER, (ILivingEntityData) null, (CompoundNBT) null);
 								}
 							}
 
 							func_221409_a(entity);
 							world.playEvent(2004, blockpos, 0);
 							if (entity instanceof MobEntity) {
-								((MobEntity)entity).spawnExplosionParticle();
+								((MobEntity) entity).spawnExplosionParticle();
 							}
 
 							flag = true;
@@ -146,7 +144,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	// [VanillaCopy] AbstractSpawner
 	private void func_221409_a(Entity p_221409_1_) {
 		if (this.getWorld().addEntity(p_221409_1_)) {
-			for(Entity entity : p_221409_1_.getPassengers()) {
+			for (Entity entity : p_221409_1_.getPassengers()) {
 				this.func_221409_a(entity);
 			}
 

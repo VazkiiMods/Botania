@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.fx;
 
 import vazkii.botania.common.core.helper.Vector3;
@@ -41,7 +49,7 @@ public class FXLightningSegment {
 	}
 
 	public void calcEndDiffs() {
-		if(prev != null) {
+		if (prev != null) {
 			Vector3 prevdiffnorm = prev.diff.normalize();
 			Vector3 thisdiffnorm = diff.normalize();
 
@@ -52,7 +60,7 @@ public class FXLightningSegment {
 			sinPrev = 1;
 		}
 
-		if(next != null) {
+		if (next != null) {
 			Vector3 nextdiffnorm = next.diff.normalize();
 			Vector3 thisdiffnorm = diff.normalize();
 

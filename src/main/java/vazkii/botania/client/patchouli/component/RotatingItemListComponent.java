@@ -1,16 +1,15 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 20 2019, 8:49 PM (GMT)]
  */
 package vazkii.botania.client.patchouli.component;
 
 import net.minecraft.item.crafting.Ingredient;
+
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;

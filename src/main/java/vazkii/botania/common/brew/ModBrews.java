@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 1, 2014, 7:00:33 PM (GMT)]
  */
 package vazkii.botania.common.brew;
 
@@ -15,6 +13,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 
@@ -71,7 +70,8 @@ public class ModBrews {
 	public static void initTC() {
 		Effect warpWardPotion = ForgeRegistries.POTIONS.getValue(new ResourceLocation("thaumcraft:warpward"));
 
-		if(warpWardPotion != null)
+		if (warpWardPotion != null) {
 			warpWard = new BrewMod(LibBrewNames.WARP_WARD, 0xFBBDFF, 25000, new EffectInstance(warpWardPotion, 12000, 0)).setNotBloodPendantInfusable();
+		}
 	}
 }

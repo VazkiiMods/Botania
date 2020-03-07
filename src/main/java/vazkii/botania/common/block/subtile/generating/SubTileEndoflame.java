@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 15, 2014, 9:47:56 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
@@ -22,6 +20,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.mana.BlockSpreader;
@@ -29,8 +28,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":endoflame")
-	public static TileEntityType<SubTileEndoflame> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":endoflame") public static TileEntityType<SubTileEndoflame> TYPE;
 
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final int FUEL_CAP = 32000;
@@ -47,30 +45,32 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(burnTime > 0)
+		if (burnTime > 0) {
 			burnTime--;
+		}
 
-		if(getWorld().isRemote) {
-			if(burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
+		if (getWorld().isRemote) {
+			if (burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
 				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
 				getWorld().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
 
-		if(linkedCollector != null) {
-			if(burnTime == 0) {
-				if(getMana() < getMaxMana()) {
+		if (linkedCollector != null) {
+			if (burnTime == 0) {
+				if (getMana() < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
-					for(ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						if(item.age >= 59 + slowdown && !item.removed) {
+					for (ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+						if (item.age >= 59 + slowdown && !item.removed) {
 							ItemStack stack = item.getItem();
-							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
+							if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {
 								continue;
+							}
 
 							int burnTime = getBurnTime(stack);
-							if(burnTime > 0 && stack.getCount() > 0) {
+							if (burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								stack.shrink(1);
@@ -89,9 +89,9 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 	@Override
 	public boolean receiveClientEvent(int event, int param) {
-		if(event == START_BURN_EVENT) {
+		if (event == START_BURN_EVENT) {
 			Entity e = getWorld().getEntityByID(param);
-			if(e != null) {
+			if (e != null) {
 				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
 				e.world.addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
 			}

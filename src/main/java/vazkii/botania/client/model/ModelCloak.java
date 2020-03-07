@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -15,28 +24,28 @@ public class ModelCloak extends Model {
 	public ModelRenderer collar;
 	public ModelRenderer sideL;
 	public ModelRenderer sideR;
-	
+
 	public ModelCloak() {
 		super(RenderType::getEntityCutout);
 
 		textureWidth = 64;
 		textureHeight = 64;
 		float s = 0.01F;
-		
+
 		collar = new ModelRenderer(this, 0, 0);
-        collar.setRotationPoint(0.0F, -3.0F, -4.5F);
-        collar.addCuboid(-5.5F, 0.0F, -1.5F, 11, 5, 11, s);
-        setRotateAngle(collar, 0.08726646259971647F, 0.0F, 0.0F);
+		collar.setRotationPoint(0.0F, -3.0F, -4.5F);
+		collar.addCuboid(-5.5F, 0.0F, -1.5F, 11, 5, 11, s);
+		setRotateAngle(collar, 0.08726646259971647F, 0.0F, 0.0F);
 		sideL = new ModelRenderer(this, 0, 16);
-        sideL.mirror = true;
-        sideL.setRotationPoint(0.0F, 0.0F, 0.0F);
-        sideL.addCuboid(-0.5F, -0.5F, -5.5F, 11, 21, 10, s);
-        setRotateAngle(sideL, 0.08726646259971647F, -0.08726646259971647F, -0.17453292519943295F);
-        sideR = new ModelRenderer(this, 0, 16);
-        sideR.setRotationPoint(0.0F, 0.0F, 0.0F);
-        sideR.addCuboid(-10.5F, -0.5F, -5.5F, 11, 21, 10, s);
-        setRotateAngle(sideR, 0.08726646259971647F, 0.08726646259971647F, 0.17453292519943295F);
-		
+		sideL.mirror = true;
+		sideL.setRotationPoint(0.0F, 0.0F, 0.0F);
+		sideL.addCuboid(-0.5F, -0.5F, -5.5F, 11, 21, 10, s);
+		setRotateAngle(sideL, 0.08726646259971647F, -0.08726646259971647F, -0.17453292519943295F);
+		sideR = new ModelRenderer(this, 0, 16);
+		sideR.setRotationPoint(0.0F, 0.0F, 0.0F);
+		sideR.addCuboid(-10.5F, -0.5F, -5.5F, 11, 21, 10, s);
+		setRotateAngle(sideR, 0.08726646259971647F, 0.08726646259971647F, 0.17453292519943295F);
+
 	}
 
 	@Override

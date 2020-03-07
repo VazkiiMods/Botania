@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2015, 4:43:16 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
 
@@ -21,13 +19,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.server.ServerWorld;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class LensWeight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
+		if (!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
 			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.get();
 
 			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
@@ -35,7 +34,7 @@ public class LensWeight extends Lens {
 			BlockState state = entity.world.getBlockState(bPos);
 			int neededHarvestLevel = block.getHarvestLevel(state);
 
-			if(entity.world.isAirBlock(bPos.down())
+			if (entity.world.isAirBlock(bPos.down())
 					&& state.getBlockHardness(entity.world, bPos) != -1
 					&& neededHarvestLevel <= harvestLevel
 					&& entity.world.getTileEntity(bPos) == null) {

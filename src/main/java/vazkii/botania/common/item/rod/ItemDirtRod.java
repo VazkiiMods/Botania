@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 11, 2014, 2:53:41 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
@@ -15,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
@@ -24,6 +23,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
@@ -32,7 +32,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
@@ -59,20 +58,20 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 		Direction side = ctx.getFace();
 		BlockPos pos = ctx.getPos();
 
-		if(player != null && ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
+		if (player != null && ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
 			int entities = world.getEntitiesWithinAABB(LivingEntity.class,
 					new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
-			if(entities == 0) {
+			if (entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
 				PlayerHelper.substituteUse(ctx, stackToPlace);
 
-				if(stackToPlace.isEmpty()) {
+				if (stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
-					for(int i = 0; i < 6; i++) {
-                        world.addParticle(data, pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), 0, 0, 0);
-                    }
+					for (int i = 0; i < 6; i++) {
+						world.addParticle(data, pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), 0, 0, 0);
+					}
 					return ActionResultType.SUCCESS;
 				}
 			}
@@ -90,15 +89,17 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if(block == Blocks.DIRT)
+		if (block == Blocks.DIRT) {
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
+		}
 		return false;
 	}
 
 	@Override
 	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
-		if(block == Blocks.DIRT)
+		if (block == Blocks.DIRT) {
 			return -1;
+		}
 		return 0;
 	}
 
@@ -106,10 +107,10 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
 		World world = te.getWorld();
-		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
+		if (!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
 			BlockPos pos = ((TileEntity) tile).getPos().offset(tile.getAvatarFacing());
 			BlockState state = world.getBlockState(pos);
-			if(state.getBlock().isAir(state, world, pos)) {
+			if (state.getBlock().isAir(state, world, pos)) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 				world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));
 				tile.recieveMana(-COST);
@@ -121,6 +122,5 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
-
 
 }

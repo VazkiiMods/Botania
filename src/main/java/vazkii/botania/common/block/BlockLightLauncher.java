@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 17, 2015, 4:08:58 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -24,10 +22,12 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,34 +53,36 @@ public class BlockLightLauncher extends BlockMod {
 
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0|| world.getRedstonePowerFromNeighbors(pos.up()) > 0;
+		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
 
-		if(power && !powered) {
+		if (power && !powered) {
 			pickUpEntities(world, pos);
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
-		} else if(!power && powered)
+		} else if (!power && powered) {
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
+		}
 	}
 
 	private void pickUpEntities(World world, BlockPos pos) {
 		List<TileLightRelay> relays = new ArrayList<>();
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
-			if(tile instanceof TileLightRelay) {
+			if (tile instanceof TileLightRelay) {
 				TileLightRelay relay = (TileLightRelay) tile;
-				if(relay.getNextDestination() != null)
+				if (relay.getNextDestination() != null) {
 					relays.add(relay);
+				}
 			}
 		}
 
-		if(!relays.isEmpty()) {
+		if (!relays.isEmpty()) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos, pos.add(1, 1, 1));
 			List<Entity> entities = world.getEntitiesWithinAABB(LivingEntity.class, aabb);
 			entities.addAll(world.getEntitiesWithinAABB(ItemEntity.class, aabb));
 
-			if(!entities.isEmpty()) {
-				for(Entity entity : entities) {
+			if (!entities.isEmpty()) {
+				for (Entity entity : entities) {
 					TileLightRelay relay = relays.get(world.rand.nextInt(relays.size()));
 					relay.mountEntity(entity);
 				}

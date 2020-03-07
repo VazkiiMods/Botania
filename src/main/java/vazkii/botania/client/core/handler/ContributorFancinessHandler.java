@@ -1,32 +1,26 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 9, 2015, 5:35:26 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.DyeColor;
@@ -34,16 +28,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
+
 import vazkii.botania.api.item.AccessoryRenderHelper;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -73,26 +67,29 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 	@Override
 	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		if(player.isInvisible())
+		if (player.isInvisible()) {
 			return;
+		}
 
 		String name = player.getDisplayName().getString();
 
 		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
-		
-		if(name.equals("haighyorkie"))
+
+		if (name.equals("haighyorkie")) {
 			renderGoldfish(ms, buffers, light, player);
+		}
 
 		firstStart();
 
 		name = name.toLowerCase();
-		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
+		if (player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name)) {
 			renderFlower(ms, buffers, player, flowerMap.get(name));
+		}
 
 	}
 
 	public static void firstStart() {
-		if(!startedLoading) {
+		if (!startedLoading) {
 			new ThreadContributorListLoader();
 			startedLoading = true;
 		}
@@ -100,13 +97,14 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 	public static void load(Properties props) {
 		flowerMap.clear();
-		for(String key : props.stringPropertyNames()) {
+		for (String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 
 			try {
 				int i = Integer.parseInt(value);
-				if(i < 0 || i >= 16)
+				if (i < 0 || i >= 16) {
 					throw new NumberFormatException();
+				}
 				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(DyeColor.byId(i))));
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 21, 2014, 4:46:17 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -36,6 +34,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
@@ -46,26 +45,30 @@ public class ItemVirus extends Item {
 
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity living, Hand hand) {
-		if(living instanceof AbstractHorseEntity && !(living instanceof LlamaEntity)) {
-			if(player.world.isRemote)
+		if (living instanceof AbstractHorseEntity && !(living instanceof LlamaEntity)) {
+			if (player.world.isRemote) {
 				return true;
+			}
 			AbstractHorseEntity horse = (AbstractHorseEntity) living;
-			if(horse.isTame()) {
+			if (horse.isTame()) {
 				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 				ItemStack saddle = inv.getStackInSlot(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
-				if(!saddle.isEmpty() && saddle.getItem() != Items.SADDLE) {
+				if (!saddle.isEmpty() && saddle.getItem() != Items.SADDLE) {
 					horse.entityDropItem(saddle, 0);
 					saddle = ItemStack.EMPTY;
 				}
 
-				for (int i = 1; i < inv.getSlots(); i++)
-					if(!inv.getStackInSlot(i).isEmpty())
+				for (int i = 1; i < inv.getSlots(); i++) {
+					if (!inv.getStackInSlot(i).isEmpty()) {
 						horse.entityDropItem(inv.getStackInSlot(i), 0);
+					}
+				}
 
-				if (horse instanceof AbstractChestedHorseEntity && ((AbstractChestedHorseEntity) horse).hasChest())
+				if (horse instanceof AbstractChestedHorseEntity && ((AbstractChestedHorseEntity) horse).hasChest()) {
 					horse.entityDropItem(new ItemStack(Blocks.CHEST), 0);
+				}
 
 				horse.remove();
 
@@ -76,8 +79,9 @@ public class ItemVirus extends Item {
 				newHorse.setPositionAndRotation(horse.getX(), horse.getY(), horse.getZ(), horse.rotationYaw, horse.rotationPitch);
 
 				// Put the saddle back
-				if(!saddle.isEmpty())
+				if (!saddle.isEmpty()) {
 					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new).insertItem(0, saddle, false);
+				}
 
 				AbstractAttributeMap oldAttributes = horse.getAttributes();
 				AbstractAttributeMap attributes = newHorse.getAttributes();
@@ -110,10 +114,11 @@ public class ItemVirus extends Item {
 	@SubscribeEvent
 	public static void onLivingHurt(LivingHurtEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if(entity.isPassenger() && entity.getRidingEntity() instanceof LivingEntity)
+		if (entity.isPassenger() && entity.getRidingEntity() instanceof LivingEntity) {
 			entity = (LivingEntity) entity.getRidingEntity();
+		}
 
-		if((entity instanceof ZombieHorseEntity || entity instanceof SkeletonHorseEntity)
+		if ((entity instanceof ZombieHorseEntity || entity instanceof SkeletonHorseEntity)
 				&& event.getSource() == DamageSource.FALL
 				&& ((AbstractHorseEntity) entity).isTame()) {
 			event.setCanceled(true);

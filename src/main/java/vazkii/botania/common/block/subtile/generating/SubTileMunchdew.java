@@ -1,31 +1,25 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 15, 2014, 7:25:47 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
@@ -33,8 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileMunchdew extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":munchdew")
-	public static TileEntityType<SubTileMunchdew> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":munchdew") public static TileEntityType<SubTileMunchdew> TYPE;
 
 	public static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";
@@ -54,10 +47,11 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().isRemote)
+		if (getWorld().isRemote) {
 			return;
+		}
 
-		if(cooldown > 0) {
+		if (cooldown > 0) {
 			cooldown--;
 			ticksWithoutEating = 0;
 			ateOnce = false; // don't start ticking ticksWithoutEating again until we eat again
@@ -65,17 +59,16 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 		}
 
 		int manaPerLeaf = 160;
-		eatLeaves : {
-			if(getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
+		eatLeaves: {
+			if (getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = getEffectivePos();
 
-				nextCoord:
-				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-RANGE, 0, -RANGE),
+				nextCoord: for (BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-RANGE, 0, -RANGE),
 						pos.add(RANGE, RANGE_Y, RANGE))) {
-					if(getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
-						for(Direction dir : Direction.values()) {
-							if(getWorld().isAirBlock(pos_.offset(dir))) {
+					if (getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
+						for (Direction dir : Direction.values()) {
+							if (getWorld().isAirBlock(pos_.offset(dir))) {
 								coords.add(pos_.toImmutable());
 								break nextCoord;
 							}
@@ -83,8 +76,9 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 					}
 				}
 
-				if(coords.isEmpty())
+				if (coords.isEmpty()) {
 					break eatLeaves;
+				}
 
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
@@ -92,15 +86,16 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				getWorld().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
 				ateOnce = true;
-				if(ConfigHandler.COMMON.blockBreakParticles.get())
+				if (ConfigHandler.COMMON.blockBreakParticles.get()) {
 					getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
+				}
 				addMana(manaPerLeaf);
 			}
 		}
 
-		if(ateOnce) {
+		if (ateOnce) {
 			ticksWithoutEating++;
-			if(ticksWithoutEating >= 5) {
+			if (ticksWithoutEating >= 5) {
 				cooldown = 1600;
 				sync();
 			}
@@ -109,7 +104,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

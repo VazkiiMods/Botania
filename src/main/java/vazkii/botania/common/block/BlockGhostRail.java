@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 9, 2015, 12:48:18 AM (GMT)]
  */
 package vazkii.botania.common.block;
 
 import com.google.common.base.Preconditions;
+
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,12 +26,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -64,7 +64,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 		BlockState state = cart.world.getBlockState(entPos);
 		boolean air = state.isAir(cart.world, entPos);
 
-		if(state.getBlock() == ModBlocks.dreamwood
+		if (state.getBlock() == ModBlocks.dreamwood
 				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
 			cart.world.playEvent(2003, entPos, 0);
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 0);
@@ -72,8 +72,9 @@ public class BlockGhostRail extends AbstractRailBlock {
 			BlockPos down = entPos.down();
 			BlockState stateBelow = cart.world.getBlockState(down);
 			boolean airBelow = stateBelow.isAir(cart.world, down);
-			if(air && airBelow || !air && !airBelow)
+			if (air && airBelow || !air && !airBelow) {
 				cart.noClip = true;
+			}
 			cart.setMotion(cart.getMotion().getX() * 1.4, 0.2, cart.getMotion().getZ() * 1.4);
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, floatTicks - 1);
 			cart.world.playEvent(2000, entPos, 0);
@@ -85,7 +86,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 	@Override
 	public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
 		super.onMinecartPass(state, world, pos, cart);
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 20);
 			addFloatingCart(cart);
 			updateFloating(cart);
@@ -102,17 +103,17 @@ public class BlockGhostRail extends AbstractRailBlock {
 	}
 
 	private void cartSpawn(EntityJoinWorldEvent evt) {
-		if(!evt.getWorld().isRemote && evt.getEntity() instanceof AbstractMinecartEntity) {
+		if (!evt.getWorld().isRemote && evt.getEntity() instanceof AbstractMinecartEntity) {
 			addFloatingCart((AbstractMinecartEntity) evt.getEntity());
 		}
 	}
 
 	private void worldTick(TickEvent.WorldTickEvent evt) {
-		if(!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
+		if (!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
 			evt.world.getProfiler().startSection("cartFloatingIter");
 			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.getDimension().getType(), Collections.emptySet()).iterator();
 			while (iter.hasNext()) {
-			    AbstractMinecartEntity c = iter.next();
+				AbstractMinecartEntity c = iter.next();
 				BlockPos entPos = new BlockPos(c);
 
 				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)) {

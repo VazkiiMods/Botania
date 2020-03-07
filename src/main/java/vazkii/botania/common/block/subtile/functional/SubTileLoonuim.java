@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 31, 2014, 7:49:43 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -44,6 +43,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.lib.LibMisc;
@@ -55,8 +55,7 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":loonium")
-	public static TileEntityType<SubTileLoonuim> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":loonium") public static TileEntityType<SubTileLoonuim> TYPE;
 
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
@@ -74,7 +73,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		World world = getWorld();
-		if(!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && getMana() >= COST) {
+		if (!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && getMana() >= COST) {
 			Random rand = world.rand;
 
 			ItemStack stack;
@@ -82,56 +81,65 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 				LootContext ctx = new LootContext.Builder((ServerWorld) world).build(LootParameterSets.EMPTY);
 				List<ItemStack> stacks = ((ServerWorld) world).getServer().getLootTableManager()
 						.getLootTableFromLocation(lootTable).generate(ctx);
-				if (stacks.isEmpty())
+				if (stacks.isEmpty()) {
 					return;
-				else {
+				} else {
 					Collections.shuffle(stacks);
 					stack = stacks.get(0);
 				}
-			} while(stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.contains(stack.getItem()));
+			} while (stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
 			int xp = getEffectivePos().getX() - RANGE + rand.nextInt(bound);
 			int yp = getEffectivePos().getY();
 			int zp = getEffectivePos().getZ() - RANGE + rand.nextInt(bound);
-			
+
 			BlockPos pos = new BlockPos(xp, yp - 1, zp);
 			do {
 				pos = pos.up();
-				if(pos.getY() >= 254)
+				if (pos.getY() >= 254) {
 					return;
-			} while(world.getBlockState(pos).causesSuffocation(world, pos));
+				}
+			} while (world.getBlockState(pos).causesSuffocation(world, pos));
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
 			double y = pos.getY() + Math.random();
 			double z = pos.getZ() + Math.random();
-			
+
 			MonsterEntity entity = null;
-			if(world.rand.nextInt(50) == 0)
+			if (world.rand.nextInt(50) == 0) {
 				entity = new EndermanEntity(EntityType.ENDERMAN, world);
-			else if(world.rand.nextInt(10) == 0) {
+			} else if (world.rand.nextInt(10) == 0) {
 				entity = new CreeperEntity(EntityType.CREEPER, world);
-				if(world.rand.nextInt(200) == 0)
+				if (world.rand.nextInt(200) == 0) {
 					entity.onStruckByLightning(null);
-			} else 
-				switch(world.rand.nextInt(3)) {
+				}
+			} else {
+				switch (world.rand.nextInt(3)) {
 				case 0:
-					if(world.rand.nextInt(10) == 0)
+					if (world.rand.nextInt(10) == 0) {
 						entity = new HuskEntity(EntityType.HUSK, world);
-					else entity = new ZombieEntity(world);
+					} else {
+						entity = new ZombieEntity(world);
+					}
 					break;
 				case 1:
-					if(world.rand.nextInt(10) == 0)
+					if (world.rand.nextInt(10) == 0) {
 						entity = new StrayEntity(EntityType.STRAY, world);
-					else entity = new SkeletonEntity(EntityType.SKELETON, world);
+					} else {
+						entity = new SkeletonEntity(EntityType.SKELETON, world);
+					}
 					break;
 				case 2:
-					if(world.rand.nextInt(10) == 0)
+					if (world.rand.nextInt(10) == 0) {
 						entity = new CaveSpiderEntity(EntityType.CAVE_SPIDER, world);
-					else entity = new SpiderEntity(EntityType.SPIDER, world);
+					} else {
+						entity = new SpiderEntity(EntityType.SPIDER, world);
+					}
 					break;
 				}
+			}
 
 			entity.setPositionAndRotation(x, y, z, world.rand.nextFloat() * 360F, 0);
 			entity.setMotion(Vec3d.ZERO);
@@ -154,7 +162,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.SPAWNER, null, null);
 			world.addEntity(entity);
 			entity.spawnExplosionParticle();
-			
+
 			addMana(-COST);
 			sync();
 		}
@@ -177,14 +185,15 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override
 	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
-		if (cmp.contains(TAG_LOOT_TABLE))
+		if (cmp.contains(TAG_LOOT_TABLE)) {
 			lootTable = new ResourceLocation(cmp.getString(TAG_LOOT_TABLE));
+		}
 	}
 
 	@Override
@@ -196,7 +205,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onDrops(LivingDropsEvent event) {
 		LivingEntity e = event.getEntityLiving();
-		if(e.getPersistentData().contains(TAG_ITEMSTACK_TO_DROP)) {
+		if (e.getPersistentData().contains(TAG_ITEMSTACK_TO_DROP)) {
 			CompoundNBT cmp = e.getPersistentData().getCompound(TAG_ITEMSTACK_TO_DROP);
 			ItemStack stack = ItemStack.read(cmp);
 			event.getDrops().clear();

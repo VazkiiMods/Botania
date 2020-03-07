@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 25, 2015, 6:16:13 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
 
@@ -17,6 +15,7 @@ import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -33,16 +32,16 @@ public class SpellClothRecipe extends SpecialRecipe {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(stack.isEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth)
+			if (!stack.isEmpty()) {
+				if (stack.isEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth) {
 					foundEnchanted = true;
-
-				else if(stack.getItem() == ModItems.spellCloth && !foundCloth)
+				} else if (stack.getItem() == ModItems.spellCloth && !foundCloth) {
 					foundCloth = true;
-
-				else return false; // Found an invalid item, breaking the recipe
+				} else {
+					return false; // Found an invalid item, breaking the recipe
+				}
 			}
 		}
 
@@ -53,17 +52,18 @@ public class SpellClothRecipe extends SpecialRecipe {
 	@Override
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.isEnchanted() && stack.getItem() != ModItems.spellCloth) {
+			if (!stack.isEmpty() && stack.isEnchanted() && stack.getItem() != ModItems.spellCloth) {
 				stackToDisenchant = stack.copy();
 				stackToDisenchant.setCount(1);
 				break;
 			}
 		}
 
-		if(stackToDisenchant.isEmpty())
+		if (stackToDisenchant.isEmpty()) {
 			return ItemStack.EMPTY;
+		}
 
 		stackToDisenchant.removeChildTag("Enchantments"); // Remove enchantments
 		stackToDisenchant.removeChildTag("RepairCost");

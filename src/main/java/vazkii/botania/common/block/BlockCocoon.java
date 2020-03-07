@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 8, 2015, 4:29:01 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -29,6 +27,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
 import vazkii.botania.common.block.tile.TileCocoon;
 
 import javax.annotation.Nonnull;
@@ -52,16 +51,17 @@ public class BlockCocoon extends BlockMod {
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
-	
+
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity e) {
-		if(!world.isRemote && e instanceof ItemEntity) {
+		if (!world.isRemote && e instanceof ItemEntity) {
 			ItemEntity item = (ItemEntity) e;
 			ItemStack stack = item.getItem();
 			addStack(world, pos, stack, false);
-			
-			if(stack.isEmpty())
+
+			if (stack.isEmpty()) {
 				item.remove();
+			}
 		}
 	}
 
@@ -70,21 +70,23 @@ public class BlockCocoon extends BlockMod {
 		ItemStack stack = player.getHeldItem(hand);
 		return addStack(world, pos, stack, player.abilities.isCreativeMode);
 	}
-	
+
 	private ActionResultType addStack(World world, BlockPos pos, ItemStack stack, boolean creative) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
 		Item item = stack.getItem();
-		
-		if(cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT)) {
-			if(!world.isRemote) {
-				if(item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
-					if(!creative)
+
+		if (cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT)) {
+			if (!world.isRemote) {
+				if (item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
+					if (!creative) {
 						stack.shrink(1);
+					}
 					cocoon.emeraldsGiven++;
 					((ServerWorld) world).spawnParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0, 0, 0, 0.5);
-				} else if(item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
-					if(!creative)
+				} else if (item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
+					if (!creative) {
 						stack.shrink(1);
+					}
 					cocoon.chorusFruitGiven++;
 					((ServerWorld) world).spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
 				}
@@ -92,7 +94,7 @@ public class BlockCocoon extends BlockMod {
 
 			return ActionResultType.SUCCESS;
 		}
-		
+
 		return ActionResultType.PASS;
 	}
 

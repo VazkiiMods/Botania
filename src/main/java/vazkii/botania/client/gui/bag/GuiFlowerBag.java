@@ -1,20 +1,17 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 16, 2015, 6:42:43 PM (GMT)]
  */
 package vazkii.botania.client.gui.bag;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
@@ -23,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.SlotItemHandler;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -58,8 +56,8 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 		int l = (height - ySize) / 2;
 		blit(k, l, 0, 0, xSize, ySize);
 
-		for(Slot slot : container.inventorySlots)
-			if(slot instanceof SlotItemHandler && !slot.getHasStack()) {
+		for (Slot slot : container.inventorySlots) {
+			if (slot instanceof SlotItemHandler && !slot.getHasStack()) {
 				DyeColor color = DyeColor.byId(slot.getSlotIndex());
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 				int x = guiLeft + slot.xPos;
@@ -67,6 +65,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
 				mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 			}
+		}
 	}
 
 }

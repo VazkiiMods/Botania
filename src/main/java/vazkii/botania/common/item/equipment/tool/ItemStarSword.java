@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 17, 2015, 3:55:52 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
 
@@ -17,9 +15,9 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
@@ -37,14 +35,14 @@ public class ItemStarSword extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		if(entity instanceof PlayerEntity) {
+		if (entity instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entity;
 			EffectInstance haste = player.getActivePotionEffect(Effects.HASTE);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-			if(player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote) {
+			if (player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote) {
 				BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(player, 48, false);
-				if(pos.getType() == RayTraceResult.Type.BLOCK) {
+				if (pos.getType() == RayTraceResult.Type.BLOCK) {
 					Vector3 posVec = Vector3.fromBlockPos(pos.getPos());
 					Vector3 motVec = new Vector3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec = posVec.add(motVec);

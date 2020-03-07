@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 21, 2015, 4:58:20 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.string;
 
@@ -19,6 +17,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -29,8 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TileRedStringInterceptor extends TileRedString {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_INTERCEPTOR)
-	public static TileEntityType<TileRedStringInterceptor> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_INTERCEPTOR) public static TileEntityType<TileRedStringInterceptor> TYPE;
 	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
 
 	public TileRedStringInterceptor() {
@@ -40,8 +38,9 @@ public class TileRedStringInterceptor extends TileRedString {
 	@Override
 	public void tick() {
 		super.tick();
-		if(!world.isRemote)
+		if (!world.isRemote) {
 			interceptors.add(this);
+		}
 	}
 
 	@Override
@@ -54,22 +53,22 @@ public class TileRedStringInterceptor extends TileRedString {
 	}
 
 	public static void onInteract(PlayerEntity player, World world, BlockPos pos, Hand hand) {
-		if(world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
 		List<TileRedStringInterceptor> remove = new ArrayList<>();
 		boolean did = false;
 
-
-		for(TileRedStringInterceptor inter : interceptors) {
-			if(!inter.saneState()) {
+		for (TileRedStringInterceptor inter : interceptors) {
+			if (!inter.saneState()) {
 				remove.add(inter);
 				continue;
 			}
 
-			if(inter.world == world) {
+			if (inter.world == world) {
 				BlockPos coords = inter.getBinding();
-				if(coords != null && coords.equals(pos)) {
+				if (coords != null && coords.equals(pos)) {
 					Block block = inter.getBlockState().getBlock();
 					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BotaniaStateProps.POWERED, true));
 					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, block.tickRate(world));
@@ -79,7 +78,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		}
 
 		interceptors.removeAll(remove);
-		if(did) {
+		if (did) {
 			player.swingArm(hand);
 			world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}

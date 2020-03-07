@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 22, 2015, 8:49:53 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
 
@@ -17,6 +15,7 @@ import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 
@@ -34,15 +33,17 @@ public class CosmeticAttachRecipe extends SpecialRecipe {
 		boolean foundCosmetic = false;
 		boolean foundAttachable = false;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ICosmeticBauble && !foundCosmetic)
+			if (!stack.isEmpty()) {
+				if (stack.getItem() instanceof ICosmeticBauble && !foundCosmetic) {
 					foundCosmetic = true;
-				else if(!foundAttachable) {
-					if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
+				} else if (!foundAttachable) {
+					if (stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty()) {
 						foundAttachable = true;
-					else return false;
+					} else {
+						return false;
+					}
 				}
 			}
 		}
@@ -56,21 +57,25 @@ public class CosmeticAttachRecipe extends SpecialRecipe {
 		ItemStack cosmeticItem = ItemStack.EMPTY;
 		ItemStack attachableItem = ItemStack.EMPTY;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ICosmeticBauble && cosmeticItem.isEmpty())
+			if (!stack.isEmpty()) {
+				if (stack.getItem() instanceof ICosmeticBauble && cosmeticItem.isEmpty()) {
 					cosmeticItem = stack;
-				else attachableItem = stack;
+				} else {
+					attachableItem = stack;
+				}
 			}
 		}
 
-		if(!(attachableItem.getItem() instanceof ICosmeticAttachable))
+		if (!(attachableItem.getItem() instanceof ICosmeticAttachable)) {
 			return ItemStack.EMPTY;
-		
+		}
+
 		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
-		if(!attachable.getCosmeticItem(attachableItem).isEmpty())
+		if (!attachable.getCosmeticItem(attachableItem).isEmpty()) {
 			return ItemStack.EMPTY;
+		}
 
 		ItemStack copy = attachableItem.copy();
 		attachable.setCosmeticItem(copy, cosmeticItem);

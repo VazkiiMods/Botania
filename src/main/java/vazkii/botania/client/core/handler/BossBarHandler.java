@@ -1,24 +1,25 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 29, 2014, 6:46:10 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -45,8 +46,8 @@ public final class BossBarHandler {
 	@SubscribeEvent
 	public static void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
 		UUID infoUuid = evt.getBossInfo().getUniqueId();
-		for(IBotaniaBoss currentBoss : bosses) {
-			if(currentBoss.getBossInfoUuid().equals(infoUuid)) {
+		for (IBotaniaBoss currentBoss : bosses) {
+			if (currentBoss.getBossInfoUuid().equals(infoUuid)) {
 				evt.setCanceled(true);
 
 				Minecraft mc = Minecraft.getInstance();
@@ -79,7 +80,7 @@ public final class BossBarHandler {
 		int program = currentBoss.getBossBarShaderProgram(bg);
 		boolean useShader = program > 0;
 
-		if(useShader) {
+		if (useShader) {
 			ShaderCallback callback = currentBoss.getBossBarShaderCallback(bg, program);
 			barUniformCallback.set(u, v, callback);
 			ShaderHelper.useShader(program, barUniformCallback);
@@ -87,8 +88,9 @@ public final class BossBarHandler {
 
 		RenderHelper.drawTexturedModalRect(x, y, u, v, w, h);
 
-		if(useShader)
+		if (useShader) {
 			ShaderHelper.releaseShader();
+		}
 	}
 
 	private static class BarCallback implements ShaderCallback {
@@ -100,12 +102,12 @@ public final class BossBarHandler {
 			int startXUniform = GlStateManager.getUniformLocation(shader, "startX");
 			int startYUniform = GlStateManager.getUniformLocation(shader, "startY");
 
-
 			GlStateManager.uniform1(startXUniform, x);
 			GlStateManager.uniform1(startYUniform, y);
 
-			if(callback != null)
+			if (callback != null) {
 				callback.call(shader);
+			}
 		}
 
 		void set(int x, int y, ShaderCallback callback) {

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 28, 2015, 11:53:13 AM (GMT)]
  */
 package vazkii.botania.common.block.corporea;
 
@@ -17,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
@@ -40,11 +39,12 @@ public class BlockCorporeaRetainer extends BlockMod {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
 
-		if(power && !powered) {
+		if (power && !powered) {
 			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
-		} else if(!power && powered)
+		} else if (!power && powered) {
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+		}
 	}
 
 	@Override

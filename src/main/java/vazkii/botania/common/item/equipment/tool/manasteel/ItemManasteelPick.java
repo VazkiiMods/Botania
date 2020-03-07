@@ -1,16 +1,13 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 13, 2014, 7:05:58 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,8 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -30,6 +27,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -57,10 +55,10 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 	public ActionResultType onItemUse(ItemUseContext ctx) {
 		PlayerEntity player = ctx.getPlayer();
 
-		if(player != null) {
-			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+		if (player != null) {
+			for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack stackAt = player.inventory.getStackInSlot(i);
-				if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
+				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
 					ItemStack displayStack = stackAt.copy();
 					ActionResultType did = PlayerHelper.substituteUse(ctx, stackAt);
 					ItemsRemainingRenderHandler.set(player, displayStack, TORCH_PATTERN);
@@ -78,8 +76,9 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
+		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
+		}
 	}
 
 	@Override

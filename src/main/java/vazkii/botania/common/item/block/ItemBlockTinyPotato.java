@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 27, 2015, 3:44:10 PM (GMT)]
  */
 package vazkii.botania.common.item.block;
 
@@ -18,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.Arrays;
@@ -55,10 +54,10 @@ public class ItemBlockTinyPotato extends BlockItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity e, int t, boolean idunno) {
-		if(!world.isRemote && e instanceof PlayerEntity && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().getString().toLowerCase())) {
+		if (!world.isRemote && e instanceof PlayerEntity && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().getString().toLowerCase())) {
 			PlayerEntity player = (PlayerEntity) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
-			if(ticks < NOT_MY_NAME.length) {
+			if (ticks < NOT_MY_NAME.length) {
 				player.sendMessage(new StringTextComponent(TextFormatting.RED + NOT_MY_NAME[ticks]));
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}

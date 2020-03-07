@@ -1,41 +1,27 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 18, 2015, 3:16:57 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.common.animation.TimeValues;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.model.animation.CapabilityAnimation;
-import net.minecraftforge.common.model.animation.IAnimationStateMachine;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-
 public class TilePump extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PUMP)
-	public static TileEntityType<TilePump> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PUMP) public static TileEntityType<TilePump> TYPE;
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
@@ -55,9 +41,9 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 	@Override
 	public void tick() {
 		hasRedstone = false;
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
-			if(redstoneSide > 0) {
+			if (redstoneSide > 0) {
 				hasRedstone = true;
 				break;
 			}
@@ -68,36 +54,41 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 
 		float incr = max / 10F;
 
-		if(innerRingPos < max && active && moving >= 0F) {
+		if (innerRingPos < max && active && moving >= 0F) {
 			innerRingPos += incr;
 			moving = incr;
-			if(innerRingPos >= max) {
+			if (innerRingPos >= max) {
 				innerRingPos = Math.min(max, innerRingPos);
 				moving = 0F;
-				for(int x = 0; x < 2; x++)
+				for (int x = 0; x < 2; x++) {
 					world.addParticle(ParticleTypes.SMOKE, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
+				}
 			}
-		} else if(innerRingPos > min) {
+		} else if (innerRingPos > min) {
 			innerRingPos -= incr * 2;
 			moving = -incr * 2;
-			if(innerRingPos <= min) {
+			if (innerRingPos <= min) {
 				innerRingPos = Math.max(min, innerRingPos);
 				moving = 0F;
 			}
 		}
 
-		if(!hasCartOnTop)
+		if (!hasCartOnTop) {
 			comparator = 0;
-		if(!hasCart && active)
+		}
+		if (!hasCart && active) {
 			setActive(false);
-		if(active && hasRedstone)
+		}
+		if (active && hasRedstone) {
 			setActive(false);
+		}
 
 		hasCart = false;
 		hasCartOnTop = false;
 
-		if(comparator != lastComparator)
+		if (comparator != lastComparator) {
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+		}
 		lastComparator = comparator;
 	}
 
@@ -112,11 +103,12 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 	}
 
 	public void setActive(boolean active) {
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			boolean diff = this.active != active;
 			this.active = active;
-			if(diff)
+			if (diff) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			}
 		}
 	}
 }

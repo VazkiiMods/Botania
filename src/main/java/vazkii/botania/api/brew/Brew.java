@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 1, 2014, 6:22:54 PM (GMT)]
  */
 package vazkii.botania.api.brew;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 
@@ -30,10 +29,10 @@ public class Brew {
 	private boolean canInfuseIncense = true;
 
 	/**
-	 * @param name The unlocalized name of this potion.
-	 * @param color The color for the potion to be rendered in the bottle, note that it will get
-	 * changed a bit when it renders (for more or less brightness) to give a fancy effect.
-	 * @param cost The cost, in Mana for this brew.
+	 * @param name    The unlocalized name of this potion.
+	 * @param color   The color for the potion to be rendered in the bottle, note that it will get
+	 *                changed a bit when it renders (for more or less brightness) to give a fancy effect.
+	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
 	public Brew(String key, String name, int color, int cost, EffectInstance... effects) {
@@ -91,7 +90,7 @@ public class Brew {
 	}
 
 	/**
-	 * Gets the display color for the ItemStack passed in.  Note that for
+	 * Gets the display color for the ItemStack passed in. Note that for
 	 * the lexicon, this passes in a botania Managlass Vial or an
 	 * Alfglass Flask at all times.
 	 */

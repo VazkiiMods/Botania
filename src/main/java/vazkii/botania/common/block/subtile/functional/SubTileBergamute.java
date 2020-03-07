@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.lib.LibMisc;
@@ -11,8 +20,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 public class SubTileBergamute extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bergamute")
-	public static TileEntityType<SubTileBergamute> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":bergamute") public static TileEntityType<SubTileBergamute> TYPE;
 
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
@@ -26,7 +34,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if (getWorld().isRemote) {
-			if(!existingFlowers.contains(this)) {
+			if (!existingFlowers.contains(this)) {
 				existingFlowers.add(this);
 			}
 		}
@@ -57,7 +65,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Circle(getEffectivePos(), RANGE);
 	}
 
 }

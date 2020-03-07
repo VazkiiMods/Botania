@@ -1,26 +1,24 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 7, 2014, 6:42:33 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileStarfield extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.STARFIELD)
-	public static TileEntityType<TileStarfield> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.STARFIELD) public static TileEntityType<TileStarfield> TYPE;
 
 	public TileStarfield() {
 		super(TYPE);
@@ -28,14 +26,15 @@ public class TileStarfield extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		if(world.isRemote) {
+		if (world.isRemote) {
 			world.calculateInitialSkylight(); // ensure isDayTime works properly by updating skylightSubtracted
-			if (world.isDaytime())
+			if (world.isDaytime()) {
 				return;
+			}
 
 			double radius = 512;
 			int iter = 2;
-			for(int i = 0; i < iter; i++) {
+			for (int i = 0; i < iter; i++) {
 				double x = pos.getX() + 0.5 + (Math.random() - 0.5) * radius;
 				double y = Math.min(256, pos.getY() + Botania.proxy.getClientRenderDistance() * 16);
 				double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * radius;

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 26, 2014, 12:31:10 AM (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -22,16 +20,17 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class EntityFlameRing extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":flame_ring")
-	public static EntityType<EntityFlameRing> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":flame_ring") public static EntityType<EntityFlameRing> TYPE;
 
 	public EntityFlameRing(EntityType<EntityFlameRing> type, World world) {
 		super(type, world);
@@ -51,12 +50,13 @@ public class EntityFlameRing extends Entity {
 		float radius = 5F;
 		float renderRadius = (float) (radius - Math.random());
 
-		for(int i = 0; i < Math.min(90, ticksExisted); i++) {
+		for (int i = 0; i < Math.min(90, ticksExisted); i++) {
 			float a = i;
-			if(a % 2 == 0)
+			if (a % 2 == 0) {
 				a = 45 + a;
+			}
 
-			if(world.rand.nextInt(ticksExisted < 90 ? 8 : 20) == 0) {
+			if (world.rand.nextInt(ticksExisted < 90 ? 8 : 20) == 0) {
 				float rad = (float) (a * 4 * Math.PI / 180F);
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
@@ -73,27 +73,31 @@ public class EntityFlameRing extends Entity {
 			}
 		}
 
-		if(world.rand.nextInt(20) == 0)
+		if (world.rand.nextInt(20) == 0) {
 			world.playSound(getX(), getY(), getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
+		}
 
-		if(world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
-		if(ticksExisted >= 300) {
+		if (ticksExisted >= 300) {
 			remove();
 			return;
 		}
 
-		if(ticksExisted > 45) {
+		if (ticksExisted > 45) {
 			AxisAlignedBB boundingBox = new AxisAlignedBB(getX(), getY(), getZ(), getX(), getY(), getZ()).grow(radius, radius, radius);
 			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, boundingBox);
 
-			if(entities.isEmpty())
+			if (entities.isEmpty()) {
 				return;
+			}
 
-			for(LivingEntity entity : entities) {
-				if(entity == null || MathHelper.pointDistancePlane(getX(), getY(), entity.getX(), entity.getY()) > radius)
+			for (LivingEntity entity : entities) {
+				if (entity == null || MathHelper.pointDistancePlane(getX(), getY(), entity.getX(), entity.getY()) > radius) {
 					continue;
+				}
 
 				entity.setFire(4);
 			}

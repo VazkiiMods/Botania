@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 18, 2014, 7:58:08 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
@@ -32,6 +30,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -72,11 +71,11 @@ public class BlockTinyPotato extends BlockMod {
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile instanceof TileTinyPotato) {
+		if (tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), hit.getFace());
-			if(!world.isRemote) {
+			if (!world.isRemote) {
 				AxisAlignedBB box = SHAPE.getBoundingBox();
-				((ServerWorld) world).spawnParticle(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0 ,0, 0, 0);
+				((ServerWorld) world).spawnParticle(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0, 0, 0, 0);
 			}
 		}
 		return ActionResultType.SUCCESS;
@@ -89,8 +88,9 @@ public class BlockTinyPotato extends BlockMod {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		if (stack.hasDisplayName())
+		if (stack.hasDisplayName()) {
 			((TileTinyPotato) world.getTileEntity(pos)).name = stack.getDisplayName();
+		}
 	}
 
 	@Nonnull

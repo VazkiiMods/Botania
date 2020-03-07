@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 27, 2014, 8:32:52 PM (GMT)]
  */
 package vazkii.botania.common.item.block;
 
@@ -21,10 +19,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemBlockPool extends BlockItem {
@@ -40,9 +40,11 @@ public class ItemBlockPool extends BlockItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
-		if(((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE)
-			for(int i = 0; i < 2; i++)
+		if (((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE) {
+			for (int i = 0; i < 2; i++) {
 				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i).applyTextStyle(TextFormatting.GRAY));
+			}
+		}
 	}
 
 }

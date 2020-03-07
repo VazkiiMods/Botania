@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 14, 2014, 5:04:22 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.string;
 
@@ -20,6 +18,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -42,19 +41,22 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 		BlockPos currBinding = getBinding();
 		setBinding(null);
 
-		for(int i = 0; i < range; i++) {
+		for (int i = 0; i < range; i++) {
 			pos_ = pos_.offset(dir);
-			if(world.isAirBlock(pos_))
+			if (world.isAirBlock(pos_)) {
 				continue;
+			}
 
 			TileEntity tile = world.getTileEntity(pos_);
-			if(tile instanceof TileRedString)
+			if (tile instanceof TileRedString) {
 				continue;
+			}
 
-			if(acceptBlock(pos_)) {
+			if (acceptBlock(pos_)) {
 				setBinding(pos_);
-				if(currBinding == null || !currBinding.equals(pos_))
+				if (currBinding == null || !currBinding.equals(pos_)) {
 					onBound(pos_);
+				}
 				break;
 			}
 		}

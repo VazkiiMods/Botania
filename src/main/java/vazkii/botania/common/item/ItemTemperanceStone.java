@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 12, 2015, 5:56:45 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -16,7 +14,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -26,10 +23,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemTemperanceStone extends Item {
@@ -53,17 +52,20 @@ public class ItemTemperanceStone extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false))
+		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
 			stacks.add(new TranslationTextComponent("botaniamisc.active"));
-		else stacks.add(new TranslationTextComponent("botaniamisc.inactive"));
+		} else {
+			stacks.add(new TranslationTextComponent("botaniamisc.inactive"));
+		}
 	}
 
 	public static boolean hasTemperanceActive(PlayerEntity player) {
 		IInventory inv = player.inventory;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() == ModItems.temperanceStone && ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false))
+			if (!stack.isEmpty() && stack.getItem() == ModItems.temperanceStone && ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
 				return true;
+			}
 		}
 
 		return false;

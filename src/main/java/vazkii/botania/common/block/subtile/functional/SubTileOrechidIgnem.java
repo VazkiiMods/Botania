@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 30, 2015, 3:27:20 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -15,6 +13,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -22,8 +21,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
-	@ObjectHolder(LibMisc.MOD_ID + ":orechid_ignem")
-	public static TileEntityType<SubTileOrechidIgnem> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":orechid_ignem") public static TileEntityType<SubTileOrechidIgnem> TYPE;
 
 	private static final int COST = 20000;
 

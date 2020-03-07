@@ -1,23 +1,22 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 26, 2014, 5:39:07 PM (GMT)]
  */
 package vazkii.botania.common.item.interaction.thaumcraft;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +34,7 @@ public class ItemManaInkwell extends Item implements IManaItem {
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInGroup(tab)) {
+		if (isInGroup(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack full = new ItemStack(this);
 			setMana(full, MAX_MANA);
@@ -52,10 +51,10 @@ public class ItemManaInkwell extends Item implements IManaItem {
 	@Override
 	public void setDamage(ItemStack stack, int damage) {
 		int currentDamage = stack.getDamage();
-		if(damage > currentDamage) {
+		if (damage > currentDamage) {
 			int cost = (damage - currentDamage) * COST_PER_USE;
 			int mana = getMana(stack);
-			if(mana >= cost) {
+			if (mana >= cost) {
 				addMana(stack, -cost);
 				return;
 			}

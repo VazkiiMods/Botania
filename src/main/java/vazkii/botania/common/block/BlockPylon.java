@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 18, 2014, 10:13:02 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -19,6 +17,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+
 import vazkii.botania.common.block.tile.TilePylon;
 
 import javax.annotation.Nonnull;
@@ -33,6 +32,7 @@ public class BlockPylon extends BlockMod {
 	}
 
 	public final Variant variant;
+
 	public BlockPylon(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;

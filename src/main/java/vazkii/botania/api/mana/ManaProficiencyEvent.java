@@ -1,12 +1,10 @@
-/**
- * This class was created by <Flaxbeard>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [Oct 4, 2016, 10:46:12 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
@@ -25,19 +23,19 @@ public class ManaProficiencyEvent extends Event {
 		this.rod = rod;
 		this.proficient = proficient;
 	}
-	
+
 	public PlayerEntity getEntityPlayer() {
 		return entityPlayer;
 	}
-	
+
 	public ItemStack getRod() {
 		return rod;
 	}
-	
+
 	public boolean isProficient() {
 		return proficient;
 	}
-	
+
 	public void setProficient(boolean proficient) {
 		this.proficient = proficient;
 	}

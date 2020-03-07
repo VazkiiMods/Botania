@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 31, 2014, 4:42:36 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -21,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
@@ -38,13 +37,12 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.*;
+
 import java.util.List;
 
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BREWERY)
-	public static TileEntityType<TileBrewery> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BREWERY) public static TileEntityType<TileBrewery> TYPE;
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
@@ -58,34 +56,38 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {
-		if(recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer)
+		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer) {
 			return false;
+		}
 
 		boolean did = false;
 
-		for(int i = 0; i < getSizeInventory(); i++)
-			if(itemHandler.getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (itemHandler.getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.setCount(1);
 				itemHandler.setStackInSlot(i, stackToAdd);
 
-				if(player == null || !player.abilities.isCreativeMode) {
+				if (player == null || !player.abilities.isCreativeMode) {
 					stack.shrink(1);
-					if(stack.isEmpty() && player != null)
+					if (stack.isEmpty() && player != null) {
 						player.setHeldItem(hand, ItemStack.EMPTY);
+					}
 				}
 
 				break;
 			}
+		}
 
-		if(did) {
+		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
-			for(RecipeBrew recipe : BotaniaAPI.brewRecipes.values())
-				if(recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
+			for (RecipeBrew recipe : BotaniaAPI.brewRecipes.values()) {
+				if (recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
 					this.recipe = recipe;
 					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
 				}
+			}
 		}
 
 		return true;
@@ -93,52 +95,55 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 	@Override
 	public void tick() {
-		if(mana > 0 && recipe == null) {
-			for(RecipeBrew recipe : BotaniaAPI.brewRecipes.values())
-				if(recipe.matches(itemHandler)) {
+		if (mana > 0 && recipe == null) {
+			for (RecipeBrew recipe : BotaniaAPI.brewRecipes.values()) {
+				if (recipe.matches(itemHandler)) {
 					this.recipe = recipe;
 					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
 				}
+			}
 
-			if(recipe == null)
+			if (recipe == null) {
 				mana = 0;
+			}
 		}
 
 		// Update every tick.
 		recieveMana(0);
 
-		if(!world.isRemote && recipe == null) {
+		if (!world.isRemote && recipe == null) {
 			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
-			for(ItemEntity item : items)
-				if(item.isAlive() && !item.getItem().isEmpty()) {
+			for (ItemEntity item : items) {
+				if (item.isAlive() && !item.getItem().isEmpty()) {
 					ItemStack stack = item.getItem();
 					addItem(null, stack, null);
 				}
+			}
 		}
 
-		if(recipe != null) {
-			if(!recipe.matches(itemHandler)) {
+		if (recipe != null) {
+			if (!recipe.matches(itemHandler)) {
 				recipe = null;
 				world.setBlockState(pos, ModBlocks.brewery.getDefaultState());
 			}
 
-			if(recipe != null) {
-				if(mana != manaLastTick) {
+			if (recipe != null) {
+				if (mana != manaLastTick) {
 					int color = recipe.getBrew().getColor(itemHandler.getStackInSlot(0));
 					float r = (color >> 16 & 0xFF) / 255F;
 					float g = (color >> 8 & 0xFF) / 255F;
 					float b = (color & 0xFF) / 255F;
-					for(int i = 0; i < 5; i++) {
-                        WispParticleData data1 = WispParticleData.wisp(0.1F + (float) Math.random() * 0.05F, r, g, b);
-                        world.addParticle(data1, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
-                        for(int j = 0; j < 2; j++) {
-                            WispParticleData data = WispParticleData.wisp(0.1F + (float) Math.random() * 0.2F, 0.2F, 0.2F, 0.2F);
-                            world.addParticle(data, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
-                        }
+					for (int i = 0; i < 5; i++) {
+						WispParticleData data1 = WispParticleData.wisp(0.1F + (float) Math.random() * 0.05F, r, g, b);
+						world.addParticle(data1, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
+						for (int j = 0; j < 2; j++) {
+							WispParticleData data = WispParticleData.wisp(0.1F + (float) Math.random() * 0.2F, 0.2F, 0.2F, 0.2F);
+							world.addParticle(data, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
+						}
 					}
 				}
 
-				if(mana >= getManaCost() && !world.isRemote) {
+				if (mana >= getManaCost() && !world.isRemote) {
 					int mana = getManaCost();
 					recieveMana(-mana);
 
@@ -147,17 +152,19 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 					world.addEntity(outputItem);
 					world.addBlockEvent(getPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
 
-					for(int i = 0; i < getSizeInventory(); i++)
+					for (int i = 0; i < getSizeInventory(); i++) {
 						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+					}
 				}
 			}
 		}
 
 		int newSignal = 0;
-		if(recipe != null)
+		if (recipe != null) {
 			newSignal++;
+		}
 
-		if(newSignal != signal) {
+		if (newSignal != signal) {
 			signal = newSignal;
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
@@ -167,18 +174,18 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 	@Override
 	public boolean receiveClientEvent(int event, int param) {
-		if(event == CRAFT_EFFECT_EVENT) {
-			if(world.isRemote) {
-				for(int i = 0; i < 25; i++) {
+		if (event == CRAFT_EFFECT_EVENT) {
+			if (world.isRemote) {
+				for (int i = 0; i < 25; i++) {
 					float r = (param >> 16 & 0xFF) / 255F;
 					float g = (param >> 8 & 0xFF) / 255F;
 					float b = (param & 0xFF) / 255F;
-                    SparkleParticleData data1 = SparkleParticleData.sparkle((float) Math.random() * 2F + 0.5F, r, g, b, 10);
-                    world.addParticle(data1, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
-                    for(int j = 0; j < 2; j++) {
-                        WispParticleData data = WispParticleData.wisp(0.1F + (float) Math.random() * 0.2F, 0.2F, 0.2F, 0.2F);
-                        world.addParticle(data, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
-                    }
+					SparkleParticleData data1 = SparkleParticleData.sparkle((float) Math.random() * 2F + 0.5F, r, g, b, 10);
+					world.addParticle(data1, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+					for (int j = 0; j < 2; j++) {
+						WispParticleData data = WispParticleData.wisp(0.1F + (float) Math.random() * 0.2F, 0.2F, 0.2F, 0.2F);
+						world.addParticle(data, pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
+					}
 				}
 				world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F, false);
 			}
@@ -190,8 +197,9 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 	public int getManaCost() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer))
+		if (recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer)) {
 			return 0;
+		}
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 		return container.getManaCost(recipe.getBrew(), stack);
 	}
@@ -253,12 +261,13 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 	public void renderHUD(Minecraft mc) {
 		int manaToGet = getManaCost();
-		if(manaToGet > 0) {
+		if (manaToGet > 0) {
 			int x = mc.getWindow().getScaledWidth() / 2 + 20;
 			int y = mc.getWindow().getScaledHeight() / 2 - 8;
 
-			if(recipe == null)
+			if (recipe == null) {
 				return;
+			}
 
 			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(itemHandler.getStackInSlot(0)));
 		}

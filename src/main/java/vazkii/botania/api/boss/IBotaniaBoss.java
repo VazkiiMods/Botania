@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 29, 2014, 6:09:48 PM (GMT)]
  */
 package vazkii.botania.api.boss;
 
@@ -14,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerBossInfo;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.ShaderCallback;
 
 import java.awt.*;
@@ -49,6 +48,7 @@ public interface IBotaniaBoss {
 	/**
 	 * A callback for when this boss's boss bar renders, you can do additional rendering
 	 * here if needed.
+	 * 
 	 * @return How tall your auxiliary renders were
 	 */
 	@OnlyIn(Dist.CLIENT)
@@ -58,6 +58,7 @@ public interface IBotaniaBoss {
 	 * Get the serverside UUID of the {@link ServerBossInfo} instance tracking this boss
 	 * Note that this is NOT the entity's UUID, nor is it the clientside UUID of the BossInfoServer instance!
 	 * You will most likely need to sync this yourself using IEntityAdditionalSpawnData or similar.
+	 * 
 	 * @return The uuid.
 	 */
 	public UUID getBossInfoUuid();
@@ -66,15 +67,18 @@ public interface IBotaniaBoss {
 	 * The Shader Program to use for this boss's bar. Return 0 case
 	 * you don't want a shader to be used. You can use separate shaders
 	 * for the background and foreground.
-	 * @param background True if rendering the background of the boss bar,
-	 * false if rendering the bar itself that shows the HP.
-	 * @return OpenGL program ID of the shader to use
+	 * 
+	 * @param  background True if rendering the background of the boss bar,
+	 *                    false if rendering the bar itself that shows the HP.
+	 * @return            OpenGL program ID of the shader to use
 	 */
 	public int getBossBarShaderProgram(boolean background);
 
 	/**
 	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
-	 * @return a ShaderCallback to use. If getBossBarShaderProgram returns an invalid shader the result of this method is ignored.
+	 * 
+	 * @return a ShaderCallback to use. If getBossBarShaderProgram returns an invalid shader the result of this method
+	 *         is ignored.
 	 */
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
 

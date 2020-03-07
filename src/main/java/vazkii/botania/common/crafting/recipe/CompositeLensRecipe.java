@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 17, 2014, 8:30:41 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
 
@@ -18,6 +16,7 @@ import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.ICompositableLens;
 
 import javax.annotation.Nonnull;
@@ -35,16 +34,20 @@ public class CompositeLensRecipe extends SpecialRecipe {
 		boolean foundSecondLens = false;
 		boolean foundSlimeball = false;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
-					if(foundLens)
+			if (!stack.isEmpty()) {
+				if (stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
+					if (foundLens) {
 						foundSecondLens = true;
-					else foundLens = true;
-				} else if(stack.getItem() == Items.SLIME_BALL)
+					} else {
+						foundLens = true;
+					}
+				} else if (stack.getItem() == Items.SLIME_BALL) {
 					foundSlimeball = true;
-				else return false; // Found an invalid item, breaking the recipe
+				} else {
+					return false; // Found an invalid item, breaking the recipe
+				}
 			}
 		}
 
@@ -57,20 +60,24 @@ public class CompositeLensRecipe extends SpecialRecipe {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack secondLens = ItemStack.EMPTY;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ICompositableLens)
-					if(lens.isEmpty())
+			if (!stack.isEmpty()) {
+				if (stack.getItem() instanceof ICompositableLens) {
+					if (lens.isEmpty()) {
 						lens = stack;
-					else secondLens = stack;
+					} else {
+						secondLens = stack;
+					}
+				}
 			}
 		}
 
-		if(lens.getItem() instanceof ICompositableLens) {
+		if (lens.getItem() instanceof ICompositableLens) {
 			ICompositableLens lensItem = (ICompositableLens) lens.getItem();
-			if(secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty())
+			if (secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty()) {
 				return ItemStack.EMPTY;
+			}
 
 			ItemStack lensCopy = lens.copy();
 			lensItem.setCompositeLens(lensCopy, secondLens);

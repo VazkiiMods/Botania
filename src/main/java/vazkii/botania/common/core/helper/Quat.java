@@ -1,12 +1,10 @@
-/**
- * This class was created by <ChickenBones>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.core.helper;
 
@@ -28,7 +26,7 @@ public final class Quat {
 		y = d2;
 		z = d3;
 		s = d;
-		hashCode = Arrays.hashCode(new double[] { d, d1, d2, d3 } );
+		hashCode = Arrays.hashCode(new double[] { d, d1, d2, d3 });
 	}
 
 	public static Quat aroundAxis(double ax, double ay, double az, double angle) {

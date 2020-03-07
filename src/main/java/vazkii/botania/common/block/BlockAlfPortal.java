@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 9, 2014, 7:17:46 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -22,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.wand.IWandable;
@@ -56,7 +55,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable {
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
-		if(!world.isRemote && did && player instanceof ServerPlayerEntity) {
+		if (!world.isRemote && did && player instanceof ServerPlayerEntity) {
 			AlfPortalTrigger.INSTANCE.trigger((ServerPlayerEntity) player, (ServerWorld) world, pos, stack);
 		}
 		return did;

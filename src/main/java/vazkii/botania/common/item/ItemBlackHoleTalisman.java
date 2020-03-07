@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 31, 2015, 11:04:12 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -37,6 +35,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -45,6 +44,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.List;
 
 public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
@@ -62,7 +62,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(getBlock(stack) != null && player.isSneaking()) {
+		if (getBlock(stack) != null && player.isSneaking()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
 			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
 			return ActionResult.success(stack);
@@ -86,24 +86,26 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		} else {
 			Block bBlock = getBlock(stack);
 
-			if(bBlock == null)
+			if (bBlock == null) {
 				return ActionResultType.PASS;
+			}
 
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
-				if(!world.isRemote) {
+			if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
+				if (!world.isRemote) {
 					tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).ifPresent(inv -> {
 						ItemStack toAdd = new ItemStack(bBlock);
 						int maxSize = toAdd.getMaxStackSize();
 						toAdd.setCount(remove(stack, maxSize));
 						ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
-						if(!remainder.isEmpty())
+						if (!remainder.isEmpty()) {
 							add(stack, remainder.getCount());
+						}
 					});
 				}
 				return ActionResultType.SUCCESS;
 			} else {
-				if(player == null || player.abilities.isCreativeMode || getBlockCount(stack) > 0) {
+				if (player == null || player.abilities.isCreativeMode || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
 					ActionResultType result = PlayerHelper.substituteUse(ctx, toUse);
 
@@ -122,27 +124,29 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if(!entity.world.isRemote && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof PlayerEntity) {
+		if (!entity.world.isRemote && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entity;
 
 			int highest = -1;
 			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.size()];
 
-			for(int i = 0; i < counts.length; i++) {
+			for (int i = 0; i < counts.length; i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);
-				if(stack.isEmpty()) {
+				if (stack.isEmpty()) {
 					continue;
 				}
 
-				if(block.asItem() == stack.getItem()) {
+				if (block.asItem() == stack.getItem()) {
 					counts[i] = stack.getCount();
-					if(highest == -1)
+					if (highest == -1) {
 						highest = i;
-					else highest = counts[i] > counts[highest] && highest > 8 ? i : highest;
+					} else {
+						highest = counts[i] > counts[highest] && highest > 8 ? i : highest;
+					}
 				}
 			}
 
-			if(highest == -1) {
+			if (highest == -1) {
 				/*ItemStack heldItem = player.inventory.getItemStack();
 				if(hasFreeSlot && (heldItem == null || Item.getItemFromBlock(block) == heldItem.getItem() || heldItem.getItemDamage() != meta)) {
 					ItemStack stack = new ItemStack(block, remove(itemstack, 64), meta);
@@ -151,12 +155,13 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 				}*/
 				// Used to keep one stack, disabled for now
 			} else {
-				for(int i = 0; i < counts.length; i++) {
+				for (int i = 0; i < counts.length; i++) {
 					int count = counts[i];
 
 					// highest is used to keep one stack, disabled for now
-					if(/*i == highest || */count == 0)
+					if (/*i == highest || */count == 0) {
 						continue;
+					}
 
 					add(itemstack, count);
 					player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
@@ -181,7 +186,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		ItemStack bstack = new ItemStack(block);
 		ITextComponent cand = super.getDisplayName(stack);
 
-		if(!bstack.isEmpty()) {
+		if (!bstack.isEmpty()) {
 			cand.appendText(" (");
 			cand.appendSibling(bstack.getDisplayName().applyTextStyle(TextFormatting.GREEN));
 			cand.appendText(")");
@@ -194,8 +199,9 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
-		if(count == 0)
+		if (count == 0) {
 			return ItemStack.EMPTY;
+		}
 
 		int extract = Math.min(64, count);
 		ItemStack copy = itemStack.copy();
@@ -211,7 +217,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	}
 
 	private boolean setBlock(ItemStack stack, Block block) {
-		if(block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
+		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, block.getRegistryName().toString());
 			return true;
 		}
@@ -227,14 +233,16 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		Block block = getBlock(stack);
-		if(block != null) {
+		if (block != null) {
 			int count = getBlockCount(stack);
 			stacks.add(new StringTextComponent(Integer.toString(count) + " ").appendSibling(new ItemStack(block).getDisplayName()).applyTextStyle(TextFormatting.GRAY));
 		}
 
-		if(ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false))
+		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
 			stacks.add(new TranslationTextComponent("botaniamisc.active"));
-		else stacks.add(new TranslationTextComponent("botaniamisc.inactive"));
+		} else {
+			stacks.add(new TranslationTextComponent("botaniamisc.inactive"));
+		}
 	}
 
 	private static void setCount(ItemStack stack, int count) {
@@ -255,7 +263,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Nullable
 	public static Block getBlock(ItemStack stack) {
 		ResourceLocation id = ResourceLocation.tryCreate(getBlockName(stack));
-		if(id != null) {
+		if (id != null) {
 			return ForgeRegistries.BLOCKS.getValue(id);
 		}
 		return null;
@@ -268,11 +276,12 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		Block stored = getBlock(stack);
-		if(stored == block) {
+		if (stored == block) {
 			int count = getBlockCount(stack);
-			if(count > 0) {
-				if(doit)
+			if (count > 0) {
+				if (doit) {
 					setCount(stack, count - 1);
+				}
 				return true;
 			}
 		}
@@ -283,8 +292,9 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		Block stored = getBlock(stack);
-		if(stored == block)
+		if (stored == block) {
 			return getBlockCount(stack);
+		}
 		return 0;
 	}
 

@@ -1,20 +1,17 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 30, 2015, 1:37:26 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -33,19 +30,17 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileSpectrolus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus")
-	public static TileEntityType<SubTileSpectrolus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus") public static TileEntityType<SubTileSpectrolus> TYPE;
 
 	public static final String TAG_NEXT_COLOR = "nextColor";
 	private static final int WOOL_GEN = 1200;
@@ -64,8 +59,9 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote)
+		if (getWorld().isRemote) {
 			return;
+		}
 
 		// sheep need to enter the actual block space
 		List<Entity> targets = getWorld().getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(getEffectivePos()), Entity::isAlive);
@@ -75,7 +71,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((ItemEntity) e).age >= slowdown);
 		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
 
-		for(Entity target : targets) {
+		for (Entity target : targets) {
 			if (target instanceof SheepEntity) {
 				SheepEntity sheep = (SheepEntity) target;
 				if (!sheep.getSheared() && sheep.getFleeceColor() == nextColor) {
@@ -94,10 +90,10 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getItem();
 
-				if(!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
+				if (!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
 					Block expected = ColorHelper.WOOL_MAP.get(nextColor).get();
 
-					if(expected.asItem() == stack.getItem()) {
+					if (expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
 						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.getX(), target.getY(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 					}
@@ -116,7 +112,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override
@@ -137,7 +133,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
 		int color = getColor();
 
-		if(!stack.isEmpty()) {
+		if (!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
 			int x = mc.getWindow().getScaledWidth() / 2 - width;

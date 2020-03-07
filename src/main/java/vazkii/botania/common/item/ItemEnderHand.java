@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 31, 2014, 7:19:26 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -19,11 +17,11 @@ import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.InvWrapper;
+
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -46,8 +44,8 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
-			if(!player.world.isRemote) {
+		if (ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
+			if (!player.world.isRemote) {
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
 					return ChestContainer.createGeneric9X3(windowId, playerInv, p.getInventoryEnderChest());
 				}, EnderChestBlock.field_220115_d));
@@ -61,8 +59,8 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-		if(ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
-			if(!player.world.isRemote) {
+		if (ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
+			if (!player.world.isRemote) {
 				PlayerEntity other = (PlayerEntity) entity;
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
 					return ChestContainer.createGeneric9X3(windowId, playerInv, other.getInventoryEnderChest());
@@ -83,14 +81,15 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if(!requestor.isEmpty() && requestor.getItem() == this)
+		if (!requestor.isEmpty() && requestor.getItem() == this) {
 			return false;
+		}
 
 		ItemStack istack = ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, false);
-		if(!istack.isEmpty()) {
+		if (!istack.isEmpty()) {
 			boolean mana = ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, false);
-			if(mana) {
-				if(doit) {
+			if (mana) {
+				if (doit) {
 					ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, true);
 					ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, true);
 				}
@@ -104,8 +103,9 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
-		if(!requestor.isEmpty() && requestor.getItem() == this)
+		if (!requestor.isEmpty() && requestor.getItem() == this) {
 			return 0;
+		}
 
 		return ItemExchangeRod.getInventoryItemCount(player, new InvWrapper(player.getInventoryEnderChest()), stack, block);
 	}

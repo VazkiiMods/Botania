@@ -1,8 +1,17 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.core.handler;
 
 import com.google.common.base.Joiner;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
@@ -26,6 +35,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -62,11 +72,12 @@ public class RenderLexicon {
 	@SubscribeEvent
 	public static void renderItem(RenderHandEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
-		if(!ConfigHandler.CLIENT.lexicon3dModel.get()
+		if (!ConfigHandler.CLIENT.lexicon3dModel.get()
 				|| mc.gameSettings.thirdPersonView != 0
 				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
-				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon)
+				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon) {
 			return;
+		}
 		evt.setCanceled(true);
 		try {
 			renderFirstPersonItem(mc.player, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress(), evt.getMatrixStack(), evt.getBuffers(), evt.getLight());
@@ -83,11 +94,11 @@ public class RenderLexicon {
 		{
 			boolean flag3 = handside == HandSide.RIGHT;
 			{
-				float f5 = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
-				float f6 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2F));
-				float f10 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
+				float f5 = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
+				float f6 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float) Math.PI * 2F));
+				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
-				ms.translate((double)((float)l * f5), (double)f6, (double)f10);
+				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
 				try {
 					APPLY_EQUIP_OFFSET.invokeExact(Minecraft.getInstance().getFirstPersonRenderer(), ms, handside, equipProgress);
 					APPLY_SWING_OFFSET.invokeExact(Minecraft.getInstance().getFirstPersonRenderer(), ms, handside, swingProgress);
@@ -108,11 +119,13 @@ public class RenderLexicon {
 		ms.push();
 
 		float ticks = ClientTickHandler.ticksWithLexicaOpen;
-		if(ticks > 0 && ticks < 10) {
-			if(Minecraft.getInstance().currentScreen instanceof GuiBook
-				&& ((GuiBook) Minecraft.getInstance().currentScreen).book.getBookItem().getItem() == ModItems.lexicon)
+		if (ticks > 0 && ticks < 10) {
+			if (Minecraft.getInstance().currentScreen instanceof GuiBook
+					&& ((GuiBook) Minecraft.getInstance().currentScreen).book.getBookItem().getItem() == ModItems.lexicon) {
 				ticks += partialTicks;
-			else ticks -= partialTicks;
+			} else {
+				ticks -= partialTicks;
+			}
 		}
 
 		if (side == HandSide.RIGHT) {
@@ -126,8 +139,9 @@ public class RenderLexicon {
 		float opening = MathHelper.clamp(ticks / 12F, 0, 1);
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
-		if(pageFlipTicks > 0)
+		if (pageFlipTicks > 0) {
 			pageFlipTicks -= ClientTickHandler.partialTicks;
+		}
 
 		float pageFlip = pageFlipTicks / 5F;
 
@@ -139,7 +153,7 @@ public class RenderLexicon {
 		IVertexBuilder buffer = mat.getVertexConsumer(buffers, RenderType::getEntitySolid);
 		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 
-		if(ticks < 3) {
+		if (ticks < 3) {
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
 			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 			ms.translate(-0.30F, -0.24F, -0.07F);
@@ -153,8 +167,9 @@ public class RenderLexicon {
 			String edition = TextFormatting.ITALIC + "" + TextFormatting.BOLD + ItemLexicon.getEdition();
 			font.draw(edition, 0, 0, 0xA07100, false, ms.peek().getModel(), buffers, false, 0, light);
 
-			if(quote == -1)
+			if (quote == -1) {
 				quote = mc.world.rand.nextInt(QUOTES.length);
+			}
 
 			String quoteStr = QUOTES[quote];
 
@@ -191,17 +206,17 @@ public class RenderLexicon {
 		List<List<String>> lines = new ArrayList<>();
 
 		String controlCodes;
-		for(String s : textEntries) {
+		for (String s : textEntries) {
 			List<String> words = new ArrayList<>();
 			String lineStr = "";
 			String[] tokens = s.split(" ");
-			for(String token : tokens) {
+			for (String token : tokens) {
 				String prev = lineStr;
 				String spaced = token + " ";
 				lineStr += spaced;
 
 				controlCodes = toControlCodes(getControlCodes(prev));
-				if(font.getStringWidth(lineStr) > width) {
+				if (font.getStringWidth(lineStr) > width) {
 					lines.add(words);
 					lineStr = controlCodes + spaced;
 					words = new ArrayList<>();
@@ -210,20 +225,21 @@ public class RenderLexicon {
 				words.add(controlCodes + token);
 			}
 
-			if(!lineStr.isEmpty())
+			if (!lineStr.isEmpty()) {
 				lines.add(words);
+			}
 			lines.add(new ArrayList<>());
 		}
 
 		int i = 0;
-		for(List<String> words : lines) {
+		for (List<String> words : lines) {
 			int xi = x;
 			int spacing = 4;
 			int wcount = words.size();
 			int compensationSpaces = 0;
 			boolean justify = ConfigHandler.CLIENT.lexiconJustifiedText.get() && wcount > 0 && lines.size() > i && !lines.get(i + 1).isEmpty();
 
-			if(justify) {
+			if (justify) {
 				String s = Joiner.on("").join(words);
 				int swidth = font.getStringWidth(s);
 				int space = width - swidth;
@@ -232,9 +248,9 @@ public class RenderLexicon {
 				compensationSpaces = wcount == 1 ? 0 : space % (wcount - 1);
 			}
 
-			for(String s : words) {
+			for (String s : words) {
 				int extra = 0;
-				if(compensationSpaces > 0) {
+				if (compensationSpaces > 0) {
 					compensationSpaces--;
 					extra++;
 				}

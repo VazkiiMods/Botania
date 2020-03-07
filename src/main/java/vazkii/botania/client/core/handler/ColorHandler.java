@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.BlockState;
@@ -15,6 +23,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.FoliageColors;
 import net.minecraft.world.biome.BiomeColors;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -49,17 +58,18 @@ public final class ColorHandler {
 		// Pool
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
-					if(tintIndex != 0)
+					if (tintIndex != 0) {
 						return -1;
+					}
 
 					int color = DyeColor.WHITE.colorValue;
-					if(world != null && pos != null) {
+					if (world != null && pos != null) {
 						TileEntity te = world.getTileEntity(pos);
-						if(te instanceof TilePool) {
+						if (te instanceof TilePool) {
 							color = ((TilePool) te).color.colorValue;
 						}
 					}
-					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS){
+					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
 						float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.005F;
 						int fabulousColor = MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F);
 						return vazkii.botania.common.core.helper.MathHelper.multiplyColor(fabulousColor, color);
@@ -67,7 +77,7 @@ public final class ColorHandler {
 					return color;
 				},
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool
-				);
+		);
 
 		// Spreader
 		blocks.register(
@@ -76,7 +86,7 @@ public final class ColorHandler {
 					return MathHelper.hsvToRGB(time * 5 % 360 / 360F, 0.4F, 0.9F);
 				},
 				ModBlocks.gaiaSpreader
-				);
+		);
 
 		// Petal Block
 		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.colorValue : -1,
@@ -84,20 +94,21 @@ public final class ColorHandler {
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
 				ModBlocks.petalBlockBrown, ModBlocks.petalBlockGreen, ModBlocks.petalBlockRed, ModBlocks.petalBlockBlack
-				);
+		);
 
 		// Platforms
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					if (world != null && pos != null) {
 						TileEntity tile = world.getTileEntity(pos);
-						if(tile instanceof TilePlatform) {
+						if (tile instanceof TilePlatform) {
 							TilePlatform camo = (TilePlatform) tile;
 							BlockState camoState = camo.camoState;
-							if(camoState != null)
+							if (camoState != null) {
 								return camoState.getBlock() instanceof BlockPlatform
 										? 0xFFFFFF
-												: Minecraft.getInstance().getBlockColors().getColor(camoState, world, pos, tintIndex);
+										: Minecraft.getInstance().getBlockColors().getColor(camoState, world, pos, tintIndex);
+							}
 						}
 					}
 					return 0xFFFFFF;
@@ -106,17 +117,16 @@ public final class ColorHandler {
 		ItemColors items = Minecraft.getInstance().getItemColors();
 
 		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
-						ModItems.lifeEssence, ModItems.gaiaIngot);
+				ModItems.lifeEssence, ModItems.gaiaIngot);
 
-		items.register((s, t) ->
-		t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).colorValue
+		items.register((s, t) -> t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).colorValue
 				: t == 2 ? DyeColor.byId(ItemTwigWand.getColor2(s)).colorValue
-						: -1,
-						ModItems.twigWand);
+				: -1,
+				ModItems.twigWand);
 
 		IItemColor petalHandler = (s, t) -> t == 0 ? ((ItemPetal) s.getItem()).color.colorValue : -1;
 		IItemColor dyeHandler = (s, t) -> t == 0 ? ((Item16Colors) s.getItem()).color.colorValue : -1;
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
 			items.register(dyeHandler, ModItems.getDye(color));
 		}
@@ -132,15 +142,17 @@ public final class ColorHandler {
 
 		items.register((s, t) -> t == 1 ? MathHelper.hsvToRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
 
-		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float)s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
+		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
 
 		items.register((s, t) -> {
-			if(t != 1)
+			if (t != 1) {
 				return -1;
+			}
 
 			Brew brew = ((IBrewItem) s.getItem()).getBrew(s);
-			if(brew == BotaniaAPI.fallbackBrew)
+			if (brew == BotaniaAPI.fallbackBrew) {
 				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
+			}
 
 			int color = brew.getColor(s);
 			double speed = s.getItem() == ModItems.brewFlask || s.getItem() == ModItems.brewVial ? 0.1 : 0.2;
@@ -155,10 +167,11 @@ public final class ColorHandler {
 
 		items.register((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
-			if(!lens.isEmpty() && t == 0)
+			if (!lens.isEmpty() && t == 0) {
 				return Minecraft.getInstance().getItemColors().getColor(lens, t);
+			}
 
-			if(t == 2) {
+			if (t == 2) {
 				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, Hand.MAIN_HAND);
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
@@ -173,7 +186,9 @@ public final class ColorHandler {
 				int cb = MathHelper.clamp(b, 0, 255);
 
 				return cr << 16 | cg << 8 | cb;
-			} else return -1;
+			} else {
+				return -1;
+			}
 		}, ModItems.manaGun);
 
 		items.register((s, t) -> t == 1 ? MathHelper.hsvToRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.milliTime() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);

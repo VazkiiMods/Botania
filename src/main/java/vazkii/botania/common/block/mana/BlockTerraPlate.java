@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 8, 2014, 5:25:12 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -25,6 +23,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.item.ModItems;
@@ -48,9 +47,9 @@ public class BlockTerraPlate extends BlockMod {
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty()
+		if (!stack.isEmpty()
 				&& (stack.getItem() == ModItems.manaSteel || stack.getItem() == ModItems.manaPearl || stack.getItem() == ModItems.manaDiamond)) {
-			if(!world.isRemote) {
+			if (!world.isRemote) {
 				ItemStack target = stack.split(1);
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
 				item.setPickupDelay(40);
@@ -89,8 +88,9 @@ public class BlockTerraPlate extends BlockMod {
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		TileTerraPlate plate = (TileTerraPlate) world.getTileEntity(pos);
 		int val = (int) ((double) plate.getCurrentMana() / (double) TileTerraPlate.MAX_MANA * 15.0);
-		if(plate.getCurrentMana() > 0)
+		if (plate.getCurrentMana() > 0) {
 			val = Math.max(val, 1);
+		}
 
 		return val;
 	}

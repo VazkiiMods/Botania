@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 21, 2014, 9:56:24 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -60,7 +58,7 @@ public abstract class TileSimpleInventory extends TileMod {
 	}
 
 	/* Extension of ItemStackHandler that uses our own slot array, allows for control of writing,
-	   allows control over stack limits, and allows for itemstack-slot validation */
+	allows control over stack limits, and allows for itemstack-slot validation */
 	protected static class SimpleItemStackHandler extends ItemStackHandler {
 
 		private final boolean allowWrite;
@@ -75,17 +73,21 @@ public abstract class TileSimpleInventory extends TileMod {
 		@Nonnull
 		@Override
 		public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-			if(allowWrite) {
+			if (allowWrite) {
 				return super.insertItem(slot, stack, simulate);
-			} else return stack;
+			} else {
+				return stack;
+			}
 		}
 
 		@Nonnull
 		@Override
 		public ItemStack extractItem(int slot, int amount, boolean simulate) {
-			if(allowWrite) {
+			if (allowWrite) {
 				return super.extractItem(slot, amount, simulate);
-			} else return ItemStack.EMPTY;
+			} else {
+				return ItemStack.EMPTY;
+			}
 		}
 
 		@Override

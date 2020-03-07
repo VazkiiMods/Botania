@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 28, 2015, 10:01:01 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -25,6 +23,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
@@ -58,11 +57,12 @@ public class BlockSparkChanger extends BlockMod {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
 
-		if(power && !powered) {
+		if (power && !powered) {
 			((TileSparkChanger) world.getTileEntity(pos)).doSwap();
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
-		} else if(!power && powered)
+		} else if (!power && powered) {
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
+		}
 	}
 
 	@Override
@@ -70,13 +70,13 @@ public class BlockSparkChanger extends BlockMod {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack pstack = player.getHeldItem(hand);
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
-		if(!cstack.isEmpty()) {
+		if (!cstack.isEmpty()) {
 			changer.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return ActionResultType.SUCCESS;
-		} else if(!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
+		} else if (!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
 			changer.getItemHandler().setStackInSlot(0, pstack.split(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
@@ -105,8 +105,9 @@ public class BlockSparkChanger extends BlockMod {
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
-		if(!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade)
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade) {
 			return ((ItemSparkUpgrade) stack.getItem()).type.ordinal() + 1;
+		}
 		return 0;
 	}
 

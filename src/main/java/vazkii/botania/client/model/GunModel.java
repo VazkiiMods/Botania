@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.TransformationMatrix;
@@ -17,28 +26,25 @@ import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resources.IResource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.SimpleModelTransform;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import org.apache.commons.lang3.tuple.Pair;
-import vazkii.botania.common.Botania;
+
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -73,9 +79,11 @@ public class GunModel implements IBakedModel {
 			}
 
 			ItemStack lens = ItemManaGun.getLens(stack);
-			if(!lens.isEmpty()) {
+			if (!lens.isEmpty()) {
 				return GunModel.this.getModel(lens, clip);
-			} else return clip ? originalModelClip : originalModel;
+			} else {
+				return clip ? originalModelClip : originalModel;
+			}
 		}
 	};
 
@@ -85,13 +93,43 @@ public class GunModel implements IBakedModel {
 		return itemHandler;
 	}
 
-	@Nonnull @Override public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) { return originalModel.getQuads(state, side, rand); }
-	@Override public boolean isAmbientOcclusion() { return originalModel.isAmbientOcclusion(); }
-	@Override public boolean isGui3d() { return originalModel.isGui3d(); }
-	@Override public boolean isBuiltInRenderer() { return originalModel.isBuiltInRenderer(); }
-	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return originalModel.getParticleTexture(); }
-	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return originalModel.getItemCameraTransforms(); }
-	@Override public boolean isSideLit() { return originalModel.isSideLit(); }
+	@Nonnull
+	@Override
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
+		return originalModel.getQuads(state, side, rand);
+	}
+
+	@Override
+	public boolean isAmbientOcclusion() {
+		return originalModel.isAmbientOcclusion();
+	}
+
+	@Override
+	public boolean isGui3d() {
+		return originalModel.isGui3d();
+	}
+
+	@Override
+	public boolean isBuiltInRenderer() {
+		return originalModel.isBuiltInRenderer();
+	}
+
+	@Nonnull
+	@Override
+	public TextureAtlasSprite getParticleTexture() {
+		return originalModel.getParticleTexture();
+	}
+
+	@Nonnull
+	@Override
+	public ItemCameraTransforms getItemCameraTransforms() {
+		return originalModel.getItemCameraTransforms();
+	}
+
+	@Override
+	public boolean isSideLit() {
+		return originalModel.isSideLit();
+	}
 
 	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
 
@@ -122,13 +160,14 @@ public class GunModel implements IBakedModel {
 				lensBaked = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), transform, name);
 			}
 
-			for(Direction e : Direction.values())
+			for (Direction e : Direction.values()) {
 				faceQuads.put(e, new ArrayList<>());
+			}
 
 			Random rand = new Random(0);
 			genQuads.addAll(lensBaked.getQuads(null, null, rand));
 
-			for(Direction e : Direction.values()) {
+			for (Direction e : Direction.values()) {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(lensBaked.getQuads(null, e, rand));
 			}
@@ -136,7 +175,7 @@ public class GunModel implements IBakedModel {
 			// Add gun quads
 			rand.setSeed(0);
 			genQuads.addAll(gun.getQuads(null, null, rand));
-			for(Direction e : Direction.values()) {
+			for (Direction e : Direction.values()) {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}

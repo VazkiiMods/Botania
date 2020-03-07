@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 16, 2014, 7:34:37 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -27,6 +25,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockMod;
@@ -35,6 +34,7 @@ import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,31 +63,32 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger {
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
-		if(burst.isFake())
+		if (burst.isFake()) {
 			return;
-		if(world.isRemote) {
+		}
+		if (world.isRemote) {
 			world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 			return;
 		}
-		if(variant == Variant.WILD)
+		if (variant == Variant.WILD) {
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos);
-		else if(variant == Variant.CANOPY)
+		} else if (variant == Variant.CANOPY) {
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
-		else {
+		} else {
 			int range = 10;
 			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 			List<MobEntity> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
-			for(MobEntity entity : entities) {
-				if(entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, new BlockPos(entity))) {
+			for (MobEntity entity : entities) {
+				if (entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, new BlockPos(entity))) {
 					shearables.add(entity);
-				} else if(entity instanceof CowEntity) {
+				} else if (entity instanceof CowEntity) {
 					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
-					for(ItemEntity item : items) {
+					for (ItemEntity item : items) {
 						ItemStack itemstack = item.getItem();
-						if(!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
-							while(itemstack.getCount() > 0) {
+						if (!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
+							while (itemstack.getCount() > 0) {
 								ItemEntity ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
 								ent.setMotion(ent.getMotion().add(
 										world.rand.nextFloat() * 0.05F,
@@ -105,12 +106,13 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger {
 			Collections.shuffle(shearables);
 			int sheared = 0;
 
-			for(MobEntity entity : shearables) {
-				if(sheared > 4)
+			for (MobEntity entity : shearables) {
+				if (sheared > 4) {
 					break;
+				}
 
 				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, new BlockPos(entity), 0);
-				for(ItemStack wool : stacks) {
+				for (ItemStack wool : stacks) {
 					ItemEntity ent = entity.entityDropItem(wool, 1.0F);
 					ent.setMotion(ent.getMotion().add(
 							world.rand.nextFloat() * 0.05F,
@@ -122,7 +124,8 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger {
 			}
 		}
 
-		for(int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++) {
 			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
+		}
 	}
 }

@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 3, 2014, 9:59:17 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +19,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
@@ -53,7 +53,7 @@ public final class ClientTickHandler {
 	@SubscribeEvent
 	public static void renderTick(TickEvent.RenderTickEvent event) {
 		Minecraft mc = Minecraft.getInstance();
-		if(event.phase == TickEvent.Phase.START) {
+		if (event.phase == TickEvent.Phase.START) {
 			partialTicks = event.renderTickTime;
 
 			if (mc.isGamePaused()) {
@@ -72,25 +72,26 @@ public final class ClientTickHandler {
 
 	@SubscribeEvent
 	public static void clientTickEnd(TickEvent.ClientTickEvent event) {
-		if(event.phase == TickEvent.Phase.END) {
+		if (event.phase == TickEvent.Phase.END) {
 			RenderTileRedString.tick();
 			ItemsRemainingRenderHandler.tick();
 
-			if(Minecraft.getInstance().world == null) {
+			if (Minecraft.getInstance().world == null) {
 				ManaNetworkHandler.instance.clear();
 				SubTileVinculotus.existingFlowers.clear();
 			}
 
-			if(!Minecraft.getInstance().isGamePaused()) {
+			if (!Minecraft.getInstance().isGamePaused()) {
 				ticksInGame++;
 				partialTicks = 0;
 
 				PlayerEntity player = Minecraft.getInstance().player;
-				if(player != null) {
-					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for(TileEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {
-							if(tile instanceof IManaCollector)
+				if (player != null) {
+					if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
+						for (TileEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {
+							if (tile instanceof IManaCollector) {
 								((IManaCollector) tile).onClientDisplayTick();
+							}
 						}
 					}
 				}
@@ -98,18 +99,22 @@ public final class ClientTickHandler {
 
 			int ticksToOpen = 10;
 			Screen gui = Minecraft.getInstance().currentScreen;
-			if(gui instanceof GuiBook && ((GuiBook) gui).book.getBookItem().getItem() == ModItems.lexicon) {
-				if(ticksWithLexicaOpen < 0)
+			if (gui instanceof GuiBook && ((GuiBook) gui).book.getBookItem().getItem() == ModItems.lexicon) {
+				if (ticksWithLexicaOpen < 0) {
 					ticksWithLexicaOpen = 0;
-				if(ticksWithLexicaOpen < ticksToOpen)
+				}
+				if (ticksWithLexicaOpen < ticksToOpen) {
 					ticksWithLexicaOpen++;
-				if(pageFlipTicks > 0)
+				}
+				if (pageFlipTicks > 0) {
 					pageFlipTicks--;
+				}
 			} else {
 				pageFlipTicks = 0;
-				if(ticksWithLexicaOpen > 0) {
-					if(ticksWithLexicaOpen > ticksToOpen)
+				if (ticksWithLexicaOpen > 0) {
+					if (ticksWithLexicaOpen > ticksToOpen) {
 						ticksWithLexicaOpen = ticksToOpen;
+					}
 					ticksWithLexicaOpen--;
 				}
 			}
@@ -119,8 +124,9 @@ public final class ClientTickHandler {
 	}
 
 	public static void notifyPageChange() {
-		if(pageFlipTicks == 0)
+		if (pageFlipTicks == 0) {
 			pageFlipTicks = 5;
+		}
 	}
 
 }

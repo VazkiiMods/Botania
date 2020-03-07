@@ -1,8 +1,8 @@
-/**
- * This class was created by <williewillus>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * <p/>
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
@@ -20,6 +20,7 @@ import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.item.Item;
@@ -27,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -61,6 +63,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,7 +85,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.registerSubtypeInterpreter(ModItems.terraPick, stack -> String.valueOf(ItemTerraPick.getLevel(stack)) + ItemTerraPick.isTipped(stack));
 		registry.registerSubtypeInterpreter(ModItems.manaTablet, stack -> String.valueOf(((IManaItem) ModItems.manaTablet).getMana(stack)) + ItemManaTablet.isStackCreative(stack));
 
-		for(Item item : new Item[]{ModItems.manaRing, ModItems.manaRingGreater}) {
+		for (Item item : new Item[] { ModItems.manaRing, ModItems.manaRingGreater }) {
 			registry.registerSubtypeInterpreter(item, stack -> String.valueOf(((IManaItem) item).getMana(stack)));
 		}
 	}
@@ -172,7 +175,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisy), PureDaisyRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.UID);
 
-
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
@@ -181,25 +183,28 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
-		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
+		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
 			List<Ingredient> inputs = recipe.getInputs();
 			List<ItemStack> outputs = recipe.getOutputs();
-			if(inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0)) && outputs.get(0).getItem() != ModItems.lexicon) {
+			if (inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0)) && outputs.get(0).getItem() != ModItems.lexicon) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}
 		}
-		
+
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
 
-			if(o == null && Minecraft.getInstance().currentScreen == jeiRuntime.getRecipesGui())
+			if (o == null && Minecraft.getInstance().currentScreen == jeiRuntime.getRecipesGui()) {
 				o = jeiRuntime.getRecipesGui().getIngredientUnderMouse();
+			}
 
-			if(o == null)
+			if (o == null) {
 				o = jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse();
+			}
 
-			if(o instanceof ItemStack)
+			if (o instanceof ItemStack) {
 				return (ItemStack) o;
+			}
 			return ItemStack.EMPTY;
 		};
 

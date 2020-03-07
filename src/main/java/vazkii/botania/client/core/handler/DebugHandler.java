@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 21, 2014, 4:58:55 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
@@ -25,10 +23,12 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.forgespi.language.IModInfo;
+
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GLCapabilities;
+
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,7 +43,7 @@ public final class DebugHandler {
 	@SubscribeEvent
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = Minecraft.getInstance().world;
-		if(ConfigHandler.CLIENT.debugInfo.get() && Minecraft.getInstance().gameSettings.showDebugInfo) {
+		if (ConfigHandler.CLIENT.debugInfo.get() && Minecraft.getInstance().gameSettings.showDebugInfo) {
 			event.getLeft().add("");
 			String version = ModList.get().getModContainerById(LibMisc.MOD_ID)
 					.map(ModContainer::getModInfo)
@@ -62,7 +62,7 @@ public final class DebugHandler {
 				}
 			}
 
-			if(Screen.hasControlDown() && Screen.hasShiftDown()) {
+			if (Screen.hasControlDown() && Screen.hasShiftDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
 				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
 
@@ -74,11 +74,12 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
-			} else if(Minecraft.IS_RUNNING_ON_MAC)
+			} else if (Minecraft.IS_RUNNING_ON_MAC) {
 				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
-			else event.getLeft().add(PREFIX + "SHIFT+CTRL for context");
+			} else {
+				event.getLeft().add(PREFIX + "SHIFT+CTRL for context");
+			}
 		}
 	}
-
 
 }

@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -10,10 +19,12 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.common.item.ItemManaGun;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,10 +57,10 @@ public class ManaGunTrigger implements ICriterionTrigger<ManaGunTrigger.Instance
 	public void removeListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<ManaGunTrigger.Instance> listener) {
 		ManaGunTrigger.PlayerTracker tracker = this.playerTrackers.get(player);
 
-		if(tracker != null) {
+		if (tracker != null) {
 			tracker.listeners.remove(listener);
 
-			if(tracker.listeners.isEmpty()) {
+			if (tracker.listeners.isEmpty()) {
 				this.playerTrackers.remove(player);
 			}
 		}
@@ -78,13 +89,13 @@ public class ManaGunTrigger implements ICriterionTrigger<ManaGunTrigger.Instance
 		public void trigger(ServerPlayerEntity player, ItemStack stack) {
 			List<Listener<ManaGunTrigger.Instance>> list = new ArrayList<>();
 
-			for(Listener<ManaGunTrigger.Instance> listener : this.listeners) {
-				if(listener.getCriterionInstance().test(stack, player)) {
+			for (Listener<ManaGunTrigger.Instance> listener : this.listeners) {
+				if (listener.getCriterionInstance().test(stack, player)) {
 					list.add(listener);
 				}
 			}
 
-			for(Listener<ManaGunTrigger.Instance> listener : list) {
+			for (Listener<ManaGunTrigger.Instance> listener : list) {
 				listener.grantCriterion(this.playerAdvancements);
 			}
 		}
@@ -92,7 +103,7 @@ public class ManaGunTrigger implements ICriterionTrigger<ManaGunTrigger.Instance
 
 	public void trigger(ServerPlayerEntity player, ItemStack stack) {
 		ManaGunTrigger.PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
-		if(tracker != null) {
+		if (tracker != null) {
 			tracker.trigger(player, stack);
 		}
 	}
@@ -100,8 +111,7 @@ public class ManaGunTrigger implements ICriterionTrigger<ManaGunTrigger.Instance
 	static class Instance implements ICriterionInstance {
 		private final ItemPredicate item;
 		private final EntityPredicate user;
-		@Nullable
-		private final Boolean desu;
+		@Nullable private final Boolean desu;
 
 		Instance(ItemPredicate count, EntityPredicate user, Boolean desu) {
 			this.item = count;

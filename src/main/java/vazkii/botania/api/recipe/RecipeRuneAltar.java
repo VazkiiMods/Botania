@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 5, 2014, 1:41:14 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
@@ -39,24 +38,27 @@ public class RecipeRuneAltar implements IModRecipe {
 	public boolean matches(IItemHandler inv) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
-		for(int i = 0; i < inv.getSlots(); i++) {
+		for (int i = 0; i < inv.getSlots(); i++) {
 			ItemStack input = inv.getStackInSlot(i);
-			if(input.isEmpty())
+			if (input.isEmpty()) {
 				break;
+			}
 
 			int stackIndex = -1;
 
-			for(int j = 0; j < ingredientsMissing.size(); j++) {
+			for (int j = 0; j < ingredientsMissing.size(); j++) {
 				Ingredient ingr = ingredientsMissing.get(j);
-				if(ingr.test(input)) {
+				if (ingr.test(input)) {
 					stackIndex = j;
 					break;
 				}
 			}
 
-			if(stackIndex != -1)
+			if (stackIndex != -1) {
 				ingredientsMissing.remove(stackIndex);
-			else return false;
+			} else {
+				return false;
+			}
 		}
 
 		return ingredientsMissing.isEmpty();

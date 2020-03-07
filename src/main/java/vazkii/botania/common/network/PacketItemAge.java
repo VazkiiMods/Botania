@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.network;
 
 import net.minecraft.client.Minecraft;
@@ -27,13 +35,14 @@ public class PacketItemAge {
 	}
 
 	public static void handle(PacketItemAge message, Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isClient())
+		if (ctx.get().getDirection().getReceptionSide().isClient()) {
 			ctx.get().enqueueWork(() -> {
 				Entity e = Minecraft.getInstance().world.getEntityByID(message.entityId);
 				if (e instanceof ItemEntity) {
 					((ItemEntity) e).age = message.age;
 				}
 			});
+		}
 		ctx.get().setPacketHandled(true);
 	}
 }

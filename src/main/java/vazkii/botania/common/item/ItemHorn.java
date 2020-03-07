@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 11, 2014, 2:57:30 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -21,19 +19,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,9 +65,10 @@ public class ItemHorn extends Item {
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity player, int time) {
-		if(!player.world.isRemote) {
-			if(time != getUseDuration(stack) && time % 5 == 0)
+		if (!player.world.isRemote) {
+			if (time != getUseDuration(stack) && time % 5 == 0) {
 				breakGrass(player.world, stack, new BlockPos(player));
+			}
 			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
@@ -87,28 +87,29 @@ public class ItemHorn extends Item {
 		int rangeY = 3 + type.ordinal() * 4;
 		List<BlockPos> coords = new ArrayList<>();
 
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(srcPos.add(-range, -rangeY, -range),
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(srcPos.add(-range, -rangeY, -range),
 				srcPos.add(range, rangeY, range))) {
 			Block block = world.getBlockState(pos).getBlock();
-			if(block instanceof IHornHarvestable
+			if (block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
-							: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
+					: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
-							|| type == EnumHornType.COVERING && block == Blocks.SNOW)
+							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
 				coords.add(pos.toImmutable());
+			}
 		}
 
 		Collections.shuffle(coords, world.rand);
 
 		int count = Math.min(coords.size(), 32 + type.ordinal() * 16);
-		for(int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
 
-			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
+			if (block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
-			else {
+			} else {
 				world.destroyBlock(currCoords, true);
 			}
 		}

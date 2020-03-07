@@ -1,39 +1,34 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 16, 2015, 5:03:57 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
 import javax.annotation.Nonnull;
+
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -48,11 +43,12 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 	@Override
 	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
-		if(!(state.getBlock() instanceof BlockLightRelay))
+		if (!(state.getBlock() instanceof BlockLightRelay)) {
 			return;
+		}
 
 		Minecraft mc = Minecraft.getInstance();
-		if(sprites.isEmpty()) {
+		if (sprites.isEmpty()) {
 			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
 			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed);
 			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayWorldIconGreen);

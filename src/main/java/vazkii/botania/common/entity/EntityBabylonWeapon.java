@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 16, 2015, 3:56:14 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -24,13 +22,13 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -41,11 +39,11 @@ import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
-	@ObjectHolder(LibMisc.MOD_ID + ":babylon_weapon")
-	public static EntityType<EntityBabylonWeapon> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":babylon_weapon") public static EntityType<EntityBabylonWeapon> TYPE;
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -97,16 +95,16 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@Override
 	public void tick() {
 		LivingEntity thrower = getThrower();
-		if(!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
+		if (!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
 			remove();
 			return;
 		}
 		PlayerEntity player = (PlayerEntity) thrower;
 		boolean charging = isCharging();
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			ItemStack stack = player == null ? ItemStack.EMPTY : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && ItemKingKey.isCharging(stack);
-			if(charging != newCharging) {
+			if (charging != newCharging) {
 				setCharging(newCharging);
 				charging = newCharging;
 			}
@@ -118,23 +116,24 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		int delay = getDelay();
 		charging &= liveTime == 0;
 
-		if(charging) {
+		if (charging) {
 			setMotion(Vec3d.ZERO);
 
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
 
-			if(world.rand.nextInt(20) == 0)
+			if (world.rand.nextInt(20) == 0) {
 				world.playSound(null, getX(), getY(), getZ(), ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
+			}
 		} else {
-			if(liveTime < delay) {
+			if (liveTime < delay) {
 				setMotion(Vec3d.ZERO);
 			} else if (liveTime == delay && player != null) {
 				Vector3 playerLook;
 				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 64, true);
-				if(rtr.getType() != RayTraceResult.Type.BLOCK)
+				if (rtr.getType() != RayTraceResult.Type.BLOCK) {
 					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
-				else {
+				} else {
 					playerLook = new Vector3(rtr.getPos().getX() + 0.5, rtr.getPos().getY() + 0.5, rtr.getPos().getZ() + 0.5);
 				}
 
@@ -146,17 +145,20 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			}
 			setLiveTicks(liveTime + 1);
 
-			if(!world.isRemote) {
+			if (!world.isRemote) {
 				AxisAlignedBB axis = new AxisAlignedBB(getX(), getY(), getZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 				List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
-				for(LivingEntity living : entities) {
-					if(living == thrower)
+				for (LivingEntity living : entities) {
+					if (living == thrower) {
 						continue;
+					}
 
-					if(living.hurtTime == 0) {
-						if(player != null)
+					if (living.hurtTime == 0) {
+						if (player != null) {
 							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 20);
-						else living.attackEntityFrom(DamageSource.GENERIC, 20);
+						} else {
+							living.attackEntityFrom(DamageSource.GENERIC, 20);
+						}
 						onImpact(new EntityRayTraceResult(living));
 						return;
 					}
@@ -168,19 +170,20 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		setMotion(mot);
 
-		if(liveTime > delay) {
-            WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
-            world.addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
-        }
+		if (liveTime > delay) {
+			WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
+			world.addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
+		}
 
-		if(liveTime > 200 + delay)
+		if (liveTime > 200 + delay) {
 			remove();
+		}
 	}
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
 		LivingEntity thrower = getThrower();
-		if(pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
+		if (pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
 			world.createExplosion(this, getX(), getY(), getZ(), 3F, Explosion.Mode.NONE);
 			remove();
 		}

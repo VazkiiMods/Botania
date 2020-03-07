@@ -1,19 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 20, 2014, 10:56:14 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -30,7 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
@@ -39,6 +34,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaGivingItem;
@@ -54,6 +50,7 @@ import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -86,8 +83,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInGroup(tab)) {
-			for(int mana : CREATIVE_MANA) {
+		if (isInGroup(tab)) {
+			for (int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
 				setMana(stack, mana);
 				list.add(stack);
@@ -105,8 +102,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(stack));
 		ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
-		if(getMana(stack) == Integer.MAX_VALUE)
+		if (getMana(stack) == Integer.MAX_VALUE) {
 			stacks.add(new TranslationTextComponent("botaniamisc.getALife").applyTextStyle(TextFormatting.RED));
+		}
 	}
 
 	@Nonnull
@@ -117,10 +115,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		getMana(stack);
 		int level = getLevel(stack);
 
-		if(level != 0) {
+		if (level != 0) {
 			setEnabled(stack, !isEnabled(stack));
-			if(!world.isRemote)
+			if (!world.isRemote) {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+			}
 		}
 
 		return ActionResult.success(stack);
@@ -136,20 +135,21 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		if(isEnabled(stack)) {
+		if (isEnabled(stack)) {
 			int level = getLevel(stack);
 
-			if(level == 0)
+			if (level == 0) {
 				setEnabled(stack, false);
-			else if(entity instanceof PlayerEntity && !((PlayerEntity) entity).isSwingInProgress)
+			} else if (entity instanceof PlayerEntity && !((PlayerEntity) entity).isSwingInProgress) {
 				addMana(stack, -level);
+			}
 		}
 	}
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		BlockRayTraceResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if(!player.world.isRemote && raycast.getType() == RayTraceResult.Type.BLOCK) {
+		if (!player.world.isRemote && raycast.getType() == RayTraceResult.Type.BLOCK) {
 			Direction face = raycast.getFace();
 			breakOtherBlock(player, stack, pos, pos, face);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, face);
@@ -166,16 +166,19 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
-		if(!isEnabled(stack))
+		if (!isEnabled(stack)) {
 			return;
+		}
 
 		World world = player.world;
 		Material mat = world.getBlockState(pos).getMaterial();
-		if(!MATERIALS.contains(mat))
+		if (!MATERIALS.contains(mat)) {
 			return;
+		}
 
-		if(world.isAirBlock(pos))
+		if (world.isAirBlock(pos)) {
 			return;
+		}
 
 		boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
 		boolean doX = thor || side.getXOffset() == 0;
@@ -184,21 +187,23 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);
-		if(ItemTemperanceStone.hasTemperanceActive(player) && level > 2)
+		if (ItemTemperanceStone.hasTemperanceActive(player) && level > 2) {
 			level = 2;
+		}
 
 		int range = level - 1;
 		int rangeY = Math.max(1, range);
 
-		if(range == 0 && level != 1)
+		if (range == 0 && level != 1) {
 			return;
+		}
 
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
 
-		if(origLevel == 5) {
+		if (origLevel == 5) {
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/rank_ss_pick"), "code_triggered");
 		}
 	}
@@ -239,9 +244,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	public static int getLevel(ItemStack stack) {
 		int mana = getMana_(stack);
-		for(int i = LEVELS.length - 1; i > 0; i--)
-			if(mana >= LEVELS[i])
+		for (int i = LEVELS.length - 1; i > 0; i--) {
+			if (mana >= LEVELS[i]) {
 				return i;
+			}
+		}
 
 		return 0;
 	}

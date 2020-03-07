@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 10, 2014, 11:48:12 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
 
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -22,10 +21,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
+
 import java.util.function.Consumer;
 
 public class ItemEnderDagger extends ItemManasteelSword {
@@ -36,7 +37,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
-		if(!target.world.isRemote
+		if (!target.world.isRemote
 				&& target instanceof EndermanEntity
 				&& attacker instanceof PlayerEntity) {
 			target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), 20);

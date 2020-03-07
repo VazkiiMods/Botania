@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [28/09/2016, 16:14:04 (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -29,6 +27,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -48,14 +47,14 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 
 	@Override
 	public ActionResultType onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult hit) {
-		if(hand == Hand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand).isEmpty()) {
+		if (hand == Hand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand).isEmpty()) {
 			((TileAnimatedTorch) worldIn.getTileEntity(pos)).handRotate();
 			return ActionResultType.SUCCESS;
 		}
 
 		return ActionResultType.PASS;
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		((TileAnimatedTorch) world.getTileEntity(pos)).onPlace(entity);
@@ -63,8 +62,9 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
-		if(!burst.isFake())
+		if (!burst.isFake()) {
 			((TileAnimatedTorch) world.getTileEntity(pos)).toggle();
+		}
 	}
 
 	@Override
@@ -98,11 +98,13 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
 		TileAnimatedTorch tile = (TileAnimatedTorch) blockAccess.getTileEntity(pos);
 
-		if(tile.rotating)
+		if (tile.rotating) {
 			return 0;
+		}
 
-		if(TileAnimatedTorch.SIDES[tile.side] == side)
+		if (TileAnimatedTorch.SIDES[tile.side] == side) {
 			return 15;
+		}
 
 		return 0;
 	}

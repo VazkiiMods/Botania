@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [2020-01-14, 01:26 (UTC+2)]
  */
 package vazkii.botania.client.core.handler;
 
@@ -22,10 +20,12 @@ import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -47,8 +47,9 @@ public class SplashHandler {
 
 		@Override
 		protected void apply(@Nonnull Unit unused, @Nonnull IResourceManager resourceManager, @Nonnull IProfiler profiler) {
-			if (!ConfigHandler.CLIENT.splashesEnabled.get())
+			if (!ConfigHandler.CLIENT.splashesEnabled.get()) {
 				return;
+			}
 
 			Splashes splashes = Minecraft.getInstance().getSplashes();
 			List<String> splashList = ObfuscationReflectionHelper.getPrivateValue(Splashes.class, splashes, "field_215280_c"); //possibleSplashes

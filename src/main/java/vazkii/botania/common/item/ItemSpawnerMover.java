@@ -1,12 +1,10 @@
-/**
- * This class was created by <PowerCrystals>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -19,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
@@ -30,7 +27,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -38,6 +35,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.List;
 
 public class ItemSpawnerMover extends Item {
@@ -54,9 +52,9 @@ public class ItemSpawnerMover extends Item {
 	@Nullable
 	private static ResourceLocation getEntityId(ItemStack stack) {
 		CompoundNBT tag = stack.getChildTag(TAG_SPAWNER);
-		if(tag != null && tag.contains(TAG_SPAWN_DATA)) {
+		if (tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
-			if(tag.contains(TAG_ID)) {
+			if (tag.contains(TAG_ID)) {
 				return ResourceLocation.tryCreate(tag.getString(TAG_ID));
 			}
 		}
@@ -83,7 +81,7 @@ public class ItemSpawnerMover extends Item {
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		if(getEntityId(ctx.getItem()) == null) {
+		if (getEntityId(ctx.getItem()) == null) {
 			return captureSpawner(ctx) ? ActionResultType.SUCCESS : ActionResultType.PASS;
 		} else {
 			return placeSpawner(ctx);
@@ -95,17 +93,18 @@ public class ItemSpawnerMover extends Item {
 		useStack.getOrCreateTag().put("BlockEntityTag", ctx.getItem().getChildTag(TAG_SPAWNER));
 		ActionResultType res = PlayerHelper.substituteUse(ctx, useStack);
 
-		if(res == ActionResultType.SUCCESS) {
+		if (res == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();
 			BlockPos pos = ctx.getPos();
 			ItemStack mover = ctx.getItem();
 
-			if(!world.isRemote) {
-				if(ctx.getPlayer() != null)
+			if (!world.isRemote) {
+				if (ctx.getPlayer() != null) {
 					ctx.getPlayer().sendBreakAnimation(ctx.getHand());
+				}
 				mover.shrink(1);
 			} else {
-				for(int i = 0; i < 100; i++) {
+				for (int i = 0; i < 100; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
 					world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 				}
@@ -121,18 +120,18 @@ public class ItemSpawnerMover extends Item {
 		ItemStack stack = ctx.getItem();
 		PlayerEntity player = ctx.getPlayer();
 
-		if(world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
-			if(!world.isRemote) {
+		if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
+			if (!world.isRemote) {
 				TileEntity te = world.getTileEntity(pos);
 				stack.getOrCreateTag().put(TAG_SPAWNER, te.write(new CompoundNBT()));
 				world.destroyBlock(pos, false);
-				if(player != null) {
+				if (player != null) {
 					player.getCooldownTracker().setCooldown(this, 20);
 					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
 					player.sendBreakAnimation(ctx.getHand());
 				}
 			} else {
-				for(int i = 0; i < 50; i++) {
+				for (int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
 					float blue = (float) Math.random();
@@ -141,6 +140,8 @@ public class ItemSpawnerMover extends Item {
 				}
 			}
 			return true;
-		} else return false;
+		} else {
+			return false;
+		}
 	}
 }

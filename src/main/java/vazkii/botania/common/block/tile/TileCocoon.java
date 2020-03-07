@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 8, 2015, 4:32:34 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
@@ -24,16 +23,16 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileCocoon extends TileMod implements ITickableTileEntity{
+public class TileCocoon extends TileMod implements ITickableTileEntity {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.COCOON)
-	public static TileEntityType<TileCocoon> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.COCOON) public static TileEntityType<TileCocoon> TYPE;
 
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
@@ -66,12 +65,13 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 	@Override
 	public void tick() {
 		timePassed++;
-		if(timePassed >= TOTAL_TIME)
+		if (timePassed >= TOTAL_TIME) {
 			hatch();
+		}
 	}
 
 	private void hatch() {
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			timePassed = 0;
 			world.destroyBlock(pos, false);
 
@@ -92,11 +92,11 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				}
 			}
 
-			if(Math.random() < shulkerChance) {
+			if (Math.random() < shulkerChance) {
 				entity = EntityType.SHULKER.create(world);
-			} else if(Math.random() < villagerChance) {
+			} else if (Math.random() < villagerChance) {
 				VillagerEntity villager = EntityType.VILLAGER.create(world);
-				if(villager != null) {
+				if (villager != null) {
 					IVillagerType type = IVillagerType.byBiome(world.getBiome(pos));
 					villager.setVillagerData(villager.getVillagerData().withType(type));
 				}
@@ -109,20 +109,22 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 					entity = AQUATIC.get(world.rand.nextInt(AQUATIC.size())).create(world);
 				}
 			} else {
-				if(Math.random() < SPECIAL_CHANCE) {
+				if (Math.random() < SPECIAL_CHANCE) {
 					entity = SPECIALS.get(world.rand.nextInt(SPECIALS.size())).create(world);
 				} else {
 					EntityType<? extends MobEntity> type = NORMALS.get(world.rand.nextInt(NORMALS.size()));
-					if (type == EntityType.COW && Math.random() < 0.01)
+					if (type == EntityType.COW && Math.random() < 0.01) {
 						type = EntityType.MOOSHROOM;
+					}
 					entity = type.create(world);
 				}
 			}
 
-			if(entity != null) {
+			if (entity != null) {
 				entity.setPosition(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
-				if(entity instanceof AgeableEntity)
+				if (entity instanceof AgeableEntity) {
 					((AgeableEntity) entity).setGrowingAge(-24000);
+				}
 				entity.onInitialSpawn(world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
 				entity.enablePersistence();
 				world.addEntity(entity);

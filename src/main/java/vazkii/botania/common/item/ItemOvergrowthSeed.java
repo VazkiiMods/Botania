@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 26, 2015, 5:59:21 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -18,6 +16,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -36,8 +35,8 @@ public class ItemOvergrowthSeed extends Item {
 
 		// todo 1.13 grass tag
 		BlockState state = world.getBlockState(pos);
-		if(state.getBlock() == Blocks.GRASS_BLOCK) {
-			if(!world.isRemote) {
+		if (state.getBlock() == Blocks.GRASS_BLOCK) {
+			if (!world.isRemote) {
 				world.playEvent(2001, pos, Block.getStateId(state));
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
 				ctx.getItem().shrink(1);

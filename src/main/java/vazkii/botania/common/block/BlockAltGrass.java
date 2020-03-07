@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [17/11/2015, 18:33:30 (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -30,9 +28,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockAltGrass extends BlockMod {
@@ -57,28 +57,29 @@ public class BlockAltGrass extends BlockMod {
 	public boolean isToolEffective(BlockState state, ToolType tool) {
 		return tool.equals(ToolType.SHOVEL);
 	}
-	
+
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack held = player.getHeldItem(hand);
-		if(held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
+		if (held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState());
 			return ActionResultType.SUCCESS;
 		}
-		
+
 		return ActionResultType.PASS;
 	}
-	
+
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
-			for(int l = 0; l < 4; ++l) {
+		if (!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
+			for (int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				BlockPos pos1up = pos1.up();
 
-				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLight(pos1up) >= 4 && world.getBlockState(pos1up).getOpacity(world, pos1up) <= 2)
+				if (world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLight(pos1up) >= 4 && world.getBlockState(pos1up).getOpacity(world, pos1up) <= 2) {
 					world.setBlockState(pos1, getDefaultState());
+				}
 			}
 		}
 	}
@@ -92,7 +93,7 @@ public class BlockAltGrass extends BlockMod {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random r) {
-		switch(variant) {
+		switch (variant) {
 		case DRY:
 			break;
 		case GOLDEN:
@@ -100,25 +101,25 @@ public class BlockAltGrass extends BlockMod {
 		case VIVID:
 			break;
 		case SCORCHED:
-			if(r.nextInt(80) == 0)
+			if (r.nextInt(80) == 0) {
 				world.addParticle(ParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
+			}
 			break;
 		case INFUSED:
-			if(r.nextInt(100) == 0) {
-                SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 0F, 1F, 1F, 5);
-                world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
-            }
+			if (r.nextInt(100) == 0) {
+				SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 0F, 1F, 1F, 5);
+				world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+			}
 			break;
 		case MUTATED:
-			if(r.nextInt(100) == 0) {
-				if(r.nextInt(100) > 25) {
-                    SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 0F, 1F, 5);
-                    world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
-                }
-				else {
-                    SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 1F, 0F, 5);
-                    world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
-                }
+			if (r.nextInt(100) == 0) {
+				if (r.nextInt(100) > 25) {
+					SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 0F, 1F, 5);
+					world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+				} else {
+					SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 1F, 0F, 5);
+					world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+				}
 			}
 			break;
 		}

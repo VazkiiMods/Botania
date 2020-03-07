@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 19, 2014, 10:46:14 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -38,6 +36,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
@@ -50,6 +49,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExcempt {
@@ -76,8 +76,8 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInGroup(tab)) {
-			for(int i = 0; i <= 20; i += 5) {
+		if (isInGroup(tab)) {
+			for (int i = 0; i <= 20; i += 5) {
 				ItemStack s = new ItemStack(this);
 				s.getOrCreateTag().putInt(TAG_LEVEL, i);
 				list.add(s);
@@ -98,11 +98,11 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		if(!world.isRemote && pos.getY() < 160 && !world.getDimension().isNether()) {
+		if (!world.isRemote && pos.getY() < 160 && !world.getDimension().isNether()) {
 			world.playSound(null, pos, ModSounds.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = ctx.getItem();
 			spawnBurstFirst(world, pos, stack);
-			if(ctx.getPlayer() != null) {
+			if (ctx.getPlayer() != null) {
 				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) ctx.getPlayer(), stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
 			}
 			stack.shrink(1);
@@ -114,7 +114,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void spawnBurstFirst(World world, BlockPos pos, ItemStack shard) {
 		int range = BASE_RANGE + getShardLevel(shard);
 		boolean pointy = world.rand.nextDouble() < 0.25;
-		double heightscale = (world.rand.nextDouble() + 0.5) * ((double)BASE_RANGE / (double)range);
+		double heightscale = (world.rand.nextDouble() + 0.5) * ((double) BASE_RANGE / (double) range);
 		spawnBurst(world, pos, shard, pointy, heightscale);
 	}
 
@@ -132,24 +132,26 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		int j = ItemNBTHelper.getInt(shard, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);
 		int k = ItemNBTHelper.getInt(shard, TAG_ITERATION_K, 0);
 
-		if(j <= -BASE_RANGE * 2)
+		if (j <= -BASE_RANGE * 2) {
 			j = BASE_OFFSET - BASE_RANGE / 2;
-		if(k >= range * 2 + 1)
+		}
+		if (k >= range * 2 + 1) {
 			k = 0;
+		}
 
-		if(!world.isRemote) {
-			for(; i < range * 2 + 1; i++) {
-				for(; j > -BASE_RANGE * 2; j--) {
-					for(; k < range * 2 + 1; k++) {
+		if (!world.isRemote) {
+			for (; i < range * 2 + 1; i++) {
+				for (; j > -BASE_RANGE * 2; j--) {
+					for (; k < range * 2 + 1; k++) {
 						BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
 
-						if(inRange(pos_, pos, range, heightscale, pointy)) {
+						if (inRange(pos_, pos, range, heightscale, pointy)) {
 							BlockState state = world.getBlockState(pos_);
 							Block block = state.getBlock();
-							if(!block.isAir(state, world, pos_) && !(block instanceof FallingBlock) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
+							if (!block.isAir(state, world, pos_) && !(block instanceof FallingBlock) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
 								TileEntity tile = world.getTileEntity(pos_);
 
-								if(tile != null) {
+								if (tile != null) {
 									// Reset the TE so e.g. chests don't spawn their drops
 									TileEntity newTile = block.createTileEntity(state, world);
 									world.setTileEntity(pos_, newTile);
@@ -160,8 +162,9 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 								copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
 								copyLens.getTag().put(TAG_STATE, NBTUtil.writeBlockState(state));
 								CompoundNBT cmp = new CompoundNBT();
-								if(tile != null)
+								if (tile != null) {
 									cmp = tile.write(cmp);
+								}
 								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
 								ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
 								ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
@@ -191,11 +194,13 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	}
 
 	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
-		if(pos.getY() >= srcPos.getY())
+		if (pos.getY() >= srcPos.getY()) {
 			return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range;
-		else if(!pointy)
+		} else if (!pointy) {
 			return MathHelper.pointDistanceSpace(pos.getX(), pos.getY() / heightscale, pos.getZ(), srcPos.getX(), srcPos.getY() / heightscale, srcPos.getZ()) < range;
-		else return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range - (srcPos.getY() - pos.getY()) / heightscale;
+		} else {
+			return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range - (srcPos.getY() - pos.getY()) / heightscale;
+		}
 	}
 
 	public EntityManaBurst getBurst(World world, BlockPos pos, ItemStack stack) {
@@ -227,7 +232,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
 		ThrowableEntity entity = (ThrowableEntity) burst;
-		if(!entity.world.isRemote) {
+		if (!entity.world.isRemote) {
 			entity.setMotion(0, speed, 0);
 
 			final int spawnTicks = 2;
@@ -235,20 +240,21 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 			ItemStack lens = burst.getSourceLens();
 
-			if(burst.getTicksExisted() == spawnTicks) {
+			if (burst.getTicksExisted() == spawnTicks) {
 				int x = ItemNBTHelper.getInt(lens, TAG_X, 0);
 				int y = ItemNBTHelper.getInt(lens, TAG_Y, -1);
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
-				if(y != -1)
+				if (y != -1) {
 					spawnBurst(entity.world, new BlockPos(x, y, z), lens);
-			} else if(burst.getTicksExisted() == placeTicks) {
+				}
+			} else if (burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.math.MathHelper.floor(entity.getX());
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
 				int z = net.minecraft.util.math.MathHelper.floor(entity.getZ());
 				BlockPos pos = new BlockPos(x, y, z);
 
-				if(entity.world.isAirBlock(pos)) {
+				if (entity.world.isAirBlock(pos)) {
 					BlockState state = Blocks.AIR.getDefaultState();
 					if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
 						state = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
@@ -256,12 +262,13 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 					TileEntity tile = null;
 					CompoundNBT tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
-					if(tilecmp.contains("id"))
+					if (tilecmp.contains("id")) {
 						tile = TileEntity.create(tilecmp);
+					}
 
 					entity.world.setBlockState(pos, state);
 					entity.world.playEvent(2001, pos, Block.getStateId(state));
-					if(tile != null) {
+					if (tile != null) {
 						tile.setPos(pos);
 						entity.world.setTileEntity(pos, tile);
 					}

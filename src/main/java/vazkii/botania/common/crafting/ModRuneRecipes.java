@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 6, 2014, 5:59:28 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
 
@@ -18,6 +16,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
@@ -48,7 +47,7 @@ public final class ModRuneRecipes {
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("earth"), new ItemStack(ModItems.runeEarth, 2), costTier1, manaPowder, manaSteel, stone, coalBlock, Ingredient.fromItems(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)));
 
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.fromTag(ItemTags.CARPETS), Ingredient.fromItems(Items.FEATHER), Ingredient.fromItems(Items.STRING)));
-		
+
 		Ingredient fire = Ingredient.fromTag(ModTags.Items.RUNES_FIRE);
 		Ingredient water = Ingredient.fromTag(ModTags.Items.RUNES_WATER);
 		Ingredient earth = Ingredient.fromTag(ModTags.Items.RUNES_EARTH);
@@ -67,7 +66,7 @@ public final class ModRuneRecipes {
 		Ingredient summer = Ingredient.fromTag(ModTags.Items.RUNES_SUMMER);
 		Ingredient autumn = Ingredient.fromTag(ModTags.Items.RUNES_AUTUMN);
 		Ingredient winter = Ingredient.fromTag(ModTags.Items.RUNES_WINTER);
-		
+
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("mana"), new ItemStack(ModItems.runeMana), costTier2, manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.fromItems(ModItems.manaPearl)));
 
 		evt.runeAltar().accept(new RecipeRuneAltar(prefix("lust"), new ItemStack(ModItems.runeLust), costTier3, manaDiamond, manaDiamond, summer, air));

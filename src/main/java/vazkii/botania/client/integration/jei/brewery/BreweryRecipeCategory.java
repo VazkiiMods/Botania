@@ -1,14 +1,15 @@
-/**
- * This class was created by <williewillus>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * <p/>
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
 package vazkii.botania.client.integration.jei.brewery;
 
 import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -17,16 +18,19 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -83,16 +87,16 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 
 		final List<ItemStack> inputs = Arrays.asList(new ItemStack(ModItems.vial),
 				new ItemStack(ModItems.flask), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
-		for(ItemStack stack : inputs) {
+		for (ItemStack stack : inputs) {
 			ItemStack brewed = recipe.getOutput(stack);
-			if(!brewed.isEmpty()) {
+			if (!brewed.isEmpty()) {
 				containers.add(stack);
 				outputBuilder.add(brewed);
 			}
 		}
 		inputBuilder.add(containers.build());
 
-		for(Ingredient i : recipe.getInputs()) {
+		for (Ingredient i : recipe.getInputs()) {
 			inputBuilder.add(Arrays.asList(i.getMatchingStacks()));
 		}
 
@@ -111,7 +115,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 		recipeLayout.getItemStacks().set(0, getItemMatchingFocus(focus, IFocus.Mode.OUTPUT, outputs.get(0), inputs.get(0)));
 
 		int index = 1, posX = 60;
-		for(int i = 1; i < inputs.size(); i++) {
+		for (int i = 1; i < inputs.size(); i++) {
 			List<ItemStack> o = inputs.get(i);
 			recipeLayout.getItemStacks().init(index, true, posX, 6);
 			recipeLayout.getItemStacks().set(index, o);
@@ -127,11 +131,13 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 	 * If an item in this recipe is focused, returns the corresponding item instead of all the containers/results.
 	 */
 	private List<ItemStack> getItemMatchingFocus(IFocus<?> focus, IFocus.Mode mode, List<ItemStack> focused, List<ItemStack> other) {
-		if(focus != null && focus.getMode() == mode) {
+		if (focus != null && focus.getMode() == mode) {
 			ItemStack focusStack = (ItemStack) focus.getValue();
-			for(int i = 0; i < focused.size(); i++)
-				if(focusStack.isItemEqual(focused.get(i)))
+			for (int i = 0; i < focused.size(); i++) {
+				if (focusStack.isItemEqual(focused.get(i))) {
 					return Collections.singletonList(other.get(i));
+				}
+			}
 		}
 		return other;
 	}

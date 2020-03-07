@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 13, 2014, 6:38:21 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
@@ -30,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -42,9 +41,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
-import java.util.EnumMap;
+
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPhantomInkable {
@@ -69,14 +67,16 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if(player instanceof PlayerEntity)
+		if (player instanceof PlayerEntity) {
 			onArmorTick(stack, world, (PlayerEntity) player);
+		}
 	}
 
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-		if(!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
+		if (!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
+		}
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel original) {
-		if(ConfigHandler.CLIENT.enableArmorModels.get()) {
+		if (ConfigHandler.CLIENT.enableArmorModels.get()) {
 			return model.getValue();
 		}
 
@@ -117,9 +117,11 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		if(Screen.hasShiftDown())
+		if (Screen.hasShiftDown()) {
 			addInformationAfterShift(stack, world, list, flags);
-		else list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
+		} else {
+			list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -134,8 +136,9 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 			cmp.applyTextStyle(hasArmorSetItem(player, slot) ? TextFormatting.GREEN : TextFormatting.GRAY);
 			list.add(cmp);
 		}
-		if(hasPhantomInk(stack))
+		if (hasPhantomInk(stack)) {
 			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").applyTextStyle(TextFormatting.GRAY));
+		}
 	}
 
 	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
@@ -154,18 +157,24 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
-		if(player == null || player.inventory == null || player.inventory.armorInventory == null)
+		if (player == null || player.inventory == null || player.inventory.armorInventory == null) {
 			return false;
-		
-		ItemStack stack = player.getItemStackFromSlot(slot);
-		if(stack.isEmpty())
-			return false;
+		}
 
-		switch(slot) {
-		case HEAD: return stack.getItem() == ModItems.manasteelHelm || stack.getItem() == ModItems.manasteelHelmRevealing;
-		case CHEST: return stack.getItem() == ModItems.manasteelChest;
-		case LEGS: return stack.getItem() == ModItems.manasteelLegs;
-		case FEET: return stack.getItem() == ModItems.manasteelBoots;
+		ItemStack stack = player.getItemStackFromSlot(slot);
+		if (stack.isEmpty()) {
+			return false;
+		}
+
+		switch (slot) {
+		case HEAD:
+			return stack.getItem() == ModItems.manasteelHelm || stack.getItem() == ModItems.manasteelHelmRevealing;
+		case CHEST:
+			return stack.getItem() == ModItems.manasteelChest;
+		case LEGS:
+			return stack.getItem() == ModItems.manasteelLegs;
+		case FEET:
+			return stack.getItem() == ModItems.manasteelBoots;
 		}
 
 		return false;
@@ -173,9 +182,11 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private int getSetPiecesEquipped(PlayerEntity player) {
 		int pieces = 0;
-		for(EquipmentSlotType slot : EquipmentSlotType.values())
-			if (slot.getSlotType() == EquipmentSlotType.Group.ARMOR && hasArmorSetItem(player, slot))
+		for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+			if (slot.getSlotType() == EquipmentSlotType.Group.ARMOR && hasArmorSetItem(player, slot)) {
 				pieces++;
+			}
+		}
 
 		return pieces;
 	}

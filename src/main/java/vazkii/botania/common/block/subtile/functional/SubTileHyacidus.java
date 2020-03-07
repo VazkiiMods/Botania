@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 15, 2014, 4:47:41 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -18,6 +16,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.lib.LibMisc;
@@ -25,8 +24,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileHyacidus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hyacidus")
-	public static TileEntityType<SubTileHyacidus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":hyacidus") public static TileEntityType<SubTileHyacidus> TYPE;
 
 	private static final int RANGE = 6;
 	private static final int COST = 20;
@@ -39,12 +37,13 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().isRemote || redstoneSignal > 0)
+		if (getWorld().isRemote || redstoneSignal > 0) {
 			return;
+		}
 
 		List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-		for(LivingEntity entity : entities) {
-			if(!(entity instanceof PlayerEntity) && entity.getActivePotionEffect(Effects.POISON) == null && getMana() >= COST && !entity.world.isRemote && entity.getCreatureAttribute() != CreatureAttribute.UNDEAD) {
+		for (LivingEntity entity : entities) {
+			if (!(entity instanceof PlayerEntity) && entity.getActivePotionEffect(Effects.POISON) == null && getMana() >= COST && !entity.world.isRemote && entity.getCreatureAttribute() != CreatureAttribute.UNDEAD) {
 				entity.addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
 				addMana(-COST);
 			}
@@ -68,7 +67,7 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 }

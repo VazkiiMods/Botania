@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [2020-01-30, 19:13 (UTC+2)]
  */
 package vazkii.botania.common.crafting.recipe;
 
@@ -25,6 +23,7 @@ import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.BannerTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.ModBanners;
 
 import javax.annotation.Nonnull;
@@ -45,8 +44,9 @@ public class BannerRecipe extends SpecialRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			Item item = stack.getItem();
-			if (stack.isEmpty())
+			if (stack.isEmpty()) {
 				continue;
+			}
 
 			if (ModBanners.PATTERNS.containsKey(item.delegate) && !foundItem) {
 				foundItem = true;
@@ -54,7 +54,9 @@ public class BannerRecipe extends SpecialRecipe {
 				foundBanner = true;
 			} else if (item instanceof DyeItem && !foundDye) {
 				foundDye = true;
-			} else return false;
+			} else {
+				return false;
+			}
 		}
 		return foundBanner && foundItem && foundDye;
 	}

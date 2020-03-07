@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 14, 2014, 5:20:53 PM (GMT)]
  */
 package vazkii.botania.common.core;
 
@@ -18,6 +16,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,6 +26,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Comparator;
 
 public final class BotaniaCreativeTab extends ItemGroup {
@@ -57,14 +57,17 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		addItem(ModItems.lexicon);
 
-		for(DyeColor color : DyeColor.values())
+		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getFlower(color));
+		}
 		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
-		for(DyeColor color : DyeColor.values())
+		for (DyeColor color : DyeColor.values()) {
 			this.addItem(ModItems.getPetal(color));
+		}
 		addItem(ModItems.pestleAndMortar);
-		for(DyeColor color : DyeColor.values())
+		for (DyeColor color : DyeColor.values()) {
 			this.addItem(ModItems.getDye(color));
+		}
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
 		addItem(ModItems.blackLotus);
@@ -162,8 +165,9 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModBlocks.scorchedGrass);
 		addItem(ModBlocks.infusedGrass);
 		addItem(ModBlocks.mutatedGrass);
-		if(Botania.thaumcraftLoaded)
+		if (Botania.thaumcraftLoaded) {
 			addItem(ModItems.manaInkwell);
+		}
 		addItem(ModBlocks.wildDrum);
 		addItem(ModBlocks.gatheringDrum);
 		addItem(ModBlocks.canopyDrum);
@@ -182,7 +186,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.astrolabe);
 		addItem(ModItems.blackHoleTalisman);
 
-		if(Botania.gardenOfGlassLoaded) {
+		if (Botania.gardenOfGlassLoaded) {
 			addItem(ModBlocks.root);
 			addItem(ModItems.waterBowl);
 		}
@@ -269,8 +273,9 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.enderDagger);
 		addItem(ModItems.livingwoodBow);
 		addItem(ModItems.manasteelHelm);
-		if(Botania.thaumcraftLoaded)
+		if (Botania.thaumcraftLoaded) {
 			addItem(ModItems.manasteelHelmRevealing);
+		}
 		addItem(ModItems.manasteelChest);
 		addItem(ModItems.manasteelLegs);
 		addItem(ModItems.manasteelBoots);
@@ -287,8 +292,9 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.thunderSword);
 		addItem(ModItems.crystalBow);
 		addItem(ModItems.elementiumHelm);
-		if(Botania.thaumcraftLoaded)
+		if (Botania.thaumcraftLoaded) {
 			addItem(ModItems.elementiumHelmRevealing);
+		}
 		addItem(ModItems.elementiumChest);
 		addItem(ModItems.elementiumLegs);
 		addItem(ModItems.elementiumBoots);
@@ -299,8 +305,9 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.terraAxe);
 		addItem(ModItems.temperanceStone);
 		addItem(ModItems.terrasteelHelm);
-		if(Botania.thaumcraftLoaded)
+		if (Botania.thaumcraftLoaded) {
 			addItem(ModItems.terrasteelHelmRevealing);
+		}
 		addItem(ModItems.terrasteelChest);
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
@@ -316,7 +323,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.ancientWillKaril);
 		addItem(ModItems.pinkinator);
 		addItem(ModBlocks.gaiaHead);
-		if(ConfigHandler.COMMON.relicsEnabled.get()) {
+		if (ConfigHandler.COMMON.relicsEnabled.get()) {
 			addItem(ModItems.dice);
 			addItem(ModItems.infiniteFruit);
 			addItem(ModItems.kingKey);
@@ -433,12 +440,15 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		// FLUFF
 
-		for(DyeColor color : DyeColor.values())
+		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getDoubleFlower(color));
-		for(DyeColor color : DyeColor.values())
+		}
+		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getShinyFlower(color));
-		for(DyeColor color : DyeColor.values())
+		}
+		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getFloatingFlower(color));
+		}
 		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_floating_flowers"));
 		addItem(ModBlocks.petalBlockWhite);
 		addItem(ModBlocks.petalBlockOrange);
@@ -456,8 +466,9 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModBlocks.petalBlockGreen);
 		addItem(ModBlocks.petalBlockRed);
 		addItem(ModBlocks.petalBlockBlack);
-		for(DyeColor color : DyeColor.values())
+		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getMushroom(color));
+		}
 
 		addItem(ModBlocks.blazeBlock);
 
@@ -607,7 +618,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.biomeBrickDesertStairs);
 		addItem(ModFluffBlocks.biomeBrickTaigaStairs);
 		addItem(ModFluffBlocks.biomeBrickMesaStairs);
-		
+
 		addItem(ModFluffBlocks.biomeStoneForestSlab);
 		addItem(ModFluffBlocks.biomeStonePlainsSlab);
 		addItem(ModFluffBlocks.biomeStoneMountainSlab);
@@ -632,7 +643,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.biomeBrickDesertSlab);
 		addItem(ModFluffBlocks.biomeBrickTaigaSlab);
 		addItem(ModFluffBlocks.biomeBrickMesaSlab);
-			
+
 		addItem(ModFluffBlocks.biomeWallForest);
 		addItem(ModFluffBlocks.biomeWallPlains);
 		addItem(ModFluffBlocks.biomeWallMountain);

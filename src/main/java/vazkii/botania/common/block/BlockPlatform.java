@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 7, 2014, 2:25:22 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -30,6 +28,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
@@ -56,11 +55,11 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
 		Entity e = context.getEntity();
-		if(variant == Variant.INFRANGIBLE
+		if (variant == Variant.INFRANGIBLE
 				|| variant == Variant.ABSTRUSE
-					&& e != null
-					&& e.getY() > pos.getY() + 0.9
-					&& !context.isDescending()) {
+						&& e != null
+						&& e.getY() > pos.getY() + 0.9
+						&& !context.isDescending()) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
@@ -103,14 +102,14 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		ItemStack currentStack = player.getHeldItem(hand);
-		if(!currentStack.isEmpty()
+		if (!currentStack.isEmpty()
 				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TilePlatform) {
 			TilePlatform camo = (TilePlatform) tile;
 			BlockItemUseContext ctx = new BlockItemUseContext(world, player, hand, currentStack, hit);
 			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
 
-			if(changeState != null && isValidBlock(changeState, world, pos)
+			if (changeState != null && isValidBlock(changeState, world, pos)
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
 				if (!world.isRemote) {
@@ -124,6 +123,5 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 		return ActionResultType.PASS;
 	}
-
 
 }

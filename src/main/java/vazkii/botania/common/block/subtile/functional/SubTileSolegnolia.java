@@ -1,19 +1,19 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 11, 2015, 4:53:35 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.MapMaker;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.lib.LibMisc;
@@ -22,8 +22,7 @@ import java.util.Collections;
 import java.util.Set;
 
 public class SubTileSolegnolia extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":solegnolia")
-	public static TileEntityType<SubTileSolegnolia> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":solegnolia") public static TileEntityType<SubTileSolegnolia> TYPE;
 
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
@@ -42,7 +41,7 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(!existingFlowers.contains(this)) {
+		if (!existingFlowers.contains(this)) {
 			existingFlowers.add(this);
 		}
 	}
@@ -75,18 +74,20 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getEffectivePos(), getRange());
+		return new RadiusDescriptor.Circle(getEffectivePos(), getRange());
 	}
 
 	public static class Mini extends SubTileSolegnolia {
-		@ObjectHolder(LibMisc.MOD_ID + ":solegnolia_chibi")
-		public static TileEntityType<SubTileSolegnolia.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":solegnolia_chibi") public static TileEntityType<SubTileSolegnolia.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);
 		}
 
-		@Override public double getRange() { return RANGE_MINI; }
+		@Override
+		public double getRange() {
+			return RANGE_MINI;
+		}
 	}
 
 }

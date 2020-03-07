@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2015, 4:42:33 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -19,6 +18,7 @@ import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.item.ModItems;
 
@@ -28,7 +28,7 @@ public class LensInfluence extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
-		if(!burst.isFake()) {
+		if (!burst.isFake()) {
 			double range = 3.5;
 			AxisAlignedBB bounds = new AxisAlignedBB(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);
 			List<Entity> movables = entity.world.getEntitiesWithinAABB(ItemEntity.class, bounds);
@@ -37,15 +37,17 @@ public class LensInfluence extends Lens {
 			movables.addAll(entity.world.getEntitiesWithinAABB(FallingBlockEntity.class, bounds));
 			movables.addAll(entity.world.getEntitiesWithinAABB(ThrowableEntity.class, bounds, Predicates.instanceOf(IManaBurst.class)));
 
-			for(Entity movable : movables) {
-				if(movable == burst)
+			for (Entity movable : movables) {
+				if (movable == burst) {
 					continue;
+				}
 
-				if(movable instanceof IManaBurst) {
+				if (movable instanceof IManaBurst) {
 					IManaBurst otherBurst = (IManaBurst) movable;
 					ItemStack lens = otherBurst.getSourceLens();
-					if(!lens.isEmpty() && lens.getItem() == ModItems.lensInfluence)
+					if (!lens.isEmpty() && lens.getItem() == ModItems.lensInfluence) {
 						continue;
+					}
 
 					((IManaBurst) movable).setBurstMotion(entity.getMotion().getX(),
 							entity.getMotion().getY(), entity.getMotion().getZ());

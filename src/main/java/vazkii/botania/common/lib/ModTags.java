@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 06 2019, 8:12 PM (GMT)]
  */
 package vazkii.botania.common.lib;
 
@@ -101,7 +99,7 @@ public class ModTags {
 		public static final Tag<Item> RUNES_WATER = tag("runes/water");
 		public static final Tag<Item> RUNES_WINTER = tag("runes/winter");
 		public static final Tag<Item> RUNES_WRATH = tag("runes/wrath");
-		
+
 		public static Tag<Item> getFlowerTag(DyeColor color) {
 			switch (color) {
 			default:
@@ -194,4 +192,3 @@ public class ModTags {
 		}
 	}
 }
-

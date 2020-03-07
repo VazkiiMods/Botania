@@ -1,34 +1,28 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 21, 2014, 7:55:47 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAltar;
 
@@ -42,28 +36,32 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 	@Override
 	public void render(@Nonnull TileAltar altar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if(!altar.getWorld().isBlockLoaded(altar.getPos()))
+		if (!altar.getWorld().isBlockLoaded(altar.getPos())) {
 			return;
+		}
 
 		ms.push();
 		ms.translate(0.5, 1.5, 0.5);
 
 		boolean water = altar.getFluid() == Fluids.WATER;
 		boolean lava = altar.getFluid() == Fluids.LAVA;
-		if(water || lava) {
+		if (water || lava) {
 			ms.push();
 			float s = 1F / 256F * 10F;
 			float v = 1F / 8F;
 			float w = -v * 2.5F;
 
-			if(water) {
+			if (water) {
 				int petals = 0;
-				for(int i = 0; i < altar.getSizeInventory(); i++)
-					if(!altar.getItemHandler().getStackInSlot(i).isEmpty())
+				for (int i = 0; i < altar.getSizeInventory(); i++) {
+					if (!altar.getItemHandler().getStackInSlot(i).isEmpty()) {
 						petals++;
-					else break;
+					} else {
+						break;
+					}
+				}
 
-				if(petals > 0) {
+				if (petals > 0) {
 					final float modifier = 6F;
 					final float rotationModifier = 0.25F;
 					final float radiusBase = 1.2F;
@@ -75,13 +73,13 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 					ms.push();
 					ms.translate(-0.05F, -0.5F, 0F);
 					ms.scale(v, v, v);
-					for(int i = 0; i < petals; i++) {
+					for (int i = 0; i < petals; i++) {
 						float offset = offsetPerPetal * i;
 						float deg = (int) (ticks / rotationModifier % 360F + offset);
 						float rad = deg * (float) Math.PI / 180F;
 						float radiusX = (float) (radiusBase + radiusMod * Math.sin(ticks / modifier));
 						float radiusZ = (float) (radiusBase + radiusMod * Math.cos(ticks / modifier));
-						float x =  (float) (radiusX * Math.cos(rad));
+						float x = (float) (radiusX * Math.cos(rad));
 						float z = (float) (radiusZ * Math.sin(rad));
 						float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 

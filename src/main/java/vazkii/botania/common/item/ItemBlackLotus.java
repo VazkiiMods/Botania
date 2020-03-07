@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 18, 2015, 12:17:10 AM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -21,6 +19,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
@@ -46,13 +45,14 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	@Override
 	public void onDissolveTick(IManaPool pool, ItemStack stack, ItemEntity item) {
-		if(pool.isFull() || pool.getCurrentMana() == 0)
+		if (pool.isFull() || pool.getCurrentMana() == 0) {
 			return;
+		}
 
 		TileEntity tile = (TileEntity) pool;
 		boolean t2 = stack.getItem() == ModItems.blackerLotus;
 
-		if(!item.world.isRemote) {
+		if (!item.world.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.shrink(1);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.world, tile.getPos());

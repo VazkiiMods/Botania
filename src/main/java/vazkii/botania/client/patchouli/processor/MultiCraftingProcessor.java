@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 24 2019, 6:55 PM (GMT)]
  */
 package vazkii.botania.client.patchouli.processor;
 
@@ -19,6 +17,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
@@ -40,16 +39,16 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		Map<ResourceLocation, IRecipe<CraftingInventory>> recipeMap = Minecraft.getInstance().world.getRecipeManager().getRecipes(IRecipeType.CRAFTING);
 		String[] names = variables.get("recipes").split(";");
 		this.recipes = new ArrayList<>();
-		for(String name : names) {
+		for (String name : names) {
 			IRecipe<?> recipe = recipeMap.get(new ResourceLocation(name));
-			if(recipe != null) {
+			if (recipe != null) {
 				recipes.add((ICraftingRecipe) recipe);
-				if(shapeless) {
+				if (shapeless) {
 					shapeless = !(recipe instanceof IShapedRecipe);
 				}
-				for(Ingredient ingredient : recipe.getIngredients()) {
+				for (Ingredient ingredient : recipe.getIngredients()) {
 					int size = ingredient.getMatchingStacks().length;
-					if(longestIngredientSize < size) {
+					if (longestIngredientSize < size) {
 						longestIngredientSize = size;
 					}
 				}
@@ -60,23 +59,24 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public String process(String key) {
-		if(recipes.isEmpty()) {
+		if (recipes.isEmpty()) {
 			return null;
 		}
-		if(key.equals("heading")) {
-			if(!hasCustomHeading)
+		if (key.equals("heading")) {
+			if (!hasCustomHeading) {
 				return recipes.get(0).getRecipeOutput().getDisplayName().getString();
+			}
 			return null;
 		}
-		if(key.startsWith("input")) {
+		if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			int shapedX = index % 3;
 			int shapedY = index / 3;
 			List<Ingredient> ingredients = new ArrayList<>();
-			for(ICraftingRecipe recipe : recipes) {
-				if(recipe instanceof IShapedRecipe) {
+			for (ICraftingRecipe recipe : recipes) {
+				if (recipe instanceof IShapedRecipe) {
 					IShapedRecipe shaped = (IShapedRecipe) recipe;
-					if(shaped.getRecipeWidth() < shapedX + 1) {
+					if (shaped.getRecipeWidth() < shapedX + 1) {
 						ingredients.add(Ingredient.EMPTY);
 					} else {
 						int realIndex = index - (shapedY * (3 - shaped.getRecipeWidth()));
@@ -91,11 +91,10 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			}
 			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
 		}
-		if(key.equals("output")) {
+		if (key.equals("output")) {
 			return recipes.stream().map(IRecipe::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 		}
-		if(key.equals("shapeless")) {
-		}
+		if (key.equals("shapeless")) {}
 		return null;
 	}
 }

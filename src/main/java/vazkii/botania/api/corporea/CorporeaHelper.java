@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+
 import vazkii.botania.api.BotaniaAPI;
 
 import java.util.ArrayList;
@@ -50,24 +50,29 @@ public final class CorporeaHelper {
 	 */
 	public static List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
 		ICorporeaSpark master = spark.getMaster();
-		if(master == null)
+		if (master == null) {
 			return empty;
+		}
 		List<ICorporeaSpark> network = master.getConnections();
 
-		if(cachedNetworks.containsKey(network)) {
+		if (cachedNetworks.containsKey(network)) {
 			List<InvWithLocation> cache = cachedNetworks.get(network);
-			if(cache != null)
+			if (cache != null) {
 				return cache;
+			}
 		}
 
 		List<InvWithLocation> inventories = new ArrayList<>();
-		if(network != null)
-			for(ICorporeaSpark otherSpark : network)
-				if(otherSpark != null) {
+		if (network != null) {
+			for (ICorporeaSpark otherSpark : network) {
+				if (otherSpark != null) {
 					InvWithLocation inv = otherSpark.getSparkInventory();
-					if(inv != null)
+					if (inv != null) {
 						inventories.add(inv);
+					}
 				}
+			}
+		}
 
 		cachedNetworks.put(network, inventories);
 		return inventories;
@@ -99,8 +104,9 @@ public final class CorporeaHelper {
 	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
 		int count = 0;
 
-		for(int value : inventories.values())
+		for (int value : inventories.values()) {
 			count += value;
+		}
 
 		return count;
 	}
@@ -129,6 +135,7 @@ public final class CorporeaHelper {
 			if (request.foundItems > 0) {
 				countMap.put(inv.getWrappedObject(), request.foundItems);
 			}
+
 		}
 
 		return countMap;
@@ -167,19 +174,22 @@ public final class CorporeaHelper {
 	 * This will remove the items from the adequate inventories unless the "doit" parameter is false.
 	 * Returns a new list of ItemStacks of the items acquired or an empty list if none was found.
 	 * Case itemCount is -1 it'll find EVERY item it can.
-	 * <br><br>
+	 * <br>
+	 * <br>
 	 * The "matcher" parameter has to be an ItemStack or a String, if the first it'll check if the
 	 * two stacks are similar using the "checkNBT" parameter, else it'll check if the name of the item
 	 * equals or matches (case a regex is passed in) the matcher string.
-	 * <br><br>
+	 * <br>
+	 * <br>
 	 * When requesting counting of items, individual stacks may exceed maxStackSize for
 	 * purposes of counting huge amounts.
 	 */
 	public static List<ItemStack> requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, doit);
-		if(MinecraftForge.EVENT_BUS.post(event))
+		if (MinecraftForge.EVENT_BUS.post(event)) {
 			return stacks;
+		}
 
 		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
 
@@ -187,25 +197,26 @@ public final class CorporeaHelper {
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<ICorporeaInterceptor, ICorporeaSpark>();
 
 		CorporeaRequest request = new CorporeaRequest(matcher, itemCount);
-		for(IWrappedInventory inv : inventoriesW) {
+		for (IWrappedInventory inv : inventoriesW) {
 			ICorporeaSpark invSpark = inv.getSpark();
 
 			InvWithLocation originalInventory = inv.getWrappedObject();
-			if(originalInventory.world.getTileEntity(originalInventory.pos) instanceof ICorporeaInterceptor) {
+			if (originalInventory.world.getTileEntity(originalInventory.pos) instanceof ICorporeaInterceptor) {
 				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory.world.getTileEntity(originalInventory.pos);
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
 				interceptors.put(interceptor, invSpark);
 			}
 
-			if(doit) {
+			if (doit) {
 				stacks.addAll(inv.extractItems(request));
 			} else {
 				stacks.addAll(inv.countItems(request));
 			}
 		}
 
-		for(ICorporeaInterceptor interceptor : interceptors.keySet())
+		for (ICorporeaInterceptor interceptor : interceptors.keySet()) {
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
+		}
 
 		lastRequestMatches = request.foundItems;
 		lastRequestExtractions = request.extractedItems;
@@ -245,13 +256,18 @@ public final class CorporeaHelper {
 	public static void clearCache() {
 		cachedNetworks.clear();
 	}
-	
-	/** 
-	 * Returns the comparator strength for a corporea request that corporea crystal cubes and retainers use, following the usual "each step up requires double the items" formula.
+
+	/**
+	 * Returns the comparator strength for a corporea request that corporea crystal cubes and retainers use, following
+	 * the usual "each step up requires double the items" formula.
 	 */
 	public static int signalStrengthForRequestSize(int requestSize) {
-		if(requestSize <= 0) return 0;
-		else if (requestSize >= 16384) return 15;
-		else return Math.min(15, MathHelper.log2(requestSize) + 1);
+		if (requestSize <= 0) {
+			return 0;
+		} else if (requestSize >= 16384) {
+			return 15;
+		} else {
+			return Math.min(15, MathHelper.log2(requestSize) + 1);
+		}
 	}
 }

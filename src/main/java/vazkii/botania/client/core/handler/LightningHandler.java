@@ -1,17 +1,15 @@
-/**
- * This class was created by <Vazkii/ChickenBones>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 3, 2014, 9:05:38 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -23,7 +21,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
@@ -71,7 +71,7 @@ public class LightningHandler {
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(0, false);
-			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
+			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
 				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 			}
@@ -85,7 +85,7 @@ public class LightningHandler {
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(1, true);
-			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
+			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
 				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
 			}

@@ -1,27 +1,29 @@
-/**
- * This class was created by <williewillus>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * <p/>
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
 package vazkii.botania.client.integration.jei.manapool;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
@@ -30,6 +32,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,7 +90,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 
 		builder.add(Arrays.asList(recipe.getInput().getMatchingStacks()));
 
-		if(recipe.getCatalyst() != null) {
+		if (recipe.getCatalyst() != null) {
 			Block block = recipe.getCatalyst().getBlock();
 			if (block.asItem() != Items.AIR) {
 				builder.add(ImmutableList.of(new ItemStack(block)));
@@ -117,7 +120,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 
 		index++;
 
-		if(ingredients.getInputs(VanillaTypes.ITEM).size() > 1) {
+		if (ingredients.getInputs(VanillaTypes.ITEM).size() > 1) {
 			// Has catalyst
 			recipeLayout.getItemStacks().init(index, true, 20, 12);
 			recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(1));

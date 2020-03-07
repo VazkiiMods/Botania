@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 1, 2014, 7:00:29 PM (GMT)]
  */
 package vazkii.botania.common.brew;
 
@@ -14,6 +12,7 @@ import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.common.brew.potion.PotionAllure;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
 import vazkii.botania.common.brew.potion.PotionClear;
@@ -34,8 +33,7 @@ public class ModPotions {
 	public static final Effect clear = new PotionClear().setRegistryName(LibMisc.MOD_ID, LibPotionNames.CLEAR);
 
 	@SubscribeEvent
-	public static void registerPotions(RegistryEvent.Register<Effect> evt)
-	{
+	public static void registerPotions(RegistryEvent.Register<Effect> evt) {
 		evt.getRegistry().register(soulCross);
 		evt.getRegistry().register(featherfeet);
 		evt.getRegistry().register(emptiness);

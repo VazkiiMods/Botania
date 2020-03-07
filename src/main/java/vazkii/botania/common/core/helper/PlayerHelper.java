@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.advancements.Advancement;
@@ -46,11 +54,13 @@ public final class PlayerHelper {
 	public static ItemStack getFirstHeldItem(PlayerEntity player, Predicate<ItemStack> pred) {
 		ItemStack main = player.getHeldItemMainhand();
 		ItemStack offhand = player.getHeldItemOffhand();
-		if(!main.isEmpty() && pred.test(main)) {
+		if (!main.isEmpty() && pred.test(main)) {
 			return main;
-		} else if(!offhand.isEmpty() && pred.test(offhand)) {
+		} else if (!offhand.isEmpty() && pred.test(offhand)) {
 			return offhand;
-		} else return ItemStack.EMPTY;
+		} else {
+			return ItemStack.EMPTY;
+		}
 	}
 
 	public static ItemStack getFirstHeldItemClass(PlayerEntity player, Class<?> template) {
@@ -59,22 +69,15 @@ public final class PlayerHelper {
 
 	public static ItemStack getAmmo(PlayerEntity player, Predicate<ItemStack> ammoFunc) {
 		// Mainly from ItemBow.findAmmo
-		if (ammoFunc.test(player.getHeldItem(Hand.OFF_HAND)))
-		{
+		if (ammoFunc.test(player.getHeldItem(Hand.OFF_HAND))) {
 			return player.getHeldItem(Hand.OFF_HAND);
-		}
-		else if (ammoFunc.test(player.getHeldItem(Hand.MAIN_HAND)))
-		{
+		} else if (ammoFunc.test(player.getHeldItem(Hand.MAIN_HAND))) {
 			return player.getHeldItem(Hand.MAIN_HAND);
-		}
-		else
-		{
-			for (int i = 0; i < player.inventory.getSizeInventory(); ++i)
-			{
+		} else {
+			for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-				if (ammoFunc.test(itemstack))
-				{
+				if (ammoFunc.test(itemstack)) {
 					return itemstack;
 				}
 			}
@@ -89,15 +92,16 @@ public final class PlayerHelper {
 
 	public static void consumeAmmo(PlayerEntity player, Predicate<ItemStack> ammoFunc) {
 		ItemStack ammo = getAmmo(player, ammoFunc);
-		if(!ammo.isEmpty()) {
+		if (!ammo.isEmpty()) {
 			ammo.shrink(1);
 		}
 	}
 
 	public static boolean hasItem(PlayerEntity player, Predicate<ItemStack> itemFunc) {
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			if (itemFunc.test(player.inventory.getStackInSlot(i)))
+			if (itemFunc.test(player.inventory.getStackInSlot(i))) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -106,7 +110,7 @@ public final class PlayerHelper {
 		PlayerAdvancements advancements = player.getAdvancements();
 		AdvancementManager manager = player.getServerWorld().getServer().getAdvancementManager();
 		Advancement advancement = manager.getAdvancement(advancementId);
-		if(advancement != null) {
+		if (advancement != null) {
 			advancements.grantCriterion(advancement, criterion);
 		}
 	}
@@ -115,7 +119,6 @@ public final class PlayerHelper {
 	 * Temporarily swap <code>toUse</code> into the hand of the player, use it, then swap it back out.
 	 * This is to ensure that any code in mods' onItemUse that relies on player.getHeldItem(ctx.hand) == ctx.stack
 	 * will work as intended.
-	 *
 	 * Properly handles null players, as long as the Item's onItemUse also handles them.
 	 */
 	public static ActionResultType substituteUse(ItemUseContext ctx, ItemStack toUse) {
@@ -123,7 +126,7 @@ public final class PlayerHelper {
 		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.isInside());
 		ItemUseContext newCtx;
 
-		if(ctx.getPlayer() != null) {
+		if (ctx.getPlayer() != null) {
 			save = ctx.getPlayer().getHeldItem(ctx.getHand());
 			ctx.getPlayer().setHeldItem(ctx.getHand(), toUse);
 			// Need to construct a new one still to refresh the itemstack
@@ -134,7 +137,7 @@ public final class PlayerHelper {
 
 		ActionResultType result = toUse.onItemUse(newCtx);
 
-		if(ctx.getPlayer() != null) {
+		if (ctx.getPlayer() != null) {
 			ctx.getPlayer().setHeldItem(ctx.getHand(), save);
 		}
 

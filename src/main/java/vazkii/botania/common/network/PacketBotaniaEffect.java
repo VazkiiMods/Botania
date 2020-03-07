@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.network;
 
 import net.minecraft.client.Minecraft;
@@ -11,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.TileTerraPlate;
@@ -90,7 +99,7 @@ public class PacketBotaniaEffect {
 					}
 					case ARENA_INDICATOR: {
 						SparkleParticleData data = SparkleParticleData.sparkle(5F, 1, 0, 1, 120);
-						for(int i = 0; i < 360; i += 8) {
+						for (int i = 0; i < 360; i += 8) {
 							float rad = i * (float) Math.PI / 180F;
 							double x = message.x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
 							double y = message.y + 0.5;
@@ -101,11 +110,13 @@ public class PacketBotaniaEffect {
 					}
 					case ITEM_SMOKE: {
 						Entity item = world.getEntityByID(message.args[0]);
-						if (item == null) return;
+						if (item == null) {
+							return;
+						}
 
 						int p = message.args[1];
 
-						for(int i = 0; i < p; i++) {
+						for (int i = 0; i < p; i++) {
 							double m = 0.01;
 							double d0 = item.world.rand.nextGaussian() * m;
 							double d1 = item.world.rand.nextGaussian() * m;
@@ -121,10 +132,11 @@ public class PacketBotaniaEffect {
 						Entity e1 = world.getEntityByID(message.args[0]);
 						Entity e2 = world.getEntityByID(message.args[1]);
 
-						if(e1 == null || e2 == null)
+						if (e1 == null || e2 == null) {
 							return;
+						}
 
-						Vector3 orig = new Vector3(e1.getX() , e1.getY() + 0.25, e1.getZ());
+						Vector3 orig = new Vector3(e1.getX(), e1.getY() + 0.25, e1.getZ());
 						Vector3 end = new Vector3(e2.getX(), e2.getY() + 0.25, e2.getZ());
 						Vector3 diff = end.subtract(orig);
 						Vector3 movement = diff.normalize().multiply(0.1);
@@ -133,7 +145,7 @@ public class PacketBotaniaEffect {
 						float hueSum = (float) Math.random();
 
 						Vector3 currentPos = orig;
-						for(int i = 0; i < iters; i++) {
+						for (int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
 							int color = MathHelper.hsvToRGB(hue, 1F, 1F);
 							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
@@ -151,8 +163,9 @@ public class PacketBotaniaEffect {
 						Entity e1 = world.getEntityByID(message.args[0]);
 						Entity e2 = world.getEntityByID(message.args[1]);
 
-						if(e1 == null || e2 == null)
+						if (e1 == null || e2 == null) {
 							return;
+						}
 
 						double rc = 0.45;
 						Vector3 thisVec = Vector3.fromEntityCenter(e1).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
@@ -169,7 +182,7 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case ENCHANTER_DESTROY: {
-						for(int i = 0; i < 50; i++) {
+						for (int i = 0; i < 50; i++) {
 							float red = (float) Math.random();
 							float green = (float) Math.random();
 							float blue = (float) Math.random();
@@ -179,7 +192,7 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case BLACK_LOTUS_DISSOLVE: {
-						for(int i = 0; i < 50; i++) {
+						for (int i = 0; i < 50; i++) {
 							float r = (float) Math.random() * 0.35F;
 							float g = 0F;
 							float b = (float) Math.random() * 0.35F;
@@ -198,7 +211,7 @@ public class PacketBotaniaEffect {
 					}
 					case TERRA_PLATE: {
 						TileEntity te = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
-						if(te instanceof TileTerraPlate) {
+						if (te instanceof TileTerraPlate) {
 							int ticks = (int) (100.0 * ((double) ((TileTerraPlate) te).getCurrentMana() / (double) TileTerraPlate.MAX_MANA));
 
 							int totalSpiritCount = 3;
@@ -210,7 +223,7 @@ public class PacketBotaniaEffect {
 							double r = Math.sin((ticks - 100) / 10D) * 2;
 							double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
-							for(int i = 0; i < totalSpiritCount; i++) {
+							for (int i = 0; i < totalSpiritCount; i++) {
 								double x = message.x + Math.sin(wticks * Math.PI / 180) * r + 0.5;
 								double y = message.y + 0.25 + Math.abs(r) * 0.7;
 								double z = message.z + Math.cos(wticks * Math.PI / 180) * r + 0.5;
@@ -220,29 +233,30 @@ public class PacketBotaniaEffect {
 										0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
 								};
 								WispParticleData data = WispParticleData.wisp(0.85F, colorsfx[0], colorsfx[1], colorsfx[2], 0.25F);
-								world.addParticle(data, x, y, z, 0, (float) (-g*0.05), 0);
+								world.addParticle(data, x, y, z, 0, (float) (-g * 0.05), 0);
 								data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.1F, colorsfx[0], colorsfx[1], colorsfx[2], 0.9F);
 								world.addParticle(data, x, y, z, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F);
 
-								if(ticks == 100)
-									for(int j = 0; j < 15; j++) {
+								if (ticks == 100) {
+									for (int j = 0; j < 15; j++) {
 										data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, colorsfx[0], colorsfx[1], colorsfx[2]);
 										world.addParticle(data, message.x + 0.5, message.y + 0.5, message.z + 0.5, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
 									}
+								}
 							}
 						}
 						break;
 					}
 					case FLUGEL_EFFECT: {
 						Entity entity = world.getEntityByID(message.args[0]);
-						if(entity != null) {
-							for(int i = 0; i < 15; i++) {
+						if (entity != null) {
+							for (int i = 0; i < 15; i++) {
 								float x = (float) (entity.getX() + Math.random());
 								float y = (float) (entity.getY() + Math.random());
 								float z = (float) (entity.getZ() + Math.random());
-                                WispParticleData data = WispParticleData.wisp((float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-                                world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
-                            }
+								WispParticleData data = WispParticleData.wisp((float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+								world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
+							}
 						}
 						break;
 					}
@@ -254,16 +268,18 @@ public class PacketBotaniaEffect {
 					}
 					case DIVA_EFFECT: {
 						Entity target = Minecraft.getInstance().world.getEntityByID(message.args[0]);
-						if(target == null)
+						if (target == null) {
 							break;
+						}
 
 						double x = target.getX();
 						double y = target.getY();
 						double z = target.getZ();
 
 						SparkleParticleData data = SparkleParticleData.sparkle(1F, 1F, 1F, 0.25F, 3);
-						for(int i = 0; i < 50; i++)
+						for (int i = 0; i < 50; i++) {
 							world.addParticle(data, x + Math.random() * target.getWidth(), y + Math.random() * target.getHeight(), z + Math.random() * target.getWidth(), 0, 0, 0);
+						}
 						break;
 					}
 					}
@@ -275,7 +291,7 @@ public class PacketBotaniaEffect {
 	}
 
 	public enum EffectType {
-		PAINT_LENS(1),  // Arg: EnumDyeColor
+		PAINT_LENS(1), // Arg: EnumDyeColor
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards

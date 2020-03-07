@@ -1,12 +1,10 @@
-/**
- * This class was created by <Alwinfy>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 22, 2019, 11:13:14 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
@@ -14,21 +12,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+
 import org.apache.commons.lang3.text.WordUtils;
+
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.regex.Pattern;
 
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
- * Needs to be registered over in {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer#addCorporeaRequestMatcher}.
+ * Needs to be registered over in
+ * {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer#addCorporeaRequestMatcher}.
  */
 public final class CorporeaRequestDefaultMatchers {
 
 	public static class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 
 		private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
-		public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" , "*" };
+		public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?", "*" };
 		private static final String TAG_REQUEST_CONTENTS = "requestContents";
 		private static final String TAG_REQUEST_CONTAINS = "requestContains";
 
@@ -37,22 +38,23 @@ public final class CorporeaRequestDefaultMatchers {
 
 		public CorporeaStringMatcher(String expression) {
 			boolean contains = false;
-			for(String wc : WILDCARD_STRINGS) {
-				if(expression.endsWith(wc)) {
+			for (String wc : WILDCARD_STRINGS) {
+				if (expression.endsWith(wc)) {
 					contains = true;
 					expression = expression.substring(0, expression.length() - wc.length());
-				}
-				else if(expression.startsWith(wc)) {
+				} else if (expression.startsWith(wc)) {
 					contains = true;
 					expression = expression.substring(wc.length());
 				}
 
-				if(contains)
+				if (contains) {
 					break;
+				}
 			}
 			this.expression = expression;
 			this.contains = contains;
 		}
+
 		private CorporeaStringMatcher(String expression, boolean contains) {
 			this.expression = expression;
 			this.contains = contains;
@@ -60,14 +62,15 @@ public final class CorporeaRequestDefaultMatchers {
 
 		@Override
 		public boolean isStackValid(ItemStack stack) {
-			if(stack.isEmpty())
+			if (stack.isEmpty()) {
 				return false;
+			}
 
 			String name = stripControlCodes(stack.getDisplayName().getString().toLowerCase().trim());
 			return equalOrContain(name)
-				|| equalOrContain(name + "s")
-				|| equalOrContain(name + "es")
-				|| name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies");
+					|| equalOrContain(name + "s")
+					|| equalOrContain(name + "es")
+					|| name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies");
 		}
 
 		public static ICorporeaRequestMatcher createFromNBT(CompoundNBT tag) {

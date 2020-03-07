@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [21/09/2016, 21:08:33 (GMT)]
  */
 package vazkii.botania.common.block.dispenser;
 
@@ -35,7 +33,7 @@ public class BehaviourSeeds extends DefaultDispenseItemBehavior {
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
-		if(world.isAirBlock(pos) && block.getDefaultState().isValidPosition(world, pos)) {
+		if (world.isAirBlock(pos) && block.getDefaultState().isValidPosition(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
 			stack.shrink(1);
 			return stack;

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 13, 2014, 4:30:27 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -22,7 +20,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -31,9 +28,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -45,6 +42,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,22 +71,24 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		ItemStack stack = player.getHeldItem(hand);
 		int effCd = COOLDOWN;
 		EffectInstance effect = player.getActivePotionEffect(Effects.HASTE);
-		if(effect != null)
+		if (effect != null) {
 			effCd -= (effect.getAmplifier() + 1) * 8;
+		}
 
-		if(player.isSneaking() && hasClip(stack)) {
+		if (player.isSneaking() && hasClip(stack)) {
 			rotatePos(stack);
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-			if(world.isRemote)
+			if (world.isRemote) {
 				player.swingArm(hand);
+			}
 			ItemStack lens = getLens(stack);
 			ItemsRemainingRenderHandler.set(lens, -2);
 			stack.setDamage(effCd);
 			return ActionResult.success(stack);
-		} else if(stack.getDamage() == 0) {
+		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
-			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
-				if(!world.isRemote) {
+			if (burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
+				if (!world.isRemote) {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
@@ -97,8 +97,9 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 					player.setMotion(player.getMotion().subtract(burst.getMotion().mul(0.1, 0.3, 0.1)));
 				}
 				stack.setDamage(effCd);
-			} else if(!world.isRemote)
+			} else if (!world.isRemote) {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			}
 			return ActionResult.success(stack);
 		}
 
@@ -145,8 +146,9 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
 		ItemStack lens = getLens(stack);
-		if(!lens.isEmpty())
+		if (!lens.isEmpty()) {
 			((ILens) lens.getItem()).apply(lens, props);
+		}
 		return props;
 	}
 
@@ -155,7 +157,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
 		burst.setSourceLens(getLens(stack));
-		if(!request || ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
+		if (!request || ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
 			burst.setColor(props.color);
 			burst.setMana(props.maxMana);
 			burst.setStartingMana(props.maxMana);
@@ -175,28 +177,31 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		boolean clip = hasClip(stack);
-		if(clip && !Screen.hasShiftDown()) {
+		if (clip && !Screen.hasShiftDown()) {
 			stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 			return;
 		}
 
 		ItemStack lens = getLens(stack);
-		if(!lens.isEmpty()) {
+		if (!lens.isEmpty()) {
 			List<ITextComponent> tooltip = lens.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
-			if(tooltip.size() > 1)
+			if (tooltip.size() > 1) {
 				stacks.addAll(tooltip.subList(1, tooltip.size()));
+			}
 		}
 
-		if(clip) {
+		if (clip) {
 			int pos = getClipPos(stack);
 			stacks.add(new TranslationTextComponent("botaniamisc.hasClip"));
-			for(int i = 0; i < CLIP_SLOTS; i++) {
+			for (int i = 0; i < CLIP_SLOTS; i++) {
 				ItemStack lensAt = getLensAtPos(stack, i);
 
 				ITextComponent name;
-				if(lensAt.isEmpty())
+				if (lensAt.isEmpty()) {
 					name = new TranslationTextComponent("botaniamisc.clipEmpty");
-				else name = lensAt.getDisplayName();
+				} else {
+					name = lensAt.getDisplayName();
+				}
 
 				ITextComponent tip = new StringTextComponent(" - ").appendSibling(name);
 				tip.getStyle().setColor(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
@@ -240,14 +245,16 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		int[] slots = new int[CLIP_SLOTS - 1];
 
 		int index = 0;
-		for(int i = currPos + 1; i < CLIP_SLOTS; i++, index++)
+		for (int i = currPos + 1; i < CLIP_SLOTS; i++, index++) {
 			slots[index] = i;
-		for(int i = 0; i < currPos; i++, index++)
+		}
+		for (int i = 0; i < currPos; i++, index++) {
 			slots[index] = i;
+		}
 
-		for(int i : slots) {
+		for (int i : slots) {
 			ItemStack lensAt = getLensAtPos(stack, i);
-			if(acceptEmpty || !lensAt.isEmpty()) {
+			if (acceptEmpty || !lensAt.isEmpty()) {
 				setClipPos(stack, i);
 				return;
 			}
@@ -256,7 +263,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
-		if(cmp != null) {
+		if (cmp != null) {
 			return ItemStack.read(cmp);
 		}
 		return ItemStack.EMPTY;
@@ -264,27 +271,31 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		CompoundNBT cmp = new CompoundNBT();
-		if(lens != null)
+		if (lens != null) {
 			cmp = lens.write(cmp);
+		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
 
 	public static void setLens(ItemStack stack, ItemStack lens) {
-		if(hasClip(stack))
+		if (hasClip(stack)) {
 			setLensAtPos(stack, lens, getClipPos(stack));
+		}
 
 		CompoundNBT cmp = new CompoundNBT();
-		if(!lens.isEmpty())
+		if (!lens.isEmpty()) {
 			cmp = lens.write(cmp);
+		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
 
 	public static ItemStack getLens(ItemStack stack) {
-		if(hasClip(stack))
+		if (hasClip(stack)) {
 			return getLensAtPos(stack, getClipPos(stack));
+		}
 
 		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
-		if(cmp != null) {
+		if (cmp != null) {
 			return ItemStack.read(cmp);
 		}
 		return ItemStack.EMPTY;
@@ -302,8 +313,9 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if(stack.isDamaged())
+		if (stack.isDamaged()) {
 			stack.setDamage(stack.getDamage() - 1);
+		}
 	}
 
 	@Override

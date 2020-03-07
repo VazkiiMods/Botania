@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.client.audio.ISound;
@@ -14,13 +22,14 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.*;
+
 import java.util.Random;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
@@ -36,7 +45,7 @@ public class BergamuteEventHandler {
 		ISound sound = evt.getResultSound();
 
 		if (sound != null && shouldSilence(sound)) {
-			if(sound instanceof ITickableSound) {
+			if (sound instanceof ITickableSound) {
 				evt.setResultSound(new WrappedTickableSound((ITickableSound) sound, MULTIPLIER));
 			} else {
 				SubTileBergamute berg = SubTileBergamute.getBergamuteNearby(sound.getX(), sound.getY(), sound.getZ());
@@ -49,7 +58,7 @@ public class BergamuteEventHandler {
 						float red = (color >> 16 & 0xFF) / 255F;
 						float green = (color >> 8 & 0xFF) / 255F;
 						float blue = (color & 0xFF) / 255F;
-						BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random()  * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+						BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 					}
 				}
 			}
@@ -81,18 +90,70 @@ public class BergamuteEventHandler {
 			return compose.getVolume() * mult;
 		}
 
-		@Nonnull @Override public ResourceLocation getSoundLocation() { return compose.getSoundLocation(); }
-		@Nullable @Override public SoundEventAccessor createAccessor(@Nonnull SoundHandler handler) { return compose.createAccessor(handler); }
-		@Nonnull @Override public Sound getSound() { return compose.getSound(); }
-		@Nonnull @Override public SoundCategory getCategory() { return compose.getCategory(); }
-		@Override public boolean canRepeat() { return compose.canRepeat(); }
-		@Override public boolean isGlobal() { return compose.isGlobal(); }
-		@Override public int getRepeatDelay() { return compose.getRepeatDelay(); }
-		@Override public float getPitch() { return compose.getPitch(); }
-		@Override public float getX() { return compose.getX(); }
-		@Override public float getY() { return compose.getY(); }
-		@Override public float getZ() { return compose.getZ(); }
-		@Nonnull @Override public AttenuationType getAttenuationType() { return compose.getAttenuationType(); }
+		@Nonnull
+		@Override
+		public ResourceLocation getSoundLocation() {
+			return compose.getSoundLocation();
+		}
+
+		@Nullable
+		@Override
+		public SoundEventAccessor createAccessor(@Nonnull SoundHandler handler) {
+			return compose.createAccessor(handler);
+		}
+
+		@Nonnull
+		@Override
+		public Sound getSound() {
+			return compose.getSound();
+		}
+
+		@Nonnull
+		@Override
+		public SoundCategory getCategory() {
+			return compose.getCategory();
+		}
+
+		@Override
+		public boolean canRepeat() {
+			return compose.canRepeat();
+		}
+
+		@Override
+		public boolean isGlobal() {
+			return compose.isGlobal();
+		}
+
+		@Override
+		public int getRepeatDelay() {
+			return compose.getRepeatDelay();
+		}
+
+		@Override
+		public float getPitch() {
+			return compose.getPitch();
+		}
+
+		@Override
+		public float getX() {
+			return compose.getX();
+		}
+
+		@Override
+		public float getY() {
+			return compose.getY();
+		}
+
+		@Override
+		public float getZ() {
+			return compose.getZ();
+		}
+
+		@Nonnull
+		@Override
+		public AttenuationType getAttenuationType() {
+			return compose.getAttenuationType();
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -105,7 +166,14 @@ public class BergamuteEventHandler {
 			compose = toWrap;
 		}
 
-		@Override public boolean isDonePlaying() { return compose.isDonePlaying(); }
-		@Override public void tick() { compose.tick(); }
+		@Override
+		public boolean isDonePlaying() {
+			return compose.isDonePlaying();
+		}
+
+		@Override
+		public void tick() {
+			compose.tick();
+		}
 	}
 }

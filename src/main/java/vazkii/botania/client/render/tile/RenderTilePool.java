@@ -1,22 +1,20 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 26, 2014, 12:25:11 AM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -24,6 +22,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.math.MathHelper;
+
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -33,6 +32,7 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nullable;
+
 import java.util.Random;
 
 public class RenderTilePool extends TileEntityRenderer<TilePool> {
@@ -46,9 +46,10 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 	@Override
 	public void render(@Nullable TilePool pool, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
-				|| !(pool.getBlockState().getBlock() instanceof BlockPool)))
+		if (pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
+				|| !(pool.getBlockState().getBlock() instanceof BlockPool))) {
 			return;
+		}
 
 		ms.push();
 
@@ -74,8 +75,9 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 		int mana = pool == null ? cartMana : pool.getCurrentMana();
 		int cap = pool == null ? -1 : pool.manaCap;
-		if(cap == -1)
+		if (cap == -1) {
 			cap = TilePool.MAX_MANA;
+		}
 
 		float waterLevel = (float) mana / (float) cap * 0.4F;
 
@@ -83,11 +85,11 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		float v = 1F / 8F;
 		float w = -v * 3.5F;
 
-		if(pool != null) {
+		if (pool != null) {
 			Block below = pool.getWorld().getBlockState(pool.getPos().down()).getBlock();
-			if(below instanceof IPoolOverlayProvider) {
+			if (below instanceof IPoolOverlayProvider) {
 				TextureAtlasSprite overlayIcon = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.getPos());
-				if(overlayIcon != null) {
+				if (overlayIcon != null) {
 					ms.push();
 					float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
 					ms.translate(-0.5F, -1F - 0.43F, -0.5F);
@@ -102,7 +104,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			}
 		}
 
-		if(waterLevel > 0) {
+		if (waterLevel > 0) {
 			s = 1F / 256F * 14F;
 			ms.push();
 			ms.translate(w, -1F - (0.43F - waterLevel), w);

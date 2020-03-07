@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 1, 2015, 1:11:26 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -26,6 +24,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;
@@ -46,10 +45,10 @@ public class BlockTeruTeruBozu extends BlockMod {
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity e) {
-		if(!world.isRemote && e instanceof ItemEntity) {
+		if (!world.isRemote && e instanceof ItemEntity) {
 			ItemEntity item = (ItemEntity) e;
 			ItemStack stack = item.getItem();
-			if(isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
+			if (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
 				stack.shrink(1);
 			}
 		}
@@ -58,9 +57,10 @@ public class BlockTeruTeruBozu extends BlockMod {
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
-			if(!player.abilities.isCreativeMode)
+		if (!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
+			if (!player.abilities.isCreativeMode) {
 				stack.shrink(1);
+			}
 			return ActionResultType.SUCCESS;
 		}
 		return ActionResultType.PASS;
@@ -75,7 +75,7 @@ public class BlockTeruTeruBozu extends BlockMod {
 	}
 
 	private boolean removeRain(World world) {
-		if(world.isRaining()) {
+		if (world.isRaining()) {
 			world.getWorldInfo().setRaining(false);
 			TileTeruTeruBozu.resetRainTime(world);
 			return true;
@@ -84,8 +84,8 @@ public class BlockTeruTeruBozu extends BlockMod {
 	}
 
 	private boolean startRain(World world) {
-		if(!world.isRaining()) {
-			if(world.rand.nextInt(10) == 0) {
+		if (!world.isRaining()) {
+			if (world.rand.nextInt(10) == 0) {
 				world.getWorldInfo().setRaining(true);
 				TileTeruTeruBozu.resetRainTime(world);
 			}

@@ -1,8 +1,18 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;

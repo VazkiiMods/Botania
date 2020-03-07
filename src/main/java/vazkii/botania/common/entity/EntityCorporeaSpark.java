@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 13, 2015, 10:52:40 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,6 +29,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -38,12 +38,12 @@ import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
-	@ObjectHolder(LibMisc.MOD_ID + ":corporea_spark")
-	public static EntityType<EntityCorporeaSpark> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":corporea_spark") public static EntityType<EntityCorporeaSpark> TYPE;
 
 	private static final int SCAN_RANGE = 8;
 
@@ -84,34 +84,40 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public void tick() {
 		super.tick();
 
-		if(world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
 		InvWithLocation inv = getSparkInventory();
-		if(inv == null) {
+		if (inv == null) {
 			dropAndKill();
 			return;
 		}
 
-		if(isMaster())
+		if (isMaster()) {
 			master = this;
+		}
 
-		if(firstTick) {
-			if(isMaster())
+		if (firstTick) {
+			if (isMaster()) {
 				restartNetwork();
-			else findNetwork();
+			} else {
+				findNetwork();
+			}
 
 			firstTick = false;
 		}
 
-		if(master != null && (((Entity) master).removed || master.getNetwork() != getNetwork()))
+		if (master != null && (((Entity) master).removed || master.getNetwork() != getNetwork())) {
 			master = null;
+		}
 
 		int displayTicks = getItemDisplayTicks();
-		if(displayTicks > 0)
+		if (displayTicks > 0) {
 			setItemDisplayTicks(displayTicks - 1);
-		else if(displayTicks < 0)
+		} else if (displayTicks < 0) {
 			setItemDisplayTicks(displayTicks + 1);
+		}
 	}
 
 	private void dropAndKill() {
@@ -129,9 +135,10 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	@Override
 	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
 		relatives.clear();
-		for(ICorporeaSpark spark : getNearbySparks()) {
-			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).removed)
+		for (ICorporeaSpark spark : getNearbySparks()) {
+			if (spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).removed) {
 				continue;
+			}
 
 			connections.add(spark);
 			relatives.add(spark);
@@ -151,7 +158,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		connections = new ArrayList<>();
 		relatives = new ArrayList<>();
 
-		if(master != null) {
+		if (master != null) {
 			ICorporeaSpark oldMaster = master;
 			master = null;
 
@@ -160,30 +167,34 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void findNetwork() {
-		for(ICorporeaSpark spark : getNearbySparks())
-			if(spark.getNetwork() == getNetwork() && !((Entity) spark).removed) {
+		for (ICorporeaSpark spark : getNearbySparks()) {
+			if (spark.getNetwork() == getNetwork() && !((Entity) spark).removed) {
 				ICorporeaSpark master = spark.getMaster();
-				if(master != null) {
+				if (master != null) {
 					this.master = master;
 					restartNetwork();
 
 					break;
 				}
 			}
+		}
 	}
 
 	private static void displayRelatives(PlayerEntity player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
-		if(spark == null)
+		if (spark == null) {
 			return;
+		}
 
 		List<ICorporeaSpark> sparks = spark.getRelatives();
-		if(sparks.isEmpty())
+		if (sparks.isEmpty()) {
 			EntitySpark.particleBeam(player, (Entity) spark, (Entity) spark.getMaster());
-		else for(ICorporeaSpark endSpark : sparks) {
-			if(!checked.contains(endSpark)) {
-				EntitySpark.particleBeam(player, (Entity) spark, (Entity) endSpark);
-				checked.add(endSpark);
-				displayRelatives(player, checked, endSpark);
+		} else {
+			for (ICorporeaSpark endSpark : sparks) {
+				if (!checked.contains(endSpark)) {
+					EntitySpark.particleBeam(player, (Entity) spark, (Entity) endSpark);
+					checked.add(endSpark);
+					displayRelatives(player, checked, endSpark);
+				}
 			}
 		}
 	}
@@ -214,7 +225,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public void onItemsRequested(List<ItemStack> stacks) {
-		if(!stacks.isEmpty()) {
+		if (!stacks.isEmpty()) {
 			setItemDisplayTicks(-10);
 			setDisplayedItem(stacks.get(0));
 		}
@@ -253,36 +264,40 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	@Override
 	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!removed && !stack.isEmpty()) {
-			if(player.world.isRemote) {
+		if (!removed && !stack.isEmpty()) {
+			if (player.world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemDye || stack.getItem() == ModItems.phantomInk;
-				if(valid)
+				if (valid) {
 					player.swingArm(hand);
+				}
 				return valid;
 			}
 
-			if(stack.getItem() == ModItems.twigWand) {
-				if(player.isSneaking()) {
+			if (stack.getItem() == ModItems.twigWand) {
+				if (player.isSneaking()) {
 					dropAndKill();
-					if(isMaster())
+					if (isMaster()) {
 						restartNetwork();
+					}
 				} else {
 					displayRelatives(player, new ArrayList<>(), master);
 				}
 				return true;
-			} else if(stack.getItem() instanceof ItemDye) {
+			} else if (stack.getItem() instanceof ItemDye) {
 				DyeColor color = ((ItemDye) stack.getItem()).color;
-				if(color != getNetwork()) {
+				if (color != getNetwork()) {
 					setNetwork(color);
 
-					if(isMaster())
+					if (isMaster()) {
 						restartNetwork();
-					else findNetwork();
+					} else {
+						findNetwork();
+					}
 
 					stack.shrink(1);
 					return true;
 				}
-			} else if(stack.getItem() == ModItems.phantomInk) {
+			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
 				return true;
 			}

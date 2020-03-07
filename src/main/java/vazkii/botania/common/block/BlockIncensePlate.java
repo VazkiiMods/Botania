@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 15, 2015, 4:07:09 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -29,6 +27,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
@@ -56,15 +55,16 @@ public class BlockIncensePlate extends BlockMod {
 		ItemStack stack = player.getHeldItem(hand);
 		boolean did = false;
 
-		if(world.isRemote)
+		if (world.isRemote) {
 			return ActionResultType.SUCCESS;
+		}
 
-		if(plateStack.isEmpty() && plate.acceptsItem(stack)) {
+		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setStackInSlot(0, stack.copy());
 			stack.shrink(1);
 			did = true;
-		} else if(!plateStack.isEmpty() && !plate.burning) {
-			if(!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
+		} else if (!plateStack.isEmpty() && !plate.burning) {
+			if (!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.ignite();
 				stack.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 				did = true;
@@ -76,8 +76,9 @@ public class BlockIncensePlate extends BlockMod {
 			}
 		}
 
-		if(did)
+		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+		}
 
 		return did ? ActionResultType.SUCCESS : ActionResultType.PASS;
 	}
@@ -100,7 +101,7 @@ public class BlockIncensePlate extends BlockMod {
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if(state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+		if (state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
 			return Z_SHAPE;
@@ -117,6 +118,5 @@ public class BlockIncensePlate extends BlockMod {
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileIncensePlate();
 	}
-
 
 }

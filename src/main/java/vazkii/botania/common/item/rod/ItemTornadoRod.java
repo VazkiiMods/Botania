@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 25, 2014, 4:36:13 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
@@ -23,6 +21,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -35,6 +34,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWieldable {
@@ -56,37 +56,40 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity ent, int slot, boolean active) {
-		if(ent instanceof PlayerEntity) {
+		if (ent instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) ent;
 			boolean damaged = getFlyCounter(stack) > 0;
 			boolean held = player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
 
-			if(damaged && !isFlying(stack))
+			if (damaged && !isFlying(stack)) {
 				setFlyCounter(stack, getFlyCounter(stack) - 1);
+			}
 
-			if(getFlyCounter(stack) >= MAX_COUNTER) {
+			if (getFlyCounter(stack) >= MAX_COUNTER) {
 				setFlying(stack, false);
-			} else if(isFlying(stack)) {
-				if(held) {
+			} else if (isFlying(stack)) {
+				if (held) {
 					player.fallDistance = 0F;
-					double my =  IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
+					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vec3d oldMot = player.getMotion();
 					player.setMotion(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
-					for(int i = 0; i < 5; i++) {
+					for (int i = 0; i < 5; i++) {
 						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
 						world.addParticle(data, player.getX(), player.getY(), player.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 					}
 				}
 
 				setFlyCounter(stack, getFlyCounter(stack) + FALL_MULTIPLIER);
-				if(getFlyCounter(stack) == MAX_COUNTER)
+				if (getFlyCounter(stack) == MAX_COUNTER) {
 					setFlying(stack, false);
+				}
 			}
 
-			if(damaged)
+			if (damaged) {
 				player.fallDistance = 0;
+			}
 		}
 	}
 
@@ -105,7 +108,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int fly = getFlyCounter(stack);
-		if(fly == 0 && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
+		if (fly == 0 && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
 			return ActionResult.success(stack);
@@ -139,21 +142,22 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
 		World world = te.getWorld();
-		if(tile.getCurrentMana() >= COST && tile.isEnabled()) {
+		if (tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
 			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
-			for(PlayerEntity p : players) {
-				if(p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isSneaking()) {
+			for (PlayerEntity p : players) {
+				if (p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isSneaking()) {
 					p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
 
-					for(int i = 0; i < 20; i++)
-						for(int j = 0; j < 5; j++) {
-                            WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-                            world.addParticle(data, p.getX(), p.getY() + i, p.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
-                        }
+					for (int i = 0; i < 20; i++) {
+						for (int j = 0; j < 5; j++) {
+							WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+							world.addParticle(data, p.getX(), p.getY() + i, p.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+						}
+					}
 
-					if(!world.isRemote) {
+					if (!world.isRemote) {
 						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 						p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
 						tile.recieveMana(-COST);

@@ -1,18 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 20, 2014, 5:54:39 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.Minecraft;
@@ -23,8 +20,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.ChestType;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -34,21 +29,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileHopperhock extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hopperhock")
-	public static TileEntityType<SubTileHopperhock> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":hopperhock") public static TileEntityType<SubTileHopperhock> TYPE;
 
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
@@ -71,8 +64,9 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().isRemote || redstoneSignal > 0)
+		if (getWorld().isRemote || redstoneSignal > 0) {
 			return;
+		}
 
 		boolean pulledAny = false;
 		int range = getRange();
@@ -82,20 +76,21 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
 
-		for(ItemEntity item : items) {
-			if(item.age < 60 + slowdown || item.age >= 105 && item.age < 110 || !item.isAlive() || item.getItem().isEmpty())
+		for (ItemEntity item : items) {
+			if (item.age < 60 + slowdown || item.age >= 105 && item.age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
 				continue;
+			}
 
 			ItemStack stack = item.getItem();
 			IItemHandler invToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 
-			for(Direction dir : Direction.values()) {
+			for (Direction dir : Direction.values()) {
 				BlockPos pos_ = pos.offset(dir);
 
 				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(getWorld(), pos_, dir.getOpposite());
-				if(inv != null) {
+				if (inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
@@ -104,12 +99,13 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 					canAccept &= availablePut > 0;
 
-					if(canAccept) {
+					if (canAccept) {
 						boolean priority = !filter.isEmpty();
 
-						setInv : {
-							if(priorityInv && !priority)
+						setInv: {
+							if (priorityInv && !priority) {
 								break setInv;
+							}
 
 							invToPutItemIn = inv.handler;
 							priorityInv = priority;
@@ -119,7 +115,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 				}
 			}
 
-			if(invToPutItemIn != null && item.isAlive()) {
+			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				ItemHandlerHelper.insertItem(invToPutItemIn, stack.split(amountToPutIn), false);
 				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
@@ -127,49 +123,57 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			}
 		}
 
-		if(pulledAny && getMana() > 0)
+		if (pulledAny && getMana() > 0) {
 			addMana(-1);
+		}
 	}
 
 	public boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
-		if(stack.isEmpty())
+		if (stack.isEmpty()) {
 			return false;
+		}
 
-		if(filter.isEmpty())
+		if (filter.isEmpty()) {
 			return true;
+		}
 
-		switch(filterType) {
-		case 0 : { // Accept items in frames only
+		switch (filterType) {
+		case 0: { // Accept items in frames only
 			boolean anyFilter = false;
-			for(ItemStack filterEntry : filter) {
-				if(filterEntry == null)
+			for (ItemStack filterEntry : filter) {
+				if (filterEntry == null) {
 					continue;
+				}
 				anyFilter = true;
 
 				boolean itemEqual = stack.getItem() == filterEntry.getItem();
 				boolean nbtEqual = ItemStack.areItemStackTagsEqual(filterEntry, stack);
 
-				if(itemEqual && nbtEqual)
+				if (itemEqual && nbtEqual) {
 					return true;
+				}
 
-				if(stack.getItem() instanceof IManaItem && itemEqual)
+				if (stack.getItem() instanceof IManaItem && itemEqual) {
 					return true;
+				}
 			}
 
 			return !anyFilter;
 		}
-		case 1 : return !canAcceptItem(stack, filter, 0); // Accept items not in frames only
-		default : return true; // Accept all items
+		case 1:
+			return !canAcceptItem(stack, filter, 0); // Accept items not in frames only
+		default:
+			return true; // Accept all items
 		}
 	}
 
 	public List<ItemStack> getFilterForInventory(BlockPos pos, boolean recursiveForDoubleChests) {
 		List<ItemStack> filter = new ArrayList<>();
 
-		if(recursiveForDoubleChests) {
+		if (recursiveForDoubleChests) {
 			BlockState chest = getWorld().getBlockState(pos);
 
-			if(chest.has(ChestBlock.TYPE)) {
+			if (chest.has(ChestBlock.TYPE)) {
 				ChestType type = chest.get(ChestBlock.TYPE);
 				if (type != ChestType.SINGLE) {
 					BlockPos other = pos.offset(ChestBlock.getDirectionToAttached(chest));
@@ -180,12 +184,13 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			}
 		}
 
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
 			List<ItemFrameEntity> frames = getWorld().getEntitiesWithinAABB(ItemFrameEntity.class, aabb);
-			for(ItemFrameEntity frame : frames) {
-				if(frame.getHorizontalFacing() == dir)
+			for (ItemFrameEntity frame : frames) {
+				if (frame.getHorizontalFacing() == dir) {
 					filter.add(frame.getDisplayedItem());
+				}
 			}
 		}
 
@@ -199,18 +204,19 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	@Override
 	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null || player.isSneaking()) {
+		if (player == null || player.isSneaking()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();
 
 			return true;
+		} else {
+			return super.onWanded(player, wand);
 		}
-		else return super.onWanded(player, wand);
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
+		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {
@@ -256,13 +262,15 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileHopperhock {
-		@ObjectHolder(LibMisc.MOD_ID + ":hopperhock_chibi")
-		public static TileEntityType<SubTileBellethorn> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":hopperhock_chibi") public static TileEntityType<SubTileBellethorn> TYPE;
 
 		public Mini() {
 			super(TYPE);
 		}
 
-		@Override public int getRange() { return getMana() > 0 ? RANGE_MANA_MINI : RANGE_MINI; }
+		@Override
+		public int getRange() {
+			return getMana() > 0 ? RANGE_MANA_MINI : RANGE_MINI;
+		}
 	}
 }

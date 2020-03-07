@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 13, 2014, 5:39:24 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -25,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
@@ -63,14 +62,15 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if(world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
 		IManaPool pool = getManaPool(stack);
-		if(!(pool instanceof DummyPool)) {
-			if(pool == null)
+		if (!(pool instanceof DummyPool)) {
+			if (pool == null) {
 				setMana(stack, 0);
-			else {
+			} else {
 				pool.recieveMana(getManaBacklog(stack));
 				setManaBacklog(stack, 0);
 				setMana(stack, pool.getCurrentMana());
@@ -84,9 +84,9 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		World world = ctx.getWorld();
 		PlayerEntity player = ctx.getPlayer();
 
-		if(player != null && player.isSneaking() && !world.isRemote) {
+		if (player != null && player.isSneaking() && !world.isRemote) {
 			TileEntity tile = world.getTileEntity(ctx.getPos());
-			if(tile instanceof IManaPool) {
+			if (tile instanceof IManaPool) {
 				bindPool(ctx.getItem(), tile);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 				return ActionResultType.SUCCESS;
@@ -144,20 +144,23 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	public IManaPool getManaPool(ItemStack stack) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-		if(server == null)
+		if (server == null) {
 			return fallbackPool;
+		}
 
 		BlockPos coords = getPoolCoords(stack);
-		if(coords.getY() == -1)
+		if (coords.getY() == -1) {
 			return null;
+		}
 
 		ResourceLocation dim = new ResourceLocation(getDimension(stack));
 		DimensionType type = DimensionType.byName(dim);
 		if (type != null) {
 			World world = server.getWorld(type);
 			TileEntity tile = world.getTileEntity(coords);
-			if(tile instanceof IManaPool)
+			if (tile instanceof IManaPool) {
 				return (IManaPool) tile;
+			}
 		}
 
 		return null;

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 28, 2015, 5:18:13 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -27,6 +25,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -60,8 +59,9 @@ public class BlockBellows extends BlockMod {
 
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		if(EntityDoppleganger.isTruePlayer(player))
+		if (EntityDoppleganger.isTruePlayer(player)) {
 			((TileBellows) world.getTileEntity(pos)).interact();
+		}
 		return ActionResultType.SUCCESS;
 	}
 

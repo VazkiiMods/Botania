@@ -1,38 +1,28 @@
-/**
- * This class was created by <Azanor>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.fx;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.Field;
 
 public class FXWisp extends SpriteTexturedParticle {
 	private final boolean depthTest;
@@ -40,7 +30,7 @@ public class FXWisp extends SpriteTexturedParticle {
 	private final int moteHalfLife;
 
 	public FXWisp(World world, double d, double d1, double d2, double xSpeed, double ySpeed, double zSpeed,
-				  float size, float red, float green, float blue, boolean depthTest, float maxAgeMul, boolean noClip) {
+			float size, float red, float green, float blue, boolean depthTest, float maxAgeMul, boolean noClip) {
 		super(world, d, d1, d2, 0, 0, 0);
 		// super applies wiggle to motion so set it here instead
 		motionX = xSpeed;
@@ -53,7 +43,7 @@ public class FXWisp extends SpriteTexturedParticle {
 		particleGravity = 0;
 		particleScale = (this.rand.nextFloat() * 0.5F + 0.5F) * 2.0F * size;
 		moteParticleScale = particleScale;
-		maxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
+		maxAge = (int) (28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 		this.depthTest = depthTest;
 
 		moteHalfLife = maxAge / 2;
@@ -67,9 +57,10 @@ public class FXWisp extends SpriteTexturedParticle {
 
 	@Override
 	public float getScale(float p_217561_1_) {
-		float agescale = (float)age / (float) moteHalfLife;
-		if (agescale > 1F)
+		float agescale = (float) age / (float) moteHalfLife;
+		if (agescale > 1F) {
 			agescale = 2 - agescale;
+		}
 
 		particleScale = moteParticleScale * agescale * 0.5F;
 		return particleScale;
@@ -93,12 +84,11 @@ public class FXWisp extends SpriteTexturedParticle {
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
 
-		if (this.age++ >= this.maxAge)
-		{
+		if (this.age++ >= this.maxAge) {
 			this.setExpired();
 		}
 
-		this.motionY -= 0.04D * (double)this.particleGravity;
+		this.motionY -= 0.04D * (double) this.particleGravity;
 		this.move(this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
 		this.motionY *= 0.9800000190734863D;

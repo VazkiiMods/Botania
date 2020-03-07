@@ -1,28 +1,25 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 6, 2015, 4:07:16 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileCell extends TileMod {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CELL_BLOCK)
-	public static TileEntityType<TileCell> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CELL_BLOCK) public static TileEntityType<TileCell> TYPE;
 	private static final String TAG_GENERATION = "generation";
 	private static final String TAG_TICKED = "ticked";
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -43,12 +40,13 @@ public class TileCell extends TileMod {
 
 	public void setGeneration(SubTileDandelifeon flower, int gen) {
 		generation = gen;
-		if(!ticked) {
+		if (!ticked) {
 			flowerCoords = flower.getEffectivePos();
 			validCoords = getPos();
 			ticked = true;
-		} else if(!validCoords.equals(getPos()) || !flowerCoords.equals(flower.getEffectivePos()))
+		} else if (!validCoords.equals(getPos()) || !flowerCoords.equals(flower.getEffectivePos())) {
 			world.removeBlock(pos, false);
+		}
 	}
 
 	public boolean isSameFlower(SubTileDandelifeon flower) {
@@ -63,7 +61,7 @@ public class TileCell extends TileMod {
 	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_GENERATION, generation);
 		cmp.putBoolean(TAG_TICKED, ticked);
-		if(ticked) {
+		if (ticked) {
 			cmp.putInt(TAG_FLOWER_X, flowerCoords.getX());
 			cmp.putInt(TAG_FLOWER_Y, flowerCoords.getY());
 			cmp.putInt(TAG_FLOWER_Z, flowerCoords.getZ());
@@ -77,17 +75,17 @@ public class TileCell extends TileMod {
 	public void readPacketNBT(CompoundNBT cmp) {
 		generation = cmp.getInt(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
-		if(ticked) {
+		if (ticked) {
 			flowerCoords = new BlockPos(
 					cmp.getInt(TAG_FLOWER_X),
 					cmp.getInt(TAG_FLOWER_Y),
 					cmp.getInt(TAG_FLOWER_Z)
-					);
+			);
 			validCoords = new BlockPos(
 					cmp.getInt(TAG_VALID_X),
 					cmp.getInt(TAG_VALID_Y),
 					cmp.getInt(TAG_VALID_Z)
-					);
+			);
 		}
 	}
 

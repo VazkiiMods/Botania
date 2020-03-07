@@ -1,20 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2014, 8:03:36 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -24,17 +20,13 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-
-import java.awt.*;
-import java.util.List;
 
 /**
  * The basic class for a Generating Flower.
@@ -78,32 +70,33 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		linkCollector();
 
-		if(canGeneratePassively()) {
+		if (canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if(delay > 0 && ticksExisted % delay == 0 && !getWorld().isRemote) {
-				if(shouldSyncPassiveGeneration())
+			if (delay > 0 && ticksExisted % delay == 0 && !getWorld().isRemote) {
+				if (shouldSyncPassiveGeneration()) {
 					sync();
+				}
 				addMana(getValueForPassiveGeneration());
 			}
 		}
 		emptyManaIntoCollector();
 
-		if(acceptsRedstone()) {
+		if (acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(Direction dir : Direction.values()) {
+			for (Direction dir : Direction.values()) {
 				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
 
-		if(getWorld().isRemote) {
+		if (getWorld().isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
 			int color = getColor();
 			float red = (color >> 16 & 0xFF) / 255F;
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
 
-			if(Math.random() > particleChance) {
+			if (Math.random() > particleChance) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
@@ -113,31 +106,33 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 
 		boolean passive = isPassiveFlower();
-		if(!getWorld().isRemote) {
+		if (!getWorld().isRemote) {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
-			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
+			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				getWorld().destroyBlock(getPos(), false);
-				if(Blocks.DEAD_BUSH.getDefaultState().isValidPosition(getWorld(), getPos()))
+				if (Blocks.DEAD_BUSH.getDefaultState().isValidPosition(getWorld(), getPos())) {
 					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
+				}
 			}
 		}
 
-		if(passive)
+		if (passive) {
 			passiveDecayTicks++;
+		}
 	}
 
 	public void linkCollector() {
 		boolean needsNew = false;
-		if(linkedCollector == null) {
+		if (linkedCollector == null) {
 			needsNew = true;
 
-			if(cachedCollectorCoordinates != null) {
+			if (cachedCollectorCoordinates != null) {
 				needsNew = false;
-				if(getWorld().isBlockLoaded(cachedCollectorCoordinates)) {
+				if (getWorld().isBlockLoaded(cachedCollectorCoordinates)) {
 					needsNew = true;
 					TileEntity tileAt = getWorld().getTileEntity(cachedCollectorCoordinates);
-					if(tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
+					if (tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
 						linkedCollector = tileAt;
 						needsNew = false;
 					}
@@ -146,14 +141,15 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			}
 		} else {
 			TileEntity tileAt = getWorld().getTileEntity(linkedCollector.getPos());
-			if(tileAt instanceof IManaCollector)
+			if (tileAt instanceof IManaCollector) {
 				linkedCollector = tileAt;
+			}
 		}
 
-		if(needsNew && ticksExisted == 1) { // New flowers only
+		if (needsNew && ticksExisted == 1) { // New flowers only
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(getWorld()).size();
-			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -170,9 +166,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void emptyManaIntoCollector() {
-		if(linkedCollector != null && isValidBinding()) {
+		if (linkedCollector != null && isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
-			if(!collector.isFull() && getMana() > 0) {
+			if (!collector.isFull() && getMana() > 0) {
 				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
 				mana = getMana() - manaval;
 				collector.recieveMana(manaval);
@@ -202,16 +198,19 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null)
+		if (player == null) {
 			return false;
+		}
 
-		if(!player.world.isRemote)
+		if (!player.world.isRemote) {
 			sync();
+		}
 
 		knownMana = getMana();
 		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
-		if(evt != null)
+		if (evt != null) {
 			player.playSound(evt, 0.1F, 1F);
+		}
 
 		return super.onWanded(player, wand);
 	}
@@ -244,7 +243,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 
-		if(cachedCollectorCoordinates != null) {
+		if (cachedCollectorCoordinates != null) {
 			cmp.putInt(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
 			cmp.putInt(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
 			cmp.putInt(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
@@ -261,8 +260,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public BlockPos getBinding() {
-		if(linkedCollector == null)
+		if (linkedCollector == null) {
 			return null;
+		}
 		return linkedCollector.getPos();
 	}
 
@@ -277,9 +277,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		range *= range;
 
 		double dist = pos.distanceSq(getPos());
-		if(range >= dist) {
+		if (range >= dist) {
 			TileEntity tile = player.world.getTileEntity(pos);
-			if(tile instanceof IManaCollector) {
+			if (tile instanceof IManaCollector) {
 				linkedCollector = tile;
 				return true;
 			}
@@ -287,7 +287,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		return false;
 	}
-
 
 	public boolean isValidBinding() {
 		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;

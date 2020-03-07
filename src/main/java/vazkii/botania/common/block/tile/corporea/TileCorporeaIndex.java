@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 15, 2015, 12:42:29 AM (GMT)]
  */
 package vazkii.botania.common.block.tile.corporea;
 
@@ -17,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,6 +22,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
@@ -46,8 +44,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INDEX)
-	public static TileEntityType<TileCorporeaIndex> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INDEX) public static TileEntityType<TileCorporeaIndex> TYPE;
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
@@ -65,98 +62,210 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	static {
 		// (name) = 1
 		addPattern("(.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 1; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 1;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		// [a][n] (name) = 1
 		addPattern("a??n?? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 1; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 1;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		//(n)[x][ of] (name) = n
 		addPattern("(\\d+)x?(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return i(m, 1); }
-			@Override public String getName(Matcher m) { return m.group(2); }
+			@Override
+			public int getCount(Matcher m) {
+				return i(m, 1);
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(2);
+			}
 		});
 
 		// [a ]stack[ of] (name) = 64
 		addPattern("(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 64; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 64;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		// (n)[x] stack[s][ of] (name) = n * 64
 		addPattern("(\\d+)x?? stacks?(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 64 * i(m, 1); }
-			@Override public String getName(Matcher m) { return m.group(2); }
+			@Override
+			public int getCount(Matcher m) {
+				return 64 * i(m, 1);
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(2);
+			}
 		});
 
 		// [a ]stack <and/+> (n)[x][ of] (name) = 64 + n
 		addPattern("(?:a )?stack (?:(?:and)|(?:\\+)) (\\d+)(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 64 + i(m, 1); }
-			@Override public String getName(Matcher m) { return m.group(2); }
+			@Override
+			public int getCount(Matcher m) {
+				return 64 + i(m, 1);
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(2);
+			}
 		});
 
 		// (n1)[x] stack[s] <and/+> (n2)[x][ of] (name) = n1 * 64 + n2
 		addPattern("(\\d+)x?? stacks? (?:(?:and)|(?:\\+)) (\\d+)x?(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 64 * i(m, 1) + i(m, 2); }
-			@Override public String getName(Matcher m) { return m.group(3); }
+			@Override
+			public int getCount(Matcher m) {
+				return 64 * i(m, 1) + i(m, 2);
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(3);
+			}
 		});
 
 		// [a ]half [of ][a ]stack[ of] (name) = 32
 		addPattern("(?:a )?half (?:of )?(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 32; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 32;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		// [a ]quarter [of ][a ]stack[ of] (name) = 16
 		addPattern("(?:a )?quarter (?:of )?(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 16; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 16;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		// [a ]dozen[ of] (name) = 12
 		addPattern("(?:a )?dozen(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 12; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 12;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		// (n)[x] dozen[s][ of] (name) = n * 12
 		addPattern("(\\d+)x?? dozens?(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 12 * i(m, 1); }
-			@Override public String getName(Matcher m) { return m.group(2); }
+			@Override
+			public int getCount(Matcher m) {
+				return 12 * i(m, 1);
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(2);
+			}
 		});
 
 		// <all/every> [<of/the> ](name) = 2147483647
 		addPattern("(?:all|every) (?:(?:of|the) )?(.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return Integer.MAX_VALUE; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return Integer.MAX_VALUE;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 
 		// [the ]answer to life[,] the universe and everything [of ](name) = 42
 		addPattern("(?:the )?answer to life,? the universe and everything (?:of )?(.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 42; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 42;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
-		
+
 		// [a ]nice [of ](name) = 69 
 		addPattern("(?:a )?nice (?:of )?(.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 69; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 69;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
-		
+
 		// (n)[x] nice[s][ of] (name) = n * 69
 		addPattern("(\\d+)x?? nices?(?: of)? (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 69 * i(m, 1); }
-			@Override public String getName(Matcher m) { return m.group(2); }
+			@Override
+			public int getCount(Matcher m) {
+				return 69 * i(m, 1);
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(2);
+			}
 		});
 
 		// <count/show/display/tell> (name) = 0 (display only)
 		addPattern("(?:count|show|display|tell) (.+)", new IRegexStacker() {
-			@Override public int getCount(Matcher m) { return 0; }
-			@Override public String getName(Matcher m) { return m.group(1); }
+			@Override
+			public int getCount(Matcher m) {
+				return 0;
+			}
+
+			@Override
+			public String getName(Matcher m) {
+				return m.group(1);
+			}
 		});
 	}
 
@@ -177,23 +286,27 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
-		for(PlayerEntity player : players)
-			if(isInRangeOfIndex(player, this)) {
+		for (PlayerEntity player : players) {
+			if (isInRangeOfIndex(player, this)) {
 				hasCloseby = true;
 				break;
 			}
+		}
 
 		float step = 0.2F;
 		ticks++;
-		if(hasCloseby) {
+		if (hasCloseby) {
 			ticksWithCloseby++;
-			if(closeby < 1F)
+			if (closeby < 1F) {
 				closeby += step;
-		} else if(closeby > 0F)
+			}
+		} else if (closeby > 0F) {
 			closeby -= step;
+		}
 
-		if(!isRemoved())
+		if (!isRemoved()) {
 			addIndex(this);
+		}
 	}
 
 	@Override
@@ -212,11 +325,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true);
 		spark.onItemsRequested(stacks);
-		for(ItemStack stack : stacks)
-			if(!stack.isEmpty()) {
+		for (ItemStack stack : stacks) {
+			if (!stack.isEmpty()) {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 				world.addEntity(item);
 			}
+		}
 	}
 
 	public static boolean isInRangeOfIndex(PlayerEntity player, TileCorporeaIndex index) {
@@ -231,14 +345,15 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		try {
 			int i = Math.abs(Integer.parseInt(m.group(g)));
 			return i;
-		} catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			return 0;
 		}
 	}
 
 	public static InputHandler getInputHandler() {
-		if(input == null)
+		if (input == null) {
 			input = new InputHandler();
+		}
 		return input;
 	}
 
@@ -254,7 +369,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
 		CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(player, request, count, this.getSpark());
-		if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
+		if (!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
 			this.doCorporeaRequest(request, count, this.getSpark());
 
 			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).applyTextStyle(TextFormatting.LIGHT_PURPLE));
@@ -265,30 +380,32 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public static final class InputHandler {
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
-			if(event.getPlayer().isSpectator()) 
+			if (event.getPlayer().isSpectator()) {
 				return;
+			}
 
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
-			if(!nearbyIndexes.isEmpty()) {
+			if (!nearbyIndexes.isEmpty()) {
 				String msg = event.getMessage().toLowerCase().trim();
-				for(TileCorporeaIndex index : nearbyIndexes) {
+				for (TileCorporeaIndex index : nearbyIndexes) {
 					ICorporeaSpark spark = index.getSpark();
-					if(spark != null) {
+					if (spark != null) {
 						String name = "";
 						int count = 0;
-						for(Pattern pattern : patterns.keySet()) {
+						for (Pattern pattern : patterns.keySet()) {
 							Matcher matcher = pattern.matcher(msg);
-							if(matcher.matches()) {
+							if (matcher.matches()) {
 								IRegexStacker stacker = patterns.get(pattern);
 								count = stacker.getCount(matcher);
 								name = stacker.getName(matcher).toLowerCase().trim();
 							}
 						}
 
-						if(name.equals("this")) {
+						if (name.equals("this")) {
 							ItemStack stack = event.getPlayer().getHeldItemMainhand();
-							if(!stack.isEmpty())
+							if (!stack.isEmpty()) {
 								name = stack.getDisplayName().getString().toLowerCase().trim();
+							}
 						}
 
 						index.performPlayerRequest(event.getPlayer(), CorporeaHelper.createMatcher(name), count);

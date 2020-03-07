@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 28, 2015, 8:30:19 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
@@ -24,6 +22,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -33,6 +32,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor {
@@ -58,8 +58,9 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	public String getTranslationKey(ItemStack stack) {
 		String name = super.getTranslationKey(stack);
-		if(ClientProxy.jingleTheBells)
+		if (ClientProxy.jingleTheBells) {
 			name = name.replaceAll("manaweave", "santaweave");
+		}
 		return name;
 	}
 
@@ -77,18 +78,24 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
-		if(player == null)
+		if (player == null) {
 			return false;
-		
-		ItemStack stack = player.getItemStackFromSlot(slot);
-		if(stack.isEmpty())
-			return false;
+		}
 
-		switch(slot) {
-		case HEAD: return stack.getItem() == ModItems.manaweaveHelm;
-		case CHEST: return stack.getItem() == ModItems.manaweaveChest;
-		case LEGS: return stack.getItem() == ModItems.manaweaveLegs;
-		case FEET: return stack.getItem() == ModItems.manaweaveBoots;
+		ItemStack stack = player.getItemStackFromSlot(slot);
+		if (stack.isEmpty()) {
+			return false;
+		}
+
+		switch (slot) {
+		case HEAD:
+			return stack.getItem() == ModItems.manaweaveHelm;
+		case CHEST:
+			return stack.getItem() == ModItems.manaweaveChest;
+		case LEGS:
+			return stack.getItem() == ModItems.manaweaveLegs;
+		case FEET:
+			return stack.getItem() == ModItems.manaweaveBoots;
 		}
 
 		return false;
@@ -102,7 +109,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformationAfterShift(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		if(ClientProxy.jingleTheBells) {
+		if (ClientProxy.jingleTheBells) {
 			list.add(new TranslationTextComponent("botaniamisc.santaweaveInfo"));
 			list.add(new StringTextComponent(""));
 		}

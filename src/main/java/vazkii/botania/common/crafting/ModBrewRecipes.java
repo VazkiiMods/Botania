@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 1, 2014, 9:15:15 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
 
@@ -19,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
@@ -55,7 +54,7 @@ public class ModBrewRecipes {
 		evt.brew().accept(new RecipeBrew(prefix("allure"), ModBrews.allure, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.COD), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.GOLDEN_CARROT)));
 		evt.brew().accept(new RecipeBrew(prefix("clear"), ModBrews.clear, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.EMERALD), Ingredient.fromItems(Items.MELON_SLICE)));
 
-		if(Botania.thaumcraftLoaded) {
+		if (Botania.thaumcraftLoaded) {
 			Item salisMundus = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "salis_mundus"));
 			Item bathSalts = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "bath_salts"));
 			Item amber = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "amber"));

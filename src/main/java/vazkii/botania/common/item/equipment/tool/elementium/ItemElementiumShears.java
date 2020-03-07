@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -9,19 +18,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemElementiumShears extends ItemManasteelShears {
@@ -29,7 +39,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	public ItemElementiumShears(Properties props) {
 		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "reddit"),
-				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F: 0F);
+				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 	}
 
 	@Nonnull
@@ -52,19 +62,20 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		if(living.world.isRemote)
+		if (living.world.isRemote) {
 			return;
+		}
 
-		if(count != getUseDuration(stack) && count % 5 == 0) {
+		if (count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
 			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), Predicates.instanceOf(IShearable.class));
-			if(sheep.size() > 0) {
-				for(IShearable target : (List<IShearable>) sheep) {
+			if (sheep.size() > 0) {
+				for (IShearable target : (List<IShearable>) sheep) {
 					Entity entity = (Entity) target;
-					if(target.isShearable(stack, entity.world, new BlockPos(entity))) {
+					if (target.isShearable(stack, entity.world, new BlockPos(entity))) {
 						List<ItemStack> drops = target.onSheared(stack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
-						for(ItemStack drop : drops) {
+						for (ItemStack drop : drops) {
 							entity.entityDropItem(drop, 1.0F);
 						}
 

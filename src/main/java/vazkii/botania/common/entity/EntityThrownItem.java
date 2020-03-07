@@ -1,12 +1,10 @@
-/**
- * This class was created by <Flaxbeard>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -26,16 +24,17 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.Optional;
 
 public class EntityThrownItem extends ItemEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":thrown_item")
-	public static EntityType<EntityThrownItem> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":thrown_item") public static EntityType<EntityThrownItem> TYPE;
 
 	public EntityThrownItem(EntityType<EntityThrownItem> type, World world) {
 		super(type, world);
@@ -75,9 +74,7 @@ public class EntityThrownItem extends ItemEntity {
 		RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(vec3, vec31,
 				RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
 
-
-		if (!world.isRemote)
-		{
+		if (!world.isRemote) {
 			Entity entity = null;
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().offset(getMotion().scale(2)).grow(2));
 			double d0 = 0.0D;
@@ -99,21 +96,16 @@ public class EntityThrownItem extends ItemEntity {
 				}
 			}
 
-			if (entity != null)
-			{
+			if (entity != null) {
 				ray = new EntityRayTraceResult(entity);
 			}
 		}
 
-		if (ray != null)
-		{
+		if (ray != null) {
 			if (ray.getType() == RayTraceResult.Type.BLOCK
-					&& world.getBlockState(((BlockRayTraceResult) ray).getPos()).getBlock() == Blocks.NETHER_PORTAL)
-			{
+					&& world.getBlockState(((BlockRayTraceResult) ray).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
 				setPortal(((BlockRayTraceResult) ray).getPos());
-			}
-			else
-			{
+			} else {
 				if (ray.getType() == RayTraceResult.Type.ENTITY) {
 					((EntityRayTraceResult) ray).getEntity().attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 10, 2014, 7:57:38 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -21,6 +19,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -54,8 +53,8 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos,
-										ISelectionContext context) {
-		if(context.getEntity() instanceof IManaBurst) {
+			ISelectionContext context) {
+		if (context.getEntity() instanceof IManaBurst) {
 			return VoxelShapes.empty();
 		} else {
 			return super.getCollisionShape(state, world, pos, context);

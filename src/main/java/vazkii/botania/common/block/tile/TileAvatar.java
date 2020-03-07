@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 24, 2015, 3:17:44 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -18,6 +16,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -27,8 +26,7 @@ import javax.annotation.Nonnull;
 
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickableTileEntity {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.AVATAR)
-	public static TileEntityType<TileAvatar> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.AVATAR) public static TileEntityType<TileAvatar> TYPE;
 
 	private static final int MAX_MANA = 6400;
 
@@ -47,22 +45,23 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	@Override
 	public void tick() {
 		enabled = true;
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
-			if(redstoneSide > 0) {
+			if (redstoneSide > 0) {
 				enabled = false;
 				break;
 			}
 		}
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
+		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
 		}
 
-		if(enabled)
+		if (enabled) {
 			ticksElapsed++;
+		}
 	}
 
 	@Override

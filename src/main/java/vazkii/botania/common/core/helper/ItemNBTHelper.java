@@ -1,15 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the ThaumicTinkerer Mod.
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
  *
- * ThaumicTinkerer is Open Source and distributed under a
+ * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * ThaumicTinkerer is a Derivative Work on Thaumcraft 4.
- * Thaumcraft 4 (c) Azanor 2012
- * (http://www.minecraftforum.net/topic/1585216-)
- *
- * File Created @ [8 Sep 2013, 19:36:25 (GMT)]
  */
 package vazkii.botania.common.core.helper;
 
@@ -19,6 +14,7 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 
 import javax.annotation.Nullable;
+
 import java.util.UUID;
 
 public final class ItemNBTHelper {
@@ -64,8 +60,10 @@ public final class ItemNBTHelper {
 	}
 
 	public static void setCompound(ItemStack stack, String tag, CompoundNBT cmp) {
-		if(!tag.equalsIgnoreCase("ench")) // not override the enchantments
+		if (!tag.equalsIgnoreCase("ench")) // not override the enchantments
+		{
 			stack.getOrCreateTag().put(tag, cmp);
+		}
 	}
 
 	public static void setString(ItemStack stack, String tag, String s) {
@@ -127,8 +125,10 @@ public final class ItemNBTHelper {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getDouble(tag) : defaultExpected;
 	}
 
-	/** If nullifyOnFail is true it'll return null if it doesn't find any
-	 * compounds, otherwise it'll return a new one. **/
+	/**
+	 * If nullifyOnFail is true it'll return null if it doesn't find any
+	 * compounds, otherwise it'll return a new one.
+	 **/
 	public static CompoundNBT getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new CompoundNBT();
 	}
@@ -153,9 +153,9 @@ public final class ItemNBTHelper {
 	 * any size.
 	 */
 	public static boolean matchTag(@Nullable INBT template, @Nullable INBT target) {
-		if(template instanceof CompoundNBT && target instanceof CompoundNBT) {
+		if (template instanceof CompoundNBT && target instanceof CompoundNBT) {
 			return matchTagCompound((CompoundNBT) template, (CompoundNBT) target);
-		} else if(template instanceof ListNBT && target instanceof ListNBT) {
+		} else if (template instanceof ListNBT && target instanceof ListNBT) {
 			return matchTagList((ListNBT) template, (ListNBT) target);
 		} else {
 			return template == null || (target != null && target.equals(template));
@@ -163,20 +163,28 @@ public final class ItemNBTHelper {
 	}
 
 	private static boolean matchTagCompound(CompoundNBT template, CompoundNBT target) {
-		if(template.size() > target.size()) return false;
-		
-		for(String key : template.keySet()) {
-			if (!matchTag(template.get(key), target.get(key))) return false;
+		if (template.size() > target.size()) {
+			return false;
 		}
-		
+
+		for (String key : template.keySet()) {
+			if (!matchTag(template.get(key), target.get(key))) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
 	private static boolean matchTagList(ListNBT template, ListNBT target) {
-		if (template.size() > target.size()) return false;
+		if (template.size() > target.size()) {
+			return false;
+		}
 
 		for (int i = 0; i < template.size(); i++) {
-			if (!matchTag(template.get(i), target.get(i))) return false;
+			if (!matchTag(template.get(i), target.get(i))) {
+				return false;
+			}
 		}
 
 		return true;

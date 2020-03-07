@@ -1,16 +1,15 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [2020-01-30, 17:20 (UTC+2)]
  */
 package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -24,6 +23,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -52,7 +52,7 @@ public class TwigWandRecipe implements ICraftingRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			Item item = stack.getItem();
-			
+
 			int colorId;
 			if (item instanceof ItemPetal) {
 				colorId = ((ItemPetal) item).color.getId();
@@ -61,10 +61,11 @@ public class TwigWandRecipe implements ICraftingRecipe {
 			} else {
 				continue;
 			}
-			if (first == -1)
+			if (first == -1) {
 				first = colorId;
-			else
+			} else {
 				return ItemTwigWand.forColors(first, colorId);
+			}
 		}
 		return ItemTwigWand.forColors(first != -1 ? first : 0, 0);
 	}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 31, 2014, 4:37:29 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -28,6 +26,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockMod;
@@ -61,22 +60,23 @@ public class BlockBrewery extends BlockMod implements IWandHUD {
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
-		if(player.isSneaking()) {
-			if(brew.recipe == null && !state.get(BotaniaStateProps.POWERED)) {
+		if (player.isSneaking()) {
+			if (brew.recipe == null && !state.get(BotaniaStateProps.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
 				return ActionResultType.SUCCESS;
 			}
 		} else {
 			ItemStack stack = player.getHeldItem(hand);
-			if(!stack.isEmpty())
+			if (!stack.isEmpty()) {
 				return brew.addItem(player, stack, hand) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+			}
 		}
 		return ActionResultType.PASS;
 	}
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if(state.getBlock() != newState.getBlock()) {
+		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
 			super.onReplaced(state, world, pos, newState, isMoving);

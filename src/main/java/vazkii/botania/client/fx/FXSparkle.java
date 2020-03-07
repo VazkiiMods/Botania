@@ -1,25 +1,19 @@
-/**
- * This class was created by <Azanor>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.fx;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.block.Block;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -27,14 +21,13 @@ import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 
@@ -46,8 +39,8 @@ public class FXSparkle extends SpriteTexturedParticle {
 	private final IAnimatedSprite sprite;
 
 	public FXSparkle(World world, double x, double y, double z, float size,
-	                 float red, float green, float blue, int m,
-	                 boolean fake, boolean noClip, boolean corrupt, IAnimatedSprite sprite) {
+			float red, float green, float blue, int m,
+			boolean fake, boolean noClip, boolean corrupt, IAnimatedSprite sprite) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
 		particleGreen = green;
@@ -70,7 +63,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 
 	@Override
 	public float getScale(float partialTicks) {
-		return particleScale * (maxAge-age+1) / (float)maxAge;
+		return particleScale * (maxAge - age + 1) / (float) maxAge;
 	}
 
 	@Override
@@ -80,13 +73,15 @@ public class FXSparkle extends SpriteTexturedParticle {
 		prevPosY = posY;
 		prevPosZ = posZ;
 
-		if (age++ >= maxAge)
+		if (age++ >= maxAge) {
 			setExpired();
+		}
 
 		motionY -= 0.04D * particleGravity;
 
-		if (canCollide && !fake)
+		if (canCollide && !fake) {
 			wiggleAround(posX, (getBoundingBox().minY + getBoundingBox().maxY) / 2.0D, posZ);
+		}
 
 		this.move(motionX, motionY, motionZ);
 
@@ -101,8 +96,9 @@ public class FXSparkle extends SpriteTexturedParticle {
 			}
 		}
 
-		if(fake && age > 1)
+		if (fake && age > 1) {
 			setExpired();
+		}
 	}
 
 	@Nonnull
@@ -116,15 +112,14 @@ public class FXSparkle extends SpriteTexturedParticle {
 	}
 
 	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
-	private void wiggleAround(double x, double y, double z)
-	{
+	private void wiggleAround(double x, double y, double z) {
 		BlockPos blockpos = new BlockPos(x, y, z);
-		Vec3d vec3d = new Vec3d(x - (double)blockpos.getX(), y - (double)blockpos.getY(), z - (double)blockpos.getZ());
+		Vec3d vec3d = new Vec3d(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
 		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 		Direction direction = Direction.UP;
 		double d0 = Double.MAX_VALUE;
 
-		for(Direction direction1 : new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP}) {
+		for (Direction direction1 : new Direction[] { Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP }) {
 			blockpos$mutable.setPos(blockpos).move(direction1);
 			if (!this.world.getBlockState(blockpos$mutable).isFullCube(this.world, blockpos$mutable)) {
 				double d1 = vec3d.getCoordinate(direction1.getAxis());
@@ -138,22 +133,22 @@ public class FXSparkle extends SpriteTexturedParticle {
 
 		// Botania - made multiplier and add both smaller
 		float f = this.rand.nextFloat() * 0.05F + 0.025F;
-		float f1 = (float)direction.getAxisDirection().getOffset();
+		float f1 = (float) direction.getAxisDirection().getOffset();
 		// Botania - Randomness in other axes as well
 		float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 		float secondary2 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 		if (direction.getAxis() == Direction.Axis.X) {
-			motionX = (double)(f1 * f);
+			motionX = (double) (f1 * f);
 			motionY = secondary;
 			motionZ = secondary2;
 		} else if (direction.getAxis() == Direction.Axis.Y) {
 			motionX = secondary;
-			motionY = (double)(f1 * f);
+			motionY = (double) (f1 * f);
 			motionZ = secondary2;
 		} else if (direction.getAxis() == Direction.Axis.Z) {
 			motionX = secondary;
 			motionY = secondary2;
-			motionZ = (double)(f1 * f);
+			motionZ = (double) (f1 * f);
 		}
 	}
 

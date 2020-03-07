@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 20, 2015, 7:26:14 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -16,14 +14,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
+
 import java.util.function.BiFunction;
 
 public class ItemObedienceStick extends Item {
@@ -39,20 +38,21 @@ public class ItemObedienceStick extends Item {
 		BlockPos pos = ctx.getPos();
 
 		TileEntity tileAt = world.getTileEntity(pos);
-		if(tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
+		if (tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
 			boolean pool = tileAt instanceof IManaPool;
 			BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
-			for(BlockPos iterPos : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+			for (BlockPos iterPos : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
 					pos.add(range, range, range))) {
-				if(iterPos.distanceSq(pos) > range * range)
+				if (iterPos.distanceSq(pos) > range * range) {
 					continue;
+				}
 
 				TileEntity tile = world.getTileEntity(iterPos);
-				if(tile instanceof TileEntitySpecialFlower) {
+				if (tile instanceof TileEntitySpecialFlower) {
 					TileEntitySpecialFlower subtile = ((TileEntitySpecialFlower) tile);
-					if(act.apply(subtile, tileAt)) {
+					if (act.apply(subtile, tileAt)) {
 						ItemTwigWand.doParticleBeamWithOffset(world, iterPos, pos);
 					}
 				}
@@ -65,7 +65,7 @@ public class ItemObedienceStick extends Item {
 	}
 
 	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> generatingActuator = (flower, tile) -> {
-		if(flower instanceof TileEntityGeneratingFlower) {
+		if (flower instanceof TileEntityGeneratingFlower) {
 			((TileEntityGeneratingFlower) flower).linkToForcefully(tile);
 			return true;
 		}
@@ -73,7 +73,7 @@ public class ItemObedienceStick extends Item {
 	};
 
 	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> functionalActuator = (flower, tile) -> {
-		if(flower instanceof TileEntityFunctionalFlower) {
+		if (flower instanceof TileEntityFunctionalFlower) {
 			((TileEntityFunctionalFlower) flower).linkToForcefully(tile);
 			return true;
 		}

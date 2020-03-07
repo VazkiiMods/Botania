@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 22, 2014, 7:06:38 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -16,7 +14,6 @@ import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
@@ -29,19 +26,18 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.state.BotaniaStateProps;
+
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.item.material.ItemDye;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -104,7 +100,7 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 	public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
 		List<ItemStack> drops = super.getDrops(state, builder);
 		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
-		if(te instanceof TileEntitySpecialFlower) {
+		if (te instanceof TileEntitySpecialFlower) {
 			return ((TileEntitySpecialFlower) te).getDrops(drops, builder);
 		} else {
 			return drops;

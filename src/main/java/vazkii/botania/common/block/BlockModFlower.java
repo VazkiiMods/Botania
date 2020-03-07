@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 16, 2014, 5:50:31 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -25,14 +23,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockModFlower extends FlowerBlock implements IGrowable {
 	public final DyeColor color;
+
 	protected BlockModFlower(DyeColor color, Properties builder) {
 		super(effectForFlower(color), 4, builder);
 		this.color = color;
@@ -40,22 +41,38 @@ public class BlockModFlower extends FlowerBlock implements IGrowable {
 
 	private static Effect effectForFlower(DyeColor color) {
 		switch (color) {
-			case WHITE: return Effects.SPEED;
-			case ORANGE: return Effects.FIRE_RESISTANCE;
-			case MAGENTA: return Effects.MINING_FATIGUE;
-			case LIGHT_BLUE: return Effects.JUMP_BOOST;
-			case YELLOW: return Effects.ABSORPTION;
-			case LIME: return Effects.POISON;
-			case PINK: return Effects.REGENERATION;
-			case GRAY: return Effects.RESISTANCE;
-			case LIGHT_GRAY: return Effects.WEAKNESS;
-			case CYAN: return Effects.WATER_BREATHING;
-			case PURPLE: return Effects.NAUSEA;
-			case BLUE: return Effects.NIGHT_VISION;
-			case BROWN: return Effects.WITHER;
-			case GREEN: return Effects.HUNGER;
-			case RED: return Effects.STRENGTH;
-			case BLACK: return Effects.BLINDNESS;
+		case WHITE:
+			return Effects.SPEED;
+		case ORANGE:
+			return Effects.FIRE_RESISTANCE;
+		case MAGENTA:
+			return Effects.MINING_FATIGUE;
+		case LIGHT_BLUE:
+			return Effects.JUMP_BOOST;
+		case YELLOW:
+			return Effects.ABSORPTION;
+		case LIME:
+			return Effects.POISON;
+		case PINK:
+			return Effects.REGENERATION;
+		case GRAY:
+			return Effects.RESISTANCE;
+		case LIGHT_GRAY:
+			return Effects.WEAKNESS;
+		case CYAN:
+			return Effects.WATER_BREATHING;
+		case PURPLE:
+			return Effects.NAUSEA;
+		case BLUE:
+			return Effects.NIGHT_VISION;
+		case BROWN:
+			return Effects.WITHER;
+		case GREEN:
+			return Effects.HUNGER;
+		case RED:
+			return Effects.STRENGTH;
+		case BLACK:
+			return Effects.BLINDNESS;
 		}
 		return Effects.REGENERATION;
 	}
@@ -72,10 +89,10 @@ public class BlockModFlower extends FlowerBlock implements IGrowable {
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;
 
-		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
-            SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
-            world.addParticle(data, x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
-        }
+		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
+			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
+			world.addParticle(data, x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+		}
 	}
 
 	@Override
@@ -91,7 +108,7 @@ public class BlockModFlower extends FlowerBlock implements IGrowable {
 	@Override
 	public void grow(@Nonnull ServerWorld world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
-		if(block instanceof DoublePlantBlock) {
+		if (block instanceof DoublePlantBlock) {
 			((DoublePlantBlock) block).placeAt(world, pos, 3);
 		}
 	}

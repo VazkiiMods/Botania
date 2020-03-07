@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 17, 2014, 6:05:18 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
@@ -17,6 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,9 +44,9 @@ public interface IFloatingFlower {
 
 		@Override
 		public void readNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side, INBT nbt) {
-			if(nbt instanceof CompoundNBT) {
+			if (nbt instanceof CompoundNBT) {
 				IslandType t = IslandType.ofType(((CompoundNBT) nbt).getString("islandType"));
-				if(t != null) {
+				if (t != null) {
 					instance.setIslandType(t);
 				}
 			}
@@ -73,12 +72,15 @@ public interface IFloatingFlower {
 		/**
 		 * Instantiates and registers a new floating flower island type
 		 * Note that you need to register the model for this island type, see BotaniaAPIClient
+		 * 
 		 * @param name The name of this floating flower island type
 		 */
 		public IslandType(String name) {
 			typeName = name;
 			synchronized (registry) {
-				if (registry.containsKey(name)) throw new IllegalArgumentException(name+" already registered!");
+				if (registry.containsKey(name)) {
+					throw new IllegalArgumentException(name + " already registered!");
+				}
 				registry.put(name, this);
 			}
 		}

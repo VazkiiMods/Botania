@@ -1,12 +1,10 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 23, 2019, 15:42]
  */
 package vazkii.botania.common.core.handler;
 
@@ -22,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
@@ -31,9 +29,6 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ExoflameFurnaceHandler {
@@ -46,7 +41,7 @@ public class ExoflameFurnaceHandler {
 	@SubscribeEvent
 	public static void attachFurnaceCapability(AttachCapabilitiesEvent<TileEntity> event) {
 		TileEntity te = event.getObject();
-		if(te instanceof AbstractFurnaceTileEntity) {
+		if (te instanceof AbstractFurnaceTileEntity) {
 			AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) te;
 			SimpleCapProvider.attach(event, ID, BotaniaAPI.EXOFLAME_HEATABLE_CAP, new FurnaceExoflameHeatable(furnace));
 		}
@@ -73,7 +68,7 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public boolean canSmelt() {
-			if(furnace.getStackInSlot(0).isEmpty()) {
+			if (furnace.getStackInSlot(0).isEmpty()) {
 				return false;
 			}
 			try {
@@ -81,7 +76,7 @@ public class ExoflameFurnaceHandler {
 					this.recipeType = ExoflameFurnaceHandler.getRecipeType(furnace);
 				}
 				if (currentRecipe != null) { // This is already more caching than Mojang does
-					if(currentRecipe.matches(furnace, furnace.getWorld())
+					if (currentRecipe.matches(furnace, furnace.getWorld())
 							&& ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe)) {
 						return true;
 					}
@@ -101,7 +96,7 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public void boostBurnTime() {
-			if(getBurnTime() == 0) {
+			if (getBurnTime() == 0) {
 				World world = furnace.getWorld();
 				BlockPos pos = furnace.getPos();
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockStateProperties.LIT, true));

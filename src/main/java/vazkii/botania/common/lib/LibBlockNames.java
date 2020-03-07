@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 16, 2014, 5:55:03 PM (GMT)]
  */
 package vazkii.botania.common.lib;
 
@@ -54,14 +52,14 @@ public final class LibBlockNames {
 	public static final String OPEN_CRATE = "open_crate";
 	public static final String CRAFT_CRATE = "crafty_crate";
 	public static final String FOREST_EYE = "forest_eye";
-    public static final String MANASTEEL_BLOCK = "manasteel_block";
-    public static final String TERRASTEEL_BLOCK = "terrasteel_block";
-    public static final String ELEMENTIUM_BLOCK = "elementium_block";
-    public static final String MANA_DIAMOND_BLOCK = "mana_diamond_block";
-    public static final String DRAGONSTONE_BLOCK = "dragonstone_block";
+	public static final String MANASTEEL_BLOCK = "manasteel_block";
+	public static final String TERRASTEEL_BLOCK = "terrasteel_block";
+	public static final String ELEMENTIUM_BLOCK = "elementium_block";
+	public static final String MANA_DIAMOND_BLOCK = "mana_diamond_block";
+	public static final String DRAGONSTONE_BLOCK = "dragonstone_block";
 	public static final String DRUM_WILD = "drum_wild";
-    public static final String DRUM_GATHERING = "drum_gathering";
-    public static final String DRUM_CANOPY = "drum_canopy";
+	public static final String DRUM_GATHERING = "drum_gathering";
+	public static final String DRUM_CANOPY = "drum_canopy";
 	public static final String SHINY_FLOWER_SUFFIX = "_shiny_flower";
 	public static final String PLATFORM = "platform";
 	public static final String PLATFORM_ABSTRUSE = "abstruse_platform";
@@ -142,12 +140,12 @@ public final class LibBlockNames {
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
 	public static final String METAMORPHIC_PREFIX = "metamorphic_";
-	public static final String[] METAMORPHIC_VARIANTS =  {
+	public static final String[] METAMORPHIC_VARIANTS = {
 			"forest", "plains", "mountain", "fungal",
 			"swamp", "desert", "taiga", "mesa"
 	};
 	public static final String SLAB_SUFFIX = "_slab";
-    public static final String STAIR_SUFFIX = "_stairs";
+	public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";
 	public static final String FENCE_SUFFIX = "_fence";
 	public static final String FENCE_GATE_SUFFIX = "_fence_gate";

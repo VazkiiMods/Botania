@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 15, 2015, 6:55:34 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
@@ -18,12 +16,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.common.item.ItemTemperanceStone;
@@ -33,6 +31,7 @@ import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +42,6 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker {
-
 
 	/**
 	 * The number of blocks per tick which the Terra Truncator will
@@ -78,8 +76,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
-			if(entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity))
+			if (entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity)) {
 				return 0;
+			}
 			return 1;
 		});
 	}
@@ -91,7 +90,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		BlockRayTraceResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if(raycast.getType() == RayTraceResult.Type.BLOCK) {
+		if (raycast.getType() == RayTraceResult.Type.BLOCK) {
 			Direction face = raycast.getFace();
 			breakOtherBlock(player, stack, pos, pos, face);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, face);
@@ -107,7 +106,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@Override
 	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
-		if(shouldBreak(player)) {
+		if (shouldBreak(player)) {
 			addBlockSwapper(player.world, player, stack, pos, 32, true);
 		}
 	}
@@ -119,12 +118,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	private void onTickEnd(TickEvent.WorldTickEvent event) {
 		// Block Swapping ticking should only occur on the server
-		if(event.world.isRemote)
+		if (event.world.isRemote) {
 			return;
+		}
 
-		if(event.phase == TickEvent.Phase.END) {
+		if (event.phase == TickEvent.Phase.END) {
 			DimensionType dim = event.world.getDimension().getType();
-			if(blockSwappers.containsKey(dim)) {
+			if (blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
 				// Iterate through all of our swappers, removing any
@@ -140,20 +140,21 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * which is not actually ticked but contains the proper passed in
 	 * information will be returned to the client.
 	 *
-	 * @param world The world to add the swapper to.
-	 * @param player The player who is responsible for this swapper.
-	 * @param stack The Terra Truncator which caused this block swapper.
+	 * @param world      The world to add the swapper to.
+	 * @param player     The player who is responsible for this swapper.
+	 * @param stack      The Terra Truncator which caused this block swapper.
 	 * @param origCoords The original coordinates the swapper should start at.
-	 * @param steps The range of the block swapper, in blocks.
-	 * @param leaves If true, will treat leaves specially (see the BlockSwapper
-	 * documentation).
+	 * @param steps      The range of the block swapper, in blocks.
+	 * @param leaves     If true, will treat leaves specially (see the BlockSwapper
+	 *                   documentation).
 	 */
 	private static void addBlockSwapper(World world, PlayerEntity player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		// Block swapper registration should only occur on the server
-		if(world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
 		DimensionType dim = world.getDimension().getType();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
@@ -162,13 +163,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	/**
 	 * A block swapper for the Terra Truncator, which uses a standard
 	 * Breadth First Search to try and murder/cut down trees.
-	 *
 	 * The Terra Truncator will look up to BLOCK_RANGE blocks to find wood
 	 * to cut down (only cutting down adjacent pieces of wood, so it doesn't
 	 * jump through the air). However, the truncator will only go through
 	 * LEAF_BLOCK_RANGE leave blocks in order to prevent adjacent trees which
 	 * are connected only by leaves from being devoured as well.
-	 *
 	 * The leaf restriction is implemented by reducing the number of remaining
 	 * steps to the min of LEAF_BLOCK_RANGE and the current range. The restriction
 	 * can be removed entirely by setting the "leaves" variable to true, in which
@@ -225,13 +224,14 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 		/**
 		 * Creates a new block swapper with the provided parameters.
-		 * @param world The world the swapper is in.
-		 * @param player The player responsible for creating this swapper.
-		 * @param truncator The Terra Truncator responsible for creating this swapper.
+		 * 
+		 * @param world      The world the swapper is in.
+		 * @param player     The player responsible for creating this swapper.
+		 * @param truncator  The Terra Truncator responsible for creating this swapper.
 		 * @param origCoords The original coordinates this swapper should start at.
-		 * @param range The range this swapper should swap in.
-		 * @param leaves If true, leaves will be treated specially and
-		 * severely reduce the radius of further spreading when encountered.
+		 * @param range      The range this swapper should swap in.
+		 * @param leaves     If true, leaves will be treated specially and
+		 *                   severely reduce the radius of further spreading when encountered.
 		 */
 		public BlockSwapper(World world, PlayerEntity player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
 			this.world = world;
@@ -253,26 +253,30 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * further blocks and expands the breadth first search. The return
 		 * value signifies whether or not the block swapper has more blocks
 		 * to swap, or if it has finished swapping.
+		 * 
 		 * @return True if the block swapper has more blocks to swap, false
-		 * otherwise (implying it can be safely removed).
+		 *         otherwise (implying it can be safely removed).
 		 */
 		public boolean tick() {
 			// If empty, this swapper is done.
-			if(candidateQueue.isEmpty())
+			if (candidateQueue.isEmpty()) {
 				return false;
+			}
 
 			int remainingSwaps = BLOCK_SWAP_RATE;
-			while(remainingSwaps > 0 && !candidateQueue.isEmpty()) {
+			while (remainingSwaps > 0 && !candidateQueue.isEmpty()) {
 				SwapCandidate cand = candidateQueue.poll();
 
 				// If we've already completed this location, move along, as this
 				// is just a suboptimal one.
-				if(completedCoords.contains(cand.coordinates))
+				if (completedCoords.contains(cand.coordinates)) {
 					continue;
+				}
 
 				// If this candidate is out of range, discard it.
-				if(cand.range <= 0)
+				if (cand.range <= 0) {
 					continue;
+				}
 
 				// Otherwise, perform the break and then look at the adjacent tiles.
 				// This is a ridiculous function call here.
@@ -287,24 +291,23 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 				// Then, go through all of the adjacent blocks and look if
 				// any of them are any good.
-				for(BlockPos adj : adjacent(cand.coordinates)) {
+				for (BlockPos adj : adjacent(cand.coordinates)) {
 					Block block = world.getBlockState(adj).getBlock();
 
 					boolean isWood = BlockTags.LOGS.contains(block);
 					boolean isLeaf = BlockTags.LEAVES.contains(block);
 
 					// If it's not wood or a leaf, we aren't interested.
-					if(!isWood && !isLeaf)
+					if (!isWood && !isLeaf) {
 						continue;
+					}
 
 					// If we treat leaves specially and this is a leaf, it gets
 					// the minimum of the leaf range and the current range - 1.
 					// Otherwise, it gets the standard range - 1.
-					int newRange = treatLeavesSpecial && isLeaf ?
-							Math.min(LEAF_BLOCK_RANGE, cand.range - 1) :
-								cand.range - 1;
+					int newRange = treatLeavesSpecial && isLeaf ? Math.min(LEAF_BLOCK_RANGE, cand.range - 1) : cand.range - 1;
 
-							candidateQueue.offer(new SwapCandidate(adj, newRange));
+					candidateQueue.offer(new SwapCandidate(adj, newRange));
 				}
 			}
 
@@ -316,15 +319,18 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			List<BlockPos> coords = new ArrayList<>();
 			// Visit all the surrounding blocks in the provided radius.
 			// Gotta love these nested loops, right?
-			for(int dx = -SINGLE_BLOCK_RADIUS; dx <= SINGLE_BLOCK_RADIUS; dx++)
-				for(int dy = -SINGLE_BLOCK_RADIUS; dy <= SINGLE_BLOCK_RADIUS; dy++)
-					for(int dz = -SINGLE_BLOCK_RADIUS; dz <= SINGLE_BLOCK_RADIUS; dz++) {
+			for (int dx = -SINGLE_BLOCK_RADIUS; dx <= SINGLE_BLOCK_RADIUS; dx++) {
+				for (int dy = -SINGLE_BLOCK_RADIUS; dy <= SINGLE_BLOCK_RADIUS; dy++) {
+					for (int dz = -SINGLE_BLOCK_RADIUS; dz <= SINGLE_BLOCK_RADIUS; dz++) {
 						// Skip the central tile.
-						if(dx == 0 && dy == 0 && dz == 0)
+						if (dx == 0 && dy == 0 && dz == 0) {
 							continue;
+						}
 
 						coords.add(original.add(dx, dy, dz));
 					}
+				}
+			}
 
 			return coords;
 		}
@@ -350,8 +356,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			/**
 			 * Constructs a new Swap Candidate with the provided
 			 * coordinates and range.
+			 * 
 			 * @param coordinates The coordinates of this candidate.
-			 * @param range The remaining range of this candidate.
+			 * @param range       The remaining range of this candidate.
 			 */
 			public SwapCandidate(BlockPos coordinates, int range) {
 				this.coordinates = coordinates;
@@ -367,7 +374,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 			@Override
 			public boolean equals(Object other) {
-				if(!(other instanceof SwapCandidate)) return false;
+				if (!(other instanceof SwapCandidate)) {
+					return false;
+				}
 
 				SwapCandidate cand = (SwapCandidate) other;
 				return coordinates.equals(cand.coordinates) && range == cand.range;

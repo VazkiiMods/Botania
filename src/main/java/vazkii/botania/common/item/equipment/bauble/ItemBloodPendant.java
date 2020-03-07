@@ -1,28 +1,22 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 6, 2014, 5:11:23 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GLX;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -39,6 +33,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
@@ -47,10 +42,8 @@ import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
-import java.awt.*;
 import java.util.List;
 
 public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem {
@@ -64,11 +57,12 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
 		super.fillItemGroup(tab, list);
-		if(isInGroup(tab)) {
-			for(String s : BotaniaAPI.brewMap.keySet()) {
+		if (isInGroup(tab)) {
+			for (String s : BotaniaAPI.brewMap.keySet()) {
 				ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
-				if(!brewStack.isEmpty())
+				if (!brewStack.isEmpty()) {
 					list.add(brewStack);
+				}
 			}
 		}
 	}
@@ -79,16 +73,16 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		super.addHiddenTooltip(stack, world, list, adv);
 
 		Brew brew = getBrew(stack);
-		if(brew == BotaniaAPI.fallbackBrew) {
+		if (brew == BotaniaAPI.fallbackBrew) {
 			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
 		list.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-		for(EffectInstance effect : brew.getPotionEffects(stack)) {
+		for (EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().type.getColor();
 			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
-			if(effect.getAmplifier() > 0) {
+			if (effect.getAmplifier() > 0) {
 				cmp.appendText(" ");
 				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
@@ -112,8 +106,9 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 					player.addPotionEffect(applyEffect);
 				}
 
-				if (!doRand || Math.random() < cost)
+				if (!doRand || Math.random() < cost) {
 					ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), true);
+				}
 			}
 		}
 	}
@@ -157,8 +152,9 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getPotion().isInstant())
+		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getPotion().isInstant()) {
 			return ItemStack.EMPTY;
+		}
 
 		ItemStack brewStack = new ItemStack(this);
 		setBrew(brewStack, brew);

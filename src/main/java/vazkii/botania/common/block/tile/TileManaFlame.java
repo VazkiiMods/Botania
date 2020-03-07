@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 21, 2014, 12:33:12 AM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -14,13 +12,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaFlame extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MANA_FLAME)
-	public static TileEntityType<TileManaFlame> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MANA_FLAME) public static TileEntityType<TileManaFlame> TYPE;
 	private static final String TAG_COLOR = "color";
 
 	private int color = 0x20FF20;
@@ -42,7 +40,7 @@ public class TileManaFlame extends TileMod implements ITickableTileEntity {
 	public void tick() {
 		float c = 0.3F;
 
-		if(world.isRemote && Math.random() < c) {
+		if (world.isRemote && Math.random() < c) {
 			float v = 0.1F;
 
 			float r = (float) (color >> 16 & 0xFF) / 0xFF;
@@ -66,13 +64,13 @@ public class TileManaFlame extends TileMod implements ITickableTileEntity {
 			float s = 0.2F + (float) Math.random() * 0.1F;
 			float m = 0.03F + (float) Math.random() * 0.015F;
 
-            WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
-            world.addParticle(data, x, y, z, 0, m, 0);
-        }
+			WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
+			world.addParticle(data, x, y, z, 0, m, 0);
+		}
 	}
 
 	public int getLightColor() {
-		if(lightColor == -1) {
+		if (lightColor == -1) {
 			lightColor = 0xFFFFFF;
 		}
 

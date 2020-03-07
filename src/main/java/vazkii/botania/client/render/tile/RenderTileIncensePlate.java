@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 15, 2015, 4:27:27 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Vector3f;
@@ -21,9 +20,11 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import javax.annotation.Nonnull;
+
 import java.util.Map;
 
 public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate> {
@@ -38,8 +39,9 @@ public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate>
 	@Override
 	public void render(@Nonnull TileIncensePlate plate, float ticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ItemStack stack = plate.getItemHandler().getStackInSlot(0);
-		if(stack.isEmpty())
+		if (stack.isEmpty()) {
 			return;
+		}
 
 		Direction facing = plate.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 

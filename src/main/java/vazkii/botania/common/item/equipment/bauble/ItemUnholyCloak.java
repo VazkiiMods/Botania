@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 4, 2014, 11:12:51 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
@@ -23,6 +22,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -40,23 +40,24 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 
 	@Override
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if(!event.getSource().isUnblockable()) {
+		if (!event.getSource().isUnblockable()) {
 			int range = 6;
 			List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(IMob.class));
-			for(IMob mob : (List<IMob>) mobs)
-				if(mob instanceof LivingEntity) {
+			for (IMob mob : (List<IMob>) mobs) {
+				if (mob instanceof LivingEntity) {
 					LivingEntity entity = (LivingEntity) mob;
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.getAmount());
 				}
+			}
 
 			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.unholyCloak, SoundCategory.PLAYERS, 1F, 1F);
-			for(int i = 0; i < 90; i++) {
+			for (int i = 0; i < 90; i++) {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;
 				float zMotion = (float) Math.sin(rad) * 0.2F;
-                WispParticleData data = WispParticleData.wisp(0.6F + (float) Math.random() * 0.2F, 0.4F + (float) Math.random() + 0.25F, 0F, 0F);
-                player.world.addParticle(data, player.getX(), player.getY() + 0.5, player.getZ(), xMotion, 0F, zMotion);
-            }
+				WispParticleData data = WispParticleData.wisp(0.6F + (float) Math.random() * 0.2F, 0.4F + (float) Math.random() + 0.25F, 0F, 0F);
+				player.world.addParticle(data, player.getX(), player.getY() + 0.5, player.getZ(), xMotion, 0F, zMotion);
+			}
 
 			return true;
 		}

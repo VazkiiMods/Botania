@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 28, 2015, 9:04:53 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
@@ -15,6 +13,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+
 import vazkii.botania.api.mana.ManaProficiencyEvent;
 
 /**
@@ -33,13 +32,14 @@ public interface IManaProficiencyArmor {
 	static boolean hasProficiency(PlayerEntity player, ItemStack rod) {
 		boolean proficient = false;
 
-		for(EquipmentSlotType e: EquipmentSlotType.values()) {
-			if(e.getSlotType() != EquipmentSlotType.Group.ARMOR)
+		for (EquipmentSlotType e : EquipmentSlotType.values()) {
+			if (e.getSlotType() != EquipmentSlotType.Group.ARMOR) {
 				continue;
+			}
 			ItemStack armor = player.getItemStackFromSlot(e);
-			if(!armor.isEmpty()) {
+			if (!armor.isEmpty()) {
 				Item item = armor.getItem();
-				if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
+				if (item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
 					proficient = true;
 					break;
 				}

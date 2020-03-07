@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 23, 2015, 4:24:08 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
@@ -26,12 +24,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockModMushroom extends MushroomBlock implements IHornHarvestable, ICustomApothecaryColor {
@@ -74,10 +74,10 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get() * 0.25F) {
-            SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
-            world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
-        }
+		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get() * 0.25F) {
+			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
+			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+		}
 	}
 
 	@Override

@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 26, 2014, 12:23:55 AM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -32,7 +31,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
@@ -63,12 +64,12 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL)
-	public static TileEntityType<TilePool> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL) public static TileEntityType<TilePool> TYPE;
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -120,7 +121,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public void recieveMana(int mana) {
 		int old = this.mana;
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
-		if(old != this.mana) {
+		if (old != this.mana) {
 			markDirty();
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 			markDispatchable();
@@ -141,8 +142,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	public static int calculateComparatorLevel(int mana, int max) {
 		int val = (int) ((double) mana / (double) max * 15.0);
-		if(mana > 0)
+		if (mana > 0) {
 			val = Math.max(val, 1);
+		}
 		return val;
 	}
 
@@ -152,37 +154,38 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes.values()) {
 			if (recipe.matches(stack)) {
-				if(recipe.getCatalyst() == null)
+				if (recipe.getCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
-				else if (recipe.getCatalyst() == state)
+				} else if (recipe.getCatalyst() == state) {
 					matchingCatRecipes.add(recipe);
+				}
 			}
 		}
 
 		// Recipes with matching catalyst take priority above recipes with no catalyst specified
-		return !matchingCatRecipes.isEmpty() ? matchingCatRecipes.get(0) :
-			!matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.get(0) :
-				null;
+		return !matchingCatRecipes.isEmpty() ? matchingCatRecipes.get(0) : !matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.get(0) : null;
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {
-		if(world.isRemote || !item.isAlive() || item.getItem().isEmpty())
+		if (world.isRemote || !item.isAlive() || item.getItem().isEmpty()) {
 			return false;
+		}
 
 		ItemStack stack = item.getItem();
 
-		if(stack.getItem() instanceof IManaDissolvable) {
+		if (stack.getItem() instanceof IManaDissolvable) {
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		if(item.age > 100 && item.age < 130)
+		if (item.age > 100 && item.age < 130) {
 			return false;
+		}
 
 		RecipeManaInfusion recipe = getMatchingRecipe(stack, world.getBlockState(pos.down()));
 
-		if(recipe != null) {
+		if (recipe != null) {
 			int mana = recipe.getManaToConsume();
-			if(getCurrentMana() >= mana) {
+			if (getCurrentMana() >= mana) {
 				recieveMana(-mana);
 
 				stack.shrink(1);
@@ -202,7 +205,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	private void craftingFanciness() {
-		if(soundTicks == 0) {
+		if (soundTicks == 0) {
 			world.playSound(null, pos, ModSounds.manaPoolCraft, SoundCategory.BLOCKS, 0.4F, 4F);
 			soundTicks = 6;
 		}
@@ -212,47 +215,50 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public boolean receiveClientEvent(int event, int param) {
-		switch(event) {
-			case CRAFT_EFFECT_EVENT: {
-				if(world.isRemote) {
-					for(int i = 0; i < 25; i++) {
-						float red = (float) Math.random();
-						float green = (float) Math.random();
-						float blue = (float) Math.random();
-                        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-                        world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 0.75, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
-                    }
+		switch (event) {
+		case CRAFT_EFFECT_EVENT: {
+			if (world.isRemote) {
+				for (int i = 0; i < 25; i++) {
+					float red = (float) Math.random();
+					float green = (float) Math.random();
+					float blue = (float) Math.random();
+					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+					world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 0.75, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
+			}
 
-				return true;
-			}
-			case CHARGE_EFFECT_EVENT: {
-				if(world.isRemote) {
-					if(ConfigHandler.COMMON.chargingAnimationEnabled.get()) {
-						boolean outputting = param == 1;
-						Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-						Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-						Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
-								outputting ? itemVec : tileVec, 80, world.rand.nextLong(), 0x4400799c, 0x4400C6FF);
-					}
+			return true;
+		}
+		case CHARGE_EFFECT_EVENT: {
+			if (world.isRemote) {
+				if (ConfigHandler.COMMON.chargingAnimationEnabled.get()) {
+					boolean outputting = param == 1;
+					Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+					Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+					Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
+							outputting ? itemVec : tileVec, 80, world.rand.nextLong(), 0x4400799c, 0x4400C6FF);
 				}
-				return true;
 			}
-			default: return super.receiveClientEvent(event, param);
+			return true;
+		}
+		default:
+			return super.receiveClientEvent(event, param);
 		}
 	}
 
 	@Override
 	public void tick() {
-		if(manaCap == -1)
+		if (manaCap == -1) {
 			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
+		}
 
-		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved())
+		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
 			ManaNetworkEvent.addPool(this);
+		}
 
-		if(world.isRemote) {
+		if (world.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
-			if(Math.random() > particleChance) {
+			if (Math.random() > particleChance) {
 				float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
 				float green = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
 				float blue = (PARTICLE_COLOR & 0xFF) / 255F;
@@ -265,48 +271,53 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		boolean wasDoingTransfer = isDoingTransfer;
 		isDoingTransfer = false;
 
-		if(soundTicks > 0) {
+		if (soundTicks > 0) {
 			soundTicks--;
 		}
 
-		if(sendPacket && ticks % 10 == 0) {
+		if (sendPacket && ticks % 10 == 0) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			sendPacket = false;
 		}
 
 		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-		for(ItemEntity item : items) {
-			if(!item.isAlive())
+		for (ItemEntity item : items) {
+			if (!item.isAlive()) {
 				continue;
+			}
 
 			ItemStack stack = item.getItem();
-			if(!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
+			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
-				if(outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
+				if (outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
 					boolean didSomething = false;
 
 					int bellowCount = 0;
-					if(outputting)
-						for(Direction dir : MathHelper.HORIZONTALS) {
+					if (outputting) {
+						for (Direction dir : MathHelper.HORIZONTALS) {
 							TileEntity tile = world.getTileEntity(pos.offset(dir));
-							if(tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
+							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this) {
 								bellowCount++;
+							}
 						}
+					}
 					int transfRate = 1000 * (bellowCount + 1);
 
-					if(outputting) {
-						if(canSpare) {
-							if(getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack))
+					if (outputting) {
+						if (canSpare) {
+							if (getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack)) {
 								didSomething = true;
+							}
 
 							int manaVal = Math.min(transfRate, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
 							mana.addMana(stack, manaVal);
 							recieveMana(-manaVal);
 						}
 					} else {
-						if(canAccept) {
-							if(mana.getMana(stack) > 0 && !isFull())
+						if (canAccept) {
+							if (mana.getMana(stack) > 0 && !isFull()) {
 								didSomething = true;
+							}
 
 							int manaVal = Math.min(transfRate, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
 							mana.addMana(stack, -manaVal);
@@ -314,8 +325,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 						}
 					}
 
-					if(didSomething) {
-						if(ConfigHandler.COMMON.chargingAnimationEnabled.get() && world.rand.nextInt(20) == 0) {
+					if (didSomething) {
+						if (ConfigHandler.COMMON.chargingAnimationEnabled.get() && world.rand.nextInt(20) == 0) {
 							world.addBlockEvent(getPos(), getBlockState().getBlock(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
 						}
 						isDoingTransfer = outputting;
@@ -324,12 +335,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			}
 		}
 
-		if(isDoingTransfer)
+		if (isDoingTransfer) {
 			ticksDoingTransfer++;
-		else {
+		} else {
 			ticksDoingTransfer = 0;
-			if(wasDoingTransfer)
+			if (wasDoingTransfer) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			}
 		}
 
 		ticks++;
@@ -356,38 +368,45 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = DyeColor.byId(cmp.getInt(TAG_COLOR));
 
-		if(cmp.contains(TAG_MANA_CAP))
+		if (cmp.contains(TAG_MANA_CAP)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
-		if(cmp.contains(TAG_CAN_ACCEPT))
+		}
+		if (cmp.contains(TAG_CAN_ACCEPT)) {
 			canAccept = cmp.getBoolean(TAG_CAN_ACCEPT);
-		if(cmp.contains(TAG_CAN_SPARE))
+		}
+		if (cmp.contains(TAG_CAN_SPARE)) {
 			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
+		}
 		fragile = cmp.getBoolean(TAG_FRAGILE);
 
-		if(cmp.contains(TAG_INPUT_KEY))
+		if (cmp.contains(TAG_INPUT_KEY)) {
 			inputKey = cmp.getString(TAG_INPUT_KEY);
-		if(cmp.contains(TAG_OUTPUT_KEY))
+		}
+		if (cmp.contains(TAG_OUTPUT_KEY)) {
 			inputKey = cmp.getString(TAG_OUTPUT_KEY);
+		}
 
-		if(cmp.contains(TAG_KNOWN_MANA))
+		if (cmp.contains(TAG_KNOWN_MANA)) {
 			knownMana = cmp.getInt(TAG_KNOWN_MANA);
+		}
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null || player.isSneaking()) {
+		if (player == null || player.isSneaking()) {
 			outputting = !outputting;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			CompoundNBT nbttagcompound = new CompoundNBT();
 			writePacketNBT(nbttagcompound);
 			nbttagcompound.putInt(TAG_KNOWN_MANA, getCurrentMana());
-			if(player instanceof ServerPlayerEntity)
+			if (player instanceof ServerPlayerEntity) {
 				((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
+			}
 		}
 
-		if(player == null) {
+		if (player == null) {
 			world.playSound(null, getPos(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 		} else {
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
@@ -463,7 +482,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public ISparkEntity getAttachedSpark() {
 		List sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
-		if(sparks.size() == 1) {
+		if (sparks.size() == 1) {
 			Entity e = (Entity) sparks.get(0);
 			return (ISparkEntity) e;
 		}
@@ -479,11 +498,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public int getAvailableSpaceForMana() {
 		int space = Math.max(0, manaCap - getCurrentMana());
-		if(space > 0)
+		if (space > 0) {
 			return space;
-		else if(world.getBlockState(pos.down()).getBlock() == ModBlocks.manaVoid)
+		} else if (world.getBlockState(pos.down()).getBlock() == ModBlocks.manaVoid) {
 			return manaCap;
-		else return 0;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

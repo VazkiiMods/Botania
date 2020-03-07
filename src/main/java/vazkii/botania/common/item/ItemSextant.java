@@ -1,17 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [01/11/2015, 18:25:54 (GMT)]
  */
 package vazkii.botania.common.item;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -23,19 +21,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -47,6 +45,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.common.multiblock.AbstractMultiblock;
 
 import javax.annotation.Nonnull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,19 +75,20 @@ public class ItemSextant extends Item {
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		if(getUseDuration(stack) - count < 10
-				|| !(living instanceof PlayerEntity))
+		if (getUseDuration(stack) - count < 10
+				|| !(living instanceof PlayerEntity)) {
 			return;
+		}
 
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-		if(y != -1) {
+		if (y != -1) {
 			Vector3 source = new Vector3(x, y, z);
 
 			double radius = calculateRadius(stack, (PlayerEntity) living);
 
-			if(count % 10 == 0) {
+			if (count % 10 == 0) {
 				WispParticleData data = WispParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
 				for (int i = 0; i < 360; i++) {
 					float radian = (float) (i * Math.PI / 180);
@@ -102,25 +102,29 @@ public class ItemSextant extends Item {
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
-		if(!(living instanceof PlayerEntity)) return;
+		if (!(living instanceof PlayerEntity)) {
+			return;
+		}
 
 		double radius = calculateRadius(stack, (PlayerEntity) living);
-		if(1 < radius && radius <= MAX_RADIUS) {
+		if (1 < radius && radius <= MAX_RADIUS) {
 			IStateMatcher matcher = PatchouliAPI.instance.predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 			int iradius = (int) radius + 1;
-			if(y != -1) {
+			if (y != -1) {
 				Map<BlockPos, IStateMatcher> map = new HashMap<>();
-				for(int i = 0; i < iradius * 2 + 1; i++)
-					for(int j = 0; j < iradius * 2 + 1; j++) {
+				for (int i = 0; i < iradius * 2 + 1; i++) {
+					for (int j = 0; j < iradius * 2 + 1; j++) {
 						int xp = x + i - iradius;
 						int zp = z + j - iradius;
 
-						if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
+						if ((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1) {
 							map.put(new BlockPos(xp - x, 0, zp - z), matcher);
+						}
 					}
+				}
 				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Botania.proxy.showMultiblock(sparse, "r = " + (int) radius, new BlockPos(x, y, z), Rotation.NONE);
 			}
@@ -138,10 +142,10 @@ public class ItemSextant extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!player.isSneaking()) {
+		if (!player.isSneaking()) {
 			BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);
-			if(rtr.getType() == RayTraceResult.Type.BLOCK) {
-				if(!world.isRemote) {
+			if (rtr.getType() == RayTraceResult.Type.BLOCK) {
+				if (!world.isRemote) {
 					BlockPos pos = rtr.getPos();
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getX());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
@@ -164,7 +168,7 @@ public class ItemSextant extends Item {
 		WispParticleData data = WispParticleData.wisp(0.2F, 1F, 0F, 0F, 1);
 		player.world.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
 
-        Vector3 centerVec = Vector3.fromEntityCenter(player);
+		Vector3 centerVec = Vector3.fromEntityCenter(player);
 		Vector3 diffVec = source.subtract(centerVec);
 		Vector3 lookVec = new Vector3(player.getLookVec());
 		double mul = diffVec.y / lookVec.y;
@@ -182,7 +186,7 @@ public class ItemSextant extends Item {
 		ItemStack onUse = player.getActiveItemStack();
 		int time = player.getItemInUseCount();
 
-		if(onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
+		if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
 			int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 + 30;
@@ -190,18 +194,19 @@ public class ItemSextant extends Item {
 
 			String s = Integer.toString((int) radius);
 			boolean inRange = 0 < radius && radius <= MAX_RADIUS;
-			if (!inRange)
+			if (!inRange) {
 				s = TextFormatting.RED + s;
+			}
 
 			font.drawStringWithShadow(s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
 
-			if(inRange) {
+			if (inRange) {
 				radius += 4;
 				RenderSystem.disableTexture();
 				RenderSystem.lineWidth(3F);
 				Tessellator.getInstance().getBuffer().begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
 				RenderSystem.color4f(0F, 1F, 1F, 1F);
-				for(int i = 0; i < 361; i++) {
+				for (int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double yp = y + Math.sin(radian) * radius;

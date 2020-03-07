@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 10, 2014, 9:44:02 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
@@ -16,28 +14,28 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileThermalily extends SubTileHydroangeas {
-	@ObjectHolder(LibMisc.MOD_ID + ":thermalily")
-	public static TileEntityType<SubTileThermalily> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":thermalily") public static TileEntityType<SubTileThermalily> TYPE;
 
 	public SubTileThermalily() {
 		super(TYPE);
 	}
 
 	@Override
-	public int getColor(){
+	public int getColor() {
 		return 0xD03C00;
 	}
 
 	@Override
 	public void doBurnParticles() {
-        WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.7F, 0.05F, 0.05F, 1);
-        world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
-    }
+		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.7F, 0.05F, 0.05F, 1);
+		world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+	}
 
 	@Override
 	public Tag<Fluid> getMaterialToSearchFor() {

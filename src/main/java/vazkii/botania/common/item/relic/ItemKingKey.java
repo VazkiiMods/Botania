@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 16, 2015, 2:54:35 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
@@ -15,11 +13,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -29,6 +27,7 @@ import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class ItemKingKey extends ItemRelic implements IManaUsingItem {
@@ -54,7 +53,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
 		int spawned = getWeaponsSpawned(stack);
-		if(spawned == 20) {
+		if (spawned == 20) {
 			setCharging(stack, false);
 			setWeaponsSpawned(stack, 0);
 		}
@@ -64,13 +63,14 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if(count != getUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof PlayerEntity) || ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, 150, true))) {
+		if (count != getUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof PlayerEntity) || ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
-			
+
 			double playerRot = Math.toRadians(living.rotationYaw + 90);
-			if(look.x == 0 && look.z == 0)
+			if (look.x == 0 && look.z == 0) {
 				look = new Vector3(Math.cos(playerRot), 0, Math.sin(playerRot));
-				
+			}
+
 			look = look.normalize().multiply(-2);
 
 			int div = spawned / 5;
@@ -84,8 +84,9 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			double rot = mod * Math.PI / 4 - Math.PI / 2;
 
 			Vector3 axis1 = axis.multiply(div * 3.5 + 5).rotate(rot, look);
-			if(axis1.y < 0)
+			if (axis1.y < 0) {
 				axis1 = axis1.multiply(1, -1, 1);
+			}
 
 			Vector3 end = pl.add(axis1);
 
@@ -112,7 +113,6 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
-
 
 	public static boolean isCharging(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_CHARGING, false);

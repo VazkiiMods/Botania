@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 27, 2015, 4:06:58 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -25,6 +23,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -35,8 +34,7 @@ import vazkii.botania.common.network.PacketHandler;
 import java.util.List;
 
 public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":spectranthemum")
-	public static TileEntityType<SubTileSpectranthemum> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":spectranthemum") public static TileEntityType<SubTileSpectranthemum> TYPE;
 
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";
@@ -58,7 +56,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(!getWorld().isRemote && redstoneSignal == 0 && getWorld().isBlockLoaded(bindPos)) {
+		if (!getWorld().isRemote && redstoneSignal == 0 && getWorld().isBlockLoaded(bindPos)) {
 			BlockPos pos = getEffectivePos();
 
 			boolean did = false;
@@ -66,18 +64,20 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
-			for(ItemEntity item : items) {
-				if(item.age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED))
+			for (ItemEntity item : items) {
+				if (item.age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED)) {
 					continue;
+				}
 
 				ItemStack stack = item.getItem();
-				if(!stack.isEmpty()) {
+				if (!stack.isEmpty()) {
 					Item sitem = stack.getItem();
-					if(sitem instanceof IManaItem)
+					if (sitem instanceof IManaItem) {
 						continue;
+					}
 
 					int cost = stack.getCount() * COST;
-					if(getMana() >= cost) {
+					if (getMana() >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getPersistentData().putBoolean(TAG_TELEPORTED, true);
@@ -89,8 +89,9 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 				}
 			}
 
-			if(did)
+			if (did) {
 				sync();
+			}
 		}
 	}
 
@@ -100,7 +101,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override
@@ -118,7 +119,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 				cmp.getInt(TAG_BIND_X),
 				cmp.getInt(TAG_BIND_Y),
 				cmp.getInt(TAG_BIND_Z)
-				);
+		);
 	}
 
 	@Override
@@ -140,7 +141,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if(!bound && !pos.equals(bindPos) && pos.distanceSq(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
+		if (!bound && !pos.equals(bindPos) && pos.distanceSq(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
 			sync();
 

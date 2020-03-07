@@ -1,22 +1,17 @@
-/**
- * This class was created by <Pokefenn>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
@@ -25,13 +20,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
@@ -39,8 +33,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileHydroangeas extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hydroangeas")
-	public static TileEntityType<SubTileHydroangeas> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":hydroangeas") public static TileEntityType<SubTileHydroangeas> TYPE;
 
 	private static final String TAG_BURN_TIME = "burnTime";
 	public static final String TAG_COOLDOWN = "cooldown";
@@ -61,43 +54,48 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(cooldown > 0) {
+		if (cooldown > 0) {
 			cooldown--;
-			for(int i = 0; i < 3; i++) {
+			for (int i = 0; i < 3; i++) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
 				world.addParticle(data, getEffectivePos().getX() + 0.5 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.5 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
 			}
 		}
 
-		if(burnTime == 0) {
-			if(getMana() < getMaxMana() && !getWorld().isRemote) {
+		if (burnTime == 0) {
+			if (getMana() < getMaxMana() && !getWorld().isRemote) {
 				List<BlockPos> offsets = Arrays.asList(OFFSETS);
 				Collections.shuffle(offsets);
 
-				for(BlockPos offset : offsets) {
+				for (BlockPos offset : offsets) {
 					BlockPos pos = getEffectivePos().add(offset);
 
 					IFluidState fstate = getWorld().getFluidState(pos);
 					Tag<Fluid> search = getMaterialToSearchFor();
-					if(fstate.isTagged(search)
+					if (fstate.isTagged(search)
 							&& (getBlockToSearchBelow() == null
-								|| getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow())
+									|| getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow())
 							&& fstate.isSource()) {
-						if(search != FluidTags.WATER)
+						if (search != FluidTags.WATER) {
 							getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
-						else {
+						} else {
 							int waterAround = 0;
-							for(Direction dir : Direction.values())
-								if(getWorld().getFluidState(pos.offset(dir)).isTagged(search))
+							for (Direction dir : Direction.values()) {
+								if (getWorld().getFluidState(pos.offset(dir)).isTagged(search)) {
 									waterAround++;
+								}
+							}
 
-							if(waterAround < 2)
+							if (waterAround < 2) {
 								getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
+							}
 						}
 
-						if(cooldown == 0)
+						if (cooldown == 0) {
 							burnTime += getBurnTime();
-						else cooldown = getCooldown();
+						} else {
+							cooldown = getCooldown();
+						}
 
 						sync();
 						playSound();
@@ -106,10 +104,11 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 				}
 			}
 		} else {
-			if(getWorld().rand.nextInt(8) == 0)
+			if (getWorld().rand.nextInt(8) == 0) {
 				doBurnParticles();
+			}
 			burnTime--;
-			if(burnTime == 0) {
+			if (burnTime == 0) {
 				cooldown = getCooldown();
 				sync();
 			}
@@ -117,9 +116,9 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	public void doBurnParticles() {
-        WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.05F, 0.05F, 0.7F, 1);
-        world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
-    }
+		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.05F, 0.05F, 0.7F, 1);
+		world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+	}
 
 	public Tag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.WATER;
@@ -139,7 +138,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), 1);
+		return new RadiusDescriptor.Square(getEffectivePos(), 1);
 	}
 
 	@Override
@@ -181,7 +180,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	public int getCooldown() {
 		return 0;
 	}
-	
+
 	@Override
 	public boolean isPassiveFlower() {
 		return true;

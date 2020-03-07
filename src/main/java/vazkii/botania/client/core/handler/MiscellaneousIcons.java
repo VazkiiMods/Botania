@@ -1,6 +1,6 @@
-/**
- * This class was created by <williewillus>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
@@ -8,37 +8,29 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.model.ModelRotation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import vazkii.botania.client.model.FloatingFlowerModel;
+
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
-import java.util.Map;
 import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -47,24 +39,23 @@ public class MiscellaneousIcons {
 	private static final MethodHandle MATERIALS = LibObfuscation.getGetter(ModelBakery.class, "field_177602_b");
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
-	public TextureAtlasSprite
-	alfPortalTex,
-	lightRelayWorldIcon,
-	lightRelayWorldIconRed,
-	lightRelayWorldIconGreen,
-	lightRelayWorldIconPurple,
-	alchemyCatalystOverlay,
-	conjurationCatalystOverlay,
-	enchanterOverlay,
-	manaVoidOverlay,
-	manaWater,
-	terraPlateOverlay,
-	corporeaWorldIcon,
-	corporeaWorldIconMaster,
-	corporeaIconStar,
-	sparkWorldIcon,
-	manaDetectorIcon,
-	runeAltarTriggerIcon;
+	public TextureAtlasSprite alfPortalTex,
+			lightRelayWorldIcon,
+			lightRelayWorldIconRed,
+			lightRelayWorldIconGreen,
+			lightRelayWorldIconPurple,
+			alchemyCatalystOverlay,
+			conjurationCatalystOverlay,
+			enchanterOverlay,
+			manaVoidOverlay,
+			manaWater,
+			terraPlateOverlay,
+			corporeaWorldIcon,
+			corporeaWorldIconMaster,
+			corporeaIconStar,
+			sparkWorldIcon,
+			manaDetectorIcon,
+			runeAltarTriggerIcon;
 
 	public final TextureAtlasSprite[] sparkUpgradeIcons = new TextureAtlasSprite[4];
 	// public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
@@ -74,22 +65,21 @@ public class MiscellaneousIcons {
 	public TextureAtlasSprite tailIcon = null;
 
 	public IBakedModel goldfishModel,
-	phiFlowerModel,
-	nerfBatModel,
-	bloodPendantChain,
-	bloodPendantGem,
-	snowflakePendantGem,
-	itemFinderGem,
-	pyroclastGem,
-	crimsonGem,
-	cirrusGem,
-	nimbusGem,
-	terrasteelHelmWillModel,
-	elvenSpreaderInside,
-	gaiaSpreaderInside,
-	manaSpreaderInside,
-	redstoneSpreaderInside
-	;
+			phiFlowerModel,
+			nerfBatModel,
+			bloodPendantChain,
+			bloodPendantGem,
+			snowflakePendantGem,
+			itemFinderGem,
+			pyroclastGem,
+			crimsonGem,
+			cirrusGem,
+			nimbusGem,
+			terrasteelHelmWillModel,
+			elvenSpreaderInside,
+			gaiaSpreaderInside,
+			manaSpreaderInside,
+			redstoneSpreaderInside;
 
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
@@ -183,11 +173,12 @@ public class MiscellaneousIcons {
 			tiaraWingIcons[i] = evt.getModelRegistry().get(prefix("icon/tiara_wing_" + (i + 1)));
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		if(!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
+		if (!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
 			return;
+		}
 
 		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
 		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
@@ -206,7 +197,7 @@ public class MiscellaneousIcons {
 		evt.addSprite(prefix("items/spark_corporea_star"));
 		evt.addSprite(prefix("items/spark"));
 
-		for(int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 			evt.addSprite(prefix("items/spark_upgrade_rune_" + i));
 		}
 
@@ -215,7 +206,7 @@ public class MiscellaneousIcons {
 		/*
 		evt.addSprite(prefix("items/triggers/mana_detector"));
 		evt.addSprite(prefix("items/triggers/rune_altar_can_craft"));
-
+		
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			register(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name()));
 		}
@@ -224,8 +215,9 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
-		if(!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
+		if (!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
 			return;
+		}
 
 		alfPortalTex = get(evt.getMap(), "blocks/alfheim_portal_swirl");
 		lightRelayWorldIcon = get(evt.getMap(), "blocks/luminizer");
@@ -243,7 +235,7 @@ public class MiscellaneousIcons {
 		corporeaIconStar = get(evt.getMap(), "items/spark_corporea_star");
 		sparkWorldIcon = get(evt.getMap(), "items/spark");
 
-		for(int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 			sparkUpgradeIcons[i] = get(evt.getMap(), "items/spark_upgrade_rune_" + i);
 		}
 
@@ -252,7 +244,7 @@ public class MiscellaneousIcons {
 		/*
 		manaDetectorIcon = get(evt.getMap(), "items/triggers/mana_detector");
 		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/rune_altar_can_craft");
-
+		
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			manaLevelTriggerIcons.put(s, get(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name())));
 		}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 6, 2015, 3:46:10 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
@@ -17,6 +15,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,8 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileDandelifeon extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":dandelifeon")
-	public static TileEntityType<SubTileDandelifeon> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":dandelifeon") public static TileEntityType<SubTileDandelifeon> TYPE;
 
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
@@ -37,14 +35,14 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	private static final int MANA_PER_GEN = 60;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
-		{ -1, -1 },
-		{ -1, +0 },
-		{ -1, +1 },
-		{ +0, +1 },
-		{ +1, +1 },
-		{ +1, +0 },
-		{ +1, -1 },
-		{ +0, -1 }
+			{ -1, -1 },
+			{ -1, +0 },
+			{ -1, +1 },
+			{ +0, +1 },
+			{ +1, +1 },
+			{ +1, +0 },
+			{ +1, -1 },
+			{ +0, -1 }
 	};
 
 	public SubTileDandelifeon() {
@@ -55,8 +53,9 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(!getWorld().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0)
+		if (!getWorld().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0) {
 			runSimulation();
+		}
 	}
 
 	private void runSimulation() {
@@ -64,43 +63,47 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 		List<int[]> changes = new ArrayList<>();
 		boolean wipe = false;
 
-		for(int i = 0; i < table.length; i++)
-			for(int j = 0; j < table[0].length; j++) {
+		for (int i = 0; i < table.length; i++) {
+			for (int j = 0; j < table[0].length; j++) {
 				int gen = table[i][j];
 				int adj = getAdjCells(table, i, j);
 
 				int newVal = gen;
-				if(adj < 2 || adj > 3)
+				if (adj < 2 || adj > 3) {
 					newVal = -1;
-				else {
-					if(adj == 3 && gen == -1)
+				} else {
+					if (adj == 3 && gen == -1) {
 						newVal = getSpawnCellGeneration(table, i, j);
-					else if(gen > -1)
+					} else if (gen > -1) {
 						newVal = gen + 1;
+					}
 				}
 
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
 				int allowDist = 1;
-				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
+				if (xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
 					newVal = gen == 1 ? -1 : -2;
 				}
 
-				if(newVal != gen) {
+				if (newVal != gen) {
 					changes.add(new int[] { i, j, newVal, gen });
-					if(newVal == -2)
+					if (newVal == -2) {
 						wipe = true;
+					}
 				}
 			}
+		}
 
 		BlockPos pos = getEffectivePos();
 
-		for(int[] change : changes) {
+		for (int[] change : changes) {
 			BlockPos pos_ = pos.add(-RANGE + change[0], 0, -RANGE + change[1]);
 			int val = change[2];
-			if(val != -2 && wipe)
+			if (val != -2 && wipe) {
 				val = -1;
+			}
 
 			int old = change[3];
 
@@ -114,32 +117,35 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 
 		BlockPos pos = getEffectivePos();
 
-		for(int i = 0; i < diam; i++)
-			for(int j = 0; j < diam; j++) {
+		for (int i = 0; i < diam; i++) {
+			for (int j = 0; j < diam; j++) {
 				BlockPos pos_ = pos.add(-RANGE + i, 0, -RANGE + j);
 				table[i][j] = getCellGeneration(pos_);
 			}
+		}
 
 		return table;
 	}
 
 	private int getCellGeneration(BlockPos pos) {
 		TileEntity tile = getWorld().getTileEntity(pos);
-		if(tile instanceof TileCell)
+		if (tile instanceof TileCell) {
 			return ((TileCell) tile).isSameFlower(this) ? ((TileCell) tile).getGeneration() : 0;
+		}
 
-			return -1;
+		return -1;
 	}
 
 	private int getAdjCells(int[][] table, int x, int z) {
 		int count = 0;
-		for(int[] shift : ADJACENT_BLOCKS) {
+		for (int[] shift : ADJACENT_BLOCKS) {
 			int xp = x + shift[0];
 			int zp = z + shift[1];
-			if(!isOffBounds(table, xp, zp)) {
+			if (!isOffBounds(table, xp, zp)) {
 				int gen = table[xp][zp];
-				if(gen >= 0)
+				if (gen >= 0) {
 					count++;
+				}
 			}
 		}
 
@@ -148,13 +154,14 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 
 	private int getSpawnCellGeneration(int[][] table, int x, int z) {
 		int max = -1;
-		for(int[] shift : ADJACENT_BLOCKS) {
+		for (int[] shift : ADJACENT_BLOCKS) {
 			int xp = x + shift[0];
 			int zp = z + shift[1];
-			if(!isOffBounds(table, xp, zp)) {
+			if (!isOffBounds(table, xp, zp)) {
 				int gen = table[xp][zp];
-				if(gen > max)
+				if (gen > max) {
 					max = gen;
+				}
 			}
 		}
 
@@ -170,14 +177,16 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 		BlockState stateAt = world.getBlockState(pos);
 		Block blockAt = stateAt.getBlock();
 		TileEntity tile = world.getTileEntity(pos);
-		if(gen == -2) {
+		if (gen == -2) {
 			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
 			addMana(val);
-		} else if(blockAt == ModBlocks.cellBlock) {
-			if(gen < 0)
+		} else if (blockAt == ModBlocks.cellBlock) {
+			if (gen < 0) {
 				world.removeBlock(pos, false);
-			else ((TileCell) tile).setGeneration(this, gen);
-		} else if(gen >= 0 && stateAt.isAir(getWorld(), pos)) {
+			} else {
+				((TileCell) tile).setGeneration(this, gen);
+			}
+		} else if (gen >= 0 && stateAt.isAir(getWorld(), pos)) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
 			tile = world.getTileEntity(pos);
 			((TileCell) tile).setGeneration(this, gen);
@@ -191,7 +200,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

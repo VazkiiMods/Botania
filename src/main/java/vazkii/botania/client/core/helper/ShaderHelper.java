@@ -1,17 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 9, 2014, 11:20:26 PM (GMT)]
  */
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.shader.IShaderManager;
 import net.minecraft.client.shader.ShaderLinkHelper;
@@ -21,8 +19,9 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
-import org.lwjgl.opengl.GL11;
+
 import org.lwjgl.system.MemoryUtil;
+
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -60,10 +59,11 @@ public final class ShaderHelper {
 			this.fragmentShaderPath = fragmentShaderPath;
 		}
 	}
+
 	// Scratch buffer to use for uniforms
 	public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
 	private static final Map<BotaniaShader, ShaderProgram> PROGRAMS = new EnumMap<>(BotaniaShader.class);
-	
+
 	private static boolean hasIncompatibleMods = false;
 	private static boolean checkedIncompatibility = false;
 
@@ -71,7 +71,7 @@ public final class ShaderHelper {
 	public static void initShaders() {
 		// Can be null when running datagenerators due to the unfortunate time we call this
 		if (Minecraft.getInstance() != null
-			&& Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
+				&& Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
 			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
 					(IResourceManagerReloadListener) manager -> {
 						PROGRAMS.values().forEach(ShaderLinkHelper::deleteShader);
@@ -82,8 +82,9 @@ public final class ShaderHelper {
 	}
 
 	private static void loadShaders(IResourceManager manager) {
-		if(!useShaders())
+		if (!useShaders()) {
 			return;
+		}
 
 		for (BotaniaShader shader : BotaniaShader.values()) {
 			createProgram(manager, shader);
@@ -97,22 +98,25 @@ public final class ShaderHelper {
 
 	public static void useShader(BotaniaShader shader, ShaderCallback callback) {
 		ShaderProgram prog = PROGRAMS.get(shader);
-		if(prog == null)
+		if (prog == null) {
 			return;
+		}
 		useShader(prog.getProgram(), callback);
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {
-		if(!useShaders())
+		if (!useShaders()) {
 			return;
+		}
 
 		ShaderLinkHelper.useProgram(shader);
 
 		int time = GlStateManager.getUniformLocation(shader, "time");
 		GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
 
-		if(callback != null)
+		if (callback != null) {
 			callback.call(shader);
+		}
 	}
 
 	public static void useShader(BotaniaShader shader) {
@@ -126,13 +130,13 @@ public final class ShaderHelper {
 	public static boolean useShaders() {
 		return ConfigHandler.CLIENT.useShaders.get() && checkIncompatibleMods();
 	}
-	
+
 	private static boolean checkIncompatibleMods() {
-		if(!checkedIncompatibility) {
+		if (!checkedIncompatibility) {
 			hasIncompatibleMods = ModList.get().isLoaded("optifine");
 			checkedIncompatibility = true;
 		}
-		
+
 		return !hasIncompatibleMods;
 	}
 

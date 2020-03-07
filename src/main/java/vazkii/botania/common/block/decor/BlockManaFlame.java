@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 21, 2014, 12:28:06 AM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
@@ -25,6 +23,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileManaFlame;
@@ -54,10 +53,10 @@ public class BlockManaFlame extends BlockMod {
 
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		if(Botania.gardenOfGlassLoaded) {
+		if (Botania.gardenOfGlassLoaded) {
 			ItemStack stack = player.getHeldItem(hand);
-			if(!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
-				if(!world.isRemote) {
+			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
+				if (!world.isRemote) {
 					stack.shrink(1);
 					ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.lexicon));
 				}

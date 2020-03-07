@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 15, 2014, 4:08:26 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -29,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -65,23 +64,24 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
+		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
 			return ActionResultType.PASS;
+		}
 
 		boolean stackEnchantable = !stack.isEmpty()
 				&& stack.getItem() != Items.BOOK
 				&& stack.isEnchantable()
 				&& stack.getCount() == 1;
 
-		if(enchanter.itemToEnchant.isEmpty()) {
-			if(stackEnchantable) {
+		if (enchanter.itemToEnchant.isEmpty()) {
+			if (stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
 				player.setHeldItem(hand, ItemStack.EMPTY);
 				enchanter.sync();
 			} else {
 				return ActionResultType.PASS;
 			}
-		} else if(enchanter.stage == TileEnchanter.State.IDLE) {
+		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
 			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
@@ -95,7 +95,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 		if (state.getBlock() != newState.getBlock()) {
 			TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 
-			if(!enchanter.itemToEnchant.isEmpty()) {
+			if (!enchanter.itemToEnchant.isEmpty()) {
 				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
 			}
 

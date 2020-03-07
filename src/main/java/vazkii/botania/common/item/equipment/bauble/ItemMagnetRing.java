@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 17, 2014, 3:16:36 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
@@ -18,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -50,7 +49,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private void onTossItem(ItemTossEvent event) {
 		ItemStack ring = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemMagnetRing, event.getPlayer());
-		if(!ring.isEmpty()) {
+		if (!ring.isEmpty()) {
 			setCooldown(ring, 100);
 		}
 	}
@@ -59,19 +58,21 @@ public class ItemMagnetRing extends ItemBauble {
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		super.onWornTick(stack, living);
 
-		if(living.isSpectator())
-			return;
-
-		int cooldown = getCooldown(stack);
-
-		if(SubTileSolegnolia.hasSolegnoliaAround(living)) {
-			if(cooldown < 0)
-				setCooldown(stack, 2);
+		if (living.isSpectator()) {
 			return;
 		}
 
-		if(cooldown <= 0) {
-			if(living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
+		int cooldown = getCooldown(stack);
+
+		if (SubTileSolegnolia.hasSolegnoliaAround(living)) {
+			if (cooldown < 0) {
+				setCooldown(stack, 2);
+			}
+			return;
+		}
+
+		if (cooldown <= 0) {
+			if (living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
 				double x = living.getX();
 				double y = living.getY() + 0.75;
 				double z = living.getZ();
@@ -79,40 +80,48 @@ public class ItemMagnetRing extends ItemBauble {
 				int range = ((ItemMagnetRing) stack.getItem()).range;
 				List<ItemEntity> items = living.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
-				for(ItemEntity item : items)
-					if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
-						if(pulled > 200)
+				for (ItemEntity item : items) {
+					if (((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
+						if (pulled > 200) {
 							break;
+						}
 
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if(living.world.isRemote) {
+						if (living.world.isRemote) {
 							boolean red = living.world.rand.nextBoolean();
-                            float r = red ? 1F : 0F;
-                            float b = red ? 0F : 1F;
-                            SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
-                            living.world.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
-                        }
+							float r = red ? 1F : 0F;
+							float b = red ? 0F : 1F;
+							SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
+							living.world.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
+						}
 						pulled++;
 					}
+				}
 			}
-		} else setCooldown(stack, cooldown - 1);
+		} else {
+			setCooldown(stack, cooldown - 1);
+		}
 	}
 
 	private boolean canPullItem(ItemEntity item) {
-		if(!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement"))
+		if (!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
 			return false;
+		}
 
 		ItemStack stack = item.getItem();
-		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem()))
+		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem())) {
 			return false;
+		}
 
 		BlockPos pos = new BlockPos(item);
 
-		if(ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock()))
+		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock())) {
 			return false;
+		}
 
-		if(ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock()))
+		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock())) {
 			return false;
+		}
 
 		return true;
 	}

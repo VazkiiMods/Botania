@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 30, 2014, 6:10:48 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
 
@@ -21,6 +19,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
@@ -60,7 +59,7 @@ public final class ModManaInfusionRecipes {
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_quartz"), new ItemStack(ModItems.manaQuartz), Ingredient.fromItems(Items.QUARTZ), 250));
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), Ingredient.fromItems(Items.POTATO), 1337));
 
-		if(Botania.thaumcraftLoaded) {
+		if (Botania.thaumcraftLoaded) {
 			Item inkwell = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "scribing_tools"));
 			evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_inkwell"), new ItemStack(ModItems.manaInkwell), Ingredient.fromItems(inkwell), 35000));
 		}
@@ -68,8 +67,9 @@ public final class ModManaInfusionRecipes {
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_glass"), new ItemStack(ModBlocks.manaGlass), Ingredient.fromItems(Blocks.GLASS), 150));
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_string"), new ItemStack(ModItems.manaString), Ingredient.fromItems(Items.STRING), 5000));
 
-		if(Botania.gardenOfGlassLoaded)
+		if (Botania.gardenOfGlassLoaded) {
 			evt.manaInfusion().accept(new RecipeManaInfusion(prefix("sugar_cane"), new ItemStack(Blocks.SUGAR_CANE), Ingredient.fromItems(Blocks.HAY_BLOCK), 2000));
+		}
 
 		evt.manaInfusion().accept(new RecipeManaInfusion(prefix("mana_bottle"), new ItemStack(ModItems.manaBottle), Ingredient.fromItems(Items.GLASS_BOTTLE), 5000));
 	}

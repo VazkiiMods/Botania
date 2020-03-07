@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
@@ -27,34 +36,39 @@ public class RecipeElvenTrade {
 
 	/**
 	 * Attempts to match the recipe
-	 * @param stacks Entire contents of the portal's buffer 
-	 * @return {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe otherwise
+	 * 
+	 * @param  stacks Entire contents of the portal's buffer
+	 * @return        {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe
+	 *                otherwise
 	 */
 	public Optional<List<ItemStack>> match(List<ItemStack> stacks) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 		List<ItemStack> stacksToRemove = new ArrayList<>();
 
-		for(ItemStack stack : stacks) {
-			if(stack.isEmpty()) {
+		for (ItemStack stack : stacks) {
+			if (stack.isEmpty()) {
 				continue;
 			}
-			if(inputsMissing.isEmpty())
+			if (inputsMissing.isEmpty()) {
 				break;
+			}
 
 			int stackIndex = -1;
 
 			for (int i = 0; i < inputsMissing.size(); i++) {
 				Ingredient ingr = inputsMissing.get(i);
 				if (ingr.test(stack)) {
-					if(!stacksToRemove.contains(stack))
+					if (!stacksToRemove.contains(stack)) {
 						stacksToRemove.add(stack);
+					}
 					stackIndex = i;
 					break;
 				}
 			}
 
-			if(stackIndex != -1)
+			if (stackIndex != -1) {
 				inputsMissing.remove(stackIndex);
+			}
 		}
 
 		return inputsMissing.isEmpty() ? Optional.of(stacksToRemove) : Optional.empty();
@@ -64,8 +78,8 @@ public class RecipeElvenTrade {
 	 * If the recipe does not contain the item, it will be destroyed upon entering the portal.
 	 */
 	public boolean containsItem(ItemStack stack) {
-		for(Ingredient input : inputs) {
-			if(input.test(stack)) {
+		for (Ingredient input : inputs) {
+			if (input.test(stack)) {
 				return true;
 			}
 		}

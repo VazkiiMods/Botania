@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 30, 2014, 1:05:07 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -19,10 +17,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileEnderEye;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockEnderEye extends BlockMod {
@@ -60,8 +60,8 @@ public class BlockEnderEye extends BlockMod {
 
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if(state.get(BotaniaStateProps.POWERED)) {
-			for(int i = 0; i < 20; i++) {
+		if (state.get(BotaniaStateProps.POWERED)) {
+			for (int i = 0; i < 20; i++) {
 				double x = pos.getX() - 0.1 + Math.random() * 1.2;
 				double y = pos.getY() - 0.1 + Math.random() * 1.2;
 				double z = pos.getZ() - 0.1 + Math.random() * 1.2;

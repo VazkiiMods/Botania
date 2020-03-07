@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.resources.I18n;
@@ -9,7 +18,9 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import org.lwjgl.glfw.GLFW;
+
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lib.LibMisc;
@@ -63,7 +74,7 @@ public class KonamiHandler {
 
 	@SubscribeEvent
 	public static void renderBook(BookDrawScreenEvent evt) {
-		if(konamiTime > 0) {
+		if (konamiTime > 0) {
 			String meme = I18n.format("botania.subtitle.way");
 			GlStateManager.disableDepthTest();
 			GlStateManager.pushMatrix();

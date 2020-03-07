@@ -1,16 +1,15 @@
-/**
- * This class was created by <WireSegal>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 4, 2016, 1:20:34 PM (EST)]
  */
 package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
@@ -27,6 +26,7 @@ import javax.annotation.Nonnull;
 
 public class ShapelessManaUpgradeRecipe implements ICraftingRecipe {
 	private final ShapelessRecipe compose;
+
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
 		this.compose = compose;
 	}

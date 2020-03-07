@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 16, 2015, 6:43:33 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -44,6 +42,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
 
@@ -94,15 +93,16 @@ public class ItemFlowerBag extends Item {
 
 	private void onPickupItem(EntityItemPickupEvent event) {
 		ItemStack entityStack = event.getItem().getItem();
-		if(Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
+		if (Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
 			int color = ((BlockModFlower) Block.getBlockFromItem(entityStack.getItem())).color.getId();
 
-			for(int i = 0; i < event.getPlayer().inventory.getSizeInventory(); i++) {
-				if(i == event.getPlayer().inventory.currentItem)
+			for (int i = 0; i < event.getPlayer().inventory.getSizeInventory(); i++) {
+				if (i == event.getPlayer().inventory.currentItem) {
 					continue; // prevent item deletion
+				}
 
 				ItemStack bag = event.getPlayer().inventory.getStackInSlot(i);
-				if(!bag.isEmpty() && bag.getItem() == this) {
+				if (!bag.isEmpty() && bag.getItem() == this) {
 					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 
 					ItemStack result = bagInv.insertItem(color, entityStack, false);
@@ -110,7 +110,7 @@ public class ItemFlowerBag extends Item {
 
 					event.getItem().setItem(result);
 
-					if(numPickedUp > 0) {
+					if (numPickedUp > 0) {
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
 							event.getItem().world.playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(),
@@ -130,7 +130,7 @@ public class ItemFlowerBag extends Item {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			ItemStack stack = player.getHeldItem(hand);
 			INamedContainerProvider container = new SimpleNamedContainerProvider((w, p, pl) -> new ContainerFlowerBag(w, p, stack), stack.getDisplayName());
 			NetworkHooks.openGui((ServerPlayerEntity) player, container, buf -> {
@@ -148,17 +148,19 @@ public class ItemFlowerBag extends Item {
 		Direction side = ctx.getFace();
 
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null) {
-			if(!world.isRemote) {
+		if (tile != null) {
+			if (!world.isRemote) {
 				IItemHandler tileInv;
-				if(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent())
+				if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
 					tileInv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).orElseThrow(NullPointerException::new);
-				else if(tile instanceof IInventory)
+				} else if (tile instanceof IInventory) {
 					tileInv = new InvWrapper((IInventory) tile);
-				else return ActionResultType.FAIL;
+				} else {
+					return ActionResultType.FAIL;
+				}
 
 				ctx.getItem().getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(bagInv -> {
-					for(int i = 0; i < bagInv.getSlots(); i++) {
+					for (int i = 0; i < bagInv.getSlots(); i++) {
 						ItemStack flower = bagInv.getStackInSlot(i);
 						((IItemHandlerModifiable) bagInv).setStackInSlot(i, ItemHandlerHelper.insertItemStacked(tileInv, flower, false));
 					}

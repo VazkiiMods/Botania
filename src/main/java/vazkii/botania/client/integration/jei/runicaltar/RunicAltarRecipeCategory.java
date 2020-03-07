@@ -1,25 +1,27 @@
-/**
- * This class was created by <williewillus>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * <p/>
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,6 +29,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +84,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 	@Override
 	public void setIngredients(RecipeRuneAltar recipe, IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
-		for(Ingredient ingr : recipe.getInputs()) {
+		for (Ingredient ingr : recipe.getInputs()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
 		}
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
@@ -107,7 +110,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
 		Point point = new Point(64, 20), center = new Point(64, 52);
 
-		for(List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
+		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
 			recipeLayout.getItemStacks().set(index, o);
 			index += 1;

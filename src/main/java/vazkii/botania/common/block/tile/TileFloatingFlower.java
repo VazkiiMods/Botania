@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 8, 2014, 10:17:28 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -23,6 +21,7 @@ import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -36,15 +35,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileFloatingFlower extends TileMod {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MINI_ISLAND)
-	public static TileEntityType<TileFloatingFlower> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MINI_ISLAND) public static TileEntityType<TileFloatingFlower> TYPE;
 
 	private static final String TAG_FLOATING_DATA = "floating";
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
 			Block b = getBlockState().getBlock();
-			if(b instanceof BlockFloatingFlower) {
+			if (b instanceof BlockFloatingFlower) {
 				return new ItemStack(ModBlocks.getShinyFlower(((BlockFloatingFlower) b).color));
 			} else {
 				return ItemStack.EMPTY;
@@ -60,7 +58,7 @@ public class TileFloatingFlower extends TileMod {
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if(cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
+		if (cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
 			return floatingDataCap.cast();
 		}
 		return super.getCapability(cap, side);
@@ -70,7 +68,7 @@ public class TileFloatingFlower extends TileMod {
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.onDataPacket(net, packet);
-		if(oldType != floatingData.getIslandType()) {
+		if (oldType != floatingData.getIslandType()) {
 			ModelDataManager.requestModelDataRefresh(this);
 			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
 		}

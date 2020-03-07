@@ -1,16 +1,15 @@
-/**
- * This class was created by <WireSegal>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 4, 2016, 1:16:22 PM (EST)]
  */
 package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -23,6 +22,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
 import vazkii.botania.api.mana.IManaItem;
 
 import javax.annotation.Nonnull;
@@ -36,8 +36,9 @@ public class ManaUpgradeRecipe implements ICraftingRecipe {
 
 	public static ItemStack output(ItemStack output, IInventory inv) {
 		ItemStack out = output.copy();
-		if (!(out.getItem() instanceof IManaItem))
+		if (!(out.getItem() instanceof IManaItem)) {
 			return out;
+		}
 		IManaItem outItem = (IManaItem) out.getItem();
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);

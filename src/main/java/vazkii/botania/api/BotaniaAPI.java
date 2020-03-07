@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 14, 2014, 6:15:28 PM (GMT)]
  */
 package vazkii.botania.api;
 
@@ -27,6 +25,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IRegistryDelegate;
+
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
@@ -41,6 +40,7 @@ import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.handler.PixieHandler;
 
 import javax.annotation.Nonnull;
+
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -51,17 +51,15 @@ public final class BotaniaAPI {
 		return 94;
 	}
 
-	@CapabilityInject(IFloatingFlower.class)
-	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
+	@CapabilityInject(IFloatingFlower.class) public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
 
-	@CapabilityInject(IExoflameHeatable.class)
-	public static Capability<IExoflameHeatable> EXOFLAME_HEATABLE_CAP;
+	@CapabilityInject(IExoflameHeatable.class) public static Capability<IExoflameHeatable> EXOFLAME_HEATABLE_CAP;
 
 	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
 
 	/*
-	 * These maps are not meant to be mutated!
-	 */
+	* These maps are not meant to be mutated!
+	*/
 	public static Map<ResourceLocation, RecipePetals> petalRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipePureDaisy> pureDaisyRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipeManaInfusion> manaInfusionRecipes = Collections.emptyMap();
@@ -74,9 +72,10 @@ public final class BotaniaAPI {
 
 	public static Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> paintableBlocks = Collections.emptyMap();
 
-	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+	private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
 	public static final IArmorMaterial MANASTEEL_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 2, 5, 6, 2 };
+
 		@Override
 		public int getDurability(EquipmentSlotType slotIn) {
 			return 16 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
@@ -149,6 +148,7 @@ public final class BotaniaAPI {
 
 	public static final IArmorMaterial ELEMENTIUM_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 2, 5, 6, 2 };
+
 		@Override
 		public int getDurability(EquipmentSlotType slotIn) {
 			return 18 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
@@ -221,6 +221,7 @@ public final class BotaniaAPI {
 
 	public static final IArmorMaterial TERRASTEEL_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 3, 6, 8, 3 };
+
 		@Override
 		public int getDurability(EquipmentSlotType slotIn) {
 			return 34 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
@@ -292,6 +293,7 @@ public final class BotaniaAPI {
 	};
 	public static final IArmorMaterial MANAWEAVE_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 1, 2, 2, 1 };
+
 		@Override
 		public int getDurability(EquipmentSlotType slotIn) {
 			return 5 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
@@ -337,6 +339,7 @@ public final class BotaniaAPI {
 	 * The internal method handler in use.
 	 * <b>DO NOT OVERWRITE THIS OR YOU'RE GOING TO FEEL MY WRATH WHEN I UPDATE THE API.</b>
 	 * The fact I have to write that means some moron already tried, don't be that moron.
+	 * 
 	 * @see IInternalMethodHandler
 	 */
 	public static volatile IInternalMethodHandler internalHandler = new DummyMethodHandler();
@@ -354,8 +357,9 @@ public final class BotaniaAPI {
 	 * it's not in the map.
 	 */
 	public static Brew getBrewFromKey(String key) {
-		if(brewMap.containsKey(key))
+		if (brewMap.containsKey(key)) {
 			return brewMap.get(key);
+		}
 		return fallbackBrew;
 	}
 

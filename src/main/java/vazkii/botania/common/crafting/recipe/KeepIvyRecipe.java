@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 31, 2015, 9:23:22 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
 
@@ -17,6 +15,7 @@ import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
@@ -35,16 +34,18 @@ public class KeepIvyRecipe extends SpecialRecipe {
 		boolean foundIvy = false;
 		boolean foundItem = false;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(stack.getItem() == ModItems.keepIvy)
+			if (!stack.isEmpty()) {
+				if (stack.getItem() == ModItems.keepIvy) {
 					foundIvy = true;
-				else if(!foundItem
+				} else if (!foundItem
 						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false))
-						&& !stack.getItem().hasContainerItem(stack))
+						&& !stack.getItem().hasContainerItem(stack)) {
 					foundItem = true;
-				else return false;
+				} else {
+					return false;
+				}
 			}
 		}
 
@@ -56,10 +57,11 @@ public class KeepIvyRecipe extends SpecialRecipe {
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack item = ItemStack.EMPTY;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() != ModItems.keepIvy)
+			if (!stack.isEmpty() && stack.getItem() != ModItems.keepIvy) {
 				item = stack;
+			}
 		}
 
 		ItemStack copy = item.copy();

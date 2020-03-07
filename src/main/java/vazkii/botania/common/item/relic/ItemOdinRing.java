@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 29, 2015, 10:13:41 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
@@ -49,8 +49,9 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public void onValidPlayerWornTick(PlayerEntity player) {
-		if(player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get())
+		if (player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get()) {
 			player.extinguish();
+		}
 	}
 
 	@Override
@@ -63,13 +64,14 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@SubscribeEvent
 	public static void onPlayerAttacked(LivingAttackEvent event) {
-		if(event.getEntityLiving() instanceof PlayerEntity) {
+		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			boolean negate = damageNegations.contains(event.getSource().damageType)
 					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
 			boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
-			if(hasRing && negate)
+			if (hasRing && negate) {
 				event.setCanceled(true);
+			}
 		}
 	}
 
@@ -79,4 +81,3 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 }
-

@@ -1,18 +1,20 @@
-/**
- * This class was created by <williewillus>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * <p>
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
 package vazkii.botania.api;
 
 import com.google.common.collect.Maps;
+
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.item.IFloatingFlower;
 
 import java.util.Collections;
@@ -26,8 +28,7 @@ public final class BotaniaAPIClient {
 
 	private static final Map<IFloatingFlower.IslandType, ResourceLocation> islandTypeModels = Maps.newHashMap();
 
-	private BotaniaAPIClient() {
-	}
+	private BotaniaAPIClient() {}
 
 	/**
 	 * Registers your model for island type islandType here.

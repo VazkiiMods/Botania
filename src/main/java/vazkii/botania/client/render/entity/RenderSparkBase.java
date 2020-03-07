@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 21, 2014, 5:53:22 PM (GMT)]
  */
 package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
@@ -20,6 +19,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -27,6 +27,7 @@ import vazkii.botania.common.entity.EntitySparkBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.Random;
 
 public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
@@ -38,41 +39,41 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 	@Override
 	public void render(@Nonnull T tEntity, float yaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
-		
+
 		ms.push();
-		
+
 		double time = ClientTickHandler.ticksInGame + partialTicks + new Random(tEntity.getEntityId()).nextInt();
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
-		
+
 		int alpha = (int) ((0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0F);
 		int iconColor = 0xFFFFFF | (alpha << 24);
-		
+
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
 		ms.scale(scale, scale, scale);
-		
+
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.SPARK);
 		ms.push();
 		ms.multiply(renderManager.getRotation());
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 		renderIcon(ms, buffer, iicon, iconColor);
-		
+
 		ms.push();
 		ms.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 		ms.scale(0.2F, 0.2F, 0.2F);
 		int starColor = tEntity.getNetwork().colorValue | ((int) (a * 255.0F) << 24);
 		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar, starColor);
 		ms.pop();
-		
+
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
 		if (spinningIcon != null) {
 			ms.translate(-0.02F + (float) Math.sin(time / 20) * -0.2F, 0.24F + (float) Math.cos(time / 20) * -0.2F, 0.005F);
 			ms.scale(0.2F, 0.2F, 0.2F);
 			renderIcon(ms, buffer, spinningIcon, iconColor);
 		}
-		
+
 		ms.pop();
 		renderCallback(tEntity, partialTicks, ms, buffers);
-		
+
 		ms.pop();
 	}
 

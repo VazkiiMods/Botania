@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 2, 2014, 6:31:19 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
@@ -25,7 +24,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.registries.ObjectHolder;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -45,12 +46,12 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RUNE_ALTAR)
-	public static TileEntityType<TileRuneAltar> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RUNE_ALTAR) public static TileEntityType<TileRuneAltar> TYPE;
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -72,11 +73,12 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {
-		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon)
+		if (cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon) {
 			return false;
+		}
 
-		if(stack.getItem() == ModBlocks.livingrock.asItem()) {
-			if(!world.isRemote) {
+		if (stack.getItem() == ModBlocks.livingrock.asItem()) {
+			if (!world.isRemote) {
 				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
 				item.setPickupDelay(40);
@@ -87,27 +89,30 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			return true;
 		}
 
-		if(manaToGet != 0)
+		if (manaToGet != 0) {
 			return false;
+		}
 
 		boolean did = false;
 
-		for(int i = 0; i < getSizeInventory(); i++)
-			if(itemHandler.getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (itemHandler.getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.setCount(1);
 				itemHandler.setStackInSlot(i, stackToAdd);
 
-				if(player == null || !player.abilities.isCreativeMode) {
+				if (player == null || !player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 
 				break;
 			}
+		}
 
-		if(did)
+		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		}
 
 		return true;
 	}
@@ -115,22 +120,27 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	@Override
 	public boolean receiveClientEvent(int id, int param) {
 		switch (id) {
-			case SET_KEEP_TICKS_EVENT: recipeKeepTicks = param; return true;
-			case SET_COOLDOWN_EVENT: cooldown = param; return true;
-			case CRAFT_EFFECT_EVENT: {
-				if(world.isRemote) {
-					for(int i = 0; i < 25; i++) {
-						float red = (float) Math.random();
-						float green = (float) Math.random();
-						float blue = (float) Math.random();
-                        SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-                        world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
-                    }
-					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.runeAltarCraft, SoundCategory.BLOCKS, 1, 1, false);
+		case SET_KEEP_TICKS_EVENT:
+			recipeKeepTicks = param;
+			return true;
+		case SET_COOLDOWN_EVENT:
+			cooldown = param;
+			return true;
+		case CRAFT_EFFECT_EVENT: {
+			if (world.isRemote) {
+				for (int i = 0; i < 25; i++) {
+					float red = (float) Math.random();
+					float green = (float) Math.random();
+					float blue = (float) Math.random();
+					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+					world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
-				return true;
+				world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.runeAltarCraft, SoundCategory.BLOCKS, 1, 1, false);
 			}
-			default: return super.receiveClientEvent(id, param);
+			return true;
+		}
+		default:
+			return super.receiveClientEvent(id, param);
 		}
 	}
 
@@ -140,24 +150,26 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		// Update every tick.
 		recieveMana(0);
 
-		if(!world.isRemote) {
-			if(manaToGet == 0) {
+		if (!world.isRemote) {
+			if (manaToGet == 0) {
 				List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-				for(ItemEntity item : items)
-					if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+				for (ItemEntity item : items) {
+					if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 						ItemStack stack = item.getItem();
 						addItem(null, stack, null);
 					}
+				}
 			}
 
 			int newSignal = 0;
-			if(manaToGet > 0) {
+			if (manaToGet > 0) {
 				newSignal++;
-				if(mana >= manaToGet)
+				if (mana >= manaToGet) {
 					newSignal++;
+				}
 			}
 
-			if(newSignal != signal) {
+			if (newSignal != signal) {
 				signal = newSignal;
 				world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 			}
@@ -171,37 +183,40 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			}
 
 			if (cooldown > 0) {
-                WispParticleData data = WispParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
-                world.addParticle(data, pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0, - -0.025F, 0);
-            }
+				WispParticleData data = WispParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
+				world.addParticle(data, pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0, - -0.025F, 0);
+			}
 		}
 
-		if(cooldown > 0) {
+		if (cooldown > 0) {
 			cooldown--;
 		}
 
-		if(recipeKeepTicks > 0)
+		if (recipeKeepTicks > 0) {
 			--recipeKeepTicks;
-		else lastRecipe = null;
+		} else {
+			lastRecipe = null;
+		}
 	}
 
 	private void updateRecipe() {
 		int manaToGet = this.manaToGet;
 
-		getMana : {
-			if(currentRecipe != null)
+		getMana: {
+			if (currentRecipe != null) {
 				this.manaToGet = currentRecipe.getManaUsage();
-			else {
-				for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
-					if(recipe.matches(itemHandler)) {
+			} else {
+				for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values()) {
+					if (recipe.matches(itemHandler)) {
 						this.manaToGet = recipe.getManaUsage();
 						break getMana;
 					}
+				}
 				this.manaToGet = 0;
 			}
 		}
 
-		if(manaToGet != this.manaToGet) {
+		if (manaToGet != this.manaToGet) {
 			world.playSound(null, pos, ModSounds.runeAltarStart, SoundCategory.BLOCKS, 1, 1);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
@@ -209,10 +224,11 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 	private void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
-		for(int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
-			if(stack.isEmpty())
+			if (stack.isEmpty()) {
 				break;
+			}
 			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
@@ -221,43 +237,50 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 	public void trySetLastRecipe(PlayerEntity player) {
 		TileAltar.tryToSetLastRecipe(player, itemHandler, lastRecipe);
-		if(!isEmpty())
+		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		}
 	}
 
 	public boolean hasValidRecipe() {
-		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
-			if(recipe.matches(itemHandler))
+		for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values()) {
+			if (recipe.matches(itemHandler)) {
 				return true;
+			}
+		}
 
 		return false;
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
-		if (world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
 		RecipeRuneAltar recipe = null;
 
-		if(currentRecipe != null)
+		if (currentRecipe != null) {
 			recipe = currentRecipe;
-		else for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes.values()) {
-			if(recipe_.matches(itemHandler)) {
-				recipe = recipe_;
-				break;
+		} else {
+			for (RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes.values()) {
+				if (recipe_.matches(itemHandler)) {
+					recipe = recipe_;
+					break;
+				}
 			}
 		}
 
-		if(manaToGet > 0 && mana >= manaToGet) {
+		if (manaToGet > 0 && mana >= manaToGet) {
 			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			ItemEntity livingrock = null;
-			for(ItemEntity item : items)
-				if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == ModBlocks.livingrock.asItem()) {
+			for (ItemEntity item : items) {
+				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == ModBlocks.livingrock.asItem()) {
 					livingrock = item;
 					break;
 				}
+			}
 
-			if(livingrock != null) {
+			if (livingrock != null) {
 				int mana = recipe.getManaUsage();
 				recieveMana(-mana);
 				ItemStack output = recipe.getOutput().copy();
@@ -268,10 +291,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				world.addBlockEvent(getPos(), ModBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
-				for(int i = 0; i < getSizeInventory(); i++) {
+				for (int i = 0; i < getSizeInventory(); i++) {
 					ItemStack stack = itemHandler.getStackInSlot(i);
-					if(!stack.isEmpty()) {
-						if(stack.getItem() instanceof ItemRune && (player == null || !player.abilities.isCreativeMode)) {
+					if (!stack.isEmpty()) {
+						if (stack.getItem() instanceof ItemRune && (player == null || !player.abilities.isCreativeMode)) {
 							ItemEntity outputRune = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
 							world.addEntity(outputRune);
 						}
@@ -286,9 +309,11 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public boolean isEmpty() {
-		for(int i = 0; i < getSizeInventory(); i++)
-			if(!itemHandler.getStackInSlot(i).isEmpty())
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (!itemHandler.getStackInSlot(i).isEmpty()) {
 				return false;
+			}
+		}
 
 		return true;
 	}
@@ -357,16 +382,17 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		float angle = -90;
 		int radius = 24;
 		int amt = 0;
-		for(int i = 0; i < getSizeInventory(); i++) {
-			if(itemHandler.getStackInSlot(i).isEmpty())
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (itemHandler.getStackInSlot(i).isEmpty()) {
 				break;
+			}
 			amt++;
 		}
 
-		if(amt > 0) {
+		if (amt > 0) {
 			float anglePer = 360F / amt;
-			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values())
-				if(recipe.matches(itemHandler)) {
+			for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values()) {
+				if (recipe.matches(itemHandler)) {
 					RenderSystem.enableBlend();
 					RenderSystem.enableRescaleNormal();
 					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -377,7 +403,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					RenderSystem.color4f(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
-					if(progress == 1F) {
+					if (progress == 1F) {
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
 						RenderSystem.translatef(0F, 0F, 100F);
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
@@ -386,11 +412,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
 
-					if(progress == 1F)
+					if (progress == 1F) {
 						mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
+					}
 				}
+			}
 
-			for(int i = 0; i < amt; i++) {
+			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
 				RenderSystem.translated(xPos, yPos, 0);
@@ -399,7 +427,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 				angle += anglePer;
 			}
-		} else if(recipeKeepTicks > 0) {
+		} else if (recipeKeepTicks > 0) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");

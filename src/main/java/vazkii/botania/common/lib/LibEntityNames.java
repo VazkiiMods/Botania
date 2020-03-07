@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 26, 2014, 5:30:03 PM (GMT)]
  */
 package vazkii.botania.common.lib;
 
@@ -32,7 +30,7 @@ public final class LibEntityNames {
 	public static final ResourceLocation MANA_STORM = makeName("mana_storm");
 	public static final ResourceLocation BABYLON_WEAPON = makeName("babylon_weapon");
 	public static final ResourceLocation FALLING_STAR = makeName("falling_star");
-	
+
 	private static ResourceLocation makeName(String s) {
 		return new ResourceLocation(LibMisc.MOD_ID, s);
 	}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 8, 2014, 10:16:53 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
@@ -27,6 +25,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -38,6 +37,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockFloatingFlower extends BlockMod {
@@ -70,35 +70,37 @@ public class BlockFloatingFlower extends BlockMod {
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
-            SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
-            world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
-        }
+		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
+			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
+			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+		}
 	}
 
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		TileEntity te = world.getTileEntity(pos);
-		if(!stack.isEmpty() && te != null && te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).isPresent()) {
+		if (!stack.isEmpty() && te != null && te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).isPresent()) {
 			IFloatingFlower flower = te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).orElseThrow(IllegalStateException::new);
 			IslandType type = null;
-			if(stack.getItem() == Items.SNOWBALL)
+			if (stack.getItem() == Items.SNOWBALL) {
 				type = IslandType.SNOW;
-			else if(stack.getItem() instanceof IFloatingFlowerVariant) {
+			} else if (stack.getItem() instanceof IFloatingFlowerVariant) {
 				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);
-				if(newType != null)
+				if (newType != null) {
 					type = newType;
+				}
 			}
 
-			if(type != null && type != flower.getIslandType()) {
-				if(!world.isRemote) {
+			if (type != null && type != flower.getIslandType()) {
+				if (!world.isRemote) {
 					flower.setIslandType(type);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 
-				if(!player.abilities.isCreativeMode)
+				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
+				}
 				return ActionResultType.SUCCESS;
 			}
 		}

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Mikeemoo/boq/nevercast>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.core.helper;
 
@@ -21,6 +19,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
@@ -28,29 +27,33 @@ public class InventoryHelper {
 
 	public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, Direction side) {
 		IItemHandler ret = getInventory(world, pos, side);
-		if(ret == null)
+		if (ret == null) {
 			return null;
-		else return new InvWithLocation(ret, world, pos);
+		} else {
+			return new InvWithLocation(ret, world, pos);
+		}
 	}
 
 	public static IItemHandler getInventory(World world, BlockPos pos, Direction side) {
 		TileEntity te = world.getTileEntity(pos);
 
-		if(te == null)
+		if (te == null) {
 			return null;
+		}
 
 		LazyOptional<IItemHandler> ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
-		if (!ret.isPresent())
+		if (!ret.isPresent()) {
 			ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		}
 		return ret.orElse(null);
 	}
 
 	public static void dropInventory(TileSimpleInventory inv, World world, BlockState state, BlockPos pos) {
-		if(inv != null) {
-			for(int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
+		if (inv != null) {
+			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
 				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
-				if(!itemstack.isEmpty()) {
+				if (!itemstack.isEmpty()) {
 					net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
 				}
 			}
@@ -60,9 +63,9 @@ public class InventoryHelper {
 	}
 
 	public static void withdrawFromInventory(TileSimpleInventory inv, PlayerEntity player) {
-		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
+		for (int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getStackInSlot(i);
-			if(!stackAt.isEmpty()) {
+			if (!stackAt.isEmpty()) {
 				ItemStack copy = stackAt.copy();
 				ItemHandlerHelper.giveItemToPlayer(player, copy);
 				inv.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);

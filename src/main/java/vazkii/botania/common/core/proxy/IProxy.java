@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.core.proxy;
 
 import net.minecraft.entity.LivingEntity;
@@ -6,6 +14,7 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.patchouli.api.IMultiblock;

@@ -1,18 +1,17 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 25, 2015, 12:24:10 AM (GMT)]
  */
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
@@ -25,7 +24,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger {
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
-		if(!burst.isFake() && !world.isRemote) {
+		if (!burst.isFake() && !world.isRemote) {
 			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
 			world.removeBlock(pos, false);
 			EntityManaStorm storm = new EntityManaStorm(world);

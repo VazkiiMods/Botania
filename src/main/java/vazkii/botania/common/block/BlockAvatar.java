@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Oct 24, 2015, 3:15:11 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -31,6 +29,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -52,9 +51,11 @@ public class BlockAvatar extends BlockMod {
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if(state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X)
+		if (state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_AABB;
-		else return Z_AABB;
+		} else {
+			return Z_AABB;
+		}
 	}
 
 	@Override
@@ -67,11 +68,11 @@ public class BlockAvatar extends BlockMod {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
 		ItemStack stackOnPlayer = player.getHeldItem(hand);
-		if(!stackOnAvatar.isEmpty()) {
+		if (!stackOnAvatar.isEmpty()) {
 			avatar.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
 			return ActionResultType.SUCCESS;
-		} else if(!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
+		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
 			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.split(1));
 			return ActionResultType.SUCCESS;
 		}
@@ -81,7 +82,7 @@ public class BlockAvatar extends BlockMod {
 
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
-		if(state.getBlock() != newstate.getBlock()) {
+		if (state.getBlock() != newstate.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
 			super.onReplaced(state, world, pos, newstate, isMoving);

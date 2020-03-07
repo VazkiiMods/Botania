@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 30, 2014, 5:57:07 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -22,18 +21,15 @@ import net.minecraftforge.registries.ObjectHolder;
 import javax.annotation.Nullable;
 
 public class RecipeManaInfusion {
-	@ObjectHolder("botania:alchemy_catalyst")
-	public static Block alchemy;
+	@ObjectHolder("botania:alchemy_catalyst") public static Block alchemy;
 
-	@ObjectHolder("botania:conjuration_catalyst")
-	public static Block conjuration;
+	@ObjectHolder("botania:conjuration_catalyst") public static Block conjuration;
 
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
-	@Nullable
-	private BlockState catalystState;
+	@Nullable private BlockState catalystState;
 	private final String group;
 
 	public static RecipeManaInfusion conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
@@ -119,4 +115,3 @@ public class RecipeManaInfusion {
 		return ret;
 	}
 }
-

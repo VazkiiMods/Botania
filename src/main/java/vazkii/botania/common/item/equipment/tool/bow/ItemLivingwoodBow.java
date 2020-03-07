@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 21, 2015, 4:58:45 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
@@ -28,12 +26,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+
 import java.util.function.Consumer;
 
 public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
@@ -42,12 +42,9 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	public ItemLivingwoodBow(Properties builder) {
 		super(builder);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
-			if (entityIn == null)
-			{
+			if (entityIn == null) {
 				return 0.0F;
-			}
-			else
-			{
+			} else {
 				ItemStack itemstack = entityIn.getActiveItemStack();
 				return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
 			}
@@ -62,7 +59,9 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		boolean flag = canFire(itemstack, playerIn); // Botania - custom check
 
 		ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
-		if (ret != null) return ret;
+		if (ret != null) {
+			return ret;
+		}
 
 		if (!playerIn.abilities.isCreativeMode && !flag) {
 			return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
@@ -76,13 +75,15 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	@Override
 	public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (entityLiving instanceof PlayerEntity) {
-			PlayerEntity playerentity = (PlayerEntity)entityLiving;
+			PlayerEntity playerentity = (PlayerEntity) entityLiving;
 			boolean flag = canFire(stack, playerentity); // Botania - custom check
 			ItemStack itemstack = playerentity.findAmmo(stack);
 
 			int i = (int) ((getUseDuration(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, playerentity, i, !itemstack.isEmpty() || flag);
-			if (i < 0) return;
+			if (i < 0) {
+				return;
+			}
 
 			if (!itemstack.isEmpty() || flag) {
 				if (itemstack.isEmpty()) {
@@ -90,10 +91,10 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 				}
 
 				float f = getArrowVelocity(i);
-				if (!((double)f < 0.1D)) {
-					boolean flag1 = playerentity.abilities.isCreativeMode || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem)itemstack.getItem()).isInfinite(itemstack, stack, playerentity));
+				if (!((double) f < 0.1D)) {
+					boolean flag1 = playerentity.abilities.isCreativeMode || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, stack, playerentity));
 					if (!worldIn.isRemote) {
-						ArrowItem arrowitem = (ArrowItem)(itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
+						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
 						abstractarrowentity = customeArrow(abstractarrowentity);
 						abstractarrowentity.shoot(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
@@ -103,7 +104,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 						int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 						if (j > 0) {
-							abstractarrowentity.setDamage(abstractarrowentity.getDamage() + (double)j * 0.5D + 0.5D);
+							abstractarrowentity.setDamage(abstractarrowentity.getDamage() + (double) j * 0.5D + 0.5D);
 						}
 
 						int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
@@ -124,7 +125,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 						worldIn.addEntity(abstractarrowentity);
 					}
 
-					worldIn.playSound((PlayerEntity)null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					worldIn.playSound((PlayerEntity) null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 					if (!flag1 && !playerentity.abilities.isCreativeMode) {
 						itemstack.shrink(1);
 						if (itemstack.isEmpty()) {
@@ -154,8 +155,9 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
+		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
+		}
 	}
 
 	@Override

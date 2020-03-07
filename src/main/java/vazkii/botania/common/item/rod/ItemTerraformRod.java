@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 11, 2014, 2:56:39 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,6 +27,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -37,6 +37,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 			"blockMarble",
 			"limestone",
 			"blockLimestone"
-			);
+	);
 
 	public ItemTerraformRod(Properties props) {
 		super(props);
@@ -74,8 +75,9 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		if(count != getUseDuration(stack) && count % 10 == 0 && living instanceof PlayerEntity)
+		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof PlayerEntity) {
 			terraform(stack, living.world, (PlayerEntity) living);
+		}
 	}
 
 	@Nonnull
@@ -90,36 +92,42 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 		BlockPos startCenter = new BlockPos(player).down();
 
-		if(startCenter.getY() < world.getSeaLevel()) // Not below sea level
+		if (startCenter.getY() < world.getSeaLevel()) // Not below sea level
+		{
 			return;
+		}
 
 		List<CoordsWithBlock> blocks = new ArrayList<>();
 
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos);
-			if(state.isAir(world, pos))
+			if (state.isAir(world, pos)) {
 				continue;
+			}
 
-			if(ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
+			if (ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
-				for(Direction dir : MathHelper.HORIZONTALS) {
+				for (Direction dir : MathHelper.HORIZONTALS) {
 					BlockPos pos_ = pos.offset(dir);
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
-					if(state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
+					if (state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
 							|| block_ instanceof FlowerBlock && !block_.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| block_ instanceof DoublePlantBlock) {
 						airBlocks.add(pos_);
 					}
 				}
 
-				if(!airBlocks.isEmpty()) {
-					if(pos.getY() > startCenter.getY())
+				if (!airBlocks.isEmpty()) {
+					if (pos.getY() > startCenter.getY()) {
 						blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
-					else for(BlockPos coords : airBlocks) {
-						if(!world.isAirBlock(coords.down()))
-							blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
+					} else {
+						for (BlockPos coords : airBlocks) {
+							if (!world.isAirBlock(coords.down())) {
+								blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
+							}
+						}
 					}
 				}
 			}
@@ -127,17 +135,21 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 		int cost = COST_PER * blocks.size();
 
-		if(world.isRemote || ManaItemHandler.requestManaExactForTool(stack, player, cost, true)) {
-			if(!world.isRemote)
-				for(CoordsWithBlock block : blocks)
+		if (world.isRemote || ManaItemHandler.requestManaExactForTool(stack, player, cost, true)) {
+			if (!world.isRemote) {
+				for (CoordsWithBlock block : blocks) {
 					world.setBlockState(block, block.block.getDefaultState());
+				}
+			}
 
-			if(!blocks.isEmpty()) {
-				for(int i = 0; i < 10; i++)
+			if (!blocks.isEmpty()) {
+				for (int i = 0; i < 10; i++) {
 					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
+				}
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
-				for(int i = 0; i < 120; i++)
-                    world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);
+				for (int i = 0; i < 120; i++) {
+					world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);
+				}
 			}
 		}
 	}
@@ -160,15 +172,17 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if(block == Blocks.DIRT)
+		if (block == Blocks.DIRT) {
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
+		}
 		return false;
 	}
 
 	@Override
 	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
-		if(block == Blocks.DIRT)
+		if (block == Blocks.DIRT) {
 			return -1;
+		}
 		return 0;
 	}
 }

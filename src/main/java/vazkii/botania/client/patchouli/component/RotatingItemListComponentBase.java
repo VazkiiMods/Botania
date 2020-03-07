@@ -1,19 +1,18 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 20 2019, 2:59 PM (GMT)]
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.crafting.Ingredient;
+
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -46,11 +45,11 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 
 		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get()
 				? Screen.hasShiftDown()
-				? ticksElapsed
-				: ticksElapsed + pticks
+						? ticksElapsed
+						: ticksElapsed + pticks
 				: 0;
 
-		for(Ingredient input : ingredients) {
+		for (Ingredient input : ingredients) {
 			renderIngredientAtAngle(context, currentDegree, input, mouseX, mouseY);
 
 			currentDegree += degreePerInput;
@@ -58,8 +57,9 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 	}
 
 	private void renderIngredientAtAngle(IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
-		if(ingredient.hasNoMatchingItems())
+		if (ingredient.hasNoMatchingItems()) {
 			return;
+		}
 
 		angle -= 90;
 		int radius = 32;

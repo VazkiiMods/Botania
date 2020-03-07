@@ -1,17 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 12, 2014, 4:07:26 PM (GMT)]
  */
 package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -19,9 +18,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
@@ -72,7 +71,7 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 	@Override
 	public void render(@Nonnull EntityDoppleganger dopple, float yaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
 		int invulTime = dopple.getInvulTime();
-		if(invulTime > 0) {
+		if (invulTime > 0) {
 			grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;
 			disfiguration = grainIntensity * 0.3F;
 		} else {
@@ -88,8 +87,9 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 	public ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
 		Minecraft mc = Minecraft.getInstance();
 
-		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayerEntity))
+		if (!(mc.getRenderViewEntity() instanceof AbstractClientPlayerEntity)) {
 			return DefaultPlayerSkin.getDefaultSkin(entity.getUniqueID());
+		}
 
 		return ((AbstractClientPlayerEntity) mc.getRenderViewEntity()).getLocationSkin();
 	}

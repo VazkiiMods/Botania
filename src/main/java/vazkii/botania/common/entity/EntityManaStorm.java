@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 25, 2015, 12:35:51 AM (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -19,6 +17,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -26,8 +25,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":mana_storm")
-	public static EntityType<EntityManaStorm> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":mana_storm") public static EntityType<EntityManaStorm> TYPE;
 
 	private static final String TAG_TIME = "time";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
@@ -57,15 +55,16 @@ public class EntityManaStorm extends Entity {
 		liveTime++;
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
-		if(burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if(!world.isRemote)
+		if (burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
+			if (!world.isRemote) {
 				spawnBurst();
+			}
 			burstsFired++;
 		}
 
-		if(burstsFired >= TOTAL_BURSTS) {
+		if (burstsFired >= TOTAL_BURSTS) {
 			deathTime++;
-			if(deathTime >= DEATH_TIME) {
+			if (deathTime >= DEATH_TIME) {
 				remove();
 				world.createExplosion(this, getX(), getY(), getZ(), 8F, true, Explosion.Mode.DESTROY);
 			}

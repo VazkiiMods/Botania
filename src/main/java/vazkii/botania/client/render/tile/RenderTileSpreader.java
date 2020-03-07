@@ -1,20 +1,18 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 25, 2014, 9:42:31 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -24,17 +22,16 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
@@ -58,7 +55,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		double time = ClientTickHandler.ticksInGame + partialTicks;
 
 		float r = 1, g = 1, b = 1;
-		if(spreader.getVariant() == BlockSpreader.Variant.GAIA) {
+		if (spreader.getVariant() == BlockSpreader.Variant.GAIA) {
 			int color = MathHelper.hsvToRGB((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			r = (color >> 16 & 0xFF) / 255F;
 			g = (color >> 8 & 0xFF) / 255F;
@@ -85,7 +82,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		ms.translate(0.5, 1.5, 0.5);
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
-		if(!stack.isEmpty()) {
+		if (!stack.isEmpty()) {
 			ms.push();
 			ms.translate(0.0F, -1F, -0.4675F);
 			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
@@ -95,7 +92,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			ms.pop();
 		}
 
-		if(spreader.paddingColor != null) {
+		if (spreader.paddingColor != null) {
 			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).get().getDefaultState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(carpet);
 			buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(carpet));
@@ -119,7 +116,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			// right
 			ms.push();
 			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90));
-			ms.translate(-1.5F, 0.5F , -0.5F - f);
+			ms.translate(-1.5F, 0.5F, -0.5F - f);
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, carpet, model, 1, 1, 1, light, overlay);
 			ms.pop();
 
@@ -142,10 +139,15 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 
 	private IBakedModel getInsideModel(TileSpreader tile) {
 		switch (tile.getVariant()) {
-			case GAIA: return MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
-			case REDSTONE: return MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
-			case ELVEN: return MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
-			default: case MANA: return MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+		case GAIA:
+			return MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
+		case REDSTONE:
+			return MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
+		case ELVEN:
+			return MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
+		default:
+		case MANA:
+			return MiscellaneousIcons.INSTANCE.manaSpreaderInside;
 		}
 	}
 }

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 29, 2015, 11:30:41 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
@@ -15,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -33,12 +32,12 @@ public interface IWireframeCoordinateListProvider {
 	/**
 	 * Gets a wireframe to draw thicker than the rest.
 	 * This is useful to indicate the precedence of some position over the others.
+	 * 
 	 * @return The position of a single wireframe to draw thicker than all the others.
 	 */
 	@Nullable
 	default BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
 		return null;
 	}
-
 
 }

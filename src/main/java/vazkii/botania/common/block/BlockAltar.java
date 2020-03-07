@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 21, 2014, 7:48:54 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -29,15 +27,13 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -85,10 +81,11 @@ public class BlockAltar extends BlockMod {
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if(!world.isRemote && entity instanceof ItemEntity) {
+		if (!world.isRemote && entity instanceof ItemEntity) {
 			TileAltar tile = (TileAltar) world.getTileEntity(pos);
-			if(tile.collideEntityItem((ItemEntity) entity))
+			if (tile.collideEntityItem((ItemEntity) entity)) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+			}
 		}
 	}
 
@@ -106,21 +103,21 @@ public class BlockAltar extends BlockMod {
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
-		if(player.isSneaking()) {
+		if (player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 			return ActionResultType.SUCCESS;
-		} else if(tile.isEmpty() && tile.getFluid() == Fluids.WATER && stack.isEmpty()) {
+		} else if (tile.isEmpty() && tile.getFluid() == Fluids.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
 			return ActionResultType.SUCCESS;
-		}
-		else {
-			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
-				if(tile.getFluid() == Fluids.EMPTY) {
-					if(stack.getItem() == ModItems.waterRod)
+		} else {
+			if (!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+				if (tile.getFluid() == Fluids.EMPTY) {
+					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
-					else if(!player.abilities.isCreativeMode)
+					} else if (!player.abilities.isCreativeMode) {
 						player.setHeldItem(hand, drain(Fluids.WATER, stack));
+					}
 
 					tile.setFluid(Fluids.WATER);
 					world.updateComparatorOutputLevel(pos, this);
@@ -128,20 +125,21 @@ public class BlockAltar extends BlockMod {
 				}
 
 				return ActionResultType.SUCCESS;
-			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
-				if(!player.abilities.isCreativeMode)
+			} else if (!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
+				if (!player.abilities.isCreativeMode) {
 					player.setHeldItem(hand, drain(Fluids.LAVA, stack));
+				}
 
 				tile.setFluid(Fluids.LAVA);
 				world.updateComparatorOutputLevel(pos, this);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return ActionResultType.SUCCESS;
-			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && tile.getFluid() != Fluids.EMPTY && !Botania.gardenOfGlassLoaded) {
+			} else if (!stack.isEmpty() && stack.getItem() == Items.BUCKET && tile.getFluid() != Fluids.EMPTY && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = new ItemStack(tile.getFluid().getFilledBucket());
-				if(stack.getCount() == 1)
+				if (stack.getCount() == 1) {
 					player.setHeldItem(hand, bucket);
-				else {
+				} else {
 					ItemHandlerHelper.giveItemToPlayer(player, bucket);
 					stack.shrink(1);
 				}
@@ -159,20 +157,22 @@ public class BlockAltar extends BlockMod {
 
 	@Override
 	public void fillWithRain(World world, BlockPos pos) {
-		if(world.rand.nextInt(20) == 1) {
+		if (world.rand.nextInt(20) == 1) {
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile instanceof TileAltar) {
+			if (tile instanceof TileAltar) {
 				TileAltar altar = (TileAltar) tile;
-				if(altar.getFluid() == Fluids.EMPTY)
+				if (altar.getFluid() == Fluids.EMPTY) {
 					altar.setFluid(Fluids.WATER);
+				}
 				world.updateComparatorOutputLevel(pos, this);
 			}
 		}
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
-		if(stack.isEmpty() || stack.getCount() != 1)
+		if (stack.isEmpty() || stack.getCount() != 1) {
 			return false;
+		}
 
 		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
 			FluidStack simulate = handler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);

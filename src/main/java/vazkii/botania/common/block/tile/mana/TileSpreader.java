@@ -1,21 +1,18 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 25, 2014, 9:40:57 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -41,7 +38,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
@@ -58,7 +55,6 @@ import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -72,12 +68,12 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.List;
 import java.util.UUID;
 
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPREADER)
-	public static TileEntityType<TileSpreader> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPREADER) public static TileEntityType<TileSpreader> TYPE;
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -132,8 +128,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private int knownMana = -1;
 	public float rotationX, rotationY;
 
-	@Nullable
-	public DyeColor paddingColor = null;
+	@Nullable public DyeColor paddingColor = null;
 
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;
@@ -185,22 +180,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void tick() {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(this);
 		boolean wasInNetwork = inNetwork;
-		if(!inNetwork && !isRemoved()) {
+		if (!inNetwork && !isRemoved()) {
 			ManaNetworkEvent.addCollector(this);
 		}
 
 		boolean redstone = false;
 
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			TileEntity tileAt = world.getTileEntity(pos.offset(dir));
-			if(world.isBlockLoaded(pos.offset(dir)) && tileAt instanceof IManaPool) {
+			if (world.isBlockLoaded(pos.offset(dir)) && tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
-				if(wasInNetwork && (pool != receiver || getVariant() == BlockSpreader.Variant.REDSTONE)) {
-					if(pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey()))
+				if (wasInNetwork && (pool != receiver || getVariant() == BlockSpreader.Variant.REDSTONE)) {
+					if (pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey())) {
 						continue;
+					}
 
 					int manaInPool = pool.getCurrentMana();
-					if(manaInPool > 0 && !isFull()) {
+					if (manaInPool > 0 && !isFull()) {
 						int manaMissing = getMaxMana() - mana;
 						int manaToRemove = Math.min(manaInPool, manaMissing);
 						pool.recieveMana(-manaToRemove);
@@ -210,15 +206,17 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			}
 
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
-			if(redstoneSide > 0)
+			if (redstoneSide > 0) {
 				redstone = true;
+			}
 		}
 
-		if(needsNewBurstSimulation())
+		if (needsNewBurstSimulation()) {
 			checkForReceiver();
+		}
 
-		if(!canShootBurst)
-			if(pingbackTicks <= 0) {
+		if (!canShootBurst) {
+			if (pingbackTicks <= 0) {
 				double x = lastPingbackX;
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
@@ -226,41 +224,53 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				List bursts = world.getEntitiesWithinAABB(ThrowableEntity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
-				for(IManaBurst burst : (List<IManaBurst>) bursts)
-					if(burst != null && identity.equals(burst.getShooterUUID())) {
+				for (IManaBurst burst : (List<IManaBurst>) bursts) {
+					if (burst != null && identity.equals(burst.getShooterUUID())) {
 						found = burst;
 						break;
 					}
+				}
 
-				if(found != null)
+				if (found != null) {
 					found.ping();
-				else setCanShoot(true);
-			} else pingbackTicks--;
+				} else {
+					setCanShoot(true);
+				}
+			} else {
+				pingbackTicks--;
+			}
+		}
 
 		boolean shouldShoot = !redstone;
 
 		boolean isredstone = getVariant() == BlockSpreader.Variant.REDSTONE;
-		if(isredstone)
+		if (isredstone) {
 			shouldShoot = redstone && !redstoneLastTick;
+		}
 
-		if(shouldShoot && receiver != null && receiver instanceof IKeyLocked)
+		if (shouldShoot && receiver != null && receiver instanceof IKeyLocked) {
 			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
+		}
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		ILensControl control = getLensController(lens);
-		if(control != null) {
-			if(isredstone) {
-				if(shouldShoot)
+		if (control != null) {
+			if (isredstone) {
+				if (shouldShoot) {
 					control.onControlledSpreaderPulse(lens, this, redstone);
-			} else control.onControlledSpreaderTick(lens, this, redstone);
+				}
+			} else {
+				control.onControlledSpreaderTick(lens, this, redstone);
+			}
 
 			shouldShoot &= control.allowBurstShooting(lens, this, redstone);
 		}
 
-		if(shouldShoot)
+		if (shouldShoot) {
 			tryShootBurst();
+		}
 
-		if(receiverLastTick != receiver && !world.isRemote) {
+		if (receiverLastTick != receiver && !world.isRemote) {
 			requestsClientUpdate = true;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
@@ -312,23 +322,28 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
-		if(cmp.getBoolean(TAG_HAS_IDENTITY)) {
+		if (cmp.getBoolean(TAG_HAS_IDENTITY)) {
 			long most = cmp.getLong(TAG_UUID_MOST);
 			long least = cmp.getLong(TAG_UUID_LEAST);
 			UUID identity = getIdentifierUnsafe();
-			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
+			if (identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits()) {
 				this.identity = new UUID(most, least);
-		} else getIdentifier();
+			}
+		} else {
+			getIdentifier();
+		}
 
 		mana = cmp.getInt(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
 		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
 
-		if(cmp.contains(TAG_INPUT_KEY))
+		if (cmp.contains(TAG_INPUT_KEY)) {
 			inputKey = cmp.getString(TAG_INPUT_KEY);
-		if(cmp.contains(TAG_OUTPUT_KEY))
+		}
+		if (cmp.contains(TAG_OUTPUT_KEY)) {
 			inputKey = cmp.getString(TAG_OUTPUT_KEY);
+		}
 
 		mapmakerOverride = cmp.getBoolean(TAG_MAPMAKER_OVERRIDE);
 		mmForcedColor = cmp.getInt(TAG_FORCED_COLOR);
@@ -338,32 +353,40 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		mmForcedGravity = cmp.getFloat(TAG_FORCED_GRAVITY);
 		mmForcedVelocityMultiplier = cmp.getFloat(TAG_FORCED_VELOCITY_MULTIPLIER);
 
-		if(cmp.contains(TAG_KNOWN_MANA))
+		if (cmp.contains(TAG_KNOWN_MANA)) {
 			knownMana = cmp.getInt(TAG_KNOWN_MANA);
-		if(cmp.contains(TAG_PADDING_COLOR))
+		}
+		if (cmp.contains(TAG_PADDING_COLOR)) {
 			paddingColor = cmp.getInt(TAG_PADDING_COLOR) == -1 ? null : DyeColor.byId(cmp.getInt(TAG_PADDING_COLOR));
-		if(cmp.contains(TAG_CAN_SHOOT_BURST))
+		}
+		if (cmp.contains(TAG_CAN_SHOOT_BURST)) {
 			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
+		}
 
 		pingbackTicks = cmp.getInt(TAG_PINGBACK_TICKS);
 		lastPingbackX = cmp.getDouble(TAG_LAST_PINGBACK_X);
 		lastPingbackY = cmp.getDouble(TAG_LAST_PINGBACK_Y);
 		lastPingbackZ = cmp.getDouble(TAG_LAST_PINGBACK_Z);
 
-		if(requestsClientUpdate && world != null) {
+		if (requestsClientUpdate && world != null) {
 			int x = cmp.getInt(TAG_FORCE_CLIENT_BINDING_X);
 			int y = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Y);
 			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
-			if(y != -1) {
+			if (y != -1) {
 				TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-				if(tile instanceof IManaReceiver)
+				if (tile instanceof IManaReceiver) {
 					receiver = (IManaReceiver) tile;
-				else receiver = null;
-			} else receiver = null;
+				} else {
+					receiver = null;
+				}
+			} else {
+				receiver = null;
+			}
 		}
 
-		if(world != null && world.isRemote)
+		if (world != null && world.isRemote) {
 			hasReceivedInitialPacket = true;
+		}
 	}
 
 	@Override
@@ -377,34 +400,37 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null)
+		if (player == null) {
 			return;
+		}
 
-		if(!player.isSneaking()) {
-			if(!world.isRemote) {
+		if (!player.isSneaking()) {
+			if (!world.isRemote) {
 				CompoundNBT nbttagcompound = new CompoundNBT();
 				writePacketNBT(nbttagcompound);
 				nbttagcompound.putInt(TAG_KNOWN_MANA, mana);
-				if(player instanceof ServerPlayerEntity)
+				if (player instanceof ServerPlayerEntity) {
 					((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
+				}
 			}
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
 			RayTraceResult pos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
-			if(pos instanceof BlockRayTraceResult && !world.isRemote) {
+			if (pos instanceof BlockRayTraceResult && !world.isRemote) {
 				double x = pos.getHitVec().x - getPos().getX() - 0.5;
 				double y = pos.getHitVec().y - getPos().getY() - 0.5;
 				double z = pos.getHitVec().z - getPos().getZ() - 0.5;
 
 				BlockRayTraceResult bpos = (BlockRayTraceResult) pos;
-				if(bpos.getFace() != Direction.DOWN && bpos.getFace() != Direction.UP) {
+				if (bpos.getFace() != Direction.DOWN && bpos.getFace() != Direction.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);
 					Vector3 relative = new Vector3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
 
 					rotationX = (float) angle + 180F;
-					if(clickVector.z < 0)
+					if (clickVector.z < 0) {
 						rotationX = 360 - rotationX;
+					}
 				}
 
 				double angle = y * 180;
@@ -418,34 +444,38 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	private boolean needsNewBurstSimulation() {
-		if(world.isRemote && !hasReceivedInitialPacket)
+		if (world.isRemote && !hasReceivedInitialPacket) {
 			return false;
+		}
 
-		if(lastTentativeBurst == null)
+		if (lastTentativeBurst == null) {
 			return true;
+		}
 
-		for(PositionProperties props : lastTentativeBurst)
-			if(!props.contentsEqual(world)) {
+		for (PositionProperties props : lastTentativeBurst) {
+			if (!props.contentsEqual(world)) {
 				invalidTentativeBurst = props.invalid;
 				return !invalidTentativeBurst;
 			}
+		}
 
 		return false;
 	}
 
 	private void tryShootBurst() {
 		boolean redstone = getVariant() == BlockSpreader.Variant.REDSTONE;
-		if((receiver != null || redstone) && !invalidTentativeBurst) {
-			if(canShootBurst && (redstone || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
+		if ((receiver != null || redstone) && !invalidTentativeBurst) {
+			if (canShootBurst && (redstone || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
-				if(burst != null) {
-					if(!world.isRemote) {
+				if (burst != null) {
+					if (!world.isRemote) {
 						mana -= burst.getStartingMana();
 						burst.setShooterUUID(getIdentifier());
 						world.addEntity(burst);
 						burst.ping();
-						if(!ConfigHandler.COMMON.silentSpreaders.get())
+						if (!ConfigHandler.COMMON.silentSpreaders.get()) {
 							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+						}
 					}
 				}
 			}
@@ -464,18 +494,21 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void checkForReceiver() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		ILensControl control = getLensController(stack);
-		if(control != null && !control.allowBurstShooting(stack, this, false))
+		if (control != null && !control.allowBurstShooting(stack, this, false)) {
 			return;
+		}
 
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
 
-		if(receiver instanceof IManaReceiver
+		if (receiver instanceof IManaReceiver
 				&& receiver.hasWorld()
-				&& receiver.getWorld().isBlockLoaded(receiver.getPos()))
+				&& receiver.getWorld().isBlockLoaded(receiver.getPos())) {
 			this.receiver = (IManaReceiver) receiver;
-		else this.receiver = null;
+		} else {
+			this.receiver = null;
+		}
 		lastTentativeBurst = fakeBurst.propsList;
 	}
 
@@ -493,14 +526,15 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		if(!lens.isEmpty() && lens.getItem() instanceof ILensEffect)
+		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect) {
 			((ILensEffect) lens.getItem()).apply(lens, props);
+		}
 
-		if(getCurrentMana() >= props.maxMana || fake) {
+		if (getCurrentMana() >= props.maxMana || fake) {
 			EntityManaBurst burst = new EntityManaBurst(this, fake);
 			burst.setSourceLens(lens);
 
-			if(mapmakerOverride) {
+			if (mapmakerOverride) {
 				burst.setColor(mmForcedColor);
 				burst.setMana(mmForcedManaPayload);
 				burst.setStartingMana(mmForcedManaPayload);
@@ -524,10 +558,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public ILensControl getLensController(ItemStack stack) {
-		if(!stack.isEmpty() && stack.getItem() instanceof ILensControl) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ILensControl) {
 			ILensControl control = (ILensControl) stack.getItem();
-			if(control.isControlLens(stack))
+			if (control.isControlLens(stack)) {
 				return control;
+			}
 		}
 
 		return null;
@@ -540,7 +575,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		if(!lens.isEmpty()) {
+		if (!lens.isEmpty()) {
 			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = mc.getWindow().getScaledWidth() / 2 - width;
@@ -551,10 +586,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			RenderSystem.disableLighting();
 		}
 
-		if(receiver != null) {
+		if (receiver != null) {
 			TileEntity receiverTile = (TileEntity) receiver;
 			ItemStack recieverStack = new ItemStack(world.getBlockState(receiverTile.getPos()).getBlock());
-			if(!recieverStack.isEmpty()) {
+			if (!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName().getString();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 				int x = mc.getWindow().getScaledWidth() / 2 - width;
@@ -572,7 +607,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void onClientDisplayTick() {
-		if(world != null) {
+		if (world != null) {
 			EntityManaBurst burst = getBurst(true);
 			burst.getCollidedTile(false);
 		}
@@ -599,9 +634,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if(!stack.isEmpty() && stack.getItem() instanceof ILens)
+				if (!stack.isEmpty() && stack.getItem() instanceof ILens) {
 					return super.insertItem(slot, stack, simulate);
-				else return stack;
+				} else {
+					return stack;
+				}
 			}
 		};
 	}
@@ -614,8 +651,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public BlockPos getBinding() {
-		if(receiver == null)
+		if (receiver == null) {
 			return null;
+		}
 
 		TileEntity tile = (TileEntity) receiver;
 		return tile.getPos();
@@ -649,23 +687,26 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		VoxelShape shape = player.world.getBlockState(pos).getShape(player.world, pos);
 		AxisAlignedBB axis = shape.isEmpty() ? new AxisAlignedBB(pos) : shape.getBoundingBox().offset(pos);
 
-		if(!blockVec.isInside(axis))
+		if (!blockVec.isInside(axis)) {
 			blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+		}
 
-		Vector3 diffVec =  blockVec.subtract(thisVec);
+		Vector3 diffVec = blockVec.subtract(thisVec);
 		Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
 		Vector3 rotVec = new Vector3(0, 1, 0);
 		double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
 
-		if(blockVec.x < thisVec.x)
+		if (blockVec.x < thisVec.x) {
 			angle = -angle;
+		}
 
 		rotationX = (float) angle + 90;
 
 		rotVec = new Vector3(diffVec.x, 0, diffVec.z);
 		angle = diffVec.angle(rotVec) * 180F / Math.PI;
-		if(blockVec.y < thisVec.y)
+		if (blockVec.y < thisVec.y) {
 			angle = -angle;
+		}
 		rotationY = (float) angle;
 
 		checkForReceiver();
@@ -697,8 +738,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void rotate(Rotation rotationIn) {
-		switch (rotationIn)
-		{
+		switch (rotationIn) {
 		case CLOCKWISE_90:
 			rotationX += 270F;
 			break;
@@ -708,28 +748,31 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		case COUNTERCLOCKWISE_90:
 			rotationX += 90F;
 			break;
-		default: break;
+		default:
+			break;
 		}
 
-		if(rotationX >= 360F)
+		if (rotationX >= 360F) {
 			rotationX -= 360F;
+		}
 	}
 
 	@Override
 	public void mirror(Mirror mirrorIn) {
-		switch (mirrorIn)
-		{
+		switch (mirrorIn) {
 		case LEFT_RIGHT:
 			rotationX = 360F - rotationX;
 			break;
 		case FRONT_BACK:
 			rotationX = 180F - rotationX;
 			break;
-		default: break;
+		default:
+			break;
 		}
 
-		if(rotationX < 0F)
+		if (rotationX < 0F) {
 			rotationX += 360F;
+		}
 	}
 
 	@Override
@@ -764,7 +807,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void pingback(IManaBurst burst, UUID expectedIdentity) {
-		if(getIdentifier().equals(expectedIdentity)) {
+		if (getIdentifier().equals(expectedIdentity)) {
 			pingbackTicks = TICKS_ALLOWED_WITHOUT_PINGBACK;
 			Entity e = (Entity) burst;
 			lastPingbackX = e.getX();
@@ -776,8 +819,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public UUID getIdentifier() {
-		if(identity == null)
+		if (identity == null) {
 			identity = UUID.randomUUID();
+		}
 		return identity;
 	}
 

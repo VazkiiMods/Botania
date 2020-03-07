@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 18, 2014, 8:05:08 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -26,6 +24,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -37,8 +36,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity, INameable {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO)
-	public static TileEntityType<TileTinyPotato> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO) public static TileEntityType<TileTinyPotato> TYPE;
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
@@ -52,17 +50,17 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 
 	public void interact(PlayerEntity player, Hand hand, ItemStack stack, Direction side) {
 		int index = side.getIndex();
-		if(index >= 0) {
+		if (index >= 0) {
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
-			if(!stackAt.isEmpty() && stack.isEmpty()) {
+			if (!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
 				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
-			} else if(!stack.isEmpty()) {
+			} else if (!stack.isEmpty()) {
 				ItemStack copy = stack.split(1);
 
-				if(stack.isEmpty())
+				if (stack.isEmpty()) {
 					player.setHeldItem(hand, stackAt);
-				else if(!stackAt.isEmpty()) {
+				} else if (!stackAt.isEmpty()) {
 					ItemHandlerHelper.giveItemToPlayer(player, stackAt);
 				}
 
@@ -70,17 +68,17 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 			}
 		}
 
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			jump();
 
-			if(name.getString().toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
+			if (name.getString().toLowerCase().trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
-			for(int i = 0; i < getSizeInventory(); i++) {
+			for (int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
-				if(!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
+				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
 					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."));
 					return;
 				}
@@ -91,13 +89,14 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	}
 
 	private void jump() {
-		if(jumpTicks == 0)
+		if (jumpTicks == 0) {
 			world.addBlockEvent(getPos(), getBlockState().getBlock(), JUMP_EVENT, 20);
+		}
 	}
 
 	@Override
 	public boolean receiveClientEvent(int id, int param) {
-		if(id == JUMP_EVENT) {
+		if (id == JUMP_EVENT) {
 			jumpTicks = param;
 			return true;
 		} else {
@@ -107,14 +106,17 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 
 	@Override
 	public void tick() {
-		if(jumpTicks > 0)
+		if (jumpTicks > 0) {
 			jumpTicks--;
+		}
 
-		if(!world.isRemote) {
-			if(world.rand.nextInt(100) == 0)
+		if (!world.isRemote) {
+			if (world.rand.nextInt(100) == 0) {
 				jump();
-			if(nextDoIt > 0)
+			}
+			if (nextDoIt > 0) {
 				nextDoIt--;
+			}
 		}
 	}
 

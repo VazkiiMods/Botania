@@ -1,18 +1,17 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 24, 2014, 7:02:37 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -39,6 +38,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
@@ -47,7 +47,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,12 +62,14 @@ public final class BoundTileRenderer {
 		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.getExpectedBufferSize()));
 		return ret;
 	}), Tessellator.getInstance().getBuffer());
+
 	private BoundTileRenderer() {}
 
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
-		if (!ConfigHandler.CLIENT.boundBlockWireframe.get())
+		if (!ConfigHandler.CLIENT.boundBlockWireframe.get()) {
 			return;
+		}
 
 		MatrixStack ms = event.getMatrixStack();
 		ms.push();
@@ -76,16 +77,18 @@ public final class BoundTileRenderer {
 		PlayerEntity player = Minecraft.getInstance().player;
 		int color = 0xFF000000 | MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
-		if(!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
+		if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
 			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
-			if(coords != null)
+			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+			}
 		}
 
-		if(!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
+		if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
 			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
-			if(coords != null)
+			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+			}
 		}
 
 		LazyOptional<IItemHandler> mainInvCap = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
@@ -99,12 +102,14 @@ public final class BoundTileRenderer {
 				if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 					IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
 					List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
-					for (BlockPos coords : coordsList)
+					for (BlockPos coords : coordsList) {
 						renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+					}
 
 					BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
-					if (coords != null && coords.getY() > -1)
+					if (coords != null && coords.getY() > -1) {
 						renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color, true);
+					}
 				}
 			}
 		});
@@ -131,9 +136,9 @@ public final class BoundTileRenderer {
 		Block block = state.getBlock();
 		List<AxisAlignedBB> list;
 
-		if(block instanceof IWireframeAABBProvider)
+		if (block instanceof IWireframeAABBProvider) {
 			list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
-		else{
+		} else {
 			VoxelShape shape = state.getShape(world, pos);
 			list = shape.toBoundingBoxList().stream().map(b -> b.offset(pos)).collect(Collectors.toList());
 		}

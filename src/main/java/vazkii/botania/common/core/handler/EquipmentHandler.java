@@ -1,14 +1,11 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 30 2019, 16:45:42 (GMT)]
  */
-
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +21,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.RangedWrapper;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.curios.CurioIntegration;
@@ -38,7 +36,7 @@ public abstract class EquipmentHandler {
 	public static EquipmentHandler instance;
 
 	public static void init() {
-		if(Botania.curiosLoaded) {
+		if (Botania.curiosLoaded) {
 			instance = new CurioIntegration();
 			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
 			MinecraftForge.EVENT_BUS.register(CurioIntegration.class);
@@ -62,8 +60,10 @@ public abstract class EquipmentHandler {
 	}
 
 	public static ICapabilityProvider initBaubleCap(ItemStack stack) {
-		if(instance != null) // Happens to be called in ModItems class init, which is too early to know about which handler to use
+		if (instance != null) // Happens to be called in ModItems class init, which is too early to know about which handler to use
+		{
 			return instance.initCap(stack);
+		}
 		return null;
 	}
 
@@ -84,8 +84,9 @@ public abstract class EquipmentHandler {
 		private final Map<PlayerEntity, ItemStack[]> map = new WeakHashMap<>();
 
 		public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-			if(event.phase != TickEvent.Phase.START || event.player.world.isRemote)
+			if (event.phase != TickEvent.Phase.START || event.player.world.isRemote) {
 				return;
+			}
 			PlayerEntity player = event.player;
 			player.world.getProfiler().startSection("botania:tick_wearables");
 
@@ -96,16 +97,16 @@ public abstract class EquipmentHandler {
 			});
 
 			PlayerInventory inv = player.inventory;
-			for(int i = 0; i < 9; i++) {
+			for (int i = 0; i < 9; i++) {
 				ItemStack old = oldStacks[i];
 				ItemStack current = inv.getStackInSlot(i);
 
-				if(!ItemStack.areItemStacksEqual(old, current)) {
-					if(old.getItem() instanceof ItemBauble) {
+				if (!ItemStack.areItemStacksEqual(old, current)) {
+					if (old.getItem() instanceof ItemBauble) {
 						player.getAttributes().removeAttributeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
-					if(canEquip(current, player)) {
+					if (canEquip(current, player)) {
 						player.getAttributes().applyAttributeModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
@@ -113,17 +114,16 @@ public abstract class EquipmentHandler {
 					// making it empty and failing the equality check - let's avoid that
 				}
 
-				if(canEquip(current, player)) {
+				if (canEquip(current, player)) {
 					((ItemBauble) current.getItem()).onWornTick(current, player);
 				}
 			}
 			player.world.getProfiler().endSection();
 		}
 
-
 		@Override
 		protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
-			if(living instanceof PlayerEntity) {
+			if (living instanceof PlayerEntity) {
 				return LazyOptional.of(() -> new RangedWrapper(new InvWrapper(((PlayerEntity) living).inventory), 0, 9));
 			}
 			return LazyOptional.empty();
@@ -131,11 +131,11 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected ItemStack findItem(Item item, LivingEntity living) {
-			if(living instanceof PlayerEntity) {
+			if (living instanceof PlayerEntity) {
 				PlayerInventory inv = ((PlayerEntity) living).inventory;
-				for(int i = 0; i < 9; i++) {
+				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getStackInSlot(i);
-					if(stack.getItem() == item && canEquip(stack, living)) {
+					if (stack.getItem() == item && canEquip(stack, living)) {
 						return stack;
 					}
 				}
@@ -145,11 +145,11 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
-			if(living instanceof PlayerEntity) {
+			if (living instanceof PlayerEntity) {
 				PlayerInventory inv = ((PlayerEntity) living).inventory;
-				for(int i = 0; i < 9; i++) {
+				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getStackInSlot(i);
-					if(pred.test(stack) && canEquip(stack, living)) {
+					if (pred.test(stack) && canEquip(stack, living)) {
 						return stack;
 					}
 				}

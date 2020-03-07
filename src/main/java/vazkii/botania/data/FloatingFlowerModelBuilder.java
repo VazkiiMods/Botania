@@ -1,10 +1,20 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.data;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
+
 import vazkii.botania.client.model.FloatingFlowerModel;
 
 public class FloatingFlowerModelBuilder extends ModelBuilder<FloatingFlowerModelBuilder> {

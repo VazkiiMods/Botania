@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 25, 2015, 7:11:35 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -16,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.registries.IRegistryDelegate;
+
 import vazkii.botania.common.item.ModItems;
 
 import java.util.LinkedHashMap;

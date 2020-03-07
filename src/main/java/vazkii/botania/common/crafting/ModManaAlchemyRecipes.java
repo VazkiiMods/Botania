@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 2, 2014, 7:50:07 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
 
@@ -19,6 +17,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.Botania;
@@ -28,6 +27,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
+
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -100,7 +100,7 @@ public final class ModManaAlchemyRecipes {
 
 		cycle(evt.manaInfusion(), 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES);
 
-		if(Botania.gardenOfGlassLoaded) {
+		if (Botania.gardenOfGlassLoaded) {
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("prismarine_shard_gog"), new ItemStack(Items.PRISMARINE_SHARD), Ingredient.fromItems(Items.QUARTZ), 1000));
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("prismarine_crystals_gog"), new ItemStack(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.PRISMARINE_SHARD), 500));
 			evt.manaInfusion().accept(RecipeManaInfusion.alchemy(prefix("heart_of_the_sea"), new ItemStack(Items.HEART_OF_THE_SEA), Ingredient.fromItems(Items.NAUTILUS_SHELL), 20000));
@@ -117,14 +117,14 @@ public final class ModManaAlchemyRecipes {
 	}
 
 	private static void cycle(Consumer<RecipeManaInfusion> consumer, int cost, @Nullable String group, IItemProvider... items) {
-		for(int i = 0; i < items.length; i++) {
+		for (int i = 0; i < items.length; i++) {
 			Ingredient in = Ingredient.fromItems(items[i]);
 			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
 			String id = String.format("%s_to_%s", items[i].asItem().getRegistryName().getPath(), out.getItem().getRegistryName().getPath());
 			consumer.accept(RecipeManaInfusion.alchemy(new ResourceLocation(LibMisc.MOD_ID, id), out, in, cost, group));
 		}
 	}
-	
+
 	private static RecipeManaInfusion mini(IItemProvider mini, IItemProvider full) {
 		return RecipeManaInfusion.alchemy(mini.asItem().getRegistryName(), new ItemStack(mini), Ingredient.fromItems(full), 2500);
 	}

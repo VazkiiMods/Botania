@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 2, 2014, 2:10:14 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -26,6 +24,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
@@ -53,23 +52,24 @@ public class BlockRuneAltar extends BlockMod implements IWandable {
 
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		if(world.isRemote)
+		if (world.isRemote) {
 			return ActionResultType.SUCCESS;
+		}
 
 		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
 
-		if(player.isSneaking()) {
-			if(altar.manaToGet == 0) {
+		if (player.isSneaking()) {
+			if (altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 				return ActionResultType.SUCCESS;
 			}
-		} else if(altar.isEmpty() && stack.isEmpty()) {
+		} else if (altar.isEmpty() && stack.isEmpty()) {
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			return ActionResultType.SUCCESS;
-		} else if(!stack.isEmpty()) {
+		} else if (!stack.isEmpty()) {
 			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			return result ? ActionResultType.SUCCESS : ActionResultType.PASS;
@@ -114,6 +114,5 @@ public class BlockRuneAltar extends BlockMod implements IWandable {
 		((TileRuneAltar) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
-
 
 }

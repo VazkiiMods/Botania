@@ -1,18 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 28, 2015, 5:16:17 PM (GMT)]
  */
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.Model;
@@ -29,20 +27,20 @@ public class ModelBellows extends Model {
 		super(RenderType::getEntityCutout);
 		textureWidth = 64;
 		textureHeight = 32;
-		
+
 		top = new ModelRenderer(this, 0, 0);
-        top.setRotationPoint(0.0F, 16.0F, 0.0F);
-        top.addCuboid(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
-        base = new ModelRenderer(this, 0, 9);
-        base.setRotationPoint(0.0F, 16.0F, 0.0F);
-        base.addCuboid(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
-        pipe = new ModelRenderer(this, 0, 21);
-        pipe.setRotationPoint(0.0F, 16.0F, 0.0F);
-        pipe.addCuboid(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
-		
-        funnel = new ModelRenderer(this, 40, 0);
-        funnel.setRotationPoint(0.0F, 0.0F, 0.0F);
-        funnel.addCuboid(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
+		top.setRotationPoint(0.0F, 16.0F, 0.0F);
+		top.addCuboid(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
+		base = new ModelRenderer(this, 0, 9);
+		base.setRotationPoint(0.0F, 16.0F, 0.0F);
+		base.addCuboid(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
+		pipe = new ModelRenderer(this, 0, 21);
+		pipe.setRotationPoint(0.0F, 16.0F, 0.0F);
+		pipe.addCuboid(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
+
+		funnel = new ModelRenderer(this, 40, 0);
+		funnel.setRotationPoint(0.0F, 0.0F, 0.0F);
+		funnel.addCuboid(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
 	}
 
 	@Override
@@ -66,6 +64,5 @@ public class ModelBellows extends Model {
 		funnel.render(ms, buffer, light, overlay, r, g, b, alpha);
 		ms.scale(1F, 1F / fract, 1F);
 	}
-
 
 }

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 25, 2015, 6:47:35 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
@@ -40,6 +38,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -51,8 +50,7 @@ import javax.annotation.Nonnull;
 	_interface = IRendersAsItem.class
 )
 public class EntityThornChakram extends ThrowableEntity implements IRendersAsItem {
-	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram")
-	public static EntityType<EntityThornChakram> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram") public static EntityType<EntityThornChakram> TYPE;
 
 	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
@@ -95,7 +93,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 
 		super.tick();
 
-		if(!bounced) {
+		if (!bounced) {
 			// Reset the drag applied by super
 			setMotion(old);
 		}
@@ -103,31 +101,33 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 		bounced = false;
 
 		// Returning motion
-		if(isReturning()) {
+		if (isReturning()) {
 			Entity thrower = getThrower();
-			if(thrower != null) {
+			if (thrower != null) {
 				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
 				setMotion(motion.toVec3D());
 			}
 		}
 
 		// Client FX
-		if(world.isRemote && isFire()) {
+		if (world.isRemote && isFire()) {
 			double r = 0.1;
 			double m = 0.1;
-			for(int i = 0; i < 3; i++)
+			for (int i = 0; i < 3; i++) {
 				world.addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+			}
 		}
 
 		// Server state control
-		if(!world.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
+		if (!world.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
 			LivingEntity thrower = getThrower();
-			if(thrower == null) {
+			if (thrower == null) {
 				dropAndKill();
 			} else {
 				setEntityToReturnTo(thrower.getEntityId());
-				if(getDistanceSq(thrower) < 2)
+				if (getDistanceSq(thrower) < 2) {
 					dropAndKill();
+				}
 			}
 		}
 	}
@@ -147,18 +147,20 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if(isReturning())
+		if (isReturning()) {
 			return;
+		}
 
 		switch (pos.getType()) {
 		case BLOCK: {
 			BlockRayTraceResult rtr = (BlockRayTraceResult) pos;
 			Block block = world.getBlockState(rtr.getPos()).getBlock();
-			if(block instanceof BushBlock || block instanceof LeavesBlock)
+			if (block instanceof BushBlock || block instanceof LeavesBlock) {
 				return;
+			}
 
 			int bounces = getTimesBounced();
-			if(bounces < MAX_BOUNCES) {
+			if (bounces < MAX_BOUNCES) {
 				Vector3 currentMovementVec = new Vector3(getMotion());
 				Direction dir = rtr.getFace();
 				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
@@ -167,30 +169,33 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 				setMotion(movementVec.toVec3D());
 				bounced = true;
 
-				if(!world.isRemote)
+				if (!world.isRemote) {
 					setTimesBounced(getTimesBounced() + 1);
+				}
 			}
 
 			break;
 		}
 		case ENTITY: {
 			EntityRayTraceResult rtr = (EntityRayTraceResult) pos;
-			if(!world.isRemote && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getThrower()) {
+			if (!world.isRemote && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getThrower()) {
 				LivingEntity thrower = getThrower();
 				rtr.getEntity().attackEntityFrom(thrower != null
 						? thrower instanceof PlayerEntity
-							? DamageSource.causeThrownDamage(this, thrower)
-							: DamageSource.causeMobDamage(thrower)
+								? DamageSource.causeThrownDamage(this, thrower)
+								: DamageSource.causeMobDamage(thrower)
 						: DamageSource.GENERIC, 12);
-				if(isFire())
+				if (isFire()) {
 					rtr.getEntity().setFire(5);
-				else if(world.rand.nextInt(3) == 0)
+				} else if (world.rand.nextInt(3) == 0) {
 					((LivingEntity) rtr.getEntity()).addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
+				}
 			}
 
 			break;
 		}
-		default: break;
+		default:
+			break;
 		}
 	}
 
@@ -230,7 +235,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
-		if(!stack.isEmpty()) {
+		if (!stack.isEmpty()) {
 			compound.put("fly_stack", stack.write(new CompoundNBT()));
 		}
 		compound.putBoolean("flare", isFire());
@@ -239,7 +244,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
-		if(compound.contains("fly_stack")) {
+		if (compound.contains("fly_stack")) {
 			stack = ItemStack.read(compound.getCompound("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));

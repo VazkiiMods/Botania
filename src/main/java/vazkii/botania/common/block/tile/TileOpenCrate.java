@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 4, 2014, 12:51:05 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -20,13 +18,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileOpenCrate extends TileSimpleInventory implements ITickableTileEntity {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.OPEN_CRATE)
-	public static TileEntityType<?> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.OPEN_CRATE) public static TileEntityType<?> TYPE;
 
 	public TileOpenCrate() {
 		this(TYPE);
@@ -43,22 +41,24 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 
 	@Override
 	public void tick() {
-		if (world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
 
 		boolean redstone = false;
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
-			if(redstoneSide > 0) {
+			if (redstoneSide > 0) {
 				redstone = true;
 				break;
 			}
 		}
 
-		if(canEject()) {
+		if (canEject()) {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			if(!stack.isEmpty())
+			if (!stack.isEmpty()) {
 				eject(stack, redstone);
+			}
 		}
 	}
 
@@ -69,8 +69,9 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 	public void eject(ItemStack stack, boolean redstone) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
 		item.setMotion(Vec3d.ZERO);
-		if (redstone)
+		if (redstone) {
 			item.age = -200;
+		}
 
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 		world.addEntity(item);

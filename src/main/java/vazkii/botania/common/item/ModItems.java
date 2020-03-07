@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -28,6 +26,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -152,7 +151,7 @@ public final class ModItems {
 
 	@ObjectHolder(LibItemNames.PESTLE_AND_MORTAR) public static Item pestleAndMortar;
 	@ObjectHolder(LibItemNames.TWIG_WAND) public static Item twigWand;
-	
+
 	@ObjectHolder(LibItemNames.MANASTEEL_INGOT) public static Item manaSteel;
 	@ObjectHolder(LibItemNames.MANA_PEARL) public static Item manaPearl;
 	@ObjectHolder(LibItemNames.MANA_DIAMOND) public static Item manaDiamond;
@@ -176,7 +175,7 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.PEBBLE) public static Item pebble;
 	@ObjectHolder(LibItemNames.MANAWEAVE_CLOTH) public static Item manaweaveCloth;
 	@ObjectHolder(LibItemNames.MANA_POWDER) public static Item manaPowder;
-	
+
 	@ObjectHolder(LibItemNames.LENS_NORMAL) public static Item lensNormal;
 	@ObjectHolder(LibItemNames.LENS_SPEED) public static Item lensSpeed;
 	@ObjectHolder(LibItemNames.LENS_POWER) public static Item lensPower;
@@ -202,7 +201,7 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.LENS_MESSENGER) public static Item lensMessenger;
 	@ObjectHolder(LibItemNames.LENS_TRIPWIRE) public static Item lensTripwire;
 	@ObjectHolder(LibItemNames.LENS_STORM) public static Item lensStorm;
-	
+
 	@ObjectHolder(LibItemNames.RUNE_WATER) public static Item runeWater;
 	@ObjectHolder(LibItemNames.RUNE_FIRE) public static Item runeFire;
 	@ObjectHolder(LibItemNames.RUNE_EARTH) public static Item runeEarth;
@@ -393,7 +392,7 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.COSMETIC_PREFIX + "tiny_potato_mask") public static Item tinyPotatoMask;
 	@ObjectHolder(LibItemNames.COSMETIC_PREFIX + "questgiver_mark") public static Item questgiverMark;
 	@ObjectHolder(LibItemNames.COSMETIC_PREFIX + "thinking_hand") public static Item thinkingHand;
-	
+
 	@ObjectHolder(LibItemNames.SWAP_RING) public static Item swapRing;
 	@ObjectHolder(LibItemNames.FLOWER_BAG) public static Item flowerBag;
 	@ObjectHolder(LibItemNames.PHANTOM_INK) public static Item phantomInk;
@@ -449,7 +448,7 @@ public final class ModItems {
 		IForgeRegistry<Item> r = evt.getRegistry();
 
 		register(r, new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON)), LibItemNames.LEXICON);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new ItemPetal(ModBlocks.getBuriedPetal(color), color, defaultBuilder()), color.getName() + LibItemNames.PETAL_SUFFIX);
 			register(r, new ItemDye(color, defaultBuilder()), color.getName() + LibItemNames.DYE_SUFFIX);
 		}
@@ -657,10 +656,10 @@ public final class ModItems {
 		register(r, new ItemLivingwoodBow(defaultBuilder().defaultMaxDamage(500)), LibItemNames.LIVINGWOOD_BOW);
 		register(r, new ItemCrystalBow(defaultBuilder().defaultMaxDamage(500)), LibItemNames.CRYSTAL_BOW);
 
-		for(ItemBaubleCosmetic.Variant v : ItemBaubleCosmetic.Variant.values()) {
+		for (ItemBaubleCosmetic.Variant v : ItemBaubleCosmetic.Variant.values()) {
 			register(r, new ItemBaubleCosmetic(v, unstackable()), LibItemNames.COSMETIC_PREFIX + v.name().toLowerCase(Locale.ROOT));
 		}
-		
+
 		register(r, new ItemSwapRing(unstackable()), LibItemNames.SWAP_RING);
 		register(r, new ItemFlowerBag(unstackable()), LibItemNames.FLOWER_BAG);
 		register(r, new Item(defaultBuilder()), LibItemNames.PHANTOM_INK);
@@ -743,48 +742,80 @@ public final class ModItems {
 			ScreenManager.registerFactory(box, GuiBaubleBox::new);
 		});
 	}
-	
+
 	public static Item getPetal(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whitePetal;
-			case ORANGE: return orangePetal;
-			case MAGENTA: return magentaPetal;
-			case LIGHT_BLUE: return lightBluePetal;
-			case YELLOW: return yellowPetal;
-			case LIME: return limePetal;
-			case PINK: return pinkPetal;
-			case GRAY: return grayPetal;
-			case LIGHT_GRAY: return lightGrayPetal;
-			case CYAN: return cyanPetal;
-			case PURPLE: return purplePetal;
-			case BLUE: return bluePetal;
-			case BROWN: return brownPetal;
-			case GREEN: return greenPetal;
-			case RED: return redPetal;
-			case BLACK: return blackPetal;
+		default:
+		case WHITE:
+			return whitePetal;
+		case ORANGE:
+			return orangePetal;
+		case MAGENTA:
+			return magentaPetal;
+		case LIGHT_BLUE:
+			return lightBluePetal;
+		case YELLOW:
+			return yellowPetal;
+		case LIME:
+			return limePetal;
+		case PINK:
+			return pinkPetal;
+		case GRAY:
+			return grayPetal;
+		case LIGHT_GRAY:
+			return lightGrayPetal;
+		case CYAN:
+			return cyanPetal;
+		case PURPLE:
+			return purplePetal;
+		case BLUE:
+			return bluePetal;
+		case BROWN:
+			return brownPetal;
+		case GREEN:
+			return greenPetal;
+		case RED:
+			return redPetal;
+		case BLACK:
+			return blackPetal;
 		}
 	}
-	
+
 	public static Item getDye(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whiteDye;
-			case ORANGE: return orangeDye;
-			case MAGENTA: return magentaDye;
-			case LIGHT_BLUE: return lightBlueDye;
-			case YELLOW: return yellowDye;
-			case LIME: return limeDye;
-			case PINK: return pinkDye;
-			case GRAY: return grayDye;
-			case LIGHT_GRAY: return lightGrayDye;
-			case CYAN: return cyanDye;
-			case PURPLE: return purpleDye;
-			case BLUE: return blueDye;
-			case BROWN: return brownDye;
-			case GREEN: return greenDye;
-			case RED: return redDye;
-			case BLACK: return blackDye;
+		default:
+		case WHITE:
+			return whiteDye;
+		case ORANGE:
+			return orangeDye;
+		case MAGENTA:
+			return magentaDye;
+		case LIGHT_BLUE:
+			return lightBlueDye;
+		case YELLOW:
+			return yellowDye;
+		case LIME:
+			return limeDye;
+		case PINK:
+			return pinkDye;
+		case GRAY:
+			return grayDye;
+		case LIGHT_GRAY:
+			return lightGrayDye;
+		case CYAN:
+			return cyanDye;
+		case PURPLE:
+			return purpleDye;
+		case BLUE:
+			return blueDye;
+		case BROWN:
+			return brownDye;
+		case GREEN:
+			return greenDye;
+		case RED:
+			return redDye;
+		case BLACK:
+			return blackDye;
 		}
 	}
 }

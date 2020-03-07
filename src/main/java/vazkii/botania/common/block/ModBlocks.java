@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -31,6 +29,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
@@ -376,12 +375,12 @@ public final class ModBlocks {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
 		Block.Properties builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockModFlower(color, builder), color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX);
 		}
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
-		for(BlockAltar.Variant v : BlockAltar.Variant.values()) {
+		for (BlockAltar.Variant v : BlockAltar.Variant.values()) {
 			r.register(new BlockAltar(v, builder)
 					.setRegistryName(LibMisc.MOD_ID, LibBlockNames.APOTHECARY_PREFIX + v.name().toLowerCase(Locale.ROOT)));
 		}
@@ -438,11 +437,11 @@ public final class ModBlocks {
 		register(r, new BlockTurntable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.TURNTABLE);
 		register(r, new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)), LibBlockNames.TINY_PLANET);
 		register(r, new BlockAlchemyCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.ALCHEMY_CATALYST);
-		
+
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		register(r, new BlockOpenCrate(builder), LibBlockNames.OPEN_CRATE);
 		register(r, new BlockCraftyCrate(builder), LibBlockNames.CRAFT_CRATE);
-		
+
 		register(r, new BlockForestEye(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)), LibBlockNames.FOREST_EYE);
 
 		builder = Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL);
@@ -456,12 +455,12 @@ public final class ModBlocks {
 		register(r, new BlockForestDrum(BlockForestDrum.Variant.WILD, builder), LibBlockNames.DRUM_WILD);
 		register(r, new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder), LibBlockNames.DRUM_CANOPY);
 		register(r, new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder), LibBlockNames.DRUM_GATHERING);
-		
+
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(15);
 		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockShinyFlower(color, builder), color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX);
 		}
-		
+
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD);
 		register(r, new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder), LibBlockNames.PLATFORM_ABSTRUSE);
 		register(r, new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder), LibBlockNames.PLATFORM_SPECTRAL);
@@ -480,14 +479,14 @@ public final class ModBlocks {
 		register(r, new BlockConjurationCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.CONJURATION_CATALYST);
 		register(r, new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS).nonOpaque()), LibBlockNames.BIFROST);
 		register(r, new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).nonOpaque()), LibBlockNames.SOLID_VINE);
-		
+
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(4);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockBuriedPetals(color, builder), color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX);
 		}
 
 		builder = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockFloatingFlower(color, builder), color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX);
 		}
 
@@ -519,22 +518,22 @@ public final class ModBlocks {
 		register(r, new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT)), LibBlockNames.ENCHANTED_SOIL);
 
 		builder = Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockPetalBlock(color, builder), color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
 		}
 
 		register(r, new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).nonOpaque()), LibBlockNames.CORPOREA_INDEX);
 		register(r, new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_FUNNEL);
-		
+
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockModMushroom(color, builder), color.getName() + LibBlockNames.MUSHROOM_SUFFIX);
 		}
-		
+
 		register(r, new BlockPump(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.PUMP);
 
 		builder = Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
-		for(DyeColor color : DyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockModDoubleFlower(color, builder), color.getName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX);
 		}
 
@@ -571,7 +570,7 @@ public final class ModBlocks {
 		register(r, new BlockAvatar(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.AVATAR);
 
 		builder = Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).tickRandomly().sound(SoundType.PLANT);
-		for(BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
+		for (BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
 			register(r, new BlockAltGrass(v, builder), v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX);
 		}
 
@@ -582,7 +581,7 @@ public final class ModBlocks {
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
-		
+
 		register(r, new BlockItem(whiteFlower, props), whiteFlower.getRegistryName());
 		register(r, new BlockItem(orangeFlower, props), orangeFlower.getRegistryName());
 		register(r, new BlockItem(magentaFlower, props), magentaFlower.getRegistryName());
@@ -847,7 +846,7 @@ public final class ModBlocks {
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, ResourceLocation name) {
 		reg.register(thing.setRegistryName(name));
 	}
-	
+
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
 		register(reg, thing, new ResourceLocation(LibMisc.MOD_ID, name));
 	}
@@ -859,7 +858,7 @@ public final class ModBlocks {
 
 		SeedBehaviours.init();
 	}
-	
+
 	@SubscribeEvent
 	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
@@ -922,154 +921,267 @@ public final class ModBlocks {
 
 	public static Block getFlower(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whiteFlower;
-			case ORANGE: return orangeFlower;
-			case MAGENTA: return magentaFlower;
-			case LIGHT_BLUE: return lightBlueFlower;
-			case YELLOW: return yellowFlower;
-			case LIME: return limeFlower;
-			case PINK: return pinkFlower;
-			case GRAY: return grayFlower;
-			case LIGHT_GRAY: return lightGrayFlower;
-			case CYAN: return cyanFlower;
-			case PURPLE: return purpleFlower;
-			case BLUE: return blueFlower;
-			case BROWN: return brownFlower;
-			case GREEN: return greenFlower;
-			case RED: return redFlower;
-			case BLACK: return blackFlower;
+		default:
+		case WHITE:
+			return whiteFlower;
+		case ORANGE:
+			return orangeFlower;
+		case MAGENTA:
+			return magentaFlower;
+		case LIGHT_BLUE:
+			return lightBlueFlower;
+		case YELLOW:
+			return yellowFlower;
+		case LIME:
+			return limeFlower;
+		case PINK:
+			return pinkFlower;
+		case GRAY:
+			return grayFlower;
+		case LIGHT_GRAY:
+			return lightGrayFlower;
+		case CYAN:
+			return cyanFlower;
+		case PURPLE:
+			return purpleFlower;
+		case BLUE:
+			return blueFlower;
+		case BROWN:
+			return brownFlower;
+		case GREEN:
+			return greenFlower;
+		case RED:
+			return redFlower;
+		case BLACK:
+			return blackFlower;
 		}
 	}
-	
+
 	public static Block getMushroom(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whiteMushroom;
-			case ORANGE: return orangeMushroom;
-			case MAGENTA: return magentaMushroom;
-			case LIGHT_BLUE: return lightBlueMushroom;
-			case YELLOW: return yellowMushroom;
-			case LIME: return limeMushroom;
-			case PINK: return pinkMushroom;
-			case GRAY: return grayMushroom;
-			case LIGHT_GRAY: return lightGrayMushroom;
-			case CYAN: return cyanMushroom;
-			case PURPLE: return purpleMushroom;
-			case BLUE: return blueMushroom;
-			case BROWN: return brownMushroom;
-			case GREEN: return greenMushroom;
-			case RED: return redMushroom;
-			case BLACK: return blackMushroom;
+		default:
+		case WHITE:
+			return whiteMushroom;
+		case ORANGE:
+			return orangeMushroom;
+		case MAGENTA:
+			return magentaMushroom;
+		case LIGHT_BLUE:
+			return lightBlueMushroom;
+		case YELLOW:
+			return yellowMushroom;
+		case LIME:
+			return limeMushroom;
+		case PINK:
+			return pinkMushroom;
+		case GRAY:
+			return grayMushroom;
+		case LIGHT_GRAY:
+			return lightGrayMushroom;
+		case CYAN:
+			return cyanMushroom;
+		case PURPLE:
+			return purpleMushroom;
+		case BLUE:
+			return blueMushroom;
+		case BROWN:
+			return brownMushroom;
+		case GREEN:
+			return greenMushroom;
+		case RED:
+			return redMushroom;
+		case BLACK:
+			return blackMushroom;
 		}
 	}
 
 	public static Block getBuriedPetal(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whiteBuriedPetals;
-			case ORANGE: return orangeBuriedPetals;
-			case MAGENTA: return magentaBuriedPetals;
-			case LIGHT_BLUE: return lightBlueBuriedPetals;
-			case YELLOW: return yellowBuriedPetals;
-			case LIME: return limeBuriedPetals;
-			case PINK: return pinkBuriedPetals;
-			case GRAY: return grayBuriedPetals;
-			case LIGHT_GRAY: return lightGrayBuriedPetals;
-			case CYAN: return cyanBuriedPetals;
-			case PURPLE: return purpleBuriedPetals;
-			case BLUE: return blueBuriedPetals;
-			case BROWN: return brownBuriedPetals;
-			case GREEN: return greenBuriedPetals;
-			case RED: return redBuriedPetals;
-			case BLACK: return blackBuriedPetals;
+		default:
+		case WHITE:
+			return whiteBuriedPetals;
+		case ORANGE:
+			return orangeBuriedPetals;
+		case MAGENTA:
+			return magentaBuriedPetals;
+		case LIGHT_BLUE:
+			return lightBlueBuriedPetals;
+		case YELLOW:
+			return yellowBuriedPetals;
+		case LIME:
+			return limeBuriedPetals;
+		case PINK:
+			return pinkBuriedPetals;
+		case GRAY:
+			return grayBuriedPetals;
+		case LIGHT_GRAY:
+			return lightGrayBuriedPetals;
+		case CYAN:
+			return cyanBuriedPetals;
+		case PURPLE:
+			return purpleBuriedPetals;
+		case BLUE:
+			return blueBuriedPetals;
+		case BROWN:
+			return brownBuriedPetals;
+		case GREEN:
+			return greenBuriedPetals;
+		case RED:
+			return redBuriedPetals;
+		case BLACK:
+			return blackBuriedPetals;
 		}
 	}
-	
+
 	public static Block getShinyFlower(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whiteShinyFlower;
-			case ORANGE: return orangeShinyFlower;
-			case MAGENTA: return magentaShinyFlower;
-			case LIGHT_BLUE: return lightBlueShinyFlower;
-			case YELLOW: return yellowShinyFlower;
-			case LIME: return limeShinyFlower;
-			case PINK: return pinkShinyFlower;
-			case GRAY: return grayShinyFlower;
-			case LIGHT_GRAY: return lightGrayShinyFlower;
-			case CYAN: return cyanShinyFlower;
-			case PURPLE: return purpleShinyFlower;
-			case BLUE: return blueShinyFlower;
-			case BROWN: return brownShinyFlower;
-			case GREEN: return greenShinyFlower;
-			case RED: return redShinyFlower;
-			case BLACK: return blackShinyFlower;
+		default:
+		case WHITE:
+			return whiteShinyFlower;
+		case ORANGE:
+			return orangeShinyFlower;
+		case MAGENTA:
+			return magentaShinyFlower;
+		case LIGHT_BLUE:
+			return lightBlueShinyFlower;
+		case YELLOW:
+			return yellowShinyFlower;
+		case LIME:
+			return limeShinyFlower;
+		case PINK:
+			return pinkShinyFlower;
+		case GRAY:
+			return grayShinyFlower;
+		case LIGHT_GRAY:
+			return lightGrayShinyFlower;
+		case CYAN:
+			return cyanShinyFlower;
+		case PURPLE:
+			return purpleShinyFlower;
+		case BLUE:
+			return blueShinyFlower;
+		case BROWN:
+			return brownShinyFlower;
+		case GREEN:
+			return greenShinyFlower;
+		case RED:
+			return redShinyFlower;
+		case BLACK:
+			return blackShinyFlower;
 		}
 	}
 
 	public static Block getFloatingFlower(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return whiteFloatingFlower;
-			case ORANGE: return orangeFloatingFlower;
-			case MAGENTA: return magentaFloatingFlower;
-			case LIGHT_BLUE: return lightBlueFloatingFlower;
-			case YELLOW: return yellowFloatingFlower;
-			case LIME: return limeFloatingFlower;
-			case PINK: return pinkFloatingFlower;
-			case GRAY: return grayFloatingFlower;
-			case LIGHT_GRAY: return lightGrayFloatingFlower;
-			case CYAN: return cyanFloatingFlower;
-			case PURPLE: return purpleFloatingFlower;
-			case BLUE: return blueFloatingFlower;
-			case BROWN: return brownFloatingFlower;
-			case GREEN: return greenFloatingFlower;
-			case RED: return redFloatingFlower;
-			case BLACK: return blackFloatingFlower;
+		default:
+		case WHITE:
+			return whiteFloatingFlower;
+		case ORANGE:
+			return orangeFloatingFlower;
+		case MAGENTA:
+			return magentaFloatingFlower;
+		case LIGHT_BLUE:
+			return lightBlueFloatingFlower;
+		case YELLOW:
+			return yellowFloatingFlower;
+		case LIME:
+			return limeFloatingFlower;
+		case PINK:
+			return pinkFloatingFlower;
+		case GRAY:
+			return grayFloatingFlower;
+		case LIGHT_GRAY:
+			return lightGrayFloatingFlower;
+		case CYAN:
+			return cyanFloatingFlower;
+		case PURPLE:
+			return purpleFloatingFlower;
+		case BLUE:
+			return blueFloatingFlower;
+		case BROWN:
+			return brownFloatingFlower;
+		case GREEN:
+			return greenFloatingFlower;
+		case RED:
+			return redFloatingFlower;
+		case BLACK:
+			return blackFloatingFlower;
 		}
 	}
-	
+
 	public static Block getDoubleFlower(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return doubleFlowerWhite;
-			case ORANGE: return doubleFlowerOrange;
-			case MAGENTA: return doubleFlowerMagenta;
-			case LIGHT_BLUE: return doubleFlowerLightBlue;
-			case YELLOW: return doubleFlowerYellow;
-			case LIME: return doubleFlowerLime;
-			case PINK: return doubleFlowerPink;
-			case GRAY: return doubleFlowerGray;
-			case LIGHT_GRAY: return doubleFlowerLightGray;
-			case CYAN: return doubleFlowerCyan;
-			case PURPLE: return doubleFlowerPurple;
-			case BLUE: return doubleFlowerBlue;
-			case BROWN: return doubleFlowerBrown;
-			case GREEN: return doubleFlowerGreen;
-			case RED: return doubleFlowerRed;
-			case BLACK: return doubleFlowerBlack;
+		default:
+		case WHITE:
+			return doubleFlowerWhite;
+		case ORANGE:
+			return doubleFlowerOrange;
+		case MAGENTA:
+			return doubleFlowerMagenta;
+		case LIGHT_BLUE:
+			return doubleFlowerLightBlue;
+		case YELLOW:
+			return doubleFlowerYellow;
+		case LIME:
+			return doubleFlowerLime;
+		case PINK:
+			return doubleFlowerPink;
+		case GRAY:
+			return doubleFlowerGray;
+		case LIGHT_GRAY:
+			return doubleFlowerLightGray;
+		case CYAN:
+			return doubleFlowerCyan;
+		case PURPLE:
+			return doubleFlowerPurple;
+		case BLUE:
+			return doubleFlowerBlue;
+		case BROWN:
+			return doubleFlowerBrown;
+		case GREEN:
+			return doubleFlowerGreen;
+		case RED:
+			return doubleFlowerRed;
+		case BLACK:
+			return doubleFlowerBlack;
 		}
 	}
+
 	public static Block getPetalBlock(DyeColor color) {
 		switch (color) {
-			default:
-			case WHITE: return petalBlockWhite;
-			case ORANGE: return petalBlockOrange;
-			case MAGENTA: return petalBlockMagenta;
-			case LIGHT_BLUE: return petalBlockLightBlue;
-			case YELLOW: return petalBlockYellow;
-			case LIME: return petalBlockLime;
-			case PINK: return petalBlockPink;
-			case GRAY: return petalBlockGray;
-			case LIGHT_GRAY: return petalBlockSilver;
-			case CYAN: return petalBlockCyan;
-			case PURPLE: return petalBlockPurple;
-			case BLUE: return petalBlockBlue;
-			case BROWN: return petalBlockBrown;
-			case GREEN: return petalBlockGreen;
-			case RED: return petalBlockRed;
-			case BLACK: return petalBlockBlack;
+		default:
+		case WHITE:
+			return petalBlockWhite;
+		case ORANGE:
+			return petalBlockOrange;
+		case MAGENTA:
+			return petalBlockMagenta;
+		case LIGHT_BLUE:
+			return petalBlockLightBlue;
+		case YELLOW:
+			return petalBlockYellow;
+		case LIME:
+			return petalBlockLime;
+		case PINK:
+			return petalBlockPink;
+		case GRAY:
+			return petalBlockGray;
+		case LIGHT_GRAY:
+			return petalBlockSilver;
+		case CYAN:
+			return petalBlockCyan;
+		case PURPLE:
+			return petalBlockPurple;
+		case BLUE:
+			return petalBlockBlue;
+		case BROWN:
+			return petalBlockBrown;
+		case GREEN:
+			return petalBlockGreen;
+		case RED:
+			return petalBlockRed;
+		case BLACK:
+			return petalBlockBlack;
 		}
 	}
 }

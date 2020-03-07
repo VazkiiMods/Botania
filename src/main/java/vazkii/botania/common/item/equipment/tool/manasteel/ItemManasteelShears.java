@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 13, 2014, 7:28:35 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
@@ -25,12 +23,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -45,15 +45,16 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 	@Override
 	public boolean itemInteractionForEntity(@Nonnull ItemStack itemstack, PlayerEntity player, LivingEntity entity, Hand hand) {
-		if(entity.world.isRemote)
+		if (entity.world.isRemote) {
 			return false;
+		}
 
-		if(entity instanceof IShearable) {
-			IShearable target = (IShearable)entity;
-			if(target.isShearable(itemstack, entity.world, new BlockPos(entity))) {
+		if (entity instanceof IShearable) {
+			IShearable target = (IShearable) entity;
+			if (target.isShearable(itemstack, entity.world, new BlockPos(entity))) {
 				List<ItemStack> drops = target.onSheared(itemstack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack));
 
-				for(ItemStack stack : drops) {
+				for (ItemStack stack : drops) {
 					entity.entityDropItem(stack, 1.0F);
 				}
 
@@ -68,19 +69,20 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 	@Override
 	public boolean onBlockStartBreak(@Nonnull ItemStack itemstack, @Nonnull BlockPos pos, PlayerEntity player) {
-		if (player.world.isRemote)
+		if (player.world.isRemote) {
 			return false;
+		}
 
 		Block block = player.world.getBlockState(pos).getBlock();
-		if(block instanceof IShearable) {
-			IShearable target = (IShearable)block;
-			if(target.isShearable(itemstack, player.world, pos)) {
+		if (block instanceof IShearable) {
+			IShearable target = (IShearable) block;
+			if (target.isShearable(itemstack, player.world, pos)) {
 				List<ItemStack> drops = target.onSheared(itemstack, player.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack));
 				Random rand = new Random();
 
-				for(ItemStack stack : drops) {
+				for (ItemStack stack : drops) {
 					float f = 0.7F;
-					double d  = rand.nextFloat() * f + (1D - f) * 0.5;
+					double d = rand.nextFloat() * f + (1D - f) * 0.5;
 					double d1 = rand.nextFloat() * f + (1D - f) * 0.5;
 					double d2 = rand.nextFloat() * f + (1D - f) * 0.5;
 
@@ -106,8 +108,9 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
+		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
+		}
 	}
 
 	@Override

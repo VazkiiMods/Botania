@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [28/09/2016, 17:21:24 (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -23,6 +21,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -32,8 +31,7 @@ import java.util.Arrays;
 
 public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ANIMATED_TORCH)
-	public static TileEntityType<TileAnimatedTorch> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ANIMATED_TORCH) public static TileEntityType<TileAnimatedTorch> TYPE;
 
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
@@ -67,24 +65,26 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void onLoad() {
-		if(!world.isRemote)
+		if (!world.isRemote) {
 			nextRandomRotation = world.rand.nextInt(4);
+		}
 	}
 
 	public void handRotate() {
-		if(!world.isRemote)
+		if (!world.isRemote) {
 			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
+		}
 	}
-	
+
 	public void onPlace(LivingEntity entity) {
-		if(entity != null) {
+		if (entity != null) {
 			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
 		}
 		world.notifyNeighborsOfStateChange(getPos().offset(SIDES[side].getOpposite()), getBlockState().getBlock());
 	}
 
 	public void toggle() {
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
 			nextRandomRotation = world.rand.nextInt(4);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
@@ -109,15 +109,17 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 	}
 
 	private void rotateTo(int side) {
-		if(rotating)
+		if (rotating) {
 			return;
+		}
 
 		currentRandomRotation = nextRandomRotation;
 		int finalRotation = side * 90;
 
 		double diff = (finalRotation - rotation % 360) % 360;
-		if(diff < 0)
+		if (diff < 0) {
 			diff = 360 + diff;
+		}
 
 		rotationTicks = 4;
 		anglePerTick = diff / rotationTicks;
@@ -126,7 +128,7 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 
 		// tell neighbors that signal is off because we are rotating
 		world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-		for(Direction e : Direction.values()) {
+		for (Direction e : Direction.values()) {
 			world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 		}
 	}
@@ -142,30 +144,33 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		if(rotating) {
+		if (rotating) {
 			lastTickRotation = rotation;
 			rotation = (rotation + anglePerTick) % 360;
 			rotationTicks--;
 
-			if(rotationTicks <= 0) {
+			if (rotationTicks <= 0) {
 				rotating = false;
 				// done rotating, tell neighbors
 				world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-				for(Direction e : Direction.values()) {
+				for (Direction e : Direction.values()) {
 					world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 				}
 			}
 
-		} else rotation = side * 90;
+		} else {
+			rotation = side * 90;
+		}
 
-		if(world.isRemote) {
+		if (world.isRemote) {
 			int amt = rotating ? 3 : Math.random() < 0.1 ? 1 : 0;
 			double x = getPos().getX() + 0.5 + Math.cos((rotation + 90) / 180.0 * Math.PI) * 0.35;
 			double y = getPos().getY() + 0.2;
 			double z = getPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
 
-			for(int i = 0; i < amt; i++)
+			for (int i = 0; i < amt; i++) {
 				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0.0D, 0.0D, 0.0D);
+			}
 		}
 	}
 
@@ -183,8 +188,9 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 	public void readPacketNBT(CompoundNBT cmp) {
 		side = cmp.getInt(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
-		if(world != null && !world.isRemote)
+		if (world != null && !world.isRemote) {
 			rotationTicks = cmp.getInt(TAG_ROTATION_TICKS);
+		}
 		anglePerTick = cmp.getDouble(TAG_ANGLE_PER_TICK);
 		nextRandomRotation = cmp.getInt(TAG_NEXT_RANDOM_ROTATION);
 

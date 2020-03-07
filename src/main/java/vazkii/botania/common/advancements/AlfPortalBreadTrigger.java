@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -10,9 +19,11 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
+
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,10 +53,10 @@ public class AlfPortalBreadTrigger implements ICriterionTrigger<AlfPortalBreadTr
 	public void removeListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener) {
 		AlfPortalBreadTrigger.PlayerTracker tracker = this.playerTrackers.get(player);
 
-		if(tracker != null) {
+		if (tracker != null) {
 			tracker.listeners.remove(listener);
 
-			if(tracker.listeners.isEmpty()) {
+			if (tracker.listeners.isEmpty()) {
 				this.playerTrackers.remove(player);
 			}
 		}
@@ -73,13 +84,13 @@ public class AlfPortalBreadTrigger implements ICriterionTrigger<AlfPortalBreadTr
 		public void trigger(ServerWorld world, BlockPos portal) {
 			List<Listener<AlfPortalBreadTrigger.Instance>> list = new ArrayList<>();
 
-			for(ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener : this.listeners) {
-				if(listener.getCriterionInstance().test(world, portal)) {
+			for (ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener : this.listeners) {
+				if (listener.getCriterionInstance().test(world, portal)) {
 					list.add(listener);
 				}
 			}
 
-			for(ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener : list) {
+			for (ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener : list) {
 				listener.grantCriterion(this.playerAdvancements);
 			}
 		}
@@ -87,7 +98,7 @@ public class AlfPortalBreadTrigger implements ICriterionTrigger<AlfPortalBreadTr
 
 	public void trigger(ServerPlayerEntity player, BlockPos portal) {
 		AlfPortalBreadTrigger.PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
-		if(tracker != null) {
+		if (tracker != null) {
 			tracker.trigger(player.getServerWorld(), portal);
 		}
 	}

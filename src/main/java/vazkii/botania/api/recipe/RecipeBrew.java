@@ -1,22 +1,22 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 1, 2014, 8:52:00 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
@@ -39,28 +39,31 @@ public class RecipeBrew {
 	public boolean matches(IItemHandler inv) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
-		for(int i = 0; i < inv.getSlots(); i++) {
+		for (int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack.isEmpty())
+			if (stack.isEmpty()) {
 				break;
+			}
 
-			if(stack.getItem() instanceof IBrewContainer)
+			if (stack.getItem() instanceof IBrewContainer) {
 				continue;
+			}
 
 			boolean matchedOne = false;
 
 			Iterator<Ingredient> iter = inputsMissing.iterator();
 			while (iter.hasNext()) {
 				Ingredient input = iter.next();
-				if(input.test(stack)) {
+				if (input.test(stack)) {
 					iter.remove();
 					matchedOne = true;
 					break;
 				}
 			}
 
-			if(!matchedOne)
+			if (!matchedOne) {
 				return false;
+			}
 		}
 
 		return inputsMissing.isEmpty();
@@ -83,8 +86,9 @@ public class RecipeBrew {
 	}
 
 	public ItemStack getOutput(ItemStack stack) {
-		if(stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer))
+		if (stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer)) {
 			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
+		}
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 
 		return container.getItemForBrew(brew, stack);

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2014, 3:59:06 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
@@ -41,6 +39,7 @@ import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -53,6 +52,7 @@ import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -68,7 +68,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		public ItemStack getDisplayStack() {
 			ResourceLocation id = getType().getRegistryName();
 			Item item = ForgeRegistries.ITEMS.getValue(id);
-			if(item != null) {
+			if (item != null) {
 				return new ItemStack(item);
 			} else {
 				return super.getDisplayStack();
@@ -95,9 +95,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public final void tick() {
 		TileEntity tileBelow = world.getTileEntity(pos.down());
-		if(tileBelow instanceof TileRedStringRelay) {
+		if (tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
-			if(coords != null) {
+			if (coords != null) {
 				positionOverride = coords;
 				tickFlower();
 
@@ -110,9 +110,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		}
 
 		boolean special = isOnSpecialSoil();
-		if(special) {
+		if (special) {
 			this.overgrowth = true;
-			if(isOvergrowthAffected()) {
+			if (isOvergrowthAffected()) {
 				tickFlower();
 				overgrowthBoost = true;
 			}
@@ -125,8 +125,8 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if(cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
-			if(hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
+		if (cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
+			if (hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
 		}
@@ -138,7 +138,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	private boolean isOnSpecialSoil() {
-		if(isFloating()) {
+		if (isFloating()) {
 			return false;
 		} else {
 			return world.getBlockState(pos.down()).getBlock() == ModBlocks.enchantedSoil;
@@ -147,7 +147,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	/**
 	 * @return Where this flower's effects are centered at. This can differ from the true TE location due to
-	 * red string spoofers.
+	 *         red string spoofers.
 	 */
 	public final BlockPos getEffectivePos() {
 		return positionOverride != null ? positionOverride : getPos();
@@ -161,8 +161,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public final void read(CompoundNBT cmp) {
 		super.read(cmp);
-		if(cmp.contains(TAG_TICKS_EXISTED))
+		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
+		}
 		readFromPacketNBT(cmp);
 	}
 
@@ -186,7 +187,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(packet.getNbtCompound());
-		if(oldType != floatingData.getIslandType() && isFloating()) {
+		if (oldType != floatingData.getIslandType() && isFloating()) {
 			ModelDataManager.requestModelDataRefresh(this);
 			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
 		}
@@ -204,8 +205,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Note: This method is also used to write to the world NBT.
 	 */
 	public void writeToPacketNBT(CompoundNBT cmp) {
-		if (isFloating())
+		if (isFloating()) {
 			cmp.put(TAG_FLOATING_DATA, BotaniaAPI.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+		}
 	}
 
 	/**
@@ -214,8 +216,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * to read from the world NBT.
 	 */
 	public void readFromPacketNBT(CompoundNBT cmp) {
-		if(cmp.contains(TAG_FLOATING_DATA))
+		if (cmp.contains(TAG_FLOATING_DATA)) {
 			BotaniaAPI.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+		}
 	}
 
 	public void sync() {
@@ -238,7 +241,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	/**
 	 * Called when a player right clicks this sub tile.
 	 */
-	public ActionResultType onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult hit) { return ActionResultType.PASS; }
+	public ActionResultType onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+		return ActionResultType.PASS;
+	}
 
 	/**
 	 * Called when this sub tile is added to the world.
@@ -327,18 +332,20 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * needs to be on the floor equal to the value of this method..
 	 */
 	public int getSlowdownFactor() {
-		if(isFloating()) {
+		if (isFloating()) {
 			IFloatingFlower.IslandType type = floatingData.getIslandType();
-			if(type == IFloatingFlower.IslandType.MYCEL)
+			if (type == IFloatingFlower.IslandType.MYCEL) {
 				return SLOWDOWN_FACTOR_MYCEL;
-			else if(type == IFloatingFlower.IslandType.PODZOL)
+			} else if (type == IFloatingFlower.IslandType.PODZOL) {
 				return SLOWDOWN_FACTOR_PODZOL;
+			}
 		} else {
 			Block below = world.getBlockState(getPos().down()).getBlock();
-			if(below == Blocks.MYCELIUM)
+			if (below == Blocks.MYCELIUM) {
 				return SLOWDOWN_FACTOR_MYCEL;
+			}
 
-			if(below == Blocks.PODZOL) {
+			if (below == Blocks.PODZOL) {
 				return SLOWDOWN_FACTOR_PODZOL;
 			}
 		}
@@ -349,7 +356,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Nonnull
 	@Override
 	public IModelData getModelData() {
-		if(isFloating()) {
+		if (isFloating()) {
 			return new ModelDataMap.Builder()
 					.withInitial(BotaniaStateProps.FLOATING_DATA, floatingData)
 					.build();

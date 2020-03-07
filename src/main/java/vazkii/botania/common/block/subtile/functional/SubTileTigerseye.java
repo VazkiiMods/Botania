@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 16, 2014, 3:36:26 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -21,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.lib.LibMisc;
@@ -29,8 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileTigerseye extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":tigerseye")
-	public static TileEntityType<SubTileTigerseye> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":tigerseye") public static TileEntityType<SubTileTigerseye> TYPE;
 
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
@@ -44,33 +42,37 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().isRemote)
+		if (getWorld().isRemote) {
 			return;
+		}
 
 		boolean shouldAfffect = getMana() >= COST;
 
 		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
-		for(MobEntity entity : entities) {
+		for (MobEntity entity : entities) {
 			List<PrioritizedGoal> entries = new ArrayList<>(entity.goalSelector.goals);
 			entries.addAll(entity.targetSelector.goals);
 
 			boolean avoidsOcelots = false;
-			if(shouldAfffect)
-				for(PrioritizedGoal entry : entries) {
-					if(entry.getGoal() instanceof AvoidEntityGoal)
+			if (shouldAfffect) {
+				for (PrioritizedGoal entry : entries) {
+					if (entry.getGoal() instanceof AvoidEntityGoal) {
 						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.getGoal()) || avoidsOcelots;
+					}
 
-					if(entry.getGoal() instanceof NearestAttackableTargetGoal)
+					if (entry.getGoal() instanceof NearestAttackableTargetGoal) {
 						messWithGetTargetAI((NearestAttackableTargetGoal) entry.getGoal());
+					}
 				}
+			}
 
-			if(entity instanceof CreeperEntity) {
+			if (entity instanceof CreeperEntity) {
 				((CreeperEntity) entity).timeSinceIgnited = 2;
 				entity.setAttackTarget(null);
 			}
 
-			if(avoidsOcelots) {
+			if (avoidsOcelots) {
 				addMana(-COST);
 				sync();
 				shouldAfffect = false;
@@ -79,7 +81,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	}
 
 	private boolean messWithRunAwayAI(AvoidEntityGoal aiEntry) {
-		if(aiEntry.classToAvoid == OcelotEntity.class) {
+		if (aiEntry.classToAvoid == OcelotEntity.class) {
 			aiEntry.classToAvoid = PlayerEntity.class;
 			return true;
 		}
@@ -87,13 +89,14 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	}
 
 	private void messWithGetTargetAI(NearestAttackableTargetGoal aiEntry) {
-		if(aiEntry.targetClass == PlayerEntity.class)
+		if (aiEntry.targetClass == PlayerEntity.class) {
 			aiEntry.targetClass = EnderCrystalEntity.class; // Something random that won't be around
+		}
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

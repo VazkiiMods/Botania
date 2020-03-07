@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 26, 2014, 12:22:58 AM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -30,6 +28,7 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -37,6 +36,7 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -68,7 +68,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable {
 	@Override
 	public List<ItemStack> getDrops(@Nonnull BlockState state, LootContext.Builder builder) {
 		if (builder.get(LootParameters.BLOCK_ENTITY) instanceof TilePool
-			&& ((TilePool) builder.get(LootParameters.BLOCK_ENTITY)).fragile) {
+				&& ((TilePool) builder.get(LootParameters.BLOCK_ENTITY)).fragile) {
 			return Collections.emptyList();
 		} else {
 			return super.getDrops(state, builder);
@@ -88,19 +88,22 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable {
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if(entity instanceof ItemEntity) {
+		if (entity instanceof ItemEntity) {
 			TilePool tile = (TilePool) world.getTileEntity(pos);
-			if(tile.collideEntityItem((ItemEntity) entity))
+			if (tile.collideEntityItem((ItemEntity) entity)) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			}
 		}
 	}
 
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
-		if (variant == Variant.FABULOUS)
+		if (variant == Variant.FABULOUS) {
 			return BlockRenderType.ENTITYBLOCK_ANIMATED;
-		else return BlockRenderType.MODEL;
+		} else {
+			return BlockRenderType.MODEL;
+		}
 	}
 
 	@Override

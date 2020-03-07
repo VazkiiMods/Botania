@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 7, 2014, 3:39:48 PM (GMT)]
  */
 package vazkii.botania.api.internal;
 
@@ -18,6 +16,7 @@ import java.util.Set;
 
 /**
  * A basic interface for a world's Mana Network.
+ * 
  * @see IInternalMethodHandler#getManaNetworkInstance()
  */
 public interface IManaNetwork {
@@ -34,8 +33,9 @@ public interface IManaNetwork {
 	 * A way of getting the dimension is via world.provider.dimensionId<br>
 	 * Note that this function *can* get performance intensive, it's reccomended you
 	 * call it sparingly and take cache of the value returned.
+	 * 
 	 * @param limit The maximum distance the closest block can be, if the closest block
-	 * is farther away than that, null will be returned instead.
+	 *              is farther away than that, null will be returned instead.
 	 */
 	public TileEntity getClosestCollector(BlockPos pos, World world, int limit);
 
@@ -45,8 +45,9 @@ public interface IManaNetwork {
 	 * A way of getting the dimension is via world.provider.dimensionId<br>
 	 * Note that this function *can* get performance intensive, it's reccomended you
 	 * call it sparingly and take cache of the value returned.
+	 * 
 	 * @param limit The maximum distance the closest block can be, if the closest block
-	 * is farther away than that, null will be returned instead.
+	 *              is farther away than that, null will be returned instead.
 	 */
 	public TileEntity getClosestPool(BlockPos pos, World world, int limit);
 

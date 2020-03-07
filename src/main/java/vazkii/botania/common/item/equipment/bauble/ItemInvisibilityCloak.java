@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [22/10/2016, 11:51:06 (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
@@ -15,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
@@ -27,20 +26,22 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity player) {
 		EffectInstance effect = player.getActivePotionEffect(Effects.INVISIBILITY);
-		if(effect != null && player instanceof PlayerEntity && effect.getAmplifier() == -42)
+		if (effect != null && player instanceof PlayerEntity && effect.getAmplifier() == -42) {
 			player.removePotionEffect(Effects.INVISIBILITY);
+		}
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if(player instanceof PlayerEntity && !player.world.isRemote) {
+		if (player instanceof PlayerEntity && !player.world.isRemote) {
 			int manaCost = 2;
 			boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
-			if(!hasMana)
+			if (!hasMana) {
 				onUnequipped(stack, player);
-			else {
-				if(player.getActivePotionEffect(Effects.INVISIBILITY) != null)
+			} else {
+				if (player.getActivePotionEffect(Effects.INVISIBILITY) != null) {
 					player.removePotionEffect(Effects.INVISIBILITY);
+				}
 
 				player.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 			}

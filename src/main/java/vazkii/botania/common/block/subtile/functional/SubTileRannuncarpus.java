@@ -1,20 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 1, 2014, 6:08:25 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
@@ -33,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -41,14 +37,14 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus")
-	public static TileEntityType<SubTileRannuncarpus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus") public static TileEntityType<SubTileRannuncarpus> TYPE;
 
 	private static final int RANGE = 2;
 	private static final int RANGE_Y = 3;
@@ -72,41 +68,45 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().isRemote || redstoneSignal > 0)
+		if (getWorld().isRemote || redstoneSignal > 0) {
 			return;
+		}
 
-		if(ticksExisted % 10 == 0) {
+		if (ticksExisted % 10 == 0) {
 			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			List<BlockPos> validPositions = getCandidatePositions();
 			int slowdown = getSlowdownFactor();
 
-			for(ItemEntity item : items) {
-				if(item.age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty())
+			for (ItemEntity item : items) {
+				if (item.age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty()) {
 					continue;
+				}
 
 				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
-				if(stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
-					if(!validPositions.isEmpty()) {
+				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
+					if (!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));
 						BlockRayTraceResult ray = new BlockRayTraceResult(Vec3d.ZERO, Direction.UP, coords, false);
 						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray);
 
 						boolean success = false;
-						if(stackItem instanceof IFlowerPlaceable) {
+						if (stackItem instanceof IFlowerPlaceable) {
 							success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
-						} if(stackItem instanceof BlockItem) {
+						}
+						if (stackItem instanceof BlockItem) {
 							success = ((BlockItem) stackItem).tryPlace(ctx) == ActionResultType.SUCCESS;
 						}
 
-						if(success) {
-							if(ConfigHandler.COMMON.blockBreakParticles.get()) {
+						if (success) {
+							if (ConfigHandler.COMMON.blockBreakParticles.get()) {
 								BlockState state = getWorld().getBlockState(ctx.getPos());
 								getWorld().playEvent(2001, coords, Block.getStateId(state));
 							}
 							validPositions.remove(coords);
-							if(getMana() > 1)
+							if (getMana() > 1) {
 								addMana(-1);
+							}
 							return;
 						}
 					}
@@ -130,8 +130,9 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				center.add(rangePlace, rangePlaceY, rangePlace))) {
 			BlockState state = getWorld().getBlockState(pos);
 			BlockState up = getWorld().getBlockState(pos.up());
-			if (filter == state && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable()))
+			if (filter == state && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable())) {
 				ret.add(pos.toImmutable());
+			}
 		}
 		return ret;
 	}
@@ -150,7 +151,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		ItemStack recieverStack = new ItemStack(filter.getBlock());
 		int color = getColor();
 
-		if(!recieverStack.isEmpty()) {
+		if (!recieverStack.isEmpty()) {
 			ITextComponent stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
 			int x = mc.getWindow().getScaledWidth() / 2 - width;
@@ -164,7 +165,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), getRange());
+		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {
@@ -186,15 +187,21 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {
-		@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus_chibi")
-		public static TileEntityType<SubTileRannuncarpus.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus_chibi") public static TileEntityType<SubTileRannuncarpus.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);
 		}
 
-		@Override public int getRange() { return getMana() > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
-		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
+		@Override
+		public int getRange() {
+			return getMana() > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI;
+		}
+
+		@Override
+		public int getRangeY() {
+			return RANGE_PLACE_Y_MINI;
+		}
 	}
 
 	// BlockItemUseContext uses a nullable player field without checking it -.-
@@ -217,7 +224,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		@Nonnull
 		@Override
 		public Direction[] getNearestLookingDirections() {
-		    return lookDirs;
+			return lookDirs;
 		}
 	}
 

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 22, 2014, 5:35:10 PM (GMT)]
  */
 package vazkii.botania.common.core.handler;
 
@@ -14,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
@@ -36,9 +35,11 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
 		Map<World, Set<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
-		if(event.action == Action.ADD)
+		if (event.action == Action.ADD) {
 			add(map, event.tile);
-		else remove(map, event.tile);
+		} else {
+			remove(map, event.tile);
+		}
 	}
 
 	@Override
@@ -49,15 +50,17 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	@Override
 	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
-		if(manaPools.containsKey(world))
+		if (manaPools.containsKey(world)) {
 			return getClosest(manaPools.get(world), pos, world.isRemote, limit);
+		}
 		return null;
 	}
 
 	@Override
 	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
-		if(manaCollectors.containsKey(world))
+		if (manaCollectors.containsKey(world)) {
 			return getClosest(manaCollectors.get(world), pos, world.isRemote, limit);
+		}
 		return null;
 	}
 
@@ -85,8 +88,9 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	private void remove(Map<World, Set<TileEntity>> map, TileEntity tile) {
 		World world = tile.getWorld();
 
-		if(!map.containsKey(world))
+		if (!map.containsKey(world)) {
 			return;
+		}
 
 		map.get(world).remove(tile);
 	}

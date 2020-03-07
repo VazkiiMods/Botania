@@ -1,16 +1,15 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [2020-02-11, 21:45 (UTC+2)]
  */
 package vazkii.botania.data;
 
 import com.google.gson.JsonArray;
+
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.ICriterionInstance;
@@ -42,6 +41,7 @@ import net.minecraftforge.common.crafting.NBTIngredient;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -55,6 +55,7 @@ import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nullable;
+
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
@@ -376,10 +377,10 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(Tags.Items.STORAGE_BLOCKS_REDSTONE))
 				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
 				.build(WrapperResult.transformJson(consumer, json -> {
-							JsonArray array = new JsonArray();
-							array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
-							json.add("conditions", array);
-						}
+					JsonArray array = new JsonArray();
+					array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
+					json.add("conditions", array);
+				}
 				));
 		ShapedRecipeBuilder.shapedRecipe(ModBlocks.brewery)
 				.key('A', ModTags.Items.RUNES_MANA)
@@ -993,13 +994,12 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 
 		ResourceLocation cacophoniumId = ModItems.cacophonium.getRegistryName();
-		Supplier<ShapedRecipeBuilder> cacophoniumBase = () ->
-				ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
-						.key('N', Items.NOTE_BLOCK)
-						.patternLine(" G ")
-						.patternLine("GNG")
-						.patternLine("GG ")
-						.addCriterion("has_item", hasItem(Items.NOTE_BLOCK));
+		Supplier<ShapedRecipeBuilder> cacophoniumBase = () -> ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
+				.key('N', Items.NOTE_BLOCK)
+				.patternLine(" G ")
+				.patternLine("GNG")
+				.patternLine("GG ")
+				.addCriterion("has_item", hasItem(Items.NOTE_BLOCK));
 		ConditionalRecipe.builder()
 				.addCondition(new TagEmptyCondition("forge", "ingots/brass"))
 				.addRecipe(cacophoniumBase.get().key('G', Tags.Items.INGOTS_GOLD)::build)
@@ -1010,15 +1010,15 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 								new Ingredient.TagList(new ItemTags.Wrapper(new ResourceLocation("forge", "ingots/brass"))))
 						))::build
 				).setAdvancement(prefix("recipes/botania/cacophonium"),
-				ConditionalAdvancement.builder()
-						.addCondition(TrueCondition.INSTANCE)
-						.addAdvancement(Advancement.Builder.builder()
-								.withParentId(new ResourceLocation("recipes/root"))
-								.withRewards(AdvancementRewards.Builder.recipe(cacophoniumId))
-								.withCriterion("has_item", hasItem(Items.NOTE_BLOCK))
-								.withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(cacophoniumId))
-								.withRequirementsStrategy(IRequirementsStrategy.OR))
-		).build(consumer, cacophoniumId);
+						ConditionalAdvancement.builder()
+								.addCondition(TrueCondition.INSTANCE)
+								.addAdvancement(Advancement.Builder.builder()
+										.withParentId(new ResourceLocation("recipes/root"))
+										.withRewards(AdvancementRewards.Builder.recipe(cacophoniumId))
+										.withCriterion("has_item", hasItem(Items.NOTE_BLOCK))
+										.withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(cacophoniumId))
+										.withRequirementsStrategy(IRequirementsStrategy.OR))
+				).build(consumer, cacophoniumId);
 
 		ShapedRecipeBuilder.shapedRecipe(ModItems.grassHorn)
 				.key('S', ModItems.grassSeeds)
@@ -1074,7 +1074,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("T  ")
 				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_AIR))
 				.build(consumer);
-
 
 		registerSimpleArmorSet(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), "manasteel", hasItem(ModTags.Items.INGOTS_MANASTEEL));
 		registerSimpleArmorSet(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), "elementium", hasItem(ModTags.Items.INGOTS_ELEMENTIUM));
@@ -1197,7 +1196,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 
 		for (CratePattern pattern : CratePattern.values()) {
-			if (pattern == CratePattern.NONE) continue;
+			if (pattern == CratePattern.NONE) {
+				continue;
+			}
 			Item item = ForgeRegistries.ITEMS.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getName().split("_", 2)[1]));
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeBuilder.shapedRecipe(item)
@@ -1378,11 +1379,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.addIngredient(nbtIngredient(stack))
 					.setGroup("botania:laputa_shard_upgrade")
 					.addCriterion("has_item", hasItem(ModItems.laputaShard))
-					.build(WrapperResult.transformJson(consumer, json ->
-							json.getAsJsonObject("result").addProperty("nbt", "{level:" + outputLevel + "}")
+					.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:" + outputLevel + "}")
 					), "botania:laputa_shard_" + i);
 		}
-
 
 		ShapedRecipeBuilder.shapedRecipe(ModItems.craftingHalo)
 				.key('P', ModItems.manaPearl)
@@ -1622,10 +1621,10 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("FEF")
 				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
 				.build(consumer, "botania:flighttiara_0");
-		
+
 		// Normal quartz and not Tags.Items.QUARTZ because the recipes conflict.
-		Item[] items = {Items.QUARTZ, ModItems.darkQuartz, ModItems.manaQuartz, ModItems.blazeQuartz,
-				ModItems.lavenderQuartz, ModItems.redQuartz, ModItems.elfQuartz, ModItems.sunnyQuartz};
+		Item[] items = { Items.QUARTZ, ModItems.darkQuartz, ModItems.manaQuartz, ModItems.blazeQuartz,
+				ModItems.lavenderQuartz, ModItems.redQuartz, ModItems.elfQuartz, ModItems.sunnyQuartz };
 		for (int i = 0; i < items.length; i++) {
 			int tiaraType = i + 1;
 			ShapelessRecipeBuilder.shapelessRecipe(ModItems.flightTiara)
@@ -1633,8 +1632,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.addIngredient(items[i])
 					.setGroup("botania:flight_tiara_wings")
 					.addCriterion("has_item", hasItem(ModItems.flightTiara))
-					.build(WrapperResult.transformJson(consumer, json ->
-							json.getAsJsonObject("result").addProperty("nbt", "{variant:" + tiaraType + "}")
+					.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{variant:" + tiaraType + "}")
 					), "botania:flighttiara_" + tiaraType);
 		}
 		ShapedRecipeBuilder.shapedRecipe(ModItems.pixieRing)
@@ -2054,7 +2052,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerFloatingFlowers(Consumer<IFinishedRecipe> consumer) {
-		for (Block block : new Block[]{
+		for (Block block : new Block[] {
 				ModSubtiles.pureDaisy, ModSubtiles.manastar, ModSubtiles.hydroangeas, ModSubtiles.endoflame,
 				ModSubtiles.thermalily, ModSubtiles.rosaArcana, ModSubtiles.munchdew, ModSubtiles.entropinnyum,
 				ModSubtiles.kekimurus, ModSubtiles.gourmaryllis, ModSubtiles.narslimmus, ModSubtiles.spectrolus,
@@ -2067,7 +2065,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				ModSubtiles.clayconiaChibi, ModSubtiles.loonium, ModSubtiles.daffomill, ModSubtiles.vinculotus,
 				ModSubtiles.spectranthemum, ModSubtiles.medumone, ModSubtiles.marimorphosis, ModSubtiles.marimorphosisChibi,
 				ModSubtiles.bubbell, ModSubtiles.bubbellChibi, ModSubtiles.solegnolia, ModSubtiles.solegnoliaChibi,
-				ModSubtiles.orechidIgnem}) {
+				ModSubtiles.orechidIgnem }) {
 			createFloatingFlowerRecipe(consumer, block);
 		}
 	}
@@ -2085,7 +2083,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		compression(ModBlocks.manaDiamondBlock, ModTags.Items.GEMS_MANA_DIAMOND).build(consumer);
 		compression(ModBlocks.dragonstoneBlock, ModTags.Items.GEMS_DRAGONSTONE).build(consumer);
 		compression(ModBlocks.blazeBlock, Tags.Items.RODS_BLAZE).build(consumer);
-
 
 		deconstructPetalBlock(consumer, ModItems.whitePetal, ModBlocks.petalBlockWhite);
 		deconstructPetalBlock(consumer, ModItems.orangePetal, ModBlocks.petalBlockOrange);
@@ -2255,7 +2252,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			registerForMetamorphic(consumer, variant);
 		}
 
-		Item[] pavementIngredients = {Items.AIR, Items.COAL, Items.LAPIS_LAZULI, Items.REDSTONE, Items.WHEAT, Items.SLIME_BALL};
+		Item[] pavementIngredients = { Items.AIR, Items.COAL, Items.LAPIS_LAZULI, Items.REDSTONE, Items.WHEAT, Items.SLIME_BALL };
 		for (int i = 0; i < pavementIngredients.length; i++) {
 			registerForPavement(consumer, LibBlockNames.PAVEMENT_VARIANTS[i], pavementIngredients[i]);
 		}
@@ -2276,7 +2273,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		for (int i = 0; i < allAzulejos.size(); i++) {
 			int resultIndex = i + 1 == allAzulejos.size() ? 0 : i + 1;
 			String recipeName = "azulejo_" + resultIndex;
-			if (resultIndex == 0) recipeName += "_alt";
+			if (resultIndex == 0) {
+				recipeName += "_alt";
+			}
 			ShapelessRecipeBuilder.shapelessRecipe(allAzulejos.get(resultIndex))
 					.addIngredient(allAzulejos.get(i))
 					.addCriterion("has_azulejo", hasItem(ModBlocks.azulejo0))
@@ -2320,7 +2319,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerSimpleArmorSet(Consumer<IFinishedRecipe> consumer, Ingredient item, String variant,
-										ICriterionInstance criterion) {
+			ICriterionInstance criterion) {
 		Item helmet = ForgeRegistries.ITEMS.getValue(prefix(variant + "_helmet"));
 		Item chestplate = ForgeRegistries.ITEMS.getValue(prefix(variant + "_chestplate"));
 		Item leggings = ForgeRegistries.ITEMS.getValue(prefix(variant + "_leggings"));
@@ -2354,8 +2353,8 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerToolSetRecipes(Consumer<IFinishedRecipe> consumer, Ingredient item, Ingredient stick,
-										ICriterionInstance criterion, IItemProvider sword, IItemProvider pickaxe,
-										IItemProvider axe, IItemProvider shovel, IItemProvider shears) {
+			ICriterionInstance criterion, IItemProvider sword, IItemProvider pickaxe,
+			IItemProvider axe, IItemProvider shovel, IItemProvider shears) {
 		ShapedRecipeBuilder.shapedRecipe(pickaxe)
 				.key('S', item)
 				.key('T', stick)
@@ -2398,7 +2397,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerTerrasteelUpgradeRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider output,
-												 IItemProvider upgradedInput, Tag<Item> runeInput) {
+			IItemProvider upgradedInput, Tag<Item> runeInput) {
 		ShapedRecipeBuilder.shapedRecipe(output)
 				.key('T', ModItems.livingwoodTwig)
 				.key('S', ModTags.Items.INGOTS_TERRASTEEL)
@@ -2514,8 +2513,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(Items.GRAVEL)
 				.setGroup("botania:pavement")
 				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGROCK));
-		if (mainInput != Items.AIR)
+		if (mainInput != Items.AIR) {
 			builder.addIngredient(mainInput);
+		}
 		builder.build(consumer);
 
 		slabShape(slab, base).setGroup("botania:pavement_slab").build(consumer);
@@ -2663,7 +2663,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	private static NBTIngredient nbtIngredient(ItemStack stack) {
 		return new NBTIngredient(stack) {};
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Botania crafting recipes";

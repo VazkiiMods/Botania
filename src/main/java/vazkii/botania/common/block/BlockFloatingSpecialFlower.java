@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 17, 2014, 5:31:53 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -23,18 +21,19 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -88,7 +87,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		List<ItemStack> drops = super.getDrops(state, builder);
 		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
 
-		if(te instanceof TileEntitySpecialFlower) {
+		if (te instanceof TileEntitySpecialFlower) {
 			return ((TileEntitySpecialFlower) te).getDrops(drops, builder);
 		} else {
 			return drops;
@@ -108,9 +107,11 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ActionResultType tileResult = ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
-		if (tileResult.isAccepted())
+		if (tileResult.isAccepted()) {
 			return tileResult;
-		else return super.onUse(state, world, pos, player, hand, hit);
+		} else {
+			return super.onUse(state, world, pos, player, hand, hit);
+		}
 	}
 
 	@Override

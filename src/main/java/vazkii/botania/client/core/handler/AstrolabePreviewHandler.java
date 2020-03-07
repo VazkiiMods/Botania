@@ -1,42 +1,34 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [27/10/2016, 17:55:20 (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GLX;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.item.ItemAstrolabe;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -53,13 +45,15 @@ public final class AstrolabePreviewHandler {
 
 		for (PlayerEntity player : world.getPlayers()) {
 			ItemStack currentStack = player.getHeldItemMainhand();
-			if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe))
+			if (currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe)) {
 				currentStack = player.getHeldItemOffhand();
+			}
 
-			if(!currentStack.isEmpty() && currentStack.getItem() instanceof ItemAstrolabe) {
+			if (!currentStack.isEmpty() && currentStack.getItem() instanceof ItemAstrolabe) {
 				Block block = ItemAstrolabe.getBlock(currentStack);
-				if(block != Blocks.AIR)
+				if (block != Blocks.AIR) {
 					renderPlayerLook(ms, buffer, player, currentStack);
+				}
 			}
 		}
 
@@ -71,8 +65,9 @@ public final class AstrolabePreviewHandler {
 		if (ItemAstrolabe.hasBlocks(stack, player, coords)) {
 			BlockState state = ItemAstrolabe.getBlockState(stack);
 
-			for(BlockPos coord : coords)
+			for (BlockPos coord : coords) {
 				renderBlockAt(ms, buffer, state, coord);
+			}
 		}
 	}
 
@@ -88,9 +83,9 @@ public final class AstrolabePreviewHandler {
 		ms.translate(pos.getX(), pos.getY(), pos.getZ());
 		IBakedModel model = brd.getModelForState(state);
 		int color = Minecraft.getInstance().getBlockColors().getColor(state, null, null, 0);
-		float r = (float)(color >> 16 & 255) / 255.0F;
-		float g = (float)(color >> 8 & 255) / 255.0F;
-		float b = (float)(color & 255) / 255.0F;
+		float r = (float) (color >> 16 & 255) / 255.0F;
+		float g = (float) (color >> 8 & 255) / 255.0F;
+		float b = (float) (color & 255) / 255.0F;
 		// always use entity translucent layer so blending is turned on
 		brd.getBlockModelRenderer().render(ms.peek(), buffer, state, model, r, g, b, 0xF000F0, OverlayTexture.DEFAULT_UV);
 

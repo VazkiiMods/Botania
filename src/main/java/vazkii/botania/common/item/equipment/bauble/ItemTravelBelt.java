@@ -1,19 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 24, 2014, 11:14:57 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -28,6 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -40,8 +38,7 @@ import java.util.List;
 public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
-	@OnlyIn(Dist.CLIENT)
-	private static BipedModel model;
+	@OnlyIn(Dist.CLIENT) private static BipedModel model;
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
@@ -67,35 +64,40 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	}
 
 	private void updatePlayerStepStatus(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof PlayerEntity) {
+		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 			String s = playerStr(player);
 
-			if(playersWithStepup.contains(s)) {
-				if(shouldPlayerHaveStepup(player)) {
+			if (playersWithStepup.contains(s)) {
+				if (shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if(player.world.isRemote) {
-						if((player.onGround || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
+					if (player.world.isRemote) {
+						if ((player.onGround || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
 							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vec3d(0, 0, 1));
 							beltItem.onMovedTick(belt, player);
 
-							if(player.ticksExisted % COST_INTERVAL == 0)
+							if (player.ticksExisted % COST_INTERVAL == 0) {
 								ManaItemHandler.requestManaExact(belt, player, COST, true);
-						} else beltItem.onNotMovingTick(belt, player);
+							}
+						} else {
+							beltItem.onNotMovingTick(belt, player);
+						}
 					}
 
-					if(player.isSneaking())
+					if (player.isSneaking()) {
 						player.stepHeight = 0.60001F; // Not 0.6F because that is the default
-					else player.stepHeight = 1.25F;
+					} else {
+						player.stepHeight = 1.25F;
+					}
 
 				} else {
 					player.stepHeight = 0.6F;
 					playersWithStepup.remove(s);
 				}
-			} else if(shouldPlayerHaveStepup(player)) {
+			} else if (shouldPlayerHaveStepup(player)) {
 				playersWithStepup.add(s);
 				player.stepHeight = 1.25F;
 			}
@@ -111,11 +113,11 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {}
 
 	private void onPlayerJump(LivingJumpEvent event) {
-		if(event.getEntityLiving() instanceof PlayerEntity) {
+		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-			if(!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
+			if (!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
 				player.setMotion(player.getMotion().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
@@ -142,7 +144,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return texture;
 	}
 
-
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -152,8 +153,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 		float s = 1.05F / 16F;
 		ms.scale(s, s, s);
-		if(model == null)
+		if (model == null) {
 			model = new BipedModel(1F);
+		}
 
 		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
 		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));

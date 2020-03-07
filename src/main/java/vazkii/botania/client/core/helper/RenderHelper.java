@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 19, 2014, 5:40:38 PM (GMT)]
  */
 package vazkii.botania.client.core.helper;
 
@@ -14,6 +12,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -40,16 +39,18 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nullable;
+
 import java.lang.invoke.MethodHandle;
 import java.util.Arrays;
 import java.util.List;
@@ -183,8 +184,9 @@ public final class RenderHelper {
 		IVertexBuilder buffer = buffers.getBuffer(STAR);
 
 		float ticks = (ClientTickHandler.ticksInGame % 200) + ClientTickHandler.partialTicks;
-		if (ticks >= 100)
+		if (ticks >= 100) {
 			ticks = 200 - ticks - 1;
+		}
 
 		float f1 = ticks / 200F;
 		float f2 = f1 > 0.F ? (f1 - 0.7F) / 0.2F : 0;
@@ -269,7 +271,7 @@ public final class RenderHelper {
 		buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
 		buf.vertex(centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
 
-		for(int i = degs; i > 0; i--) {
+		for (int i = degs; i > 0; i--) {
 			double rad = (i - 90) / 180F * Math.PI;
 			buf.vertex(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
 		}
@@ -286,11 +288,12 @@ public final class RenderHelper {
 	public static String getKeyDisplayString(String keyName) {
 		String key = null;
 		KeyBinding[] keys = Minecraft.getInstance().gameSettings.keyBindings;
-		for(KeyBinding otherKey : keys)
-			if(otherKey.getKeyDescription().equals(keyName)) {
+		for (KeyBinding otherKey : keys) {
+			if (otherKey.getKeyDescription().equals(keyName)) {
 				key = otherKey.getLocalizedName();
 				break;
 			}
+		}
 
 		return key;
 	}
@@ -327,25 +330,25 @@ public final class RenderHelper {
 		Random random = new Random();
 		long i = 42L;
 
-		for(Direction direction : Direction.values()) {
+		for (Direction direction : Direction.values()) {
 			random.setSeed(42L);
-			renderBakedItemQuads(ms, buffer, color, model.getQuads((BlockState)null, direction, random), stack, light, overlay);
+			renderBakedItemQuads(ms, buffer, color, model.getQuads((BlockState) null, direction, random), stack, light, overlay);
 		}
 
 		random.setSeed(42L);
-		renderBakedItemQuads(ms, buffer, color, model.getQuads((BlockState)null, (Direction)null, random), stack, light, overlay);
+		renderBakedItemQuads(ms, buffer, color, model.getQuads((BlockState) null, (Direction) null, random), stack, light, overlay);
 	}
 
 	// [VanillaCopy] ItemRenderer, with custom color + alpha support
 	private static void renderBakedItemQuads(MatrixStack ms, IVertexBuilder buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
 		MatrixStack.Entry matrixstack$entry = ms.peek();
 
-		for(BakedQuad bakedquad : quads) {
+		for (BakedQuad bakedquad : quads) {
 			int i = color;
 
-			float f = (float)(i >> 16 & 255) / 255.0F;
-			float f1 = (float)(i >> 8 & 255) / 255.0F;
-			float f2 = (float)(i & 255) / 255.0F;
+			float f = (float) (i >> 16 & 255) / 255.0F;
+			float f1 = (float) (i >> 8 & 255) / 255.0F;
+			float f2 = (float) (i & 255) / 255.0F;
 			float alpha = ((color >> 24) & 0xFF) / 255.0F;
 			buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}

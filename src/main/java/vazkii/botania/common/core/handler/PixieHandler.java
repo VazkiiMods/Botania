@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.LivingEntity;
@@ -16,9 +24,9 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
@@ -67,22 +75,23 @@ public final class PixieHandler {
 
 	@SubscribeEvent
 	public static void onDamageTaken(LivingHurtEvent event) {
-		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
+		if (!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			double chance = player.getAttribute(PIXIE_SPAWN_CHANCE).getValue();
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
 
-			if(Math.random() < chance) {
+			if (Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.world);
 				pixie.setPosition(player.getX(), player.getY() + 2, player.getZ());
 
-				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
+				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
 					pixie.setApplyPotionEffect(new EffectInstance(potions[event.getEntityLiving().world.rand.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
-				if(!sword.isEmpty())
+				if (!sword.isEmpty()) {
 					dmg += 2;
+				}
 
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
 				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(new BlockPos(pixie)),

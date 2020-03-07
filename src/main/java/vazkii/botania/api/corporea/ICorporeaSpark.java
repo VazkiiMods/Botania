@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Feb 13, 2015, 10:53:05 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
@@ -26,7 +24,8 @@ public interface ICorporeaSpark {
 	 * which is the one that initiated the chain call, the referrer which passed the call to this instance
 	 * and the List of sparks connected. Normal behavior should be to find any sparks around that are not
 	 * already present in the list of connections and add them to it, passing the function call to them.
-	 * <br><br>
+	 * <br>
+	 * <br>
 	 * The connections List and the master Spark should be kept in this instance as pointers for use in
 	 * getConnections() and getMaster() and passed in to any subsequent registerConnections calls on sparks
 	 * found nearby. This is only called whenever a new spark is added or removed from and to the network,

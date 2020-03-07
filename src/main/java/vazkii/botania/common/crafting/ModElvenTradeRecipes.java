@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.crafting;
 
 import net.minecraft.block.Blocks;
@@ -7,6 +15,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.block.ModBlocks;
@@ -65,8 +74,9 @@ public class ModElvenTradeRecipes {
 
 		@Override
 		public Optional<List<ItemStack>> match(List<ItemStack> stacks) {
-			if(stacks.size() == 1 && !ItemNBTHelper.getBoolean(stacks.get(0), ItemLexicon.TAG_ELVEN_UNLOCK, false))
+			if (stacks.size() == 1 && !ItemNBTHelper.getBoolean(stacks.get(0), ItemLexicon.TAG_ELVEN_UNLOCK, false)) {
 				return super.match(stacks);
+			}
 			return Optional.empty();
 		}
 

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 26, 2014, 1:42:17 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
@@ -23,6 +21,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.lib.LibMisc;
@@ -30,8 +29,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":gourmaryllis")
-	public static TileEntityType<SubTileGourmaryllis> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":gourmaryllis") public static TileEntityType<SubTileGourmaryllis> TYPE;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_DIGESTING_MANA = "digestingMana";
@@ -52,27 +50,29 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote)
+		if (getWorld().isRemote) {
 			return;
-		
-		if(cooldown > -1)
+		}
+
+		if (cooldown > -1) {
 			cooldown--;
-		if(digestingMana != 0) {
+		}
+		if (digestingMana != 0) {
 			int munchInterval = 2 + (2 * lastFoodCount);
-			
-			if(cooldown == 0) {
+
+			if (cooldown == 0) {
 				addMana(digestingMana);
 				digestingMana = 0;
-				
+
 				float burpPitch = 1 - (lastFoodCount - 1) * 0.05F;
 				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
 				sync();
-			} else if(cooldown % munchInterval == 0) {
+			} else if (cooldown % munchInterval == 0) {
 				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
-				
+
 				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.6, 0.4);
-				
-				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFood), getEffectivePos().getX()+offset.x, getEffectivePos().getY()+offset.y, getEffectivePos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+
+				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFood), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
@@ -80,12 +80,12 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 
 		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
-		for(ItemEntity item : items) {
+		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			if(!stack.isEmpty() && stack.getItem().isFood() && !item.removed && item.age >= slowdown) {
-				if(cooldown <= 0) {
-					if(ItemHandlerHelper.canItemStacksStack(lastFood, stack)) {
+			if (!stack.isEmpty() && stack.getItem().isFood() && !item.removed && item.age >= slowdown) {
+				if (cooldown <= 0) {
+					if (ItemHandlerHelper.canItemStacksStack(lastFood, stack)) {
 						lastFoodCount++;
 					} else {
 						lastFood = stack.copy();
@@ -127,7 +127,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
 	@Override

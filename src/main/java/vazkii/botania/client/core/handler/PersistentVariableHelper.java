@@ -1,24 +1,20 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 24, 2015, 5:54:45 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Set;
 
 public final class PersistentVariableHelper {
 
@@ -50,8 +46,9 @@ public final class PersistentVariableHelper {
 	}
 
 	private static File getCacheFile() throws IOException {
-		if(!cacheFile.exists())
+		if (!cacheFile.exists()) {
 			cacheFile.createNewFile();
+		}
 
 		return cacheFile;
 	}
@@ -61,12 +58,13 @@ public final class PersistentVariableHelper {
 	}
 
 	private static CompoundNBT getCacheCompound(File cache) throws IOException {
-		if(cache == null)
+		if (cache == null) {
 			throw new RuntimeException("No cache file!");
+		}
 
 		try {
 			return CompressedStreamTools.readCompressed(new FileInputStream(cache));
-		} catch(IOException e) {
+		} catch (IOException e) {
 			CompoundNBT cmp = new CompoundNBT();
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(cache));
 			return getCacheCompound(cache);
@@ -76,7 +74,7 @@ public final class PersistentVariableHelper {
 	private static void injectNBTToFile(CompoundNBT cmp, File f) {
 		try {
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(f));
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

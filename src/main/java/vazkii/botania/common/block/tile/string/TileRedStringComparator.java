@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 16, 2014, 10:22:01 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.string;
 
@@ -14,12 +12,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileRedStringComparator extends TileRedString {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_COMPARATOR)
-	public static TileEntityType<TileRedStringComparator> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_COMPARATOR) public static TileEntityType<TileRedStringComparator> TYPE;
 	private int comparatorValue = 0;
 
 	public TileRedStringComparator() {
@@ -33,12 +31,15 @@ public class TileRedStringComparator extends TileRedString {
 		BlockState state = getStateAtBinding();
 		int origVal = comparatorValue;
 
-		if(state.hasComparatorInputOverride()) {
+		if (state.hasComparatorInputOverride()) {
 			comparatorValue = state.getComparatorInputOverride(world, binding);
-		} else comparatorValue = 0;
+		} else {
+			comparatorValue = 0;
+		}
 
-		if(origVal != comparatorValue)
+		if (origVal != comparatorValue) {
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+		}
 	}
 
 	public int getComparatorValue() {

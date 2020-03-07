@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -11,9 +20,11 @@ import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,10 +54,10 @@ public class LokiPlaceTrigger implements ICriterionTrigger<LokiPlaceTrigger.Inst
 	public void removeListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<LokiPlaceTrigger.Instance> listener) {
 		LokiPlaceTrigger.PlayerTracker tracker = this.playerTrackers.get(player);
 
-		if(tracker != null) {
+		if (tracker != null) {
 			tracker.listeners.remove(listener);
 
-			if(tracker.listeners.isEmpty()) {
+			if (tracker.listeners.isEmpty()) {
 				this.playerTrackers.remove(player);
 			}
 		}
@@ -74,13 +85,13 @@ public class LokiPlaceTrigger implements ICriterionTrigger<LokiPlaceTrigger.Inst
 		public void trigger(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
 			List<ICriterionTrigger.Listener<LokiPlaceTrigger.Instance>> list = new ArrayList<>();
 
-			for(ICriterionTrigger.Listener<LokiPlaceTrigger.Instance> listener : this.listeners) {
-				if(listener.getCriterionInstance().test(player, ring, blocksPlaced)) {
+			for (ICriterionTrigger.Listener<LokiPlaceTrigger.Instance> listener : this.listeners) {
+				if (listener.getCriterionInstance().test(player, ring, blocksPlaced)) {
 					list.add(listener);
 				}
 			}
 
-			for(ICriterionTrigger.Listener<LokiPlaceTrigger.Instance> listener : list) {
+			for (ICriterionTrigger.Listener<LokiPlaceTrigger.Instance> listener : list) {
 				listener.grantCriterion(this.playerAdvancements);
 			}
 		}
@@ -88,7 +99,7 @@ public class LokiPlaceTrigger implements ICriterionTrigger<LokiPlaceTrigger.Inst
 
 	public void trigger(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
 		LokiPlaceTrigger.PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
-		if(tracker != null) {
+		if (tracker != null) {
 			tracker.trigger(player, ring, blocksPlaced);
 		}
 	}

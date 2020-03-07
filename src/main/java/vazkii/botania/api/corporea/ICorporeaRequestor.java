@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Sep 28, 2015, 11:25:48 AM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
@@ -18,8 +16,8 @@ package vazkii.botania.api.corporea;
 public interface ICorporeaRequestor {
 
 	/*
-	 * Executes the passed in request.
-	 */
+	* Executes the passed in request.
+	*/
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark);
 
 }

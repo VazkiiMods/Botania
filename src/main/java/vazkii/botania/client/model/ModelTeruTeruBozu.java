@@ -1,17 +1,16 @@
-/**
- * This class was created by <wiiv>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
@@ -47,9 +46,11 @@ public class ModelTeruTeruBozu extends Model {
 
 	@Override
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
-		if(Minecraft.getInstance().world.isRaining())
+		if (Minecraft.getInstance().world.isRaining()) {
 			sadFace.render(ms, buffer, light, overlay, r, g, b, a);
-		else happyFace.render(ms, buffer, light, overlay, r, g, b, a);
+		} else {
+			happyFace.render(ms, buffer, light, overlay, r, g, b, a);
+		}
 		thread.render(ms, buffer, light, overlay, r, g, b, a);
 		cloth.render(ms, buffer, light, overlay, r, g, b, a);
 	}

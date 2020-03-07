@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Nov 3, 2014, 12:12:04 AM (GMT)]
  */
 package vazkii.botania.common.brew.potion;
 
@@ -29,8 +27,9 @@ public class PotionFeatherfeet extends Effect {
 
 	@Override
 	public void performEffect(@Nonnull LivingEntity living, int amplified) {
-		if(living.fallDistance > 2.5F)
+		if (living.fallDistance > 2.5F) {
 			living.fallDistance = 2.5F;
+		}
 	}
 
 }

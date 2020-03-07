@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 18, 2015, 12:22:58 AM (GMT)]
  */
 package vazkii.botania.common.block.dispenser;
 
@@ -22,6 +20,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
 import javax.annotation.Nonnull;
@@ -35,12 +34,12 @@ public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		Direction enumfacing = source.getBlockState().get(DispenserBlock.FACING);
 		World world = source.getWorld();
-		double d0 = source.getX() + (double)enumfacing.getXOffset() * 1.125D;
-		double d1 = Math.floor(source.getY()) + (double)enumfacing.getYOffset();
-		double d2 = source.getZ() + (double)enumfacing.getZOffset() * 1.125D;
+		double d0 = source.getX() + (double) enumfacing.getXOffset() * 1.125D;
+		double d1 = Math.floor(source.getY()) + (double) enumfacing.getYOffset();
+		double d2 = source.getZ() + (double) enumfacing.getZOffset() * 1.125D;
 		BlockPos blockpos = source.getBlockPos().offset(enumfacing);
 		BlockState iblockstate = world.getBlockState(blockpos);
-		RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock)iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
+		RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock) iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
 		double d3;
 		if (iblockstate.isIn(BlockTags.RAILS)) {
 			if (railshape.isAscending()) {
@@ -54,7 +53,7 @@ public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 			}
 
 			BlockState iblockstate1 = world.getBlockState(blockpos.down());
-			RailShape railshape1 = iblockstate1.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock)iblockstate1.getBlock()).getRailDirection(iblockstate1, world, blockpos, null) : RailShape.NORTH_SOUTH;
+			RailShape railshape1 = iblockstate1.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock) iblockstate1.getBlock()).getRailDirection(iblockstate1, world, blockpos, null) : RailShape.NORTH_SOUTH;
 			if (enumfacing != Direction.DOWN && railshape1.isAscending()) {
 				d3 = -0.4D;
 			} else {

@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 13, 2014, 7:46:05 PM (GMT)]
  */
 package vazkii.botania.client.core.proxy;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
@@ -30,13 +29,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
 import org.lwjgl.glfw.GLFW;
+
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
@@ -49,15 +49,10 @@ import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.BlockModDoubleFlower;
-import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
-import vazkii.botania.common.block.decor.BlockShinyFlower;
-import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
@@ -112,12 +107,14 @@ public class ClientProxy implements IProxy {
 			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
 
-		if(ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
+		if (ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
 			LocalDateTime now = LocalDateTime.now();
-			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2)
+			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
 				jingleTheBells = true;
-			if(now.getMonth() == Month.OCTOBER)
+			}
+			if (now.getMonth() == Month.OCTOBER) {
 				dootDoot = true;
+			}
 		}
 
 		DeferredWorkQueue.runLater(() -> {
@@ -159,13 +156,14 @@ public class ClientProxy implements IProxy {
 		Registry.BLOCK.stream().filter(b -> b.getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
 					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
-							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom)
+							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom) {
 						RenderTypeLookup.setRenderLayer(b, RenderType.getCutout());
+					}
 				});
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
-	    DeferredWorkQueue.runLater(() -> {
+		DeferredWorkQueue.runLater(() -> {
 			initAuxiliaryRender();
 			ColorHandler.init();
 		});
@@ -176,14 +174,16 @@ public class ClientProxy implements IProxy {
 		PlayerRenderer render;
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler(render));
-		if(Botania.curiosLoaded)
+		if (Botania.curiosLoaded) {
 			render.addLayer(new BaubleRenderHandler(render));
+		}
 		render.addLayer(new LayerTerraHelmet(render));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler(render));
-		if(Botania.curiosLoaded)
+		if (Botania.curiosLoaded) {
 			render.addLayer(new BaubleRenderHandler(render));
+		}
 		render.addLayer(new LayerTerraHelmet(render));
 	}
 
@@ -242,8 +242,8 @@ public class ClientProxy implements IProxy {
 	public void clearSextantMultiblock() {
 		if (MultiblockVisualizationHandler.hasMultiblock
 				&& MultiblockVisualizationHandler.getMultiblock() != null
-				&& MultiblockVisualizationHandler.getMultiblock().getID().equals(ItemSextant.MULTIBLOCK_ID))
+				&& MultiblockVisualizationHandler.getMultiblock().getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			MultiblockVisualizationHandler.setMultiblock(null, null, null, true);
+		}
 	}
 }
-

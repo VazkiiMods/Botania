@@ -1,31 +1,25 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 15, 2014, 3:53:30 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -38,7 +32,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IWorldPosCallable;
@@ -61,7 +54,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.WispParticleData;
@@ -72,6 +65,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -103,26 +97,27 @@ public class ItemCraftingHalo extends Item {
 		int segment = getSegmentLookedAt(stack, player);
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
-		if(!world.isRemote) {
-			if(segment == 0) {
+		if (!world.isRemote) {
+			if (segment == 0) {
 				IWorldPosCallable wp = IWorldPosCallable.of(world, BlockPos.ZERO); // pos is never used by workbench
 				player.openContainer(new SimpleNamedContainerProvider(
 						(windowId, playerInv, p) -> new ContainerCraftingHalo(windowId, playerInv, wp),
 						stack.getDisplayName()));
 			} else {
-				if(itemForPos.isEmpty())
+				if (itemForPos.isEmpty()) {
 					assignRecipe(stack, itemForPos, segment);
-				else tryCraft(player, stack, segment, true, getFakeInv(player), true);
+				} else {
+					tryCraft(player, stack, segment, true, getFakeInv(player), true);
+				}
 			}
 		}
-
 
 		return ActionResult.success(stack);
 	}
 
 	public static IItemHandler getFakeInv(PlayerEntity player) {
 		ItemStackHandler ret = new ItemStackHandler(player.inventory.mainInventory.size());
-		for(int i = 0; i < player.inventory.mainInventory.size(); i++) {
+		for (int i = 0; i < player.inventory.mainInventory.size(); i++) {
 			ret.setStackInSlot(i, player.inventory.mainInventory.get(i).copy());
 		}
 
@@ -131,19 +126,22 @@ public class ItemCraftingHalo extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
-		if (!(entity instanceof LivingEntity))
+		if (!(entity instanceof LivingEntity)) {
 			return;
+		}
 		LivingEntity living = (LivingEntity) entity;
 
 		boolean eqLastTick = wasEquipped(stack);
 
-		if (!equipped && living.getHeldItemOffhand() == stack)
+		if (!equipped && living.getHeldItemOffhand() == stack) {
 			equipped = true;
+		}
 
-		if(eqLastTick != equipped)
+		if (eqLastTick != equipped) {
 			setEquipped(stack, equipped);
+		}
 
-		if(!equipped) {
+		if (!equipped) {
 			int angles = 360;
 			int segAngles = angles / SEGMENTS;
 			float shift = segAngles / 2.0F;
@@ -153,32 +151,36 @@ public class ItemCraftingHalo extends Item {
 
 	void tryCraft(PlayerEntity player, ItemStack stack, int slot, boolean particles, IItemHandler inv, boolean validate) {
 		ItemStack itemForPos = getItemForSlot(stack, slot);
-		if(itemForPos.isEmpty())
+		if (itemForPos.isEmpty()) {
 			return;
+		}
 
 		ItemStack[] recipe = getCraftingItems(stack, slot);
-		if(validate)
+		if (validate) {
 			recipe = validateRecipe(player, stack, recipe, slot);
+		}
 
-		if(canCraft(recipe, inv))
+		if (canCraft(recipe, inv)) {
 			doCraft(player, recipe, particles);
+		}
 	}
 
 	private static ItemStack[] validateRecipe(PlayerEntity player, ItemStack stack, ItemStack[] recipe, int slot) {
 		CraftingInventory fakeInv = new CraftingInventory(new WorkbenchContainer(-1, player.inventory), 3, 3);
-		for(int i = 0; i < 9; i++)
+		for (int i = 0; i < 9; i++) {
 			fakeInv.setInventorySlotContents(i, recipe[i]);
+		}
 
 		ItemStack result = player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, fakeInv, player.world)
 				.map(r -> r.getCraftingResult(fakeInv))
 				.orElse(ItemStack.EMPTY);
 
-		if(result.isEmpty()) {
+		if (result.isEmpty()) {
 			assignRecipe(stack, recipe[9], slot);
 			return null;
 		}
 
-		if(!result.isItemEqual(recipe[9]) || result.getCount() != recipe[9].getCount() || !ItemStack.areItemStackTagsEqual(recipe[9], result)) {
+		if (!result.isItemEqual(recipe[9]) || result.getCount() != recipe[9].getCount() || !ItemStack.areItemStackTagsEqual(recipe[9], result)) {
 			assignRecipe(stack, recipe[9], slot);
 			return null;
 		}
@@ -187,11 +189,13 @@ public class ItemCraftingHalo extends Item {
 	}
 
 	private static boolean canCraft(ItemStack[] recipe, IItemHandler inv) {
-		if(recipe == null)
+		if (recipe == null) {
 			return false;
+		}
 
-		if(!ItemHandlerHelper.insertItemStacked(inv, recipe[9], true).isEmpty())
+		if (!ItemHandlerHelper.insertItemStacked(inv, recipe[9], true).isEmpty()) {
 			return false;
+		}
 
 		return consumeRecipeIngredients(recipe, inv, null);
 	}
@@ -200,48 +204,52 @@ public class ItemCraftingHalo extends Item {
 		consumeRecipeIngredients(recipe, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(EmptyHandler.INSTANCE), player);
 		ItemHandlerHelper.giveItemToPlayer(player, recipe[9]);
 
-		if(!particles)
+		if (!particles) {
 			return;
+		}
 
 		Vec3d lookVec3 = player.getLookVec();
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 		float m = 0.1F;
-		for(int i = 0; i < 4; i++) {
-            WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
-            player.world.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
-        }
+		for (int i = 0; i < 4; i++) {
+			WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
+			player.world.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+		}
 	}
 
 	private static boolean consumeRecipeIngredients(ItemStack[] recipe, IItemHandler inv, PlayerEntity player) {
-		for(int i = 0; i < 9; i++) {
+		for (int i = 0; i < 9; i++) {
 			ItemStack ingredient = recipe[i];
-			if(!ingredient.isEmpty() && !consumeFromInventory(ingredient, inv, player))
+			if (!ingredient.isEmpty() && !consumeFromInventory(ingredient, inv, player)) {
 				return false;
+			}
 		}
 
 		return true;
 	}
 
 	private static boolean consumeFromInventory(ItemStack stack, IItemHandler inv, PlayerEntity player) {
-		for(int i = 0; i < inv.getSlots(); i++) {
+		for (int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stackAt = inv.getStackInSlot(i);
-			if(!stackAt.isEmpty() && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
+			if (!stackAt.isEmpty() && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
 				boolean consume = true;
 
 				ItemStack container = stackAt.getItem().getContainerItem(stackAt);
-				if(!container.isEmpty()) {
-					if(container == stackAt)
+				if (!container.isEmpty()) {
+					if (container == stackAt) {
 						consume = false;
-					else {
-						if(player == null)
+					} else {
+						if (player == null) {
 							ItemHandlerHelper.insertItem(inv, container, false);
-						else
+						} else {
 							ItemHandlerHelper.giveItemToPlayer(player, container);
+						}
 					}
 				}
 
-				if(consume)
+				if (consume) {
 					inv.extractItem(i, 1, false);
+				}
 
 				return true;
 			}
@@ -253,12 +261,13 @@ public class ItemCraftingHalo extends Item {
 	@Override
 	public boolean onEntitySwing(ItemStack stack, LivingEntity player) {
 		int segment = getSegmentLookedAt(stack, player);
-		if(segment == 0)
+		if (segment == 0) {
 			return false;
+		}
 
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
-		if(!itemForPos.isEmpty() && player.isSneaking()) {
+		if (!itemForPos.isEmpty() && player.isSneaking()) {
 			assignRecipe(stack, itemForPos, segment);
 			return true;
 		}
@@ -271,10 +280,11 @@ public class ItemCraftingHalo extends Item {
 
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
-		for(int seg = 0; seg < SEGMENTS; seg++) {
+		for (int seg = 0; seg < SEGMENTS; seg++) {
 			float calcAngle = (float) seg * segAngles;
-			if(yaw >= calcAngle && yaw < calcAngle + segAngles)
+			if (yaw >= calcAngle && yaw < calcAngle + segAngles) {
 				return seg;
+			}
 		}
 		return -1;
 	}
@@ -291,64 +301,71 @@ public class ItemCraftingHalo extends Item {
 		int segAngles = angles / SEGMENTS;
 		float shift = segAngles / 2;
 
-		if(yaw < 0)
+		if (yaw < 0) {
 			yaw = 180F + (180F + yaw);
+		}
 		yaw -= 360F - base;
 		float angle = 360F - yaw + shift;
 
-		if(angle < 0)
+		if (angle < 0) {
 			angle = 360F + angle;
+		}
 
 		return angle;
 	}
 
 	private static ItemStack getItemForSlot(ItemStack stack, int slot) {
-		if(slot == 0)
+		if (slot == 0) {
 			return craftingTable;
-		else if(slot >= SEGMENTS)
+		} else if (slot >= SEGMENTS) {
 			return ItemStack.EMPTY;
-		else {
+		} else {
 			CompoundNBT cmp = getStoredRecipeCompound(stack, slot);
 
-			if(cmp != null) {
+			if (cmp != null) {
 				return getLastCraftingItem(cmp, 9);
-			} else return ItemStack.EMPTY;
+			} else {
+				return ItemStack.EMPTY;
+			}
 		}
 	}
 
 	private static void assignRecipe(ItemStack stack, ItemStack itemForPos, int pos) {
-		if(!itemForPos.isEmpty())
+		if (!itemForPos.isEmpty()) {
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, new CompoundNBT());
-		else
+		} else {
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, getLastCraftingCompound(stack, false));
+		}
 	}
 
 	private void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
-		if(!(event.getPlayer().openContainer instanceof ContainerCraftingHalo) || !(event.getInventory() instanceof CraftingInventory))
+		if (!(event.getPlayer().openContainer instanceof ContainerCraftingHalo) || !(event.getInventory() instanceof CraftingInventory)) {
 			return;
+		}
 
-		for(int i = 0; i < event.getPlayer().inventory.getSizeInventory(); i++) {
+		for (int i = 0; i < event.getPlayer().inventory.getSizeInventory(); i++) {
 			ItemStack stack = event.getPlayer().inventory.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() instanceof ItemCraftingHalo)
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemCraftingHalo) {
 				saveRecipeToStack(event, stack);
+			}
 		}
 	}
 
 	private void saveRecipeToStack(PlayerEvent.ItemCraftedEvent event, ItemStack stack) {
 		CompoundNBT cmp = new CompoundNBT();
 
-		if(event.getInventory() instanceof CraftingInventory) {
+		if (event.getInventory() instanceof CraftingInventory) {
 			Optional<ItemStack> result = event.getPlayer().world.getRecipeManager().getRecipe(IRecipeType.CRAFTING,
 					(CraftingInventory) event.getInventory(), event.getPlayer().world)
 					.map(r -> r.getCraftingResult((CraftingInventory) event.getInventory()));
-			if(result.isPresent() && !result.get().isEmpty()) {
+			if (result.isPresent() && !result.get().isEmpty()) {
 				cmp.put(TAG_ITEM_PREFIX + 9, result.get().write(new CompoundNBT()));
 
-				for(int i = 0; i < 9; i++) {
+				for (int i = 0; i < 9; i++) {
 					CompoundNBT ingr = new CompoundNBT();
 					ItemStack stackSlot = event.getInventory().getStackInSlot(i);
 
-					if(!stackSlot.isEmpty()) {
+					if (!stackSlot.isEmpty()) {
 						ItemStack writeStack = stackSlot.copy();
 						writeStack.setCount(1);
 						ingr = writeStack.write(new CompoundNBT());
@@ -366,9 +383,11 @@ public class ItemCraftingHalo extends Item {
 		Arrays.fill(stackArray, ItemStack.EMPTY);
 
 		CompoundNBT cmp = getStoredRecipeCompound(stack, slot);
-		if(cmp != null)
-			for(int i = 0; i < stackArray.length; i++)
+		if (cmp != null) {
+			for (int i = 0; i < stackArray.length; i++) {
 				stackArray[i] = getLastCraftingItem(cmp, i);
+			}
+		}
 
 		return stackArray;
 	}
@@ -382,8 +401,9 @@ public class ItemCraftingHalo extends Item {
 	}
 
 	private static ItemStack getLastCraftingItem(CompoundNBT cmp, int pos) {
-		if(cmp == null)
+		if (cmp == null) {
 			return ItemStack.EMPTY;
+		}
 
 		return ItemStack.read(cmp.getCompound(TAG_ITEM_PREFIX + pos));
 	}
@@ -408,8 +428,9 @@ public class ItemCraftingHalo extends Item {
 	private void onRenderWorldLast(RenderWorldLastEvent event) {
 		PlayerEntity player = Minecraft.getInstance().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
-		if(!stack.isEmpty())
+		if (!stack.isEmpty()) {
 			render(stack, player, event.getMatrixStack(), event.getPartialTicks());
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -447,18 +468,19 @@ public class ItemCraftingHalo extends Item {
 		ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
 		RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
 
-		for(int seg = 0; seg < SEGMENTS; seg++) {
+		for (int seg = 0; seg < SEGMENTS; seg++) {
 			boolean inside = false;
 			float rotationAngle = (seg + 0.5F) * segAngles + shift;
 			ms.push();
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotationAngle));
 			ms.translate(s * m, -0.75F, 0F);
 
-			if(segmentLookedAt == seg)
+			if (segmentLookedAt == seg) {
 				inside = true;
+			}
 
 			ItemStack slotStack = getItemForSlot(stack, seg);
-			if(!slotStack.isEmpty()) {
+			if (!slotStack.isEmpty()) {
 				float scale = seg == 0 ? 0.9F : 0.8F;
 				ms.scale(scale, scale, scale);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
@@ -472,17 +494,17 @@ public class ItemCraftingHalo extends Item {
 			ms.push();
 			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 			float r = 1, g = 1, b = 1, a = alpha;
-			if(inside) {
+			if (inside) {
 				a += 0.3F;
 				y0 = -y;
 			}
 
-			if(seg % 2 == 0) {
+			if (seg % 2 == 0) {
 				r = g = b = 0.6F;
 			}
 
 			IVertexBuilder buffer = buffers.getBuffer(layer);
-			for(int i = 0; i < segAngles; i++) {
+			for (int i = 0; i < segAngles; i++) {
 				Matrix4f mat = ms.peek().getModel();
 				float ang = i + seg * segAngles + shift;
 				float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
@@ -514,7 +536,7 @@ public class ItemCraftingHalo extends Item {
 		Minecraft mc = Minecraft.getInstance();
 		int slot = getSegmentLookedAt(stack, player);
 
-		if(slot == 0) {
+		if (slot == 0) {
 			String name = craftingTable.getDisplayName().getString();
 			int l = mc.fontRenderer.getStringWidth(name);
 			int x = mc.getWindow().getScaledWidth() / 2 - l / 2;
@@ -530,9 +552,9 @@ public class ItemCraftingHalo extends Item {
 			ITextComponent label = new TranslationTextComponent("botaniamisc.unsetRecipe");
 			boolean setRecipe = false;
 
-			if(recipe[9].isEmpty())
+			if (recipe[9].isEmpty()) {
 				recipe = getCraftingItems(stack, SEGMENTS);
-			else {
+			} else {
 				label = recipe[9].getDisplayName();
 				setRecipe = true;
 			}
@@ -545,7 +567,7 @@ public class ItemCraftingHalo extends Item {
 	private static void renderRecipe(ITextComponent label, ItemStack[] recipe, PlayerEntity player, boolean setRecipe) {
 		Minecraft mc = Minecraft.getInstance();
 
-		if(!recipe[9].isEmpty()) {
+		if (!recipe[9].isEmpty()) {
 			int x = mc.getWindow().getScaledWidth() / 2 - 45;
 			int y = mc.getWindow().getScaledHeight() / 2 - 90;
 
@@ -555,9 +577,9 @@ public class ItemCraftingHalo extends Item {
 			AbstractGui.fill(x + 66, y + 14, x + 92, y + 40, 0x22000000);
 			AbstractGui.fill(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
-			for(int i = 0; i < 9; i++) {
+			for (int i = 0; i < 9; i++) {
 				ItemStack stack = recipe[i];
-				if(!stack.isEmpty()) {
+				if (!stack.isEmpty()) {
 					int xpos = x + i % 3 * 18;
 					int ypos = y + i / 3 * 18;
 					AbstractGui.fill(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
@@ -572,7 +594,7 @@ public class ItemCraftingHalo extends Item {
 		}
 
 		int yoff = 110;
-		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
+		if (setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
 			mc.fontRenderer.drawStringWithShadow(warning, mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 			yoff += 12;

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 25, 2015, 6:03:28 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -18,7 +16,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -30,10 +27,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.EntityPinkWither;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemPinkinator extends Item {
@@ -48,8 +47,8 @@ public class ItemPinkinator extends Item {
 		ItemStack stack = player.getHeldItem(hand);
 		int range = 16;
 		List<WitherEntity> withers = world.getEntitiesWithinAABB(WitherEntity.class, new AxisAlignedBB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
-		for(WitherEntity wither : withers)
-			if(!world.isRemote && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
+		for (WitherEntity wither : withers) {
+			if (!world.isRemote && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
 				wither.remove();
 				EntityPinkWither pink = new EntityPinkWither(world);
 				pink.setLocationAndAngles(wither.getX(), wither.getY(), wither.getZ(), wither.rotationYaw, wither.rotationPitch);
@@ -66,6 +65,7 @@ public class ItemPinkinator extends Item {
 				stack.shrink(1);
 				return ActionResult.success(stack);
 			}
+		}
 
 		return ActionResult.pass(stack);
 	}

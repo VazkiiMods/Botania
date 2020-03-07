@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.util.ResourceLocation;
@@ -6,6 +14,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -54,12 +63,12 @@ public final class ModSounds {
 
 	public static final SoundEvent gaiaMusic1 = makeSoundEvent("music.gaia1");
 	public static final SoundEvent gaiaMusic2 = makeSoundEvent("music.gaia2");
-	
+
 	private static SoundEvent makeSoundEvent(String name) {
 		ResourceLocation loc = new ResourceLocation(LibMisc.MOD_ID, name);
 		return new SoundEvent(loc).setRegistryName(loc);
 	}
-	
+
 	@SubscribeEvent
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> evt) {
 		IForgeRegistry<SoundEvent> r = evt.getRegistry();

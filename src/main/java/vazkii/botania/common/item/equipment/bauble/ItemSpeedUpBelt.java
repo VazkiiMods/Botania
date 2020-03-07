@@ -1,18 +1,17 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [24/11/2015, 22:50:29 (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -49,8 +48,9 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 
 	@Override
 	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {
-		if(!commitPositionAndCompare(stack, player))
+		if (!commitPositionAndCompare(stack, player)) {
 			ItemNBTHelper.setFloat(stack, TAG_SPEED, 0F);
+		}
 	}
 
 	public boolean commitPositionAndCompare(ItemStack stack, PlayerEntity player) {
@@ -66,4 +66,3 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	}
 
 }
-

@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.network;
 
 import net.minecraft.entity.Entity;
@@ -12,6 +20,7 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+
 import vazkii.botania.common.lib.LibMisc;
 
 public final class PacketHandler {
@@ -32,7 +41,7 @@ public final class PacketHandler {
 		HANDLER.registerMessage(id++, PacketItemAge.class, PacketItemAge::encode, PacketItemAge::decode, PacketItemAge::handle);
 		HANDLER.registerMessage(id++, PacketSyncRecipes.class, PacketSyncRecipes::encode, PacketSyncRecipes::decode, PacketSyncRecipes::handle);
 		HANDLER.registerMessage(id++, PacketIndexKeybindRequest.class, PacketIndexKeybindRequest::encode, PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle);
-		
+
 		HANDLER.messageBuilder(PacketSyncRecipes.Login.class, id++)
 				.loginIndex(ILoginPacket::getLoginIndex, ILoginPacket::setLoginIndex)
 				.encoder(PacketSyncRecipes.Login::encode).decoder(PacketSyncRecipes.Login::decode)
@@ -50,7 +59,7 @@ public final class PacketHandler {
 	 * Send message to all within 64 blocks that have this chunk loaded
 	 */
 	public static void sendToNearby(World world, BlockPos pos, Object toSend) {
-		if(world instanceof ServerWorld) {
+		if (world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
 
 			ws.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(pos), false)
@@ -68,7 +77,7 @@ public final class PacketHandler {
 	}
 
 	public static void sendNonLocal(ServerPlayerEntity playerMP, Object toSend) {
-		if(playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getServerOwner())) {
+		if (playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getServerOwner())) {
 			sendTo(playerMP, toSend);
 		}
 	}

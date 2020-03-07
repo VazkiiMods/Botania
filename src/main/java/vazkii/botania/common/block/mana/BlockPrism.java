@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 17, 2015, 7:16:48 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
@@ -24,9 +22,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -63,20 +60,22 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(!(tile instanceof TilePrism))
+		if (!(tile instanceof TilePrism)) {
 			return ActionResultType.PASS;
+		}
 
 		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = player.getHeldItem(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
-		if(lens.isEmpty() && isHeldItemLens) {
-			if(!player.abilities.isCreativeMode)
+		if (lens.isEmpty() && isHeldItemLens) {
+			if (!player.abilities.isCreativeMode) {
 				player.setHeldItem(hand, ItemStack.EMPTY);
+			}
 
 			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
-		} else if(!lens.isEmpty()) {
+		} else if (!lens.isEmpty()) {
 			ItemHandlerHelper.giveItemToPlayer(player, lens);
 			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 		}
@@ -89,11 +88,12 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
 
-		if(!world.isRemote) {
-			if(power && !powered)
+		if (!world.isRemote) {
+			if (power && !powered) {
 				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
-			else if(!power && powered)
+			} else if (!power && powered) {
 				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+			}
 		}
 	}
 
@@ -120,8 +120,9 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile instanceof TilePrism)
+		if (tile instanceof TilePrism) {
 			((TilePrism) tile).onBurstCollision(burst);
+		}
 	}
 
 	@Override

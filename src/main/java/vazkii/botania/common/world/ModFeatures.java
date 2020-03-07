@@ -1,22 +1,20 @@
-/**
- * This class was created by <Hubry>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [sie 16 2019, 19:17]
  */
 package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
@@ -24,6 +22,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Set;
@@ -56,9 +55,9 @@ public class ModFeatures {
 	public static void registerChunkGenerators(RegistryEvent.Register<ChunkGeneratorType<?, ?>> evt) {
 		register(evt.getRegistry(), SkyblockChunkGenerator.TYPE, "garden_of_glass");
 	}
-	
+
 	public static void addWorldgen() {
-		for(Biome biome : ForgeRegistries.BIOMES) {
+		for (Biome biome : ForgeRegistries.BIOMES) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
 				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(new MysticalFlowerConfig()).createDecoratedFeature(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}

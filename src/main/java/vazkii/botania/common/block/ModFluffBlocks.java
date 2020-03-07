@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2015, 2:35:08 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -27,6 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.item.ModItems;
@@ -34,11 +33,11 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.block.ModBlocks.register;
+import static vazkii.botania.common.lib.LibBlockNames.FENCE_GATE_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.FENCE_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.WALL_SUFFIX;
-import static vazkii.botania.common.lib.LibBlockNames.FENCE_SUFFIX;
-import static vazkii.botania.common.lib.LibBlockNames.FENCE_GATE_SUFFIX;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -202,7 +201,7 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX) public static Block biomeBrickMesaSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX) public static Block biomeBrickMesaStairs;
 	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks") public static Block biomeChiseledBrickMesa;
-	
+
 	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX) public static Block whitePavement;
 	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX) public static Block blackPavement;
 	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX) public static Block bluePavement;
@@ -252,7 +251,7 @@ public final class ModFluffBlocks {
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + SLAB_SUFFIX);
 		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + WALL_SUFFIX);
-		
+
 		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK_BRICK));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX);
@@ -267,7 +266,7 @@ public final class ModFluffBlocks {
 		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD_PLANKS));
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX);
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
-		
+
 		Block.Properties props = Block.Properties.from(Blocks.QUARTZ_BLOCK);
 		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
 
@@ -306,7 +305,7 @@ public final class ModFluffBlocks {
 			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 			register(r, new BlockMod(props), "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 		}
-		
+
 		base = r.getValue(prefix(LibBlockNames.SHIMMERROCK));
 		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + SLAB_SUFFIX);
 		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + STAIR_SUFFIX);
@@ -324,37 +323,37 @@ public final class ModFluffBlocks {
 		base = r.getValue(prefix(LibBlockNames.BIFROST_PERM));
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.BIFROST + "_pane");
 	}
-	
+
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
-		
+
 		r.register(new BlockItem(livingwoodStairs, props).setRegistryName(livingwoodStairs.getRegistryName()));
 		r.register(new BlockItem(livingwoodSlab, props).setRegistryName(livingwoodSlab.getRegistryName()));
 		r.register(new BlockItem(livingwoodWall, props).setRegistryName(livingwoodWall.getRegistryName()));
 		r.register(new BlockItem(livingwoodFence, props).setRegistryName(livingwoodFence.getRegistryName()));
 		r.register(new BlockItem(livingwoodFenceGate, props).setRegistryName(livingwoodFenceGate.getRegistryName()));
-		
+
 		r.register(new BlockItem(livingwoodPlankStairs, props).setRegistryName(livingwoodPlankStairs.getRegistryName()));
 		r.register(new BlockItem(livingwoodPlankSlab, props).setRegistryName(livingwoodPlankSlab.getRegistryName()));
-		
+
 		r.register(new BlockItem(livingrockStairs, props).setRegistryName(livingrockStairs.getRegistryName()));
 		r.register(new BlockItem(livingrockSlab, props).setRegistryName(livingrockSlab.getRegistryName()));
 		r.register(new BlockItem(livingrockWall, props).setRegistryName(livingrockWall.getRegistryName()));
-		
+
 		r.register(new BlockItem(livingrockBrickStairs, props).setRegistryName(livingrockBrickStairs.getRegistryName()));
 		r.register(new BlockItem(livingrockBrickSlab, props).setRegistryName(livingrockBrickSlab.getRegistryName()));
-		
+
 		r.register(new BlockItem(dreamwoodStairs, props).setRegistryName(dreamwoodStairs.getRegistryName()));
 		r.register(new BlockItem(dreamwoodSlab, props).setRegistryName(dreamwoodSlab.getRegistryName()));
 		r.register(new BlockItem(dreamwoodWall, props).setRegistryName(dreamwoodWall.getRegistryName()));
 		r.register(new BlockItem(dreamwoodFence, props).setRegistryName(dreamwoodFence.getRegistryName()));
 		r.register(new BlockItem(dreamwoodFenceGate, props).setRegistryName(dreamwoodFenceGate.getRegistryName()));
-		
+
 		r.register(new BlockItem(dreamwoodPlankStairs, props).setRegistryName(dreamwoodPlankStairs.getRegistryName()));
 		r.register(new BlockItem(dreamwoodPlankSlab, props).setRegistryName(dreamwoodPlankSlab.getRegistryName()));
-		
+
 		r.register(new BlockItem(darkQuartz, props).setRegistryName(darkQuartz.getRegistryName()));
 		r.register(new BlockItem(darkQuartzPillar, props).setRegistryName(darkQuartzPillar.getRegistryName()));
 		r.register(new BlockItem(darkQuartzChiseled, props).setRegistryName(darkQuartzChiseled.getRegistryName()));
@@ -366,37 +365,37 @@ public final class ModFluffBlocks {
 		r.register(new BlockItem(manaQuartzChiseled, props).setRegistryName(manaQuartzChiseled.getRegistryName()));
 		r.register(new BlockItem(manaQuartzSlab, props).setRegistryName(manaQuartzSlab.getRegistryName()));
 		r.register(new BlockItem(manaQuartzStairs, props).setRegistryName(manaQuartzStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(blazeQuartz, props).setRegistryName(blazeQuartz.getRegistryName()));
 		r.register(new BlockItem(blazeQuartzPillar, props).setRegistryName(blazeQuartzPillar.getRegistryName()));
 		r.register(new BlockItem(blazeQuartzChiseled, props).setRegistryName(blazeQuartzChiseled.getRegistryName()));
 		r.register(new BlockItem(blazeQuartzSlab, props).setRegistryName(blazeQuartzSlab.getRegistryName()));
 		r.register(new BlockItem(blazeQuartzStairs, props).setRegistryName(blazeQuartzStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(lavenderQuartz, props).setRegistryName(lavenderQuartz.getRegistryName()));
 		r.register(new BlockItem(lavenderQuartzPillar, props).setRegistryName(lavenderQuartzPillar.getRegistryName()));
 		r.register(new BlockItem(lavenderQuartzChiseled, props).setRegistryName(lavenderQuartzChiseled.getRegistryName()));
 		r.register(new BlockItem(lavenderQuartzSlab, props).setRegistryName(lavenderQuartzSlab.getRegistryName()));
 		r.register(new BlockItem(lavenderQuartzStairs, props).setRegistryName(lavenderQuartzStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(redQuartz, props).setRegistryName(redQuartz.getRegistryName()));
 		r.register(new BlockItem(redQuartzPillar, props).setRegistryName(redQuartzPillar.getRegistryName()));
 		r.register(new BlockItem(redQuartzChiseled, props).setRegistryName(redQuartzChiseled.getRegistryName()));
 		r.register(new BlockItem(redQuartzSlab, props).setRegistryName(redQuartzSlab.getRegistryName()));
 		r.register(new BlockItem(redQuartzStairs, props).setRegistryName(redQuartzStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(elfQuartz, props).setRegistryName(elfQuartz.getRegistryName()));
 		r.register(new BlockItem(elfQuartzPillar, props).setRegistryName(elfQuartzPillar.getRegistryName()));
 		r.register(new BlockItem(elfQuartzChiseled, props).setRegistryName(elfQuartzChiseled.getRegistryName()));
 		r.register(new BlockItem(elfQuartzSlab, props).setRegistryName(elfQuartzSlab.getRegistryName()));
 		r.register(new BlockItem(elfQuartzStairs, props).setRegistryName(elfQuartzStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(sunnyQuartz, props).setRegistryName(sunnyQuartz.getRegistryName()));
 		r.register(new BlockItem(sunnyQuartzPillar, props).setRegistryName(sunnyQuartzPillar.getRegistryName()));
 		r.register(new BlockItem(sunnyQuartzChiseled, props).setRegistryName(sunnyQuartzChiseled.getRegistryName()));
 		r.register(new BlockItem(sunnyQuartzSlab, props).setRegistryName(sunnyQuartzSlab.getRegistryName()));
 		r.register(new BlockItem(sunnyQuartzStairs, props).setRegistryName(sunnyQuartzStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(biomeStoneForest, props).setRegistryName(biomeStoneForest.getRegistryName()));
 		r.register(new BlockItem(biomeStoneForestSlab, props).setRegistryName(biomeStoneForestSlab.getRegistryName()));
 		r.register(new BlockItem(biomeStoneForestStairs, props).setRegistryName(biomeStoneForestStairs.getRegistryName()));
@@ -492,7 +491,7 @@ public final class ModFluffBlocks {
 		r.register(new BlockItem(biomeCobblestoneMesaStairs, props).setRegistryName(biomeCobblestoneMesaStairs.getRegistryName()));
 		r.register(new BlockItem(biomeWallMesa, props).setRegistryName(biomeWallMesa.getRegistryName()));
 		r.register(new BlockItem(biomeChiseledBrickMesa, props).setRegistryName(biomeChiseledBrickMesa.getRegistryName()));
-		
+
 		r.register(new BlockItem(whitePavement, props).setRegistryName(whitePavement.getRegistryName()));
 		r.register(new BlockItem(blackPavement, props).setRegistryName(blackPavement.getRegistryName()));
 		r.register(new BlockItem(bluePavement, props).setRegistryName(bluePavement.getRegistryName()));
@@ -513,13 +512,13 @@ public final class ModFluffBlocks {
 		r.register(new BlockItem(yellowPavementStair, props).setRegistryName(yellowPavementStair.getRegistryName()));
 		r.register(new BlockItem(redPavementStair, props).setRegistryName(redPavementStair.getRegistryName()));
 		r.register(new BlockItem(greenPavementStair, props).setRegistryName(greenPavementStair.getRegistryName()));
-		
+
 		r.register(new BlockItem(shimmerrockSlab, props).setRegistryName(shimmerrockSlab.getRegistryName()));
 		r.register(new BlockItem(shimmerrockStairs, props).setRegistryName(shimmerrockStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(shimmerwoodPlankSlab, props).setRegistryName(shimmerwoodPlankSlab.getRegistryName()));
 		r.register(new BlockItem(shimmerwoodPlankStairs, props).setRegistryName(shimmerwoodPlankStairs.getRegistryName()));
-		
+
 		r.register(new BlockItem(managlassPane, props).setRegistryName(managlassPane.getRegistryName()));
 		r.register(new BlockItem(alfglassPane, props).setRegistryName(alfglassPane.getRegistryName()));
 		r.register(new BlockItem(bifrostPane, props).setRegistryName(bifrostPane.getRegistryName()));

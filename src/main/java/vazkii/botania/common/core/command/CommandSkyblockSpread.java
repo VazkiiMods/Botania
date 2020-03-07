@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jul 17, 2015, 5:13:06 PM (GMT)]
  */
 package vazkii.botania.common.core.command;
 
@@ -14,12 +12,13 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
@@ -31,9 +30,9 @@ public class CommandSkyblockSpread {
 				Commands.literal("botania-skyblock-spread")
 						.requires(s -> s.hasPermissionLevel(2))
 						.then(Commands.argument("player", EntityArgument.player())
-							.then(Commands.argument("range", IntegerArgumentType.integer(250, 1000000))
-								.executes(ctx -> run(ctx, IntegerArgumentType.getInteger(ctx, "range"))))
-							.executes(ctx -> run(ctx, DEFAULT_RANGE)))
+								.then(Commands.argument("range", IntegerArgumentType.integer(250, 1000000))
+										.executes(ctx -> run(ctx, IntegerArgumentType.getInteger(ctx, "range"))))
+								.executes(ctx -> run(ctx, DEFAULT_RANGE)))
 		);
 	}
 
@@ -46,7 +45,7 @@ public class CommandSkyblockSpread {
 		do {
 			x = player.world.rand.nextInt(range) - range / 2 + spawn.getX();
 			z = player.world.rand.nextInt(range) - range / 2 + spawn.getZ();
-		} while(MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
+		} while (MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
 
 		SkyblockWorldEvents.spawnPlayer(player, new BlockPos(x, spawn.getY(), z), true);
 		return 1;

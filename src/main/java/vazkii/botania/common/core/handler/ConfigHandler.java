@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 13, 2014, 9:01:32 PM (GMT)]
  */
 package vazkii.botania.common.core.handler;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 public final class ConfigHandler {
@@ -134,8 +133,8 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.IntValue flowerPatchChance;
 		public final ForgeConfigSpec.DoubleValue flowerTallChance;
 		public final ForgeConfigSpec.IntValue mushroomQuantity;
-		
-		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon; 
+
+		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			blockBreakParticles = builder

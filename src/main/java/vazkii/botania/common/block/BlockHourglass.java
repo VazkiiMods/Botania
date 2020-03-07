@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 29, 2015, 8:17:08 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
@@ -33,6 +31,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -45,6 +44,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD {
@@ -72,21 +72,23 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
+		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
 			return ActionResultType.PASS;
+		}
 
-		if(hourglass.lock) {
-			if(!player.world.isRemote)
+		if (hourglass.lock) {
+			if (!player.world.isRemote) {
 				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"));
+			}
 			return ActionResultType.FAIL;
 		}
 
-		if(hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
+		if (hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setStackInSlot(0, stack.copy());
 			hourglass.markDirty();
 			stack.setCount(0);
 			return ActionResultType.SUCCESS;
-		} else if(!hgStack.isEmpty()) {
+		} else if (!hgStack.isEmpty()) {
 			ItemHandlerHelper.giveItemToPlayer(player, hgStack);
 			hourglass.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			hourglass.markDirty();
@@ -113,8 +115,9 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		if(state.get(BotaniaStateProps.POWERED))
+		if (state.get(BotaniaStateProps.POWERED)) {
 			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+		}
 	}
 
 	@Override
@@ -145,7 +148,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
-		if(!burst.isFake()) {
+		if (!burst.isFake()) {
 			TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 			tile.onManaCollide();
 		}
@@ -155,8 +158,9 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 		tile.lock = !tile.lock;
-		if(!world.isRemote)
+		if (!world.isRemote) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+		}
 		return true;
 	}
 

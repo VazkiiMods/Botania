@@ -1,19 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Dec 4, 2014, 11:03:13 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GLX;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -27,6 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -40,8 +38,7 @@ public class ItemHolyCloak extends ItemBauble {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
 	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
 
-	@OnlyIn(Dist.CLIENT)
-	private static ModelCloak model;
+	@OnlyIn(Dist.CLIENT) private static ModelCloak model;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";
@@ -52,18 +49,19 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	private void onPlayerDamage(LivingHurtEvent event) {
-		if(event.getEntityLiving() instanceof PlayerEntity && !event.getSource().canHarmInCreative()) {
+		if (event.getEntityLiving() instanceof PlayerEntity && !event.getSource().canHarmInCreative()) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
-			if(!stack.isEmpty() && !isInEffect(stack)) {
+			if (!stack.isEmpty() && !isInEffect(stack)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) stack.getItem();
 				int cooldown = getCooldown(stack);
 
 				// Used to prevent StackOverflows with mobs that deal damage when damaged
 				setInEffect(stack, true);
-				if(cooldown == 0 && cloak.effectOnDamage(event, player, stack))
+				if (cooldown == 0 && cloak.effectOnDamage(event, player, stack)) {
 					setCooldown(stack, cloak.getCooldownTime(stack));
+				}
 				setInEffect(stack, false);
 			}
 		}
@@ -72,8 +70,9 @@ public class ItemHolyCloak extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		int cooldown = getCooldown(stack);
-		if(cooldown > 0)
+		if (cooldown > 0) {
 			setCooldown(stack, cooldown - 1);
+		}
 	}
 
 	@Override
@@ -86,8 +85,9 @@ public class ItemHolyCloak extends ItemBauble {
 
 		float s = 1F / 16F;
 		ms.scale(s, s, s);
-		if(model == null)
+		if (model == null) {
 			model = new ModelCloak();
+		}
 
 		Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
 		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(item.getCloakTexture()));
@@ -98,20 +98,20 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if(!event.getSource().isMagicDamage()) {
+		if (!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
 			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
-			for(int i = 0; i < 30; i++) {
+			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();
 				double y = player.getY() + Math.random() * player.getHeight();
 				double z = player.getZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean yellow = Math.random() > 0.5;
-                float r = yellow ? 1F : 0.3F;
-                float g = yellow ? 1F : 0.3F;
-                float b = yellow ? 0.3F : 1F;
-                SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, r, g, b, 3);
-                player.world.addParticle(data, x, y, z, 0, 0, 0);
-            }
+				float r = yellow ? 1F : 0.3F;
+				float g = yellow ? 1F : 0.3F;
+				float b = yellow ? 0.3F : 1F;
+				SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, r, g, b, 3);
+				player.world.addParticle(data, x, y, z, 0, 0, 0);
+			}
 			return true;
 		}
 
@@ -148,4 +148,3 @@ public class ItemHolyCloak extends ItemBauble {
 		return textureGlow;
 	}
 }
-

@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 13, 2014, 6:32:39 PM (GMT)]
  */
 package vazkii.botania.common;
 
@@ -30,20 +28,22 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
+import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
+import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.advancements.LokiPlaceTrigger;
 import vazkii.botania.common.advancements.ManaGunTrigger;
-import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.block.ModBanners;
@@ -53,8 +53,8 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.capability.NoopExoflameHeatable;
 import vazkii.botania.common.capability.NoopCapStorage;
+import vazkii.botania.common.capability.NoopExoflameHeatable;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -128,8 +128,8 @@ public class Botania {
 		PacketHandler.init();
 		ModBrews.init();
 
-		if(Botania.thaumcraftLoaded) {
-			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
+		if (Botania.thaumcraftLoaded) {
+			if (ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
 				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
 			}
 			ModBrews.initTC();
@@ -141,12 +141,14 @@ public class Botania {
 
 		EquipmentHandler.init();
 
-		if(Botania.gardenOfGlassLoaded)
+		if (Botania.gardenOfGlassLoaded) {
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
+		}
 
 		DeferredWorkQueue.runLater(() -> {
-			if(Botania.gardenOfGlassLoaded)
+			if (Botania.gardenOfGlassLoaded) {
 				new WorldTypeSkyblock();
+			}
 
 			ModBanners.init();
 			ColorHelper.init();
@@ -157,37 +159,37 @@ public class Botania {
 
 			String[][] pat = new String[][] {
 					{
-						"P_______P",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"P_______P",
+							"P_______P",
+							"_________",
+							"_________",
+							"_________",
+							"_________",
+							"_________",
+							"_________",
+							"_________",
+							"P_______P",
 					},
 					{
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"____B____",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
+							"_________",
+							"_________",
+							"_________",
+							"_________",
+							"____B____",
+							"_________",
+							"_________",
+							"_________",
+							"_________",
 					},
 					{
-						"_________",
-						"_________",
-						"_________",
-						"___III___",
-						"___I0I___",
-						"___III___",
-						"_________",
-						"_________",
-						"_________",
+							"_________",
+							"_________",
+							"_________",
+							"___III___",
+							"___I0I___",
+							"___III___",
+							"_________",
+							"_________",
+							"_________",
 					}
 			};
 			IStateMatcher sm = StateMatcher.fromPredicate(Blocks.IRON_BLOCK, state -> {
@@ -231,7 +233,7 @@ public class Botania {
 	/* todo 1.13
 	public void init(FMLInitializationEvent event) {
 		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
-
+	
 		for(Block b : new Block[]{ ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm })
 			FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic", b.getRegistryName().toString());
 	}
@@ -246,7 +248,7 @@ public class Botania {
 	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
 		String clname = BotaniaAPI.internalHandler.getClass().getName();
 		String expect = "vazkii.botania.common.core.handler.InternalMethodHandler";
-		if(!clname.equals(expect)) {
+		if (!clname.equals(expect)) {
 			throw new IllegalAccessError("The Botania API internal method handler has been overriden. "
 					+ "This will cause crashes and compatibility issues, and that's why it's marked as"
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
@@ -256,8 +258,9 @@ public class Botania {
 	}
 
 	private void serverStarting(FMLServerStartingEvent event) {
-		if(Botania.gardenOfGlassLoaded)
+		if (Botania.gardenOfGlassLoaded) {
 			CommandSkyblockSpread.register(event.getCommandDispatcher());
+		}
 	}
 
 	private void serverStopping(FMLServerStoppingEvent event) {

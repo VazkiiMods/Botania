@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Mar 7, 2014, 7:06:20 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
@@ -23,12 +21,14 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
@@ -45,7 +45,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInGroup(tab)) {
+		if (isInGroup(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack fullPower = new ItemStack(this);
@@ -62,8 +62,9 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(isStackCreative(stack))
+		if (isStackCreative(stack)) {
 			stacks.add(new TranslationTextComponent("botaniamisc.creative").applyTextStyle(TextFormatting.GRAY));
+		}
 	}
 
 	@Override
@@ -95,8 +96,9 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
-		if(!isStackCreative(stack))
+		if (!isStackCreative(stack)) {
 			setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
+		}
 	}
 
 	@Override
@@ -133,7 +135,6 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
-
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {

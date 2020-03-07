@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 7, 2014, 2:24:51 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
@@ -25,6 +23,7 @@ import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -34,8 +33,7 @@ public class TilePlatform extends TileMod {
 	public static final ModelProperty<BlockState> HELD_STATE = new ModelProperty<>();
 	public static final ModelProperty<BlockPos> HELD_POS = new ModelProperty<>();
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PLATFORM)
-	public static TileEntityType<TilePlatform> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PLATFORM) public static TileEntityType<TilePlatform> TYPE;
 	private static final String TAG_CAMO = "camo";
 
 	public BlockState camoState;
@@ -45,10 +43,12 @@ public class TilePlatform extends TileMod {
 	}
 
 	public boolean onWanded(PlayerEntity player) {
-		if(player != null) {
-			if(camoState == null || player.isSneaking())
+		if (player != null) {
+			if (camoState == null || player.isSneaking()) {
 				swapSelfAndPass(this, true);
-			else swapSurroudings(this, false);
+			} else {
+				swapSurroudings(this, false);
+			}
 			return true;
 		}
 
@@ -61,13 +61,14 @@ public class TilePlatform extends TileMod {
 	}
 
 	private void swapSurroudings(TilePlatform tile, boolean empty) {
-		for(Direction dir : Direction.values()) {
+		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getPos().offset(dir);
 			TileEntity tileAt = world.getTileEntity(pos);
-			if(tileAt instanceof TilePlatform) {
+			if (tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
-				if(empty == (platform.camoState != null))
+				if (empty == (platform.camoState != null)) {
 					swapSelfAndPass(platform, empty);
+				}
 			}
 		}
 	}
@@ -79,7 +80,7 @@ public class TilePlatform extends TileMod {
 
 	@Override
 	public void writePacketNBT(CompoundNBT cmp) {
-		if(camoState != null) {
+		if (camoState != null) {
 			cmp.put(TAG_CAMO, NBTUtil.writeBlockState(camoState));
 		}
 	}
@@ -87,7 +88,7 @@ public class TilePlatform extends TileMod {
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
 		camoState = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
-		if(camoState.isAir()) {
+		if (camoState.isAir()) {
 			camoState = null;
 		}
 	}

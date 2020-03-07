@@ -1,17 +1,14 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 14, 2014, 5:53:00 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -23,7 +20,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -32,9 +28,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.common.base.PatchouliSounds;
 import vazkii.patchouli.common.book.Book;
@@ -43,11 +39,12 @@ import vazkii.patchouli.common.network.NetworkHandler;
 import vazkii.patchouli.common.network.message.MessageOpenBookGui;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 
 public class ItemLexicon extends Item implements IElvenItem {
 
-    public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
+	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public ItemLexicon(Properties props) {
 		super(props);
@@ -60,7 +57,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInGroup(tab)) {
+		if (isInGroup(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
 			creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
@@ -75,8 +72,9 @@ public class ItemLexicon extends Item implements IElvenItem {
 
 		if (Screen.hasShiftDown()) {
 			Book book = getBook();
-			if(book.contents != null)
+			if (book.contents != null) {
 				tooltip.add(new StringTextComponent(book.contents.getSubtitle()).applyTextStyle(TextFormatting.GRAY));
+			}
 		} else {
 			tooltip.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 		}
@@ -88,8 +86,8 @@ public class ItemLexicon extends Item implements IElvenItem {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 		Book book = getBook();
 
-		if(playerIn instanceof ServerPlayerEntity) {
-			ServerPlayerEntity player=  (ServerPlayerEntity) playerIn;
+		if (playerIn instanceof ServerPlayerEntity) {
+			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getX(), player.getY(), player.getZ());
 			NetworkHandler.sendToPlayer(new MessageOpenBookGui(book.id), (ServerPlayerEntity) playerIn);
 			SoundEvent sfx = PatchouliSounds.getSound(book.openSound, PatchouliSounds.book_open);
@@ -107,15 +105,15 @@ public class ItemLexicon extends Item implements IElvenItem {
 		ITextComponent title = stack.getDisplayName();
 
 		String akashicTomeNBT = "akashictome:displayName";
-		if(stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
+		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
 			title = new StringTextComponent(stack.getTag().getString(akashicTomeNBT));
 		}
-		
+
 		return title;
 	}
-	
+
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-	    return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
+		return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
 	}
 }

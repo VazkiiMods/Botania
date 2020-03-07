@@ -1,15 +1,15 @@
-/**
- * This class was created by <Vindex>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
  */
 package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.item.ItemStack;
+
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
@@ -49,20 +49,22 @@ public class WrappedIInventory extends WrappedInventoryBase {
 			ItemStack stackAt = inv.handler.getStackInSlot(i);
 			// WARNING: this code is very similar in all implementations of
 			// IWrappedInventory - keep it synch
-			if(request.matcher.isStackValid(stackAt)) {
+			if (request.matcher.isStackValid(stackAt)) {
 				int rem = Math.min(stackAt.getCount(), request.count == -1 ? stackAt.getCount() : request.count);
 				request.foundItems += stackAt.getCount();
 
-				if(rem > 0) {
+				if (rem > 0) {
 					stacks.add(inv.handler.extractItem(i, rem, !doit));
-					if(doit && spark != null)
+					if (doit && spark != null) {
 						spark.onItemExtracted(stackAt);
+					}
 				}
 
 				request.extractedItems += rem;
 
-				if(request.count != -1)
+				if (request.count != -1) {
 					request.count -= rem;
+				}
 			}
 		}
 

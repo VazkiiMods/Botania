@@ -1,16 +1,15 @@
-/**
- * This class was created by <Lazersmoke>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [May 6, 2015, 9:45:56 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
@@ -23,6 +22,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -45,26 +45,31 @@ public class HelmRevealingRecipe implements ICraftingRecipe {
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack helm = ItemStack.EMPTY;
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem().getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
+			if (!stack.isEmpty() && stack.getItem().getRegistryName().getNamespace().equals(LibMisc.MOD_ID)) {
 				helm = stack;
+			}
 		}
 
-		if(helm.isEmpty())
+		if (helm.isEmpty()) {
 			return ItemStack.EMPTY;
+		}
 
 		ItemStack newHelm = compose.getCraftingResult(inv);
 
 		//Copy Ancient Wills
-		for(int i = 0; i < 6; i++)
-			if(ItemNBTHelper.getBoolean(helm, "AncientWill" + i, false))
+		for (int i = 0; i < 6; i++) {
+			if (ItemNBTHelper.getBoolean(helm, "AncientWill" + i, false)) {
 				ItemNBTHelper.setBoolean(newHelm, "AncientWill" + i, true);
+			}
+		}
 
 		//Copy Enchantments
 		ListNBT enchList = ItemNBTHelper.getList(helm, "ench", 10, true);
-		if(enchList != null)
+		if (enchList != null) {
 			ItemNBTHelper.setList(newHelm, "ench", enchList);
+		}
 		copyTCData(helm, newHelm);
 
 		return newHelm;
@@ -114,16 +119,19 @@ public class HelmRevealingRecipe implements ICraftingRecipe {
 	 */
 	public static void copyTCData(ItemStack source, ItemStack destination) {
 		byte runicShielding = ItemNBTHelper.getByte(source, TAG_RUNIC, (byte) 0);
-		if(runicShielding != 0)
+		if (runicShielding != 0) {
 			ItemNBTHelper.setByte(destination, TAG_RUNIC, runicShielding);
+		}
 
 		byte warp = ItemNBTHelper.getByte(source, TAG_WARP, (byte) 0);
-		if(warp != 0)
+		if (warp != 0) {
 			ItemNBTHelper.setByte(destination, TAG_WARP, warp);
+		}
 
 		ListNBT infEnchList = ItemNBTHelper.getList(source, TAG_INFUSION_ENCH, 10, true);
-		if(infEnchList != null)
+		if (infEnchList != null) {
 			ItemNBTHelper.setList(destination, TAG_INFUSION_ENCH, infEnchList);
+		}
 	}
 
 	public static final IRecipeSerializer<HelmRevealingRecipe> SERIALIZER = new Serializer();

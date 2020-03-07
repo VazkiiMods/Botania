@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Apr 14, 2014, 11:40:59 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -15,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -25,8 +24,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileTangleberrie extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":tangleberrie")
-	public static TileEntityType<SubTileTangleberrie> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":tangleberrie") public static TileEntityType<SubTileTangleberrie> TYPE;
 
 	public SubTileTangleberrie(TileEntityType<?> type) {
 		super(type);
@@ -40,7 +38,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getMana() > 0) {
+		if (getMana() > 0) {
 			double x1 = getEffectivePos().getX() + 0.5;
 			double y1 = getEffectivePos().getY() + 0.5;
 			double z1 = getEffectivePos().getZ() + 0.5;
@@ -52,9 +50,10 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, boundingBox);
 
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.5F, 0.5F, 0.5F, 3);
-			for(LivingEntity entity : entities) {
-				if(entity instanceof PlayerEntity || !entity.isNonBoss())
+			for (LivingEntity entity : entities) {
+				if (entity instanceof PlayerEntity || !entity.isNonBoss()) {
 					continue;
+				}
 
 				double x2 = entity.getX();
 				double y2 = entity.getY();
@@ -62,15 +61,15 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 
 				float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
 
-				if(distance > maxDist && distance < range) {
+				if (distance > maxDist && distance < range) {
 					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity(entity));
-					if(getWorld().rand.nextInt(3) == 0) {
-                        world.addParticle(data, x2 + Math.random() * entity.getWidth(), y2 + Math.random() * entity.getHeight(), z2 + Math.random() * entity.getWidth(), 0, 0, 0);
-                    }
+					if (getWorld().rand.nextInt(3) == 0) {
+						world.addParticle(data, x2 + Math.random() * entity.getWidth(), y2 + Math.random() * entity.getHeight(), z2 + Math.random() * entity.getWidth(), 0, 0, 0);
+					}
 				}
 			}
 
-			if(ticksExisted % 4 == 0) {
+			if (ticksExisted % 4 == 0) {
 				addMana(-1);
 				sync();
 			}
@@ -91,7 +90,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-        return new RadiusDescriptor.Circle(getEffectivePos(), getRange());
+		return new RadiusDescriptor.Circle(getEffectivePos(), getRange());
 	}
 
 	@Override

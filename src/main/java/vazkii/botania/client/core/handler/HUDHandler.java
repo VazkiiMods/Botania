@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 25, 2014, 6:11:10 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -37,7 +36,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
@@ -82,19 +83,19 @@ public final class HUDHandler {
 		ItemStack main = mc.player.getHeldItemMainhand();
 		ItemStack offhand = mc.player.getHeldItemOffhand();
 
-		if(event.getType() == ElementType.ALL) {
+		if (event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 
 			if (Minecraft.getInstance().playerController.shouldDrawHUD()) {
 				ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
-				if(!tiara.isEmpty()) {
+				if (!tiara.isEmpty()) {
 					profiler.startSection("flugelTiara");
 					ItemFlightTiara.renderHUD(mc.player, tiara);
 					profiler.endSection();
 				}
 
 				ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
-				if(!dodgeRing.isEmpty()) {
+				if (!dodgeRing.isEmpty()) {
 					profiler.startSection("dodgeRing");
 					ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
 					profiler.endSection();
@@ -103,51 +104,53 @@ public final class HUDHandler {
 
 			RayTraceResult pos = mc.objectMouseOver;
 
-			if(pos != null) {
+			if (pos != null) {
 				BlockPos bpos = pos.getType() == RayTraceResult.Type.BLOCK ? ((BlockRayTraceResult) pos).getPos() : null;
 				BlockState state = bpos != null ? mc.world.getBlockState(bpos) : null;
 				Block block = state == null ? null : state.getBlock();
 				TileEntity tile = bpos != null ? mc.world.getTileEntity(bpos) : null;
 
-				if(PlayerHelper.hasAnyHeldItem(mc.player)) {
-					if(PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-						if(block instanceof IWandHUD) {
+				if (PlayerHelper.hasAnyHeldItem(mc.player)) {
+					if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
+						if (block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
 							((IWandHUD) block).renderHUD(mc, mc.world, bpos);
 							profiler.endSection();
 						}
 					}
-					if(tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
+					if (tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty()) {
 						renderPoolRecipeHUD((TilePool) tile, mc.player.getHeldItemMainhand());
+					}
 				}
-				if(!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
-					if(tile instanceof TileAltar)
+				if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
+					if (tile instanceof TileAltar) {
 						((TileAltar) tile).renderHUD(mc);
-					else if(tile instanceof TileRuneAltar)
+					} else if (tile instanceof TileRuneAltar) {
 						((TileRuneAltar) tile).renderHUD(mc);
-					else if(tile instanceof TileCorporeaCrystalCube)
+					} else if (tile instanceof TileCorporeaCrystalCube) {
 						renderCrystalCubeHUD((TileCorporeaCrystalCube) tile);
+					}
 				}
 			}
 
 			TileCorporeaIndex.getInputHandler();
-			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen instanceof ChatScreen) {
+			if (!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen instanceof ChatScreen) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay();
 				profiler.endSection();
 			}
 
-			if(!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
+			if (!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo_main");
 				ItemCraftingHalo.renderHUD(mc.player, main);
 				profiler.endSection();
-			} else if(!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
+			} else if (!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo_off");
 				ItemCraftingHalo.renderHUD(mc.player, offhand);
 				profiler.endSection();
 			}
 
-			if(!main.isEmpty() && main.getItem() instanceof ItemSextant) {
+			if (!main.isEmpty() && main.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
 				ItemSextant.renderHUD(mc.player, main);
 				profiler.endSection();
@@ -159,7 +162,7 @@ public final class HUDHandler {
 				profiler.endSection();
 			}*/
 
-			if(Botania.proxy.isClientPlayerWearingMonocle()) {
+			if (Botania.proxy.isClientPlayerWearingMonocle()) {
 				profiler.startSection("monocle");
 				ItemMonocle.renderHUD(mc.player);
 				profiler.endSection();
@@ -168,7 +171,7 @@ public final class HUDHandler {
 			profiler.startSection("manaBar");
 
 			PlayerEntity player = mc.player;
-			if(!player.isSpectator()) {
+			if (!player.isSpectator()) {
 				int totalMana = 0;
 				int totalMaxMana = 0;
 				boolean anyRequest = false;
@@ -179,45 +182,50 @@ public final class HUDHandler {
 
 				int invSize = mainInv.getSlots();
 				int size = invSize;
-				if(accInv != null)
+				if (accInv != null) {
 					size += accInv.getSlots();
+				}
 
-				for(int i = 0; i < size; i++) {
+				for (int i = 0; i < size; i++) {
 					boolean useAccessories = i >= invSize;
 					IItemHandler inv = useAccessories ? accInv : mainInv;
 					ItemStack stack = inv.getStackInSlot(i - (useAccessories ? invSize : 0));
 
-					if(!stack.isEmpty()) {
+					if (!stack.isEmpty()) {
 						Item item = stack.getItem();
-						if(item instanceof IManaUsingItem)
+						if (item instanceof IManaUsingItem) {
 							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
+						}
 					}
 				}
 
 				List<ItemStack> items = ManaItemHandler.getManaItems(player);
 				for (ItemStack stack : items) {
 					Item item = stack.getItem();
-					if(!((IManaItem) item).isNoExport(stack)) {
+					if (!((IManaItem) item).isNoExport(stack)) {
 						totalMana += ((IManaItem) item).getMana(stack);
 						totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 					}
-					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
+					if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
 						creative = true;
+					}
 				}
 
 				List<ItemStack> acc = ManaItemHandler.getManaAccesories(player);
 				for (ItemStack stack : acc) {
 					Item item = stack.getItem();
-					if(!((IManaItem) item).isNoExport(stack)) {
+					if (!((IManaItem) item).isNoExport(stack)) {
 						totalMana += ((IManaItem) item).getMana(stack);
 						totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 					}
-					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
+					if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
 						creative = true;
+					}
 				}
 
-				if(anyRequest)
+				if (anyRequest) {
 					renderManaInvBar(creative, totalMana, totalMaxMana);
+				}
 			}
 
 			profiler.endStartSection("itemsRemaining");
@@ -235,16 +243,20 @@ public final class HUDHandler {
 		int x = mc.getWindow().getScaledWidth() / 2 - width / 2;
 		int y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.get();
 
-		if(!hasCreative) {
-			if(totalMaxMana == 0)
+		if (!hasCreative) {
+			if (totalMaxMana == 0) {
 				width = 0;
-			else width *= (double) totalMana / (double) totalMaxMana;
+			} else {
+				width *= (double) totalMana / (double) totalMaxMana;
+			}
 		}
 
-		if(width == 0) {
-			if(totalMana > 0)
+		if (width == 0) {
+			if (totalMana > 0) {
 				width = 1;
-			else return;
+			} else {
+				return;
+			}
 		}
 
 		int color = MathHelper.hsvToRGB(0.55F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F);
@@ -267,7 +279,7 @@ public final class HUDHandler {
 
 		profiler.startSection("poolRecipe");
 		RecipeManaInfusion recipe = TilePool.getMatchingRecipe(stack, tile.getWorld().getBlockState(tile.getPos().down()));
-		if(recipe != null) {
+		if (recipe != null) {
 			int x = mc.getWindow().getScaledWidth() / 2 - 11;
 			int y = mc.getWindow().getScaledHeight() / 2 + 10;
 
@@ -297,7 +309,7 @@ public final class HUDHandler {
 
 		profiler.startSection("crystalCube");
 		ItemStack target = tile.getRequestTarget();
-		if(!target.isEmpty()) {
+		if (!target.isEmpty()) {
 			String s1 = target.getDisplayName().getString();
 			String s2 = tile.getItemCount() + "x";
 			int strlen = Math.max(mc.fontRenderer.getStringWidth(s1), mc.fontRenderer.getStringWidth(s2));
@@ -309,8 +321,9 @@ public final class HUDHandler {
 
 			mc.fontRenderer.drawStringWithShadow(s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
 			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
-			if(tile.locked)
+			if (tile.locked) {
 				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
+			}
 			RenderSystem.enableRescaleNormal();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(target, w / 2 + 10, h / 2 - 10);
 		}
@@ -352,7 +365,7 @@ public final class HUDHandler {
 
 		renderManaBar(x, y, color, mana < 0 ? 0.5F : 1F, mana, maxMana);
 
-		if(mana < 0) {
+		if (mana < 0) {
 			String text = I18n.format("botaniamisc.statusUnknown");
 			x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
 			y -= 1;
@@ -374,7 +387,7 @@ public final class HUDHandler {
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();
-		if(properlyBound) {
+		if (properlyBound) {
 			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
 			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
 		} else {
@@ -393,8 +406,9 @@ public final class HUDHandler {
 
 		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
 
-		if(manaPercentage == 0 && mana > 0)
+		if (manaPercentage == 0 && mana > 0) {
 			manaPercentage = 1;
+		}
 
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 5, 100, 3);
 

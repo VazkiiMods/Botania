@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 24, 2014, 8:03:44 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
@@ -24,11 +22,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
-
-import java.awt.*;
 
 /**
  * The basic class for a Functional Flower.
@@ -70,7 +67,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 		linkPool();
 
-		if(linkedPool != null && isValidBinding()) {
+		if (linkedPool != null && isValidBinding()) {
 			IManaPool pool = (IManaPool) linkedPool;
 			int manaInPool = pool.getCurrentMana();
 			int manaMissing = getMaxMana() - mana;
@@ -79,36 +76,37 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			addMana(manaToRemove);
 		}
 
-		if(acceptsRedstone()) {
+		if (acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(Direction dir : Direction.values()) {
+			for (Direction dir : Direction.values()) {
 				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
 
-		if(getWorld().isRemote) {
+		if (getWorld().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			int color = getColor();
 			float red = (color >> 16 & 0xFF) / 255F;
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
-			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random()  * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+			if (Math.random() > particleChance) {
+				BotaniaAPI.internalHandler.sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random() * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+			}
 		}
 	}
 
 	public void linkPool() {
 		boolean needsNew = false;
-		if(linkedPool == null) {
+		if (linkedPool == null) {
 			needsNew = true;
 
-			if(cachedPoolCoordinates != null) {
+			if (cachedPoolCoordinates != null) {
 				needsNew = false;
-				if(getWorld().isBlockLoaded(cachedPoolCoordinates)) {
+				if (getWorld().isBlockLoaded(cachedPoolCoordinates)) {
 					needsNew = true;
 					TileEntity tileAt = getWorld().getTileEntity(cachedPoolCoordinates);
-					if(tileAt instanceof IManaPool && !tileAt.isRemoved()) {
+					if (tileAt instanceof IManaPool && !tileAt.isRemoved()) {
 						linkedPool = tileAt;
 						needsNew = false;
 					}
@@ -117,14 +115,15 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			}
 		} else {
 			TileEntity tileAt = getWorld().getTileEntity(linkedPool.getPos());
-			if(tileAt instanceof IManaPool)
+			if (tileAt instanceof IManaPool) {
 				linkedPool = tileAt;
+			}
 		}
 
-		if(needsNew && ticksExisted == 1) { // Only for new flowers
+		if (needsNew && ticksExisted == 1) { // Only for new flowers
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(getWorld()).size();
-			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -149,13 +148,15 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null)
+		if (player == null) {
 			return false;
+		}
 
 		knownMana = mana;
 		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
-		if(evt != null)
+		if (evt != null) {
 			player.playSound(evt, 0.1F, 1F);
+		}
 
 		return super.onWanded(player, wand);
 	}
@@ -185,7 +186,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
 
-		if(cachedPoolCoordinates != null) {
+		if (cachedPoolCoordinates != null) {
 			cmp.putInt(TAG_POOL_X, cachedPoolCoordinates.getX());
 			cmp.putInt(TAG_POOL_Y, cachedPoolCoordinates.getY());
 			cmp.putInt(TAG_POOL_Z, cachedPoolCoordinates.getZ());
@@ -202,8 +203,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public BlockPos getBinding() {
-		if(linkedPool == null)
+		if (linkedPool == null) {
 			return null;
+		}
 		return linkedPool.getPos();
 	}
 
@@ -218,9 +220,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		range *= range;
 
 		double dist = pos.distanceSq(getPos());
-		if(range >= dist) {
+		if (range >= dist) {
 			TileEntity tile = player.world.getTileEntity(pos);
-			if(tile instanceof IManaPool) {
+			if (tile instanceof IManaPool) {
 				linkedPool = tile;
 				return true;
 			}

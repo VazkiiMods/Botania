@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.item.equipment.armor.elementium;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
@@ -10,6 +18,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
@@ -50,18 +59,24 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
-		if(player == null)
+		if (player == null) {
 			return false;
-		
-		ItemStack stack = player.getItemStackFromSlot(slot);
-		if(stack.isEmpty())
-			return false;
+		}
 
-		switch(slot) {
-		case HEAD: return stack.getItem() == ModItems.elementiumHelm || stack.getItem() == ModItems.elementiumHelmRevealing;
-		case CHEST: return stack.getItem() == ModItems.elementiumChest;
-		case LEGS: return stack.getItem() == ModItems.elementiumLegs;
-		case FEET: return stack.getItem() == ModItems.elementiumBoots;
+		ItemStack stack = player.getItemStackFromSlot(slot);
+		if (stack.isEmpty()) {
+			return false;
+		}
+
+		switch (slot) {
+		case HEAD:
+			return stack.getItem() == ModItems.elementiumHelm || stack.getItem() == ModItems.elementiumHelmRevealing;
+		case CHEST:
+			return stack.getItem() == ModItems.elementiumChest;
+		case LEGS:
+			return stack.getItem() == ModItems.elementiumLegs;
+		case FEET:
+			return stack.getItem() == ModItems.elementiumBoots;
 		}
 
 		return false;

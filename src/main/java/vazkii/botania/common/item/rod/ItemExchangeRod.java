@@ -1,16 +1,15 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Aug 20, 2015, 8:08:34 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -38,6 +37,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -49,6 +49,7 @@ import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,20 +80,20 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		ItemStack stack = ctx.getItem();
 		BlockState wstate = world.getBlockState(pos);
 
-		if(player != null && player.isSneaking()) {
+		if (player != null && player.isSneaking()) {
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile == null) {
-				if(BlockPlatform.isValidBlock(wstate, world, pos)) {
+			if (tile == null) {
+				if (BlockPlatform.isValidBlock(wstate, world, pos)) {
 					setBlock(stack, wstate);
 
 					displayRemainderCounter(player, stack);
 					return ActionResultType.SUCCESS;
 				}
 			}
-		} else if(canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
+		} else if (canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 			BlockState state = getState(stack);
 			List<BlockPos> swap = getTargetPositions(world, stack, state, pos, wstate.getBlock());
-			if(swap.size() > 0) {
+			if (swap.size() > 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, true);
 				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Y, pos.getY());
@@ -106,27 +107,30 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	private void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
 		ItemStack stack = event.getItemStack();
-		if(!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getPlayer(), COST, false)) {
-			if(exchange(event.getWorld(), event.getPlayer(), event.getPos(), stack, getState(stack)))
+		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getPlayer(), COST, false)) {
+			if (exchange(event.getWorld(), event.getPlayer(), event.getPos(), stack, getState(stack))) {
 				ManaItemHandler.requestManaExactForTool(stack, event.getPlayer(), COST, true);
+			}
 		}
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean equipped) {
-		if(!canExchange(stack) || !(entity instanceof PlayerEntity))
+		if (!canExchange(stack) || !(entity instanceof PlayerEntity)) {
 			return;
+		}
 
 		PlayerEntity player = (PlayerEntity) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int extraRangeNew = IManaProficiencyArmor.hasProficiency(player, stack) ? 3 : 1;
-		if(extraRange != extraRangeNew)
+		if (extraRange != extraRangeNew) {
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
+		}
 
 		BlockState state = getState(stack);
-		if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
-			if(!ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
+		if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
+			if (!ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
@@ -136,16 +140,18 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
 			Block target = getTargetState(stack);
 			List<BlockPos> swap = getTargetPositions(world, stack, state, new BlockPos(x, y, z), target);
-			if(swap.size() == 0) {
+			if (swap.size() == 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
 
 			BlockPos coords = swap.get(world.rand.nextInt(swap.size()));
 			boolean exchange = exchange(world, player, coords, stack, state);
-			if(exchange)
+			if (exchange) {
 				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
-			else ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
+			} else {
+				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
+			}
 		}
 	}
 
@@ -158,51 +164,56 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		int effRange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
 
 		// Iterate in all 3 dimensions through our possible positions.
-		for(int offsetX = -effRange; offsetX <= effRange; offsetX++)
-			for(int offsetY = -effRange; offsetY <= effRange; offsetY++)
-				for(int offsetZ = -effRange; offsetZ <= effRange; offsetZ++) {
+		for (int offsetX = -effRange; offsetX <= effRange; offsetX++) {
+			for (int offsetY = -effRange; offsetY <= effRange; offsetY++) {
+				for (int offsetZ = -effRange; offsetZ <= effRange; offsetZ++) {
 					BlockPos pos_ = pos.add(offsetX, offsetY, offsetZ);
 
 					BlockState currentState = world.getBlockState(pos_);
 
 					// If this block is not our target, ignore it, as we don't need
 					// to consider replacing it
-					if(currentState.getBlock() != toReplace)
+					if (currentState.getBlock() != toReplace) {
 						continue;
+					}
 
 					// If this block is already the block we're swapping to,
 					// we don't need to swap again
-					if(currentState == toPlace)
+					if (currentState == toPlace) {
 						continue;
+					}
 
 					// Check to see if the block is visible on any side:
-					for(Direction dir : Direction.values()) {
+					for (Direction dir : Direction.values()) {
 						BlockPos adjPos = pos_.offset(dir);
 						BlockState adjState = world.getBlockState(adjPos);
 
-						if(!Block.hasSolidSide(adjState, world, adjPos, dir.getOpposite())) {
+						if (!Block.hasSolidSide(adjState, world, adjPos, dir.getOpposite())) {
 							coordsList.add(pos_);
 							break;
 						}
 					}
 				}
+			}
+		}
 
 		return coordsList;
 	}
 
 	public boolean exchange(World world, PlayerEntity player, BlockPos pos, ItemStack stack, BlockState state) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null)
+		if (tile != null) {
 			return false;
+		}
 
 		ItemStack placeStack = removeFromInventory(player, stack, state.getBlock(), false);
-		if(!placeStack.isEmpty()) {
+		if (!placeStack.isEmpty()) {
 			BlockState stateAt = world.getBlockState(pos);
 			Block blockAt = stateAt.getBlock();
-			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
-				if(!world.isRemote) {
+			if (!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
+				if (!world.isRemote) {
 					world.destroyBlock(pos, !player.abilities.isCreativeMode);
-					if(!player.abilities.isCreativeMode) {
+					if (!player.abilities.isCreativeMode) {
 						removeFromInventory(player, stack, state.getBlock(), true);
 					}
 					world.setBlockState(pos, state);
@@ -220,57 +231,66 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return !getState(stack).isAir();
 	}
 
-
 	public static ItemStack removeFromInventory(PlayerEntity player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block, boolean doit) {
 		return inv.map(handler -> removeFromInventory(player, handler, stack, block, doit)).orElse(ItemStack.EMPTY);
 	}
 
 	public static ItemStack removeFromInventory(PlayerEntity player, IItemHandler inv, ItemStack stack, Block block, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
-		for(int i = inv.getSlots() - 1; i >= 0; i--) {
+		for (int i = inv.getSlots() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getStackInSlot(i);
-			if(invStack.isEmpty())
+			if (invStack.isEmpty()) {
 				continue;
+			}
 
 			Item item = invStack.getItem();
-			if(item == block.asItem()) {
+			if (item == block.asItem()) {
 				return inv.extractItem(i, 1, !doit);
 			}
 
-			if(item instanceof IBlockProvider)
+			if (item instanceof IBlockProvider) {
 				providers.add(invStack);
+			}
 		}
 
-		for(ItemStack provStack : providers) {
+		for (ItemStack provStack : providers) {
 			IBlockProvider prov = (IBlockProvider) provStack.getItem();
-			if(prov.provideBlock(player, stack, provStack, block, doit))
+			if (prov.provideBlock(player, stack, provStack, block, doit)) {
 				return new ItemStack(block);
+			}
 		}
 
 		return ItemStack.EMPTY;
 	}
 
 	public static ItemStack removeFromInventory(PlayerEntity player, ItemStack stack, Block block, boolean doit) {
-		if(player.abilities.isCreativeMode)
+		if (player.abilities.isCreativeMode) {
 			return new ItemStack(block);
+		}
 
 		ItemStack outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getAccessoriesInventory(player), stack, block, doit);
-		if (outStack.isEmpty())
+		if (outStack.isEmpty()) {
 			outStack = removeFromInventory(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), stack, block, doit);
+		}
 		return outStack;
 	}
 
 	public static int getInventoryItemCount(PlayerEntity player, ItemStack stack, Block block) {
-		if(player.abilities.isCreativeMode)
+		if (player.abilities.isCreativeMode) {
 			return -1;
+		}
 
 		int baubleCount = getInventoryItemCount(player, BotaniaAPI.internalHandler.getAccessoriesInventory(player), stack, block);
-		if (baubleCount == -1) return -1;
+		if (baubleCount == -1) {
+			return -1;
+		}
 
 		int count = getInventoryItemCount(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), stack, block);
-		if (count == -1) return -1;
+		if (count == -1) {
+			return -1;
+		}
 
-		return count+baubleCount;
+		return count + baubleCount;
 	}
 
 	public static int getInventoryItemCount(PlayerEntity player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block) {
@@ -278,24 +298,28 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static int getInventoryItemCount(PlayerEntity player, IItemHandler inv, ItemStack stack, Block block) {
-		if(player.abilities.isCreativeMode)
+		if (player.abilities.isCreativeMode) {
 			return -1;
+		}
 
 		int count = 0;
-		for(int i = 0; i < inv.getSlots(); i++) {
+		for (int i = 0; i < inv.getSlots(); i++) {
 			ItemStack invStack = inv.getStackInSlot(i);
-			if(invStack.isEmpty())
+			if (invStack.isEmpty()) {
 				continue;
+			}
 
 			Item item = invStack.getItem();
-			if(item == block.asItem())
+			if (item == block.asItem()) {
 				count += invStack.getCount();
+			}
 
-			if(item instanceof IBlockProvider) {
+			if (item instanceof IBlockProvider) {
 				IBlockProvider prov = (IBlockProvider) item;
 				int provCount = prov.getBlockCount(player, stack, invStack, block);
-				if(provCount == -1)
+				if (provCount == -1) {
 					return -1;
+				}
 				count += provCount;
 			}
 		}
@@ -306,8 +330,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	public void displayRemainderCounter(PlayerEntity player, ItemStack stack) {
 		Block block = getState(stack).getBlock();
 		int count = getInventoryItemCount(player, stack, block);
-		if(!player.world.isRemote)
+		if (!player.world.isRemote) {
 			ItemsRemainingRenderHandler.set(new ItemStack(block), count);
+		}
 	}
 
 	@Override
@@ -351,25 +376,26 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	@OnlyIn(Dist.CLIENT)
 	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack) {
 		ItemStack holding = player.getHeldItemMainhand();
-		if(holding != stack || !canExchange(stack))
+		if (holding != stack || !canExchange(stack)) {
 			return ImmutableList.of();
+		}
 
 		BlockState state = getState(stack);
 
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
-		if(pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
+		if (pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
 			Block target = Minecraft.getInstance().world.getBlockState(bPos).getBlock();
-			if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
+			if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
 						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
 						ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0),
 						ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0)
-						);
+				);
 				target = getTargetState(stack);
 			}
 
-			if(!player.world.isAirBlock(bPos)) {
+			if (!player.world.isAirBlock(bPos)) {
 				List<BlockPos> coordsList = getTargetPositions(player.world, stack, state, bPos, target);
 				coordsList.removeIf(bPos::equals);
 				return coordsList;

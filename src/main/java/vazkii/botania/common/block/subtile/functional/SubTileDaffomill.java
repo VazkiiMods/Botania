@@ -1,12 +1,10 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jun 20, 2014, 11:43:02 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
@@ -25,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
@@ -35,8 +34,7 @@ import vazkii.botania.common.network.PacketItemAge;
 import java.util.List;
 
 public class SubTileDaffomill extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":daffomill")
-	public static TileEntityType<SubTileDaffomill> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":daffomill") public static TileEntityType<SubTileDaffomill> TYPE;
 
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
@@ -52,24 +50,24 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if(getWorld().rand.nextInt(4) == 0) {
+		if (getWorld().rand.nextInt(4) == 0) {
 			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
 			world.addParticle(data, getEffectivePos().getX() + Math.random(), getEffectivePos().getY() + Math.random(), getEffectivePos().getZ() + Math.random(), orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
 		}
 
-		if(windTicks == 0 && getMana() > 0) {
+		if (windTicks == 0 && getMana() > 0) {
 			windTicks = 20;
 			addMana(-1);
 		}
 
-		if(windTicks > 0 && redstoneSignal == 0) {
+		if (windTicks > 0 && redstoneSignal == 0) {
 			AxisAlignedBB axis = aabbForOrientation();
 
-			if(axis != null) {
+			if (axis != null) {
 				List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, axis);
 				int slowdown = getSlowdownFactor();
-				for(ItemEntity item : items) {
-					if(item.isAlive() && item.age >= slowdown) {
+				for (ItemEntity item : items) {
+					if (item.isAlive() && item.age >= slowdown) {
 						item.setMotion(
 								item.getMotion().getX() + orientation.getXOffset() * 0.05,
 								item.getMotion().getY() + orientation.getYOffset() * 0.05,
@@ -92,19 +90,20 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		int l = 16;
 
 		AxisAlignedBB axis = null;
-		switch(orientation) {
-		case NORTH :
+		switch (orientation) {
+		case NORTH:
 			axis = new AxisAlignedBB(x - w, y - h, z - l, x + w + 1, y + h, z);
 			break;
-		case SOUTH :
+		case SOUTH:
 			axis = new AxisAlignedBB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			break;
-		case WEST :
+		case WEST:
 			axis = new AxisAlignedBB(x - l, y - h, z - w, x, y + h, z + w + 1);
 			break;
-		case EAST :
+		case EAST:
 			axis = new AxisAlignedBB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-		default: break;
+		default:
+			break;
 		}
 		return axis;
 	}
@@ -116,23 +115,27 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 
 	@Override
 	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		if(player == null)
+		if (player == null) {
 			return false;
+		}
 
-		if(player.isSneaking()) {
-			if(!player.world.isRemote) {
+		if (player.isSneaking()) {
+			if (!player.world.isRemote) {
 				orientation = orientation.rotateY();
 				sync();
 			}
 
 			return true;
-		} else return super.onWanded(player, wand);
+		} else {
+			return super.onWanded(player, wand);
+		}
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		if(entity != null)
+		if (entity != null) {
 			orientation = entity.getHorizontalFacing();
+		}
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
@@ -140,7 +143,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();
 		aabb = new AxisAlignedBB(aabb.minX, getEffectivePos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
-        return new RadiusDescriptor.Rectangle(getEffectivePos(), aabb);
+		return new RadiusDescriptor.Rectangle(getEffectivePos(), aabb);
 	}
 
 	@Override
@@ -172,7 +175,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
 	@SubscribeEvent
 	public static void onItemTrack(PlayerEvent.StartTracking evt) {
-		if(evt.getTarget() instanceof ItemEntity) {
+		if (evt.getTarget() instanceof ItemEntity) {
 			int entityId = evt.getTarget().getEntityId();
 			int age = ((ItemEntity) evt.getTarget()).age;
 			PacketHandler.sendTo((ServerPlayerEntity) evt.getPlayer(), new PacketItemAge(entityId, age));
