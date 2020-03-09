@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.common.item.ItemManaGun;
@@ -65,8 +66,8 @@ public class ManaGunClipRecipe extends SpecialRecipe {
 			return ItemStack.EMPTY;
 
 		ItemStack lens = ItemManaGun.getLens(gun);
-		ItemManaGun.setLens(gun, ItemStack.EMPTY);
 		ItemStack gunCopy = gun.copy();
+		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
 		ItemManaGun.setClip(gunCopy, true);
 		ItemManaGun.setLensAtPos(gunCopy, lens, 0);
 		return gunCopy;
@@ -75,6 +76,12 @@ public class ManaGunClipRecipe extends SpecialRecipe {
 	@Override
 	public boolean canFit(int width, int height) {
 		return width * height >= 2;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
+		return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 	}
 
 	@Nonnull
