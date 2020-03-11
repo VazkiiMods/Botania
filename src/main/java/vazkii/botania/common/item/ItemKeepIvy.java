@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -38,7 +37,12 @@ public class ItemKeepIvy extends ItemMod {
 		super(props);
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static boolean hasIvy(ItemStack stack) {
+		return !stack.isEmpty() && stack.hasTag() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false);
+	}
+
+	// Curios are handled in CurioIntegration#keepCurioDrops
+	@SubscribeEvent
 	public static void onPlayerDrops(LivingDropsEvent event) {
 		if(!(event.getEntityLiving() instanceof PlayerEntity))
 			return;
@@ -86,8 +90,10 @@ public class ItemKeepIvy extends ItemMod {
 				ItemStack stack = ItemStack.read(cmp2);
 				if(!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
-					ItemNBTHelper.setBoolean(copy, TAG_KEEP, false);
-					event.getPlayer().inventory.addItemStackToInventory(copy);
+					stack.removeChildTag(TAG_KEEP);
+					if (!event.getPlayer().inventory.addItemStackToInventory(copy)) {
+						event.getPlayer().entityDropItem(copy);
+					}
 				}
 			}
 

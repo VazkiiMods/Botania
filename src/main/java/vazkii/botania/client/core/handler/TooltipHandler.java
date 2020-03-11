@@ -25,7 +25,7 @@ public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onTooltipEvent(ItemTooltipEvent event) {
-		if(event.getItemStack().hasTag() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
+		if(ItemKeepIvy.hasIvy(event.getItemStack()))
 			event.getToolTip().add(new TranslationTextComponent("botaniamisc.hasKeepIvy"));
 	}
 
