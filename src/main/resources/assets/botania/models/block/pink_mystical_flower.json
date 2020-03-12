@@ -1,5 +1,5 @@
 {
-  "parent": "botania:block/shapes/cross_tinted",
+  "parent": "minecraft:block/cross",
   "textures": {
     "cross": "botania:blocks/flower6"
   }
