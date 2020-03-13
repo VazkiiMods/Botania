@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -48,7 +49,7 @@ import java.util.Properties;
 
 public final class ContributorFancinessHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
 
-	public static final Map<String, ItemStack> flowerMap = new HashMap<>();
+	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
 
 	private static final ImmutableMap<String, String> LEGACY_FLOWER_NAMES = ImmutableMap.<String, String>builder()
@@ -80,8 +81,12 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		firstStart();
 
 		name = name.toLowerCase();
-		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
-			renderFlower(player, flowerMap.get(name), partialTicks);
+		if(player.isWearing(PlayerModelPart.CAPE)) {
+			ItemStack flower = getFlower(name);
+			if (!flower.isEmpty()) {
+				renderFlower(player, flower, partialTicks);
+			}
+		}
 
 		GlStateManager.popMatrix();
 	}
@@ -98,8 +103,12 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		}
 	}
 
+	public static ItemStack getFlower(String name) {
+		return flowerMap.getOrDefault(name, ItemStack.EMPTY);
+	}
+
 	public static void load(Properties props) {
-		flowerMap.clear();
+		Map<String, ItemStack> m = new HashMap<>();
 		for(String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 
@@ -107,7 +116,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
 					throw new NumberFormatException();
-				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(DyeColor.byId(i))));
+				m.put(key, new ItemStack(ModBlocks.getFlower(DyeColor.byId(i))));
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
@@ -115,9 +124,10 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				Item item = ModTags.Items.SPECIAL_FLOWERS.getAllElements().stream()
 						.filter(flower -> flower.getRegistryName().getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
-				flowerMap.put(key, new ItemStack(item));
+				m.put(key, new ItemStack(item));
 			}
 		}
+		flowerMap = m;
 	}
 
 	private static void renderGoldfish(PlayerEntity player) {

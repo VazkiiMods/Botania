@@ -289,8 +289,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				GlStateManager.translatef(1.25F, -1.25F, 2.25F);
 				mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 				renderBlock(Blocks.CAKE);
-			} else if (ContributorFancinessHandler.flowerMap.containsKey(name)) {
-				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
+			} else {
+				ItemStack icon = ContributorFancinessHandler.getFlower(name);
 				if (!icon.isEmpty()) {
 					mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 					GlStateManager.rotatef(180F, 1F, 0F, 0F);
