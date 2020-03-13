@@ -25,7 +25,7 @@ public class LensWarp extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if (burst.isFake() || pos.getType() != RayTraceResult.Type.BLOCK) {
+		if (entity.world.isRemote || burst.isFake() || pos.getType() != RayTraceResult.Type.BLOCK) {
 			return dead;
 		}
 
