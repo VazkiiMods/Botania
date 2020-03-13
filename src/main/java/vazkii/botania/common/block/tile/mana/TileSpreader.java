@@ -84,7 +84,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_UUID_MOST = "uuidMost";
 	private static final String TAG_UUID_LEAST = "uuidLeast";
 	private static final String TAG_MANA = "mana";
-	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
@@ -132,7 +131,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	UUID identity;
 
 	private int mana;
-	private int knownMana = -1;
 	public float rotationX, rotationY;
 
 	@Nullable
@@ -341,8 +339,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		mmForcedGravity = cmp.getFloat(TAG_FORCED_GRAVITY);
 		mmForcedVelocityMultiplier = cmp.getFloat(TAG_FORCED_VELOCITY_MULTIPLIER);
 
-		if(cmp.contains(TAG_KNOWN_MANA))
-			knownMana = cmp.getInt(TAG_KNOWN_MANA);
 		if(cmp.contains(TAG_PADDING_COLOR))
 			paddingColor = cmp.getInt(TAG_PADDING_COLOR) == -1 ? null : DyeColor.byId(cmp.getInt(TAG_PADDING_COLOR));
 		if(cmp.contains(TAG_CAN_SHOOT_BURST))
@@ -384,14 +380,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			return;
 
 		if(!player.isSneaking()) {
-			if(!world.isRemote) {
-				CompoundNBT nbttagcompound = new CompoundNBT();
-				writePacketNBT(nbttagcompound);
-				nbttagcompound.putInt(TAG_KNOWN_MANA, mana);
-				if(player instanceof ServerPlayerEntity)
-					((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
-			}
-			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		} else {
 			RayTraceResult pos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
 			if(pos instanceof BlockRayTraceResult && !world.isRemote) {
@@ -551,7 +540,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void renderHUD(Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
-		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name);
+		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		if(!lens.isEmpty()) {
