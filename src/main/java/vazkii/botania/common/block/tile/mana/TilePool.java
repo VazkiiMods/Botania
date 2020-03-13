@@ -75,7 +75,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private static final int MAX_MANA_DILLUTED = 10000;
 
 	private static final String TAG_MANA = "mana";
-	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_OUTPUTTING = "outputting";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA_CAP = "manaCap";
@@ -91,7 +90,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	public DyeColor color = DyeColor.WHITE;
 	private int mana;
-	private int knownMana = -1;
 
 	public int manaCap = -1;
 	private int soundTicks = 0;
@@ -386,31 +384,14 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			inputKey = cmp.getString(TAG_OUTPUT_KEY);
 		}
 
-		if (cmp.contains(TAG_KNOWN_MANA)) {
-			knownMana = cmp.getInt(TAG_KNOWN_MANA);
-		}
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if (player == null || player.isSneaking()) {
 			outputting = !outputting;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 
-		if (!world.isRemote) {
-			CompoundNBT nbttagcompound = new CompoundNBT();
-			writePacketNBT(nbttagcompound);
-			nbttagcompound.putInt(TAG_KNOWN_MANA, getCurrentMana());
-			if (player instanceof ServerPlayerEntity) {
-				((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
-			}
-		}
-
-		if (player == null) {
-			world.playSound(null, getPos(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
-		} else {
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
-		}
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -418,7 +399,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = pool.getDisplayName().getString();
 		int color = 0x4444FF;
-		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name);
+		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), manaCap, name);
 
 		int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 - 11;
 		int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 + 30;

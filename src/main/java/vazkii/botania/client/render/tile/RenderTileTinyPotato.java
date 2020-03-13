@@ -366,8 +366,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 				ms.translate(1.5, -4, -2.5);
 				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
-			} else if (ContributorFancinessHandler.flowerMap.containsKey(name)) {
-				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
+			} else {
+				ItemStack icon = ContributorFancinessHandler.getFlower(name);
 				if (!icon.isEmpty()) {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));

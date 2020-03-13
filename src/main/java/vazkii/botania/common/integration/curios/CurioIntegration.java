@@ -29,11 +29,13 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.CuriosCapability;
 import top.theillusivec4.curios.api.capability.ICurio;
+import top.theillusivec4.curios.api.event.LivingCurioDropRulesEvent;
 import top.theillusivec4.curios.api.imc.CurioIMCMessage;
 
 import vazkii.botania.common.capability.SimpleCapProvider;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 import java.util.function.Predicate;
@@ -49,6 +51,17 @@ public class CurioIntegration extends EquipmentHandler {
 		InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("body"));
 		InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("head"));
 		InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("necklace"));
+	}
+
+	@SubscribeEvent
+	public static void keepCurioDrops(LivingCurioDropRulesEvent event) {
+		event.addOverride(stack -> {
+			if (ItemKeepIvy.hasIvy(stack)) {
+				stack.removeChildTag(ItemKeepIvy.TAG_KEEP);
+				return true;
+			}
+			return false;
+		}, ICurio.DropRule.ALWAYS_KEEP);
 	}
 
 	@Override

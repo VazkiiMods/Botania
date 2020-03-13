@@ -116,7 +116,9 @@ public class BlockGhostRail extends AbstractRailBlock {
 				AbstractMinecartEntity c = iter.next();
 				BlockPos entPos = new BlockPos(c);
 
-				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)) {
+				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)
+						|| c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+					c.noClip = false;
 					iter.remove();
 					continue;
 				}

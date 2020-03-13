@@ -48,7 +48,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
-	public int knownMana = -1;
 	public int passiveDecayTicks;
 
 	BlockPos cachedCollectorCoordinates = null;
@@ -206,7 +205,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			sync();
 		}
 
-		knownMana = getMana();
 		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
 		if (evt != null) {
 			player.playSound(evt, 0.1F, 1F);
@@ -297,7 +295,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	public void renderHUD(Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 	@Override

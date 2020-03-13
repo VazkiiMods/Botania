@@ -363,14 +363,7 @@ public final class HUDHandler {
 		x = mc.getWindow().getScaledWidth() / 2 - 51;
 		y += 10;
 
-		renderManaBar(x, y, color, mana < 0 ? 0.5F : 1F, mana, maxMana);
-
-		if (mana < 0) {
-			String text = I18n.format("botaniamisc.statusUnknown");
-			x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
-			y -= 1;
-			mc.fontRenderer.drawString(text, x, y, color);
-		}
+		renderManaBar(x, y, color, 1F, mana, maxMana);
 
 		RenderSystem.disableBlend();
 	}
