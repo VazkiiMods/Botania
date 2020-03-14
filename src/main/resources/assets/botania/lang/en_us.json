@@ -2433,7 +2433,7 @@
   "botania.entry.cocoon": "Cocoon of Caprice",
   "botania.tagline.cocoon": "Hatch your own animals",
   "botania.page.cocoon0": "A cocoon is a symbol of change, of evolution.$(p)A $(item)Cocoon of Caprice$(0), when placed, will slowly evolve the rudimentary bits of life inside into a $(item)Baby Animal$(0). More often than not, the cocoon will hatch into a farm animal, but on rare occasions, different animals such as $(item)Wolves$(0) or $(item)Horses$(0) can be created.",
-  "botania.page.cocoon1": "A cocoon near water seems to create aquatic animals instead.$(p)Rumor has it that giving a cocoon $(item)Emeralds$(0) or $(item)Chorus Fruit$(0) will influence its outcome towards something... different. What such experiments would yield is anyone's guess, really.$(p)(Giving a cocoon an item can be done via right-click or by simply tossing the item.)",
+  "botania.page.cocoon1": "A cocoon near water seems to create aquatic animals instead.$(p)Rumor has it that giving a cocoon $(item)Emeralds$(0), $(item)Chorus Fruit$(0), or a certain $(l:alfhomancy/gaia_ritual)$(item)otherworldly essence$(0)$(/l) will influence its outcome towards something... different. What such experiments would yield is anyone's guess, really.$(p)(Giving a cocoon an item can be done via right-click or by simply tossing the item.)",
   "botania.page.cocoon2": "New World, Perfect World",
 
   "botania.entry.manaBomb": "Manastorm Charge",
