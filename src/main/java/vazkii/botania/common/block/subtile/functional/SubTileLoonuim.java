@@ -26,6 +26,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
@@ -65,7 +66,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		World world = getWorld();
-		if (!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && getMana() >= COST) {
+		if (!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0
+						&& getMana() >= COST && world.getDifficulty() != Difficulty.PEACEFUL) {
 			Random rand = world.rand;
 
 			ItemStack stack;
