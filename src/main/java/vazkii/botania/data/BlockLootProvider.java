@@ -8,7 +8,6 @@
  */
 package vazkii.botania.data;
 
-import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,6 +23,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Items;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ResourceLocation;
@@ -78,7 +78,6 @@ public class BlockLootProvider implements IDataProvider {
 	public BlockLootProvider(DataGenerator generator) {
 		this.generator = generator;
 
-		Stopwatch s = Stopwatch.createStarted();
 		for (Block b : ForgeRegistries.BLOCKS) {
 			if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace())) {
 				continue;
@@ -126,12 +125,10 @@ public class BlockLootProvider implements IDataProvider {
 		functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
 		functionTable.put(ModSubtiles.thermalily, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
 		functionTable.put(ModSubtiles.thermalilyFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
-		Botania.LOGGER.info("BLP constructed in {}", s.elapsed(TimeUnit.MILLISECONDS));
 	}
 
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
-		Stopwatch s = Stopwatch.createStarted();
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
 		for (Block b : ForgeRegistries.BLOCKS) {
@@ -141,13 +138,11 @@ public class BlockLootProvider implements IDataProvider {
 			Function<Block, LootTable.Builder> func = functionTable.getOrDefault(b, BlockLootProvider::genRegular);
 			tables.put(b.getRegistryName(), func.apply(b));
 		}
-		Botania.LOGGER.info("BLP run in {}", s.elapsed(TimeUnit.MILLISECONDS));
 
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = getPath(generator.getOutputFolder(), e.getKey());
 			IDataProvider.save(GSON, cache, LootTableManager.toJson(e.getValue().setParameterSet(LootParameterSets.BLOCK).build()), path);
 		}
-		Botania.LOGGER.info("BLP written in {}", s.elapsed(TimeUnit.MILLISECONDS));
 	}
 
 	private static Path getPath(Path root, ResourceLocation id) {
@@ -217,7 +212,8 @@ public class BlockLootProvider implements IDataProvider {
 
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-				.acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)));
+				.acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
+				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS)));
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
 				.acceptCondition(SurvivesExplosion.builder());
 		return LootTable.builder().addLootPool(pool);

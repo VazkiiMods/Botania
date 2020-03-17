@@ -14,6 +14,12 @@
               "properties": {
                 "half": "lower"
               }
+            },
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "item": "minecraft:shears"
+              }
             }
           ],
           "name": "botania:light_blue_double_flower"
