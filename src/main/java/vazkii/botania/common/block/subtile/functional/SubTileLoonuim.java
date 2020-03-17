@@ -17,15 +17,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.CaveSpiderEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.entity.monster.HuskEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.entity.monster.StrayEntity;
-import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.monster.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
@@ -100,7 +92,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 				if (pos.getY() >= 254) {
 					return;
 				}
-			} while (world.getBlockState(pos).causesSuffocation(world, pos));
+			} while (world.getBlockState(pos).canSuffocate(world, pos));
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
@@ -120,6 +112,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 				case 0:
 					if (world.rand.nextInt(10) == 0) {
 						entity = new HuskEntity(EntityType.HUSK, world);
+					} else if (world.rand.nextInt(5) == 0) {
+						entity = new DrownedEntity(EntityType.DROWNED, world);
 					} else {
 						entity = new ZombieEntity(world);
 					}
