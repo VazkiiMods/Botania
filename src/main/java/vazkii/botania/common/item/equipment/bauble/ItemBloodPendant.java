@@ -123,7 +123,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		ms.scale(0.5F, 0.5F, 0.5F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 

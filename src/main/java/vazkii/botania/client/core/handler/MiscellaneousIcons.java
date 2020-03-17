@@ -91,6 +91,8 @@ public class MiscellaneousIcons {
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
 		ModelLoader.addSpecialModel(prefix("icon/phiflower"));
 		ModelLoader.addSpecialModel(prefix("icon/nerfbat"));
+		ModelLoader.addSpecialModel(prefix("icon/blood_pendant_chain"));
+		ModelLoader.addSpecialModel(prefix("icon/blood_pendant_gem"));
 		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
 			ModelLoader.addSpecialModel(prefix("icon/gate_weapon_" + i));
 		}
@@ -155,6 +157,8 @@ public class MiscellaneousIcons {
 		goldfishModel = evt.getModelRegistry().get(prefix("icon/goldfish"));
 		phiFlowerModel = evt.getModelRegistry().get(prefix("icon/phiflower"));
 		nerfBatModel = evt.getModelRegistry().get(prefix("icon/nerfbat"));
+		bloodPendantChain = evt.getModelRegistry().get(prefix("icon/blood_pendant_chain"));
+		bloodPendantGem = evt.getModelRegistry().get(prefix("icon/blood_pendant_gem"));
 		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
 			kingKeyWeaponModels[i] = evt.getModelRegistry().get(prefix("icon/gate_weapon_" + i));
 		}
