@@ -29,10 +29,10 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	}
 
 	public static void filterDisposable(List<ItemStack> drops, Entity e, ItemStack stack) {
-			if (!stack.isEmpty() && (stack.getItem() == ModItems.elementiumPick
-							|| stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
-							drops.removeIf(s -> !s.isEmpty() && (isDisposable(s) || isSemiDisposable(s) && !e.isSneaking()));
-			}
+		if (!stack.isEmpty() && (stack.getItem() == ModItems.elementiumPick
+				|| stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
+			drops.removeIf(s -> !s.isEmpty() && (isDisposable(s) || isSemiDisposable(s) && !e.isSneaking()));
+		}
 	}
 
 	public static boolean isDisposable(Block block) {
