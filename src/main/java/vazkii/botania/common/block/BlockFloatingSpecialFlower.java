@@ -34,6 +34,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -100,7 +101,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 

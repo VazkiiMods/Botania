@@ -232,7 +232,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {}
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
 
 	/**
 	 * Called when a player right clicks this sub tile.

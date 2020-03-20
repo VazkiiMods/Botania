@@ -28,6 +28,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
@@ -76,7 +77,7 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
 	}
 	
-	public void onPlace(LivingEntity entity) {
+	public void onPlace(@Nullable LivingEntity entity) {
 		if(entity != null) {
 			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
 		}
