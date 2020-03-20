@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -40,14 +42,23 @@ public class LensPiston extends Lens {
 
 					if(state.getPushReaction() == PushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN
 							&& state.getBlockHardness(entity.world, pos_) >= 0 && tile == null) {
-						entity.world.destroyBlock(rtr.getPos(), false);
-						entity.world.setBlockState(pos_, state, 1 | 2);
+						entity.world.playEvent(2001, rtr.getPos(), Block.getStateId(state));
+						entity.world.setBlockState(rtr.getPos(), Blocks.AIR.getDefaultState());
+						entity.world.setBlockState(pos_, unWaterlog(state));
 					}
 				}
 			}
 		}
 
 		return dead;
+	}
+
+	public static BlockState unWaterlog(BlockState state) {
+		if (state.has(BlockStateProperties.WATERLOGGED)) {
+			return state.with(BlockStateProperties.WATERLOGGED, false);
+		} else {
+			return state;
+		}
 	}
 
 }
