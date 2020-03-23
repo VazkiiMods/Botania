@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
@@ -22,6 +23,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -63,10 +65,11 @@ public final class PixieHandler {
 		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
 	}
 
+	// Want to do this as early as possible -- doing it at entity join world means attribute modifiers are ignored when loading
 	@SubscribeEvent
-	public static void playerJoin(EntityJoinWorldEvent evt) {
-		if (evt.getEntity() instanceof PlayerEntity) {
-			AbstractAttributeMap attributes = ((PlayerEntity) evt.getEntity()).getAttributes();
+	public static void registerAttribute(AttachCapabilitiesEvent<Entity> evt) {
+		if (evt.getObject() instanceof PlayerEntity) {
+			AbstractAttributeMap attributes = ((PlayerEntity) evt.getObject()).getAttributes();
 			if (attributes.getAttributeInstance(PIXIE_SPAWN_CHANCE) == null) {
 				attributes.registerAttribute(PIXIE_SPAWN_CHANCE);
 			}

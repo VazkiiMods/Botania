@@ -41,7 +41,6 @@ public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
 		}
 
 		ms.push();
-		ms.translate(0, 0, 1);
 		ms.translate(0.5, 0, 0);
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rot));
 		ms.translate(-0.5, 0, 0);
