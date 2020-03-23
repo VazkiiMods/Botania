@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "botania:block/shapes/cross",
   "textures": {
     "cross": "botania:blocks/flower_gen_shulk_me_not"
   }
