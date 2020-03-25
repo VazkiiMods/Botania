@@ -4,8 +4,7 @@
     "item": "minecraft:melon_seeds"
   },
   "output": {
-    "item": "minecraft:pumpkin_seeds",
-    "count": 1
+    "item": "minecraft:pumpkin_seeds"
   },
   "mana": 6000,
   "group": "botania:crop_cycle",

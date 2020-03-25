@@ -4,8 +4,7 @@
     "item": "minecraft:birch_log"
   },
   "output": {
-    "item": "minecraft:jungle_log",
-    "count": 1
+    "item": "minecraft:jungle_log"
   },
   "mana": 40,
   "group": "botania:log_cycle",

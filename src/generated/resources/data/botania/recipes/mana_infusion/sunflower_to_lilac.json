@@ -4,8 +4,7 @@
     "item": "minecraft:sunflower"
   },
   "output": {
-    "item": "minecraft:lilac",
-    "count": 1
+    "item": "minecraft:lilac"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

@@ -4,8 +4,7 @@
     "item": "minecraft:cookie"
   },
   "output": {
-    "item": "botania:mana_cookie",
-    "count": 1
+    "item": "botania:mana_cookie"
   },
   "mana": 20000
 }

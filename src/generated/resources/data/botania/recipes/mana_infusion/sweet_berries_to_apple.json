@@ -4,8 +4,7 @@
     "item": "minecraft:sweet_berries"
   },
   "output": {
-    "item": "minecraft:apple",
-    "count": 1
+    "item": "minecraft:apple"
   },
   "mana": 240,
   "group": "botania:berry_cycle",

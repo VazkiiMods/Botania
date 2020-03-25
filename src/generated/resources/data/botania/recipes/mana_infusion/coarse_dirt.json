@@ -4,8 +4,7 @@
     "item": "minecraft:dirt"
   },
   "output": {
-    "item": "minecraft:coarse_dirt",
-    "count": 1
+    "item": "minecraft:coarse_dirt"
   },
   "mana": 120,
   "catalyst": "botania:alchemy_catalyst"

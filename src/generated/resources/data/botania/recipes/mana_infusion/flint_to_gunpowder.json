@@ -4,8 +4,7 @@
     "item": "minecraft:flint"
   },
   "output": {
-    "item": "minecraft:gunpowder",
-    "count": 1
+    "item": "minecraft:gunpowder"
   },
   "mana": 200,
   "catalyst": "botania:alchemy_catalyst"

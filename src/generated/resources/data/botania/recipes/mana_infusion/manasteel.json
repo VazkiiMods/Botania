@@ -4,8 +4,7 @@
     "tag": "forge:ingots/iron"
   },
   "output": {
-    "item": "botania:manasteel_ingot",
-    "count": 1
+    "item": "botania:manasteel_ingot"
   },
   "mana": 3000
 }

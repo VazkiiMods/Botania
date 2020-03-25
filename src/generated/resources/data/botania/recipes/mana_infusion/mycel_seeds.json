@@ -9,8 +9,7 @@
     }
   ],
   "output": {
-    "item": "botania:mycelium_seeds",
-    "count": 1
+    "item": "botania:mycelium_seeds"
   },
   "mana": 6500
 }

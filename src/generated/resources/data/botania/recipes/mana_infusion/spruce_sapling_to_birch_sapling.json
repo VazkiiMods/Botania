@@ -4,8 +4,7 @@
     "item": "minecraft:spruce_sapling"
   },
   "output": {
-    "item": "minecraft:birch_sapling",
-    "count": 1
+    "item": "minecraft:birch_sapling"
   },
   "mana": 120,
   "group": "botania:sapling_cycle",

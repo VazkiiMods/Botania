@@ -4,8 +4,7 @@
     "item": "minecraft:dark_oak_log"
   },
   "output": {
-    "item": "minecraft:oak_log",
-    "count": 1
+    "item": "minecraft:oak_log"
   },
   "mana": 40,
   "group": "botania:log_cycle",

@@ -4,8 +4,7 @@
     "item": "minecraft:stone_bricks"
   },
   "output": {
-    "item": "minecraft:chiseled_stone_bricks",
-    "count": 1
+    "item": "minecraft:chiseled_stone_bricks"
   },
   "mana": 150,
   "catalyst": "botania:alchemy_catalyst"

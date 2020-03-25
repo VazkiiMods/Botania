@@ -4,8 +4,7 @@
     "item": "minecraft:poppy"
   },
   "output": {
-    "item": "minecraft:blue_orchid",
-    "count": 1
+    "item": "minecraft:blue_orchid"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

@@ -4,8 +4,7 @@
     "item": "minecraft:carrot"
   },
   "output": {
-    "item": "minecraft:beetroot_seeds",
-    "count": 1
+    "item": "minecraft:beetroot_seeds"
   },
   "mana": 6000,
   "group": "botania:crop_cycle",

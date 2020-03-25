@@ -4,8 +4,7 @@
     "item": "minecraft:glass"
   },
   "output": {
-    "item": "botania:mana_glass",
-    "count": 1
+    "item": "botania:mana_glass"
   },
   "mana": 150
 }

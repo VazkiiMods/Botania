@@ -4,8 +4,7 @@
     "item": "minecraft:ender_pearl"
   },
   "output": {
-    "item": "botania:mana_pearl",
-    "count": 1
+    "item": "botania:mana_pearl"
   },
   "mana": 6000
 }

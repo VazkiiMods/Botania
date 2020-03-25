@@ -4,8 +4,7 @@
     "item": "botania:clayconia"
   },
   "output": {
-    "item": "botania:clayconia_chibi",
-    "count": 1
+    "item": "botania:clayconia_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",

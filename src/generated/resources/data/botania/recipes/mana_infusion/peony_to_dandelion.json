@@ -4,8 +4,7 @@
     "item": "minecraft:peony"
   },
   "output": {
-    "item": "minecraft:dandelion",
-    "count": 1
+    "item": "minecraft:dandelion"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

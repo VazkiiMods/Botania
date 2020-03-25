@@ -4,8 +4,7 @@
     "item": "minecraft:salmon"
   },
   "output": {
-    "item": "minecraft:tropical_fish",
-    "count": 1
+    "item": "minecraft:tropical_fish"
   },
   "mana": 200,
   "group": "botania:fish_cycle",

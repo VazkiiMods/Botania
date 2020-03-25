@@ -4,8 +4,7 @@
     "item": "minecraft:writable_book"
   },
   "output": {
-    "item": "minecraft:name_tag",
-    "count": 1
+    "item": "minecraft:name_tag"
   },
   "mana": 16000,
   "catalyst": "botania:alchemy_catalyst"

@@ -4,8 +4,7 @@
     "item": "minecraft:oxeye_daisy"
   },
   "output": {
-    "item": "minecraft:cornflower",
-    "count": 1
+    "item": "minecraft:cornflower"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

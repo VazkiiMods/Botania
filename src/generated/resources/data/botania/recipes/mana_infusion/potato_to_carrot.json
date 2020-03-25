@@ -4,8 +4,7 @@
     "item": "minecraft:potato"
   },
   "output": {
-    "item": "minecraft:carrot",
-    "count": 1
+    "item": "minecraft:carrot"
   },
   "mana": 6000,
   "group": "botania:crop_cycle",

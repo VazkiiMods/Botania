@@ -4,8 +4,7 @@
     "item": "minecraft:diorite"
   },
   "output": {
-    "item": "minecraft:granite",
-    "count": 1
+    "item": "minecraft:granite"
   },
   "mana": 200,
   "catalyst": "botania:alchemy_catalyst"

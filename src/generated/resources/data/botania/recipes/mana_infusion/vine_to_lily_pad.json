@@ -4,8 +4,7 @@
     "item": "minecraft:vine"
   },
   "output": {
-    "item": "minecraft:lily_pad",
-    "count": 1
+    "item": "minecraft:lily_pad"
   },
   "mana": 320,
   "catalyst": "botania:alchemy_catalyst"

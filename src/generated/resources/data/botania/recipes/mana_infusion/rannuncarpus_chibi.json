@@ -4,8 +4,7 @@
     "item": "botania:rannuncarpus"
   },
   "output": {
-    "item": "botania:rannuncarpus_chibi",
-    "count": 1
+    "item": "botania:rannuncarpus_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",

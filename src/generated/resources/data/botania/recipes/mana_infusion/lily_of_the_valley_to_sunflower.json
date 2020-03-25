@@ -4,8 +4,7 @@
     "item": "minecraft:lily_of_the_valley"
   },
   "output": {
-    "item": "minecraft:sunflower",
-    "count": 1
+    "item": "minecraft:sunflower"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

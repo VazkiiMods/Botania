@@ -4,8 +4,7 @@
     "item": "minecraft:potato"
   },
   "output": {
-    "item": "botania:tiny_potato",
-    "count": 1
+    "item": "botania:tiny_potato"
   },
   "mana": 1337
 }

@@ -4,8 +4,7 @@
     "item": "botania:agricarnation"
   },
   "output": {
-    "item": "botania:agricarnation_chibi",
-    "count": 1
+    "item": "botania:agricarnation_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",

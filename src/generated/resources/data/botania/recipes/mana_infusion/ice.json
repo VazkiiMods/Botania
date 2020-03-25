@@ -4,8 +4,7 @@
     "item": "minecraft:snow_block"
   },
   "output": {
-    "item": "minecraft:ice",
-    "count": 1
+    "item": "minecraft:ice"
   },
   "mana": 2250,
   "catalyst": "botania:alchemy_catalyst"

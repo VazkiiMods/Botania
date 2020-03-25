@@ -157,7 +157,10 @@ public final class ItemNBTHelper {
 	 */
 	public static JsonObject serializeStack(ItemStack stack) {
 		CompoundNBT nbt = stack.write(new CompoundNBT());
-		nbt.put("count", nbt.get("Count"));
+		byte c = nbt.getByte("Count");
+		if (c != 1) {
+			nbt.putByte("count", c);
+		}
 		nbt.remove("Count");
 		nbt.put("item", nbt.get("id"));
 		nbt.remove("id");

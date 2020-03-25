@@ -4,8 +4,7 @@
     "item": "minecraft:cactus"
   },
   "output": {
-    "item": "minecraft:slime_ball",
-    "count": 1
+    "item": "minecraft:slime_ball"
   },
   "mana": 1200,
   "catalyst": "botania:alchemy_catalyst"

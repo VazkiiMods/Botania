@@ -4,8 +4,7 @@
     "item": "minecraft:cocoa_beans"
   },
   "output": {
-    "item": "minecraft:wheat_seeds",
-    "count": 1
+    "item": "minecraft:wheat_seeds"
   },
   "mana": 6000,
   "group": "botania:crop_cycle",

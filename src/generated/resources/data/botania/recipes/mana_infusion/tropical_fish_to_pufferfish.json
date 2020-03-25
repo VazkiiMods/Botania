@@ -4,8 +4,7 @@
     "item": "minecraft:tropical_fish"
   },
   "output": {
-    "item": "minecraft:pufferfish",
-    "count": 1
+    "item": "minecraft:pufferfish"
   },
   "mana": 200,
   "group": "botania:fish_cycle",

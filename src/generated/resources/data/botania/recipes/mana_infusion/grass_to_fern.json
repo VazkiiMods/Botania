@@ -4,8 +4,7 @@
     "item": "minecraft:grass"
   },
   "output": {
-    "item": "minecraft:fern",
-    "count": 1
+    "item": "minecraft:fern"
   },
   "mana": 500,
   "group": "botania:shrub_cycle",

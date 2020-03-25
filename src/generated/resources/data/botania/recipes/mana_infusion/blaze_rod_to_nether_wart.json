@@ -4,8 +4,7 @@
     "item": "minecraft:blaze_rod"
   },
   "output": {
-    "item": "minecraft:nether_wart",
-    "count": 1
+    "item": "minecraft:nether_wart"
   },
   "mana": 4000,
   "catalyst": "botania:alchemy_catalyst"

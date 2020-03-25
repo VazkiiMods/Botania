@@ -4,8 +4,7 @@
     "item": "minecraft:pink_tulip"
   },
   "output": {
-    "item": "minecraft:oxeye_daisy",
-    "count": 1
+    "item": "minecraft:oxeye_daisy"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

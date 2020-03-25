@@ -4,8 +4,7 @@
     "item": "minecraft:andesite"
   },
   "output": {
-    "item": "minecraft:diorite",
-    "count": 1
+    "item": "minecraft:diorite"
   },
   "mana": 200,
   "catalyst": "botania:alchemy_catalyst"

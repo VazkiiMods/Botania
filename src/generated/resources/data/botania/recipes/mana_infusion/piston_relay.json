@@ -4,8 +4,7 @@
     "item": "minecraft:piston"
   },
   "output": {
-    "item": "botania:piston_relay",
-    "count": 1
+    "item": "botania:piston_relay"
   },
   "mana": 15000
 }

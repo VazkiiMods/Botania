@@ -4,8 +4,7 @@
     "item": "minecraft:granite"
   },
   "output": {
-    "item": "minecraft:andesite",
-    "count": 1
+    "item": "minecraft:andesite"
   },
   "mana": 200,
   "catalyst": "botania:alchemy_catalyst"

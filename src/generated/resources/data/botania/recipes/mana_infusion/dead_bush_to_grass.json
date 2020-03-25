@@ -4,8 +4,7 @@
     "item": "minecraft:dead_bush"
   },
   "output": {
-    "item": "minecraft:grass",
-    "count": 1
+    "item": "minecraft:grass"
   },
   "mana": 500,
   "group": "botania:shrub_cycle",

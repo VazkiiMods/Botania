@@ -4,8 +4,7 @@
     "item": "minecraft:azure_bluet"
   },
   "output": {
-    "item": "minecraft:red_tulip",
-    "count": 1
+    "item": "minecraft:red_tulip"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

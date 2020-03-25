@@ -4,8 +4,7 @@
     "item": "minecraft:blue_orchid"
   },
   "output": {
-    "item": "minecraft:allium",
-    "count": 1
+    "item": "minecraft:allium"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

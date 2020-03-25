@@ -4,8 +4,7 @@
     "item": "botania:marimorphosis"
   },
   "output": {
-    "item": "botania:marimorphosis_chibi",
-    "count": 1
+    "item": "botania:marimorphosis_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",

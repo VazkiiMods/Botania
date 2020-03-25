@@ -4,8 +4,7 @@
     "item": "minecraft:iron_block"
   },
   "output": {
-    "item": "botania:manasteel_block",
-    "count": 1
+    "item": "botania:manasteel_block"
   },
   "mana": 27000
 }

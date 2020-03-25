@@ -4,8 +4,7 @@
     "item": "minecraft:diamond_block"
   },
   "output": {
-    "item": "botania:mana_diamond_block",
-    "count": 1
+    "item": "botania:mana_diamond_block"
   },
   "mana": 90000
 }

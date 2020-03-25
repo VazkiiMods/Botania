@@ -4,8 +4,7 @@
     "item": "minecraft:grass"
   },
   "output": {
-    "item": "botania:grass_seeds",
-    "count": 1
+    "item": "botania:grass_seeds"
   },
   "mana": 2500
 }

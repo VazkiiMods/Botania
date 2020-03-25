@@ -4,8 +4,7 @@
     "item": "minecraft:wheat_seeds"
   },
   "output": {
-    "item": "minecraft:potato",
-    "count": 1
+    "item": "minecraft:potato"
   },
   "mana": 6000,
   "group": "botania:crop_cycle",

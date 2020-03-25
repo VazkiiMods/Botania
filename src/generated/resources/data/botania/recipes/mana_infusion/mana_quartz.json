@@ -4,8 +4,7 @@
     "item": "minecraft:quartz"
   },
   "output": {
-    "item": "botania:quartz_mana",
-    "count": 1
+    "item": "botania:quartz_mana"
   },
   "mana": 250
 }

@@ -4,8 +4,7 @@
     "item": "minecraft:allium"
   },
   "output": {
-    "item": "minecraft:azure_bluet",
-    "count": 1
+    "item": "minecraft:azure_bluet"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

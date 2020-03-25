@@ -10,8 +10,7 @@
   ],
   "output": [
     {
-      "item": "botania:elementium_ingot",
-      "count": 1
+      "item": "botania:elementium_ingot"
     }
   ]
 }

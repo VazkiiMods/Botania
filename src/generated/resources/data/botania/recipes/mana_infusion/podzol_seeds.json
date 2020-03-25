@@ -4,8 +4,7 @@
     "item": "minecraft:dead_bush"
   },
   "output": {
-    "item": "botania:podzol_seeds",
-    "count": 1
+    "item": "botania:podzol_seeds"
   },
   "mana": 2500
 }

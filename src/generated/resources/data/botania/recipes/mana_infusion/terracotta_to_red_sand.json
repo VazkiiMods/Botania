@@ -4,8 +4,7 @@
     "item": "minecraft:terracotta"
   },
   "output": {
-    "item": "minecraft:red_sand",
-    "count": 1
+    "item": "minecraft:red_sand"
   },
   "mana": 50,
   "catalyst": "botania:alchemy_catalyst"

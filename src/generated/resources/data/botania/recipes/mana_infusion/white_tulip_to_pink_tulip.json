@@ -4,8 +4,7 @@
     "item": "minecraft:white_tulip"
   },
   "output": {
-    "item": "minecraft:pink_tulip",
-    "count": 1
+    "item": "minecraft:pink_tulip"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

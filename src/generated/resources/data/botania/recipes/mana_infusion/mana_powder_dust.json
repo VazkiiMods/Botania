@@ -15,8 +15,7 @@
     }
   ],
   "output": {
-    "item": "botania:mana_powder",
-    "count": 1
+    "item": "botania:mana_powder"
   },
   "mana": 500
 }

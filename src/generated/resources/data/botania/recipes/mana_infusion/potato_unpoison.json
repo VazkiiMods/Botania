@@ -4,8 +4,7 @@
     "item": "minecraft:poisonous_potato"
   },
   "output": {
-    "item": "minecraft:potato",
-    "count": 1
+    "item": "minecraft:potato"
   },
   "mana": 1200,
   "catalyst": "botania:alchemy_catalyst"

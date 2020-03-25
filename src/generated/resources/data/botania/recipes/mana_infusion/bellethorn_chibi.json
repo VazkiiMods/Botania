@@ -4,8 +4,7 @@
     "item": "botania:bellethorn"
   },
   "output": {
-    "item": "botania:bellethorn_chibi",
-    "count": 1
+    "item": "botania:bellethorn_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",

@@ -4,8 +4,7 @@
     "item": "botania:hopperhock"
   },
   "output": {
-    "item": "botania:hopperhock_chibi",
-    "count": 1
+    "item": "botania:hopperhock_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",

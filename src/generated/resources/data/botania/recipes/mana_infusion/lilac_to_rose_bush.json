@@ -4,8 +4,7 @@
     "item": "minecraft:lilac"
   },
   "output": {
-    "item": "minecraft:rose_bush",
-    "count": 1
+    "item": "minecraft:rose_bush"
   },
   "mana": 400,
   "group": "botania:flower_cycle",

@@ -4,8 +4,7 @@
     "item": "minecraft:glowstone_dust"
   },
   "output": {
-    "item": "minecraft:redstone",
-    "count": 1
+    "item": "minecraft:redstone"
   },
   "mana": 300,
   "catalyst": "botania:alchemy_catalyst"

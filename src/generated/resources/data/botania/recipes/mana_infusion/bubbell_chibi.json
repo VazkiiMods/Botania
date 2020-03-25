@@ -4,8 +4,7 @@
     "item": "botania:bubbell"
   },
   "output": {
-    "item": "botania:bubbell_chibi",
-    "count": 1
+    "item": "botania:bubbell_chibi"
   },
   "mana": 2500,
   "group": "botania:flower_shrinking",
