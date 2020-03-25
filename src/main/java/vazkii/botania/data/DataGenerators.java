@@ -29,6 +29,7 @@ public class DataGenerators {
 			evt.getGenerator().addProvider(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
 			evt.getGenerator().addProvider(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
 			evt.getGenerator().addProvider(new ElvenTradeProvider(evt.getGenerator()));
+			evt.getGenerator().addProvider(new ManaInfusionProvider(evt.getGenerator()));
 		}
 	}
 }

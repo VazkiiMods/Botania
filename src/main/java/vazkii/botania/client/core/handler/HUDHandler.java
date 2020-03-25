@@ -278,7 +278,7 @@ public final class HUDHandler {
 		IProfiler profiler = mc.getProfiler();
 
 		profiler.startSection("poolRecipe");
-		RecipeManaInfusion recipe = TilePool.getMatchingRecipe(stack, tile.getWorld().getBlockState(tile.getPos().down()));
+		RecipeManaInfusion recipe = tile.getMatchingRecipe(stack, tile.getWorld().getBlockState(tile.getPos().down()));
 		if (recipe != null) {
 			int x = mc.getWindow().getScaledWidth() / 2 - 11;
 			int y = mc.getWindow().getScaledHeight() / 2 + 10;
@@ -294,8 +294,8 @@ public final class HUDHandler {
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x - 20, y);
-			mc.getItemRenderer().renderItemAndEffectIntoGUI(recipe.getOutput(), x + 26, y);
-			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, recipe.getOutput(), x + 26, y);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(recipe.getRecipeOutput(), x + 26, y);
+			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, recipe.getRecipeOutput(), x + 26, y);
 
 			RenderSystem.disableLighting();
 			RenderSystem.disableBlend();

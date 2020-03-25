@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "tag": "forge:ingots/iron"
+  },
+  "output": {
+    "item": "botania:manasteel_ingot",
+    "count": 1
+  },
+  "mana": 3000
+}

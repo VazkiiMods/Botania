@@ -49,6 +49,7 @@ import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
@@ -124,7 +125,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(BotaniaAPI.petalRecipes.values(), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipes(TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager()), ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.runeAltarRecipes.values(), RunicAltarRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.manaInfusionRecipes.values(), ManaPoolRecipeCategory.UID);
+		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
 				BotaniaAPI.oreWeights.entrySet().stream()

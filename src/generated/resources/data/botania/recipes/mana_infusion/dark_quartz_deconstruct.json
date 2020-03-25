@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "botania:dark_quartz"
+  },
+  "output": {
+    "item": "botania:quartz_dark",
+    "count": 4
+  },
+  "mana": 25,
+  "catalyst": "botania:alchemy_catalyst"
+}

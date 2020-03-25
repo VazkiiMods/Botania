@@ -20,6 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -58,6 +59,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -67,6 +69,7 @@ import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL) public static TileEntityType<TilePool> TYPE;
@@ -146,11 +149,18 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return val;
 	}
 
-	public static RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {
+	public static List<RecipeManaInfusion> manaInfusionRecipes(RecipeManager rm) {
+		return rm.getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
+						.filter(r -> r instanceof RecipeManaInfusion)
+						.map(r -> (RecipeManaInfusion) r)
+						.collect(Collectors.toList());
+	}
+
+	public RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {
 		List<RecipeManaInfusion> matchingNonCatRecipes = new ArrayList<>();
 		List<RecipeManaInfusion> matchingCatRecipes = new ArrayList<>();
 
-		for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes.values()) {
+		for (RecipeManaInfusion recipe : manaInfusionRecipes(world.getRecipeManager())) {
 			if (recipe.matches(stack)) {
 				if (recipe.getCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
@@ -189,7 +199,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				stack.shrink(1);
 				item.onGround = false; //Force entity collision update to run every tick if crafting is in progress
 
-				ItemStack output = recipe.getOutput().copy();
+				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				outputItem.age = 105;
 				world.addEntity(outputItem);

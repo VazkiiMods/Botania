@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:blue_orchid"
+  },
+  "output": {
+    "item": "minecraft:allium",
+    "count": 1
+  },
+  "mana": 400,
+  "group": "botania:flower_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

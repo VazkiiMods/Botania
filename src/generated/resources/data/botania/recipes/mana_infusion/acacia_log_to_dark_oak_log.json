@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:acacia_log"
+  },
+  "output": {
+    "item": "minecraft:dark_oak_log",
+    "count": 1
+  },
+  "mana": 40,
+  "group": "botania:log_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

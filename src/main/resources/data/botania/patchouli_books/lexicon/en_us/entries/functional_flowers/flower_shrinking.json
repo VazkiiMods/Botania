@@ -12,7 +12,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.flowerShrinking1",
-      "recipes": "botania:bellethorn_chibi;botania:agricarnation_chibi;botania:hopperhock_chibi;botania:rannuncarpus_chibi;botania:clayconia_chibi;botania:marimorphosis_chibi;botania:bubbell_chibi;botania:solegnolia_chibi"
+      "group": "botania:flower_shrinking"
     }
   ]
 }

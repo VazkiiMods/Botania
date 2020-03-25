@@ -10,8 +10,10 @@ package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 
@@ -20,6 +22,8 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -40,14 +44,14 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		ImmutableList.Builder<RecipeManaInfusion> builder = ImmutableList.builder();
 		if (variables.has("group")) {
 			String group = variables.get("group");
-			BotaniaAPI.manaInfusionRecipes.values().stream()
+			TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()).stream()
 					.filter(r -> r.getGroup().equals(group))
 					.forEach(builder::add);
 		} else {
 			for (String s : variables.get("recipes").split(";")) {
-				RecipeManaInfusion recipe = BotaniaAPI.manaInfusionRecipes.get(new ResourceLocation(s));
-				if (recipe != null) {
-					builder.add(recipe);
+				IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).get(new ResourceLocation(s));
+				if (recipe instanceof RecipeManaInfusion) {
+					builder.add((RecipeManaInfusion) recipe);
 				} else {
 					Botania.LOGGER.warn("Mana infusion template references nonexistent recipe {}", s);
 				}
@@ -66,13 +70,13 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		switch (key) {
 		case "heading":
 			if (!hasCustomHeading) {
-				return recipes.get(0).getOutput().getDisplayName().getString();
+				return recipes.get(0).getRecipeOutput().getDisplayName().getString();
 			}
 			return null;
 		case "input":
 			return PatchouliUtils.interweaveIngredients(recipes.stream().map(RecipeManaInfusion::getInput).collect(Collectors.toList()));
 		case "output":
-			return recipes.stream().map(RecipeManaInfusion::getOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
+			return recipes.stream().map(RecipeManaInfusion::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 		case "catalyst":
 			return recipes.stream().map(RecipeManaInfusion::getCatalyst)
 					.map(state -> {

@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:grass"
+  },
+  "output": {
+    "item": "botania:grass_seeds",
+    "count": 1
+  },
+  "mana": 2500
+}

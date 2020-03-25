@@ -62,7 +62,6 @@ public final class BotaniaAPI {
 	*/
 	public static Map<ResourceLocation, RecipePetals> petalRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipePureDaisy> pureDaisyRecipes = Collections.emptyMap();
-	public static Map<ResourceLocation, RecipeManaInfusion> manaInfusionRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipeRuneAltar> runeAltarRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipeBrew> brewRecipes = Collections.emptyMap();
 

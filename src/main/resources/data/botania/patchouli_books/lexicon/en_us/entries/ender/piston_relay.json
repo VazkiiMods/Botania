@@ -15,7 +15,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.pistonRelay2",
-      "recipes": "botania:piston_relay"
+      "recipes": "botania:mana_infusion/piston_relay"
     }
   ]
 }

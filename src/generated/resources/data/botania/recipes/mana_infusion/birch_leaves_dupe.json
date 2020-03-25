@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:birch_leaves"
+  },
+  "output": {
+    "item": "minecraft:birch_leaves",
+    "count": 2
+  },
+  "mana": 2000,
+  "catalyst": "botania:conjuration_catalyst"
+}

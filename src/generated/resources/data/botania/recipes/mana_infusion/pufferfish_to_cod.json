@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:pufferfish"
+  },
+  "output": {
+    "item": "minecraft:cod",
+    "count": 1
+  },
+  "mana": 200,
+  "group": "botania:fish_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

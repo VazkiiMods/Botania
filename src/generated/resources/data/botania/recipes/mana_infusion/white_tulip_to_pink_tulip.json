@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:white_tulip"
+  },
+  "output": {
+    "item": "minecraft:pink_tulip",
+    "count": 1
+  },
+  "mana": 400,
+  "group": "botania:flower_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

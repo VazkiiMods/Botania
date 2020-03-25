@@ -1,0 +1,22 @@
+{
+  "type": "botania:mana_infusion",
+  "input": [
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "output": {
+    "item": "botania:mana_powder",
+    "count": 1
+  },
+  "mana": 500
+}

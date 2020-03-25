@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:redstone"
+  },
+  "output": {
+    "item": "minecraft:redstone",
+    "count": 2
+  },
+  "mana": 5000,
+  "catalyst": "botania:conjuration_catalyst"
+}

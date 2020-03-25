@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:string"
+  },
+  "output": {
+    "item": "botania:mana_string",
+    "count": 1
+  },
+  "mana": 5000
+}

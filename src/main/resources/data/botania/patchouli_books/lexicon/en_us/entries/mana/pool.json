@@ -39,42 +39,42 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.pool3",
-      "recipes": "botania:manasteel;botania:manasteel_block"
+      "recipes": "botania:mana_infusion/manasteel;botania:mana_infusion/manasteel_block"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.pool4",
-      "recipes": "botania:mana_pearl"
+      "recipes": "botania:mana_infusion/mana_pearl"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.pool5",
-      "recipes": "botania:mana_diamond;botania:mana_diamond_block"
+      "recipes": "botania:mana_infusion/mana_diamond;botania:mana_infusion/mana_diamond_block"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.pool6",
-      "recipes": "botania:mana_powder_dust;botania:mana_powder_dye"
+      "recipes": "botania:mana_infusion/mana_powder_dust;botania:mana_infusion/mana_powder_dye"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.pool11",
-      "recipes": "botania:mana_glass"
+      "recipes": "botania:mana_infusion/mana_glass"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.pool12",
-      "recipes": "botania:mana_string"
+      "recipes": "botania:mana_infusion/mana_string"
     },
     {
       "type": "crafting",
       "text": "botania.page.pool13",
-      "recipe": "botania:cobweb"
+      "recipe": "botania:mana_infusion/cobweb"
     },
     {
       "type": "mana_infusion",
       "text": "botania.page.pool7",
-      "recipes": "botania:mana_cookie"
+      "recipes": "botania:mana_infusion/mana_cookie"
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:acacia_leaves"
+  },
+  "output": {
+    "item": "minecraft:acacia_leaves",
+    "count": 2
+  },
+  "mana": 2000,
+  "catalyst": "botania:conjuration_catalyst"
+}

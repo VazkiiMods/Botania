@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:slime_ball"
+  },
+  "output": {
+    "item": "minecraft:cactus",
+    "count": 1
+  },
+  "mana": 1200,
+  "catalyst": "botania:alchemy_catalyst"
+}

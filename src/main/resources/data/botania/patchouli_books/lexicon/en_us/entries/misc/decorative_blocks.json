@@ -67,7 +67,7 @@
     {
       "type": "mana_infusion",
       "text": "botania.page.decorativeBlocks12",
-      "recipes": "botania:mana_quartz"
+      "recipes": "botania:mana_infusion/mana_quartz"
     },
     {
       "type": "crafting",

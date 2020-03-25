@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:pumpkin_seeds"
+  },
+  "output": {
+    "item": "minecraft:cocoa_beans",
+    "count": 1
+  },
+  "mana": 6000,
+  "group": "botania:crop_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

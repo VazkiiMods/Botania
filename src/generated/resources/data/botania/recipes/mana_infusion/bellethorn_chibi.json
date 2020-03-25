@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "botania:bellethorn"
+  },
+  "output": {
+    "item": "botania:bellethorn_chibi",
+    "count": 1
+  },
+  "mana": 2500,
+  "group": "botania:flower_shrinking",
+  "catalyst": "botania:alchemy_catalyst"
+}

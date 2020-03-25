@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:snowball"
+  },
+  "output": {
+    "item": "minecraft:snowball",
+    "count": 2
+  },
+  "mana": 200,
+  "catalyst": "botania:conjuration_catalyst"
+}

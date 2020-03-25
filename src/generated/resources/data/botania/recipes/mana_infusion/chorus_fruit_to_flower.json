@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:popped_chorus_fruit"
+  },
+  "output": {
+    "item": "minecraft:chorus_flower",
+    "count": 1
+  },
+  "mana": 10000,
+  "catalyst": "botania:alchemy_catalyst"
+}

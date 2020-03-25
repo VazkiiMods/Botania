@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:snow_block"
+  },
+  "output": {
+    "item": "minecraft:ice",
+    "count": 1
+  },
+  "mana": 2250,
+  "catalyst": "botania:alchemy_catalyst"
+}

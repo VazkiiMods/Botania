@@ -98,7 +98,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 		}
 
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
-		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
 	}
 
 	@Override

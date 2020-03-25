@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:soul_sand"
+  },
+  "output": {
+    "item": "minecraft:soul_sand",
+    "count": 2
+  },
+  "mana": 1500,
+  "catalyst": "botania:conjuration_catalyst"
+}

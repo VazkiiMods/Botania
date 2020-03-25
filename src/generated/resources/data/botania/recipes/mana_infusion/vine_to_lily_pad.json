@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:vine"
+  },
+  "output": {
+    "item": "minecraft:lily_pad",
+    "count": 1
+  },
+  "mana": 320,
+  "catalyst": "botania:alchemy_catalyst"
+}

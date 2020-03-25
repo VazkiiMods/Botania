@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:dirt"
+  },
+  "output": {
+    "item": "minecraft:coarse_dirt",
+    "count": 1
+  },
+  "mana": 120,
+  "catalyst": "botania:alchemy_catalyst"
+}

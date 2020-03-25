@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:ghast_tear"
+  },
+  "output": {
+    "item": "minecraft:ender_pearl",
+    "count": 1
+  },
+  "mana": 28000,
+  "catalyst": "botania:alchemy_catalyst"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:dark_oak_leaves"
+  },
+  "output": {
+    "item": "minecraft:dark_oak_leaves",
+    "count": 2
+  },
+  "mana": 2000,
+  "catalyst": "botania:conjuration_catalyst"
+}

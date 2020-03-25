@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:cobblestone"
+  },
+  "output": {
+    "item": "minecraft:sand",
+    "count": 1
+  },
+  "mana": 50,
+  "catalyst": "botania:alchemy_catalyst"
+}

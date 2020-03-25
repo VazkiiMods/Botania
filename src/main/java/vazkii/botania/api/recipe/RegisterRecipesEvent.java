@@ -21,16 +21,14 @@ import java.util.function.Consumer;
  */
 public class RegisterRecipesEvent extends Event {
 	private final Consumer<RecipePureDaisy> pureDaisy;
-	private final Consumer<RecipeManaInfusion> manaInfusion;
 	private final Consumer<RecipeBrew> brew;
 	private final Consumer<RecipePetals> apothecary;
 	private final Consumer<RecipeRuneAltar> runeAltar;
 
-	public RegisterRecipesEvent(Consumer<RecipePureDaisy> pureDaisy, Consumer<RecipeManaInfusion> manaInfusion,
-			Consumer<RecipeBrew> brew,
-			Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
+	public RegisterRecipesEvent(Consumer<RecipePureDaisy> pureDaisy,
+					Consumer<RecipeBrew> brew,
+					Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
 		this.pureDaisy = pureDaisy;
-		this.manaInfusion = manaInfusion;
 		this.brew = brew;
 		this.apothecary = apothecary;
 		this.runeAltar = runeAltar;
@@ -38,10 +36,6 @@ public class RegisterRecipesEvent extends Event {
 
 	public Consumer<RecipePureDaisy> pureDaisy() {
 		return pureDaisy;
-	}
-
-	public Consumer<RecipeManaInfusion> manaInfusion() {
-		return manaInfusion;
 	}
 
 	public Consumer<RecipeBrew> brew() {

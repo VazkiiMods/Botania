@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:cornflower"
+  },
+  "output": {
+    "item": "minecraft:lily_of_the_valley",
+    "count": 1
+  },
+  "mana": 400,
+  "group": "botania:flower_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

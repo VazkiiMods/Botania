@@ -1,0 +1,13 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:dead_bush"
+  },
+  "output": {
+    "item": "minecraft:grass",
+    "count": 1
+  },
+  "mana": 500,
+  "group": "botania:shrub_cycle",
+  "catalyst": "botania:alchemy_catalyst"
+}

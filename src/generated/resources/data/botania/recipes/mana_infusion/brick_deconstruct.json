@@ -1,0 +1,12 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:bricks"
+  },
+  "output": {
+    "item": "minecraft:brick",
+    "count": 4
+  },
+  "mana": 25,
+  "catalyst": "botania:alchemy_catalyst"
+}
