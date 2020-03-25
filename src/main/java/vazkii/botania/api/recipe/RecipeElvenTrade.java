@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -31,12 +32,13 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
 	private final ImmutableList<ItemStack> outputs;
-	private final ImmutableList<Ingredient> inputs;
+	private final NonNullList<Ingredient> inputs;
 
 	public RecipeElvenTrade(ResourceLocation id, ItemStack output, Ingredient... inputs) {
 		this(id, new ItemStack[] { output }, inputs);
@@ -45,7 +47,8 @@ public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
 	public RecipeElvenTrade(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
 		super(id);
 		this.outputs = ImmutableList.copyOf(outputs);
-		this.inputs = ImmutableList.copyOf(inputs);
+		this.inputs = NonNullList.create();
+		this.inputs.addAll(Arrays.asList(inputs));
 	}
 
 	@Override
@@ -98,8 +101,9 @@ public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
 		return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
 	}
 
+	@Nonnull
 	@Override
-	public List<Ingredient> getInputs() {
+	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
@@ -156,8 +160,8 @@ public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
 
 		@Override
 		public void write(PacketBuffer buf, RecipeElvenTrade recipe) {
-			buf.writeVarInt(recipe.getInputs().size());
-			for (Ingredient input : recipe.getInputs()) {
+			buf.writeVarInt(recipe.getIngredients().size());
+			for (Ingredient input : recipe.getIngredients()) {
 				input.write(buf);
 			}
 			buf.writeVarInt(recipe.getOutputs().size());

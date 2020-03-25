@@ -6,6 +6,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
@@ -38,7 +39,9 @@ public abstract class AbstractElvenTradeRecipe implements IRecipe<IInventory> {
 	/**
 	 * @return Preview of the inputs
 	 */
-	public abstract List<Ingredient> getInputs();
+	@Nonnull
+	@Override
+	public abstract NonNullList<Ingredient> getIngredients();
 
 	/**
 	 * @return Preview of the outputs

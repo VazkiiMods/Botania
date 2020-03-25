@@ -3,11 +3,13 @@ package vazkii.botania.common.crafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,9 +25,10 @@ public class LexiconElvenTradeRecipe extends AbstractElvenTradeRecipe {
 		return stack.getItem() == ModItems.lexicon && !ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false);
 	}
 
+	@Nonnull
 	@Override
-	public List<Ingredient> getInputs() {
-		return Collections.singletonList(Ingredient.fromItems(ModItems.lexicon));
+	public NonNullList<Ingredient> getIngredients() {
+		return NonNullList.from(Ingredient.fromItems(ModItems.lexicon));
 	}
 
 	@Override

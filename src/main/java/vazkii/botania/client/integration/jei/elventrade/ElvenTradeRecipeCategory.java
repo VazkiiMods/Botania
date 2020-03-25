@@ -89,7 +89,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<AbstractElvenTr
 	@Override
 	public void setIngredients(AbstractElvenTradeRecipe recipe, IIngredients iIngredients) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-		for (Ingredient i : recipe.getInputs()) {
+		for (Ingredient i : recipe.getIngredients()) {
 			builder.add(Arrays.asList(i.getMatchingStacks()));
 		}
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());

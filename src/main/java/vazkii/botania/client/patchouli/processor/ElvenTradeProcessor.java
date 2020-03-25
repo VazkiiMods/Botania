@@ -41,7 +41,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 		}
 		recipes = builder.build();
 		for (AbstractElvenTradeRecipe recipe : recipes) {
-			List<Ingredient> inputs = recipe.getInputs();
+			List<Ingredient> inputs = recipe.getIngredients();
 			for (Ingredient ingredient : inputs) {
 				int length = ingredient.getMatchingStacks().length;
 				if (length > longestIngredientSize) {
@@ -86,7 +86,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	}
 
 	private String interweaveIngredients(int inputIndex) {
-		List<Ingredient> recipes = this.recipes.stream().map(AbstractElvenTradeRecipe::getInputs).map(ingredients -> {
+		List<Ingredient> recipes = this.recipes.stream().map(AbstractElvenTradeRecipe::getIngredients).map(ingredients -> {
 			if (inputIndex < ingredients.size()) {
 				return ingredients.get(inputIndex);
 			} else {
