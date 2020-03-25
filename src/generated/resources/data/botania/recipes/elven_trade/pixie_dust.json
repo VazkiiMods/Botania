@@ -1,0 +1,14 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "botania:mana_pearl"
+    }
+  ],
+  "output": [
+    {
+      "item": "botania:pixie_dust",
+      "count": 1
+    }
+  ]
+}

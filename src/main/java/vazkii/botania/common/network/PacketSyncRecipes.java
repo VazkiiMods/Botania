@@ -21,6 +21,7 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -48,10 +49,6 @@ public class PacketSyncRecipes {
 		for (RecipeBrew recipe : brew.values()) {
 			recipe.write(buf);
 		}
-		buf.writeVarInt(elven.size());
-		for (RecipeElvenTrade recipe : elven.values()) {
-			recipe.write(buf);
-		}
 		buf.writeVarInt(manaInfusion.size());
 		for (RecipeManaInfusion recipe : manaInfusion.values()) {
 			recipe.write(buf);
@@ -75,10 +72,7 @@ public class PacketSyncRecipes {
 		Map<ResourceLocation, RecipeBrew> brew = Stream.generate(() -> RecipeBrew.read(buf))
 				.limit(brewCount)
 				.collect(Collectors.toMap(RecipeBrew::getId, r -> r));
-		int elvenCount = buf.readVarInt();
-		Map<ResourceLocation, RecipeElvenTrade> elven = Stream.generate(() -> RecipeElvenTrade.read(buf))
-				.limit(elvenCount)
-				.collect(Collectors.toMap(RecipeElvenTrade::getId, r -> r));
+		Map<ResourceLocation, RecipeElvenTrade> elven = Collections.emptyMap();
 		int manaInfusionCount = buf.readVarInt();
 		Map<ResourceLocation, RecipeManaInfusion> manaInfusion = Stream.generate(() -> RecipeManaInfusion.read(buf))
 				.limit(manaInfusionCount)

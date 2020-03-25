@@ -14,6 +14,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -33,11 +35,13 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -52,6 +56,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
@@ -174,7 +179,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
+		for (RecipeElvenTrade recipe : elvenTradeRecipes(world.getRecipeManager())) {
 			if (recipe.containsItem(inputStack)) {
 				return true;
 			}
@@ -269,9 +274,16 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		}
 	}
 
+	public static List<RecipeElvenTrade> elvenTradeRecipes(RecipeManager rm) {
+		return rm.getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values().stream()
+						.filter(r -> r instanceof RecipeElvenTrade)
+						.map(r -> (RecipeElvenTrade) r)
+						.collect(Collectors.toList());
+	}
+
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
-		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
+		for (RecipeElvenTrade recipe : elvenTradeRecipes(world.getRecipeManager())) {
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, 500, false)) {

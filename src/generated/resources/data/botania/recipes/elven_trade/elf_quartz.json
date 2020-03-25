@@ -1,0 +1,14 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "minecraft:quartz"
+    }
+  ],
+  "output": [
+    {
+      "item": "botania:quartz_elven",
+      "count": 1
+    }
+  ]
+}

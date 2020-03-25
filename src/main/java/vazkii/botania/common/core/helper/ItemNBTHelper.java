@@ -8,10 +8,14 @@
  */
 package vazkii.botania.common.core.helper;
 
+import com.google.gson.JsonObject;
+import com.mojang.datafixers.Dynamic;
+import com.mojang.datafixers.types.JsonOps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.NBTDynamicOps;
 
 import javax.annotation.Nullable;
 
@@ -144,6 +148,20 @@ public final class ItemNBTHelper {
 
 	public static ListNBT getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListNBT();
+	}
+
+	/**
+	 * Serializes the given stack such that {@link net.minecraftforge.common.crafting.CraftingHelper#getItemStack}
+	 * would be able to read the result back
+	 */
+	public static JsonObject serializeStack(ItemStack stack) {
+		CompoundNBT nbt = stack.write(new CompoundNBT());
+		nbt.put("count", nbt.get("Count"));
+		nbt.remove("Count");
+		nbt.put("item", nbt.get("id"));
+		nbt.remove("id");
+		Dynamic<INBT> dyn = new Dynamic<>(NBTDynamicOps.INSTANCE, nbt);
+		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
 	}
 
 	/**

@@ -10,16 +10,30 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.registries.ForgeRegistryEntry;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RecipeElvenTrade {
+public class RecipeElvenTrade implements IRecipe<IInventory> {
 	private final ResourceLocation id;
 	private final ImmutableList<ItemStack> outputs;
 	private final ImmutableList<Ingredient> inputs;
@@ -86,8 +100,44 @@ public class RecipeElvenTrade {
 		return false;
 	}
 
+	@Override
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+		return false;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return false;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
 	public ResourceLocation getId() {
 		return id;
+	}
+
+	@Nonnull
+	@Override
+	public IRecipeSerializer<?> getSerializer() {
+		return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
+	}
+
+	@Nonnull
+	@Override
+	public IRecipeType<?> getType() {
+		return ModRecipeTypes.ELVEN_TRADE_TYPE;
 	}
 
 	public List<Ingredient> getInputs() {
@@ -102,28 +152,57 @@ public class RecipeElvenTrade {
 		return getOutputs();
 	}
 
-	public void write(PacketBuffer buf) {
-		buf.writeResourceLocation(id);
-		buf.writeVarInt(inputs.size());
-		for (Ingredient input : inputs) {
-			input.write(buf);
-		}
-		buf.writeVarInt(outputs.size());
-		for (ItemStack output : outputs) {
-			buf.writeItemStack(output, false);
-		}
-	}
+	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeElvenTrade> {
 
-	public static RecipeElvenTrade read(PacketBuffer buf) {
-		ResourceLocation id = buf.readResourceLocation();
-		Ingredient[] inputs = new Ingredient[buf.readVarInt()];
-		for (int i = 0; i < inputs.length; i++) {
-			inputs[i] = Ingredient.read(buf);
+		@Nonnull
+		@Override
+		public RecipeElvenTrade read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+			JsonElement output = json.get("output");
+			List<ItemStack> outputStacks = new ArrayList<>();
+			if (output.isJsonArray()) {
+				for (JsonElement e : output.getAsJsonArray()) {
+					JsonObject o = JSONUtils.getJsonObject(e, "output stack");
+					outputStacks.add(CraftingHelper.getItemStack(o, true));
+				}
+			} else {
+				JsonObject o = JSONUtils.getJsonObject(output, "output stack");
+				outputStacks.add(CraftingHelper.getItemStack(o, true));
+			}
+
+			List<Ingredient> inputs = new ArrayList<>();
+			for (JsonElement e : JSONUtils.getJsonArray(json, "ingredients")) {
+				Ingredient ing = Ingredient.deserialize(e);
+				if (!ing.hasNoMatchingItems()) {
+					inputs.add(ing);
+				}
+			}
+
+			return new RecipeElvenTrade(id, outputStacks.toArray(new ItemStack[0]), inputs.toArray(new Ingredient[0]));
 		}
-		ItemStack[] outputs = new ItemStack[buf.readVarInt()];
-		for (int i = 0; i < outputs.length; i++) {
-			outputs[i] = buf.readItemStack();
+
+		@Override
+		public RecipeElvenTrade read(@Nonnull ResourceLocation id, PacketBuffer buf) {
+			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
+			for (int i = 0; i < inputs.length; i++) {
+				inputs[i] = Ingredient.read(buf);
+			}
+			ItemStack[] outputs = new ItemStack[buf.readVarInt()];
+			for (int i = 0; i < outputs.length; i++) {
+				outputs[i] = buf.readItemStack();
+			}
+			return new RecipeElvenTrade(id, outputs, inputs);
 		}
-		return new RecipeElvenTrade(id, outputs, inputs);
+
+		@Override
+		public void write(PacketBuffer buf, RecipeElvenTrade recipe) {
+			buf.writeVarInt(recipe.getInputs().size());
+			for (Ingredient input : recipe.getInputs()) {
+				input.write(buf);
+			}
+			buf.writeVarInt(recipe.getOutputs().size());
+			for (ItemStack output : recipe.getOutputs()) {
+				buf.writeItemStack(output, false);
+			}
+		}
 	}
 }

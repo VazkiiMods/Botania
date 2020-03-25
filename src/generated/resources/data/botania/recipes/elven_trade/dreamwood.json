@@ -1,0 +1,14 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "tag": "botania:livingwood"
+    }
+  ],
+  "output": [
+    {
+      "item": "botania:dreamwood",
+      "count": 1
+    }
+  ]
+}

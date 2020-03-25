@@ -1,0 +1,14 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_block"
+    }
+  ],
+  "output": [
+    {
+      "item": "minecraft:iron_block",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "botania:mana_diamond_block"
+    }
+  ],
+  "output": [
+    {
+      "item": "botania:dragonstone_block",
+      "count": 1
+    }
+  ]
+}
