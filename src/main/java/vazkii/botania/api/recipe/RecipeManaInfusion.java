@@ -9,12 +9,12 @@
 package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.arguments.BlockStateParser;
@@ -32,11 +32,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.Objects;
 
 public class RecipeManaInfusion implements IRecipe<IInventory> {
@@ -130,6 +132,7 @@ public class RecipeManaInfusion implements IRecipe<IInventory> {
 	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		return output;
 	}
+
 	@Override
 	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		return false;

@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
@@ -13,6 +22,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
+
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -22,6 +32,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nullable;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -77,6 +88,7 @@ public class ElvenTradeProvider extends RecipeProvider {
 		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
 			this(id, Arrays.asList(inputs), Collections.singletonList(output));
 		}
+
 		private FinishedRecipe(ResourceLocation id, List<Ingredient> inputs, List<ItemStack> outputs) {
 			this.id = id;
 			this.inputs = inputs;
@@ -110,12 +122,14 @@ public class ElvenTradeProvider extends RecipeProvider {
 		}
 
 		@Nullable
-		@Override public JsonObject getAdvancementJson() {
+		@Override
+		public JsonObject getAdvancementJson() {
 			return null;
 		}
 
 		@Nullable
-		@Override public ResourceLocation getAdvancementID() {
+		@Override
+		public ResourceLocation getAdvancementID() {
 			return null;
 		}
 	}

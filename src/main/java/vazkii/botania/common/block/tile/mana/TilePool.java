@@ -151,9 +151,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	public static List<RecipeManaInfusion> manaInfusionRecipes(RecipeManager rm) {
 		return rm.getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
-						.filter(r -> r instanceof RecipeManaInfusion)
-						.map(r -> (RecipeManaInfusion) r)
-						.collect(Collectors.toList());
+				.filter(r -> r instanceof RecipeManaInfusion)
+				.map(r -> (RecipeManaInfusion) r)
+				.collect(Collectors.toList());
 	}
 
 	public RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {

@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.data;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -17,6 +26,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -26,6 +36,7 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nullable;
+
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -140,8 +151,8 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		// NB: No wither rose is intentional
 		cycle(consumer, 400, "botania:flower_cycle", Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID, Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.RED_TULIP, Blocks.ORANGE_TULIP,
-						Blocks.WHITE_TULIP, Blocks.PINK_TULIP, Blocks.OXEYE_DAISY, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY,
-						Blocks.SUNFLOWER, Blocks.LILAC, Blocks.ROSE_BUSH, Blocks.PEONY);
+				Blocks.WHITE_TULIP, Blocks.PINK_TULIP, Blocks.OXEYE_DAISY, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY,
+				Blocks.SUNFLOWER, Blocks.LILAC, Blocks.ROSE_BUSH, Blocks.PEONY);
 
 		consumer.accept(FinishedRecipe.alchemy(id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000));
 
@@ -197,7 +208,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 	private static ResourceLocation id(String s) {
 		return prefix("mana_infusion/" + s);
 	}
-	
+
 	private static Ingredient ingr(IItemProvider i) {
 		return Ingredient.fromItems(i);
 	}
@@ -208,8 +219,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 		private final ItemStack output;
 		private final int mana;
 		private final String group;
-		@Nullable
-		private final BlockState catalyst;
+		@Nullable private final BlockState catalyst;
 
 		public static FinishedRecipe conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 			return new FinishedRecipe(id, output, input, mana, "", ModBlocks.conjurationCatalyst.getDefaultState());
@@ -226,11 +236,11 @@ public class ManaInfusionProvider extends RecipeProvider {
 		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 			this(id, output, input, mana, "");
 		}
-		
+
 		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana, String group) {
 			this(id, output, input, mana, group, null);
 		}
-		
+
 		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana, String group, @Nullable BlockState catalyst) {
 			this.id = id;
 			this.input = input;
@@ -253,7 +263,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 				if (catalyst != catalyst.getBlock().getDefaultState()) {
 					catalystStr.append('[');
 					catalystStr.append(catalyst.getProperties().stream().map(prop -> prop.getName() + "=" + getName(prop, catalyst.get(prop)))
-									.collect(Collectors.joining(",")));
+							.collect(Collectors.joining(",")));
 					catalystStr.append(']');
 				}
 				json.addProperty("catalyst", catalystStr.toString());
@@ -261,7 +271,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 		}
 
 		private static <T extends Comparable<T>> String getName(IProperty<T> prop, Comparable<?> val) {
-			return prop.getName((T)val);
+			return prop.getName((T) val);
 		}
 
 		@Override
@@ -275,12 +285,14 @@ public class ManaInfusionProvider extends RecipeProvider {
 		}
 
 		@Nullable
-		@Override public JsonObject getAdvancementJson() {
+		@Override
+		public JsonObject getAdvancementJson() {
 			return null;
 		}
 
 		@Nullable
-		@Override public ResourceLocation getAdvancementID() {
+		@Override
+		public ResourceLocation getAdvancementID() {
 			return null;
 		}
 	}

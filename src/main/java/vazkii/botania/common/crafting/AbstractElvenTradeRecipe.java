@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.crafting;
 
 import net.minecraft.inventory.IInventory;
@@ -9,9 +17,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.Optional;
 

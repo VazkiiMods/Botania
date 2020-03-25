@@ -98,7 +98,7 @@ public class PacketSyncRecipes {
 
 		public Login() {
 			this(new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.petalRecipes,
-							BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes));
+					BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes));
 		}
 
 		public Login(PacketSyncRecipes packet) {

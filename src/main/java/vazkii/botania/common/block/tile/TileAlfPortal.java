@@ -274,9 +274,9 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	public static List<AbstractElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
 		return rm.getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values().stream()
-						.filter(r -> r instanceof AbstractElvenTradeRecipe)
-						.map(r -> (AbstractElvenTradeRecipe) r)
-						.collect(Collectors.toList());
+				.filter(r -> r instanceof AbstractElvenTradeRecipe)
+				.map(r -> (AbstractElvenTradeRecipe) r)
+				.collect(Collectors.toList());
 	}
 
 	private void resolveRecipes() {

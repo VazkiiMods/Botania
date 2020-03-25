@@ -48,7 +48,7 @@ public class SyncHandler {
 
 			RegisterRecipesEvent evt = new RegisterRecipesEvent(
 					r -> pureDaisy.put(r.getId(), r),
-							r -> brew.put(r.getId(), r),
+					r -> brew.put(r.getId(), r),
 					r -> apothecary.put(r.getId(), r),
 					r -> runeAltar.put(r.getId(), r)
 			);
@@ -64,7 +64,7 @@ public class SyncHandler {
 
 	private static PacketSyncRecipes syncPacket() {
 		return new PacketSyncRecipes(BotaniaAPI.brewRecipes,
-						BotaniaAPI.petalRecipes, BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes);
+				BotaniaAPI.petalRecipes, BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes);
 	}
 
 	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)

@@ -26,8 +26,8 @@ public class RegisterRecipesEvent extends Event {
 	private final Consumer<RecipeRuneAltar> runeAltar;
 
 	public RegisterRecipesEvent(Consumer<RecipePureDaisy> pureDaisy,
-					Consumer<RecipeBrew> brew,
-					Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
+			Consumer<RecipeBrew> brew,
+			Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
 		this.pureDaisy = pureDaisy;
 		this.brew = brew;
 		this.apothecary = apothecary;
