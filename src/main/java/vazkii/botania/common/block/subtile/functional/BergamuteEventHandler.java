@@ -89,6 +89,7 @@ public class BergamuteEventHandler {
 		@Override public float getX() { return compose.getX(); }
 		@Override public float getY() { return compose.getY(); }
 		@Override public float getZ() { return compose.getZ(); }
+		@Override public boolean canBeSilent() { return compose.canBeSilent(); }
 		@Nonnull @Override public AttenuationType getAttenuationType() { return compose.getAttenuationType(); }
 	}
 
