@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -28,10 +27,8 @@ import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
@@ -41,6 +38,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -179,7 +177,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for (RecipeElvenTrade recipe : elvenTradeRecipes(world.getRecipeManager())) {
+		for (AbstractElvenTradeRecipe recipe : elvenTradeRecipes(world.getRecipeManager())) {
 			if (recipe.containsItem(inputStack)) {
 				return true;
 			}
@@ -274,16 +272,16 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		}
 	}
 
-	public static List<RecipeElvenTrade> elvenTradeRecipes(RecipeManager rm) {
+	public static List<AbstractElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
 		return rm.getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values().stream()
-						.filter(r -> r instanceof RecipeElvenTrade)
-						.map(r -> (RecipeElvenTrade) r)
+						.filter(r -> r instanceof AbstractElvenTradeRecipe)
+						.map(r -> (AbstractElvenTradeRecipe) r)
 						.collect(Collectors.toList());
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
-		for (RecipeElvenTrade recipe : elvenTradeRecipes(world.getRecipeManager())) {
+		for (AbstractElvenTradeRecipe recipe : elvenTradeRecipes(world.getRecipeManager())) {
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, 500, false)) {

@@ -31,7 +31,6 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
@@ -51,6 +50,8 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
+import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
@@ -184,10 +185,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
-		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes.values()) {
-			List<Ingredient> inputs = recipe.getInputs();
-			List<ItemStack> outputs = recipe.getOutputs();
-			if (inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0)) && outputs.get(0).getItem() != ModItems.lexicon) {
+		for (AbstractElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager())) {
+			if (recipe instanceof LexiconElvenTradeRecipe) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}
 		}

@@ -25,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
@@ -33,8 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RecipeElvenTrade implements IRecipe<IInventory> {
-	private final ResourceLocation id;
+public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
 	private final ImmutableList<ItemStack> outputs;
 	private final ImmutableList<Ingredient> inputs;
 
@@ -43,18 +43,12 @@ public class RecipeElvenTrade implements IRecipe<IInventory> {
 	}
 
 	public RecipeElvenTrade(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
-		this.id = id;
+		super(id);
 		this.outputs = ImmutableList.copyOf(outputs);
 		this.inputs = ImmutableList.copyOf(inputs);
 	}
 
-	/**
-	 * Attempts to match the recipe
-	 * 
-	 * @param  stacks Entire contents of the portal's buffer
-	 * @return        {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe
-	 *                otherwise
-	 */
+	@Override
 	public Optional<List<ItemStack>> match(List<ItemStack> stacks) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 		List<ItemStack> stacksToRemove = new ArrayList<>();
@@ -88,9 +82,7 @@ public class RecipeElvenTrade implements IRecipe<IInventory> {
 		return inputsMissing.isEmpty() ? Optional.of(stacksToRemove) : Optional.empty();
 	}
 
-	/**
-	 * If the recipe does not contain the item, it will be destroyed upon entering the portal.
-	 */
+	@Override
 	public boolean containsItem(ItemStack stack) {
 		for (Ingredient input : inputs) {
 			if (input.test(stack)) {
@@ -100,54 +92,23 @@ public class RecipeElvenTrade implements IRecipe<IInventory> {
 		return false;
 	}
 
-	@Override
-	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
-		return false;
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public boolean canFit(int width, int height) {
-		return false;
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
-
-	@Nonnull
-	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
 	@Nonnull
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
 	}
 
-	@Nonnull
 	@Override
-	public IRecipeType<?> getType() {
-		return ModRecipeTypes.ELVEN_TRADE_TYPE;
-	}
-
 	public List<Ingredient> getInputs() {
 		return inputs;
 	}
 
+	@Override
 	public List<ItemStack> getOutputs() {
 		return outputs;
 	}
 
+	@Override
 	public List<ItemStack> getOutputs(List<ItemStack> inputs) {
 		return getOutputs();
 	}

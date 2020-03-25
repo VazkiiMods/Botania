@@ -23,17 +23,15 @@ public class RegisterRecipesEvent extends Event {
 	private final Consumer<RecipePureDaisy> pureDaisy;
 	private final Consumer<RecipeManaInfusion> manaInfusion;
 	private final Consumer<RecipeBrew> brew;
-	private final Consumer<RecipeElvenTrade> elvenTrade;
 	private final Consumer<RecipePetals> apothecary;
 	private final Consumer<RecipeRuneAltar> runeAltar;
 
 	public RegisterRecipesEvent(Consumer<RecipePureDaisy> pureDaisy, Consumer<RecipeManaInfusion> manaInfusion,
-			Consumer<RecipeBrew> brew, Consumer<RecipeElvenTrade> elvenTrade,
+			Consumer<RecipeBrew> brew,
 			Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
 		this.pureDaisy = pureDaisy;
 		this.manaInfusion = manaInfusion;
 		this.brew = brew;
-		this.elvenTrade = elvenTrade;
 		this.apothecary = apothecary;
 		this.runeAltar = runeAltar;
 	}
@@ -48,10 +46,6 @@ public class RegisterRecipesEvent extends Event {
 
 	public Consumer<RecipeBrew> brew() {
 		return brew;
-	}
-
-	public Consumer<RecipeElvenTrade> elvenTrade() {
-		return elvenTrade;
 	}
 
 	public Consumer<RecipePetals> apothecary() {

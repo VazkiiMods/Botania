@@ -29,15 +29,13 @@ import java.util.stream.Stream;
 
 public class PacketSyncRecipes {
 	private Map<ResourceLocation, RecipeBrew> brew;
-	private Map<ResourceLocation, RecipeElvenTrade> elven;
 	private Map<ResourceLocation, RecipeManaInfusion> manaInfusion;
 	private Map<ResourceLocation, RecipePetals> petal;
 	private Map<ResourceLocation, RecipePureDaisy> pureDaisy;
 	private Map<ResourceLocation, RecipeRuneAltar> runeAltar;
 
-	public PacketSyncRecipes(Map<ResourceLocation, RecipeBrew> brew, Map<ResourceLocation, RecipeElvenTrade> elven, Map<ResourceLocation, RecipeManaInfusion> manaInfusion, Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipePureDaisy> pureDaisy, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
+	public PacketSyncRecipes(Map<ResourceLocation, RecipeBrew> brew, Map<ResourceLocation, RecipeManaInfusion> manaInfusion, Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipePureDaisy> pureDaisy, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
 		this.brew = brew;
-		this.elven = elven;
 		this.manaInfusion = manaInfusion;
 		this.petal = petal;
 		this.pureDaisy = pureDaisy;
@@ -72,7 +70,6 @@ public class PacketSyncRecipes {
 		Map<ResourceLocation, RecipeBrew> brew = Stream.generate(() -> RecipeBrew.read(buf))
 				.limit(brewCount)
 				.collect(Collectors.toMap(RecipeBrew::getId, r -> r));
-		Map<ResourceLocation, RecipeElvenTrade> elven = Collections.emptyMap();
 		int manaInfusionCount = buf.readVarInt();
 		Map<ResourceLocation, RecipeManaInfusion> manaInfusion = Stream.generate(() -> RecipeManaInfusion.read(buf))
 				.limit(manaInfusionCount)
@@ -89,7 +86,7 @@ public class PacketSyncRecipes {
 		Map<ResourceLocation, RecipeRuneAltar> rune = Stream.generate(() -> RecipeRuneAltar.read(buf))
 				.limit(runeCount)
 				.collect(Collectors.toMap(RecipeRuneAltar::getId, r -> r));
-		return new PacketSyncRecipes(brew, elven, manaInfusion, petal, pureDaisy, rune);
+		return new PacketSyncRecipes(brew, manaInfusion, petal, pureDaisy, rune);
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
@@ -99,7 +96,6 @@ public class PacketSyncRecipes {
 					return;
 				}
 				BotaniaAPI.brewRecipes = brew;
-				BotaniaAPI.elvenTradeRecipes = elven;
 				BotaniaAPI.manaInfusionRecipes = manaInfusion;
 				BotaniaAPI.petalRecipes = petal;
 				BotaniaAPI.pureDaisyRecipes = pureDaisy;
@@ -115,7 +111,7 @@ public class PacketSyncRecipes {
 		private int loginIndex;
 
 		public Login() {
-			this(new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.elvenTradeRecipes,
+			this(new PacketSyncRecipes(BotaniaAPI.brewRecipes,
 					BotaniaAPI.manaInfusionRecipes, BotaniaAPI.petalRecipes,
 					BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes));
 		}

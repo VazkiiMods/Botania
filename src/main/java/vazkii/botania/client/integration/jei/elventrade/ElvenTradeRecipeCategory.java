@@ -31,9 +31,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
-public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrade> {
+public class ElvenTradeRecipeCategory implements IRecipeCategory<AbstractElvenTradeRecipe> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "elven_trade");
 	private final String localizedName;
@@ -64,8 +64,8 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrad
 
 	@Nonnull
 	@Override
-	public Class<? extends RecipeElvenTrade> getRecipeClass() {
-		return RecipeElvenTrade.class;
+	public Class<? extends AbstractElvenTradeRecipe> getRecipeClass() {
+		return AbstractElvenTradeRecipe.class;
 	}
 
 	@Nonnull
@@ -87,7 +87,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrad
 	}
 
 	@Override
-	public void setIngredients(RecipeElvenTrade recipe, IIngredients iIngredients) {
+	public void setIngredients(AbstractElvenTradeRecipe recipe, IIngredients iIngredients) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 		for (Ingredient i : recipe.getInputs()) {
 			builder.add(Arrays.asList(i.getMatchingStacks()));
@@ -97,7 +97,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrad
 	}
 
 	@Override
-	public void draw(RecipeElvenTrade recipe, double mouseX, double mouseY) {
+	public void draw(AbstractElvenTradeRecipe recipe, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(0, 4);
@@ -121,7 +121,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrad
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeElvenTrade recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull AbstractElvenTradeRecipe recipe, @Nonnull IIngredients ingredients) {
 		int index = 0, posX = 42;
 		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, posX, 0);
