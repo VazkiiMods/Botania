@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:prismarine_shard"
+  },
+  "output": {
+    "item": "minecraft:prismarine_crystals"
+  },
+  "mana": 500,
+  "catalyst": "botania:alchemy_catalyst"
+}

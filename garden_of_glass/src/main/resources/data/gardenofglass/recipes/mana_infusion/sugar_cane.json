@@ -1,0 +1,10 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:hay_block"
+  },
+  "output": {
+    "item": "minecraft:sugar_cane"
+  },
+  "mana": 2000
+}

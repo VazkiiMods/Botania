@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[28,)"
+loaderVersion="[31,)"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
 logoFile="logo_gog.png" #optional

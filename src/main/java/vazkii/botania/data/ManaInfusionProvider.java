@@ -88,11 +88,6 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(ModBlocks.manaGlass), ingr(Blocks.GLASS), 150));
 		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(ModItems.manaString), ingr(Items.STRING), 5000));
 
-		// todo 1.15 move to gog
-		if (Botania.gardenOfGlassLoaded) {
-			consumer.accept(new FinishedRecipe(id("sugar_cane"), new ItemStack(Blocks.SUGAR_CANE), ingr(Blocks.HAY_BLOCK), 2000));
-		}
-
 		consumer.accept(new FinishedRecipe(id("mana_bottle"), new ItemStack(ModItems.manaBottle), ingr(Items.GLASS_BOTTLE), 5000));
 
 		consumer.accept(FinishedRecipe.alchemy(id("rotten_flesh_to_leather"), new ItemStack(Items.LEATHER), ingr(Items.ROTTEN_FLESH), 600));
@@ -157,12 +152,6 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(FinishedRecipe.alchemy(id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000));
 
 		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES);
-
-		if (Botania.gardenOfGlassLoaded) {
-			consumer.accept(FinishedRecipe.alchemy(id("prismarine_shard_gog"), new ItemStack(Items.PRISMARINE_SHARD), ingr(Items.QUARTZ), 1000));
-			consumer.accept(FinishedRecipe.alchemy(id("prismarine_crystals_gog"), new ItemStack(Items.PRISMARINE_CRYSTALS), ingr(Items.PRISMARINE_SHARD), 500));
-			consumer.accept(FinishedRecipe.alchemy(id("heart_of_the_sea"), new ItemStack(Items.HEART_OF_THE_SEA), ingr(Items.NAUTILUS_SHELL), 20000));
-		}
 
 		consumer.accept(mini(ModSubtiles.agricarnationChibi, ModSubtiles.agricarnation));
 		consumer.accept(mini(ModSubtiles.clayconiaChibi, ModSubtiles.clayconia));
