@@ -7,5 +7,7 @@
     "item": "minecraft:chiseled_stone_bricks"
   },
   "mana": 150,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

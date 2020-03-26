@@ -8,5 +8,7 @@
     "count": 2
   },
   "mana": 800,
-  "catalyst": "botania:conjuration_catalyst"
+  "catalyst": {
+    "name": "botania:conjuration_catalyst"
+  }
 }

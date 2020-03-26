@@ -1,0 +1,10 @@
+{
+  "type": "botania:pure_daisy",
+  "input": {
+    "type": "block",
+    "block": "minecraft:packed_ice"
+  },
+  "output": {
+    "name": "minecraft:blue_ice"
+  }
+}

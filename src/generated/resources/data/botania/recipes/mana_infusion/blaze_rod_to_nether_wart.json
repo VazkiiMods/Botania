@@ -7,5 +7,7 @@
     "item": "minecraft:nether_wart"
   },
   "mana": 4000,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

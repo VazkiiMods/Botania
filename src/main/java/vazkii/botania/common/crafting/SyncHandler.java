@@ -22,9 +22,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
 import vazkii.botania.common.lib.LibMisc;
@@ -41,20 +39,17 @@ public class SyncHandler {
 	public static class ReloadListener implements IResourceManagerReloadListener {
 		@Override
 		public void onResourceManagerReload(@Nullable IResourceManager manager) {
-			Map<ResourceLocation, RecipePureDaisy> pureDaisy = new HashMap<>();
 			Map<ResourceLocation, RecipeBrew> brew = new HashMap<>();
 			Map<ResourceLocation, RecipePetals> apothecary = new HashMap<>();
 			Map<ResourceLocation, RecipeRuneAltar> runeAltar = new HashMap<>();
 
 			RegisterRecipesEvent evt = new RegisterRecipesEvent(
-					r -> pureDaisy.put(r.getId(), r),
 					r -> brew.put(r.getId(), r),
 					r -> apothecary.put(r.getId(), r),
 					r -> runeAltar.put(r.getId(), r)
 			);
 			MinecraftForge.EVENT_BUS.post(evt);
 
-			BotaniaAPI.pureDaisyRecipes = ImmutableMap.copyOf(pureDaisy);
 			BotaniaAPI.brewRecipes = ImmutableMap.copyOf(brew);
 			BotaniaAPI.petalRecipes = ImmutableMap.copyOf(apothecary);
 			BotaniaAPI.runeAltarRecipes = ImmutableMap.copyOf(runeAltar);
@@ -63,8 +58,7 @@ public class SyncHandler {
 	}
 
 	private static PacketSyncRecipes syncPacket() {
-		return new PacketSyncRecipes(BotaniaAPI.brewRecipes,
-				BotaniaAPI.petalRecipes, BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes);
+		return new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes);
 	}
 
 	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
@@ -73,7 +67,6 @@ public class SyncHandler {
 		public static void clientLogout(ClientPlayerNetworkEvent.LoggedOutEvent evt) {
 			BotaniaAPI.brewRecipes = Collections.emptyMap();
 			BotaniaAPI.petalRecipes = Collections.emptyMap();
-			BotaniaAPI.pureDaisyRecipes = Collections.emptyMap();
 			BotaniaAPI.runeAltarRecipes = Collections.emptyMap();
 		}
 	}

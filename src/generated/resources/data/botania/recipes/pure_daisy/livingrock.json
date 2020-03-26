@@ -1,0 +1,10 @@
+{
+  "type": "botania:pure_daisy",
+  "input": {
+    "type": "tag",
+    "tag": "forge:stone"
+  },
+  "output": {
+    "name": "botania:livingrock"
+  }
+}

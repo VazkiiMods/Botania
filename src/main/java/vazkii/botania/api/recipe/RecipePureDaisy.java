@@ -9,29 +9,38 @@
 package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
+import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 
-public class RecipePureDaisy {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class RecipePureDaisy implements IRecipe<IInventory> {
 
 	public static final int DEFAULT_TIME = 150;
 
 	private final ResourceLocation id;
-	private final Object input;
+	private final StateIngredient input;
 	private final BlockState outputState;
 	private final int time;
 
-	public RecipePureDaisy(ResourceLocation id, Object input, BlockState state) {
+	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state) {
 		this(id, input, state, DEFAULT_TIME);
 	}
 
@@ -43,37 +52,19 @@ public class RecipePureDaisy {
 	 *              total time.
 	 *              The Pure Daisy only ticks one block at a time in a round robin fashion.
 	 */
-	public RecipePureDaisy(ResourceLocation id, Object input, BlockState state, int time) {
+	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.id = id;
 		this.input = input;
 		this.outputState = state;
 		this.time = time;
-		if (input != null
-				&& !(input instanceof Block)
-				&& !(input instanceof BlockState)
-				&& !(input instanceof Tag && checkBlockTag((Tag) input))) {
-			throw new IllegalArgumentException("input must be a Tag<Block>, Block, or IBlockState");
-		}
-	}
-
-	private static boolean checkBlockTag(Tag<?> tag) {
-		return tag.getAllElements().stream().allMatch(o -> o instanceof Block);
 	}
 
 	/**
 	 * This gets called every tick, please be careful with your checks.
 	 */
 	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
-		if (input instanceof Block) {
-			return state.getBlock() == input;
-		}
-
-		if (input instanceof BlockState) {
-			return state == input;
-		}
-
-		return ((Tag<Block>) input).contains(state.getBlock());
+		return input.test(state);
 	}
 
 	/**
@@ -88,7 +79,7 @@ public class RecipePureDaisy {
 		return true;
 	}
 
-	public Object getInput() {
+	public StateIngredient getInput() {
 		return input;
 	}
 
@@ -104,41 +95,61 @@ public class RecipePureDaisy {
 		return id;
 	}
 
-	public void write(PacketBuffer buf) {
-		buf.writeResourceLocation(id);
-		if (input instanceof Tag) {
-			buf.writeVarInt(0);
-			buf.writeResourceLocation(((Tag) input).getId());
-		} else if (input instanceof Block) {
-			buf.writeVarInt(1);
-			buf.writeVarInt(Registry.BLOCK.getId((Block) input));
-		} else {
-			buf.writeVarInt(2);
-			buf.writeVarInt(Block.getStateId((BlockState) input));
-		}
-		buf.writeVarInt(Block.getStateId(outputState));
-		buf.writeVarInt(time);
+	@Override
+	public IRecipeSerializer<?> getSerializer() {
+		return ModRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
-	public static RecipePureDaisy read(PacketBuffer buf) {
-		ResourceLocation id = buf.readResourceLocation();
-		Object input;
-		switch (buf.readVarInt()) {
-		case 0:
-			input = new BlockTags.Wrapper(buf.readResourceLocation());
-			break;
-		case 1:
-			input = Registry.BLOCK.getByValue(buf.readVarInt());
-			break;
-		case 2:
-			input = Block.getStateById(buf.readVarInt());
-			break;
-		default:
-			throw new RuntimeException("Unknown input discriminator");
-		}
-		BlockState output = Block.getStateById(buf.readVarInt());
-		int time = buf.readVarInt();
-		return new RecipePureDaisy(id, input, output, time);
+	@Override
+	public IRecipeType<?> getType() {
+		return ModRecipeTypes.PURE_DAISY_TYPE;
 	}
 
+	// Ignored IRecipe overrides 
+	@Override
+	public boolean matches(IInventory p_77569_1_, World p_77569_2_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack getCraftingResult(IInventory p_77572_1_) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public boolean canFit(int p_194133_1_, int p_194133_2_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipePureDaisy> {
+		@Nonnull
+		@Override
+		public RecipePureDaisy read(@Nonnull ResourceLocation id, JsonObject object) {
+			StateIngredient input = StateIngredient.deserialize(object.getAsJsonObject("input"));
+			BlockState output = StateIngredient.readBlockState(object.getAsJsonObject("output"));
+			int time = JSONUtils.getInt(object, "time", DEFAULT_TIME);
+			return new RecipePureDaisy(id, input, output, time);
+		}
+
+		@Override
+		public void write(@Nonnull PacketBuffer buf, RecipePureDaisy recipe) {
+			recipe.input.write(buf);
+			buf.writeVarInt(Block.getStateId(recipe.outputState));
+			buf.writeVarInt(recipe.time);
+		}
+
+		@Nullable
+		@Override
+		public RecipePureDaisy read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
+			StateIngredient input = StateIngredient.read(buf);
+			BlockState output = Block.getStateById(buf.readVarInt());
+			int time = buf.readVarInt();
+			return new RecipePureDaisy(id, input, output, time);
+		}
+	}
 }

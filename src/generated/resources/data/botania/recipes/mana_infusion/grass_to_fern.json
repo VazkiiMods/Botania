@@ -8,5 +8,7 @@
   },
   "mana": 500,
   "group": "botania:shrub_cycle",
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

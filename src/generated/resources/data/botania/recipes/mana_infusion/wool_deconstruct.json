@@ -8,5 +8,7 @@
     "count": 3
   },
   "mana": 100,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

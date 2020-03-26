@@ -28,6 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.RecipePureDaisy;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -46,7 +47,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	private final IDrawable icon;
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(168, 64);
+		background = guiHelper.createBlankDrawable(168, 46);
 		localizedName = I18n.format("botania.nei.pureDaisy");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
@@ -85,11 +86,15 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 
 	@Override
 	public void setIngredients(RecipePureDaisy recipe, IIngredients iIngredients) {
-		if (recipe.getInput() instanceof Tag) {
-			Collection<Block> all = ((Tag<Block>) recipe.getInput()).getAllElements();
-			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(all.stream().map(ItemStack::new).filter(s -> !s.isEmpty()).collect(Collectors.toList())));
-		} else if (recipe.getInput() instanceof Block || recipe.getInput() instanceof BlockState) {
-			BlockState state = recipe.getInput() instanceof BlockState ? (BlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
+		StateIngredient input = recipe.getInput();
+		if (input.getDisplayed().size() > 1) {
+			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(input.getDisplayed().stream()
+					.map(BlockState::getBlock)
+					.map(ItemStack::new)
+					.filter(s -> !s.isEmpty())
+					.collect(Collectors.toList())));
+		} else {
+			BlockState state = input.getDisplayed().get(0);
 			Block b = state.getBlock();
 
 			if (b instanceof FlowingFluidBlock) {

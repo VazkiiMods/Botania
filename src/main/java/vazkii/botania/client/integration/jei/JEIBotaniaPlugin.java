@@ -53,6 +53,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
@@ -121,7 +122,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
 		registry.addRecipes(BotaniaAPI.brewRecipes.values(), BreweryRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.pureDaisyRecipes.values(), PureDaisyRecipeCategory.UID);
+		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.petalRecipes.values(), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipes(TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager()), ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.runeAltarRecipes.values(), RunicAltarRecipeCategory.UID);

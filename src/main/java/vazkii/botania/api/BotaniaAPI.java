@@ -32,10 +32,7 @@ import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.recipe.RecipeElvenTrade;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.handler.PixieHandler;
 
@@ -61,7 +58,6 @@ public final class BotaniaAPI {
 	* These maps are not meant to be mutated!
 	*/
 	public static Map<ResourceLocation, RecipePetals> petalRecipes = Collections.emptyMap();
-	public static Map<ResourceLocation, RecipePureDaisy> pureDaisyRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipeRuneAltar> runeAltarRecipes = Collections.emptyMap();
 	public static Map<ResourceLocation, RecipeBrew> brewRecipes = Collections.emptyMap();
 

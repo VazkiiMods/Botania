@@ -1,0 +1,10 @@
+{
+  "type": "botania:pure_daisy",
+  "input": {
+    "type": "block",
+    "block": "botania:blaze_block"
+  },
+  "output": {
+    "name": "minecraft:obsidian"
+  }
+}

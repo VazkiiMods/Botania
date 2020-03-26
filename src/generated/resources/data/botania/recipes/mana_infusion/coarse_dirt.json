@@ -7,5 +7,7 @@
     "item": "minecraft:coarse_dirt"
   },
   "mana": 120,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

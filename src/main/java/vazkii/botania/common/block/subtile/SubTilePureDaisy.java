@@ -10,6 +10,7 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +24,7 @@ import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
@@ -118,9 +120,9 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private RecipePureDaisy findRecipe(BlockPos coords) {
 		BlockState state = getWorld().getBlockState(coords);
 
-		for (RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes.values()) {
-			if (recipe.matches(getWorld(), coords, this, state)) {
-				return recipe;
+		for (IRecipe<?> recipe : world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values()) {
+			if (recipe instanceof RecipePureDaisy && ((RecipePureDaisy) recipe).matches(getWorld(), coords, this, state)) {
+				return ((RecipePureDaisy) recipe);
 			}
 		}
 

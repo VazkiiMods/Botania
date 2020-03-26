@@ -16,7 +16,6 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 
 import java.util.Map;
@@ -27,13 +26,11 @@ import java.util.stream.Stream;
 public class PacketSyncRecipes {
 	private Map<ResourceLocation, RecipeBrew> brew;
 	private Map<ResourceLocation, RecipePetals> petal;
-	private Map<ResourceLocation, RecipePureDaisy> pureDaisy;
 	private Map<ResourceLocation, RecipeRuneAltar> runeAltar;
 
-	public PacketSyncRecipes(Map<ResourceLocation, RecipeBrew> brew, Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipePureDaisy> pureDaisy, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
+	public PacketSyncRecipes(Map<ResourceLocation, RecipeBrew> brew, Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
 		this.brew = brew;
 		this.petal = petal;
-		this.pureDaisy = pureDaisy;
 		this.runeAltar = runeAltar;
 	}
 
@@ -44,10 +41,6 @@ public class PacketSyncRecipes {
 		}
 		buf.writeVarInt(petal.size());
 		for (RecipePetals recipe : petal.values()) {
-			recipe.write(buf);
-		}
-		buf.writeVarInt(pureDaisy.size());
-		for (RecipePureDaisy recipe : pureDaisy.values()) {
 			recipe.write(buf);
 		}
 		buf.writeVarInt(runeAltar.size());
@@ -65,15 +58,11 @@ public class PacketSyncRecipes {
 		Map<ResourceLocation, RecipePetals> petal = Stream.generate(() -> RecipePetals.read(buf))
 				.limit(petalCount)
 				.collect(Collectors.toMap(RecipePetals::getId, r -> r));
-		int pureDaisyCount = buf.readVarInt();
-		Map<ResourceLocation, RecipePureDaisy> pureDaisy = Stream.generate(() -> RecipePureDaisy.read(buf))
-				.limit(pureDaisyCount)
-				.collect(Collectors.toMap(RecipePureDaisy::getId, r -> r));
 		int runeCount = buf.readVarInt();
 		Map<ResourceLocation, RecipeRuneAltar> rune = Stream.generate(() -> RecipeRuneAltar.read(buf))
 				.limit(runeCount)
 				.collect(Collectors.toMap(RecipeRuneAltar::getId, r -> r));
-		return new PacketSyncRecipes(brew, petal, pureDaisy, rune);
+		return new PacketSyncRecipes(brew, petal, rune);
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
@@ -84,7 +73,6 @@ public class PacketSyncRecipes {
 				}
 				BotaniaAPI.brewRecipes = brew;
 				BotaniaAPI.petalRecipes = petal;
-				BotaniaAPI.pureDaisyRecipes = pureDaisy;
 				BotaniaAPI.runeAltarRecipes = runeAltar;
 			});
 		}
@@ -97,8 +85,7 @@ public class PacketSyncRecipes {
 		private int loginIndex;
 
 		public Login() {
-			this(new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.petalRecipes,
-					BotaniaAPI.pureDaisyRecipes, BotaniaAPI.runeAltarRecipes));
+			this(new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes));
 		}
 
 		public Login(PacketSyncRecipes packet) {

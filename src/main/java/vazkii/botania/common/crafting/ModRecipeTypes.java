@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePureDaisy;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -30,9 +29,13 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ModRecipeTypes {
 	public static final IRecipeType<RecipeManaInfusion> MANA_INFUSION_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeManaInfusion> MANA_INFUSION_SERIALIZER = new RecipeManaInfusion.Serializer();
+
 	public static final IRecipeType<AbstractElvenTradeRecipe> ELVEN_TRADE_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeElvenTrade> ELVEN_TRADE_SERIALIZER = new RecipeElvenTrade.Serializer();
 	public static final SpecialRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SpecialRecipeSerializer<>(LexiconElvenTradeRecipe::new);
+
+	public static final IRecipeType<RecipePureDaisy> PURE_DAISY_TYPE = new RecipeType<>();
+	public static final IRecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
@@ -44,6 +47,10 @@ public class ModRecipeTypes {
 		id = prefix("mana_infusion");
 		Registry.register(Registry.RECIPE_TYPE, id, MANA_INFUSION_TYPE);
 		evt.getRegistry().register(MANA_INFUSION_SERIALIZER.setRegistryName(id));
+
+		id = prefix("pure_daisy");
+		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
+		evt.getRegistry().register(PURE_DAISY_SERIALIZER.setRegistryName(id));
 	}
 
 	private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {

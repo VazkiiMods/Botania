@@ -7,5 +7,7 @@
     "item": "minecraft:ice"
   },
   "mana": 2250,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

@@ -1,0 +1,10 @@
+{
+  "type": "botania:pure_daisy",
+  "input": {
+    "type": "tag",
+    "tag": "forge:netherrack"
+  },
+  "output": {
+    "name": "minecraft:cobblestone"
+  }
+}

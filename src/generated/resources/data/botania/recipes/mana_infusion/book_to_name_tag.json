@@ -7,5 +7,7 @@
     "item": "minecraft:name_tag"
   },
   "mana": 16000,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "name": "botania:alchemy_catalyst"
+  }
 }

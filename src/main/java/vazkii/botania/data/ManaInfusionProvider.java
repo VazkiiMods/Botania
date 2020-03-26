@@ -27,6 +27,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -248,14 +249,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 				json.addProperty("group", group);
 			}
 			if (catalyst != null) {
-				StringBuilder catalystStr = new StringBuilder(catalyst.getBlock().getRegistryName().toString());
-				if (catalyst != catalyst.getBlock().getDefaultState()) {
-					catalystStr.append('[');
-					catalystStr.append(catalyst.getProperties().stream().map(prop -> prop.getName() + "=" + getName(prop, catalyst.get(prop)))
-							.collect(Collectors.joining(",")));
-					catalystStr.append(']');
-				}
-				json.addProperty("catalyst", catalystStr.toString());
+				json.add("catalyst", StateIngredient.serializeBlockState(catalyst));
 			}
 		}
 

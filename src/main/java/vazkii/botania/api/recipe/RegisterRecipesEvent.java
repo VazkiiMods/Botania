@@ -20,22 +20,14 @@ import java.util.function.Consumer;
  * handlers as stateless as possible.
  */
 public class RegisterRecipesEvent extends Event {
-	private final Consumer<RecipePureDaisy> pureDaisy;
 	private final Consumer<RecipeBrew> brew;
 	private final Consumer<RecipePetals> apothecary;
 	private final Consumer<RecipeRuneAltar> runeAltar;
 
-	public RegisterRecipesEvent(Consumer<RecipePureDaisy> pureDaisy,
-			Consumer<RecipeBrew> brew,
-			Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
-		this.pureDaisy = pureDaisy;
+	public RegisterRecipesEvent(Consumer<RecipeBrew> brew, Consumer<RecipePetals> apothecary, Consumer<RecipeRuneAltar> runeAltar) {
 		this.brew = brew;
 		this.apothecary = apothecary;
 		this.runeAltar = runeAltar;
-	}
-
-	public Consumer<RecipePureDaisy> pureDaisy() {
-		return pureDaisy;
 	}
 
 	public Consumer<RecipeBrew> brew() {

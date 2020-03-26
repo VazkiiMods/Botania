@@ -153,15 +153,9 @@ public class RecipeManaInfusion implements IRecipe<IInventory> {
 			ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
 			int mana = JSONUtils.getInt(json, "mana");
 			String group = JSONUtils.getString(json, "group", "");
-			String catalyst = JSONUtils.getString(json, "catalyst", "");
 			BlockState catalystState = null;
-			if (!catalyst.isEmpty()) {
-				try {
-					BlockStateParser parser = new BlockStateParser(new StringReader(catalyst), false).parse(false);
-					catalystState = parser.getState();
-				} catch (CommandSyntaxException e) {
-					throw new JsonParseException("Failure reading catalyst state", e);
-				}
+			if (json.has("catalyst")) {
+				catalystState = StateIngredient.readBlockState(json.getAsJsonObject("catalyst"));
 			}
 
 			RecipeManaInfusion ret = new RecipeManaInfusion(id, output, ing, mana, group);
