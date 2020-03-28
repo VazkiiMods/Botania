@@ -23,6 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.potion.Effects;
 
 import top.theillusivec4.curios.api.CuriosAPI;
@@ -97,21 +98,19 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if (!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				ms.push();
-				AccessoryRenderHelper.rotateIfSneaking(ms, player);
 				boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.LEGS).isEmpty();
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
-				ms.translate(0, -0.6, 0);
-				ms.scale(0.55F, 0.55F, 0.55F);
 
+				getEntityModel().bipedBody.rotate(ms);
+				ms.translate(0, 0.65, 0);
 				if (renderedOne) {
-					ms.translate(0F, 0F, armor ? 0.55F : 0.5F);
+					ms.translate(armor ? 0.3 : 0.25, 0, 0);
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 				} else {
-					ms.translate(0F, 0F, armor ? -0.55F : -0.5F);
+					ms.translate(armor ? -0.3 : -0.25, 0, 0);
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 				}
 
-				ms.scale(0.75F, 0.75F, 0.75F);
-
+				ms.scale(0.375F, -0.375F, -0.375F);
 				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, 0xF000F0, OverlayTexture.DEFAULT_UV, ms, buffers);
 				ms.pop();
 
