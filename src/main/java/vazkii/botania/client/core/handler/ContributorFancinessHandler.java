@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
@@ -29,7 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
 
-import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -68,23 +66,20 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 	@Override
 	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		firstStart();
+
 		if (player.isInvisible()) {
 			return;
 		}
 
 		String name = player.getDisplayName().getString();
 
-		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
-
 		if (name.equals("haighyorkie")) {
-			renderGoldfish(ms, buffers, light, player);
+			renderGoldfish(ms, buffers);
 		}
 
-		firstStart();
-
-		name = name.toLowerCase();
 		if (player.isWearing(PlayerModelPart.CAPE)) {
-			ItemStack flower = getFlower(name);
+			ItemStack flower = getFlower(name.toLowerCase(Locale.ROOT));
 			if (!flower.isEmpty()) {
 				renderFlower(ms, buffers, player, flower);
 			}
@@ -127,25 +122,21 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		flowerMap = m;
 	}
 
-	private static void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers, int light, PlayerEntity player) {
+	private void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers) {
 		ms.push();
-		ms.translate(0, player.getEyeHeight(), 0);
-		AccessoryRenderHelper.rotateIfSneaking(ms, player);
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
-		ms.scale(0.4F, 0.4F, 0.4F);
-		ms.translate(-0.5F, 1.6F, 0F);
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffers.getBuffer(Atlases.getEntityTranslucent()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+		getEntityModel().bipedHead.rotate(ms);
+		ms.translate(-0.15F, -0.60F, 0F);
+		ms.scale(0.4F, -0.4F, -0.4F);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffers.getBuffer(Atlases.getEntityTranslucent()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
+	private void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
 		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
-		ms.translate(0, -0.85, 0);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
-		ms.scale(0.5F, 0.5F, 0.5F);
+		getEntityModel().bipedHead.rotate(ms);
+		ms.translate(0, -0.75, 0);
+		ms.scale(0.5F, -0.5F, -0.5F);
 		RenderHelper.renderItemModelGold(player, flower, ItemCameraTransforms.TransformType.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 	}
