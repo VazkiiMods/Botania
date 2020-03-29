@@ -29,6 +29,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
@@ -146,7 +147,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 
 		ms.translate(0F, 0.2F, 0F);

@@ -27,6 +27,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.util.List;
@@ -76,7 +77,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 		if (variant.isHead) {
 			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);

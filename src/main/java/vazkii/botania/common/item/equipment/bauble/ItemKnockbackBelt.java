@@ -24,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.lib.LibResources;
 
 public class ItemKnockbackBelt extends ItemBauble {
@@ -44,7 +45,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ms.translate(0F, 0.2F, 0F);
 
 		float s = 1.05F / 16F;

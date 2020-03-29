@@ -44,6 +44,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import vazkii.botania.api.item.AccessoryRenderHelper;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -76,7 +77,7 @@ public class ItemItemFinder extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 		AccessoryRenderHelper.translateToHeadLevel(ms, living, partialTicks);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));

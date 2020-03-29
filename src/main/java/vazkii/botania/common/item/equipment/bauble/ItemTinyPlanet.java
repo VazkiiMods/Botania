@@ -26,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -50,7 +51,7 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ms.scale(0.5F, 0.5F, 0.5F);
 		ms.translate(0, -1.5F, 0.5F);
 		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockAsEntity(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.DEFAULT_UV);

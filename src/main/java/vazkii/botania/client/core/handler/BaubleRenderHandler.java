@@ -34,6 +34,7 @@ import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -66,6 +67,7 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 					ItemStack stack = e.getValue().getStackInSlot(i);
 					if (!stack.isEmpty()) {
 						Item item = stack.getItem();
+						ItemStack toRender = stack;
 
 						if (item instanceof IPhantomInkable) {
 							IPhantomInkable inkable = (IPhantomInkable) item;
@@ -76,15 +78,16 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 
 						if (item instanceof ICosmeticAttachable) {
 							ICosmeticAttachable attachable = (ICosmeticAttachable) item;
-							ItemStack cosmetic = attachable.getCosmeticItem(stack);
-							cosmetic.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
-								if (c.hasRender(e.getKey(), player)) {
-									ms.push();
-									c.render(e.getKey(), ms, buffers, light, player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
-									ms.pop();
-								}
-							});
+							toRender = attachable.getCosmeticItem(stack);
 						}
+
+						toRender.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
+							if (c.hasRender(e.getKey(), player) && c instanceof CurioIntegration.Wrapper) {
+								ms.push();
+								((CurioIntegration.Wrapper) c).doRender(this, player, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+								ms.pop();
+							}
+						});
 					}
 				}
 			}

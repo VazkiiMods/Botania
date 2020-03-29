@@ -31,6 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
@@ -65,7 +66,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
 		ms.translate(-0.3, -0.6, armor ? -0.18 : -0.12);

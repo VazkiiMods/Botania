@@ -32,6 +32,7 @@ import top.theillusivec4.curios.api.capability.ICurio;
 import top.theillusivec4.curios.api.event.LivingCurioDropRulesEvent;
 import top.theillusivec4.curios.api.imc.CurioIMCMessage;
 
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.common.capability.SimpleCapProvider;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -96,7 +97,7 @@ public class CurioIntegration extends EquipmentHandler {
 		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM).isPresent();
 	}
 
-	private static class Wrapper implements ICurio {
+	public static class Wrapper implements ICurio {
 		private final ItemStack stack;
 
 		Wrapper(ItemStack stack) {
@@ -152,9 +153,12 @@ public class CurioIntegration extends EquipmentHandler {
 			return getItem().hasRender(stack, entity);
 		}
 
+		// Don't use Curios' built-in render method since we need more data passed
 		@Override
-		public void render(String identifier, MatrixStack ms, IRenderTypeBuffer buffers, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-			getItem().doRender(stack, livingEntity, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+		public void render(String identifier, MatrixStack ms, IRenderTypeBuffer buffers, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
+
+		public void doRender(BaubleRenderHandler layer, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			getItem().doRender(layer, stack, player, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
 		}
 	}
 }
