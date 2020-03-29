@@ -71,13 +71,12 @@ public class ItemIcePendant extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-		ms.translate(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-45F));
-		ms.scale(0.5F, 0.5F, 0.5F);
+		layer.getEntityModel().bipedBody.rotate(ms);
+		ms.translate(-0.25, 0.5, armor ? 0.05 : 0.12);
+		ms.scale(0.5F, -0.5F, -0.5F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}

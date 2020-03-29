@@ -102,11 +102,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
-		ms.scale(0.8F, 0.8F, 0.8F);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90));
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
-		ms.translate(0.1625, -1.625, 0.40);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, OverlayTexture.DEFAULT_UV, ms, buffers);
+		layer.getEntityModel().bipedHead.rotate(ms);
+		ms.translate(0.15, -0.42, -0.35);
+		ms.scale(0.4F, -0.4F, -0.4F);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 }

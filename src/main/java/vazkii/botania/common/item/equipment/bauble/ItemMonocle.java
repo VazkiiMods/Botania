@@ -51,14 +51,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-
-		AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
-		AccessoryRenderHelper.translateToFace(ms);
-		AccessoryRenderHelper.defaultTransforms(ms);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
-		ms.scale(0.5F, 0.5F, 0.5F);
-		ms.translate(0.5F, -0.2F, armor ? 0.12F : 0F);
+		layer.getEntityModel().bipedHead.rotate(ms);
+		ms.translate(0.15, -0.2, -0.25);
+		ms.scale(0.3F, -0.3F, -0.3F);
 		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 

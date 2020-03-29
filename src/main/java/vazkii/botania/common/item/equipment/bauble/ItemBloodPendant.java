@@ -117,11 +117,10 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-		ms.translate(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
-		ms.scale(0.5F, 0.5F, 0.5F);
+		layer.getEntityModel().bipedBody.rotate(ms);
+		ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
+		ms.scale(0.5F, -0.5F, -0.5F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
 		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());

@@ -79,14 +79,12 @@ public class ItemItemFinder extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		AccessoryRenderHelper.translateToHeadLevel(ms, living, partialTicks);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-		ms.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
-		ms.scale(0.75F, 0.75F, 0.75F);
+		layer.getEntityModel().bipedHead.rotate(ms);
+		ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
+		ms.scale(0.75F, -0.75F, -0.75F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}

@@ -68,32 +68,31 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
-		ms.translate(-0.3, -0.6, armor ? -0.18 : -0.12);
-		ms.scale(0.6F, 0.6F, 0.6F);
 
 		for (int i = 0; i < 3; i++) {
 			ms.push();
+			layer.getEntityModel().bipedBody.rotate(ms);
+
 			switch (i) {
 			case 0:
 				break;
 			case 1:
-				float scale1 = 0.75F;
-
-				ms.translate(0.15, 0.15, -0.05);
 				double time = ClientTickHandler.total * 0.12;
 				double dist = 0.05;
 				ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
 
-				ms.scale(scale1, scale1, scale1);
+				ms.scale(0.75F, 0.75F, 1F);
+				ms.translate(0, 0.1, -0.025);
 				break;
 			case 2:
 				ms.translate(0, 0, -0.05);
 				break;
 			}
 
+			ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);
+			ms.scale(0.6F, -0.6F, -0.6F);
 			IBakedModel model = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 					.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 			ms.pop();

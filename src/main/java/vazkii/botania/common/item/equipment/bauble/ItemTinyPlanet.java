@@ -52,8 +52,9 @@ public class ItemTinyPlanet extends ItemBauble {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ms.scale(0.5F, 0.5F, 0.5F);
-		ms.translate(0, -1.5F, 0.5F);
+		layer.getEntityModel().bipedHead.rotate(ms);
+		ms.translate(-0.25, -0.4, 0);
+		ms.scale(0.5F, -0.5F, -0.5F);
 		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockAsEntity(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.DEFAULT_UV);
 	}
 
