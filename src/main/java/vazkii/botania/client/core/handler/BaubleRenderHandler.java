@@ -78,7 +78,10 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 
 						if (item instanceof ICosmeticAttachable) {
 							ICosmeticAttachable attachable = (ICosmeticAttachable) item;
-							toRender = attachable.getCosmeticItem(stack);
+							ItemStack cosmetic = attachable.getCosmeticItem(stack);
+							if (!cosmetic.isEmpty()) {
+								toRender = cosmetic;
+							}
 						}
 
 						toRender.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
