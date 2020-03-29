@@ -91,6 +91,7 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 		return time;
 	}
 
+	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -130,8 +131,8 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 		@Nonnull
 		@Override
 		public RecipePureDaisy read(@Nonnull ResourceLocation id, JsonObject object) {
-			StateIngredient input = StateIngredient.deserialize(object.getAsJsonObject("input"));
-			BlockState output = StateIngredient.readBlockState(object.getAsJsonObject("output"));
+			StateIngredient input = StateIngredient.deserialize(JSONUtils.getJsonObject(object, "input"));
+			BlockState output = StateIngredient.readBlockState(JSONUtils.getJsonObject(object, "output"));
 			int time = JSONUtils.getInt(object, "time", DEFAULT_TIME);
 			return new RecipePureDaisy(id, input, output, time);
 		}

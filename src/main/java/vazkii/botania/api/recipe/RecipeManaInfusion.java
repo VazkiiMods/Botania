@@ -30,9 +30,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
@@ -155,7 +157,19 @@ public class RecipeManaInfusion implements IRecipe<IInventory> {
 			String group = JSONUtils.getString(json, "group", "");
 			BlockState catalystState = null;
 			if (json.has("catalyst")) {
-				catalystState = StateIngredient.readBlockState(json.getAsJsonObject("catalyst"));
+				if (json.get("catalyst").isJsonPrimitive()) {
+					String s = JSONUtils.getString(json, "catalyst");
+					ResourceLocation catalystId = ResourceLocation.tryCreate(s);
+					if (catalystId == null) {
+						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
+					}
+					if (!ForgeRegistries.BLOCKS.containsKey(catalystId)) {
+						throw new IllegalArgumentException("Unknown catalyst: " + s);
+					}
+					catalystState = ForgeRegistries.BLOCKS.getValue(catalystId).getDefaultState();
+				} else {
+					catalystState = StateIngredient.readBlockState(JSONUtils.getJsonObject(json, "catalyst"));
+				}
 			}
 
 			RecipeManaInfusion ret = new RecipeManaInfusion(id, output, ing, mana, group);

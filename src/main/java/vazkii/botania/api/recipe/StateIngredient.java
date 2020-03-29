@@ -93,6 +93,11 @@ public abstract class StateIngredient implements Predicate<BlockState> {
 		CompoundNBT nbt = (CompoundNBT) new Dynamic<>(JsonOps.INSTANCE, object).convert(NBTDynamicOps.INSTANCE).getValue();
 		renameTag(nbt, "name", "Name");
 		renameTag(nbt, "properties", "Properties");
+		String name = nbt.getString("Name");
+		ResourceLocation id = ResourceLocation.tryCreate(name);
+		if (id == null || !ForgeRegistries.BLOCKS.containsKey(id)) {
+			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
+		}
 		return NBTUtil.readBlockState(nbt);
 	}
 
