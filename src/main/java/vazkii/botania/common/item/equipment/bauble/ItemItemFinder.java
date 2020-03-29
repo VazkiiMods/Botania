@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -135,24 +136,12 @@ public class ItemItemFinder extends ItemBauble {
 				if (e == player) {
 					continue;
 				}
-				if (e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent() && !(e instanceof PlayerEntity)) {
-					if (scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), pstack)) {
-						entIdBuilder.add(e.getEntityId());
-					}
-
-				} else if (e instanceof ItemEntity) {
+				if (e instanceof ItemEntity) {
 					ItemEntity item = (ItemEntity) e;
 					ItemStack istack = item.getItem();
 					if (player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack)) {
 						entIdBuilder.add(item.getEntityId());
 					}
-
-				} else if (e instanceof IInventory) {
-					IInventory inv = (IInventory) e;
-					if (scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack)) {
-						entIdBuilder.add(e.getEntityId());
-					}
-
 				} else if (e instanceof PlayerEntity) {
 					PlayerEntity player_ = (PlayerEntity) e;
 					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
@@ -161,14 +150,23 @@ public class ItemItemFinder extends ItemBauble {
 						entIdBuilder.add(player_.getEntityId());
 					}
 
-				} else if (e instanceof VillagerEntity) {
-					VillagerEntity villager = (VillagerEntity) e;
+				} else if (e instanceof AbstractVillagerEntity) {
+					AbstractVillagerEntity villager = (AbstractVillagerEntity) e;
 					for (MerchantOffer offer : villager.getOffers()) {
 						if (equalStacks(pstack, offer.getBuyingStackFirst())
 								|| equalStacks(pstack, offer.getBuyingStackSecond())
 								|| equalStacks(pstack, offer.getSellingStack())) {
 							entIdBuilder.add(villager.getEntityId());
 						}
+					}
+				} else if (e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
+					if (scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), pstack)) {
+						entIdBuilder.add(e.getEntityId());
+					}
+				} else if (e instanceof IInventory) {
+					IInventory inv = (IInventory) e;
+					if (scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack)) {
+						entIdBuilder.add(e.getEntityId());
 					}
 				}
 			}
