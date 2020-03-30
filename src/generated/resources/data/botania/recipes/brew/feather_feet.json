@@ -1,0 +1,18 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:feather_feet",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "minecraft:wool"
+    }
+  ]
+}

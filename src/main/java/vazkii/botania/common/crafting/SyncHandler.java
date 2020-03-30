@@ -39,18 +39,15 @@ public class SyncHandler {
 	public static class ReloadListener implements IResourceManagerReloadListener {
 		@Override
 		public void onResourceManagerReload(@Nullable IResourceManager manager) {
-			Map<ResourceLocation, RecipeBrew> brew = new HashMap<>();
 			Map<ResourceLocation, RecipePetals> apothecary = new HashMap<>();
 			Map<ResourceLocation, RecipeRuneAltar> runeAltar = new HashMap<>();
 
 			RegisterRecipesEvent evt = new RegisterRecipesEvent(
-					r -> brew.put(r.getId(), r),
-					r -> apothecary.put(r.getId(), r),
+							r -> apothecary.put(r.getId(), r),
 					r -> runeAltar.put(r.getId(), r)
 			);
 			MinecraftForge.EVENT_BUS.post(evt);
 
-			BotaniaAPI.brewRecipes = ImmutableMap.copyOf(brew);
 			BotaniaAPI.petalRecipes = ImmutableMap.copyOf(apothecary);
 			BotaniaAPI.runeAltarRecipes = ImmutableMap.copyOf(runeAltar);
 			PacketHandler.HANDLER.send(PacketDistributor.ALL.noArg(), syncPacket());
@@ -58,14 +55,13 @@ public class SyncHandler {
 	}
 
 	private static PacketSyncRecipes syncPacket() {
-		return new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes);
+		return new PacketSyncRecipes(BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes);
 	}
 
 	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void clientLogout(ClientPlayerNetworkEvent.LoggedOutEvent evt) {
-			BotaniaAPI.brewRecipes = Collections.emptyMap();
 			BotaniaAPI.petalRecipes = Collections.emptyMap();
 			BotaniaAPI.runeAltarRecipes = Collections.emptyMap();
 		}

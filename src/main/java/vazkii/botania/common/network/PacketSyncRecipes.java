@@ -24,21 +24,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PacketSyncRecipes {
-	private Map<ResourceLocation, RecipeBrew> brew;
 	private Map<ResourceLocation, RecipePetals> petal;
 	private Map<ResourceLocation, RecipeRuneAltar> runeAltar;
 
-	public PacketSyncRecipes(Map<ResourceLocation, RecipeBrew> brew, Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
-		this.brew = brew;
+	public PacketSyncRecipes(Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
 		this.petal = petal;
 		this.runeAltar = runeAltar;
 	}
 
 	public void encode(PacketBuffer buf) {
-		buf.writeVarInt(brew.size());
-		for (RecipeBrew recipe : brew.values()) {
-			recipe.write(buf);
-		}
 		buf.writeVarInt(petal.size());
 		for (RecipePetals recipe : petal.values()) {
 			recipe.write(buf);
@@ -50,10 +44,6 @@ public class PacketSyncRecipes {
 	}
 
 	public static PacketSyncRecipes decode(PacketBuffer buf) {
-		int brewCount = buf.readVarInt();
-		Map<ResourceLocation, RecipeBrew> brew = Stream.generate(() -> RecipeBrew.read(buf))
-				.limit(brewCount)
-				.collect(Collectors.toMap(RecipeBrew::getId, r -> r));
 		int petalCount = buf.readVarInt();
 		Map<ResourceLocation, RecipePetals> petal = Stream.generate(() -> RecipePetals.read(buf))
 				.limit(petalCount)
@@ -62,7 +52,7 @@ public class PacketSyncRecipes {
 		Map<ResourceLocation, RecipeRuneAltar> rune = Stream.generate(() -> RecipeRuneAltar.read(buf))
 				.limit(runeCount)
 				.collect(Collectors.toMap(RecipeRuneAltar::getId, r -> r));
-		return new PacketSyncRecipes(brew, petal, rune);
+		return new PacketSyncRecipes(petal, rune);
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
@@ -71,7 +61,6 @@ public class PacketSyncRecipes {
 				if (Minecraft.getInstance().isSingleplayer()) {
 					return;
 				}
-				BotaniaAPI.brewRecipes = brew;
 				BotaniaAPI.petalRecipes = petal;
 				BotaniaAPI.runeAltarRecipes = runeAltar;
 			});
@@ -85,7 +74,7 @@ public class PacketSyncRecipes {
 		private int loginIndex;
 
 		public Login() {
-			this(new PacketSyncRecipes(BotaniaAPI.brewRecipes, BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes));
+			this(new PacketSyncRecipes(BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes));
 		}
 
 		public Login(PacketSyncRecipes packet) {

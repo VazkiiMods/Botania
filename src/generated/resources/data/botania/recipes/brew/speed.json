@@ -1,0 +1,15 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:speed",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ]
+}

@@ -12,12 +12,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -32,6 +34,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -39,6 +42,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
 
@@ -82,26 +86,24 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
-			for (RecipeBrew recipe : BotaniaAPI.brewRecipes.values()) {
-				if (recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
-					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
-				}
-			}
+			findRecipe();
 		}
 
 		return true;
 	}
 
+	private void findRecipe() {
+		Optional<RecipeBrew> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.BREW_TYPE, new RecipeWrapper(itemHandler), world);
+		maybeRecipe.ifPresent(recipeBrew -> {
+			this.recipe = recipeBrew;
+			world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
+		});
+	}
+
 	@Override
 	public void tick() {
 		if (mana > 0 && recipe == null) {
-			for (RecipeBrew recipe : BotaniaAPI.brewRecipes.values()) {
-				if (recipe.matches(itemHandler)) {
-					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
-				}
-			}
+			findRecipe();
 
 			if (recipe == null) {
 				mana = 0;
@@ -122,7 +124,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		}
 
 		if (recipe != null) {
-			if (!recipe.matches(itemHandler)) {
+			if (!recipe.matches(new RecipeWrapper(itemHandler), world)) {
 				recipe = null;
 				world.setBlockState(pos, ModBlocks.brewery.getDefaultState());
 			}

@@ -1,0 +1,15 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:regen_weak",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ]
+}

@@ -18,6 +18,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePureDaisy;
@@ -37,6 +38,9 @@ public class ModRecipeTypes {
 	public static final IRecipeType<RecipePureDaisy> PURE_DAISY_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
 
+	public static final IRecipeType<RecipeBrew> BREW_TYPE = new RecipeType<>();
+	public static final IRecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
+
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
 		ResourceLocation id = prefix("elven_trade");
@@ -51,6 +55,10 @@ public class ModRecipeTypes {
 		id = prefix("pure_daisy");
 		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
 		evt.getRegistry().register(PURE_DAISY_SERIALIZER.setRegistryName(id));
+
+		id = prefix("brew");
+		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);
+		evt.getRegistry().register(BREW_SERIALIZER.setRegistryName(id));
 	}
 
 	private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {

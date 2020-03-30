@@ -8,12 +8,15 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
@@ -24,7 +27,11 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider<String> variables) {
-		this.recipe = BotaniaAPI.brewRecipes.get(new ResourceLocation(variables.get("recipe")));
+		ResourceLocation id = new ResourceLocation(variables.get("recipe"));
+		IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).get(id);
+		if (recipe instanceof RecipeBrew) {
+			this.recipe = (RecipeBrew) recipe;
+		}
 	}
 
 	@Override
@@ -39,16 +46,16 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			return PatchouliAPI.instance.serializeItemStack(recipe.getOutput(new ItemStack(ModItems.flask)));
 		} else if (key.startsWith("input")) {
 			int requestedIndex = Integer.parseInt(key.substring(5)) - 1;
-			int indexOffset = (6 - recipe.getInputs().size()) / 2; //Center the brew ingredients
+			int indexOffset = (6 - recipe.getIngredients().size()) / 2; //Center the brew ingredients
 			int index = requestedIndex - indexOffset;
 
-			if (index < recipe.getInputs().size() && index >= 0) {
-				return PatchouliAPI.instance.serializeIngredient(recipe.getInputs().get(index));
+			if (index < recipe.getIngredients().size() && index >= 0) {
+				return PatchouliAPI.instance.serializeIngredient(recipe.getIngredients().get(index));
 			} else {
 				return null;
 			}
 		} else if (key.equals("is_offset")) {
-			return Boolean.toString(recipe.getInputs().size() % 2 == 0);
+			return Boolean.toString(recipe.getIngredients().size() % 2 == 0);
 		}
 		return null;
 	}

@@ -31,6 +31,7 @@ public class DataGenerators {
 			evt.getGenerator().addProvider(new ElvenTradeProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new ManaInfusionProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new PureDaisyProvider(evt.getGenerator()));
+			evt.getGenerator().addProvider(new BrewProvider(evt.getGenerator()));
 		}
 	}
 }

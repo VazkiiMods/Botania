@@ -1,0 +1,24 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:emptiness",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:bone"
+    },
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ]
+}

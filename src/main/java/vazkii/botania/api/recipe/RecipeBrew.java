@@ -10,36 +10,53 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 
+import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RecipeBrew {
+public class RecipeBrew implements IRecipe<RecipeWrapper> {
 	private final ResourceLocation id;
 	private final Brew brew;
-	private final ImmutableList<Ingredient> inputs;
+	private final NonNullList<Ingredient> inputs;
 
 	public RecipeBrew(ResourceLocation id, Brew brew, Ingredient... inputs) {
 		this.id = id;
 		this.brew = brew;
-		this.inputs = ImmutableList.copyOf(inputs);
+		this.inputs = NonNullList.from(null, inputs);
 	}
 
-	public boolean matches(IItemHandler inv) {
+	@Override
+	public boolean matches(RecipeWrapper inv, @Nonnull World world) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
-		for (int i = 0; i < inv.getSlots(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if (stack.isEmpty()) {
 				break;
@@ -69,12 +86,40 @@ public class RecipeBrew {
 		return inputsMissing.isEmpty();
 	}
 
+	@Nonnull
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return inputs;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getIcon() {
+		return new ItemStack(ModBlocks.brewery);
+	}
+
+	@Nonnull
+	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
 
-	public List<Ingredient> getInputs() {
-		return new ArrayList<>(inputs);
+	@Nonnull
+	@Override
+	public IRecipeSerializer<?> getSerializer() {
+		return ModRecipeTypes.BREW_SERIALIZER;
+	}
+
+	@Nonnull
+	@Override
+	public IRecipeType<?> getType() {
+		return ModRecipeTypes.BREW_TYPE;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
 	}
 
 	public Brew getBrew() {
@@ -106,23 +151,54 @@ public class RecipeBrew {
 				&& inputs.equals(((RecipeBrew) o).inputs);
 	}
 
-	public void write(PacketBuffer buf) {
-		buf.writeResourceLocation(id);
-		buf.writeResourceLocation(brew.getRegistryName());
-		buf.writeVarInt(inputs.size());
-		for (Ingredient input : inputs) {
-			input.write(buf);
-		}
+	// Ignored IRecipe methods
+	@Nonnull
+	@Override
+	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+		return ItemStack.EMPTY;
 	}
 
-	public static RecipeBrew read(PacketBuffer buf) {
-		ResourceLocation id = buf.readResourceLocation();
-		Brew brew = BotaniaAPI.brewRegistry.getValue(buf.readResourceLocation());
-		Ingredient[] inputs = new Ingredient[buf.readVarInt()];
-		for (int i = 0; i < inputs.length; i++) {
-			inputs[i] = Ingredient.read(buf);
-		}
-		return new RecipeBrew(id, brew, inputs);
+	@Override
+	public boolean canFit(int width, int height) {
+		return false;
 	}
 
+	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeBrew> {
+		@Nonnull
+		@Override
+		public RecipeBrew read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+			String brewStr = JSONUtils.getString(json, "brew");
+			ResourceLocation brewId = ResourceLocation.tryCreate(brewStr);
+			if (brewId == null || !BotaniaAPI.brewRegistry.containsKey(brewId)) {
+				throw new JsonParseException("Unknown brew " + brewStr);
+			}
+			Brew brew = BotaniaAPI.brewRegistry.getValue(brewId);
+
+			JsonArray ingrs = JSONUtils.getJsonArray(json, "ingredients");
+			List<Ingredient> inputs = new ArrayList<>();
+			for (JsonElement e : ingrs) {
+				inputs.add(Ingredient.deserialize(e));
+			}
+			return new RecipeBrew(id, brew, inputs.toArray(new Ingredient[0]));
+		}
+
+		@Override
+		public RecipeBrew read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
+			Brew brew = buf.readRegistryIdUnsafe(BotaniaAPI.brewRegistry);
+			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
+			for (int i = 0; i < inputs.length; i++) {
+				inputs[i] = Ingredient.read(buf);
+			}
+			return new RecipeBrew(id, brew, inputs);
+		}
+
+		@Override
+		public void write(@Nonnull PacketBuffer buf, @Nonnull RecipeBrew recipe) {
+			buf.writeResourceLocation(recipe.getBrew().getRegistryName());
+			buf.writeVarInt(recipe.getIngredients().size());
+			for (Ingredient input : recipe.getIngredients()) {
+				input.write(buf);
+			}
+		}
+	}
 }

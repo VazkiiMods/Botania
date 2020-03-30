@@ -1,0 +1,15 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:fire_resistance",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:netherrack"
+    }
+  ]
+}

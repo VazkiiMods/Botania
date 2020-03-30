@@ -1,0 +1,15 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:invisibility",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ]
+}

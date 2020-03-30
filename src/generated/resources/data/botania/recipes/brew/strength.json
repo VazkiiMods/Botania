@@ -1,0 +1,15 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:strength",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ]
+}

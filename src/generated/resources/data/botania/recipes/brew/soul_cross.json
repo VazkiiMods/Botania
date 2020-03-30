@@ -1,0 +1,21 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:soul_cross",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:apple"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ]
+}

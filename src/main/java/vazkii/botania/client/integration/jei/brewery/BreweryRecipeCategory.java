@@ -96,7 +96,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 		}
 		inputBuilder.add(containers.build());
 
-		for (Ingredient i : recipe.getInputs()) {
+		for (Ingredient i : recipe.getIngredients()) {
 			inputBuilder.add(Arrays.asList(i.getMatchingStacks()));
 		}
 

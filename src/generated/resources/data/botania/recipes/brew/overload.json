@@ -1,0 +1,24 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:overload",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "botania:manasteel_ingot"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ]
+}

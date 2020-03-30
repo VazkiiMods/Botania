@@ -1,0 +1,21 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:bloodthirst",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:lapis_lazuli"
+    },
+    {
+      "item": "minecraft:fire_charge"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ]
+}
