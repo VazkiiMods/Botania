@@ -20,11 +20,13 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.registry.DefaultedRegistry;
+import net.minecraft.util.registry.MutableRegistry;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IRegistryDelegate;
+import net.minecraftforge.registries.*;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -52,7 +54,8 @@ public final class BotaniaAPI {
 
 	@CapabilityInject(IExoflameHeatable.class) public static Capability<IExoflameHeatable> EXOFLAME_HEATABLE_CAP;
 
-	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
+	// TODO 1.15 MOVE THIS
+	public static IForgeRegistry<Brew> brewRegistry;
 
 	/*
 	* These maps are not meant to be mutated!
@@ -327,7 +330,9 @@ public final class BotaniaAPI {
 
 	public static final Rarity rarityRelic = Rarity.create("RELIC", TextFormatting.GOLD);
 
-	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
+	// todo 1.15 move this too
+	@ObjectHolder("botania:fallback")
+	public static Brew fallbackBrew;
 
 	/**
 	 * The internal method handler in use.
@@ -337,25 +342,6 @@ public final class BotaniaAPI {
 	 * @see IInternalMethodHandler
 	 */
 	public static volatile IInternalMethodHandler internalHandler = new DummyMethodHandler();
-
-	/**
-	 * Registers a Brew and returns it.
-	 */
-	public static Brew registerBrew(Brew brew) {
-		brewMap.put(brew.getKey(), brew);
-		return brew;
-	}
-
-	/**
-	 * Gets a brew from the key passed in, returns the fallback if
-	 * it's not in the map.
-	 */
-	public static Brew getBrewFromKey(String key) {
-		if (brewMap.containsKey(key)) {
-			return brewMap.get(key);
-		}
-		return fallbackBrew;
-	}
 
 	// todo 1.15 this is temporary, move when moving API to interface
 	public static IAttribute getPixieSpawnChanceAttribute() {

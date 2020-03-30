@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -43,8 +44,8 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
 		super.fillItemGroup(tab, list);
 		if (isInGroup(tab)) {
-			for (String s : BotaniaAPI.brewMap.keySet()) {
-				ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
+			for (Brew brew : BotaniaAPI.brewRegistry) {
+				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
 					list.add(brewStack);
 				}
@@ -61,22 +62,22 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 			return;
 		}
 
-		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getTranslationKey(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.getBrewFromKey(key);
+		return BotaniaAPI.brewRegistry.getValue(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, brew.getKey());
+		setBrew(stack, brew.getRegistryName());
 	}
 
-	public static void setBrew(ItemStack stack, String brew) {
-		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew);
+	public static void setBrew(ItemStack stack, ResourceLocation brew) {
+		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
 	}
 
 	@Override

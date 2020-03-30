@@ -108,7 +108,7 @@ public class RecipeBrew {
 
 	public void write(PacketBuffer buf) {
 		buf.writeResourceLocation(id);
-		buf.writeString(brew.getKey());
+		buf.writeResourceLocation(brew.getRegistryName());
 		buf.writeVarInt(inputs.size());
 		for (Ingredient input : inputs) {
 			input.write(buf);
@@ -117,7 +117,7 @@ public class RecipeBrew {
 
 	public static RecipeBrew read(PacketBuffer buf) {
 		ResourceLocation id = buf.readResourceLocation();
-		Brew brew = BotaniaAPI.getBrewFromKey(buf.readString());
+		Brew brew = BotaniaAPI.brewRegistry.getValue(buf.readResourceLocation());
 		Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 		for (int i = 0; i < inputs.length; i++) {
 			inputs[i] = Ingredient.read(buf);

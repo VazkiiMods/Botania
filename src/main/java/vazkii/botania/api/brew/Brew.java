@@ -12,16 +12,14 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
 
 /**
  * The class for a Brew definition, each one is a singleton.
  */
-public class Brew {
-
-	private final String key;
-	private final String name;
+public class Brew extends ForgeRegistryEntry<Brew> {
 	private final int color;
 	private final int cost;
 	private final List<EffectInstance> effects;
@@ -29,15 +27,14 @@ public class Brew {
 	private boolean canInfuseIncense = true;
 
 	/**
-	 * @param name    The unlocalized name of this potion.
 	 * @param color   The color for the potion to be rendered in the bottle, note that it will get
 	 *                changed a bit when it renders (for more or less brightness) to give a fancy effect.
+	 *                See {@link net.minecraft.potion.PotionUtils#getPotionColorFromEffectList} for a method
+	 *                to calculate this automatically.
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
-	public Brew(String key, String name, int color, int cost, EffectInstance... effects) {
-		this.key = key;
-		this.name = name;
+	public Brew(int color, int cost, EffectInstance... effects) {
 		this.color = color;
 		this.cost = cost;
 		this.effects = ImmutableList.copyOf(effects);
@@ -68,25 +65,17 @@ public class Brew {
 	}
 
 	/**
-	 * Returns the key for this brew, for it to be found in the map in the API.
-	 * This should ALWAYS return the same result.
-	 */
-	public String getKey() {
-		return key;
-	}
-
-	/**
 	 * Gets the insensitive unlocalized name. This is used for the lexicon.
 	 */
-	public String getUnlocalizedName() {
-		return name;
+	public String getTranslationKey() {
+		return String.format("%s.brew.%s", getRegistryName().getNamespace(), getRegistryName().getPath());
 	}
 
 	/**
 	 * Gets the unlocalized name for the ItemStack passed in.
 	 */
-	public String getUnlocalizedName(ItemStack stack) {
-		return getUnlocalizedName();
+	public String getTranslationKey(ItemStack stack) {
+		return getTranslationKey();
 	}
 
 	/**

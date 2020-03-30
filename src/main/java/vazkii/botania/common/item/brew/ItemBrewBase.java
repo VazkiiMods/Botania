@@ -122,9 +122,9 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
 		if (isInGroup(tab)) {
-			for (String s : BotaniaAPI.brewMap.keySet()) {
+			for (ResourceLocation id : BotaniaAPI.brewRegistry.getKeys()) {
 				ItemStack stack = new ItemStack(this);
-				setBrew(stack, s);
+				setBrew(stack, id);
 				list.add(stack);
 			}
 		}
@@ -133,7 +133,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		return new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getUnlocalizedName(stack)),
+		return new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getTranslationKey(stack)),
 				new StringTextComponent(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
 	}
 
@@ -201,15 +201,15 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.getBrewFromKey(key);
+		return BotaniaAPI.brewRegistry.getValue(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, (brew == null ? BotaniaAPI.fallbackBrew : brew).getKey());
+		setBrew(stack, (brew == null ? BotaniaAPI.fallbackBrew : brew).getRegistryName());
 	}
 
-	public static void setBrew(ItemStack stack, String brew) {
-		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew);
+	public static void setBrew(ItemStack stack, ResourceLocation brew) {
+		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
 	}
 
 	@Nonnull

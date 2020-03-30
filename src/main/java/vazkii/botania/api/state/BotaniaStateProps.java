@@ -28,9 +28,6 @@ public final class BotaniaStateProps {
 	// The property for floating flower island type
 	public static final ModelProperty<IFloatingFlower> FLOATING_DATA = new ModelProperty<>();
 
-	// The 16 Minecraft colors
-	public static final EnumProperty<DyeColor> COLOR = EnumProperty.create("color", DyeColor.class);
-
 	// Redstone power - boolean
 	// Also for any other simple boolean "on/off" state
 	public static final BooleanProperty POWERED = BooleanProperty.create("powered");

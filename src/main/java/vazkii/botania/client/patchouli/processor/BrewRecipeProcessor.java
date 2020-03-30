@@ -32,7 +32,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 		if (recipe == null) {
 			return null;
 		} else if (key.equals("heading")) {
-			return I18n.format("botaniamisc.brewOf", I18n.format(recipe.getBrew().getUnlocalizedName()));
+			return I18n.format("botaniamisc.brewOf", I18n.format(recipe.getBrew().getTranslationKey()));
 		} else if (key.equals("vial")) {
 			return PatchouliAPI.instance.serializeItemStack(recipe.getOutput(new ItemStack(ModItems.vial)));
 		} else if (key.equals("flask")) {

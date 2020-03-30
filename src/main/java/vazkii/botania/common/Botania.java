@@ -126,13 +126,11 @@ public class Botania {
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
 		PacketHandler.init();
-		ModBrews.init();
 
 		if (Botania.thaumcraftLoaded) {
 			if (ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
 				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
 			}
-			ModBrews.initTC();
 		}
 
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
