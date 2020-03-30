@@ -130,7 +130,11 @@ public final class RenderHelper {
 		glState = RenderType.State.builder().texture(new RenderState.TextureState()).transparency(TRANSLUCENT_TRANSPARENCY).build(false);
 		SPINNING_CUBE_GHOST = RenderType.of(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture).transparency(TRANSLUCENT_TRANSPARENCY).lightmap(enableLightmap).build(true);
+		glState = RenderType.State.builder().texture(mipmapBlockAtlasTexture)
+						.transparency(TRANSLUCENT_TRANSPARENCY)
+						.diffuseLighting(new RenderState.DiffuseLightingState(true))
+						.alpha(oneTenthAlpha)
+						.lightmap(enableLightmap).build(true);
 		ICON_OVERLAY = RenderType.of(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 128, glState);
 
 		RenderState.TextureState babylonTexture = new RenderState.TextureState(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
@@ -142,7 +146,12 @@ public final class RenderHelper {
 		ENCHANTER = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY);
 
 		RenderState.TextureState haloTexture = new RenderState.TextureState(ItemFlightTiara.textureHalo, false, true);
-		glState = RenderType.State.builder().texture(haloTexture).transparency(TRANSLUCENT_TRANSPARENCY).cull(disableCull).shadeModel(smoothShade).build(true);
+		glState = RenderType.State.builder().texture(haloTexture)
+						.transparency(TRANSLUCENT_TRANSPARENCY)
+						.diffuseLighting(new RenderState.DiffuseLightingState(true))
+						.alpha(oneTenthAlpha)
+						.cull(disableCull)
+						.build(true);
 		HALO = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, RenderType.of(LibResources.PREFIX_MOD + "halo", DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 64, glState));
 
 		glState = RenderType.State.builder().texture(new RenderState.TextureState(RenderTilePylon.MANA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
