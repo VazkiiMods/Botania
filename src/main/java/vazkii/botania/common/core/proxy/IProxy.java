@@ -15,8 +15,8 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
 
 public interface IProxy {
@@ -36,9 +36,9 @@ public interface IProxy {
 
 	void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner);
 
-	void addBoss(IBotaniaBoss boss);
+	void addBoss(EntityDoppleganger boss);
 
-	void removeBoss(IBotaniaBoss boss);
+	void removeBoss(EntityDoppleganger boss);
 
 	int getClientRenderDistance();
 

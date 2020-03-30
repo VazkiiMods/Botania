@@ -68,7 +68,6 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -96,7 +95,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEntityAdditionalSpawnData {
+public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSpawnData {
 	@ObjectHolder(LibMisc.MOD_ID + ":doppleganger") public static EntityType<EntityDoppleganger> TYPE;
 
 	public static final float ARENA_RANGE = 12F;
@@ -933,7 +932,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		}
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public ResourceLocation getBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
@@ -942,7 +940,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 	@OnlyIn(Dist.CLIENT) private static Rectangle barRect;
 	@OnlyIn(Dist.CLIENT) private static Rectangle hpBarRect;
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public Rectangle getBossBarTextureRect() {
 		if (barRect == null) {
@@ -951,7 +948,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		return barRect;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public Rectangle getBossBarHPTextureRect() {
 		if (hpBarRect == null) {
@@ -960,7 +956,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		return hpBarRect;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public int bossBarRenderCallback(int x, int y) {
 		RenderSystem.pushMatrix();
@@ -977,12 +972,10 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		return 5;
 	}
 
-	@Override
 	public UUID getBossInfoUuid() {
 		return bossInfoUUID;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public int getBossBarShaderProgram(boolean background) {
 		return background ? 0 : ShaderHelper.getShader(ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR).orElse(0);
@@ -990,7 +983,6 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 	@OnlyIn(Dist.CLIENT) private ShaderCallback shaderCallback;
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
 		if (shaderCallback == null) {

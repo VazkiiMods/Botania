@@ -20,11 +20,11 @@ import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.*;
@@ -39,14 +39,14 @@ public final class BossBarHandler {
 	private BossBarHandler() {}
 
 	// Only access on the client thread!
-	public static final Set<IBotaniaBoss> bosses = Collections.newSetFromMap(new WeakHashMap<>());
+	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
 	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
 	@SubscribeEvent
 	public static void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
 		UUID infoUuid = evt.getBossInfo().getUniqueId();
-		for (IBotaniaBoss currentBoss : bosses) {
+		for (EntityDoppleganger currentBoss : bosses) {
 			if (currentBoss.getBossInfoUuid().equals(infoUuid)) {
 				evt.setCanceled(true);
 
@@ -76,7 +76,7 @@ public final class BossBarHandler {
 		}
 	}
 
-	private static void drawBar(IBotaniaBoss currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
+	private static void drawBar(EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
 		int program = currentBoss.getBossBarShaderProgram(bg);
 		boolean useShader = program > 0;
 

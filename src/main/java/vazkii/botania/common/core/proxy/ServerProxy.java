@@ -13,8 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
-import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class ServerProxy implements IProxy {
 
@@ -42,10 +42,10 @@ public class ServerProxy implements IProxy {
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {}
 
 	@Override
-	public void addBoss(IBotaniaBoss boss) {}
+	public void addBoss(EntityDoppleganger boss) {}
 
 	@Override
-	public void removeBoss(IBotaniaBoss boss) {}
+	public void removeBoss(EntityDoppleganger boss) {}
 
 	@Override
 	public int getClientRenderDistance() {

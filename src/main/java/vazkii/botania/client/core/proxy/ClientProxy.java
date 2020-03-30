@@ -40,7 +40,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -60,6 +59,7 @@ import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
@@ -75,19 +75,6 @@ import java.util.SortedMap;
 
 public class ClientProxy implements IProxy {
 
-	public static final VertexFormat POSITION_TEX_LMAP_NORMAL =
-			new VertexFormat(ImmutableList.<VertexFormatElement>builder()
-					.add(DefaultVertexFormats.POSITION_3F)
-					.add(DefaultVertexFormats.TEX_2F)
-					.add(DefaultVertexFormats.LIGHT_ELEMENT)
-					.add(DefaultVertexFormats.NORMAL_3B)
-					.build());
-	public static final VertexFormat POSITION_TEX_LMAP =
-			new VertexFormat(ImmutableList.<VertexFormatElement>builder()
-					.add(DefaultVertexFormats.POSITION_3F)
-					.add(DefaultVertexFormats.TEX_2F)
-					.add(DefaultVertexFormats.LIGHT_ELEMENT)
-					.build());
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
@@ -222,12 +209,12 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void addBoss(IBotaniaBoss boss) {
+	public void addBoss(EntityDoppleganger boss) {
 		BossBarHandler.bosses.add(boss);
 	}
 
 	@Override
-	public void removeBoss(IBotaniaBoss boss) {
+	public void removeBoss(EntityDoppleganger boss) {
 		BossBarHandler.bosses.remove(boss);
 	}
 
