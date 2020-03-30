@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package vazkii.botania.data.recipes;
 
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
@@ -18,7 +18,6 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
 import net.minecraftforge.common.Tags;
 
 import vazkii.botania.api.recipe.StateIngredient;

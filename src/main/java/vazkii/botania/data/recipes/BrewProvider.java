@@ -1,4 +1,4 @@
-package vazkii.botania.data;
+package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
