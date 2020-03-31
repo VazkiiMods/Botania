@@ -25,6 +25,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -80,8 +81,8 @@ public abstract class StateIngredient implements Predicate<BlockState> {
 	 */
 	public static JsonObject serializeBlockState(BlockState state) {
 		CompoundNBT nbt = NBTUtil.writeBlockState(state);
-		renameTag(nbt, "Name", "name");
-		renameTag(nbt, "Properties", "properties");
+		ItemNBTHelper.renameTag(nbt, "Name", "name");
+		ItemNBTHelper.renameTag(nbt, "Properties", "properties");
 		Dynamic<INBT> dyn = new Dynamic<>(NBTDynamicOps.INSTANCE, nbt);
 		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
 	}
@@ -91,22 +92,14 @@ public abstract class StateIngredient implements Predicate<BlockState> {
 	 */
 	public static BlockState readBlockState(JsonObject object) {
 		CompoundNBT nbt = (CompoundNBT) new Dynamic<>(JsonOps.INSTANCE, object).convert(NBTDynamicOps.INSTANCE).getValue();
-		renameTag(nbt, "name", "Name");
-		renameTag(nbt, "properties", "Properties");
+		ItemNBTHelper.renameTag(nbt, "name", "Name");
+		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
 		ResourceLocation id = ResourceLocation.tryCreate(name);
 		if (id == null || !ForgeRegistries.BLOCKS.containsKey(id)) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
 		return NBTUtil.readBlockState(nbt);
-	}
-
-	private static void renameTag(CompoundNBT nbt, String oldName, String newName) {
-		INBT tag = nbt.get(oldName);
-		if (tag != null) {
-			nbt.remove(oldName);
-			nbt.put(newName, tag);
-		}
 	}
 
 	public abstract JsonObject serialize();

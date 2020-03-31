@@ -19,7 +19,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.gourmaryllis3",
-      "recipe": "botania:gourmaryllis"
+      "recipe": "botania:petal_apothecary/gourmaryllis"
     }
   ]
 }

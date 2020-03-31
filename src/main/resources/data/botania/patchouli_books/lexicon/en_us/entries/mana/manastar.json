@@ -12,7 +12,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.manastar1",
-      "recipe": "botania:manastar"
+      "recipe": "botania:petal_apothecary/manastar"
     }
   ]
 }

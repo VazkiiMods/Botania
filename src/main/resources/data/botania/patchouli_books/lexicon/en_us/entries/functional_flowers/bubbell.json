@@ -12,7 +12,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.bubbell1",
-      "recipe": "botania:bubbell"
+      "recipe": "botania:petal_apothecary/bubbell"
     }
   ]
 }

@@ -12,7 +12,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.rafflowsia1",
-      "recipe": "botania:rafflowsia"
+      "recipe": "botania:petal_apothecary/rafflowsia"
     }
   ]
 }

@@ -16,7 +16,7 @@
     {
       "type": "runic_altar",
       "text": "botania.page.headCreating1",
-      "recipe": "botania:head"
+      "recipe": "botania:runic_altar/head"
     }
   ]
 }

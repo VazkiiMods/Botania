@@ -44,7 +44,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.dandelifeon8",
-      "recipe": "botania:dandelifeon"
+      "recipe": "botania:petal_apothecary/dandelifeon"
     },
     {
       "type": "crafting",

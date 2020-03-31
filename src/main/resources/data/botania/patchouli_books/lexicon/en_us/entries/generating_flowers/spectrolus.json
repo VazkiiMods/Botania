@@ -20,7 +20,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.spectrolus2",
-      "recipe": "botania:spectrolus"
+      "recipe": "botania:petal_apothecary/spectrolus"
     }
   ]
 }

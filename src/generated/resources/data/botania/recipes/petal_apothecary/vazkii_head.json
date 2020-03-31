@@ -1,10 +1,10 @@
 {
   "type": "botania:petal_apothecary",
   "output": {
-    "item": "minecraft:player_head",
-    "tag": {
+    "nbt": {
       "SkullOwner": "Vazkii"
-    }
+    },
+    "item": "minecraft:player_head"
   },
   "ingredients": [
     {

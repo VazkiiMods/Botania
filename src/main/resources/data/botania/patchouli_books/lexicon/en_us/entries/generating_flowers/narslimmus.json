@@ -11,7 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.narslimmus1",
-      "recipe": "botania:narslimmus"
+      "recipe": "botania:petal_apothecary/narslimmus"
     }
   ]
 }

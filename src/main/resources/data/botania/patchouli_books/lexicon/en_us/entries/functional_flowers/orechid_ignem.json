@@ -12,7 +12,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.orechidIgnem1",
-      "recipe": "botania:orechid_ignem"
+      "recipe": "botania:petal_apothecary/orechid_ignem"
     }
   ]
 }

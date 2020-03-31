@@ -11,7 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.jiyuulia1",
-      "recipe": "botania:jiyuulia"
+      "recipe": "botania:petal_apothecary/jiyuulia"
     }
   ]
 }

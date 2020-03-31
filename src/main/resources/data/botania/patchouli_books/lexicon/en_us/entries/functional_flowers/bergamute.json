@@ -11,7 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.bergamute1",
-      "recipe": "botania:bergamute"
+      "recipe": "botania:petal_apothecary/bergamute"
     }
   ]
 }

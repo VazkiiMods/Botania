@@ -12,7 +12,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.kekimurus1",
-      "recipe": "botania:kekimurus"
+      "recipe": "botania:petal_apothecary/kekimurus"
     }
   ]
 }

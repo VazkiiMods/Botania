@@ -19,7 +19,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.thermalily1",
-      "recipe": "botania:thermalily"
+      "recipe": "botania:petal_apothecary/thermalily"
     }
   ]
 }

@@ -12,7 +12,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.loonium1",
-      "recipe": "botania:loonium"
+      "recipe": "botania:petal_apothecary/loonium"
     }
   ]
 }

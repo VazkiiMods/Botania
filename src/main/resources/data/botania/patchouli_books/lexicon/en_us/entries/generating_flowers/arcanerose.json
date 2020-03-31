@@ -11,7 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.arcanerose1",
-      "recipe": "botania:rosa_arcana"
+      "recipe": "botania:petal_apothecary/rosa_arcana"
     }
   ]
 }

@@ -16,7 +16,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.shulk_me_not2",
-      "recipe": "botania:shulk_me_not"
+      "recipe": "botania:petal_apothecary/shulk_me_not"
     }
   ]
 }

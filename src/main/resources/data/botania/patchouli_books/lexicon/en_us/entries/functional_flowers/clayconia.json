@@ -11,7 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.clayconia1",
-      "recipe": "botania:clayconia"
+      "recipe": "botania:petal_apothecary/clayconia"
     }
   ]
 }

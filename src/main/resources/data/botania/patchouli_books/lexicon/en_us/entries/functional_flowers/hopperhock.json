@@ -15,7 +15,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.hopperhock2",
-      "recipe": "botania:hopperhock"
+      "recipe": "botania:petal_apothecary/hopperhock"
     }
   ]
 }

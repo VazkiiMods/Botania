@@ -19,7 +19,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.marimorphosis2",
-      "recipe": "botania:marimorphosis"
+      "recipe": "botania:petal_apothecary/marimorphosis"
     },
     {
       "type": "crafting_multi",

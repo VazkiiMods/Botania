@@ -11,7 +11,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.hyacidus1",
-      "recipe": "botania:hyacidus"
+      "recipe": "botania:petal_apothecary/hyacidus"
     }
   ]
 }

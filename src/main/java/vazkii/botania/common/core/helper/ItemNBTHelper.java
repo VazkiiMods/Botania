@@ -162,8 +162,8 @@ public final class ItemNBTHelper {
 			nbt.putByte("count", c);
 		}
 		nbt.remove("Count");
-		nbt.put("item", nbt.get("id"));
-		nbt.remove("id");
+		renameTag(nbt, "id", "item");
+		renameTag(nbt, "tag", "nbt");
 		Dynamic<INBT> dyn = new Dynamic<>(NBTDynamicOps.INSTANCE, nbt);
 		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
 	}
@@ -212,4 +212,11 @@ public final class ItemNBTHelper {
 		return true;
 	}
 
+	public static void renameTag(CompoundNBT nbt, String oldName, String newName) {
+		INBT tag = nbt.get(oldName);
+		if (tag != null) {
+			nbt.remove(oldName);
+			nbt.put(newName, tag);
+		}
+	}
 }

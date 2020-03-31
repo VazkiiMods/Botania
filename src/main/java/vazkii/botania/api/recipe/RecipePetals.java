@@ -148,7 +148,7 @@ public class RecipePetals implements IRecipe<RecipeWrapper> {
 			for (Ingredient input : recipe.getIngredients()) {
 				input.write(buf);
 			}
-			buf.writeItemStack(recipe.getRecipeOutput());
+			buf.writeItemStack(recipe.getRecipeOutput(), false);
 		}
 		
 	}

@@ -8,16 +8,19 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IVariableProvider;
 
 public class RunicAltarProcessor extends PetalApothecaryProcessor {
 	@Override
 	public void setup(IVariableProvider<String> variables) {
-		this.recipe = null; //BotaniaAPI.runeAltarRecipes.get(new ResourceLocation(variables.get("recipe")));
+		ResourceLocation id = new ResourceLocation(variables.get("recipe"));
+		this.recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).get(id);
 	}
 
 	@Override

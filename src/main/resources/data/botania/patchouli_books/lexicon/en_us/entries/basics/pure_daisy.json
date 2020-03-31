@@ -29,7 +29,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.pureDaisy3",
-      "recipe": "botania:pure_daisy"
+      "recipe": "botania:petal_apothecary/pure_daisy"
     }
   ],
   "extra_recipe_mappings": {

@@ -20,7 +20,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.spectranthemum3",
-      "recipe": "botania:spectranthemum"
+      "recipe": "botania:petal_apothecary/spectranthemum"
     }
   ]
 }

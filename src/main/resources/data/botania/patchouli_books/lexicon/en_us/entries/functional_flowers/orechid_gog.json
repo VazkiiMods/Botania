@@ -13,7 +13,7 @@
     {
       "type": "petal_apothecary",
       "text": "botania.page.orechid1",
-      "recipe": "botania:orechid"
+      "recipe": "botania:petal_apothecary/orechid"
     }
   ]
 }
