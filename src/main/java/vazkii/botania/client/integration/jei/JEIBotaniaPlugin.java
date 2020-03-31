@@ -125,7 +125,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
 		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipes(TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager()), ElvenTradeRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.runeAltarRecipes.values(), RunicAltarRecipeCategory.UID);
+		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(

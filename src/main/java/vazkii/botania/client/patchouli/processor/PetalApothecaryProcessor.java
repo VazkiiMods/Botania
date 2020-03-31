@@ -12,8 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.IModRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;

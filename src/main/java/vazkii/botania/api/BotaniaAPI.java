@@ -57,12 +57,6 @@ public final class BotaniaAPI {
 	// TODO 1.15 MOVE THIS
 	public static IForgeRegistry<Brew> brewRegistry;
 
-	/*
-	* These maps are not meant to be mutated!
-	*/
-	public static Map<ResourceLocation, RecipePetals> petalRecipes = Collections.emptyMap();
-	public static Map<ResourceLocation, RecipeRuneAltar> runeAltarRecipes = Collections.emptyMap();
-
 	public static Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
 	public static Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
 

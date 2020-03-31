@@ -1,0 +1,21 @@
+{
+  "type": "botania:runic_altar",
+  "output": {
+    "item": "botania:rune_lust"
+  },
+  "mana": 12000,
+  "ingredients": [
+    {
+      "tag": "forge:gems/mana_diamond"
+    },
+    {
+      "tag": "forge:gems/mana_diamond"
+    },
+    {
+      "tag": "botania:runes/summer"
+    },
+    {
+      "tag": "botania:runes/air"
+    }
+  ]
+}

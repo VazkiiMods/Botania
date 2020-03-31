@@ -24,7 +24,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import vazkii.botania.common.lib.LibMisc;
 
 public final class PacketHandler {
-	private static final String PROTOCOL = "3";
+	private static final String PROTOCOL = "4";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
 			new ResourceLocation(LibMisc.MOD_ID, "chan"),
 			() -> PROTOCOL,
@@ -39,20 +39,7 @@ public final class PacketHandler {
 		HANDLER.registerMessage(id++, PacketDodge.class, PacketDodge::encode, PacketDodge::decode, PacketDodge::handle);
 		HANDLER.registerMessage(id++, PacketJump.class, PacketJump::encode, PacketJump::decode, PacketJump::handle);
 		HANDLER.registerMessage(id++, PacketItemAge.class, PacketItemAge::encode, PacketItemAge::decode, PacketItemAge::handle);
-		HANDLER.registerMessage(id++, PacketSyncRecipes.class, PacketSyncRecipes::encode, PacketSyncRecipes::decode, PacketSyncRecipes::handle);
 		HANDLER.registerMessage(id++, PacketIndexKeybindRequest.class, PacketIndexKeybindRequest::encode, PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle);
-
-		HANDLER.messageBuilder(PacketSyncRecipes.Login.class, id++)
-				.loginIndex(ILoginPacket::getLoginIndex, ILoginPacket::setLoginIndex)
-				.encoder(PacketSyncRecipes.Login::encode).decoder(PacketSyncRecipes.Login::decode)
-				.consumer(FMLHandshakeHandler.biConsumerFor((hh, msg, ctx) -> msg.handle(ctx)))
-				.markAsLoginPacket().add();
-
-		HANDLER.messageBuilder(PacketAck.class, id++)
-				.loginIndex(ILoginPacket::getLoginIndex, ILoginPacket::setLoginIndex)
-				.encoder((packet, buf) -> {}).decoder(PacketAck::decode)
-				.consumer(FMLHandshakeHandler.indexFirst((hh, msg, ctx) -> msg.handle(ctx)))
-				.add();
 	}
 
 	/**

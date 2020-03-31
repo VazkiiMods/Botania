@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.api.recipe.*;
+import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -40,6 +41,10 @@ public class ModRecipeTypes {
 
 	public static final IRecipeType<RecipePetals> PETAL_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipePetals> PETAL_SERIALIZER = new RecipePetals.Serializer();
+
+	public static final IRecipeType<RecipeRuneAltar> RUNE_TYPE = new RecipeType<>();
+	public static final IRecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
+	public static final IRecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
@@ -63,6 +68,11 @@ public class ModRecipeTypes {
 		id = prefix("petal_apothecary");
 		Registry.register(Registry.RECIPE_TYPE, id, PETAL_TYPE);
 		evt.getRegistry().register(PETAL_SERIALIZER.setRegistryName(id));
+
+		id = prefix("runic_altar");
+		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
+		evt.getRegistry().register(RUNE_SERIALIZER.setRegistryName(id));
+		evt.getRegistry().register(RUNE_HEAD_SERIALIZER.setRegistryName(prefix("runic_altar_head")));
 	}
 
 	private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {

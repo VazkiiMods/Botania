@@ -1,0 +1,27 @@
+{
+  "type": "botania:runic_altar",
+  "output": {
+    "item": "botania:rune_summer"
+  },
+  "mana": 8000,
+  "ingredients": [
+    {
+      "tag": "botania:runes/earth"
+    },
+    {
+      "tag": "botania:runes/air"
+    },
+    {
+      "tag": "minecraft:sand"
+    },
+    {
+      "tag": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "botania:runic_altar",
+  "output": {
+    "item": "botania:rune_wrath"
+  },
+  "mana": 12000,
+  "ingredients": [
+    {
+      "tag": "forge:gems/mana_diamond"
+    },
+    {
+      "tag": "forge:gems/mana_diamond"
+    },
+    {
+      "tag": "botania:runes/winter"
+    },
+    {
+      "tag": "botania:runes/earth"
+    }
+  ]
+}

@@ -52,7 +52,6 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.capability.NoopExoflameHeatable;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
@@ -69,7 +68,6 @@ import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldCondition;
-import vazkii.botania.common.crafting.SyncHandler;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
@@ -252,7 +250,6 @@ public class Botania {
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
 					+ " back to elementary school and learn to read. (Expected classname: " + expect + ", Actual classname: " + clname + ")");
 		}
-		event.getServer().getResourceManager().addReloadListener(new SyncHandler.ReloadListener());
 	}
 
 	private void serverStarting(FMLServerStartingEvent event) {

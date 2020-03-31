@@ -23,6 +23,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ObjectHolder;
 
 import org.lwjgl.opengl.GL11;
@@ -39,6 +40,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -49,6 +51,7 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RUNE_ALTAR) public static TileEntityType<TileRuneAltar> TYPE;
@@ -206,11 +209,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (currentRecipe != null) {
 				this.manaToGet = currentRecipe.getManaUsage();
 			} else {
-				for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values()) {
-					if (recipe.matches(itemHandler)) {
-						this.manaToGet = recipe.getManaUsage();
-						break getMana;
-					}
+				Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world);
+				if (maybeRecipe.isPresent()) {
+					this.manaToGet = maybeRecipe.get().getManaUsage();
+					break getMana;
 				}
 				this.manaToGet = 0;
 			}
@@ -243,13 +245,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public boolean hasValidRecipe() {
-		for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values()) {
-			if (recipe.matches(itemHandler)) {
-				return true;
-			}
-		}
-
-		return false;
+		return world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world).isPresent();
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {
@@ -262,15 +258,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
-			for (RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes.values()) {
-				if (recipe_.matches(itemHandler)) {
-					recipe = recipe_;
-					break;
-				}
+			Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world);
+			if (maybeRecipe.isPresent()) {
+				recipe = maybeRecipe.get();
 			}
 		}
 
-		if (manaToGet > 0 && mana >= manaToGet) {
+		if (recipe != null && manaToGet > 0 && mana >= manaToGet) {
 			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			ItemEntity livingrock = null;
 			for (ItemEntity item : items) {
@@ -283,7 +277,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (livingrock != null) {
 				int mana = recipe.getManaUsage();
 				recieveMana(-mana);
-				ItemStack output = recipe.getOutput().copy();
+				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				world.addEntity(outputItem);
 				currentRecipe = null;
@@ -391,32 +385,30 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if (amt > 0) {
 			float anglePer = 360F / amt;
-			for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes.values()) {
-				if (recipe.matches(itemHandler)) {
-					RenderSystem.enableBlend();
-					RenderSystem.enableRescaleNormal();
-					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world).ifPresent(recipe -> {
+				RenderSystem.enableBlend();
+				RenderSystem.enableRescaleNormal();
+				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-					float progress = (float) mana / (float) manaToGet;
+				float progress = (float) mana / (float) manaToGet;
 
-					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
+				mc.textureManager.bindTexture(HUDHandler.manaBar);
+				RenderSystem.color4f(1F, 1F, 1F, 1F);
+				RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
-					if (progress == 1F) {
-						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-						RenderSystem.translatef(0F, 0F, 100F);
-						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-						RenderSystem.translatef(0F, 0F, -100F);
-					}
-
-					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
-
-					if (progress == 1F) {
-						mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
-					}
+				if (progress == 1F) {
+					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
+					RenderSystem.translatef(0F, 0F, 100F);
+					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
+					RenderSystem.translatef(0F, 0F, -100F);
 				}
-			}
+
+				RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getRecipeOutput());
+
+				if (progress == 1F) {
+					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
+				}
+			});
 
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
