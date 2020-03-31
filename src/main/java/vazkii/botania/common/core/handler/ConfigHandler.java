@@ -115,7 +115,6 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue flowerForceCheck;
 		public final ForgeConfigSpec.BooleanValue enderPickpocketEnabled;
 
-		public final ForgeConfigSpec.BooleanValue fallenKanadeEnabled;
 		public final ForgeConfigSpec.BooleanValue enchanterEnabled;
 		public final ForgeConfigSpec.BooleanValue fluxfieldEnabled;
 		public final ForgeConfigSpec.BooleanValue relicsEnabled;
@@ -158,9 +157,6 @@ public final class ConfigHandler {
 			enderPickpocketEnabled = builder
 					.comment("Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests")
 					.define("enderPickpocket.enabled", true);
-			fallenKanadeEnabled = builder
-					.comment("Set this to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.")
-					.define("fallenKanade.enabled", true);
 			enchanterEnabled = builder
 					.comment("Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.")
 					.define("manaEnchanter.enabled", true);

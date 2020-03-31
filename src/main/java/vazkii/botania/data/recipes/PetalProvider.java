@@ -99,16 +99,9 @@ public class PetalProvider extends RecipeProvider {
 		consumer.accept(make(ModSubtiles.tigerseye, yellow, brown, orange, lime, runeAutumn));
 
 		consumer.accept(make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust));
-		// todo 1.15
-		if (Botania.gardenOfGlassLoaded) {
-			consumer.accept(make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red));
-		}
 
 		consumer.accept(make(ModSubtiles.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust));
-		// todo 1.15 config flag
-		if (ConfigHandler.COMMON.fallenKanadeEnabled.get()) {
-			consumer.accept(make(ModSubtiles.fallenKanade, white, white, yellow, yellow, orange, runeSpring));
-		}
+		consumer.accept(make(ModSubtiles.fallenKanade, white, white, yellow, yellow, orange, runeSpring));
 		consumer.accept(make(ModSubtiles.exoflame, red, red, gray, lightGray, runeFire, runeSummer));
 		consumer.accept(make(ModSubtiles.agricarnation, lime, lime, green, yellow, runeSpring, redstoneRoot));
 		consumer.accept(make(ModSubtiles.hopperhock, gray, gray, lightGray, lightGray, runeAir, redstoneRoot));
