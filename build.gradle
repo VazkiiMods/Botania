@@ -109,6 +109,8 @@ dependencies {
 }
 
 spotless {
+    enforceCheck = false // workaround around jenkins having wrong line endings in some files
+                         // we explicitly check in github actions builds
     java {
         target '**/vazkii/botania/**/*.java'
         targetExclude '**/buildcraft/*.java', '**/thaumcraft/*.java'
@@ -300,4 +302,4 @@ uploadArchives {
 }
 // tasks.uploadArchives.dependsOn reobfJar
 
-defaultTasks 'clean', 'runData', 'build', 'sortArtifacts', 'incrementBuildNumber', 'upload'
+defaultTasks 'clean', 'runData', 'checkSyntax', 'build', 'sortArtifacts', 'incrementBuildNumber', 'upload'
