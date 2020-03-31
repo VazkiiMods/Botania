@@ -1,0 +1,35 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:dandelifeon"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/purple"
+    },
+    {
+      "tag": "botania:petals/purple"
+    },
+    {
+      "tag": "botania:petals/lime"
+    },
+    {
+      "tag": "botania:petals/green"
+    },
+    {
+      "tag": "botania:runes/water"
+    },
+    {
+      "tag": "botania:runes/fire"
+    },
+    {
+      "tag": "botania:runes/earth"
+    },
+    {
+      "tag": "botania:runes/air"
+    },
+    {
+      "item": "botania:life_essence"
+    }
+  ]
+}

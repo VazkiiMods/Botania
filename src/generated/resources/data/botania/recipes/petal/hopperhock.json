@@ -1,0 +1,26 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:hopperhock"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/gray"
+    },
+    {
+      "tag": "botania:petals/gray"
+    },
+    {
+      "tag": "botania:petals/light_gray"
+    },
+    {
+      "tag": "botania:petals/light_gray"
+    },
+    {
+      "tag": "botania:runes/air"
+    },
+    {
+      "item": "botania:redstone_root"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:spectranthemum"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/white"
+    },
+    {
+      "tag": "botania:petals/white"
+    },
+    {
+      "tag": "botania:petals/light_gray"
+    },
+    {
+      "tag": "botania:petals/light_gray"
+    },
+    {
+      "tag": "botania:petals/cyan"
+    },
+    {
+      "tag": "botania:runes/envy"
+    },
+    {
+      "tag": "botania:runes/water"
+    },
+    {
+      "item": "botania:redstone_root"
+    },
+    {
+      "item": "botania:pixie_dust"
+    }
+  ]
+}

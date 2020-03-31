@@ -18,10 +18,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.recipe.RecipeElvenTrade;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.recipe.RecipePureDaisy;
+import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -41,6 +38,9 @@ public class ModRecipeTypes {
 	public static final IRecipeType<RecipeBrew> BREW_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
 
+	public static final IRecipeType<RecipePetals> PETAL_TYPE = new RecipeType<>();
+	public static final IRecipeSerializer<RecipePetals> PETAL_SERIALIZER = new RecipePetals.Serializer();
+
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
 		ResourceLocation id = prefix("elven_trade");
@@ -59,6 +59,10 @@ public class ModRecipeTypes {
 		id = prefix("brew");
 		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);
 		evt.getRegistry().register(BREW_SERIALIZER.setRegistryName(id));
+
+		id = prefix("petal_apothecary");
+		Registry.register(Registry.RECIPE_TYPE, id, PETAL_TYPE);
+		evt.getRegistry().register(PETAL_SERIALIZER.setRegistryName(id));
 	}
 
 	private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {

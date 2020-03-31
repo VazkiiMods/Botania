@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.recipe.RegisterRecipesEvent;
@@ -48,21 +47,19 @@ public class SyncHandler {
 			);
 			MinecraftForge.EVENT_BUS.post(evt);
 
-			BotaniaAPI.petalRecipes = ImmutableMap.copyOf(apothecary);
 			BotaniaAPI.runeAltarRecipes = ImmutableMap.copyOf(runeAltar);
 			PacketHandler.HANDLER.send(PacketDistributor.ALL.noArg(), syncPacket());
 		}
 	}
 
 	private static PacketSyncRecipes syncPacket() {
-		return new PacketSyncRecipes(BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes);
+		return new PacketSyncRecipes(BotaniaAPI.runeAltarRecipes);
 	}
 
 	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void clientLogout(ClientPlayerNetworkEvent.LoggedOutEvent evt) {
-			BotaniaAPI.petalRecipes = Collections.emptyMap();
 			BotaniaAPI.runeAltarRecipes = Collections.emptyMap();
 		}
 	}

@@ -1,0 +1,23 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:jaded_amaranthus"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/purple"
+    },
+    {
+      "tag": "botania:petals/lime"
+    },
+    {
+      "tag": "botania:petals/green"
+    },
+    {
+      "tag": "botania:runes/spring"
+    },
+    {
+      "item": "botania:redstone_root"
+    }
+  ]
+}

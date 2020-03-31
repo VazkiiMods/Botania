@@ -39,6 +39,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -52,6 +53,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -60,6 +62,7 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary, ITickableTileEntity {
@@ -144,29 +147,27 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
-			for (RecipePetals recipe : BotaniaAPI.petalRecipes.values()) {
-				if (recipe.matches(itemHandler)) {
-					saveLastRecipe();
+			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, new RecipeWrapper(itemHandler), world);
+			maybeRecipe.ifPresent(recipe -> {
+				saveLastRecipe();
 
-					for (int i = 0; i < getSizeInventory(); i++) {
-						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-					}
-
-					stack.shrink(1);
-
-					ItemStack output = recipe.getOutput().copy();
-					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-					outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
-					world.addEntity(outputItem);
-
-					setFluid(Fluids.EMPTY);
-					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
-
-					world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
-
-					return true;
+				for (int i = 0; i < getSizeInventory(); i++) {
+					itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 				}
-			}
+
+				stack.shrink(1);
+
+				ItemStack output = recipe.getRecipeOutput().copy();
+				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+				outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
+				world.addEntity(outputItem);
+
+				setFluid(Fluids.EMPTY);
+				world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+
+				world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
+			});
+			return maybeRecipe.isPresent();
 		} else if (!hasFluidCapability && !item.getTags().contains(ITEM_TAG_APOTHECARY_SPAWNED)) {
 			if (!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty()) {
 				return false;
@@ -387,19 +388,18 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		if (amt > 0) {
 			float anglePer = 360F / amt;
 
-			for (RecipePetals recipe : BotaniaAPI.petalRecipes.values()) {
-				if (recipe.matches(itemHandler)) {
-					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 8, 22, 15);
+			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, new RecipeWrapper(itemHandler), world);
+			maybeRecipe.ifPresent(recipe -> {
+				RenderSystem.color4f(1F, 1F, 1F, 1F);
+				mc.textureManager.bindTexture(HUDHandler.manaBar);
+				RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-					ItemStack stack = recipe.getOutput();
+				ItemStack stack = recipe.getRecipeOutput();
 
-					mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
-					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
-				}
-			}
+				mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
+				mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
+				mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
+			});
 
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;

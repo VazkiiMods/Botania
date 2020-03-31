@@ -83,11 +83,11 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePeta
 	@Override
 	public void setIngredients(RecipePetals recipe, IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
-		for (Ingredient ingr : recipe.getInputs()) {
+		for (Ingredient ingr : recipe.getIngredients()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
 		}
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
-		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
 	}
 
 	@Override

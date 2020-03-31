@@ -14,7 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 
@@ -24,19 +23,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PacketSyncRecipes {
-	private Map<ResourceLocation, RecipePetals> petal;
 	private Map<ResourceLocation, RecipeRuneAltar> runeAltar;
 
-	public PacketSyncRecipes(Map<ResourceLocation, RecipePetals> petal, Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
-		this.petal = petal;
+	public PacketSyncRecipes(Map<ResourceLocation, RecipeRuneAltar> runeAltar) {
 		this.runeAltar = runeAltar;
 	}
 
 	public void encode(PacketBuffer buf) {
-		buf.writeVarInt(petal.size());
-		for (RecipePetals recipe : petal.values()) {
-			recipe.write(buf);
-		}
 		buf.writeVarInt(runeAltar.size());
 		for (RecipeRuneAltar recipe : runeAltar.values()) {
 			recipe.write(buf);
@@ -44,15 +37,11 @@ public class PacketSyncRecipes {
 	}
 
 	public static PacketSyncRecipes decode(PacketBuffer buf) {
-		int petalCount = buf.readVarInt();
-		Map<ResourceLocation, RecipePetals> petal = Stream.generate(() -> RecipePetals.read(buf))
-				.limit(petalCount)
-				.collect(Collectors.toMap(RecipePetals::getId, r -> r));
 		int runeCount = buf.readVarInt();
 		Map<ResourceLocation, RecipeRuneAltar> rune = Stream.generate(() -> RecipeRuneAltar.read(buf))
 				.limit(runeCount)
 				.collect(Collectors.toMap(RecipeRuneAltar::getId, r -> r));
-		return new PacketSyncRecipes(petal, rune);
+		return new PacketSyncRecipes(rune);
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
@@ -61,7 +50,6 @@ public class PacketSyncRecipes {
 				if (Minecraft.getInstance().isSingleplayer()) {
 					return;
 				}
-				BotaniaAPI.petalRecipes = petal;
 				BotaniaAPI.runeAltarRecipes = runeAltar;
 			});
 		}
@@ -74,7 +62,7 @@ public class PacketSyncRecipes {
 		private int loginIndex;
 
 		public Login() {
-			this(new PacketSyncRecipes(BotaniaAPI.petalRecipes, BotaniaAPI.runeAltarRecipes));
+			this(new PacketSyncRecipes(BotaniaAPI.runeAltarRecipes));
 		}
 
 		public Login(PacketSyncRecipes packet) {

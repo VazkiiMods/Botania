@@ -1,0 +1,35 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:orechid"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/gray"
+    },
+    {
+      "tag": "botania:petals/gray"
+    },
+    {
+      "tag": "botania:petals/yellow"
+    },
+    {
+      "tag": "botania:petals/green"
+    },
+    {
+      "tag": "botania:petals/red"
+    },
+    {
+      "tag": "botania:runes/pride"
+    },
+    {
+      "tag": "botania:runes/greed"
+    },
+    {
+      "item": "botania:redstone_root"
+    },
+    {
+      "item": "botania:pixie_dust"
+    }
+  ]
+}

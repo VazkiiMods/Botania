@@ -1,0 +1,26 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:heisei_dream"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/magenta"
+    },
+    {
+      "tag": "botania:petals/magenta"
+    },
+    {
+      "tag": "botania:petals/purple"
+    },
+    {
+      "tag": "botania:petals/pink"
+    },
+    {
+      "tag": "botania:runes/wrath"
+    },
+    {
+      "item": "botania:pixie_dust"
+    }
+  ]
+}

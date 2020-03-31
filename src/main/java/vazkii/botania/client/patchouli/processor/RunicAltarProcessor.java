@@ -17,7 +17,7 @@ import vazkii.patchouli.api.IVariableProvider;
 public class RunicAltarProcessor extends PetalApothecaryProcessor {
 	@Override
 	public void setup(IVariableProvider<String> variables) {
-		this.recipe = BotaniaAPI.runeAltarRecipes.get(new ResourceLocation(variables.get("recipe")));
+		this.recipe = null; //BotaniaAPI.runeAltarRecipes.get(new ResourceLocation(variables.get("recipe")));
 	}
 
 	@Override

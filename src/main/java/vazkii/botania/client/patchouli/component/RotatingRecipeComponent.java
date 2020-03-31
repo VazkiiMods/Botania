@@ -10,12 +10,16 @@ package vazkii.botania.client.patchouli.component;
 
 import com.google.gson.annotations.SerializedName;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.IModRecipe;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -30,16 +34,15 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 
 	@Override
 	protected List<Ingredient> makeIngredients() {
-		Map<ResourceLocation, ? extends IModRecipe> map;
+		Map<ResourceLocation, ? extends IRecipe<?>> map;
 		if ("runic_altar".equals(recipeType)) {
-			map = BotaniaAPI.runeAltarRecipes;
+			map = Collections.emptyMap(); // BotaniaAPI.runeAltarRecipes;
 		} else if ("petal_apothecary".equals(recipeType)) {
-			map = BotaniaAPI.petalRecipes;
+			map = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE);
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
-		IModRecipe recipe = map.get(new ResourceLocation(recipeName));
-		return recipe.getInputs();
+		return map.get(new ResourceLocation(recipeName)).getIngredients();
 	}
 
 	@Override

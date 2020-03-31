@@ -1,0 +1,20 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:endoflame"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/brown"
+    },
+    {
+      "tag": "botania:petals/brown"
+    },
+    {
+      "tag": "botania:petals/red"
+    },
+    {
+      "tag": "botania:petals/light_gray"
+    }
+  ]
+}

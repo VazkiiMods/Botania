@@ -33,6 +33,7 @@ public class DataGenerators {
 			evt.getGenerator().addProvider(new ManaInfusionProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new PureDaisyProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new BrewProvider(evt.getGenerator()));
+			evt.getGenerator().addProvider(new PetalProvider(evt.getGenerator()));
 		}
 	}
 }

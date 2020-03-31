@@ -1,0 +1,29 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:narslimmus"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/lime"
+    },
+    {
+      "tag": "botania:petals/lime"
+    },
+    {
+      "tag": "botania:petals/green"
+    },
+    {
+      "tag": "botania:petals/green"
+    },
+    {
+      "tag": "botania:petals/black"
+    },
+    {
+      "tag": "botania:runes/summer"
+    },
+    {
+      "tag": "botania:runes/water"
+    }
+  ]
+}
