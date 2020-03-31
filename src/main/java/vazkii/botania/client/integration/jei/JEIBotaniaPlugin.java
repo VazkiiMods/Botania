@@ -25,7 +25,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
@@ -188,8 +187,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
-		for (IRecipe<?> recipe : Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
+		for (AbstractElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager())) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
+				continue;
+			}
+			List<Ingredient> inputs = recipe.getIngredients();
+			List<ItemStack> outputs = recipe.getOutputs();
+			if (inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0))) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}
 		}

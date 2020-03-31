@@ -38,7 +38,7 @@ public class LexiconElvenTradeRecipe extends AbstractElvenTradeRecipe {
 	@Nonnull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
-		return NonNullList.from(Ingredient.fromItems(ModItems.lexicon));
+		return NonNullList.withSize(1, Ingredient.fromItems(ModItems.lexicon));
 	}
 
 	@Override
