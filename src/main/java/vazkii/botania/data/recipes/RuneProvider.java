@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -13,6 +22,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -21,6 +31,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nullable;
+
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -85,7 +96,7 @@ public class RuneProvider extends RecipeProvider {
 
 		consumer.accept(new FinishedHeadRecipe(idFor("head"), new ItemStack(Items.PLAYER_HEAD), 22500, Ingredient.fromItems(Items.SKELETON_SKULL), Ingredient.fromItems(ModItems.pixieDust), Ingredient.fromItems(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.NAME_TAG), Ingredient.fromItems(Items.GOLDEN_APPLE)));
 	}
-	
+
 	private static ResourceLocation idFor(String s) {
 		return prefix("runic_altar/" + s);
 	}

@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
@@ -12,6 +21,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -21,6 +31,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
+
 import java.util.Arrays;
 import java.util.function.Consumer;
 
@@ -135,7 +146,7 @@ public class PetalProvider extends RecipeProvider {
 	private static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {
 		return new FinishedRecipe(idFor(item.asItem().getRegistryName()), new ItemStack(item), ingredients);
 	}
-	
+
 	private static ResourceLocation idFor(ResourceLocation name) {
 		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}

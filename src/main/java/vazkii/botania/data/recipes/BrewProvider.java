@@ -1,7 +1,16 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -13,6 +22,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
@@ -20,6 +30,7 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nullable;
+
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -67,7 +78,7 @@ public class BrewProvider extends RecipeProvider {
 			consumer.accept(new FinishedRecipe(idFor("warp_ward"), ModBrews.warpWard, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(salisMundus), Ingredient.fromItems(bathSalts), Ingredient.fromItems(amber)));
 		}
 	}
-	
+
 	private static ResourceLocation idFor(String s) {
 		return prefix("brew/" + s);
 	}

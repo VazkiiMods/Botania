@@ -17,8 +17,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-
 import net.minecraftforge.registries.RegistryBuilder;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
@@ -59,11 +59,11 @@ public class ModBrews {
 	@SubscribeEvent
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
 		BotaniaAPI.brewRegistry = new RegistryBuilder<Brew>()
-						.setName(prefix("brews"))
-						.setType(Brew.class)
-						.setDefaultKey(prefix("fallback"))
-						.disableSaving()
-						.create();
+				.setName(prefix("brews"))
+				.setType(Brew.class)
+				.setDefaultKey(prefix("fallback"))
+				.disableSaving()
+				.create();
 	}
 
 	@SubscribeEvent
@@ -91,8 +91,8 @@ public class ModBrews {
 		allure = make(LibBrewNames.ALLURE, 2000, new EffectInstance(ModPotions.allure, 4800, 0));
 		clear = make(LibBrewNames.CLEAR, 4000, new EffectInstance(ModPotions.clear, 0, 0));
 		evt.getRegistry().registerAll(fallback, speed, strength, haste, healing, jumpBoost, regen, regenWeak, resistance,
-						fireResistance, waterBreathing, invisibility, nightVision, absorption, overload, soulCross, featherfeet,
-						emptiness, bloodthirst, allure, clear);
+				fireResistance, waterBreathing, invisibility, nightVision, absorption, overload, soulCross, featherfeet,
+				emptiness, bloodthirst, allure, clear);
 
 		Effect warpWardPotion = ForgeRegistries.POTIONS.getValue(new ResourceLocation("thaumcraft:warpward"));
 

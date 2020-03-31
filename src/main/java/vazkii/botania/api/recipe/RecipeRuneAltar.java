@@ -10,10 +10,10 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -28,10 +28,12 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,7 +121,7 @@ public class RecipeRuneAltar implements IRecipe<RecipeWrapper> {
 	public int getManaUsage() {
 		return mana;
 	}
-	
+
 	// Ignored IRecipe methods
 	@Nonnull
 	@Override
@@ -131,7 +133,7 @@ public class RecipeRuneAltar implements IRecipe<RecipeWrapper> {
 	public boolean canFit(int width, int height) {
 		return false;
 	}
-	
+
 	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeRuneAltar> {
 		@Nonnull
 		@Override

@@ -25,6 +25,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.Collections;

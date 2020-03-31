@@ -324,8 +324,7 @@ public final class BotaniaAPI {
 	public static final Rarity rarityRelic = Rarity.create("RELIC", TextFormatting.GOLD);
 
 	// todo 1.15 move this too
-	@ObjectHolder("botania:fallback")
-	public static Brew fallbackBrew;
+	@ObjectHolder("botania:fallback") public static Brew fallbackBrew;
 
 	/**
 	 * The internal method handler in use.

@@ -11,6 +11,7 @@ package vazkii.botania.api.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -24,10 +25,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +88,8 @@ public class RecipePetals implements IRecipe<RecipeWrapper> {
 	}
 
 	@Nonnull
-	@Override public ItemStack getIcon() {
+	@Override
+	public ItemStack getIcon() {
 		return new ItemStack(ModBlocks.defaultAltar);
 	}
 
@@ -150,7 +154,7 @@ public class RecipePetals implements IRecipe<RecipeWrapper> {
 			}
 			buf.writeItemStack(recipe.getRecipeOutput(), false);
 		}
-		
+
 	}
 
 }
