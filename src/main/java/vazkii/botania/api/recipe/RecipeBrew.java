@@ -194,7 +194,7 @@ public class RecipeBrew implements IRecipe<RecipeWrapper> {
 
 		@Override
 		public void write(@Nonnull PacketBuffer buf, @Nonnull RecipeBrew recipe) {
-			buf.writeResourceLocation(recipe.getBrew().getRegistryName());
+			buf.writeRegistryIdUnsafe(BotaniaAPI.brewRegistry, recipe.getBrew());
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.write(buf);

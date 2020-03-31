@@ -144,7 +144,7 @@ public class PetalProvider extends RecipeProvider {
 	}
 	
 	private static ResourceLocation idFor(ResourceLocation name) {
-		return new ResourceLocation(name.getNamespace(), "petal/" + name.getPath());
+		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 
 	private static class FinishedRecipe implements IFinishedRecipe {

@@ -87,7 +87,7 @@ public class RuneProvider extends RecipeProvider {
 	}
 	
 	private static ResourceLocation idFor(String s) {
-		return prefix("rune/" + s);
+		return prefix("runic_altar/" + s);
 	}
 
 	private static class FinishedRecipe implements IFinishedRecipe {

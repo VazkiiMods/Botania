@@ -12,6 +12,7 @@ import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
@@ -34,13 +35,17 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 	protected List<Ingredient> makeIngredients() {
 		Map<ResourceLocation, ? extends IRecipe<?>> map;
 		if ("runic_altar".equals(recipeType)) {
-			map = Collections.emptyMap(); // BotaniaAPI.runeAltarRecipes;
+			map = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE);
 		} else if ("petal_apothecary".equals(recipeType)) {
 			map = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE);
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
-		return map.get(new ResourceLocation(recipeName)).getIngredients();
+		IRecipe<?> recipe = map.get(new ResourceLocation(recipeName));
+		if (recipe == null) {
+			throw new RuntimeException("Missing recipe " + recipeName);
+		}
+		return recipe.getIngredients();
 	}
 
 	@Override
