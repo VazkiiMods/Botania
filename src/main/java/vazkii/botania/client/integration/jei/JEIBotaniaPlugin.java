@@ -25,6 +25,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
@@ -124,7 +125,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
 		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
 		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipes(TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager()), ElvenTradeRecipeCategory.UID);
+		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()), ManaPoolRecipeCategory.UID);
 
@@ -187,7 +188,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
-		for (AbstractElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager())) {
+		for (IRecipe<?> recipe : Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}

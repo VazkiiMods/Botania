@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -49,10 +50,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -177,8 +175,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for (AbstractElvenTradeRecipe recipe : elvenTradeRecipes(world.getRecipeManager())) {
-			if (recipe.containsItem(inputStack)) {
+		for (IRecipe<?> recipe : world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+			if (recipe instanceof AbstractElvenTradeRecipe && ((AbstractElvenTradeRecipe) recipe).containsItem(inputStack)) {
 				return true;
 			}
 		}
@@ -272,16 +270,20 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		}
 	}
 
-	public static List<AbstractElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
-		return rm.getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values().stream()
-				.filter(r -> r instanceof AbstractElvenTradeRecipe)
-				.map(r -> (AbstractElvenTradeRecipe) r)
-				.collect(Collectors.toList());
+	public static Collection<AbstractElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
+		// By virtue of IRecipeType's type parameter,
+		// we know all the recipes in the map must be AbstractElvenTradeRecipe.
+		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
+		return (Collection) rm.getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values();
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
-		for (AbstractElvenTradeRecipe recipe : elvenTradeRecipes(world.getRecipeManager())) {
+		for (IRecipe<?> r : world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+			if (!(r instanceof AbstractElvenTradeRecipe)) {
+				continue;
+			}
+			AbstractElvenTradeRecipe recipe = (AbstractElvenTradeRecipe) r;
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, 500, false)) {
