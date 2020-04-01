@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -35,7 +36,7 @@ import java.util.List;
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	public enum Variant {
-		BLACK_BOWTIE, BLACK_TIE, RED_GLASSES, PUFFY_SCARF,
+		BLACK_BOWTIE, BLACK_TIE, RED_GLASSES(true), PUFFY_SCARF,
 		ENGINEER_GOGGLES(true), EYEPATCH(true), WICKED_EYEPATCH(true), RED_RIBBONS(true),
 		PINK_FLOWER_BUD(true), POLKA_DOTTED_BOWS(true), BLUE_BUTTERFLY(true), CAT_EARS(true),
 		WITCH_PIN, DEVIL_TAIL, KAMUI_EYE, GOOGLY_EYES(true),
@@ -80,140 +81,149 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 		if (variant.isHead) {
-			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
-			AccessoryRenderHelper.translateToFace(ms);
-			AccessoryRenderHelper.defaultTransforms(ms);
+			layer.getEntityModel().bipedHead.rotate(ms);
 			switch (variant) {
 			case RED_GLASSES:
 			case ENGINEER_GOGGLES:
-				ms.scale(1.25F, 1.25F, 1.25F);
-				ms.translate(0F, -0.085F, 0.045F);
+			case ANAGLYPH_GLASSES:
+				ms.translate(0, -0.225, -0.3);
+				ms.scale(0.7F, -0.7F, -0.7F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case EYEPATCH:
-				ms.scale(0.55F, 0.55F, 0.55F);
-				ms.translate(-0.45F, -0.25F, 0F);
+				ms.translate(0.125, -0.225, -0.3);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case WICKED_EYEPATCH:
-				ms.scale(0.55F, 0.55F, 0.55F);
-				ms.translate(0.45F, -0.25F, 0F);
+				ms.translate(-0.125, -0.225, -0.3);
+				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case RED_RIBBONS:
-				ms.scale(0.9F, 0.9F, 0.9F);
-				ms.translate(0F, 0.75F, 1F);
+				ms.translate(0, -0.65, 0.2);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case PINK_FLOWER_BUD:
+				ms.translate(0.275, -0.6, 0);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
-				ms.translate(0.4F, 0.6F, 0.45F);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case POLKA_DOTTED_BOWS:
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
-				ms.translate(0.65F, 0.3F, 0.5F);
-				renderItem(stack, ms, buffers, light);
-				ms.translate(0F, 0F, -1F);
-				renderItem(stack, ms, buffers, light);
-				break;
-			case BLUE_BUTTERFLY:
-				ms.translate(-0.75F, 0.1F, 1F);
 				ms.push();
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(45F));
+				ms.translate(0.275, -0.4, 0);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				ms.pop();
 
-				ms.translate(0F, 0F, -0.75F);
+				ms.translate(-0.275, -0.4, 0);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.scale(0.5F, -0.5F, -0.5F);
+				renderItem(stack, ms, buffers, light);
+				break;
+			case BLUE_BUTTERFLY:
+				ms.push();
+				ms.translate(0.275, -0.4, 0);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(45F));
+				ms.scale(0.5F, -0.5F, -0.5F);
+				renderItem(stack, ms, buffers, light);
+				ms.pop();
+
+				ms.translate(0.275, -0.4, 0);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-45F));
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case CAT_EARS:
-				ms.translate(0F, 0.25F, 0.25F);
+				ms.translate(0F, -0.5F, -0.175F);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case GOOGLY_EYES:
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
-				ms.scale(1.5F, 1.5F, 1F);
-				ms.translate(0F, -0.05F, 0F);
+				ms.translate(0, -0.225, -0.3);
+				ms.scale(0.9F, -0.9F, -0.9F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case CLOCK_EYE:
-				ms.scale(0.75F, 0.75F, 0.75F);
-				ms.translate(-0.25F, -0.1F, 0F);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.translate(0.1, -0.225, -0.3F);
+				ms.scale(0.4F, -0.4F, -0.4F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case UNICORN_HORN:
-				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.translate(0, -0.7, -0.3);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
-				ms.translate(0F, 0.4F, 0F);
+				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case DEVIL_HORNS:
-				ms.translate(0F, 0.2F, 0.25F);
+				ms.translate(0F, -0.4F, -0.175F);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case HYPER_PLUS:
-				ms.scale(0.35F, 0.35F, 0.35F);
-				ms.translate(-0.7F, 1F, -0.5F);
+				ms.translate(-0.15F, -0.45F, -0.3F);
+				ms.scale(0.2F, -0.2F, -0.2F);
 				renderItem(stack, ms, buffers, light);
 				ms.translate(1.45F, 0F, 0F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case ANCIENT_MASK:
-				ms.scale(1.25F, 1.25F, 1.25F);
-				ms.translate(0F, 0.025F, 0.01F);
+				ms.translate(0, -0.3, -0.3);
+				ms.scale(0.7F, -0.7F, -0.7F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case EERIE_MASK:
+				ms.translate(0, -0.25, -0.3);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case ALIEN_ANTENNA:
-				ms.scale(0.9F, 0.9F, 0.9F);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
-				ms.translate(0F, 0.75F, -1F);
-				renderItem(stack, ms, buffers, light);
-				break;
-			case ANAGLYPH_GLASSES:
-				ms.scale(1.25F, 1.25F, 1.25F);
-				ms.translate(0F, -0.025F, 0F);
+				ms.translate(0, -0.65, 0.2);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case ORANGE_SHADES:
-				ms.scale(1.25f, 1.25f, 1.25f);
-				ms.translate(0F, 0.04F, 0F);
+				ms.translate(0, -0.3, -0.3);
+				ms.scale(0.7F, -0.7F, -0.7F);
 				int color = 0xFFFFFF | (178 << 24);
 				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV);
 				break;
 			case GROUCHO_GLASSES:
-				ms.scale(1.5F, 1.5F, 1.5F);
-				ms.translate(0F, -0.2125F, 0F);
+				ms.translate(0, -0.1, -0.3);
+				ms.scale(0.75F, -0.75F, -0.75F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case THICK_EYEBROWS:
-				ms.scale(0.5F, 0.5F, 0.5F);
-				ms.translate(-0.4F, 0.05F, 0F);
+				ms.push();
+				ms.translate(-0.1, -0.3, -0.3);
+				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
+				ms.pop();
+
+				ms.translate(0.1, -0.3, -0.3);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
-				ms.translate(-0.775F, 0F, 0F);
+				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case TINY_POTATO_MASK:
-				ms.scale(1.25F, 1.25F, 1.25F);
-				ms.translate(0F, 0.025F, 0F);
+				ms.translate(0, -0.3, -0.3);
+				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case QUESTGIVER_MARK:
-				ms.scale(0.8F, 0.8F, 0.8F);
-				ms.translate(0F, 1F, 0.3F);
+				ms.translate(0, -0.8, -0.2);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case THINKING_HAND:
-				ms.scale(0.9f, 0.9f, 0.9f);
-				ms.translate(0.2F, -0.5F, 0F);
-				ms.scale(-1, 1, 1);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(15F));
+				ms.translate(-0.1, 0, -0.3);
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-15F));
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			default:
