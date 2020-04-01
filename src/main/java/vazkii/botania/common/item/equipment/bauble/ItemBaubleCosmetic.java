@@ -230,52 +230,57 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			}
 		} else { // body cosmetics
-			AccessoryRenderHelper.rotateIfSneaking(ms, player);
-			AccessoryRenderHelper.translateToChest(ms);
-			AccessoryRenderHelper.defaultTransforms(ms);
+			layer.getEntityModel().bipedBody.rotate(ms);
 			switch (variant) {
 			case BLACK_BOWTIE:
-				ms.translate(0F, 0.15F, 0F);
+				ms.translate(0, 0.1, -0.13);
+				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case BLACK_TIE:
 			case PUFFY_SCARF:
-				ms.translate(0F, -0.15F, 0F);
+				ms.translate(0, 0.25, -0.15);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case WITCH_PIN:
-				ms.scale(0.35F, 0.35F, 0.35F);
-				ms.translate(-0.35F, 0.35F, 0.15F);
+				ms.translate(-0.1, 0.15, -0.15);
+				ms.scale(0.2F, -0.2F, -0.2F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case DEVIL_TAIL:
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
-				ms.translate(0.5F, -0.75F, 0F);
+				ms.translate(0, 0.55, 0.2);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
-				ms.scale(0.9F, 0.9F, 0.9F);
-				ms.translate(0.9F, 0.35F, 0F);
+				ms.push();
+				ms.translate(0.4, 0.1, -0.2);
+				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				ms.translate(-1.3F, -0.5F, 0.5F);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+				ms.pop();
+
+				ms.translate(-0.4, 0.1, -0.2);
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.scale(0.5F, -0.5F, -0.5F);
 				RenderHelper.renderItemCustomColor(player, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.DEFAULT_UV);
 				break;
 			case FOUR_LEAF_CLOVER:
-				ms.scale(0.5F, 0.5F, 0.5F);
-				ms.translate(0.35F, 0.3F, -0.075F);
+				ms.translate(0.1, 0.1, -0.13);
+				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case BOTANIST_EMBLEM:
-				ms.scale(0.5F, 0.5F, 0.5F);
-				ms.translate(0F, -0.75F, 0F);
+				ms.translate(0F, 0.375, -0.13);
+				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case LUSITANIC_SHIELD:
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
-				ms.translate(0.035F, -0.2F, 0.55F);
+				ms.translate(0F, 0.35, 0.13);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(8F));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			default:
