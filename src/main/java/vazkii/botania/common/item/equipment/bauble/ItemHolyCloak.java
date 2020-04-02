@@ -84,8 +84,6 @@ public class ItemHolyCloak extends ItemBauble {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
-		float s = 1F / 16F;
-		ms.scale(s, s, s);
 		if (model == null) {
 			model = new ModelCloak();
 		}

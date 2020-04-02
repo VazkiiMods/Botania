@@ -96,7 +96,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		}
 	}
 
-	private static boolean hasAnyWill(ItemStack stack) {
+	public static boolean hasAnyWill(ItemStack stack) {
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill_(stack, type)) {
 				return true;
@@ -104,23 +104,6 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		}
 
 		return false;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public static void renderOnPlayer(MatrixStack ms, IRenderTypeBuffer buffers, int light, ItemStack stack, PlayerEntity player, float partialTicks) {
-		if (hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
-			ms.push();
-			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
-			ms.translate(-0.26F, -1.45F, -0.39F);
-			ms.scale(0.5F, 0.5F, 0.5F);
-			IBakedModel model = MiscellaneousIcons.INSTANCE.terrasteelHelmWillModel;
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntitySolid());
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-					.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
-			ms.pop();
-		}
 	}
 
 	private void onEntityAttacked(LivingHurtEvent event) {

@@ -149,10 +149,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
-
 		ms.translate(0F, 0.2F, 0F);
 
-		float s = 1.05F / 16F;
+		float s = 0.85F;
 		ms.scale(s, s, s);
 		if (model == null) {
 			model = new BipedModel(1F);
