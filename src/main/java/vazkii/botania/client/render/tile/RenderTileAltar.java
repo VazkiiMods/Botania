@@ -15,6 +15,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -115,21 +116,22 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 			int color = lava ? Fluids.LAVA.getAttributes().getColor(altar.getWorld(), altar.getPos())
 					: Fluids.WATER.getAttributes().getColor(altar.getWorld(), altar.getPos());
 			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
-			renderIcon(buffer, sprite, color, alpha, overlay, lava ? 0xF000F0 : light);
+			renderIcon(ms, buffer, sprite, color, alpha, overlay, lava ? 0xF000F0 : light);
 			ms.pop();
 		}
 		ms.pop();
 	}
 
-	private void renderIcon(IVertexBuilder builder, TextureAtlasSprite sprite, int color, float alpha, int overlay, int light) {
+	private void renderIcon(MatrixStack ms, IVertexBuilder builder, TextureAtlasSprite sprite, int color, float alpha, int overlay, int light) {
 		int red = ((color >> 16) & 0xFF);
 		int green = ((color >> 8) & 0xFF);
 		int blue = (color & 0xFF);
+		Matrix4f mat = ms.peek().getModel();
 		// todo 1.15 check the normals
-		builder.vertex(0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMinU(), sprite.getMaxV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
-		builder.vertex(16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMaxU(), sprite.getMaxV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
-		builder.vertex(16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMaxU(), sprite.getMinV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
-		builder.vertex(0, 0, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMinU(), sprite.getMinV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMinU(), sprite.getMaxV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMaxU(), sprite.getMaxV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMaxU(), sprite.getMinV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 0, 0, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMinU(), sprite.getMinV()).overlay(overlay).light(light).normal(0, 0, 1).endVertex();
 	}
 
 }
