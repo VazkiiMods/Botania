@@ -22,6 +22,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -35,7 +36,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -190,7 +190,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 	public BlockPos getNextDestination() {
 		BlockState state = getBlockState();
-		if (state.getBlock() == ModBlocks.lightRelayToggle && state.get(BotaniaStateProps.POWERED)) {
+		if (state.getBlock() == ModBlocks.lightRelayToggle && state.get(BlockStateProperties.POWERED)) {
 			return null;
 		} else if (state.getBlock() == ModBlocks.lightRelayFork) {
 			BlockPos torchPos = null;
@@ -297,7 +297,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				if (tile instanceof TileLightRelay) {
 					BlockState state = world.getBlockState(pos);
 					if (state.getBlock() == ModBlocks.lightRelayDetector) {
-						world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
+						world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
 						world.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), state.getBlock().tickRate(world));
 					}
 

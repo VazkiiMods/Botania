@@ -13,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -24,7 +25,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -38,7 +38,7 @@ public class BlockSparkChanger extends BlockMod {
 
 	public BlockSparkChanger(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, true));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, true));
 	}
 
 	@Nonnull
@@ -49,19 +49,19 @@ public class BlockSparkChanger extends BlockMod {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.get(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			((TileSparkChanger) world.getTileEntity(pos)).doSwap();
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true), 4);
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false), 4);
 		}
 	}
 

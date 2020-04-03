@@ -42,7 +42,6 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;

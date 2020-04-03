@@ -29,7 +29,6 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
@@ -131,8 +130,8 @@ public class BlockstateProvider extends BlockStateProvider {
 					} else if (b == ModBlocks.enderEye || b == ModBlocks.manaDetector) {
 						ModelFile offFile = models().getExistingFile(prefix("block/" + name));
 						ModelFile onFile = models().getExistingFile(prefix("block/" + name + "_powered"));
-						getVariantBuilder(b).partialState().with(BotaniaStateProps.POWERED, false).setModels(new ConfiguredModel(offFile));
-						getVariantBuilder(b).partialState().with(BotaniaStateProps.POWERED, true).setModels(new ConfiguredModel(onFile));
+						getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, false).setModels(new ConfiguredModel(offFile));
+						getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, true).setModels(new ConfiguredModel(onFile));
 					} else if (b == ModBlocks.tinyPotato || b == ModBlocks.felPumpkin || b == ModBlocks.pump) {
 						ModelFile file = models().getExistingFile(prefix("block/" + name));
 						horizontalBlock(b, file);

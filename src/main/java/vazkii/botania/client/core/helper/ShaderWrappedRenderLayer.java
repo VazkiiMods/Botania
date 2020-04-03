@@ -10,7 +10,6 @@ package vazkii.botania.client.core.helper;
 
 import net.minecraft.client.renderer.RenderType;
 
-import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.lib.LibResources;
 
 import javax.annotation.Nullable;

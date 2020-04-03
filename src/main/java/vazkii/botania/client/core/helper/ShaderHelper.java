@@ -22,7 +22,6 @@ import net.minecraftforge.fml.ModList;
 
 import org.lwjgl.system.MemoryUtil;
 
-import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;

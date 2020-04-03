@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -36,7 +37,7 @@ public class TilePrism extends TileSimpleInventory {
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		boolean active = !getBlockState().get(BotaniaStateProps.POWERED);
+		boolean active = !getBlockState().get(BlockStateProperties.POWERED);
 		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
 		if (active) {

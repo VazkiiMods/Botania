@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -20,7 +21,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -40,7 +40,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 			return;
 		}
 
-		boolean wasLooking = getBlockState().get(BotaniaStateProps.POWERED);
+		boolean wasLooking = getBlockState().get(BlockStateProperties.POWERED);
 		int range = 80;
 		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
@@ -59,7 +59,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 		}
 
 		if (looking != wasLooking) {
-			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, looking));
+			world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, looking));
 		}
 	}
 

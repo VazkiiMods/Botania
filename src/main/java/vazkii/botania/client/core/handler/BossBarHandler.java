@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;

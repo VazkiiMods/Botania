@@ -17,7 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 
@@ -27,25 +26,25 @@ public class BlockRedStringDispenser extends BlockRedString {
 
 	public BlockRedStringDispenser(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN).with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN).with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		super.fillStateContainer(builder);
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.get(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			((TileRedStringDispenser) world.getTileEntity(pos)).tickDispenser();
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true), 4);
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false), 4);
 		}
 	}
 

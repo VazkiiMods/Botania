@@ -11,13 +11,13 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
 
@@ -29,17 +29,17 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 
 	public BlockCorporeaInterceptor(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
+		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -20,7 +21,6 @@ import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -47,8 +47,8 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					missing -= stack_.getCount();
 				}
 
-				if (missing > 0 && !getBlockState().get(BotaniaStateProps.POWERED)) {
-					world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, true));
+				if (missing > 0 && !getBlockState().get(BlockStateProperties.POWERED)) {
+					world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true));
 					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 
 					TileEntity requestor = source.getSparkInventory().getWorld().getTileEntity(source.getSparkInventory().getPos());

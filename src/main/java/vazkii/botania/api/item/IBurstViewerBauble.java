@@ -10,8 +10,8 @@ package vazkii.botania.api.item;
 
 /**
  * Base Interface for the Manaseer Monocle and items of the sort.
- * Having a IBauble of this type equipped on the 0th slot (amulet)
- * will draw bursts without depth testing and to see sub tile radiuses.
+ * Having an accessory of this type equipped
+ * will draw bursts without depth testing and allow the player to see magical flower radiuses.
  */
 public interface IBurstViewerBauble {
 

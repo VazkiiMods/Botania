@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;

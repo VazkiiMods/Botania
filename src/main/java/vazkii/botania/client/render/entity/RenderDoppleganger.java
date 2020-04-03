@@ -21,7 +21,7 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.common.entity.EntityDoppleganger;

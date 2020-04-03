@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -25,7 +26,6 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -73,7 +73,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 				flip = !flip;
 				flipTicks = 4;
 				if (!world.isRemote) {
-					world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, true), 1);
+					world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true), 1);
 					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 				}
 

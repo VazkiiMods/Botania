@@ -11,13 +11,13 @@ package vazkii.botania.common.block.tile.mana;
 import com.google.common.base.Predicates;
 
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -32,10 +32,10 @@ public class TileManaDetector extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		boolean state = getBlockState().get(BotaniaStateProps.POWERED);
+		boolean state = getBlockState().get(BlockStateProperties.POWERED);
 		boolean expectedState = world.getEntitiesWithinAABB(ThrowableEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 		if (state != expectedState && !world.isRemote) {
-			world.setBlockState(getPos(), getBlockState().with(BotaniaStateProps.POWERED, expectedState));
+			world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, expectedState));
 		}
 
 		if (expectedState) {

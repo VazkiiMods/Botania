@@ -21,7 +21,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.lib.LibMisc;
@@ -35,13 +34,13 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN).with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN).with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		super.fillStateContainer(builder);
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@SubscribeEvent
@@ -56,12 +55,12 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
+		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
-		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override

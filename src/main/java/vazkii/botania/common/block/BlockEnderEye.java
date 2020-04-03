@@ -12,13 +12,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileEnderEye;
 
 import javax.annotation.Nonnull;
@@ -29,12 +29,12 @@ public class BlockEnderEye extends BlockMod {
 
 	protected BlockEnderEye(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class BlockEnderEye extends BlockMod {
 
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
+		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class BlockEnderEye extends BlockMod {
 
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (state.get(BotaniaStateProps.POWERED)) {
+		if (state.get(BlockStateProperties.POWERED)) {
 			for (int i = 0; i < 20; i++) {
 				double x = pos.getX() - 0.1 + Math.random() * 1.2;
 				double y = pos.getY() - 0.1 + Math.random() * 1.2;

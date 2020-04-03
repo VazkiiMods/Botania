@@ -11,12 +11,12 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
@@ -26,24 +26,24 @@ public class BlockCorporeaRetainer extends BlockMod {
 
 	public BlockCorporeaRetainer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.get(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 		}
 	}
 

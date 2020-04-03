@@ -28,10 +28,6 @@ public final class BotaniaStateProps {
 	// The property for floating flower island type
 	public static final ModelProperty<IFloatingFlower> FLOATING_DATA = new ModelProperty<>();
 
-	// Redstone power - boolean
-	// Also for any other simple boolean "on/off" state
-	public static final BooleanProperty POWERED = BooleanProperty.create("powered");
-
 	// BlockAlfPortal
 	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfPortalState.class);
 

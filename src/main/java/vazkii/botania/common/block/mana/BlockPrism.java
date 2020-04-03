@@ -13,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -42,7 +43,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 	public BlockPrism(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState()
-				.with(BotaniaStateProps.POWERED, false)
+				.with(BlockStateProperties.POWERED, false)
 				.with(BotaniaStateProps.HAS_LENS, false));
 	}
 
@@ -54,7 +55,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
+		builder.add(BlockStateProperties.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 
 	@Override
@@ -86,13 +87,13 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.get(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BlockStateProperties.POWERED);
 
 		if (!world.isRemote) {
 			if (power && !powered) {
-				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
+				world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
 			} else if (!power && powered) {
-				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+				world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 			}
 		}
 	}

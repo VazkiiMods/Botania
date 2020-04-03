@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -27,7 +28,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileBrewery;
@@ -42,12 +42,12 @@ public class BlockBrewery extends BlockMod implements IWandHUD {
 
 	public BlockBrewery(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Nonnull
@@ -61,7 +61,7 @@ public class BlockBrewery extends BlockMod implements IWandHUD {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
 		if (player.isSneaking()) {
-			if (brew.recipe == null && !state.get(BotaniaStateProps.POWERED)) {
+			if (brew.recipe == null && !state.get(BlockStateProperties.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
 				return ActionResultType.SUCCESS;
 			}

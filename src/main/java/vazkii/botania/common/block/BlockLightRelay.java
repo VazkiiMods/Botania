@@ -14,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -27,7 +28,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileLightRelay;
@@ -44,7 +44,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	protected BlockLightRelay(LuminizerVariant variant, Properties builder) {
 		super(builder);
 		this.variant = variant;
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
@@ -55,7 +55,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
@@ -72,17 +72,17 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	@Override
 	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		if (!worldIn.isRemote && variant == LuminizerVariant.TOGGLE) {
-			if (state.get(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos)) {
-				worldIn.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
-			} else if (!state.get(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos)) {
-				worldIn.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
+			if (state.get(BlockStateProperties.POWERED) && !worldIn.isBlockPowered(pos)) {
+				worldIn.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
+			} else if (!state.get(BlockStateProperties.POWERED) && worldIn.isBlockPowered(pos)) {
+				worldIn.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
 			}
 		}
 	}
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction s) {
 		return variant == LuminizerVariant.DETECTOR
-				&& state.get(BotaniaStateProps.POWERED) ? 15 : 0;
+				&& state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Nonnull

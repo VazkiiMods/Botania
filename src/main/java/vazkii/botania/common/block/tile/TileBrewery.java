@@ -12,8 +12,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
@@ -28,7 +28,6 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -96,7 +95,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		Optional<RecipeBrew> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.BREW_TYPE, new RecipeWrapper(itemHandler), world);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew;
-			world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true));
+			world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BlockStateProperties.POWERED, true));
 		});
 	}
 

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -18,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -70,7 +70,7 @@ public class TileRedStringInterceptor extends TileRedString {
 				BlockPos coords = inter.getBinding();
 				if (coords != null && coords.equals(pos)) {
 					Block block = inter.getBlockState().getBlock();
-					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BotaniaStateProps.POWERED, true));
+					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BlockStateProperties.POWERED, true));
 					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, block.tickRate(world));
 					did = true;
 				}

@@ -68,7 +68,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.WispParticleData;

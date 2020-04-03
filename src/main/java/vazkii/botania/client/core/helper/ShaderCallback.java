@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.internal;
+package vazkii.botania.client.core.helper;
 
 /**
  * A Callback for when a shader is called. Used to define shader uniforms.

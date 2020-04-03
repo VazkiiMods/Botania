@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -35,7 +36,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileHourglass;
@@ -53,7 +53,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	protected BlockHourglass(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
@@ -64,7 +64,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
+		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Override
@@ -115,8 +115,8 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		if (state.get(BotaniaStateProps.POWERED)) {
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+		if (state.get(BlockStateProperties.POWERED)) {
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 		}
 	}
 

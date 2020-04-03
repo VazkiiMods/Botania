@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,7 +24,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
 import javax.annotation.Nonnull;
@@ -37,7 +37,7 @@ public class BlockLightLauncher extends BlockMod {
 
 	public BlockLightLauncher(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
@@ -48,19 +48,19 @@ public class BlockLightLauncher extends BlockMod {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.POWERED);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.get(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			pickUpEntities(world, pos);
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true), 4);
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false), 4);
 		}
 	}
 
