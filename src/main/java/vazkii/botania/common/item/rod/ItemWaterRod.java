@@ -61,7 +61,7 @@ public class ItemWaterRod extends Item implements IManaUsingItem {
 			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, blockraytraceresult.getFace(), itemstack)) {
 				BlockState blockstate = worldIn.getBlockState(blockpos);
 				BlockPos blockpos1 = blockstate.getBlock() instanceof ILiquidContainer ? blockpos : blockraytraceresult.getPos().offset(blockraytraceresult.getFace());
-				if (ManaItemHandler.requestManaExactForTool(itemstack, playerIn, COST, true)
+				if (ManaItemHandler.instance().requestManaExactForTool(itemstack, playerIn, COST, true)
 						&& ((BucketItem) Items.WATER_BUCKET).tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, blockraytraceresult)) {
 					if (playerIn instanceof ServerPlayerEntity) {
 						CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity) playerIn, blockpos1, itemstack);

@@ -111,10 +111,10 @@ public class BlockAltar extends BlockMod {
 			tile.trySetLastRecipe(player);
 			return ActionResultType.SUCCESS;
 		} else {
-			if (!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+			if (!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if (tile.getFluid() == Fluids.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
-						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
+						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
 					} else if (!player.abilities.isCreativeMode) {
 						player.setHeldItem(hand, drain(Fluids.WATER, stack));
 					}

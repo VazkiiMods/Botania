@@ -97,6 +97,10 @@ repositories {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-31.1.24"
     compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-28.146") { transitive = false }
@@ -106,6 +110,9 @@ dependencies {
     
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 }
 
 spotless {

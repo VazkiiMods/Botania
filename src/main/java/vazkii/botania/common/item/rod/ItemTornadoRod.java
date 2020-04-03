@@ -108,8 +108,8 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int fly = getFlyCounter(stack);
-		if (fly == 0 && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
-			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
+		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
 			return ActionResult.success(stack);
 		}

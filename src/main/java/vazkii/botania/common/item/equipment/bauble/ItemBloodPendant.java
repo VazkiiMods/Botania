@@ -98,7 +98,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			EffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
-			if (ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
+			if (ManaItemHandler.instance().requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
 				EffectInstance currentEffect = player.getActivePotionEffect(effect.getPotion());
 				boolean nightVision = effect.getPotion() == Effects.NIGHT_VISION;
 				if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
@@ -107,7 +107,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				}
 
 				if (!doRand || Math.random() < cost) {
-					ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), true);
+					ManaItemHandler.instance().requestManaExact(stack, eplayer, (int) Math.ceil(cost), true);
 				}
 			}
 		}

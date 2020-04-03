@@ -107,9 +107,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	private void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
 		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getPlayer(), COST, false)) {
+		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, event.getPlayer(), COST, false)) {
 			if (exchange(event.getWorld(), event.getPlayer(), event.getPos(), stack, getState(stack))) {
-				ManaItemHandler.requestManaExactForTool(stack, event.getPlayer(), COST, true);
+				ManaItemHandler.instance().requestManaExactForTool(stack, event.getPlayer(), COST, true);
 			}
 		}
 	}
@@ -130,7 +130,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 		BlockState state = getState(stack);
 		if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
-			if (!ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
+			if (!ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
@@ -148,7 +148,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			BlockPos coords = swap.get(world.rand.nextInt(swap.size()));
 			boolean exchange = exchange(world, player, coords, stack, state);
 			if (exchange) {
-				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			} else {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 			}

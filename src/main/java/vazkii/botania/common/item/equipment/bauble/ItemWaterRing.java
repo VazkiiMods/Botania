@@ -38,7 +38,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			}
 
 			if (!living.world.isRemote) {
-				if (living instanceof PlayerEntity && !ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, COST, true)) {
+				if (living instanceof PlayerEntity && !ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, COST, true)) {
 					onUnequipped(stack, living);
 				} else {
 					addEffect(living, Effects.CONDUIT_POWER);

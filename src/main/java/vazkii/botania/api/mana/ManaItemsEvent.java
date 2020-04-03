@@ -14,6 +14,11 @@ import net.minecraftforge.eventbus.api.Event;
 
 import java.util.List;
 
+/**
+ * Fired when the mod is gathering all items on a player that have mana.
+ * For example, if you are an accessory mod, you would listen to this event and add stacks in your
+ * accessory slots to the list using {@link #add}.
+ */
 public class ManaItemsEvent extends Event {
 
 	private final PlayerEntity entityPlayer;
@@ -24,7 +29,7 @@ public class ManaItemsEvent extends Event {
 		this.items = items;
 	}
 
-	public PlayerEntity getEntityPlayer() {
+	public PlayerEntity getPlayer() {
 		return entityPlayer;
 	}
 

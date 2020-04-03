@@ -87,7 +87,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			return ActionResult.success(stack);
 		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
-			if (burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
+			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isRemote) {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
@@ -157,7 +157,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
 		burst.setSourceLens(getLens(stack));
-		if (!request || ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
+		if (!request || ManaItemHandler.instance().requestManaExact(stack, player, props.maxMana, false)) {
 			burst.setColor(props.color);
 			burst.setMana(props.maxMana);
 			burst.setStartingMana(props.maxMana);

@@ -66,7 +66,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 				if (!amulet.isEmpty()) {
 					final int cost = 250;
-					if (ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
+					if (ManaItemHandler.instance().requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;
 
 						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(IMob.class));
@@ -78,7 +78,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 									((CreeperEntity) event.getEntityLiving()).timeSinceIgnited = 2;
 								}
 
-								ManaItemHandler.requestManaExact(amulet, player, cost, true);
+								ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
 								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
 								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId()));
 							}

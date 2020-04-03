@@ -61,7 +61,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 			return;
 		}
 		PlayerEntity player = (PlayerEntity) living;
-		if (ManaItemHandler.requestManaExact(stack, player, 500, true)) {
+		if (ManaItemHandler.instance().requestManaExact(stack, player, 500, true)) {
 			if (count % 5 == 0) {
 				player.getFoodStats().addStats(1, 1F);
 			}

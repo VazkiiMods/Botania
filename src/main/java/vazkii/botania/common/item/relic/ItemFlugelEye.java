@@ -108,7 +108,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
 
 		if (loc.getDimension() == world.getDimension().getType()
-				&& (!(living instanceof PlayerEntity) || ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, cost, true))) {
+				&& (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true))) {
 			moveParticlesAndSound(living);
 			living.setPositionAndUpdate(x + 0.5, y + 1.5, z + 0.5);
 			moveParticlesAndSound(living);

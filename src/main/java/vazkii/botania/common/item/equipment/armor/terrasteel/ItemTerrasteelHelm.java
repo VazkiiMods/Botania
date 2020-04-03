@@ -62,7 +62,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			if (food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0) {
 				player.heal(1F);
 			}
-			ManaItemHandler.dispatchManaExact(stack, player, 1, true);
+			ManaItemHandler.instance().dispatchManaExact(stack, player, 1, true);
 		}
 	}
 

@@ -40,7 +40,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
+		if (!world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
 			Vector3 placeVec = playerVec.add(lookVec);
@@ -57,7 +57,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), stackToPlace);
 
 				if (stackToPlace.isEmpty()) {
-					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
+					ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
 					for (int i = 0; i < 6; i++) {
 						world.addParticle(data, x + Math.random(), y + Math.random(), z + Math.random(), 0, 0, 0);

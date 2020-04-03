@@ -54,7 +54,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 
 		for (PlayerEntity player : players) {
 			ItemStack charm = EquipmentHandler.findOrEmpty(ModItems.goddessCharm, player);
-			if (!charm.isEmpty() && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
+			if (!charm.isEmpty() && ManaItemHandler.instance().requestManaExact(charm, player, COST, true)) {
 				event.getAffectedBlocks().clear();
 				return;
 			}

@@ -199,7 +199,7 @@ public final class HUDHandler {
 					}
 				}
 
-				List<ItemStack> items = ManaItemHandler.getManaItems(player);
+				List<ItemStack> items = ManaItemHandler.instance().getManaItems(player);
 				for (ItemStack stack : items) {
 					Item item = stack.getItem();
 					if (!((IManaItem) item).isNoExport(stack)) {
@@ -211,7 +211,7 @@ public final class HUDHandler {
 					}
 				}
 
-				List<ItemStack> acc = ManaItemHandler.getManaAccesories(player);
+				List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
 				for (ItemStack stack : acc) {
 					Item item = stack.getItem();
 					if (!((IManaItem) item).isNoExport(stack)) {

@@ -77,7 +77,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 		PlayerEntity p = (PlayerEntity) living;
 		IInventory dummyInv = new Inventory(1);
 
-		if (!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false)) {
+		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, false)) {
 			return;
 		}
 
@@ -109,7 +109,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
 								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
-								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
+								ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
 								decremented = false;
 							}

@@ -27,7 +27,7 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		if (player instanceof PlayerEntity && !player.world.isRemote) {
 			int manaCost = 5;
-			boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
+			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
@@ -39,7 +39,7 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 			}
 
 			if (player.swingProgress == 0.25F) {
-				ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, true);
+				ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, true);
 			}
 		}
 	}

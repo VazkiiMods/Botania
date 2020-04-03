@@ -49,7 +49,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity p, @Nonnull Hand hand) {
 		ItemStack stack = p.getHeldItem(hand);
-		if (ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
+		if (ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, true)) {
 			if (world.isRemote) {
 				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();

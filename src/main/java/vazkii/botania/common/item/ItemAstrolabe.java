@@ -104,7 +104,7 @@ public class ItemAstrolabe extends Item {
 
 		int size = getSize(stack);
 		int cost = size * 320;
-		if (!ManaItemHandler.requestManaExact(stack, player, cost, false)) {
+		if (!ManaItemHandler.instance().requestManaExact(stack, player, cost, false)) {
 			return false;
 		}
 
@@ -112,7 +112,7 @@ public class ItemAstrolabe extends Item {
 		for (BlockPos coords : blocksToPlace) {
 			placeBlockAndConsume(player, stack, stackToPlace, coords);
 		}
-		ManaItemHandler.requestManaExact(stack, player, cost, true);
+		ManaItemHandler.instance().requestManaExact(stack, player, cost, true);
 
 		return true;
 	}

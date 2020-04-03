@@ -81,7 +81,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 							beltItem.onMovedTick(belt, player);
 
 							if (player.ticksExisted % COST_INTERVAL == 0) {
-								ManaItemHandler.requestManaExact(belt, player, COST, true);
+								ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
 							}
 						} else {
 							beltItem.onNotMovingTick(belt, player);
@@ -118,7 +118,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-			if (!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
+			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {
 				player.setMotion(player.getMotion().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
@@ -127,7 +127,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private boolean shouldPlayerHaveStepup(PlayerEntity player) {
 		ItemStack result = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
-		return !result.isEmpty() && ManaItemHandler.requestManaExact(result, player, COST, false);
+		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
 	}
 
 	private void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {

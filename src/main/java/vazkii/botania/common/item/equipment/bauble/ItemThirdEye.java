@@ -58,7 +58,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 		for (LivingEntity e : mobs) {
 			EffectInstance potion = e.getActivePotionEffect(Effects.GLOWING);
-			if ((potion == null || potion.getDuration() <= 2) && ManaItemHandler.requestManaExact(stack, eplayer, COST, true)) {
+			if ((potion == null || potion.getDuration() <= 2) && ManaItemHandler.instance().requestManaExact(stack, eplayer, COST, true)) {
 				e.addPotionEffect(new EffectInstance(Effects.GLOWING, 12, 0));
 			}
 		}

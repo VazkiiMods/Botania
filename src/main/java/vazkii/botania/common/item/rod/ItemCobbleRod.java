@@ -44,7 +44,7 @@ public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvide
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if (block == Blocks.COBBLESTONE) {
-			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
+			return !doit || ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true);
 		}
 		return false;
 	}

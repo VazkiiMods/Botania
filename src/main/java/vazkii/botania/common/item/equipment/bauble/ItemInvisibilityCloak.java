@@ -35,7 +35,7 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		if (player instanceof PlayerEntity && !player.world.isRemote) {
 			int manaCost = 2;
-			boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
+			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {

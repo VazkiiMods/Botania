@@ -57,7 +57,7 @@ public final class ToolCommons {
 
 		PlayerEntity player = (PlayerEntity) entity;
 		while (amount > 0) {
-			if (ManaItemHandler.requestManaExactForTool(stack, player, manaPerDamage, true)) {
+			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
 				amount--;
 			} else {
 				break;
@@ -69,7 +69,7 @@ public final class ToolCommons {
 
 	public static void damageItem(ItemStack stack, int dmg, LivingEntity entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
-		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);
+		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);
 
 		if (!manaRequested) {
 			stack.damageItem(dmg, entity, e -> {});

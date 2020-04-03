@@ -22,7 +22,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.ColorHelper;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 

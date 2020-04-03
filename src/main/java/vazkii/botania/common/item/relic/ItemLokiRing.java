@@ -114,7 +114,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			int successes = 0;
 			for (BlockPos cursor : cursors) {
 				BlockPos pos = hit.add(cursor);
-				if (ManaItemHandler.requestManaExact(lokiRing, player, cost, false)) {
+				if (ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, false)) {
 					Vec3d lookHit = lookPos.getHitVec();
 					Vec3d newHitVec = new Vec3d(pos.getX() + MathHelper.frac(lookHit.getX()), pos.getY() + MathHelper.frac(lookHit.getY()), pos.getZ() + MathHelper.frac(lookHit.getZ()));
 					BlockRayTraceResult newHit = new BlockRayTraceResult(newHitVec, lookPos.getFace(), pos, false);
@@ -128,7 +128,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					}
 
 					if (result == ActionResultType.SUCCESS) {
-						ManaItemHandler.requestManaExact(lokiRing, player, cost, true);
+						ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, true);
 						successes++;
 					}
 				}

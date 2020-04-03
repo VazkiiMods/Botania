@@ -55,7 +55,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false)) {
+		if (!world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(player.getLookVec()).normalize();
 
@@ -113,7 +113,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 
 			if (count > 0) {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
-				ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false);
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldownTracker().setCooldown(this, TIME);
 			}
 		}

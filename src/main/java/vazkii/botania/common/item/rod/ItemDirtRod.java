@@ -58,7 +58,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 		Direction side = ctx.getFace();
 		BlockPos pos = ctx.getPos();
 
-		if (player != null && ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
+		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, false)) {
 			int entities = world.getEntitiesWithinAABB(LivingEntity.class,
 					new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
@@ -67,7 +67,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 				PlayerHelper.substituteUse(ctx, stackToPlace);
 
 				if (stackToPlace.isEmpty()) {
-					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
+					ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
 					for (int i = 0; i < 6; i++) {
 						world.addParticle(data, pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), 0, 0, 0);
@@ -90,7 +90,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if (block == Blocks.DIRT) {
-			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
+			return !doit || ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true);
 		}
 		return false;
 	}

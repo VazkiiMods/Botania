@@ -60,9 +60,9 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 		PlayerEntity player = (PlayerEntity) living;
 
-		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
+		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
 			if (spawnMissile(player.world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
-				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
 			}
 
 			SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);

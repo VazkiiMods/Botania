@@ -33,14 +33,14 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	@Override
 	boolean canFire(ItemStack stack, PlayerEntity player) {
 		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
-		return player.abilities.isCreativeMode || ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
+		return player.abilities.isCreativeMode || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
 	void onFire(ItemStack stack, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
 		arrow.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
 		if (living instanceof PlayerEntity) {
-			ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) living, ARROW_COST / (infinity ? 2 : 1), true);
+			ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) living, ARROW_COST / (infinity ? 2 : 1), true);
 		}
 	}
 }

@@ -122,7 +122,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					player.abilities.allowFlying = true;
 					if (player.abilities.isFlying) {
 						if (!player.world.isRemote) {
-							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
+							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
 						} else if (Math.abs(player.getMotion().getX()) > 0.1 || Math.abs(player.getMotion().getZ()) > 0.1) {
 							double x = event.getEntityLiving().getX() - 0.5;
 							double y = event.getEntityLiving().getY() - 0.5;
@@ -218,7 +218,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		if (!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItemStack(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItemStack(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;

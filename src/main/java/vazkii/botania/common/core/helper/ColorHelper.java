@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api;
+package vazkii.botania.common.core.helper;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
