@@ -8,13 +8,13 @@
  */
 package vazkii.botania.api;
 
-import com.google.common.collect.Maps;
-
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import org.apache.logging.log4j.LogManager;
 import vazkii.botania.api.item.IFloatingFlower;
 
 import java.util.Collections;
@@ -24,11 +24,19 @@ import java.util.Map;
  * Class for API calls that must be made clientside
  */
 @OnlyIn(Dist.CLIENT)
-public final class BotaniaAPIClient {
+public interface BotaniaAPIClient {
+	LazyValue<BotaniaAPIClient> INSTANCE = new LazyValue<>(() -> {
+		try {
+			return (BotaniaAPIClient) Class.forName("vazkii.botania.client.impl.BotaniaAPIClientImpl").newInstance();
+		} catch (ReflectiveOperationException e) {
+			LogManager.getLogger().warn("Unable to find BotaniaAPIClientImpl, using a dummy");
+			return new BotaniaAPIClient() {};
+		}
+	});
 
-	private static final Map<IFloatingFlower.IslandType, ResourceLocation> islandTypeModels = Maps.newHashMap();
-
-	private BotaniaAPIClient() {}
+	static BotaniaAPIClient instance() {
+		return INSTANCE.getValue();
+	}
 
 	/**
 	 * Registers your model for island type islandType here.
@@ -37,15 +45,14 @@ public final class BotaniaAPIClient {
 	 * @param islandType The islandtype to register
 	 * @param model      The model, only {@link ResourceLocation} allowed, no {@link ModelResourceLocation} allowed.
 	 */
-	public static void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
-		islandTypeModels.put(islandType, model);
+	default void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
 	}
 
 	/**
 	 * @return An immutable and live view of the registered island type model map
 	 */
-	public static Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
-		return Collections.unmodifiableMap(islandTypeModels);
+	default Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
+		return Collections.emptyMap();
 	}
 
 }

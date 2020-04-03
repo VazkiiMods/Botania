@@ -38,7 +38,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	private static final int MANA_PER_DAMAGE = 100;
 
 	public ItemTerraSword(Properties props) {
-		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::leftClick);
 		MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
 	}
@@ -116,7 +116,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				int mana = burst.getMana();
 				if (mana >= cost) {
 					burst.setMana(mana - cost);
-					float damage = 4F + BotaniaAPI.TERRASTEEL_ITEM_TIER.getAttackDamage();
+					float damage = 4F + BotaniaAPI.instance().getTerrasteelItemTier().getAttackDamage();
 					if (!burst.isFake() && !entity.world.isRemote) {
 						DamageSource source = DamageSource.MAGIC;
 						if (thrower instanceof PlayerEntity) {

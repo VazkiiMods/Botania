@@ -80,8 +80,8 @@ public class BlockFloatingFlower extends BlockMod {
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		TileEntity te = world.getTileEntity(pos);
-		if (!stack.isEmpty() && te != null && te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).isPresent()) {
-			IFloatingFlower flower = te.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).orElseThrow(IllegalStateException::new);
+		if (!stack.isEmpty() && te != null && te.getCapability(BotaniaAPI.instance().FLOATING_FLOWER_CAP).isPresent()) {
+			IFloatingFlower flower = te.getCapability(BotaniaAPI.instance().FLOATING_FLOWER_CAP).orElseThrow(IllegalStateException::new);
 			IslandType type = null;
 			if (stack.getItem() == Items.SNOWBALL) {
 				type = IslandType.SNOW;

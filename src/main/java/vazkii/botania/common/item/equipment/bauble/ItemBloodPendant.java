@@ -42,6 +42,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
 		super.fillItemGroup(tab, list);
 		if (isInGroup(tab)) {
-			for (Brew brew : BotaniaAPI.brewRegistry) {
+			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
 					list.add(brewStack);
@@ -73,7 +74,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		super.addHiddenTooltip(stack, world, list, adv);
 
 		Brew brew = getBrew(stack);
-		if (brew == BotaniaAPI.fallbackBrew) {
+		if (brew == ModBrews.fallbackBrew) {
 			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
@@ -93,7 +94,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
-		if (brew != BotaniaAPI.fallbackBrew && player instanceof PlayerEntity && !player.world.isRemote) {
+		if (brew != ModBrews.fallbackBrew && player instanceof PlayerEntity && !player.world.isRemote) {
 			PlayerEntity eplayer = (PlayerEntity) player;
 			EffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
@@ -138,7 +139,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.brewRegistry.getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
@@ -167,7 +168,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	public boolean usesMana(ItemStack stack) {
-		return getBrew(stack) != BotaniaAPI.fallbackBrew;
+		return getBrew(stack) != ModBrews.fallbackBrew;
 	}
 
 }

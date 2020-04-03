@@ -38,7 +38,7 @@ import java.util.List;
 public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	public ItemManaweaveArmor(EquipmentSlotType type, Properties props) {
-		super(type, BotaniaAPI.MANAWEAVE_ARMOR_MAT, props);
+		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), props);
 		addPropertyOverride(new ResourceLocation("botania", "holiday"), (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0);
 	}
 

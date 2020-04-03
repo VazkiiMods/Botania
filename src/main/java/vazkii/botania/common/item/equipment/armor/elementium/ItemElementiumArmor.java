@@ -31,7 +31,7 @@ import java.util.List;
 public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	public ItemElementiumArmor(EquipmentSlotType type, Properties props) {
-		super(type, BotaniaAPI.ELEMENTIUM_ARMOR_MAT, props);
+		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props);
 	}
 
 	@Override

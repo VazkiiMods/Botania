@@ -36,7 +36,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public Map<ResourceLocation, Integer> getOreMap() {
-		return BotaniaAPI.oreWeightsNether;
+		return BotaniaAPI.instance().getNetherOreWeights();
 	}
 
 	@Override

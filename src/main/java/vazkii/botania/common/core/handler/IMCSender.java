@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core.handler;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
@@ -15,9 +16,8 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.imc.IMC;
-import vazkii.botania.api.imc.OreWeightMessage;
-import vazkii.botania.api.imc.PaintableBlockMessage;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -116,39 +116,39 @@ public class IMCSender {
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite haditeCoal, hadite/coal or coal/hadite?
 		*/
 
-		sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_MAP.get(color).get(), Blocks.GLASS));
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
 		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
 		}
 
-		sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get(), Blocks.GLASS_PANE));
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
 		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_PANE_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
 		}
 
-		sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.TERRACOTTA_MAP.get(color).get(), Blocks.TERRACOTTA));
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
 		for (IRegistryDelegate<Block> b : ColorHelper.TERRACOTTA_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.TERRACOTTA_MAP.get(color).get(), b.get()));
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.GLAZED_TERRACOTTA_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.WOOL_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.WOOL_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.WOOL_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.CARPET_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.CARPET_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.CARPET_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.CONCRETE_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.CONCRETE_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_POWDER_MAP.values()) {
-			sendToSelf(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get(), b));
+			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get());
 		}
 	}
 
@@ -157,10 +157,10 @@ public class IMCSender {
 	}
 
 	private static void addOreWeight(String oreTag, int weight) {
-		sendToSelf(IMC.REGISTER_ORE_WEIGHT, new OreWeightMessage(new ResourceLocation("forge", "ores/" + oreTag), weight));
+		sendToSelf(IMC.REGISTER_ORE_WEIGHT, new Pair<>(new ResourceLocation("forge", "ores/" + oreTag), weight));
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
-		sendToSelf(IMC.REGISTER_NETHER_ORE_WEIGHT, new OreWeightMessage(new ResourceLocation("forge", "ores/" + oreTag), weight));
+		sendToSelf(IMC.REGISTER_NETHER_ORE_WEIGHT, new Pair<>(new ResourceLocation("forge", "ores/" + oreTag), weight));
 	}
 }

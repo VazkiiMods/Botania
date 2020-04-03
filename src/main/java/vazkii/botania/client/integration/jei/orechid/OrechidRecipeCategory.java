@@ -45,7 +45,7 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<OrechidReci
 
 	@Override
 	protected Map<ResourceLocation, Integer> getOreWeights() {
-		return BotaniaAPI.oreWeights;
+		return BotaniaAPI.instance().getOreWeights();
 	}
 
 }

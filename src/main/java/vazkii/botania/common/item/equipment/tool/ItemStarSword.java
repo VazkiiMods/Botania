@@ -29,7 +29,7 @@ public class ItemStarSword extends ItemManasteelSword {
 	private static final int MANA_PER_DAMAGE = 120;
 
 	public ItemStarSword(Properties props) {
-		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 	}
 
 	@Override

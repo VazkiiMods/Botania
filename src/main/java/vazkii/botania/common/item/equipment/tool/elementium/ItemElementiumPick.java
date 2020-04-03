@@ -25,7 +25,7 @@ import java.util.List;
 public class ItemElementiumPick extends ItemManasteelPick {
 
 	public ItemElementiumPick(Properties props) {
-		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props, -2.8F);
+		super(BotaniaAPI.instance().getElementiumItemTier(), props, -2.8F);
 	}
 
 	public static void filterDisposable(List<ItemStack> drops, Entity e, ItemStack stack) {

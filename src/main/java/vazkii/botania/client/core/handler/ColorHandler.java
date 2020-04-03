@@ -24,7 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.FoliageColors;
 import net.minecraft.world.biome.BiomeColors;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.BurstProperties;
@@ -35,6 +34,7 @@ import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemManaMirror;
@@ -150,7 +150,7 @@ public final class ColorHandler {
 			}
 
 			Brew brew = ((IBrewItem) s.getItem()).getBrew(s);
-			if (brew == BotaniaAPI.fallbackBrew) {
+			if (brew == ModBrews.fallbackBrew) {
 				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
 			}
 

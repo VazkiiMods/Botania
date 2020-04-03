@@ -125,7 +125,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
+		if (cap == BotaniaAPI.instance().FLOATING_FLOWER_CAP) {
 			if (hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
@@ -134,7 +134,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	public boolean isFloating() {
-		return getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).isPresent();
+		return getCapability(BotaniaAPI.instance().FLOATING_FLOWER_CAP).isPresent();
 	}
 
 	private boolean isOnSpecialSoil() {
@@ -206,7 +206,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 */
 	public void writeToPacketNBT(CompoundNBT cmp) {
 		if (isFloating()) {
-			cmp.put(TAG_FLOATING_DATA, BotaniaAPI.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+			cmp.put(TAG_FLOATING_DATA, BotaniaAPI.instance().FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
 		}
 	}
 
@@ -217,7 +217,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 */
 	public void readFromPacketNBT(CompoundNBT cmp) {
 		if (cmp.contains(TAG_FLOATING_DATA)) {
-			BotaniaAPI.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+			BotaniaAPI.instance().FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 		}
 	}
 

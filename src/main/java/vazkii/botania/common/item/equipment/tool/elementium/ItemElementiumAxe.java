@@ -33,7 +33,7 @@ import java.util.Random;
 public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	public ItemElementiumAxe(Properties props) {
-		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
 	}
 

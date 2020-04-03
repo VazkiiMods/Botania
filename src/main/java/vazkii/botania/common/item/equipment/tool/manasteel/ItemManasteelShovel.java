@@ -46,7 +46,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelShovel(Properties props) {
-		this(BotaniaAPI.MANASTEEL_ITEM_TIER, props);
+		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
 	public ItemManasteelShovel(IItemTier mat, Properties props) {

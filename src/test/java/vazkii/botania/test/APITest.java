@@ -10,9 +10,13 @@ package vazkii.botania.test;
 
 import org.junit.jupiter.api.Test;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.impl.ManaItemHandlerImpl;
+import vazkii.botania.client.impl.BotaniaAPIClientImpl;
+import vazkii.botania.common.impl.BotaniaAPIImpl;
+import vazkii.botania.common.impl.mana.ManaItemHandlerImpl;
 import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,5 +33,15 @@ public class APITest {
 	@Test
 	public void testCorporeaHelper() {
 		assertEquals(CorporeaHelper.instance().getClass(), CorporeaHelperImpl.class);
+	}
+
+	@Test
+	public void testMainAPI() {
+		assertEquals(BotaniaAPI.instance().getClass(), BotaniaAPIImpl.class);
+	}
+
+	@Test
+	public void testClientAPI() {
+		assertEquals(BotaniaAPIClient.instance().getClass(), BotaniaAPIClientImpl.class);
 	}
 }

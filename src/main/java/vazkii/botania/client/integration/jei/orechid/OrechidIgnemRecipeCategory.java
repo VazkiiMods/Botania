@@ -46,6 +46,6 @@ public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<Orechi
 
 	@Override
 	protected Map<ResourceLocation, Integer> getOreWeights() {
-		return BotaniaAPI.oreWeightsNether;
+		return BotaniaAPI.instance().getNetherOreWeights();
 	}
 }

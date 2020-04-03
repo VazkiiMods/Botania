@@ -24,7 +24,7 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
 	public ItemElementiumShovel(Properties props) {
-		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
 	@Override

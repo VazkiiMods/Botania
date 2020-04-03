@@ -58,7 +58,7 @@ public class TileFloatingFlower extends TileMod {
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == BotaniaAPI.FLOATING_FLOWER_CAP) {
+		if (cap == BotaniaAPI.instance().FLOATING_FLOWER_CAP) {
 			return floatingDataCap.cast();
 		}
 		return super.getCapability(cap, side);
@@ -76,12 +76,12 @@ public class TileFloatingFlower extends TileMod {
 
 	@Override
 	public void writePacketNBT(CompoundNBT cmp) {
-		cmp.put(TAG_FLOATING_DATA, BotaniaAPI.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+		cmp.put(TAG_FLOATING_DATA, BotaniaAPI.instance().FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
 	}
 
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
-		BotaniaAPI.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+		BotaniaAPI.instance().FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 	}
 
 	@Nonnull

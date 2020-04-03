@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 public class ItemElementiumSword extends ItemManasteelSword {
 
 	public ItemElementiumSword(Properties props) {
-		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
 	@Nonnull

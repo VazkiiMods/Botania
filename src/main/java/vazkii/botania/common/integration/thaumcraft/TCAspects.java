@@ -421,7 +421,7 @@ public class TCAspects {
 		new ItemStack(ModItems.vial, 1, 1), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
 
 	private void registerBrewAspects() {
-		for(RecipeBrew brewRecipe : BotaniaAPI.brewRecipes) {
+		for(RecipeBrew brewRecipe : BotaniaAPI.instance().brewRecipes) {
 			AspectList aspects = new AspectList();
 			
 			for(Object input : brewRecipe.getInputs()) {
@@ -470,8 +470,8 @@ public class TCAspects {
 		proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(flowerId), aspects);
 		proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), flowerId), floatingAspects);
 
-		if (BotaniaAPI.miniFlowers.containsKey(flowerId)) {
-			ResourceLocation miniFlowerId = BotaniaAPI.miniFlowers.get(flowerId);
+		if (BotaniaAPI.instance().miniFlowers.containsKey(flowerId)) {
+			ResourceLocation miniFlowerId = BotaniaAPI.instance().miniFlowers.get(flowerId);
 			proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(miniFlowerId), petiteAspects(aspects));
 			proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), miniFlowerId), petiteAspects(floatingAspects));
 		}

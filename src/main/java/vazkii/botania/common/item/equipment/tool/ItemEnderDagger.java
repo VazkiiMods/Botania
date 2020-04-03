@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger(Properties props) {
-		super(BotaniaAPI.MANASTEEL_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
 	@Override

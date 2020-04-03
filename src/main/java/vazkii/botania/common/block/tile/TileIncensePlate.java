@@ -20,10 +20,10 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -137,7 +137,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return !stack.isEmpty() && stack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != BotaniaAPI.fallbackBrew;
+		return !stack.isEmpty() && stack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != ModBrews.fallbackBrew;
 	}
 
 	@Override

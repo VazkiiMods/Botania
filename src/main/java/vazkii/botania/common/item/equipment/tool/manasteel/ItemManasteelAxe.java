@@ -38,7 +38,7 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelAxe(Properties props) {
-		this(BotaniaAPI.MANASTEEL_ITEM_TIER, props);
+		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
 	public ItemManasteelAxe(IItemTier mat, Properties props) {

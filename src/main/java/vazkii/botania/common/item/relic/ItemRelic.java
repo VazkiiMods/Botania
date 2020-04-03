@@ -147,7 +147,7 @@ public class ItemRelic extends Item implements IRelic {
 	@Nonnull
 	@Override
 	public Rarity getRarity(ItemStack stack) {
-		return BotaniaAPI.rarityRelic;
+		return BotaniaAPI.instance().getRelicRarity();
 	}
 
 }

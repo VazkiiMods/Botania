@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.impl;
+package vazkii.botania.common.impl.mana;
 
 import com.google.common.collect.Iterables;
 
@@ -54,7 +54,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			return Collections.emptyList();
 		}
 
-		IItemHandler acc = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
+		IItemHandler acc = BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player);
 		if (acc == null) {
 			return Collections.emptyList();
 		}

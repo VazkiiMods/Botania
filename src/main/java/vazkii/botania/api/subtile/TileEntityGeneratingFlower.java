@@ -100,13 +100,13 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
 				double z = getPos().getZ() + offset.z;
-				BotaniaAPI.internalHandler.sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+				BotaniaAPI.instance().internalHandler().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		}
 
 		boolean passive = isPassiveFlower();
 		if (!getWorld().isRemote) {
-			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
+			int muhBalance = BotaniaAPI.instance().internalHandler().getPassiveFlowerDecay();
 
 			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				getWorld().destroyBlock(getPos(), false);
@@ -146,9 +146,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 
 		if (needsNew && ticksExisted == 1) { // New flowers only
-			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
+			IManaNetwork network = BotaniaAPI.instance().internalHandler().getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(getWorld()).size();
-			if (BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.instance().internalHandler().shouldForceCheck() || size != sizeLastCheck) {
 				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -295,7 +295,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	public void renderHUD(Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 	@Override

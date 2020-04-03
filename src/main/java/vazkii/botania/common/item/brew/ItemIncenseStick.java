@@ -25,6 +25,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
@@ -44,7 +45,7 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
 		super.fillItemGroup(tab, list);
 		if (isInGroup(tab)) {
-			for (Brew brew : BotaniaAPI.brewRegistry) {
+			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
 					list.add(brewStack);
@@ -57,7 +58,7 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
-		if (brew == BotaniaAPI.fallbackBrew) {
+		if (brew == ModBrews.fallbackBrew) {
 			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
@@ -69,7 +70,7 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.brewRegistry.getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {

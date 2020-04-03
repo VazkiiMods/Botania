@@ -72,7 +72,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Nonnull
 	@Override
 	public Rarity getRarity(ItemStack stack) {
-		return BotaniaAPI.rarityRelic;
+		return BotaniaAPI.instance().getRelicRarity();
 	}
 
 	@Override

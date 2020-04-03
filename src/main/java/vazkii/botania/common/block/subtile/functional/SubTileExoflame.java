@@ -45,7 +45,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			TileEntity tile = getWorld().getTileEntity(pos);
 			if (tile != null) {
-				LazyOptional<IExoflameHeatable> cap = tile.getCapability(BotaniaAPI.EXOFLAME_HEATABLE_CAP);
+				LazyOptional<IExoflameHeatable> cap = tile.getCapability(BotaniaAPI.instance().EXOFLAME_HEATABLE_CAP);
 				if (cap.isPresent()) {
 					IExoflameHeatable heatable = cap.orElseThrow(NullPointerException::new);
 

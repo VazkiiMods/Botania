@@ -40,6 +40,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -122,7 +123,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
 		if (isInGroup(tab)) {
-			for (ResourceLocation id : BotaniaAPI.brewRegistry.getKeys()) {
+			for (ResourceLocation id : BotaniaAPI.instance().getBrewRegistry().getKeys()) {
 				ItemStack stack = new ItemStack(this);
 				setBrew(stack, id);
 				list.add(stack);
@@ -201,11 +202,11 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.brewRegistry.getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, (brew == null ? BotaniaAPI.fallbackBrew : brew).getRegistryName());
+		setBrew(stack, (brew == null ? ModBrews.fallbackBrew : brew).getRegistryName());
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

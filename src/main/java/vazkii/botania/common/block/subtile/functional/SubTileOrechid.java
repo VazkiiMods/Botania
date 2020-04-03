@@ -126,7 +126,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	}
 
 	public Map<ResourceLocation, Integer> getOreMap() {
-		return BotaniaAPI.oreWeights;
+		return BotaniaAPI.instance().getOreWeights();
 	}
 
 	public Predicate<BlockState> getReplaceMatcher() {

@@ -43,7 +43,7 @@ public class ExoflameFurnaceHandler {
 		TileEntity te = event.getObject();
 		if (te instanceof AbstractFurnaceTileEntity) {
 			AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) te;
-			SimpleCapProvider.attach(event, ID, BotaniaAPI.EXOFLAME_HEATABLE_CAP, new FurnaceExoflameHeatable(furnace));
+			SimpleCapProvider.attach(event, ID, BotaniaAPI.instance().EXOFLAME_HEATABLE_CAP, new FurnaceExoflameHeatable(furnace));
 		}
 	}
 

@@ -70,7 +70,7 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 	@Override
 	public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
 		Set<Material> ret = new HashSet<>();
-		for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.getRegisteredIslandTypeModels().entrySet()) {
+		for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
 			IUnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
 			ret.addAll(unbakedIsland.getTextureDependencies(modelGetter, missingTextureErrors));
 			unbakedIslands.put(e.getKey(), unbakedIsland);

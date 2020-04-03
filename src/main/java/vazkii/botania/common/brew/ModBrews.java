@@ -17,6 +17,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -31,7 +33,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = LibMisc.MOD_ID)
 public class ModBrews {
 
-	public static Brew fallback;
+	public static IForgeRegistry<Brew> registry;
+	public static Brew fallbackBrew;
 	public static Brew speed;
 	public static Brew strength;
 	public static Brew haste;
@@ -58,7 +61,7 @@ public class ModBrews {
 
 	@SubscribeEvent
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
-		BotaniaAPI.brewRegistry = new RegistryBuilder<Brew>()
+		registry = new RegistryBuilder<Brew>()
 				.setName(prefix("brews"))
 				.setType(Brew.class)
 				.setDefaultKey(prefix("fallback"))
@@ -68,7 +71,7 @@ public class ModBrews {
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Brew> evt) {
-		fallback = make("fallback", 0, 0);
+		fallbackBrew = make("fallback", 0, 0);
 		speed = make(LibBrewNames.SPEED, 0x59B7FF, 4000, new EffectInstance(Effects.SPEED, 1800, 1));
 		strength = make(LibBrewNames.STRENGTH, 0xEE3F3F, 4000, new EffectInstance(Effects.STRENGTH, 1800, 1));
 		haste = make(LibBrewNames.HASTE, 0xF4A432, 4000, new EffectInstance(Effects.HASTE, 1800, 1));
@@ -90,7 +93,7 @@ public class ModBrews {
 		bloodthirst = make(LibBrewNames.BLOODTHIRST, 20000, new EffectInstance(ModPotions.bloodthrst, 7200, 0));
 		allure = make(LibBrewNames.ALLURE, 2000, new EffectInstance(ModPotions.allure, 4800, 0));
 		clear = make(LibBrewNames.CLEAR, 4000, new EffectInstance(ModPotions.clear, 0, 0));
-		evt.getRegistry().registerAll(fallback, speed, strength, haste, healing, jumpBoost, regen, regenWeak, resistance,
+		evt.getRegistry().registerAll(fallbackBrew, speed, strength, haste, healing, jumpBoost, regen, regenWeak, resistance,
 				fireResistance, waterBreathing, invisibility, nightVision, absorption, overload, soulCross, featherfeet,
 				emptiness, bloodthirst, allure, clear);
 

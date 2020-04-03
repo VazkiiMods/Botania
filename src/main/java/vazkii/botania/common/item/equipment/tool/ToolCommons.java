@@ -149,13 +149,13 @@ public final class ToolCommons {
 		ToolItem tool = (ToolItem) item;
 		IItemTier material = tool.getTier();
 		int materialLevel = 0;
-		if (material == BotaniaAPI.MANASTEEL_ITEM_TIER) {
+		if (material == BotaniaAPI.instance().getManasteelItemTier()) {
 			materialLevel = 10;
 		}
-		if (material == BotaniaAPI.ELEMENTIUM_ITEM_TIER) {
+		if (material == BotaniaAPI.instance().getElementiumItemTier()) {
 			materialLevel = 11;
 		}
-		if (material == BotaniaAPI.TERRASTEEL_ITEM_TIER) {
+		if (material == BotaniaAPI.instance().getTerrasteelItemTier()) {
 			materialLevel = 20;
 		}
 

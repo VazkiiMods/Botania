@@ -129,7 +129,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
-				BotaniaAPI.oreWeights.entrySet().stream()
+				BotaniaAPI.instance().getOreWeights().entrySet().stream()
 						.filter(e -> doesOreExist(e.getKey()))
 						.map(OrechidRecipeWrapper::new)
 						.sorted()
@@ -137,7 +137,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				OrechidRecipeCategory.UID);
 
 		registry.addRecipes(
-				BotaniaAPI.oreWeightsNether.entrySet().stream()
+				BotaniaAPI.instance().getNetherOreWeights().entrySet().stream()
 						.filter(e -> doesOreExist(e.getKey()))
 						.map(OrechidIgnemRecipeWrapper::new)
 						.sorted()

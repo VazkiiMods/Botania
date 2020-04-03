@@ -90,7 +90,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
 			if (Math.random() > particleChance) {
-				BotaniaAPI.internalHandler.sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random() * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+				BotaniaAPI.instance().internalHandler().sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random() * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		}
 	}
@@ -120,9 +120,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		}
 
 		if (needsNew && ticksExisted == 1) { // Only for new flowers
-			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
+			IManaNetwork network = BotaniaAPI.instance().internalHandler().getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(getWorld()).size();
-			if (BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.instance().internalHandler().shouldForceCheck() || size != sizeLastCheck) {
 				linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -242,7 +242,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void renderHUD(Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

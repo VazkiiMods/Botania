@@ -75,7 +75,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	public double getDurabilityForDisplay(ItemStack stack) {
 		CompoundNBT tag = stack.getChildTag("BlockEntityTag");
 		if (tag != null) {
-			return tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (double) BotaniaAPI.internalHandler.getPassiveFlowerDecay();
+			return tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (double) BotaniaAPI.instance().internalHandler().getPassiveFlowerDecay();
 		}
 		return 0;
 	}

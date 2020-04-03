@@ -39,7 +39,7 @@ public class ItemThunderSword extends ItemManasteelSword {
 	private static final String TAG_LIGHTNING_SEED = "lightningSeed";
 
 	public ItemThunderSword(Properties props) {
-		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 	}
 
 	@Override

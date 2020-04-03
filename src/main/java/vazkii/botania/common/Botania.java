@@ -126,8 +126,6 @@ public class Botania {
 		coloredLightsLoaded = ModList.get().isLoaded("easycoloredlights");
 		curiosLoaded = ModList.get().isLoaded("curios");
 
-		BotaniaAPI.internalHandler = new InternalMethodHandler();
-
 		PacketHandler.init();
 
 		if (Botania.thaumcraftLoaded) {
@@ -249,7 +247,7 @@ public class Botania {
 	// Overriding the internal method handler will break everything as it changes regularly.
 	// So just don't be a moron and don't override it. Thanks.
 	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		String clname = BotaniaAPI.internalHandler.getClass().getName();
+		String clname = BotaniaAPI.instance().internalHandler().getClass().getName();
 		String expect = "vazkii.botania.common.core.handler.InternalMethodHandler";
 		if (!clname.equals(expect)) {
 			throw new IllegalAccessError("The Botania API internal method handler has been overriden. "

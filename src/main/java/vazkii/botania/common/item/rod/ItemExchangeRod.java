@@ -268,7 +268,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			return new ItemStack(block);
 		}
 
-		ItemStack outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getAccessoriesInventory(player), stack, block, doit);
+		ItemStack outStack = removeFromInventory(player, BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player), stack, block, doit);
 		if (outStack.isEmpty()) {
 			outStack = removeFromInventory(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), stack, block, doit);
 		}
@@ -280,7 +280,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			return -1;
 		}
 
-		int baubleCount = getInventoryItemCount(player, BotaniaAPI.internalHandler.getAccessoriesInventory(player), stack, block);
+		int baubleCount = getInventoryItemCount(player, BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player), stack, block);
 		if (baubleCount == -1) {
 			return -1;
 		}

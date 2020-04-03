@@ -38,7 +38,7 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelPick(Properties props) {
-		this(BotaniaAPI.MANASTEEL_ITEM_TIER, props, -2.8F);
+		this(BotaniaAPI.instance().getManasteelItemTier(), props, -2.8F);
 	}
 
 	public ItemManasteelPick(IItemTier mat, Properties props, float attackSpeed) {

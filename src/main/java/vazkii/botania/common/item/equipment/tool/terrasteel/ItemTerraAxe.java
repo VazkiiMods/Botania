@@ -73,7 +73,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	private static final Map<DimensionType, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	public ItemTerraAxe(Properties props) {
-		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
 			if (entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity)) {

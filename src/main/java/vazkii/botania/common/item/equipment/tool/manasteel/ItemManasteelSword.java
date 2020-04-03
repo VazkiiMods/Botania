@@ -29,7 +29,7 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 	public static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelSword(Properties props) {
-		this(BotaniaAPI.MANASTEEL_ITEM_TIER, props);
+		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
 	public ItemManasteelSword(IItemTier mat, Properties props) {

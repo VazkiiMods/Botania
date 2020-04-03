@@ -55,7 +55,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	public final EquipmentSlotType type;
 
 	public ItemManasteelArmor(EquipmentSlotType type, Properties props) {
-		this(type, BotaniaAPI.MANASTEEL_ARMOR_MAT, props);
+		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
 	}
 
 	public ItemManasteelArmor(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
