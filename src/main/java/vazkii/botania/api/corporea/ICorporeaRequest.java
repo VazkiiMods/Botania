@@ -13,7 +13,8 @@ public interface ICorporeaRequest {
 	ICorporeaRequestMatcher getMatcher();
 
 	/**
-	 * @return The amount still wanted by the request, -1 if the request wants everything matched by {@link #getMatcher}.
+	 * @return The amount still wanted by the request, -1 if the request wants everything matched by
+	 *         {@link #getMatcher}.
 	 */
 	int getStillNeeded();
 

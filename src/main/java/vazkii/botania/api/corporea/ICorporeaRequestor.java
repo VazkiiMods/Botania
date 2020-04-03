@@ -16,8 +16,8 @@ package vazkii.botania.api.corporea;
 public interface ICorporeaRequestor {
 
 	/**
-	* Executes the passed in request.
-	*/
+	 * Executes the passed in request.
+	 */
 	void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark);
 
 }

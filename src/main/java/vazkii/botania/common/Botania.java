@@ -33,9 +33,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -62,6 +61,7 @@ import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.IMCSender;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.BindUuid;
 import vazkii.botania.common.core.loot.EnableRelics;
 import vazkii.botania.common.core.loot.LootHandler;

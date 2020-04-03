@@ -27,6 +27,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
+import javax.annotation.Nullable;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,31 +92,24 @@ public final class ShaderHelper {
 		}
 	}
 
-	public static OptionalInt getShader(BotaniaShader shader) {
-		ShaderProgram prog = PROGRAMS.get(shader);
-		return prog == null ? OptionalInt.empty() : OptionalInt.of(prog.getProgram());
-	}
-
-	public static void useShader(BotaniaShader shader, ShaderCallback callback) {
-		ShaderProgram prog = PROGRAMS.get(shader);
-		if (prog == null) {
-			return;
-		}
-		useShader(prog.getProgram(), callback);
-	}
-
-	public static void useShader(int shader, ShaderCallback callback) {
+	public static void useShader(BotaniaShader shader, @Nullable ShaderCallback callback) {
 		if (!useShaders()) {
 			return;
 		}
 
-		ShaderLinkHelper.useProgram(shader);
+		ShaderProgram prog = PROGRAMS.get(shader);
+		if (prog == null) {
+			return;
+		}
 
-		int time = GlStateManager.getUniformLocation(shader, "time");
+		int program = prog.getProgram();
+		ShaderLinkHelper.useProgram(program);
+
+		int time = GlStateManager.getUniformLocation(program, "time");
 		GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
 
 		if (callback != null) {
-			callback.call(shader);
+			callback.call(program);
 		}
 	}
 

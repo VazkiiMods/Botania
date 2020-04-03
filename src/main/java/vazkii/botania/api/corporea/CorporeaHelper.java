@@ -14,9 +14,11 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import org.apache.logging.log4j.LogManager;
 
 import javax.annotation.Nullable;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,7 @@ import java.util.function.Function;
 public interface CorporeaHelper {
 	LazyValue<CorporeaHelper> INSTANCE = new LazyValue<>(() -> {
 		try {
-			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.CorporeaHelperImpl").newInstance();
+			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.corporea.CorporeaHelperImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
 			LogManager.getLogger().warn("Unable to find CorporeaHelperImpl, using a dummy");
 			return new CorporeaHelper() {};
@@ -124,6 +126,7 @@ public interface CorporeaHelper {
 	 * <br>
 	 * When requesting counting of items, individual stacks may exceed maxStackSize for
 	 * purposes of counting huge amounts.
+	 * 
 	 * @return Triple of stacks extracted, number of items matched, and number of items extracted
 	 */
 	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {

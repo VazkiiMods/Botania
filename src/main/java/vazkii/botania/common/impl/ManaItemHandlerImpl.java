@@ -1,11 +1,21 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.impl;
 
 import com.google.common.collect.Iterables;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.*;
 

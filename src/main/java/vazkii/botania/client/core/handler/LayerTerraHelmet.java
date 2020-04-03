@@ -9,8 +9,8 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.Atlases;
@@ -45,7 +45,7 @@ public class LayerTerraHelmet extends LayerRenderer<AbstractClientPlayerEntity, 
 				IBakedModel model = MiscellaneousIcons.INSTANCE.terrasteelHelmWillModel;
 				IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
 				Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-								.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+						.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 				ms.pop();
 			}
 		}

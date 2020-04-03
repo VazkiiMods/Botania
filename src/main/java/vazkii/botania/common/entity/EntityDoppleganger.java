@@ -68,8 +68,8 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.handler.BossBarHandler;
+import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -977,14 +977,15 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public int getBossBarShaderProgram(boolean background) {
-		return background ? 0 : ShaderHelper.getShader(ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR).orElse(0);
+	@Nullable
+	public ShaderHelper.BotaniaShader getBossBarShaderProgram(boolean background) {
+		return background ? null : ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR;
 	}
 
 	@OnlyIn(Dist.CLIENT) private ShaderCallback shaderCallback;
 
 	@OnlyIn(Dist.CLIENT)
-	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
+	public ShaderCallback getBossBarShaderCallback(boolean background) {
 		if (shaderCallback == null) {
 			shaderCallback = shader1 -> {
 				int grainIntensityUniform = GlStateManager.getUniformLocation(shader1, "grainIntensity");

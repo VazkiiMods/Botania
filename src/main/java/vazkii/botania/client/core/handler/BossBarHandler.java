@@ -20,8 +20,8 @@ import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -77,18 +77,17 @@ public final class BossBarHandler {
 	}
 
 	private static void drawBar(EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
-		int program = currentBoss.getBossBarShaderProgram(bg);
-		boolean useShader = program > 0;
+		ShaderHelper.BotaniaShader program = currentBoss.getBossBarShaderProgram(bg);
 
-		if (useShader) {
-			ShaderCallback callback = currentBoss.getBossBarShaderCallback(bg, program);
+		if (program != null) {
+			ShaderCallback callback = currentBoss.getBossBarShaderCallback(bg);
 			barUniformCallback.set(u, v, callback);
 			ShaderHelper.useShader(program, barUniformCallback);
 		}
 
 		RenderHelper.drawTexturedModalRect(x, y, u, v, w, h);
 
-		if (useShader) {
+		if (program != null) {
 			ShaderHelper.releaseShader();
 		}
 	}

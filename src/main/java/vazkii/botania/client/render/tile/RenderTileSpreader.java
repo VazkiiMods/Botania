@@ -24,11 +24,11 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 

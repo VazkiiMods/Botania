@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -11,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;

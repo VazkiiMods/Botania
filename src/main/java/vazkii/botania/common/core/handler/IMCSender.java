@@ -15,10 +15,10 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
 
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.imc.OreWeightMessage;
 import vazkii.botania.api.imc.PaintableBlockMessage;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 public class IMCSender {

@@ -1,10 +1,20 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.impl.corporea;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+
 import org.apache.commons.lang3.text.WordUtils;
+
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 
 import java.util.regex.Pattern;
