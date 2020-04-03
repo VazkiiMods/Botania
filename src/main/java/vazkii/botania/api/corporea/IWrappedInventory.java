@@ -32,7 +32,7 @@ public interface IWrappedInventory {
 	 *                 purposes of counting huge amounts. To get final count requestor
 	 *                 should sum stackSize of all stacks.
 	 */
-	List<ItemStack> countItems(CorporeaRequest request);
+	List<ItemStack> countItems(ICorporeaRequest request);
 
 	/**
 	 * Convenience method for accessing spark over inventory
@@ -41,14 +41,14 @@ public interface IWrappedInventory {
 
 	/**
 	 * Extracts items matching request from the inventory.<br/>
-	 * {@link CorporeaRequest#count} is updated to reflect how many items are
+	 * {@link ICorporeaRequest#stillNeeded} is updated to reflect how many items are
 	 * yet to be extracted.<br/>
-	 * {@link CorporeaRequest#foundItems} and
-	 * {@link CorporeaRequest#extractedItems} are updated to reflect how many
+	 * {@link ICorporeaRequest#foundItems} and
+	 * {@link ICorporeaRequest#extractedItems} are updated to reflect how many
 	 * items were found and extracted.
 	 *
 	 * @param  request
 	 * @return         List of ItemStacks to be delivered to the destination.
 	 */
-	List<ItemStack> extractItems(CorporeaRequest request);
+	List<ItemStack> extractItems(ICorporeaRequest request);
 }

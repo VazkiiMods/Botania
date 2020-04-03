@@ -17,19 +17,34 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class CorporeaRequestEvent extends Event {
 
-	public final ICorporeaRequestMatcher request;
-	public final int count;
-	public final ICorporeaSpark spark;
-	/**
-	 * If false then items won't be pulled.
-	 */
-	public final boolean realRequest;
+	private final ICorporeaRequestMatcher matcher;
+	private final int count;
+	private final ICorporeaSpark spark;
+	private final boolean dryRun;
 
-	public CorporeaRequestEvent(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, boolean real) {
-		this.request = request;
+	public CorporeaRequestEvent(ICorporeaRequestMatcher matcher, int count, ICorporeaSpark spark, boolean dryRun) {
+		this.matcher = matcher;
 		this.count = count;
 		this.spark = spark;
-		realRequest = real;
+		this.dryRun = dryRun;
 	}
 
+	public ICorporeaRequestMatcher getMatcher() {
+		return matcher;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public ICorporeaSpark getSpark() {
+		return spark;
+	}
+
+	/**
+	 * @return {@code false} if this is a dry run, else {@code true}.
+	 */
+	public boolean isDryRun() {
+		return dryRun;
+	}
 }

@@ -94,7 +94,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack, true);
+					ItemStack simulate = ItemHandlerHelper.insertItem(inv.getHandler(), stack, true);
 					int availablePut = stack.getCount() - simulate.getCount();
 
 					canAccept &= availablePut > 0;
@@ -107,7 +107,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 								break setInv;
 							}
 
-							invToPutItemIn = inv.handler;
+							invToPutItemIn = inv.getHandler();
 							priorityInv = priority;
 							amountToPutIn = availablePut;
 						}

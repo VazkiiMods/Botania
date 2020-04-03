@@ -11,28 +11,33 @@ package vazkii.botania.api.corporea;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
- * Needs to be registered over in
- * {@link vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer#addCorporeaRequestMatcher}.
- * Needs one additional (static) method for deserialization, which can't really go here because Java doesn't like static
- * abstract's.
  */
 public interface ICorporeaRequestMatcher {
 
 	/**
 	 * Returns whether the given stack matches the request's criteria.
 	 */
-	boolean isStackValid(ItemStack stack);
+	default boolean isStackValid(ItemStack stack) {
+		return false;
+	}
 
 	/**
 	 * Serialize to NBT data, for the Corporea Retainer's benefit.
 	 */
-	void writeToNBT(CompoundNBT tag);
+	default void writeToNBT(CompoundNBT tag) {}
 
 	/**
 	 * Returns the pretty name of the requested item, for printing request feedback on Corporea Indexes.
 	 */
-	ITextComponent getRequestName();
+	default ITextComponent getRequestName() {
+		return new StringTextComponent("missingno");
+	}
+
+	enum Dummy implements ICorporeaRequestMatcher {
+		INSTANCE
+	}
 }

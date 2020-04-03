@@ -8,74 +8,40 @@
  */
 package vazkii.botania.api.corporea;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.LazyValue;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import org.apache.logging.log4j.LogManager;
 
-import vazkii.botania.api.BotaniaAPI;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.function.Function;
 
-import static vazkii.botania.api.corporea.CorporeaRequestDefaultMatchers.*;
+public interface CorporeaHelper {
+	LazyValue<CorporeaHelper> INSTANCE = new LazyValue<>(() -> {
+		try {
+			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.CorporeaHelperImpl").newInstance();
+		} catch (ReflectiveOperationException e) {
+			LogManager.getLogger().warn("Unable to find CorporeaHelperImpl, using a dummy");
+			return new CorporeaHelper() {};
+		}
+	});
 
-public final class CorporeaHelper {
-
-	private static final List<InvWithLocation> empty = ImmutableList.of();
-	private static final WeakHashMap<List<ICorporeaSpark>, List<InvWithLocation>> cachedNetworks = new WeakHashMap<>();
-
-	/**
-	 * How many items were matched in the last request. If java had "out" params like C# this wouldn't be needed :V
-	 */
-	public static int lastRequestMatches = 0;
-	/**
-	 * How many items were extracted in the last request.
-	 */
-	public static int lastRequestExtractions = 0;
+	static CorporeaHelper instance() {
+		return INSTANCE.getValue();
+	}
 
 	/**
 	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick,
 	 * and if something changes during that tick it'll still have the first result.
 	 */
-	public static List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
-		ICorporeaSpark master = spark.getMaster();
-		if (master == null) {
-			return empty;
-		}
-		List<ICorporeaSpark> network = master.getConnections();
-
-		if (cachedNetworks.containsKey(network)) {
-			List<InvWithLocation> cache = cachedNetworks.get(network);
-			if (cache != null) {
-				return cache;
-			}
-		}
-
-		List<InvWithLocation> inventories = new ArrayList<>();
-		if (network != null) {
-			for (ICorporeaSpark otherSpark : network) {
-				if (otherSpark != null) {
-					InvWithLocation inv = otherSpark.getSparkInventory();
-					if (inv != null) {
-						inventories.add(inv);
-					}
-				}
-			}
-		}
-
-		cachedNetworks.put(network, inventories);
-		return inventories;
+	default List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
+		return Collections.emptyList();
 	}
 
 	/**
@@ -83,9 +49,8 @@ public final class CorporeaHelper {
 	 * The higher level functions that use a List< IInventory > or a Map< IInventory, Integer > should be
 	 * called instead if the context for those exists to avoid having to get the values again.
 	 */
-	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
-		return getCountInNetwork(matcher, inventories);
+	default int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+		return 0;
 	}
 
 	/**
@@ -93,22 +58,15 @@ public final class CorporeaHelper {
 	 * The higher level function that use a Map< IInventory, Integer > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
-		Map<InvWithLocation, Integer> map = getInventoriesWithMatchInNetwork(matcher, inventories);
-		return getCountInNetwork(matcher, map);
+	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+		return 0;
 	}
 
 	/**
 	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
 	 */
-	public static int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
-		int count = 0;
-
-		for (int value : inventories.values()) {
-			count += value;
-		}
-
-		return count;
+	default int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
+		return 0;
 	}
 
 	/**
@@ -116,9 +74,8 @@ public final class CorporeaHelper {
 	 * The higher level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
-		return getInventoriesWithMatchInNetwork(matcher, inventories);
+	default Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+		return Collections.emptyMap();
 	}
 
 	/**
@@ -126,46 +83,35 @@ public final class CorporeaHelper {
 	 * The deeper level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
-		Map<InvWithLocation, Integer> countMap = new HashMap<>();
-		List<IWrappedInventory> wrappedInventories = BotaniaAPI.internalHandler.wrapInventory(inventories);
-		for (IWrappedInventory inv : wrappedInventories) {
-			CorporeaRequest request = new CorporeaRequest(matcher, -1);
-			inv.countItems(request);
-			if (request.foundItems > 0) {
-				countMap.put(inv.getWrappedObject(), request.foundItems);
-			}
-
-		}
-
-		return countMap;
+	default Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+		return Collections.emptyMap();
 	}
 
 	/**
 	 * Create a ICorporeaRequestMatcher from an ItemStack and NBT-checkness.
 	 */
-	public static ICorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
-		return new CorporeaItemStackMatcher(stack, checkNBT);
+	default ICorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
+		return ICorporeaRequestMatcher.Dummy.INSTANCE;
 	}
 
 	/**
 	 * Create a ICorporeaRequestMatcher from a String.
 	 */
-	public static ICorporeaRequestMatcher createMatcher(String name) {
-		return new CorporeaStringMatcher(name);
+	default ICorporeaRequestMatcher createMatcher(String name) {
+		return ICorporeaRequestMatcher.Dummy.INSTANCE;
 	}
 
 	/**
 	 * Bridge for requestItem() using an ItemStack.
 	 */
-	public static List<ItemStack> requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
+	default ICorporeaResult requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
 		return requestItem(createMatcher(stack, checkNBT), stack.getCount(), spark, doit);
 	}
 
 	/**
 	 * Bridge for requestItem() using a String and an item count.
 	 */
-	public static List<ItemStack> requestItem(String name, int count, ICorporeaSpark spark, boolean doit) {
+	default ICorporeaResult requestItem(String name, int count, ICorporeaSpark spark, boolean doit) {
 		return requestItem(createMatcher(name), count, spark, doit);
 	}
 
@@ -176,98 +122,46 @@ public final class CorporeaHelper {
 	 * Case itemCount is -1 it'll find EVERY item it can.
 	 * <br>
 	 * <br>
-	 * The "matcher" parameter has to be an ItemStack or a String, if the first it'll check if the
-	 * two stacks are similar using the "checkNBT" parameter, else it'll check if the name of the item
-	 * equals or matches (case a regex is passed in) the matcher string.
-	 * <br>
-	 * <br>
 	 * When requesting counting of items, individual stacks may exceed maxStackSize for
 	 * purposes of counting huge amounts.
+	 * @return Triple of stacks extracted, number of items matched, and number of items extracted
 	 */
-	public static List<ItemStack> requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
-		List<ItemStack> stacks = new ArrayList<>();
-		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, doit);
-		if (MinecraftForge.EVENT_BUS.post(event)) {
-			return stacks;
-		}
-
-		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
-
-		List<IWrappedInventory> inventoriesW = BotaniaAPI.internalHandler.wrapInventory(inventories);
-		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<ICorporeaInterceptor, ICorporeaSpark>();
-
-		CorporeaRequest request = new CorporeaRequest(matcher, itemCount);
-		for (IWrappedInventory inv : inventoriesW) {
-			ICorporeaSpark invSpark = inv.getSpark();
-
-			InvWithLocation originalInventory = inv.getWrappedObject();
-			if (originalInventory.world.getTileEntity(originalInventory.pos) instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory.world.getTileEntity(originalInventory.pos);
-				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
-				interceptors.put(interceptor, invSpark);
-			}
-
-			if (doit) {
-				stacks.addAll(inv.extractItems(request));
-			} else {
-				stacks.addAll(inv.countItems(request));
-			}
-		}
-
-		for (ICorporeaInterceptor interceptor : interceptors.keySet()) {
-			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
-		}
-
-		lastRequestMatches = request.foundItems;
-		lastRequestExtractions = request.extractedItems;
-
-		return stacks;
+	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
+		return ICorporeaResult.Dummy.INSTANCE;
 	}
 
 	/**
 	 * Gets the spark attached to the inventory passed case it's a TileEntity.
 	 */
-	public static ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
-		TileEntity tile = inv.world.getTileEntity(inv.pos);
-		return getSparkForBlock(tile.getWorld(), tile.getPos());
+	@Nullable
+	default ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
+		return null;
 	}
 
 	/**
 	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
-		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
+	@Nullable
+	default ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
+		return null;
 	}
 
 	/**
 	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static boolean doesBlockHaveSpark(World world, BlockPos pos) {
+	default boolean doesBlockHaveSpark(World world, BlockPos pos) {
 		return getSparkForBlock(world, pos) != null;
-	}
-
-	/**
-	 * Clears the cached networks, called once per tick, should not be called outside
-	 * of the botania code.
-	 */
-	public static void clearCache() {
-		cachedNetworks.clear();
 	}
 
 	/**
 	 * Returns the comparator strength for a corporea request that corporea crystal cubes and retainers use, following
 	 * the usual "each step up requires double the items" formula.
 	 */
-	public static int signalStrengthForRequestSize(int requestSize) {
-		if (requestSize <= 0) {
-			return 0;
-		} else if (requestSize >= 16384) {
-			return 15;
-		} else {
-			return Math.min(15, MathHelper.log2(requestSize) + 1);
-		}
+	default int signalStrengthForRequestSize(int requestSize) {
+		return 0;
 	}
+
+	default <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundNBT, T> deserializer) {}
 }

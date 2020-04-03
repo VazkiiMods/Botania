@@ -23,11 +23,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.api.corporea.ICorporeaRequestor;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -323,7 +319,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
-		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true);
+		doRequest(request, count, spark);
+	}
+
+	private ICorporeaResult doRequest(ICorporeaRequestMatcher matcher, int count, ICorporeaSpark spark) {
+		ICorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, true);
+		List<ItemStack> stacks = result.getStacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack stack : stacks) {
 			if (!stack.isEmpty()) {
@@ -331,6 +332,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 				world.addEntity(item);
 			}
 		}
+		return result;
 	}
 
 	public static boolean isInRangeOfIndex(PlayerEntity player, TileCorporeaIndex index) {
@@ -370,10 +372,10 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
 		CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(player, request, count, this.getSpark());
 		if (!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
-			this.doCorporeaRequest(request, count, this.getSpark());
+			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
-			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), CorporeaHelper.lastRequestExtractions);
+			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), res.getExtractedCount());
 		}
 	}
 
@@ -408,7 +410,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 							}
 						}
 
-						index.performPlayerRequest(event.getPlayer(), CorporeaHelper.createMatcher(name), count);
+						index.performPlayerRequest(event.getPlayer(), CorporeaHelper.instance().createMatcher(name), count);
 					}
 				}
 

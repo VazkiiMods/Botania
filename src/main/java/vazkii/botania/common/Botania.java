@@ -33,6 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IExoflameHeatable;
@@ -68,6 +69,8 @@ import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.FluxfieldCondition;
+import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
+import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
@@ -77,6 +80,8 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.common.multiblock.StateMatcher;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod(LibMisc.MOD_ID)
 public class Botania {
@@ -136,6 +141,8 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		EquipmentHandler.init();
+		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
+		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);

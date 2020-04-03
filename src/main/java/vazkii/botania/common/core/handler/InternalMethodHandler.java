@@ -113,7 +113,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
 		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
 		for (InvWithLocation inv : inventories) {
-			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
+			ICorporeaSpark spark = CorporeaHelper.instance().getSparkForInventory(inv);
 			IWrappedInventory wrapped = null;
 			// try integrations
 

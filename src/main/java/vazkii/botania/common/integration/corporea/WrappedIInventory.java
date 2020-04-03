@@ -10,7 +10,7 @@ package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.item.ItemStack;
 
-import vazkii.botania.api.corporea.CorporeaRequest;
+import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
@@ -33,38 +33,36 @@ public class WrappedIInventory extends WrappedInventoryBase {
 	}
 
 	@Override
-	public List<ItemStack> countItems(CorporeaRequest request) {
+	public List<ItemStack> countItems(ICorporeaRequest request) {
 		return iterateOverSlots(request, false);
 	}
 
 	@Override
-	public List<ItemStack> extractItems(CorporeaRequest request) {
+	public List<ItemStack> extractItems(ICorporeaRequest request) {
 		return iterateOverSlots(request, true);
 	}
 
-	protected List<ItemStack> iterateOverSlots(CorporeaRequest request, boolean doit) {
+	protected List<ItemStack> iterateOverSlots(ICorporeaRequest request, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 
-		for (int i = inv.handler.getSlots() - 1; i >= 0; i--) {
-			ItemStack stackAt = inv.handler.getStackInSlot(i);
+		for (int i = inv.getHandler().getSlots() - 1; i >= 0; i--) {
+			ItemStack stackAt = inv.getHandler().getStackInSlot(i);
 			// WARNING: this code is very similar in all implementations of
 			// IWrappedInventory - keep it synch
-			if (request.matcher.isStackValid(stackAt)) {
-				int rem = Math.min(stackAt.getCount(), request.count == -1 ? stackAt.getCount() : request.count);
-				request.foundItems += stackAt.getCount();
+			if (request.getMatcher().isStackValid(stackAt)) {
+				int rem = Math.min(stackAt.getCount(), request.getStillNeeded() == -1 ? stackAt.getCount() : request.getStillNeeded());
+				request.trackFound(stackAt.getCount());
 
 				if (rem > 0) {
-					stacks.add(inv.handler.extractItem(i, rem, !doit));
+					stacks.add(inv.getHandler().extractItem(i, rem, !doit));
 					if (doit && spark != null) {
 						spark.onItemExtracted(stackAt);
 					}
 				}
 
-				request.extractedItems += rem;
+				request.trackExtracted(rem);
 
-				if (request.count != -1) {
-					request.count -= rem;
-				}
+				request.trackSatisfied(rem);
 			}
 		}
 

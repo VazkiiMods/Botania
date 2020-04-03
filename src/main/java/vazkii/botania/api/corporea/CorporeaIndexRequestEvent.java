@@ -18,15 +18,31 @@ import net.minecraftforge.eventbus.api.Event;
  */
 @Cancelable
 public class CorporeaIndexRequestEvent extends Event {
-	public final ServerPlayerEntity requester;
-	public ICorporeaRequestMatcher request;
-	public int requestCount;
-	public ICorporeaSpark indexSpark;
+	private final ServerPlayerEntity requester;
+	private final ICorporeaRequestMatcher request;
+	private final int requestCount;
+	private final ICorporeaSpark indexSpark;
 
 	public CorporeaIndexRequestEvent(ServerPlayerEntity requester, ICorporeaRequestMatcher request, int requestCount, ICorporeaSpark indexSpark) {
 		this.requester = requester;
 		this.request = request;
 		this.requestCount = requestCount;
 		this.indexSpark = indexSpark;
+	}
+
+	public ServerPlayerEntity getRequester() {
+		return requester;
+	}
+
+	public ICorporeaRequestMatcher getMatcher() {
+		return request;
+	}
+
+	public int getRequestCount() {
+		return requestCount;
+	}
+
+	public ICorporeaSpark getIndexSpark() {
+		return indexSpark;
 	}
 }

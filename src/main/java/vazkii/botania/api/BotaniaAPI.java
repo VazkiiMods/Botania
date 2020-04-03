@@ -46,6 +46,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public final class BotaniaAPI {
+	public static final String NO_MOD_MESSAGE = "Botania not present";
+
 	public static int apiVersion() {
 		return 94;
 	}

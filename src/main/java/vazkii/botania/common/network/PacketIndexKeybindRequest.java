@@ -44,7 +44,7 @@ public class PacketIndexKeybindRequest {
 				boolean checkNBT = message.stack.getTag() != null && !message.stack.getTag().isEmpty();
 				for (TileCorporeaIndex index : TileCorporeaIndex.InputHandler.getNearbyIndexes(player)) {
 					if (index.getSpark() != null) {
-						index.performPlayerRequest(player, CorporeaHelper.createMatcher(message.stack, checkNBT), message.stack.getCount());
+						index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(message.stack, checkNBT), message.stack.getCount());
 					}
 				}
 			});

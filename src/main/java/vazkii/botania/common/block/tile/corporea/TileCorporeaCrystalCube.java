@@ -78,7 +78,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		ICorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && requestTarget != null) {
 			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
-			doCorporeaRequest(CorporeaHelper.createMatcher(requestTarget, true), count, spark);
+			doCorporeaRequest(CorporeaHelper.instance().createMatcher(requestTarget, true), count, spark);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		itemCount = 0;
 		ICorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && requestTarget != null) {
-			List<ItemStack> stacks = CorporeaHelper.requestItem(CorporeaHelper.createMatcher(requestTarget, true), -1, spark, false);
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).getStacks();
 			for (ItemStack stack : stacks) {
 				itemCount += stack.getCount();
 			}
@@ -105,7 +105,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private void onUpdateCount() {
 		int oldCompValue = compValue;
-		compValue = CorporeaHelper.signalStrengthForRequestSize(itemCount);
+		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
 		if (compValue != oldCompValue) {
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
@@ -138,7 +138,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
-		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true);
+		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
 		spark.onItemsRequested(stacks);
 		boolean did = false;
 		for (ItemStack reqStack : stacks) {

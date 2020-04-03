@@ -14,27 +14,38 @@ import net.minecraftforge.items.IItemHandler;
 
 public class InvWithLocation {
 
-	public final IItemHandler handler;
-	public final World world;
-	public final BlockPos pos;
+	private final IItemHandler handler;
+	private final World world;
+	private final BlockPos pos;
 
 	public InvWithLocation(IItemHandler itemHandler, World world, BlockPos pos) {
-		handler = itemHandler;
+		this.handler = itemHandler;
 		this.world = world;
 		this.pos = pos;
 	}
 
 	@Override
 	public int hashCode() {
-		return 31 * handler.hashCode() ^ world.hashCode() ^ pos.hashCode();
+		return 31 * getHandler().hashCode() ^ getWorld().hashCode() ^ getPos().hashCode();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof InvWithLocation
-				&& handler.equals(((InvWithLocation) o).handler)
-				&& world == ((InvWithLocation) o).world
-				&& pos.equals(((InvWithLocation) o).pos);
+				&& getHandler().equals(((InvWithLocation) o).getHandler())
+				&& getWorld() == ((InvWithLocation) o).getWorld()
+				&& getPos().equals(((InvWithLocation) o).getPos());
 	}
 
+	public IItemHandler getHandler() {
+		return handler;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public BlockPos getPos() {
+		return pos;
+	}
 }
