@@ -1,16 +1,19 @@
 package vazkii.botania.common.core.helper;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 
 import java.util.function.Predicate;
@@ -115,14 +118,20 @@ public final class PlayerHelper {
 		}
 	}
 
+	public static ActionResultType substituteUse(ItemUseContext ctx, ItemStack toUse) {
+		return substituteUseTrackPos(ctx, toUse).getFirst();
+	}
+
 	/**
 	 * Temporarily swap <code>toUse</code> into the hand of the player, use it, then swap it back out.
 	 * This is to ensure that any code in mods' onItemUse that relies on player.getHeldItem(ctx.hand) == ctx.stack
 	 * will work as intended.
 	 *
 	 * Properly handles null players, as long as the Item's onItemUse also handles them.
+	 * @return The usage result, as well as a properly offset block position pointing at where the block was placed
+	 * (if the item was a BlockItem)
 	 */
-	public static ActionResultType substituteUse(ItemUseContext ctx, ItemStack toUse) {
+	public static Pair<ActionResultType, BlockPos> substituteUseTrackPos(ItemUseContext ctx, ItemStack toUse) {
 		ItemStack save = ItemStack.EMPTY;
 		BlockRayTraceResult hit = new BlockRayTraceResult(ctx.getHitVec(), ctx.getFace(), ctx.getPos(), ctx.func_221533_k());
 		ItemUseContext newCtx;
@@ -136,13 +145,15 @@ public final class PlayerHelper {
 			newCtx = new ItemUseContext(ctx.getWorld(), null, ctx.getHand(), toUse, hit);
 		}
 
+		BlockPos finalPos = new BlockItemUseContext(newCtx).getPos();
+
 		ActionResultType result = toUse.onItemUse(newCtx);
 
 		if(ctx.getPlayer() != null) {
 			ctx.getPlayer().setHeldItem(ctx.getHand(), save);
 		}
 
-		return result;
+		return Pair.of(result, finalPos);
 	}
 
 	private PlayerHelper() {}

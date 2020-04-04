@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -91,18 +93,26 @@ public class ItemSpawnerMover extends ItemMod {
 
 	private ActionResultType placeSpawner(ItemUseContext ctx) {
 		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
-		useStack.getOrCreateTag().put("BlockEntityTag", ctx.getItem().getChildTag(TAG_SPAWNER));
-		ActionResultType res = PlayerHelper.substituteUse(ctx, useStack);
+		Pair<ActionResultType, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
 
-		if(res == ActionResultType.SUCCESS) {
+		if(res.getFirst() == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();
-			BlockPos pos = ctx.getPos();
+			BlockPos pos = res.getSecond();
 			ItemStack mover = ctx.getItem();
 
 			if(!world.isRemote) {
 				if(ctx.getPlayer() != null)
 					ctx.getPlayer().sendBreakAnimation(ctx.getHand());
 				mover.shrink(1);
+
+				TileEntity te = world.getTileEntity(pos);
+				if (te instanceof MobSpawnerTileEntity) {
+					CompoundNBT spawnerTag = ctx.getItem().getChildTag(TAG_SPAWNER).copy();
+					spawnerTag.putInt("x", pos.getX());
+					spawnerTag.putInt("y", pos.getY());
+					spawnerTag.putInt("z", pos.getZ());
+					te.read(spawnerTag);
+				}
 			} else {
 				for(int i = 0; i < 100; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
@@ -111,7 +121,7 @@ public class ItemSpawnerMover extends ItemMod {
 			}
 		}
 
-		return res;
+		return res.getFirst();
 	}
 
 	private boolean captureSpawner(ItemUseContext ctx) {
