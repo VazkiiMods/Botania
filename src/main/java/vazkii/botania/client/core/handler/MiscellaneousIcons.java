@@ -8,12 +8,14 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.tileentity.BannerPattern;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -28,6 +30,7 @@ import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
@@ -88,6 +91,12 @@ public class MiscellaneousIcons {
 		Set<Material> materials = (Set<Material>) MATERIALS.invokeExact();
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
+		for (BannerPattern pattern : BannerPattern.values()) {
+			if (pattern.getFileName().startsWith(LibMisc.MOD_ID)) {
+				materials.add(new Material(Atlases.SHIELD_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(false)));
+				materials.add(new Material(Atlases.BANNER_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(true)));
+			}
+		}
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
 		ModelLoader.addSpecialModel(prefix("icon/phiflower"));
 		ModelLoader.addSpecialModel(prefix("icon/nerfbat"));
