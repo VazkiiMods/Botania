@@ -147,7 +147,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public int apiVersion() {
-		return 94;
+		return 1;
 	}
 
 	@Override

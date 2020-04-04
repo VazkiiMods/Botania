@@ -49,6 +49,9 @@ public interface BotaniaAPI {
 		return INSTANCE.getValue();
 	}
 
+	/**
+	 * @return A unique version number for this version of the API. When anything is added, this number will be incremented
+	 */
 	default int apiVersion() {
 		return 0;
 	}
