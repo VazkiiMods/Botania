@@ -21,12 +21,12 @@ public interface IManaReceiver extends IManaBlock {
 	/**
 	 * Called when this receiver receives mana.
 	 */
-	public void recieveMana(int mana);
+	public void receiveMana(int mana);
 
 	/**
 	 * Can this tile receive mana from bursts? Generally set to false for
 	 * implementations of IManaCollector.
 	 */
-	public boolean canRecieveManaFromBursts();
+	public boolean canReceiveManaFromBursts();
 
 }

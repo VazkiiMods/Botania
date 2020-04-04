@@ -530,7 +530,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			}
 
 			if (tile == null || !tile.getPos().equals(coords)) {
-				if (!fake && !noParticles && (!world.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
+				if (!fake && !noParticles && (!world.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
 					onRecieverImpact((IManaReceiver) tile, tile.getPos());
 				}
 
@@ -549,7 +549,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		ILensEffect lens = getLensInstance();
 		if (lens != null) {
 			dead = lens.collideBurst(this, rtr, collidedTile instanceof IManaReceiver
-					&& ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
+					&& ((IManaReceiver) collidedTile).canReceiveManaFromBursts(), dead, getSourceLens());
 		}
 
 		if (pos != null && !hasAlreadyCollidedAt(pos)) {
@@ -598,7 +598,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
 		}
 
-		tile.recieveMana(mana);
+		tile.receiveMana(mana);
 
 		if (tile instanceof IThrottledPacket) {
 			((IThrottledPacket) tile).markDispatchable();

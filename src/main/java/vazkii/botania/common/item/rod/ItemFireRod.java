@@ -77,7 +77,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 			EntityFlameRing entity = new EntityFlameRing(world);
 			entity.setPosition(te.getPos().getX() + 0.5, te.getPos().getY(), te.getPos().getZ() + 0.5);
 			world.addEntity(entity);
-			tile.recieveMana(-COST);
+			tile.receiveMana(-COST);
 		}
 	}
 

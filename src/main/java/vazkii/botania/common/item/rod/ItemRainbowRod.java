@@ -190,12 +190,12 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 						world.setBlockState(pos, ModBlocks.bifrost.getDefaultState());
 						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
 						tileBifrost.ticks = 10;
-						tile.recieveMana(-MANA_COST_AVATAR);
+						tile.receiveMana(-MANA_COST_AVATAR);
 					} else if (block == ModBlocks.bifrost) {
 						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
 						if (tileBifrost.ticks < 2) {
 							tileBifrost.ticks = 10;
-							tile.recieveMana(-MANA_COST_AVATAR);
+							tile.receiveMana(-MANA_COST_AVATAR);
 						}
 					}
 				}

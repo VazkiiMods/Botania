@@ -113,7 +113,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 			if (state.getBlock().isAir(state, world, pos)) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 				world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));
-				tile.recieveMana(-COST);
+				tile.receiveMana(-COST);
 			}
 		}
 	}

@@ -170,7 +170,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			if (!collector.isFull() && getMana() > 0) {
 				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
 				mana = getMana() - manaval;
-				collector.recieveMana(manaval);
+				collector.receiveMana(manaval);
 			}
 		}
 	}

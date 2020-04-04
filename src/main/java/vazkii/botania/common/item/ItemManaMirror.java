@@ -71,7 +71,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			if (pool == null) {
 				setMana(stack, 0);
 			} else {
-				pool.recieveMana(getManaBacklog(stack));
+				pool.receiveMana(getManaBacklog(stack));
 				setManaBacklog(stack, 0);
 				setMana(stack, pool.getCurrentMana());
 			}
@@ -194,10 +194,10 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		}
 
 		@Override
-		public void recieveMana(int mana) {}
+		public void receiveMana(int mana) {}
 
 		@Override
-		public boolean canRecieveManaFromBursts() {
+		public boolean canReceiveManaFromBursts() {
 			return false;
 		}
 

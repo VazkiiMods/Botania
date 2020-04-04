@@ -160,7 +160,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 					if (!world.isRemote) {
 						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 						p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
-						tile.recieveMana(-COST);
+						tile.receiveMana(-COST);
 					}
 				}
 			}

@@ -92,7 +92,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 		World world = te.getWorld();
 		if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 			doHighlight(world, te.getPos(), 18, te.getPos().hashCode());
-			tile.recieveMana(-COST);
+			tile.receiveMana(-COST);
 		}
 	}
 

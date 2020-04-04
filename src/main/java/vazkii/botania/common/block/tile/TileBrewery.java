@@ -110,7 +110,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		}
 
 		// Update every tick.
-		recieveMana(0);
+		receiveMana(0);
 
 		if (!world.isRemote && recipe == null) {
 			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
@@ -146,7 +146,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 				if (mana >= getManaCost() && !world.isRemote) {
 					int mana = getManaCost();
-					recieveMana(-mana);
+					receiveMana(-mana);
 
 					ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
 					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
@@ -251,12 +251,12 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, getManaCost());
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return !isFull();
 	}
 

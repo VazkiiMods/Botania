@@ -49,7 +49,7 @@ public class LensMagnet extends Lens {
 
 					BlockPos srcCoords = burst.getBurstSourceBlockPos();
 
-					if (tile.getPos().distanceSq(srcCoords) > 9 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+					if (tile.getPos().distanceSq(srcCoords) > 9 && receiver.canReceiveManaFromBursts() && !receiver.isFull()) {
 						Vector3 burstVec = Vector3.fromEntity(entity);
 						Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
 						Vector3 motionVec = new Vector3(entity.getMotion());

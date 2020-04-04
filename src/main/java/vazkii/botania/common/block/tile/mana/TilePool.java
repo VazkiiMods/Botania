@@ -17,12 +17,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -35,7 +33,6 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IKeyLocked;
@@ -119,7 +116,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		int old = this.mana;
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		if (old != this.mana) {
@@ -194,7 +191,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if (recipe != null) {
 			int mana = recipe.getManaToConsume();
 			if (getCurrentMana() >= mana) {
-				recieveMana(-mana);
+				receiveMana(-mana);
 
 				stack.shrink(1);
 				item.onGround = false; //Force entity collision update to run every tick if crafting is in progress
@@ -319,7 +316,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 							int manaVal = Math.min(transfRate, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
 							mana.addMana(stack, manaVal);
-							recieveMana(-manaVal);
+							receiveMana(-manaVal);
 						}
 					} else {
 						if (canAccept) {
@@ -329,7 +326,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 							int manaVal = Math.min(transfRate, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
 							mana.addMana(stack, -manaVal);
-							recieveMana(manaVal);
+							receiveMana(manaVal);
 						}
 					}
 
@@ -435,7 +432,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return true;
 	}
 

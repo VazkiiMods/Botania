@@ -65,12 +65,12 @@ public class TileDistributor extends TileMod implements IManaReceiver, ITickable
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		int tiles = validPools.size();
 		if (tiles != 0) {
 			int manaForEach = mana / tiles;
 			for (IManaReceiver pool : validPools) {
-				pool.recieveMana(manaForEach);
+				pool.receiveMana(manaForEach);
 				TileEntity tile = (TileEntity) pool;
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, tile.getPos());
 			}
@@ -78,7 +78,7 @@ public class TileDistributor extends TileMod implements IManaReceiver, ITickable
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return !isFull();
 	}
 }

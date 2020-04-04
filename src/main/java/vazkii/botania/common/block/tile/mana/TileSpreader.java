@@ -15,13 +15,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -157,7 +155,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, getMaxMana());
 		this.markDirty();
 	}
@@ -197,8 +195,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					if (manaInPool > 0 && !isFull()) {
 						int manaMissing = getMaxMana() - mana;
 						int manaToRemove = Math.min(manaInPool, manaMissing);
-						pool.recieveMana(-manaToRemove);
-						recieveMana(manaToRemove);
+						pool.receiveMana(-manaToRemove);
+						receiveMana(manaToRemove);
 					}
 				}
 			}
@@ -385,7 +383,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return true;
 	}
 
@@ -452,7 +450,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private void tryShootBurst() {
 		boolean redstone = getVariant() == BlockSpreader.Variant.REDSTONE;
 		if ((receiver != null || redstone) && !invalidTentativeBurst) {
-			if (canShootBurst && (redstone || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
+			if (canShootBurst && (redstone || receiver.canReceiveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
 				if (burst != null) {
 					if (!world.isRemote) {

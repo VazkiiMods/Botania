@@ -101,12 +101,12 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(MAX_MANA, this.mana + mana);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return !itemHandler.getStackInSlot(0).isEmpty();
 	}
 

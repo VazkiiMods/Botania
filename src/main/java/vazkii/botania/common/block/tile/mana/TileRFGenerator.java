@@ -136,12 +136,12 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.energy = Math.min(MAX_ENERGY, this.energy + mana * MANA_TO_FE);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return true;
 	}
 

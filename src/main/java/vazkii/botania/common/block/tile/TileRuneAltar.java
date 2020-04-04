@@ -28,7 +28,6 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -151,7 +150,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	public void tick() {
 
 		// Update every tick.
-		recieveMana(0);
+		receiveMana(0);
 
 		if (!world.isRemote) {
 			if (manaToGet == 0) {
@@ -276,7 +275,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 			if (livingrock != null) {
 				int mana = recipe.getManaUsage();
-				recieveMana(-mana);
+				receiveMana(-mana);
 				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				world.addEntity(outputItem);
@@ -360,12 +359,12 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, manaToGet);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return !isFull();
 	}
 

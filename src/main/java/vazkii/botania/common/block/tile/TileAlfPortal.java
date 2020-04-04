@@ -33,7 +33,6 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
@@ -52,7 +51,6 @@ import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
@@ -434,7 +432,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 		if (consumed >= expectedConsumption) {
 			for (TilePool pool : consumePools) {
-				pool.recieveMana(-costPer);
+				pool.receiveMana(-costPer);
 			}
 			return true;
 		}

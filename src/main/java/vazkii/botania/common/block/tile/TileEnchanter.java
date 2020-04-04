@@ -372,12 +372,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(manaRequired, this.mana + mana);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return manaRequired > 0;
 	}
 

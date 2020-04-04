@@ -35,7 +35,7 @@ public class TileManaVoid extends TileMod implements IClientManaHandler {
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		if (mana > 0) {
 			for (int i = 0; i < 10; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 0.2F, 0.2F, 0.2F, 5);
@@ -45,7 +45,7 @@ public class TileManaVoid extends TileMod implements IClientManaHandler {
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canReceiveManaFromBursts() {
 		return true;
 	}
 
