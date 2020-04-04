@@ -42,7 +42,7 @@ public class CorporeaRequestEvent extends Event {
 	}
 
 	/**
-	 * @return {@code false} if this is a dry run, else {@code true}.
+	 * @return {@code true} if this is a dry run, else {@code false}.
 	 */
 	public boolean isDryRun() {
 		return dryRun;
