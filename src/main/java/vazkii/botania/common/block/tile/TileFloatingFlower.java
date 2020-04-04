@@ -26,6 +26,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -58,7 +59,7 @@ public class TileFloatingFlower extends TileMod {
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == BotaniaAPI.instance().FLOATING_FLOWER_CAP) {
+		if (cap == TileEntitySpecialFlower.FLOATING_FLOWER_CAP) {
 			return floatingDataCap.cast();
 		}
 		return super.getCapability(cap, side);
@@ -76,12 +77,12 @@ public class TileFloatingFlower extends TileMod {
 
 	@Override
 	public void writePacketNBT(CompoundNBT cmp) {
-		cmp.put(TAG_FLOATING_DATA, BotaniaAPI.instance().FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+		cmp.put(TAG_FLOATING_DATA, TileEntitySpecialFlower.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
 	}
 
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
-		BotaniaAPI.instance().FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+		TileEntitySpecialFlower.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 	}
 
 	@Nonnull

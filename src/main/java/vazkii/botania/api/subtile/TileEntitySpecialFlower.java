@@ -37,6 +37,7 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -59,6 +60,8 @@ import java.util.List;
  * Common superclass of all magical flower TE's
  */
 public class TileEntitySpecialFlower extends TileEntity implements ITickableTileEntity, IWandBindable {
+	@CapabilityInject(IFloatingFlower.class)
+	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
 	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation("botania", "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
@@ -125,7 +128,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == BotaniaAPI.instance().FLOATING_FLOWER_CAP) {
+		if (cap == FLOATING_FLOWER_CAP) {
 			if (hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
@@ -134,7 +137,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	public boolean isFloating() {
-		return getCapability(BotaniaAPI.instance().FLOATING_FLOWER_CAP).isPresent();
+		return getCapability(FLOATING_FLOWER_CAP).isPresent();
 	}
 
 	private boolean isOnSpecialSoil() {
@@ -206,7 +209,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 */
 	public void writeToPacketNBT(CompoundNBT cmp) {
 		if (isFloating()) {
-			cmp.put(TAG_FLOATING_DATA, BotaniaAPI.instance().FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+			cmp.put(TAG_FLOATING_DATA, FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
 		}
 	}
 
@@ -217,7 +220,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 */
 	public void readFromPacketNBT(CompoundNBT cmp) {
 		if (cmp.contains(TAG_FLOATING_DATA)) {
-			BotaniaAPI.instance().FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+			FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 		}
 	}
 

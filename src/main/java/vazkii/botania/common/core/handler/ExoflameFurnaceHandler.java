@@ -17,6 +17,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -33,6 +35,8 @@ import java.lang.invoke.MethodHandle;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ExoflameFurnaceHandler {
 
+	@CapabilityInject(IExoflameHeatable.class)
+	public static Capability<IExoflameHeatable> CAPABILITY;
 	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "exoflame_heatable");
 
 	private static final MethodHandle CAN_SMELT = LibObfuscation.getMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);
@@ -43,7 +47,7 @@ public class ExoflameFurnaceHandler {
 		TileEntity te = event.getObject();
 		if (te instanceof AbstractFurnaceTileEntity) {
 			AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) te;
-			SimpleCapProvider.attach(event, ID, BotaniaAPI.instance().EXOFLAME_HEATABLE_CAP, new FurnaceExoflameHeatable(furnace));
+			SimpleCapProvider.attach(event, ID, CAPABILITY, new FurnaceExoflameHeatable(furnace));
 		}
 	}
 

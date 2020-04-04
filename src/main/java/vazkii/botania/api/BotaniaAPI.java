@@ -21,8 +21,6 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
@@ -30,8 +28,6 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
-import vazkii.botania.api.item.IExoflameHeatable;
-import vazkii.botania.api.item.IFloatingFlower;
 
 import javax.annotation.Nonnull;
 
@@ -56,10 +52,6 @@ public interface BotaniaAPI {
 	default int apiVersion() {
 		return 0;
 	}
-
-	@CapabilityInject(IFloatingFlower.class) public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP = null;
-
-	@CapabilityInject(IExoflameHeatable.class) public static Capability<IExoflameHeatable> EXOFLAME_HEATABLE_CAP = null;
 
 	default IForgeRegistry<Brew> getBrewRegistry() {
 		return null;
