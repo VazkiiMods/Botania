@@ -80,10 +80,11 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			if (world.isRemote) {
 				player.swingArm(hand);
+			} else {
+				ItemStack lens = getLens(stack);
+				ItemsRemainingRenderHandler.send(player, lens, -2);
+				stack.setDamage(effCd);
 			}
-			ItemStack lens = getLens(stack);
-			ItemsRemainingRenderHandler.set(lens, -2);
-			stack.setDamage(effCd);
 			return ActionResult.success(stack);
 		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);

@@ -12,13 +12,18 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.network.PacketUpdateItemsRemaining;
 
+import javax.annotation.Nullable;
 import java.util.regex.Pattern;
 
 public final class ItemsRemainingRenderHandler {
@@ -27,7 +32,8 @@ public final class ItemsRemainingRenderHandler {
 	private static final int leaveTicks = 20;
 
 	private static ItemStack stack = ItemStack.EMPTY;
-	private static String customString;
+	@Nullable
+	private static ITextComponent customString;
 	private static int ticks, count;
 
 	@OnlyIn(Dist.CLIENT)
@@ -76,7 +82,7 @@ public final class ItemsRemainingRenderHandler {
 					}
 				}
 			} else {
-				text = customString;
+				text = customString.getFormattedText();
 			}
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
@@ -94,22 +100,22 @@ public final class ItemsRemainingRenderHandler {
 		}
 	}
 
-	public static void set(ItemStack stack, String str) {
-		set(stack, 0, str);
+	public static void send(PlayerEntity player, ItemStack stack, int count) {
+		send(player, stack, count, null);
 	}
 
-	public static void set(ItemStack stack, int count) {
-		set(stack, count, null);
-	}
-
-	public static void set(ItemStack stack, int count, String str) {
+	public static void set(ItemStack stack, int count, @Nullable ITextComponent str) {
 		ItemsRemainingRenderHandler.stack = stack;
 		ItemsRemainingRenderHandler.count = count;
 		ItemsRemainingRenderHandler.customString = str;
 		ticks = stack.isEmpty() ? 0 : maxTicks;
 	}
 
-	public static void set(PlayerEntity player, ItemStack displayStack, Pattern pattern) {
+	public static void send(PlayerEntity entity, ItemStack stack, int count, @Nullable ITextComponent str) {
+		PacketHandler.sendTo((ServerPlayerEntity) entity, new PacketUpdateItemsRemaining(stack, count, str));
+	}
+
+	public static void send(PlayerEntity player, ItemStack displayStack, Pattern pattern) {
 		int count = 0;
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
@@ -118,7 +124,7 @@ public final class ItemsRemainingRenderHandler {
 			}
 		}
 
-		set(displayStack, count);
+		send(player, displayStack, count, null);
 	}
 
 }

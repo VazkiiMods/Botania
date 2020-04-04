@@ -22,7 +22,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -84,11 +83,13 @@ public class ItemAstrolabe extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand hand) {
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (playerIn.isSneaking()) {
-			int size = getSize(stack);
-			int newSize = size == 11 ? 3 : size + 2;
-			setSize(stack, newSize);
-			ItemsRemainingRenderHandler.set(stack, newSize + "x" + newSize);
-			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
+			playerIn.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 1F);
+			if (!worldIn.isRemote) {
+				int size = getSize(stack);
+				int newSize = size == 11 ? 3 : size + 2;
+				setSize(stack, newSize);
+				ItemsRemainingRenderHandler.send(playerIn, stack, 0, new StringTextComponent(newSize + "x" + newSize));
+			}
 
 			return ActionResult.success(stack);
 		}
@@ -245,7 +246,7 @@ public class ItemAstrolabe extends Item {
 		Block block = getBlock(stack);
 		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block);
 		if (!player.world.isRemote) {
-			ItemsRemainingRenderHandler.set(new ItemStack(block), count);
+			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}
 	}
 

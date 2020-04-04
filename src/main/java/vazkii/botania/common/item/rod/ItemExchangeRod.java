@@ -331,7 +331,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		Block block = getState(stack).getBlock();
 		int count = getInventoryItemCount(player, stack, block);
 		if (!player.world.isRemote) {
-			ItemsRemainingRenderHandler.set(new ItemStack(block), count);
+			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}
 	}
 
