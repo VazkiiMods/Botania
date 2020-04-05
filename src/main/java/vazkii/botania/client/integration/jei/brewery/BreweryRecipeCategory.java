@@ -25,6 +25,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -125,6 +126,8 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 
 		recipeLayout.getItemStacks().init(7, false, 87, 41);
 		recipeLayout.getItemStacks().set(7, getItemMatchingFocus(focus, IFocus.Mode.INPUT, inputs.get(0), outputs.get(0)));
+
+		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), 7, recipe.getId());
 	}
 
 	/**

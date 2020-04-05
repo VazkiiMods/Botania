@@ -19,6 +19,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -28,6 +29,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 
 import org.lwjgl.opengl.GL11;
 
@@ -135,5 +137,15 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<AbstractElvenTr
 			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
 			recipeLayout.getItemStacks().set(index + i, stacks);
 		}
+
+		int endIndex = index;
+		ResourceLocation recipeId = recipe.getId();
+		recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+			if (slotIndex >= endIndex) {
+				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
+					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
+				}
+			}
+		});
 	}
 }

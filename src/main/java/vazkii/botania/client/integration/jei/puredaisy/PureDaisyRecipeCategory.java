@@ -13,6 +13,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
+import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -20,6 +22,8 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -29,6 +33,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.StateIngredient;
+import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -148,5 +153,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 			recipeLayout.getItemStacks().init(2, false, 99, 12);
 			recipeLayout.getItemStacks().set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 		}
+
+		IGuiIngredientGroup<?> group = outputFluid ? recipeLayout.getFluidStacks() : recipeLayout.getItemStacks();
+		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(group, 2, recipe.getId());
 	}
 }

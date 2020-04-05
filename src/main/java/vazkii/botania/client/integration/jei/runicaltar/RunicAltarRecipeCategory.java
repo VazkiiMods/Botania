@@ -24,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
@@ -120,6 +121,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
+		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 
 	private Point rotatePointAbout(Point in, Point about, double degrees) {

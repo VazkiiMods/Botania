@@ -11,6 +11,7 @@ package vazkii.botania.client.integration.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -22,12 +23,15 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
@@ -217,6 +221,16 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		};
 
 		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof ContainerScreen || gui instanceof IRecipesGui;
+	}
+
+	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, ResourceLocation recipeId) {
+		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+			if (slotIndex == slot) {
+				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
+					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
+				}
+			}
+		});
 	}
 
 	@Nonnull
