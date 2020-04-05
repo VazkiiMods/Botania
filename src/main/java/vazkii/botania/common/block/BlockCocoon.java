@@ -28,7 +28,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.TileCocoon;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
@@ -75,20 +77,27 @@ public class BlockCocoon extends BlockMod {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
 		Item item = stack.getItem();
 
-		if (cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT)) {
-			if (!world.isRemote) {
-				if (item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
-					if (!creative) {
+		if(cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT || item == ModItems.lifeEssence)) {
+			if(!world.isRemote) {
+				if(item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
+					if(!creative) {
 						stack.shrink(1);
 					}
 					cocoon.emeraldsGiven++;
-					((ServerWorld) world).spawnParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0, 0, 0, 0.5);
-				} else if (item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
-					if (!creative) {
+					((ServerWorld) world).spawnParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0.05, 0.1, 0.5);
+				} else if(item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
+					if(!creative) {
 						stack.shrink(1);
 					}
 					cocoon.chorusFruitGiven++;
 					((ServerWorld) world).spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
+				} else if (item == ModItems.lifeEssence && !cocoon.gaiaSpiritGiven) {
+					if(!creative) {
+						stack.shrink(1);
+					}
+					cocoon.forceRare();
+					WispParticleData data = WispParticleData.wisp(0.6F, 0F, 1F, 0F);
+					((ServerWorld) world).spawnParticle(data, pos.getX() + 0.5, pos.getY() + 0.7, pos.getZ() + 0.5, 8, 0.1, 0.1, 0.1, 0.04);
 				}
 			}
 

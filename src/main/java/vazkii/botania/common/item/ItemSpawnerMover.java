@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
@@ -90,12 +92,11 @@ public class ItemSpawnerMover extends Item {
 
 	private ActionResultType placeSpawner(ItemUseContext ctx) {
 		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
-		useStack.getOrCreateTag().put("BlockEntityTag", ctx.getItem().getChildTag(TAG_SPAWNER));
-		ActionResultType res = PlayerHelper.substituteUse(ctx, useStack);
+		Pair<ActionResultType, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
 
-		if (res == ActionResultType.SUCCESS) {
+		if(res.getFirst() == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();
-			BlockPos pos = ctx.getPos();
+			BlockPos pos = res.getSecond();
 			ItemStack mover = ctx.getItem();
 
 			if (!world.isRemote) {
@@ -103,6 +104,15 @@ public class ItemSpawnerMover extends Item {
 					ctx.getPlayer().sendBreakAnimation(ctx.getHand());
 				}
 				mover.shrink(1);
+
+				TileEntity te = world.getTileEntity(pos);
+				if (te instanceof MobSpawnerTileEntity) {
+					CompoundNBT spawnerTag = ctx.getItem().getChildTag(TAG_SPAWNER).copy();
+					spawnerTag.putInt("x", pos.getX());
+					spawnerTag.putInt("y", pos.getY());
+					spawnerTag.putInt("z", pos.getZ());
+					te.read(spawnerTag);
+				}
 			} else {
 				for (int i = 0; i < 100; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
@@ -111,7 +121,7 @@ public class ItemSpawnerMover extends Item {
 			}
 		}
 
-		return res;
+		return res.getFirst();
 	}
 
 	private boolean captureSpawner(ItemUseContext ctx) {

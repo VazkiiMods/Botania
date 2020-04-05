@@ -23,6 +23,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.NonNullList;
@@ -156,7 +157,8 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 									TileEntity newTile = block.createTileEntity(state, world);
 									world.setTileEntity(pos_, newTile);
 								}
-								world.destroyBlock(pos_, false);
+								world.playEvent(2001, pos_, Block.getStateId(state));
+								world.setBlockState(pos_, Blocks.AIR.getDefaultState());
 
 								ItemStack copyLens = new ItemStack(this);
 								copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
@@ -258,6 +260,10 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					BlockState state = Blocks.AIR.getDefaultState();
 					if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
 						state = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
+					}
+
+					if (entity.world.getDimension().doesWaterVaporize() && state.has(BlockStateProperties.WATERLOGGED)) {
+						state = state.with(BlockStateProperties.WATERLOGGED, false);
 					}
 
 					TileEntity tile = null;

@@ -37,6 +37,7 @@ import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockTinyPotato extends BlockMod {
 
@@ -87,7 +88,7 @@ public class BlockTinyPotato extends BlockMod {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
 		if (stack.hasDisplayName()) {
 			((TileTinyPotato) world.getTileEntity(pos)).name = stack.getDisplayName();
 		}

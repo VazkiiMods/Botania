@@ -1,3 +1,47 @@
+r1.11 379
+* This is the final build for 1.14.x. See you in 1.15.2 very soon!
+* Add additional checks so that crashes unrelated to Botania don't blame Botania
+* Fix dyeing fabulous pools not adjusting the color
+* Dispensers can now use the Wand of the Forest's sneak right click actions, consult the lexicon for more. (eutropius225)
+* Runic Altar and Petal Apothecary fast-recraft no longer consumes items in creative mode
+* Fix mana tablet recipe not accepting mana pearls
+* Fix bifrost pane being unbreakable
+* Fix floating endoflame recipe being missing
+* Fix entropinnyum accepting TNT resting in waterlogged blocks
+* Fix mana clip attachment destroying lenses
+* Fix Resolute Ivy not working on curios
+* Fix crash when a minecart that is Spectral Rail boosted lands directly on another Spectral Rail then runs into a normal rail
+* Items that generate mana and provide it to other items in inventory only do so serverside. May fix some desyncs.
+* Remove "Status Unknown". The current mana levels of all blocks now automatically update.
+* Cocoons can now be forced to spawn rare mobs using Gaia Spirits
+* Fix rannuncarpus crashing when placing certain blocks
+* Fix some mechanisms like the Force Relay/Lens allowing you to move waterlogged blocks
+* Fix minecart sounds being silent when Botania is installed
+* Fix Life Aggregator not placing down spawners correctly
+r1.11 378
+* Fix narslimmus eating spawner-spawned slimes
+* Fix exoflames trying to smelt unsmeltable items in some cases
+* Hydroangeas now show a durability bar for their decay time
+* Fix agricarnation not speeding up sweet berries and bamboo
+* Fix a crash in the Platforms
+* Cocoon-spawned entities no longer despawn
+* Fix Loki Ring being completely broken. There are still some edge-cases left but it should work mostly.
+* Loki Ring grid now keeps the center position highlighted in bold for consistency with the building phase
+* Replace slots in the Trinket Case texture with a player render (what else would I put there?)
+* (Internal) Move recipe jsons to data generator
+* Remove old Thaumcraft recipes and integration pages (F to pay respects)
+* Fix Rod of Plentiful Mantle showing same color particles for all ores
+* Add temporary recipes so the Botania banner patterns are accessible again
+* Azulejo can now be crafted with any blue dye
+* New Advancement - Hand in Hand - place over 255 blocks at once with a ring of loki
+* New Hidden Advancement - That's Why I Baked Bread. Try to figure this one out! It shouldn't be very hard if you know the Botania memes.
+* Fix non-English advancement names being broken
+* Remove a bunch of dead lang entries
+* Fix a bunch of animations stopping and/or jittering when the pause menu is open (even on servers)
+* Fix force relays not moving properly when retracted indirectly using slime blocks
+* Fix at least one known case of the "chunk loses all light" vanilla bug happening
+* Lexicon typo fixes and tweaks (Alwinfy)
+* Temporary fix for force relays in non-overworld dimensions not saving
 r1.11 377
 * Fix cell blocks not respecting red string spoofers
 * Potential fix for lighting issues. Please reset/relight any affected areas and continue monitoring.

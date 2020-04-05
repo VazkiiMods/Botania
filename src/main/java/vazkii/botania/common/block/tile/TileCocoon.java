@@ -37,6 +37,8 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
+	private static final String TAG_GAIA_SPIRIT_GIVEN = "gaiaSpiritGiven"; 
+
 	private static final List<EntityType<? extends MobEntity>> SPECIALS = ImmutableList.of(
 			EntityType.HORSE, EntityType.DONKEY, EntityType.WOLF, EntityType.OCELOT,
 			EntityType.CAT, EntityType.PARROT, EntityType.LLAMA, EntityType.FOX,
@@ -57,6 +59,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 	public int timePassed;
 	public int emeraldsGiven;
 	public int chorusFruitGiven;
+	public boolean gaiaSpiritGiven;
 
 	public TileCocoon() {
 		super(TYPE);
@@ -77,6 +80,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 
 			MobEntity entity = null;
 			BlockPos placePos = pos;
+			float rareChance = gaiaSpiritGiven ? 1F : SPECIAL_CHANCE;  
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
 			float shulkerChance = Math.min(1F, (float) chorusFruitGiven / (float) MAX_CHORUS_FRUITS);
@@ -103,13 +107,13 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 				entity = villager;
 			} else if (!validWater.isEmpty()) {
 				placePos = validWater.get(world.rand.nextInt(validWater.size()));
-				if (Math.random() < SPECIAL_CHANCE) {
+				if (Math.random() < rareChance) {
 					entity = EntityType.DOLPHIN.create(world);
 				} else {
 					entity = AQUATIC.get(world.rand.nextInt(AQUATIC.size())).create(world);
 				}
 			} else {
-				if (Math.random() < SPECIAL_CHANCE) {
+				if(Math.random() < rareChance) {
 					entity = SPECIALS.get(world.rand.nextInt(SPECIALS.size())).create(world);
 				} else {
 					EntityType<? extends MobEntity> type = NORMALS.get(world.rand.nextInt(NORMALS.size()));
@@ -133,11 +137,17 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 		}
 	}
 
+	public void forceRare() {
+		gaiaSpiritGiven = true;
+		timePassed = Math.min(timePassed, TOTAL_TIME / 3);
+	}
+
 	@Override
 	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_TIME_PASSED, timePassed);
 		cmp.putInt(TAG_EMERALDS_GIVEN, emeraldsGiven);
 		cmp.putInt(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
+		cmp.putBoolean(TAG_GAIA_SPIRIT_GIVEN, gaiaSpiritGiven);
 	}
 
 	@Override
@@ -145,6 +155,6 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 		timePassed = cmp.getInt(TAG_TIME_PASSED);
 		emeraldsGiven = cmp.getInt(TAG_EMERALDS_GIVEN);
 		chorusFruitGiven = cmp.getInt(TAG_CHORUS_FRUIT_GIVEN);
+		gaiaSpiritGiven = cmp.getBoolean(TAG_GAIA_SPIRIT_GIVEN);
 	}
-
 }

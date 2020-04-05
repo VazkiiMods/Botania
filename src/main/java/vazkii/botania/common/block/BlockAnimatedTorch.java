@@ -36,6 +36,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
 
@@ -56,7 +57,7 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		((TileAnimatedTorch) world.getTileEntity(pos)).onPlace(entity);
 	}
 

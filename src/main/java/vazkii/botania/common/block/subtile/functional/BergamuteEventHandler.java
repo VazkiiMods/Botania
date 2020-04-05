@@ -149,6 +149,11 @@ public class BergamuteEventHandler {
 			return compose.getZ();
 		}
 
+		@Override
+		public boolean canBeSilent() {
+			return compose.canBeSilent();
+		}
+
 		@Nonnull
 		@Override
 		public AttenuationType getAttenuationType() {

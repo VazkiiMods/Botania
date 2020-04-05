@@ -45,6 +45,7 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.lens.LensPiston;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -237,7 +238,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
 								if (world.isAirBlock(destPos.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(destPos, Blocks.AIR.getDefaultState());
-									world.setBlockState(destPos.offset(dir), srcState);
+									world.setBlockState(destPos.offset(dir), LensPiston.unWaterlog(srcState));
 									data.mapping.put(s.getPos(), destPos.offset(dir));
 								}
 							}

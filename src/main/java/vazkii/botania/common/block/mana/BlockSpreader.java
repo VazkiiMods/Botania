@@ -44,6 +44,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -94,8 +95,8 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		Direction orientation = Direction.getFacingDirections(placer)[0].getOpposite();
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		Direction orientation = placer == null ? Direction.WEST : Direction.getFacingDirections(placer)[0].getOpposite();
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
 
 		switch (orientation) {
@@ -113,7 +114,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 			break;
 		case WEST:
 			break;
-		default:
+		case EAST:
 			spreader.rotationX = 180F;
 			break;
 		}

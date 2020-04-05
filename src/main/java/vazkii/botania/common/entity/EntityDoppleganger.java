@@ -598,7 +598,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 	private void clearPotions(PlayerEntity player) {
 		List<Effect> potionsToRemove = player.getActivePotionEffects().stream()
-				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && effect.getPotion().type != EffectType.HARMFUL)
+				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && effect.getPotion().getEffectType() != EffectType.HARMFUL)
 				.map(EffectInstance::getPotion)
 				.distinct()
 				.collect(Collectors.toList());
