@@ -101,7 +101,8 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 	}
 
 	@Nonnull
-	@Override public ItemStack getIcon() {
+	@Override
+	public ItemStack getIcon() {
 		return new ItemStack(ModBlocks.alfPortal);
 	}
 

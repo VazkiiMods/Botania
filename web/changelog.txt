@@ -1,3 +1,12 @@
+r1.15 382
+* Welcome to Botania on 1.15.2
+* r-version will always match the major Minecraft release now
+* API cleaned and reworked (there are some missing pieces that will be filled in)
+* All Botania recipes are sourced from JSON for faster loading times and better customizability
+* All accessory renders are fixed besides Known Issues
+* Lots of behind-the-scenes cleaning so the mod will be maintainable for years to come
+* Known Issue: Flugel Tiara renders don't look right
+* Known Issue: Botania shears don't act like shears
 r1.11 379
 * This is the final build for 1.14.x. See you in 1.15.2 very soon!
 * Add additional checks so that crashes unrelated to Botania don't blame Botania

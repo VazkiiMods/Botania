@@ -42,7 +42,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	private final String group;
 
 	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,
-					@Nullable String group, @Nullable BlockState catalystState) {
+			@Nullable String group, @Nullable BlockState catalystState) {
 		this.id = id;
 		this.output = output;
 		this.input = input;

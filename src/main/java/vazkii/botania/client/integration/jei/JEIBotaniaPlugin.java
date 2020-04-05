@@ -35,6 +35,7 @@ import net.minecraft.util.text.TextFormatting;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
@@ -55,7 +56,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;

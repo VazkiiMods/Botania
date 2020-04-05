@@ -25,9 +25,9 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import vazkii.botania.common.crafting.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.RecipeRuneAltar;
 
 import javax.annotation.Nonnull;
 
