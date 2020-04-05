@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
@@ -94,7 +95,7 @@ public class ItemSpawnerMover extends Item {
 		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
 		Pair<ActionResultType, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
 
-		if(res.getFirst() == ActionResultType.SUCCESS) {
+		if (res.getFirst() == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();
 			BlockPos pos = res.getSecond();
 			ItemStack mover = ctx.getItem();

@@ -21,10 +21,11 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
+
 import org.apache.logging.log4j.LogManager;
+
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
@@ -50,7 +51,8 @@ public interface BotaniaAPI {
 	}
 
 	/**
-	 * @return A unique version number for this version of the API. When anything is added, this number will be incremented
+	 * @return A unique version number for this version of the API. When anything is added, this number will be
+	 *         incremented
 	 */
 	default int apiVersion() {
 		return 0;
@@ -79,7 +81,8 @@ public interface BotaniaAPI {
 	/**
 	 * Make Botania aware of how to transform between different colors of a block, for use in the paint lens.
 	 * This method can be safely called during parallel mod initialization
-	 * @param block The block
+	 * 
+	 * @param block       The block
 	 * @param transformer Function from color to a new block
 	 */
 	default void registerPaintableBlock(IRegistryDelegate<Block> block, Function<DyeColor, Block> transformer) {
@@ -119,7 +122,8 @@ public interface BotaniaAPI {
 			return "missingno";
 		}
 
-		@Override public float getToughness() {
+		@Override
+		public float getToughness() {
 			return 0;
 		}
 	};
@@ -151,7 +155,8 @@ public interface BotaniaAPI {
 		}
 
 		@Nonnull
-		@Override public Ingredient getRepairMaterial() {
+		@Override
+		public Ingredient getRepairMaterial() {
 			return Ingredient.EMPTY;
 		}
 	};

@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import org.apache.logging.log4j.LogManager;
+
 import vazkii.botania.api.item.IFloatingFlower;
 
 import java.util.Collections;
@@ -45,8 +46,7 @@ public interface BotaniaAPIClient {
 	 * @param islandType The islandtype to register
 	 * @param model      The model, only {@link ResourceLocation} allowed, no {@link ModelResourceLocation} allowed.
 	 */
-	default void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
-	}
+	default void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {}
 
 	/**
 	 * @return An immutable and live view of the registered island type model map

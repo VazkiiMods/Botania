@@ -9,8 +9,8 @@
 package vazkii.botania.common.core.handler;
 
 import com.google.common.collect.ImmutableMap;
-
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -35,7 +35,7 @@ public final class IMCHandler {
 					Object thing = msg.getMessageSupplier().get();
 					if (thing instanceof Pair) {
 						return ((Pair) thing).getFirst() instanceof ResourceLocation
-										&& ((Pair) thing).getSecond() instanceof Integer;
+								&& ((Pair) thing).getSecond() instanceof Integer;
 					}
 					return false;
 				})

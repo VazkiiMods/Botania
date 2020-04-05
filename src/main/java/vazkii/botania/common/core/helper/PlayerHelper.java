@@ -9,6 +9,7 @@
 package vazkii.botania.common.core.helper;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -127,8 +128,9 @@ public final class PlayerHelper {
 	 * This is to ensure that any code in mods' onItemUse that relies on player.getHeldItem(ctx.hand) == ctx.stack
 	 * will work as intended.
 	 * Properly handles null players, as long as the Item's onItemUse also handles them.
+	 * 
 	 * @return The usage result, as well as a properly offset block position pointing at where the block was placed
-	 * (if the item was a BlockItem)
+	 *         (if the item was a BlockItem)
 	 */
 	public static Pair<ActionResultType, BlockPos> substituteUseTrackPos(ItemUseContext ctx, ItemStack toUse) {
 		ItemStack save = ItemStack.EMPTY;

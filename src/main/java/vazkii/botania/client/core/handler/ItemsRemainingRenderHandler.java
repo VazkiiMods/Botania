@@ -20,10 +20,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketUpdateItemsRemaining;
 
 import javax.annotation.Nullable;
+
 import java.util.regex.Pattern;
 
 public final class ItemsRemainingRenderHandler {
@@ -32,8 +34,7 @@ public final class ItemsRemainingRenderHandler {
 	private static final int leaveTicks = 20;
 
 	private static ItemStack stack = ItemStack.EMPTY;
-	@Nullable
-	private static ITextComponent customString;
+	@Nullable private static ITextComponent customString;
 	private static int ticks, count;
 
 	@OnlyIn(Dist.CLIENT)

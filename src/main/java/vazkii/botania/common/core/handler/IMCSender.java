@@ -9,6 +9,7 @@
 package vazkii.botania.common.core.handler;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;

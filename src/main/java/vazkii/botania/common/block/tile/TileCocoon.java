@@ -37,7 +37,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
-	private static final String TAG_GAIA_SPIRIT_GIVEN = "gaiaSpiritGiven"; 
+	private static final String TAG_GAIA_SPIRIT_GIVEN = "gaiaSpiritGiven";
 
 	private static final List<EntityType<? extends MobEntity>> SPECIALS = ImmutableList.of(
 			EntityType.HORSE, EntityType.DONKEY, EntityType.WOLF, EntityType.OCELOT,
@@ -80,7 +80,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 
 			MobEntity entity = null;
 			BlockPos placePos = pos;
-			float rareChance = gaiaSpiritGiven ? 1F : SPECIAL_CHANCE;  
+			float rareChance = gaiaSpiritGiven ? 1F : SPECIAL_CHANCE;
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
 			float shulkerChance = Math.min(1F, (float) chorusFruitGiven / (float) MAX_CHORUS_FRUITS);
@@ -113,7 +113,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 					entity = AQUATIC.get(world.rand.nextInt(AQUATIC.size())).create(world);
 				}
 			} else {
-				if(Math.random() < rareChance) {
+				if (Math.random() < rareChance) {
 					entity = SPECIALS.get(world.rand.nextInt(SPECIALS.size())).create(world);
 				} else {
 					EntityType<? extends MobEntity> type = NORMALS.get(world.rand.nextInt(NORMALS.size()));

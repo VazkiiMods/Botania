@@ -16,8 +16,8 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.impl.BotaniaAPIClientImpl;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
-import vazkii.botania.common.impl.mana.ManaItemHandlerImpl;
 import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;
+import vazkii.botania.common.impl.mana.ManaItemHandlerImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 

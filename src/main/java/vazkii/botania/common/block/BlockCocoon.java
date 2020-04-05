@@ -77,22 +77,22 @@ public class BlockCocoon extends BlockMod {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
 		Item item = stack.getItem();
 
-		if(cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT || item == ModItems.lifeEssence)) {
-			if(!world.isRemote) {
-				if(item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
-					if(!creative) {
+		if (cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT || item == ModItems.lifeEssence)) {
+			if (!world.isRemote) {
+				if (item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
+					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.emeraldsGiven++;
 					((ServerWorld) world).spawnParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0.05, 0.1, 0.5);
-				} else if(item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
-					if(!creative) {
+				} else if (item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
+					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.chorusFruitGiven++;
 					((ServerWorld) world).spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
 				} else if (item == ModItems.lifeEssence && !cocoon.gaiaSpiritGiven) {
-					if(!creative) {
+					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.forceRare();

@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.impl;
 
 import net.minecraft.block.Block;
@@ -12,6 +20,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.IInternalMethodHandler;
@@ -21,6 +30,7 @@ import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,8 +39,9 @@ import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
 	private static final LazyValue<Rarity> RELIC_RARITY = new LazyValue<>(() -> Rarity.create("RELIC", TextFormatting.GOLD));
+
 	private enum ArmorMaterial implements IArmorMaterial {
-		MANASTEEL("manasteel", 16, new int[]{ 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),
+		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),
 		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> ModItems.manaweaveCloth, 0),
 		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.elementium, 0),
 		TERRASTEEL("terrasteel", 34, new int[] { 3, 6, 8, 3 }, 26, () -> SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, () -> ModItems.terrasteel, 3);
@@ -76,7 +87,8 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Nonnull
-		@Override public Ingredient getRepairMaterial() {
+		@Override
+		public Ingredient getRepairMaterial() {
 			return Ingredient.fromItems(repairItem.get());
 		}
 
@@ -95,8 +107,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	private enum ItemTier implements IItemTier {
 		MANASTEEL(300, 6.2F, 2, 3, 20, () -> ModItems.manaSteel),
 		ELEMENTIUM(720, 6.2F, 2, 3, 20, () -> ModItems.elementium),
-		TERRASTEEL(2300, 9, 3, 4, 26, () -> ModItems.terrasteel)
-		;
+		TERRASTEEL(2300, 9, 3, 4, 26, () -> ModItems.terrasteel);
 
 		private final int maxUses;
 		private final float efficiency;
@@ -196,6 +207,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	private final InternalMethodHandler tmp = new InternalMethodHandler();
+
 	@Override
 	public IInternalMethodHandler internalHandler() {
 		return tmp;

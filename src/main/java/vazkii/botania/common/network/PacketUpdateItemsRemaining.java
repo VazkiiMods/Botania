@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.network;
 
 import net.minecraft.item.ItemStack;
@@ -5,16 +13,17 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
+
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 
 import javax.annotation.Nullable;
+
 import java.util.function.Supplier;
 
 public class PacketUpdateItemsRemaining {
 	private final ItemStack stack;
 	private final int count;
-	@Nullable
-	private final ITextComponent tooltip;
+	@Nullable private final ITextComponent tooltip;
 
 	public PacketUpdateItemsRemaining(ItemStack stack, int count, @Nullable ITextComponent tooltip) {
 		this.stack = stack;
