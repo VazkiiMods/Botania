@@ -24,7 +24,7 @@
     {
       "type": "crafting_multi",
       "text": "botania.page.flowers3",
-      "recipes": "botania:petal_white;botania:petal_orange;botania:petal_magenta;botania:petal_light_blue;botania:petal_yellow;botania:petal_lime;botania:petal_pink;botania:petal_gray;botania:petal_silver;botania:petal_cyan;botania:petal_purple;botania:petal_blue;botania:petal_brown;botania:petal_green;botania:petal_red;botania:petal_black"
+      "recipes": "botania:petal_white;botania:petal_orange;botania:petal_magenta;botania:petal_light_blue;botania:petal_yellow;botania:petal_lime;botania:petal_pink;botania:petal_gray;botania:petal_light_gray;botania:petal_cyan;botania:petal_purple;botania:petal_blue;botania:petal_brown;botania:petal_green;botania:petal_red;botania:petal_black"
     },
     {
       "type": "crafting",
@@ -34,7 +34,7 @@
     {
       "type": "crafting_multi",
       "text": "botania.page.flowers5",
-      "recipes": "botania:dye_white;botania:dye_orange;botania:dye_magenta;botania:dye_light_blue;botania:dye_yellow;botania:dye_lime;botania:dye_pink;botania:dye_gray;botania:dye_silver;botania:dye_cyan;botania:dye_purple;botania:dye_blue;botania:dye_brown;botania:dye_green;botania:dye_red;botania:dye_black"
+      "recipes": "botania:dye_white;botania:dye_orange;botania:dye_magenta;botania:dye_light_blue;botania:dye_yellow;botania:dye_lime;botania:dye_pink;botania:dye_gray;botania:dye_light_gray;botania:dye_cyan;botania:dye_purple;botania:dye_blue;botania:dye_brown;botania:dye_green;botania:dye_red;botania:dye_black"
     },
     {
       "type": "text",
@@ -61,7 +61,7 @@
     {
       "type": "crafting_multi",
       "text": "botania.page.flowers11",
-      "recipes": "botania:petal_white_double;botania:petal_orange_double;botania:petal_magenta_double;botania:petal_light_blue_double;botania:petal_yellow_double;botania:petal_lime_double;botania:petal_pink_double;botania:petal_gray_double;botania:petal_silver_double;botania:petal_cyan_double;botania:petal_purple_double;botania:petal_blue_double;botania:petal_brown_double;botania:petal_green_double;botania:petal_red_double;botania:petal_black_double"
+      "recipes": "botania:petal_white_double;botania:petal_orange_double;botania:petal_magenta_double;botania:petal_light_blue_double;botania:petal_yellow_double;botania:petal_lime_double;botania:petal_pink_double;botania:petal_gray_double;botania:petal_light_gray_double;botania:petal_cyan_double;botania:petal_purple_double;botania:petal_blue_double;botania:petal_brown_double;botania:petal_green_double;botania:petal_red_double;botania:petal_black_double"
     },
     {
       "type": "crafting_multi",
@@ -71,7 +71,7 @@
     {
       "type": "crafting_multi",
       "text": "botania.page.flowers13",
-      "recipes": "botania:conversions/white_petal_block_deconstruct;botania:conversions/orange_petal_block_deconstruct;botania:conversions/magenta_petal_block_deconstruct;botania:conversions/light_blue_petal_block_deconstruct;botania:conversions/yellow_petal_block_deconstruct;botania:conversions/lime_petal_block_deconstruct;botania:conversions/pink_petal_block_deconstruct;botania:conversions/gray_petal_block_deconstruct;botania:conversions/silver_petal_block_deconstruct;botania:conversions/cyan_petal_block_deconstruct;botania:conversions/purple_petal_block_deconstruct;botania:conversions/blue_petal_block_deconstruct;botania:conversions/brown_petal_block_deconstruct;botania:conversions/green_petal_block_deconstruct;botania:conversions/red_petal_block_deconstruct;botania:conversions/black_petal_block_deconstruct"
+      "recipes": "botania:conversions/white_petal_block_deconstruct;botania:conversions/orange_petal_block_deconstruct;botania:conversions/magenta_petal_block_deconstruct;botania:conversions/light_blue_petal_block_deconstruct;botania:conversions/yellow_petal_block_deconstruct;botania:conversions/lime_petal_block_deconstruct;botania:conversions/pink_petal_block_deconstruct;botania:conversions/gray_petal_block_deconstruct;botania:conversions/light_gray_petal_block_deconstruct;botania:conversions/cyan_petal_block_deconstruct;botania:conversions/purple_petal_block_deconstruct;botania:conversions/blue_petal_block_deconstruct;botania:conversions/brown_petal_block_deconstruct;botania:conversions/green_petal_block_deconstruct;botania:conversions/red_petal_block_deconstruct;botania:conversions/black_petal_block_deconstruct"
     }
   ],
   "extra_recipe_mappings": {
