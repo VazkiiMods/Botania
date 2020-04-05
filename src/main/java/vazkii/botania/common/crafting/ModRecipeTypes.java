@@ -26,23 +26,23 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRecipeTypes {
-	public static final IRecipeType<RecipeManaInfusion> MANA_INFUSION_TYPE = new RecipeType<>();
+	public static final IRecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeManaInfusion> MANA_INFUSION_SERIALIZER = new RecipeManaInfusion.Serializer();
 
-	public static final IRecipeType<AbstractElvenTradeRecipe> ELVEN_TRADE_TYPE = new RecipeType<>();
+	public static final IRecipeType<IElvenTradeRecipe> ELVEN_TRADE_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeElvenTrade> ELVEN_TRADE_SERIALIZER = new RecipeElvenTrade.Serializer();
 	public static final SpecialRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SpecialRecipeSerializer<>(LexiconElvenTradeRecipe::new);
 
-	public static final IRecipeType<RecipePureDaisy> PURE_DAISY_TYPE = new RecipeType<>();
+	public static final IRecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
 
-	public static final IRecipeType<RecipeBrew> BREW_TYPE = new RecipeType<>();
+	public static final IRecipeType<IBrewRecipe> BREW_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
 
-	public static final IRecipeType<RecipePetals> PETAL_TYPE = new RecipeType<>();
+	public static final IRecipeType<IPetalRecipe> PETAL_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipePetals> PETAL_SERIALIZER = new RecipePetals.Serializer();
 
-	public static final IRecipeType<RecipeRuneAltar> RUNE_TYPE = new RecipeType<>();
+	public static final IRecipeType<IRuneAltarRecipe> RUNE_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final IRecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 

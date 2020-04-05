@@ -27,20 +27,18 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -249,7 +247,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 				json.addProperty("group", group);
 			}
 			if (catalyst != null) {
-				json.add("catalyst", StateIngredient.serializeBlockState(catalyst));
+				json.add("catalyst", StateIngredientHelper.serializeBlockState(catalyst));
 			}
 		}
 

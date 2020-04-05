@@ -17,8 +17,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
@@ -32,7 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ManaInfusionProcessor implements IComponentProcessor {
-	private List<RecipeManaInfusion> recipes;
+	private List<IManaInfusionRecipe> recipes;
 	private boolean hasCustomHeading;
 
 	@Override
@@ -41,7 +40,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			Botania.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
 		}
 
-		ImmutableList.Builder<RecipeManaInfusion> builder = ImmutableList.builder();
+		ImmutableList.Builder<IManaInfusionRecipe> builder = ImmutableList.builder();
 		if (variables.has("group")) {
 			String group = variables.get("group");
 			TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()).stream()
@@ -50,8 +49,8 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		} else {
 			for (String s : variables.get("recipes").split(";")) {
 				IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).get(new ResourceLocation(s));
-				if (recipe instanceof RecipeManaInfusion) {
-					builder.add((RecipeManaInfusion) recipe);
+				if (recipe instanceof IManaInfusionRecipe) {
+					builder.add((IManaInfusionRecipe) recipe);
 				} else {
 					Botania.LOGGER.warn("Mana infusion template references nonexistent recipe {}", s);
 				}
@@ -74,11 +73,11 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			}
 			return null;
 		case "input":
-			return PatchouliUtils.interweaveIngredients(recipes.stream().map(RecipeManaInfusion::getInput).collect(Collectors.toList()));
+			return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
 		case "output":
-			return recipes.stream().map(RecipeManaInfusion::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
+			return recipes.stream().map(IManaInfusionRecipe::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 		case "catalyst":
-			return recipes.stream().map(RecipeManaInfusion::getCatalyst)
+			return recipes.stream().map(IManaInfusionRecipe::getCatalyst)
 					.map(state -> {
 						if (state == null) {
 							return ItemStack.EMPTY;
@@ -88,7 +87,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 					.map(PatchouliAPI.instance::serializeItemStack)
 					.collect(Collectors.joining(","));
 		case "mana":
-			return recipes.stream().mapToInt(RecipeManaInfusion::getManaToConsume).mapToObj(Integer::toString).collect(Collectors.joining(";"));
+			return recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(Integer::toString).collect(Collectors.joining(";"));
 		case "drop":
 			return I18n.format("botaniamisc.drop") + TextFormatting.BOLD + " (?)";
 		case "dropTip0":

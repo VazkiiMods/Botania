@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar> {
+public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "runic_altar");
 	private final IDrawable background;
@@ -60,8 +60,8 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 
 	@Nonnull
 	@Override
-	public Class<? extends RecipeRuneAltar> getRecipeClass() {
-		return RecipeRuneAltar.class;
+	public Class<? extends IRuneAltarRecipe> getRecipeClass() {
+		return IRuneAltarRecipe.class;
 	}
 
 	@Nonnull
@@ -83,7 +83,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 	}
 
 	@Override
-	public void setIngredients(RecipeRuneAltar recipe, IIngredients iIngredients) {
+	public void setIngredients(IRuneAltarRecipe recipe, IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
 		for (Ingredient ingr : recipe.getIngredients()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
@@ -93,7 +93,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 	}
 
 	@Override
-	public void draw(RecipeRuneAltar recipe, double mouseX, double mouseY) {
+	public void draw(IRuneAltarRecipe recipe, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw();
@@ -103,7 +103,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeRuneAltar recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRuneAltarRecipe recipe, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
 

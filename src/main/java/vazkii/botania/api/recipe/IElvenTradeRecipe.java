@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package vazkii.botania.api.recipe;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -16,21 +16,18 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractElvenTradeRecipe implements IRecipe<IInventory> {
-	private final ResourceLocation id;
-
-	protected AbstractElvenTradeRecipe(ResourceLocation id) {
-		this.id = id;
-	}
+public interface IElvenTradeRecipe extends IRecipe<IInventory> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "elven_trade");
 
 	/**
 	 * Attempts to match the recipe
@@ -39,65 +36,56 @@ public abstract class AbstractElvenTradeRecipe implements IRecipe<IInventory> {
 	 * @return        {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe
 	 *                otherwise
 	 */
-	public abstract Optional<List<ItemStack>> match(List<ItemStack> stacks);
+	Optional<List<ItemStack>> match(List<ItemStack> stacks);
 
 	/**
 	 * If the recipe does not contain the item, it will be destroyed upon entering the portal.
 	 */
-	public abstract boolean containsItem(ItemStack stack);
+	boolean containsItem(ItemStack stack);
 
 	/**
 	 * @return Preview of the inputs
 	 */
 	@Nonnull
 	@Override
-	public abstract NonNullList<Ingredient> getIngredients();
+	NonNullList<Ingredient> getIngredients();
 
 	/**
 	 * @return Preview of the outputs
 	 */
-	public abstract List<ItemStack> getOutputs();
+	List<ItemStack> getOutputs();
 
 	/**
 	 * Actually evaluate the recipe
 	 */
-	public abstract List<ItemStack> getOutputs(List<ItemStack> inputs);
+	List<ItemStack> getOutputs(List<ItemStack> inputs);
 
 	@Nonnull
 	@Override
-	public ItemStack getIcon() {
-		return new ItemStack(ModBlocks.alfPortal);
-	}
-
-	@Override
-	public final ResourceLocation getId() {
-		return id;
-	}
-
-	@Override
-	public final IRecipeType<?> getType() {
-		return ModRecipeTypes.ELVEN_TRADE_TYPE;
+	default IRecipeType<?> getType() {
+		return Registry.RECIPE_TYPE.getValue(TYPE_ID).get();
 	}
 
 	// Ignored IRecipe boilerplate
 
 	@Override
-	public boolean matches(IInventory inv, World world) {
+	default boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		return false;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(IInventory inv) {
+	default ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	default boolean canFit(int width, int height) {
 		return false;
 	}
 
 	@Override
-	public ItemStack getRecipeOutput() {
+	default ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
 }

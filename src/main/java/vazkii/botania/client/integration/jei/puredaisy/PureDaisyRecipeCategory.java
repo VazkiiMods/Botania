@@ -27,11 +27,10 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
-import vazkii.botania.api.recipe.RecipePureDaisy;
+import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModSubtiles;
@@ -43,7 +42,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy> {
+public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "pure_daisy");
 	private final IDrawable background;
@@ -67,8 +66,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 
 	@Nonnull
 	@Override
-	public Class<? extends RecipePureDaisy> getRecipeClass() {
-		return RecipePureDaisy.class;
+	public Class<? extends IPureDaisyRecipe> getRecipeClass() {
+		return IPureDaisyRecipe.class;
 	}
 
 	@Nonnull
@@ -90,7 +89,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	}
 
 	@Override
-	public void setIngredients(RecipePureDaisy recipe, IIngredients iIngredients) {
+	public void setIngredients(IPureDaisyRecipe recipe, IIngredients iIngredients) {
 		StateIngredient input = recipe.getInput();
 		if (input.getDisplayed().size() > 1) {
 			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(input.getDisplayed().stream()
@@ -122,7 +121,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	}
 
 	@Override
-	public void draw(RecipePureDaisy recipe, double mouseX, double mouseY) {
+	public void draw(IPureDaisyRecipe recipe, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(48, 0);
@@ -131,7 +130,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipePureDaisy recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IPureDaisyRecipe recipe, @Nonnull IIngredients ingredients) {
 		boolean inputFluid = !ingredients.getInputs(VanillaTypes.FLUID).isEmpty();
 		boolean outputFluid = !ingredients.getOutputs(VanillaTypes.FLUID).isEmpty();
 

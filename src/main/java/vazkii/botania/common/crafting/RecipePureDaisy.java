@@ -6,18 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package vazkii.botania.common.crafting;
 
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
@@ -25,13 +21,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import vazkii.botania.api.recipe.IPureDaisyRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RecipePureDaisy implements IRecipe<IInventory> {
+public class RecipePureDaisy implements IPureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 
@@ -39,10 +36,6 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 	private final StateIngredient input;
 	private final BlockState outputState;
 	private final int time;
-
-	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state) {
-		this(id, input, state, DEFAULT_TIME);
-	}
 
 	/**
 	 * @param id    The ID for this recipe.
@@ -60,18 +53,12 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 		this.time = time;
 	}
 
-	/**
-	 * This gets called every tick, please be careful with your checks.
-	 */
+	@Override
 	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
 		return input.test(state);
 	}
 
-	/**
-	 * Returns true if the block was placed (and if the Pure Daisy should do particles and stuffs).
-	 * Should only place the block if !world.isRemote, but should return true if it would've placed
-	 * it otherwise. You may return false to cancel the normal particles and do your own.
-	 */
+	@Override
 	public boolean set(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
 		if (!world.isRemote) {
 			world.setBlockState(pos, outputState);
@@ -79,14 +66,17 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 		return true;
 	}
 
+	@Override
 	public StateIngredient getInput() {
 		return input;
 	}
 
+	@Override
 	public BlockState getOutputState() {
 		return outputState;
 	}
 
+	@Override
 	public int getTime() {
 		return time;
 	}
@@ -101,38 +91,12 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 		return ModRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
-	@Override
-	public IRecipeType<?> getType() {
-		return ModRecipeTypes.PURE_DAISY_TYPE;
-	}
-
-	// Ignored IRecipe overrides 
-	@Override
-	public boolean matches(IInventory p_77569_1_, World p_77569_2_) {
-		return false;
-	}
-
-	@Override
-	public ItemStack getCraftingResult(IInventory p_77572_1_) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public boolean canFit(int p_194133_1_, int p_194133_2_) {
-		return false;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
-
 	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipePureDaisy> {
 		@Nonnull
 		@Override
 		public RecipePureDaisy read(@Nonnull ResourceLocation id, JsonObject object) {
-			StateIngredient input = StateIngredient.deserialize(JSONUtils.getJsonObject(object, "input"));
-			BlockState output = StateIngredient.readBlockState(JSONUtils.getJsonObject(object, "output"));
+			StateIngredient input = StateIngredientHelper.deserialize(JSONUtils.getJsonObject(object, "input"));
+			BlockState output = StateIngredientHelper.readBlockState(JSONUtils.getJsonObject(object, "output"));
 			int time = JSONUtils.getInt(object, "time", DEFAULT_TIME);
 			return new RecipePureDaisy(id, input, output, time);
 		}
@@ -147,7 +111,7 @@ public class RecipePureDaisy implements IRecipe<IInventory> {
 		@Nullable
 		@Override
 		public RecipePureDaisy read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
-			StateIngredient input = StateIngredient.read(buf);
+			StateIngredient input = StateIngredientHelper.read(buf);
 			BlockState output = Block.getStateById(buf.readVarInt());
 			int time = buf.readVarInt();
 			return new RecipePureDaisy(id, input, output, time);

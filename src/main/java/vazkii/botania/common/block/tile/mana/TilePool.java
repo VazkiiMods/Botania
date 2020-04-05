@@ -42,7 +42,7 @@ import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -146,18 +146,18 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return val;
 	}
 
-	public static List<RecipeManaInfusion> manaInfusionRecipes(RecipeManager rm) {
+	public static List<IManaInfusionRecipe> manaInfusionRecipes(RecipeManager rm) {
 		return rm.getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
-				.filter(r -> r instanceof RecipeManaInfusion)
-				.map(r -> (RecipeManaInfusion) r)
+				.filter(r -> r instanceof IManaInfusionRecipe)
+				.map(r -> (IManaInfusionRecipe) r)
 				.collect(Collectors.toList());
 	}
 
-	public RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {
-		List<RecipeManaInfusion> matchingNonCatRecipes = new ArrayList<>();
-		List<RecipeManaInfusion> matchingCatRecipes = new ArrayList<>();
+	public IManaInfusionRecipe getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {
+		List<IManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
+		List<IManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
-		for (RecipeManaInfusion recipe : manaInfusionRecipes(world.getRecipeManager())) {
+		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world.getRecipeManager())) {
 			if (recipe.matches(stack)) {
 				if (recipe.getCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
@@ -186,7 +186,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			return false;
 		}
 
-		RecipeManaInfusion recipe = getMatchingRecipe(stack, world.getBlockState(pos.down()));
+		IManaInfusionRecipe recipe = getMatchingRecipe(stack, world.getBlockState(pos.down()));
 
 		if (recipe != null) {
 			int mana = recipe.getManaToConsume();

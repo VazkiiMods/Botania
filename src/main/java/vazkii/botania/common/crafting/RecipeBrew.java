@@ -6,9 +6,8 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package vazkii.botania.common.crafting;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,33 +15,29 @@ import com.google.gson.JsonParseException;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
+import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RecipeBrew implements IRecipe<RecipeWrapper> {
+public class RecipeBrew implements IBrewRecipe {
 	private final ResourceLocation id;
 	private final Brew brew;
 	private final NonNullList<Ingredient> inputs;
@@ -111,26 +106,17 @@ public class RecipeBrew implements IRecipe<RecipeWrapper> {
 		return ModRecipeTypes.BREW_SERIALIZER;
 	}
 
-	@Nonnull
 	@Override
-	public IRecipeType<?> getType() {
-		return ModRecipeTypes.BREW_TYPE;
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
-
 	public Brew getBrew() {
 		return brew;
 	}
 
+	@Override
 	public int getManaUsage() {
 		return brew.getManaCost();
 	}
 
+	@Override
 	public ItemStack getOutput(ItemStack stack) {
 		if (stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer)) {
 			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
@@ -150,18 +136,6 @@ public class RecipeBrew implements IRecipe<RecipeWrapper> {
 		return o instanceof RecipeBrew
 				&& brew == ((RecipeBrew) o).brew
 				&& inputs.equals(((RecipeBrew) o).inputs);
-	}
-
-	// Ignored IRecipe methods
-	@Nonnull
-	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public boolean canFit(int width, int height) {
-		return false;
 	}
 
 	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeBrew> {

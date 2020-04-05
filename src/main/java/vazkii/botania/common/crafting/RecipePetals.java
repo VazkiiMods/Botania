@@ -6,16 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
@@ -26,15 +24,15 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipePetals implements IRecipe<RecipeWrapper> {
+public class RecipePetals implements IPetalRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final NonNullList<Ingredient> inputs;
@@ -109,17 +107,6 @@ public class RecipePetals implements IRecipe<RecipeWrapper> {
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.PETAL_SERIALIZER;
-	}
-
-	@Nonnull
-	@Override
-	public IRecipeType<?> getType() {
-		return ModRecipeTypes.PETAL_TYPE;
-	}
-
-	@Override
-	public boolean canFit(int width, int height) {
-		return false;
 	}
 
 	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipePetals> {

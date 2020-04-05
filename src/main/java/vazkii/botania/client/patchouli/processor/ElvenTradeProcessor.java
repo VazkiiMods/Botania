@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
+import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
@@ -28,22 +28,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElvenTradeProcessor implements IComponentProcessor {
-	private List<AbstractElvenTradeRecipe> recipes;
+	private List<IElvenTradeRecipe> recipes;
 	private int longestIngredientSize, mostInputs, mostOutputs;
 
 	@Override
 	public void setup(IVariableProvider<String> variables) {
-		ImmutableList.Builder<AbstractElvenTradeRecipe> builder = ImmutableList.builder();
+		ImmutableList.Builder<IElvenTradeRecipe> builder = ImmutableList.builder();
 		for (String s : variables.get("recipes").split(";")) {
 			IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s));
-			if (recipe instanceof AbstractElvenTradeRecipe) {
-				builder.add((AbstractElvenTradeRecipe) recipe);
+			if (recipe instanceof IElvenTradeRecipe) {
+				builder.add((IElvenTradeRecipe) recipe);
 			} else {
 				Botania.LOGGER.warn("Missing elven trade recipe " + s);
 			}
 		}
 		recipes = builder.build();
-		for (AbstractElvenTradeRecipe recipe : recipes) {
+		for (IElvenTradeRecipe recipe : recipes) {
 			List<Ingredient> inputs = recipe.getIngredients();
 			for (Ingredient ingredient : inputs) {
 				int length = ingredient.getMatchingStacks().length;
@@ -78,7 +78,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 		if (key.startsWith("output")) {
 			int index = Integer.parseInt(key.substring(6)) - 1;
 			if (index < mostOutputs) {
-				return recipes.stream().map(AbstractElvenTradeRecipe::getOutputs)
+				return recipes.stream().map(IElvenTradeRecipe::getOutputs)
 						.map(l -> index < l.size() ? l.get(index) : ItemStack.EMPTY)
 						.map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 			} else {
@@ -89,7 +89,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	}
 
 	private String interweaveIngredients(int inputIndex) {
-		List<Ingredient> recipes = this.recipes.stream().map(AbstractElvenTradeRecipe::getIngredients).map(ingredients -> {
+		List<Ingredient> recipes = this.recipes.stream().map(IElvenTradeRecipe::getIngredients).map(ingredients -> {
 			if (inputIndex < ingredients.size()) {
 				return ingredients.get(inputIndex);
 			} else {

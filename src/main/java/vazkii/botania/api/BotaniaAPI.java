@@ -37,6 +37,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface BotaniaAPI {
+	String MODID = "botania";
+
 	LazyValue<BotaniaAPI> INSTANCE = new LazyValue<>(() -> {
 		try {
 			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl").newInstance();

@@ -38,7 +38,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
+import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -174,7 +174,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
 		for (IRecipe<?> recipe : world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (recipe instanceof AbstractElvenTradeRecipe && ((AbstractElvenTradeRecipe) recipe).containsItem(inputStack)) {
+			if (recipe instanceof IElvenTradeRecipe && ((IElvenTradeRecipe) recipe).containsItem(inputStack)) {
 				return true;
 			}
 		}
@@ -268,7 +268,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 		}
 	}
 
-	public static Collection<AbstractElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
+	public static Collection<IElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
 		// By virtue of IRecipeType's type parameter,
 		// we know all the recipes in the map must be AbstractElvenTradeRecipe.
 		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
@@ -278,10 +278,10 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
 		for (IRecipe<?> r : world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (!(r instanceof AbstractElvenTradeRecipe)) {
+			if (!(r instanceof IElvenTradeRecipe)) {
 				continue;
 			}
-			AbstractElvenTradeRecipe recipe = (AbstractElvenTradeRecipe) r;
+			IElvenTradeRecipe recipe = (IElvenTradeRecipe) r;
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, 500, false)) {

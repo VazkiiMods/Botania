@@ -6,48 +6,39 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
+public class RecipeElvenTrade implements IElvenTradeRecipe {
+	private final ResourceLocation id;
 	private final ImmutableList<ItemStack> outputs;
 	private final NonNullList<Ingredient> inputs;
 
-	public RecipeElvenTrade(ResourceLocation id, ItemStack output, Ingredient... inputs) {
-		this(id, new ItemStack[] { output }, inputs);
-	}
-
 	public RecipeElvenTrade(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
-		super(id);
+		this.id = id;
 		this.outputs = ImmutableList.copyOf(outputs);
 		this.inputs = NonNullList.create();
 		this.inputs.addAll(Arrays.asList(inputs));
@@ -107,6 +98,17 @@ public class RecipeElvenTrade extends AbstractElvenTradeRecipe {
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
+	}
+
+	@Nonnull
+	@Override public ItemStack getIcon() {
+		return new ItemStack(ModBlocks.alfPortal);
+	}
+
+	@Nonnull
+	@Override
+	public ResourceLocation getId() {
+		return id;
 	}
 
 	@Override

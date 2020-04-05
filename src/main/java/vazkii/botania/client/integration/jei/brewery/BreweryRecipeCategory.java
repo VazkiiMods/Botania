@@ -24,7 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
+public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "brewery");
 	private final IDrawableStatic background;
@@ -58,8 +58,8 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 
 	@Nonnull
 	@Override
-	public Class<? extends RecipeBrew> getRecipeClass() {
-		return RecipeBrew.class;
+	public Class<? extends IBrewRecipe> getRecipeClass() {
+		return IBrewRecipe.class;
 	}
 
 	@Nonnull
@@ -81,7 +81,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 	}
 
 	@Override
-	public void setIngredients(RecipeBrew recipe, IIngredients iIngredients) {
+	public void setIngredients(IBrewRecipe recipe, IIngredients iIngredients) {
 		ImmutableList.Builder<List<ItemStack>> inputBuilder = ImmutableList.builder();
 		ImmutableList.Builder<ItemStack> outputBuilder = ImmutableList.builder();
 		ImmutableList.Builder<ItemStack> containers = ImmutableList.builder();
@@ -106,7 +106,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeBrew recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IBrewRecipe recipe, @Nonnull IIngredients ingredients) {
 
 		List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
 		List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);

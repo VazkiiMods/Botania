@@ -23,7 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePetals> {
+public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "petals");
 	private final IDrawableStatic background;
@@ -59,8 +59,8 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePeta
 
 	@Nonnull
 	@Override
-	public Class<? extends RecipePetals> getRecipeClass() {
-		return RecipePetals.class;
+	public Class<? extends IPetalRecipe> getRecipeClass() {
+		return IPetalRecipe.class;
 	}
 
 	@Nonnull
@@ -82,7 +82,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePeta
 	}
 
 	@Override
-	public void setIngredients(RecipePetals recipe, IIngredients iIngredients) {
+	public void setIngredients(IPetalRecipe recipe, IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
 		for (Ingredient ingr : recipe.getIngredients()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
@@ -92,7 +92,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePeta
 	}
 
 	@Override
-	public void draw(RecipePetals recipe, double mouseX, double mouseY) {
+	public void draw(IPetalRecipe recipe, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw();
@@ -101,7 +101,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePeta
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipePetals recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IPetalRecipe recipe, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
 

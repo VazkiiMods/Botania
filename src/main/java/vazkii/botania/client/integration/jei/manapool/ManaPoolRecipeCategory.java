@@ -24,7 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
-public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusion> {
+public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
 
 	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "mana_pool");
 	private final IDrawable background;
@@ -63,8 +63,8 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 
 	@Nonnull
 	@Override
-	public Class<? extends RecipeManaInfusion> getRecipeClass() {
-		return RecipeManaInfusion.class;
+	public Class<? extends IManaInfusionRecipe> getRecipeClass() {
+		return IManaInfusionRecipe.class;
 	}
 
 	@Nonnull
@@ -86,10 +86,10 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 	}
 
 	@Override
-	public void setIngredients(RecipeManaInfusion recipe, IIngredients iIngredients) {
+	public void setIngredients(IManaInfusionRecipe recipe, IIngredients iIngredients) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 
-		builder.add(Arrays.asList(recipe.getInput().getMatchingStacks()));
+		builder.add(Arrays.asList(recipe.getIngredients().get(0).getMatchingStacks()));
 
 		if (recipe.getCatalyst() != null) {
 			Block block = recipe.getCatalyst().getBlock();
@@ -103,7 +103,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 	}
 
 	@Override
-	public void draw(RecipeManaInfusion recipe, double mouseX, double mouseY) {
+	public void draw(IManaInfusionRecipe recipe, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(48, 0);
@@ -113,7 +113,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusio
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeManaInfusion recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IManaInfusionRecipe recipe, @Nonnull IIngredients ingredients) {
 		int index = 0;
 
 		recipeLayout.getItemStacks().init(index, true, 40, 12);

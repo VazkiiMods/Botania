@@ -30,7 +30,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -60,7 +60,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	private static final int SET_COOLDOWN_EVENT = 1;
 	private static final int CRAFT_EFFECT_EVENT = 2;
 
-	private RecipeRuneAltar currentRecipe;
+	private IRuneAltarRecipe currentRecipe;
 
 	public int manaToGet = 0;
 	private int mana = 0;
@@ -208,7 +208,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (currentRecipe != null) {
 				this.manaToGet = currentRecipe.getManaUsage();
 			} else {
-				Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getRecipeWrapper(), world);
+				Optional<IRuneAltarRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getRecipeWrapper(), world);
 				if (maybeRecipe.isPresent()) {
 					this.manaToGet = maybeRecipe.get().getManaUsage();
 					break getMana;
@@ -248,12 +248,12 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			return;
 		}
 
-		RecipeRuneAltar recipe = null;
+		IRuneAltarRecipe recipe = null;
 
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
-			Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getRecipeWrapper(), world);
+			Optional<IRuneAltarRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getRecipeWrapper(), world);
 			if (maybeRecipe.isPresent()) {
 				recipe = maybeRecipe.get();
 			}

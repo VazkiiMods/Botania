@@ -27,7 +27,7 @@ import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.common.crafting.RecipeBrew;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;

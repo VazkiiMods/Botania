@@ -43,11 +43,10 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
-import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -148,7 +147,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		if (SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
 			RecipeWrapper inv = getRecipeWrapper();
-			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
+			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
 			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
 
@@ -390,7 +389,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			float anglePer = 360F / amt;
 			RecipeWrapper inv = getRecipeWrapper();
 
-			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
+			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
 			maybeRecipe.ifPresent(recipe -> {
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				mc.textureManager.bindTexture(HUDHandler.manaBar);

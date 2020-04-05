@@ -14,6 +14,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
+import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
@@ -25,9 +27,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class LexiconElvenTradeRecipe extends AbstractElvenTradeRecipe {
+public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
+	private final ResourceLocation id;
+
 	LexiconElvenTradeRecipe(ResourceLocation id) {
-		super(id);
+		this.id = id;
 	}
 
 	@Override
@@ -39,6 +43,18 @@ public class LexiconElvenTradeRecipe extends AbstractElvenTradeRecipe {
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.withSize(1, Ingredient.fromItems(ModItems.lexicon));
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getIcon() {
+		return new ItemStack(ModBlocks.alfPortal);
+	}
+
+	@Nonnull
+	@Override
+	public ResourceLocation getId() {
+		return id;
 	}
 
 	@Override
@@ -63,6 +79,7 @@ public class LexiconElvenTradeRecipe extends AbstractElvenTradeRecipe {
 		return Collections.singletonList(stack);
 	}
 
+	@Nonnull
 	@Override
 	public IRecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
 		return ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;

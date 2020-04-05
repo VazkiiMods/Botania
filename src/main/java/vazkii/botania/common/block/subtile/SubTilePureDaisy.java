@@ -17,8 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipePureDaisy;
+import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -27,6 +26,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class SubTilePureDaisy extends TileEntitySpecialFlower {
@@ -83,7 +83,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		World world = getWorld();
 		if (!world.isAirBlock(coords)) {
 			world.getProfiler().startSection("findRecipe");
-			RecipePureDaisy recipe = findRecipe(coords);
+			IPureDaisyRecipe recipe = findRecipe(coords);
 			world.getProfiler().endSection();
 
 			if (recipe != null) {
@@ -117,12 +117,13 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		}
 	}
 
-	private RecipePureDaisy findRecipe(BlockPos coords) {
+	@Nullable
+	private IPureDaisyRecipe findRecipe(BlockPos coords) {
 		BlockState state = getWorld().getBlockState(coords);
 
 		for (IRecipe<?> recipe : world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values()) {
-			if (recipe instanceof RecipePureDaisy && ((RecipePureDaisy) recipe).matches(getWorld(), coords, this, state)) {
-				return ((RecipePureDaisy) recipe);
+			if (recipe instanceof IPureDaisyRecipe && ((IPureDaisyRecipe) recipe).matches(getWorld(), coords, this, state)) {
+				return ((IPureDaisyRecipe) recipe);
 			}
 		}
 
