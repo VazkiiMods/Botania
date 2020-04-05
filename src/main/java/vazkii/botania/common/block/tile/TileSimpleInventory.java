@@ -18,6 +18,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nonnull;
 
@@ -47,8 +48,12 @@ public abstract class TileSimpleInventory extends TileMod {
 		return new SimpleItemStackHandler(this, true);
 	}
 
-	public IItemHandlerModifiable getItemHandler() {
+	public final IItemHandlerModifiable getItemHandler() {
 		return itemHandler;
+	}
+
+	public final RecipeWrapper getRecipeWrapper() {
+		return new RecipeWrapper(getItemHandler());
 	}
 
 	@Nonnull

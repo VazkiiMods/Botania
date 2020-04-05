@@ -208,7 +208,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (currentRecipe != null) {
 				this.manaToGet = currentRecipe.getManaUsage();
 			} else {
-				Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world);
+				Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getRecipeWrapper(), world);
 				if (maybeRecipe.isPresent()) {
 					this.manaToGet = maybeRecipe.get().getManaUsage();
 					break getMana;
@@ -243,10 +243,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		}
 	}
 
-	public boolean hasValidRecipe() {
-		return world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world).isPresent();
-	}
-
 	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if (world.isRemote) {
 			return;
@@ -257,7 +253,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
-			Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world);
+			Optional<RecipeRuneAltar> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getRecipeWrapper(), world);
 			if (maybeRecipe.isPresent()) {
 				recipe = maybeRecipe.get();
 			}
@@ -276,7 +272,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (livingrock != null) {
 				int mana = recipe.getManaUsage();
 				receiveMana(-mana);
-				ItemStack output = recipe.getRecipeOutput().copy();
+				ItemStack output = recipe.getCraftingResult(getRecipeWrapper());
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				world.addEntity(outputItem);
 				currentRecipe = null;
@@ -384,7 +380,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if (amt > 0) {
 			float anglePer = 360F / amt;
-			world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, new RecipeWrapper(itemHandler), world).ifPresent(recipe -> {
+			RecipeWrapper inv = getRecipeWrapper();
+			world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, inv, world).ifPresent(recipe -> {
 				RenderSystem.enableBlend();
 				RenderSystem.enableRescaleNormal();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -402,7 +399,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					RenderSystem.translatef(0F, 0F, -100F);
 				}
 
-				RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getRecipeOutput());
+				RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getCraftingResult(inv));
 
 				if (progress == 1F) {
 					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);

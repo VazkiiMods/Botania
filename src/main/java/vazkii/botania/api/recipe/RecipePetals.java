@@ -77,8 +77,14 @@ public class RecipePetals implements IRecipe<RecipeWrapper> {
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
+	public final ItemStack getRecipeOutput() {
 		return output;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+		return getRecipeOutput().copy();
 	}
 
 	@Nonnull
@@ -109,13 +115,6 @@ public class RecipePetals implements IRecipe<RecipeWrapper> {
 	@Override
 	public IRecipeType<?> getType() {
 		return ModRecipeTypes.PETAL_TYPE;
-	}
-
-	// Ignored IRecipe methods
-	@Nonnull
-	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
-		return getRecipeOutput();
 	}
 
 	@Override

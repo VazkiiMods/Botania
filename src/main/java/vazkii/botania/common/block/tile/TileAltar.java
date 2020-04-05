@@ -147,7 +147,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
-			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, new RecipeWrapper(itemHandler), world);
+			RecipeWrapper inv = getRecipeWrapper();
+			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
 			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
 
@@ -157,7 +158,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				stack.shrink(1);
 
-				ItemStack output = recipe.getRecipeOutput().copy();
+				ItemStack output = recipe.getCraftingResult(inv);
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 				world.addEntity(outputItem);
@@ -387,14 +388,15 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		if (amt > 0) {
 			float anglePer = 360F / amt;
+			RecipeWrapper inv = getRecipeWrapper();
 
-			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, new RecipeWrapper(itemHandler), world);
+			Optional<RecipePetals> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
 			maybeRecipe.ifPresent(recipe -> {
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				mc.textureManager.bindTexture(HUDHandler.manaBar);
 				RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-				ItemStack stack = recipe.getRecipeOutput();
+				ItemStack stack = recipe.getCraftingResult(inv);
 
 				mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 				mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);

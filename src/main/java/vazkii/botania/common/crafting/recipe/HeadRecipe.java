@@ -38,8 +38,6 @@ import java.util.List;
 
 public class HeadRecipe extends RecipeRuneAltar {
 
-	private String name = "";
-
 	public HeadRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 		super(id, output, mana, inputs);
 	}
@@ -57,8 +55,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 				if (stack.getItem() == Items.NAME_TAG) {
 					String defaultName = new TranslationTextComponent(Items.NAME_TAG.getTranslationKey()).getString();
-					name = stack.getDisplayName().getString();
-					if (name.equals(defaultName)) {
+					if (stack.getDisplayName().getString().equals(defaultName)) {
 						return false;
 					}
 				}
@@ -70,10 +67,14 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		if (!name.isEmpty()) {
-			ItemNBTHelper.setString(stack, "SkullOwner", name);
+	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+		ItemStack stack = getRecipeOutput().copy();
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack ingr = inv.getStackInSlot(i);
+			if (ingr.getItem() == Items.NAME_TAG) {
+				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getDisplayName().getString());
+				break;
+			}
 		}
 		return stack;
 	}

@@ -92,7 +92,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	private void findRecipe() {
-		Optional<RecipeBrew> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.BREW_TYPE, new RecipeWrapper(itemHandler), world);
+		Optional<RecipeBrew> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.BREW_TYPE, getRecipeWrapper(), world);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew;
 			world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BlockStateProperties.POWERED, true));
@@ -123,7 +123,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		}
 
 		if (recipe != null) {
-			if (!recipe.matches(new RecipeWrapper(itemHandler), world)) {
+			if (!recipe.matches(getRecipeWrapper(), world)) {
 				recipe = null;
 				world.setBlockState(pos, ModBlocks.brewery.getDefaultState());
 			}

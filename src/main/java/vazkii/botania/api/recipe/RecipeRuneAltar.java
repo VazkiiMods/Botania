@@ -84,8 +84,14 @@ public class RecipeRuneAltar implements IRecipe<RecipeWrapper> {
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
+	public final ItemStack getRecipeOutput() {
 		return output;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+		return getRecipeOutput().copy();
 	}
 
 	@Nonnull
@@ -120,13 +126,6 @@ public class RecipeRuneAltar implements IRecipe<RecipeWrapper> {
 
 	public int getManaUsage() {
 		return mana;
-	}
-
-	// Ignored IRecipe methods
-	@Nonnull
-	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
-		return getRecipeOutput();
 	}
 
 	@Override
