@@ -32,11 +32,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.common.base.PatchouliSounds;
 import vazkii.patchouli.common.book.Book;
 import vazkii.patchouli.common.book.BookRegistry;
-import vazkii.patchouli.common.network.NetworkHandler;
-import vazkii.patchouli.common.network.message.MessageOpenBookGui;
 
 import javax.annotation.Nonnull;
 
@@ -89,7 +88,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		if (playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getX(), player.getY(), player.getZ());
-			NetworkHandler.sendToPlayer(new MessageOpenBookGui(book.id), (ServerPlayerEntity) playerIn);
+			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, book.id);
 			SoundEvent sfx = PatchouliSounds.getSound(book.openSound, PatchouliSounds.book_open);
 			playerIn.playSound(sfx, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
