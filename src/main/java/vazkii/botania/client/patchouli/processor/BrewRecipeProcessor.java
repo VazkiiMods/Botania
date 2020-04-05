@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.patchouli.api.IComponentProcessor;
@@ -31,6 +32,8 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 		IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).get(id);
 		if (recipe instanceof RecipeBrew) {
 			this.recipe = (RecipeBrew) recipe;
+		} else {
+			Botania.LOGGER.warn("Missing brew recipe " + id);
 		}
 	}
 

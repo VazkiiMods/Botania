@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
@@ -24,6 +25,9 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 	public void setup(IVariableProvider<String> variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe"));
 		this.recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).get(id);
+		if (recipe == null) {
+			Botania.LOGGER.warn("Missing apothecary recipe " + id);
+		}
 	}
 
 	@Override

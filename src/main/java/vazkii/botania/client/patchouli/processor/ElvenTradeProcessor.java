@@ -17,6 +17,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.AbstractElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
@@ -37,6 +38,8 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s));
 			if (recipe instanceof AbstractElvenTradeRecipe) {
 				builder.add((AbstractElvenTradeRecipe) recipe);
+			} else {
+				Botania.LOGGER.warn("Missing elven trade recipe " + s);
 			}
 		}
 		recipes = builder.build();

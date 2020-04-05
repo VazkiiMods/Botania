@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
+import vazkii.botania.common.Botania;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariableProvider;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -52,6 +53,8 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 						longestIngredientSize = size;
 					}
 				}
+			} else {
+				Botania.LOGGER.warn("Missing crafting recipe " + name);
 			}
 		}
 		this.hasCustomHeading = variables.has("heading");
