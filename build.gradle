@@ -152,9 +152,6 @@ jar {
                     "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
     
-    //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName} ${version}.${extension}"
-
     exclude "**/*.bat"
     exclude "**/*.psd"
     exclude "**/*.exe"
@@ -174,7 +171,6 @@ processResources {
 task srcJar(type: Jar) {
     from(sourceSets.main.java)
     classifier = 'sources'
-    archiveName = "${baseName} ${version}-sources.${extension}"
 }
 
 task apiJar(type: Jar) {
@@ -184,7 +180,6 @@ task apiJar(type: Jar) {
     include 'vazkii/botania/api/**'
 
     classifier = 'api'
-    archiveName = "${baseName} ${version}-api.${extension}"
 }
 
 artifacts {
