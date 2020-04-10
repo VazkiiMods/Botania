@@ -48,19 +48,22 @@ public class LensMagnet extends Lens {
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Y),
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Z)
 			));
-			if(!predicate.test(tile))
+			if(!predicate.test(tile)) {
 				return;
+			}
 		} else {
 			for(BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
 					basePos.add(range, range, range))) {
 				tile = entity.world.getTileEntity(pos);
-				if(predicate.test(tile))
+				if(predicate.test(tile)) {
 					break;
+				}
 			}
 		}
 
-		if(!(tile instanceof IManaReceiver))
+		if(!(tile instanceof IManaReceiver)) {
 			return;
+		}
 
 		Vector3 burstVec = Vector3.fromEntity(entity);
 		Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
