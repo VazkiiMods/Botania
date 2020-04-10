@@ -38,7 +38,7 @@ public class LensMagnet extends Lens {
 		Predicate<TileEntity> predicate = tile ->
 				tile instanceof IManaReceiver
 						&& (sourceless || tile.getPos().distanceSq(source) > 9)
-						&& ((IManaReceiver) tile).canRecieveManaFromBursts()
+						&& ((IManaReceiver) tile).canReceiveManaFromBursts()
 						&& !((IManaReceiver) tile).isFull();
 
 		TileEntity tile = null;
