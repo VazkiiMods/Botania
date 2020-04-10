@@ -35,33 +35,32 @@ public class LensMagnet extends Lens {
 		BlockPos source = burst.getBurstSourceBlockPos();
 		final boolean sourceless = source.getY() == -1;
 
-		Predicate<TileEntity> predicate = tile ->
-				tile instanceof IManaReceiver
-						&& (sourceless || tile.getPos().distanceSq(source) > 9)
-						&& ((IManaReceiver) tile).canReceiveManaFromBursts()
-						&& !((IManaReceiver) tile).isFull();
+		Predicate<TileEntity> predicate = tile -> tile instanceof IManaReceiver
+				&& (sourceless || tile.getPos().distanceSq(source) > 9)
+				&& ((IManaReceiver) tile).canReceiveManaFromBursts()
+				&& !((IManaReceiver) tile).isFull();
 
 		TileEntity tile = null;
-		if(magnetized) {
+		if (magnetized) {
 			tile = entity.world.getTileEntity(new BlockPos(
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_X),
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Y),
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Z)
 			));
-			if(!predicate.test(tile)) {
+			if (!predicate.test(tile)) {
 				return;
 			}
 		} else {
-			for(BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
+			for (BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
 					basePos.add(range, range, range))) {
 				tile = entity.world.getTileEntity(pos);
-				if(predicate.test(tile)) {
+				if (predicate.test(tile)) {
 					break;
 				}
 			}
 		}
 
-		if(!(tile instanceof IManaReceiver)) {
+		if (!(tile instanceof IManaReceiver)) {
 			return;
 		}
 
@@ -74,7 +73,7 @@ public class LensMagnet extends Lens {
 		Vector3 differenceVec = normalMotionVec.subtract(magnetVec).multiply(motionVec.mag() * 0.1);
 
 		Vector3 finalMotionVec = motionVec.subtract(differenceVec);
-		if(!magnetized) {
+		if (!magnetized) {
 			finalMotionVec = finalMotionVec.multiply(0.75);
 			entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
 			entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
