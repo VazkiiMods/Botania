@@ -37,6 +37,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockFloatingFlower extends BlockModWaterloggable {

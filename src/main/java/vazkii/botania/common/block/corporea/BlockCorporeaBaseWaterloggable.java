@@ -26,35 +26,35 @@ import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public abstract class BlockCorporeaBaseWaterloggable extends BlockCorporeaBase implements IWaterLoggable {
 
-    public BlockCorporeaBaseWaterloggable(Properties builder) {
-        super(builder);
-        setDefaultState(getDefaultState().with(BlockStateProperties.WATERLOGGED, false));
-    }
+	public BlockCorporeaBaseWaterloggable(Properties builder) {
+		super(builder);
+		setDefaultState(getDefaultState().with(BlockStateProperties.WATERLOGGED, false));
+	}
 
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
-    }
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		builder.add(WATERLOGGED);
+	}
 
-    @Override
-    public IFluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
-    }
+	@Override
+	public IFluidState getFluidState(BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+	}
 
-    @Nonnull
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IFluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
-    }
+	@Nonnull
+	@Override
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
+		IFluidState fluidState = context.getWorld().getFluidState(context.getPos());
+		return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+	}
 
-    @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if(stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
-        }
+	@Override
+	public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+		if (stateIn.get(WATERLOGGED)) {
+			worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+		}
 
-        return stateIn;
-    }
+		return stateIn;
+	}
 
 }

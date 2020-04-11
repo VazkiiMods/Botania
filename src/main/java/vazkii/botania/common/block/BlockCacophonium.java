@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 public class BlockCacophonium extends BlockMod {
 	protected BlockCacophonium(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override

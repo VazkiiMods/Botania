@@ -25,6 +25,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -33,6 +34,7 @@ import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

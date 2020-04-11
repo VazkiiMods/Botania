@@ -21,6 +21,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
+
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
@@ -31,6 +32,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
 import java.util.List;
 import java.util.Random;
 
@@ -52,9 +54,8 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	public void tick() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if (!stack.isEmpty() && burning) {
-			if(getBlockState().get(BlockStateProperties.WATERLOGGED)) {
-				burning = false;
-				timeLeft = 0;
+			if (getBlockState().get(BlockStateProperties.WATERLOGGED) && timeLeft > 1) {
+				timeLeft = 1;
 				spawnSmokeParticles();
 			}
 
@@ -113,25 +114,28 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 		}
 	}
 
-	private void spawnSmokeParticles() {
+	public void spawnSmokeParticles() {
 		Random random = world.getRandom();
-		world.addParticle(ParticleTypes.SMOKE,
-				pos.getX() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1),
-				pos.getY() + 0.4D,
-				pos.getZ() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1),
-				0.0D,
-				0.005D,
-				0.0D);
-
+		for (int i = 0; i < 4; ++i) {
+			world.addParticle(ParticleTypes.SMOKE,
+					pos.getX() + 0.5 + random.nextDouble() / 2.0 * (random.nextBoolean() ? 1 : -1),
+					pos.getY() + 1,
+					pos.getZ() + 0.5 + random.nextDouble() / 2.0 * (random.nextBoolean() ? 1 : -1),
+					0.0D,
+					0.05D,
+					0.0D);
+		}
+		world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.1F, 1.0F);
 	}
 
 	public void ignite() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
+
 		if (stack.isEmpty() || burning) {
 			return;
 		}
 
-		if(getBlockState().get(BlockStateProperties.WATERLOGGED)) {
+		if (getBlockState().get(BlockStateProperties.WATERLOGGED)) {
 			spawnSmokeParticles();
 			return;
 		}

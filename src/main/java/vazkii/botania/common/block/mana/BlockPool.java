@@ -28,6 +28,7 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -35,6 +36,7 @@ import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
+
 import java.util.Collections;
 import java.util.List;
 

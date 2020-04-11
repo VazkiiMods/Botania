@@ -34,7 +34,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN).with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN).with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override

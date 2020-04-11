@@ -24,6 +24,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockModWaterloggable;

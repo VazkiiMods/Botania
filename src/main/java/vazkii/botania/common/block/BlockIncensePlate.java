@@ -27,6 +27,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -57,6 +58,13 @@ public class BlockIncensePlate extends BlockModWaterloggable {
 		boolean did = false;
 
 		if (world.isRemote) {
+			if (state.get(BlockStateProperties.WATERLOGGED)
+					&& !plateStack.isEmpty()
+					&& !plate.burning
+					&& !stack.isEmpty()
+					&& stack.getItem() == Items.FLINT_AND_STEEL) {
+				plate.spawnSmokeParticles();
+			}
 			return ActionResultType.SUCCESS;
 		}
 

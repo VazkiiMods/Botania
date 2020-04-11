@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileStarfield;
 

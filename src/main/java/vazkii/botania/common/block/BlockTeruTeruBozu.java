@@ -24,6 +24,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;

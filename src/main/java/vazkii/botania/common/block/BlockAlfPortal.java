@@ -33,7 +33,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable {
 
 	public BlockAlfPortal(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
+		setDefaultState(getDefaultState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 	}
 
 	@Override
