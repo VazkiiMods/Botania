@@ -31,7 +31,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements IWandable {
+public class BlockCorporeaCrystalCube extends BlockCorporeaBaseWaterloggable implements IWandable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3.0, 0, 3.0, 13.0, 16, 13.0);
 

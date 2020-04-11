@@ -47,13 +47,13 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD {
+public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, IWandable, IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 18.4, 12);
 
 	protected BlockHourglass(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
@@ -64,6 +64,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.POWERED);
 	}
 

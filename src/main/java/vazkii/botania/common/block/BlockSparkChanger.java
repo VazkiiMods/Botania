@@ -32,13 +32,13 @@ import vazkii.botania.common.item.ItemSparkUpgrade;
 
 import javax.annotation.Nonnull;
 
-public class BlockSparkChanger extends BlockMod {
+public class BlockSparkChanger extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
 
 	public BlockSparkChanger(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, true));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, true));
 	}
 
 	@Nonnull
@@ -49,6 +49,7 @@ public class BlockSparkChanger extends BlockMod {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.POWERED);
 	}
 

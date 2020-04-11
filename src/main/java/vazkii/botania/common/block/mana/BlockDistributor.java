@@ -15,13 +15,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 
 import javax.annotation.Nonnull;
 
-public class BlockDistributor extends BlockMod {
+public class BlockDistributor extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 16, 12);
 

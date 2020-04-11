@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.mana;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -32,12 +31,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
-
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -45,10 +43,9 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.List;
 
-public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWireframeAABBProvider {
+public class BlockSpreader extends BlockModWaterloggable implements IWandable, IWandHUD, IWireframeAABBProvider {
 	private static final VoxelShape RENDER_SHAPE = makeCuboidShape(1, 1, 1, 15, 15, 15);
 
 	public enum Variant {

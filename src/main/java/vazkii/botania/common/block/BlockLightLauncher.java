@@ -31,13 +31,13 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLightLauncher extends BlockMod {
+public class BlockLightLauncher extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
 	public BlockLightLauncher(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
@@ -48,6 +48,7 @@ public class BlockLightLauncher extends BlockMod {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.POWERED);
 	}
 

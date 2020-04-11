@@ -26,22 +26,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 
 import javax.annotation.Nonnull;
-
 import java.util.Random;
 
-public class BlockFloatingFlower extends BlockMod {
+public class BlockFloatingFlower extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;

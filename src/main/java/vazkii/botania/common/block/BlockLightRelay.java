@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockLightRelay extends BlockMod implements IWandable {
+public class BlockLightRelay extends BlockModWaterloggable implements IWandable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
@@ -44,7 +44,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	protected BlockLightRelay(LuminizerVariant variant, Properties builder) {
 		super(builder);
 		this.variant = variant;
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
@@ -55,6 +55,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.POWERED);
 	}
 

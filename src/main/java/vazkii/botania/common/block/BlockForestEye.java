@@ -20,7 +20,7 @@ import vazkii.botania.common.block.tile.TileForestEye;
 
 import javax.annotation.Nonnull;
 
-public class BlockForestEye extends BlockMod {
+public class BlockForestEye extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 4, 4, 12, 12, 12);
 

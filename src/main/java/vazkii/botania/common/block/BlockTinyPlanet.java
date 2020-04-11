@@ -21,7 +21,7 @@ import vazkii.botania.common.block.tile.TileTinyPlanet;
 
 import javax.annotation.Nonnull;
 
-public class BlockTinyPlanet extends BlockMod implements IManaCollisionGhost {
+public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost {
 
 	private static final VoxelShape AABB = makeCuboidShape(3, 3, 3, 13, 13, 13);
 

@@ -24,12 +24,11 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;
 
-public class BlockTeruTeruBozu extends BlockMod {
+public class BlockTeruTeruBozu extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0.16, 4, 12, 15.84, 12);
 

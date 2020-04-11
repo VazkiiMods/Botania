@@ -45,7 +45,7 @@ import vazkii.botania.common.item.rod.ItemWaterRod;
 
 import javax.annotation.Nonnull;
 
-public class BlockAltar extends BlockMod {
+public class BlockAltar extends BlockModWaterloggable {
 
 	private static final VoxelShape BASE = Block.makeCuboidShape(0, 0, 0, 16, 2, 16);
 	private static final VoxelShape MIDDLE = Block.makeCuboidShape(2, 2, 2, 14, 12, 14);

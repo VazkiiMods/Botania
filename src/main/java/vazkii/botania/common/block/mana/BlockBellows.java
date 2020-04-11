@@ -25,24 +25,24 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 
-public class BlockBellows extends BlockMod {
+public class BlockBellows extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 10.0, 13);
 
 	public BlockBellows(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+		setDefaultState(getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
@@ -52,9 +52,10 @@ public class BlockBellows extends BlockMod {
 		return SHAPE;
 	}
 
+	@Nonnull
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing());
+		return super.getStateForPlacement(context).with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing());
 	}
 
 	@Override

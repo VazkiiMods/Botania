@@ -18,7 +18,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaIndex extends BlockCorporeaBase {
+public class BlockCorporeaIndex extends BlockCorporeaBaseWaterloggable {
 	public BlockCorporeaIndex(Block.Properties builder) {
 		super(builder);
 	}

@@ -22,7 +22,7 @@ import vazkii.botania.common.block.tile.TilePylon;
 
 import javax.annotation.Nonnull;
 
-public class BlockPylon extends BlockMod {
+public class BlockPylon extends BlockModWaterloggable {
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
