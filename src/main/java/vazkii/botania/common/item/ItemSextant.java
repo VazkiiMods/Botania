@@ -40,9 +40,9 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.multiblock.AbstractMultiblock;
 
 import javax.annotation.Nonnull;
 
@@ -125,7 +125,7 @@ public class ItemSextant extends Item {
 						}
 					}
 				}
-				AbstractMultiblock sparse = (AbstractMultiblock) PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
+				IMultiblock sparse = PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Botania.proxy.showMultiblock(sparse, "r = " + (int) radius, new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}
