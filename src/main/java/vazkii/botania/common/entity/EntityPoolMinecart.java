@@ -136,7 +136,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for (Direction dir : vazkii.botania.common.core.helper.MathHelper.HORIZONTALS) {
+		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos posP = pos.offset(dir);
 			Block block = world.getBlockState(posP).getBlock();
 			if (block == ModBlocks.pump) {

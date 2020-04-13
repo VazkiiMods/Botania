@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
 
 public final class MathHelper {
-	public static final Direction[] HORIZONTALS = { Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST };
 
 	public static float pointDistanceSpace(double x1, double y1, double z1, double x2, double y2, double z2) {
 		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
@@ -44,12 +43,6 @@ public final class MathHelper {
 		int g = (int) (g1 * (g2 / 255.0F));
 		int b = (int) (b1 * (b2 / 255.0F));
 		return c1 & ~0xFFFFFF | r << 16 | g << 8 | b;
-	}
-
-	private static final String[] ORDINAL_SUFFIXES = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
-
-	public static String numberToOrdinal(int i) {
-		return i % 100 == 11 || i % 100 == 12 || i % 100 == 13 ? i + "th" : i + ORDINAL_SUFFIXES[i % 10];
 	}
 
 }

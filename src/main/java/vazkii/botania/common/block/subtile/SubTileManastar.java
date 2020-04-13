@@ -17,7 +17,6 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileManastar extends TileEntitySpecialFlower {
@@ -46,7 +45,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 			}
 		} else {
 			int mana = 0;
-			for (Direction dir : MathHelper.HORIZONTALS) {
+			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = getEffectivePos().offset(dir);
 				if (getWorld().isBlockLoaded(pos)) {
 					TileEntity tile = getWorld().getTileEntity(pos);

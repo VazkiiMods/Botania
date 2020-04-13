@@ -19,7 +19,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -40,7 +39,7 @@ public class TileDistributor extends TileMod implements IManaReceiver, ITickable
 			return;
 		}
 		validPools.clear();
-		for (Direction dir : MathHelper.HORIZONTALS) {
+		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pos = this.pos.offset(dir);
 			if (world.isBlockLoaded(pos)) {
 				TileEntity tileAt = world.getTileEntity(pos);

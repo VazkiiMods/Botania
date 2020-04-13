@@ -33,7 +33,6 @@ import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
@@ -108,7 +107,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 			if (ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
-				for (Direction dir : MathHelper.HORIZONTALS) {
+				for (Direction dir : Direction.Plane.HORIZONTAL) {
 					BlockPos pos_ = pos.offset(dir);
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();

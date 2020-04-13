@@ -54,7 +54,6 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
@@ -299,7 +298,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 					int bellowCount = 0;
 					if (outputting) {
-						for (Direction dir : MathHelper.HORIZONTALS) {
+						for (Direction dir : Direction.Plane.HORIZONTAL) {
 							TileEntity tile = world.getTileEntity(pos.offset(dir));
 							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this) {
 								bellowCount++;
