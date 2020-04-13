@@ -1,4 +1,10 @@
 {
+  "_comment0": "Note to translators: DO NOT COPY ENTRIES FROM ENGLISH", 
+  "_comment1": "I repeat: do NOT copy entries from English!!",  
+  "_comment2": "Any entry in this lang file should be in zh_CN, or *should not be here at all*",  
+  "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",  
+  "_comment4": "Untranslated entries will automatically be inherited from en_US", 
+  "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
   "itemGroup.botania": "植物魔法",
   "botania.desc": "这里便是植物魔法的描述。",
