@@ -19,6 +19,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,6 +39,8 @@ import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.crafting.FluxfieldCondition;
+import vazkii.botania.common.crafting.FuzzyNBTIngredient;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
@@ -110,6 +113,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Locale;
 
 import static vazkii.botania.common.block.ModBlocks.register;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
@@ -725,6 +729,9 @@ public final class ModItems {
 		register(r, SpellClothRecipe.SERIALIZER, "spell_cloth_apply");
 		register(r, TerraPickTippingRecipe.SERIALIZER, "terra_pick_tipping");
 		register(r, TwigWandRecipe.SERIALIZER, "twig_wand");
+
+		CraftingHelper.register(FluxfieldCondition.SERIALIZER);
+		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 	}
 
 	@SubscribeEvent

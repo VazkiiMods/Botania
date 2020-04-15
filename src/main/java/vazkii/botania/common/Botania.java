@@ -15,7 +15,6 @@ import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -59,7 +58,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.IMCSender;
-import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.BindUuid;
@@ -68,7 +66,6 @@ import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
-import vazkii.botania.common.crafting.FluxfieldCondition;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
 import vazkii.botania.common.lib.LibMisc;
@@ -222,8 +219,6 @@ public class Botania {
 			CriteriaTriggers.register(ManaGunTrigger.INSTANCE);
 			CriteriaTriggers.register(LokiPlaceTrigger.INSTANCE);
 			CriteriaTriggers.register(AlfPortalBreadTrigger.INSTANCE);
-
-			CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 
 			ModBlocks.addDispenserBehaviours();
 

@@ -6,10 +6,11 @@
       "item": "botania:life_essence"
     },
     {
-      "type": "forge:nbt",
+      "type": "botania:fuzzy_nbt",
       "item": "botania:laputa_shard",
       "count": 1,
-      "nbt": "{level:9}"
+      "nbt": "{level:9}",
+      "accepts_empty_tag": false
     }
   ],
   "result": {

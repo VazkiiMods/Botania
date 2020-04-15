@@ -47,6 +47,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.FluxfieldCondition;
+import vazkii.botania.common.crafting.FuzzyNBTIngredient;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -1258,7 +1259,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 
 		ShapedRecipeBuilder.shapedRecipe(ModItems.waterRod)
-				.key('B', nbtIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER)))
+				.key('B', new FuzzyNBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER)))
 				.key('R', ModTags.Items.RUNES_WATER)
 				.key('T', ModItems.livingwoodTwig)
 				.patternLine("  B")
@@ -1369,14 +1370,15 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("PDP")
 				.patternLine("ASE")
 				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer, "botania:laputa_shard_0");
+				.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:0}")),
+						"botania:laputa_shard_0");
 		for (int i = 1; i < 20; i++) {
 			final int outputLevel = i;
 			ItemStack stack = new ItemStack(ModItems.laputaShard);
 			stack.getOrCreateTag().putInt("level", i - 1);
 			ShapelessRecipeBuilder.shapelessRecipe(ModItems.laputaShard)
 					.addIngredient(ModItems.lifeEssence)
-					.addIngredient(nbtIngredient(stack))
+					.addIngredient(new FuzzyNBTIngredient(stack, i == 1))
 					.setGroup("botania:laputa_shard_upgrade")
 					.addCriterion("has_item", hasItem(ModItems.laputaShard))
 					.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:" + outputLevel + "}")
@@ -2656,12 +2658,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	private void specialRecipe(Consumer<IFinishedRecipe> consumer, SpecialRecipeSerializer<?> serializer) {
 		CustomRecipeBuilder.func_218656_a(serializer).build(consumer, prefix("dynamic/" + serializer.getRegistryName().getPath()).toString());
-	}
-
-	// Blame Forge for making the constructor protected. 
-	// TODO maybe use a bit fuzzier ingredient, it will break if any mod throws random NBT data at the item
-	private static NBTIngredient nbtIngredient(ItemStack stack) {
-		return new NBTIngredient(stack) {};
 	}
 
 	@Override
