@@ -81,13 +81,22 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 		}
 		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
+	}
 
-		PlayerEntity player = (PlayerEntity) entity;
-		EffectInstance haste = player.getActivePotionEffect(Effects.HASTE);
-		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
-		if (player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote) {
-			leftClick(player);
+	@Override
+	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+		if (!(entity instanceof PlayerEntity)) {
+			return false;
 		}
+		PlayerEntity player = (PlayerEntity) entity;
+		leftClick(player);
+		return false;
+	}
+
+	// Prevent damaging the entity you just held with the rod
+	@Override
+	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
+		return ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0;
 	}
 
 	@Nonnull
@@ -183,7 +192,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				}
 
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
-				return ActionResult.success(stack);
+				return ActionResult.consume(stack);
 			}
 		}
 		return ActionResult.pass(stack);
