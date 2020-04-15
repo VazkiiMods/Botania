@@ -80,7 +80,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		if (isInGroup(tab)) {
 			for (int i = 0; i <= 20; i += 5) {
 				ItemStack s = new ItemStack(this);
-				s.getOrCreateTag().putInt(TAG_LEVEL, i);
+				s.getOrCreateTag().putInt(TAG_LEVEL, i == 0 ? i : i - 1);
 				list.add(s);
 			}
 		}
