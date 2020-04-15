@@ -88,6 +88,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	private static final String TAG_HAS_SHOOTER = "hasShooter";
 	private static final String TAG_SHOOTER_UUID_MOST = "shooterUUIDMost";
 	private static final String TAG_SHOOTER_UUID_LEAST = "shooterUUIDLeast";
+	private static final String TAG_LAST_COLLISION_X = "lastCollisionX";
+	private static final String TAG_LAST_COLLISION_Y = "lastCollisionY";
+	private static final String TAG_LAST_COLLISION_Z = "lastCollisionZ";
 
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
@@ -98,13 +101,15 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
 	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.ITEMSTACK);
 
-	float accumulatedManaLoss = 0;
-	boolean fake = false;
-	final Set<BlockPos> alreadyCollidedAt = new HashSet<>();
-	boolean fullManaLastTick = true;
-	UUID shooterIdentity = null;
-	int _ticksExisted = 0;
-	boolean scanBeam = false;
+	private float accumulatedManaLoss = 0;
+	private boolean fake = false;
+	private final Set<BlockPos> alreadyCollidedAt = new HashSet<>();
+	private boolean fullManaLastTick = true;
+	private UUID shooterIdentity = null;
+	private int _ticksExisted = 0;
+	private boolean scanBeam = false;
+	private BlockPos lastCollision;
+
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
 	public EntityManaBurst(World world) {
@@ -368,6 +373,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		tag.putDouble(TAG_LAST_MOTION_Y, getMotion().getY());
 		tag.putDouble(TAG_LAST_MOTION_Z, getMotion().getZ());
 
+		if (lastCollision != null) {
+			tag.putInt(TAG_LAST_COLLISION_X, coords.getX());
+			tag.putInt(TAG_LAST_COLLISION_Y, coords.getY());
+			tag.putInt(TAG_LAST_COLLISION_Z, coords.getZ());
+		}
+
 		UUID identity = getShooterUUID();
 		boolean hasShooter = identity != null;
 		tag.putBoolean(TAG_HAS_SHOOTER, hasShooter);
@@ -401,6 +412,13 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		int z = cmp.getInt(TAG_SPREADER_Z);
 
 		setBurstSourceCoords(new BlockPos(x, y, z));
+
+		if (cmp.contains(TAG_LAST_COLLISION_X)) {
+			x = cmp.getInt(TAG_SPREADER_X);
+			y = cmp.getInt(TAG_SPREADER_Y);
+			z = cmp.getInt(TAG_SPREADER_Z);
+			lastCollision = new BlockPos(x, y, z);
+		}
 
 		double lastMotionX = cmp.getDouble(TAG_LAST_MOTION_X);
 		double lastMotionY = cmp.getDouble(TAG_LAST_MOTION_Y);
@@ -510,8 +528,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		BlockPos pos = null;
 		boolean dead = false;
 
-		if (rtr.getType() == RayTraceResult.Type.BLOCK) {
+		if (rtr.getType() == RayTraceResult.Type.BLOCK && !((BlockRayTraceResult) rtr).getPos().equals(lastCollision)) {
 			pos = ((BlockRayTraceResult) rtr).getPos();
+			lastCollision = pos.toImmutable();
 			TileEntity tile = world.getTileEntity(pos);
 			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
@@ -531,7 +550,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 			if (tile == null || !tile.getPos().equals(coords)) {
 				if (!fake && !noParticles && (!world.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
-					onRecieverImpact((IManaReceiver) tile, tile.getPos());
+					onReceiverImpact((IManaReceiver) tile, tile.getPos());
 				}
 
 				if (block instanceof IManaTrigger) {
@@ -581,7 +600,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		}
 	}
 
-	private void onRecieverImpact(IManaReceiver tile, BlockPos pos) {
+	private void onReceiverImpact(IManaReceiver tile, BlockPos pos) {
 		if (getPersistentData().getBoolean(LensWarp.TAG_WARPED)) {
 			return;
 		}
