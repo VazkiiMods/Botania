@@ -62,7 +62,7 @@ public final class TooltipAdditionDisplayHandler {
 		RenderSystem.disableDepthTest();
 		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for (int i = 0; i < rainbowWidth; i++) {
-			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, MathHelper.hsvToRGB(hueOff + huePer * i, 1F, 1F));
+			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
 		}
 		AbstractGui.fill(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
