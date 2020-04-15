@@ -2,9 +2,9 @@
   "name": "botania.entry.cocoon",
   "category": "devices",
   "icon": "botania:cocoon",
-  "entry_color": "aa00",
-  "advancement": "botania:main/elf_lexicon_pickup",
-  "flag": "|debug,!mod:gardenofglass",
+  "priority": true,
+  "advancement": "botania:main/mana_pool_pickup",
+  "flag": "|debug,mod:gardenofglass",
   "pages": [
     {
       "type": "text",
