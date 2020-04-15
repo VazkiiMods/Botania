@@ -62,7 +62,7 @@ public final class TooltipAdditionDisplayHandler {
 		RenderSystem.disableDepthTest();
 		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for (int i = 0; i < rainbowWidth; i++) {
-			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, MathHelper.hsvToRGB(hueOff + huePer * i, 1F, 1F));
+			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
 		}
 		AbstractGui.fill(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
@@ -70,11 +70,14 @@ public final class TooltipAdditionDisplayHandler {
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		RenderSystem.disableLighting();
+		RenderSystem.pushMatrix();
+		RenderSystem.translatef(0, 0, 300);
 		font.drawStringWithShadow(rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if (!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
+		RenderSystem.popMatrix();
 		RenderSystem.enableLighting();
 		RenderSystem.enableDepthTest();
 		GL11.glPopAttrib();
@@ -86,7 +89,7 @@ public final class TooltipAdditionDisplayHandler {
 
 		RenderSystem.disableDepthTest();
 		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
-		AbstractGui.fill(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		AbstractGui.fill(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
 		AbstractGui.fill(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
