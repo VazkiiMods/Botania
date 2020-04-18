@@ -30,12 +30,12 @@ import javax.annotation.Nonnull;
 public class EntityPinkWither extends WitherEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pink_wither") public static EntityType<EntityPinkWither> TYPE;
 
-	public EntityPinkWither(EntityType<EntityPinkWither> type, World world) {
-		super(type, world);
+	public EntityPinkWither(World world) {
+		this(TYPE, world);
 	}
 
-	public EntityPinkWither(World world) {
-		super(TYPE, world);
+	public EntityPinkWither(EntityType<EntityPinkWither> type, World world) {
+		super(type, world);
 
 		// Remove firing wither skulls
 		goalSelector.goals.removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
