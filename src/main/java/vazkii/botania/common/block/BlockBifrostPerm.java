@@ -11,6 +11,8 @@ package vazkii.botania.common.block;
 import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,5 +33,15 @@ public class BlockBifrostPerm extends AbstractGlassBlock {
 			SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
 			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 		}
+	}
+
+	@Override
+	public float[] getBeaconColorMultiplier(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
+		int rgb = MathHelper.hsvToRGB(world.getDimension().getWorld().getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F);
+		float[] ret = new float[3];
+		ret[0] = ((rgb >> 16) & 0xFF) / 255.0F;
+		ret[1] = ((rgb >> 8) & 0xFF) / 255.0F;
+		ret[2] = (rgb & 0xFF) / 255.0F;
+		return ret;
 	}
 }
