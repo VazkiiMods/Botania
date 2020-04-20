@@ -43,7 +43,6 @@ import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
-import vazkii.patchouli.client.book.gui.GuiBook;
 
 import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
@@ -120,8 +119,7 @@ public class RenderLexicon {
 
 		float ticks = ClientTickHandler.ticksWithLexicaOpen;
 		if (ticks > 0 && ticks < 10) {
-			if (Minecraft.getInstance().currentScreen instanceof GuiBook
-					&& ((GuiBook) Minecraft.getInstance().currentScreen).book.getBookItem().getItem() == ModItems.lexicon) {
+			if (ItemLexicon.isOpen()) {
 				ticks += partialTicks;
 			} else {
 				ticks -= partialTicks;

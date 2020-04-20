@@ -25,7 +25,6 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.BookDrawScreenEvent;
-import vazkii.patchouli.client.book.gui.GuiBook;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 public class KonamiHandler {
@@ -39,18 +38,13 @@ public class KonamiHandler {
 	private static int nextLetter = 0;
 	private static int konamiTime = 0;
 
-	private static boolean isBookOpen() {
-		Minecraft mc = Minecraft.getInstance();
-		return mc.currentScreen instanceof GuiBook && ((GuiBook) mc.currentScreen).book == ItemLexicon.getBook();
-	}
-
 	@SubscribeEvent
 	public static void clientTick(TickEvent.ClientTickEvent evt) {
 		if (konamiTime > 0) {
 			konamiTime--;
 		}
 
-		if (!isBookOpen()) {
+		if (!ItemLexicon.isOpen()) {
 			nextLetter = 0;
 		}
 	}
@@ -58,7 +52,7 @@ public class KonamiHandler {
 	@SubscribeEvent
 	public static void handleInput(InputEvent.KeyInputEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
-		if (evt.getModifiers() == 0 && evt.getAction() == GLFW.GLFW_PRESS && isBookOpen()) {
+		if (evt.getModifiers() == 0 && evt.getAction() == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
 			if (konamiTime == 0 && evt.getKey() == KONAMI_CODE[nextLetter]) {
 				nextLetter++;
 				if (nextLetter >= KONAMI_CODE.length) {

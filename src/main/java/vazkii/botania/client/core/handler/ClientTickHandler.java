@@ -11,7 +11,6 @@ package vazkii.botania.client.core.handler;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,9 +24,9 @@ import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.patchouli.client.book.gui.GuiBook;
 
 import java.lang.reflect.Field;
 
@@ -98,8 +97,7 @@ public final class ClientTickHandler {
 			}
 
 			int ticksToOpen = 10;
-			Screen gui = Minecraft.getInstance().currentScreen;
-			if (gui instanceof GuiBook && ((GuiBook) gui).book.getBookItem().getItem() == ModItems.lexicon) {
+			if (ItemLexicon.isOpen()) {
 				if (ticksWithLexicaOpen < 0) {
 					ticksWithLexicaOpen = 0;
 				}

@@ -54,6 +54,10 @@ public class ItemLexicon extends Item implements IElvenItem {
 		return BookRegistry.INSTANCE.books.get(ModItems.lexicon.getRegistryName());
 	}
 
+	public static boolean isOpen() {
+		return ModItems.lexicon.getRegistryName().equals(PatchouliAPI.instance.getOpenBookGui());
+	}
+
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
 		if (isInGroup(tab)) {
