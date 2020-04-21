@@ -23,7 +23,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Items;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ResourceLocation;
@@ -60,6 +59,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -213,7 +213,7 @@ public class BlockLootProvider implements IDataProvider {
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
 				.acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS)));
+				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
 				.acceptCondition(SurvivesExplosion.builder());
 		return LootTable.builder().addLootPool(pool);
