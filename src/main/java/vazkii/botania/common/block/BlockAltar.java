@@ -110,7 +110,23 @@ public class BlockAltar extends BlockMod {
 			tile.trySetLastRecipe(player);
 			return ActionResultType.SUCCESS;
 		} else {
-			if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+			if (!stack.isEmpty() && tile.getFluid() != Fluids.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid()) && !Botania.gardenOfGlassLoaded) {
+				if (!player.abilities.isCreativeMode) {
+					//support bucket stacks
+					if (stack.getCount() == 1) {
+						player.setHeldItem(hand, fill(tile.getFluid(), stack));
+					} else {
+						ItemHandlerHelper.giveItemToPlayer(player, fill(tile.getFluid(), new ItemStack(stack.getItem())));
+						stack.shrink(1);
+					}
+				}
+
+				tile.setFluid(Fluids.EMPTY);
+				world.updateComparatorOutputLevel(pos, this);
+				world.getChunkProvider().getLightManager().checkBlock(pos);
+
+				return ActionResultType.SUCCESS;
+			} else if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if (tile.getFluid() == Fluids.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
@@ -134,22 +150,6 @@ public class BlockAltar extends BlockMod {
 					world.updateComparatorOutputLevel(pos, this);
 					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
-
-				return ActionResultType.SUCCESS;
-			} else if (!stack.isEmpty() && tile.getFluid() != Fluids.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid()) && !Botania.gardenOfGlassLoaded) {
-				if (!player.abilities.isCreativeMode) {
-					//support bucket stacks
-					if (stack.getCount() == 1) {
-						player.setHeldItem(hand, fill(tile.getFluid(), stack));
-					} else {
-						ItemHandlerHelper.giveItemToPlayer(player, fill(tile.getFluid(), new ItemStack(stack.getItem())));
-						stack.shrink(1);
-					}
-				}
-
-				tile.setFluid(Fluids.EMPTY);
-				world.updateComparatorOutputLevel(pos, this);
-				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return ActionResultType.SUCCESS;
 			}
