@@ -58,6 +58,8 @@ public class ModTags {
 		public static final Tag<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 		public static final Tag<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
 
+		public static final Tag<Item> SHEARS = forgeTag("shears");
+
 		public static final Tag<Item> DISPOSABLE = tag("disposable");
 		public static final Tag<Item> SEMI_DISPOSABLE = tag("semi_disposable");
 
