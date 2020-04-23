@@ -16,7 +16,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -111,7 +110,23 @@ public class BlockAltar extends BlockMod {
 			tile.trySetLastRecipe(player);
 			return ActionResultType.SUCCESS;
 		} else {
-			if (!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+			if (!stack.isEmpty() && tile.getFluid() != Fluids.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid()) && !Botania.gardenOfGlassLoaded) {
+				if (!player.abilities.isCreativeMode) {
+					//support bucket stacks
+					if (stack.getCount() == 1) {
+						player.setHeldItem(hand, fill(tile.getFluid(), stack));
+					} else {
+						ItemHandlerHelper.giveItemToPlayer(player, fill(tile.getFluid(), new ItemStack(stack.getItem())));
+						stack.shrink(1);
+					}
+				}
+
+				tile.setFluid(Fluids.EMPTY);
+				world.updateComparatorOutputLevel(pos, this);
+				world.getChunkProvider().getLightManager().checkBlock(pos);
+
+				return ActionResultType.SUCCESS;
+			} else if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if (tile.getFluid() == Fluids.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
@@ -125,28 +140,16 @@ public class BlockAltar extends BlockMod {
 				}
 
 				return ActionResultType.SUCCESS;
-			} else if (!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
-				if (!player.abilities.isCreativeMode) {
-					player.setHeldItem(hand, drain(Fluids.LAVA, stack));
+			} else if (!stack.isEmpty() && isValidFluidContainerToDrain(stack, Fluids.LAVA)) {
+				if (tile.getFluid() == Fluids.EMPTY) {
+					if (!player.abilities.isCreativeMode) {
+						player.setHeldItem(hand, drain(Fluids.LAVA, stack));
+					}
+
+					tile.setFluid(Fluids.LAVA);
+					world.updateComparatorOutputLevel(pos, this);
+					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
-
-				tile.setFluid(Fluids.LAVA);
-				world.updateComparatorOutputLevel(pos, this);
-				world.getChunkProvider().getLightManager().checkBlock(pos);
-
-				return ActionResultType.SUCCESS;
-			} else if (!stack.isEmpty() && stack.getItem() == Items.BUCKET && tile.getFluid() != Fluids.EMPTY && !Botania.gardenOfGlassLoaded) {
-				ItemStack bucket = new ItemStack(tile.getFluid().getFilledBucket());
-				if (stack.getCount() == 1) {
-					player.setHeldItem(hand, bucket);
-				} else {
-					ItemHandlerHelper.giveItemToPlayer(player, bucket);
-					stack.shrink(1);
-				}
-
-				tile.setFluid(Fluids.EMPTY);
-				world.updateComparatorOutputLevel(pos, this);
-				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return ActionResultType.SUCCESS;
 			}
@@ -169,14 +172,14 @@ public class BlockAltar extends BlockMod {
 		}
 	}
 
-	private boolean isValidWaterContainer(ItemStack stack) {
+	private boolean isValidFluidContainerToDrain(ItemStack stack, Fluid fluid) {
 		if (stack.isEmpty() || stack.getCount() != 1) {
 			return false;
 		}
 
 		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
-			FluidStack simulate = handler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
-			return !simulate.isEmpty() && simulate.getFluid() == Fluids.WATER && simulate.getAmount() == FluidAttributes.BUCKET_VOLUME;
+			FluidStack simulate = handler.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+			return !simulate.isEmpty() && simulate.getFluid() == fluid && simulate.getAmount() == FluidAttributes.BUCKET_VOLUME;
 		}).orElse(false);
 	}
 
@@ -184,6 +187,31 @@ public class BlockAltar extends BlockMod {
 		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(handler -> {
 					handler.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+					return handler.getContainer();
+				})
+				.orElse(stack);
+	}
+
+	private boolean isValidFluidContainerToFill(ItemStack stack, Fluid fluid) {
+		if (stack.isEmpty()) {
+			return false;
+		}
+		//support bucket stacks
+		ItemStack container = stack;
+		if (stack.getCount() > 1) {
+			container = new ItemStack(stack.getItem());
+		}
+
+		return container.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
+			int amount = handler.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+			return amount == FluidAttributes.BUCKET_VOLUME;
+		}).orElse(false);
+	}
+
+	private ItemStack fill(Fluid fluid, ItemStack stack) {
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+				.map(handler -> {
+					handler.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					return handler.getContainer();
 				})
 				.orElse(stack);
