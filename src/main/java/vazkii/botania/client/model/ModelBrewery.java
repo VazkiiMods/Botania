@@ -19,8 +19,8 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
