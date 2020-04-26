@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -63,7 +64,13 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 	}
 
 	public boolean canEject() {
-		return world.doesNotCollide(new AxisAlignedBB(pos.down()));
+		double ejectX = pos.getX() + 0.5;
+		double ejectY = pos.getY() - 0.5;
+		double ejectZ = pos.getZ() + 0.5;
+		float width = EntityType.ITEM.getWidth();
+		float height = EntityType.ITEM.getHeight();
+		AxisAlignedBB itemBB = new AxisAlignedBB(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
+		return world.doesNotCollide(itemBB);
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
