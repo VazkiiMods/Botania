@@ -88,6 +88,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.sorted(Comparator.comparing(Block::getRegistryName))
 						.toArray(Block[]::new)
 		);
+
+		getBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 	}
 
 	@Nonnull

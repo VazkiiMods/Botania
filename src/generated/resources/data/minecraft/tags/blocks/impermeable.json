@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "botania:elf_glass",
+    "botania:mana_glass",
+    "botania:bifrost",
+    "botania:bifrost_perm"
+  ]
+}

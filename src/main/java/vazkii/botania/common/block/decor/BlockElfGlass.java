@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.api.recipe.IElvenItem;
 
-public class BlockElfGlass extends AbstractGlassBlock implements IElvenItem {
+public class BlockElfGlass extends BlockModGlass implements IElvenItem {
 
 	public BlockElfGlass(Properties builder) {
 		super(builder);
@@ -23,5 +22,4 @@ public class BlockElfGlass extends AbstractGlassBlock implements IElvenItem {
 	public boolean isElvenItem(ItemStack stack) {
 		return true;
 	}
-
 }

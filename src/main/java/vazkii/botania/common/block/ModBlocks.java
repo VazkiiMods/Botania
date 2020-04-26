@@ -38,16 +38,7 @@ import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
 import vazkii.botania.common.block.corporea.BlockCorporeaInterceptor;
 import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
-import vazkii.botania.common.block.decor.BlockBuriedPetals;
-import vazkii.botania.common.block.decor.BlockElfGlass;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockManaFlame;
-import vazkii.botania.common.block.decor.BlockModMushroom;
-import vazkii.botania.common.block.decor.BlockPetalBlock;
-import vazkii.botania.common.block.decor.BlockShinyFlower;
-import vazkii.botania.common.block.decor.BlockStarfield;
-import vazkii.botania.common.block.decor.BlockTinyPotato;
-import vazkii.botania.common.block.decor.ItemBlockBlaze;
+import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
@@ -503,7 +494,7 @@ public final class ModBlocks {
 		register(r, new BlockRFGenerator(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.FLUXFIELD);
 		register(r, new BlockElfGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).nonOpaque()), LibBlockNames.ELF_GLASS);
 		register(r, new BlockBrewery(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.BREWERY);
-		register(r, new GlassBlock(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).nonOpaque()), LibBlockNames.MANA_GLASS);
+		register(r, new BlockModGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).nonOpaque()), LibBlockNames.MANA_GLASS);
 		register(r, new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.TERRA_PLATE);
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
