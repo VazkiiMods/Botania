@@ -24,9 +24,7 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import javax.annotation.Nullable;
 
 public class RenderTileBrewery extends TileEntityRenderer<TileBrewery> {
-	public static final ResourceLocation TEXTURE = new ResourceLocation(LibResources.MODEL_BREWERY);
 	final ModelBrewery model = new ModelBrewery();
-	public TileBrewery brewery;
 
 	public RenderTileBrewery(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -34,10 +32,8 @@ public class RenderTileBrewery extends TileEntityRenderer<TileBrewery> {
 
 	@Override
 	public void render(@Nullable TileBrewery brewery, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		this.brewery = brewery;
 		ms.push();
 
-		Minecraft.getInstance().textureManager.bindTexture(TEXTURE);
 		ms.scale(1F, -1F, -1F);
 		ms.translate(0.5F, -1.5F, -0.5F);
 

@@ -20,13 +20,15 @@ import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.ResourceLocation;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;
 
 public class ModelBrewery extends Model {
-
+	private static final ResourceLocation TEXTURE = new ResourceLocation(LibResources.MODEL_BREWERY);
 	final ModelRenderer top;
 	final ModelRenderer pole;
 	final ModelRenderer bottom;
@@ -71,10 +73,10 @@ public class ModelBrewery extends Model {
 			ms.pop();
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(getLayer(RenderTileBrewery.TEXTURE));
-		pole.render(ms, buffer, light, overlay);
-		top.render(ms, buffer, light, overlay);
-		bottom.render(ms, buffer, light, overlay);
+		RenderType layer = getLayer(TEXTURE);
+		pole.render(ms, buffers.getBuffer(layer), light, overlay);
+		top.render(ms, buffers.getBuffer(layer), light, overlay);
+		bottom.render(ms, buffers.getBuffer(layer), light, overlay);
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-polerot));
 
 		float degper = (float) (2F * Math.PI) / plates;
@@ -99,7 +101,7 @@ public class ModelBrewery extends Model {
 				renderItemStack(brewery.getItemHandler().getStackInSlot(i + 1), ms, buffers, light, overlay);
 				ms.pop();
 			}
-			plate.render(ms, buffer, light, overlay);
+			plate.render(ms, buffers.getBuffer(layer), light, overlay);
 			ms.translate(0F, -offset1, 0F);
 
 			deg += degper;
