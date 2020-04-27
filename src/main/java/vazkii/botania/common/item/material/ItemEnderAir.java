@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.item.material;
 
+import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -30,6 +32,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemEnderAir extends Item {
 	public ItemEnderAir(Properties props) {
@@ -37,22 +41,24 @@ public class ItemEnderAir extends Item {
 	}
 
 	@SubscribeEvent
-	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
 		ItemStack stack = event.getItemStack();
-		boolean correctStack = !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE;
-		boolean ender = event.getWorld().getDimension() instanceof EndDimension;
+		World world = event.getWorld();
 
-		if (correctStack && ender) {
-			if (event.getWorld().isRemote) {
-				event.getPlayer().swingArm(event.getHand());
-			} else {
-				ItemStack stack1 = new ItemStack(ModItems.enderAirBottle);
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimension() instanceof EndDimension) {
+			List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
+					event.getPlayer().getBoundingBox().grow(3.5D),
+					entity -> entity != null && entity.isAlive()
+							&& entity.getParticleData().getType() == ParticleTypes.DRAGON_BREATH);
+			if (!list.isEmpty()) {
+				return;
+			}
 
-				ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), stack1);
-
+			if (!world.isRemote) {
+				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
+				ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), enderAir);
 				stack.shrink(1);
-
-				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
+				world.playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
 			}
 
 			event.setCanceled(true);
