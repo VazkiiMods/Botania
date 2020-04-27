@@ -69,7 +69,7 @@
     {
       "type": "crafting",
       "text": "botania.page.pool13",
-      "recipe": "botania:mana_infusion/cobweb"
+      "recipe": "botania:cobweb"
     },
     {
       "type": "mana_infusion",
