@@ -76,7 +76,6 @@ import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.multiblock.StateMatcher;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -190,7 +189,7 @@ public class Botania {
 							"_________",
 					}
 			};
-			IStateMatcher sm = StateMatcher.fromPredicate(Blocks.IRON_BLOCK, state -> {
+			IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK, state -> {
 				try {
 					// No world to pass here, so just fall back to false if it errors
 					return state.isBeaconBase(null, null, null);

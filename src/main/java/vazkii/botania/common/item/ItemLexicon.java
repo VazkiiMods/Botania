@@ -20,7 +20,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -31,9 +30,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.base.PatchouliSounds;
 import vazkii.patchouli.common.book.Book;
 import vazkii.patchouli.common.book.BookRegistry;
 
@@ -87,14 +86,12 @@ public class ItemLexicon extends Item implements IElvenItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack stack = playerIn.getHeldItem(handIn);
-		Book book = getBook();
 
 		if (playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getX(), player.getY(), player.getZ());
-			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, book.id);
-			SoundEvent sfx = PatchouliSounds.getSound(book.openSound, PatchouliSounds.book_open);
-			playerIn.playSound(sfx, 1F, (float) (0.7 + Math.random() * 0.4));
+			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, getRegistryName());
+			playerIn.playSound(ModSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);
