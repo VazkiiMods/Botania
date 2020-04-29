@@ -75,7 +75,7 @@ public class RuneProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor("summer"), new ItemStack(ModItems.runeSummer), costTier2, earth, air, sand, sand, Ingredient.fromItems(Items.SLIME_BALL), Ingredient.fromItems(Items.MELON_SLICE)));
 		consumer.accept(new FinishedRecipe(idFor("autumn"), new ItemStack(ModItems.runeAutumn), costTier2, fire, air, leaves, leaves, leaves, Ingredient.fromItems(Items.SPIDER_EYE)));
 
-		consumer.accept(new FinishedRecipe(idFor("winter"), new ItemStack(ModItems.runeWinter), costTier2, water, earth, Ingredient.fromItems(Blocks.SNOW), Ingredient.fromItems(Blocks.SNOW_BLOCK), Ingredient.fromTag(ItemTags.WOOL), Ingredient.fromItems(Blocks.CAKE)));
+		consumer.accept(new FinishedRecipe(idFor("winter"), new ItemStack(ModItems.runeWinter), costTier2, water, earth, Ingredient.fromItems(Blocks.SNOW_BLOCK), Ingredient.fromItems(Blocks.SNOW_BLOCK), Ingredient.fromTag(ItemTags.WOOL), Ingredient.fromItems(Blocks.CAKE)));
 
 		Ingredient spring = Ingredient.fromTag(ModTags.Items.RUNES_SPRING);
 		Ingredient summer = Ingredient.fromTag(ModTags.Items.RUNES_SUMMER);
