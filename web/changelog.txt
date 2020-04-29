@@ -1,3 +1,23 @@
+r1.15 383
+* zh_CN updates (ppoozl)
+* Add GoG-specific cocoon entry
+* Fix phantom-lensed bursts triggering blocks they pass through too many times
+* Fix incorrect corporea spark range documentation
+* Fix Terra Shatterer, Mana Tablet/Band tooltips (eutropius225)
+* Fix Rod of the Shaded Mesa
+* Fix too-high-level Laputa Shards being available in creative
+* Fix Laputa Shard upgrade recipe being broken again
+* Fix Pink wither losing its docility after reloading the world
+* Bifrost blocks now color beacons a rainbow color
+* Add Botania shears to the (unofficial) forge:shears tag (cech12)
+* Improve apothecary compatibility with fluid containers (cech12)
+* Fix botania glass blocks (mana/alfglass, bifrost) not being in impermeable tag, fix them showing the waterfall texture when adjacent to water. It should now match vanilla glass.
+* Fix brewery renderer sometimes going crazy when items are on the plates
+* Refine open/crafting crate's "is there room to drop" check to be more precise
+* Fix ender air not being collectible from right clicking in air. Dragon's breath nearby will still inhibit ender air collection.
+* Fix rune of winter recipe being incorrect
+* Items on Tiny Potato now face the correct way (Partonetrain)
+* Fix cobweb recipe in lexicon being broken (Partonetrain)
 r1.15 382
 * Welcome to Botania on 1.15.2
 * r-version will always match the major Minecraft release now
