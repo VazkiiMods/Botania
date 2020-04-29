@@ -29,6 +29,7 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -64,7 +65,7 @@ import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.IMultiblock;
-import vazkii.patchouli.client.handler.MultiblockVisualizationHandler;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.File;
 import java.io.IOException;
@@ -229,17 +230,15 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void showMultiblock(IMultiblock mb, String name, BlockPos anchor, Rotation rot) {
-		MultiblockVisualizationHandler.setMultiblock(mb, name, null, false);
-		MultiblockVisualizationHandler.anchorTo(anchor, Rotation.NONE);
+	public void showMultiblock(IMultiblock mb, ITextComponent name, BlockPos anchor, Rotation rot) {
+		PatchouliAPI.instance.showMultiblock(mb, name, anchor, rot);
 	}
 
 	@Override
 	public void clearSextantMultiblock() {
-		if (MultiblockVisualizationHandler.hasMultiblock
-				&& MultiblockVisualizationHandler.getMultiblock() != null
-				&& MultiblockVisualizationHandler.getMultiblock().getID().equals(ItemSextant.MULTIBLOCK_ID)) {
-			MultiblockVisualizationHandler.setMultiblock(null, null, null, true);
+		IMultiblock mb = PatchouliAPI.instance.getCurrentMultiblock();
+		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
+			PatchouliAPI.instance.clearMultiblock();
 		}
 	}
 }

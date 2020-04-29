@@ -27,6 +27,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -126,7 +127,7 @@ public class ItemSextant extends Item {
 					}
 				}
 				IMultiblock sparse = PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
-				Botania.proxy.showMultiblock(sparse, "r = " + (int) radius, new BlockPos(x, y, z), Rotation.NONE);
+				Botania.proxy.showMultiblock(sparse, new StringTextComponent("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}
 	}

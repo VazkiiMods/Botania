@@ -33,8 +33,6 @@ import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.book.Book;
-import vazkii.patchouli.common.book.BookRegistry;
 
 import javax.annotation.Nonnull;
 
@@ -47,10 +45,6 @@ public class ItemLexicon extends Item implements IElvenItem {
 	public ItemLexicon(Properties props) {
 		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "elven"), (stack, world, living) -> isElvenItem(stack) ? 1 : 0);
-	}
-
-	public static Book getBook() {
-		return BookRegistry.INSTANCE.books.get(ModItems.lexicon.getRegistryName());
 	}
 
 	public static boolean isOpen() {
@@ -73,10 +67,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 
 		if (Screen.hasShiftDown()) {
-			Book book = getBook();
-			if (book.contents != null) {
-				tooltip.add(new StringTextComponent(book.contents.getSubtitle()).applyTextStyle(TextFormatting.GRAY));
-			}
+			tooltip.add(getEdition().applyTextStyle(TextFormatting.GRAY));
 		} else {
 			tooltip.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 		}
@@ -97,8 +88,8 @@ public class ItemLexicon extends Item implements IElvenItem {
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);
 	}
 
-	public static String getEdition() {
-		return getBook().contents.getSubtitle();
+	public static ITextComponent getEdition() {
+		return PatchouliAPI.instance.getSubtitle(ModItems.lexicon.getRegistryName());
 	}
 
 	public static ITextComponent getTitle(ItemStack stack) {

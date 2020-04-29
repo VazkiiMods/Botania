@@ -162,7 +162,7 @@ public class RenderLexicon {
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			String edition = TextFormatting.ITALIC + "" + TextFormatting.BOLD + ItemLexicon.getEdition();
+			String edition = ItemLexicon.getEdition().applyTextStyles(TextFormatting.ITALIC, TextFormatting.BOLD).getFormattedText();
 			font.draw(edition, 0, 0, 0xA07100, false, ms.peek().getModel(), buffers, false, 0, light);
 
 			if (quote == -1) {

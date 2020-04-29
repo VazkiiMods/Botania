@@ -103,7 +103,8 @@ test {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-31.1.24"
-    compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-30.156") { transitive = false }
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-32.168:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-32.168")
 
     compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
