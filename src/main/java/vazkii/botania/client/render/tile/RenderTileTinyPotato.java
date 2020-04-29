@@ -305,7 +305,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			} else if (block) {
 				ms.scale(0.5F, 0.5F, 0.5F);
 			}
-			if (block && side != Direction.NORTH) {
+			if (block && side == Direction.NORTH) {
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
 			}
 			renderItem(ms, buffers, light, overlay, stack);
