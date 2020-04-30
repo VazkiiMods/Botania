@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.wand",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:twig_wand",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",

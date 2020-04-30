@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.cocoon",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:cocoon",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

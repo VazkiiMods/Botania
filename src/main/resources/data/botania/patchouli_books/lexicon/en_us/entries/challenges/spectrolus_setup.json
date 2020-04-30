@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.spectrolusSetup",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:spectrolus",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

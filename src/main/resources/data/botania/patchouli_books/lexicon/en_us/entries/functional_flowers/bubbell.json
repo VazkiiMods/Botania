@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.bubbell",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:bubbell",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -10,7 +10,7 @@
       "text": "botania.page.bubbell0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.bubbell1",
       "recipe": "botania:petal_apothecary/bubbell"
     }

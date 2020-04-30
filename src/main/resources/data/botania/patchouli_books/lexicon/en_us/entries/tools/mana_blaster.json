@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaBlaster",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:mana_gun",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

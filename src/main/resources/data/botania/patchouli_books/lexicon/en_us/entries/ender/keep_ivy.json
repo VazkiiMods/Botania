@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.keepIvy",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:keep_ivy",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

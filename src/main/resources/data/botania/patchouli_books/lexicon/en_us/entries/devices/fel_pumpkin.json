@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.felPumpkin",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:fel_pumpkin",
   "pages": [
     {

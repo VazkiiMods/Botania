@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaGear",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:manasteel_pick",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

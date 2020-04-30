@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.cosmeticBaubles",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:cosmetic_black_bowtie",
   "priority": true,
   "advancement": "botania:main/flower_pickup",

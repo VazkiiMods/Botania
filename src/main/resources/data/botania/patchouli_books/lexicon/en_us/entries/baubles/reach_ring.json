@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.reachRing",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:reach_ring",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

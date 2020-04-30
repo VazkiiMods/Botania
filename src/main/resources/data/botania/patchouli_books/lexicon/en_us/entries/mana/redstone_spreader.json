@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.redstoneSpreader",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:redstone_spreader",
   "advancement": "botania:main/pure_daisy_pickup",
   "priority": true,

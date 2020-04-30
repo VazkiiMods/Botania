@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.welcome",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "sortnum": -10,

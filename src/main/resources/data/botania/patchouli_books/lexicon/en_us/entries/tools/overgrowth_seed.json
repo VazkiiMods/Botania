@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.overgrowthSeed",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:overgrowth_seed",
   "priority": true,
   "pages": [

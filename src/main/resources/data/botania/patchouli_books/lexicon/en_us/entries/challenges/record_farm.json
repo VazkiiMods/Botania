@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.recordFarm",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "minecraft:music_disc_13",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

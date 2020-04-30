@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.dodgeRing",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:dodge_ring",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

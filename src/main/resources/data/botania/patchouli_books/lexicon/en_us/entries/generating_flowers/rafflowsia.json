@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.rafflowsia",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:rafflowsia",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -10,7 +10,7 @@
       "text": "botania.page.rafflowsia0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.rafflowsia1",
       "recipe": "botania:petal_apothecary/rafflowsia"
     }

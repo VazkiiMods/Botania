@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaVoid",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:mana_void",
   "advancement": "botania:main/pure_daisy_pickup",
   "pages": [

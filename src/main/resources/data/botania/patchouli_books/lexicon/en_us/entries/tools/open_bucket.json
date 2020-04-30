@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.openBucket",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:open_bucket",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

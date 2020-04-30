@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.rainbowRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:rainbow_rod",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.sparks",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:spark",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

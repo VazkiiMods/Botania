@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.swapRing",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:swap_ring",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

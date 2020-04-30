@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.treeFarm",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "minecraft:oak_sapling",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

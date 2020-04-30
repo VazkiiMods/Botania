@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.relicInfo",
-  "category": "alfhomancy",
+  "category": "botania:alfhomancy",
   "icon": "botania:dice",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/gaia_guardian_hardmode",

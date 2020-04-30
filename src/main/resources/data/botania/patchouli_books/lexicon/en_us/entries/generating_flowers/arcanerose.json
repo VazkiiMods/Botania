@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.arcanerose",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:rosa_arcana",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.arcanerose0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.arcanerose1",
       "recipe": "botania:petal_apothecary/rosa_arcana"
     }

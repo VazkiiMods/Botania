@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.thermalily",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:thermalily",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -17,7 +17,7 @@
       "text": "botania.page.thermalily3"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.thermalily1",
       "recipe": "botania:petal_apothecary/thermalily"
     }

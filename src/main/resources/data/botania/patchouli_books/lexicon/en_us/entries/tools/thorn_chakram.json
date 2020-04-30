@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.thornChakram",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:thorn_chakram",
   "advancement": "botania:main/terrasteel_pickup",
   "pages": [

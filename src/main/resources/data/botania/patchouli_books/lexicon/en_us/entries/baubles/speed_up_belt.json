@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.speedUpBelt",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:speed_up_belt",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

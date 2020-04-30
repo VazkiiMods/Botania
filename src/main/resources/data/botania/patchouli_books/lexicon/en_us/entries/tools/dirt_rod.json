@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.dirtRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:dirt_rod",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

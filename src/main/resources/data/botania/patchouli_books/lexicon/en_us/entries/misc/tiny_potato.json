@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.tinyPotato",
-  "category": "misc",
+  "category": "botania:misc",
   "icon": "botania:tiny_potato",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [
@@ -13,7 +13,7 @@
       "text": "botania.page.tinyPotato2"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.tinyPotato1",
       "recipes": "botania:mana_infusion/tiny_potato"
     }

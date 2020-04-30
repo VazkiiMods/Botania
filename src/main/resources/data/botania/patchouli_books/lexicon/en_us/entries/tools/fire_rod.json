@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.fireRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:fire_rod",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

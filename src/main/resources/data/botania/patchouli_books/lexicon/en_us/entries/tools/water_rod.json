@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.waterRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:water_rod",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

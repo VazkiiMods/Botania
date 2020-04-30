@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.pureDaisy",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:pure_daisy",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

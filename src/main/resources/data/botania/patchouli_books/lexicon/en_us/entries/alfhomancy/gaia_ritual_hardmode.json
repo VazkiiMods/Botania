@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.gaiaRitualHardmode",
-  "category": "alfhomancy",
+  "category": "botania:alfhomancy",
   "icon": "botania:gaia_ingot",
   "entry_color": "aa00",
   "advancement": "botania:main/gaia_guardian_kill",

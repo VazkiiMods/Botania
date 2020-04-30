@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.cobbleRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:cobble_rod",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

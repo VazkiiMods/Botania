@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.endoflame",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:endoflame",
   "advancement": "botania:main/pure_daisy_pickup",
   "turnin": "botania:main/generating_flower",
@@ -18,7 +18,7 @@
       "text": "botania.page.endoflame3"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.endoflame2",
       "recipe": "botania:petal_apothecary/endoflame"
     }

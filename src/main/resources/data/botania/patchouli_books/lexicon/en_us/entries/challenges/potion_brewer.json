@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.potionBrewer",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:brewery",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

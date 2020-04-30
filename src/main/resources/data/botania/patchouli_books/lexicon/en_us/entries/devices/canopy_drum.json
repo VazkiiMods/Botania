@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.canopyDrum",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:drum_canopy",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

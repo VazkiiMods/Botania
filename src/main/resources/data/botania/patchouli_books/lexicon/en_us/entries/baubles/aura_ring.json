@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.auraRing",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:aura_ring",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

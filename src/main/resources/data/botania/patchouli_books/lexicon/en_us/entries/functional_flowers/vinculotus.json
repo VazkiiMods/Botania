@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.vinculotus",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:vinculotus",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.vinculotus0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.vinculotus1",
       "recipe": "botania:petal_apothecary/vinculotus"
     }

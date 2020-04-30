@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.lexicon",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:lexicon",
   "priority": true,
   "pages": [

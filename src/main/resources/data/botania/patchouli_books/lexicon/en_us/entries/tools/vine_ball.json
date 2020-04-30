@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.vineBall",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:vine_ball",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

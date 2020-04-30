@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.goddessCharm",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:goddess_charm",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

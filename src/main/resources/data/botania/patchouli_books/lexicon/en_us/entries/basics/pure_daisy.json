@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.pureDaisy",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:pure_daisy",
   "priority": true,
   "advancement": "botania:main/flower_pickup",
@@ -27,7 +27,7 @@
       "text": "botania.page.pureDaisy4"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.pureDaisy3",
       "recipe": "botania:petal_apothecary/pure_daisy"
     }

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.grassSeeds",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:grass_seeds",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [
@@ -9,17 +9,17 @@
       "text": "botania.page.grassSeeds0"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.grassSeeds1",
       "recipes": "botania:mana_infusion/grass_seeds"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.grassSeeds2",
       "recipes": "botania:mana_infusion/podzol_seeds"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.grassSeeds3",
       "recipes": "botania:mana_infusion/mycel_seeds"
     },
@@ -28,7 +28,7 @@
       "text": "botania.page.grassSeeds4"
     },
     {
-      "type": "crafting_multi",
+      "type": "botania:crafting_multi",
       "text": "botania.page.grassSeeds5",
       "recipes": "botania:dry_seeds;botania:golden_seeds;botania:vivid_seeds;botania:scorched_seeds;botania:infused_seeds;botania:mutated_seeds"
     }

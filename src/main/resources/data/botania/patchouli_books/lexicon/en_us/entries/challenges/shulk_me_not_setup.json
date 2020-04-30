@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.shulkMeNotSetup",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:shulk_me_not",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

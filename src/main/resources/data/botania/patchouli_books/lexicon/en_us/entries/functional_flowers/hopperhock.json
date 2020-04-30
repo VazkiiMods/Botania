@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.hopperhock",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:hopperhock",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -13,7 +13,7 @@
       "text": "botania.page.hopperhock1"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.hopperhock2",
       "recipe": "botania:petal_apothecary/hopperhock"
     }

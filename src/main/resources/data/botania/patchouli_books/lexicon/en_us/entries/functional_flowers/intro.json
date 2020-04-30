@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.fIntro",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "minecraft:air",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

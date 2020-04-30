@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.heiseiDream",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:heisei_dream",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -10,7 +10,7 @@
       "text": "botania.page.heiseiDream0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.heiseiDream1",
       "recipe": "botania:petal_apothecary/heisei_dream"
     }

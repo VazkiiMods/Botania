@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.autocraftingHalo",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:auto_crafting_halo",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

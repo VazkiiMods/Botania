@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.exchangeRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:exchange_rod",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

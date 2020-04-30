@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.aIntro",
-  "category": "alfhomancy",
+  "category": "botania:alfhomancy",
   "icon": "botania:lexicon",
   "priority": true,
   "advancement": "botania:main/terrasteel_pickup",

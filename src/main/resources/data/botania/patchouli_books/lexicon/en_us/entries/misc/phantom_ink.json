@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.phantomInk",
-  "category": "misc",
+  "category": "botania:misc",
   "icon": "botania:phantom_ink",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

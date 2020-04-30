@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.spectrolus",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:spectrolus",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -18,7 +18,7 @@
       "text": "botania.page.spectrolus1.5"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.spectrolus2",
       "recipe": "botania:petal_apothecary/spectrolus"
     }

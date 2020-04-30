@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.bellows",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:bellows",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

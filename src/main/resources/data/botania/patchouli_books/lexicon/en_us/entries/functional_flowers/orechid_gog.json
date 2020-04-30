@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.orechid",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:orechid",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",
@@ -11,7 +11,7 @@
       "text": "botania.page.orechid0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.orechid1",
       "recipe": "botania:petal_apothecary/orechid"
     }

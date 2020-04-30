@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.travelBelt",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:travel_belt",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

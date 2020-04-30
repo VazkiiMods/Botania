@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.elfResources",
-  "category": "alfhomancy",
+  "category": "botania:alfhomancy",
   "icon": "botania:dragonstone",
   "entry_color": "aa00",
   "priority": true,
@@ -11,7 +11,7 @@
       "text": "botania.page.elfResources0"
     },
     {
-      "type": "elven_trade",
+      "type": "botania:elven_trade",
       "text": "botania.page.elfResources1",
       "recipes": "botania:elven_trade/dreamwood"
     },
@@ -25,17 +25,17 @@
       "recipe": "botania:dreamwood_twig"
     },
     {
-      "type": "elven_trade",
+      "type": "botania:elven_trade",
       "text": "botania.page.elfResources3",
       "recipes": "botania:elven_trade/elementium;botania:elven_trade/elementium_block"
     },
     {
-      "type": "elven_trade",
+      "type": "botania:elven_trade",
       "text": "botania.page.elfResources4",
       "recipes": "botania:elven_trade/pixie_dust"
     },
     {
-      "type": "elven_trade",
+      "type": "botania:elven_trade",
       "text": "botania.page.elfResources5",
       "recipes": "botania:elven_trade/dragonstone;botania:elven_trade/dragonstone_block"
     },
@@ -44,7 +44,7 @@
       "text": "botania.page.elfResources6"
     },
     {
-      "type": "elven_trade",
+      "type": "botania:elven_trade",
       "text": "botania.page.elfResources7",
       "recipes": "botania:elven_trade/elf_quartz"
     },
@@ -53,7 +53,7 @@
       "text": "botania.page.elfResources8"
     },
     {
-      "type": "elven_trade",
+      "type": "botania:elven_trade",
       "text": "botania.page.elfResources9",
       "recipes": "botania:elven_trade/elf_glass"
     }

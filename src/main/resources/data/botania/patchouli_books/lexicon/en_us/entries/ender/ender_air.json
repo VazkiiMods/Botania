@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.enderAir",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:ender_air_bottle",
   "priority": true,
   "pages": [

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.monocle",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:monocle",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

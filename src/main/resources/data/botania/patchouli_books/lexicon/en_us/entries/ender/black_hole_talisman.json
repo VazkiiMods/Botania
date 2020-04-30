@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.blackHoleTalisman",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:black_hole_talisman",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

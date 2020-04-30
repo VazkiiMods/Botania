@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.brewery",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:brewery",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -27,79 +27,79 @@
       "text": "botania.page.brewery4"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery5a",
       "flavor": "botania.page.brewery5b",
       "recipe": "botania:brew/speed"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery6a",
       "flavor": "botania.page.brewery6b",
       "recipe": "botania:brew/strength"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery7a",
       "flavor": "botania.page.brewery7b",
       "recipe": "botania:brew/haste"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery8a",
       "flavor": "botania.page.brewery8b",
       "recipe": "botania:brew/healing"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery9a",
       "flavor": "botania.page.brewery9b",
       "recipe": "botania:brew/jump_boost"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery10a",
       "flavor": "botania.page.brewery10b",
       "recipe": "botania:brew/regeneration"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery17a",
       "flavor": "botania.page.brewery17b",
       "recipe": "botania:brew/weak_regeneration"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery11a",
       "flavor": "botania.page.brewery11b",
       "recipe": "botania:brew/resistance"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery12a",
       "flavor": "botania.page.brewery12b",
       "recipe": "botania:brew/fire_resistance"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery13a",
       "flavor": "botania.page.brewery13b",
       "recipe": "botania:brew/water_breathing"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery14a",
       "flavor": "botania.page.brewery14b",
       "recipe": "botania:brew/invisibility"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery15a",
       "flavor": "botania.page.brewery15b",
       "recipe": "botania:brew/night_vision"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.brewery16a",
       "flavor": "botania.page.brewery16b",
       "recipe": "botania:brew/absorption"

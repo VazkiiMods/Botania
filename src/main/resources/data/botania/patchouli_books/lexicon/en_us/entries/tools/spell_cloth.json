@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.spellCloth",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:spell_cloth",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

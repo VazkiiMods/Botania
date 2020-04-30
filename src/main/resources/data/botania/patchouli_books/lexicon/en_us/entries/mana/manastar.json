@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manastar",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:manastar",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",
@@ -10,7 +10,7 @@
       "text": "botania.page.manastar0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.manastar1",
       "recipe": "botania:petal_apothecary/manastar"
     }

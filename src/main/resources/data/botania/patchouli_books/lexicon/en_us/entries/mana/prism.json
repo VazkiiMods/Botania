@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.prism",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:prism",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaDetector",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:mana_detector",
   "advancement": "botania:main/pure_daisy_pickup",
   "pages": [

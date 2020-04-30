@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.craftCrate",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:crafty_crate",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -47,7 +47,7 @@
       "text": "botania.page.craftCrate8"
     },
     {
-      "type": "crafting_multi",
+      "type": "botania:crafting_multi",
       "text": "botania.page.craftCrate9",
       "recipes": "botania:pattern_1_1;botania:pattern_2_2;botania:pattern_1_2;botania:pattern_2_1;botania:pattern_1_3;botania:pattern_3_1;botania:pattern_2_3;botania:pattern_3_2;botania:pattern_donut"
     }

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.distributor",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:mana_distributor",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

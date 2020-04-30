@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.complexBrews",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:brew_vial",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [
@@ -9,43 +9,43 @@
       "text": "botania.page.complexBrews0"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews1a",
       "flavor": "botania.page.complexBrews1b",
       "recipe": "botania:brew/overload"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews2a",
       "flavor": "botania.page.complexBrews2b",
       "recipe": "botania:brew/soul_cross"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews3a",
       "flavor": "botania.page.complexBrews3b",
       "recipe": "botania:brew/feather_feet"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews4a",
       "flavor": "botania.page.complexBrews4b",
       "recipe": "botania:brew/emptiness"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews5a",
       "flavor": "botania.page.complexBrews5b",
       "recipe": "botania:brew/bloodthirst"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews6a",
       "flavor": "botania.page.complexBrews6b",
       "recipe": "botania:brew/allure"
     },
     {
-      "type": "brew",
+      "type": "botania:brew",
       "text": "botania.page.complexBrews7a",
       "flavor": "botania.page.complexBrews7b",
       "recipe": "botania:brew/clear"

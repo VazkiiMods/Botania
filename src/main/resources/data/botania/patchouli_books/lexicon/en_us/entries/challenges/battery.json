@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.battery",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:mana_pool",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

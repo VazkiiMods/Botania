@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.gIntro",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "minecraft:air",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",

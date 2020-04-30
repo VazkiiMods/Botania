@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.flowerBag",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:flower_bag",
   "advancement": "botania:main/flower_pickup",
   "pages": [

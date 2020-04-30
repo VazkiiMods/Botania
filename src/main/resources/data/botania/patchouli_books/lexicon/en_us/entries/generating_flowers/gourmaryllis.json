@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.gourmaryllis",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:gourmaryllis",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -17,7 +17,7 @@
       "text": "botania.page.gourmaryllis2"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.gourmaryllis3",
       "recipe": "botania:petal_apothecary/gourmaryllis"
     }

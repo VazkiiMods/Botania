@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaMirror",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:mana_mirror",
   "advancement": "botania:main/terrasteel_pickup",
   "pages": [

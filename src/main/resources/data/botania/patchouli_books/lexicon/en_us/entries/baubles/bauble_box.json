@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.baubleBox",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:bauble_box",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

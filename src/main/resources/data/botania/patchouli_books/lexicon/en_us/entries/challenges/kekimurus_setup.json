@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.kekimurusSetup",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:kekimurus",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.blazeBlock",
-  "category": "misc",
+  "category": "botania:misc",
   "icon": "botania:blaze_block",
   "pages": [
     {

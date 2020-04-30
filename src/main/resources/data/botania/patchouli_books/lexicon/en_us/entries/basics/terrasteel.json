@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.terrasteel",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:terrasteel_ingot",
   "priority": true,
   "advancement": "botania:main/runic_altar_pickup",
@@ -26,7 +26,7 @@
       "symmetrical": true
     },
     {
-      "type": "terrasteel",
+      "type": "botania:terrasteel",
       "text": "botania.page.terrasteel3"
     }
   ],

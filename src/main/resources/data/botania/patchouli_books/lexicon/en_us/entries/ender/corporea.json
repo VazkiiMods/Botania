@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.corporea",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:corporea_spark",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

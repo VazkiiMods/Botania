@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.forestDrum",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:drum_wild",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

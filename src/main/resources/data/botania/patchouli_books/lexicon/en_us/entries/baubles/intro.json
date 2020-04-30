@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.bIntro",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "minecraft:air",
   "priority": true,
   "pages": [

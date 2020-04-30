@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.shulk_me_not",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:shulk_me_not",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -14,7 +14,7 @@
       "text": "botania.page.shulk_me_not1"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.shulk_me_not2",
       "recipe": "botania:petal_apothecary/shulk_me_not"
     }

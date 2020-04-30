@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.runeAltar",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:runic_altar",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",
@@ -36,82 +36,82 @@
       "text": "botania.page.runeAltar22"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar4",
       "recipe": "botania:runic_altar/water"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar5",
       "recipe": "botania:runic_altar/earth"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar6",
       "recipe": "botania:runic_altar/air"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar7",
       "recipe": "botania:runic_altar/fire"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar8",
       "recipe": "botania:runic_altar/spring"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar9",
       "recipe": "botania:runic_altar/summer"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar10",
       "recipe": "botania:runic_altar/autumn"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar11",
       "recipe": "botania:runic_altar/winter"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar12",
       "recipe": "botania:runic_altar/mana"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar13",
       "recipe": "botania:runic_altar/lust"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar14",
       "recipe": "botania:runic_altar/gluttony"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar15",
       "recipe": "botania:runic_altar/greed"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar16",
       "recipe": "botania:runic_altar/sloth"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar17",
       "recipe": "botania:runic_altar/wrath"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar18",
       "recipe": "botania:runic_altar/envy"
     },
     {
-      "type": "runic_altar",
+      "type": "botania:runic_altar",
       "text": "botania.page.runeAltar19",
       "recipe": "botania:runic_altar/pride"
     }

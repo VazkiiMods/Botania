@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.spawnerMover",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:spawner_mover",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

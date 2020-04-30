@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.bloodPendant",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:blood_pendant",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

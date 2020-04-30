@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.autoQuarry",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "minecraft:diamond_pickaxe",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

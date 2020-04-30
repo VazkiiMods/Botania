@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.tinyPlanet",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:tiny_planet",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

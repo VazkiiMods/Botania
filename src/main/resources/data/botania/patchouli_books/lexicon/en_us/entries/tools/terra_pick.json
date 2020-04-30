@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.terraPick",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:terra_pick",
   "advancement": "botania:main/terrasteel_pickup",
   "pages": [

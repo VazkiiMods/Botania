@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaBomb",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:mana_bomb",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

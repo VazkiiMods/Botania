@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.thirdEye",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:third_eye",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

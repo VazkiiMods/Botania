@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.lens",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:lens_normal",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

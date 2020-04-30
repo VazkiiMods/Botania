@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.icePendant",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:ice_pendant",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

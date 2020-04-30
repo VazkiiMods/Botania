@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.dreadthorne",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:dreadthorn",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.dreadthorne0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.dreadthorne1",
       "recipe": "botania:petal_apothecary/dreadthorn"
     }

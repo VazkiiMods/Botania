@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.hyacidus",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:hyacidus",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.hyacidus0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.hyacidus1",
       "recipe": "botania:petal_apothecary/hyacidus"
     }

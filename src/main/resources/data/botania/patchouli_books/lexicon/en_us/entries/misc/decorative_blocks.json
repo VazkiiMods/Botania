@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.decorativeBlocks",
-  "category": "misc",
+  "category": "botania:misc",
   "icon": "botania:livingrock_bricks",
   "advancement": "botania:main/pure_daisy_pickup",
   "pages": [
@@ -65,7 +65,7 @@
       "recipe": "botania:quartz_dark"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.decorativeBlocks12",
       "recipes": "botania:mana_infusion/mana_quartz"
     },

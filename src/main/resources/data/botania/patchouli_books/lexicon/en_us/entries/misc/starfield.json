@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.starfield",
-  "category": "misc",
+  "category": "botania:misc",
   "icon": "botania:starfield",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

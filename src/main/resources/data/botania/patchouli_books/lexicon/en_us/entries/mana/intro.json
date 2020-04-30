@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.mIntro",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "minecraft:air",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",

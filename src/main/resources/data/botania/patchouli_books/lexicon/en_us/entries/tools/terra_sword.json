@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.terraSword",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:terra_sword",
   "advancement": "botania:main/terrasteel_pickup",
   "pages": [

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.narslimmus",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:narslimmus",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.narslimmus0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.narslimmus1",
       "recipe": "botania:petal_apothecary/narslimmus"
     }

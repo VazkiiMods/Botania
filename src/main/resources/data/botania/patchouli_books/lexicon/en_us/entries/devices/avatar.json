@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.avatar",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:avatar",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

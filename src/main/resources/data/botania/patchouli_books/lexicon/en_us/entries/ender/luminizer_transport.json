@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.luminizerTransport",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:light_relay",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

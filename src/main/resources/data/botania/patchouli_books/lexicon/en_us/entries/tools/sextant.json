@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.sextant",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:sextant",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

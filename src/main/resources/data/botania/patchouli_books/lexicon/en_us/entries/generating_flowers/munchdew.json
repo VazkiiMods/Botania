@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.munchdew",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:munchdew",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -13,7 +13,7 @@
       "text": "botania.page.munchdew1"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.munchdew2",
       "recipe": "botania:petal_apothecary/munchdew"
     }

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.waterRing",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:water_ring",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

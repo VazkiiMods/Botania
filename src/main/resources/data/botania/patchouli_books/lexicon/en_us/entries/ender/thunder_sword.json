@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.thunderSword",
-  "category": "ender",
+  "category": "botania:ender",
   "icon": "botania:thunder_sword",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

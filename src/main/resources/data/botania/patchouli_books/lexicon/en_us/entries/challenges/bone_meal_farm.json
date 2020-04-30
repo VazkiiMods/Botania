@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.boneMealFarm",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "minecraft:bone_meal",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

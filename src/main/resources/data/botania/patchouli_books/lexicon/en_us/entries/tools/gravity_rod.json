@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.gravityRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:gravity_rod",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

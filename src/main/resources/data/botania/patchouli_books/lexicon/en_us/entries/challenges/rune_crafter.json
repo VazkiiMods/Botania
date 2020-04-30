@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.runeCrafter",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:rune_water",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

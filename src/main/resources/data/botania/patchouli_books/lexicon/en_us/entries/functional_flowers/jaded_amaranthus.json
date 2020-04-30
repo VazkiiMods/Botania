@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.jadedAmaranthus",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:jaded_amaranthus",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.jadedAmaranthus0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.jadedAmaranthus1",
       "recipe": "botania:petal_apothecary/jaded_amaranthus"
     },

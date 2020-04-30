@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.livingwoodBow",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:livingwood_bow",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaweave",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:manaweave_cloth",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

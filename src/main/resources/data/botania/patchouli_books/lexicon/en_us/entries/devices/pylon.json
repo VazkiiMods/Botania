@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.pylon",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:mana_pylon",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

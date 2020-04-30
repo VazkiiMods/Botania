@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.challenges",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

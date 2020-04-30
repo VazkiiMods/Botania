@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.poolCart",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:pool_minecart",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

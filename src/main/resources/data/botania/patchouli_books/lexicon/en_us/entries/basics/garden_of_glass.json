@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.gardenOfGlass",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:living_root",
   "flag": "|debug,mod:gardenofglass",
   "priority": true,
@@ -37,7 +37,7 @@
       "text": "botania.page.gardenOfGlass6"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.gardenOfGlass7",
       "recipes": "gardenofglass:mana_infusion/sugar_cane"
     },
@@ -47,7 +47,7 @@
       "recipe": "gardenofglass:magma_cream_to_slime_ball"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.gardenOfGlass13",
       "recipes": "gardenofglass:mana_infusion/prismarine_shard;gardenofglass:mana_infusion/prismarine_crystals"
     },
@@ -65,7 +65,7 @@
       "recipe": "gardenofglass:end_portal_frame"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.gardenOfGlass14",
       "recipes": "gardenofglass:mana_infusion/heart_of_the_sea"
     }

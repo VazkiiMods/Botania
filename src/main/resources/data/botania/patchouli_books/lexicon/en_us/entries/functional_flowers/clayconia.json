@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.clayconia",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:clayconia",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
@@ -9,7 +9,7 @@
       "text": "botania.page.clayconia0"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.clayconia1",
       "recipe": "botania:petal_apothecary/clayconia"
     }

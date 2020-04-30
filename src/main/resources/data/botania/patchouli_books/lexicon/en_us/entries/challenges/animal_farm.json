@@ -1,6 +1,6 @@
 {
   "name": "botania.challenge.animalFarm",
-  "category": "challenges",
+  "category": "botania:challenges",
   "icon": "minecraft:leather",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup",

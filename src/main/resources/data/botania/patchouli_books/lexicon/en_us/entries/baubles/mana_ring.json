@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaRing",
-  "category": "baubles",
+  "category": "botania:baubles",
   "icon": "botania:mana_ring",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.terrasteelArmor",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:terrasteel_helmet",
   "priority": true,
   "advancement": "botania:main/terrasteel_pickup",

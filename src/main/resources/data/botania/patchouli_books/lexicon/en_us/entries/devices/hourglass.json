@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.hourglass",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:hourglass",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

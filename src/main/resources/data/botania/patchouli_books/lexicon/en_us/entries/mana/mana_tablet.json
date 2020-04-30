@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.manaTablet",
-  "category": "mana",
+  "category": "botania:mana",
   "icon": "botania:mana_tablet",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

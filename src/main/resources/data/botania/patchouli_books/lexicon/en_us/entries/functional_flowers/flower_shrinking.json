@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.flowerShrinking",
-  "category": "functional_flowers",
+  "category": "botania:functional_flowers",
   "icon": "botania:bellethorn_chibi",
   "advancement": "botania:main/mana_pool_pickup",
   "priority": true,
@@ -10,7 +10,7 @@
       "text": "botania.page.flowerShrinking0"
     },
     {
-      "type": "mana_infusion",
+      "type": "botania:mana_infusion",
       "text": "botania.page.flowerShrinking1",
       "group": "botania:flower_shrinking"
     }

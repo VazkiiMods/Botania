@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.forestEye",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:forest_eye",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

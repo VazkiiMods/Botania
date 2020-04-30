@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.glassPick",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:glass_pickaxe",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [

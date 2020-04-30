@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.apothecary",
-  "category": "basics",
+  "category": "botania:basics",
   "icon": "botania:apothecary_default",
   "priority": true,
   "advancement": "botania:main/flower_pickup",

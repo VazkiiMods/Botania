@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.odinRing",
-  "category": "alfhomancy",
+  "category": "botania:alfhomancy",
   "icon": "botania:odin_ring",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/odin_ring",

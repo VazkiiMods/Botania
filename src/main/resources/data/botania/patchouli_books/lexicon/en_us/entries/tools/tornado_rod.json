@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.tornadoRod",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:tornado_rod",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [

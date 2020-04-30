@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.dandelifeon",
-  "category": "generating_flowers",
+  "category": "botania:generating_flowers",
   "icon": "botania:dandelifeon",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
@@ -42,7 +42,7 @@
       "text": "botania.page.dandelifeon7"
     },
     {
-      "type": "petal_apothecary",
+      "type": "botania:petal_apothecary",
       "text": "botania.page.dandelifeon8",
       "recipe": "botania:petal_apothecary/dandelifeon"
     },

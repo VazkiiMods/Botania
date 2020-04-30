@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.fireChakram",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:flare_chakram",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",

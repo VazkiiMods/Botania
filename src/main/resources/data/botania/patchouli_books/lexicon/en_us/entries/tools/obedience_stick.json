@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.obedienceStick",
-  "category": "tools",
+  "category": "botania:tools",
   "icon": "botania:obedience_stick",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup",

@@ -1,6 +1,6 @@
 {
   "name": "botania.entry.animatedTorch",
-  "category": "devices",
+  "category": "botania:devices",
   "icon": "botania:animated_torch",
   "advancement": "botania:main/mana_pool_pickup",
   "pages": [
