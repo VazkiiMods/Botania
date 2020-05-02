@@ -22,7 +22,7 @@
     {
       "type": "image",
       "image": "patchouli:textures/gui/crafting.png",
-      "guard": "#shapeless->exists",
+      "guard": "#shapeless",
       "x": 71,
       "y": 6,
       "u": 0,
@@ -34,9 +34,9 @@
     },
     {
       "type": "tooltip",
-      "guard": "#shapeless->exists",
+      "guard": "#shapeless",
       "tooltip": [
-        "#shapeless"
+        "patchouli.gui.lexicon.shapeless->i18n"
       ],
       "x": 71,
       "y": 6,

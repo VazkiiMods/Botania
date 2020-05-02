@@ -11,6 +11,8 @@ package vazkii.botania.client.patchouli.component;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.Minecraft;
+import com.google.common.collect.Streams;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -19,9 +21,10 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
+import vazkii.patchouli.api.IVariable;
 
 import java.util.Arrays;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * A custom component that renders a mana bar.
@@ -32,17 +35,12 @@ public class ManaComponent implements ICustomComponent {
 	private transient int x, y;
 	private transient int[] manaValues;
 
-	public String mana;
+	public IVariable mana;
 
 	@Override
 	public void build(int componentX, int componentY, int pageNum) {
 		this.x = componentX != -1 ? componentX : 7;
 		this.y = componentY;
-		if (mana.length() > 0) {
-			this.manaValues = Arrays.stream(mana.split(";")).mapToInt(Integer::valueOf).toArray();
-		} else {
-			this.manaValues = new int[] { 0 };
-		}
 	}
 
 	@Override
@@ -63,7 +61,8 @@ public class ManaComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void onVariablesAvailable(Function<String, String> lookup) {
-		mana = lookup.apply(mana);
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+		IVariable manaVar = lookup.apply(mana);
+		manaValues = manaVar.unwrap().isJsonArray() ? manaVar.asStream().map(IVariable::asNumber).mapToInt(Number::intValue).toArray() : new int[] { manaVar.asNumber(0).intValue() };
 	}
 }

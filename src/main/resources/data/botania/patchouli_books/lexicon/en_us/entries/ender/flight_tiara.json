@@ -33,7 +33,16 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.flightTiara3",
-      "recipes": "botania:flighttiara_5;botania:flighttiara_4;botania:flighttiara_7;botania:flighttiara_6;botania:flighttiara_1;botania:flighttiara_3;botania:flighttiara_2;botania:flighttiara_8"
+      "recipes": [
+        "botania:flighttiara_5",
+        "botania:flighttiara_4",
+        "botania:flighttiara_7",
+        "botania:flighttiara_6",
+        "botania:flighttiara_1",
+        "botania:flighttiara_3",
+        "botania:flighttiara_2",
+        "botania:flighttiara_8"
+      ]
     }
   ]
 }

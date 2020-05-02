@@ -15,15 +15,15 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
+import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import vazkii.patchouli.api.PatchouliAPI;
 
 public class PetalApothecaryProcessor implements IComponentProcessor {
 	protected IRecipe<?> recipe;
 
 	@Override
-	public void setup(IVariableProvider<String> variables) {
-		ResourceLocation id = new ResourceLocation(variables.get("recipe"));
+	public void setup(IVariableProvider variables) {
+		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
 		this.recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).get(id);
 		if (recipe == null) {
 			Botania.LOGGER.warn("Missing apothecary recipe " + id);
@@ -31,17 +31,17 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 	}
 
 	@Override
-	public String process(String key) {
+	public IVariable process(String key) {
 		if (recipe == null) {
 			return null;
 		}
 		switch (key) {
 		case "recipe":
-			return recipe.getId().toString();
+			return IVariable.wrap(recipe.getId().toString());
 		case "output":
-			return PatchouliAPI.instance.serializeItemStack(recipe.getRecipeOutput());
+			return IVariable.from(recipe.getRecipeOutput());
 		case "heading":
-			return recipe.getRecipeOutput().getDisplayName().getString();
+			return IVariable.wrap(recipe.getRecipeOutput().getDisplayName().getString());
 		}
 		return null;
 	}

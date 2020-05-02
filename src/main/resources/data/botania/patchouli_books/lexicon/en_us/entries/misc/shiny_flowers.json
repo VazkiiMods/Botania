@@ -15,12 +15,46 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.shinyFlowers1",
-      "recipes": "botania:white_shiny_flower;botania:orange_shiny_flower;botania:magenta_shiny_flower;botania:light_blue_shiny_flower;botania:yellow_shiny_flower;botania:lime_shiny_flower;botania:pink_shiny_flower;botania:gray_shiny_flower;botania:light_gray_shiny_flower;botania:cyan_shiny_flower;botania:purple_shiny_flower;botania:blue_shiny_flower;botania:brown_shiny_flower;botania:green_shiny_flower;botania:red_shiny_flower;botania:black_shiny_flower"
+      "recipes": [
+        "botania:white_shiny_flower",
+        "botania:orange_shiny_flower",
+        "botania:magenta_shiny_flower",
+        "botania:light_blue_shiny_flower",
+        "botania:yellow_shiny_flower",
+        "botania:lime_shiny_flower",
+        "botania:pink_shiny_flower",
+        "botania:gray_shiny_flower",
+        "botania:light_gray_shiny_flower",
+        "botania:cyan_shiny_flower",
+        "botania:purple_shiny_flower",
+        "botania:blue_shiny_flower",
+        "botania:brown_shiny_flower",
+        "botania:green_shiny_flower",
+        "botania:red_shiny_flower",
+        "botania:black_shiny_flower"
+      ]
     },
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.shinyFlowers2",
-      "recipes": "botania:white_floating_flower;botania:orange_floating_flower;botania:magenta_floating_flower;botania:light_blue_floating_flower;botania:yellow_floating_flower;botania:lime_floating_flower;botania:pink_floating_flower;botania:gray_floating_flower;botania:light_gray_floating_flower;botania:cyan_floating_flower;botania:purple_floating_flower;botania:blue_floating_flower;botania:brown_floating_flower;botania:green_floating_flower;botania:red_floating_flower;botania:black_floating_flower"
+      "recipes": [
+        "botania:white_floating_flower",
+        "botania:orange_floating_flower",
+        "botania:magenta_floating_flower",
+        "botania:light_blue_floating_flower",
+        "botania:yellow_floating_flower",
+        "botania:lime_floating_flower",
+        "botania:pink_floating_flower",
+        "botania:gray_floating_flower",
+        "botania:light_gray_floating_flower",
+        "botania:cyan_floating_flower",
+        "botania:purple_floating_flower",
+        "botania:blue_floating_flower",
+        "botania:brown_floating_flower",
+        "botania:green_floating_flower",
+        "botania:red_floating_flower",
+        "botania:black_floating_flower"
+      ]
     }
   ]
 }

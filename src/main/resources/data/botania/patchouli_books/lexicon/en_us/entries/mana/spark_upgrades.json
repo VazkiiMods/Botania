@@ -28,7 +28,12 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.sparkUpgrades5",
-      "recipes": "botania:spark_upgrade_dispersive;botania:spark_upgrade_dominant;botania:spark_upgrade_recessive;botania:spark_upgrade_isolated"
+      "recipes": [
+        "botania:spark_upgrade_dispersive",
+        "botania:spark_upgrade_dominant",
+        "botania:spark_upgrade_recessive",
+        "botania:spark_upgrade_isolated"
+      ]
     }
   ]
 }

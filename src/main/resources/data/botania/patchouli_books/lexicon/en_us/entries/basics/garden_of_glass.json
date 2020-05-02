@@ -49,7 +49,10 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.gardenOfGlass13",
-      "recipes": "gardenofglass:mana_infusion/prismarine_shard;gardenofglass:mana_infusion/prismarine_crystals"
+      "recipes": [
+        "gardenofglass:mana_infusion/prismarine_shard",
+        "gardenofglass:mana_infusion/prismarine_crystals"
+      ]
     },
     {
       "type": "text",

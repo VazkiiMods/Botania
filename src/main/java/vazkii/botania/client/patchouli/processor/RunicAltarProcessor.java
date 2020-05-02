@@ -14,12 +14,13 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
 public class RunicAltarProcessor extends PetalApothecaryProcessor {
 	@Override
-	public void setup(IVariableProvider<String> variables) {
-		ResourceLocation id = new ResourceLocation(variables.get("recipe"));
+	public void setup(IVariableProvider variables) {
+		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
 		this.recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).get(id);
 		if (recipe == null) {
 			Botania.LOGGER.warn("Missing rune altar recipe " + id);
@@ -27,9 +28,9 @@ public class RunicAltarProcessor extends PetalApothecaryProcessor {
 	}
 
 	@Override
-	public String process(String key) {
+	public IVariable process(String key) {
 		if (key.equals("mana")) {
-			return String.valueOf(((IRuneAltarRecipe) recipe).getManaUsage());
+			return IVariable.wrap(((IRuneAltarRecipe) recipe).getManaUsage());
 		}
 		return super.process(key);
 	}
