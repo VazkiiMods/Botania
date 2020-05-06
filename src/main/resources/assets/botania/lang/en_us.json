@@ -1796,7 +1796,7 @@
   "botania.tagline.wrap": "It's a wrap",
   "botania.page.wrap0": "It seems like the creator of this mod has decided to add a strange game mechanic, in the form of $(item)Wrap$(0). I don't really know what it does, probably something bad. :/$(p)(What's this \"Fourth Wall\" you're talking about...?)",
 
-  "botania.entry.mIntro": "An Introduction to Mana",
+  "botania.entry.mIntro": "Introduction to Mana",
   "botania.tagline.mIntro": "Start off with Mana",
   "botania.page.mIntro0": "$(thing)Mana$(0) is an ethereal substance-- in essence, it's a mystical form of $(thing)energy$(0). Its existence is inconsistent to the senses, and its color depends on its surrounding environment.$(p)The manipulation of $(thing)Mana$(0) is likely the most important skill a botanist needs to master.",
   "botania.page.mIntro1": "$(thing)Generating Flora$(0) are used to create $(thing)Mana$(0) (read the corresponding section for more details). $(thing)Mana$(0) so generated can be extracted and transferred with $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l) and stored in $(l:mana/pool)$(item)Mana Pools$(0)$(/l). $(thing)Mana$(0) can be used for a myriad of things: for starters, it can fuel $(thing)Functional Flora$(0) (read that section too).",
@@ -2108,7 +2108,7 @@
   "botania.tagline.spectranthemum": "Teleports items",
   "botania.page.spectranthemum0": "Long-distance item transport can be an arduous task; at some point, water channels and $(l:functional_flowers/daffomill)$(item)Daffomills$(0)$(/l) just won't cut it. The $(item)Spectranthemum$(0) uses $(thing)Mana$(0) to warp the fabric of reality around any items near it, teleporting them elsewhere in the world. Note that $(thing)Mana-containing and already-teleported items interfere with the warp; neither of these can be teleported.",
   "botania.page.spectranthemum1": "To specify the destination of warped items, use a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Bind Mode$(0) to bind the flower to a location within 12 blocks, the same way one would to a pool. To view what block the flower is bound to (as opposed to the pool it's pulling $(thing)Mana$(0) from), sneak while looking at it with a wand.",
-  "botania.page.spectranthemum2": "This flower is bound by the $(thing)axiom of chunkloading$(0); i.e. it won't send items to unloaded chunks. This topic, however, is beyond the scope of this lexicon.$(p)$(o)Recommended Reading: \"Chunks and Chicken\", \"Anchors of the World\".",
+  "botania.page.spectranthemum2": "This flower is bound by the $(thing)axiom of chunkloading$(0); i.e. it won't send items to unloaded chunks. This topic, however, is beyond the scope of this lexicon.",
   "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
 
   "botania.entry.medumone": "Medumone",
@@ -2138,7 +2138,7 @@
   "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such a din.$(p)It absorbs sound energy emitted in a close radius around itself, converting it into nominal amounts of mana and re-emitting it harmlessly. The absorption itself needs no $(thing)Mana$(0) to occur.",
   "botania.page.bergamute1": "Deaf to All but the Song",
 
-  "botania.entry.gIntro": "An Introduction to Generation",
+  "botania.entry.gIntro": "Generating Flora",
   "botania.tagline.gIntro": "Flowers that consume resources to make mana",
   "botania.page.gIntro0": "Generating $(thing)Mana$(0) should be at the top of any botanist's priority list. Luckily, there's a wide selection of $(thing)Generating Flora$(0) willing to do the job.$(p)These flowers, as the name would imply, generate $(thing)Mana$(0), usually consuming resources to do so.",
   "botania.page.gIntro1": "All $(thing)Generating Flora$(0), like their $(thing)Functional$(0) brethren, can hold a small internal buffer of $(thing)Mana$(0).$(p)$(thing)Generating Flora$(0) will automatically output to the closest nearby $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l).",
@@ -2534,7 +2534,7 @@
   "botania.page.terraPick0": "The $(item)Terra Shatterer$(0) is a tool that, thanks to the sheer quantity of $(l:basics/terrasteel)$(item)Terrasteel$(0)$(/l) in its recipe, can absorb absolutely ludicrous amounts of $(thing)Mana$(0).$(p)The tool functions very much like a $(l:mana/mana_tablet)$(item)Mana Tablet$(0)$(/l) when tossed on a $(l:mana/pool)$(item)Mana Pool$(0)$(/l). However, any $(thing)Mana$(0) absorbed can't be released again, so it's nonviable as a storage device.",
   "botania.page.terraPick1": "The amount of $(thing)Mana$(0) stored in the tool establishes its $(thing)Rank$(0). Ranks progress as follows: $(thing)D$(0), $(thing)C$(0), $(thing)B$(0), $(thing)A$(0), $(thing)S$(0), and $(thing)SS$(0), with $(thing)D$(0) being the lowest rank and $(thing)SS$(0) the highest.$(p)The amount of $(thing)Mana$(0) required to advance from rank to rank increases exponentially as the rank does. To advance from $(thing)D$(0) to $(thing)C$(0), for starters, a Shatterer requires just a few seconds of exposure to a $(l:mana/pool)$(item)Mana Pool$(0)$(/l).",
   "botania.page.terraPick2": "To advance from rank $(thing)C$(0) to rank $(thing)B$(0), a full $(l:mana/pool)$(item)Mana Pool$(0)$(/l) is required, and the cost increases tenfold for each rank thereafter up to $(thing)SS$(0).$(p)The rank of the tool does not change its speed; rather, it increases the range of its $(thing)Active Ability$(0).$(p)A right-click will toggle the Shatterer's Ability on or off.",
-  "botania.page.terraPick3": "When the Shatterer's Ability is active, it can break many blocks in a wide surface area at once. At rank $(thing)C$(0), it breaks a narrow column of blocks; at rank $(thing)B$(0), it increases to a square, and surfacb areas increase from there on upward. Note that the rank-$(thing)D$(0) tool does not have an ability. The Shatterer, when active, continuously consumes its internal $(thing)Mana$(0) when $(l)not$() mining.",
+  "botania.page.terraPick3": "When the Shatterer's Ability is active, it can break many blocks in a wide surface area at once. At rank $(thing)C$(0), it breaks a narrow column of blocks; at rank $(thing)B$(0), it increases to a square, and surface areas increase from there on upward. Note that the rank-$(thing)D$(0) tool does not have an ability. The Shatterer, when active, continuously consumes its internal $(thing)Mana$(0) when $(l)not$() mining.",
   "botania.page.terraPick4": "The tool takes damage for every single block broken, so a decent supply of $(thing)Mana$(0) in the wielder's inventory is a must for higher ranks: the tool will use $(thing)Mana$(0) for durability (like $(l:tools/mana_gear)$(item)Manasteel Tools$(0)$(/l) do).$(p)Finally, a Shatterer on the ground will never despawn.",
   "botania.page.terraPick5": "WE'RE MINING IN THE DATABASE WOW WOW",
 
@@ -2768,7 +2768,7 @@
   "botania.tagline.enderHand": "Ender Chest access anywhere",
   "botania.page.enderHand0": "The $(item)Hand of Ender$(0) allows its user to access their interdimensional Ender subspace pocket; in other words, their $(item)Ender Chest$(0) inventory. Said inventory can be opened with some $(thing)Mana$(0) by right-clicking with the Hand, no matter the place.$(p)Using the hand on another player will use substantially more $(thing)Mana$(0), but will open $(o)their$() inventory instead.",
   "botania.page.enderHand2": "Furthermore, a $(item)Hand of Ender$(0) automatically provides the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l) access to its user's $(item)Ender Chest$(0)'s contents, for a small $(thing)Mana$(0) cost per block.",
-  "botania.page.enderHand1": "It's like the 4G of Ender Chests",
+  "botania.page.enderHand1": "It's like the 5G of Ender Chests",
 
   "botania.entry.enderDagger": "Soulscribe",
   "botania.tagline.enderDagger": "A dagger that cuts through Endermen like butter",
@@ -2784,7 +2784,7 @@
 
   "botania.entry.redString": "Red String",
   "botania.tagline.redString": "Remote inventories and other remote things",
-  "botania.page.redString0": "Lore of old says that the Gods connect people who will affect each others' lives with a red string, tied between their ankles. While blocks aren't people, they don't need gods to be connected. Instead, they can be linked with a material called (of course) $(item)Red String$(0). Blocks created with this exquisite material can face in all 6 directions, and will tie themselves to the nearest compatible block that they're facing.",
+  "botania.page.redString0": "Lore of old says that the gods connect people who will affect each others' lives with a red string, tied between their ankles. While blocks aren't people, they don't need gods to be connected. Instead, they can be linked with a material called (of course) $(item)Red String$(0). Blocks created with this exquisite material can face in all 6 directions, and will tie themselves to the nearest compatible block that they're facing.",
   "botania.page.redString1": "Each $(thing)Red Stringed$(0) block has a different criterion for what it'll bind to, but all have a range of about eight blocks. If a block is bound, its String can be viewed by holding a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).$(p)The $(thing)Red String$(0) won't be affected by intervening blocks, but $(item)Red Stringed$(0) blocks can't be chained.",
   "botania.page.redString2": "Are you in a pinch?",
   "botania.page.redString3": "The $(item)Red Stringed Container$(0) will bind to inventories ($(item)Chests$(0), $(item)Furnaces$(0), $(item)Hoppers$(0), and so on). Items inserted into a $(item)Container$(0) (from $(item)Hoppers$(0), etc.) will end up in the block it's bound to. Sidedness is preserved: for example, items inserted into the $(item)Red Stringed Container$(0) from the top will be pushed into the bound block from above, and so on.",
@@ -2797,7 +2797,7 @@
   "botania.page.redString10": "The $(item)Red Stringed Comparator$(0).",
   "botania.page.redString11": "The $(item)Red Stringed Spoofer$(0) binds to flowers or mushrooms. It requires a $(item)Generating$(0) or $(item)Functional Flower$(0) placed atop it to function; the flower placed on it will become inert, and the bound plant will take on all of that flower's properties, acting as if it were the flower itself.",
   "botania.page.redString12": "The $(item)Red Stringed Spoofer$(0).",
-  "botania.page.redString13": "Finally, the $(item)Red Stringed Interceptor$(0) will bind to any sufficiently $(o)complex$(0) block (rule of thumb: any block that either moves or accepts/manipulates items should be complex enough). Whenever the block it's bound to is right-clicked by a player, the Interceptor will emit a redstone pulse.",
+  "botania.page.redString13": "Finally, the $(item)Red Stringed Interceptor$(0) will bind to any sufficiently $(o)complex$() block (rule of thumb: any block that either moves or accepts/manipulates items should be complex enough). Whenever the block it's bound to is right-clicked by a player, the Interceptor will emit a redstone pulse.",
   "botania.page.redString14": "The $(item)Red Stringed Interceptor$(0).",
 
   "botania.entry.flightTiara": "Flügel Tiara",
@@ -2903,7 +2903,7 @@
   "botania.page.thunderSword0": "The $(item)Thundercaller$(0) is a dual-pronged sword with the ability to conjure lightning. Crafted from materials like a $(l:tools/terra_sword)$(item)Terra Blade$(0)$(/l) and $(l:ender/ender_air)$(item)Ender Air$(0)$(/l), it sacrifices the power of long-ranged attacks for the power to zap multiple targets in one stroke.$(p)An attack from the $(item)Thundercaller$(0), in a crowd, will generate a chain of lightning that zaps nearby hostile mobs.",
   "botania.page.thunderSword1": "Blessed Blade of the Trade Chat",
 
-  "botania.entry.bIntro": "An Introduction to Trinkets",
+  "botania.entry.bIntro": "Introduction to Trinkets",
   "botania.tagline.bIntro": "Accessories that provide power",
   "botania.page.bIntro0": "$(thing)Trinkets$(0) (also known as $(thing)Curios$(0), $(thing)Baubles$(0), or $(thing)Charms$(0)) are accessories that offer all sorts of different effects when worn.$(p)To equip them, press [$(k:curios.open.desc)].",
   "botania.page.bIntro1": "The $(thing)Curios Screen$(0)",
@@ -3003,7 +3003,7 @@
 
   "botania.entry.reachRing": "Ring of Far Reach",
   "botania.tagline.reachRing": "Reach farther, build farther",
-  "botania.page.reachRing0": "\"If you tap into the power of your Pride, nothing will be out of your reach.\"$(p)When the $(item)Ring of Far Reach$(0) is worn, the maximum distance its wearer can interact with blocks from is increased by about three blocks.",
+  "botania.page.reachRing0": "\"If you tap into the power of your Pride, nothing will be out of your reach.\"$(p)When the $(item)Ring of Far Reach$(0) is worn, the maximum distance from which its wearer can interact with blocks is increased by about three blocks.",
   "botania.page.reachRing1": "Fire and Blood",
 
   "botania.entry.divaCharm": "Charm of the Diva",

@@ -12,6 +12,7 @@
     },
     {
       "type": "crafting",
+      "title": "botania.page.terrasteel4",
       "text": "botania.page.terrasteel1",
       "recipe": "botania:terra_plate"
     },
