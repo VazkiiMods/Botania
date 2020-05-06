@@ -528,8 +528,11 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		BlockPos pos = null;
 		boolean dead = false;
 
-		if (rtr.getType() == RayTraceResult.Type.BLOCK && !((BlockRayTraceResult) rtr).getPos().equals(lastCollision)) {
+		if (rtr.getType() == RayTraceResult.Type.BLOCK) {
 			pos = ((BlockRayTraceResult) rtr).getPos();
+			if (pos.equals(lastCollision)) {
+				return;
+			}
 			lastCollision = pos.toImmutable();
 			TileEntity tile = world.getTileEntity(pos);
 			BlockState state = world.getBlockState(pos);
