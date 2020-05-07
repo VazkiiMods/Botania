@@ -65,7 +65,7 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 			BlockState blockstate = skull.getBlockState();
 			boolean flag = blockstate.getBlock() instanceof WallSkullBlock;
 			direction = flag ? blockstate.get(WallSkullBlock.FACING) : null;
-			angle = 22.5F * (float)(flag ? (2 + direction.getHorizontalIndex()) * 4 : blockstate.get(SkullBlock.ROTATION));
+			angle = 22.5F * (float) (flag ? (2 + direction.getHorizontalIndex()) * 4 : blockstate.get(SkullBlock.ROTATION));
 		}
 
 		Entity view = Minecraft.getInstance().getRenderViewEntity();
@@ -134,7 +134,7 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 		}
 
 		return ShaderHelper.useShaders()
-						? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, base)
-						: base;
+				? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, base)
+				: base;
 	}
 }

@@ -103,8 +103,8 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		private static RenderType makeRenderType(ResourceLocation texture) {
 			RenderType normal = RenderType.getEntityTranslucent(texture);
 			return ShaderHelper.useShaders()
-							? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, CALLBACK, normal)
-							: normal;
+					? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, CALLBACK, normal)
+					: normal;
 		}
 
 		Model() {
