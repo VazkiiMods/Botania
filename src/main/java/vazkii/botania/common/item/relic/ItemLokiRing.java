@@ -49,6 +49,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,6 +174,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
 		super.inventoryTick(stack, world, entity, slot, held);
+		// Curios actually calls this method, but with a negative slot, so we can check if we're in the "real" inventory this way
 		if (slot >= 0) {
 			exitBindingMode(stack);
 		}
