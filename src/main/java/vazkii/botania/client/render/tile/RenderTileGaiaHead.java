@@ -56,11 +56,17 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 	@Override
 	public void render(@Nullable SkullTileEntity skull, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		// [VanillaCopy] super, but null safe and call our own render method with appropriate overridden type and profile
-		float f = skull == null ? 0 : skull.getAnimationProgress(partialTicks);
-		BlockState blockstate = skull == null ? null : skull.getBlockState();
-		boolean flag = blockstate != null && blockstate.getBlock() instanceof WallSkullBlock;
-		Direction direction = flag ? blockstate.get(WallSkullBlock.FACING) : null;
-		float f1 = 22.5F * (float) (flag ? (2 + direction.getHorizontalIndex()) * 4 : blockstate == null ? 0 : blockstate.get(SkullBlock.ROTATION));
+		float animateProgress = 0;
+		float angle = 180;
+		Direction direction = null;
+
+		if (skull != null) {
+			animateProgress = skull.getAnimationProgress(partialTicks);
+			BlockState blockstate = skull.getBlockState();
+			boolean flag = blockstate.getBlock() instanceof WallSkullBlock;
+			direction = flag ? blockstate.get(WallSkullBlock.FACING) : null;
+			angle = 22.5F * (float)(flag ? (2 + direction.getHorizontalIndex()) * 4 : blockstate.get(SkullBlock.ROTATION));
+		}
 
 		Entity view = Minecraft.getInstance().getRenderViewEntity();
 		SkullBlock.ISkullType type = SkullBlock.Types.PLAYER;
@@ -82,7 +88,7 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 			type = SkullBlock.Types.DRAGON;
 		}
 
-		gaiaRender(direction, f1, type, profile, f, ms, buffers, light);
+		gaiaRender(direction, angle, type, profile, animateProgress, ms, buffers, light);
 	}
 
 	// [VanillaCopy] super, but calling our own method to get RenderType
@@ -127,6 +133,8 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 			base = RenderType.getEntityCutoutNoCull(resourcelocation);
 		}
 
-		return new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, base);
+		return ShaderHelper.useShaders()
+						? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, base)
+						: base;
 	}
 }

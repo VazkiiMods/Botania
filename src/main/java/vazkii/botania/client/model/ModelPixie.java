@@ -33,7 +33,7 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 
 	private static RenderType pixieLayer(ResourceLocation texture) {
 		RenderType normal = RenderType.getEntityCutoutNoCull(texture);
-		return evil
+		return evil && ShaderHelper.useShaders()
 				? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderPixie.SHADER_CALLBACK, normal)
 				: normal;
 	}

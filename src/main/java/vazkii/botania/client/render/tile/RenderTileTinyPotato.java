@@ -98,7 +98,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		} else {
 			base = RenderType.getEntitySolid(texture);
 		}
-		return shader == null ? base : new ShaderWrappedRenderLayer(shader, null, base);
+		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
 
 	}
 
