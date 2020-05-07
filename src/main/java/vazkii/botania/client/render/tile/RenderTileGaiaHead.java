@@ -40,6 +40,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
+import vazkii.botania.common.block.BlockGaiaHead;
 
 import javax.annotation.Nullable;
 
@@ -48,6 +49,13 @@ import java.util.Map;
 public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 	private static final Map<SkullBlock.ISkullType, GenericHeadModel> MODELS = ObfuscationReflectionHelper.getPrivateValue(SkullTileEntityRenderer.class, null, "field_199358_e");
 	private static final Map<SkullBlock.ISkullType, ResourceLocation> SKINS = ObfuscationReflectionHelper.getPrivateValue(SkullTileEntityRenderer.class, null, "field_199357_d");
+	static {
+		// rendering heads on entities still goes through the original codepath in the superclass, so we need these in the original maps
+		// here we just use the default steve skin for now
+		// unfortunately, doing it "right" (showing the appropriate skin for the viewer + shader) requires coremodding to redirect those codepaths. TODO do that?
+		MODELS.put(BlockGaiaHead.GAIA_TYPE, MODELS.get(SkullBlock.Types.PLAYER));
+		SKINS.put(BlockGaiaHead.GAIA_TYPE, SKINS.get(SkullBlock.Types.PLAYER));
+	}
 
 	public RenderTileGaiaHead(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -100,17 +108,17 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 		} else {
 			switch (facing) {
 			case NORTH:
-				ms.translate(0.5D, 0.25D, (double) 0.74F);
+				ms.translate(0.5D, 0.25D, 0.74D);
 				break;
 			case SOUTH:
-				ms.translate(0.5D, 0.25D, (double) 0.26F);
+				ms.translate(0.5D, 0.25D, 0.26D);
 				break;
 			case WEST:
-				ms.translate((double) 0.74F, 0.25D, 0.5D);
+				ms.translate(0.74D, 0.25D, 0.5D);
 				break;
 			case EAST:
 			default:
-				ms.translate((double) 0.26F, 0.25D, 0.5D);
+				ms.translate(0.26D, 0.25D, 0.5D);
 			}
 		}
 
