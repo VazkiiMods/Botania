@@ -72,7 +72,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 			return;
 		}
 
-		String name = player.getDisplayName().getString();
+		String name = player.getGameProfile().getName();
 
 		if (name.equals("haighyorkie")) {
 			renderGoldfish(ms, buffers);
