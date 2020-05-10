@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report and issue with supported versions of Botania
+about: Report an issue with supported versions of Botania
 title: ''
 labels: ''
 assignees: ''
