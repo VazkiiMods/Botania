@@ -1,3 +1,10 @@
+r1.15 384
+* Fix burst collision bugs introduced by last build (bore lenses should behave as they did in build 382 and before again)
+* Minor lexicon wording fixes
+* Only create shader render layers when botania shaders are enabled. May fix some conflicts with shader mods?
+* Fix Gaia Head crashing when worn. It still will not render correctly, but it won't crash anymore.
+* Loki Ring will now exit binding mode when you take it off, to prevent situations where you forget where you set the binding center and can't exit binding mode
+* Fix patron flowers not rendering if the player's display name was modified (for example by other mods or vanilla scoreboard teams)
 r1.15 383
 * zh_CN updates (ppoozl)
 * Add GoG-specific cocoon entry
