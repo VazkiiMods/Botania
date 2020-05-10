@@ -219,9 +219,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		}
 
 		Vec3d vec3d = this.getMotion();
-		double d0 = this.getX() + vec3d.x;
-		double d1 = this.getY() + vec3d.y;
-		double d2 = this.getZ() + vec3d.z;
+		double d0 = this.getPosX() + vec3d.x;
+		double d1 = this.getPosY() + vec3d.y;
+		double d2 = this.getPosZ() + vec3d.z;
 		float f = MathHelper.sqrt(horizontalMag(vec3d));
 		this.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
 
@@ -463,14 +463,14 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 			if (!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				Botania.proxy.addParticleForce(world, data, getX(), getY(), getZ(), 0, 0, 0);
+				Botania.proxy.addParticleForce(world, data, getPosX(), getPosY(), getPosZ(), 0, 0, 0);
 			}
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
 			if (ConfigHandler.CLIENT.subtlePowerSystem.get()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				world.addParticle(data, getPosX(), getPosY(), getPosZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -478,9 +478,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 				double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard relative luminance calculation
 
-				double iterX = getX();
-				double iterY = getY();
-				double iterZ = getZ();
+				double iterX = getPosX();
+				double iterY = getPosY();
+				double iterZ = getPosZ();
 
 				Vector3 currentPos = Vector3.fromEntity(this);
 				Vector3 oldPos = new Vector3(prevPosX, prevPosY, prevPosZ);
@@ -592,11 +592,11 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 				if (!ConfigHandler.CLIENT.subtlePowerSystem.get()) {
 					for (int i = 0; i < 4; i++) {
 						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
-						world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+						world.addParticle(data, getPosX(), getPosY(), getPosZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 					}
 				}
 				SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
-				world.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
+				world.addParticle(data, getPosX(), getPosY(), getPosZ(), 0, 0, 0);
 			}
 
 			remove();
@@ -843,9 +843,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
-			int x = MathHelper.floor(entity.getX());
-			int y = MathHelper.floor(entity.getY());
-			int z = MathHelper.floor(entity.getZ());
+			int x = MathHelper.floor(entity.getPosX());
+			int y = MathHelper.floor(entity.getPosY());
+			int z = MathHelper.floor(entity.getPosZ());
 			coords = new BlockPos(x, y, z);
 			state = entity.world.getBlockState(coords);
 		}

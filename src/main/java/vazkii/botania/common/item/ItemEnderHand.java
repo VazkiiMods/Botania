@@ -52,9 +52,9 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 				ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, true);
 			}
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
-			return ActionResult.success(stack);
+			return ActionResult.resultSuccess(stack);
 		}
-		return ActionResult.pass(stack);
+		return ActionResult.resultPass(stack);
 	}
 
 	@Override

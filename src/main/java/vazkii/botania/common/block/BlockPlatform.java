@@ -58,8 +58,8 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		if (variant == Variant.INFRANGIBLE
 				|| variant == Variant.ABSTRUSE
 						&& e != null
-						&& e.getY() > pos.getY() + 0.9
-						&& !context.isDescending()) {
+						&& e.getPosY() > pos.getY() + 0.9
+						&& !context.func_225581_b_()) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
@@ -99,7 +99,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	@Nonnull
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		ItemStack currentStack = player.getHeldItem(hand);
 		if (!currentStack.isEmpty()

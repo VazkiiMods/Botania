@@ -32,7 +32,7 @@ public class BlockSolidVines extends VineBlock {
 	}
 
 	@Override
-	public void scheduledTick(@Nonnull BlockState state, ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
+	public void tick(@Nonnull BlockState state, ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
 
 	@Override
 	public boolean isShearable(ItemStack item, IWorldReader world, BlockPos pos) {

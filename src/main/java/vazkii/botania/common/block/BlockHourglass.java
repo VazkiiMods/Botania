@@ -68,7 +68,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getHeldItem(hand);
@@ -114,7 +114,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		if (state.get(BlockStateProperties.POWERED)) {
 			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 		}

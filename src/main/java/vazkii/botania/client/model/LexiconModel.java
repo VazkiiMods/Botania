@@ -66,8 +66,8 @@ public class LexiconModel implements IBakedModel {
 	}
 
 	@Override
-	public boolean isSideLit() {
-		return original.isSideLit();
+	public boolean func_230044_c_() {
+		return original.func_230044_c_();
 	}
 
 	@Nonnull

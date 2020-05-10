@@ -51,7 +51,7 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 	}
 
 	@Override
-	public void scheduledTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
+	public void tick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
 
 	// [VanillaCopy] super, without light level requirement
 	@Override

@@ -46,7 +46,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		}
 
 		ms.push();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+		ms.rotate(Vector3f.XP.rotationDegrees(90));
 		float scalef = 1F / 6F;
 		ms.scale(scalef, scalef, scalef);
 		//todo 1.15 GlStateManager.color4f(1F, 1F, 1F, absTime / 10);

@@ -54,12 +54,12 @@ import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 public final class BoundTileRenderer {
-	private static final IRenderTypeBuffer.Impl LINE_BUFFERS = IRenderTypeBuffer.immediate(Util.make(() -> {
+	private static final IRenderTypeBuffer.Impl LINE_BUFFERS = IRenderTypeBuffer.getImpl(Util.make(() -> {
 		Map<RenderType, BufferBuilder> ret = new IdentityHashMap<>();
-		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.getExpectedBufferSize()));
-		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.getExpectedBufferSize()));
-		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.getExpectedBufferSize()));
-		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.getBufferSize()));
+		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.getBufferSize()));
+		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.getBufferSize()));
+		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.getBufferSize()));
 		return ret;
 	}), Tessellator.getInstance().getBuffer());
 
@@ -116,7 +116,7 @@ public final class BoundTileRenderer {
 
 		ms.pop();
 		RenderSystem.disableDepthTest();
-		LINE_BUFFERS.draw();
+		LINE_BUFFERS.finish();
 	}
 
 	private static void renderBlockOutlineAt(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos pos, int color) {
@@ -149,7 +149,7 @@ public final class BoundTileRenderer {
 			IVertexBuilder buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
 			for (AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
+				renderBlockOutline(ms.getLast().getMatrix(), buffer, axis, color);
 			}
 
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
@@ -157,7 +157,7 @@ public final class BoundTileRenderer {
 			color = (color & ~0xff000000) | (alpha << 24);
 			for (AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
+				renderBlockOutline(ms.getLast().getMatrix(), buffer, axis, color);
 			}
 		}
 
@@ -176,40 +176,40 @@ public final class BoundTileRenderer {
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
 
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, iy, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, ay, iz).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, ay, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, ay, iz).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, ay, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, iy, iz).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, iy, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, iy, iz).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, iy, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, ay, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, iy, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, iy, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, iy, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, ay, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, ay, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, ay, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, iy, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, iy, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, ay, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ix, ay, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, iy, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, iy, az).color(r, g, b, a).endVertex();
 
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, ay, iz).color(r, g, b, a).endVertex();
+		buffer.pos(mat, ax, ay, az).color(r, g, b, a).endVertex();
 	}
 }

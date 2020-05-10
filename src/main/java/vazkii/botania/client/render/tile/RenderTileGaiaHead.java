@@ -124,8 +124,8 @@ public class RenderTileGaiaHead extends SkullTileEntityRenderer {
 
 		ms.scale(-1.0F, -1.0F, 1.0F);
 		IVertexBuilder ivertexbuilder = buffers.getBuffer(layerFor(type, profile));
-		genericheadmodel.render(partialTicks, rotation, 0.0F);
-		genericheadmodel.render(ms, ivertexbuilder, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+		genericheadmodel.func_225603_a_(partialTicks, rotation, 0.0F);
+		genericheadmodel.render(ms, ivertexbuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		ms.pop();
 	}
 

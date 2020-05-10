@@ -238,7 +238,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (didAny) {
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 			ServerPlayerEntity mp = (ServerPlayerEntity) player;
 			mp.container.detectAndSendChanges();
 		}
@@ -372,8 +372,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
-		int xc = mc.getWindow().getScaledWidth() / 2;
-		int yc = mc.getWindow().getScaledHeight() / 2;
+		int xc = mc.getMainWindow().getScaledWidth() / 2;
+		int yc = mc.getMainWindow().getScaledHeight() / 2;
 
 		float angle = -90;
 		int radius = 24;

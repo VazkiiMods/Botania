@@ -122,9 +122,9 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 			float red = (color >> 16 & 0xFF) / 255F;
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
-			double x = MathHelper.floor(getX());
-			double y = MathHelper.floor(getY());
-			double z = MathHelper.floor(getZ());
+			double x = MathHelper.floor(getPosX());
+			double y = MathHelper.floor(getPosY());
+			double z = MathHelper.floor(getPosZ());
 			if (Math.random() > particleChance) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);

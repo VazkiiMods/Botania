@@ -74,7 +74,7 @@ public class ItemEnderAir extends Item {
 			stack.shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isRemote) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
@@ -83,6 +83,6 @@ public class ItemEnderAir extends Item {
 		} else {
 			player.swingArm(hand);
 		}
-		return ActionResult.success(stack);
+		return ActionResult.resultSuccess(stack);
 	}
 }

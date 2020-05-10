@@ -240,8 +240,8 @@ public final class HUDHandler {
 	private static void renderManaInvBar(boolean hasCreative, int totalMana, int totalMaxMana) {
 		Minecraft mc = Minecraft.getInstance();
 		int width = 182;
-		int x = mc.getWindow().getScaledWidth() / 2 - width / 2;
-		int y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.get();
+		int x = mc.getMainWindow().getScaledWidth() / 2 - width / 2;
+		int y = mc.getMainWindow().getScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.get();
 
 		if (!hasCreative) {
 			if (totalMaxMana == 0) {
@@ -280,8 +280,8 @@ public final class HUDHandler {
 		profiler.startSection("poolRecipe");
 		IManaInfusionRecipe recipe = tile.getMatchingRecipe(stack, tile.getWorld().getBlockState(tile.getPos().down()));
 		if (recipe != null) {
-			int x = mc.getWindow().getScaledWidth() / 2 - 11;
-			int y = mc.getWindow().getScaledHeight() / 2 + 10;
+			int x = mc.getMainWindow().getScaledWidth() / 2 - 11;
+			int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
 
 			int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
 			int v = mc.player.getName().getString().equals("haighyorkie") && mc.player.isSneaking() ? 23 : 8;
@@ -313,8 +313,8 @@ public final class HUDHandler {
 			String s1 = target.getDisplayName().getString();
 			String s2 = tile.getItemCount() + "x";
 			int strlen = Math.max(mc.fontRenderer.getStringWidth(s1), mc.fontRenderer.getStringWidth(s2));
-			int w = mc.getWindow().getScaledWidth();
-			int h = mc.getWindow().getScaledHeight();
+			int w = mc.getMainWindow().getScaledWidth();
+			int h = mc.getMainWindow().getScaledHeight();
 			int boxH = h / 2 + (tile.locked ? 20 : 10);
 			AbstractGui.fill(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
 			AbstractGui.fill(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
@@ -338,8 +338,8 @@ public final class HUDHandler {
 		String txt2 = TextFormatting.GRAY + I18n.format("botaniamisc.nearIndex2");
 
 		int l = Math.max(mc.fontRenderer.getStringWidth(txt0), Math.max(mc.fontRenderer.getStringWidth(txt1), mc.fontRenderer.getStringWidth(txt2))) + 20;
-		int x = mc.getWindow().getScaledWidth() - l - 20;
-		int y = mc.getWindow().getScaledHeight() - 60;
+		int x = mc.getMainWindow().getScaledWidth() - l - 20;
+		int y = mc.getMainWindow().getScaledHeight() - 60;
 
 		AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
 		AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
@@ -355,12 +355,12 @@ public final class HUDHandler {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getInstance();
-		int x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2;
-		int y = mc.getWindow().getScaledHeight() / 2 + 10;
+		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
 
 		mc.fontRenderer.drawStringWithShadow(name, x, y, color);
 
-		x = mc.getWindow().getScaledWidth() / 2 - 51;
+		x = mc.getMainWindow().getScaledWidth() / 2 - 51;
 		y += 10;
 
 		renderManaBar(x, y, color, 1F, mana, maxMana);
@@ -373,8 +373,8 @@ public final class HUDHandler {
 
 		Minecraft mc = Minecraft.getInstance();
 
-		int x = mc.getWindow().getScaledWidth() / 2 + 55;
-		int y = mc.getWindow().getScaledHeight() / 2 + 12;
+		int x = mc.getMainWindow().getScaledWidth() / 2 + 55;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 12;
 
 		RenderSystem.enableRescaleNormal();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(bindDisplay, x, y);

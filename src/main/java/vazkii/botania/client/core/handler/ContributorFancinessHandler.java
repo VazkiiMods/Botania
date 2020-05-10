@@ -124,20 +124,20 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 
 	private void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers) {
 		ms.push();
-		getEntityModel().bipedHead.rotate(ms);
+		getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(-0.15F, -0.60F, 0F);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffers.getBuffer(Atlases.getEntityTranslucent()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentBlockType()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 	}
 
 	@SuppressWarnings("deprecation")
 	private void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
 		ms.push();
-		getEntityModel().bipedHead.rotate(ms);
+		getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		RenderHelper.renderItemModelGold(player, flower, ItemCameraTransforms.TransformType.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
+		RenderHelper.renderItemModelGold(player, flower, ItemCameraTransforms.TransformType.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 	}
 

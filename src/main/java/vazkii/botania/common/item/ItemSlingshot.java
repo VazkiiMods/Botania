@@ -54,7 +54,7 @@ public class ItemSlingshot extends Item {
 			ball.shoot(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
 			ball.setMotion(ball.getMotion().scale(1.6));
 			world.addEntity(ball);
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		}
 	}
 
@@ -75,10 +75,10 @@ public class ItemSlingshot extends Item {
 		ItemStack stack = player.getHeldItem(hand);
 		if (player.abilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.setActiveHand(hand);
-			return ActionResult.success(stack);
+			return ActionResult.resultSuccess(stack);
 		}
 
-		return ActionResult.pass(stack);
+		return ActionResult.resultPass(stack);
 	}
 
 }

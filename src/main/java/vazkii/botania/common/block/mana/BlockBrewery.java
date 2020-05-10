@@ -57,7 +57,7 @@ public class BlockBrewery extends BlockMod implements IWandHUD {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
 		if (player.isSneaking()) {

@@ -42,12 +42,12 @@ public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
 
 		ms.push();
 		ms.translate(0.5, 0, 0);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rot));
+		ms.rotate(Vector3f.XP.rotationDegrees(rot));
 		ms.translate(-0.5, 0, 0);
 		BlockState state = cocoon.getBlockState();
 		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getBlockLayer(state));
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, state, model, 1, 1, 1, light, overlay);
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getChunkRenderType(state));
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, state, model, 1, 1, 1, light, overlay);
 		ms.pop();
 	}
 }

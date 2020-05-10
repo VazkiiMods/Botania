@@ -56,12 +56,12 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
 			} else {
-				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			}
-			return ActionResult.success(stack);
+			return ActionResult.resultSuccess(stack);
 		}
 
-		return ActionResult.pass(stack);
+		return ActionResult.resultPass(stack);
 	}
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {

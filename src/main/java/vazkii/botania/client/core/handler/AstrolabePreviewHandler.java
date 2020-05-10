@@ -40,7 +40,7 @@ public final class AstrolabePreviewHandler {
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
 		MatrixStack ms = event.getMatrixStack();
-		IRenderTypeBuffer.Impl buffers = Minecraft.getInstance().getBufferBuilders().getEntityVertexConsumers();
+		IRenderTypeBuffer.Impl buffers = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ASTROLABE_PREVIEW);
 
 		for (PlayerEntity player : world.getPlayers()) {
@@ -57,7 +57,7 @@ public final class AstrolabePreviewHandler {
 			}
 		}
 
-		buffers.draw(RenderHelper.ASTROLABE_PREVIEW);
+		buffers.finish(RenderHelper.ASTROLABE_PREVIEW);
 	}
 
 	private static void renderPlayerLook(MatrixStack ms, IVertexBuilder buffer, PlayerEntity player, ItemStack stack) {
@@ -87,7 +87,7 @@ public final class AstrolabePreviewHandler {
 		float g = (float) (color >> 8 & 255) / 255.0F;
 		float b = (float) (color & 255) / 255.0F;
 		// always use entity translucent layer so blending is turned on
-		brd.getBlockModelRenderer().render(ms.peek(), buffer, state, model, r, g, b, 0xF000F0, OverlayTexture.DEFAULT_UV);
+		brd.getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, state, model, r, g, b, 0xF000F0, OverlayTexture.NO_OVERLAY);
 
 		ms.pop();
 	}

@@ -26,7 +26,7 @@ public class LensStorm extends Lens {
 			if (pos.getType() == RayTraceResult.Type.BLOCK
 					&& !isManaBlock
 					&& !coords.equals(((BlockRayTraceResult) pos).getPos())) {
-				entity.world.createExplosion(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Explosion.Mode.DESTROY);
+				entity.world.createExplosion(entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 5F, Explosion.Mode.DESTROY);
 			}
 		} else {
 			dead = false;

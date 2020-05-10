@@ -123,7 +123,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			setChargeTicks(chargeTime + 1);
 
 			if (world.rand.nextInt(20) == 0) {
-				world.playSound(null, getX(), getY(), getZ(), ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
+				world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
 			}
 		} else {
 			if (liveTime < delay) {
@@ -141,12 +141,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				Vector3 motionVec = playerLook.subtract(thisVec).normalize().multiply(2);
 
 				mot = motionVec.toVec3D();
-				world.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
+				world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);
 
 			if (!world.isRemote) {
-				AxisAlignedBB axis = new AxisAlignedBB(getX(), getY(), getZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
+				AxisAlignedBB axis = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 				List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
 				for (LivingEntity living : entities) {
 					if (living == thrower) {
@@ -172,7 +172,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		if (liveTime > delay) {
 			WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
-			world.addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
+			world.addParticle(data, getPosX(), getPosY(), getPosZ(), 0, -0F, 0);
 		}
 
 		if (liveTime > 200 + delay) {
@@ -184,7 +184,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	protected void onImpact(RayTraceResult pos) {
 		LivingEntity thrower = getThrower();
 		if (pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
-			world.createExplosion(this, getX(), getY(), getZ(), 3F, Explosion.Mode.NONE);
+			world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 3F, Explosion.Mode.NONE);
 			remove();
 		}
 	}

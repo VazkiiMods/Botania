@@ -49,82 +49,82 @@ public class ModelArmorManaweave extends ModelArmor {
 		//helm
 		this.helmAnchor = new ModelRenderer(this, 0, 0);
 		this.helmAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.helmAnchor.addCuboid(-1.0F, -2.0F, 0.0F, 2, 2, 2, s);
+		this.helmAnchor.addBox(-1.0F, -2.0F, 0.0F, 2, 2, 2, s);
 		this.helm = new ModelRenderer(this, 0, 0);
 		this.helm.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.helm.addCuboid(-4.5F, -9.5F, -4.0F, 9, 11, 10, s);
+		this.helm.addBox(-4.5F, -9.5F, -4.0F, 9, 11, 10, s);
 		this.setRotateAngle(helm, 0.17453292519943295F, 0.0F, 0.0F);
 
 		//body
 		this.bodyAnchor = new ModelRenderer(this, 0, 0);
 		this.bodyAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.bodyAnchor.addCuboid(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
+		this.bodyAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
 		this.bodyTop = new ModelRenderer(this, 0, 21);
 		this.bodyTop.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.bodyTop.addCuboid(-4.5F, -0.5F, -3.0F, 9, 7, 6, s);
+		this.bodyTop.addBox(-4.5F, -0.5F, -3.0F, 9, 7, 6, s);
 		this.setRotateAngle(bodyTop, 0.0F, 0.0F, 0.0F);
 		this.bodyBottom = new ModelRenderer(this, 0, 34);
 		this.bodyBottom.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.bodyBottom.addCuboid(-4.5F, 6.5F, -2.5F, 9, 5, 5, s);
+		this.bodyBottom.addBox(-4.5F, 6.5F, -2.5F, 9, 5, 5, s);
 		this.setRotateAngle(bodyBottom, -0F, 0.0F, 0.0F);
 
 		//armL
 		this.armLAnchor = new ModelRenderer(this, 0, 0);
 		this.armLAnchor.mirror = true;
 		this.armLAnchor.setRotationPoint(4.0F, 2.0F, 0.0F);
-		this.armLAnchor.addCuboid(0.0F, -1.0F, -1.0F, 2, 2, 2, s);
+		this.armLAnchor.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, s);
 		this.armL = new ModelRenderer(this, 0, 44);
 		this.armL.mirror = true;
 		this.armL.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.armL.addCuboid(-1.5F, -2.5F, -2.49F, 5, 10, 5, s);
+		this.armL.addBox(-1.5F, -2.5F, -2.49F, 5, 10, 5, s);
 		this.armLpauldron = new ModelRenderer(this, 20, 44);
 		this.armLpauldron.mirror = true;
 		this.armLpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.armLpauldron.addCuboid(-1.0F, -3.0F, -3.0F, 6, 5, 6, s);
+		this.armLpauldron.addBox(-1.0F, -3.0F, -3.0F, 6, 5, 6, s);
 		this.setRotateAngle(armLpauldron, 0.0F, 0.0F, -0.08726646259971647F);
 
 		//armR
 		this.armRAnchor = new ModelRenderer(this, 0, 0);
 		this.armRAnchor.mirror = true;
 		this.armRAnchor.setRotationPoint(-4.0F, 2.0F, 0.0F);
-		this.armRAnchor.addCuboid(-2.0F, -1.0F, -1.0F, 2, 2, 2, s);
+		this.armRAnchor.addBox(-2.0F, -1.0F, -1.0F, 2, 2, 2, s);
 		this.armR = new ModelRenderer(this, 0, 44);
 		this.armR.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.armR.addCuboid(-3.5F, -2.5F, -2.51F, 5, 10, 5, s);
+		this.armR.addBox(-3.5F, -2.5F, -2.51F, 5, 10, 5, s);
 		this.armRpauldron = new ModelRenderer(this, 20, 44);
 		this.armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.armRpauldron.addCuboid(-5.0F, -3.0F, -3.0F, 6, 5, 6, s);
+		this.armRpauldron.addBox(-5.0F, -3.0F, -3.0F, 6, 5, 6, s);
 		this.setRotateAngle(armRpauldron, 0.0F, 0.0F, 0.08726646259971647F);
 
 		//pants
 		this.pantsAnchor = new ModelRenderer(this, 0, 0);
 		this.pantsAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
-		this.pantsAnchor.addCuboid(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
+		this.pantsAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
 		this.legL = new ModelRenderer(this, 0, 78);
 		this.legL.mirror = true;
 		this.legL.setRotationPoint(1.9F, 12.0F, 0.0F);
-		this.legL.addCuboid(-2.39F, -0.5F, -2.49F, 5, 6, 5, s);
+		this.legL.addBox(-2.39F, -0.5F, -2.49F, 5, 6, 5, s);
 		this.skirtL = new ModelRenderer(this, 0, 59);
 		this.skirtL.mirror = true;
 		this.skirtL.setRotationPoint(-0.5F, -2.0F, -2.5F);
-		this.skirtL.addCuboid(-1.0F, 0.0F, -0.5F, 5, 13, 6, s);
+		this.skirtL.addBox(-1.0F, 0.0F, -0.5F, 5, 13, 6, s);
 		this.setRotateAngle(skirtL, 0.0F, -0.17453292519943295F, -0.2617993877991494F);
 		this.legR = new ModelRenderer(this, 0, 78);
 		this.legR.setRotationPoint(-1.9F, 12.0F, 0.0F);
-		this.legR.addCuboid(-2.61F, 0.0F, -2.51F, 5, 6, 5, s);
+		this.legR.addBox(-2.61F, 0.0F, -2.51F, 5, 6, 5, s);
 		this.skirtR = new ModelRenderer(this, 0, 59);
 		this.skirtR.setRotationPoint(0.5F, -2.0F, -2.5F);
-		this.skirtR.addCuboid(-4.0F, 0.0F, -0.5F, 5, 13, 6, s);
+		this.skirtR.addBox(-4.0F, 0.0F, -0.5F, 5, 13, 6, s);
 		this.setRotateAngle(skirtR, 0.0F, 0.17453292519943295F, 0.2617993877991494F);
 
 		//boot
 		this.bootL = new ModelRenderer(this, 0, 89);
 		this.bootL.mirror = true;
 		this.bootL.setRotationPoint(1.9F, 12.0F, 0.0F);
-		this.bootL.addCuboid(-2.39F, 8.5F, -2.49F, 5, 4, 5, s);
+		this.bootL.addBox(-2.39F, 8.5F, -2.49F, 5, 4, 5, s);
 		this.bootR = new ModelRenderer(this, 0, 89);
 		this.bootR.setRotationPoint(-1.9F, 12.0F, 0.0F);
-		this.bootR.addCuboid(-2.61F, 8.5F, -2.51F, 5, 4, 5, s);
+		this.bootR.addBox(-2.61F, 8.5F, -2.51F, 5, 4, 5, s);
 
 		//hierarchy
 		this.helmAnchor.addChild(this.helm);

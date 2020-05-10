@@ -158,7 +158,7 @@ public class ItemSextant extends Item {
 			reset(world, stack);
 		}
 
-		return ActionResult.success(stack);
+		return ActionResult.resultSuccess(stack);
 	}
 
 	private static double calculateRadius(ItemStack stack, PlayerEntity player) {
@@ -190,8 +190,8 @@ public class ItemSextant extends Item {
 		if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 + 30;
-			int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2;
+			int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 30;
+			int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2;
 
 			String s = Integer.toString((int) radius);
 			boolean inRange = 0 < radius && radius <= MAX_RADIUS;
@@ -211,7 +211,7 @@ public class ItemSextant extends Item {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double yp = y + Math.sin(radian) * radius;
-					Tessellator.getInstance().getBuffer().vertex(xp, yp, 0).endVertex();
+					Tessellator.getInstance().getBuffer().pos(xp, yp, 0).endVertex();
 				}
 				Tessellator.getInstance().draw();
 				RenderSystem.enableTexture();

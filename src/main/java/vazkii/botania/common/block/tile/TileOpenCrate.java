@@ -70,7 +70,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 		float width = EntityType.ITEM.getWidth();
 		float height = EntityType.ITEM.getHeight();
 		AxisAlignedBB itemBB = new AxisAlignedBB(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
-		return world.doesNotCollide(itemBB);
+		return world.hasNoCollisions(itemBB);
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {

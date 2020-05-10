@@ -121,7 +121,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 
 		for (Direction direction1 : new Direction[] { Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP }) {
 			blockpos$mutable.setPos(blockpos).move(direction1);
-			if (!this.world.getBlockState(blockpos$mutable).isFullCube(this.world, blockpos$mutable)) {
+			if (!this.world.getBlockState(blockpos$mutable).isCollisionShapeOpaque(this.world, blockpos$mutable)) {
 				double d1 = vec3d.getCoordinate(direction1.getAxis());
 				double d2 = direction1.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1.0D - d1 : d1;
 				if (d2 < d0) {

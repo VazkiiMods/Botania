@@ -56,11 +56,11 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 			item.setItem(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);
-			Minecraft.getInstance().getRenderManager().render(item, 0, 0, 0, 0, f, ms, buffers, light);
+			Minecraft.getInstance().getRenderManager().renderEntityStatic(item, 0, 0, 0, 0, f, ms, buffers, light);
 			ms.translate(-0.5F, -1.25F, -0.5F);
 		}
 
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+		ms.rotate(Vector3f.XP.rotationDegrees(90F));
 		ms.translate(-2F, -2F, -0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
@@ -74,7 +74,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 
 				ms.translate(2.5F, 2.5F, -yTranslation);
 				ms.scale(scale, scale, 1F);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(angle));
+				ms.rotate(Vector3f.ZP.rotationDegrees(angle));
 				ms.translate(-2.5F, -2.5F, 0F);
 			}
 

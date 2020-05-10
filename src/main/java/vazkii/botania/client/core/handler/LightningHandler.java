@@ -52,9 +52,9 @@ public class LightningHandler {
 		Entity entity = Minecraft.getInstance().player;
 		TextureManager render = Minecraft.getInstance().textureManager;
 
-		double interpPosX = entity.lastTickPosX + (entity.getX() - entity.lastTickPosX) * frame;
-		double interpPosY = entity.lastTickPosY + (entity.getY() - entity.lastTickPosY) * frame;
-		double interpPosZ = entity.lastTickPosZ + (entity.getZ() - entity.lastTickPosZ) * frame;
+		double interpPosX = entity.lastTickPosX + (entity.getPosX() - entity.lastTickPosX) * frame;
+		double interpPosY = entity.lastTickPosY + (entity.getPosY() - entity.lastTickPosY) * frame;
+		double interpPosZ = entity.lastTickPosZ + (entity.getPosZ() - entity.lastTickPosZ) * frame;
 
 		RenderSystem.pushMatrix();
 		RenderSystem.translated(-interpPosX, -interpPosY, -interpPosZ);
@@ -68,12 +68,12 @@ public class LightningHandler {
 		render.bindTexture(outsideResource);
 		int counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(0, false);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
 			}
 			counter++;
 		}
@@ -82,12 +82,12 @@ public class LightningHandler {
 		render.bindTexture(insideResource);
 		counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(1, true);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEXTURE_LIGHT_COLOR);
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
 			}
 			counter++;
 		}

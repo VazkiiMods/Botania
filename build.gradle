@@ -34,7 +34,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: "20200123-mixed-1.15.2"
+    mappings channel: 'snapshot', version: "20200510-1.15.1"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {

@@ -81,9 +81,9 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 		if (world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
 			ws.spawnParticle(ParticleTypes.EXPLOSION,
-					entity.getX() + entity.getWidth() / 2,
-					entity.getY() + entity.getHeight() / 2,
-					entity.getZ() + entity.getWidth() / 2,
+					entity.getPosX() + entity.getWidth() / 2,
+					entity.getPosY() + entity.getHeight() / 2,
+					entity.getPosZ() + entity.getWidth() / 2,
 					100, entity.getWidth(), entity.getHeight(), entity.getWidth(), 0.05);
 			ws.spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
 		}

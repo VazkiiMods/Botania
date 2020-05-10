@@ -75,7 +75,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
 			ms.translate(0F, 0.8F, 0F);
 			ms.scale(s, s, s);
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+			ms.rotate(Vector3f.ZP.rotationDegrees(180F));
 			itemRenderer.render(entity, 0, f, ms, buffers, light);
 			ms.pop();
 		}
@@ -83,8 +83,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		if (cubeModel != null) {
 			ms.push();
 			ms.translate(-0.5F, 0.25F, -0.5F);
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentBlockType());
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
 			ms.pop();
 		}
 
@@ -110,11 +110,11 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			ms.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for (int i = 0; i < 4; i++) {
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.rotate(Vector3f.YP.rotationDegrees(90F));
 				ms.translate(0F, 0F, tr);
-				mc.fontRenderer.draw(countStr, -l / 2, 0, color, false, ms.peek().getModel(), buffers, false, 0, light);
+				mc.fontRenderer.renderString(countStr, -l / 2, 0, color, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 				ms.translate(0F, 0F, 0.1F);
-				mc.fontRenderer.draw(countStr, -l / 2 + 1, 1, colorShade, false, ms.peek().getModel(), buffers, false, 0, light);
+				mc.fontRenderer.renderString(countStr, -l / 2 + 1, 1, colorShade, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 				ms.translate(0F, 0F, -tr - 0.1F);
 			}
 		}

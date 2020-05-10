@@ -55,7 +55,7 @@ public final class BlockHighlightRenderHandler {
 		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult pos = mc.objectMouseOver;
 		MatrixStack ms = event.getMatrixStack();
-		IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuffer());
+		IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
 		/* Needed because RenderState.CullState doesn't actually disable if you pass false, it keeps the current state.
 		And we go into this method with cull enabled.
 		*/
@@ -113,7 +113,7 @@ public final class BlockHighlightRenderHandler {
 		}
 
 		ms.pop();
-		buffers.draw();
+		buffers.finish();
 	}
 
 	private static void renderRectangle(MatrixStack ms, IRenderTypeBuffer buffers, AxisAlignedBB aabb, boolean inner, @Nullable Integer color, byte alpha) {
@@ -136,21 +136,21 @@ public final class BlockHighlightRenderHandler {
 		float z = (float) (aabb.maxZ - aabb.minZ - f);
 
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
-		Matrix4f mat = ms.peek().getModel();
-		buffer.vertex(mat, x, f, f).color(r, g, b, alpha).endVertex();
-		buffer.vertex(mat, f, f, f).color(r, g, b, alpha).endVertex();
-		buffer.vertex(mat, f, f, z).color(r, g, b, alpha).endVertex();
-		buffer.vertex(mat, x, f, z).color(r, g, b, alpha).endVertex();
+		Matrix4f mat = ms.getLast().getMatrix();
+		buffer.pos(mat, x, f, f).color(r, g, b, alpha).endVertex();
+		buffer.pos(mat, f, f, f).color(r, g, b, alpha).endVertex();
+		buffer.pos(mat, f, f, z).color(r, g, b, alpha).endVertex();
+		buffer.pos(mat, x, f, z).color(r, g, b, alpha).endVertex();
 
 		if (inner) {
 			x += f;
 			z += f;
 			float f1 = f + f / 4F;
 			alpha *= 2;
-			buffer.vertex(mat, x, f1, 0).color(r, g, b, alpha).endVertex();
-			buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha).endVertex();
-			buffer.vertex(mat, 0, f1, z).color(r, g, b, alpha).endVertex();
-			buffer.vertex(mat, x, f1, z).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, x, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, 0, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, 0, f1, z).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, x, f1, z).color(r, g, b, alpha).endVertex();
 		}
 
 		ms.pop();
@@ -180,15 +180,15 @@ public final class BlockHighlightRenderHandler {
 
 		radius -= f;
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.CIRCLE);
-		Matrix4f mat = ms.peek().getModel();
+		Matrix4f mat = ms.getLast().getMatrix();
 
-		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(r, g, b, alpha).endVertex();
+		Runnable centerFunc = () -> buffer.pos(mat, 0, f, 0).color(r, g, b, alpha).endVertex();
 		List<Runnable> vertexFuncs = new ArrayList<>();
 		for (int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(r, g, b, alpha).endVertex());
+			vertexFuncs.add(() -> buffer.pos(mat, xp, f, zp).color(r, g, b, alpha).endVertex());
 		}
 		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 
@@ -196,13 +196,13 @@ public final class BlockHighlightRenderHandler {
 		float f1 = f + f / 4F;
 		int alpha2 = 64;
 
-		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha2).endVertex();
+		centerFunc = () -> buffer.pos(mat, 0, f1, 0).color(r, g, b, alpha2).endVertex();
 		vertexFuncs.clear();
 		for (int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(r, g, b, alpha2).endVertex());
+			vertexFuncs.add(() -> buffer.pos(mat, xp, f1, zp).color(r, g, b, alpha2).endVertex());
 		}
 		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 		ms.pop();

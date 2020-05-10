@@ -106,18 +106,18 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 				ms.push();
 				boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.LEGS).isEmpty();
 
-				getEntityModel().bipedBody.rotate(ms);
+				getEntityModel().bipedBody.translateRotate(ms);
 				ms.translate(0, 0.65, 0);
 				if (renderedOne) {
 					ms.translate(armor ? 0.3 : 0.25, 0, 0);
-					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+					ms.rotate(Vector3f.YP.rotationDegrees(-90F));
 				} else {
 					ms.translate(armor ? -0.3 : -0.25, 0, 0);
-					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+					ms.rotate(Vector3f.YP.rotationDegrees(90F));
 				}
 
 				ms.scale(0.375F, -0.375F, -0.375F);
-				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, 0xF000F0, OverlayTexture.DEFAULT_UV, ms, buffers);
+				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, 0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers);
 				ms.pop();
 
 				if (renderedOne) {

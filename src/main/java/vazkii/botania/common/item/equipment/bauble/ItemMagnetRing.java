@@ -73,9 +73,9 @@ public class ItemMagnetRing extends ItemBauble {
 
 		if (cooldown <= 0) {
 			if (living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
-				double x = living.getX();
-				double y = living.getY() + 0.75;
-				double z = living.getZ();
+				double x = living.getPosX();
+				double y = living.getPosY() + 0.75;
+				double z = living.getPosZ();
 
 				int range = ((ItemMagnetRing) stack.getItem()).range;
 				List<ItemEntity> items = living.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
@@ -92,7 +92,7 @@ public class ItemMagnetRing extends ItemBauble {
 							float r = red ? 1F : 0F;
 							float b = red ? 0F : 1F;
 							SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
-							living.world.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
+							living.world.addParticle(data, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
 						}
 						pulled++;
 					}

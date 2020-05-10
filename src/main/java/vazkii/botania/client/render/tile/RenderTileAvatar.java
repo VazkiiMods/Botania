@@ -59,8 +59,8 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 
 		ms.translate(0.5F, 1.6F, 0.5F);
 		ms.scale(1F, -1F, -1F);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.getIndex() - 2), 0)]));
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
+		ms.rotate(Vector3f.YP.rotationDegrees(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.getIndex() - 2), 0)]));
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1);
 
 		if (avatar != null) {
@@ -70,7 +70,7 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 				float s = 0.6F;
 				ms.scale(s, s, s);
 				ms.translate(-0.5F, 2F, -0.25F);
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-70));
+				ms.rotate(Vector3f.XP.rotationDegrees(-70));
 				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
 				ms.pop();
 

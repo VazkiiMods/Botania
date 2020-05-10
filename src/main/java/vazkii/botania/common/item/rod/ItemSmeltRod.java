@@ -66,7 +66,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 	@Override
@@ -106,8 +106,8 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 						if (data.progress <= 0) {
 							if (!p.world.isRemote) {
 								p.world.setBlockState(pos.getPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
-								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
-								p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+								p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
+								p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
 								ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
@@ -136,7 +136,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 						p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
 					}
 					if (time % 10 == 0) {
-						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+						p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 					}
 				}
 			}

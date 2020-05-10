@@ -65,12 +65,12 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		float scale = 0.75F;
 		ms.scale(scale, scale, scale);
 
-		ms.multiply(mc.getRenderManager().getRotation());
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+		ms.rotate(mc.getRenderManager().getCameraOrientation());
+		ms.rotate(Vector3f.YP.rotationDegrees(180.0F));
 
 		float off = 0.25F;
 		ms.translate(0F, off, 0F);
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion((float) time));
+		ms.rotate(Vector3f.ZP.rotationDegrees((float) time));
 		ms.translate(0F, -off, 0F);
 
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.LIGHT_RELAY);
@@ -91,12 +91,12 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		Matrix4f mat = ms.peek().getModel();
+		Matrix4f mat = ms.getLast().getMatrix();
 		int fullbright = 0xF000F0;
-		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f, f3).light(fullbright).endVertex();
-		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f1, f3).light(fullbright).endVertex();
-		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f1, f2).light(fullbright).endVertex();
-		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f, f2).light(fullbright).endVertex();
+		buffer.pos(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).tex(f, f3).lightmap(fullbright).endVertex();
+		buffer.pos(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).tex(f1, f3).lightmap(fullbright).endVertex();
+		buffer.pos(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).tex(f1, f2).lightmap(fullbright).endVertex();
+		buffer.pos(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).tex(f, f2).lightmap(fullbright).endVertex();
 
 	}
 

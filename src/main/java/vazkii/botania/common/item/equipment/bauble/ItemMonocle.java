@@ -51,10 +51,10 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		layer.getEntityModel().bipedHead.rotate(ms);
+		layer.getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(0.15, -0.2, -0.25);
 		ms.scale(0.3F, -0.3F, -0.3F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -87,8 +87,8 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			return;
 		}
 
-		int x = mc.getWindow().getScaledWidth() / 2 + 15;
-		int y = mc.getWindow().getScaledHeight() / 2 - 8;
+		int x = mc.getMainWindow().getScaledWidth() / 2 + 15;
+		int y = mc.getMainWindow().getScaledHeight() / 2 - 8;
 
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);
 

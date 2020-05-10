@@ -26,7 +26,7 @@ public class LensDamage extends Lens {
 		if (entity.world.isRemote) {
 			return;
 		}
-		AxisAlignedBB axis = new AxisAlignedBB(entity.getX(), entity.getY(), entity.getZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
+		AxisAlignedBB axis = new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 		for (LivingEntity living : entities) {
 			if (living instanceof PlayerEntity) {

@@ -155,9 +155,9 @@ public class BlockLootProvider implements IDataProvider {
 
 	private static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
-		CopyNbt.Builder func = CopyNbt.func_215881_a(CopyNbt.Source.BLOCK_ENTITY);
+		CopyNbt.Builder func = CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY);
 		for (String tag : tags) {
-			func = func.func_216056_a(tag, "BlockEntityTag." + tag);
+			func = func.replaceOperation(tag, "BlockEntityTag." + tag);
 		}
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
 				.acceptCondition(SurvivesExplosion.builder())
@@ -205,14 +205,14 @@ public class BlockLootProvider implements IDataProvider {
 	private static LootTable.Builder genSlab(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
 				.acceptFunction(SetCount.builder(ConstantRange.of(2))
-						.acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(SlabBlock.TYPE, SlabType.DOUBLE))))
+						.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(SlabBlock.TYPE, SlabType.DOUBLE))))
 				.acceptFunction(ExplosionDecay.builder());
 		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
 	}
 
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-				.acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.create().exactMatch(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
+				.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
 				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
 				.acceptCondition(SurvivesExplosion.builder());

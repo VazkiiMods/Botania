@@ -72,10 +72,10 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 		Set<Material> ret = new HashSet<>();
 		for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
 			IUnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
-			ret.addAll(unbakedIsland.getTextureDependencies(modelGetter, missingTextureErrors));
+			ret.addAll(unbakedIsland.getTextures(modelGetter, missingTextureErrors));
 			unbakedIslands.put(e.getKey(), unbakedIsland);
 		}
-		ret.addAll(unbakedFlower.getTextureDependencies(modelGetter, missingTextureErrors));
+		ret.addAll(unbakedFlower.getTextures(modelGetter, missingTextureErrors));
 		return ret;
 	}
 
@@ -84,11 +84,11 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 	public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation name) {
 		final TransformationMatrix moveFlower = new TransformationMatrix(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
 		IModelTransform comp = new ModelTransformComposition(new SimpleModelTransform(moveFlower), transform);
-		IBakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, comp, name);
+		IBakedModel bakedFlower = unbakedFlower.bakeModel(bakery, spriteGetter, comp, name);
 
 		Map<IFloatingFlower.IslandType, IBakedModel> bakedIslands = new HashMap<>();
 		for (Map.Entry<IFloatingFlower.IslandType, IUnbakedModel> e : unbakedIslands.entrySet()) {
-			IBakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, transform, name);
+			IBakedModel bakedIsland = e.getValue().bakeModel(bakery, spriteGetter, transform, name);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
 		return new Baked(bakedFlower, bakedIslands);

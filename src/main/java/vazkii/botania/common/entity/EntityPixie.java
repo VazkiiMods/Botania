@@ -85,9 +85,9 @@ public class EntityPixie extends FlyingEntity {
 	protected void updateAITasks() {
 		LivingEntity target = getAttackTarget();
 		if (target != null) {
-			double d0 = target.getX() + target.getWidth() / 2 - getX();
-			double d1 = target.getY() + target.getHeight() / 2 - getY();
-			double d2 = target.getZ() + target.getWidth() / 2 - getZ();
+			double d0 = target.getPosX() + target.getWidth() / 2 - getPosX();
+			double d1 = target.getPosY() + target.getHeight() / 2 - getPosY();
+			double d2 = target.getPosZ() + target.getWidth() / 2 - getPosZ();
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			float mod = 0.45F;
@@ -142,7 +142,7 @@ public class EntityPixie extends FlyingEntity {
 				float g = dark ? 0.025F : 0.25F;
 				float b = dark ? 0.09F : 0.9F;
 				SparkleParticleData data = SparkleParticleData.sparkle(0.1F + (float) Math.random() * 0.25F, r, g, b, 12);
-				world.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+				world.addParticle(data, getPosX() + (Math.random() - 0.5) * 0.25, getPosY() + 0.5 + (Math.random() - 0.5) * 0.25, getPosZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
 	}
@@ -152,7 +152,7 @@ public class EntityPixie extends FlyingEntity {
 		if (world != null && world.isRemote && getPixieType() == 0) {
 			for (int i = 0; i < 12; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(1F + (float) Math.random() * 0.25F, 1F, 0.25F, 0.9F, 5);
-				world.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+				world.addParticle(data, getPosX() + (Math.random() - 0.5) * 0.25, getPosY() + 0.5 + (Math.random() - 0.5) * 0.25, getPosZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
 		super.remove();

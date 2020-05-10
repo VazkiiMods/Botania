@@ -77,7 +77,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 		if (player.isSneaking() && hasClip(stack)) {
 			rotatePos(stack);
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			if (world.isRemote) {
 				player.swingArm(hand);
 			} else {
@@ -85,12 +85,12 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 				ItemsRemainingRenderHandler.send(player, lens, -2);
 				stack.setDamage(effCd);
 			}
-			return ActionResult.success(stack);
+			return ActionResult.resultSuccess(stack);
 		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isRemote) {
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
+					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
 				} else {
@@ -99,12 +99,12 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 				}
 				stack.setDamage(effCd);
 			} else if (!world.isRemote) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			}
-			return ActionResult.success(stack);
+			return ActionResult.resultSuccess(stack);
 		}
 
-		return ActionResult.pass(stack);
+		return ActionResult.resultPass(stack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN

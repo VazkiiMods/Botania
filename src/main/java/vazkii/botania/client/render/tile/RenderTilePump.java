@@ -48,12 +48,12 @@ public class RenderTilePump extends TileEntityRenderer<TilePump> {
 			angle = 90;
 			break;
 		}
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angle));
+		ms.rotate(Vector3f.YP.rotationDegrees(angle));
 		ms.translate(-0.5, 0, -0.5);
 		double diff = Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * partialTicks));
 		ms.translate(0, 0, diff / 14);
 		IVertexBuilder buffer = buffers.getBuffer(RenderType.getSolid());
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().render(ms.peek(), buffer, null, headModel, 1, 1, 1, light, overlay);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, null, headModel, 1, 1, 1, light, overlay);
 		ms.pop();
 	}
 }

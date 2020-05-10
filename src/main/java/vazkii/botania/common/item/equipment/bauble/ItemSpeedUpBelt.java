@@ -58,11 +58,11 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 		double oldY = ItemNBTHelper.getDouble(stack, TAG_OLD_Y, 0);
 		double oldZ = ItemNBTHelper.getDouble(stack, TAG_OLD_Z, 0);
 
-		ItemNBTHelper.setDouble(stack, TAG_OLD_X, player.getX());
-		ItemNBTHelper.setDouble(stack, TAG_OLD_Y, player.getY());
-		ItemNBTHelper.setDouble(stack, TAG_OLD_Z, player.getZ());
+		ItemNBTHelper.setDouble(stack, TAG_OLD_X, player.getPosX());
+		ItemNBTHelper.setDouble(stack, TAG_OLD_Y, player.getPosY());
+		ItemNBTHelper.setDouble(stack, TAG_OLD_Z, player.getPosZ());
 
-		return Math.abs(oldX - player.getX()) > 0.001 || Math.abs(oldY - player.getY()) > 0.001 || Math.abs(oldZ - player.getZ()) > 0.001;
+		return Math.abs(oldX - player.getPosX()) > 0.001 || Math.abs(oldY - player.getPosY()) > 0.001 || Math.abs(oldZ - player.getPosZ()) > 0.001;
 	}
 
 }

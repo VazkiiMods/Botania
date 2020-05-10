@@ -251,9 +251,9 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					spawnBurst(entity.world, new BlockPos(x, y, z), lens);
 				}
 			} else if (burst.getTicksExisted() == placeTicks) {
-				int x = net.minecraft.util.math.MathHelper.floor(entity.getX());
+				int x = net.minecraft.util.math.MathHelper.floor(entity.getPosX());
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
-				int z = net.minecraft.util.math.MathHelper.floor(entity.getZ());
+				int z = net.minecraft.util.math.MathHelper.floor(entity.getPosZ());
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if (entity.world.isAirBlock(pos)) {
@@ -290,7 +290,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
-		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
+		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.getPosX(), entity.getPosY(), entity.getPosZ(),
 				entity.getMotion().getX(), entity.getMotion().getY(), entity.getMotion().getZ());
 
 		return true;

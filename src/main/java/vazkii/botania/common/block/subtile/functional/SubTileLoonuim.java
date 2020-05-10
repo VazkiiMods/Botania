@@ -94,7 +94,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 				if (pos.getY() >= 254) {
 					return;
 				}
-			} while (world.getBlockState(pos).canSuffocate(world, pos));
+			} while (world.getBlockState(pos).isSuffocating(world, pos));
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
@@ -205,7 +205,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			CompoundNBT cmp = e.getPersistentData().getCompound(TAG_ITEMSTACK_TO_DROP);
 			ItemStack stack = ItemStack.read(cmp);
 			event.getDrops().clear();
-			event.getDrops().add(new ItemEntity(e.world, e.getX(), e.getY(), e.getZ(), stack));
+			event.getDrops().add(new ItemEntity(e.world, e.getPosX(), e.getPosY(), e.getPosZ(), stack));
 		}
 	}
 }

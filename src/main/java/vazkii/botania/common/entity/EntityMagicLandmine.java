@@ -55,24 +55,24 @@ public class EntityMagicLandmine extends Entity {
 		float g = 0F;
 		float b = 0.2F;
 
-		//Botania.proxy.wispFX(world, getX(), getY(), getZ(), r, g, b, 0.6F, -0.2F, 1);
+		//Botania.proxy.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
 		for (int i = 0; i < 6; i++) {
 			WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
-			world.addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
+			world.addParticle(data, getPosX() - range + Math.random() * range * 2, getPosY(), getPosZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
 		}
 
 		if (ticksExisted >= 55) {
-			world.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
+			world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for (int i = 0; i < 25; i++) {
 				WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-				world.addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+				world.addParticle(data, getPosX(), getPosY() + 1, getPosZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 
 			if (!world.isRemote) {
-				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range));
+				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPosX() - range, getPosY() - range, getPosZ() - range, getPosX() + range, getPosY() + range, getPosZ() + range));
 				for (PlayerEntity player : players) {
 					player.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, summoner), 10);
 					player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 25, 0));

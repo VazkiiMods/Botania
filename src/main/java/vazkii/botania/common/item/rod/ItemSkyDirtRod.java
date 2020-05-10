@@ -69,7 +69,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			player.swingArm(hand);
 		}
 
-		return ActionResult.success(stack);
+		return ActionResult.resultSuccess(stack);
 	}
 
 }

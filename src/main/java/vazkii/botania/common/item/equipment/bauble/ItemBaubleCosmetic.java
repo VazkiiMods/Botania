@@ -81,7 +81,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 		if (variant.isHead) {
-			layer.getEntityModel().bipedHead.rotate(ms);
+			layer.getEntityModel().bipedHead.translateRotate(ms);
 			switch (variant) {
 			case RED_GLASSES:
 			case ENGINEER_GOGGLES:
@@ -92,7 +92,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case EYEPATCH:
 				ms.translate(0.125, -0.225, -0.3);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.rotate(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -103,39 +103,39 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case RED_RIBBONS:
 				ms.translate(0, -0.65, 0.2);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.rotate(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case PINK_FLOWER_BUD:
 				ms.translate(0.275, -0.6, 0);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.rotate(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case POLKA_DOTTED_BOWS:
 				ms.push();
 				ms.translate(0.275, -0.4, 0);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.rotate(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				ms.pop();
 
 				ms.translate(-0.275, -0.4, 0);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.rotate(Vector3f.YP.rotationDegrees(90F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
 			case BLUE_BUTTERFLY:
 				ms.push();
 				ms.translate(0.275, -0.4, 0);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(45F));
+				ms.rotate(Vector3f.YP.rotationDegrees(45F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				ms.pop();
 
 				ms.translate(0.275, -0.4, 0);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-45F));
+				ms.rotate(Vector3f.YP.rotationDegrees(-45F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -156,7 +156,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case UNICORN_HORN:
 				ms.translate(0, -0.7, -0.3);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.rotate(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -191,7 +191,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				ms.translate(0, -0.3, -0.3);
 				ms.scale(0.7F, -0.7F, -0.7F);
 				int color = 0xFFFFFF | (178 << 24);
-				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.DEFAULT_UV);
+				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 				break;
 			case GROUCHO_GLASSES:
 				ms.translate(0, -0.1, -0.3);
@@ -206,7 +206,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				ms.pop();
 
 				ms.translate(0.1, -0.3, -0.3);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.rotate(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -222,7 +222,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case THINKING_HAND:
 				ms.translate(-0.1, 0, -0.3);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-15F));
+				ms.rotate(Vector3f.ZP.rotationDegrees(-15F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -230,7 +230,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			}
 		} else { // body cosmetics
-			layer.getEntityModel().bipedBody.rotate(ms);
+			layer.getEntityModel().bipedBody.translateRotate(ms);
 			switch (variant) {
 			case BLACK_BOWTIE:
 				ms.translate(0, 0.1, -0.13);
@@ -250,7 +250,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case DEVIL_TAIL:
 				ms.translate(0, 0.55, 0.2);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
+				ms.rotate(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -262,9 +262,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				ms.pop();
 
 				ms.translate(-0.4, 0.1, -0.2);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.rotate(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.5F, -0.5F, -0.5F);
-				RenderHelper.renderItemCustomColor(player, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.DEFAULT_UV);
+				RenderHelper.renderItemCustomColor(player, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 				break;
 			case FOUR_LEAF_CLOVER:
 				ms.translate(0.1, 0.1, -0.13);
@@ -278,8 +278,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case LUSITANIC_SHIELD:
 				ms.translate(0F, 0.35, 0.13);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(8F));
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.rotate(Vector3f.ZP.rotationDegrees(8F));
+				ms.rotate(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
 				break;
@@ -290,7 +290,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	public static void renderItem(ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
 	}
 
 }

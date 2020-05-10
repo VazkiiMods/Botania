@@ -105,7 +105,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 		switch (upgrade) {
 		case DISPERSIVE: {
-			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, getX(), getY() + (getHeight() / 2.0), getZ());
+			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, getPosX(), getPosY() + (getHeight() / 2.0), getPosZ());
 
 			Map<PlayerEntity, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
 
@@ -164,7 +164,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 			break;
 		}
 		case DOMINANT: {
-			List<ISparkEntity> validSparks = SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
+			List<ISparkEntity> validSparks = SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
 						return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedTile() instanceof IManaPool;
@@ -177,7 +177,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 			break;
 		}
 		case RECESSIVE: {
-			SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
+			SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
 						return s != this
@@ -224,14 +224,14 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 	private void particlesTowards(Entity e) {
 		PacketHandler.sendToNearby(world, this,
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getPosX(), getPosY(), getPosZ(),
 						getEntityId(), e.getEntityId()));
 	}
 
 	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
 		if (e1 != null && e2 != null && !e1.world.isRemote) {
 			PacketHandler.sendTo((ServerPlayerEntity) player,
-					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getX(), e1.getY(), e1.getZ(),
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getPosX(), e1.getPosY(), e1.getPosZ(),
 							e1.getEntityId(), e2.getEntityId()));
 		}
 	}
@@ -272,7 +272,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 					}
 					return true;
 				} else {
-					SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
+					SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
 							.forEach(s -> particleBeam(player, this, (Entity) s));
 					return true;
 				}
@@ -316,9 +316,9 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 	@Override
 	public ISparkAttachable getAttachedTile() {
-		int x = MathHelper.floor(getX());
-		int y = MathHelper.floor(getY()) - 1;
-		int z = MathHelper.floor(getZ());
+		int x = MathHelper.floor(getPosX());
+		int y = MathHelper.floor(getPosY()) - 1;
+		int z = MathHelper.floor(getPosZ());
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 		if (tile instanceof ISparkAttachable) {
 			return (ISparkAttachable) tile;

@@ -35,9 +35,9 @@ public class RenderTileCorporeaIndex extends TileEntityRenderer<TileCorporeaInde
 	public RenderTileCorporeaIndex(TileEntityRendererDispatcher manager) {
 		super(manager);
 		this.ring = new ModelRenderer(64, 32, 0, 0);
-		this.ring.addCuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
+		this.ring.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
 		this.cube = new ModelRenderer(64, 32, 32, 0);
-		this.cube.addCuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
+		this.cube.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
 	}
 
 	@Override
@@ -50,17 +50,17 @@ public class RenderTileCorporeaIndex extends TileEntityRenderer<TileCorporeaInde
 		ms.push();
 		ms.translate(0.0D, -1, 0.0D);
 
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+		ms.rotate(Vector3f.YP.rotationDegrees(rotation));
 		ms.translate(0.0D, 1.5F + translation / 2.0F, 0.0D);
-		ms.multiply(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		ms.rotate(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);
-		ms.multiply(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+		ms.rotate(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		ms.rotate(Vector3f.YP.rotationDegrees(rotation));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);
-		ms.multiply(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+		ms.rotate(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		ms.rotate(Vector3f.YP.rotationDegrees(rotation));
 		this.cube.render(ms, buffer, light, overlay);
 		ms.pop();
 

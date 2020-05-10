@@ -506,8 +506,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD() {
 		if (manaRequired > 0 && !itemToEnchant.isEmpty()) {
-			int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 + 20;
-			int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 - 8;
+			int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20;
+			int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 8;
 
 			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}

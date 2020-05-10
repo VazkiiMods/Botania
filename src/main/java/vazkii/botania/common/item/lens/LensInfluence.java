@@ -30,7 +30,7 @@ public class LensInfluence extends Lens {
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		if (!burst.isFake()) {
 			double range = 3.5;
-			AxisAlignedBB bounds = new AxisAlignedBB(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);
+			AxisAlignedBB bounds = new AxisAlignedBB(entity.getPosX() - range, entity.getPosY() - range, entity.getPosZ() - range, entity.getPosX() + range, entity.getPosY() + range, entity.getPosZ() + range);
 			List<Entity> movables = entity.world.getEntitiesWithinAABB(ItemEntity.class, bounds);
 			movables.addAll(entity.world.getEntitiesWithinAABB(ExperienceOrbEntity.class, bounds));
 			movables.addAll(entity.world.getEntitiesWithinAABB(AbstractArrowEntity.class, bounds));

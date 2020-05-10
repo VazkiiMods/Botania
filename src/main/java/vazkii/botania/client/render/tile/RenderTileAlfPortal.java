@@ -48,7 +48,7 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 
 		if (state == AlfPortalState.ON_X) {
 			ms.translate(1.25F, 0F, 1.75F);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+			ms.rotate(Vector3f.YP.rotationDegrees(90F));
 		}
 
 		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex, 0, 0, 3, 3, alpha, overlay);
@@ -59,13 +59,13 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 	}
 
 	public void renderIcon(MatrixStack ms, IRenderTypeBuffer buffers, TextureAtlasSprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityTranslucent());
-		Matrix4f model = ms.peek().getModel();
-		Matrix3f normal = ms.peek().getNormal();
-		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.vertex(model, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.vertex(model, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.vertex(model, x, y, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentBlockType());
+		Matrix4f model = ms.getLast().getMatrix();
+		Matrix3f normal = ms.getLast().getNormal();
+		buffer.pos(model, x, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMaxV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.pos(model, x + width, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMaxU(), icon.getMaxV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.pos(model, x + width, y, 0).color(1, 1, 1, alpha).tex(icon.getMaxU(), icon.getMinV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.pos(model, x, y, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMinV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
 	}
 
 }

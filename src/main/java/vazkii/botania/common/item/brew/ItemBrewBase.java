@@ -82,7 +82,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 	@Nonnull
@@ -99,7 +99,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 			}
 
 			if (world.rand.nextBoolean()) {
-				world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
 			}
 
 			int swigs = getSwigsLeft(stack);

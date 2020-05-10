@@ -42,11 +42,11 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 				event.setAmount(player.getHealth() - 1);
 			}
 
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
-				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();
-				double y = player.getY() + Math.random() * player.getHeight();
-				double z = player.getZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double x = player.getPosX() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double y = player.getPosY() + Math.random() * player.getHeight();
+				double z = player.getPosZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean green = Math.random() > 0.5;
 				float g = green ? 1F : 0.3F;
 				float b = green ? 0.3F : 1F;

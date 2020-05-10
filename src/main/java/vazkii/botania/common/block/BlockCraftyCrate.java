@@ -55,8 +55,8 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 			int width = 52;
 			int height = 52;
-			int xc = mc.getWindow().getScaledWidth() / 2 + 20;
-			int yc = mc.getWindow().getScaledHeight() / 2 - height / 2;
+			int xc = mc.getMainWindow().getScaledWidth() / 2 + 20;
+			int yc = mc.getMainWindow().getScaledHeight() / 2 - height / 2;
 
 			AbstractGui.fill(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
 			AbstractGui.fill(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);

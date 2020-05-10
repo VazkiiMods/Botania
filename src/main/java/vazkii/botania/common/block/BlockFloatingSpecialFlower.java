@@ -106,12 +106,12 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ActionResultType tileResult = ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
-		if (tileResult.isAccepted()) {
+		if (tileResult.isSuccessOrConsume()) {
 			return tileResult;
 		} else {
-			return super.onUse(state, world, pos, player, hand, hit);
+			return super.onBlockActivated(state, world, pos, player, hand, hit);
 		}
 	}
 

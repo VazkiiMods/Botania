@@ -42,8 +42,8 @@ public class LensPaint extends Lens {
 				SheepEntity sheep = (SheepEntity) ((EntityRayTraceResult) pos).getEntity();
 				DyeColor sheepColor = sheep.getFleeceColor();
 				List<SheepEntity> sheepList = entity.world.getEntitiesWithinAABB(SheepEntity.class,
-						new AxisAlignedBB(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
-								sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r));
+						new AxisAlignedBB(sheep.getPosX() - r, sheep.getPosY() - r, sheep.getPosZ() - r,
+								sheep.getPosX() + r, sheep.getPosY() + r, sheep.getPosZ() + r));
 				for (SheepEntity other : sheepList) {
 					if (other.getFleeceColor() == sheepColor) {
 						other.setFleeceColor(DyeColor.byId(storedColor == 16 ? other.world.rand.nextInt(16) : storedColor));

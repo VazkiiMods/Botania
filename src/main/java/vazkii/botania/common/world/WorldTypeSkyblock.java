@@ -47,7 +47,7 @@ public class WorldTypeSkyblock extends WorldType {
 	public ChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
 		if (world.dimension.getType() == DimensionType.OVERWORLD) {
 			OverworldGenSettings genSettings = SkyblockChunkGenerator.TYPE.createSettings();
-			OverworldBiomeProviderSettings biomeSettings = BiomeProviderType.VANILLA_LAYERED.getConfig(world.getWorldInfo()).setGeneratorSettings(genSettings);
+			OverworldBiomeProviderSettings biomeSettings = BiomeProviderType.VANILLA_LAYERED.createSettings(world.getWorldInfo()).setGeneratorSettings(genSettings);
 			return SkyblockChunkGenerator.TYPE.create(world, BiomeProviderType.VANILLA_LAYERED.create(biomeSettings), genSettings);
 		}
 		return super.createChunkGenerator(world);

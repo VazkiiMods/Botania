@@ -48,13 +48,13 @@ public class RenderTileAnimatedTorch extends TileEntityRenderer<TileAnimatedTorc
 		ms.translate(xt, yt, zt);
 
 		ms.scale(2, 2, 2);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+		ms.rotate(Vector3f.XP.rotationDegrees(90));
 		float rotation = (float) te.rotation;
 		if (te.rotating) {
 			rotation += te.anglePerTick * partialTicks;
 		}
 
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotation));
+		ms.rotate(Vector3f.ZP.rotationDegrees(rotation));
 		mc.getItemRenderer().renderItem(new ItemStack(Blocks.REDSTONE_TORCH), ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
 		ms.pop();
 	}

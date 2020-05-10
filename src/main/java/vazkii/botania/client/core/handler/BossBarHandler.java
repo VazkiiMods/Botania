@@ -54,7 +54,7 @@ public final class BossBarHandler {
 				Rectangle bgRect = currentBoss.getBossBarTextureRect();
 				Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
 				String name = evt.getBossInfo().getName().getFormattedText();
-				int c = Minecraft.getInstance().getWindow().getScaledWidth() / 2;
+				int c = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2;
 				int x = evt.getX();
 				int y = evt.getY();
 				int xf = x + (bgRect.width - fgRect.width) / 2;
@@ -101,8 +101,8 @@ public final class BossBarHandler {
 			int startXUniform = GlStateManager.getUniformLocation(shader, "startX");
 			int startYUniform = GlStateManager.getUniformLocation(shader, "startY");
 
-			GlStateManager.uniform1(startXUniform, x);
-			GlStateManager.uniform1(startYUniform, y);
+			GlStateManager.uniform1i(startXUniform, x);
+			GlStateManager.uniform1i(startYUniform, y);
 
 			if (callback != null) {
 				callback.call(shader);

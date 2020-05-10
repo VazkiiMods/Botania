@@ -127,8 +127,8 @@ public class GunModel implements IBakedModel {
 	}
 
 	@Override
-	public boolean isSideLit() {
-		return originalModel.isSideLit();
+	public boolean func_230044_c_() {
+		return originalModel.func_230044_c_();
 	}
 
 	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
@@ -147,7 +147,7 @@ public class GunModel implements IBakedModel {
 			super(gun);
 
 			IUnbakedModel lensUnbaked = bakery.getUnbakedModel(new ModelResourceLocation(lens.getItem().getRegistryName(), "inventory"));
-			IModelTransform transform = new SimpleModelTransform(new TransformationMatrix(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.POSITIVE_Y.getRadialQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
+			IModelTransform transform = new SimpleModelTransform(new TransformationMatrix(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
 			ResourceLocation name = prefix("gun_with_" + lens.getItem().getRegistryName().toString().replace(':', '_'));
 
 			IBakedModel lensBaked;
@@ -155,9 +155,9 @@ public class GunModel implements IBakedModel {
 				BlockModel bm = (BlockModel) lensUnbaked;
 				lensBaked = new ItemModelGenerator()
 						.makeItemModel(ModelLoader.defaultTextureGetter(), bm)
-						.bake(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name, false);
+						.bakeModel(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name, false);
 			} else {
-				lensBaked = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), transform, name);
+				lensBaked = lensUnbaked.bakeModel(bakery, ModelLoader.defaultTextureGetter(), transform, name);
 			}
 
 			for (Direction e : Direction.values()) {

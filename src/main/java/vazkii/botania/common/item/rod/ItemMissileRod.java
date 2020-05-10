@@ -61,12 +61,12 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		PlayerEntity player = (PlayerEntity) living;
 
 		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
-			if (spawnMissile(player.world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
+			if (spawnMissile(player.world, player, player.getPosX() + (Math.random() - 0.5 * 0.1), player.getPosY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getPosZ() + (Math.random() - 0.5 * 0.1))) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
 			}
 
 			SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-			player.world.addParticle(data, player.getX(), player.getY() + 2.4, player.getZ(), 0, 0, 0);
+			player.world.addParticle(data, player.getPosX(), player.getPosY() + 2.4, player.getPosZ(), 0, 0, 0);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 	@Override

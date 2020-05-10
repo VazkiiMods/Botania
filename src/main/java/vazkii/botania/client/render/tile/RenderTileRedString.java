@@ -94,7 +94,7 @@ public class RenderTileRedString extends TileEntityRenderer<TileRedString> {
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
-		buffer.vertex(ms.peek().getModel(), (float) x, (float) y, (float) z).color(r, g, b, a).endVertex();
+		buffer.pos(ms.getLast().getMatrix(), (float) x, (float) y, (float) z).color(r, g, b, a).endVertex();
 	}
 
 }

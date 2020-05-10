@@ -64,7 +64,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					}
 
 					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
+					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}
 		}

@@ -67,7 +67,7 @@ public class ElvenTradeProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(id("diamond_return"), new ItemStack(Items.DIAMOND), Ingredient.fromItems(Items.DIAMOND)));
 		consumer.accept(new FinishedRecipe(id("diamond_block_return"), new ItemStack(Blocks.DIAMOND_BLOCK), Ingredient.fromItems(Blocks.DIAMOND_BLOCK)));
 
-		CustomRecipeBuilder.func_218656_a(ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER).build(consumer, id("lexicon_elven").toString());
+		CustomRecipeBuilder.customRecipe(ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER).build(consumer, id("lexicon_elven").toString());
 	}
 
 	private static ResourceLocation id(String path) {

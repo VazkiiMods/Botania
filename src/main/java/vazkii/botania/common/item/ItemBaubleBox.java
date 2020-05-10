@@ -90,6 +90,6 @@ public class ItemBaubleBox extends Item {
 				b.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 }

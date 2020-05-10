@@ -113,7 +113,7 @@ public class ItemFlowerBag extends Item {
 					if (numPickedUp > 0) {
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
-							event.getItem().world.playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(),
+							event.getItem().world.playSound(null, event.getPlayer().getPosX(), event.getPlayer().getPosY(), event.getPlayer().getPosZ(),
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
@@ -137,7 +137,7 @@ public class ItemFlowerBag extends Item {
 				buf.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 	@Nonnull

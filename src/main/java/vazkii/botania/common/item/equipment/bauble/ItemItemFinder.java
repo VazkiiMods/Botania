@@ -80,14 +80,14 @@ public class ItemItemFinder extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		layer.getEntityModel().bipedHead.rotate(ms);
+		layer.getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
 		ms.scale(0.75F, -0.75F, -0.75F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+				.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 	}
 
 	protected void tickClient(ItemStack stack, PlayerEntity player) {
@@ -109,7 +109,7 @@ public class ItemItemFinder extends ItemBauble {
 			Entity e = player.world.getEntityByID(i);
 			if (e != null && Math.random() < 0.6) {
 				WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), Math.random() < 0.6);
-				player.world.addParticle(data, e.getX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getY() + e.getHeight(), e.getZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
+				player.world.addParticle(data, e.getPosX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getPosY() + e.getHeight(), e.getPosZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
 			}
 		}
 	}
@@ -131,7 +131,7 @@ public class ItemItemFinder extends ItemBauble {
 		if (!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
-			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
+			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosX() - range, player.getPosY() - range, player.getPosZ() - range, player.getPosX() + range, player.getPosY() + range, player.getPosZ() + range));
 			for (Entity e : entities) {
 				if (e == player) {
 					continue;
@@ -180,7 +180,7 @@ public class ItemItemFinder extends ItemBauble {
 						boolean foundCap = false;
 						for (Direction e : Direction.values()) {
 							if (scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
-								blockPosBuilder.add(LongNBT.of(pos_.toLong()));
+								blockPosBuilder.add(LongNBT.valueOf(pos_.toLong()));
 								foundCap = true;
 								break;
 							}
@@ -188,7 +188,7 @@ public class ItemItemFinder extends ItemBauble {
 						if (!foundCap && tile instanceof IInventory) {
 							IInventory inv = (IInventory) tile;
 							if (scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack)) {
-								blockPosBuilder.add(LongNBT.of(pos_.toLong()));
+								blockPosBuilder.add(LongNBT.valueOf(pos_.toLong()));
 							}
 						}
 					}

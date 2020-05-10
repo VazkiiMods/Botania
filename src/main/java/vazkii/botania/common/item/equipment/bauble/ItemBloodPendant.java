@@ -118,14 +118,14 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		layer.getEntityModel().bipedBody.rotate(ms);
+		layer.getEntityModel().bipedBody.translateRotate(ms);
 		ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+				.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 
 		model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
 		int color = Minecraft.getInstance().getItemColors().getColor(stack, 1);
@@ -133,7 +133,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		float g = (color >> 8 & 0xFF) / 255F;
 		float b = (color & 0xFF) / 255F;
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-				.render(ms.peek(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.DEFAULT_UV);
+				.renderModelBrightnessColor(ms.getLast(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.NO_OVERLAY);
 	}
 
 	@Override

@@ -39,13 +39,13 @@ public class LayerTerraHelmet extends LayerRenderer<AbstractClientPlayerEntity, 
 		if (!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm) {
 			if (ItemTerrasteelHelm.hasAnyWill(helm) && !((ItemTerrasteelArmor) helm.getItem()).hasPhantomInk(helm)) {
 				ms.push();
-				getEntityModel().bipedHead.rotate(ms);
+				getEntityModel().bipedHead.translateRotate(ms);
 				ms.translate(-0.2, -0.15, -0.3);
 				ms.scale(0.4F, -0.4F, -0.4F);
 				IBakedModel model = MiscellaneousIcons.INSTANCE.terrasteelHelmWillModel;
-				IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
+				IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
 				Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-						.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+						.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 				ms.pop();
 			}
 		}

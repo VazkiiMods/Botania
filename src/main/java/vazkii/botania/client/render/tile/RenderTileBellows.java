@@ -53,9 +53,9 @@ public class RenderTileBellows extends TileEntityRenderer<TileBellows> {
 				break;
 			}
 		}
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angle));
+		ms.rotate(Vector3f.YP.rotationDegrees(angle));
 		float fract = Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F));
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1, fract);
 		ms.pop();
 	}

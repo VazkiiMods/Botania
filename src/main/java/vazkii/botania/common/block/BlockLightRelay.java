@@ -59,7 +59,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return ActionResultType.SUCCESS;
 	}
@@ -81,7 +81,7 @@ public class BlockLightRelay extends BlockMod implements IWandable {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 

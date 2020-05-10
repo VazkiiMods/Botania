@@ -34,7 +34,7 @@ public class ItemVineBall extends Item {
 			player.getHeldItem(hand).shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isRemote) {
 			EntityVineBall ball = new EntityVineBall(player, true);
@@ -42,7 +42,7 @@ public class ItemVineBall extends Item {
 			world.addEntity(ball);
 		}
 
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 }

@@ -59,9 +59,9 @@ public class ModFeatures {
 	public static void addWorldgen() {
 		for (Biome biome : ForgeRegistries.BIOMES) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
-				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(new MysticalFlowerConfig()).createDecoratedFeature(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.withConfiguration(new MysticalFlowerConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}
-			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.configure(new MysticalFlowerConfig()).createDecoratedFeature(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.withConfiguration(new MysticalFlowerConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 		}
 	}
 }

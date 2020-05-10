@@ -19,11 +19,11 @@ public final class IconHelper {
 	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
 	 */
 	public static void renderIcon(MatrixStack ms, IVertexBuilder buffer, int x, int y, TextureAtlasSprite icon, int width, int height, float alpha) {
-		Matrix4f mat = ms.peek().getModel();
+		Matrix4f mat = ms.getLast().getMatrix();
 		int fullbright = 0xF000F0;
-		buffer.vertex(mat, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).light(fullbright).endVertex();
-		buffer.vertex(mat, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).light(fullbright).endVertex();
-		buffer.vertex(mat, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).light(fullbright).endVertex();
-		buffer.vertex(mat, x, y, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMinV()).light(fullbright).endVertex();
+		buffer.pos(mat, x, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMaxV()).lightmap(fullbright).endVertex();
+		buffer.pos(mat, x + width, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMaxU(), icon.getMaxV()).lightmap(fullbright).endVertex();
+		buffer.pos(mat, x + width, y, 0).color(1, 1, 1, alpha).tex(icon.getMaxU(), icon.getMinV()).lightmap(fullbright).endVertex();
+		buffer.pos(mat, x, y, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMinV()).lightmap(fullbright).endVertex();
 	}
 }

@@ -155,7 +155,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 							bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
 							pos.getX(), pos.getY(), pos.getZ()));
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return true;
 		}
 		return false;
@@ -344,7 +344,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			}
 		}
 
-		return ActionResult.success(stack);
+		return ActionResult.resultSuccess(stack);
 	}
 
 	@Override

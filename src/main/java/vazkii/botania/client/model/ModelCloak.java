@@ -34,16 +34,16 @@ public class ModelCloak extends Model {
 
 		collar = new ModelRenderer(this, 0, 0);
 		collar.setRotationPoint(0.0F, -3.0F, -4.5F);
-		collar.addCuboid(-5.5F, 0.0F, -1.5F, 11, 5, 11, s);
+		collar.addBox(-5.5F, 0.0F, -1.5F, 11, 5, 11, s);
 		setRotateAngle(collar, 0.08726646259971647F, 0.0F, 0.0F);
 		sideL = new ModelRenderer(this, 0, 16);
 		sideL.mirror = true;
 		sideL.setRotationPoint(0.0F, 0.0F, 0.0F);
-		sideL.addCuboid(-0.5F, -0.5F, -5.5F, 11, 21, 10, s);
+		sideL.addBox(-0.5F, -0.5F, -5.5F, 11, 21, 10, s);
 		setRotateAngle(sideL, 0.08726646259971647F, -0.08726646259971647F, -0.17453292519943295F);
 		sideR = new ModelRenderer(this, 0, 16);
 		sideR.setRotationPoint(0.0F, 0.0F, 0.0F);
-		sideR.addCuboid(-10.5F, -0.5F, -5.5F, 11, 21, 10, s);
+		sideR.addBox(-10.5F, -0.5F, -5.5F, 11, 21, 10, s);
 		setRotateAngle(sideR, 0.08726646259971647F, 0.08726646259971647F, 0.17453292519943295F);
 
 	}

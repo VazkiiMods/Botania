@@ -32,7 +32,7 @@ public final class AccessoryRenderHelper {
 	 */
 	public static void applySneakingRotation(MatrixStack ms) {
 		ms.translate(0F, 0.2F, 0F);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F / (float) Math.PI));
+		ms.rotate(Vector3f.XP.rotationDegrees(90F / (float) Math.PI));
 	}
 
 	/**
@@ -44,9 +44,9 @@ public final class AccessoryRenderHelper {
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
 
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-yawOffset));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(yaw - 270));
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(pitch));
+		ms.rotate(Vector3f.YP.rotationDegrees(-yawOffset));
+		ms.rotate(Vector3f.YP.rotationDegrees(yaw - 270));
+		ms.rotate(Vector3f.ZP.rotationDegrees(pitch));
 
 		ms.translate(0, -player.getEyeHeight(), 0);
 //        if (player.shouldRenderSneaking()) TODO Sneaking needs a different adjustment now

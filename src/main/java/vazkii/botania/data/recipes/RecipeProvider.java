@@ -2657,7 +2657,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void specialRecipe(Consumer<IFinishedRecipe> consumer, SpecialRecipeSerializer<?> serializer) {
-		CustomRecipeBuilder.func_218656_a(serializer).build(consumer, prefix("dynamic/" + serializer.getRegistryName().getPath()).toString());
+		CustomRecipeBuilder.customRecipe(serializer).build(consumer, prefix("dynamic/" + serializer.getRegistryName().getPath()).toString());
 	}
 
 	@Override

@@ -29,13 +29,13 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.025F);
-		GlStateManager.uniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1f(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
 		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.05F);
-		GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderPixie(EntityRendererManager renderManager) {

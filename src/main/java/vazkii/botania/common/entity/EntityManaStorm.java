@@ -66,14 +66,14 @@ public class EntityManaStorm extends Entity {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
 				remove();
-				world.createExplosion(this, getX(), getY(), getZ(), 8F, true, Explosion.Mode.DESTROY);
+				world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 8F, true, Explosion.Mode.DESTROY);
 			}
 		}
 	}
 
 	private void spawnBurst() {
 		EntityManaBurst burst = new EntityManaBurst(world);
-		burst.setPosition(getX(), getY(), getZ());
+		burst.setPosition(getPosX(), getPosY(), getPosZ());
 
 		float motionModifier = 0.5F;
 		burst.setColor(0x20FF20);

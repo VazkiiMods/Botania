@@ -244,8 +244,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		int color = getColor();
 		String filter = I18n.format("botaniamisc.filter" + filterType);
-		int x = mc.getWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
-		int y = mc.getWindow().getScaledHeight() / 2 + 30;
+		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
 		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
 		RenderSystem.disableLighting();

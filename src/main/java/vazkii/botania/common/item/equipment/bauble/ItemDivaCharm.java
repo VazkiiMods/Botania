@@ -69,7 +69,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 					if (ManaItemHandler.instance().requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;
 
-						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(IMob.class));
+						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getPosX() - range, target.getPosY() - range, target.getPosZ() - range, target.getPosX() + range, target.getPosY() + range, target.getPosZ() + range), Predicates.instanceOf(IMob.class));
 						if (mobs.size() > 1) {
 							if (SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
 								target.heal(target.getMaxHealth());
@@ -79,8 +79,8 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 								}
 
 								ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
-								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
-								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId()));
+								player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getPosX(), target.getPosY(), target.getPosZ(), target.getEntityId()));
 							}
 						}
 					}
@@ -102,9 +102,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		layer.getEntityModel().bipedHead.rotate(ms);
+		layer.getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(0.15, -0.42, -0.35);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
 	}
 }

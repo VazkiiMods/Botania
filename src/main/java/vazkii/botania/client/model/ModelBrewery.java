@@ -43,17 +43,17 @@ public class ModelBrewery extends Model {
 
 		top = new ModelRenderer(this, 8, 0);
 		top.setRotationPoint(0.0F, 16.0F, 0.0F);
-		top.addCuboid(-2.0F, -7.0F, -2.0F, 4, 1, 4, 0.0F);
+		top.addBox(-2.0F, -7.0F, -2.0F, 4, 1, 4, 0.0F);
 		pole = new ModelRenderer(this, 0, 0);
 		pole.setRotationPoint(0.0F, 16.0F, 0.0F);
-		pole.addCuboid(-1.0F, -6.0F, -1.0F, 2, 10, 2, 0.0F);
+		pole.addBox(-1.0F, -6.0F, -1.0F, 2, 10, 2, 0.0F);
 		bottom = new ModelRenderer(this, 8, 5);
 		bottom.setRotationPoint(0.0F, 16.0F, 0.0F);
-		bottom.addCuboid(-2.0F, 4.0F, -2.0F, 4, 1, 4, 0.0F);
+		bottom.addBox(-2.0F, 4.0F, -2.0F, 4, 1, 4, 0.0F);
 
 		plate = new ModelRenderer(this, 8, 5);
 		plate.setRotationPoint(0.0F, 17.0F, 0.0F);
-		plate.addCuboid(5.0F, 0.0F, -2.0F, 4, 1, 4, 0.0F);
+		plate.addBox(5.0F, 0.0F, -2.0F, 4, 1, 4, 0.0F);
 	}
 
 	public void render(@Nullable TileBrewery brewery, double time, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
@@ -64,20 +64,20 @@ public class ModelBrewery extends Model {
 		float polerot = -deg * 25F;
 
 		ms.translate(0F, offset, 0F);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(polerot));
+		ms.rotate(Vector3f.YP.rotationDegrees(polerot));
 		if (hasTile && !brewery.getItemHandler().getStackInSlot(0).isEmpty()) {
 			ms.push();
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+			ms.rotate(Vector3f.XP.rotationDegrees(180));
 			ms.translate(0, -0.45F, 0);
 			renderItemStack(brewery.getItemHandler().getStackInSlot(0), ms, buffers, light, overlay);
 			ms.pop();
 		}
 
-		RenderType layer = getLayer(TEXTURE);
+		RenderType layer = getRenderType(TEXTURE);
 		pole.render(ms, buffers.getBuffer(layer), light, overlay);
 		top.render(ms, buffers.getBuffer(layer), light, overlay);
 		bottom.render(ms, buffers.getBuffer(layer), light, overlay);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-polerot));
+		ms.rotate(Vector3f.YP.rotationDegrees(-polerot));
 
 		float degper = (float) (2F * Math.PI) / plates;
 		for (int i = 0; i < plates; i++) {
@@ -94,9 +94,9 @@ public class ModelBrewery extends Model {
 				float transY = 1.06F;
 				float transZ = 0.1245F;
 				ms.push();
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rot));
+				ms.rotate(Vector3f.YP.rotationDegrees(rot));
 				ms.translate(transX, transY, transZ);
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90F));
+				ms.rotate(Vector3f.XP.rotationDegrees(-90F));
 				ms.translate(0.125F, 0.125F, 0);
 				renderItemStack(brewery.getItemHandler().getStackInSlot(i + 1), ms, buffers, light, overlay);
 				ms.pop();

@@ -31,7 +31,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
 	public RenderTileRuneAltar(TileEntityRendererDispatcher manager) {
 		super(manager);
-		spinningCube.addCuboid(0F, 0F, 0F, 1, 1, 1);
+		spinningCube.addBox(0F, 0F, 0F, 1, 1, 1);
 		spinningCube.setRotationPoint(0F, 0F, 0F);
 		spinningCube.setTextureSize(64, 64);
 	}
@@ -61,9 +61,9 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		for (int i = 0; i < altar.getSizeInventory(); i++) {
 			ms.push();
 			ms.translate(0.5F, 1.25F, 0.5F);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angles[i] + (float) time));
+			ms.rotate(Vector3f.YP.rotationDegrees(angles[i] + (float) time));
 			ms.translate(1.125F, 0F, 0.25F);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+			ms.rotate(Vector3f.YP.rotationDegrees(90F));
 			ms.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getInstance();
@@ -75,7 +75,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
 		ms.push();
 		ms.translate(0.5F, 1.8F, 0.5F);
-		ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(180F));
+		ms.rotate(new Vector3f(1, 0, 1).rotationDegrees(180F));
 		renderSpinningCubes(ms, buffers, overlay, 2, 15);
 		ms.pop();
 
@@ -119,7 +119,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 				float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 				float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-				ms.multiply(new Vector3f(xRotate, yRotate, zRotate).getDegreesQuaternion(deg));
+				ms.rotate(new Vector3f(xRotate, yRotate, zRotate).rotationDegrees(deg));
 				float alpha = 1;
 				if (curIter < iters) {
 					alpha = (float) curIter / (float) iters * 0.4F;

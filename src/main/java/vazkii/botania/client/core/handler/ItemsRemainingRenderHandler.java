@@ -42,8 +42,8 @@ public final class ItemsRemainingRenderHandler {
 		if (ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
 			Minecraft mc = Minecraft.getInstance();
-			int x = mc.getWindow().getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
-			int y = mc.getWindow().getScaledHeight() / 2;
+			int x = mc.getMainWindow().getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
+			int y = mc.getMainWindow().getScaledHeight() / 2;
 
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;

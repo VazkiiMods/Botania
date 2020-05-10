@@ -83,7 +83,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 	private void terraform(ItemStack stack, World world, PlayerEntity player) {
@@ -143,7 +143,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 			if (!blocks.isEmpty()) {
 				for (int i = 0; i < 10; i++) {
-					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
+					world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				}
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for (int i = 0; i < 120; i++) {

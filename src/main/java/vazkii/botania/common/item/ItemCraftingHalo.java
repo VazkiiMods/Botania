@@ -112,7 +112,7 @@ public class ItemCraftingHalo extends Item {
 			}
 		}
 
-		return ActionResult.success(stack);
+		return ActionResult.resultSuccess(stack);
 	}
 
 	public static IItemHandler getFakeInv(PlayerEntity player) {
@@ -436,7 +436,7 @@ public class ItemCraftingHalo extends Item {
 	@OnlyIn(Dist.CLIENT)
 	public void render(ItemStack stack, PlayerEntity player, MatrixStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
-		IRenderTypeBuffer.Impl buffers = mc.getBufferBuilders().getEntityVertexConsumers();
+		IRenderTypeBuffer.Impl buffers = mc.getRenderTypeBuffers().getBufferSource();
 
 		double renderPosX = mc.getRenderManager().info.getProjectedView().getX();
 		double renderPosY = mc.getRenderManager().info.getProjectedView().getY();
@@ -445,9 +445,9 @@ public class ItemCraftingHalo extends Item {
 		ms.push();
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
-		double posX = player.prevPosX + (player.getX() - player.prevPosX) * partialTicks;
-		double posY = player.prevPosY + (player.getY() - player.prevPosY) * partialTicks + player.getEyeHeight();
-		double posZ = player.prevPosZ + (player.getZ() - player.prevPosZ) * partialTicks;
+		double posX = player.prevPosX + (player.getPosX() - player.prevPosX) * partialTicks;
+		double posY = player.prevPosY + (player.getPosY() - player.prevPosY) * partialTicks + player.getEyeHeight();
+		double posZ = player.prevPosZ + (player.getPosZ() - player.prevPosZ) * partialTicks;
 
 		ms.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
 
@@ -472,7 +472,7 @@ public class ItemCraftingHalo extends Item {
 			boolean inside = false;
 			float rotationAngle = (seg + 0.5F) * segAngles + shift;
 			ms.push();
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotationAngle));
+			ms.rotate(Vector3f.YP.rotationDegrees(rotationAngle));
 			ms.translate(s * m, -0.75F, 0F);
 
 			if (segmentLookedAt == seg) {
@@ -483,16 +483,16 @@ public class ItemCraftingHalo extends Item {
 			if (!slotStack.isEmpty()) {
 				float scale = seg == 0 ? 0.9F : 0.8F;
 				ms.scale(scale, scale, scale);
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
+				ms.rotate(Vector3f.YP.rotationDegrees(180F));
 				ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
-				Minecraft.getInstance().getItemRenderer().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI, 0xF000F0, OverlayTexture.DEFAULT_UV, ms, buffers);
+				ms.rotate(Vector3f.YP.rotationDegrees(90.0F));
+				Minecraft.getInstance().getItemRenderer().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI, 0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers);
 			}
 			ms.pop();
 
 			ms.push();
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+			ms.rotate(Vector3f.XP.rotationDegrees(180));
 			float r = 1, g = 1, b = 1, a = alpha;
 			if (inside) {
 				a += 0.3F;
@@ -505,25 +505,25 @@ public class ItemCraftingHalo extends Item {
 
 			IVertexBuilder buffer = buffers.getBuffer(layer);
 			for (int i = 0; i < segAngles; i++) {
-				Matrix4f mat = ms.peek().getModel();
+				Matrix4f mat = ms.getLast().getMatrix();
 				float ang = i + seg * segAngles + shift;
 				float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
 				float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
 
-				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).texture(u, v).endVertex();
-				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).texture(u, 0).endVertex();
+				buffer.pos(mat, xp * m, y, zp * m).color(r, g, b, a).tex(u, v).endVertex();
+				buffer.pos(mat, xp, y0, zp).color(r, g, b, a).tex(u, 0).endVertex();
 
 				xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
 				zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).texture(0, 0).endVertex();
-				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).texture(0, v).endVertex();
+				buffer.pos(mat, xp, y0, zp).color(r, g, b, a).tex(0, 0).endVertex();
+				buffer.pos(mat, xp * m, y, zp * m).color(r, g, b, a).tex(0, v).endVertex();
 			}
 			y0 = 0;
 			ms.pop();
 		}
 		ms.pop();
-		buffers.draw();
+		buffers.finish();
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -539,12 +539,12 @@ public class ItemCraftingHalo extends Item {
 		if (slot == 0) {
 			String name = craftingTable.getDisplayName().getString();
 			int l = mc.fontRenderer.getStringWidth(name);
-			int x = mc.getWindow().getScaledWidth() / 2 - l / 2;
-			int y = mc.getWindow().getScaledHeight() / 2 - 65;
+			int x = mc.getMainWindow().getScaledWidth() / 2 - l / 2;
+			int y = mc.getMainWindow().getScaledHeight() / 2 - 65;
 
 			AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.getWindow().getScaledWidth() / 2 - 8, mc.getWindow().getScaledHeight() / 2 - 52);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.getMainWindow().getScaledWidth() / 2 - 8, mc.getMainWindow().getScaledHeight() / 2 - 52);
 
 			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
@@ -568,8 +568,8 @@ public class ItemCraftingHalo extends Item {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!recipe[9].isEmpty()) {
-			int x = mc.getWindow().getScaledWidth() / 2 - 45;
-			int y = mc.getWindow().getScaledHeight() / 2 - 90;
+			int x = mc.getMainWindow().getScaledWidth() / 2 - 45;
+			int y = mc.getMainWindow().getScaledHeight() / 2 - 90;
 
 			AbstractGui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
 			AbstractGui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
@@ -596,10 +596,10 @@ public class ItemCraftingHalo extends Item {
 		int yoff = 110;
 		if (setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(warning, mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.getWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 	}
 }

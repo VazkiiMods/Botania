@@ -66,9 +66,9 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			int blue = color & 0xFF;
 			BlockState state = pool.getBlockState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(state));
+			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(state));
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-					.render(ms.peek(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
+					.renderModelBrightnessColor(ms.getLast(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}
 
 		ms.translate(0.5F, 1.5F, 0.5F);
@@ -93,7 +93,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 					ms.push();
 					float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
 					ms.translate(-0.5F, -1F - 0.43F, -0.5F);
-					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+					ms.rotate(Vector3f.XP.rotationDegrees(90F));
 					ms.scale(s, s, s);
 
 					IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
@@ -108,7 +108,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			s = 1F / 256F * 14F;
 			ms.push();
 			ms.translate(w, -1F - (0.43F - waterLevel), w);
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+			ms.rotate(Vector3f.XP.rotationDegrees(90F));
 			ms.scale(s, s, s);
 
 			IVertexBuilder buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);

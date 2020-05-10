@@ -53,7 +53,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 		PlayerEntity eplayer = (PlayerEntity) living;
 
 		double range = 24;
-		AxisAlignedBB aabb = new AxisAlignedBB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).grow(range);
+		AxisAlignedBB aabb = new AxisAlignedBB(living.getPosX(), living.getPosY(), living.getPosZ(), living.getPosX(), living.getPosY(), living.getPosZ()).grow(range);
 		List<LivingEntity> mobs = living.world.getEntitiesWithinAABB(LivingEntity.class, aabb, (Entity e) -> e instanceof IMob);
 
 		for (LivingEntity e : mobs) {
@@ -71,7 +71,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 		for (int i = 0; i < 3; i++) {
 			ms.push();
-			layer.getEntityModel().bipedBody.rotate(ms);
+			layer.getEntityModel().bipedBody.translateRotate(ms);
 
 			switch (i) {
 			case 0:
@@ -92,9 +92,9 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 			ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);
 			ms.scale(0.6F, -0.6F, -0.6F);
 			IBakedModel model = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-					.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+					.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 			ms.pop();
 		}
 	}

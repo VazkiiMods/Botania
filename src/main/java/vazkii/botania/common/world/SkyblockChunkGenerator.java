@@ -29,11 +29,11 @@ public class SkyblockChunkGenerator extends OverworldChunkGenerator {
 	public void makeBase(IWorld worldIn, IChunk chunkIn) {}
 
 	@Override
-	public void buildSurface(WorldGenRegion region, IChunk chunkIn) {}
+	public void generateSurface(WorldGenRegion region, IChunk chunkIn) {}
 
 	@Override
 	public void decorate(WorldGenRegion region) {}
 
 	@Override
-	public void carve(BiomeManager biomeManager, IChunk chunkIn, GenerationStage.Carving carvingSettings) {}
+	public void func_225550_a_(BiomeManager biomeManager, IChunk chunkIn, GenerationStage.Carving carvingSettings) {}
 }

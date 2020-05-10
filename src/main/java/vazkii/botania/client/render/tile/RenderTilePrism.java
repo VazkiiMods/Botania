@@ -41,7 +41,7 @@ public class RenderTilePrism extends TileEntityRenderer<TilePrism> {
 			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			if (stack.getItem() instanceof ILens) {
 				ms.push();
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+				ms.rotate(Vector3f.XP.rotationDegrees(90));
 				ms.translate(0.5F, 0.5F, pos);
 				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, overlay, ms, buffers);
 				ms.pop();

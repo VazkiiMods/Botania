@@ -151,7 +151,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 
 			if (target != null) {
 				if (BLACKLIST.contains(target.getType())) {
-					return ActionResult.fail(stack);
+					return ActionResult.resultFail(stack);
 				}
 
 				if (ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
@@ -182,7 +182,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
 						WispParticleData data = WispParticleData.wisp(s, r, 0F, b);
-						world.addParticle(data, target.getX() + target.getWidth() / 2, target.getY() + target.getHeight() / 2, target.getZ() + target.getWidth() / 2, xm, ym, zm);
+						world.addParticle(data, target.getPosX() + target.getWidth() / 2, target.getPosY() + target.getHeight() / 2, target.getPosZ() + target.getWidth() / 2, xm, ym, zm);
 					}
 
 					MathHelper.setEntityMotionFromVector(target, target3, 0.3333333F);
@@ -192,10 +192,10 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				}
 
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
-				return ActionResult.consume(stack);
+				return ActionResult.resultConsume(stack);
 			}
 		}
-		return ActionResult.pass(stack);
+		return ActionResult.resultPass(stack);
 	}
 
 	@Override
@@ -236,7 +236,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setMotion(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if (!player.world.isRemote) {
-							EntityThrownItem thrown = new EntityThrownItem(item.world, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);
+							EntityThrownItem thrown = new EntityThrownItem(item.world, item.getPosX(), item.getPosY(), item.getPosZ(), (ItemEntity) item);
 							item.world.addEntity(thrown);
 						}
 						item.remove();

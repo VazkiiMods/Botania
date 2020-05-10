@@ -47,7 +47,7 @@ public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate>
 
 		ms.push();
 		ms.translate(0.5F, 1.5F, 0.5F);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ROTATIONS.get(facing)));
+		ms.rotate(Vector3f.YP.rotationDegrees(ROTATIONS.get(facing)));
 		float s = 0.6F;
 		ms.translate(-0.11F, -1.35F, 0F);
 		ms.scale(s, s, s);

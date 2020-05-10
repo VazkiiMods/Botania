@@ -38,7 +38,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 

@@ -31,11 +31,11 @@ public class RenderTileSparkChanger extends TileEntityRenderer<TileSparkChanger>
 	@Override
 	public void render(@Nonnull TileSparkChanger tileentity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+		ms.rotate(Vector3f.XP.rotationDegrees(90));
 		ms.translate(1.0F, -0.125F, -0.25F);
 		ItemStack stack = tileentity.getItemHandler().getStackInSlot(0);
 		if (!stack.isEmpty()) {
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+			ms.rotate(Vector3f.YP.rotationDegrees(180));
 			ms.translate(0.5F, 0.5F, 0);
 			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
 		}

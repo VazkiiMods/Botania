@@ -45,23 +45,23 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 
 		body = new ModelRenderer(this, 0, 0);
 		body.setRotationPoint(0.0F, 16.0F, 0.0F);
-		body.addCuboid(-2.5F, 0.0F, -2.5F, 5, 5, 5, 0.0F);
+		body.addBox(-2.5F, 0.0F, -2.5F, 5, 5, 5, 0.0F);
 
 		leftWingT = new ModelRenderer(this, 0, 4);
 		leftWingT.setRotationPoint(2.5F, 18.0F, 0.5F);
-		leftWingT.addCuboid(0.0F, -5.0F, 0.0F, 0, 5, 6, 0.0F);
+		leftWingT.addBox(0.0F, -5.0F, 0.0F, 0, 5, 6, 0.0F);
 		setRotateAngle(leftWingT, 0.2617993877991494F, 0.5235987755982988F, 0.2617993877991494F);
 		leftWingB = new ModelRenderer(this, 0, 11);
 		leftWingB.setRotationPoint(2.5F, 18.0F, 0.5F);
-		leftWingB.addCuboid(0.0F, 0.0F, 0.0F, 0, 3, 4, 0.0F);
+		leftWingB.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, 0.0F);
 		setRotateAngle(leftWingB, -0.2617993877991494F, 0.2617993877991494F, -0.2617993877991494F);
 		rightWingT = new ModelRenderer(this, 0, 4);
 		rightWingT.setRotationPoint(-2.5F, 18.0F, 0.5F);
-		rightWingT.addCuboid(0.0F, -5.0F, 0.0F, 0, 5, 6, 0.0F);
+		rightWingT.addBox(0.0F, -5.0F, 0.0F, 0, 5, 6, 0.0F);
 		setRotateAngle(rightWingT, 0.2617993877991494F, -0.5235987755982988F, -0.2617993877991494F);
 		rightWingB = new ModelRenderer(this, 0, 11);
 		rightWingB.setRotationPoint(-2.5F, 18.0F, 0.5F);
-		rightWingB.addCuboid(0.0F, 0.0F, 0.0F, 0, 3, 4, 0.0F);
+		rightWingB.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, 0.0F);
 		setRotateAngle(rightWingB, -0.2617993877991494F, -0.2617993877991494F, 0.2617993877991494F);
 	}
 
@@ -82,7 +82,7 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 	}
 
 	@Override
-	public void setAngles(EntityPixie entity, float f, float f1, float f2, float f3, float f4) {
+	public void setRotationAngles(EntityPixie entity, float f, float f1, float f2, float f3, float f4) {
 		evil = entity.getPixieType() == 1;
 		rightWingT.rotateAngleY = -(MathHelper.cos(f2 * 1.7F) * (float) Math.PI * 0.5F);
 		leftWingT.rotateAngleY = MathHelper.cos(f2 * 1.7F) * (float) Math.PI * 0.5F;

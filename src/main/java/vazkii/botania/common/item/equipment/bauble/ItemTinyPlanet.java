@@ -42,9 +42,9 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		double x = player.getX();
-		double y = player.getY() + player.getEyeHeight();
-		double z = player.getZ();
+		double x = player.getPosX();
+		double y = player.getPosY() + player.getEyeHeight();
+		double z = player.getPosZ();
 
 		applyEffect(player.world, x, y, z);
 	}
@@ -52,10 +52,10 @@ public class ItemTinyPlanet extends ItemBauble {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		layer.getEntityModel().bipedHead.rotate(ms);
+		layer.getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(-0.25, -0.4, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockAsEntity(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.DEFAULT_UV);
+		Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
 	}
 
 	public static void applyEffect(World world, double x, double y, double z) {
@@ -81,7 +81,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			float zTarget = (float) (z + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
-			Vector3 currentVec = new Vector3(entity.getX(), entity.getY(), entity.getZ());
+			Vector3 currentVec = new Vector3(entity.getPosX(), entity.getPosY(), entity.getPosZ());
 			Vector3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);

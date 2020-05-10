@@ -102,7 +102,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		ms.push();
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(worldTime * 1.5F));
+			ms.rotate(Vector3f.YP.rotationDegrees(worldTime * 1.5F));
 		}
 
 		RenderType layer = RenderType.getEntityTranslucent(texture);
@@ -121,7 +121,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-worldTime));
+			ms.rotate(Vector3f.YP.rotationDegrees(-worldTime));
 		}
 
 		buffer = buffers.getBuffer(shaderLayer);

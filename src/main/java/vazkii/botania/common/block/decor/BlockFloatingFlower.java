@@ -78,7 +78,7 @@ public class BlockFloatingFlower extends BlockMod {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		TileEntity te = world.getTileEntity(pos);
 		if (!stack.isEmpty() && te != null && te.getCapability(TileEntitySpecialFlower.FLOATING_FLOWER_CAP).isPresent()) {

@@ -125,8 +125,8 @@ public class ItemDodgeRing extends ItemBauble {
 
 	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(PlayerEntity player, ItemStack stack, float pticks) {
-		int xo = Minecraft.getInstance().getWindow().getScaledWidth() / 2 - 20;
-		int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 + 20;
+		int xo = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 20;
+		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 20;
 
 		if (!player.abilities.isFlying) {
 			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);

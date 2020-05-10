@@ -41,13 +41,13 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, disfiguration);
-		GlStateManager.uniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1f(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
 		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-		GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public static final ShaderCallback defaultCallback = shader -> {
@@ -55,13 +55,13 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_DISFIGURATION);
-		GlStateManager.uniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1f(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
 		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_GRAIN_INTENSITY);
-		GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderDoppleganger(EntityRendererManager renderManager) {
@@ -95,7 +95,7 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 	}
 
 	@Override
-	protected boolean func_225622_a_(EntityDoppleganger dopple) {
+	protected boolean isVisible(EntityDoppleganger dopple) {
 		return true;
 	}
 

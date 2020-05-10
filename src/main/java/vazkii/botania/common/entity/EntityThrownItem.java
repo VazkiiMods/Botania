@@ -111,7 +111,7 @@ public class EntityThrownItem extends ItemEntity {
 					if (!world.isRemote) {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
-							item = new ItemEntity(world, getX(), getY(), getZ(), getItem());
+							item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
 							world.addEntity(item);
 						}
 						item.setMotion(getMotion().scale(0.25));
@@ -127,7 +127,7 @@ public class EntityThrownItem extends ItemEntity {
 			if (!world.isRemote) {
 				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
-					item = new ItemEntity(world, getX(), getY(), getZ(), getItem());
+					item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
 					world.addEntity(item);
 				}
 				item.setMotion(getMotion());

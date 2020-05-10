@@ -93,8 +93,8 @@ public class MiscellaneousIcons {
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
 			if (pattern.getFileName().startsWith(LibMisc.MOD_ID)) {
-				materials.add(new Material(Atlases.SHIELD_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(false)));
-				materials.add(new Material(Atlases.BANNER_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(true)));
+				materials.add(new Material(Atlases.SHIELD_ATLAS, pattern.func_226957_a_(false)));
+				materials.add(new Material(Atlases.BANNER_ATLAS, pattern.func_226957_a_(true)));
 			}
 		}
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
@@ -189,7 +189,7 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		if (!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+		if (!evt.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
 			return;
 		}
 
@@ -228,7 +228,7 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
-		if (!evt.getMap().getId().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+		if (!evt.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
 			return;
 		}
 

@@ -49,7 +49,7 @@ public class BlockIncensePlate extends BlockMod {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getHeldItem(hand);

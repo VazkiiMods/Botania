@@ -59,7 +59,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
 		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 

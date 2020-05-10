@@ -134,9 +134,9 @@ public class EntityMagicMissile extends ThrowableEntity {
 		LivingEntity target = getTargetEntity();
 		if (target != null) {
 			if (lockY == -1) {
-				lockX = target.getX();
-				lockY = target.getY();
-				lockZ = target.getZ();
+				lockX = target.getPosX();
+				lockY = target.getPosY();
+				lockZ = target.getPosZ();
 			}
 
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
@@ -147,7 +147,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 				setMotion(getMotion().getX(), Math.abs(getMotion().getY()), getMotion().getZ());
 			}
 
-			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
+			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - 0.5, getPosY() - 0.5, getPosZ() - 0.5, getPosX() + 0.5, getPosY() + 0.5, getPosZ() + 0.5));
 			if (targetList.contains(target)) {
 				LivingEntity thrower = getThrower();
 				if (thrower != null) {
@@ -190,7 +190,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 		}
 
 		double range = 12;
-		AxisAlignedBB bounds = new AxisAlignedBB(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
+		AxisAlignedBB bounds = new AxisAlignedBB(getPosX() - range, getPosY() - range, getPosZ() - range, getPosX() + range, getPosY() + range, getPosZ() + range);
 		List entities;
 		if (isEvil()) {
 			entities = world.getEntitiesWithinAABB(PlayerEntity.class, bounds);

@@ -158,8 +158,8 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		}
 
 		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
-		model.bipedBody.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
+		model.bipedBody.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
 	@Override

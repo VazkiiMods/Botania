@@ -59,7 +59,7 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack held = player.getHeldItem(hand);
 		if (held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
@@ -71,7 +71,7 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		if (!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
 			for (int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);

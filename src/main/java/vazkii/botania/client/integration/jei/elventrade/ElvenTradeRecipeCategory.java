@@ -115,10 +115,10 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		int startY = 25;
 		int stopX = 70;
 		int stopY = 73;
-		wr.vertex(startX, startY, 0).texture(sprite.getMinU(), sprite.getMinV()).endVertex();
-		wr.vertex(startX, stopY, 0).texture(sprite.getMinU(), sprite.getMaxV()).endVertex();
-		wr.vertex(stopX, stopY, 0).texture(sprite.getMaxU(), sprite.getMaxV()).endVertex();
-		wr.vertex(stopX, startY, 0).texture(sprite.getMaxU(), sprite.getMinV()).endVertex();
+		wr.pos(startX, startY, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
+		wr.pos(startX, stopY, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
+		wr.pos(stopX, stopY, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
+		wr.pos(stopX, startY, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
 		tess.draw();
 	}
 

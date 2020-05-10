@@ -53,8 +53,8 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.SPARK);
 		ms.push();
-		ms.multiply(renderManager.getRotation());
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+		ms.rotate(renderManager.getCameraOrientation());
+		ms.rotate(Vector3f.YP.rotationDegrees(180));
 		renderIcon(ms, buffer, iicon, iconColor);
 
 		ms.push();
@@ -107,11 +107,11 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
-		Matrix4f mat = ms.peek().getModel();
-		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(r, g, b, a).texture(f, f3).light(fullbright).endVertex();
-		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(r, g, b, a).texture(f1, f3).light(fullbright).endVertex();
-		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(r, g, b, a).texture(f1, f2).light(fullbright).endVertex();
-		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(r, g, b, a).texture(f, f2).light(fullbright).endVertex();
+		Matrix4f mat = ms.getLast().getMatrix();
+		buffer.pos(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(r, g, b, a).tex(f, f3).lightmap(fullbright).endVertex();
+		buffer.pos(mat, f4 - f5, 0.0F - f6, 0.0F).color(r, g, b, a).tex(f1, f3).lightmap(fullbright).endVertex();
+		buffer.pos(mat, f4 - f5, f4 - f6, 0.0F).color(r, g, b, a).tex(f1, f2).lightmap(fullbright).endVertex();
+		buffer.pos(mat, 0.0F - f5, f4 - f6, 0.0F).color(r, g, b, a).tex(f, f2).lightmap(fullbright).endVertex();
 	}
 
 }

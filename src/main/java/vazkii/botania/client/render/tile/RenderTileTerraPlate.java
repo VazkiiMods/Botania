@@ -36,7 +36,7 @@ public class RenderTileTerraPlate extends TileEntityRenderer<TileTerraPlate> {
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 
 		ms.push();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+		ms.rotate(Vector3f.XP.rotationDegrees(90F));
 		ms.translate(0F, 0F, -3F / 16F - 0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;

@@ -36,33 +36,33 @@ public class ModelPylonMana extends Model implements IPylonModel {
 		//plates
 		platef = new ModelRenderer(this, 36, 0);
 		platef.setRotationPoint(0.0F, 16.0F, 0.0F);
-		platef.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		platef.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		plateb = new ModelRenderer(this, 36, 0);
 		plateb.setRotationPoint(0.0F, 16.0F, 0.0F);
-		plateb.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		plateb.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		setRotation(plateb, 0.0F, 3.141592653589793F, 0.0F);
 		platel = new ModelRenderer(this, 36, 0);
 		platel.setRotationPoint(0.0F, 16.0F, 0.0F);
-		platel.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		platel.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		setRotation(platel, 0.0F, 1.5707963267948966F, 0.0F);
 		plater = new ModelRenderer(this, 36, 0);
 		plater.setRotationPoint(0.0F, 16.0F, 0.0F);
-		plater.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		plater.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		setRotation(plater, 0.0F, -1.5707963267948966F, 0.0F);
 
 		//shards
 		shardlf = new ModelRenderer(this, 0, 21);
 		shardlf.setRotationPoint(0.0F, 16.0F, 0.0F);
-		shardlf.addCuboid(-5.0F, -9.0F, -5.0F, 5, 16, 3, 0.0F);
+		shardlf.addBox(-5.0F, -9.0F, -5.0F, 5, 16, 3, 0.0F);
 		shardrf = new ModelRenderer(this, 16, 21);
 		shardrf.setRotationPoint(0.0F, 16.0F, 0.0F);
-		shardrf.addCuboid(2.0F, -12.0F, -5.0F, 3, 16, 3, 0.0F);
+		shardrf.addBox(2.0F, -12.0F, -5.0F, 3, 16, 3, 0.0F);
 		shardlb = new ModelRenderer(this, 0, 0);
 		shardlb.setRotationPoint(0.0F, 16.0F, 0.0F);
-		shardlb.addCuboid(-5.0F, -10.0F, 0.0F, 6, 16, 5, 0.0F);
+		shardlb.addBox(-5.0F, -10.0F, 0.0F, 6, 16, 5, 0.0F);
 		shardrb = new ModelRenderer(this, 22, 0);
 		shardrb.setRotationPoint(0.0F, 16.0F, 0.0F);
-		shardrb.addCuboid(3.0F, -11.0F, 0.0F, 2, 16, 5, 0.0F);
+		shardrb.addBox(3.0F, -11.0F, 0.0F, 2, 16, 5, 0.0F);
 	}
 
 	@Override

@@ -81,10 +81,10 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					sheep.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
 
 					ItemStack morbid = new ItemStack(sheep.isBurning() ? Items.COOKED_MUTTON : Items.MUTTON);
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
 					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getFleeceColor()).get());
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
 			} else if (target instanceof ItemEntity) {
@@ -95,7 +95,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 					if (expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
-						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.getX(), target.getY(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.getPosX(), target.getPosY(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 					}
 
 					target.remove();
@@ -136,8 +136,8 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		if (!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
-			int x = mc.getWindow().getScaledWidth() / 2 - width;
-			int y = mc.getWindow().getScaledHeight() / 2 + 30;
+			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
+			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);

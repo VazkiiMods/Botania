@@ -103,10 +103,10 @@ public final class ShaderHelper {
 		}
 
 		int program = prog.getProgram();
-		ShaderLinkHelper.useProgram(program);
+		ShaderLinkHelper.func_227804_a_(program);
 
 		int time = GlStateManager.getUniformLocation(program, "time");
-		GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
+		GlStateManager.uniform1i(time, ClientTickHandler.ticksInGame);
 
 		if (callback != null) {
 			callback.call(program);
@@ -118,7 +118,7 @@ public final class ShaderHelper {
 	}
 
 	public static void releaseShader() {
-		ShaderLinkHelper.useProgram(0);
+		ShaderLinkHelper.func_227804_a_(0);
 	}
 
 	public static boolean useShaders() {

@@ -24,14 +24,14 @@ public class ShaderWrappedRenderLayer extends RenderType {
 	@Nullable private final ShaderCallback cb;
 
 	public ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader shader, @Nullable ShaderCallback cb, RenderType delegate) {
-		super(LibResources.PREFIX_MOD + delegate.toString() + "_with_" + shader.name(), delegate.getVertexFormat(), delegate.getDrawMode(), delegate.getExpectedBufferSize(), delegate.func_228665_s_(), true,
+		super(LibResources.PREFIX_MOD + delegate.toString() + "_with_" + shader.name(), delegate.getVertexFormat(), delegate.getDrawMode(), delegate.getBufferSize(), delegate.isUseDelegate(), true,
 				() -> {
-					delegate.startDrawing();
+					delegate.setupRenderState();
 					ShaderHelper.useShader(shader, cb);
 				},
 				() -> {
 					ShaderHelper.releaseShader();
-					delegate.endDrawing();
+					delegate.clearRenderState();
 				});
 		this.delegate = delegate;
 		this.shader = shader;
@@ -39,8 +39,8 @@ public class ShaderWrappedRenderLayer extends RenderType {
 	}
 
 	@Override
-	public Optional<RenderType> getAffectedOutline() {
-		return delegate.getAffectedOutline();
+	public Optional<RenderType> getOutline() {
+		return delegate.getOutline();
 	}
 
 	@Override

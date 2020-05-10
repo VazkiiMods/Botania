@@ -54,7 +54,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements IWand
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!stack.isEmpty()) {
 			if (stack.getItem() == ModItems.twigWand && player.isSneaking()) {

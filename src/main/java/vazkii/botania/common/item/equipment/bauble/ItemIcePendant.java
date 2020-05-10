@@ -47,22 +47,22 @@ public class ItemIcePendant extends ItemBauble {
 			FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 			entity.onGround = lastOnGround;
 
-			int x = MathHelper.floor(entity.getX());
-			int y = MathHelper.floor(entity.getY());
-			int z = MathHelper.floor(entity.getZ());
+			int x = MathHelper.floor(entity.getPosX());
+			int y = MathHelper.floor(entity.getPosY());
+			int z = MathHelper.floor(entity.getPosZ());
 			BlockState blockstate = Blocks.SNOW.getDefaultState();
 
 			for (int l = 0; l < 4; ++l) {
-				x = MathHelper.floor(entity.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-				z = MathHelper.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+				x = MathHelper.floor(entity.getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+				z = MathHelper.floor(entity.getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
-				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).getTemperatureCached(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
+				if (entity.world.isAirBlock(blockpos) && entity.world.getBiome(blockpos).getTemperature(blockpos) < 0.9F && blockstate.isValidPosition(entity.world, blockpos)) {
 					entity.world.setBlockState(blockpos, blockstate);
 				}
 			}
 		} else if (entity.world.isRemote && !entity.isSneaking()) {
 			if (entity.world.rand.nextFloat() >= 0.25F) {
-				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.getX() + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
+				entity.world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.getPosX() + entity.world.rand.nextFloat() * 0.6 - 0.3, entity.getPosY() + 1.1, entity.getPosZ() + entity.world.rand.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
 	}
@@ -71,14 +71,14 @@ public class ItemIcePendant extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		layer.getEntityModel().bipedBody.rotate(ms);
+		layer.getEntityModel().bipedBody.translateRotate(ms);
 		ms.translate(-0.25, 0.5, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getEntityCutout());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+				.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 	}
 
 }

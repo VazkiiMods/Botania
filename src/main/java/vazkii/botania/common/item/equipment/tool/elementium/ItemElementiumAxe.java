@@ -65,7 +65,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	}
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
-		ItemEntity entityitem = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), drop);
+		ItemEntity entityitem = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(), drop);
 		entityitem.setPickupDelay(10);
 		event.getDrops().add(entityitem);
 	}

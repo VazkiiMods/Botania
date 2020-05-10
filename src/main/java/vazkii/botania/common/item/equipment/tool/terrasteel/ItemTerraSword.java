@@ -63,7 +63,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
 			player.world.addEntity(burst);
 			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
+			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		ThrowableEntity entity = (ThrowableEntity) burst;
-		AxisAlignedBB axis = new AxisAlignedBB(entity.getX(), entity.getY(), entity.getZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
+		AxisAlignedBB axis = new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 		LivingEntity thrower = entity.getThrower();
 

@@ -128,12 +128,12 @@ public class RenderLexicon {
 
 		if (side == HandSide.RIGHT) {
 			ms.translate(0.3F + 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F + ticks * 6));
+			ms.rotate(Vector3f.YP.rotationDegrees(180F + ticks * 6));
 		} else {
 			ms.translate(0.1F - 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(200F + ticks * 10));
+			ms.rotate(Vector3f.YP.rotationDegrees(200F + ticks * 10));
 		}
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-0.3F + ticks * 2.85F));
+		ms.rotate(Vector3f.ZP.rotationDegrees(-0.3F + ticks * 2.85F));
 		float opening = MathHelper.clamp(ticks / 12F, 0, 1);
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
@@ -143,27 +143,27 @@ public class RenderLexicon {
 
 		float pageFlip = pageFlipTicks / 5F;
 
-		float leftPageAngle = MathHelper.fractionalPart(pageFlip + 0.25F) * 1.6F - 0.3F;
-		float rightPageAngle = MathHelper.fractionalPart(pageFlip + 0.75F) * 1.6F - 0.3F;
-		model.setPageAngles(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+		float leftPageAngle = MathHelper.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
+		float rightPageAngle = MathHelper.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
+		model.func_228247_a_(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
 		Material mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
-		IVertexBuilder buffer = mat.getVertexConsumer(buffers, RenderType::getEntitySolid);
-		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		IVertexBuilder buffer = mat.getBuffer(buffers, RenderType::getEntitySolid);
+		model.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
 		if (ticks < 3) {
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+			ms.rotate(Vector3f.ZP.rotationDegrees(180F));
 			ms.translate(-0.30F, -0.24F, -0.07F);
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
 			String title = ItemLexicon.getTitle(stack).getFormattedText();
-			font.draw(font.trimStringToWidth(title, 80), 0, 0, 0xD69700, false, ms.peek().getModel(), buffers, false, 0, light);
+			font.renderString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
 			String edition = ItemLexicon.getEdition().applyTextStyles(TextFormatting.ITALIC, TextFormatting.BOLD).getFormattedText();
-			font.draw(edition, 0, 0, 0xA07100, false, ms.peek().getModel(), buffers, false, 0, light);
+			font.renderString(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			if (quote == -1) {
 				quote = mc.world.rand.nextInt(QUOTES.length);
@@ -172,21 +172,21 @@ public class RenderLexicon {
 			String quoteStr = QUOTES[quote];
 
 			ms.translate(-5F, 15F, 0F);
-			renderText(0, 0, 140, 100, 0, 0x79ff92, quoteStr, ms.peek().getModel(), buffers, light);
+			renderText(0, 0, 140, 100, 0, 0x79ff92, quoteStr, ms.getLast().getMatrix(), buffers, light);
 
 			ms.translate(8F, 110F, 0F);
 			String blurb = I18n.format("botaniamisc.lexiconcover0");
-			font.draw(blurb, 0, 0, 0x79ff92, false, ms.peek().getModel(), buffers, false, 0, light);
+			font.renderString(blurb, 0, 0, 0x79ff92, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			String blurb2 = TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.format("botaniamisc.lexiconcover1");
-			font.draw(blurb2, 0, 0, 0x79ff92, false, ms.peek().getModel(), buffers, false, 0, light);
+			font.renderString(blurb2, 0, 0, 0x79ff92, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			ms.translate(0F, -30F, 0F);
 
 			String authorTitle = I18n.format("botaniamisc.lexiconcover2");
 			int len = font.getStringWidth(authorTitle);
-			font.draw(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.peek().getModel(), buffers, false, 0, light);
+			font.renderString(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 		}
 
 		ms.pop();
@@ -252,7 +252,7 @@ public class RenderLexicon {
 					compensationSpaces--;
 					extra++;
 				}
-				font.draw(s, xi, y, color, false, matrix, buffers, false, 0, light);
+				font.renderString(s, xi, y, color, false, matrix, buffers, false, 0, light);
 				xi += font.getStringWidth(s) + spacing + extra;
 			}
 

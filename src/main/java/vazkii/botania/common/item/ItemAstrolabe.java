@@ -91,10 +91,10 @@ public class ItemAstrolabe extends Item {
 				ItemsRemainingRenderHandler.send(playerIn, stack, 0, new StringTextComponent(newSize + "x" + newSize));
 			}
 
-			return ActionResult.success(stack);
+			return ActionResult.resultSuccess(stack);
 		}
 
-		return ActionResult.pass(stack);
+		return ActionResult.resultPass(stack);
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, PlayerEntity player) {

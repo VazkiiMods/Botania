@@ -89,21 +89,21 @@ public class ItemHolyCloak extends ItemBauble {
 		}
 
 		Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(item.getCloakTexture()));
-		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(item.getCloakTexture()));
+		model.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
-		buffer = buffers.getBuffer(model.getLayer(item.getCloakGlowTexture()));
-		model.render(ms, buffer, 0xF000F0, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		buffer = buffers.getBuffer(model.getRenderType(item.getCloakGlowTexture()));
+		model.render(ms, buffer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
 		if (!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
-				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();
-				double y = player.getY() + Math.random() * player.getHeight();
-				double z = player.getZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double x = player.getPosX() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double y = player.getPosY() + Math.random() * player.getHeight();
+				double z = player.getPosZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean yellow = Math.random() > 0.5;
 				float r = yellow ? 1F : 0.3F;
 				float g = yellow ? 1F : 0.3F;

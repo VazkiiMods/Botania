@@ -32,7 +32,7 @@ public class LensFirework extends Lens {
 					&& !((BlockRayTraceResult) pos).getPos().equals(coords)) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
-				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
+				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), fireworkStack);
 				entity.world.addEntity(rocket);
 			}
 		} else {

@@ -407,8 +407,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), manaCap, name);
 
-		int x = Minecraft.getInstance().getWindow().getScaledWidth() / 2 - 11;
-		int y = Minecraft.getInstance().getWindow().getScaledHeight() / 2 + 30;
+		int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 11;
+		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 30;
 
 		int u = outputting ? 22 : 0;
 		int v = 38;

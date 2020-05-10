@@ -563,8 +563,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if (!lens.isEmpty()) {
 			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
-			int x = mc.getWindow().getScaledWidth() / 2 - width;
-			int y = mc.getWindow().getScaledHeight() / 2 + 50;
+			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
+			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
@@ -577,8 +577,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			if (!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName().getString();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-				int x = mc.getWindow().getScaledWidth() / 2 - width;
-				int y = mc.getWindow().getScaledHeight() / 2 + 30;
+				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
+				int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
 				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
@@ -795,9 +795,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if (getIdentifier().equals(expectedIdentity)) {
 			pingbackTicks = TICKS_ALLOWED_WITHOUT_PINGBACK;
 			Entity e = (Entity) burst;
-			lastPingbackX = e.getX();
-			lastPingbackY = e.getY();
-			lastPingbackZ = e.getZ();
+			lastPingbackX = e.getPosX();
+			lastPingbackY = e.getPosY();
+			lastPingbackZ = e.getPosZ();
 			setCanShoot(false);
 		}
 	}

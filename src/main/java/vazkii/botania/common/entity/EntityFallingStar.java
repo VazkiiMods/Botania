@@ -60,12 +60,12 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			world.addParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
+			world.addParticle(data, getPosX() + xs, getPosY() + ys, getPosZ() + zs, 0, 0, 0);
 		}
 
 		LivingEntity thrower = getThrower();
 		if (!world.isRemote && thrower != null) {
-			AxisAlignedBB axis = new AxisAlignedBB(getX(), getY(), getZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
+			AxisAlignedBB axis = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
 			for (LivingEntity living : entities) {
 				if (living == thrower) {

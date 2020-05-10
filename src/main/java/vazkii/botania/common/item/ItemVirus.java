@@ -76,7 +76,7 @@ public class ItemVirus extends Item {
 						? EntityType.ZOMBIE_HORSE.create(player.world)
 						: EntityType.SKELETON_HORSE.create(player.world);
 				newHorse.setTamedBy(player);
-				newHorse.setPositionAndRotation(horse.getX(), horse.getY(), horse.getZ(), horse.rotationYaw, horse.rotationPitch);
+				newHorse.setPositionAndRotation(horse.getPosX(), horse.getPosY(), horse.getPosZ(), horse.rotationYaw, horse.rotationPitch);
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {

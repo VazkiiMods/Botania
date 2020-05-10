@@ -58,7 +58,7 @@ public class BlockBellows extends BlockMod {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		if (EntityDoppleganger.isTruePlayer(player)) {
 			((TileBellows) world.getTileEntity(pos)).interact();
 		}

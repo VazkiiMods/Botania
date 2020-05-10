@@ -439,7 +439,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-		world.addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
+		world.addParticle(ParticleTypes.EXPLOSION_EMITTER, getPosX(), getPosY(), getPosZ(), 1D, 0D, 0D);
 	}
 
 	@Override
@@ -486,7 +486,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 			attackingPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
-			setPosition(player.getX(), player.getY(), player.getZ());
+			setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
 			super.dropLoot(DamageSource.causePlayerDamage(player), wasRecentlyHit);
 			setPosition(savePos.getX(), savePos.getY(), savePos.getZ());
 			attackingPlayer = saveLastAttacker;
@@ -611,7 +611,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	private void keepInsideArena(PlayerEntity player) {
-		if (vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
+		if (vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.getPosX(), player.getPosY(), player.getPosZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
 			Vector3 motion = sourceVector.subtract(playerVector).normalize();
@@ -645,7 +645,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						for (int j = 0; j < 1 + world.rand.nextInt(hardMode ? 8 : 5); j++) {
 							EntityPixie pixie = new EntityPixie(world);
 							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-							pixie.setPosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
+							pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
 							pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
 									SpawnReason.MOB_SUMMONED, null, null);
 							world.addEntity(pixie);
@@ -660,8 +660,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					}
 					float range = 6F;
-					entity.setPosition(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
-							getZ() + 0.5 + Math.random() * range - range / 2);
+					entity.setPosition(getPosX() + 0.5 + Math.random() * range - range / 2, getPosY() - 1,
+							getPosZ() + 0.5 + Math.random() * range - range / 2);
 					entity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeletonEntity && hardMode) {
@@ -698,7 +698,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			remove();
 		}
 
-		smashBlocksAround(MathHelper.floor(getX()), MathHelper.floor(getY()), MathHelper.floor(getZ()), 1);
+		smashBlocksAround(MathHelper.floor(getPosX()), MathHelper.floor(getPosY()), MathHelper.floor(getPosZ()), 1);
 
 		List<PlayerEntity> players = getPlayersAround();
 
@@ -715,7 +715,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 				//also see SleepingHandler
 				if (player.isSleeping()) {
-					player.wakeUp(true, true);
+					player.func_225652_a_(true, true);
 				}
 
 				clearPotions(player);
@@ -781,7 +781,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							int count = dying && hardMode ? 7 : 6;
 							for (int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + rand.nextInt(20);
-								int y = (int) players.get(rand.nextInt(players.size())).getY();
+								int y = (int) players.get(rand.nextInt(players.size())).getPosY();
 								int z = source.getZ() - 10 + rand.nextInt(20);
 
 								EntityMagicLandmine landmine = new EntityMagicLandmine(world);
@@ -796,7 +796,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							for (int i = 0; i < (spawnPixies ? world.rand.nextInt(hardMode ? 6 : 3) : 1); i++) {
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-								pixie.setPosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
+								pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
 								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
@@ -849,7 +849,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 	private void spawnMissile() {
 		EntityMagicMissile missile = new EntityMagicMissile(this, true);
-		missile.setPosition(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
+		missile.setPosition(getPosX() + (Math.random() - 0.5 * 0.1), getPosY() + 2.4 + (Math.random() - 0.5 * 0.1), getPosZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
 			playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 			world.addEntity(missile);
@@ -858,7 +858,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 	private void teleportRandomly() {
 		//choose a location to teleport to
-		double oldX = getX(), oldY = getY(), oldZ = getZ();
+		double oldX = getPosX(), oldY = getPosY(), oldZ = getPosZ();
 		double newX, newY = source.getY(), newZ;
 		int tries = 0;
 
@@ -996,11 +996,11 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-				GlStateManager.uniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+				GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
-				GlStateManager.uniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
+				GlStateManager.uniform1f(hpFractUniform, ShaderHelper.FLOAT_BUF);
 			};
 		}
 

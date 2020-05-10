@@ -56,7 +56,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 			model = new BipedModel(1.0F);
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
-		model.bipedBody.render(ms, buffer, light, OverlayTexture.DEFAULT_UV);
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
+		model.bipedBody.render(ms, buffer, light, OverlayTexture.NO_OVERLAY);
 	}
 }

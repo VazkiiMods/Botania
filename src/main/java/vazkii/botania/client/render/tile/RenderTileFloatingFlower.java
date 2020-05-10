@@ -55,17 +55,17 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 		}
 
 		ms.translate(0.5F, 0, 0.5F);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-((float) worldTime * 0.5F)));
+		ms.rotate(Vector3f.YP.rotationDegrees(-((float) worldTime * 0.5F)));
 		ms.translate(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
 
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(4F * (float) Math.sin(worldTime * 0.04F)));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
+		ms.rotate(Vector3f.XP.rotationDegrees(4F * (float) Math.sin(worldTime * 0.04F)));
+		ms.rotate(Vector3f.YP.rotationDegrees(90.0F));
 
 		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 		BlockState state = tile.getBlockState();
 
 		IBakedModel ibakedmodel = brd.getModelForState(state);
-		brd.getBlockModelRenderer().renderModel(ms.peek(), buffers.getBuffer(RenderTypeLookup.getEntityBlockLayer(state)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
+		brd.getBlockModelRenderer().renderModel(ms.getLast(), buffers.getBuffer(RenderTypeLookup.getRenderType(state)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
 
 		ms.pop();
 

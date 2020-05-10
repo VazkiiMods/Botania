@@ -40,7 +40,7 @@ public class RenderTileTeruTeruBozu extends TileEntityRenderer<TileTeruTeruBozu>
 	@Override
 	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+		ms.rotate(Vector3f.XP.rotationDegrees(180));
 		double time = Botania.proxy.getWorldElapsedTicks() + partialTicks;
 		boolean hasWorld = tileentity != null && tileentity.getWorld() != null;
 		if (hasWorld) {
@@ -49,13 +49,13 @@ public class RenderTileTeruTeruBozu extends TileEntityRenderer<TileTeruTeruBozu>
 
 		ms.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if (hasWorld) {
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) (time * 0.3)));
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(4F * (float) Math.sin(time * 0.05F)));
+			ms.rotate(Vector3f.YP.rotationDegrees((float) (time * 0.3)));
+			ms.rotate(Vector3f.ZP.rotationDegrees(4F * (float) Math.sin(time * 0.05F)));
 			float s = 0.75F;
 			ms.scale(s, s, s);
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(ClientProxy.dootDoot ? textureHalloween : texture));
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(ClientProxy.dootDoot ? textureHalloween : texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1);
 		ms.pop();
 	}

@@ -154,8 +154,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		if (!recieverStack.isEmpty()) {
 			ITextComponent stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
-			int x = mc.getWindow().getScaledWidth() / 2 - width;
-			int y = mc.getWindow().getScaledHeight() / 2 + 30;
+			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
+			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);

@@ -57,7 +57,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.success(player.getHeldItem(hand));
+		return ActionResult.resultSuccess(player.getHeldItem(hand));
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 		if (count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), Predicates.instanceOf(IShearable.class));
+			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), Predicates.instanceOf(IShearable.class));
 			if (sheep.size() > 0) {
 				for (IShearable target : (List<IShearable>) sheep) {
 					Entity entity = (Entity) target;

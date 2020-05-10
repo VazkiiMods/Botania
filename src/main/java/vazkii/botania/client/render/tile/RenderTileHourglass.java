@@ -60,14 +60,14 @@ public class RenderTileHourglass extends TileEntityRenderer<TileHourglass> {
 		if (hasWorld && hourglass.flipTicks > 0) {
 			rot += (hourglass.flipTicks - ticks) * (180F / 4F);
 		}
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rot));
+		ms.rotate(Vector3f.ZP.rotationDegrees(rot));
 
 		ms.scale(1F, -1F, -1F);
 		int color = hasWorld ? hourglass.getColor() : 0;
 		float r = (color >> 16) / 255.0F;
 		float g = (color >> 8) / 255.0F;
 		float b = (color & 0xFF) / 255.0F;
-		IVertexBuilder buffer = buffers.getBuffer(model.getLayer(texture));
+		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
 		model.render(ms, buffer, light, overlay, r, g, b, 1, fract1, fract2, hasWorld && hourglass.flip);
 		ms.pop();
 	}

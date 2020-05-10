@@ -40,10 +40,10 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 	public void render(TileStarfield p_225616_1_, float p_225616_2_, MatrixStack p_225616_3_, IRenderTypeBuffer p_225616_4_, int p_225616_5_, int p_225616_6_) {
 
 		RANDOM.setSeed(31100L);
-		double d0 = p_225616_1_.getPos().distanceSq(this.dispatcher.renderInfo.getProjectedView(), true);
+		double d0 = p_225616_1_.getPos().distanceSq(this.renderDispatcher.renderInfo.getProjectedView(), true);
 		int i = this.getPasses(d0);
 		float f = this.getOffset();
-		Matrix4f matrix4f = p_225616_3_.peek().getModel();
+		Matrix4f matrix4f = p_225616_3_.getLast().getMatrix();
 		this.func_228883_a_(p_225616_1_, f, 0.15F, matrix4f, p_225616_4_.getBuffer(field_228881_e_.get(0)));
 
 		for (int j = 1; j < i; ++j) {
@@ -73,10 +73,10 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 
 	private void func_228884_a_(TileStarfield p_228884_1_, Matrix4f p_228884_2_, IVertexBuilder p_228884_3_, float p_228884_4_, float p_228884_5_, float p_228884_6_, float p_228884_7_, float p_228884_8_, float p_228884_9_, float p_228884_10_, float p_228884_11_, float p_228884_12_, float p_228884_13_, float p_228884_14_, Direction p_228884_15_) {
 		if (p_228884_15_ == Direction.UP) { // Botania: up face only
-			p_228884_3_.vertex(p_228884_2_, p_228884_4_, p_228884_6_, p_228884_8_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
-			p_228884_3_.vertex(p_228884_2_, p_228884_5_, p_228884_6_, p_228884_9_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
-			p_228884_3_.vertex(p_228884_2_, p_228884_5_, p_228884_7_, p_228884_10_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
-			p_228884_3_.vertex(p_228884_2_, p_228884_4_, p_228884_7_, p_228884_11_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.pos(p_228884_2_, p_228884_4_, p_228884_6_, p_228884_8_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.pos(p_228884_2_, p_228884_5_, p_228884_6_, p_228884_9_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.pos(p_228884_2_, p_228884_5_, p_228884_7_, p_228884_10_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
+			p_228884_3_.pos(p_228884_2_, p_228884_4_, p_228884_7_, p_228884_11_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
 		}
 
 	}

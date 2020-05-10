@@ -151,7 +151,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@SuppressWarnings("unchecked")
 	private List<ICorporeaSpark> getNearbySparks() {
-		return (List) world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+		return (List) world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - SCAN_RANGE, getPosY() - SCAN_RANGE, getPosZ() - SCAN_RANGE, getPosX() + SCAN_RANGE, getPosY() + SCAN_RANGE, getPosZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 	}
 
 	private void restartNetwork() {
@@ -201,9 +201,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public InvWithLocation getSparkInventory() {
-		int x = MathHelper.floor(getX());
-		int y = MathHelper.floor(getY() - 1);
-		int z = MathHelper.floor(getZ());
+		int x = MathHelper.floor(getPosX());
+		int y = MathHelper.floor(getPosY() - 1);
+		int z = MathHelper.floor(getPosZ());
 		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), Direction.UP);
 	}
 

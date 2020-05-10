@@ -135,13 +135,13 @@ public class ItemCacophonium extends Item {
 		if (getSound(stack) != null) {
 			player.setActiveHand(hand);
 		}
-		return ActionResult.success(stack);
+		return ActionResult.resultSuccess(stack);
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
 		if (count % (isDOIT(stack) ? 20 : 6) == 0) {
-			playSound(player.world, stack, player.getX(), player.getY(), player.getZ(), SoundCategory.PLAYERS, 0.9F);
+			playSound(player.world, stack, player.getPosX(), player.getPosY(), player.getPosZ(), SoundCategory.PLAYERS, 0.9F);
 		}
 	}
 

@@ -55,7 +55,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	}
 
 	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> p_i48542_1_, LivingEntity p_i48542_2_, World p_i48542_3_) {
-		this(p_i48542_1_, p_i48542_2_.getX(), p_i48542_2_.getEyeY() - (double) 0.1F, p_i48542_2_.getZ(), p_i48542_3_);
+		this(p_i48542_1_, p_i48542_2_.getPosX(), p_i48542_2_.getPosYEye() - (double) 0.1F, p_i48542_2_.getPosZ(), p_i48542_3_);
 		this.owner = p_i48542_2_;
 		this.ownerId = p_i48542_2_.getUniqueID();
 	}
@@ -162,9 +162,9 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 		}
 
 		Vec3d vec3d = this.getMotion();
-		double d0 = this.getX() + vec3d.x;
-		double d1 = this.getY() + vec3d.y;
-		double d2 = this.getZ() + vec3d.z;
+		double d0 = this.getPosX() + vec3d.x;
+		double d1 = this.getPosY() + vec3d.y;
+		double d2 = this.getPosZ() + vec3d.z;
 		float f = MathHelper.sqrt(horizontalMag(vec3d));
 		this.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
 

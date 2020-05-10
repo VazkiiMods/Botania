@@ -123,9 +123,9 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
 					for (EnderPearlEntity pearl : enderPearls) {
 						pearl.setPositionAndUpdate(
-								endpoint.getX() + pearl.getX() - pos.getX(),
-								endpoint.getY() + pearl.getY() - pos.getY(),
-								endpoint.getZ() + pearl.getZ() - pos.getZ()
+								endpoint.getX() + pearl.getPosX() - pos.getX(),
+								endpoint.getY() + pearl.getPosY() - pos.getY(),
+								endpoint.getZ() + pearl.getPosZ() - pos.getZ()
 						);
 					}
 				}
@@ -311,7 +311,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 				for (Entity e : getPassengers()) {
 					e.stopRiding();
-					e.setPositionAndUpdate(getX(), getY(), getZ());
+					e.setPositionAndUpdate(getPosX(), getPosY(), getPosZ());
 				}
 				remove();
 			} else {
@@ -332,10 +332,10 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					int g = (color >> 8) & 0xFF;
 					int b = color & 0xFF;
 					SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
-					world.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
+					world.addParticle(data, getPosX() + cos * s, getPosY() - 0.5, getPosZ() + sin * s, 0, 0, 0);
 				}
 
-				setPosition(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
+				setPosition(getPosX() + motVec.x, getPosY() + motVec.y, getPosZ() + motVec.z);
 			}
 		}
 

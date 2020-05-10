@@ -59,7 +59,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (!(tile instanceof TilePrism)) {
 			return ActionResultType.PASS;

@@ -103,7 +103,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 							item.setItem(new ItemStack(ModItems.terrasteel));
 						}
 					}
-					world.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
+					world.playSound(null, item.getPosX(), item.getPosY(), item.getPosZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);

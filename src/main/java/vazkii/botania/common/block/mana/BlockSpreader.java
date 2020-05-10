@@ -127,7 +127,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, IWir
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (!(tile instanceof TileSpreader)) {
 			return ActionResultType.PASS;
