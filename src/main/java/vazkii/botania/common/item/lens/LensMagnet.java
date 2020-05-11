@@ -48,9 +48,12 @@ public class LensMagnet extends Lens {
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Z)
 			));
 			if (!predicate.test(tile)) {
-				return;
+				tile = null;
+				entity.getPersistentData().remove(TAG_MAGNETIZED);
 			}
-		} else {
+		}
+
+		if (tile == null) {
 			for (BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
 					basePos.add(range, range, range))) {
 				tile = entity.world.getTileEntity(pos);
