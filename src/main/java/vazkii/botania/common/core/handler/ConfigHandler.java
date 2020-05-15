@@ -17,7 +17,6 @@ public final class ConfigHandler {
 	public static class Client {
 		public final ForgeConfigSpec.BooleanValue useShaders;
 		public final ForgeConfigSpec.BooleanValue lexiconRotatingItems;
-		public final ForgeConfigSpec.BooleanValue lexiconJustifiedText;
 		public final ForgeConfigSpec.BooleanValue subtlePowerSystem;
 		public final ForgeConfigSpec.BooleanValue staticWandBeam;
 		public final ForgeConfigSpec.BooleanValue boundBlockWireframe;
@@ -44,9 +43,6 @@ public final class ConfigHandler {
 			lexiconRotatingItems = builder
 					.comment("Set this to false to disable the rotating items in the petal and rune entries in the Lexica Botania.")
 					.define("lexicon.rotating_items", true);
-			lexiconJustifiedText = builder
-					.comment("Set this to true to enable justified text in the Lexica Botania's text pages.")
-					.define("lexicon.justified_text", false);
 			subtlePowerSystem = builder
 					.comment("Set this to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.")
 					.define("subtile_power_system", false);

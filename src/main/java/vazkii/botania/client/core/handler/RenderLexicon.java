@@ -233,25 +233,9 @@ public class RenderLexicon {
 		for (List<String> words : lines) {
 			int xi = x;
 			int spacing = 4;
-			int wcount = words.size();
-			int compensationSpaces = 0;
-			boolean justify = ConfigHandler.CLIENT.lexiconJustifiedText.get() && wcount > 0 && lines.size() > i && !lines.get(i + 1).isEmpty();
-
-			if (justify) {
-				String s = Joiner.on("").join(words);
-				int swidth = font.getStringWidth(s);
-				int space = width - swidth;
-
-				spacing = wcount == 1 ? 0 : space / (wcount - 1);
-				compensationSpaces = wcount == 1 ? 0 : space % (wcount - 1);
-			}
 
 			for (String s : words) {
 				int extra = 0;
-				if (compensationSpaces > 0) {
-					compensationSpaces--;
-					extra++;
-				}
 				font.renderString(s, xi, y, color, false, matrix, buffers, false, 0, light);
 				xi += font.getStringWidth(s) + spacing + extra;
 			}
