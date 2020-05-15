@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.datafixers.Dynamic;
@@ -29,6 +30,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class StateIngredientHelper {
 	public static StateIngredient of(Block block) {
 		return new StateIngredientBlock(block);
@@ -46,6 +52,10 @@ public class StateIngredientHelper {
 		return new StateIngredientTag(id);
 	}
 
+	public static StateIngredient of(Set<Block> blocks) {
+		return new StateIngredientBlocks(blocks);
+	}
+
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (JSONUtils.getString(object, "type")) {
 		case "tag":
@@ -54,6 +64,12 @@ public class StateIngredientHelper {
 			return new StateIngredientBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(JSONUtils.getString(object, "block"))));
 		case "state":
 			return new StateIngredientBlockState(readBlockState(object));
+		case "blocks":
+			HashSet<Block> blocks = new HashSet<>();
+			for (JsonElement element : JSONUtils.getJsonArray(object, "blocks")) {
+				blocks.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(element.getAsString())));
+			}
+			return new StateIngredientBlocks(blocks);
 		default:
 			throw new JsonParseException("Unknown type!");
 		}
@@ -62,7 +78,13 @@ public class StateIngredientHelper {
 	public static StateIngredient read(PacketBuffer buffer) {
 		switch (buffer.readVarInt()) {
 		case 0:
-			return new StateIngredientTag(buffer.readResourceLocation());
+			int count = buffer.readVarInt();
+			Set<Block> set = new HashSet<>();
+			for (int i = 0; i < count; i++) {
+				Block block = buffer.readRegistryIdUnsafe(ForgeRegistries.BLOCKS);
+				set.add(block);
+			}
+			return new StateIngredientBlocks(set);
 		case 1:
 			return new StateIngredientBlock(buffer.readRegistryIdUnsafe(ForgeRegistries.BLOCKS));
 		case 2:

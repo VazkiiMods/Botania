@@ -17,15 +17,16 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.recipe.StateIngredient;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class StateIngredientTag implements StateIngredient {
+public class StateIngredientTag extends StateIngredientBlocks {
 	private final Tag<Block> tag;
 
 	public StateIngredientTag(Tag<Block> tag) {
+		super(tag.getAllElements() instanceof Set ? (Set<Block>) tag.getAllElements() : new HashSet<>(tag.getAllElements()));
 		this.tag = tag;
 	}
 
@@ -48,8 +49,7 @@ public class StateIngredientTag implements StateIngredient {
 
 	@Override
 	public void write(PacketBuffer buffer) {
-		buffer.writeVarInt(0);
-		buffer.writeResourceLocation(tag.getId());
+		super.write(buffer); // We're sending super's contents instead as tags are sent *after* recipes.
 	}
 
 	@Override

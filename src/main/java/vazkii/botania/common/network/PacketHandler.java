@@ -24,7 +24,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import vazkii.botania.common.lib.LibMisc;
 
 public final class PacketHandler {
-	private static final String PROTOCOL = "5";
+	private static final String PROTOCOL = "6";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
 			new ResourceLocation(LibMisc.MOD_ID, "chan"),
 			() -> PROTOCOL,
