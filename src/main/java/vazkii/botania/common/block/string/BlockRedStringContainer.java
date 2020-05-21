@@ -23,7 +23,7 @@ public class BlockRedStringContainer extends BlockRedString {
 
 	public BlockRedStringContainer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN));
+		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Nonnull

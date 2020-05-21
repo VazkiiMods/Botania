@@ -11,8 +11,10 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
@@ -32,6 +34,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.Random;
 
 public class TileIncensePlate extends TileSimpleInventory implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.INCENSE_PLATE) public static TileEntityType<TileIncensePlate> TYPE;
@@ -51,6 +54,11 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	public void tick() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if (!stack.isEmpty() && burning) {
+			if (getBlockState().get(BlockStateProperties.WATERLOGGED) && timeLeft > 1) {
+				timeLeft = 1;
+				spawnSmokeParticles();
+			}
+
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
 			EffectInstance effect = brew.getPotionEffects(stack).get(0);
 			if (timeLeft > 0) {
@@ -106,9 +114,29 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 		}
 	}
 
+	public void spawnSmokeParticles() {
+		Random random = world.getRandom();
+		for (int i = 0; i < 4; ++i) {
+			world.addParticle(ParticleTypes.SMOKE,
+					pos.getX() + 0.5 + random.nextDouble() / 2.0 * (random.nextBoolean() ? 1 : -1),
+					pos.getY() + 1,
+					pos.getZ() + 0.5 + random.nextDouble() / 2.0 * (random.nextBoolean() ? 1 : -1),
+					0.0D,
+					0.05D,
+					0.0D);
+		}
+		world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.1F, 1.0F);
+	}
+
 	public void ignite() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
+
 		if (stack.isEmpty() || burning) {
+			return;
+		}
+
+		if (getBlockState().get(BlockStateProperties.WATERLOGGED)) {
+			spawnSmokeParticles();
 			return;
 		}
 

@@ -29,7 +29,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 
 	public BlockRedStringFertilizer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.DOWN));
+		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Override

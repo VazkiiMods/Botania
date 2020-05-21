@@ -19,12 +19,12 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 
 import javax.annotation.Nonnull;
 
-public class BlockSpawnerClaw extends BlockMod {
+public class BlockSpawnerClaw extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(2, 0, 2, 14, 2, 14);
 

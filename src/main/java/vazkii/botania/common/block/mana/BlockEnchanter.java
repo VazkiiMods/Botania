@@ -41,7 +41,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 
 	public BlockEnchanter(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.ENCHANTER_DIRECTION, Direction.Axis.X));
+		setDefaultState(getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, Direction.Axis.X));
 	}
 
 	@Override

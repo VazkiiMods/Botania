@@ -32,7 +32,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 	public BlockCraftyCrate(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
+		setDefaultState(getDefaultState().with(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
 	}
 
 	@Override

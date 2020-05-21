@@ -26,7 +26,7 @@ public class BlockCorporeaRetainer extends BlockMod {
 
 	public BlockCorporeaRetainer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override

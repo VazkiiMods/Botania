@@ -32,7 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
@@ -40,7 +40,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockPool extends BlockMod implements IWandHUD, IWandable {
+public class BlockPool extends BlockModWaterloggable implements IWandHUD, IWandable {
 	private static final VoxelShape SLAB = makeCuboidShape(0, 0, 0, 16, 8, 16);
 	private static final VoxelShape CUTOUT = makeCuboidShape(1, 1, 1, 15, 8, 15);
 	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, IBooleanFunction.ONLY_FIRST);

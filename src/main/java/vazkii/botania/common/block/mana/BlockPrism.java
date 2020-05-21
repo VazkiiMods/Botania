@@ -30,19 +30,19 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollisionGhost {
+public class BlockPrism extends BlockModWaterloggable implements IManaTrigger, IManaCollisionGhost {
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState()
+		setDefaultState(getDefaultState()
 				.with(BlockStateProperties.POWERED, false)
 				.with(BotaniaStateProps.HAS_LENS, false));
 	}
@@ -55,6 +55,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, IManaCollision
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 

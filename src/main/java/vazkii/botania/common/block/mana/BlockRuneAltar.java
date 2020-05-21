@@ -27,14 +27,14 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockRuneAltar extends BlockMod implements IWandable {
+public class BlockRuneAltar extends BlockModWaterloggable implements IWandable {
 
 	private static final VoxelShape TOP = Block.makeCuboidShape(0, 6, 0, 16, 12, 16);
 	private static final VoxelShape BOTTOM = Block.makeCuboidShape(2, 0, 2, 14, 6, 14);

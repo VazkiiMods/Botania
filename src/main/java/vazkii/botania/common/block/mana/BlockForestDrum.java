@@ -28,7 +28,7 @@ import net.minecraftforge.common.IShearable;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockForestDrum extends BlockMod implements IManaTrigger {
+public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigger {
 
 	public enum Variant {
 		WILD,

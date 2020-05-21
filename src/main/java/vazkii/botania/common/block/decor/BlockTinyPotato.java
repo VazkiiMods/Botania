@@ -31,7 +31,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -39,18 +39,19 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockTinyPotato extends BlockMod {
+public class BlockTinyPotato extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(6, 0, 6, 10, 6, 10);
 
 	public BlockTinyPotato(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState()
+		setDefaultState(getDefaultState()
 				.with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
@@ -82,9 +83,10 @@ public class BlockTinyPotato extends BlockMod {
 		return ActionResultType.SUCCESS;
 	}
 
+	@Nonnull
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, ctx.getPlacementHorizontalFacing().getOpposite());
+		return super.getStateForPlacement(ctx).with(BlockStateProperties.HORIZONTAL_FACING, ctx.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override

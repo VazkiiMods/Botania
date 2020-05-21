@@ -30,21 +30,23 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileIncensePlate;
+import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockIncensePlate extends BlockMod {
+public class BlockIncensePlate extends BlockModWaterloggable {
 
 	private static final VoxelShape X_SHAPE = makeCuboidShape(6, 0, 2, 10, 1, 14);
 	private static final VoxelShape Z_SHAPE = makeCuboidShape(2, 0, 6, 14, 1, 10);
 
 	protected BlockIncensePlate(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+		setDefaultState(getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
@@ -56,6 +58,13 @@ public class BlockIncensePlate extends BlockMod {
 		boolean did = false;
 
 		if (world.isRemote) {
+			if (state.get(BlockStateProperties.WATERLOGGED)
+					&& !plateStack.isEmpty()
+					&& !plate.burning
+					&& !stack.isEmpty()
+					&& stack.getItem() == Items.FLINT_AND_STEEL) {
+				plate.spawnSmokeParticles();
+			}
 			return ActionResultType.SUCCESS;
 		}
 
@@ -85,7 +94,7 @@ public class BlockIncensePlate extends BlockMod {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+		return super.getStateForPlacement(context).with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override
@@ -117,6 +126,17 @@ public class BlockIncensePlate extends BlockMod {
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileIncensePlate();
+	}
+
+	@Override
+	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+		if (state.getBlock() != newState.getBlock()) {
+			TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
+			if (plate != null && !plate.burning) {
+				InventoryHelper.dropInventory(plate, world, state, pos);
+			}
+		}
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 }

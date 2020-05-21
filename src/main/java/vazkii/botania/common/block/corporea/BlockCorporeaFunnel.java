@@ -25,7 +25,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase {
 
 	public BlockCorporeaFunnel(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override

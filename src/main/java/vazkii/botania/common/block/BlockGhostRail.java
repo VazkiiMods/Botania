@@ -45,7 +45,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 
 	public BlockGhostRail(Properties builder) {
 		super(true, builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));
+		setDefaultState(getDefaultState().with(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));
 		MinecraftForge.EVENT_BUS.addListener(this::cartSpawn);
 		MinecraftForge.EVENT_BUS.addListener(this::worldTick);
 	}

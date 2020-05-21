@@ -34,7 +34,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockCocoon extends BlockMod {
+public class BlockCocoon extends BlockModWaterloggable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 14, 13);;
 

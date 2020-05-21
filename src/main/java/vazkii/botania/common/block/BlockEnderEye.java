@@ -29,7 +29,7 @@ public class BlockEnderEye extends BlockMod {
 
 	protected BlockEnderEye(Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
