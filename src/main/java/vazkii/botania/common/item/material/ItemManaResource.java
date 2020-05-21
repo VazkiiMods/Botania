@@ -12,6 +12,7 @@ package vazkii.botania.common.item.material;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -20,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -32,10 +34,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
@@ -44,6 +44,8 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+
+import java.util.List;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
@@ -56,22 +58,26 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
 		ItemStack stack = event.getItemStack();
-		boolean correctStack = !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE;
-		boolean ender = event.getWorld().provider instanceof WorldProviderEnd;
 
-		if(correctStack && ender) {
-			if (event.getWorld().isRemote) {
-				event.getEntityPlayer().swingArm(event.getHand());
-			} else {
-				ItemStack stack1 = new ItemStack(this, 1, 15);
+		World world = event.getWorld();
 
-				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.provider instanceof WorldProviderEnd) {
+			List<EntityAreaEffectCloud> list = world.getEntitiesWithinAABB(EntityAreaEffectCloud.class,
+					event.getEntityPlayer().getEntityBoundingBox().grow(3.5D),
+					entity -> entity != null && entity.isEntityAlive()
+							&& entity.getParticle() == EnumParticleTypes.DRAGON_BREATH);
+			if (!list.isEmpty()) {
+				return;
+			}
 
+			if (!world.isRemote) {
+				ItemStack enderAir = new ItemStack(this, 1, 15);
+				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), enderAir);
 				stack.shrink(1);
 
-				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
+				world.playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
 			}
 
 			event.setCanceled(true);
