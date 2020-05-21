@@ -90,6 +90,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 
 		getBuilder(BlockTags.TALL_FLOWERS).add(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
+		getBuilder(BlockTags.SMALL_FLOWERS).add(ModTags.Blocks.MYSTICAL_FLOWERS);
+		getBuilder(BlockTags.FLOWERS).add(ModTags.Blocks.SPECIAL_FLOWERS);
 
 		getBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 	}

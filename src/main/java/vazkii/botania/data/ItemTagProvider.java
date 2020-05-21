@@ -44,8 +44,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.FLOATING_FLOWERS, ModTags.Items.FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.getBuilder(ItemTags.TALL_FLOWERS).add(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.copy(ModTags.Blocks.MYSTICAL_FLOWERS, ModTags.Items.MYSTICAL_FLOWERS);
+
+		this.getBuilder(ItemTags.TALL_FLOWERS).add(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.getBuilder(ItemTags.SMALL_FLOWERS).add(ModTags.Items.MYSTICAL_FLOWERS);
+		this.getBuilder(ItemTags.FLOWERS).add(ModTags.Items.SPECIAL_FLOWERS);
 
 		Tag.Builder<Item> builder = getBuilder(ModTags.Items.DYES);
 		Arrays.stream(DyeColor.values()).map(ModItems::getDye).sorted(Comparator.comparing(Item::getRegistryName)).forEach(builder::add);
