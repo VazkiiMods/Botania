@@ -1,17 +1,32 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,waterlogged=false": {
       "model": "botania:block/incense_plate",
       "y": 180
     },
-    "facing=south": {
+    "facing=south,waterlogged=false": {
       "model": "botania:block/incense_plate"
     },
-    "facing=west": {
+    "facing=west,waterlogged=false": {
       "model": "botania:block/incense_plate",
       "y": 90
     },
-    "facing=east": {
+    "facing=east,waterlogged=false": {
+      "model": "botania:block/incense_plate",
+      "y": 270
+    },
+    "facing=north,waterlogged=true": {
+      "model": "botania:block/incense_plate",
+      "y": 180
+    },
+    "facing=south,waterlogged=true": {
+      "model": "botania:block/incense_plate"
+    },
+    "facing=west,waterlogged=true": {
+      "model": "botania:block/incense_plate",
+      "y": 90
+    },
+    "facing=east,waterlogged=true": {
       "model": "botania:block/incense_plate",
       "y": 270
     }

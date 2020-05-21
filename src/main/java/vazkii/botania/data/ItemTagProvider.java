@@ -44,6 +44,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.FLOATING_FLOWERS, ModTags.Items.FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.getBuilder(ItemTags.TALL_FLOWERS).add(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.copy(ModTags.Blocks.MYSTICAL_FLOWERS, ModTags.Items.MYSTICAL_FLOWERS);
 
 		Tag.Builder<Item> builder = getBuilder(ModTags.Items.DYES);
