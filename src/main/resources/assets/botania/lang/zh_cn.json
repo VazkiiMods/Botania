@@ -3249,7 +3249,7 @@
 
   "botania.entry.dispenserTweaks": "发射器改动(原版)",
   "botania.tagline.dispenserTweaks": "让你的发射器能种植作物",
-  "botania.page.dispenserTweaks0": "$(item)发射器$(0),在原有基础上,也能 种植作物,通过$(item)种子$(0),$(item)马铃薯$(0) ,$(item)胡萝卜$(0)甚至$(item)地狱疣$(0).作物会 种在发射器前方的方块上.$(p)$(item)发射器$(0)也能使用$(item)森林法杖$(0)做 些特殊工作比如启动$(item)符文祭$(0) $(item)坛$(0).",
+  "botania.page.dispenserTweaks0": "$(item)发射器$(0),在原有基础上,也能 种植作物,比如$(item)种子$(0),$(item)马铃薯$(0) ,$(item)胡萝卜$(0)甚至$(item)地狱疣$(0).作物会 种在发射器前方的方块上.当然也可以种植$(item)咖啡豆$(0)。种植咖啡豆时，需要前方有$(item)丛林木$(0)，且相距丛林木有一格的空隙用以种植。$(p)这也允许结合其他方块一起用于全自动地种植农作物，例如$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。",
 
   "botania.entry.shinyFlowers": "荧光花",
   "botania.tagline.shinyFlowers": "浮空的发光花",
