@@ -54,6 +54,7 @@ public class RenderLexicon {
 	private static final MethodHandle APPLY_EQUIP_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228406_b_", MatrixStack.class, HandSide.class, float.class);
 	private static final MethodHandle APPLY_SWING_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228399_a_", MatrixStack.class, HandSide.class, float.class);
 	private static final BookModel model = new BookModel();
+	private static final boolean SHOULD_MISSPELL = Math.random() < 0.0004;
 	public static final Material TEXTURE = new Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
 	public static final Material ELVEN_TEXTURE = new Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN));
 
@@ -66,7 +67,14 @@ public class RenderLexicon {
 			"\"Vazkii did a thing.\" - cpw"
 	};
 
+	private static final String[] MISSPELLINGS = {
+			"Bonito", "Bonita", "Bonitia", "Botnaia", "Bontonio",
+			"Botnia", "Bonitaaaaaaaaaa", "Botonio", "Botonia",
+			"Banana", "Brotania", "Botanica", "Boat"
+	};
+
 	private static int quote = -1;
+	private static int misspelling = -1;
 
 	@SubscribeEvent
 	public static void renderItem(RenderHandEvent evt) {
@@ -157,7 +165,14 @@ public class RenderLexicon {
 			ms.translate(-0.30F, -0.24F, -0.07F);
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
+			if (misspelling == -1) {
+				misspelling = mc.world.rand.nextInt(MISSPELLINGS.length);
+			}
+
 			String title = ItemLexicon.getTitle(stack).getFormattedText();
+			if (SHOULD_MISSPELL) {
+				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
+			}
 			font.renderString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
