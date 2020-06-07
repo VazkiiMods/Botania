@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
@@ -83,7 +83,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	}
 
 	// TODO replace this kludge
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private boolean messWithRunAwayAI(AvoidEntityGoal aiEntry) {
 		if (aiEntry.classToAvoid == OcelotEntity.class) {
 			aiEntry.classToAvoid = PlayerEntity.class;
@@ -92,7 +92,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		return false;
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void messWithGetTargetAI(NearestAttackableTargetGoal aiEntry) {
 		if (aiEntry.targetClass == PlayerEntity.class) {
 			aiEntry.targetClass = EnderCrystalEntity.class; // Something random that won't be around
