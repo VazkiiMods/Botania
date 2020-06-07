@@ -217,10 +217,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
 				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).grow(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
-				List bursts = world.getEntitiesWithinAABB(ThrowableEntity.class, aabb, Predicates.instanceOf(IManaBurst.class));
+				@SuppressWarnings("unchecked")
+				List<IManaBurst> bursts = (List<IManaBurst>) (List<?>) world.getEntitiesWithinAABB(ThrowableEntity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
-				for (IManaBurst burst : (List<IManaBurst>) bursts) {
+				for (IManaBurst burst : bursts) {
 					if (burst != null && identity.equals(burst.getShooterUUID())) {
 						found = burst;
 						break;

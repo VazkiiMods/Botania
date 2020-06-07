@@ -36,7 +36,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public BipedModel provideArmorModelForSlot(EquipmentSlotType slot) {
+	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
 		return new ModelArmorElementium(slot);
 	}
 

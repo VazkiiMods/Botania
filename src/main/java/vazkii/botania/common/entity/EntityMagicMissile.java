@@ -191,14 +191,14 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 		double range = 12;
 		AxisAlignedBB bounds = new AxisAlignedBB(getPosX() - range, getPosY() - range, getPosZ() - range, getPosX() + range, getPosY() + range, getPosZ() + range);
-		List entities;
+		List<Entity> entities;
 		if (isEvil()) {
 			entities = world.getEntitiesWithinAABB(PlayerEntity.class, bounds);
 		} else {
 			entities = world.getEntitiesWithinAABB(Entity.class, bounds, Predicates.instanceOf(IMob.class));
 		}
 		while (entities.size() > 0) {
-			Entity e = (Entity) entities.get(world.rand.nextInt(entities.size()));
+			Entity e = entities.get(world.rand.nextInt(entities.size()));
 			if (!(e instanceof LivingEntity) || !e.isAlive()) { // Just in case...
 				entities.remove(e);
 				continue;

@@ -102,8 +102,8 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 			break;
 		case EAST:
 			axis = new AxisAlignedBB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-		default:
 			break;
+		default:
 		}
 		return axis;
 	}

@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class RenderTileFloatingFlower extends TileEntityRenderer {
+public class RenderTileFloatingFlower extends TileEntityRenderer<TileEntity> {
 
 	public RenderTileFloatingFlower(TileEntityRendererDispatcher manager) {
 		super(manager);

@@ -164,8 +164,8 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 			break;
 		case EAST:
 			axis = new AxisAlignedBB(tePos.add(1, -h, -w), tePos.add(l + 1, h, w + 1));
-		default:
 			break;
+		default:
 		}
 
 		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, axis);

@@ -230,6 +230,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	private static BlockState rotate(BlockState old, Direction.Axis axis) {
 		for (IProperty<?> prop : old.getProperties()) {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
+				@SuppressWarnings("unchecked")
 				IProperty<Direction> facingProp = (IProperty<Direction>) prop;
 
 				Direction oldDir = old.get(facingProp);

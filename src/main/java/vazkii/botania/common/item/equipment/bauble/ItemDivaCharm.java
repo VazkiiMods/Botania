@@ -69,9 +69,10 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 					if (ManaItemHandler.instance().requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;
 
-						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getPosX() - range, target.getPosY() - range, target.getPosZ() - range, target.getPosX() + range, target.getPosY() + range, target.getPosZ() + range), Predicates.instanceOf(IMob.class));
+						@SuppressWarnings("unchecked")
+						List<IMob> mobs = (List<IMob>) (List<?>) player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.getPosX() - range, target.getPosY() - range, target.getPosZ() - range, target.getPosX() + range, target.getPosY() + range, target.getPosZ() + range), Predicates.instanceOf(IMob.class));
 						if (mobs.size() > 1) {
-							if (SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
+							if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
 								target.heal(target.getMaxHealth());
 								target.revive();
 								if (target instanceof CreeperEntity) {
