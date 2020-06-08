@@ -65,7 +65,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 			ItemStack sparkStack = ItemSparkUpgrade.getByType(upg);
 			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
 			spark.setUpgrade(newUpg);
-			Collection transfers = spark.getTransfers();
+			Collection<ISparkEntity> transfers = spark.getTransfers();
 			if (transfers != null) {
 				transfers.clear();
 			}

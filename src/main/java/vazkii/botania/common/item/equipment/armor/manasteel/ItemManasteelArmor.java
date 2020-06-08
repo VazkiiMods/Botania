@@ -51,7 +51,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	private final LazyValue<BipedModel> model;
+	private final LazyValue<BipedModel<?>> model;
 	public final EquipmentSlotType type;
 
 	public ItemManasteelArmor(EquipmentSlotType type, Properties props) {
@@ -96,16 +96,17 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel original) {
+	@SuppressWarnings("unchecked")
+	public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original) {
 		if (ConfigHandler.CLIENT.enableArmorModels.get()) {
-			return model.getValue();
+			return (A) model.getValue();
 		}
 
 		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public BipedModel provideArmorModelForSlot(EquipmentSlotType slot) {
+	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
 		return new ModelArmorManasteel(slot);
 	}
 

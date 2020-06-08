@@ -51,7 +51,7 @@ public class ExoflameFurnaceHandler {
 	}
 
 	public static boolean canSmelt(AbstractFurnaceTileEntity furnace, IRecipe<?> recipe) throws Throwable {
-		return (boolean) CAN_SMELT.invokeExact((AbstractFurnaceTileEntity) furnace, recipe);
+		return (boolean) CAN_SMELT.invokeExact(furnace, recipe);
 	}
 
 	@SuppressWarnings("unchecked")

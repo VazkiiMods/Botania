@@ -30,6 +30,7 @@ public final class IMCHandler {
 	}
 
 	private static Map<ResourceLocation, Integer> handleOreWeights(Stream<InterModComms.IMCMessage> msgs) {
+		@SuppressWarnings("unchecked")
 		Map<ResourceLocation, Integer> map = msgs
 				.filter(msg -> {
 					Object thing = msg.getMessageSupplier().get();

@@ -78,7 +78,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			List<Ingredient> ingredients = new ArrayList<>();
 			for (ICraftingRecipe recipe : recipes) {
 				if (recipe instanceof IShapedRecipe) {
-					IShapedRecipe shaped = (IShapedRecipe) recipe;
+					IShapedRecipe<?> shaped = (IShapedRecipe<?>) recipe;
 					if (shaped.getRecipeWidth() < shapedX + 1) {
 						ingredients.add(Ingredient.EMPTY);
 					} else {
@@ -95,7 +95,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
 		}
 		if (key.equals("output")) {
-			return recipes.stream().map(IRecipe::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
+			return recipes.stream().map(ICraftingRecipe::getRecipeOutput).map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
 		}
 		if (key.equals("shapeless")) {}
 		return null;

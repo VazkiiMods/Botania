@@ -709,7 +709,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 	private void addTag(ResourceLocation tagId) {
 		ItemTags.getCollection().getOrCreate(tagId).getAllElements().stream()
-				.sorted(Comparator.comparing(ForgeRegistryEntry::getRegistryName))
+				.sorted(Comparator.comparing(ForgeRegistryEntry<?>::getRegistryName))
 				.forEach(this::addItem);
 	}
 

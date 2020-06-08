@@ -68,10 +68,11 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 		if (count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), Predicates.instanceOf(IShearable.class));
+			List<Entity> sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), Predicates.instanceOf(IShearable.class));
 			if (sheep.size() > 0) {
-				for (IShearable target : (List<IShearable>) sheep) {
-					Entity entity = (Entity) target;
+				for (Entity entity : sheep) {
+					@SuppressWarnings("unchecked")
+					IShearable target = (IShearable) entity;
 					if (target.isShearable(stack, entity.world, new BlockPos(entity))) {
 						List<ItemStack> drops = target.onSheared(stack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 

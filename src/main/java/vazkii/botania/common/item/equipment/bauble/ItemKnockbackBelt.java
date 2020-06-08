@@ -31,7 +31,7 @@ import vazkii.botania.client.lib.LibResources;
 public class ItemKnockbackBelt extends ItemBauble {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
-	private static BipedModel model;
+	private static BipedModel<LivingEntity> model;
 
 	public ItemKnockbackBelt(Properties props) {
 		super(props);
@@ -53,7 +53,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 		float s = 0.85F;
 		ms.scale(s, s, s);
 		if (model == null) {
-			model = new BipedModel(1.0F);
+			model = new BipedModel<>(1.0F);
 		}
 
 		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));

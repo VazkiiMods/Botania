@@ -14,7 +14,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelArmor extends BipedModel {
+public class ModelArmor extends BipedModel<LivingEntity> {
 	protected final EquipmentSlotType slot;
 
 	public ModelArmor(EquipmentSlotType slot) {

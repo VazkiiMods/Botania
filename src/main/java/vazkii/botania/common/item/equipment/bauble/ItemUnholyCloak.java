@@ -42,8 +42,9 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
 		if (!event.getSource().isUnblockable()) {
 			int range = 6;
-			List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosX() - range, player.getPosY() - range, player.getPosZ() - range, player.getPosX() + range, player.getPosY() + range, player.getPosZ() + range), Predicates.instanceOf(IMob.class));
-			for (IMob mob : (List<IMob>) mobs) {
+			@SuppressWarnings("unchecked")
+			List<IMob> mobs = (List<IMob>) (List<?>) player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosX() - range, player.getPosY() - range, player.getPosZ() - range, player.getPosX() + range, player.getPosY() + range, player.getPosZ() + range), Predicates.instanceOf(IMob.class));
+			for (IMob mob : mobs) {
 				if (mob instanceof LivingEntity) {
 					LivingEntity entity = (LivingEntity) mob;
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.getAmount());
