@@ -381,7 +381,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	public void sync() {
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	@Override

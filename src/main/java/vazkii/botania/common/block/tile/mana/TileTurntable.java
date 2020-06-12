@@ -82,7 +82,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 		} else {
 			speed = speed == 6 ? 1 : speed + 1;
 		}
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	@OnlyIn(Dist.CLIENT)

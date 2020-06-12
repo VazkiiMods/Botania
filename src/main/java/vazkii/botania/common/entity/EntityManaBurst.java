@@ -625,7 +625,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if (tile instanceof IThrottledPacket) {
 			((IThrottledPacket) tile).markDispatchable();
 		} else {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers((TileEntity) tile);
 		}
 	}
 

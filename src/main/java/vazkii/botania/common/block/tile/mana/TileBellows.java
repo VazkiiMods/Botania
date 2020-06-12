@@ -149,7 +149,7 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 			boolean diff = this.active != active;
 			this.active = active;
 			if (diff) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
 	}

@@ -269,7 +269,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if (receiverLastTick != receiver && !world.isRemote) {
 			requestsClientUpdate = true;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 
 		redstoneLastTick = redstone;
@@ -424,7 +424,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 				checkForReceiver();
 				requestsClientUpdate = true;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, getPos());
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
 	}
@@ -632,7 +632,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void markDirty() {
 		checkForReceiver();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	@Override

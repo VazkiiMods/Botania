@@ -30,11 +30,4 @@ public final class VanillaPacketDispatcher {
 		}
 	}
 
-	public static void dispatchTEToNearbyPlayers(World world, BlockPos pos) {
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile != null) {
-			dispatchTEToNearbyPlayers(tile);
-		}
-	}
-
 }

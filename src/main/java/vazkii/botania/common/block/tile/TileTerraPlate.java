@@ -89,7 +89,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 							.forEach(os -> os.registerTransfer(spark));
 				}
 				if (mana > 0) {
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 					PacketHandler.sendToNearby(world, getPos(),
 							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
 				}
@@ -106,7 +106,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 					world.playSound(null, item.getPosX(), item.getPosY(), item.getPosZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 				}
 			}
 		}

@@ -123,7 +123,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	@Override

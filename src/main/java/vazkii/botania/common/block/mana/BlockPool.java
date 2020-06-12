@@ -90,9 +90,7 @@ public class BlockPool extends BlockModWaterloggable implements IWandHUD, IWanda
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (entity instanceof ItemEntity) {
 			TilePool tile = (TilePool) world.getTileEntity(pos);
-			if (tile.collideEntityItem((ItemEntity) entity)) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
-			}
+			tile.collideEntityItem((ItemEntity) entity);
 		}
 	}
 

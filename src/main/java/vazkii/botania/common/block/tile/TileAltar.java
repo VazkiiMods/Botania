@@ -210,7 +210,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void trySetLastRecipe(PlayerEntity player) {
 		tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if (!isEmpty()) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
@@ -265,7 +265,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 
 			if (didChange) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		} else {
 			for (int i = 0; i < getSizeInventory(); i++) {
@@ -362,7 +362,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void setFluid(Fluid fluid) {
 		Preconditions.checkArgument(fluid == Fluids.WATER || fluid == Fluids.LAVA || fluid == Fluids.EMPTY);
 		this.fluid = fluid;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	@Override

@@ -113,7 +113,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		}
 
 		if (did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 
 		return true;
@@ -219,7 +219,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if (manaToGet != this.manaToGet) {
 			world.playSound(null, pos, ModSounds.runeAltarStart, SoundCategory.BLOCKS, 1, 1);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
@@ -239,7 +239,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	public void trySetLastRecipe(PlayerEntity player) {
 		TileAltar.tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if (!isEmpty()) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 

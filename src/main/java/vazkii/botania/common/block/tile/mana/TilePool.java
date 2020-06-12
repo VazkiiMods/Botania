@@ -395,7 +395,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public void onWanded(PlayerEntity player) {
 		if (player == null || player.isSneaking()) {
 			outputting = !outputting;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 

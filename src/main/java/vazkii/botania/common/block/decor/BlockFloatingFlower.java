@@ -95,7 +95,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable {
 			if (type != null && type != flower.getIslandType()) {
 				if (!world.isRemote) {
 					flower.setIslandType(type);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(te);
 				}
 
 				if (!player.abilities.isCreativeMode) {

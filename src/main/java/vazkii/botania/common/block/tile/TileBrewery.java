@@ -84,7 +84,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		}
 
 		if (did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			findRecipe();
 		}
 
