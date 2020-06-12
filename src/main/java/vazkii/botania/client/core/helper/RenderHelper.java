@@ -302,19 +302,6 @@ public final class RenderHelper {
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 
-	public static String getKeyDisplayString(String keyName) {
-		String key = null;
-		KeyBinding[] keys = Minecraft.getInstance().gameSettings.keyBindings;
-		for (KeyBinding otherKey : keys) {
-			if (otherKey.getKeyDescription().equals(keyName)) {
-				key = otherKey.getLocalizedName();
-				break;
-			}
-		}
-
-		return key;
-	}
-
 	/**
 	 * @param color Must include alpha
 	 */

@@ -24,6 +24,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.KeybindTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -67,11 +68,8 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@OnlyIn(Dist.CLIENT)
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("key.curios.open.desc");
-
-		if (key != null) {
-			tooltip.add(new TranslationTextComponent("botania.baubletooltip", key));
-		}
+		ITextComponent key = new KeybindTextComponent("key.curios.open.desc");
+		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key));
 
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
