@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
+import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -60,29 +61,25 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if (Screen.hasShiftDown()) {
-			addHiddenTooltip(stack, world, stacks, flags);
-		} else {
-			stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
-		}
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		TooltipHandler.addOnShift(tooltip, () -> addHiddenTooltip(stack, world, tooltip, flags));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("key.curios.open.desc");
 
 		if (key != null) {
-			stacks.add(new TranslationTextComponent("botania.baubletooltip", key));
+			tooltip.add(new TranslationTextComponent("botania.baubletooltip", key));
 		}
 
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
-			stacks.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
 		}
 
 		if (hasPhantomInk(stack)) {
-			stacks.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
 		}
 	}
 

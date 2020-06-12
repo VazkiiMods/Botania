@@ -70,16 +70,16 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag adv) {
-		super.addHiddenTooltip(stack, world, list, adv);
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag adv) {
+		super.addHiddenTooltip(stack, world, tooltip, adv);
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		for (EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().getEffectType().getColor();
 			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
@@ -87,7 +87,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				cmp.appendText(" ");
 				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
-			list.add(cmp.applyTextStyle(format));
+			tooltip.add(cmp.applyTextStyle(format));
 		}
 	}
 

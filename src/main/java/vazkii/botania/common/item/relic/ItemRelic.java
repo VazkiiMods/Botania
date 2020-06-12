@@ -28,6 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -59,28 +60,26 @@ public class ItemRelic extends Item implements IRelic {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addBindInfo(List<ITextComponent> list, ItemStack stack) {
-		if (Screen.hasShiftDown()) {
+	public void addBindInfo(List<ITextComponent> tooltip, ItemStack stack) {
+		TooltipHandler.addOnShift(tooltip, () -> {
 			if (!hasUUID(stack)) {
-				list.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
+				tooltip.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
 			} else {
 				if (!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID())) {
-					list.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
+					tooltip.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
 				} else {
-					list.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
+					tooltip.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
 				}
 			}
 
 			if (stack.getItem() == ModItems.dice) {
-				list.add(new StringTextComponent(""));
+				tooltip.add(new StringTextComponent(""));
 				String name = stack.getTranslationKey() + ".poem";
 				for (int i = 0; i < 4; i++) {
-					list.add(new TranslationTextComponent(name + i).applyTextStyles(TextFormatting.GRAY, TextFormatting.ITALIC));
+					tooltip.add(new TranslationTextComponent(name + i).applyTextStyles(TextFormatting.GRAY, TextFormatting.ITALIC));
 				}
 			}
-		} else {
-			list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
-		}
+		});
 	}
 
 	public boolean shouldDamageWrongPlayer() {

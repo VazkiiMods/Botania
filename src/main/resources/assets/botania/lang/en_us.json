@@ -31,7 +31,7 @@
   "botaniamisc.lexiconcover0": "The official guide for",
   "botaniamisc.lexiconcover1": "all your Botania needs!",
   "botaniamisc.lexiconcover2": "A Book by Vazkii",
-  "botaniamisc.shiftinfo": "Hold \u00a7bSHIFT\u00a77 for more info",
+  "botaniamisc.shiftinfo": "Hold %s for more info",
   "botaniamisc.ratio": "%sx Zoom (hover to zoom out)",
   "botaniamisc.bottleTooltip": "It has an acquired taste",
   "botaniamisc.shardLevel": "Shard Power %s",

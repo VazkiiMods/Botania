@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -242,12 +243,11 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	public void renderHUD(Minecraft mc) {
 		super.renderHUD(mc);
 
-		int color = getColor();
 		String filter = I18n.format("botaniamisc.filter" + filterType);
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
 		int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(filter, x, y, TextFormatting.GRAY.getColor());
 		RenderSystem.disableLighting();
 	}
 

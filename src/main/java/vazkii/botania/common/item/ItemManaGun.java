@@ -36,6 +36,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.ManaGunTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -176,24 +177,24 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		boolean clip = hasClip(stack);
 		if (clip && !Screen.hasShiftDown()) {
-			stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
+			tooltip.add(TooltipHandler.getShiftInfoTooltip());
 			return;
 		}
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<ITextComponent> tooltip = lens.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
-			if (tooltip.size() > 1) {
-				stacks.addAll(tooltip.subList(1, tooltip.size()));
+			List<ITextComponent> lensTip = lens.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
+			if (lensTip.size() > 1) {
+				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}
 		}
 
 		if (clip) {
 			int pos = getClipPos(stack);
-			stacks.add(new TranslationTextComponent("botaniamisc.hasClip"));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasClip"));
 			for (int i = 0; i < CLIP_SLOTS; i++) {
 				ItemStack lensAt = getLensAtPos(stack, i);
 
@@ -206,7 +207,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 				ITextComponent tip = new StringTextComponent(" - ").appendSibling(name);
 				tip.getStyle().setColor(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
-				stacks.add(tip);
+				tooltip.add(tip);
 			}
 		}
 	}

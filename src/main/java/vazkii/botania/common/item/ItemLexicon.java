@@ -29,6 +29,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
@@ -66,11 +67,9 @@ public class ItemLexicon extends Item implements IElvenItem {
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 
-		if (Screen.hasShiftDown()) {
+		TooltipHandler.addOnShift(tooltip, () -> {
 			tooltip.add(getEdition().applyTextStyle(TextFormatting.GRAY));
-		} else {
-			tooltip.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
-		}
+		});
 	}
 
 	@Nonnull

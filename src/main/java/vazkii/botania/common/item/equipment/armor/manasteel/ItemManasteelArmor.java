@@ -33,6 +33,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -118,11 +119,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		if (Screen.hasShiftDown()) {
-			addInformationAfterShift(stack, world, list, flags);
-		} else {
-			list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
-		}
+		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, world, list, flags));
 	}
 
 	@OnlyIn(Dist.CLIENT)

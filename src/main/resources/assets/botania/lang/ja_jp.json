@@ -26,7 +26,7 @@
   "botaniamisc.lexiconcover0": "公式ガイドブック",
   "botaniamisc.lexiconcover1": "ボタニアのすべてがここに!",
   "botaniamisc.lexiconcover2": "Vazkii 著",
-  "botaniamisc.shiftinfo": "&bSHIFT$(7) キーを押して詳しい情報を見る",
+  "botaniamisc.shiftinfo": "%s キーを押して詳しい情報を見る",
   "botaniamisc.ratio": "%sx 拡大(カーソルで拡大解除)",
   "botaniamisc.bottleTooltip": "慣れ親しんだ味",
   "botaniamisc.shardLevel": "シャードパワー %s",

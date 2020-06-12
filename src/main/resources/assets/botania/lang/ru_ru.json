@@ -30,7 +30,7 @@
   "botaniamisc.lexiconcover0": "Руководство по всем",
   "botaniamisc.lexiconcover1": "ботаническим вопросам",
   "botaniamisc.lexiconcover2": "от Vazkii",
-  "botaniamisc.shiftinfo": "Зажмите &bShift&7 для подробной информации",
+  "botaniamisc.shiftinfo": "Зажмите %s для подробной информации",
   "botaniamisc.ratio": "%sx увеличение (наведите для уменьшения)",
   "botaniamisc.bottleTooltip": "Вкус на любителя",
   "botaniamisc.shardLevel": "Сила осколка %s",

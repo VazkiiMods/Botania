@@ -106,9 +106,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		super.addHiddenTooltip(stack, world, stacks, flags);
-		stacks.add(new TranslationTextComponent("botania.wings" + getVariant(stack)));
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.addHiddenTooltip(stack, world, tooltip, flags);
+		tooltip.add(new TranslationTextComponent("botania.wings" + getVariant(stack)));
 	}
 
 	private void updatePlayerFlyStatus(LivingUpdateEvent event) {
