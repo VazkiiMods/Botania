@@ -19,13 +19,14 @@ import net.minecraft.world.server.ServerWorld;
 public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
-		SUpdateTileEntityPacket packet = tile.getUpdatePacket();
-		BlockPos pos = tile.getPos();
-
-		if (packet != null && tile.getWorld() instanceof ServerWorld) {
-			((ServerChunkProvider) tile.getWorld().getChunkProvider()).chunkManager
-					.getTrackingPlayers(new ChunkPos(pos), false)
-					.forEach(e -> e.connection.sendPacket(packet));
+		if (tile.getWorld() instanceof ServerWorld) {
+			SUpdateTileEntityPacket packet = tile.getUpdatePacket();
+			if (packet != null) {
+				BlockPos pos = tile.getPos();
+				((ServerChunkProvider) tile.getWorld().getChunkProvider()).chunkManager
+								.getTrackingPlayers(new ChunkPos(pos), false)
+								.forEach(e -> e.connection.sendPacket(packet));
+			}
 		}
 	}
 

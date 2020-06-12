@@ -45,7 +45,6 @@ public class ItemSpark extends Item implements IManaGivingItem {
 					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 					world.addEntity(spark);
 					attach.attachSpark(spark);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 				return ActionResultType.SUCCESS;
 			}

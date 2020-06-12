@@ -180,11 +180,8 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 					}
 
 					if (did) {
-						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, posP_);
 						pump.hasCart = true;
-						if (!pump.active) {
-							pump.setActive(true);
-						}
+						pump.setActive(true);
 					}
 
 					if (can) {

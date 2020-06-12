@@ -70,8 +70,6 @@ public class TileDistributor extends TileMod implements IManaReceiver, ITickable
 			int manaForEach = mana / tiles;
 			for (IManaReceiver pool : validPools) {
 				pool.receiveMana(manaForEach);
-				TileEntity tile = (TileEntity) pool;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, tile.getPos());
 			}
 		}
 	}

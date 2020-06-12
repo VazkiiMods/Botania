@@ -125,7 +125,7 @@ public class BlockPool extends BlockModWaterloggable implements IWandHUD, IWanda
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		((TilePool) world.getTileEntity(pos)).onWanded(player, stack);
+		((TilePool) world.getTileEntity(pos)).onWanded(player);
 		return true;
 	}
 }
