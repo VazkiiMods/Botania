@@ -24,8 +24,8 @@ public final class VanillaPacketDispatcher {
 			if (packet != null) {
 				BlockPos pos = tile.getPos();
 				((ServerChunkProvider) tile.getWorld().getChunkProvider()).chunkManager
-								.getTrackingPlayers(new ChunkPos(pos), false)
-								.forEach(e -> e.connection.sendPacket(packet));
+						.getTrackingPlayers(new ChunkPos(pos), false)
+						.forEach(e -> e.connection.sendPacket(packet));
 			}
 		}
 	}
