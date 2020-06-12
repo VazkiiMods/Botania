@@ -279,6 +279,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			TileEntity tile = player.world.getTileEntity(pos);
 			if (tile instanceof IManaCollector) {
 				linkedCollector = tile;
+				sync();
 				return true;
 			}
 		}

@@ -36,6 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -233,6 +234,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		}
 
 		bindPos = pos;
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		return true;
 	}
 

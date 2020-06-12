@@ -696,6 +696,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		rotationY = (float) angle;
 
 		checkForReceiver();
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		return true;
 	}
 

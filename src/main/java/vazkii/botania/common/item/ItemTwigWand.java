@@ -94,7 +94,6 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			if (srcTile instanceof IWandBindable) {
 				if (((IWandBindable) srcTile).bindTo(ctx.getPlayer(), stack, dest, ctx.getFace())) {
 					doParticleBeamWithOffset(ctx.getWorld(), src, dest);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(ctx.getWorld(), src);
 					setBindingAttempt(stack, UNBOUND_POS);
 				}
 				return true;
