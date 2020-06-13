@@ -70,8 +70,6 @@ public class TileSparkChanger extends TileSimpleInventory {
 				transfers.clear();
 			}
 			itemHandler.setStackInSlot(0, sparkStack);
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
-			markDirty();
 		}
 	}
 

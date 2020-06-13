@@ -99,7 +99,6 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
 			}
 
-			world.updateComparatorOutputLevel(pos, state.getBlock());
 			super.onReplaced(state, world, pos, newState, isMoving);
 		}
 	}

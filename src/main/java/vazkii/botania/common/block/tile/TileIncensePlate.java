@@ -110,7 +110,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 		}
 		if (comparatorOutput != newComparator) {
 			comparatorOutput = newComparator;
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
 	}
 

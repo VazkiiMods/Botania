@@ -120,7 +120,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		if (old != this.mana) {
 			markDirty();
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 			markDispatchable();
 		}
 	}

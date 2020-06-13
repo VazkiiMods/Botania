@@ -151,11 +151,9 @@ public class BlockSpreader extends BlockModWaterloggable implements IWandable, I
 			}
 
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
-			spreader.markDirty();
 		} else if (!lens.isEmpty() && !wool) {
 			ItemHandlerHelper.giveItemToPlayer(player, lens);
 			spreader.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-			spreader.markDirty();
 		}
 
 		if (wool && spreader.paddingColor == null) {

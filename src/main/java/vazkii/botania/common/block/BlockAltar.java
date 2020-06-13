@@ -122,7 +122,6 @@ public class BlockAltar extends BlockMod {
 				}
 
 				tile.setFluid(Fluids.EMPTY);
-				world.updateComparatorOutputLevel(pos, this);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return ActionResultType.SUCCESS;
@@ -135,7 +134,6 @@ public class BlockAltar extends BlockMod {
 					}
 
 					tile.setFluid(Fluids.WATER);
-					world.updateComparatorOutputLevel(pos, this);
 					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
 
@@ -147,7 +145,6 @@ public class BlockAltar extends BlockMod {
 					}
 
 					tile.setFluid(Fluids.LAVA);
-					world.updateComparatorOutputLevel(pos, this);
 					world.getChunkProvider().getLightManager().checkBlock(pos);
 				}
 
@@ -167,7 +164,6 @@ public class BlockAltar extends BlockMod {
 				if (altar.getFluid() == Fluids.EMPTY) {
 					altar.setFluid(Fluids.WATER);
 				}
-				world.updateComparatorOutputLevel(pos, this);
 			}
 		}
 	}

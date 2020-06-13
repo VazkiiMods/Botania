@@ -161,7 +161,6 @@ public class TileCraftCrate extends TileOpenCrate {
 			}
 			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 		}
-		markDirty();
 	}
 
 	@Override

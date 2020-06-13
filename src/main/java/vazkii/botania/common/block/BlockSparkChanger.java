@@ -73,13 +73,10 @@ public class BlockSparkChanger extends BlockModWaterloggable {
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
 		if (!cstack.isEmpty()) {
 			changer.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-			world.updateComparatorOutputLevel(pos, this);
-			changer.markDirty();
 			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return ActionResultType.SUCCESS;
 		} else if (!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
 			changer.getItemHandler().setStackInSlot(0, pstack.split(1));
-			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 
 			return ActionResultType.SUCCESS;
