@@ -101,6 +101,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 						if (ConfigHandler.COMMON.blockBreakParticles.get()) {
 							getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 						}
+						getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 					}
 				}
 
