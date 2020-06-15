@@ -18,6 +18,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -231,13 +232,13 @@ public class ModSubtiles {
 
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
-		IForgeRegistry<Block> b = ForgeRegistries.BLOCKS;
+		Registry<Block> b = Registry.BLOCK;
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
-			Block block = b.getValue(type.getSecond());
-			Block floating = b.getValue(floating(type.getSecond()));
+			Block block = b.getValue(type.getSecond()).get();
+			Block floating = b.getValue(floating(type.getSecond())).get();
 
 			register(r, new ItemBlockSpecialFlower(block, props), type.getSecond());
 			register(r, new ItemBlockSpecialFlower(floating, props), floating(type.getSecond()));
@@ -246,12 +247,12 @@ public class ModSubtiles {
 
 	@SubscribeEvent
 	public static void registerTEs(RegistryEvent.Register<TileEntityType<?>> evt) {
-		IForgeRegistry<Block> b = ForgeRegistries.BLOCKS;
+		Registry<Block> b = Registry.BLOCK;
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
-			Block block = b.getValue(type.getSecond());
-			Block floating = b.getValue(floating(type.getSecond()));
+			Block block = b.getValue(type.getSecond()).get();
+			Block floating = b.getValue(floating(type.getSecond())).get();
 			register(r, TileEntityType.Builder.create(type.getFirst(), block, floating).build(null), type.getSecond());
 		}
 	}

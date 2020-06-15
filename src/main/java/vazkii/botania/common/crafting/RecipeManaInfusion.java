@@ -21,6 +21,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -122,10 +123,10 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 					if (catalystId == null) {
 						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
 					}
-					if (!ForgeRegistries.BLOCKS.containsKey(catalystId)) {
+					if (!Registry.BLOCK.containsKey(catalystId)) {
 						throw new IllegalArgumentException("Unknown catalyst: " + s);
 					}
-					catalystState = ForgeRegistries.BLOCKS.getValue(catalystId).getDefaultState();
+					catalystState = Registry.BLOCK.getValue(catalystId).get().getDefaultState();
 				} else {
 					catalystState = StateIngredientHelper.readBlockState(JSONUtils.getJsonObject(json, "catalyst"));
 				}

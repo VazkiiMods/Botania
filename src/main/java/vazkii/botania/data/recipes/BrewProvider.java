@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.brew.Brew;
@@ -71,9 +72,9 @@ public class BrewProvider extends RecipeProvider {
 
 		// todo 1.15 conditional recipe or remove
 		if (Botania.thaumcraftLoaded) {
-			Item salisMundus = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "salis_mundus"));
-			Item bathSalts = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "bath_salts"));
-			Item amber = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "amber"));
+			Item salisMundus = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "salis_mundus")).get();
+			Item bathSalts = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "bath_salts")).get();
+			Item amber = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "amber")).get();
 
 			consumer.accept(new FinishedRecipe(idFor("warp_ward"), ModBrews.warpWard, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(salisMundus), Ingredient.fromItems(bathSalts), Ingredient.fromItems(amber)));
 		}

@@ -28,6 +28,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
@@ -69,12 +70,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		@Override
 		public ItemStack getDisplayStack() {
 			ResourceLocation id = getType().getRegistryName();
-			Item item = ForgeRegistries.ITEMS.getValue(id);
-			if (item != null) {
-				return new ItemStack(item);
-			} else {
-				return super.getDisplayStack();
-			}
+			return Registry.ITEM.getValue(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};
 	private final LazyOptional<IFloatingFlower> floatingDataCap = LazyOptional.of(() -> floatingData);

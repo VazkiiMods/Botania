@@ -28,6 +28,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -163,7 +164,7 @@ public class ItemCacophonium extends Item {
 			return ModSounds.doit;
 		} else {
 			try {
-				return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
+				return Registry.SOUND_EVENT.getValue(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);
 			} catch (ResourceLocationException ex) {
 				return null;
 			}

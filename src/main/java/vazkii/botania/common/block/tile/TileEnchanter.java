@@ -33,6 +33,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -398,7 +399,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		}
 
 		String enchStr = enchants.stream()
-				.map(e -> ForgeRegistries.ENCHANTMENTS.getKey(e.enchantment) + "=" + e.enchantmentLevel)
+				.map(e -> Registry.ENCHANTMENT.getKey(e.enchantment) + "=" + e.enchantmentLevel)
 				.collect(Collectors.joining(","));
 		cmp.putString(TAG_ENCHANTS, enchStr);
 	}
@@ -421,11 +422,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			for (String token : enchTokens) {
 				try {
 					String[] entryTokens = token.split("=");
-					Enchantment ench = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(entryTokens[0]));
 					int lvl = Integer.parseInt(entryTokens[1]);
-					if (ench != null) {
+					Registry.ENCHANTMENT.getValue(new ResourceLocation(entryTokens[0])).ifPresent(ench -> {
 						enchants.add(new EnchantmentData(ench, lvl));
-					}
+					});
 				} catch (ResourceLocationException ignored) {}
 			}
 		}

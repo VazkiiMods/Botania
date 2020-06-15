@@ -26,6 +26,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.storage.loot.AlternativesLootEntry;
 import net.minecraft.world.storage.loot.ConstantRange;
 import net.minecraft.world.storage.loot.ItemLootEntry;
@@ -78,7 +79,7 @@ public class BlockLootProvider implements IDataProvider {
 	public BlockLootProvider(DataGenerator generator) {
 		this.generator = generator;
 
-		for (Block b : ForgeRegistries.BLOCKS) {
+		for (Block b : Registry.BLOCK) {
 			if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace())) {
 				continue;
 			}
@@ -131,7 +132,7 @@ public class BlockLootProvider implements IDataProvider {
 	public void act(DirectoryCache cache) throws IOException {
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
-		for (Block b : ForgeRegistries.BLOCKS) {
+		for (Block b : Registry.BLOCK) {
 			if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace())) {
 				continue;
 			}
@@ -183,10 +184,7 @@ public class BlockLootProvider implements IDataProvider {
 
 	private static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = b.getRegistryName().getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(LibMisc.MOD_ID, cobbleName));
-		if (cobble == Blocks.AIR) {
-			throw new RuntimeException("Couldn't find metamorphic cobble!");
-		}
+		Block cobble = Registry.BLOCK.getValue(new ResourceLocation(LibMisc.MOD_ID, cobbleName)).get();
 		return genRegular(cobble);
 	}
 

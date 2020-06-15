@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -74,10 +75,7 @@ public class ItemSpawnerMover extends Item {
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> infoList, ITooltipFlag flags) {
 		ResourceLocation id = getEntityId(stack);
 		if (id != null) {
-			EntityType<?> type = ForgeRegistries.ENTITIES.getValue(id);
-			if (type != null) {
-				infoList.add(type.getName());
-			}
+			Registry.ENTITY_TYPE.getValue(id).ifPresent(type -> infoList.add(type.getName()));
 		}
 	}
 

@@ -10,6 +10,7 @@ package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
 
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.GenerationStage;
@@ -57,7 +58,7 @@ public class ModFeatures {
 	}
 
 	public static void addWorldgen() {
-		for (Biome biome : ForgeRegistries.BIOMES) {
+		for (Biome biome : Registry.BIOME) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
 				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.withConfiguration(new MysticalFlowerConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}

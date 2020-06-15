@@ -31,6 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -313,7 +314,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		super.readPacketNBT(cmp);
 
 		ResourceLocation id = new ResourceLocation(cmp.getString(TAG_FLUID));
-		fluid = ForgeRegistries.FLUIDS.getValue(id);
+		fluid = Registry.FLUID.getOrDefault(id);
 	}
 
 	@Override

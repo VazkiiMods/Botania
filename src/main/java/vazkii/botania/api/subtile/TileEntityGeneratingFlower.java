@@ -20,6 +20,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -205,10 +206,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			sync();
 		}
 
-		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
-		if (evt != null) {
-			player.playSound(evt, 0.1F, 1F);
-		}
+		Registry.SOUND_EVENT.getValue(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
 
 		return super.onWanded(player, wand);
 	}

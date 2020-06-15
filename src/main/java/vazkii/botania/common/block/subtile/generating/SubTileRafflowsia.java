@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -90,7 +91,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 		ResourceLocation id = ResourceLocation.tryCreate(cmp.getString(TAG_LAST_FLOWER));
 		if (id != null) {
-			lastFlower = ForgeRegistries.BLOCKS.getValue(id);
+			lastFlower = Registry.BLOCK.getValue(id).orElse(null);
 		}
 		lastFlowerTimes = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 	}
