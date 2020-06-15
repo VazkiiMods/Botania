@@ -10,6 +10,7 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -29,13 +30,13 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.025F);
-		GlStateManager.uniform1f(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		RenderSystem.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
 		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.05F);
-		GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderPixie(EntityRendererManager renderManager) {

@@ -10,6 +10,7 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.resources.I18n;
@@ -70,18 +71,18 @@ public class KonamiHandler {
 	public static void renderBook(BookDrawScreenEvent evt) {
 		if (konamiTime > 0) {
 			String meme = I18n.format("botania.subtitle.way");
-			GlStateManager.disableDepthTest();
-			GlStateManager.pushMatrix();
+			RenderSystem.disableDepthTest();
+			RenderSystem.pushMatrix();
 			int fullWidth = Minecraft.getInstance().fontRenderer.getStringWidth(meme);
 			int left = evt.gui.width;
 			double widthPerTick = (fullWidth + evt.gui.width) / 240;
 			double currWidth = left - widthPerTick * (240 - (konamiTime - evt.partialTicks)) * 3.2;
 
-			GlStateManager.translated(currWidth, evt.gui.height / 2 - 10, 0);
-			GlStateManager.scalef(4, 4, 4);
+			RenderSystem.translated(currWidth, evt.gui.height / 2 - 10, 0);
+			RenderSystem.scalef(4, 4, 4);
 			Minecraft.getInstance().fontRenderer.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
-			GlStateManager.popMatrix();
-			GlStateManager.enableDepthTest();
+			RenderSystem.popMatrix();
+			RenderSystem.enableDepthTest();
 		}
 	}
 }

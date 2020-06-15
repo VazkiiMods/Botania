@@ -11,6 +11,7 @@ package vazkii.botania.client.render.entity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -41,13 +42,13 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, disfiguration);
-		GlStateManager.uniform1f(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		RenderSystem.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
 		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-		GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public static final ShaderCallback defaultCallback = shader -> {
@@ -55,13 +56,13 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_DISFIGURATION);
-		GlStateManager.uniform1f(disfigurationUniform, ShaderHelper.FLOAT_BUF);
+		RenderSystem.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
 		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_GRAIN_INTENSITY);
-		GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
 	public RenderDoppleganger(EntityRendererManager renderManager) {

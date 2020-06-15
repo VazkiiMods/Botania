@@ -175,7 +175,7 @@ public final class RenderHelper {
 			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);
 			ShaderHelper.FLOAT_BUF.put(0, 0.4F);
-			GlStateManager.uniform1f(alpha, ShaderHelper.FLOAT_BUF);
+			RenderSystem.glUniform1(alpha, ShaderHelper.FLOAT_BUF);
 		};
 		RenderType astrolabePreview = RenderType.makeType(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.ENTITY, 7, 256, true, true, glState);
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;

@@ -996,11 +996,11 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-				GlStateManager.uniform1f(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
+				RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
-				GlStateManager.uniform1f(hpFractUniform, ShaderHelper.FLOAT_BUF);
+				RenderSystem.glUniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
 			};
 		}
 
