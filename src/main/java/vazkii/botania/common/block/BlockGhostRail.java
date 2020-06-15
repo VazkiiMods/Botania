@@ -38,7 +38,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockGhostRail extends AbstractRailBlock {
 
 	private static final String TAG_FLOAT_TICKS = "botania:float_ticks";

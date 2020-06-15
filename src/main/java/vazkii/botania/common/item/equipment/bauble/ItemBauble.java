@@ -48,7 +48,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public abstract class ItemBauble extends Item implements ICosmeticAttachable, IPhantomInkable {
 
 	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";

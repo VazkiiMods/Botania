@@ -34,7 +34,6 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemBlockSpecialFlower extends BlockItem {
 	private static final Tag<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
 	private static final Tag<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;

@@ -25,7 +25,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockFelPumpkin extends BlockMod {
 	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(LibMisc.MOD_ID, "fel_blaze");
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
