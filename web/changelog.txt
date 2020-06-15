@@ -1,3 +1,19 @@
+r1.15 385
+* Clean up magnet lens code and performance (Eutro)
+* Fix "found a broken recipe" for pure daisy recipes
+* Remove justified lexicon config as the lexicon is handled fully by Patchouli now
+* zh_cn updates (Determancer)
+* Many Botania blocks can now be waterlogged. This should work fine, but please back up your worlds before updating just in case (Eutro)
+* ru_ru updates (Zinkorrum)
+* Fix tall mystical flowers not being in the #tall_flowers tag
+* Remove special flowers from the #small_flowers tag and only put them in #flowers. Fixes endermen picking them up.
+* New easter egg
+* zh_cn updates (friendlyhj)
+* Code cleanups (Alwinfy)
+* Brighten the hopperhock HUD
+* Fix coloring being incorrect for "Press SHIFT for more details" tooltips
+* Performance and network consumption improvements
+* Fix pure daisy not showing particles when a recipe completes
 r1.15 384
 * Fix burst collision bugs introduced by last build (bore lenses should behave as they did in build 382 and before again)
 * Minor lexicon wording fixes
