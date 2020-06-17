@@ -33,6 +33,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class RecipeManaInfusion implements IManaInfusionRecipe {
 	private final ResourceLocation id;
@@ -123,10 +124,11 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 					if (catalystId == null) {
 						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
 					}
-					if (!Registry.BLOCK.containsKey(catalystId)) {
+					Optional<Block> cat = Registry.BLOCK.getValue(catalystId);
+					if (!cat.isPresent()) {
 						throw new IllegalArgumentException("Unknown catalyst: " + s);
 					}
-					catalystState = Registry.BLOCK.getValue(catalystId).get().getDefaultState();
+					catalystState = cat.get().getDefaultState();
 				} else {
 					catalystState = StateIngredientHelper.readBlockState(JSONUtils.getJsonObject(json, "catalyst"));
 				}
