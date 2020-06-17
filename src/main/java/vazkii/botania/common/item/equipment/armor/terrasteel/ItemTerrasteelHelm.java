@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -111,7 +112,11 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		if (attacker instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) attacker;
 			if (hasArmorSet(player)) {
-				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();
+				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
+				boolean strong = player.getCooledAttackStrength(0.5F) > 0.9F;
+				boolean crit = strong && player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();
+				crit = crit && !player.isSprinting();
+
 				ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 				if (crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
 					if (hasAncientWill(stack, AncientWillType.AHRIM)) {
