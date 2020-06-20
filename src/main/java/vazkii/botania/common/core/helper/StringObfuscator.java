@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.core.helper;
 
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,11 +19,21 @@ public final class StringObfuscator {
 		return getHash(str).equals(hash);
 	}
 
+	private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
+
 	private static String getHash(String str) {
 		if (str != null) {
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				return new HexBinaryAdapter().marshal(md.digest(dontRainbowTableMeOrMySonEverAgain(str).getBytes(StandardCharsets.UTF_8)));
+				StringBuilder ret = new StringBuilder();
+				byte[] bytes = md.digest(dontRainbowTableMeOrMySonEverAgain(str).getBytes(StandardCharsets.UTF_8));
+
+				for (byte b : bytes) {
+					ret.append(HEX_CHARS[(b >> 4) & 0xF]);
+					ret.append(HEX_CHARS[b & 0xF]);
+				}
+
+				return ret.toString();
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
