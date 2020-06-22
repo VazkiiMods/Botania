@@ -16,7 +16,6 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;

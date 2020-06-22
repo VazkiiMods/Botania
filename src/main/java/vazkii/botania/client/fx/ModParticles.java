@@ -12,20 +12,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.ObjectHolder;
-
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModParticles {
-	@ObjectHolder(LibMisc.MOD_ID + ":wisp") public static ParticleType<WispParticleData> WISP;
-
-	@ObjectHolder(LibMisc.MOD_ID + ":sparkle") public static ParticleType<SparkleParticleData> SPARKLE;
+	public static final ParticleType<WispParticleData> WISP = new WispParticleType();
+	public static final ParticleType<SparkleParticleData> SPARKLE = new SparkleParticleType();
 
 	public static void registerParticles(RegistryEvent.Register<ParticleType<?>> evt) {
-		register(evt.getRegistry(), "wisp", new WispParticleType());
-		register(evt.getRegistry(), "sparkle", new SparkleParticleType());
+		register(evt.getRegistry(), "wisp", WISP);
+		register(evt.getRegistry(), "sparkle", SPARKLE);
 	}
 
 	public static class FactoryHandler {

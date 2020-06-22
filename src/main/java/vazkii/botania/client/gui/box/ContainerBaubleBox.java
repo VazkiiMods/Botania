@@ -11,7 +11,6 @@ package vazkii.botania.client.gui.box;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -19,16 +18,13 @@ import net.minecraft.util.Hand;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
 public class ContainerBaubleBox extends Container {
-	@ObjectHolder("botania:" + LibItemNames.BAUBLE_BOX) public static ContainerType<ContainerBaubleBox> TYPE;
-
 	public static ContainerBaubleBox fromNetwork(int windowId, PlayerInventory inv, PacketBuffer buf) {
 		Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
 		return new ContainerBaubleBox(windowId, inv, inv.player.getHeldItem(hand));
@@ -38,7 +34,7 @@ public class ContainerBaubleBox extends Container {
 	public IItemHandlerModifiable baubles;
 
 	public ContainerBaubleBox(int windowId, PlayerInventory playerInv, ItemStack box) {
-		super(TYPE, windowId);
+		super(ModItems.BAUBLE_BOX_CONTAINER, windowId);
 		int i;
 		int j;
 

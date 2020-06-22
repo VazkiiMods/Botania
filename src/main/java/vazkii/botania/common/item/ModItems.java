@@ -406,6 +406,9 @@ public final class ModItems {
 	@ObjectHolder(LibItemNames.ASTROLABE) public static Item astrolabe;
 	@ObjectHolder(LibItemNames.GODDESS_CHARM) public static Item goddessCharm;
 
+	public static final ContainerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
+	public static final ContainerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
+
 	public static Item.Properties defaultBuilder() {
 		return new Item.Properties().group(BotaniaCreativeTab.INSTANCE);
 	}
@@ -702,15 +705,12 @@ public final class ModItems {
 	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> evt) {
 		IForgeRegistry<ContainerType<?>> r = evt.getRegistry();
 
-		ContainerType<ContainerFlowerBag> bag = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
-		register(r, Registry.ITEM.getKey(flowerBag), bag);
-
-		ContainerType<ContainerBaubleBox> box = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
-		register(r, Registry.ITEM.getKey(baubleBox), box);
+		register(r, Registry.ITEM.getKey(flowerBag), FLOWER_BAG_CONTAINER);
+		register(r, Registry.ITEM.getKey(baubleBox), BAUBLE_BOX_CONTAINER);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-			ScreenManager.registerFactory(bag, GuiFlowerBag::new);
-			ScreenManager.registerFactory(box, GuiBaubleBox::new);
+			ScreenManager.registerFactory(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
+			ScreenManager.registerFactory(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 		});
 	}
 

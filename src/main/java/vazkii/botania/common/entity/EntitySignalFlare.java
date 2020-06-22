@@ -19,11 +19,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

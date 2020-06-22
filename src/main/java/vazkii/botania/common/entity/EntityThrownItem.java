@@ -18,10 +18,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
