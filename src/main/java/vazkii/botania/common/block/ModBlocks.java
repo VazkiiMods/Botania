@@ -318,7 +318,7 @@ public final class ModBlocks {
 
 		Block.Properties builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockModFlower(color, builder), color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX);
+			register(r, color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, new BlockModFlower(color, builder));
 		}
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
@@ -328,420 +328,420 @@ public final class ModBlocks {
 		}
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK_MOSSY);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK_CRACKED);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_ROCK_BRICK_CHISELED);
+		register(r, LibBlockNames.LIVING_ROCK, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_ROCK_BRICK, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_CRACKED, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_CHISELED, new BlockMod(builder));
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: livingwood should support leaves
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_PLANKS);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_PLANKS_MOSSY);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_FRAMED);
-		register(r, new BlockMod(builder), LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
-		register(r, new BlockMod(builder.lightValue(12)), LibBlockNames.LIVING_WOOD_GLIMMERING);
+		register(r, LibBlockNames.LIVING_WOOD, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_WOOD_FRAMED, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, new BlockMod(builder));
+		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, new BlockMod(builder.lightValue(12)));
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		register(r, new BlockSpreader(BlockSpreader.Variant.MANA, builder), LibBlockNames.SPREADER);
-		register(r, new BlockSpreader(BlockSpreader.Variant.REDSTONE, builder), LibBlockNames.SPREADER_REDSTONE);
-		register(r, new BlockSpreader(BlockSpreader.Variant.ELVEN, builder), LibBlockNames.SPREADER_ELVEN);
-		register(r, new BlockSpreader(BlockSpreader.Variant.GAIA, builder), LibBlockNames.SPREADER_GAIA);
+		register(r, LibBlockNames.SPREADER, new BlockSpreader(BlockSpreader.Variant.MANA, builder));
+		register(r, LibBlockNames.SPREADER_REDSTONE, new BlockSpreader(BlockSpreader.Variant.REDSTONE, builder));
+		register(r, LibBlockNames.SPREADER_ELVEN, new BlockSpreader(BlockSpreader.Variant.ELVEN, builder));
+		register(r, LibBlockNames.SPREADER_GAIA, new BlockSpreader(BlockSpreader.Variant.GAIA, builder));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockPool(BlockPool.Variant.DEFAULT, builder), LibBlockNames.POOL);
-		register(r, new BlockPool(BlockPool.Variant.CREATIVE, builder), LibBlockNames.POOL_CREATIVE);
-		register(r, new BlockPool(BlockPool.Variant.DILUTED, builder), LibBlockNames.POOL_DILUTED);
-		register(r, new BlockPool(BlockPool.Variant.FABULOUS, builder), LibBlockNames.POOL_FABULOUS);
+		register(r, LibBlockNames.POOL, new BlockPool(BlockPool.Variant.DEFAULT, builder));
+		register(r, LibBlockNames.POOL_CREATIVE, new BlockPool(BlockPool.Variant.CREATIVE, builder));
+		register(r, LibBlockNames.POOL_DILUTED, new BlockPool(BlockPool.Variant.DILUTED, builder));
+		register(r, LibBlockNames.POOL_FABULOUS, new BlockPool(BlockPool.Variant.FABULOUS, builder));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockRuneAltar(builder), LibBlockNames.RUNE_ALTAR);
+		register(r, LibBlockNames.RUNE_ALTAR, new BlockRuneAltar(builder));
 
 		builder = Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7);
-		register(r, new BlockPylon(BlockPylon.Variant.MANA, builder), LibBlockNames.PYLON);
-		register(r, new BlockPylon(BlockPylon.Variant.NATURA, builder), LibBlockNames.PYLON_NATURA);
-		register(r, new BlockPylon(BlockPylon.Variant.GAIA, builder), LibBlockNames.PYLON_GAIA);
+		register(r, LibBlockNames.PYLON, new BlockPylon(BlockPylon.Variant.MANA, builder));
+		register(r, LibBlockNames.PYLON_NATURA, new BlockPylon(BlockPylon.Variant.NATURA, builder));
+		register(r, LibBlockNames.PYLON_GAIA, new BlockPylon(BlockPylon.Variant.GAIA, builder));
 
 		builder = Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL);
-		register(r, new BlockPistonRelay(builder), LibBlockNames.PISTON_RELAY);
+		register(r, LibBlockNames.PISTON_RELAY, new BlockPistonRelay(builder));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockDistributor(builder), LibBlockNames.DISTRIBUTOR);
+		register(r, LibBlockNames.DISTRIBUTOR, new BlockDistributor(builder));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE);
-		register(r, new BlockManaVoid(builder), LibBlockNames.MANA_VOID);
+		register(r, LibBlockNames.MANA_VOID, new BlockManaVoid(builder));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockManaDetector(builder), LibBlockNames.MANA_DETECTOR);
+		register(r, LibBlockNames.MANA_DETECTOR, new BlockManaDetector(builder));
 
-		register(r, new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)), LibBlockNames.ENCHANTER);
-		register(r, new BlockTurntable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.TURNTABLE);
-		register(r, new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)), LibBlockNames.TINY_PLANET);
-		register(r, new BlockAlchemyCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.ALCHEMY_CATALYST);
+		register(r, LibBlockNames.ENCHANTER, new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)));
+		register(r, LibBlockNames.TURNTABLE, new BlockTurntable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.TINY_PLANET, new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)));
+		register(r, LibBlockNames.ALCHEMY_CATALYST, new BlockAlchemyCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		register(r, new BlockOpenCrate(builder), LibBlockNames.OPEN_CRATE);
-		register(r, new BlockCraftyCrate(builder), LibBlockNames.CRAFT_CRATE);
+		register(r, LibBlockNames.OPEN_CRATE, new BlockOpenCrate(builder));
+		register(r, LibBlockNames.CRAFT_CRATE, new BlockCraftyCrate(builder));
 
-		register(r, new BlockForestEye(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)), LibBlockNames.FOREST_EYE);
+		register(r, LibBlockNames.FOREST_EYE, new BlockForestEye(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)));
 
 		builder = Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL);
-		register(r, new BlockStorage(builder), LibBlockNames.MANASTEEL_BLOCK);
-		register(r, new BlockStorage(builder), LibBlockNames.TERRASTEEL_BLOCK);
-		register(r, new BlockStorage(builder), LibBlockNames.ELEMENTIUM_BLOCK);
-		register(r, new BlockStorage(builder), LibBlockNames.MANA_DIAMOND_BLOCK);
-		register(r, new BlockStorage(builder), LibBlockNames.DRAGONSTONE_BLOCK);
+		register(r, LibBlockNames.MANASTEEL_BLOCK, new BlockStorage(builder));
+		register(r, LibBlockNames.TERRASTEEL_BLOCK, new BlockStorage(builder));
+		register(r, LibBlockNames.ELEMENTIUM_BLOCK, new BlockStorage(builder));
+		register(r, LibBlockNames.MANA_DIAMOND_BLOCK, new BlockStorage(builder));
+		register(r, LibBlockNames.DRAGONSTONE_BLOCK, new BlockStorage(builder));
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		register(r, new BlockForestDrum(BlockForestDrum.Variant.WILD, builder), LibBlockNames.DRUM_WILD);
-		register(r, new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder), LibBlockNames.DRUM_CANOPY);
-		register(r, new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder), LibBlockNames.DRUM_GATHERING);
+		register(r, LibBlockNames.DRUM_WILD, new BlockForestDrum(BlockForestDrum.Variant.WILD, builder));
+		register(r, LibBlockNames.DRUM_CANOPY, new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder));
+		register(r, LibBlockNames.DRUM_GATHERING, new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder));
 
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(15);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockShinyFlower(color, builder), color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX);
+			register(r, color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX, new BlockShinyFlower(color, builder));
 		}
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD);
-		register(r, new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder), LibBlockNames.PLATFORM_ABSTRUSE);
-		register(r, new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder), LibBlockNames.PLATFORM_SPECTRAL);
-		register(r, new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD)), LibBlockNames.PLATFORM_INFRANGIBLE);
-		register(r, new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)), LibBlockNames.ALF_PORTAL);
+		register(r, LibBlockNames.PLATFORM_ABSTRUSE, new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder));
+		register(r, LibBlockNames.PLATFORM_SPECTRAL, new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder));
+		register(r, LibBlockNames.PLATFORM_INFRANGIBLE, new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.ALF_PORTAL, new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)));
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: dreamwood should support leaves?
-		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD);
-		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_PLANKS);
-		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_PLANKS_MOSSY);
-		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_FRAMED);
-		register(r, new BlockMod(builder), LibBlockNames.DREAM_WOOD_PATTERN_FRAMED);
-		register(r, new BlockMod(builder.lightValue(12)), LibBlockNames.DREAM_WOOD_GLIMMERING);
+		register(r, LibBlockNames.DREAM_WOOD, new BlockMod(builder));
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS, new BlockMod(builder));
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, new BlockMod(builder));
+		register(r, LibBlockNames.DREAM_WOOD_FRAMED, new BlockMod(builder));
+		register(r, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new BlockMod(builder));
+		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, new BlockMod(builder.lightValue(12)));
 
-		register(r, new BlockConjurationCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.CONJURATION_CATALYST);
-		register(r, new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS).notSolid()), LibBlockNames.BIFROST);
-		register(r, new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()), LibBlockNames.SOLID_VINE);
+		register(r, LibBlockNames.CONJURATION_CATALYST, new BlockConjurationCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
+		register(r, LibBlockNames.BIFROST, new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS).notSolid()));
+		register(r, LibBlockNames.SOLID_VINE, new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
 
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(4);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockBuriedPetals(color, builder), color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX);
+			register(r, color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX, new BlockBuriedPetals(color, builder));
 		}
 
 		builder = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockFloatingFlower(color, builder), color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX);
+			register(r, color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX, new BlockFloatingFlower(color, builder));
 		}
 
-		register(r, new BlockTinyPotato(Block.Properties.create(Material.WOOL).hardnessAndResistance(0.25F)), LibBlockNames.TINY_POTATO);
-		register(r, new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3)), LibBlockNames.SPAWNER_CLAW);
+		register(r, LibBlockNames.TINY_POTATO, new BlockTinyPotato(Block.Properties.create(Material.WOOL).hardnessAndResistance(0.25F)));
+		register(r, LibBlockNames.SPAWNER_CLAW, new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3)));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE);
 		for (int i = 0; i < 16; i++) {
-			register(r, new BlockMod(builder), LibBlockNames.AZULEJO_PREFIX + i);
+			register(r, LibBlockNames.AZULEJO_PREFIX + i, new BlockMod(builder));
 		}
 
-		register(r, new BlockEnderEye(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.ENDER_EYE_BLOCK);
-		register(r, new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL)), LibBlockNames.STARFIELD);
-		register(r, new BlockRFGenerator(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.FLUXFIELD);
-		register(r, new BlockElfGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).notSolid()), LibBlockNames.ELF_GLASS);
-		register(r, new BlockBrewery(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.BREWERY);
-		register(r, new BlockModGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).notSolid()), LibBlockNames.MANA_GLASS);
-		register(r, new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.TERRA_PLATE);
+		register(r, LibBlockNames.ENDER_EYE_BLOCK, new BlockEnderEye(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)));
+		register(r, LibBlockNames.STARFIELD, new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL)));
+		register(r, LibBlockNames.FLUXFIELD, new BlockRFGenerator(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
+		register(r, LibBlockNames.ELF_GLASS, new BlockElfGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).notSolid()));
+		register(r, LibBlockNames.BREWERY, new BlockBrewery(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
+		register(r, LibBlockNames.MANA_GLASS, new BlockModGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).notSolid()));
+		register(r, LibBlockNames.TERRA_PLATE, new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)));
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockRedStringContainer(builder), LibBlockNames.RED_STRING_CONTAINER);
-		register(r, new BlockRedStringDispenser(builder), LibBlockNames.RED_STRING_DISPENSER);
-		register(r, new BlockRedStringFertilizer(builder), LibBlockNames.RED_STRING_FERTILIZER);
-		register(r, new BlockRedStringComparator(builder), LibBlockNames.RED_STRING_COMPARATOR);
-		register(r, new BlockRedStringRelay(builder), LibBlockNames.RED_STRING_RELAY);
-		register(r, new BlockRedStringInterceptor(builder), LibBlockNames.RED_STRING_INTERCEPTOR);
-		register(r, new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()), LibBlockNames.MANA_FLAME);
-		register(r, new BlockPrism(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()), LibBlockNames.PRISM);
-		register(r, new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT)), LibBlockNames.ENCHANTED_SOIL);
+		register(r, LibBlockNames.RED_STRING_CONTAINER, new BlockRedStringContainer(builder));
+		register(r, LibBlockNames.RED_STRING_DISPENSER, new BlockRedStringDispenser(builder));
+		register(r, LibBlockNames.RED_STRING_FERTILIZER, new BlockRedStringFertilizer(builder));
+		register(r, LibBlockNames.RED_STRING_COMPARATOR, new BlockRedStringComparator(builder));
+		register(r, LibBlockNames.RED_STRING_RELAY, new BlockRedStringRelay(builder));
+		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, new BlockRedStringInterceptor(builder));
+		register(r, LibBlockNames.MANA_FLAME, new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()));
+		register(r, LibBlockNames.PRISM, new BlockPrism(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()));
+		register(r, LibBlockNames.ENCHANTED_SOIL, new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT)));
 
 		builder = Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockPetalBlock(color, builder), color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
+			register(r, color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX, new BlockPetalBlock(color, builder));
 		}
 
-		register(r, new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).notSolid()), LibBlockNames.CORPOREA_INDEX);
-		register(r, new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_FUNNEL);
+		register(r, LibBlockNames.CORPOREA_INDEX, new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).notSolid()));
+		register(r, LibBlockNames.CORPOREA_FUNNEL, new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
 
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockModMushroom(color, builder), color.getName() + LibBlockNames.MUSHROOM_SUFFIX);
+			register(r, color.getName() + LibBlockNames.MUSHROOM_SUFFIX, new BlockModMushroom(color, builder));
 		}
 
-		register(r, new BlockPump(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.PUMP);
+		register(r, LibBlockNames.PUMP, new BlockPump(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
 
 		builder = Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
 		for (DyeColor color : DyeColor.values()) {
-			register(r, new BlockModDoubleFlower(color, builder), color.getName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX);
+			register(r, color.getName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX, new BlockModDoubleFlower(color, builder));
 		}
 
-		register(r, new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly()), LibBlockNames.FAKE_AIR);
-		register(r, new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15)), LibBlockNames.BLAZE_BLOCK);
-		register(r, new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_INTERCEPTOR);
-		register(r, new BlockCorporeaCrystalCube(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_CRYSTAL_CUBE);
-		register(r, new BlockIncensePlate(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.INCENSE_PLATE);
-		register(r, new BlockHourglass(Block.Properties.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL)), LibBlockNames.HOURGLASS);
-		register(r, new BlockGhostRail(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.7F).sound(SoundType.METAL)), LibBlockNames.GHOST_RAIL);
-		register(r, new BlockSparkChanger(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.SPARK_CHANGER);
-		register(r, new BlockRoot(Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.2F).sound(SoundType.WOOD)), LibBlockNames.ROOT);
-		register(r, new BlockFelPumpkin(Block.Properties.from(Blocks.CARVED_PUMPKIN)), LibBlockNames.FEL_PUMPKIN);
-		register(r, new BlockCocoon(Block.Properties.create(Material.WOOL).hardnessAndResistance(3, 60).sound(SoundType.CLOTH)), LibBlockNames.COCOON);
+		register(r, LibBlockNames.FAKE_AIR, new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly()));
+		register(r, LibBlockNames.BLAZE_BLOCK, new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15)));
+		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
+		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, new BlockCorporeaCrystalCube(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
+		register(r, LibBlockNames.INCENSE_PLATE, new BlockIncensePlate(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.HOURGLASS, new BlockHourglass(Block.Properties.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL)));
+		register(r, LibBlockNames.GHOST_RAIL, new BlockGhostRail(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.7F).sound(SoundType.METAL)));
+		register(r, LibBlockNames.SPARK_CHANGER, new BlockSparkChanger(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
+		register(r, LibBlockNames.ROOT, new BlockRoot(Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.2F).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.FEL_PUMPKIN, new BlockFelPumpkin(Block.Properties.from(Blocks.CARVED_PUMPKIN)));
+		register(r, LibBlockNames.COCOON, new BlockCocoon(Block.Properties.create(Material.WOOL).hardnessAndResistance(3, 60).sound(SoundType.CLOTH)));
 
 		builder = Block.Properties.create(Material.GLASS).doesNotBlockMovement();
-		register(r, new BlockLightRelay(LuminizerVariant.DEFAULT, builder), LibBlockNames.LIGHT_RELAY);
-		register(r, new BlockLightRelay(LuminizerVariant.DETECTOR, builder), "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX);
-		register(r, new BlockLightRelay(LuminizerVariant.FORK, builder), "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX);
-		register(r, new BlockLightRelay(LuminizerVariant.TOGGLE, builder), "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX);
+		register(r, LibBlockNames.LIGHT_RELAY, new BlockLightRelay(LuminizerVariant.DEFAULT, builder));
+		register(r, "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX, new BlockLightRelay(LuminizerVariant.DETECTOR, builder));
+		register(r, "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX, new BlockLightRelay(LuminizerVariant.FORK, builder));
+		register(r, "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX, new BlockLightRelay(LuminizerVariant.TOGGLE, builder));
 
-		register(r, new BlockLightLauncher(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.LIGHT_LAUNCHER);
-		register(r, new BlockManaBomb(Block.Properties.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD)), LibBlockNames.MANA_BOMB);
-		register(r, new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F)), LibBlockNames.CACOPHONIUM);
-		register(r, new BlockBellows(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.BELLOWS);
-		register(r, new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS).notSolid()), LibBlockNames.BIFROST_PERM);
-		register(r, new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH)), LibBlockNames.CELL_BLOCK);
-		register(r, new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)), LibBlockNames.GAIA_WALL_HEAD);
-		register(r, new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)), LibBlockNames.GAIA_HEAD);
-		register(r, new BlockCorporeaRetainer(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_RETAINER);
-		register(r, new BlockTeruTeruBozu(Block.Properties.create(Material.WOOL)), LibBlockNames.TERU_TERU_BOZU);
-		register(r, new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.SHIMMERROCK);
-		register(r, new BlockMod(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.SHIMMERWOOD_PLANKS);
-		register(r, new BlockAvatar(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.AVATAR);
+		register(r, LibBlockNames.LIGHT_LAUNCHER, new BlockLightLauncher(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.MANA_BOMB, new BlockManaBomb(Block.Properties.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.CACOPHONIUM, new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F)));
+		register(r, LibBlockNames.BELLOWS, new BlockBellows(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.BIFROST_PERM, new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS).notSolid()));
+		register(r, LibBlockNames.CELL_BLOCK, new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH)));
+		register(r, LibBlockNames.GAIA_WALL_HEAD, new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)));
+		register(r, LibBlockNames.GAIA_HEAD, new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)));
+		register(r, LibBlockNames.CORPOREA_RETAINER, new BlockCorporeaRetainer(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
+		register(r, LibBlockNames.TERU_TERU_BOZU, new BlockTeruTeruBozu(Block.Properties.create(Material.WOOL)));
+		register(r, LibBlockNames.SHIMMERROCK, new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
+		register(r, LibBlockNames.SHIMMERWOOD_PLANKS, new BlockMod(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
+		register(r, LibBlockNames.AVATAR, new BlockAvatar(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
 
 		builder = Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).tickRandomly().sound(SoundType.PLANT);
 		for (BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
-			register(r, new BlockAltGrass(v, builder), v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX);
+			register(r, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, new BlockAltGrass(v, builder));
 		}
 
-		register(r, new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).lightValue(7).notSolid()), LibBlockNames.ANIMATED_TORCH);
+		register(r, LibBlockNames.ANIMATED_TORCH, new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).lightValue(7).notSolid()));
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
 
-		register(r, new BlockItem(whiteFlower, props), whiteFlower.getRegistryName());
-		register(r, new BlockItem(orangeFlower, props), orangeFlower.getRegistryName());
-		register(r, new BlockItem(magentaFlower, props), magentaFlower.getRegistryName());
-		register(r, new BlockItem(lightBlueFlower, props), lightBlueFlower.getRegistryName());
-		register(r, new BlockItem(yellowFlower, props), yellowFlower.getRegistryName());
-		register(r, new BlockItem(limeFlower, props), limeFlower.getRegistryName());
-		register(r, new BlockItem(pinkFlower, props), pinkFlower.getRegistryName());
-		register(r, new BlockItem(grayFlower, props), grayFlower.getRegistryName());
-		register(r, new BlockItem(lightGrayFlower, props), lightGrayFlower.getRegistryName());
-		register(r, new BlockItem(cyanFlower, props), cyanFlower.getRegistryName());
-		register(r, new BlockItem(purpleFlower, props), purpleFlower.getRegistryName());
-		register(r, new BlockItem(blueFlower, props), blueFlower.getRegistryName());
-		register(r, new BlockItem(brownFlower, props), brownFlower.getRegistryName());
-		register(r, new BlockItem(greenFlower, props), greenFlower.getRegistryName());
-		register(r, new BlockItem(redFlower, props), redFlower.getRegistryName());
-		register(r, new BlockItem(blackFlower, props), blackFlower.getRegistryName());
-		register(r, new BlockItem(defaultAltar, props), defaultAltar.getRegistryName());
-		register(r, new BlockItem(forestAltar, props), forestAltar.getRegistryName());
-		register(r, new BlockItem(plainsAltar, props), plainsAltar.getRegistryName());
-		register(r, new BlockItem(mountainAltar, props), mountainAltar.getRegistryName());
-		register(r, new BlockItem(fungalAltar, props), fungalAltar.getRegistryName());
-		register(r, new BlockItem(swampAltar, props), swampAltar.getRegistryName());
-		register(r, new BlockItem(desertAltar, props), desertAltar.getRegistryName());
-		register(r, new BlockItem(taigaAltar, props), taigaAltar.getRegistryName());
-		register(r, new BlockItem(mesaAltar, props), mesaAltar.getRegistryName());
-		register(r, new BlockItem(mossyAltar, props), mossyAltar.getRegistryName());
-		register(r, new BlockItem(livingrock, props), livingrock.getRegistryName());
-		register(r, new BlockItem(livingrockBrick, props), livingrockBrick.getRegistryName());
-		register(r, new BlockItem(livingrockBrickChiseled, props), livingrockBrickChiseled.getRegistryName());
-		register(r, new BlockItem(livingrockBrickCracked, props), livingrockBrickCracked.getRegistryName());
-		register(r, new BlockItem(livingrockBrickMossy, props), livingrockBrickMossy.getRegistryName());
-		register(r, new BlockItem(livingwood, props), livingwood.getRegistryName());
-		register(r, new BlockItem(livingwoodPlanks, props), livingwoodPlanks.getRegistryName());
-		register(r, new BlockItem(livingwoodPlanksMossy, props), livingwoodPlanksMossy.getRegistryName());
-		register(r, new BlockItem(livingwoodFramed, props), livingwoodFramed.getRegistryName());
-		register(r, new BlockItem(livingwoodPatternFramed, props), livingwoodPatternFramed.getRegistryName());
-		register(r, new BlockItem(livingwoodGlimmering, props), livingwoodGlimmering.getRegistryName());
-		register(r, new BlockItem(manaSpreader, props), manaSpreader.getRegistryName());
-		register(r, new BlockItem(redstoneSpreader, props), redstoneSpreader.getRegistryName());
-		register(r, new BlockItem(elvenSpreader, props), elvenSpreader.getRegistryName());
-		register(r, new BlockItem(gaiaSpreader, props), gaiaSpreader.getRegistryName());
-		register(r, new ItemBlockPool(manaPool, props), manaPool.getRegistryName());
-		register(r, new ItemBlockPool(creativePool, props), creativePool.getRegistryName());
-		register(r, new ItemBlockPool(dilutedPool, props), dilutedPool.getRegistryName());
-		register(r, new ItemBlockPool(fabulousPool, props), fabulousPool.getRegistryName());
-		register(r, new BlockItem(runeAltar, props), runeAltar.getRegistryName());
-		register(r, new BlockItem(pistonRelay, props), pistonRelay.getRegistryName());
-		register(r, new BlockItem(distributor, props), distributor.getRegistryName());
-		register(r, new BlockItem(manaVoid, props), manaVoid.getRegistryName());
-		register(r, new BlockItem(manaDetector, props), manaDetector.getRegistryName());
-		register(r, new BlockItem(enchanter, props), enchanter.getRegistryName());
-		register(r, new BlockItem(turntable, props), turntable.getRegistryName());
-		register(r, new BlockItem(tinyPlanet, props), tinyPlanet.getRegistryName());
-		register(r, new BlockItem(alchemyCatalyst, props), alchemyCatalyst.getRegistryName());
-		register(r, new BlockItem(openCrate, props), openCrate.getRegistryName());
-		register(r, new BlockItem(craftCrate, props), craftCrate.getRegistryName());
-		register(r, new BlockItem(forestEye, props), forestEye.getRegistryName());
-		register(r, new BlockItem(manasteelBlock, props), manasteelBlock.getRegistryName());
-		register(r, new BlockItem(terrasteelBlock, props), terrasteelBlock.getRegistryName());
-		register(r, new ItemBlockElven(elementiumBlock, props), elementiumBlock.getRegistryName());
-		register(r, new BlockItem(manaDiamondBlock, props), manaDiamondBlock.getRegistryName());
-		register(r, new BlockItem(dragonstoneBlock, props), dragonstoneBlock.getRegistryName());
-		register(r, new BlockItem(wildDrum, props), wildDrum.getRegistryName());
-		register(r, new BlockItem(gatheringDrum, props), gatheringDrum.getRegistryName());
-		register(r, new BlockItem(canopyDrum, props), canopyDrum.getRegistryName());
-		register(r, new BlockItem(whiteShinyFlower, props), whiteShinyFlower.getRegistryName());
-		register(r, new BlockItem(orangeShinyFlower, props), orangeShinyFlower.getRegistryName());
-		register(r, new BlockItem(magentaShinyFlower, props), magentaShinyFlower.getRegistryName());
-		register(r, new BlockItem(lightBlueShinyFlower, props), lightBlueShinyFlower.getRegistryName());
-		register(r, new BlockItem(yellowShinyFlower, props), yellowShinyFlower.getRegistryName());
-		register(r, new BlockItem(limeShinyFlower, props), limeShinyFlower.getRegistryName());
-		register(r, new BlockItem(pinkShinyFlower, props), pinkShinyFlower.getRegistryName());
-		register(r, new BlockItem(grayShinyFlower, props), grayShinyFlower.getRegistryName());
-		register(r, new BlockItem(lightGrayShinyFlower, props), lightGrayShinyFlower.getRegistryName());
-		register(r, new BlockItem(cyanShinyFlower, props), cyanShinyFlower.getRegistryName());
-		register(r, new BlockItem(purpleShinyFlower, props), purpleShinyFlower.getRegistryName());
-		register(r, new BlockItem(blueShinyFlower, props), blueShinyFlower.getRegistryName());
-		register(r, new BlockItem(brownShinyFlower, props), brownShinyFlower.getRegistryName());
-		register(r, new BlockItem(greenShinyFlower, props), greenShinyFlower.getRegistryName());
-		register(r, new BlockItem(redShinyFlower, props), redShinyFlower.getRegistryName());
-		register(r, new BlockItem(blackShinyFlower, props), blackShinyFlower.getRegistryName());
-		register(r, new BlockItem(abstrusePlatform, props), abstrusePlatform.getRegistryName());
-		register(r, new BlockItem(spectralPlatform, props), spectralPlatform.getRegistryName());
-		register(r, new BlockItem(infrangiblePlatform, props), infrangiblePlatform.getRegistryName());
-		register(r, new BlockItem(alfPortal, props), alfPortal.getRegistryName());
-		register(r, new ItemBlockDreamwood(dreamwood, props), dreamwood.getRegistryName());
-		register(r, new ItemBlockDreamwood(dreamwoodPlanks, props), dreamwoodPlanks.getRegistryName());
-		register(r, new ItemBlockDreamwood(dreamwoodPlanksMossy, props), dreamwoodPlanksMossy.getRegistryName());
-		register(r, new ItemBlockDreamwood(dreamwoodFramed, props), dreamwoodFramed.getRegistryName());
-		register(r, new ItemBlockDreamwood(dreamwoodPatternFramed, props), dreamwoodPatternFramed.getRegistryName());
-		register(r, new ItemBlockDreamwood(dreamwoodGlimmering, props), dreamwoodGlimmering.getRegistryName());
-		register(r, new BlockItem(conjurationCatalyst, props), conjurationCatalyst.getRegistryName());
-		register(r, new BlockItem(bifrost, props), bifrost.getRegistryName());
-		register(r, new BlockItem(whiteFloatingFlower, props), whiteFloatingFlower.getRegistryName());
-		register(r, new BlockItem(orangeFloatingFlower, props), orangeFloatingFlower.getRegistryName());
-		register(r, new BlockItem(magentaFloatingFlower, props), magentaFloatingFlower.getRegistryName());
-		register(r, new BlockItem(lightBlueFloatingFlower, props), lightBlueFloatingFlower.getRegistryName());
-		register(r, new BlockItem(yellowFloatingFlower, props), yellowFloatingFlower.getRegistryName());
-		register(r, new BlockItem(limeFloatingFlower, props), limeFloatingFlower.getRegistryName());
-		register(r, new BlockItem(pinkFloatingFlower, props), pinkFloatingFlower.getRegistryName());
-		register(r, new BlockItem(grayFloatingFlower, props), grayFloatingFlower.getRegistryName());
-		register(r, new BlockItem(lightGrayFloatingFlower, props), lightGrayFloatingFlower.getRegistryName());
-		register(r, new BlockItem(cyanFloatingFlower, props), cyanFloatingFlower.getRegistryName());
-		register(r, new BlockItem(purpleFloatingFlower, props), purpleFloatingFlower.getRegistryName());
-		register(r, new BlockItem(blueFloatingFlower, props), blueFloatingFlower.getRegistryName());
-		register(r, new BlockItem(brownFloatingFlower, props), brownFloatingFlower.getRegistryName());
-		register(r, new BlockItem(greenFloatingFlower, props), greenFloatingFlower.getRegistryName());
-		register(r, new BlockItem(redFloatingFlower, props), redFloatingFlower.getRegistryName());
-		register(r, new BlockItem(blackFloatingFlower, props), blackFloatingFlower.getRegistryName());
-		register(r, new ItemBlockTinyPotato(tinyPotato, props), tinyPotato.getRegistryName());
-		register(r, new BlockItem(spawnerClaw, props), spawnerClaw.getRegistryName());
-		register(r, new BlockItem(azulejo0, props), azulejo0.getRegistryName());
-		register(r, new BlockItem(azulejo1, props), azulejo1.getRegistryName());
-		register(r, new BlockItem(azulejo2, props), azulejo2.getRegistryName());
-		register(r, new BlockItem(azulejo3, props), azulejo3.getRegistryName());
-		register(r, new BlockItem(azulejo4, props), azulejo4.getRegistryName());
-		register(r, new BlockItem(azulejo5, props), azulejo5.getRegistryName());
-		register(r, new BlockItem(azulejo6, props), azulejo6.getRegistryName());
-		register(r, new BlockItem(azulejo7, props), azulejo7.getRegistryName());
-		register(r, new BlockItem(azulejo8, props), azulejo8.getRegistryName());
-		register(r, new BlockItem(azulejo9, props), azulejo9.getRegistryName());
-		register(r, new BlockItem(azulejo10, props), azulejo10.getRegistryName());
-		register(r, new BlockItem(azulejo11, props), azulejo11.getRegistryName());
-		register(r, new BlockItem(azulejo12, props), azulejo12.getRegistryName());
-		register(r, new BlockItem(azulejo13, props), azulejo13.getRegistryName());
-		register(r, new BlockItem(azulejo14, props), azulejo14.getRegistryName());
-		register(r, new BlockItem(azulejo15, props), azulejo15.getRegistryName());
-		register(r, new BlockItem(enderEye, props), enderEye.getRegistryName());
-		register(r, new BlockItem(starfield, props), starfield.getRegistryName());
-		register(r, new BlockItem(rfGenerator, props), rfGenerator.getRegistryName());
-		register(r, new ItemBlockElven(elfGlass, props), elfGlass.getRegistryName());
-		register(r, new BlockItem(manaGlass, props), manaGlass.getRegistryName());
-		register(r, new BlockItem(terraPlate, props), terraPlate.getRegistryName());
-		register(r, new BlockItem(redStringContainer, props), redStringContainer.getRegistryName());
-		register(r, new BlockItem(redStringDispenser, props), redStringDispenser.getRegistryName());
-		register(r, new BlockItem(redStringFertilizer, props), redStringFertilizer.getRegistryName());
-		register(r, new BlockItem(redStringComparator, props), redStringComparator.getRegistryName());
-		register(r, new BlockItem(redStringRelay, props), redStringRelay.getRegistryName());
-		register(r, new BlockItem(prism, props), prism.getRegistryName());
-		register(r, new BlockItem(enchantedSoil, props), enchantedSoil.getRegistryName());
-		register(r, new BlockItem(petalBlockWhite, props), petalBlockWhite.getRegistryName());
-		register(r, new BlockItem(petalBlockOrange, props), petalBlockOrange.getRegistryName());
-		register(r, new BlockItem(petalBlockMagenta, props), petalBlockMagenta.getRegistryName());
-		register(r, new BlockItem(petalBlockLightBlue, props), petalBlockLightBlue.getRegistryName());
-		register(r, new BlockItem(petalBlockYellow, props), petalBlockYellow.getRegistryName());
-		register(r, new BlockItem(petalBlockLime, props), petalBlockLime.getRegistryName());
-		register(r, new BlockItem(petalBlockPink, props), petalBlockPink.getRegistryName());
-		register(r, new BlockItem(petalBlockGray, props), petalBlockGray.getRegistryName());
-		register(r, new BlockItem(petalBlockSilver, props), petalBlockSilver.getRegistryName());
-		register(r, new BlockItem(petalBlockCyan, props), petalBlockCyan.getRegistryName());
-		register(r, new BlockItem(petalBlockPurple, props), petalBlockPurple.getRegistryName());
-		register(r, new BlockItem(petalBlockBlue, props), petalBlockBlue.getRegistryName());
-		register(r, new BlockItem(petalBlockBrown, props), petalBlockBrown.getRegistryName());
-		register(r, new BlockItem(petalBlockGreen, props), petalBlockGreen.getRegistryName());
-		register(r, new BlockItem(petalBlockRed, props), petalBlockRed.getRegistryName());
-		register(r, new BlockItem(petalBlockBlack, props), petalBlockBlack.getRegistryName());
-		register(r, new BlockItem(corporeaFunnel, props), corporeaFunnel.getRegistryName());
-		register(r, new BlockItem(whiteMushroom, props), whiteMushroom.getRegistryName());
-		register(r, new BlockItem(orangeMushroom, props), orangeMushroom.getRegistryName());
-		register(r, new BlockItem(magentaMushroom, props), magentaMushroom.getRegistryName());
-		register(r, new BlockItem(lightBlueMushroom, props), lightBlueMushroom.getRegistryName());
-		register(r, new BlockItem(yellowMushroom, props), yellowMushroom.getRegistryName());
-		register(r, new BlockItem(limeMushroom, props), limeMushroom.getRegistryName());
-		register(r, new BlockItem(pinkMushroom, props), pinkMushroom.getRegistryName());
-		register(r, new BlockItem(grayMushroom, props), grayMushroom.getRegistryName());
-		register(r, new BlockItem(lightGrayMushroom, props), lightGrayMushroom.getRegistryName());
-		register(r, new BlockItem(cyanMushroom, props), cyanMushroom.getRegistryName());
-		register(r, new BlockItem(purpleMushroom, props), purpleMushroom.getRegistryName());
-		register(r, new BlockItem(blueMushroom, props), blueMushroom.getRegistryName());
-		register(r, new BlockItem(brownMushroom, props), brownMushroom.getRegistryName());
-		register(r, new BlockItem(greenMushroom, props), greenMushroom.getRegistryName());
-		register(r, new BlockItem(redMushroom, props), redMushroom.getRegistryName());
-		register(r, new BlockItem(blackMushroom, props), blackMushroom.getRegistryName());
-		register(r, new BlockItem(pump, props), pump.getRegistryName());
-		register(r, new BlockItem(doubleFlowerWhite, props), doubleFlowerWhite.getRegistryName());
-		register(r, new BlockItem(doubleFlowerOrange, props), doubleFlowerOrange.getRegistryName());
-		register(r, new BlockItem(doubleFlowerMagenta, props), doubleFlowerMagenta.getRegistryName());
-		register(r, new BlockItem(doubleFlowerLightBlue, props), doubleFlowerLightBlue.getRegistryName());
-		register(r, new BlockItem(doubleFlowerYellow, props), doubleFlowerYellow.getRegistryName());
-		register(r, new BlockItem(doubleFlowerLime, props), doubleFlowerLime.getRegistryName());
-		register(r, new BlockItem(doubleFlowerPink, props), doubleFlowerPink.getRegistryName());
-		register(r, new BlockItem(doubleFlowerGray, props), doubleFlowerGray.getRegistryName());
-		register(r, new BlockItem(doubleFlowerLightGray, props), doubleFlowerLightGray.getRegistryName());
-		register(r, new BlockItem(doubleFlowerCyan, props), doubleFlowerCyan.getRegistryName());
-		register(r, new BlockItem(doubleFlowerPurple, props), doubleFlowerPurple.getRegistryName());
-		register(r, new BlockItem(doubleFlowerBlue, props), doubleFlowerBlue.getRegistryName());
-		register(r, new BlockItem(doubleFlowerBrown, props), doubleFlowerBrown.getRegistryName());
-		register(r, new BlockItem(doubleFlowerGreen, props), doubleFlowerGreen.getRegistryName());
-		register(r, new BlockItem(doubleFlowerRed, props), doubleFlowerRed.getRegistryName());
-		register(r, new BlockItem(doubleFlowerBlack, props), doubleFlowerBlack.getRegistryName());
-		register(r, new ItemBlockBlaze(blazeBlock, props), blazeBlock.getRegistryName());
-		register(r, new BlockItem(corporeaInterceptor, props), corporeaInterceptor.getRegistryName());
-		register(r, new BlockItem(incensePlate, props), incensePlate.getRegistryName());
-		register(r, new BlockItem(ghostRail, props), ghostRail.getRegistryName());
-		register(r, new BlockItem(sparkChanger, props), sparkChanger.getRegistryName());
-		register(r, new BlockItem(root, props), root.getRegistryName());
-		register(r, new BlockItem(felPumpkin, props), felPumpkin.getRegistryName());
-		register(r, new BlockItem(cocoon, props), cocoon.getRegistryName());
-		register(r, new BlockItem(lightRelayDefault, props), lightRelayDefault.getRegistryName());
-		register(r, new BlockItem(lightRelayDetector, props), lightRelayDetector.getRegistryName());
-		register(r, new BlockItem(lightRelayFork, props), lightRelayFork.getRegistryName());
-		register(r, new BlockItem(lightRelayToggle, props), lightRelayToggle.getRegistryName());
-		register(r, new BlockItem(lightLauncher, props), lightLauncher.getRegistryName());
-		register(r, new BlockItem(manaBomb, props), manaBomb.getRegistryName());
-		register(r, new BlockItem(cacophonium, props), cacophonium.getRegistryName());
-		register(r, new BlockItem(bifrostPerm, props), bifrostPerm.getRegistryName());
-		register(r, new BlockItem(cellBlock, props), cellBlock.getRegistryName());
-		register(r, new BlockItem(redStringInterceptor, props), redStringInterceptor.getRegistryName());
-		register(r, new BlockItem(corporeaRetainer, props), corporeaRetainer.getRegistryName());
-		register(r, new BlockItem(shimmerrock, props), shimmerrock.getRegistryName());
-		register(r, new BlockItem(shimmerwoodPlanks, props), shimmerwoodPlanks.getRegistryName());
-		register(r, new BlockItem(dryGrass, props), dryGrass.getRegistryName());
-		register(r, new BlockItem(goldenGrass, props), goldenGrass.getRegistryName());
-		register(r, new BlockItem(vividGrass, props), vividGrass.getRegistryName());
-		register(r, new BlockItem(scorchedGrass, props), scorchedGrass.getRegistryName());
-		register(r, new BlockItem(infusedGrass, props), infusedGrass.getRegistryName());
-		register(r, new BlockItem(mutatedGrass, props), mutatedGrass.getRegistryName());
-		register(r, new BlockItem(animatedTorch, props), animatedTorch.getRegistryName());
-		register(r, new BlockItem(corporeaCrystalCube, props), corporeaCrystalCube.getRegistryName());
+		register(r, whiteFlower.getRegistryName(), new BlockItem(whiteFlower, props));
+		register(r, orangeFlower.getRegistryName(), new BlockItem(orangeFlower, props));
+		register(r, magentaFlower.getRegistryName(), new BlockItem(magentaFlower, props));
+		register(r, lightBlueFlower.getRegistryName(), new BlockItem(lightBlueFlower, props));
+		register(r, yellowFlower.getRegistryName(), new BlockItem(yellowFlower, props));
+		register(r, limeFlower.getRegistryName(), new BlockItem(limeFlower, props));
+		register(r, pinkFlower.getRegistryName(), new BlockItem(pinkFlower, props));
+		register(r, grayFlower.getRegistryName(), new BlockItem(grayFlower, props));
+		register(r, lightGrayFlower.getRegistryName(), new BlockItem(lightGrayFlower, props));
+		register(r, cyanFlower.getRegistryName(), new BlockItem(cyanFlower, props));
+		register(r, purpleFlower.getRegistryName(), new BlockItem(purpleFlower, props));
+		register(r, blueFlower.getRegistryName(), new BlockItem(blueFlower, props));
+		register(r, brownFlower.getRegistryName(), new BlockItem(brownFlower, props));
+		register(r, greenFlower.getRegistryName(), new BlockItem(greenFlower, props));
+		register(r, redFlower.getRegistryName(), new BlockItem(redFlower, props));
+		register(r, blackFlower.getRegistryName(), new BlockItem(blackFlower, props));
+		register(r, defaultAltar.getRegistryName(), new BlockItem(defaultAltar, props));
+		register(r, forestAltar.getRegistryName(), new BlockItem(forestAltar, props));
+		register(r, plainsAltar.getRegistryName(), new BlockItem(plainsAltar, props));
+		register(r, mountainAltar.getRegistryName(), new BlockItem(mountainAltar, props));
+		register(r, fungalAltar.getRegistryName(), new BlockItem(fungalAltar, props));
+		register(r, swampAltar.getRegistryName(), new BlockItem(swampAltar, props));
+		register(r, desertAltar.getRegistryName(), new BlockItem(desertAltar, props));
+		register(r, taigaAltar.getRegistryName(), new BlockItem(taigaAltar, props));
+		register(r, mesaAltar.getRegistryName(), new BlockItem(mesaAltar, props));
+		register(r, mossyAltar.getRegistryName(), new BlockItem(mossyAltar, props));
+		register(r, livingrock.getRegistryName(), new BlockItem(livingrock, props));
+		register(r, livingrockBrick.getRegistryName(), new BlockItem(livingrockBrick, props));
+		register(r, livingrockBrickChiseled.getRegistryName(), new BlockItem(livingrockBrickChiseled, props));
+		register(r, livingrockBrickCracked.getRegistryName(), new BlockItem(livingrockBrickCracked, props));
+		register(r, livingrockBrickMossy.getRegistryName(), new BlockItem(livingrockBrickMossy, props));
+		register(r, livingwood.getRegistryName(), new BlockItem(livingwood, props));
+		register(r, livingwoodPlanks.getRegistryName(), new BlockItem(livingwoodPlanks, props));
+		register(r, livingwoodPlanksMossy.getRegistryName(), new BlockItem(livingwoodPlanksMossy, props));
+		register(r, livingwoodFramed.getRegistryName(), new BlockItem(livingwoodFramed, props));
+		register(r, livingwoodPatternFramed.getRegistryName(), new BlockItem(livingwoodPatternFramed, props));
+		register(r, livingwoodGlimmering.getRegistryName(), new BlockItem(livingwoodGlimmering, props));
+		register(r, manaSpreader.getRegistryName(), new BlockItem(manaSpreader, props));
+		register(r, redstoneSpreader.getRegistryName(), new BlockItem(redstoneSpreader, props));
+		register(r, elvenSpreader.getRegistryName(), new BlockItem(elvenSpreader, props));
+		register(r, gaiaSpreader.getRegistryName(), new BlockItem(gaiaSpreader, props));
+		register(r, manaPool.getRegistryName(), new ItemBlockPool(manaPool, props));
+		register(r, creativePool.getRegistryName(), new ItemBlockPool(creativePool, props));
+		register(r, dilutedPool.getRegistryName(), new ItemBlockPool(dilutedPool, props));
+		register(r, fabulousPool.getRegistryName(), new ItemBlockPool(fabulousPool, props));
+		register(r, runeAltar.getRegistryName(), new BlockItem(runeAltar, props));
+		register(r, pistonRelay.getRegistryName(), new BlockItem(pistonRelay, props));
+		register(r, distributor.getRegistryName(), new BlockItem(distributor, props));
+		register(r, manaVoid.getRegistryName(), new BlockItem(manaVoid, props));
+		register(r, manaDetector.getRegistryName(), new BlockItem(manaDetector, props));
+		register(r, enchanter.getRegistryName(), new BlockItem(enchanter, props));
+		register(r, turntable.getRegistryName(), new BlockItem(turntable, props));
+		register(r, tinyPlanet.getRegistryName(), new BlockItem(tinyPlanet, props));
+		register(r, alchemyCatalyst.getRegistryName(), new BlockItem(alchemyCatalyst, props));
+		register(r, openCrate.getRegistryName(), new BlockItem(openCrate, props));
+		register(r, craftCrate.getRegistryName(), new BlockItem(craftCrate, props));
+		register(r, forestEye.getRegistryName(), new BlockItem(forestEye, props));
+		register(r, manasteelBlock.getRegistryName(), new BlockItem(manasteelBlock, props));
+		register(r, terrasteelBlock.getRegistryName(), new BlockItem(terrasteelBlock, props));
+		register(r, elementiumBlock.getRegistryName(), new ItemBlockElven(elementiumBlock, props));
+		register(r, manaDiamondBlock.getRegistryName(), new BlockItem(manaDiamondBlock, props));
+		register(r, dragonstoneBlock.getRegistryName(), new BlockItem(dragonstoneBlock, props));
+		register(r, wildDrum.getRegistryName(), new BlockItem(wildDrum, props));
+		register(r, gatheringDrum.getRegistryName(), new BlockItem(gatheringDrum, props));
+		register(r, canopyDrum.getRegistryName(), new BlockItem(canopyDrum, props));
+		register(r, whiteShinyFlower.getRegistryName(), new BlockItem(whiteShinyFlower, props));
+		register(r, orangeShinyFlower.getRegistryName(), new BlockItem(orangeShinyFlower, props));
+		register(r, magentaShinyFlower.getRegistryName(), new BlockItem(magentaShinyFlower, props));
+		register(r, lightBlueShinyFlower.getRegistryName(), new BlockItem(lightBlueShinyFlower, props));
+		register(r, yellowShinyFlower.getRegistryName(), new BlockItem(yellowShinyFlower, props));
+		register(r, limeShinyFlower.getRegistryName(), new BlockItem(limeShinyFlower, props));
+		register(r, pinkShinyFlower.getRegistryName(), new BlockItem(pinkShinyFlower, props));
+		register(r, grayShinyFlower.getRegistryName(), new BlockItem(grayShinyFlower, props));
+		register(r, lightGrayShinyFlower.getRegistryName(), new BlockItem(lightGrayShinyFlower, props));
+		register(r, cyanShinyFlower.getRegistryName(), new BlockItem(cyanShinyFlower, props));
+		register(r, purpleShinyFlower.getRegistryName(), new BlockItem(purpleShinyFlower, props));
+		register(r, blueShinyFlower.getRegistryName(), new BlockItem(blueShinyFlower, props));
+		register(r, brownShinyFlower.getRegistryName(), new BlockItem(brownShinyFlower, props));
+		register(r, greenShinyFlower.getRegistryName(), new BlockItem(greenShinyFlower, props));
+		register(r, redShinyFlower.getRegistryName(), new BlockItem(redShinyFlower, props));
+		register(r, blackShinyFlower.getRegistryName(), new BlockItem(blackShinyFlower, props));
+		register(r, abstrusePlatform.getRegistryName(), new BlockItem(abstrusePlatform, props));
+		register(r, spectralPlatform.getRegistryName(), new BlockItem(spectralPlatform, props));
+		register(r, infrangiblePlatform.getRegistryName(), new BlockItem(infrangiblePlatform, props));
+		register(r, alfPortal.getRegistryName(), new BlockItem(alfPortal, props));
+		register(r, dreamwood.getRegistryName(), new ItemBlockDreamwood(dreamwood, props));
+		register(r, dreamwoodPlanks.getRegistryName(), new ItemBlockDreamwood(dreamwoodPlanks, props));
+		register(r, dreamwoodPlanksMossy.getRegistryName(), new ItemBlockDreamwood(dreamwoodPlanksMossy, props));
+		register(r, dreamwoodFramed.getRegistryName(), new ItemBlockDreamwood(dreamwoodFramed, props));
+		register(r, dreamwoodPatternFramed.getRegistryName(), new ItemBlockDreamwood(dreamwoodPatternFramed, props));
+		register(r, dreamwoodGlimmering.getRegistryName(), new ItemBlockDreamwood(dreamwoodGlimmering, props));
+		register(r, conjurationCatalyst.getRegistryName(), new BlockItem(conjurationCatalyst, props));
+		register(r, bifrost.getRegistryName(), new BlockItem(bifrost, props));
+		register(r, whiteFloatingFlower.getRegistryName(), new BlockItem(whiteFloatingFlower, props));
+		register(r, orangeFloatingFlower.getRegistryName(), new BlockItem(orangeFloatingFlower, props));
+		register(r, magentaFloatingFlower.getRegistryName(), new BlockItem(magentaFloatingFlower, props));
+		register(r, lightBlueFloatingFlower.getRegistryName(), new BlockItem(lightBlueFloatingFlower, props));
+		register(r, yellowFloatingFlower.getRegistryName(), new BlockItem(yellowFloatingFlower, props));
+		register(r, limeFloatingFlower.getRegistryName(), new BlockItem(limeFloatingFlower, props));
+		register(r, pinkFloatingFlower.getRegistryName(), new BlockItem(pinkFloatingFlower, props));
+		register(r, grayFloatingFlower.getRegistryName(), new BlockItem(grayFloatingFlower, props));
+		register(r, lightGrayFloatingFlower.getRegistryName(), new BlockItem(lightGrayFloatingFlower, props));
+		register(r, cyanFloatingFlower.getRegistryName(), new BlockItem(cyanFloatingFlower, props));
+		register(r, purpleFloatingFlower.getRegistryName(), new BlockItem(purpleFloatingFlower, props));
+		register(r, blueFloatingFlower.getRegistryName(), new BlockItem(blueFloatingFlower, props));
+		register(r, brownFloatingFlower.getRegistryName(), new BlockItem(brownFloatingFlower, props));
+		register(r, greenFloatingFlower.getRegistryName(), new BlockItem(greenFloatingFlower, props));
+		register(r, redFloatingFlower.getRegistryName(), new BlockItem(redFloatingFlower, props));
+		register(r, blackFloatingFlower.getRegistryName(), new BlockItem(blackFloatingFlower, props));
+		register(r, tinyPotato.getRegistryName(), new ItemBlockTinyPotato(tinyPotato, props));
+		register(r, spawnerClaw.getRegistryName(), new BlockItem(spawnerClaw, props));
+		register(r, azulejo0.getRegistryName(), new BlockItem(azulejo0, props));
+		register(r, azulejo1.getRegistryName(), new BlockItem(azulejo1, props));
+		register(r, azulejo2.getRegistryName(), new BlockItem(azulejo2, props));
+		register(r, azulejo3.getRegistryName(), new BlockItem(azulejo3, props));
+		register(r, azulejo4.getRegistryName(), new BlockItem(azulejo4, props));
+		register(r, azulejo5.getRegistryName(), new BlockItem(azulejo5, props));
+		register(r, azulejo6.getRegistryName(), new BlockItem(azulejo6, props));
+		register(r, azulejo7.getRegistryName(), new BlockItem(azulejo7, props));
+		register(r, azulejo8.getRegistryName(), new BlockItem(azulejo8, props));
+		register(r, azulejo9.getRegistryName(), new BlockItem(azulejo9, props));
+		register(r, azulejo10.getRegistryName(), new BlockItem(azulejo10, props));
+		register(r, azulejo11.getRegistryName(), new BlockItem(azulejo11, props));
+		register(r, azulejo12.getRegistryName(), new BlockItem(azulejo12, props));
+		register(r, azulejo13.getRegistryName(), new BlockItem(azulejo13, props));
+		register(r, azulejo14.getRegistryName(), new BlockItem(azulejo14, props));
+		register(r, azulejo15.getRegistryName(), new BlockItem(azulejo15, props));
+		register(r, enderEye.getRegistryName(), new BlockItem(enderEye, props));
+		register(r, starfield.getRegistryName(), new BlockItem(starfield, props));
+		register(r, rfGenerator.getRegistryName(), new BlockItem(rfGenerator, props));
+		register(r, elfGlass.getRegistryName(), new ItemBlockElven(elfGlass, props));
+		register(r, manaGlass.getRegistryName(), new BlockItem(manaGlass, props));
+		register(r, terraPlate.getRegistryName(), new BlockItem(terraPlate, props));
+		register(r, redStringContainer.getRegistryName(), new BlockItem(redStringContainer, props));
+		register(r, redStringDispenser.getRegistryName(), new BlockItem(redStringDispenser, props));
+		register(r, redStringFertilizer.getRegistryName(), new BlockItem(redStringFertilizer, props));
+		register(r, redStringComparator.getRegistryName(), new BlockItem(redStringComparator, props));
+		register(r, redStringRelay.getRegistryName(), new BlockItem(redStringRelay, props));
+		register(r, prism.getRegistryName(), new BlockItem(prism, props));
+		register(r, enchantedSoil.getRegistryName(), new BlockItem(enchantedSoil, props));
+		register(r, petalBlockWhite.getRegistryName(), new BlockItem(petalBlockWhite, props));
+		register(r, petalBlockOrange.getRegistryName(), new BlockItem(petalBlockOrange, props));
+		register(r, petalBlockMagenta.getRegistryName(), new BlockItem(petalBlockMagenta, props));
+		register(r, petalBlockLightBlue.getRegistryName(), new BlockItem(petalBlockLightBlue, props));
+		register(r, petalBlockYellow.getRegistryName(), new BlockItem(petalBlockYellow, props));
+		register(r, petalBlockLime.getRegistryName(), new BlockItem(petalBlockLime, props));
+		register(r, petalBlockPink.getRegistryName(), new BlockItem(petalBlockPink, props));
+		register(r, petalBlockGray.getRegistryName(), new BlockItem(petalBlockGray, props));
+		register(r, petalBlockSilver.getRegistryName(), new BlockItem(petalBlockSilver, props));
+		register(r, petalBlockCyan.getRegistryName(), new BlockItem(petalBlockCyan, props));
+		register(r, petalBlockPurple.getRegistryName(), new BlockItem(petalBlockPurple, props));
+		register(r, petalBlockBlue.getRegistryName(), new BlockItem(petalBlockBlue, props));
+		register(r, petalBlockBrown.getRegistryName(), new BlockItem(petalBlockBrown, props));
+		register(r, petalBlockGreen.getRegistryName(), new BlockItem(petalBlockGreen, props));
+		register(r, petalBlockRed.getRegistryName(), new BlockItem(petalBlockRed, props));
+		register(r, petalBlockBlack.getRegistryName(), new BlockItem(petalBlockBlack, props));
+		register(r, corporeaFunnel.getRegistryName(), new BlockItem(corporeaFunnel, props));
+		register(r, whiteMushroom.getRegistryName(), new BlockItem(whiteMushroom, props));
+		register(r, orangeMushroom.getRegistryName(), new BlockItem(orangeMushroom, props));
+		register(r, magentaMushroom.getRegistryName(), new BlockItem(magentaMushroom, props));
+		register(r, lightBlueMushroom.getRegistryName(), new BlockItem(lightBlueMushroom, props));
+		register(r, yellowMushroom.getRegistryName(), new BlockItem(yellowMushroom, props));
+		register(r, limeMushroom.getRegistryName(), new BlockItem(limeMushroom, props));
+		register(r, pinkMushroom.getRegistryName(), new BlockItem(pinkMushroom, props));
+		register(r, grayMushroom.getRegistryName(), new BlockItem(grayMushroom, props));
+		register(r, lightGrayMushroom.getRegistryName(), new BlockItem(lightGrayMushroom, props));
+		register(r, cyanMushroom.getRegistryName(), new BlockItem(cyanMushroom, props));
+		register(r, purpleMushroom.getRegistryName(), new BlockItem(purpleMushroom, props));
+		register(r, blueMushroom.getRegistryName(), new BlockItem(blueMushroom, props));
+		register(r, brownMushroom.getRegistryName(), new BlockItem(brownMushroom, props));
+		register(r, greenMushroom.getRegistryName(), new BlockItem(greenMushroom, props));
+		register(r, redMushroom.getRegistryName(), new BlockItem(redMushroom, props));
+		register(r, blackMushroom.getRegistryName(), new BlockItem(blackMushroom, props));
+		register(r, pump.getRegistryName(), new BlockItem(pump, props));
+		register(r, doubleFlowerWhite.getRegistryName(), new BlockItem(doubleFlowerWhite, props));
+		register(r, doubleFlowerOrange.getRegistryName(), new BlockItem(doubleFlowerOrange, props));
+		register(r, doubleFlowerMagenta.getRegistryName(), new BlockItem(doubleFlowerMagenta, props));
+		register(r, doubleFlowerLightBlue.getRegistryName(), new BlockItem(doubleFlowerLightBlue, props));
+		register(r, doubleFlowerYellow.getRegistryName(), new BlockItem(doubleFlowerYellow, props));
+		register(r, doubleFlowerLime.getRegistryName(), new BlockItem(doubleFlowerLime, props));
+		register(r, doubleFlowerPink.getRegistryName(), new BlockItem(doubleFlowerPink, props));
+		register(r, doubleFlowerGray.getRegistryName(), new BlockItem(doubleFlowerGray, props));
+		register(r, doubleFlowerLightGray.getRegistryName(), new BlockItem(doubleFlowerLightGray, props));
+		register(r, doubleFlowerCyan.getRegistryName(), new BlockItem(doubleFlowerCyan, props));
+		register(r, doubleFlowerPurple.getRegistryName(), new BlockItem(doubleFlowerPurple, props));
+		register(r, doubleFlowerBlue.getRegistryName(), new BlockItem(doubleFlowerBlue, props));
+		register(r, doubleFlowerBrown.getRegistryName(), new BlockItem(doubleFlowerBrown, props));
+		register(r, doubleFlowerGreen.getRegistryName(), new BlockItem(doubleFlowerGreen, props));
+		register(r, doubleFlowerRed.getRegistryName(), new BlockItem(doubleFlowerRed, props));
+		register(r, doubleFlowerBlack.getRegistryName(), new BlockItem(doubleFlowerBlack, props));
+		register(r, blazeBlock.getRegistryName(), new ItemBlockBlaze(blazeBlock, props));
+		register(r, corporeaInterceptor.getRegistryName(), new BlockItem(corporeaInterceptor, props));
+		register(r, incensePlate.getRegistryName(), new BlockItem(incensePlate, props));
+		register(r, ghostRail.getRegistryName(), new BlockItem(ghostRail, props));
+		register(r, sparkChanger.getRegistryName(), new BlockItem(sparkChanger, props));
+		register(r, root.getRegistryName(), new BlockItem(root, props));
+		register(r, felPumpkin.getRegistryName(), new BlockItem(felPumpkin, props));
+		register(r, cocoon.getRegistryName(), new BlockItem(cocoon, props));
+		register(r, lightRelayDefault.getRegistryName(), new BlockItem(lightRelayDefault, props));
+		register(r, lightRelayDetector.getRegistryName(), new BlockItem(lightRelayDetector, props));
+		register(r, lightRelayFork.getRegistryName(), new BlockItem(lightRelayFork, props));
+		register(r, lightRelayToggle.getRegistryName(), new BlockItem(lightRelayToggle, props));
+		register(r, lightLauncher.getRegistryName(), new BlockItem(lightLauncher, props));
+		register(r, manaBomb.getRegistryName(), new BlockItem(manaBomb, props));
+		register(r, cacophonium.getRegistryName(), new BlockItem(cacophonium, props));
+		register(r, bifrostPerm.getRegistryName(), new BlockItem(bifrostPerm, props));
+		register(r, cellBlock.getRegistryName(), new BlockItem(cellBlock, props));
+		register(r, redStringInterceptor.getRegistryName(), new BlockItem(redStringInterceptor, props));
+		register(r, corporeaRetainer.getRegistryName(), new BlockItem(corporeaRetainer, props));
+		register(r, shimmerrock.getRegistryName(), new BlockItem(shimmerrock, props));
+		register(r, shimmerwoodPlanks.getRegistryName(), new BlockItem(shimmerwoodPlanks, props));
+		register(r, dryGrass.getRegistryName(), new BlockItem(dryGrass, props));
+		register(r, goldenGrass.getRegistryName(), new BlockItem(goldenGrass, props));
+		register(r, vividGrass.getRegistryName(), new BlockItem(vividGrass, props));
+		register(r, scorchedGrass.getRegistryName(), new BlockItem(scorchedGrass, props));
+		register(r, infusedGrass.getRegistryName(), new BlockItem(infusedGrass, props));
+		register(r, mutatedGrass.getRegistryName(), new BlockItem(mutatedGrass, props));
+		register(r, animatedTorch.getRegistryName(), new BlockItem(animatedTorch, props));
+		register(r, corporeaCrystalCube.getRegistryName(), new BlockItem(corporeaCrystalCube, props));
 
 		DistExecutor.runForDist(() -> () -> registerWithTEISRS(r), () -> () -> registerWithoutTEISRS(r));
 	}
@@ -751,45 +751,45 @@ public final class ModBlocks {
 	@OnlyIn(Dist.DEDICATED_SERVER)
 	private static Void registerWithoutTEISRS(IForgeRegistry<Item> r) {
 		Item.Properties props = ModItems.defaultBuilder();
-		register(r, new BlockItem(manaPylon, props), manaPylon.getRegistryName());
-		register(r, new BlockItem(naturaPylon, props), naturaPylon.getRegistryName());
-		register(r, new BlockItem(gaiaPylon, props), gaiaPylon.getRegistryName());
+		register(r, manaPylon.getRegistryName(), new BlockItem(manaPylon, props));
+		register(r, naturaPylon.getRegistryName(), new BlockItem(naturaPylon, props));
+		register(r, gaiaPylon.getRegistryName(), new BlockItem(gaiaPylon, props));
 
-		register(r, new BlockItem(teruTeruBozu, props), teruTeruBozu.getRegistryName());
-		register(r, new BlockItem(avatar, props), avatar.getRegistryName());
-		register(r, new BlockItem(bellows, props), bellows.getRegistryName());
-		register(r, new BlockItem(brewery, props), brewery.getRegistryName());
-		register(r, new BlockItem(corporeaIndex, props), corporeaIndex.getRegistryName());
-		register(r, new BlockItem(hourglass, props), hourglass.getRegistryName());
+		register(r, teruTeruBozu.getRegistryName(), new BlockItem(teruTeruBozu, props));
+		register(r, avatar.getRegistryName(), new BlockItem(avatar, props));
+		register(r, bellows.getRegistryName(), new BlockItem(bellows, props));
+		register(r, brewery.getRegistryName(), new BlockItem(brewery, props));
+		register(r, corporeaIndex.getRegistryName(), new BlockItem(corporeaIndex, props));
+		register(r, hourglass.getRegistryName(), new BlockItem(hourglass, props));
 		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON));
-		register(r, head, gaiaHead.getRegistryName());
+		register(r, gaiaHead.getRegistryName(), head);
 		return null;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	private static Void registerWithTEISRS(IForgeRegistry<Item> r) {
 		Item.Properties pylonProps = ModItems.defaultBuilder().setISTER(() -> () -> new RenderTilePylon.TEISR());
-		register(r, new BlockItem(manaPylon, pylonProps), manaPylon.getRegistryName());
-		register(r, new BlockItem(naturaPylon, pylonProps), naturaPylon.getRegistryName());
-		register(r, new BlockItem(gaiaPylon, pylonProps), gaiaPylon.getRegistryName());
+		register(r, manaPylon.getRegistryName(), new BlockItem(manaPylon, pylonProps));
+		register(r, naturaPylon.getRegistryName(), new BlockItem(naturaPylon, pylonProps));
+		register(r, gaiaPylon.getRegistryName(), new BlockItem(gaiaPylon, pylonProps));
 
-		register(r, new BlockItem(teruTeruBozu, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(teruTeruBozu))), teruTeruBozu.getRegistryName());
-		register(r, new BlockItem(avatar, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(avatar))), avatar.getRegistryName());
-		register(r, new BlockItem(bellows, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(bellows))), bellows.getRegistryName());
-		register(r, new BlockItem(brewery, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(brewery))), brewery.getRegistryName());
-		register(r, new BlockItem(corporeaIndex, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(corporeaIndex))), corporeaIndex.getRegistryName());
-		register(r, new BlockItem(hourglass, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(hourglass))), hourglass.getRegistryName());
+		register(r, teruTeruBozu.getRegistryName(), new BlockItem(teruTeruBozu, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(teruTeruBozu))));
+		register(r, avatar.getRegistryName(), new BlockItem(avatar, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(avatar))));
+		register(r, bellows.getRegistryName(), new BlockItem(bellows, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(bellows))));
+		register(r, brewery.getRegistryName(), new BlockItem(brewery, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(brewery))));
+		register(r, corporeaIndex.getRegistryName(), new BlockItem(corporeaIndex, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(corporeaIndex))));
+		register(r, hourglass.getRegistryName(), new BlockItem(hourglass, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(hourglass))));
 		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON).setISTER(() -> () -> new TEISR(gaiaHead)));
-		register(r, head, gaiaHead.getRegistryName());
+		register(r, gaiaHead.getRegistryName(), head);
 		return null;
 	}
 
-	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, ResourceLocation name) {
+	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, ResourceLocation name, IForgeRegistryEntry<V> thing) {
 		reg.register(thing.setRegistryName(name));
 	}
 
-	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
-		register(reg, thing, new ResourceLocation(LibMisc.MOD_ID, name));
+	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, String name, IForgeRegistryEntry<V> thing) {
+		register(reg, new ResourceLocation(LibMisc.MOD_ID, name), thing);
 	}
 
 	public static void addDispenserBehaviours() {
@@ -802,61 +802,61 @@ public final class ModBlocks {
 
 	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
-		register(r, TileEntityType.Builder.create(TileAltar::new,
+		register(r, LibBlockNames.ALTAR, TileEntityType.Builder.create(TileAltar::new,
 				defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
 				swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar
-		).build(null), LibBlockNames.ALTAR);
-		register(r, TileEntityType.Builder.create(TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader).build(null), LibBlockNames.SPREADER);
-		register(r, TileEntityType.Builder.create(TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool).build(null), LibBlockNames.POOL);
-		register(r, TileEntityType.Builder.create(TileRuneAltar::new, runeAltar).build(null), LibBlockNames.RUNE_ALTAR);
-		register(r, TileEntityType.Builder.create(TilePylon::new, manaPylon, naturaPylon, gaiaPylon).build(null), LibBlockNames.PYLON);
-		register(r, TileEntityType.Builder.create(TileDistributor::new, distributor).build(null), LibBlockNames.DISTRIBUTOR);
-		register(r, TileEntityType.Builder.create(TileManaVoid::new, manaVoid).build(null), LibBlockNames.MANA_VOID);
-		register(r, TileEntityType.Builder.create(TileManaDetector::new, manaDetector).build(null), LibBlockNames.MANA_DETECTOR);
-		register(r, TileEntityType.Builder.create(TileEnchanter::new, enchanter).build(null), LibBlockNames.ENCHANTER);
-		register(r, TileEntityType.Builder.create(TileTurntable::new, turntable).build(null), LibBlockNames.TURNTABLE);
-		register(r, TileEntityType.Builder.create(TileTinyPlanet::new, tinyPlanet).build(null), LibBlockNames.TINY_PLANET);
-		register(r, TileEntityType.Builder.create(TileOpenCrate::new, openCrate).build(null), LibBlockNames.OPEN_CRATE);
-		register(r, TileEntityType.Builder.create(TileCraftCrate::new, craftCrate).build(null), LibBlockNames.CRAFT_CRATE);
-		register(r, TileEntityType.Builder.create(TileForestEye::new, forestEye).build(null), LibBlockNames.FOREST_EYE);
-		register(r, TileEntityType.Builder.create(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform).build(null), LibBlockNames.PLATFORM);
-		register(r, TileEntityType.Builder.create(TileAlfPortal::new, alfPortal).build(null), LibBlockNames.ALF_PORTAL);
-		register(r, TileEntityType.Builder.create(TileBifrost::new, bifrost).build(null), LibBlockNames.BIFROST);
-		register(r, TileEntityType.Builder.create(TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new)).build(null), LibBlockNames.MINI_ISLAND);
-		register(r, TileEntityType.Builder.create(TileTinyPotato::new, tinyPotato).build(null), LibBlockNames.TINY_POTATO);
-		register(r, TileEntityType.Builder.create(TileSpawnerClaw::new, spawnerClaw).build(null), LibBlockNames.SPAWNER_CLAW);
-		register(r, TileEntityType.Builder.create(TileEnderEye::new, enderEye).build(null), LibBlockNames.ENDER_EYE_BLOCK);
-		register(r, TileEntityType.Builder.create(TileStarfield::new, starfield).build(null), LibBlockNames.STARFIELD);
-		register(r, TileEntityType.Builder.create(TileRFGenerator::new, rfGenerator).build(null), LibBlockNames.FLUXFIELD);
-		register(r, TileEntityType.Builder.create(TileBrewery::new, brewery).build(null), LibBlockNames.BREWERY);
-		register(r, TileEntityType.Builder.create(TileTerraPlate::new, terraPlate).build(null), LibBlockNames.TERRA_PLATE);
-		register(r, TileEntityType.Builder.create(TileRedStringContainer::new, redStringContainer).build(null), LibBlockNames.RED_STRING_CONTAINER);
-		register(r, TileEntityType.Builder.create(TileRedStringDispenser::new, redStringDispenser).build(null), LibBlockNames.RED_STRING_DISPENSER);
-		register(r, TileEntityType.Builder.create(TileRedStringFertilizer::new, redStringFertilizer).build(null), LibBlockNames.RED_STRING_FERTILIZER);
-		register(r, TileEntityType.Builder.create(TileRedStringComparator::new, redStringComparator).build(null), LibBlockNames.RED_STRING_COMPARATOR);
-		register(r, TileEntityType.Builder.create(TileRedStringRelay::new, redStringRelay).build(null), LibBlockNames.RED_STRING_RELAY);
-		register(r, TileEntityType.Builder.create(TileManaFlame::new, manaFlame).build(null), LibBlockNames.MANA_FLAME);
-		register(r, TileEntityType.Builder.create(TilePrism::new, prism).build(null), LibBlockNames.PRISM);
-		register(r, TileEntityType.Builder.create(TileCorporeaIndex::new, corporeaIndex).build(null), LibBlockNames.CORPOREA_INDEX);
-		register(r, TileEntityType.Builder.create(TileCorporeaFunnel::new, corporeaFunnel).build(null), LibBlockNames.CORPOREA_FUNNEL);
-		register(r, TileEntityType.Builder.create(TilePump::new, pump).build(null), LibBlockNames.PUMP);
-		register(r, TileEntityType.Builder.create(TileFakeAir::new, fakeAir).build(null), LibBlockNames.FAKE_AIR);
-		register(r, TileEntityType.Builder.create(TileCorporeaInterceptor::new, corporeaInterceptor).build(null), LibBlockNames.CORPOREA_INTERCEPTOR);
-		register(r, TileEntityType.Builder.create(TileCorporeaCrystalCube::new, corporeaCrystalCube).build(null), LibBlockNames.CORPOREA_CRYSTAL_CUBE);
-		register(r, TileEntityType.Builder.create(TileIncensePlate::new, incensePlate).build(null), LibBlockNames.INCENSE_PLATE);
-		register(r, TileEntityType.Builder.create(TileHourglass::new, hourglass).build(null), LibBlockNames.HOURGLASS);
-		register(r, TileEntityType.Builder.create(TileSparkChanger::new, sparkChanger).build(null), LibBlockNames.SPARK_CHANGER);
-		register(r, TileEntityType.Builder.create(TileCocoon::new, cocoon).build(null), LibBlockNames.COCOON);
-		register(r, TileEntityType.Builder.create(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork).build(null), LibBlockNames.LIGHT_RELAY);
-		register(r, TileEntityType.Builder.create(TileCacophonium::new, cacophonium).build(null), LibBlockNames.CACOPHONIUM);
-		register(r, TileEntityType.Builder.create(TileBellows::new, bellows).build(null), LibBlockNames.BELLOWS);
-		register(r, TileEntityType.Builder.create(TileCell::new, cellBlock).build(null), LibBlockNames.CELL_BLOCK);
-		register(r, TileEntityType.Builder.create(TileRedStringInterceptor::new, redStringInterceptor).build(null), LibBlockNames.RED_STRING_INTERCEPTOR);
-		register(r, TileEntityType.Builder.create(TileGaiaHead::new, gaiaHead, gaiaHeadWall).build(null), LibBlockNames.GAIA_HEAD);
-		register(r, TileEntityType.Builder.create(TileCorporeaRetainer::new, corporeaRetainer).build(null), LibBlockNames.CORPOREA_RETAINER);
-		register(r, TileEntityType.Builder.create(TileTeruTeruBozu::new, teruTeruBozu).build(null), LibBlockNames.TERU_TERU_BOZU);
-		register(r, TileEntityType.Builder.create(TileAvatar::new, avatar).build(null), LibBlockNames.AVATAR);
-		register(r, TileEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null), LibBlockNames.ANIMATED_TORCH);
+		).build(null));
+		register(r, LibBlockNames.SPREADER, TileEntityType.Builder.create(TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader).build(null));
+		register(r, LibBlockNames.POOL, TileEntityType.Builder.create(TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool).build(null));
+		register(r, LibBlockNames.RUNE_ALTAR, TileEntityType.Builder.create(TileRuneAltar::new, runeAltar).build(null));
+		register(r, LibBlockNames.PYLON, TileEntityType.Builder.create(TilePylon::new, manaPylon, naturaPylon, gaiaPylon).build(null));
+		register(r, LibBlockNames.DISTRIBUTOR, TileEntityType.Builder.create(TileDistributor::new, distributor).build(null));
+		register(r, LibBlockNames.MANA_VOID, TileEntityType.Builder.create(TileManaVoid::new, manaVoid).build(null));
+		register(r, LibBlockNames.MANA_DETECTOR, TileEntityType.Builder.create(TileManaDetector::new, manaDetector).build(null));
+		register(r, LibBlockNames.ENCHANTER, TileEntityType.Builder.create(TileEnchanter::new, enchanter).build(null));
+		register(r, LibBlockNames.TURNTABLE, TileEntityType.Builder.create(TileTurntable::new, turntable).build(null));
+		register(r, LibBlockNames.TINY_PLANET, TileEntityType.Builder.create(TileTinyPlanet::new, tinyPlanet).build(null));
+		register(r, LibBlockNames.OPEN_CRATE, TileEntityType.Builder.create(TileOpenCrate::new, openCrate).build(null));
+		register(r, LibBlockNames.CRAFT_CRATE, TileEntityType.Builder.create(TileCraftCrate::new, craftCrate).build(null));
+		register(r, LibBlockNames.FOREST_EYE, TileEntityType.Builder.create(TileForestEye::new, forestEye).build(null));
+		register(r, LibBlockNames.PLATFORM, TileEntityType.Builder.create(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform).build(null));
+		register(r, LibBlockNames.ALF_PORTAL, TileEntityType.Builder.create(TileAlfPortal::new, alfPortal).build(null));
+		register(r, LibBlockNames.BIFROST, TileEntityType.Builder.create(TileBifrost::new, bifrost).build(null));
+		register(r, LibBlockNames.MINI_ISLAND, TileEntityType.Builder.create(TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new)).build(null));
+		register(r, LibBlockNames.TINY_POTATO, TileEntityType.Builder.create(TileTinyPotato::new, tinyPotato).build(null));
+		register(r, LibBlockNames.SPAWNER_CLAW, TileEntityType.Builder.create(TileSpawnerClaw::new, spawnerClaw).build(null));
+		register(r, LibBlockNames.ENDER_EYE_BLOCK, TileEntityType.Builder.create(TileEnderEye::new, enderEye).build(null));
+		register(r, LibBlockNames.STARFIELD, TileEntityType.Builder.create(TileStarfield::new, starfield).build(null));
+		register(r, LibBlockNames.FLUXFIELD, TileEntityType.Builder.create(TileRFGenerator::new, rfGenerator).build(null));
+		register(r, LibBlockNames.BREWERY, TileEntityType.Builder.create(TileBrewery::new, brewery).build(null));
+		register(r, LibBlockNames.TERRA_PLATE, TileEntityType.Builder.create(TileTerraPlate::new, terraPlate).build(null));
+		register(r, LibBlockNames.RED_STRING_CONTAINER, TileEntityType.Builder.create(TileRedStringContainer::new, redStringContainer).build(null));
+		register(r, LibBlockNames.RED_STRING_DISPENSER, TileEntityType.Builder.create(TileRedStringDispenser::new, redStringDispenser).build(null));
+		register(r, LibBlockNames.RED_STRING_FERTILIZER, TileEntityType.Builder.create(TileRedStringFertilizer::new, redStringFertilizer).build(null));
+		register(r, LibBlockNames.RED_STRING_COMPARATOR, TileEntityType.Builder.create(TileRedStringComparator::new, redStringComparator).build(null));
+		register(r, LibBlockNames.RED_STRING_RELAY, TileEntityType.Builder.create(TileRedStringRelay::new, redStringRelay).build(null));
+		register(r, LibBlockNames.MANA_FLAME, TileEntityType.Builder.create(TileManaFlame::new, manaFlame).build(null));
+		register(r, LibBlockNames.PRISM, TileEntityType.Builder.create(TilePrism::new, prism).build(null));
+		register(r, LibBlockNames.CORPOREA_INDEX, TileEntityType.Builder.create(TileCorporeaIndex::new, corporeaIndex).build(null));
+		register(r, LibBlockNames.CORPOREA_FUNNEL, TileEntityType.Builder.create(TileCorporeaFunnel::new, corporeaFunnel).build(null));
+		register(r, LibBlockNames.PUMP, TileEntityType.Builder.create(TilePump::new, pump).build(null));
+		register(r, LibBlockNames.FAKE_AIR, TileEntityType.Builder.create(TileFakeAir::new, fakeAir).build(null));
+		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, TileEntityType.Builder.create(TileCorporeaInterceptor::new, corporeaInterceptor).build(null));
+		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, TileEntityType.Builder.create(TileCorporeaCrystalCube::new, corporeaCrystalCube).build(null));
+		register(r, LibBlockNames.INCENSE_PLATE, TileEntityType.Builder.create(TileIncensePlate::new, incensePlate).build(null));
+		register(r, LibBlockNames.HOURGLASS, TileEntityType.Builder.create(TileHourglass::new, hourglass).build(null));
+		register(r, LibBlockNames.SPARK_CHANGER, TileEntityType.Builder.create(TileSparkChanger::new, sparkChanger).build(null));
+		register(r, LibBlockNames.COCOON, TileEntityType.Builder.create(TileCocoon::new, cocoon).build(null));
+		register(r, LibBlockNames.LIGHT_RELAY, TileEntityType.Builder.create(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork).build(null));
+		register(r, LibBlockNames.CACOPHONIUM, TileEntityType.Builder.create(TileCacophonium::new, cacophonium).build(null));
+		register(r, LibBlockNames.BELLOWS, TileEntityType.Builder.create(TileBellows::new, bellows).build(null));
+		register(r, LibBlockNames.CELL_BLOCK, TileEntityType.Builder.create(TileCell::new, cellBlock).build(null));
+		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, TileEntityType.Builder.create(TileRedStringInterceptor::new, redStringInterceptor).build(null));
+		register(r, LibBlockNames.GAIA_HEAD, TileEntityType.Builder.create(TileGaiaHead::new, gaiaHead, gaiaHeadWall).build(null));
+		register(r, LibBlockNames.CORPOREA_RETAINER, TileEntityType.Builder.create(TileCorporeaRetainer::new, corporeaRetainer).build(null));
+		register(r, LibBlockNames.TERU_TERU_BOZU, TileEntityType.Builder.create(TileTeruTeruBozu::new, teruTeruBozu).build(null));
+		register(r, LibBlockNames.AVATAR, TileEntityType.Builder.create(TileAvatar::new, avatar).build(null));
+		register(r, LibBlockNames.ANIMATED_TORCH, TileEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null));
 	}
 
 	public static Block getFlower(DyeColor color) {

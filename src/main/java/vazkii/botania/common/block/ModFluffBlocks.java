@@ -221,91 +221,91 @@ public final class ModFluffBlocks {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
 		Block base = r.getValue(prefix(LibBlockNames.LIVING_WOOD));
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + STAIR_SUFFIX);
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + SLAB_SUFFIX);
-		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + WALL_SUFFIX);
-		register(r, new FenceBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + FENCE_SUFFIX);
-		register(r, new FenceGateBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX);
+		register(r, LibBlockNames.LIVING_WOOD + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD + WALL_SUFFIX, new WallBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, new FenceBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.LIVING_WOOD_PLANKS));
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX);
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX);
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK));
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + STAIR_SUFFIX);
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + SLAB_SUFFIX);
-		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK + WALL_SUFFIX);
+		register(r, LibBlockNames.LIVING_ROCK + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_ROCK + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_ROCK + WALL_SUFFIX, new WallBlock(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK_BRICK));
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX);
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD));
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + STAIR_SUFFIX);
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + SLAB_SUFFIX);
-		register(r, new WallBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + WALL_SUFFIX);
-		register(r, new FenceBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + FENCE_SUFFIX);
-		register(r, new FenceGateBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX);
+		register(r, LibBlockNames.DREAM_WOOD + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD + WALL_SUFFIX, new WallBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, new FenceBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD_PLANKS));
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX);
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
 
 		Block.Properties props = Block.Properties.from(Blocks.QUARTZ_BLOCK);
 		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
 
 			base = new BlockMod(props);
-			register(r, base, variant);
-			register(r, new BlockMod(props), "chiseled_" + variant);
-			register(r, new RotatedPillarBlock(props), variant + "_pillar");
-			register(r, new SlabBlock(props), variant + SLAB_SUFFIX);
-			register(r, new BlockModStairs(base.getDefaultState(), props), variant + STAIR_SUFFIX);
+			register(r, variant, base);
+			register(r, "chiseled_" + variant, new BlockMod(props));
+			register(r, variant + "_pillar", new RotatedPillarBlock(props));
+			register(r, variant + SLAB_SUFFIX, new SlabBlock(props));
+			register(r, variant + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
 		}
 
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
 		for (String color : LibBlockNames.PAVEMENT_VARIANTS) {
 			Block block = new BlockMod(props);
-			register(r, block, color + LibBlockNames.PAVEMENT_SUFFIX);
-			register(r, new BlockModStairs(block.getDefaultState(), props), color + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
-			register(r, new SlabBlock(props), color + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+			register(r, color + LibBlockNames.PAVEMENT_SUFFIX, block);
+			register(r, color + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX, new BlockModStairs(block.getDefaultState(), props));
+			register(r, color + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX, new SlabBlock(props));
 		}
 
 		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE);
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			base = new BlockMod(props);
-			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			register(r, new BlockModStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
-			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
+			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone", base);
+			register(r, base.getRegistryName().getPath() + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
+			register(r, base.getRegistryName().getPath() + SLAB_SUFFIX, new SlabBlock(props));
 
 			base = new BlockMod(props);
-			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
-			register(r, new BlockModStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
-			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
-			register(r, new WallBlock(props), LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX);
+			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone", base);
+			register(r, base.getRegistryName().getPath() + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
+			register(r, base.getRegistryName().getPath() + SLAB_SUFFIX, new SlabBlock(props));
+			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX, new WallBlock(props));
 
 			base = new BlockMod(props);
-			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			register(r, new BlockModStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
-			register(r, new SlabBlock(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
-			register(r, new BlockMod(props), "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks", base);
+			register(r, base.getRegistryName().getPath() + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
+			register(r, base.getRegistryName().getPath() + SLAB_SUFFIX, new SlabBlock(props));
+			register(r, "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks", new BlockMod(props));
 		}
 
 		base = r.getValue(prefix(LibBlockNames.SHIMMERROCK));
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + SLAB_SUFFIX);
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERROCK + STAIR_SUFFIX);
+		register(r, LibBlockNames.SHIMMERROCK + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.SHIMMERROCK + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.SHIMMERWOOD_PLANKS));
-		register(r, new SlabBlock(Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX);
-		register(r, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)), LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX);
+		register(r, LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.MANA_GLASS));
-		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.MANA_GLASS + "_pane");
+		register(r, LibBlockNames.MANA_GLASS + "_pane", new BlockModPane(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.ELF_GLASS));
-		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.ELF_GLASS + "_pane");
+		register(r, LibBlockNames.ELF_GLASS + "_pane", new BlockModPane(Block.Properties.from(base)));
 
 		base = r.getValue(prefix(LibBlockNames.BIFROST_PERM));
-		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.BIFROST + "_pane");
+		register(r, LibBlockNames.BIFROST + "_pane", new BlockModPane(Block.Properties.from(base)));
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {

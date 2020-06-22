@@ -24,8 +24,8 @@ public class ModParticles {
 	@ObjectHolder(LibMisc.MOD_ID + ":sparkle") public static ParticleType<SparkleParticleData> SPARKLE;
 
 	public static void registerParticles(RegistryEvent.Register<ParticleType<?>> evt) {
-		register(evt.getRegistry(), new WispParticleType(), "wisp");
-		register(evt.getRegistry(), new SparkleParticleType(), "sparkle");
+		register(evt.getRegistry(), "wisp", new WispParticleType());
+		register(evt.getRegistry(), "sparkle", new SparkleParticleType());
 	}
 
 	public static class FactoryHandler {

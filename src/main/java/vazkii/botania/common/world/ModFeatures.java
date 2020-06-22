@@ -41,12 +41,12 @@ public class ModFeatures {
 	public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
 		IForgeRegistry<Feature<?>> r = event.getRegistry();
 
-		register(r, MYSTICAL_FLOWERS, "mystical_flowers");
-		register(r, MYSTICAL_MUSHROOMS, "mystical_mushrooms");
+		register(r, "mystical_flowers", MYSTICAL_FLOWERS);
+		register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
 	}
 
 	public static void registerChunkGenerators(RegistryEvent.Register<ChunkGeneratorType<?, ?>> evt) {
-		register(evt.getRegistry(), SkyblockChunkGenerator.TYPE, "garden_of_glass");
+		register(evt.getRegistry(), "garden_of_glass", SkyblockChunkGenerator.TYPE);
 	}
 
 	public static void addWorldgen() {

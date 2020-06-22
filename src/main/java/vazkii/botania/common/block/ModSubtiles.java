@@ -208,8 +208,8 @@ public class ModSubtiles {
 		Block.Properties floatProps = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
 
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
-			register(r, new BlockSpecialFlower(props, type.getFirst()), type.getSecond());
-			register(r, new BlockFloatingSpecialFlower(floatProps, type.getFirst()), floating(type.getSecond()));
+			register(r, type.getSecond(), new BlockSpecialFlower(props, type.getFirst()));
+			register(r, floating(type.getSecond()), new BlockFloatingSpecialFlower(floatProps, type.getFirst()));
 		}
 	}
 
@@ -222,8 +222,8 @@ public class ModSubtiles {
 			Block block = b.getValue(type.getSecond()).get();
 			Block floating = b.getValue(floating(type.getSecond())).get();
 
-			register(r, new ItemBlockSpecialFlower(block, props), type.getSecond());
-			register(r, new ItemBlockSpecialFlower(floating, props), floating(type.getSecond()));
+			register(r, type.getSecond(), new ItemBlockSpecialFlower(block, props));
+			register(r, floating(type.getSecond()), new ItemBlockSpecialFlower(floating, props));
 		}
 	}
 
@@ -234,7 +234,7 @@ public class ModSubtiles {
 		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
 			Block block = b.getValue(type.getSecond()).get();
 			Block floating = b.getValue(floating(type.getSecond())).get();
-			register(r, TileEntityType.Builder.create(type.getFirst(), block, floating).build(null), type.getSecond());
+			register(r, type.getSecond(), TileEntityType.Builder.create(type.getFirst(), block, floating).build(null));
 		}
 	}
 }
