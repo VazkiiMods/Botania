@@ -16,6 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -51,7 +52,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.getBuilder(ItemTags.FLOWERS).add(ModTags.Items.SPECIAL_FLOWERS);
 
 		Tag.Builder<Item> builder = getBuilder(ModTags.Items.DYES);
-		Arrays.stream(DyeColor.values()).map(ModItems::getDye).sorted(Comparator.comparing(Item::getRegistryName)).forEach(builder::add);
+		Arrays.stream(DyeColor.values()).map(ModItems::getDye).sorted(Comparator.comparing(Registry.ITEM::getKey)).forEach(builder::add);
 	}
 
 	@Nonnull

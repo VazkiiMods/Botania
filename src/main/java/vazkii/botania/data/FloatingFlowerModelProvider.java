@@ -30,8 +30,9 @@ public class FloatingFlowerModelProvider extends ModelProvider<FloatingFlowerMod
 	@Override
 	protected void registerModels() {
 		for (Block b : Registry.BLOCK) {
-			if (LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()) && b instanceof BlockFloatingFlower) {
-				String name = b.getRegistryName().getPath();
+			ResourceLocation id = Registry.BLOCK.getKey(b);
+			if (LibMisc.MOD_ID.equals(id.getNamespace()) && b instanceof BlockFloatingFlower) {
+				String name = id.getPath();
 				String nonFloat;
 				if (name.endsWith("_floating_flower")) {
 					nonFloat = name.replace("_floating_flower", "_mystical_flower");

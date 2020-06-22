@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -43,7 +44,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	public static boolean isOpen() {
-		return ModItems.lexicon.getRegistryName().equals(PatchouliAPI.instance.getOpenBookGui());
+		return Registry.ITEM.getKey(ModItems.lexicon).equals(PatchouliAPI.instance.getOpenBookGui());
 	}
 
 	@Override
@@ -74,7 +75,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		if (playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getPosX(), player.getPosY(), player.getPosZ());
-			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, getRegistryName());
+			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getKey(this));
 			playerIn.playSound(ModSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
@@ -82,7 +83,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	public static ITextComponent getEdition() {
-		return PatchouliAPI.instance.getSubtitle(ModItems.lexicon.getRegistryName());
+		return PatchouliAPI.instance.getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
 	}
 
 	public static ITextComponent getTitle(ItemStack stack) {

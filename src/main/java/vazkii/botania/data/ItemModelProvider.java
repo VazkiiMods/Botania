@@ -27,11 +27,11 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
 	@Override
 	protected void registerModels() {
-		Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(i.getRegistryName().getNamespace()))
+		Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(Registry.ITEM.getKey(i).getNamespace()))
 				.forEach(i -> {
 					// todo 1.15 expand to all item models that simply reference their parent
 					if (i instanceof BlockItem && ((BlockItem) i).getBlock() instanceof BlockFloatingFlower) {
-						String name = i.getRegistryName().getPath();
+						String name = Registry.ITEM.getKey(i).getPath();
 						withExistingParent(name, prefix("block/" + name));
 					}
 				});

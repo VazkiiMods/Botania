@@ -48,6 +48,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -565,7 +566,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						continue;
 					}
 
-					if (CHEATY_BLOCKS.contains(block.getRegistryName())) {
+					if (CHEATY_BLOCKS.contains(Registry.BLOCK.getKey(block))) {
 						world.destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks

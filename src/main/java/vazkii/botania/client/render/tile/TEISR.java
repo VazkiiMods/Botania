@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.LazyValue;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 public class TEISR extends ItemStackTileEntityRenderer {
@@ -28,7 +29,7 @@ public class TEISR extends ItemStackTileEntityRenderer {
 	public TEISR(Block block) {
 		this.block = Preconditions.checkNotNull(block);
 		this.dummy = new LazyValue<>(() -> {
-			TileEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.getValue(block.getRegistryName()).get();
+			TileEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.getValue(Registry.BLOCK.getKey(block)).get();
 			return type.create();
 		});
 	}

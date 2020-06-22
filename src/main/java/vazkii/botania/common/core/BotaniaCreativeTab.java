@@ -15,6 +15,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.client.lib.LibResources;
@@ -709,7 +710,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 	private void addTag(ResourceLocation tagId) {
 		ItemTags.getCollection().getOrCreate(tagId).getAllElements().stream()
-				.sorted(Comparator.comparing(ForgeRegistryEntry<?>::getRegistryName))
+				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(this::addItem);
 	}
 

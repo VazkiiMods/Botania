@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.ModelLoader;
@@ -132,9 +133,10 @@ public class GunModel implements IBakedModel {
 		CompositeBakedModel(ModelBakery bakery, ItemStack lens, IBakedModel gun) {
 			super(gun);
 
-			IUnbakedModel lensUnbaked = bakery.getUnbakedModel(new ModelResourceLocation(lens.getItem().getRegistryName(), "inventory"));
+			ResourceLocation lensId = Registry.ITEM.getKey(lens.getItem());
+			IUnbakedModel lensUnbaked = bakery.getUnbakedModel(new ModelResourceLocation(lensId, "inventory"));
 			IModelTransform transform = new SimpleModelTransform(new TransformationMatrix(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
-			ResourceLocation name = prefix("gun_with_" + lens.getItem().getRegistryName().toString().replace(':', '_'));
+			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
 
 			IBakedModel lensBaked;
 			if (lensUnbaked instanceof BlockModel && ((BlockModel) lensUnbaked).getRootModel() == MODEL_GENERATED) {

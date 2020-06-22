@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nullable;
 
@@ -57,7 +58,7 @@ public class WrapperResult implements IFinishedRecipe {
 			return IFinishedRecipe.super.getRecipeJson();
 		}
 		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("type", this.type.getRegistryName().toString());
+		jsonobject.addProperty("type", Registry.RECIPE_SERIALIZER.getKey(this.type).toString());
 		this.serialize(jsonobject);
 		return jsonobject;
 	}

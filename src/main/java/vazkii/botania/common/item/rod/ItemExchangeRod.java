@@ -364,7 +364,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	private void setTarget(ItemStack stack, Block block) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, block.getRegistryName().toString());
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
 	}
 
 	public static Block getTargetState(ItemStack stack) {

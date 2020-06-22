@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.recipe.StateIngredient;
@@ -40,7 +41,7 @@ public class StateIngredientBlocks implements StateIngredient {
 		object.addProperty("type", "blocks");
 		JsonArray array = new JsonArray();
 		for (Block block : blocks) {
-			array.add(block.getRegistryName().toString());
+			array.add(Registry.BLOCK.getKey(block).toString());
 		}
 		object.add("blocks", array);
 		return object;

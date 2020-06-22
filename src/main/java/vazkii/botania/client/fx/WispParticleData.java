@@ -14,6 +14,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
+import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nonnull;
 
@@ -81,7 +82,7 @@ public class WispParticleData implements IParticleData {
 	@Override
 	public String getParameters() {
 		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %s",
-				this.getType().getRegistryName(), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
+				Registry.PARTICLE_TYPE.getKey(getType()), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
 	}
 
 	public static final IDeserializer<WispParticleData> DESERIALIZER = new IDeserializer<WispParticleData>() {

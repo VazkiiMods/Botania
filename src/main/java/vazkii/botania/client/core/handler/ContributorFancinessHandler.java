@@ -27,6 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
@@ -110,7 +111,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
 				Item item = ModTags.Items.SPECIAL_FLOWERS.getAllElements().stream()
-						.filter(flower -> flower.getRegistryName().getPath().equals(flowerName))
+						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				m.put(key, new ItemStack(item));
 			}

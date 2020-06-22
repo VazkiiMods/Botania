@@ -20,6 +20,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -47,7 +48,7 @@ public class HelmRevealingRecipe implements ICraftingRecipe {
 
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if (!stack.isEmpty() && stack.getItem().getRegistryName().getNamespace().equals(LibMisc.MOD_ID)) {
+			if (!stack.isEmpty() && Registry.ITEM.getKey(stack.getItem()).getNamespace().equals(LibMisc.MOD_ID)) {
 				helm = stack;
 			}
 		}

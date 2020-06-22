@@ -47,14 +47,14 @@ public class BlockstateProvider extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace()))
+		Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
 				.forEach(b -> {
 					if (b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
 							|| b == ModBlocks.solidVines) {
 						return;
 					}
 
-					String name = b.getRegistryName().getPath();
+					String name = Registry.BLOCK.getKey(b).getPath();
 					if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
 						ModelFile file = models().getExistingFile(prefix("block/" + name));
 						getVariantBuilder(b)
@@ -137,7 +137,7 @@ public class BlockstateProvider extends BlockStateProvider {
 	}
 
 	private void redStringBlock(Block b) {
-		ModelFile file = models().getExistingFile(prefix("block/" + b.getRegistryName().getPath()));
+		ModelFile file = models().getExistingFile(prefix("block/" + Registry.BLOCK.getKey(b).getPath()));
 		getVariantBuilder(b)
 				.partialState().with(BlockStateProperties.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
 				.partialState().with(BlockStateProperties.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))

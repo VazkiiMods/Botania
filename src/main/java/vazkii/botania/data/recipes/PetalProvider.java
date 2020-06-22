@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -142,7 +143,7 @@ public class PetalProvider extends RecipeProvider {
 	}
 
 	private static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {
-		return new FinishedRecipe(idFor(item.asItem().getRegistryName()), new ItemStack(item), ingredients);
+		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
 	}
 
 	private static ResourceLocation idFor(ResourceLocation name) {

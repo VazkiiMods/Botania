@@ -19,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
@@ -71,7 +72,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 
 			Block block = state.getBlock();
 			if (Tags.Blocks.ORES.contains(block)) {
-				Random rand = new Random(block.getRegistryName().hashCode() ^ seedxor);
+				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.rand.nextFloat(),
 						pos_.getY() + world.rand.nextFloat(),

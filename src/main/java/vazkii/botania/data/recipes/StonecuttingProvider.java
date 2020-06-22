@@ -136,7 +136,9 @@ public class StonecuttingProvider extends RecipeProvider {
 	}
 
 	private static ResourceLocation idFor(IItemProvider a, IItemProvider b) {
-		return prefix("stonecutting/" + a.asItem().getRegistryName().getPath() + "_to_" + b.asItem().getRegistryName().getPath());
+		ResourceLocation aId = Registry.ITEM.getKey(a.asItem());
+		ResourceLocation bId = Registry.ITEM.getKey(b.asItem());
+		return prefix("stonecutting/" + aId.getPath() + "_to_" + bId.getPath());
 	}
 
 	private static IFinishedRecipe stonecutting(IItemProvider input, IItemProvider output) {
@@ -149,7 +151,7 @@ public class StonecuttingProvider extends RecipeProvider {
 
 	private static IFinishedRecipe azulejoStonecutting(List<? extends IItemProvider> inputs, IItemProvider output) {
 		Ingredient input = Ingredient.fromItems(inputs.stream().filter(obj -> output != obj).toArray(IItemProvider[]::new));
-		return new Result(prefix("stonecutting/" + output.asItem().getRegistryName().getPath()), IRecipeSerializer.STONECUTTING, input, output.asItem(), 1);
+		return new Result(prefix("stonecutting/" + Registry.ITEM.getKey(output.asItem()).getPath()), IRecipeSerializer.STONECUTTING, input, output.asItem(), 1);
 	}
 
 	// Wrapper without advancements

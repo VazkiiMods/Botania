@@ -64,7 +64,8 @@ public class BlockLootProvider implements IDataProvider {
 		this.generator = generator;
 
 		for (Block b : Registry.BLOCK) {
-			if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace())) {
+			ResourceLocation id = Registry.BLOCK.getKey(b);
+			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
 			if (b instanceof SlabBlock) {
@@ -73,7 +74,7 @@ public class BlockLootProvider implements IDataProvider {
 				functionTable.put(b, BlockLootProvider::genDoubleFlower);
 			} else if (b instanceof BlockAltGrass) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
-			} else if (b.getRegistryName().getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
+			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
 		}
@@ -117,11 +118,12 @@ public class BlockLootProvider implements IDataProvider {
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
 		for (Block b : Registry.BLOCK) {
-			if (!LibMisc.MOD_ID.equals(b.getRegistryName().getNamespace())) {
+			ResourceLocation id = Registry.BLOCK.getKey(b);
+			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
 			Function<Block, LootTable.Builder> func = functionTable.getOrDefault(b, BlockLootProvider::genRegular);
-			tables.put(b.getRegistryName(), func.apply(b));
+			tables.put(id, func.apply(b));
 		}
 
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
@@ -167,7 +169,7 @@ public class BlockLootProvider implements IDataProvider {
 	}
 
 	private static LootTable.Builder genMetamorphicStone(Block b) {
-		String cobbleName = b.getRegistryName().getPath().replaceAll("_stone", "_cobblestone");
+		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
 		Block cobble = Registry.BLOCK.getValue(new ResourceLocation(LibMisc.MOD_ID, cobbleName)).get();
 		return genRegular(cobble);
 	}

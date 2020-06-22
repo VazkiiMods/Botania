@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 
@@ -89,7 +90,7 @@ public class FuzzyNBTIngredient extends Ingredient {
 	public JsonElement serialize() {
 		JsonObject json = new JsonObject();
 		json.addProperty("type", CraftingHelper.getID(SERIALIZER).toString());
-		json.addProperty("item", stack.getItem().getRegistryName().toString());
+		json.addProperty("item", Registry.ITEM.getKey(stack.getItem()).toString());
 		json.addProperty("count", stack.getCount());
 		json.addProperty("nbt", stack.getTag().toString());
 		json.addProperty(ACCEPTS_EMPTY_TAG, acceptsEmptyTag);

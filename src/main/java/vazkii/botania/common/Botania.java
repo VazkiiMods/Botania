@@ -23,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
@@ -224,9 +225,9 @@ public class Botania {
 			ModBanners.init();
 			ColorHelper.init();
 
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.alfPortal.getRegistryName(), TileAlfPortal.MULTIBLOCK.getValue());
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.terraPlate.getRegistryName(), TileTerraPlate.MULTIBLOCK.getValue());
-			PatchouliAPI.instance.registerMultiblock(ModBlocks.enchanter.getRegistryName(), TileEnchanter.MULTIBLOCK.getValue());
+			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
+			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
+			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.getValue());
 
 			String[][] pat = new String[][] {
 					{

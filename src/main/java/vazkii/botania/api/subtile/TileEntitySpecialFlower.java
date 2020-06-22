@@ -66,7 +66,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
-			ResourceLocation id = getType().getRegistryName();
+			ResourceLocation id = Registry.BLOCK_ENTITY_TYPE.getKey(getType());
 			return Registry.ITEM.getValue(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};

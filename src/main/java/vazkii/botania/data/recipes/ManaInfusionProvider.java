@@ -25,6 +25,7 @@ import net.minecraft.state.IProperty;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.block.ModBlocks;
@@ -184,13 +185,13 @@ public class ManaInfusionProvider extends RecipeProvider {
 		for (int i = 0; i < items.length; i++) {
 			Ingredient in = ingr(items[i]);
 			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
-			String id = String.format("%s_to_%s", items[i].asItem().getRegistryName().getPath(), out.getItem().getRegistryName().getPath());
+			String id = String.format("%s_to_%s", Registry.ITEM.getKey(items[i].asItem()).getPath(), Registry.ITEM.getKey(out.getItem()).getPath());
 			consumer.accept(FinishedRecipe.alchemy(id(id), out, in, cost, group));
 		}
 	}
 
 	private static FinishedRecipe mini(IItemProvider mini, IItemProvider full) {
-		return FinishedRecipe.alchemy(id(mini.asItem().getRegistryName().getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
+		return FinishedRecipe.alchemy(id(Registry.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
 	private static ResourceLocation id(String s) {

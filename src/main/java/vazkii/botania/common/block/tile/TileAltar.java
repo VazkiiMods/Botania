@@ -305,7 +305,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.putString(TAG_FLUID, fluid.getRegistryName().toString());
+		cmp.putString(TAG_FLUID, Registry.FLUID.getKey(fluid).toString());
 	}
 
 	@Override

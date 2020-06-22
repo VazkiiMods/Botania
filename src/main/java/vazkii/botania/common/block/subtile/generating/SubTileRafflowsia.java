@@ -79,7 +79,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		super.writeToPacketNBT(cmp);
 
 		if (lastFlower != null) {
-			cmp.putString(TAG_LAST_FLOWER, lastFlower.getRegistryName().toString());
+			cmp.putString(TAG_LAST_FLOWER, Registry.BLOCK.getKey(lastFlower).toString());
 		}
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}

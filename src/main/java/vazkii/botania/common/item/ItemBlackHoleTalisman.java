@@ -215,7 +215,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 
 	private boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, block.getRegistryName().toString());
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
 			return true;
 		}
 		return false;

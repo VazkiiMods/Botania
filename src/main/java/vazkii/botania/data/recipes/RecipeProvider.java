@@ -990,7 +990,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
 				.build(consumer);
 
-		ResourceLocation cacophoniumId = ModItems.cacophonium.getRegistryName();
+		ResourceLocation cacophoniumId = Registry.ITEM.getKey(ModItems.cacophonium);
 		Supplier<ShapedRecipeBuilder> cacophoniumBase = () -> ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
 				.key('N', Items.NOTE_BLOCK)
 				.patternLine(" G ")
@@ -2425,7 +2425,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void createFloatingFlowerRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider input) {
-		ResourceLocation inputName = input.asItem().getRegistryName();
+		ResourceLocation inputName = Registry.ITEM.getKey(input.asItem());
 		Item output = Registry.ITEM.getValue(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
 		ShapelessRecipeBuilder.shapelessRecipe(output)
 				.addIngredient(ModTags.Items.FLOATING_FLOWERS)
@@ -2452,7 +2452,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
 				.addCriterion("has_item", hasItem(output))
 				.addIngredient(input).setGroup("botania:petal_block_deconstruct")
-				.build(consumer, prefix("conversions/" + input.asItem().getRegistryName().getPath() + "_deconstruct"));
+				.build(consumer, prefix("conversions/" + Registry.ITEM.getKey(input.asItem()).getPath() + "_deconstruct"));
 	}
 
 	private void recombineSlab(Consumer<IFinishedRecipe> consumer, IItemProvider fullBlock, IItemProvider slab) {
@@ -2461,7 +2461,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("Q")
 				.patternLine("Q")
 				.addCriterion("has_item", hasItem(fullBlock))
-				.build(consumer, prefix("slab_recombine/" + fullBlock.asItem().getRegistryName().getPath()));
+				.build(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem())).getPath());
 	}
 
 	private void registerForQuartz(Consumer<IFinishedRecipe> consumer, String variant, IItemProvider baseItem) {
@@ -2655,7 +2655,8 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void specialRecipe(Consumer<IFinishedRecipe> consumer, SpecialRecipeSerializer<?> serializer) {
-		CustomRecipeBuilder.customRecipe(serializer).build(consumer, prefix("dynamic/" + serializer.getRegistryName().getPath()).toString());
+		ResourceLocation name = Registry.RECIPE_SERIALIZER.getKey(serializer);
+		CustomRecipeBuilder.customRecipe(serializer).build(consumer, prefix("dynamic/" + name.getPath()).toString());
 	}
 
 	@Override

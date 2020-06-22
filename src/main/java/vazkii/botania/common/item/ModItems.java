@@ -18,6 +18,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -702,10 +703,10 @@ public final class ModItems {
 		IForgeRegistry<ContainerType<?>> r = evt.getRegistry();
 
 		ContainerType<ContainerFlowerBag> bag = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
-		register(r, flowerBag.getRegistryName(), bag);
+		register(r, Registry.ITEM.getKey(flowerBag), bag);
 
 		ContainerType<ContainerBaubleBox> box = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
-		register(r, baubleBox.getRegistryName(), box);
+		register(r, Registry.ITEM.getKey(baubleBox), box);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			ScreenManager.registerFactory(bag, GuiFlowerBag::new);

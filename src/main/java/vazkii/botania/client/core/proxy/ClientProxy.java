@@ -170,7 +170,7 @@ public class ClientProxy implements IProxy {
 		RenderTypeLookup.setRenderLayer(ModBlocks.infrangiblePlatform, t -> true);
 		RenderTypeLookup.setRenderLayer(ModBlocks.spectralPlatform, t -> true);
 
-		Registry.BLOCK.stream().filter(b -> b.getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
+		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
 					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
 							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom) {
