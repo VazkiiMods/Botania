@@ -43,8 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
-	@ObjectHolder(LibMisc.MOD_ID + ":corporea_spark") public static EntityType<EntityCorporeaSpark> TYPE;
-
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
@@ -60,10 +58,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	public EntityCorporeaSpark(EntityType<EntityCorporeaSpark> type, World world) {
 		super(type, world);
-	}
-
-	public EntityCorporeaSpark(World world) {
-		this(TYPE, world);
 	}
 
 	@Override

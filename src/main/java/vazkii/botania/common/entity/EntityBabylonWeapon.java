@@ -39,8 +39,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
-	@ObjectHolder(LibMisc.MOD_ID + ":babylon_weapon") public static EntityType<EntityBabylonWeapon> TYPE;
-
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
 	private static final String TAG_CHARGE_TICKS = "chargeTicks";
@@ -60,7 +58,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	public EntityBabylonWeapon(LivingEntity thrower, World world) {
-		super(TYPE, thrower, world);
+		super(ModEntities.BABYLON_WEAPON, thrower, world);
 	}
 
 	@Override

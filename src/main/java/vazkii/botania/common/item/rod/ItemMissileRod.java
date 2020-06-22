@@ -28,6 +28,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityMagicMissile;
+import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
@@ -75,7 +76,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		if (thrower != null) {
 			missile = new EntityMagicMissile(thrower, false);
 		} else {
-			missile = new EntityMagicMissile(world);
+			missile = ModEntities.MAGIC_MISSILE.create(world);
 		}
 
 		missile.setPosition(x, y, z);

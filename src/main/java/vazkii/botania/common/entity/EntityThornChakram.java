@@ -50,8 +50,6 @@ import javax.annotation.Nonnull;
 	_interface = IRendersAsItem.class
 )
 public class EntityThornChakram extends ThrowableEntity implements IRendersAsItem {
-	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram") public static EntityType<EntityThornChakram> TYPE;
-
 	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> RETURN_TO = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
@@ -64,7 +62,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	}
 
 	public EntityThornChakram(LivingEntity e, World world, ItemStack stack) {
-		super(TYPE, e, world);
+		super(ModEntities.THORN_CHAKRAM, e, world);
 		this.stack = stack.copy();
 	}
 

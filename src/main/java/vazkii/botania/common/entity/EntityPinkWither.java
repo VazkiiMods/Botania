@@ -28,12 +28,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntityPinkWither extends WitherEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":pink_wither") public static EntityType<EntityPinkWither> TYPE;
-
-	public EntityPinkWither(World world) {
-		this(TYPE, world);
-	}
-
 	public EntityPinkWither(EntityType<EntityPinkWither> type, World world) {
 		super(type, world);
 

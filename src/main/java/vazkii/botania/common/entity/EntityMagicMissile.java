@@ -42,8 +42,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityMagicMissile extends ThrowableEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":magic_missile") public static EntityType<EntityMagicMissile> TYPE;
-
 	private static final String TAG_TIME = "time";
 	private static final DataParameter<Boolean> EVIL = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> TARGET = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.VARINT);
@@ -55,12 +53,8 @@ public class EntityMagicMissile extends ThrowableEntity {
 		super(type, world);
 	}
 
-	public EntityMagicMissile(World world) {
-		this(TYPE, world);
-	}
-
 	public EntityMagicMissile(LivingEntity thrower, boolean evil) {
-		super(TYPE, thrower, thrower.world);
+		super(ModEntities.MAGIC_MISSILE, thrower, thrower.world);
 		setEvil(evil);
 	}
 

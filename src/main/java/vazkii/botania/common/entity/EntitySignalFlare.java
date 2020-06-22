@@ -28,7 +28,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntitySignalFlare extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":signal_flare") public static EntityType<EntitySignalFlare> TYPE;
 	private static final String COLOR_TAG = "color";
 	private static final String FIRED_Y_TAG = "firedY";
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
@@ -39,7 +38,7 @@ public class EntitySignalFlare extends Entity {
 	}
 
 	public EntitySignalFlare(World world) {
-		this(TYPE, world);
+		this(ModEntities.SIGNAL_FLARE, world);
 	}
 
 	@Override

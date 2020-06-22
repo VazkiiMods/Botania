@@ -42,14 +42,12 @@ import java.util.stream.Collectors;
 	_interface = IRendersAsItem.class
 )
 public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsItem {
-	@ObjectHolder(LibMisc.MOD_ID + ":ender_air_bottle") public static EntityType<EntityEnderAirBottle> TYPE;
-
 	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, World world) {
 		super(type, world);
 	}
 
 	public EntityEnderAirBottle(LivingEntity entity, World world) {
-		super(TYPE, entity, world);
+		super(ModEntities.ENDER_AIR_BOTTLE, entity, world);
 	}
 
 	@Override

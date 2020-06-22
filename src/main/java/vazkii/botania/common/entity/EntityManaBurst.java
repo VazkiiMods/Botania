@@ -46,7 +46,6 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
-	@ObjectHolder(LibMisc.MOD_ID + ":mana_burst") public static EntityType<EntityManaBurst> TYPE;
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -88,10 +87,6 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
-	public EntityManaBurst(World world) {
-		this(TYPE, world);
-	}
-
 	public EntityManaBurst(EntityType<EntityManaBurst> type, World world) {
 		super(type, world);
 	}
@@ -109,7 +104,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(((TileEntity) spreader).getWorld());
+		this(ModEntities.MANA_BURST, ((TileEntity) spreader).getWorld());
 
 		TileEntity tile = (TileEntity) spreader;
 
@@ -128,7 +123,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	public EntityManaBurst(PlayerEntity player) {
-		super(TYPE, player, player.world);
+		super(ModEntities.MANA_BURST, player, player.world);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
 		setRotation(player.rotationYaw + 180, -player.rotationPitch);

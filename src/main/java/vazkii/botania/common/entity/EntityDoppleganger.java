@@ -89,8 +89,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSpawnData {
-	@ObjectHolder(LibMisc.MOD_ID + ":doppleganger") public static EntityType<EntityDoppleganger> TYPE;
-
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
 
@@ -138,7 +136,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	private boolean hardMode = false;
 	private BlockPos source = BlockPos.ZERO;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(TYPE.getName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
+	private final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(ModEntities.DOPPLEGANGER.getName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
 	private UUID bossInfoUUID = bossInfo.getUniqueId();
 	public PlayerEntity trueKiller = null;
 
@@ -148,10 +146,6 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		if (world.isRemote) {
 			Botania.proxy.addBoss(this);
 		}
-	}
-
-	public EntityDoppleganger(World world) {
-		this(TYPE, world);
 	}
 
 	public static boolean spawn(PlayerEntity player, ItemStack stack, World world, BlockPos pos, boolean hard) {
@@ -201,7 +195,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		if (!world.isRemote) {
 			stack.shrink(1);
 
-			EntityDoppleganger e = new EntityDoppleganger(world);
+			EntityDoppleganger e = ModEntities.DOPPLEGANGER.create(world);
 			e.setPosition(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
@@ -777,7 +771,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 								int y = (int) players.get(rand.nextInt(players.size())).getPosY();
 								int z = source.getZ() - 10 + rand.nextInt(20);
 
-								EntityMagicLandmine landmine = new EntityMagicLandmine(world);
+								EntityMagicLandmine landmine = ModEntities.MAGIC_LANDMINE.create(world);
 								landmine.setPosition(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
 								world.addEntity(landmine);

@@ -93,26 +93,26 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(TileAvatar.TYPE, RenderTileAvatar::new);
 		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, RenderTileAnimatedTorch::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaBurst.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(TileLightRelay.EntityPlayerMover.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntitySignalFlare.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityFlameRing.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityMagicLandmine.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityFallingStar.TYPE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityThrownItem.TYPE, m -> new ItemRenderer(m, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.TYPE, RenderPixie::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.TYPE, RenderDoppleganger::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.TYPE, RenderSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.TYPE, RenderCorporeaSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.TYPE, RenderPoolMinecart::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.TYPE, RenderPinkWither::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.TYPE, RenderManaStorm::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.TYPE, RenderBabylonWeapon::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_BURST, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLAYER_MOVER, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.SIGNAL_FLARE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FLAME_RING, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_LANDMINE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_MISSILE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FALLING_STAR, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THROWN_ITEM, m -> new ItemRenderer(m, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PIXIE, RenderPixie::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPARK, RenderSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PINK_WITHER, RenderPinkWither::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_STORM, RenderManaStorm::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.TYPE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THORN_CHAKRAM, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.VINE_BALL, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENDER_AIR_BOTTLE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 	}
 
 	private static void registerSubtiles() {

@@ -32,16 +32,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityMagicLandmine extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":magic_landmine") public static EntityType<EntityMagicLandmine> TYPE;
-
 	public EntityDoppleganger summoner;
 
 	public EntityMagicLandmine(EntityType<EntityMagicLandmine> type, World world) {
 		super(type, world);
-	}
-
-	public EntityMagicLandmine(World world) {
-		this(TYPE, world);
 	}
 
 	@Override

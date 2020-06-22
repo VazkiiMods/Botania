@@ -40,7 +40,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntityPoolMinecart extends AbstractMinecartEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart") public static EntityType<EntityPoolMinecart> TYPE;
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
@@ -50,7 +49,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	}
 
 	public EntityPoolMinecart(World world, double x, double y, double z) {
-		super(TYPE, world, x, y, z);
+		super(ModEntities.POOL_MINECART, world, x, y, z);
 	}
 
 	@Override

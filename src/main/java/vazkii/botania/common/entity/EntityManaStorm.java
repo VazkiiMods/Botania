@@ -25,8 +25,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":mana_storm") public static EntityType<EntityManaStorm> TYPE;
-
 	private static final String TAG_TIME = "time";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
 	private static final String TAG_DEATH_TIME = "deathTime";
@@ -40,10 +38,6 @@ public class EntityManaStorm extends Entity {
 
 	public EntityManaStorm(EntityType<EntityManaStorm> type, World world) {
 		super(type, world);
-	}
-
-	public EntityManaStorm(World world) {
-		this(TYPE, world);
 	}
 
 	@Override
@@ -72,7 +66,7 @@ public class EntityManaStorm extends Entity {
 	}
 
 	private void spawnBurst() {
-		EntityManaBurst burst = new EntityManaBurst(world);
+		EntityManaBurst burst = ModEntities.MANA_BURST.create(world);
 		burst.setPosition(getPosX(), getPosY(), getPosZ());
 
 		float motionModifier = 0.5F;

@@ -48,6 +48,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
@@ -206,7 +207,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	}
 
 	public EntityManaBurst getBurst(World world, BlockPos pos, ItemStack stack) {
-		EntityManaBurst burst = new EntityManaBurst(world);
+		EntityManaBurst burst = ModEntities.MANA_BURST.create(world);
 		burst.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
 		burst.setColor(0x00EAFF);

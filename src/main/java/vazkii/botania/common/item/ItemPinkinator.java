@@ -30,6 +30,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.EntityPinkWither;
+import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
@@ -50,7 +51,7 @@ public class ItemPinkinator extends Item {
 		for (WitherEntity wither : withers) {
 			if (!world.isRemote && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
 				wither.remove();
-				EntityPinkWither pink = new EntityPinkWither(world);
+				EntityPinkWither pink = ModEntities.PINK_WITHER.create(world);
 				pink.setLocationAndAngles(wither.getPosX(), wither.getPosY(), wither.getPosZ(), wither.rotationYaw, wither.rotationPitch);
 				pink.setNoAI(wither.isAIDisabled());
 				if (wither.hasCustomName()) {

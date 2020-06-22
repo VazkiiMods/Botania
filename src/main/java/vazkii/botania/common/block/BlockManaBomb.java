@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
+import vazkii.botania.common.entity.ModEntities;
 
 public class BlockManaBomb extends BlockMod implements IManaTrigger {
 
@@ -27,7 +28,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger {
 		if (!burst.isFake() && !world.isRemote) {
 			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
 			world.removeBlock(pos, false);
-			EntityManaStorm storm = new EntityManaStorm(world);
+			EntityManaStorm storm = ModEntities.MANA_STORM.create(world);
 			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.addEntity(storm);
 		}

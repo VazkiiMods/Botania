@@ -29,7 +29,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class EntityPixie extends FlyingEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":pixie") public static EntityType<EntityPixie> TYPE;
 	private static final DataParameter<Integer> PIXIE_TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
 	private LivingEntity summoner = null;
@@ -41,7 +40,7 @@ public class EntityPixie extends FlyingEntity {
 	}
 
 	public EntityPixie(World world) {
-		this(TYPE, world);
+		this(ModEntities.PIXIE, world);
 	}
 
 	@Override

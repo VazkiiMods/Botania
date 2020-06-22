@@ -28,14 +28,12 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class EntityFallingStar extends EntityThrowableCopy {
-	@ObjectHolder(LibMisc.MOD_ID + ":falling_star") public static EntityType<EntityFallingStar> TYPE;
-
 	public EntityFallingStar(EntityType<EntityFallingStar> type, World world) {
 		super(type, world);
 	}
 
 	public EntityFallingStar(LivingEntity e, World world) {
-		super(TYPE, e, world);
+		super(ModEntities.FALLING_STAR, e, world);
 	}
 
 	@Override

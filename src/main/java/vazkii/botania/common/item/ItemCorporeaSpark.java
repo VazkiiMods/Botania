@@ -19,6 +19,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
+import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
@@ -41,7 +42,7 @@ public class ItemCorporeaSpark extends Item {
 				&& !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
 			ctx.getItem().shrink(1);
 			if (!world.isRemote) {
-				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);
+				EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
 				if (this == ModItems.corporeaSparkMaster) {
 					spark.setMaster(true);
 				}

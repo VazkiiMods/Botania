@@ -49,7 +49,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class EntitySpark extends EntitySparkBase implements ISparkEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":spark") public static EntityType<EntitySpark> TYPE;
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
@@ -63,7 +62,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	}
 
 	public EntitySpark(World world) {
-		this(TYPE, world);
+		this(ModEntities.SPARK, world);
 	}
 
 	@Override

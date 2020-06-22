@@ -48,22 +48,16 @@ import java.util.Map;
 	_interface = IRendersAsItem.class
 )
 public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
-	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball") public static EntityType<EntityVineBall> TYPE;
-
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityVineBall.class, DataSerializers.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
 			Direction.WEST, VineBlock.WEST, Direction.EAST, VineBlock.EAST);
-
-	public EntityVineBall(World world) {
-		this(TYPE, world);
-	}
 
 	public EntityVineBall(EntityType<EntityVineBall> type, World world) {
 		super(type, world);
 	}
 
 	public EntityVineBall(LivingEntity thrower, boolean gravity) {
-		super(TYPE, thrower, thrower.world);
+		super(ModEntities.VINE_BALL, thrower, thrower.world);
 		dataManager.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 

@@ -30,14 +30,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityFlameRing extends Entity {
-	@ObjectHolder(LibMisc.MOD_ID + ":flame_ring") public static EntityType<EntityFlameRing> TYPE;
-
 	public EntityFlameRing(EntityType<EntityFlameRing> type, World world) {
 		super(type, world);
-	}
-
-	public EntityFlameRing(World world) {
-		this(TYPE, world);
 	}
 
 	@Override

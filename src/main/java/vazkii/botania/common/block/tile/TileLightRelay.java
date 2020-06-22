@@ -45,6 +45,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -255,7 +256,6 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	}
 
 	public static class EntityPlayerMover extends Entity {
-		@ObjectHolder(LibMisc.MOD_ID + ":player_mover") public static EntityType<EntityPlayerMover> TYPE;
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
@@ -267,7 +267,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		}
 
 		public EntityPlayerMover(World world, BlockPos pos, BlockPos exitPos) {
-			this(TYPE, world);
+			this(ModEntities.PLAYER_MOVER, world);
 			setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			setExit(exitPos);
 		}

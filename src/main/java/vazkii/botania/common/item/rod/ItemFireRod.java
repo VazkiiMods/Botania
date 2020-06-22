@@ -27,6 +27,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityFlameRing;
+import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
@@ -50,7 +51,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 		BlockPos pos = ctx.getPos();
 
 		if (!world.isRemote && player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			EntityFlameRing entity = new EntityFlameRing(world);
+			EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			world.addEntity(entity);
 
@@ -74,7 +75,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 		World world = te.getWorld();
 
 		if (!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
-			EntityFlameRing entity = new EntityFlameRing(world);
+			EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
 			entity.setPosition(te.getPos().getX() + 0.5, te.getPos().getY(), te.getPos().getZ() + 0.5);
 			world.addEntity(entity);
 			tile.receiveMana(-COST);

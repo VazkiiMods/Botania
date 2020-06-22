@@ -29,15 +29,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class EntityThrownItem extends ItemEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":thrown_item") public static EntityType<EntityThrownItem> TYPE;
-
 	public EntityThrownItem(EntityType<EntityThrownItem> type, World world) {
 		super(type, world);
-	}
-
-	public EntityThrownItem(World world) {
-		this(TYPE, world);
-		setInvulnerable(true);
 	}
 
 	public EntityThrownItem(World world, double x,
@@ -51,7 +44,7 @@ public class EntityThrownItem extends ItemEntity {
 	@Nonnull
 	@Override
 	public EntityType<?> getType() {
-		return TYPE;
+		return ModEntities.THROWN_ITEM;
 	}
 
 	@Nonnull
