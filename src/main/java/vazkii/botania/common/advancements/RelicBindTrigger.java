@@ -23,12 +23,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class RelicBindTrigger implements ICriterionTrigger<RelicBindTrigger.Instance> {
 	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "relic_bind");

@@ -8,18 +8,13 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.google.common.base.Joiner;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.FirstPersonRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.model.BookModel;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -31,10 +26,7 @@ import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -49,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class RenderLexicon {
 	private static final MethodHandle APPLY_EQUIP_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228406_b_", MatrixStack.class, HandSide.class, float.class);
 	private static final MethodHandle APPLY_SWING_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228399_a_", MatrixStack.class, HandSide.class, float.class);
@@ -76,8 +67,7 @@ public class RenderLexicon {
 	private static int quote = -1;
 	private static int misspelling = -1;
 
-	@SubscribeEvent
-	public static void renderItem(RenderHandEvent evt) {
+	public static void renderHand(RenderHandEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.get()
 				|| mc.gameSettings.thirdPersonView != 0

@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.ModItems;

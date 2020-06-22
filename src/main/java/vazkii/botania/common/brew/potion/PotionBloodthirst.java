@@ -15,13 +15,9 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class PotionBloodthirst extends Effect {
 
 	private static final int RANGE = 64;
@@ -30,7 +26,6 @@ public class PotionBloodthirst extends Effect {
 		super(EffectType.BENEFICIAL, 0xC30000);
 	}
 
-	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if (event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof IMob) {
 			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,

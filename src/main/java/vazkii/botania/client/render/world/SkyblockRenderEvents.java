@@ -11,19 +11,13 @@ package vazkii.botania.client.render.world;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class SkyblockRenderEvents {
 
-	@SubscribeEvent
 	public static void onRender(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
 		if (ConfigHandler.CLIENT.enableFancySkybox.get()

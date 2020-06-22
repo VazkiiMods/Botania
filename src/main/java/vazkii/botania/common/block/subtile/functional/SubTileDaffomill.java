@@ -21,7 +21,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -173,7 +172,6 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
-	@SubscribeEvent
 	public static void onItemTrack(PlayerEvent.StartTracking evt) {
 		if (evt.getTarget() instanceof ItemEntity) {
 			int entityId = evt.getTarget().getEntityId();

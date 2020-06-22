@@ -17,11 +17,7 @@ import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.block.Block;
-import net.minecraft.data.CustomRecipeBuilder;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,10 +34,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.NBTIngredient;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
@@ -2274,8 +2268,8 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
 				.map(Registry.ITEM::getValue)
-						.map(Optional::get)
-						.collect(Collectors.toList());
+				.map(Optional::get)
+				.collect(Collectors.toList());
 		for (int i = 0; i < allAzulejos.size(); i++) {
 			int resultIndex = i + 1 == allAzulejos.size() ? 0 : i + 1;
 			String recipeName = "azulejo_" + resultIndex;

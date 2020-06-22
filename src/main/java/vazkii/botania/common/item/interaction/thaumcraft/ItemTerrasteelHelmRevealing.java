@@ -10,7 +10,6 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;

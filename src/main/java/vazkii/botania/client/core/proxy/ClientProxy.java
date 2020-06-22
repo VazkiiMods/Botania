@@ -8,8 +8,6 @@
  */
 package vazkii.botania.client.core.proxy;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
@@ -18,9 +16,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
@@ -32,6 +27,9 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -41,27 +39,24 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
-import vazkii.botania.client.core.handler.BossBarHandler;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.ColorHandler;
-import vazkii.botania.client.core.handler.ContributorFancinessHandler;
-import vazkii.botania.client.core.handler.LayerTerraHelmet;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.handler.PersistentVariableHelper;
+import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
+import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.render.world.SkyblockRenderEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemSextant;
+import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.IMultiblock;
@@ -83,12 +78,41 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void registerHandlers() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
-		FMLJavaModLoadingContext.get().getModEventBus().register(MiscellaneousIcons.INSTANCE);
 		// This is the only place it works, but mods are constructed in parallel (brilliant idea) so this
 		// *could* end up blowing up if it races with someone else. Let's pray that doesn't happen.
 		ShaderHelper.initShaders();
+
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modBus.addListener(this::clientSetup);
+		modBus.addListener(this::loadComplete);
+		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
+		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
+		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelRegister);
+		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
+		modBus.addListener(SplashHandler::registerFactories);
+		modBus.addListener(ModelHandler::registerModels);
+		modBus.addListener(ModParticles.FactoryHandler::registerFactories);
+
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		forgeBus.addListener(EventPriority.HIGHEST, TooltipHandler::onTooltipEvent);
+		forgeBus.addListener(TooltipAdditionDisplayHandler::onToolTipRender);
+		forgeBus.addListener(RenderLexicon::renderHand);
+		forgeBus.addListener(LightningHandler::onRenderWorldLast);
+		forgeBus.addListener(KonamiHandler::clientTick);
+		forgeBus.addListener(KonamiHandler::handleInput);
+		forgeBus.addListener(KonamiHandler::renderBook);
+		forgeBus.addListener(HUDHandler::onDrawScreenPost);
+		forgeBus.addListener(DebugHandler::onDrawDebugText);
+		forgeBus.addListener(CorporeaInputHandler::buttonPressed);
+		forgeBus.addListener(ClientTickHandler::clientTickEnd);
+		forgeBus.addListener(ClientTickHandler::renderTick);
+		forgeBus.addListener(BoundTileRenderer::onWorldRenderLast);
+		forgeBus.addListener(BossBarHandler::onBarRender);
+		forgeBus.addListener(BlockHighlightRenderHandler::onWorldRenderLast);
+		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
+		forgeBus.addListener(SkyblockRenderEvents::onRender);
+		forgeBus.addListener(ItemDodgeRing::onKeyDown);
+		forgeBus.addListener(EventPriority.LOWEST, BergamuteEventHandler::onSoundEvent);
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {

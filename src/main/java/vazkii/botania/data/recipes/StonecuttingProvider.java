@@ -21,7 +21,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -74,8 +73,8 @@ public class StonecuttingProvider extends RecipeProvider {
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
 				.map(Registry.ITEM::getValue)
-						.map(Optional::get)
-						.collect(Collectors.toList());
+				.map(Optional::get)
+				.collect(Collectors.toList());
 		for (Item azulejo : allAzulejos) {
 			consumer.accept(azulejoStonecutting(allAzulejos, azulejo));
 		}

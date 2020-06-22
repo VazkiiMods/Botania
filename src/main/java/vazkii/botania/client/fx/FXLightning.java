@@ -29,12 +29,7 @@ import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 // Originally taken with permission from WRCBE - heavily modified
 public class FXLightning extends Particle {

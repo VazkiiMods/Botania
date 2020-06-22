@@ -10,19 +10,11 @@ package vazkii.botania.common.brew;
 
 import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.common.brew.potion.PotionAllure;
-import vazkii.botania.common.brew.potion.PotionBloodthirst;
-import vazkii.botania.common.brew.potion.PotionClear;
-import vazkii.botania.common.brew.potion.PotionEmptiness;
-import vazkii.botania.common.brew.potion.PotionFeatherfeet;
-import vazkii.botania.common.brew.potion.PotionSoulCross;
+import vazkii.botania.common.brew.potion.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibPotionNames;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModPotions {
 
 	public static final Effect soulCross = new PotionSoulCross().setRegistryName(LibMisc.MOD_ID, LibPotionNames.SOUL_CROSS);
@@ -32,7 +24,6 @@ public class ModPotions {
 	public static final Effect allure = new PotionAllure().setRegistryName(LibMisc.MOD_ID, LibPotionNames.ALLURE);
 	public static final Effect clear = new PotionClear().setRegistryName(LibMisc.MOD_ID, LibPotionNames.CLEAR);
 
-	@SubscribeEvent
 	public static void registerPotions(RegistryEvent.Register<Effect> evt) {
 		evt.getRegistry().register(soulCross);
 		evt.getRegistry().register(featherfeet);

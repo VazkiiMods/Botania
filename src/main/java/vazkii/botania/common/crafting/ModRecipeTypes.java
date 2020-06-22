@@ -15,16 +15,12 @@ import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRecipeTypes {
 	public static final IRecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new RecipeType<>();
 	public static final IRecipeSerializer<RecipeManaInfusion> MANA_INFUSION_SERIALIZER = new RecipeManaInfusion.Serializer();
@@ -46,7 +42,6 @@ public class ModRecipeTypes {
 	public static final IRecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final IRecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
-	@SubscribeEvent
 	public static void register(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
 		ResourceLocation id = prefix("elven_trade");
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);

@@ -28,7 +28,6 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -51,7 +50,6 @@ public final class SkyblockWorldEvents {
 	private static final String TAG_ISLAND_Y = "Botania-IslandY";
 	private static final String TAG_ISLAND_Z = "Botania-IslandZ";
 
-	@SubscribeEvent
 	public static void onPlayerUpdate(LivingUpdateEvent event) {
 		if (event.getEntityLiving() instanceof PlayerEntity && !event.getEntityLiving().world.isRemote) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
@@ -80,7 +78,6 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		if (Botania.gardenOfGlassLoaded) {
 			ItemStack equipped = event.getItemStack();
@@ -128,7 +125,6 @@ public final class SkyblockWorldEvents {
 
 	private static final ResourceLocation TARGET_LOOT_TABLE = new ResourceLocation("blocks/grass");
 
-	@SubscribeEvent
 	public static void loadLoot(LootTableLoadEvent event) {
 		if (Botania.gardenOfGlassLoaded && event.getName().equals(TARGET_LOOT_TABLE)) {
 			event.getTable().addPool(LootHandler.getInjectPool("gog_grass"));

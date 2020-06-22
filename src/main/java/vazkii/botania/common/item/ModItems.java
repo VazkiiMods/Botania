@@ -22,9 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -62,16 +60,8 @@ import vazkii.botania.common.item.equipment.tool.ItemStarSword;
 import vazkii.botania.common.item.equipment.tool.ItemThunderSword;
 import vazkii.botania.common.item.equipment.tool.bow.ItemCrystalBow;
 import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumShears;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumShovel;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumSword;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
+import vazkii.botania.common.item.equipment.tool.elementium.*;
+import vazkii.botania.common.item.equipment.tool.manasteel.*;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
@@ -80,33 +70,10 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.lens.*;
-import vazkii.botania.common.item.material.ItemDye;
-import vazkii.botania.common.item.material.ItemEnderAir;
-import vazkii.botania.common.item.material.ItemManaResource;
-import vazkii.botania.common.item.material.ItemPetal;
-import vazkii.botania.common.item.material.ItemRune;
-import vazkii.botania.common.item.material.ItemSelfReturning;
+import vazkii.botania.common.item.material.*;
 import vazkii.botania.common.item.record.ItemModRecord;
-import vazkii.botania.common.item.relic.ItemDice;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
-import vazkii.botania.common.item.relic.ItemInfiniteFruit;
-import vazkii.botania.common.item.relic.ItemKingKey;
-import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.item.relic.ItemOdinRing;
-import vazkii.botania.common.item.relic.ItemThorRing;
-import vazkii.botania.common.item.rod.ItemCobbleRod;
-import vazkii.botania.common.item.rod.ItemDirtRod;
-import vazkii.botania.common.item.rod.ItemDiviningRod;
-import vazkii.botania.common.item.rod.ItemExchangeRod;
-import vazkii.botania.common.item.rod.ItemFireRod;
-import vazkii.botania.common.item.rod.ItemGravityRod;
-import vazkii.botania.common.item.rod.ItemMissileRod;
-import vazkii.botania.common.item.rod.ItemRainbowRod;
-import vazkii.botania.common.item.rod.ItemSkyDirtRod;
-import vazkii.botania.common.item.rod.ItemSmeltRod;
-import vazkii.botania.common.item.rod.ItemTerraformRod;
-import vazkii.botania.common.item.rod.ItemTornadoRod;
-import vazkii.botania.common.item.rod.ItemWaterRod;
+import vazkii.botania.common.item.relic.*;
+import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -115,7 +82,6 @@ import java.util.Locale;
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModItems {
 	@ObjectHolder(LibItemNames.LEXICON) public static Item lexicon;
@@ -447,7 +413,6 @@ public final class ModItems {
 		return defaultBuilder().maxStackSize(1);
 	}
 
-	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 
@@ -707,7 +672,6 @@ public final class ModItems {
 		register(r, new ItemGoddessCharm(unstackable()), LibItemNames.GODDESS_CHARM);
 	}
 
-	@SubscribeEvent
 	public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
 		IForgeRegistry<IRecipeSerializer<?>> r = evt.getRegistry();
 		register(r, AncientWillRecipe.SERIALIZER, "ancient_will_attach");
@@ -734,7 +698,6 @@ public final class ModItems {
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 	}
 
-	@SubscribeEvent
 	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> evt) {
 		IForgeRegistry<ContainerType<?>> r = evt.getRegistry();
 

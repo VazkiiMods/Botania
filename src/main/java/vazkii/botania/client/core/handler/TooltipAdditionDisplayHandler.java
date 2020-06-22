@@ -15,21 +15,15 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class TooltipAdditionDisplayHandler {
 
-	@SubscribeEvent
 	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
 		if (evt.getStack().isEmpty()) {
 			return;

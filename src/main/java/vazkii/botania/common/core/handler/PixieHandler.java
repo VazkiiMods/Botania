@@ -24,22 +24,17 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class PixieHandler {
 
 	private PixieHandler() {}
@@ -66,7 +61,6 @@ public final class PixieHandler {
 	}
 
 	// Want to do this as early as possible -- doing it at entity join world means attribute modifiers are ignored when loading
-	@SubscribeEvent
 	public static void registerAttribute(AttachCapabilitiesEvent<Entity> evt) {
 		if (evt.getObject() instanceof PlayerEntity) {
 			AbstractAttributeMap attributes = ((PlayerEntity) evt.getObject()).getAttributes();
@@ -76,7 +70,6 @@ public final class PixieHandler {
 		}
 	}
 
-	@SubscribeEvent
 	public static void onDamageTaken(LivingHurtEvent event) {
 		if (!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();

@@ -32,8 +32,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class StateIngredientHelper {
 	public static StateIngredient of(Block block) {

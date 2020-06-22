@@ -35,7 +35,6 @@ import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.OptionalInt;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

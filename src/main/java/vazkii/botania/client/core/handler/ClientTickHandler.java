@@ -13,10 +13,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.api.mana.IManaCollector;
@@ -26,11 +23,9 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.lang.reflect.Field;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class ClientTickHandler {
 
 	private ClientTickHandler() {}
@@ -49,7 +44,6 @@ public final class ClientTickHandler {
 		delta = total - oldTotal;
 	}
 
-	@SubscribeEvent
 	public static void renderTick(TickEvent.RenderTickEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 		if (event.phase == TickEvent.Phase.START) {
@@ -69,7 +63,6 @@ public final class ClientTickHandler {
 		}
 	}
 
-	@SubscribeEvent
 	public static void clientTickEnd(TickEvent.ClientTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
 			RenderTileRedString.tick();

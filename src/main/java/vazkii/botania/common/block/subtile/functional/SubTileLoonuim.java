@@ -32,9 +32,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -46,7 +43,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":loonium") public static TileEntityType<SubTileLoonuim> TYPE;
 
@@ -198,7 +194,6 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 		cmp.putString(TAG_LOOT_TABLE, lootTable.toString());
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onDrops(LivingDropsEvent event) {
 		LivingEntity e = event.getEntityLiving();
 		if (e.getPersistentData().contains(TAG_ITEMSTACK_TO_DROP)) {

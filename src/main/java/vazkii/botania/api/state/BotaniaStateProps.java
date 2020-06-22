@@ -10,7 +10,6 @@ package vazkii.botania.api.state;
 
 import com.google.common.base.Predicates;
 
-import net.minecraft.item.DyeColor;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.util.Direction;

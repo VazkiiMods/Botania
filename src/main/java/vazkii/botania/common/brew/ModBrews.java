@@ -14,20 +14,16 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = LibMisc.MOD_ID)
 public class ModBrews {
 
 	public static IForgeRegistry<Brew> registry;
@@ -56,7 +52,6 @@ public class ModBrews {
 
 	public static Brew warpWard;
 
-	@SubscribeEvent
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
 		registry = new RegistryBuilder<Brew>()
 				.setName(prefix("brews"))
@@ -66,7 +61,6 @@ public class ModBrews {
 				.create();
 	}
 
-	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Brew> evt) {
 		evt.getRegistry().registerAll(fallbackBrew, speed, strength, haste, healing, jumpBoost, regen, regenWeak, resistance,
 				fireResistance, waterBreathing, invisibility, nightVision, absorption, overload, soulCross, featherfeet,

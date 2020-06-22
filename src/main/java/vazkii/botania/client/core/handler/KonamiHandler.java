@@ -8,26 +8,20 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 public class KonamiHandler {
 	private static final int[] KONAMI_CODE = {
 			GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_UP,
@@ -39,7 +33,6 @@ public class KonamiHandler {
 	private static int nextLetter = 0;
 	private static int konamiTime = 0;
 
-	@SubscribeEvent
 	public static void clientTick(TickEvent.ClientTickEvent evt) {
 		if (konamiTime > 0) {
 			konamiTime--;
@@ -50,7 +43,6 @@ public class KonamiHandler {
 		}
 	}
 
-	@SubscribeEvent
 	public static void handleInput(InputEvent.KeyInputEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
 		if (evt.getModifiers() == 0 && evt.getAction() == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
@@ -67,7 +59,6 @@ public class KonamiHandler {
 		}
 	}
 
-	@SubscribeEvent
 	public static void renderBook(BookDrawScreenEvent evt) {
 		if (konamiTime > 0) {
 			String meme = I18n.format("botania.subtitle.way");

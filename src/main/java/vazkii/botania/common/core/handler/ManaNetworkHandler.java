@@ -11,18 +11,13 @@ package vazkii.botania.common.core.handler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.function.BinaryOperator;
 
 public final class ManaNetworkHandler implements IManaNetwork {
@@ -32,7 +27,6 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	private final WeakHashMap<World, Set<TileEntity>> manaPools = new WeakHashMap<>();
 	private final WeakHashMap<World, Set<TileEntity>> manaCollectors = new WeakHashMap<>();
 
-	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
 		Map<World, Set<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
 		if (event.action == Action.ADD) {

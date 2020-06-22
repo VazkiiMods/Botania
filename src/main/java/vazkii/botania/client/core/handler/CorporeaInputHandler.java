@@ -17,16 +17,12 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketIndexKeybindRequest;
@@ -34,7 +30,6 @@ import vazkii.botania.common.network.PacketIndexKeybindRequest;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 public class CorporeaInputHandler {
 
 	/** Replaced in JEIBotaniaPlugin when JEI's loaded to provide stacks from the JEI item panel. */
@@ -43,7 +38,6 @@ public class CorporeaInputHandler {
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
 	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof ContainerScreen;
 
-	@SubscribeEvent
 	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
 		Minecraft mc = Minecraft.getInstance();
 

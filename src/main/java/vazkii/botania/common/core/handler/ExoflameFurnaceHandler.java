@@ -20,10 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.capability.SimpleCapProvider;
@@ -32,7 +29,6 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ExoflameFurnaceHandler {
 
 	@CapabilityInject(IExoflameHeatable.class) public static Capability<IExoflameHeatable> CAPABILITY;
@@ -41,7 +37,6 @@ public class ExoflameFurnaceHandler {
 	private static final MethodHandle CAN_SMELT = LibObfuscation.getMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);
 	private static final MethodHandle RECIPE_TYPE = LibObfuscation.getGetter(AbstractFurnaceTileEntity.class, "field_214014_c");
 
-	@SubscribeEvent
 	public static void attachFurnaceCapability(AttachCapabilitiesEvent<TileEntity> event) {
 		TileEntity te = event.getObject();
 		if (te instanceof AbstractFurnaceTileEntity) {

@@ -24,13 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ICompositableLens;
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.ILensControl;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.mana.IManaSpreader;
-import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.api.mana.*;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;

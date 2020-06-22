@@ -12,8 +12,6 @@ import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -21,13 +19,8 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileVinculotus extends TileEntityFunctionalFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":vinculotus") public static TileEntityType<SubTileVinculotus> TYPE;
 
@@ -67,7 +60,6 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 		return 500;
 	}
 
-	@SubscribeEvent
 	public static void onEndermanTeleport(EnderTeleportEvent event) {
 		int cost = 50;
 

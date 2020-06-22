@@ -17,21 +17,16 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class LightningHandler {
 
 	private LightningHandler() {}
@@ -41,7 +36,6 @@ public class LightningHandler {
 	private static final ResourceLocation insideResource = new ResourceLocation(LibResources.MISC_WISP_SMALL);
 	public static final Deque<FXLightning> queuedLightningBolts = new ArrayDeque<>();
 
-	@SubscribeEvent
 	public static void onRenderWorldLast(RenderWorldLastEvent event) {
 		IProfiler profiler = Minecraft.getInstance().getProfiler();
 

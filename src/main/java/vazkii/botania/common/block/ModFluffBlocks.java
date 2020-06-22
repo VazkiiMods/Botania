@@ -8,21 +8,11 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.WallBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -33,14 +23,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.block.ModBlocks.register;
-import static vazkii.botania.common.lib.LibBlockNames.FENCE_GATE_SUFFIX;
-import static vazkii.botania.common.lib.LibBlockNames.FENCE_SUFFIX;
-import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
-import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
-import static vazkii.botania.common.lib.LibBlockNames.WALL_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModFluffBlocks {
 
@@ -232,7 +217,6 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.ELF_GLASS + "_pane") public static Block alfglassPane;
 	@ObjectHolder(LibBlockNames.BIFROST + "_pane") public static Block bifrostPane;
 
-	@SubscribeEvent(priority = EventPriority.LOW) // Run after ModBlocks
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
@@ -324,7 +308,6 @@ public final class ModFluffBlocks {
 		register(r, new BlockModPane(Block.Properties.from(base)), LibBlockNames.BIFROST + "_pane");
 	}
 
-	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();

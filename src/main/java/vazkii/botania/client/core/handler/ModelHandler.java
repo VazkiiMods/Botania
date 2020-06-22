@@ -15,88 +15,31 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.model.FloatingFlowerModel;
-import vazkii.botania.client.render.entity.RenderBabylonWeapon;
-import vazkii.botania.client.render.entity.RenderCorporeaSpark;
-import vazkii.botania.client.render.entity.RenderDoppleganger;
-import vazkii.botania.client.render.entity.RenderManaStorm;
-import vazkii.botania.client.render.entity.RenderNoop;
-import vazkii.botania.client.render.entity.RenderPinkWither;
-import vazkii.botania.client.render.entity.RenderPixie;
-import vazkii.botania.client.render.entity.RenderPoolMinecart;
-import vazkii.botania.client.render.entity.RenderSpark;
+import vazkii.botania.client.render.entity.*;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.TileAltar;
-import vazkii.botania.common.block.tile.TileAnimatedTorch;
-import vazkii.botania.common.block.tile.TileAvatar;
-import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileCocoon;
-import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
-import vazkii.botania.common.block.tile.TileGaiaHead;
-import vazkii.botania.common.block.tile.TileHourglass;
-import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.block.tile.TileLightRelay;
-import vazkii.botania.common.block.tile.TilePylon;
-import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.block.tile.TileSparkChanger;
-import vazkii.botania.common.block.tile.TileStarfield;
-import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.block.tile.TileTeruTeruBozu;
-import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.mana.TileBellows;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.block.tile.mana.TilePrism;
-import vazkii.botania.common.block.tile.mana.TilePump;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
-import vazkii.botania.common.block.tile.string.TileRedStringComparator;
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
-import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
-import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
-import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
-import vazkii.botania.common.block.tile.string.TileRedStringRelay;
-import vazkii.botania.common.entity.EntityBabylonWeapon;
-import vazkii.botania.common.entity.EntityCorporeaSpark;
-import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.EntityEnderAirBottle;
-import vazkii.botania.common.entity.EntityFallingStar;
-import vazkii.botania.common.entity.EntityFlameRing;
-import vazkii.botania.common.entity.EntityMagicLandmine;
-import vazkii.botania.common.entity.EntityMagicMissile;
-import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.entity.EntityManaStorm;
-import vazkii.botania.common.entity.EntityPinkWither;
-import vazkii.botania.common.entity.EntityPixie;
-import vazkii.botania.common.entity.EntityPoolMinecart;
-import vazkii.botania.common.entity.EntitySignalFlare;
-import vazkii.botania.common.entity.EntitySpark;
-import vazkii.botania.common.entity.EntityThornChakram;
-import vazkii.botania.common.entity.EntityThrownItem;
-import vazkii.botania.common.entity.EntityVineBall;
+import vazkii.botania.common.block.tile.mana.*;
+import vazkii.botania.common.block.tile.string.*;
+import vazkii.botania.common.entity.*;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModelHandler {
 	static boolean registeredModels = false;
 
-	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
 		registeredModels = true;
 

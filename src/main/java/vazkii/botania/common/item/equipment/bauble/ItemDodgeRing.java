@@ -20,19 +20,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketDodge;
 import vazkii.botania.common.network.PacketHandler;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class ItemDodgeRing extends ItemBauble {
 
 	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";
@@ -45,7 +41,6 @@ public class ItemDodgeRing extends ItemBauble {
 		super(props);
 	}
 
-	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
 	public static void onKeyDown(InputEvent.KeyInputEvent event) {
 		Minecraft mc = Minecraft.getInstance();

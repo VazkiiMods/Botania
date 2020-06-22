@@ -16,14 +16,11 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
-import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;

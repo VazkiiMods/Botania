@@ -35,11 +35,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
-import vazkii.botania.api.mana.IKeyLocked;
-import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IThrottledPacket;
-import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;

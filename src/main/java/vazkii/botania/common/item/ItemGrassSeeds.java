@@ -21,26 +21,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	/**
 	 * Represents a map of dimension IDs to a set of all block swappers
@@ -111,7 +101,6 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		return ActionResultType.PASS;
 	}
 
-	@SubscribeEvent
 	public static void onTickEnd(TickEvent.WorldTickEvent event) {
 		if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
 			DimensionType dim = event.world.getDimension().getType();

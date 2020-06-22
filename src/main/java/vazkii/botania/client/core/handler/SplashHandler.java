@@ -15,25 +15,19 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.Unit;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SplashHandler {
 	// This is probably the best spot to add a splash listener. It's an event fired after splash reload listener 
 	// is registered, but before resource reload happens. Doing the initial load ourselves is not effective,
 	// as we would do it before the splashes are added, and the list is cleared when adding.
-	@SubscribeEvent
 	public static void registerFactories(ParticleFactoryRegisterEvent event) {
 		((SimpleReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(new SplashResourceListener());
 	}

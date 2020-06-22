@@ -9,12 +9,29 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.potion.Effect;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.world.gen.ChunkGeneratorType;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -32,47 +49,58 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
-import vazkii.botania.common.advancements.AlfPortalTrigger;
-import vazkii.botania.common.advancements.CorporeaRequestTrigger;
-import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
-import vazkii.botania.common.advancements.LokiPlaceTrigger;
-import vazkii.botania.common.advancements.ManaGunTrigger;
-import vazkii.botania.common.advancements.RelicBindTrigger;
-import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.string.BlockRedStringInterceptor;
+import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
+import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.potion.PotionBloodthirst;
+import vazkii.botania.common.brew.potion.PotionEmptiness;
+import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.capability.NoopExoflameHeatable;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
-import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.handler.IMCHandler;
-import vazkii.botania.common.core.handler.IMCSender;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.*;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.core.loot.BindUuid;
-import vazkii.botania.common.core.loot.EnableRelics;
-import vazkii.botania.common.core.loot.LootHandler;
-import vazkii.botania.common.core.loot.TrueGuardianKiller;
+import vazkii.botania.common.core.loot.*;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
+import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
+import vazkii.botania.common.item.ItemGrassSeeds;
+import vazkii.botania.common.item.ItemKeepIvy;
+import vazkii.botania.common.item.ItemVirus;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
+import vazkii.botania.common.item.material.ItemEnderAir;
+import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
+import vazkii.botania.data.DataGenerators;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -90,25 +118,73 @@ public class Botania {
 	public static boolean coloredLightsLoaded = false;
 	public static boolean curiosLoaded = false;
 
-	public static Botania instance;
 	public static IProxy proxy;
 	public static boolean finishedLoading = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	public Botania() {
-		instance = this;
 		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 		proxy.registerHandlers();
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(IMCSender::enqueue);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(IMCHandler::handle);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
-		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
-		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
-		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
+
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modBus.addListener(this::commonSetup);
+		modBus.addListener(IMCSender::enqueue);
+		modBus.addListener(IMCHandler::handle);
+		modBus.addListener(this::loadComplete);
+		modBus.addListener(DataGenerators::gatherData);
+		modBus.addGenericListener(ChunkGeneratorType.class, ModFeatures::registerChunkGenerators);
+		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
+		modBus.addGenericListener(Item.class, ModItems::registerItems);
+		modBus.addGenericListener(ContainerType.class, ModItems::registerContainers);
+		modBus.addGenericListener(IRecipeSerializer.class, ModItems::registerRecipeSerializers);
+		modBus.addGenericListener(EntityType.class, ModEntities::registerEntities);
+		modBus.addGenericListener(IRecipeSerializer.class, ModRecipeTypes::register);
+		modBus.addGenericListener(SoundEvent.class, ModSounds::registerSounds);
+		modBus.addGenericListener(Brew.class, ModBrews::register);
+		modBus.addListener(ModBrews::registerRegistry);
+		modBus.addGenericListener(Effect.class, ModPotions::registerPotions);
+		modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);
+		modBus.addGenericListener(Item.class, ModBlocks::registerItemBlocks);
+		modBus.addGenericListener(TileEntityType.class, ModBlocks::initTileEntities);
+		modBus.addGenericListener(Block.class, ModFluffBlocks::registerBlocks);
+		modBus.addGenericListener(Item.class, ModFluffBlocks::registerItemBlocks);
+		modBus.addGenericListener(ParticleType.class, ModParticles::registerParticles);
+		modBus.addGenericListener(Block.class, ModSubtiles::registerBlocks);
+		modBus.addGenericListener(Item.class, ModSubtiles::registerItemBlocks);
+		modBus.addGenericListener(TileEntityType.class, ModSubtiles::registerTEs);
+		modBus.addGenericListener(GlobalLootModifierSerializer.class, DisposeModifier::register);
+
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		forgeBus.addListener(this::serverAboutToStart);
+		forgeBus.addListener(this::serverStarting);
+		forgeBus.addListener(this::serverStopping);
+		forgeBus.addListener(ItemLokiRing::onPlayerInteract);
+		forgeBus.addListener(ItemOdinRing::onPlayerAttacked);
+		forgeBus.addListener(ItemEnderAir::onPlayerInteract);
+		forgeBus.addListener(ItemGoddessCharm::onExplosion);
+		forgeBus.addListener(ItemGrassSeeds::onTickEnd);
+		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
+		forgeBus.addListener(ItemKeepIvy::onPlayerRespawn);
+		forgeBus.addListener(ItemVirus::onLivingHurt);
+		forgeBus.addListener(SleepingHandler::trySleep);
+		forgeBus.addListener(PixieHandler::onDamageTaken);
+		forgeBus.addGenericListener(Entity.class, PixieHandler::registerAttribute);
+		forgeBus.addGenericListener(TileEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
+		forgeBus.addListener(CommonTickHandler::onTick);
+		forgeBus.addListener(PotionBloodthirst::onSpawn);
+		forgeBus.addListener(PotionEmptiness::onSpawn);
+		forgeBus.addListener(PotionSoulCross::onEntityKill);
+		forgeBus.addListener(SubTileNarslimmus::onSpawn);
+		forgeBus.addListener(SubTileDaffomill::onItemTrack);
+		forgeBus.addListener(SubTileVinculotus::onEndermanTeleport);
+		forgeBus.addListener(EventPriority.LOWEST, SubTileLoonuim::onDrops);
+		forgeBus.addListener(BlockRedStringInterceptor::onInteract);
+		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
+		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
+		forgeBus.addListener(LootHandler::lootLoad);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -130,16 +206,14 @@ public class Botania {
 			}
 		}
 
-		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
-		MinecraftForge.EVENT_BUS.register(new LootHandler());
-
 		EquipmentHandler.init();
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
-			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::loadLoot);
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerUpdate);
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
 		}
 
 		DeferredWorkQueue.runLater(() -> {

@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -44,7 +43,6 @@ import java.util.function.Predicate;
 // Classloading-safe way to attach curio behaviour to our items
 public class CurioIntegration extends EquipmentHandler {
 
-	@SubscribeEvent
 	public static void sendImc(InterModEnqueueEvent evt) {
 		InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("charm"));
 		InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("ring").setSize(2));
@@ -54,7 +52,6 @@ public class CurioIntegration extends EquipmentHandler {
 		InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("necklace"));
 	}
 
-	@SubscribeEvent
 	public static void keepCurioDrops(LivingCurioDropRulesEvent event) {
 		event.addOverride(stack -> {
 			if (ItemKeepIvy.hasIvy(stack)) {

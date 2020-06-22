@@ -25,12 +25,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequestTrigger.Instance> {
 	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "corporea_index_request");

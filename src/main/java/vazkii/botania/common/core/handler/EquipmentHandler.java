@@ -38,8 +38,8 @@ public abstract class EquipmentHandler {
 	public static void init() {
 		if (Botania.curiosLoaded) {
 			instance = new CurioIntegration();
-			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
-			MinecraftForge.EVENT_BUS.register(CurioIntegration.class);
+			FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
+			MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
 		} else {
 			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
 			instance = handler;

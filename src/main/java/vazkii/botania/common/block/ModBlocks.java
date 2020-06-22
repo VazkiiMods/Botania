@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.GlassBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
@@ -23,9 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -33,62 +30,18 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
-import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
-import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
-import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
-import vazkii.botania.common.block.corporea.BlockCorporeaInterceptor;
-import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
+import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.dispenser.SeedBehaviours;
-import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
-import vazkii.botania.common.block.mana.BlockBellows;
-import vazkii.botania.common.block.mana.BlockBrewery;
-import vazkii.botania.common.block.mana.BlockConjurationCatalyst;
-import vazkii.botania.common.block.mana.BlockDistributor;
-import vazkii.botania.common.block.mana.BlockEnchanter;
-import vazkii.botania.common.block.mana.BlockForestDrum;
-import vazkii.botania.common.block.mana.BlockManaDetector;
-import vazkii.botania.common.block.mana.BlockManaVoid;
-import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.block.mana.BlockPrism;
-import vazkii.botania.common.block.mana.BlockPump;
-import vazkii.botania.common.block.mana.BlockRFGenerator;
-import vazkii.botania.common.block.mana.BlockRuneAltar;
-import vazkii.botania.common.block.mana.BlockSpawnerClaw;
-import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.block.mana.BlockTerraPlate;
-import vazkii.botania.common.block.mana.BlockTurntable;
-import vazkii.botania.common.block.string.BlockRedStringComparator;
-import vazkii.botania.common.block.string.BlockRedStringContainer;
-import vazkii.botania.common.block.string.BlockRedStringDispenser;
-import vazkii.botania.common.block.string.BlockRedStringFertilizer;
-import vazkii.botania.common.block.string.BlockRedStringInterceptor;
-import vazkii.botania.common.block.string.BlockRedStringRelay;
+import vazkii.botania.common.block.mana.*;
+import vazkii.botania.common.block.string.*;
 import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
-import vazkii.botania.common.block.tile.mana.TileBellows;
-import vazkii.botania.common.block.tile.mana.TileDistributor;
-import vazkii.botania.common.block.tile.mana.TileManaDetector;
-import vazkii.botania.common.block.tile.mana.TileManaVoid;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.block.tile.mana.TilePrism;
-import vazkii.botania.common.block.tile.mana.TilePump;
-import vazkii.botania.common.block.tile.mana.TileRFGenerator;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
-import vazkii.botania.common.block.tile.mana.TileTurntable;
-import vazkii.botania.common.block.tile.string.TileRedStringComparator;
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
-import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
-import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
-import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
-import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.block.tile.corporea.*;
+import vazkii.botania.common.block.tile.mana.*;
+import vazkii.botania.common.block.tile.string.*;
 import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
@@ -101,7 +54,6 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Arrays;
 import java.util.Locale;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModBlocks {
 	@ObjectHolder("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block whiteFlower;
@@ -361,7 +313,6 @@ public final class ModBlocks {
 	@ObjectHolder("mutated" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block mutatedGrass;
 	@ObjectHolder(LibBlockNames.ANIMATED_TORCH) public static Block animatedTorch;
 
-	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
@@ -568,7 +519,6 @@ public final class ModBlocks {
 		register(r, new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).lightValue(7).notSolid()), LibBlockNames.ANIMATED_TORCH);
 	}
 
-	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
@@ -850,7 +800,6 @@ public final class ModBlocks {
 		SeedBehaviours.init();
 	}
 
-	@SubscribeEvent
 	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 		register(r, TileEntityType.Builder.create(TileAltar::new,

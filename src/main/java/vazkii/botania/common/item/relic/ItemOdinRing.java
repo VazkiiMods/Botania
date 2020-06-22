@@ -18,8 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -29,7 +27,6 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.HashSet;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final Set<String> damageNegations = new HashSet<>();
@@ -62,7 +59,6 @@ public class ItemOdinRing extends ItemRelicBauble {
 		return attributes;
 	}
 
-	@SubscribeEvent
 	public static void onPlayerAttacked(LivingAttackEvent event) {
 		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();

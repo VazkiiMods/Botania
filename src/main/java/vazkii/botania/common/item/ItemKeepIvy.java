@@ -15,16 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemKeepIvy extends Item {
 
 	public static final String TAG_KEEP = "Botania_keepIvy";
@@ -42,7 +38,6 @@ public class ItemKeepIvy extends Item {
 	}
 
 	// Curios are handled in CurioIntegration#keepCurioDrops
-	@SubscribeEvent
 	public static void onPlayerDrops(LivingDropsEvent event) {
 		if (!(event.getEntityLiving() instanceof PlayerEntity)) {
 			return;
@@ -80,7 +75,6 @@ public class ItemKeepIvy extends Item {
 		}
 	}
 
-	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
 		CompoundNBT data = event.getPlayer().getPersistentData();
 		if (data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {

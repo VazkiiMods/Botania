@@ -13,10 +13,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import org.lwjgl.opengl.GL11;
 
@@ -25,7 +22,6 @@ import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.*;
 import java.util.Collections;
@@ -33,7 +29,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class BossBarHandler {
 
 	private BossBarHandler() {}
@@ -43,7 +38,6 @@ public final class BossBarHandler {
 	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
-	@SubscribeEvent
 	public static void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
 		UUID infoUuid = evt.getBossInfo().getUniqueId();
 		for (EntityDoppleganger currentBoss : bosses) {

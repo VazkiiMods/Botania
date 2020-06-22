@@ -15,7 +15,6 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import vazkii.botania.common.brew.ModPotions;
 
@@ -27,7 +26,6 @@ public class PotionEmptiness extends Effect {
 		super(EffectType.BENEFICIAL, 0xFACFFF);
 	}
 
-	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if (event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof IMob) {
 			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,

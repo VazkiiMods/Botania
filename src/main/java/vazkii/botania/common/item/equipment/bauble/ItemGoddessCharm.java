@@ -24,20 +24,15 @@ import net.minecraft.world.Explosion;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.world.ExplosionEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 
 	public static final int COST = 1000;
@@ -46,7 +41,6 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		super(props);
 	}
 
-	@SubscribeEvent
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
 		Vec3d vec = e.getPosition();

@@ -20,9 +20,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -30,19 +27,7 @@ import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
-import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
-import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
-import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
-import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
-import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
-import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
-import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
-import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
-import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
-import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
-import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
-import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
-import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
+import vazkii.botania.common.block.subtile.generating.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -53,7 +38,6 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
 public class ModSubtiles {
 	@ObjectHolder("pure_daisy") public static Block pureDaisy;
@@ -218,7 +202,6 @@ public class ModSubtiles {
 		);
 	}
 
-	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 		Block.Properties props = Block.Properties.from(Blocks.POPPY);
@@ -230,7 +213,6 @@ public class ModSubtiles {
 		}
 	}
 
-	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		Registry<Block> b = Registry.BLOCK;
 		IForgeRegistry<Item> r = evt.getRegistry();
@@ -245,7 +227,6 @@ public class ModSubtiles {
 		}
 	}
 
-	@SubscribeEvent
 	public static void registerTEs(RegistryEvent.Register<TileEntityType<?>> evt) {
 		Registry<Block> b = Registry.BLOCK;
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();

@@ -19,18 +19,12 @@ import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Set;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature(MysticalFlowerConfig::deserialize);
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature(MysticalFlowerConfig::deserialize);
@@ -44,7 +38,6 @@ public class ModFeatures {
 			BiomeDictionary.Type.VOID
 	);
 
-	@SubscribeEvent
 	public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
 		IForgeRegistry<Feature<?>> r = event.getRegistry();
 
@@ -52,7 +45,6 @@ public class ModFeatures {
 		register(r, MYSTICAL_MUSHROOMS, "mystical_mushrooms");
 	}
 
-	@SubscribeEvent
 	public static void registerChunkGenerators(RegistryEvent.Register<ChunkGeneratorType<?, ?>> evt) {
 		register(evt.getRegistry(), SkyblockChunkGenerator.TYPE, "garden_of_glass");
 	}

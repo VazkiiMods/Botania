@@ -8,31 +8,21 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.Sound;
-import net.minecraft.client.audio.SoundEventAccessor;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.audio.TickableSound;
+import net.minecraft.client.audio.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class BergamuteEventHandler {
 
 	private BergamuteEventHandler() {}
@@ -40,7 +30,6 @@ public class BergamuteEventHandler {
 	private static final Random RAND = new Random();
 	private static final float MULTIPLIER = 0.15F;
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onSoundEvent(PlaySoundEvent evt) {
 		ISound sound = evt.getResultSound();
 

@@ -22,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;

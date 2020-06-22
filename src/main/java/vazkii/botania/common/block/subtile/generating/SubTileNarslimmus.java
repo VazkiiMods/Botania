@@ -21,8 +21,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -31,7 +29,6 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":narslimmus") public static TileEntityType<SubTileNarslimmus> TYPE;
 
@@ -90,7 +87,6 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		return 0x71C373;
 	}
 
-	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if (event.getEntityLiving() instanceof SlimeEntity
 				&& event.getSpawnReason() == SpawnReason.NATURAL

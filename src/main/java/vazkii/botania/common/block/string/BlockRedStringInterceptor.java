@@ -18,18 +18,14 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor(Block.Properties builder) {
@@ -43,7 +39,6 @@ public class BlockRedStringInterceptor extends BlockRedString {
 		builder.add(BlockStateProperties.POWERED);
 	}
 
-	@SubscribeEvent
 	public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
 		TileRedStringInterceptor.onInteract(event.getPlayer(), event.getWorld(), event.getPos(), event.getHand());
 	}

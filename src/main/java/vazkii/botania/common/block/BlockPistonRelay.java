@@ -39,7 +39,6 @@ import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.wand.IWandable;
@@ -51,11 +50,7 @@ import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class BlockPistonRelay extends BlockMod implements IWandable {
 
@@ -68,7 +63,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	public BlockPistonRelay(Properties builder) {
 		super(builder);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::tickEnd);
 	}
 
 	@Override
@@ -192,7 +187,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		}
 	}
 
-	@SubscribeEvent
 	public void tickEnd(TickEvent.ServerTickEvent event) {
 		if (event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
 			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();

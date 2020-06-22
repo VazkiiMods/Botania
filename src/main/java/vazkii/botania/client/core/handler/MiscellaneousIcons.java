@@ -20,7 +20,6 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
@@ -86,9 +85,14 @@ public class MiscellaneousIcons {
 
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
-	@SubscribeEvent
-	public void onModelRegister(ModelRegistryEvent evt) throws Throwable {
-		Set<Material> materials = (Set<Material>) MATERIALS.invokeExact();
+	public void onModelRegister(ModelRegistryEvent evt) {
+		Set<Material> materials;
+		try {
+			materials = (Set<Material>) MATERIALS.invokeExact();
+		} catch (Throwable throwable) {
+			throw new RuntimeException(throwable);
+		}
+
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
@@ -120,7 +124,6 @@ public class MiscellaneousIcons {
 		}
 	}
 
-	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
 		if (!ModelHandler.registeredModels) {
 			Botania.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
@@ -187,7 +190,6 @@ public class MiscellaneousIcons {
 		}
 	}
 
-	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
 		if (!evt.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
 			return;
@@ -226,7 +228,6 @@ public class MiscellaneousIcons {
 		*/
 	}
 
-	@SubscribeEvent
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
 		if (!evt.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
 			return;
