@@ -2569,7 +2569,7 @@
 
   "botania.entry.rainbowRod": "Rod of the Bifrost",
   "botania.tagline.rainbowRod": "A rod for creating rainbow bridges (and fancy building blocks)",
-  "botania.page.rainbowRod0": "The $(thing)Bifrost$(0) is the legendary rainbow bridge that connects our world and the realm of the gods.$(p)While the $(item)Rod of the Bifrost$(0) cant't really do $(o)that$(), it allows wielder to summon a rainbow bridge from $(thing)Mana$(0) in the direction they look.",
+  "botania.page.rainbowRod0": "The $(thing)Bifrost$(0) is the legendary rainbow bridge that connects our world and the realm of the gods.$(p)While the $(item)Rod of the Bifrost$(0) can't really do $(o)that$(), it allows wielder to summon a rainbow bridge from $(thing)Mana$(0) in the direction they look.",
   "botania.page.rainbowRod1": "This bridge can extend up to a hundred blocks away, and will vanish after about thirty seconds.$(p)Only one bridge can be created for any given $(item)Rod of the Bifrost$(0) at a time; as soon as the old bridge vanishes, a new one can be created.",
   "botania.page.rainbowRod6": "This rod can be given to a $(l:devices/avatar)$(item)Livingwood Avatar$(0)$(/l). An avatar holding one will use its $(thing)Mana$(0) to create a rainbow bridge along its line of sight whenever a player approaches.",
   "botania.page.rainbowRod2": "Going my way!! Cut open a path and go!",
