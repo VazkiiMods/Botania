@@ -14,14 +14,13 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileRedStringDispenser extends TileRedStringContainer {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_DISPENSER) public static TileEntityType<TileRedStringDispenser> TYPE;
-
 	public TileRedStringDispenser() {
-		super(TYPE);
+		super(ModTiles.RED_STRING_DISPENSER);
 	}
 
 	@Override

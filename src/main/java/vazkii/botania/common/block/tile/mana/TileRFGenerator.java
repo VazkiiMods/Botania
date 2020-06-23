@@ -21,6 +21,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -29,7 +30,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FLUXFIELD) public static TileEntityType<TileRFGenerator> TYPE;
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
@@ -71,7 +71,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	private final LazyOptional<IEnergyStorage> energyCap = LazyOptional.of(() -> energyHandler);
 
 	public TileRFGenerator() {
-		super(TYPE);
+		super(ModTiles.FLUXFIELD);
 	}
 
 	@Override

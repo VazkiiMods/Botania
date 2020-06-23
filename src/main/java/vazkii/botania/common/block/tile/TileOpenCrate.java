@@ -24,11 +24,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileOpenCrate extends TileSimpleInventory implements ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.OPEN_CRATE) public static TileEntityType<?> TYPE;
-
 	public TileOpenCrate() {
-		this(TYPE);
+		this(ModTiles.OPEN_CRATE);
 	}
 
 	public TileOpenCrate(TileEntityType<?> type) {

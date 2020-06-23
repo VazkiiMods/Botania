@@ -28,10 +28,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class TileEnderEye extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ENDER_EYE_BLOCK) public static TileEntityType<TileEnderEye> TYPE;
-
 	public TileEnderEye() {
-		super(TYPE);
+		super(ModTiles.ENDER_EYE);
 	}
 
 	@Override

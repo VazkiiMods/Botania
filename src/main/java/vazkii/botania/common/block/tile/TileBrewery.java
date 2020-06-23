@@ -43,8 +43,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BREWERY) public static TileEntityType<TileBrewery> TYPE;
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
@@ -54,7 +52,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	public int signal = 0;
 
 	public TileBrewery() {
-		super(TYPE);
+		super(ModTiles.BREWERY);
 	}
 
 	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {

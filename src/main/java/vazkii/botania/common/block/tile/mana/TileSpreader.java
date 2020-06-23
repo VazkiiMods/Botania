@@ -39,6 +39,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -56,7 +57,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPREADER) public static TileEntityType<TileSpreader> TYPE;
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -131,7 +131,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private boolean invalidTentativeBurst = false;
 
 	public TileSpreader() {
-		super(TYPE);
+		super(ModTiles.SPREADER);
 	}
 
 	@Override

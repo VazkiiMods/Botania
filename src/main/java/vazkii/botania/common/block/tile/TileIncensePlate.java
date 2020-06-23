@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Random;
 
 public class TileIncensePlate extends TileSimpleInventory implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.INCENSE_PLATE) public static TileEntityType<TileIncensePlate> TYPE;
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
 	private static final int RANGE = 32;
@@ -47,7 +46,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	public int comparatorOutput = 0;
 
 	public TileIncensePlate() {
-		super(TYPE);
+		super(ModTiles.INCENSE_PLATE);
 	}
 
 	@Override

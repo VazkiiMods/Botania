@@ -46,6 +46,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -64,7 +65,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL) public static TileEntityType<TilePool> TYPE;
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -101,7 +101,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private boolean sendPacket = false;
 
 	public TilePool() {
-		super(TYPE);
+		super(ModTiles.POOL);
 	}
 
 	@Override

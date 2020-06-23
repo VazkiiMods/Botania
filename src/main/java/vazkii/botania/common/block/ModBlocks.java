@@ -801,65 +801,6 @@ public final class ModBlocks {
 		SeedBehaviours.init();
 	}
 
-	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
-		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
-		register(r, LibBlockNames.ALTAR, TileEntityType.Builder.create(TileAltar::new,
-				defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
-				swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar
-		).build(null));
-		register(r, LibBlockNames.SPREADER, TileEntityType.Builder.create(TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader).build(null));
-		register(r, LibBlockNames.POOL, TileEntityType.Builder.create(TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool).build(null));
-		register(r, LibBlockNames.RUNE_ALTAR, TileEntityType.Builder.create(TileRuneAltar::new, runeAltar).build(null));
-		register(r, LibBlockNames.PYLON, TileEntityType.Builder.create(TilePylon::new, manaPylon, naturaPylon, gaiaPylon).build(null));
-		register(r, LibBlockNames.DISTRIBUTOR, TileEntityType.Builder.create(TileDistributor::new, distributor).build(null));
-		register(r, LibBlockNames.MANA_VOID, TileEntityType.Builder.create(TileManaVoid::new, manaVoid).build(null));
-		register(r, LibBlockNames.MANA_DETECTOR, TileEntityType.Builder.create(TileManaDetector::new, manaDetector).build(null));
-		register(r, LibBlockNames.ENCHANTER, TileEntityType.Builder.create(TileEnchanter::new, enchanter).build(null));
-		register(r, LibBlockNames.TURNTABLE, TileEntityType.Builder.create(TileTurntable::new, turntable).build(null));
-		register(r, LibBlockNames.TINY_PLANET, TileEntityType.Builder.create(TileTinyPlanet::new, tinyPlanet).build(null));
-		register(r, LibBlockNames.OPEN_CRATE, TileEntityType.Builder.create(TileOpenCrate::new, openCrate).build(null));
-		register(r, LibBlockNames.CRAFT_CRATE, TileEntityType.Builder.create(TileCraftCrate::new, craftCrate).build(null));
-		register(r, LibBlockNames.FOREST_EYE, TileEntityType.Builder.create(TileForestEye::new, forestEye).build(null));
-		register(r, LibBlockNames.PLATFORM, TileEntityType.Builder.create(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform).build(null));
-		register(r, LibBlockNames.ALF_PORTAL, TileEntityType.Builder.create(TileAlfPortal::new, alfPortal).build(null));
-		register(r, LibBlockNames.BIFROST, TileEntityType.Builder.create(TileBifrost::new, bifrost).build(null));
-		register(r, LibBlockNames.MINI_ISLAND, TileEntityType.Builder.create(TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new)).build(null));
-		register(r, LibBlockNames.TINY_POTATO, TileEntityType.Builder.create(TileTinyPotato::new, tinyPotato).build(null));
-		register(r, LibBlockNames.SPAWNER_CLAW, TileEntityType.Builder.create(TileSpawnerClaw::new, spawnerClaw).build(null));
-		register(r, LibBlockNames.ENDER_EYE_BLOCK, TileEntityType.Builder.create(TileEnderEye::new, enderEye).build(null));
-		register(r, LibBlockNames.STARFIELD, TileEntityType.Builder.create(TileStarfield::new, starfield).build(null));
-		register(r, LibBlockNames.FLUXFIELD, TileEntityType.Builder.create(TileRFGenerator::new, rfGenerator).build(null));
-		register(r, LibBlockNames.BREWERY, TileEntityType.Builder.create(TileBrewery::new, brewery).build(null));
-		register(r, LibBlockNames.TERRA_PLATE, TileEntityType.Builder.create(TileTerraPlate::new, terraPlate).build(null));
-		register(r, LibBlockNames.RED_STRING_CONTAINER, TileEntityType.Builder.create(TileRedStringContainer::new, redStringContainer).build(null));
-		register(r, LibBlockNames.RED_STRING_DISPENSER, TileEntityType.Builder.create(TileRedStringDispenser::new, redStringDispenser).build(null));
-		register(r, LibBlockNames.RED_STRING_FERTILIZER, TileEntityType.Builder.create(TileRedStringFertilizer::new, redStringFertilizer).build(null));
-		register(r, LibBlockNames.RED_STRING_COMPARATOR, TileEntityType.Builder.create(TileRedStringComparator::new, redStringComparator).build(null));
-		register(r, LibBlockNames.RED_STRING_RELAY, TileEntityType.Builder.create(TileRedStringRelay::new, redStringRelay).build(null));
-		register(r, LibBlockNames.MANA_FLAME, TileEntityType.Builder.create(TileManaFlame::new, manaFlame).build(null));
-		register(r, LibBlockNames.PRISM, TileEntityType.Builder.create(TilePrism::new, prism).build(null));
-		register(r, LibBlockNames.CORPOREA_INDEX, TileEntityType.Builder.create(TileCorporeaIndex::new, corporeaIndex).build(null));
-		register(r, LibBlockNames.CORPOREA_FUNNEL, TileEntityType.Builder.create(TileCorporeaFunnel::new, corporeaFunnel).build(null));
-		register(r, LibBlockNames.PUMP, TileEntityType.Builder.create(TilePump::new, pump).build(null));
-		register(r, LibBlockNames.FAKE_AIR, TileEntityType.Builder.create(TileFakeAir::new, fakeAir).build(null));
-		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, TileEntityType.Builder.create(TileCorporeaInterceptor::new, corporeaInterceptor).build(null));
-		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, TileEntityType.Builder.create(TileCorporeaCrystalCube::new, corporeaCrystalCube).build(null));
-		register(r, LibBlockNames.INCENSE_PLATE, TileEntityType.Builder.create(TileIncensePlate::new, incensePlate).build(null));
-		register(r, LibBlockNames.HOURGLASS, TileEntityType.Builder.create(TileHourglass::new, hourglass).build(null));
-		register(r, LibBlockNames.SPARK_CHANGER, TileEntityType.Builder.create(TileSparkChanger::new, sparkChanger).build(null));
-		register(r, LibBlockNames.COCOON, TileEntityType.Builder.create(TileCocoon::new, cocoon).build(null));
-		register(r, LibBlockNames.LIGHT_RELAY, TileEntityType.Builder.create(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork).build(null));
-		register(r, LibBlockNames.CACOPHONIUM, TileEntityType.Builder.create(TileCacophonium::new, cacophonium).build(null));
-		register(r, LibBlockNames.BELLOWS, TileEntityType.Builder.create(TileBellows::new, bellows).build(null));
-		register(r, LibBlockNames.CELL_BLOCK, TileEntityType.Builder.create(TileCell::new, cellBlock).build(null));
-		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, TileEntityType.Builder.create(TileRedStringInterceptor::new, redStringInterceptor).build(null));
-		register(r, LibBlockNames.GAIA_HEAD, TileEntityType.Builder.create(TileGaiaHead::new, gaiaHead, gaiaHeadWall).build(null));
-		register(r, LibBlockNames.CORPOREA_RETAINER, TileEntityType.Builder.create(TileCorporeaRetainer::new, corporeaRetainer).build(null));
-		register(r, LibBlockNames.TERU_TERU_BOZU, TileEntityType.Builder.create(TileTeruTeruBozu::new, teruTeruBozu).build(null));
-		register(r, LibBlockNames.AVATAR, TileEntityType.Builder.create(TileAvatar::new, avatar).build(null));
-		register(r, LibBlockNames.ANIMATED_TORCH, TileEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null));
-	}
-
 	public static Block getFlower(DyeColor color) {
 		switch (color) {
 		default:

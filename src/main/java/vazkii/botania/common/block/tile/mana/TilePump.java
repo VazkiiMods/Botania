@@ -16,12 +16,12 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TilePump extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PUMP) public static TileEntityType<TilePump> TYPE;
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
@@ -35,7 +35,7 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 	private int lastComparator = 0;
 
 	public TilePump() {
-		super(TYPE);
+		super(ModTiles.PUMP);
 	}
 
 	@Override

@@ -62,8 +62,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TileEnchanter extends TileMod implements ISparkAttachable, ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ENCHANTER) public static TileEntityType<TileEnchanter> TYPE;
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -140,7 +138,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	public TileEnchanter() {
-		super(TYPE);
+		super(ModTiles.ENCHANTER);
 	}
 
 	public void onWanded(PlayerEntity player, ItemStack wand) {

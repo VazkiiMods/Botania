@@ -18,8 +18,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileCell extends TileMod {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CELL_BLOCK) public static TileEntityType<TileCell> TYPE;
 	private static final String TAG_GENERATION = "generation";
 	private static final String TAG_TICKED = "ticked";
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -35,7 +33,7 @@ public class TileCell extends TileMod {
 	private BlockPos validCoords = new BlockPos(0, -1, 0);
 
 	public TileCell() {
-		super(TYPE);
+		super(ModTiles.CELL_BLOCK);
 	}
 
 	public void setGeneration(SubTileDandelifeon flower, int gen) {

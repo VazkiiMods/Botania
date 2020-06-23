@@ -19,14 +19,12 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileCacophonium extends TileMod {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CACOPHONIUM) public static TileEntityType<TileCacophonium> TYPE;
 	private static final String TAG_STACK = "stack";
 
 	public ItemStack stack = ItemStack.EMPTY;
 
 	public TileCacophonium() {
-		super(TYPE);
+		super(ModTiles.CACOPHONIUM);
 	}
 
 	public void annoyDirewolf() {

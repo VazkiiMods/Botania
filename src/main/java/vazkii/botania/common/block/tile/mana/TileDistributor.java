@@ -17,6 +17,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -25,11 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileDistributor extends TileMod implements IManaReceiver, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.DISTRIBUTOR) public static TileEntityType<TileDistributor> TYPE;
 	private final List<IManaReceiver> validPools = new ArrayList<>();
 
 	public TileDistributor() {
-		super(TYPE);
+		super(ModTiles.DISTRIBUTOR);
 	}
 
 	@Override

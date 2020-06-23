@@ -34,13 +34,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class TileCraftCrate extends TileOpenCrate {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CRAFT_CRATE) public static TileEntityType<TileCraftCrate> TYPE;
 	private static final String TAG_PATTERN = "pattern";
 
 	private int signal = 0;
 
 	public TileCraftCrate() {
-		super(TYPE);
+		super(ModTiles.CRAFT_CRATE);
 	}
 
 	@Override

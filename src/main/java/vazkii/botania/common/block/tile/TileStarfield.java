@@ -18,10 +18,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileStarfield extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.STARFIELD) public static TileEntityType<TileStarfield> TYPE;
-
 	public TileStarfield() {
-		super(TYPE);
+		super(ModTiles.STARFIELD);
 	}
 
 	@Override

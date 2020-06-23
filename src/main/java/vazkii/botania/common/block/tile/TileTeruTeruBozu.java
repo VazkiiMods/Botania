@@ -17,11 +17,10 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TERU_TERU_BOZU) public static TileEntityType<TileTeruTeruBozu> TYPE;
 	private boolean wasRaining = false;
 
 	public TileTeruTeruBozu() {
-		super(TYPE);
+		super(ModTiles.TERU_TERU_BOZU);
 	}
 
 	@Override

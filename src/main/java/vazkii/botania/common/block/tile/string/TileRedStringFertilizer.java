@@ -17,16 +17,15 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Random;
 
 public class TileRedStringFertilizer extends TileRedString {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_FERTILIZER) public static TileEntityType<TileRedStringFertilizer> TYPE;
-
 	public TileRedStringFertilizer() {
-		super(TYPE);
+		super(ModTiles.RED_STRING_FERTILIZER);
 	}
 
 	public boolean canGrow(IBlockReader world, boolean isClient) {

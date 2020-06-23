@@ -32,7 +32,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity, INameable {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO) public static TileEntityType<TileTinyPotato> TYPE;
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
@@ -41,7 +40,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	private int nextDoIt = 0;
 
 	public TileTinyPotato() {
-		super(TYPE);
+		super(ModTiles.TINY_POTATO);
 	}
 
 	public void interact(PlayerEntity player, Hand hand, ItemStack stack, Direction side) {

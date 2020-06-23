@@ -31,9 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileCocoon extends TileMod implements ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.COCOON) public static TileEntityType<TileCocoon> TYPE;
-
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
@@ -62,7 +59,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 	public boolean gaiaSpiritGiven;
 
 	public TileCocoon() {
-		super(TYPE);
+		super(ModTiles.COCOON);
 	}
 
 	@Override

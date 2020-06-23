@@ -19,15 +19,14 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaDetector extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MANA_DETECTOR) public static TileEntityType<TileManaDetector> TYPE;
-
 	public TileManaDetector() {
-		super(TYPE);
+		super(ModTiles.MANA_DETECTOR);
 	}
 
 	@Override
