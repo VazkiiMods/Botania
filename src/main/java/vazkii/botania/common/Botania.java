@@ -144,7 +144,7 @@ public class Botania {
 		modBus.addGenericListener(EntityType.class, ModEntities::registerEntities);
 		modBus.addGenericListener(IRecipeSerializer.class, ModRecipeTypes::register);
 		modBus.addGenericListener(SoundEvent.class, ModSounds::registerSounds);
-		modBus.addGenericListener(Brew.class, ModBrews::register);
+		modBus.addGenericListener(Brew.class, ModBrews::registerBrews);
 		modBus.addListener(ModBrews::registerRegistry);
 		modBus.addGenericListener(Effect.class, ModPotions::registerPotions);
 		modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);
