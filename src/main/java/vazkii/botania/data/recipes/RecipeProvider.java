@@ -2461,7 +2461,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("Q")
 				.patternLine("Q")
 				.addCriterion("has_item", hasItem(fullBlock))
-				.build(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem())).getPath());
+				.build(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem()).getPath()));
 	}
 
 	private void registerForQuartz(Consumer<IFinishedRecipe> consumer, String variant, IItemProvider baseItem) {
