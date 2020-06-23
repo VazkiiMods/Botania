@@ -30,8 +30,10 @@ import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
-	@Nullable private LazyOptional<?> lastBoundInv = null;
-	@Nullable private LazyOptional<?> proxiedInv = null;
+	@Nullable
+	private LazyOptional<?> lastBoundInv = null;
+	@Nullable
+	private LazyOptional<?> proxiedInv = null;
 
 	public TileRedStringContainer() {
 		this(ModTiles.RED_STRING_CONTAINER);

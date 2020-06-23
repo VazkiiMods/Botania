@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileTigerseye extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":tigerseye") public static TileEntityType<SubTileTigerseye> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":tigerseye")
+	public static TileEntityType<SubTileTigerseye> TYPE;
 
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;

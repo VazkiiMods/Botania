@@ -34,7 +34,8 @@ public final class ItemsRemainingRenderHandler {
 	private static final int leaveTicks = 20;
 
 	private static ItemStack stack = ItemStack.EMPTY;
-	@Nullable private static ITextComponent customString;
+	@Nullable
+	private static ITextComponent customString;
 	private static int ticks, count;
 
 	@OnlyIn(Dist.CLIENT)

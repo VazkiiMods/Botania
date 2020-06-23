@@ -21,8 +21,10 @@ import java.util.function.Consumer;
 
 public class WrapperResult implements IFinishedRecipe {
 	private final IFinishedRecipe delegate;
-	@Nullable private final IRecipeSerializer<?> type;
-	@Nullable private final Consumer<JsonObject> transform;
+	@Nullable
+	private final IRecipeSerializer<?> type;
+	@Nullable
+	private final Consumer<JsonObject> transform;
 
 	/**
 	 * Wraps recipe consumer with one that swaps the recipe type to a different one.

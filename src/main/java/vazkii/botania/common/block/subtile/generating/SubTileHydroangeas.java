@@ -33,7 +33,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileHydroangeas extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hydroangeas") public static TileEntityType<SubTileHydroangeas> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":hydroangeas")
+	public static TileEntityType<SubTileHydroangeas> TYPE;
 
 	private static final String TAG_BURN_TIME = "burnTime";
 	public static final String TAG_COOLDOWN = "cooldown";

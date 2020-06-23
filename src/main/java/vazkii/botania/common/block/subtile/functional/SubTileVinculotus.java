@@ -22,7 +22,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.*;
 
 public class SubTileVinculotus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":vinculotus") public static TileEntityType<SubTileVinculotus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":vinculotus")
+	public static TileEntityType<SubTileVinculotus> TYPE;
 
 	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final int RANGE = 64;

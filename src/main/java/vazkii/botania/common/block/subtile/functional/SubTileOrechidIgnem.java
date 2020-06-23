@@ -21,7 +21,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
-	@ObjectHolder(LibMisc.MOD_ID + ":orechid_ignem") public static TileEntityType<SubTileOrechidIgnem> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":orechid_ignem")
+	public static TileEntityType<SubTileOrechidIgnem> TYPE;
 
 	private static final int COST = 20000;
 

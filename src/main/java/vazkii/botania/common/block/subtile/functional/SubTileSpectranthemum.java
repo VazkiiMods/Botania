@@ -34,7 +34,8 @@ import vazkii.botania.common.network.PacketHandler;
 import java.util.List;
 
 public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":spectranthemum") public static TileEntityType<SubTileSpectranthemum> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":spectranthemum")
+	public static TileEntityType<SubTileSpectranthemum> TYPE;
 
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";

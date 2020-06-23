@@ -24,9 +24,9 @@ public class PatchouliUtils {
 	 * looping back ingredients that run out of matched stacks, until the ingredients reach the length
 	 * of the longest ingredient in the recipe set.
 	 *
-	 * @param  ingredients           List of ingredients in the specific slot
-	 * @param  longestIngredientSize Longest ingredient in the entire recipe
-	 * @return                       Serialized Patchouli ingredient string
+	 * @param ingredients           List of ingredients in the specific slot
+	 * @param longestIngredientSize Longest ingredient in the entire recipe
+	 * @return Serialized Patchouli ingredient string
 	 */
 	public static String interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
 		if (ingredients.size() == 1) {

@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileClayconia extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":clayconia") public static TileEntityType<SubTileClayconia> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":clayconia")
+	public static TileEntityType<SubTileClayconia> TYPE;
 
 	private static final int COST = 80;
 	private static final int RANGE = 5;
@@ -111,7 +112,8 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileClayconia {
-		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi") public static TileEntityType<SubTileBellethorn.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi")
+		public static TileEntityType<SubTileBellethorn.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);

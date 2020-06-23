@@ -26,12 +26,14 @@ import vazkii.botania.common.lib.ModTags;
 import javax.annotation.Nullable;
 
 public class SubTileRafflowsia extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rafflowsia") public static TileEntityType<SubTileRafflowsia> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":rafflowsia")
+	public static TileEntityType<SubTileRafflowsia> TYPE;
 
 	public static final String TAG_LAST_FLOWER = "lastFlower";
 	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 
-	@Nullable private Block lastFlower;
+	@Nullable
+	private Block lastFlower;
 	private int lastFlowerTimes;
 
 	private static final int RANGE = 5;

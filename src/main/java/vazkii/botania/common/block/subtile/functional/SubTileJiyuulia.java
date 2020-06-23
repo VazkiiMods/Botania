@@ -15,7 +15,8 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
-	@ObjectHolder(LibMisc.MOD_ID + ":jiyuulia") public static TileEntityType<SubTileJiyuulia> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":jiyuulia")
+	public static TileEntityType<SubTileJiyuulia> TYPE;
 
 	public SubTileJiyuulia() {
 		super(TYPE);

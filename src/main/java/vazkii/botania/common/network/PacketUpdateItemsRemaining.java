@@ -23,7 +23,8 @@ import java.util.function.Supplier;
 public class PacketUpdateItemsRemaining {
 	private final ItemStack stack;
 	private final int count;
-	@Nullable private final ITextComponent tooltip;
+	@Nullable
+	private final ITextComponent tooltip;
 
 	public PacketUpdateItemsRemaining(ItemStack stack, int count, @Nullable ITextComponent tooltip) {
 		this.stack = stack;

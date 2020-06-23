@@ -21,7 +21,8 @@ import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":exoflame") public static TileEntityType<SubTileExoflame> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":exoflame")
+	public static TileEntityType<SubTileExoflame> TYPE;
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;

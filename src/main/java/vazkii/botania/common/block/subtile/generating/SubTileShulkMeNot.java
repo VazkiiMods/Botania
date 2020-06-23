@@ -31,7 +31,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":shulk_me_not") public static TileEntityType<SubTileShulkMeNot> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":shulk_me_not")
+	public static TileEntityType<SubTileShulkMeNot> TYPE;
 
 	private static final int RADIUS = 8;
 

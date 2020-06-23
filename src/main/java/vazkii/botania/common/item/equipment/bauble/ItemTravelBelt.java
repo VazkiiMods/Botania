@@ -39,7 +39,8 @@ import java.util.List;
 public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
-	@OnlyIn(Dist.CLIENT) private static BipedModel<LivingEntity> model;
+	@OnlyIn(Dist.CLIENT)
+	private static BipedModel<LivingEntity> model;
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;

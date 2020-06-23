@@ -57,262 +57,511 @@ import java.util.Locale;
 
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModBlocks {
-	@ObjectHolder("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block whiteFlower;
-	@ObjectHolder("orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block orangeFlower;
-	@ObjectHolder("magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block magentaFlower;
-	@ObjectHolder("light_blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block lightBlueFlower;
-	@ObjectHolder("yellow" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block yellowFlower;
-	@ObjectHolder("lime" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block limeFlower;
-	@ObjectHolder("pink" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block pinkFlower;
-	@ObjectHolder("gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block grayFlower;
-	@ObjectHolder("light_gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block lightGrayFlower;
-	@ObjectHolder("cyan" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block cyanFlower;
-	@ObjectHolder("purple" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block purpleFlower;
-	@ObjectHolder("blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block blueFlower;
-	@ObjectHolder("brown" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block brownFlower;
-	@ObjectHolder("green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block greenFlower;
-	@ObjectHolder("red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block redFlower;
-	@ObjectHolder("black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block blackFlower;
+	@ObjectHolder("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block whiteFlower;
+	@ObjectHolder("orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block orangeFlower;
+	@ObjectHolder("magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block magentaFlower;
+	@ObjectHolder("light_blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block lightBlueFlower;
+	@ObjectHolder("yellow" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block yellowFlower;
+	@ObjectHolder("lime" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block limeFlower;
+	@ObjectHolder("pink" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block pinkFlower;
+	@ObjectHolder("gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block grayFlower;
+	@ObjectHolder("light_gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block lightGrayFlower;
+	@ObjectHolder("cyan" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block cyanFlower;
+	@ObjectHolder("purple" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block purpleFlower;
+	@ObjectHolder("blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block blueFlower;
+	@ObjectHolder("brown" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block brownFlower;
+	@ObjectHolder("green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block greenFlower;
+	@ObjectHolder("red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block redFlower;
+	@ObjectHolder("black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
+	public static Block blackFlower;
 
-	@ObjectHolder("apothecary_default") public static Block defaultAltar;
-	@ObjectHolder("apothecary_forest") public static Block forestAltar;
-	@ObjectHolder("apothecary_plains") public static Block plainsAltar;
-	@ObjectHolder("apothecary_mountain") public static Block mountainAltar;
-	@ObjectHolder("apothecary_fungal") public static Block fungalAltar;
-	@ObjectHolder("apothecary_swamp") public static Block swampAltar;
-	@ObjectHolder("apothecary_desert") public static Block desertAltar;
-	@ObjectHolder("apothecary_taiga") public static Block taigaAltar;
-	@ObjectHolder("apothecary_mesa") public static Block mesaAltar;
-	@ObjectHolder("apothecary_mossy") public static Block mossyAltar;
+	@ObjectHolder("apothecary_default")
+	public static Block defaultAltar;
+	@ObjectHolder("apothecary_forest")
+	public static Block forestAltar;
+	@ObjectHolder("apothecary_plains")
+	public static Block plainsAltar;
+	@ObjectHolder("apothecary_mountain")
+	public static Block mountainAltar;
+	@ObjectHolder("apothecary_fungal")
+	public static Block fungalAltar;
+	@ObjectHolder("apothecary_swamp")
+	public static Block swampAltar;
+	@ObjectHolder("apothecary_desert")
+	public static Block desertAltar;
+	@ObjectHolder("apothecary_taiga")
+	public static Block taigaAltar;
+	@ObjectHolder("apothecary_mesa")
+	public static Block mesaAltar;
+	@ObjectHolder("apothecary_mossy")
+	public static Block mossyAltar;
 
-	@ObjectHolder(LibBlockNames.LIVING_ROCK) public static Block livingrock;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK) public static Block livingrockBrick;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CHISELED) public static Block livingrockBrickChiseled;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CRACKED) public static Block livingrockBrickCracked;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_MOSSY) public static Block livingrockBrickMossy;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK)
+	public static Block livingrock;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK)
+	public static Block livingrockBrick;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CHISELED)
+	public static Block livingrockBrickChiseled;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CRACKED)
+	public static Block livingrockBrickCracked;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_MOSSY)
+	public static Block livingrockBrickMossy;
 
-	@ObjectHolder(LibBlockNames.LIVING_WOOD) public static Block livingwood;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS) public static Block livingwoodPlanks;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY) public static Block livingwoodPlanksMossy;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_FRAMED) public static Block livingwoodFramed;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED) public static Block livingwoodPatternFramed;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING) public static Block livingwoodGlimmering;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD)
+	public static Block livingwood;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS)
+	public static Block livingwoodPlanks;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY)
+	public static Block livingwoodPlanksMossy;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_FRAMED)
+	public static Block livingwoodFramed;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED)
+	public static Block livingwoodPatternFramed;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING)
+	public static Block livingwoodGlimmering;
 
-	@ObjectHolder(LibBlockNames.SPREADER) public static Block manaSpreader;
-	@ObjectHolder(LibBlockNames.SPREADER_REDSTONE) public static Block redstoneSpreader;
-	@ObjectHolder(LibBlockNames.SPREADER_ELVEN) public static Block elvenSpreader;
-	@ObjectHolder(LibBlockNames.SPREADER_GAIA) public static Block gaiaSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER)
+	public static Block manaSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER_REDSTONE)
+	public static Block redstoneSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER_ELVEN)
+	public static Block elvenSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER_GAIA)
+	public static Block gaiaSpreader;
 
-	@ObjectHolder(LibBlockNames.POOL) public static Block manaPool;
-	@ObjectHolder(LibBlockNames.POOL_CREATIVE) public static Block creativePool;
-	@ObjectHolder(LibBlockNames.POOL_DILUTED) public static Block dilutedPool;
-	@ObjectHolder(LibBlockNames.POOL_FABULOUS) public static Block fabulousPool;
+	@ObjectHolder(LibBlockNames.POOL)
+	public static Block manaPool;
+	@ObjectHolder(LibBlockNames.POOL_CREATIVE)
+	public static Block creativePool;
+	@ObjectHolder(LibBlockNames.POOL_DILUTED)
+	public static Block dilutedPool;
+	@ObjectHolder(LibBlockNames.POOL_FABULOUS)
+	public static Block fabulousPool;
 
-	@ObjectHolder(LibBlockNames.RUNE_ALTAR) public static Block runeAltar;
-	@ObjectHolder(LibBlockNames.PYLON) public static Block manaPylon;
-	@ObjectHolder(LibBlockNames.PYLON_NATURA) public static Block naturaPylon;
-	@ObjectHolder(LibBlockNames.PYLON_GAIA) public static Block gaiaPylon;
+	@ObjectHolder(LibBlockNames.RUNE_ALTAR)
+	public static Block runeAltar;
+	@ObjectHolder(LibBlockNames.PYLON)
+	public static Block manaPylon;
+	@ObjectHolder(LibBlockNames.PYLON_NATURA)
+	public static Block naturaPylon;
+	@ObjectHolder(LibBlockNames.PYLON_GAIA)
+	public static Block gaiaPylon;
 
-	@ObjectHolder(LibBlockNames.PISTON_RELAY) public static Block pistonRelay;
-	@ObjectHolder(LibBlockNames.DISTRIBUTOR) public static Block distributor;
-	@ObjectHolder(LibBlockNames.MANA_VOID) public static Block manaVoid;
-	@ObjectHolder(LibBlockNames.MANA_DETECTOR) public static Block manaDetector;
-	@ObjectHolder(LibBlockNames.ENCHANTER) public static Block enchanter;
-	@ObjectHolder(LibBlockNames.TURNTABLE) public static Block turntable;
-	@ObjectHolder(LibBlockNames.TINY_PLANET) public static Block tinyPlanet;
-	@ObjectHolder(LibBlockNames.ALCHEMY_CATALYST) public static Block alchemyCatalyst;
-	@ObjectHolder(LibBlockNames.OPEN_CRATE) public static Block openCrate;
-	@ObjectHolder(LibBlockNames.CRAFT_CRATE) public static Block craftCrate;
-	@ObjectHolder(LibBlockNames.FOREST_EYE) public static Block forestEye;
-	@ObjectHolder(LibBlockNames.MANASTEEL_BLOCK) public static Block manasteelBlock;
-	@ObjectHolder(LibBlockNames.TERRASTEEL_BLOCK) public static Block terrasteelBlock;
-	@ObjectHolder(LibBlockNames.ELEMENTIUM_BLOCK) public static Block elementiumBlock;
-	@ObjectHolder(LibBlockNames.MANA_DIAMOND_BLOCK) public static Block manaDiamondBlock;
-	@ObjectHolder(LibBlockNames.DRAGONSTONE_BLOCK) public static Block dragonstoneBlock;
-	@ObjectHolder(LibBlockNames.DRUM_WILD) public static Block wildDrum;
-	@ObjectHolder(LibBlockNames.DRUM_GATHERING) public static Block gatheringDrum;
-	@ObjectHolder(LibBlockNames.DRUM_CANOPY) public static Block canopyDrum;
-	@ObjectHolder("white" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block whiteShinyFlower;
-	@ObjectHolder("orange" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block orangeShinyFlower;
-	@ObjectHolder("magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block magentaShinyFlower;
-	@ObjectHolder("light_blue" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block lightBlueShinyFlower;
-	@ObjectHolder("yellow" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block yellowShinyFlower;
-	@ObjectHolder("lime" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block limeShinyFlower;
-	@ObjectHolder("pink" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block pinkShinyFlower;
-	@ObjectHolder("gray" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block grayShinyFlower;
-	@ObjectHolder("light_gray" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block lightGrayShinyFlower;
-	@ObjectHolder("cyan" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block cyanShinyFlower;
-	@ObjectHolder("purple" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block purpleShinyFlower;
-	@ObjectHolder("blue" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block blueShinyFlower;
-	@ObjectHolder("brown" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block brownShinyFlower;
-	@ObjectHolder("green" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block greenShinyFlower;
-	@ObjectHolder("red" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block redShinyFlower;
-	@ObjectHolder("black" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block blackShinyFlower;
-	@ObjectHolder(LibBlockNames.PLATFORM_ABSTRUSE) public static Block abstrusePlatform;
-	@ObjectHolder(LibBlockNames.PLATFORM_SPECTRAL) public static Block spectralPlatform;
-	@ObjectHolder(LibBlockNames.PLATFORM_INFRANGIBLE) public static Block infrangiblePlatform;
-	@ObjectHolder(LibBlockNames.ALF_PORTAL) public static Block alfPortal;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD) public static Block dreamwood;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS) public static Block dreamwoodPlanks;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY) public static Block dreamwoodPlanksMossy;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_FRAMED) public static Block dreamwoodFramed;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED) public static Block dreamwoodPatternFramed;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_GLIMMERING) public static Block dreamwoodGlimmering;
-	@ObjectHolder(LibBlockNames.CONJURATION_CATALYST) public static Block conjurationCatalyst;
-	@ObjectHolder(LibBlockNames.BIFROST) public static Block bifrost;
-	@ObjectHolder(LibBlockNames.SOLID_VINE) public static Block solidVines;
-	@ObjectHolder("white" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block whiteBuriedPetals;
-	@ObjectHolder("orange" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block orangeBuriedPetals;
-	@ObjectHolder("magenta" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block magentaBuriedPetals;
-	@ObjectHolder("light_blue" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block lightBlueBuriedPetals;
-	@ObjectHolder("yellow" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block yellowBuriedPetals;
-	@ObjectHolder("lime" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block limeBuriedPetals;
-	@ObjectHolder("pink" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block pinkBuriedPetals;
-	@ObjectHolder("gray" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block grayBuriedPetals;
-	@ObjectHolder("light_gray" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block lightGrayBuriedPetals;
-	@ObjectHolder("cyan" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block cyanBuriedPetals;
-	@ObjectHolder("purple" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block purpleBuriedPetals;
-	@ObjectHolder("blue" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block blueBuriedPetals;
-	@ObjectHolder("brown" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block brownBuriedPetals;
-	@ObjectHolder("green" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block greenBuriedPetals;
-	@ObjectHolder("red" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block redBuriedPetals;
-	@ObjectHolder("black" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block blackBuriedPetals;
-	@ObjectHolder("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block whiteFloatingFlower;
-	@ObjectHolder("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block orangeFloatingFlower;
-	@ObjectHolder("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block magentaFloatingFlower;
-	@ObjectHolder("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block lightBlueFloatingFlower;
-	@ObjectHolder("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block yellowFloatingFlower;
-	@ObjectHolder("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block limeFloatingFlower;
-	@ObjectHolder("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block pinkFloatingFlower;
-	@ObjectHolder("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block grayFloatingFlower;
-	@ObjectHolder("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block lightGrayFloatingFlower;
-	@ObjectHolder("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block cyanFloatingFlower;
-	@ObjectHolder("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block purpleFloatingFlower;
-	@ObjectHolder("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block blueFloatingFlower;
-	@ObjectHolder("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block brownFloatingFlower;
-	@ObjectHolder("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block greenFloatingFlower;
-	@ObjectHolder("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block redFloatingFlower;
-	@ObjectHolder("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block blackFloatingFlower;
-	@ObjectHolder(LibBlockNames.TINY_POTATO) public static Block tinyPotato;
-	@ObjectHolder(LibBlockNames.SPAWNER_CLAW) public static Block spawnerClaw;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 0) public static Block azulejo0;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 1) public static Block azulejo1;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 2) public static Block azulejo2;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 3) public static Block azulejo3;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 4) public static Block azulejo4;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 5) public static Block azulejo5;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 6) public static Block azulejo6;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 7) public static Block azulejo7;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 8) public static Block azulejo8;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 9) public static Block azulejo9;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 10) public static Block azulejo10;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 11) public static Block azulejo11;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 12) public static Block azulejo12;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 13) public static Block azulejo13;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 14) public static Block azulejo14;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 15) public static Block azulejo15;
-	@ObjectHolder(LibBlockNames.ENDER_EYE_BLOCK) public static Block enderEye;
-	@ObjectHolder(LibBlockNames.STARFIELD) public static Block starfield;
-	@ObjectHolder(LibBlockNames.FLUXFIELD) public static Block rfGenerator;
-	@ObjectHolder(LibBlockNames.ELF_GLASS) public static Block elfGlass;
-	@ObjectHolder(LibBlockNames.BREWERY) public static Block brewery;
-	@ObjectHolder(LibBlockNames.MANA_GLASS) public static Block manaGlass;
-	@ObjectHolder(LibBlockNames.TERRA_PLATE) public static Block terraPlate;
-	@ObjectHolder(LibBlockNames.RED_STRING_CONTAINER) public static Block redStringContainer;
-	@ObjectHolder(LibBlockNames.RED_STRING_DISPENSER) public static Block redStringDispenser;
-	@ObjectHolder(LibBlockNames.RED_STRING_FERTILIZER) public static Block redStringFertilizer;
-	@ObjectHolder(LibBlockNames.RED_STRING_COMPARATOR) public static Block redStringComparator;
-	@ObjectHolder(LibBlockNames.RED_STRING_RELAY) public static Block redStringRelay;
-	@ObjectHolder(LibBlockNames.MANA_FLAME) public static Block manaFlame;
-	@ObjectHolder(LibBlockNames.PRISM) public static Block prism;
-	@ObjectHolder(LibBlockNames.ENCHANTED_SOIL) public static Block enchantedSoil;
-	@ObjectHolder("white" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockWhite;
-	@ObjectHolder("orange" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockOrange;
-	@ObjectHolder("magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockMagenta;
-	@ObjectHolder("light_blue" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockLightBlue;
-	@ObjectHolder("yellow" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockYellow;
-	@ObjectHolder("lime" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockLime;
-	@ObjectHolder("pink" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockPink;
-	@ObjectHolder("gray" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockGray;
-	@ObjectHolder("light_gray" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockSilver;
-	@ObjectHolder("cyan" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockCyan;
-	@ObjectHolder("purple" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockPurple;
-	@ObjectHolder("blue" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockBlue;
-	@ObjectHolder("brown" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockBrown;
-	@ObjectHolder("green" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockGreen;
-	@ObjectHolder("red" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockRed;
-	@ObjectHolder("black" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockBlack;
-	@ObjectHolder(LibBlockNames.CORPOREA_INDEX) public static Block corporeaIndex;
-	@ObjectHolder(LibBlockNames.CORPOREA_FUNNEL) public static Block corporeaFunnel;
-	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX) public static Block whiteMushroom;
-	@ObjectHolder("orange" + LibBlockNames.MUSHROOM_SUFFIX) public static Block orangeMushroom;
-	@ObjectHolder("magenta" + LibBlockNames.MUSHROOM_SUFFIX) public static Block magentaMushroom;
-	@ObjectHolder("light_blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block lightBlueMushroom;
-	@ObjectHolder("yellow" + LibBlockNames.MUSHROOM_SUFFIX) public static Block yellowMushroom;
-	@ObjectHolder("lime" + LibBlockNames.MUSHROOM_SUFFIX) public static Block limeMushroom;
-	@ObjectHolder("pink" + LibBlockNames.MUSHROOM_SUFFIX) public static Block pinkMushroom;
-	@ObjectHolder("gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block grayMushroom;
-	@ObjectHolder("light_gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block lightGrayMushroom;
-	@ObjectHolder("cyan" + LibBlockNames.MUSHROOM_SUFFIX) public static Block cyanMushroom;
-	@ObjectHolder("purple" + LibBlockNames.MUSHROOM_SUFFIX) public static Block purpleMushroom;
-	@ObjectHolder("blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block blueMushroom;
-	@ObjectHolder("brown" + LibBlockNames.MUSHROOM_SUFFIX) public static Block brownMushroom;
-	@ObjectHolder("green" + LibBlockNames.MUSHROOM_SUFFIX) public static Block greenMushroom;
-	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX) public static Block redMushroom;
-	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX) public static Block blackMushroom;
-	@ObjectHolder(LibBlockNames.PUMP) public static Block pump;
-	@ObjectHolder("white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerWhite;
-	@ObjectHolder("orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerOrange;
-	@ObjectHolder("magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerMagenta;
-	@ObjectHolder("light_blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerLightBlue;
-	@ObjectHolder("yellow" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerYellow;
-	@ObjectHolder("lime" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerLime;
-	@ObjectHolder("pink" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerPink;
-	@ObjectHolder("gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerGray;
-	@ObjectHolder("light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerLightGray;
-	@ObjectHolder("cyan" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerCyan;
-	@ObjectHolder("purple" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerPurple;
-	@ObjectHolder("blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerBlue;
-	@ObjectHolder("brown" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerBrown;
-	@ObjectHolder("green" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerGreen;
-	@ObjectHolder("red" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerRed;
-	@ObjectHolder("black" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerBlack;
-	@ObjectHolder(LibBlockNames.FAKE_AIR) public static Block fakeAir;
-	@ObjectHolder(LibBlockNames.BLAZE_BLOCK) public static Block blazeBlock;
-	@ObjectHolder(LibBlockNames.CORPOREA_INTERCEPTOR) public static Block corporeaInterceptor;
-	@ObjectHolder(LibBlockNames.CORPOREA_CRYSTAL_CUBE) public static Block corporeaCrystalCube;
-	@ObjectHolder(LibBlockNames.INCENSE_PLATE) public static Block incensePlate;
-	@ObjectHolder(LibBlockNames.HOURGLASS) public static Block hourglass;
-	@ObjectHolder(LibBlockNames.GHOST_RAIL) public static Block ghostRail;
-	@ObjectHolder(LibBlockNames.SPARK_CHANGER) public static Block sparkChanger;
-	@ObjectHolder(LibBlockNames.ROOT) public static Block root;
-	@ObjectHolder(LibBlockNames.FEL_PUMPKIN) public static Block felPumpkin;
-	@ObjectHolder(LibBlockNames.COCOON) public static Block cocoon;
-	@ObjectHolder(LibBlockNames.LIGHT_RELAY) public static Block lightRelayDefault;
-	@ObjectHolder("detector" + LibBlockNames.LIGHT_RELAY_SUFFIX) public static Block lightRelayDetector;
-	@ObjectHolder("toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX) public static Block lightRelayToggle;
-	@ObjectHolder("fork" + LibBlockNames.LIGHT_RELAY_SUFFIX) public static Block lightRelayFork;
-	@ObjectHolder(LibBlockNames.LIGHT_LAUNCHER) public static Block lightLauncher;
-	@ObjectHolder(LibBlockNames.MANA_BOMB) public static Block manaBomb;
-	@ObjectHolder(LibBlockNames.CACOPHONIUM) public static Block cacophonium;
-	@ObjectHolder(LibBlockNames.BELLOWS) public static Block bellows;
-	@ObjectHolder(LibBlockNames.BIFROST_PERM) public static Block bifrostPerm;
-	@ObjectHolder(LibBlockNames.CELL_BLOCK) public static Block cellBlock;
-	@ObjectHolder(LibBlockNames.RED_STRING_INTERCEPTOR) public static Block redStringInterceptor;
-	@ObjectHolder(LibBlockNames.GAIA_HEAD) public static Block gaiaHead;
-	@ObjectHolder(LibBlockNames.GAIA_WALL_HEAD) public static Block gaiaHeadWall;
-	@ObjectHolder(LibBlockNames.CORPOREA_RETAINER) public static Block corporeaRetainer;
-	@ObjectHolder(LibBlockNames.TERU_TERU_BOZU) public static Block teruTeruBozu;
-	@ObjectHolder(LibBlockNames.SHIMMERROCK) public static Block shimmerrock;
-	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS) public static Block shimmerwoodPlanks;
-	@ObjectHolder(LibBlockNames.AVATAR) public static Block avatar;
-	@ObjectHolder("dry" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block dryGrass;
-	@ObjectHolder("golden" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block goldenGrass;
-	@ObjectHolder("vivid" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block vividGrass;
-	@ObjectHolder("scorched" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block scorchedGrass;
-	@ObjectHolder("infused" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block infusedGrass;
-	@ObjectHolder("mutated" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block mutatedGrass;
-	@ObjectHolder(LibBlockNames.ANIMATED_TORCH) public static Block animatedTorch;
+	@ObjectHolder(LibBlockNames.PISTON_RELAY)
+	public static Block pistonRelay;
+	@ObjectHolder(LibBlockNames.DISTRIBUTOR)
+	public static Block distributor;
+	@ObjectHolder(LibBlockNames.MANA_VOID)
+	public static Block manaVoid;
+	@ObjectHolder(LibBlockNames.MANA_DETECTOR)
+	public static Block manaDetector;
+	@ObjectHolder(LibBlockNames.ENCHANTER)
+	public static Block enchanter;
+	@ObjectHolder(LibBlockNames.TURNTABLE)
+	public static Block turntable;
+	@ObjectHolder(LibBlockNames.TINY_PLANET)
+	public static Block tinyPlanet;
+	@ObjectHolder(LibBlockNames.ALCHEMY_CATALYST)
+	public static Block alchemyCatalyst;
+	@ObjectHolder(LibBlockNames.OPEN_CRATE)
+	public static Block openCrate;
+	@ObjectHolder(LibBlockNames.CRAFT_CRATE)
+	public static Block craftCrate;
+	@ObjectHolder(LibBlockNames.FOREST_EYE)
+	public static Block forestEye;
+	@ObjectHolder(LibBlockNames.MANASTEEL_BLOCK)
+	public static Block manasteelBlock;
+	@ObjectHolder(LibBlockNames.TERRASTEEL_BLOCK)
+	public static Block terrasteelBlock;
+	@ObjectHolder(LibBlockNames.ELEMENTIUM_BLOCK)
+	public static Block elementiumBlock;
+	@ObjectHolder(LibBlockNames.MANA_DIAMOND_BLOCK)
+	public static Block manaDiamondBlock;
+	@ObjectHolder(LibBlockNames.DRAGONSTONE_BLOCK)
+	public static Block dragonstoneBlock;
+	@ObjectHolder(LibBlockNames.DRUM_WILD)
+	public static Block wildDrum;
+	@ObjectHolder(LibBlockNames.DRUM_GATHERING)
+	public static Block gatheringDrum;
+	@ObjectHolder(LibBlockNames.DRUM_CANOPY)
+	public static Block canopyDrum;
+	@ObjectHolder("white" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block whiteShinyFlower;
+	@ObjectHolder("orange" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block orangeShinyFlower;
+	@ObjectHolder("magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block magentaShinyFlower;
+	@ObjectHolder("light_blue" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block lightBlueShinyFlower;
+	@ObjectHolder("yellow" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block yellowShinyFlower;
+	@ObjectHolder("lime" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block limeShinyFlower;
+	@ObjectHolder("pink" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block pinkShinyFlower;
+	@ObjectHolder("gray" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block grayShinyFlower;
+	@ObjectHolder("light_gray" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block lightGrayShinyFlower;
+	@ObjectHolder("cyan" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block cyanShinyFlower;
+	@ObjectHolder("purple" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block purpleShinyFlower;
+	@ObjectHolder("blue" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block blueShinyFlower;
+	@ObjectHolder("brown" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block brownShinyFlower;
+	@ObjectHolder("green" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block greenShinyFlower;
+	@ObjectHolder("red" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block redShinyFlower;
+	@ObjectHolder("black" + LibBlockNames.SHINY_FLOWER_SUFFIX)
+	public static Block blackShinyFlower;
+	@ObjectHolder(LibBlockNames.PLATFORM_ABSTRUSE)
+	public static Block abstrusePlatform;
+	@ObjectHolder(LibBlockNames.PLATFORM_SPECTRAL)
+	public static Block spectralPlatform;
+	@ObjectHolder(LibBlockNames.PLATFORM_INFRANGIBLE)
+	public static Block infrangiblePlatform;
+	@ObjectHolder(LibBlockNames.ALF_PORTAL)
+	public static Block alfPortal;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD)
+	public static Block dreamwood;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS)
+	public static Block dreamwoodPlanks;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY)
+	public static Block dreamwoodPlanksMossy;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_FRAMED)
+	public static Block dreamwoodFramed;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED)
+	public static Block dreamwoodPatternFramed;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_GLIMMERING)
+	public static Block dreamwoodGlimmering;
+	@ObjectHolder(LibBlockNames.CONJURATION_CATALYST)
+	public static Block conjurationCatalyst;
+	@ObjectHolder(LibBlockNames.BIFROST)
+	public static Block bifrost;
+	@ObjectHolder(LibBlockNames.SOLID_VINE)
+	public static Block solidVines;
+	@ObjectHolder("white" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block whiteBuriedPetals;
+	@ObjectHolder("orange" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block orangeBuriedPetals;
+	@ObjectHolder("magenta" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block magentaBuriedPetals;
+	@ObjectHolder("light_blue" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block lightBlueBuriedPetals;
+	@ObjectHolder("yellow" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block yellowBuriedPetals;
+	@ObjectHolder("lime" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block limeBuriedPetals;
+	@ObjectHolder("pink" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block pinkBuriedPetals;
+	@ObjectHolder("gray" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block grayBuriedPetals;
+	@ObjectHolder("light_gray" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block lightGrayBuriedPetals;
+	@ObjectHolder("cyan" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block cyanBuriedPetals;
+	@ObjectHolder("purple" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block purpleBuriedPetals;
+	@ObjectHolder("blue" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block blueBuriedPetals;
+	@ObjectHolder("brown" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block brownBuriedPetals;
+	@ObjectHolder("green" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block greenBuriedPetals;
+	@ObjectHolder("red" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block redBuriedPetals;
+	@ObjectHolder("black" + LibBlockNames.BURIED_PETALS_SUFFIX)
+	public static Block blackBuriedPetals;
+	@ObjectHolder("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block whiteFloatingFlower;
+	@ObjectHolder("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block orangeFloatingFlower;
+	@ObjectHolder("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block magentaFloatingFlower;
+	@ObjectHolder("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block lightBlueFloatingFlower;
+	@ObjectHolder("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block yellowFloatingFlower;
+	@ObjectHolder("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block limeFloatingFlower;
+	@ObjectHolder("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block pinkFloatingFlower;
+	@ObjectHolder("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block grayFloatingFlower;
+	@ObjectHolder("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block lightGrayFloatingFlower;
+	@ObjectHolder("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block cyanFloatingFlower;
+	@ObjectHolder("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block purpleFloatingFlower;
+	@ObjectHolder("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block blueFloatingFlower;
+	@ObjectHolder("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block brownFloatingFlower;
+	@ObjectHolder("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block greenFloatingFlower;
+	@ObjectHolder("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block redFloatingFlower;
+	@ObjectHolder("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
+	public static Block blackFloatingFlower;
+	@ObjectHolder(LibBlockNames.TINY_POTATO)
+	public static Block tinyPotato;
+	@ObjectHolder(LibBlockNames.SPAWNER_CLAW)
+	public static Block spawnerClaw;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 0)
+	public static Block azulejo0;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 1)
+	public static Block azulejo1;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 2)
+	public static Block azulejo2;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 3)
+	public static Block azulejo3;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 4)
+	public static Block azulejo4;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 5)
+	public static Block azulejo5;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 6)
+	public static Block azulejo6;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 7)
+	public static Block azulejo7;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 8)
+	public static Block azulejo8;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 9)
+	public static Block azulejo9;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 10)
+	public static Block azulejo10;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 11)
+	public static Block azulejo11;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 12)
+	public static Block azulejo12;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 13)
+	public static Block azulejo13;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 14)
+	public static Block azulejo14;
+	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 15)
+	public static Block azulejo15;
+	@ObjectHolder(LibBlockNames.ENDER_EYE_BLOCK)
+	public static Block enderEye;
+	@ObjectHolder(LibBlockNames.STARFIELD)
+	public static Block starfield;
+	@ObjectHolder(LibBlockNames.FLUXFIELD)
+	public static Block rfGenerator;
+	@ObjectHolder(LibBlockNames.ELF_GLASS)
+	public static Block elfGlass;
+	@ObjectHolder(LibBlockNames.BREWERY)
+	public static Block brewery;
+	@ObjectHolder(LibBlockNames.MANA_GLASS)
+	public static Block manaGlass;
+	@ObjectHolder(LibBlockNames.TERRA_PLATE)
+	public static Block terraPlate;
+	@ObjectHolder(LibBlockNames.RED_STRING_CONTAINER)
+	public static Block redStringContainer;
+	@ObjectHolder(LibBlockNames.RED_STRING_DISPENSER)
+	public static Block redStringDispenser;
+	@ObjectHolder(LibBlockNames.RED_STRING_FERTILIZER)
+	public static Block redStringFertilizer;
+	@ObjectHolder(LibBlockNames.RED_STRING_COMPARATOR)
+	public static Block redStringComparator;
+	@ObjectHolder(LibBlockNames.RED_STRING_RELAY)
+	public static Block redStringRelay;
+	@ObjectHolder(LibBlockNames.MANA_FLAME)
+	public static Block manaFlame;
+	@ObjectHolder(LibBlockNames.PRISM)
+	public static Block prism;
+	@ObjectHolder(LibBlockNames.ENCHANTED_SOIL)
+	public static Block enchantedSoil;
+	@ObjectHolder("white" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockWhite;
+	@ObjectHolder("orange" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockOrange;
+	@ObjectHolder("magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockMagenta;
+	@ObjectHolder("light_blue" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockLightBlue;
+	@ObjectHolder("yellow" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockYellow;
+	@ObjectHolder("lime" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockLime;
+	@ObjectHolder("pink" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockPink;
+	@ObjectHolder("gray" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockGray;
+	@ObjectHolder("light_gray" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockSilver;
+	@ObjectHolder("cyan" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockCyan;
+	@ObjectHolder("purple" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockPurple;
+	@ObjectHolder("blue" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockBlue;
+	@ObjectHolder("brown" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockBrown;
+	@ObjectHolder("green" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockGreen;
+	@ObjectHolder("red" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockRed;
+	@ObjectHolder("black" + LibBlockNames.PETAL_BLOCK_SUFFIX)
+	public static Block petalBlockBlack;
+	@ObjectHolder(LibBlockNames.CORPOREA_INDEX)
+	public static Block corporeaIndex;
+	@ObjectHolder(LibBlockNames.CORPOREA_FUNNEL)
+	public static Block corporeaFunnel;
+	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block whiteMushroom;
+	@ObjectHolder("orange" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block orangeMushroom;
+	@ObjectHolder("magenta" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block magentaMushroom;
+	@ObjectHolder("light_blue" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block lightBlueMushroom;
+	@ObjectHolder("yellow" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block yellowMushroom;
+	@ObjectHolder("lime" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block limeMushroom;
+	@ObjectHolder("pink" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block pinkMushroom;
+	@ObjectHolder("gray" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block grayMushroom;
+	@ObjectHolder("light_gray" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block lightGrayMushroom;
+	@ObjectHolder("cyan" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block cyanMushroom;
+	@ObjectHolder("purple" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block purpleMushroom;
+	@ObjectHolder("blue" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block blueMushroom;
+	@ObjectHolder("brown" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block brownMushroom;
+	@ObjectHolder("green" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block greenMushroom;
+	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block redMushroom;
+	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX)
+	public static Block blackMushroom;
+	@ObjectHolder(LibBlockNames.PUMP)
+	public static Block pump;
+	@ObjectHolder("white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerWhite;
+	@ObjectHolder("orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerOrange;
+	@ObjectHolder("magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerMagenta;
+	@ObjectHolder("light_blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerLightBlue;
+	@ObjectHolder("yellow" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerYellow;
+	@ObjectHolder("lime" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerLime;
+	@ObjectHolder("pink" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerPink;
+	@ObjectHolder("gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerGray;
+	@ObjectHolder("light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerLightGray;
+	@ObjectHolder("cyan" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerCyan;
+	@ObjectHolder("purple" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerPurple;
+	@ObjectHolder("blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerBlue;
+	@ObjectHolder("brown" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerBrown;
+	@ObjectHolder("green" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerGreen;
+	@ObjectHolder("red" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerRed;
+	@ObjectHolder("black" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
+	public static Block doubleFlowerBlack;
+	@ObjectHolder(LibBlockNames.FAKE_AIR)
+	public static Block fakeAir;
+	@ObjectHolder(LibBlockNames.BLAZE_BLOCK)
+	public static Block blazeBlock;
+	@ObjectHolder(LibBlockNames.CORPOREA_INTERCEPTOR)
+	public static Block corporeaInterceptor;
+	@ObjectHolder(LibBlockNames.CORPOREA_CRYSTAL_CUBE)
+	public static Block corporeaCrystalCube;
+	@ObjectHolder(LibBlockNames.INCENSE_PLATE)
+	public static Block incensePlate;
+	@ObjectHolder(LibBlockNames.HOURGLASS)
+	public static Block hourglass;
+	@ObjectHolder(LibBlockNames.GHOST_RAIL)
+	public static Block ghostRail;
+	@ObjectHolder(LibBlockNames.SPARK_CHANGER)
+	public static Block sparkChanger;
+	@ObjectHolder(LibBlockNames.ROOT)
+	public static Block root;
+	@ObjectHolder(LibBlockNames.FEL_PUMPKIN)
+	public static Block felPumpkin;
+	@ObjectHolder(LibBlockNames.COCOON)
+	public static Block cocoon;
+	@ObjectHolder(LibBlockNames.LIGHT_RELAY)
+	public static Block lightRelayDefault;
+	@ObjectHolder("detector" + LibBlockNames.LIGHT_RELAY_SUFFIX)
+	public static Block lightRelayDetector;
+	@ObjectHolder("toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX)
+	public static Block lightRelayToggle;
+	@ObjectHolder("fork" + LibBlockNames.LIGHT_RELAY_SUFFIX)
+	public static Block lightRelayFork;
+	@ObjectHolder(LibBlockNames.LIGHT_LAUNCHER)
+	public static Block lightLauncher;
+	@ObjectHolder(LibBlockNames.MANA_BOMB)
+	public static Block manaBomb;
+	@ObjectHolder(LibBlockNames.CACOPHONIUM)
+	public static Block cacophonium;
+	@ObjectHolder(LibBlockNames.BELLOWS)
+	public static Block bellows;
+	@ObjectHolder(LibBlockNames.BIFROST_PERM)
+	public static Block bifrostPerm;
+	@ObjectHolder(LibBlockNames.CELL_BLOCK)
+	public static Block cellBlock;
+	@ObjectHolder(LibBlockNames.RED_STRING_INTERCEPTOR)
+	public static Block redStringInterceptor;
+	@ObjectHolder(LibBlockNames.GAIA_HEAD)
+	public static Block gaiaHead;
+	@ObjectHolder(LibBlockNames.GAIA_WALL_HEAD)
+	public static Block gaiaHeadWall;
+	@ObjectHolder(LibBlockNames.CORPOREA_RETAINER)
+	public static Block corporeaRetainer;
+	@ObjectHolder(LibBlockNames.TERU_TERU_BOZU)
+	public static Block teruTeruBozu;
+	@ObjectHolder(LibBlockNames.SHIMMERROCK)
+	public static Block shimmerrock;
+	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS)
+	public static Block shimmerwoodPlanks;
+	@ObjectHolder(LibBlockNames.AVATAR)
+	public static Block avatar;
+	@ObjectHolder("dry" + LibBlockNames.ALT_GRASS_SUFFIX)
+	public static Block dryGrass;
+	@ObjectHolder("golden" + LibBlockNames.ALT_GRASS_SUFFIX)
+	public static Block goldenGrass;
+	@ObjectHolder("vivid" + LibBlockNames.ALT_GRASS_SUFFIX)
+	public static Block vividGrass;
+	@ObjectHolder("scorched" + LibBlockNames.ALT_GRASS_SUFFIX)
+	public static Block scorchedGrass;
+	@ObjectHolder("infused" + LibBlockNames.ALT_GRASS_SUFFIX)
+	public static Block infusedGrass;
+	@ObjectHolder("mutated" + LibBlockNames.ALT_GRASS_SUFFIX)
+	public static Block mutatedGrass;
+	@ObjectHolder(LibBlockNames.ANIMATED_TORCH)
+	public static Block animatedTorch;
 
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();

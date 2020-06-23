@@ -20,7 +20,8 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 public class SubTileBergamute extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bergamute") public static TileEntityType<SubTileBergamute> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":bergamute")
+	public static TileEntityType<SubTileBergamute> TYPE;
 
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());

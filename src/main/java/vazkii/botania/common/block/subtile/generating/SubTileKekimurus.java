@@ -22,7 +22,8 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileKekimurus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":kekimurus") public static TileEntityType<SubTileKekimurus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":kekimurus")
+	public static TileEntityType<SubTileKekimurus> TYPE;
 
 	private static final int RANGE = 5;
 

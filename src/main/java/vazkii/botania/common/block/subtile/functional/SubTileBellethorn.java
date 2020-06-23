@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileBellethorn extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bellethorn") public static TileEntityType<SubTileBellethorn> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":bellethorn")
+	public static TileEntityType<SubTileBellethorn> TYPE;
 
 	public static final int RANGE = 6;
 	public static final int RANGE_MINI = 1;
@@ -104,7 +105,8 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileBellethorn {
-		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi") public static TileEntityType<SubTileBellethorn.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi")
+		public static TileEntityType<SubTileBellethorn.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);

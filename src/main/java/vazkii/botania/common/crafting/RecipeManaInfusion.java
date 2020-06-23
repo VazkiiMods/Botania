@@ -39,7 +39,8 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
-	@Nullable private final BlockState catalystState;
+	@Nullable
+	private final BlockState catalystState;
 	private final String group;
 
 	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,

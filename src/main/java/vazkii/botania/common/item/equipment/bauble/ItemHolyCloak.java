@@ -39,7 +39,8 @@ public class ItemHolyCloak extends ItemBauble {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
 	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
 
-	@OnlyIn(Dist.CLIENT) private static ModelCloak model;
+	@OnlyIn(Dist.CLIENT)
+	private static ModelCloak model;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";

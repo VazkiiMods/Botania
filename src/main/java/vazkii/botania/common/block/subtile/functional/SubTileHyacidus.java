@@ -24,7 +24,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileHyacidus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hyacidus") public static TileEntityType<SubTileHyacidus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":hyacidus")
+	public static TileEntityType<SubTileHyacidus> TYPE;
 
 	private static final int RANGE = 6;
 	private static final int COST = 20;

@@ -20,7 +20,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileThermalily extends SubTileHydroangeas {
-	@ObjectHolder(LibMisc.MOD_ID + ":thermalily") public static TileEntityType<SubTileThermalily> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":thermalily")
+	public static TileEntityType<SubTileThermalily> TYPE;
 
 	public SubTileThermalily() {
 		super(TYPE);

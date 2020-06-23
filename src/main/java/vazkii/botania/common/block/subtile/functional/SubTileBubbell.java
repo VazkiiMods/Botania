@@ -24,7 +24,8 @@ import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileBubbell extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bubbell") public static TileEntityType<SubTileBubbell> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":bubbell")
+	public static TileEntityType<SubTileBubbell> TYPE;
 
 	private static final int RANGE = 12;
 	private static final int RANGE_MINI = 6;
@@ -114,7 +115,8 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileBubbell {
-		@ObjectHolder(LibMisc.MOD_ID + ":bubbell_chibi") public static TileEntityType<SubTileBubbell.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":bubbell_chibi")
+		public static TileEntityType<SubTileBubbell.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);

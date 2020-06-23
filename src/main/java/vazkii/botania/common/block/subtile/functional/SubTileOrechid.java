@@ -38,7 +38,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SubTileOrechid extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":orechid") public static TileEntityType<SubTileOrechid> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":orechid")
+	public static TileEntityType<SubTileOrechid> TYPE;
 
 	private static final int COST = 17500;
 	private static final int COST_GOG = 700;

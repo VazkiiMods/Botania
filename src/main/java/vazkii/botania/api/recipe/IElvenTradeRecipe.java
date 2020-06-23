@@ -31,9 +31,9 @@ public interface IElvenTradeRecipe extends IRecipe<IInventory> {
 	/**
 	 * Attempts to match the recipe
 	 *
-	 * @param  stacks Entire contents of the portal's buffer
-	 * @return        {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe
-	 *                otherwise
+	 * @param stacks Entire contents of the portal's buffer
+	 * @return {@link Optional#empty()} if recipe doesn't match, Optional with a set of items used by recipe
+	 *         otherwise
 	 */
 	Optional<List<ItemStack>> match(List<ItemStack> stacks);
 

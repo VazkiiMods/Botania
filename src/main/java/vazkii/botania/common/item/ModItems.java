@@ -87,7 +87,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModItems {
 	public static final Item lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
-	
+
 	public static final Item whitePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.WHITE), DyeColor.WHITE, defaultBuilder());
 	public static final Item orangePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.ORANGE), DyeColor.ORANGE, defaultBuilder());
 	public static final Item magentaPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.MAGENTA), DyeColor.MAGENTA, defaultBuilder());
@@ -104,7 +104,7 @@ public final class ModItems {
 	public static final Item greenPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.GREEN), DyeColor.GREEN, defaultBuilder());
 	public static final Item redPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.RED), DyeColor.RED, defaultBuilder());
 	public static final Item blackPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.BLACK), DyeColor.BLACK, defaultBuilder());
-	
+
 	public static final Item whiteDye = new ItemDye(DyeColor.WHITE, defaultBuilder());
 	public static final Item orangeDye = new ItemDye(DyeColor.ORANGE, defaultBuilder());
 	public static final Item magentaDye = new ItemDye(DyeColor.MAGENTA, defaultBuilder());

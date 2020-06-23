@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileDandelifeon extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":dandelifeon") public static TileEntityType<SubTileDandelifeon> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":dandelifeon")
+	public static TileEntityType<SubTileDandelifeon> TYPE;
 
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;

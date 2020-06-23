@@ -78,7 +78,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 	private boolean explode = false;
-	@Nullable private UUID breadPlayer = null;
+	@Nullable
+	private UUID breadPlayer = null;
 
 	public TileAlfPortal() {
 		super(ModTiles.ALF_PORTAL);

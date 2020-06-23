@@ -26,7 +26,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":entropinnyum") public static TileEntityType<SubTileEntropinnyum> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":entropinnyum")
+	public static TileEntityType<SubTileEntropinnyum> TYPE;
 
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
