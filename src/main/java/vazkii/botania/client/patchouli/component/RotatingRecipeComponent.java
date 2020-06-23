@@ -25,9 +25,11 @@ import java.util.function.Function;
  * Patchouli custom component that draws a rotating circle of items from the defined recipe.
  */
 public class RotatingRecipeComponent extends RotatingItemListComponentBase {
-	@SerializedName("recipe_name") public String recipeName;
+	@SerializedName("recipe_name")
+	public String recipeName;
 
-	@SerializedName("recipe_type") public String recipeType;
+	@SerializedName("recipe_type")
+	public String recipeType;
 
 	@Override
 	protected List<Ingredient> makeIngredients() {

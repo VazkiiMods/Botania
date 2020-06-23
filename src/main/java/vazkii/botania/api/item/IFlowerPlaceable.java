@@ -18,8 +18,8 @@ import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 public interface IFlowerPlaceable {
 
 	/**
-	 * @param  ctx The placement context, aiming downwards towards the downward neighbor position
-	 * @return     Whether the block was placed successfully
+	 * @param ctx The placement context, aiming downwards towards the downward neighbor position
+	 * @return Whether the block was placed successfully
 	 */
 	boolean tryPlace(TileEntitySpecialFlower flower, BlockItemUseContext ctx);
 }

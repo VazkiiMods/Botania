@@ -923,8 +923,10 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		return BossBarHandler.defaultBossBar;
 	}
 
-	@OnlyIn(Dist.CLIENT) private static Rectangle barRect;
-	@OnlyIn(Dist.CLIENT) private static Rectangle hpBarRect;
+	@OnlyIn(Dist.CLIENT)
+	private static Rectangle barRect;
+	@OnlyIn(Dist.CLIENT)
+	private static Rectangle hpBarRect;
 
 	@OnlyIn(Dist.CLIENT)
 	public Rectangle getBossBarTextureRect() {
@@ -968,7 +970,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		return background ? null : ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR;
 	}
 
-	@OnlyIn(Dist.CLIENT) private ShaderCallback shaderCallback;
+	@OnlyIn(Dist.CLIENT)
+	private ShaderCallback shaderCallback;
 
 	@OnlyIn(Dist.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background) {

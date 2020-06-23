@@ -22,7 +22,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileArcaneRose extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rosa_arcana") public static TileEntityType<SubTileArcaneRose> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":rosa_arcana")
+	public static TileEntityType<SubTileArcaneRose> TYPE;
 
 	private static final int RANGE = 1;
 

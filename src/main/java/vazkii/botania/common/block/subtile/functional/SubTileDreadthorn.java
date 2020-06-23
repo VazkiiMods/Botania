@@ -18,7 +18,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.function.Predicate;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
-	@ObjectHolder(LibMisc.MOD_ID + ":dreadthorn") public static TileEntityType<SubTileDreadthorn> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":dreadthorn")
+	public static TileEntityType<SubTileDreadthorn> TYPE;
 
 	public SubTileDreadthorn() {
 		super(TYPE);

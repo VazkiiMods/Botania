@@ -44,9 +44,9 @@ public class FuzzyNBTIngredient extends Ingredient {
 	/**
 	 * Constructs the ingredient.
 	 *
-	 * @param  stack                    Template stack for this ingredient
-	 * @param  acceptsEmptyTag          Whether lack of NBT data is accepted by this ingredient in addition to the
-	 *                                  stack's data.
+	 * @param stack           Template stack for this ingredient
+	 * @param acceptsEmptyTag Whether lack of NBT data is accepted by this ingredient in addition to the
+	 *                        stack's data.
 	 * @throws IllegalArgumentException if the stack has no NBT data.
 	 */
 	public FuzzyNBTIngredient(ItemStack stack, boolean acceptsEmptyTag) {
@@ -61,7 +61,7 @@ public class FuzzyNBTIngredient extends Ingredient {
 	/**
 	 * Constructs the ingredient.
 	 *
-	 * @param  stack                    Template stack for this ingredient
+	 * @param stack Template stack for this ingredient
 	 * @throws IllegalArgumentException if the stack has no NBT data.
 	 */
 	public FuzzyNBTIngredient(ItemStack stack) {

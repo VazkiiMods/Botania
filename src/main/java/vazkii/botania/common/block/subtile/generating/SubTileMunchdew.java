@@ -27,7 +27,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileMunchdew extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":munchdew") public static TileEntityType<SubTileMunchdew> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":munchdew")
+	public static TileEntityType<SubTileMunchdew> TYPE;
 
 	public static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";

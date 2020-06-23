@@ -30,7 +30,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileNarslimmus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":narslimmus") public static TileEntityType<SubTileNarslimmus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":narslimmus")
+	public static TileEntityType<SubTileNarslimmus> TYPE;
 
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 

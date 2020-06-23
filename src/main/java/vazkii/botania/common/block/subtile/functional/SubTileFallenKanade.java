@@ -23,7 +23,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileFallenKanade extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":fallen_kanade") public static TileEntityType<SubTileFallenKanade> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":fallen_kanade")
+	public static TileEntityType<SubTileFallenKanade> TYPE;
 
 	private static final int RANGE = 2;
 	private static final int COST = 120;

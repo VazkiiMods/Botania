@@ -109,7 +109,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private int mana;
 	public float rotationX, rotationY;
 
-	@Nullable public DyeColor paddingColor = null;
+	@Nullable
+	public DyeColor paddingColor = null;
 
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;

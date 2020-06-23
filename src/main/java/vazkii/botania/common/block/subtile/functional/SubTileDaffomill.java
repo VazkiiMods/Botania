@@ -33,7 +33,8 @@ import vazkii.botania.common.network.PacketItemAge;
 import java.util.List;
 
 public class SubTileDaffomill extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":daffomill") public static TileEntityType<SubTileDaffomill> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":daffomill")
+	public static TileEntityType<SubTileDaffomill> TYPE;
 
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";

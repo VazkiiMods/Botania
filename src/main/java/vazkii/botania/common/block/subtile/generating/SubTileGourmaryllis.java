@@ -29,7 +29,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":gourmaryllis") public static TileEntityType<SubTileGourmaryllis> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":gourmaryllis")
+	public static TileEntityType<SubTileGourmaryllis> TYPE;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_DIGESTING_MANA = "digestingMana";

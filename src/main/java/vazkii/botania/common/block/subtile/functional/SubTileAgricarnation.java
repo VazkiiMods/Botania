@@ -26,7 +26,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Set;
 
 public class SubTileAgricarnation extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":agricarnation") public static TileEntityType<SubTileAgricarnation> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":agricarnation")
+	public static TileEntityType<SubTileAgricarnation> TYPE;
 
 	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANTS, Material.CACTUS, Material.ORGANIC,
 			Material.LEAVES, Material.GOURD, Material.OCEAN_PLANT, Material.BAMBOO);
@@ -131,7 +132,8 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileAgricarnation {
-		@ObjectHolder(LibMisc.MOD_ID + ":agricarnation_chibi") public static TileEntityType<SubTileAgricarnation> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":agricarnation_chibi")
+		public static TileEntityType<SubTileAgricarnation> TYPE;
 
 		public Mini() {
 			super(TYPE);

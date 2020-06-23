@@ -42,7 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileHopperhock extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hopperhock") public static TileEntityType<SubTileHopperhock> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":hopperhock")
+	public static TileEntityType<SubTileHopperhock> TYPE;
 
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
@@ -262,7 +263,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileHopperhock {
-		@ObjectHolder(LibMisc.MOD_ID + ":hopperhock_chibi") public static TileEntityType<SubTileBellethorn> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":hopperhock_chibi")
+		public static TileEntityType<SubTileBellethorn> TYPE;
 
 		public Mini() {
 			super(TYPE);

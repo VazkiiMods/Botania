@@ -40,7 +40,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileSpectrolus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus") public static TileEntityType<SubTileSpectrolus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus")
+	public static TileEntityType<SubTileSpectrolus> TYPE;
 
 	public static final String TAG_NEXT_COLOR = "nextColor";
 	private static final int WOOL_GEN = 1200;

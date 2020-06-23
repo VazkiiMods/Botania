@@ -44,7 +44,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus") public static TileEntityType<SubTileRannuncarpus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus")
+	public static TileEntityType<SubTileRannuncarpus> TYPE;
 
 	private static final int RANGE = 2;
 	private static final int RANGE_Y = 3;
@@ -187,7 +188,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {
-		@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus_chibi") public static TileEntityType<SubTileRannuncarpus.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus_chibi")
+		public static TileEntityType<SubTileRannuncarpus.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);

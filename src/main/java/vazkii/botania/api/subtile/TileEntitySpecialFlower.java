@@ -58,7 +58,8 @@ import java.util.List;
  * Common superclass of all magical flower TE's
  */
 public class TileEntitySpecialFlower extends TileEntity implements ITickableTileEntity, IWandBindable {
-	@CapabilityInject(IFloatingFlower.class) public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
+	@CapabilityInject(IFloatingFlower.class)
+	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
 	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation("botania", "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;

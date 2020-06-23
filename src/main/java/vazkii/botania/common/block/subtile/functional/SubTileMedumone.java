@@ -23,7 +23,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileMedumone extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":medumone") public static TileEntityType<SubTileMedumone> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":medumone")
+	public static TileEntityType<SubTileMedumone> TYPE;
 
 	private static final int RANGE = 6;
 

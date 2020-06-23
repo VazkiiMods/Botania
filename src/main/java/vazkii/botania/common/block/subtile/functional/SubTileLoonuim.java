@@ -44,7 +44,8 @@ import java.util.List;
 import java.util.Random;
 
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":loonium") public static TileEntityType<SubTileLoonuim> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":loonium")
+	public static TileEntityType<SubTileLoonuim> TYPE;
 
 	private static final int COST = 35000;
 	private static final int RANGE = 5;

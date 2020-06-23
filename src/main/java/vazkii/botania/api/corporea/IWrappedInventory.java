@@ -26,11 +26,11 @@ public interface IWrappedInventory {
 	/**
 	 * Counts items in the inventory matching the request
 	 *
-	 * @param  request
-	 *                 - specifies what should be found
-	 * @return         List of ItemStack, individual stacks may exceed maxStackSize for
-	 *                 purposes of counting huge amounts. To get final count requestor
-	 *                 should sum stackSize of all stacks.
+	 * @param request
+	 *                - specifies what should be found
+	 * @return List of ItemStack, individual stacks may exceed maxStackSize for
+	 *         purposes of counting huge amounts. To get final count requestor
+	 *         should sum stackSize of all stacks.
 	 */
 	List<ItemStack> countItems(ICorporeaRequest request);
 
@@ -47,8 +47,8 @@ public interface IWrappedInventory {
 	 * {@link ICorporeaRequest#extractedItems} are updated to reflect how many
 	 * items were found and extracted.
 	 *
-	 * @param  request
-	 * @return         List of ItemStacks to be delivered to the destination.
+	 * @param request
+	 * @return List of ItemStacks to be delivered to the destination.
 	 */
 	List<ItemStack> extractItems(ICorporeaRequest request);
 }

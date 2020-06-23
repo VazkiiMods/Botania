@@ -31,7 +31,8 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class SubTilePureDaisy extends TileEntitySpecialFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":pure_daisy") public static TileEntityType<SubTilePureDaisy> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":pure_daisy")
+	public static TileEntityType<SubTilePureDaisy> TYPE;
 
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";

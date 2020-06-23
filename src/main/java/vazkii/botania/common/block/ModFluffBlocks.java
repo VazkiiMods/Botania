@@ -30,193 +30,360 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModFluffBlocks {
 
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX) public static Block livingwoodStairs;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX) public static Block livingwoodSlab;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + WALL_SUFFIX) public static Block livingwoodWall;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX) public static Block livingwoodFence;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX) public static Block livingwoodFenceGate;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX) public static Block livingwoodPlankStairs;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX) public static Block livingwoodPlankSlab;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX) public static Block livingrockStairs;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX) public static Block livingrockSlab;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK + WALL_SUFFIX) public static Block livingrockWall;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX) public static Block livingrockBrickStairs;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX) public static Block livingrockBrickSlab;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX) public static Block dreamwoodStairs;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX) public static Block dreamwoodSlab;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + WALL_SUFFIX) public static Block dreamwoodWall;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX) public static Block dreamwoodFence;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX) public static Block dreamwoodFenceGate;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX) public static Block dreamwoodPlankStairs;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX) public static Block dreamwoodPlankSlab;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX)
+	public static Block livingwoodStairs;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX)
+	public static Block livingwoodSlab;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + WALL_SUFFIX)
+	public static Block livingwoodWall;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX)
+	public static Block livingwoodFence;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX)
+	public static Block livingwoodFenceGate;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX)
+	public static Block livingwoodPlankStairs;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX)
+	public static Block livingwoodPlankSlab;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX)
+	public static Block livingrockStairs;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX)
+	public static Block livingrockSlab;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK + WALL_SUFFIX)
+	public static Block livingrockWall;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX)
+	public static Block livingrockBrickStairs;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX)
+	public static Block livingrockBrickSlab;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX)
+	public static Block dreamwoodStairs;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX)
+	public static Block dreamwoodSlab;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + WALL_SUFFIX)
+	public static Block dreamwoodWall;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX)
+	public static Block dreamwoodFence;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX)
+	public static Block dreamwoodFenceGate;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX)
+	public static Block dreamwoodPlankStairs;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX)
+	public static Block dreamwoodPlankSlab;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK) public static Block darkQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_DARK) public static Block darkQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK + "_pillar") public static Block darkQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK + SLAB_SUFFIX) public static Block darkQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK + STAIR_SUFFIX) public static Block darkQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_DARK)
+	public static Block darkQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_DARK)
+	public static Block darkQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_DARK + "_pillar")
+	public static Block darkQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_DARK + SLAB_SUFFIX)
+	public static Block darkQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_DARK + STAIR_SUFFIX)
+	public static Block darkQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA) public static Block manaQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_MANA) public static Block manaQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA + "_pillar") public static Block manaQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA + SLAB_SUFFIX) public static Block manaQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA + STAIR_SUFFIX) public static Block manaQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_MANA)
+	public static Block manaQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_MANA)
+	public static Block manaQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_MANA + "_pillar")
+	public static Block manaQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_MANA + SLAB_SUFFIX)
+	public static Block manaQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_MANA + STAIR_SUFFIX)
+	public static Block manaQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE) public static Block blazeQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_BLAZE) public static Block blazeQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + "_pillar") public static Block blazeQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + SLAB_SUFFIX) public static Block blazeQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + STAIR_SUFFIX) public static Block blazeQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE)
+	public static Block blazeQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_BLAZE)
+	public static Block blazeQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + "_pillar")
+	public static Block blazeQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + SLAB_SUFFIX)
+	public static Block blazeQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + STAIR_SUFFIX)
+	public static Block blazeQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER) public static Block lavenderQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_LAVENDER) public static Block lavenderQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + "_pillar") public static Block lavenderQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + SLAB_SUFFIX) public static Block lavenderQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + STAIR_SUFFIX) public static Block lavenderQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER)
+	public static Block lavenderQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_LAVENDER)
+	public static Block lavenderQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + "_pillar")
+	public static Block lavenderQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + SLAB_SUFFIX)
+	public static Block lavenderQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + STAIR_SUFFIX)
+	public static Block lavenderQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_RED) public static Block redQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_RED) public static Block redQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_RED + "_pillar") public static Block redQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_RED + SLAB_SUFFIX) public static Block redQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_RED + STAIR_SUFFIX) public static Block redQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_RED)
+	public static Block redQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_RED)
+	public static Block redQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_RED + "_pillar")
+	public static Block redQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_RED + SLAB_SUFFIX)
+	public static Block redQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_RED + STAIR_SUFFIX)
+	public static Block redQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF) public static Block elfQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_ELF) public static Block elfQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF + "_pillar") public static Block elfQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF + SLAB_SUFFIX) public static Block elfQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF + STAIR_SUFFIX) public static Block elfQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_ELF)
+	public static Block elfQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_ELF)
+	public static Block elfQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_ELF + "_pillar")
+	public static Block elfQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_ELF + SLAB_SUFFIX)
+	public static Block elfQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_ELF + STAIR_SUFFIX)
+	public static Block elfQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY) public static Block sunnyQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_SUNNY) public static Block sunnyQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + "_pillar") public static Block sunnyQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + SLAB_SUFFIX) public static Block sunnyQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + STAIR_SUFFIX) public static Block sunnyQuartzStairs;
+	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY)
+	public static Block sunnyQuartz;
+	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_SUNNY)
+	public static Block sunnyQuartzChiseled;
+	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + "_pillar")
+	public static Block sunnyQuartzPillar;
+	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + SLAB_SUFFIX)
+	public static Block sunnyQuartzSlab;
+	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + STAIR_SUFFIX)
+	public static Block sunnyQuartzStairs;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone") public static Block biomeStoneForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX) public static Block biomeStoneForestSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX) public static Block biomeStoneForestStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone") public static Block biomeCobblestoneForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneForestSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneForestStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX) public static Block biomeWallForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks") public static Block biomeBrickForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX) public static Block biomeBrickForestSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX) public static Block biomeBrickForestStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks") public static Block biomeChiseledBrickForest;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone")
+	public static Block biomeStoneForest;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneForestSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneForestStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone")
+	public static Block biomeCobblestoneForest;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneForestSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneForestStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallForest;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks")
+	public static Block biomeBrickForest;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickForestSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickForestStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks")
+	public static Block biomeChiseledBrickForest;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone") public static Block biomeStonePlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX) public static Block biomeStonePlainsSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX) public static Block biomeStonePlainsStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone") public static Block biomeCobblestonePlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestonePlainsSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestonePlainsStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX) public static Block biomeWallPlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks") public static Block biomeBrickPlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX) public static Block biomeBrickPlainsSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX) public static Block biomeBrickPlainsStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks") public static Block biomeChiseledBrickPlains;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone")
+	public static Block biomeStonePlains;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX)
+	public static Block biomeStonePlainsSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX)
+	public static Block biomeStonePlainsStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone")
+	public static Block biomeCobblestonePlains;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestonePlainsSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestonePlainsStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallPlains;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks")
+	public static Block biomeBrickPlains;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickPlainsSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickPlainsStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks")
+	public static Block biomeChiseledBrickPlains;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone") public static Block biomeStoneMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX) public static Block biomeStoneMountainSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX) public static Block biomeStoneMountainStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone") public static Block biomeCobblestoneMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneMountainSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneMountainStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX) public static Block biomeWallMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks") public static Block biomeBrickMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX) public static Block biomeBrickMountainSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX) public static Block biomeBrickMountainStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks") public static Block biomeChiseledBrickMountain;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone")
+	public static Block biomeStoneMountain;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneMountainSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneMountainStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone")
+	public static Block biomeCobblestoneMountain;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneMountainSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneMountainStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallMountain;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks")
+	public static Block biomeBrickMountain;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickMountainSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickMountainStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks")
+	public static Block biomeChiseledBrickMountain;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone") public static Block biomeStoneFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX) public static Block biomeStoneFungalSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX) public static Block biomeStoneFungalStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone") public static Block biomeCobblestoneFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneFungalSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneFungalStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX) public static Block biomeWallFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks") public static Block biomeBrickFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX) public static Block biomeBrickFungalSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX) public static Block biomeBrickFungalStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks") public static Block biomeChiseledBrickFungal;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone")
+	public static Block biomeStoneFungal;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneFungalSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneFungalStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone")
+	public static Block biomeCobblestoneFungal;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneFungalSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneFungalStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallFungal;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks")
+	public static Block biomeBrickFungal;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickFungalSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickFungalStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks")
+	public static Block biomeChiseledBrickFungal;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone") public static Block biomeStoneSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX) public static Block biomeStoneSwampSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX) public static Block biomeStoneSwampStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone") public static Block biomeCobblestoneSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneSwampSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneSwampStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX) public static Block biomeWallSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks") public static Block biomeBrickSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX) public static Block biomeBrickSwampSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX) public static Block biomeBrickSwampStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks") public static Block biomeChiseledBrickSwamp;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone")
+	public static Block biomeStoneSwamp;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneSwampSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneSwampStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone")
+	public static Block biomeCobblestoneSwamp;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneSwampSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneSwampStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallSwamp;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks")
+	public static Block biomeBrickSwamp;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickSwampSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickSwampStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks")
+	public static Block biomeChiseledBrickSwamp;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone") public static Block biomeStoneDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX) public static Block biomeStoneDesertSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX) public static Block biomeStoneDesertStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone") public static Block biomeCobblestoneDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneDesertSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneDesertStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX) public static Block biomeWallDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks") public static Block biomeBrickDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX) public static Block biomeBrickDesertSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX) public static Block biomeBrickDesertStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks") public static Block biomeChiseledBrickDesert;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone")
+	public static Block biomeStoneDesert;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneDesertSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneDesertStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone")
+	public static Block biomeCobblestoneDesert;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneDesertSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneDesertStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallDesert;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks")
+	public static Block biomeBrickDesert;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickDesertSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickDesertStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks")
+	public static Block biomeChiseledBrickDesert;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone") public static Block biomeStoneTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX) public static Block biomeStoneTaigaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX) public static Block biomeStoneTaigaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone") public static Block biomeCobblestoneTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneTaigaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneTaigaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX) public static Block biomeWallTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks") public static Block biomeBrickTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX) public static Block biomeBrickTaigaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX) public static Block biomeBrickTaigaStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks") public static Block biomeChiseledBrickTaiga;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone")
+	public static Block biomeStoneTaiga;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneTaigaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneTaigaStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone")
+	public static Block biomeCobblestoneTaiga;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneTaigaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneTaigaStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallTaiga;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks")
+	public static Block biomeBrickTaiga;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickTaigaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickTaigaStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks")
+	public static Block biomeChiseledBrickTaiga;
 
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone") public static Block biomeStoneMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX) public static Block biomeStoneMesaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX) public static Block biomeStoneMesaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone") public static Block biomeCobblestoneMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneMesaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneMesaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX) public static Block biomeWallMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks") public static Block biomeBrickMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX) public static Block biomeBrickMesaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX) public static Block biomeBrickMesaStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks") public static Block biomeChiseledBrickMesa;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone")
+	public static Block biomeStoneMesa;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX)
+	public static Block biomeStoneMesaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX)
+	public static Block biomeStoneMesaStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone")
+	public static Block biomeCobblestoneMesa;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX)
+	public static Block biomeCobblestoneMesaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX)
+	public static Block biomeCobblestoneMesaStairs;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX)
+	public static Block biomeWallMesa;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks")
+	public static Block biomeBrickMesa;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX)
+	public static Block biomeBrickMesaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX)
+	public static Block biomeBrickMesaStairs;
+	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks")
+	public static Block biomeChiseledBrickMesa;
 
-	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX) public static Block whitePavement;
-	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX) public static Block blackPavement;
-	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX) public static Block bluePavement;
-	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX) public static Block yellowPavement;
-	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX) public static Block redPavement;
-	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX) public static Block greenPavement;
+	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX)
+	public static Block whitePavement;
+	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX)
+	public static Block blackPavement;
+	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX)
+	public static Block bluePavement;
+	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX)
+	public static Block yellowPavement;
+	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX)
+	public static Block redPavement;
+	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX)
+	public static Block greenPavement;
 
-	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block whitePavementSlab;
-	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block blackPavementSlab;
-	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block bluePavementSlab;
-	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block yellowPavementSlab;
-	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block redPavementSlab;
-	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block greenPavementSlab;
+	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
+	public static Block whitePavementSlab;
+	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
+	public static Block blackPavementSlab;
+	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
+	public static Block bluePavementSlab;
+	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
+	public static Block yellowPavementSlab;
+	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
+	public static Block redPavementSlab;
+	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
+	public static Block greenPavementSlab;
 
-	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block whitePavementStair;
-	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block blackPavementStair;
-	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block bluePavementStair;
-	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block yellowPavementStair;
-	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block redPavementStair;
-	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block greenPavementStair;
+	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
+	public static Block whitePavementStair;
+	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
+	public static Block blackPavementStair;
+	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
+	public static Block bluePavementStair;
+	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
+	public static Block yellowPavementStair;
+	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
+	public static Block redPavementStair;
+	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
+	public static Block greenPavementStair;
 
-	@ObjectHolder(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX) public static Block shimmerrockSlab;
-	@ObjectHolder(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX) public static Block shimmerrockStairs;
-	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX) public static Block shimmerwoodPlankSlab;
-	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX) public static Block shimmerwoodPlankStairs;
+	@ObjectHolder(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX)
+	public static Block shimmerrockSlab;
+	@ObjectHolder(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX)
+	public static Block shimmerrockStairs;
+	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX)
+	public static Block shimmerwoodPlankSlab;
+	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX)
+	public static Block shimmerwoodPlankStairs;
 
-	@ObjectHolder(LibBlockNames.MANA_GLASS + "_pane") public static Block managlassPane;
-	@ObjectHolder(LibBlockNames.ELF_GLASS + "_pane") public static Block alfglassPane;
-	@ObjectHolder(LibBlockNames.BIFROST + "_pane") public static Block bifrostPane;
+	@ObjectHolder(LibBlockNames.MANA_GLASS + "_pane")
+	public static Block managlassPane;
+	@ObjectHolder(LibBlockNames.ELF_GLASS + "_pane")
+	public static Block alfglassPane;
+	@ObjectHolder(LibBlockNames.BIFROST + "_pane")
+	public static Block bifrostPane;
 
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();

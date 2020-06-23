@@ -54,11 +54,11 @@ public interface ManaItemHandler {
 	/**
 	 * Requests mana from items in a given player's inventory.
 	 * 
-	 * @param  manaToGet How much mana is to be requested, if less mana exists than this amount,
-	 *                   the amount of mana existent will be returned instead, if you want exact values use
-	 *                   {@link #requestManaExact}.
-	 * @param  remove    If true, the mana will be removed from the target item. Set to false to just check.
-	 * @return           The amount of mana received from the request.
+	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
+	 *                  the amount of mana existent will be returned instead, if you want exact values use
+	 *                  {@link #requestManaExact}.
+	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
+	 * @return The amount of mana received from the request.
 	 */
 	default int requestMana(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		return 0;
@@ -67,10 +67,10 @@ public interface ManaItemHandler {
 	/**
 	 * Requests an exact amount of mana from items in a given player's inventory.
 	 * 
-	 * @param  manaToGet How much mana is to be requested, if less mana exists than this amount,
-	 *                   false will be returned instead, and nothing will happen.
-	 * @param  remove    If true, the mana will be removed from the target item. Set to false to just check.
-	 * @return           If the request was succesful.
+	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
+	 *                  false will be returned instead, and nothing will happen.
+	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
+	 * @return If the request was succesful.
 	 */
 	default boolean requestManaExact(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		return false;
@@ -80,9 +80,9 @@ public interface ManaItemHandler {
 	 * Dispatches mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
 	 * 
-	 * @param  manaToSend How much mana is to be sent.
-	 * @param  add        If true, the mana will be added from the target item. Set to false to just check.
-	 * @return            The amount of mana actually sent.
+	 * @param manaToSend How much mana is to be sent.
+	 * @param add        If true, the mana will be added from the target item. Set to false to just check.
+	 * @return The amount of mana actually sent.
 	 */
 	default int dispatchMana(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
 		return 0;
@@ -92,9 +92,9 @@ public interface ManaItemHandler {
 	 * Dispatches an exact amount of mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
 	 * 
-	 * @param  manaToSend How much mana is to be sent.
-	 * @param  add        If true, the mana will be added from the target item. Set to false to just check.
-	 * @return            If an item received the mana sent.
+	 * @param manaToSend How much mana is to be sent.
+	 * @param add        If true, the mana will be added from the target item. Set to false to just check.
+	 * @return If an item received the mana sent.
 	 */
 	default boolean dispatchManaExact(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
 		return false;
@@ -104,11 +104,11 @@ public interface ManaItemHandler {
 	 * Requests mana from items in a given player's inventory. This version also
 	 * checks for IManaDiscountArmor items equipped to lower the cost.
 	 * 
-	 * @param  manaToGet How much mana is to be requested, if less mana exists than this amount,
-	 *                   the amount of mana existent will be returned instead, if you want exact values use
-	 *                   requestManaExact.
-	 * @param  remove    If true, the mana will be removed from the target item. Set to false to just check.
-	 * @return           The amount of mana received from the request.
+	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
+	 *                  the amount of mana existent will be returned instead, if you want exact values use
+	 *                  requestManaExact.
+	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
+	 * @return The amount of mana received from the request.
 	 */
 	default int requestManaForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		return 0;
@@ -118,10 +118,10 @@ public interface ManaItemHandler {
 	 * Requests an exact amount of mana from items in a given player's inventory. This version also
 	 * checks for IManaDiscountArmor items equipped to lower the cost.
 	 * 
-	 * @param  manaToGet How much mana is to be requested, if less mana exists than this amount,
-	 *                   false will be returned instead, and nothing will happen.
-	 * @param  remove    If true, the mana will be removed from the target item. Set to false to just check.
-	 * @return           If the request was succesful.
+	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
+	 *                  false will be returned instead, and nothing will happen.
+	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
+	 * @return If the request was succesful.
 	 */
 	default boolean requestManaExactForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		return false;

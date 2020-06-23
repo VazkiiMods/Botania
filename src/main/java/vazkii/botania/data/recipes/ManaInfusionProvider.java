@@ -208,7 +208,8 @@ public class ManaInfusionProvider extends RecipeProvider {
 		private final ItemStack output;
 		private final int mana;
 		private final String group;
-		@Nullable private final BlockState catalyst;
+		@Nullable
+		private final BlockState catalyst;
 
 		public static FinishedRecipe conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 			return new FinishedRecipe(id, output, input, mana, "", ModBlocks.conjurationCatalyst.getDefaultState());

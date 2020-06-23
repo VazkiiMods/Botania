@@ -22,7 +22,8 @@ import java.util.Collections;
 import java.util.Set;
 
 public class SubTileSolegnolia extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":solegnolia") public static TileEntityType<SubTileSolegnolia> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":solegnolia")
+	public static TileEntityType<SubTileSolegnolia> TYPE;
 
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
@@ -78,7 +79,8 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileSolegnolia {
-		@ObjectHolder(LibMisc.MOD_ID + ":solegnolia_chibi") public static TileEntityType<SubTileSolegnolia.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":solegnolia_chibi")
+		public static TileEntityType<SubTileSolegnolia.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);

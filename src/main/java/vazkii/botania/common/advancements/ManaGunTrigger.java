@@ -106,7 +106,8 @@ public class ManaGunTrigger implements ICriterionTrigger<ManaGunTrigger.Instance
 	static class Instance implements ICriterionInstance {
 		private final ItemPredicate item;
 		private final EntityPredicate user;
-		@Nullable private final Boolean desu;
+		@Nullable
+		private final Boolean desu;
 
 		Instance(ItemPredicate count, EntityPredicate user, Boolean desu) {
 			this.item = count;

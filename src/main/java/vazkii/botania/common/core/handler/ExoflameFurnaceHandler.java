@@ -31,7 +31,8 @@ import java.lang.invoke.MethodHandle;
 
 public class ExoflameFurnaceHandler {
 
-	@CapabilityInject(IExoflameHeatable.class) public static Capability<IExoflameHeatable> CAPABILITY;
+	@CapabilityInject(IExoflameHeatable.class)
+	public static Capability<IExoflameHeatable> CAPABILITY;
 	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "exoflame_heatable");
 
 	private static final MethodHandle CAN_SMELT = LibObfuscation.getMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);

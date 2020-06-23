@@ -40,105 +40,203 @@ import static vazkii.botania.common.block.ModBlocks.register;
 
 @ObjectHolder(LibMisc.MOD_ID)
 public class ModSubtiles {
-	@ObjectHolder("pure_daisy") public static Block pureDaisy;
-	@ObjectHolder("manastar") public static Block manastar;
-	@ObjectHolder("hydroangeas") public static Block hydroangeas;
-	@ObjectHolder("endoflame") public static Block endoflame;
-	@ObjectHolder("thermalily") public static Block thermalily;
-	@ObjectHolder("rosa_arcana") public static Block rosaArcana;
-	@ObjectHolder("munchdew") public static Block munchdew;
-	@ObjectHolder("entropinnyum") public static Block entropinnyum;
-	@ObjectHolder("kekimurus") public static Block kekimurus;
-	@ObjectHolder("gourmaryllis") public static Block gourmaryllis;
-	@ObjectHolder("narslimmus") public static Block narslimmus;
-	@ObjectHolder("spectrolus") public static Block spectrolus;
-	@ObjectHolder("dandelifeon") public static Block dandelifeon;
-	@ObjectHolder("rafflowsia") public static Block rafflowsia;
-	@ObjectHolder("shulk_me_not") public static Block shulkMeNot;
-	@ObjectHolder("bellethorn") public static Block bellethorn;
-	@ObjectHolder("bellethorn_chibi") public static Block bellethornChibi;
-	@ObjectHolder("bergamute") public static Block bergamute;
-	@ObjectHolder("dreadthorn") public static Block dreadthorn;
-	@ObjectHolder("heisei_dream") public static Block heiseiDream;
-	@ObjectHolder("tigerseye") public static Block tigerseye;
-	@ObjectHolder("jaded_amaranthus") public static Block jadedAmaranthus;
-	@ObjectHolder("orechid") public static Block orechid;
-	@ObjectHolder("fallen_kanade") public static Block fallenKanade;
-	@ObjectHolder("exoflame") public static Block exoflame;
-	@ObjectHolder("agricarnation") public static Block agricarnation;
-	@ObjectHolder("agricarnation_chibi") public static Block agricarnationChibi;
-	@ObjectHolder("hopperhock") public static Block hopperhock;
-	@ObjectHolder("hopperhock_chibi") public static Block hopperhockChibi;
-	@ObjectHolder("tangleberrie") public static Block tangleberrie;
-	@ObjectHolder("jiyuulia") public static Block jiyuulia;
-	@ObjectHolder("rannuncarpus") public static Block rannuncarpus;
-	@ObjectHolder("rannuncarpus_chibi") public static Block rannuncarpusChibi;
-	@ObjectHolder("hyacidus") public static Block hyacidus;
-	@ObjectHolder("pollidisiac") public static Block pollidisiac;
-	@ObjectHolder("clayconia") public static Block clayconia;
-	@ObjectHolder("clayconia_chibi") public static Block clayconiaChibi;
-	@ObjectHolder("loonium") public static Block loonium;
-	@ObjectHolder("daffomill") public static Block daffomill;
-	@ObjectHolder("vinculotus") public static Block vinculotus;
-	@ObjectHolder("spectranthemum") public static Block spectranthemum;
-	@ObjectHolder("medumone") public static Block medumone;
-	@ObjectHolder("marimorphosis") public static Block marimorphosis;
-	@ObjectHolder("marimorphosis_chibi") public static Block marimorphosisChibi;
-	@ObjectHolder("bubbell") public static Block bubbell;
-	@ObjectHolder("bubbell_chibi") public static Block bubbellChibi;
-	@ObjectHolder("solegnolia") public static Block solegnolia;
-	@ObjectHolder("solegnolia_chibi") public static Block solegnoliaChibi;
-	@ObjectHolder("orechid_ignem") public static Block orechidIgnem;
+	@ObjectHolder("pure_daisy")
+	public static Block pureDaisy;
+	@ObjectHolder("manastar")
+	public static Block manastar;
+	@ObjectHolder("hydroangeas")
+	public static Block hydroangeas;
+	@ObjectHolder("endoflame")
+	public static Block endoflame;
+	@ObjectHolder("thermalily")
+	public static Block thermalily;
+	@ObjectHolder("rosa_arcana")
+	public static Block rosaArcana;
+	@ObjectHolder("munchdew")
+	public static Block munchdew;
+	@ObjectHolder("entropinnyum")
+	public static Block entropinnyum;
+	@ObjectHolder("kekimurus")
+	public static Block kekimurus;
+	@ObjectHolder("gourmaryllis")
+	public static Block gourmaryllis;
+	@ObjectHolder("narslimmus")
+	public static Block narslimmus;
+	@ObjectHolder("spectrolus")
+	public static Block spectrolus;
+	@ObjectHolder("dandelifeon")
+	public static Block dandelifeon;
+	@ObjectHolder("rafflowsia")
+	public static Block rafflowsia;
+	@ObjectHolder("shulk_me_not")
+	public static Block shulkMeNot;
+	@ObjectHolder("bellethorn")
+	public static Block bellethorn;
+	@ObjectHolder("bellethorn_chibi")
+	public static Block bellethornChibi;
+	@ObjectHolder("bergamute")
+	public static Block bergamute;
+	@ObjectHolder("dreadthorn")
+	public static Block dreadthorn;
+	@ObjectHolder("heisei_dream")
+	public static Block heiseiDream;
+	@ObjectHolder("tigerseye")
+	public static Block tigerseye;
+	@ObjectHolder("jaded_amaranthus")
+	public static Block jadedAmaranthus;
+	@ObjectHolder("orechid")
+	public static Block orechid;
+	@ObjectHolder("fallen_kanade")
+	public static Block fallenKanade;
+	@ObjectHolder("exoflame")
+	public static Block exoflame;
+	@ObjectHolder("agricarnation")
+	public static Block agricarnation;
+	@ObjectHolder("agricarnation_chibi")
+	public static Block agricarnationChibi;
+	@ObjectHolder("hopperhock")
+	public static Block hopperhock;
+	@ObjectHolder("hopperhock_chibi")
+	public static Block hopperhockChibi;
+	@ObjectHolder("tangleberrie")
+	public static Block tangleberrie;
+	@ObjectHolder("jiyuulia")
+	public static Block jiyuulia;
+	@ObjectHolder("rannuncarpus")
+	public static Block rannuncarpus;
+	@ObjectHolder("rannuncarpus_chibi")
+	public static Block rannuncarpusChibi;
+	@ObjectHolder("hyacidus")
+	public static Block hyacidus;
+	@ObjectHolder("pollidisiac")
+	public static Block pollidisiac;
+	@ObjectHolder("clayconia")
+	public static Block clayconia;
+	@ObjectHolder("clayconia_chibi")
+	public static Block clayconiaChibi;
+	@ObjectHolder("loonium")
+	public static Block loonium;
+	@ObjectHolder("daffomill")
+	public static Block daffomill;
+	@ObjectHolder("vinculotus")
+	public static Block vinculotus;
+	@ObjectHolder("spectranthemum")
+	public static Block spectranthemum;
+	@ObjectHolder("medumone")
+	public static Block medumone;
+	@ObjectHolder("marimorphosis")
+	public static Block marimorphosis;
+	@ObjectHolder("marimorphosis_chibi")
+	public static Block marimorphosisChibi;
+	@ObjectHolder("bubbell")
+	public static Block bubbell;
+	@ObjectHolder("bubbell_chibi")
+	public static Block bubbellChibi;
+	@ObjectHolder("solegnolia")
+	public static Block solegnolia;
+	@ObjectHolder("solegnolia_chibi")
+	public static Block solegnoliaChibi;
+	@ObjectHolder("orechid_ignem")
+	public static Block orechidIgnem;
 
-	@ObjectHolder("floating_pure_daisy") public static Block pureDaisyFloating;
-	@ObjectHolder("floating_manastar") public static Block manastarFloating;
-	@ObjectHolder("floating_hydroangeas") public static Block hydroangeasFloating;
-	@ObjectHolder("floating_endoflame") public static Block endoflameFloating;
-	@ObjectHolder("floating_thermalily") public static Block thermalilyFloating;
-	@ObjectHolder("floating_rosa_arcana") public static Block rosaArcanaFloating;
-	@ObjectHolder("floating_munchdew") public static Block munchdewFloating;
-	@ObjectHolder("floating_entropinnyum") public static Block entropinnyumFloating;
-	@ObjectHolder("floating_kekimurus") public static Block kekimurusFloating;
-	@ObjectHolder("floating_gourmaryllis") public static Block gourmaryllisFloating;
-	@ObjectHolder("floating_narslimmus") public static Block narslimmusFloating;
-	@ObjectHolder("floating_spectrolus") public static Block spectrolusFloating;
-	@ObjectHolder("floating_dandelifeon") public static Block dandelifeonFloating;
-	@ObjectHolder("floating_rafflowsia") public static Block rafflowsiaFloating;
-	@ObjectHolder("floating_shulk_me_not") public static Block shulkMeNotFloating;
-	@ObjectHolder("floating_bellethorn") public static Block bellethornFloating;
-	@ObjectHolder("floating_bellethorn_chibi") public static Block bellethornChibiFloating;
-	@ObjectHolder("floating_bergamute") public static Block bergamuteFloating;
-	@ObjectHolder("floating_dreadthorn") public static Block dreadthornFloating;
-	@ObjectHolder("floating_heisei_dream") public static Block heiseiDreamFloating;
-	@ObjectHolder("floating_tigerseye") public static Block tigerseyeFloating;
-	@ObjectHolder("floating_jaded_amaranthus") public static Block jadedAmaranthusFloating;
-	@ObjectHolder("floating_orechid") public static Block orechidFloating;
-	@ObjectHolder("floating_fallen_kanade") public static Block fallenKanadeFloating;
-	@ObjectHolder("floating_exoflame") public static Block exoflameFloating;
-	@ObjectHolder("floating_agricarnation") public static Block agricarnationFloating;
-	@ObjectHolder("floating_agricarnation_chibi") public static Block agricarnationChibiFloating;
-	@ObjectHolder("floating_hopperhock") public static Block hopperhockFloating;
-	@ObjectHolder("floating_hopperhock_chibi") public static Block hopperhockChibiFloating;
-	@ObjectHolder("floating_tangleberrie") public static Block tangleberrieFloating;
-	@ObjectHolder("floating_jiyuulia") public static Block jiyuuliaFloating;
-	@ObjectHolder("floating_rannuncarpus") public static Block rannuncarpusFloating;
-	@ObjectHolder("floating_rannuncarpus_chibi") public static Block rannuncarpusChibiFloating;
-	@ObjectHolder("floating_hyacidus") public static Block hyacidusFloating;
-	@ObjectHolder("floating_pollidisiac") public static Block pollidisiacFloating;
-	@ObjectHolder("floating_clayconia") public static Block clayconiaFloating;
-	@ObjectHolder("floating_clayconia_chibi") public static Block clayconiaChibiFloating;
-	@ObjectHolder("floating_loonium") public static Block looniumFloating;
-	@ObjectHolder("floating_daffomill") public static Block daffomillFloating;
-	@ObjectHolder("floating_vinculotus") public static Block vinculotusFloating;
-	@ObjectHolder("floating_spectranthemum") public static Block spectranthemumFloating;
-	@ObjectHolder("floating_medumone") public static Block medumoneFloating;
-	@ObjectHolder("floating_marimorphosis") public static Block marimorphosisFloating;
-	@ObjectHolder("floating_marimorphosis_chibi") public static Block marimorphosisChibiFloating;
-	@ObjectHolder("floating_bubbell") public static Block bubbellFloating;
-	@ObjectHolder("floating_bubbell_chibi") public static Block bubbellChibiFloating;
-	@ObjectHolder("floating_solegnolia") public static Block solegnoliaFloating;
-	@ObjectHolder("floating_solegnolia_chibi") public static Block solegnoliaChibiFloating;
-	@ObjectHolder("floating_orechid_ignem") public static Block orechidIgnemFloating;
+	@ObjectHolder("floating_pure_daisy")
+	public static Block pureDaisyFloating;
+	@ObjectHolder("floating_manastar")
+	public static Block manastarFloating;
+	@ObjectHolder("floating_hydroangeas")
+	public static Block hydroangeasFloating;
+	@ObjectHolder("floating_endoflame")
+	public static Block endoflameFloating;
+	@ObjectHolder("floating_thermalily")
+	public static Block thermalilyFloating;
+	@ObjectHolder("floating_rosa_arcana")
+	public static Block rosaArcanaFloating;
+	@ObjectHolder("floating_munchdew")
+	public static Block munchdewFloating;
+	@ObjectHolder("floating_entropinnyum")
+	public static Block entropinnyumFloating;
+	@ObjectHolder("floating_kekimurus")
+	public static Block kekimurusFloating;
+	@ObjectHolder("floating_gourmaryllis")
+	public static Block gourmaryllisFloating;
+	@ObjectHolder("floating_narslimmus")
+	public static Block narslimmusFloating;
+	@ObjectHolder("floating_spectrolus")
+	public static Block spectrolusFloating;
+	@ObjectHolder("floating_dandelifeon")
+	public static Block dandelifeonFloating;
+	@ObjectHolder("floating_rafflowsia")
+	public static Block rafflowsiaFloating;
+	@ObjectHolder("floating_shulk_me_not")
+	public static Block shulkMeNotFloating;
+	@ObjectHolder("floating_bellethorn")
+	public static Block bellethornFloating;
+	@ObjectHolder("floating_bellethorn_chibi")
+	public static Block bellethornChibiFloating;
+	@ObjectHolder("floating_bergamute")
+	public static Block bergamuteFloating;
+	@ObjectHolder("floating_dreadthorn")
+	public static Block dreadthornFloating;
+	@ObjectHolder("floating_heisei_dream")
+	public static Block heiseiDreamFloating;
+	@ObjectHolder("floating_tigerseye")
+	public static Block tigerseyeFloating;
+	@ObjectHolder("floating_jaded_amaranthus")
+	public static Block jadedAmaranthusFloating;
+	@ObjectHolder("floating_orechid")
+	public static Block orechidFloating;
+	@ObjectHolder("floating_fallen_kanade")
+	public static Block fallenKanadeFloating;
+	@ObjectHolder("floating_exoflame")
+	public static Block exoflameFloating;
+	@ObjectHolder("floating_agricarnation")
+	public static Block agricarnationFloating;
+	@ObjectHolder("floating_agricarnation_chibi")
+	public static Block agricarnationChibiFloating;
+	@ObjectHolder("floating_hopperhock")
+	public static Block hopperhockFloating;
+	@ObjectHolder("floating_hopperhock_chibi")
+	public static Block hopperhockChibiFloating;
+	@ObjectHolder("floating_tangleberrie")
+	public static Block tangleberrieFloating;
+	@ObjectHolder("floating_jiyuulia")
+	public static Block jiyuuliaFloating;
+	@ObjectHolder("floating_rannuncarpus")
+	public static Block rannuncarpusFloating;
+	@ObjectHolder("floating_rannuncarpus_chibi")
+	public static Block rannuncarpusChibiFloating;
+	@ObjectHolder("floating_hyacidus")
+	public static Block hyacidusFloating;
+	@ObjectHolder("floating_pollidisiac")
+	public static Block pollidisiacFloating;
+	@ObjectHolder("floating_clayconia")
+	public static Block clayconiaFloating;
+	@ObjectHolder("floating_clayconia_chibi")
+	public static Block clayconiaChibiFloating;
+	@ObjectHolder("floating_loonium")
+	public static Block looniumFloating;
+	@ObjectHolder("floating_daffomill")
+	public static Block daffomillFloating;
+	@ObjectHolder("floating_vinculotus")
+	public static Block vinculotusFloating;
+	@ObjectHolder("floating_spectranthemum")
+	public static Block spectranthemumFloating;
+	@ObjectHolder("floating_medumone")
+	public static Block medumoneFloating;
+	@ObjectHolder("floating_marimorphosis")
+	public static Block marimorphosisFloating;
+	@ObjectHolder("floating_marimorphosis_chibi")
+	public static Block marimorphosisChibiFloating;
+	@ObjectHolder("floating_bubbell")
+	public static Block bubbellFloating;
+	@ObjectHolder("floating_bubbell_chibi")
+	public static Block bubbellChibiFloating;
+	@ObjectHolder("floating_solegnolia")
+	public static Block solegnoliaFloating;
+	@ObjectHolder("floating_solegnolia_chibi")
+	public static Block solegnoliaChibiFloating;
+	@ObjectHolder("floating_orechid_ignem")
+	public static Block orechidIgnemFloating;
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());

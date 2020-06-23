@@ -118,10 +118,10 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	 * calling this method will recieve a marker block swapper which contains
 	 * the provided information but is not ticked.
 	 * 
-	 * @param  world The world the swapper will be in.
-	 * @param  pos   The position of the swapper.
-	 * @param  type  The IslandType of the grass seed
-	 * @return       The created block swapper.
+	 * @param world The world the swapper will be in.
+	 * @param pos   The position of the swapper.
+	 * @param type  The IslandType of the grass seed
+	 * @return The created block swapper.
 	 */
 	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, IslandType type) {
 		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
@@ -251,8 +251,8 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 * means that the block must be either dirt or grass (with meta 0),
 		 * and have a block above it which does not block grass growth.
 		 * 
-		 * @param  pos The position to check.
-		 * @return     True if the position is valid to swap, false otherwise.
+		 * @param pos The position to check.
+		 * @return True if the position is valid to swap, false otherwise.
 		 */
 		public boolean isValidSwapPosition(BlockPos pos) {
 			BlockState state = world.getBlockState(pos);

@@ -29,7 +29,8 @@ import java.util.List;
 import java.util.Set;
 
 public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis") public static TileEntityType<SubTileMarimorphosis> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis")
+	public static TileEntityType<SubTileMarimorphosis> TYPE;
 
 	private static final int COST = 12;
 	private static final int RANGE = 8;
@@ -173,7 +174,8 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileMarimorphosis {
-		@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis_chibi") public static TileEntityType<SubTileMarimorphosis.Mini> TYPE;
+		@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis_chibi")
+		public static TileEntityType<SubTileMarimorphosis.Mini> TYPE;
 
 		public Mini() {
 			super(TYPE);

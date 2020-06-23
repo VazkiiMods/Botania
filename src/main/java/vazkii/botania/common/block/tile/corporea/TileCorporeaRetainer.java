@@ -37,7 +37,8 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final Map<Class<? extends ICorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
 	private BlockPos requestPos = BlockPos.ZERO;
-	@Nullable private ICorporeaRequestMatcher request;
+	@Nullable
+	private ICorporeaRequestMatcher request;
 	private int requestCount;
 	private int compValue;
 

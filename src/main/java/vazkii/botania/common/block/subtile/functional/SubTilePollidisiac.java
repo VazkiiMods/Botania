@@ -22,7 +22,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTilePollidisiac extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":pollidisiac") public static TileEntityType<SubTilePollidisiac> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":pollidisiac")
+	public static TileEntityType<SubTilePollidisiac> TYPE;
 
 	private static final int RANGE = 6;
 	private static final int MANA_COST = 12;

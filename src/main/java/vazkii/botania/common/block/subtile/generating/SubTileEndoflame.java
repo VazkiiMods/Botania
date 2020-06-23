@@ -28,7 +28,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":endoflame") public static TileEntityType<SubTileEndoflame> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":endoflame")
+	public static TileEntityType<SubTileEndoflame> TYPE;
 
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final int FUEL_CAP = 32000;

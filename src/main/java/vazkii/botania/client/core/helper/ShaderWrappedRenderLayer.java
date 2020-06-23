@@ -21,7 +21,8 @@ public class ShaderWrappedRenderLayer extends RenderType {
 	private final RenderType delegate;
 	private final ShaderHelper.BotaniaShader shader;
 
-	@Nullable private final ShaderCallback cb;
+	@Nullable
+	private final ShaderCallback cb;
 
 	public ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader shader, @Nullable ShaderCallback cb, RenderType delegate) {
 		super(LibResources.PREFIX_MOD + delegate.toString() + "_with_" + shader.name(), delegate.getVertexFormat(), delegate.getDrawMode(), delegate.getBufferSize(), delegate.isUseDelegate(), true,

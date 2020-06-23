@@ -24,7 +24,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileTangleberrie extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":tangleberrie") public static TileEntityType<SubTileTangleberrie> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":tangleberrie")
+	public static TileEntityType<SubTileTangleberrie> TYPE;
 
 	public SubTileTangleberrie(TileEntityType<?> type) {
 		super(type);

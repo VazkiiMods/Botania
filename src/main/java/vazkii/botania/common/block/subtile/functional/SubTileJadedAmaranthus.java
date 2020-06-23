@@ -22,7 +22,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":jaded_amaranthus") public static TileEntityType<SubTileJadedAmaranthus> TYPE;
+	@ObjectHolder(LibMisc.MOD_ID + ":jaded_amaranthus")
+	public static TileEntityType<SubTileJadedAmaranthus> TYPE;
 
 	private static final int COST = 100;
 	final int RANGE = 4;

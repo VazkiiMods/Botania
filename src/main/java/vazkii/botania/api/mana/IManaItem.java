@@ -36,7 +36,7 @@ public interface IManaItem {
 	 * Can this item receive mana from a mana Pool?
 	 * 
 	 * @param pool The pool it's receiving mana from, can be casted to IManaPool.
-	 * @see        IManaPool#isOutputtingPower()
+	 * @see IManaPool#isOutputtingPower()
 	 */
 	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool);
 
@@ -49,7 +49,7 @@ public interface IManaItem {
 	 * Can this item export mana to a mana Pool?
 	 * 
 	 * @param pool The pool it's exporting mana to, can be casted to IManaPool.
-	 * @see        IManaPool#isOutputtingPower()
+	 * @see IManaPool#isOutputtingPower()
 	 */
 	public boolean canExportManaToPool(ItemStack stack, TileEntity pool);
 
