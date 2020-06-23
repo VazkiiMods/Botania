@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
@@ -5,6 +13,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
 import vazkii.botania.common.block.tile.mana.*;
@@ -15,8 +24,7 @@ import java.util.Arrays;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 
-public class ModTiles
-{
+public class ModTiles {
 	public static final TileEntityType<TileAltar> ALTAR = TileEntityType.Builder.create(TileAltar::new,
 			defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
 			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar
@@ -72,9 +80,8 @@ public class ModTiles
 	public static final TileEntityType<TileTeruTeruBozu> TERU_TERU_BOZU = TileEntityType.Builder.create(TileTeruTeruBozu::new, teruTeruBozu).build(null);
 	public static final TileEntityType<TileAvatar> AVATAR = TileEntityType.Builder.create(TileAvatar::new, avatar).build(null);
 	public static final TileEntityType<TileAnimatedTorch> ANIMATED_TORCH = TileEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null);
-	
-	public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> evt)
-	{
+
+	public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 		register(r, LibBlockNames.ALTAR, ALTAR);
 		register(r, LibBlockNames.SPREADER, SPREADER);
