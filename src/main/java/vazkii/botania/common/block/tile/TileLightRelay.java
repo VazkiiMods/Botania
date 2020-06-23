@@ -55,7 +55,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileLightRelay extends TileMod implements ITickableTileEntity, IWandBindable {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.LIGHT_RELAY) public static TileEntityType<TileLightRelay> TYPE;
 	private static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
@@ -66,7 +65,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	private int ticksElapsed = 0;
 
 	public TileLightRelay() {
-		super(TYPE);
+		super(ModTiles.LIGHT_RELAY);
 	}
 
 	public void mountEntity(Entity e) {

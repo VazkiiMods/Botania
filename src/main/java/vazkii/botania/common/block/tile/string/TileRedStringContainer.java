@@ -19,6 +19,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -28,13 +29,12 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_CONTAINER) public static TileEntityType<TileRedStringContainer> TYPE;
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
 	@Nullable private LazyOptional<?> lastBoundInv = null;
 	@Nullable private LazyOptional<?> proxiedInv = null;
 
 	public TileRedStringContainer() {
-		this(TYPE);
+		this(ModTiles.RED_STRING_CONTAINER);
 	}
 
 	public TileRedStringContainer(TileEntityType<?> type) {

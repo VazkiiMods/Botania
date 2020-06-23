@@ -18,12 +18,10 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileForestEye extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FOREST_EYE) public static TileEntityType<TileForestEye> TYPE;
-
 	public int entities = 0;
 
 	public TileForestEye() {
-		super(TYPE);
+		super(ModTiles.FORSET_EYE);
 	}
 
 	@Override

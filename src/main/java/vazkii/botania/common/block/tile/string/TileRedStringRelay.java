@@ -18,14 +18,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileRedStringRelay extends TileRedString {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_RELAY) public static TileEntityType<TileRedStringRelay> TYPE;
-
 	public TileRedStringRelay() {
-		super(TYPE);
+		super(ModTiles.RED_STRING_RELAY);
 	}
 
 	@Override

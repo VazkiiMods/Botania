@@ -17,10 +17,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileTinyPlanet extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_PLANET) public static TileEntityType<TileTinyPlanet> TYPE;
-
 	public TileTinyPlanet() {
-		super(TYPE);
+		super(ModTiles.TINY_PLANET);
 	}
 
 	@Override

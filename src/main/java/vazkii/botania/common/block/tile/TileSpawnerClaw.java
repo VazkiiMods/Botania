@@ -29,13 +29,12 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Optional;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPAWNER_CLAW) public static TileEntityType<TileSpawnerClaw> TYPE;
 	private static final String TAG_MANA = "mana";
 
 	private int mana = 0;
 
 	public TileSpawnerClaw() {
-		super(TYPE);
+		super(ModTiles.SPAWNER_CLAW);
 	}
 
 	@Override

@@ -31,13 +31,12 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Random;
 
 public class TilePylon extends TileEntity implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PYLON) public static TileEntityType<TilePylon> TYPE;
 	boolean activated = false;
 	BlockPos centerPos;
 	private int ticks = 0;
 
 	public TilePylon() {
-		super(TYPE);
+		super(ModTiles.PYLON);
 	}
 
 	@Override

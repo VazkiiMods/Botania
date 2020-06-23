@@ -40,7 +40,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TERRA_PLATE) public static TileEntityType<TileTerraPlate> TYPE;
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
 	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
@@ -67,7 +66,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	private int mana;
 
 	public TileTerraPlate() {
-		super(TYPE);
+		super(ModTiles.TERRA_PLATE);
 	}
 
 	@Override

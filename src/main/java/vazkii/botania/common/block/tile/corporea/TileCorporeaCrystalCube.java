@@ -20,13 +20,13 @@ import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_CRYSTAL_CUBE) public static TileEntityType<TileCorporeaCrystalCube> TYPE;
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
@@ -38,7 +38,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public boolean locked = false;
 
 	public TileCorporeaCrystalCube() {
-		super(TYPE);
+		super(ModTiles.CORPOREA_CRYSTAL_CUBE);
 	}
 
 	@Override

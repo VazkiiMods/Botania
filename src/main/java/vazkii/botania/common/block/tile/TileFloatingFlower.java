@@ -35,8 +35,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileFloatingFlower extends TileMod {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MINI_ISLAND) public static TileEntityType<TileFloatingFlower> TYPE;
-
 	private static final String TAG_FLOATING_DATA = "floating";
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
@@ -52,7 +50,7 @@ public class TileFloatingFlower extends TileMod {
 	private final LazyOptional<IFloatingFlower> floatingDataCap = LazyOptional.of(() -> floatingData);
 
 	public TileFloatingFlower() {
-		super(TYPE);
+		super(ModTiles.MINI_ISLAND);
 	}
 
 	@Nonnull

@@ -19,14 +19,12 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TileBifrost extends TileMod implements ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BIFROST) public static TileEntityType<TileBifrost> TYPE;
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
 
 	public TileBifrost() {
-		super(TYPE);
+		super(ModTiles.BIFROST);
 	}
 
 	@Override

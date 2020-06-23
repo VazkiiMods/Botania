@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.corporea.*;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -26,7 +27,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 public class TileCorporeaRetainer extends TileMod {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_RETAINER) public static TileEntityType<TileCorporeaRetainer> TYPE;
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
@@ -42,7 +42,7 @@ public class TileCorporeaRetainer extends TileMod {
 	private int compValue;
 
 	public TileCorporeaRetainer() {
-		super(TYPE);
+		super(ModTiles.CORPOREA_RETAINER);
 	}
 
 	public void setPendingRequest(BlockPos pos, ICorporeaRequestMatcher request, int requestCount) {

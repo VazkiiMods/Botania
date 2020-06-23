@@ -53,7 +53,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RUNE_ALTAR) public static TileEntityType<TileRuneAltar> TYPE;
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -71,7 +70,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	private int recipeKeepTicks = 0;
 
 	public TileRuneAltar() {
-		super(TYPE);
+		super(ModTiles.RUNE_ALTAR);
 	}
 
 	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {

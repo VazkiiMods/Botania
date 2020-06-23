@@ -21,6 +21,7 @@ import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -28,10 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INTERCEPTOR) public static TileEntityType<TileCorporeaInterceptor> TYPE;
-
 	public TileCorporeaInterceptor() {
-		super(TYPE);
+		super(ModTiles.CORPOREA_INTERCEPTOR);
 	}
 
 	@Override

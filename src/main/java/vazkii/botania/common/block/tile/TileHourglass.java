@@ -33,7 +33,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TileHourglass extends TileSimpleInventory implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.HOURGLASS) public static TileEntityType<TileHourglass> TYPE;
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -50,7 +49,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	public boolean move = true;
 
 	public TileHourglass() {
-		super(TYPE);
+		super(ModTiles.HOURGLASS);
 	}
 
 	private boolean isDust() {

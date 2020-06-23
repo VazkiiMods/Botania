@@ -25,9 +25,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.AVATAR) public static TileEntityType<TileAvatar> TYPE;
-
 	private static final int MAX_MANA = 6400;
 
 	private static final String TAG_ENABLED = "enabled";
@@ -39,7 +36,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	private int mana;
 
 	public TileAvatar() {
-		super(TYPE);
+		super(ModTiles.AVATAR);
 	}
 
 	@Override

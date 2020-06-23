@@ -18,14 +18,13 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaFlame extends TileMod implements ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MANA_FLAME) public static TileEntityType<TileManaFlame> TYPE;
 	private static final String TAG_COLOR = "color";
 
 	private int color = 0x20FF20;
 	private int lightColor = -1;
 
 	public TileManaFlame() {
-		super(TYPE);
+		super(ModTiles.MANA_FLAME);
 	}
 
 	public void setColor(int color) {

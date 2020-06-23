@@ -23,6 +23,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -33,7 +34,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INDEX) public static TileEntityType<TileCorporeaIndex> TYPE;
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
@@ -264,7 +264,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public boolean hasCloseby;
 
 	public TileCorporeaIndex() {
-		super(TYPE);
+		super(ModTiles.CORPOREA_INDEX);
 	}
 
 	@Override

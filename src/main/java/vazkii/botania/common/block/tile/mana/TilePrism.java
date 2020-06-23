@@ -22,6 +22,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -29,10 +30,8 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TilePrism extends TileSimpleInventory {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PRISM) public static TileEntityType<TilePrism> TYPE;
-
 	public TilePrism() {
-		super(TYPE);
+		super(ModTiles.PRISM);
 	}
 
 	public void onBurstCollision(IManaBurst burst) {

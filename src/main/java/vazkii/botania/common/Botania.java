@@ -66,6 +66,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
@@ -148,7 +149,7 @@ public class Botania {
 		modBus.addGenericListener(Effect.class, ModPotions::registerPotions);
 		modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);
 		modBus.addGenericListener(Item.class, ModBlocks::registerItemBlocks);
-		modBus.addGenericListener(TileEntityType.class, ModBlocks::initTileEntities);
+		modBus.addGenericListener(TileEntityType.class, ModTiles::registerTiles);
 		modBus.addGenericListener(Block.class, ModFluffBlocks::registerBlocks);
 		modBus.addGenericListener(Item.class, ModFluffBlocks::registerItemBlocks);
 		modBus.addGenericListener(ParticleType.class, ModParticles::registerParticles);

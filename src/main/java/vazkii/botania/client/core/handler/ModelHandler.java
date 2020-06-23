@@ -55,43 +55,43 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(prefix("block/redstone_spreader_inside"));
 		registerSubtiles();
 
-		ClientRegistry.bindTileEntityRenderer(TileAltar.TYPE, RenderTileAltar::new);
-		ClientRegistry.bindTileEntityRenderer(TileSpreader.TYPE, RenderTileSpreader::new);
-		ClientRegistry.bindTileEntityRenderer(TilePool.TYPE, RenderTilePool::new);
-		ClientRegistry.bindTileEntityRenderer(TileRuneAltar.TYPE, RenderTileRuneAltar::new);
-		ClientRegistry.bindTileEntityRenderer(TilePylon.TYPE, RenderTilePylon::new);
-		ClientRegistry.bindTileEntityRenderer(TileEnchanter.TYPE, RenderTileEnchanter::new);
-		ClientRegistry.bindTileEntityRenderer(TileAlfPortal.TYPE, RenderTileAlfPortal::new);
-		ClientRegistry.bindTileEntityRenderer(TileFloatingFlower.TYPE, RenderTileFloatingFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.ALTAR, RenderTileAltar::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.SPREADER, RenderTileSpreader::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.POOL, RenderTilePool::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RUNE_ALTAR, RenderTileRuneAltar::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.PYLON, RenderTilePylon::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.ENCHANTER, RenderTileEnchanter::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.ALF_PORTAL, RenderTileAlfPortal::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.MINI_ISLAND, RenderTileFloatingFlower::new);
 		// TODO 1.14 this seems highly questionable.
 		ModSubtiles.getTypes().stream()
 				.map(Pair::getSecond)
 				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
 				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
-		ClientRegistry.bindTileEntityRenderer(TileTinyPotato.TYPE, RenderTileTinyPotato::new);
-		ClientRegistry.bindTileEntityRenderer(TileStarfield.TYPE, RenderTileStarfield::new);
-		ClientRegistry.bindTileEntityRenderer(TileBrewery.TYPE, RenderTileBrewery::new);
-		ClientRegistry.bindTileEntityRenderer(TileTerraPlate.TYPE, RenderTileTerraPlate::new);
-		ClientRegistry.bindTileEntityRenderer(TileRedStringComparator.TYPE, RenderTileRedString::new);
-		ClientRegistry.bindTileEntityRenderer(TileRedStringContainer.TYPE, RenderTileRedString::new);
-		ClientRegistry.bindTileEntityRenderer(TileRedStringDispenser.TYPE, RenderTileRedString::new);
-		ClientRegistry.bindTileEntityRenderer(TileRedStringFertilizer.TYPE, RenderTileRedString::new);
-		ClientRegistry.bindTileEntityRenderer(TileRedStringInterceptor.TYPE, RenderTileRedString::new);
-		ClientRegistry.bindTileEntityRenderer(TileRedStringRelay.TYPE, RenderTileRedString::new);
-		ClientRegistry.bindTileEntityRenderer(TilePrism.TYPE, RenderTilePrism::new);
-		ClientRegistry.bindTileEntityRenderer(TileCorporeaIndex.TYPE, RenderTileCorporeaIndex::new);
-		ClientRegistry.bindTileEntityRenderer(TilePump.TYPE, RenderTilePump::new);
-		ClientRegistry.bindTileEntityRenderer(TileCorporeaCrystalCube.TYPE, RenderTileCorporeaCrystalCube::new);
-		ClientRegistry.bindTileEntityRenderer(TileIncensePlate.TYPE, RenderTileIncensePlate::new);
-		ClientRegistry.bindTileEntityRenderer(TileHourglass.TYPE, RenderTileHourglass::new);
-		ClientRegistry.bindTileEntityRenderer(TileSparkChanger.TYPE, RenderTileSparkChanger::new);
-		ClientRegistry.bindTileEntityRenderer(TileCocoon.TYPE, RenderTileCocoon::new);
-		ClientRegistry.bindTileEntityRenderer(TileLightRelay.TYPE, RenderTileLightRelay::new);
-		ClientRegistry.bindTileEntityRenderer(TileBellows.TYPE, RenderTileBellows::new);
-		ClientRegistry.bindTileEntityRenderer(TileGaiaHead.TYPE, RenderTileGaiaHead::new);
-		ClientRegistry.bindTileEntityRenderer(TileTeruTeruBozu.TYPE, RenderTileTeruTeruBozu::new);
-		ClientRegistry.bindTileEntityRenderer(TileAvatar.TYPE, RenderTileAvatar::new);
-		ClientRegistry.bindTileEntityRenderer(TileAnimatedTorch.TYPE, RenderTileAnimatedTorch::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.TINY_POTATO, RenderTileTinyPotato::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.STARFIELD, RenderTileStarfield::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.BREWERY, RenderTileBrewery::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.TERRA_PLATE, RenderTileTerraPlate::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RED_STRING_COMPARATOR, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RED_STRING_CONTAINER, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RED_STRING_DISPENSER, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RED_STRING_FERTILIZER, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RED_STRING_INTERCEPTOR, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.RED_STRING_RELAY, RenderTileRedString::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.PRISM, RenderTilePrism::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.CORPOREA_INDEX, RenderTileCorporeaIndex::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.PUMP, RenderTilePump::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.CORPOREA_CRYSTAL_CUBE, RenderTileCorporeaCrystalCube::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.INCENSE_PLATE, RenderTileIncensePlate::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.HOURGLASS, RenderTileHourglass::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.SPARK_CHANGER, RenderTileSparkChanger::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.COCOON, RenderTileCocoon::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.LIGHT_RELAY, RenderTileLightRelay::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.BELLOWS, RenderTileBellows::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.GAIA_HEAD, RenderTileGaiaHead::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.TERU_TERU_BOZU, RenderTileTeruTeruBozu::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.AVATAR, RenderTileAvatar::new);
+		ClientRegistry.bindTileEntityRenderer(ModTiles.ANIMATED_TORCH, RenderTileAnimatedTorch::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_BURST, RenderNoop::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLAYER_MOVER, RenderNoop::new);

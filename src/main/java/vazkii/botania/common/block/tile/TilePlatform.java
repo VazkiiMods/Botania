@@ -33,13 +33,12 @@ public class TilePlatform extends TileMod {
 	public static final ModelProperty<BlockState> HELD_STATE = new ModelProperty<>();
 	public static final ModelProperty<BlockPos> HELD_POS = new ModelProperty<>();
 
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PLATFORM) public static TileEntityType<TilePlatform> TYPE;
 	private static final String TAG_CAMO = "camo";
 
 	public BlockState camoState;
 
 	public TilePlatform() {
-		super(TYPE);
+		super(ModTiles.PLATFORM);
 	}
 
 	public boolean onWanded(PlayerEntity player) {

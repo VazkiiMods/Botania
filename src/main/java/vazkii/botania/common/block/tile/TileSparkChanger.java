@@ -29,10 +29,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class TileSparkChanger extends TileSimpleInventory {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPARK_CHANGER) public static TileEntityType<TileSparkChanger> TYPE;
-
 	public TileSparkChanger() {
-		super(TYPE);
+		super(ModTiles.SPARK_CHANGER);
 	}
 
 	public void doSwap() {

@@ -18,12 +18,10 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TileGaiaHead extends SkullTileEntity {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.GAIA_HEAD) public static TileEntityType<TileGaiaHead> TYPE;
-
 	@Nonnull
 	@Override
 	public TileEntityType<TileGaiaHead> getType() {
-		return TYPE;
+		return ModTiles.GAIA_HEAD;
 	}
 
 }

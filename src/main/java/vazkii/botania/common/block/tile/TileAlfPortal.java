@@ -53,9 +53,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL) public static TileEntityType<TileAlfPortal> TYPE;
-
 	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
@@ -84,7 +81,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	@Nullable private UUID breadPlayer = null;
 
 	public TileAlfPortal() {
-		super(TYPE);
+		super(ModTiles.ALF_PORTAL);
 	}
 
 	@Override

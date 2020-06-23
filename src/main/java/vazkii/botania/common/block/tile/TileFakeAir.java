@@ -21,8 +21,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class TileFakeAir extends TileMod {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FAKE_AIR) public static TileEntityType<TileFakeAir> TYPE;
 	private static final String TAG_FLOWER_X = "flowerX";
 	private static final String TAG_FLOWER_Y = "flowerY";
 	private static final String TAG_FLOWER_Z = "flowerZ";
@@ -30,7 +28,7 @@ public class TileFakeAir extends TileMod {
 	private BlockPos flowerPos = BlockPos.ZERO;
 
 	public TileFakeAir() {
-		super(TYPE);
+		super(ModTiles.FAKE_AIR);
 	}
 
 	public void setFlower(TileEntity tile) {

@@ -32,9 +32,6 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
-
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ANIMATED_TORCH) public static TileEntityType<TileAnimatedTorch> TYPE;
-
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -62,7 +59,7 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 	private TorchMode torchMode = TorchMode.TOGGLE;
 
 	public TileAnimatedTorch() {
-		super(TYPE);
+		super(ModTiles.ANIMATED_TORCH);
 	}
 
 	@Override
