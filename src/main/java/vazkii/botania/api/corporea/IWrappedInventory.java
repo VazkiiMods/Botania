@@ -41,10 +41,10 @@ public interface IWrappedInventory {
 
 	/**
 	 * Extracts items matching request from the inventory.<br/>
-	 * {@link ICorporeaRequest#stillNeeded} is updated to reflect how many items are
+	 * {@link ICorporeaRequest#getStillNeeded()} is updated to reflect how many items are
 	 * yet to be extracted.<br/>
-	 * {@link ICorporeaRequest#foundItems} and
-	 * {@link ICorporeaRequest#extractedItems} are updated to reflect how many
+	 * {@link ICorporeaRequest#getFound()} and
+	 * {@link ICorporeaRequest#getExtracted()} are updated to reflect how many
 	 * items were found and extracted.
 	 *
 	 * @param request
