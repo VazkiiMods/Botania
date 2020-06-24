@@ -17,19 +17,17 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTilePollidisiac extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":pollidisiac")
-	public static TileEntityType<SubTilePollidisiac> TYPE;
-
 	private static final int RANGE = 6;
 	private static final int MANA_COST = 12;
 
 	public SubTilePollidisiac() {
-		super(TYPE);
+		super(ModSubtiles.POLLIDISIAC);
 	}
 
 	@Override

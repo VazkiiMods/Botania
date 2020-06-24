@@ -24,14 +24,13 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":gourmaryllis")
-	public static TileEntityType<SubTileGourmaryllis> TYPE;
-
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_DIGESTING_MANA = "digestingMana";
 	public static final String TAG_LAST_FOOD = "lastFood";
@@ -44,7 +43,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	private int lastFoodCount = 0;
 
 	public SubTileGourmaryllis() {
-		super(TYPE);
+		super(ModSubtiles.GOURMARYLLIS);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
@@ -24,15 +25,12 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.List;
 
 public class SubTileTangleberrie extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":tangleberrie")
-	public static TileEntityType<SubTileTangleberrie> TYPE;
-
 	public SubTileTangleberrie(TileEntityType<?> type) {
 		super(type);
 	}
 
 	public SubTileTangleberrie() {
-		this(TYPE);
+		this(ModSubtiles.TANGLEBERRIE);
 	}
 
 	@Override

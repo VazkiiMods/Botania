@@ -23,14 +23,13 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":endoflame")
-	public static TileEntityType<SubTileEndoflame> TYPE;
-
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final int FUEL_CAP = 32000;
 	private static final int RANGE = 3;
@@ -39,7 +38,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private int burnTime = 0;
 
 	public SubTileEndoflame() {
-		super(TYPE);
+		super(ModSubtiles.ENDOFLAME);
 	}
 
 	@Override

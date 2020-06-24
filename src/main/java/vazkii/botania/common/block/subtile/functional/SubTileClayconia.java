@@ -19,6 +19,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -26,9 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileClayconia extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":clayconia")
-	public static TileEntityType<SubTileClayconia> TYPE;
-
 	private static final int COST = 80;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
@@ -41,7 +39,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileClayconia() {
-		this(TYPE);
+		this(ModSubtiles.CLAYCONIA);
 	}
 
 	@Override
@@ -112,11 +110,8 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileClayconia {
-		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi")
-		public static TileEntityType<SubTileBellethorn.Mini> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.CLAYCONIA_CHIBI);
 		}
 
 		@Override

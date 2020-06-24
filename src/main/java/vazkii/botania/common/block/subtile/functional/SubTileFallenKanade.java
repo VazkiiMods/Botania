@@ -18,19 +18,17 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileFallenKanade extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":fallen_kanade")
-	public static TileEntityType<SubTileFallenKanade> TYPE;
-
 	private static final int RANGE = 2;
 	private static final int COST = 120;
 
 	public SubTileFallenKanade() {
-		super(TYPE);
+		super(ModSubtiles.FALLEN_KANADE);
 	}
 
 	@Override

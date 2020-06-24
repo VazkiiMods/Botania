@@ -36,6 +36,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -44,9 +45,6 @@ import java.util.List;
 import java.util.Random;
 
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":loonium")
-	public static TileEntityType<SubTileLoonuim> TYPE;
-
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
 	private static final String TAG_LOOT_TABLE = "lootTable";
@@ -55,7 +53,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
 	public SubTileLoonuim() {
-		super(TYPE);
+		super(ModSubtiles.LOONIUM);
 	}
 
 	@Override

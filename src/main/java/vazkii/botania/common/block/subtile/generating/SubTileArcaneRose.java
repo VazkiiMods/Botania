@@ -16,19 +16,18 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileArcaneRose extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rosa_arcana")
-	public static TileEntityType<SubTileArcaneRose> TYPE;
-
 	private static final int RANGE = 1;
 
 	public SubTileArcaneRose() {
-		super(TYPE);
+		super(ModSubtiles.ROSA_ARCANA);
 	}
 
 	@Override

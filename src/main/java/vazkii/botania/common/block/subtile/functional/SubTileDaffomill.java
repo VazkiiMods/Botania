@@ -26,6 +26,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketItemAge;
@@ -33,9 +34,6 @@ import vazkii.botania.common.network.PacketItemAge;
 import java.util.List;
 
 public class SubTileDaffomill extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":daffomill")
-	public static TileEntityType<SubTileDaffomill> TYPE;
-
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
 
@@ -43,7 +41,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	private Direction orientation = Direction.NORTH;
 
 	public SubTileDaffomill() {
-		super(TYPE);
+		super(ModSubtiles.DAFFOMILL);
 	}
 
 	@Override

@@ -19,6 +19,8 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -26,9 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileDandelifeon extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":dandelifeon")
-	public static TileEntityType<SubTileDandelifeon> TYPE;
-
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 //	private static final int MAX_GENERATIONS = 100;
@@ -47,7 +46,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	};
 
 	public SubTileDandelifeon() {
-		super(TYPE);
+		super(ModSubtiles.DANDELIFEON);
 	}
 
 	@Override

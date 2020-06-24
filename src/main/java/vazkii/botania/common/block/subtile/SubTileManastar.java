@@ -17,12 +17,11 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileManastar extends TileEntitySpecialFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":manastar")
-	public static TileEntityType<SubTileManastar> TYPE;
-
 	private static final int SET_STATE_EVENT = 0;
 	private static final int NONE = 0, DECREASING = 1, INCREASING = 2;
 
@@ -30,7 +29,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 	private int state = NONE;
 
 	public SubTileManastar() {
-		super(TYPE);
+		super(ModSubtiles.MANASTAR);
 	}
 
 	@Override

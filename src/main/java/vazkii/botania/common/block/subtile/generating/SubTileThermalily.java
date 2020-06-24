@@ -16,15 +16,14 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileThermalily extends SubTileHydroangeas {
-	@ObjectHolder(LibMisc.MOD_ID + ":thermalily")
-	public static TileEntityType<SubTileThermalily> TYPE;
-
 	public SubTileThermalily() {
-		super(TYPE);
+		super(ModSubtiles.THERMALILY);
 	}
 
 	@Override

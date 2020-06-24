@@ -20,15 +20,13 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nullable;
 
 public class SubTileRafflowsia extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rafflowsia")
-	public static TileEntityType<SubTileRafflowsia> TYPE;
-
 	public static final String TAG_LAST_FLOWER = "lastFlower";
 	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 
@@ -39,7 +37,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	private static final int RANGE = 5;
 
 	public SubTileRafflowsia() {
-		super(TYPE);
+		super(ModSubtiles.RAFFLOWSIA);
 	}
 
 	@Override

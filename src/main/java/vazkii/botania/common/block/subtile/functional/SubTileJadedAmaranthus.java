@@ -18,18 +18,16 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":jaded_amaranthus")
-	public static TileEntityType<SubTileJadedAmaranthus> TYPE;
-
 	private static final int COST = 100;
 	final int RANGE = 4;
 
 	public SubTileJadedAmaranthus() {
-		super(TYPE);
+		super(ModSubtiles.JADED_AMARANTHUS);
 	}
 
 	@Override

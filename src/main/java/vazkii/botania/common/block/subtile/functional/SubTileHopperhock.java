@@ -35,6 +35,7 @@ import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -42,9 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileHopperhock extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hopperhock")
-	public static TileEntityType<SubTileHopperhock> TYPE;
-
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
 	private static final int RANGE = 6;
@@ -59,7 +57,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileHopperhock() {
-		this(TYPE);
+		this(ModSubtiles.HOPPERHOCK);
 	}
 
 	@Override
@@ -263,11 +261,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileHopperhock {
-		@ObjectHolder(LibMisc.MOD_ID + ":hopperhock_chibi")
-		public static TileEntityType<SubTileBellethorn> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.HOPPERHOCK_CHIBI);
 		}
 
 		@Override

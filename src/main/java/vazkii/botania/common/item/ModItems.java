@@ -25,8 +25,6 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
-
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -76,15 +74,12 @@ import vazkii.botania.common.item.record.ItemModRecord;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Locale;
 
-import static vazkii.botania.common.block.ModBlocks.dreamwood;
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@ObjectHolder(LibMisc.MOD_ID)
 public final class ModItems {
 	public static final Item lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
 

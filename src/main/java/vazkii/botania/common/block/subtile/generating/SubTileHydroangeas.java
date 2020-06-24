@@ -26,6 +26,8 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
@@ -33,9 +35,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileHydroangeas extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hydroangeas")
-	public static TileEntityType<SubTileHydroangeas> TYPE;
-
 	private static final String TAG_BURN_TIME = "burnTime";
 	public static final String TAG_COOLDOWN = "cooldown";
 
@@ -44,7 +43,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	int burnTime, cooldown;
 
 	public SubTileHydroangeas() {
-		this(TYPE);
+		this(ModSubtiles.HYDROANGEAS);
 	}
 
 	public SubTileHydroangeas(TileEntityType<?> type) {

@@ -19,19 +19,17 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileHyacidus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":hyacidus")
-	public static TileEntityType<SubTileHyacidus> TYPE;
-
 	private static final int RANGE = 6;
 	private static final int COST = 20;
 
 	public SubTileHyacidus() {
-		super(TYPE);
+		super(ModSubtiles.HYACIDUS);
 	}
 
 	@Override

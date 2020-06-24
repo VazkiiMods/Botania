@@ -22,21 +22,20 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubTileTigerseye extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":tigerseye")
-	public static TileEntityType<SubTileTigerseye> TYPE;
-
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
 	private static final int COST = 70;
 
 	public SubTileTigerseye() {
-		super(TYPE);
+		super(ModSubtiles.TIGERSEYE);
 	}
 
 	@Override

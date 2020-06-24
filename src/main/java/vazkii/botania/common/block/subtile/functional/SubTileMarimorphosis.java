@@ -21,6 +21,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -29,9 +30,6 @@ import java.util.List;
 import java.util.Set;
 
 public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis")
-	public static TileEntityType<SubTileMarimorphosis> TYPE;
-
 	private static final int COST = 12;
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 5;
@@ -55,7 +53,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileMarimorphosis() {
-		this(TYPE);
+		this(ModSubtiles.MARIMORPHOSIS);
 	}
 
 	@Override
@@ -174,11 +172,8 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileMarimorphosis {
-		@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis_chibi")
-		public static TileEntityType<SubTileMarimorphosis.Mini> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.MARIMORPHOSIS_CHIBI);
 		}
 
 		@Override
