@@ -57,722 +57,569 @@ import java.util.Locale;
 
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModBlocks {
-	@ObjectHolder("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block whiteFlower;
-	@ObjectHolder("orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block orangeFlower;
-	@ObjectHolder("magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block magentaFlower;
-	@ObjectHolder("light_blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block lightBlueFlower;
-	@ObjectHolder("yellow" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block yellowFlower;
-	@ObjectHolder("lime" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block limeFlower;
-	@ObjectHolder("pink" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block pinkFlower;
-	@ObjectHolder("gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block grayFlower;
-	@ObjectHolder("light_gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block lightGrayFlower;
-	@ObjectHolder("cyan" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block cyanFlower;
-	@ObjectHolder("purple" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block purpleFlower;
-	@ObjectHolder("blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block blueFlower;
-	@ObjectHolder("brown" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block brownFlower;
-	@ObjectHolder("green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block greenFlower;
-	@ObjectHolder("red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block redFlower;
-	@ObjectHolder("black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX)
-	public static Block blackFlower;
+	public static Block whiteFlower = new BlockModFlower(DyeColor.WHITE, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
+	public static Block orangeFlower = new BlockModFlower(DyeColor.ORANGE, Block.Properties.from(whiteFlower));
+	public static Block magentaFlower = new BlockModFlower(DyeColor.MAGENTA, Block.Properties.from(whiteFlower));
+	public static Block lightBlueFlower = new BlockModFlower(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteFlower));
+	public static Block yellowFlower = new BlockModFlower(DyeColor.YELLOW, Block.Properties.from(whiteFlower));
+	public static Block limeFlower = new BlockModFlower(DyeColor.LIME, Block.Properties.from(whiteFlower));
+	public static Block pinkFlower = new BlockModFlower(DyeColor.PINK, Block.Properties.from(whiteFlower));
+	public static Block grayFlower = new BlockModFlower(DyeColor.GRAY, Block.Properties.from(whiteFlower));
+	public static Block lightGrayFlower = new BlockModFlower(DyeColor.LIGHT_GRAY, Block.Properties.from(whiteFlower));
+	public static Block cyanFlower = new BlockModFlower(DyeColor.CYAN, Block.Properties.from(whiteFlower));
+	public static Block purpleFlower = new BlockModFlower(DyeColor.PURPLE, Block.Properties.from(whiteFlower));
+	public static Block blueFlower = new BlockModFlower(DyeColor.BLUE, Block.Properties.from(whiteFlower));
+	public static Block brownFlower = new BlockModFlower(DyeColor.BROWN, Block.Properties.from(whiteFlower));
+	public static Block greenFlower = new BlockModFlower(DyeColor.GREEN, Block.Properties.from(whiteFlower));
+	public static Block redFlower = new BlockModFlower(DyeColor.RED, Block.Properties.from(whiteFlower));
+	public static Block blackFlower = new BlockModFlower(DyeColor.BLACK, Block.Properties.from(whiteFlower));
 
-	@ObjectHolder("apothecary_default")
-	public static Block defaultAltar;
-	@ObjectHolder("apothecary_forest")
-	public static Block forestAltar;
-	@ObjectHolder("apothecary_plains")
-	public static Block plainsAltar;
-	@ObjectHolder("apothecary_mountain")
-	public static Block mountainAltar;
-	@ObjectHolder("apothecary_fungal")
-	public static Block fungalAltar;
-	@ObjectHolder("apothecary_swamp")
-	public static Block swampAltar;
-	@ObjectHolder("apothecary_desert")
-	public static Block desertAltar;
-	@ObjectHolder("apothecary_taiga")
-	public static Block taigaAltar;
-	@ObjectHolder("apothecary_mesa")
-	public static Block mesaAltar;
-	@ObjectHolder("apothecary_mossy")
-	public static Block mossyAltar;
+	public static Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE));
+	public static Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, Block.Properties.from(defaultAltar));
+	public static Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, Block.Properties.from(defaultAltar));
+	public static Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, Block.Properties.from(defaultAltar));
+	public static Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL, Block.Properties.from(defaultAltar));
+	public static Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP, Block.Properties.from(defaultAltar));
+	public static Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT, Block.Properties.from(defaultAltar));
+	public static Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA, Block.Properties.from(defaultAltar));
+	public static Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA, Block.Properties.from(defaultAltar));
+	public static Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, Block.Properties.from(defaultAltar));
 
-	@ObjectHolder(LibBlockNames.LIVING_ROCK)
-	public static Block livingrock;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK)
-	public static Block livingrockBrick;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CHISELED)
-	public static Block livingrockBrickChiseled;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CRACKED)
-	public static Block livingrockBrickCracked;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_MOSSY)
-	public static Block livingrockBrickMossy;
+	public static Block livingrock = new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE));
+	public static Block livingrockBrick = new BlockMod(Block.Properties.from(livingrock));
+	public static Block livingrockBrickChiseled = new BlockMod(Block.Properties.from(livingrock));
+	public static Block livingrockBrickCracked = new BlockMod(Block.Properties.from(livingrock));
+	public static Block livingrockBrickMossy = new BlockMod(Block.Properties.from(livingrock));
 
-	@ObjectHolder(LibBlockNames.LIVING_WOOD)
-	public static Block livingwood;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS)
-	public static Block livingwoodPlanks;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY)
-	public static Block livingwoodPlanksMossy;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_FRAMED)
-	public static Block livingwoodFramed;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED)
-	public static Block livingwoodPatternFramed;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING)
-	public static Block livingwoodGlimmering;
+	public static Block livingwood = new BlockMod(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD));
+	public static Block livingwoodPlanks = new BlockMod(Block.Properties.from(livingwood));
+	public static Block livingwoodPlanksMossy = new BlockMod(Block.Properties.from(livingwood));
+	public static Block livingwoodFramed = new BlockMod(Block.Properties.from(livingwood));
+	public static Block livingwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
+	public static Block livingwoodGlimmering = new BlockMod(Block.Properties.from(livingwood).lightValue(12));
 
-	@ObjectHolder(LibBlockNames.SPREADER)
-	public static Block manaSpreader;
-	@ObjectHolder(LibBlockNames.SPREADER_REDSTONE)
-	public static Block redstoneSpreader;
-	@ObjectHolder(LibBlockNames.SPREADER_ELVEN)
-	public static Block elvenSpreader;
-	@ObjectHolder(LibBlockNames.SPREADER_GAIA)
-	public static Block gaiaSpreader;
+	public static Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, Block.Properties.from(livingwood));
+	public static Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, Block.Properties.from(livingwood));
+	public static Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, Block.Properties.from(livingwood));
+	public static Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, Block.Properties.from(livingwood));
 
-	@ObjectHolder(LibBlockNames.POOL)
-	public static Block manaPool;
-	@ObjectHolder(LibBlockNames.POOL_CREATIVE)
-	public static Block creativePool;
-	@ObjectHolder(LibBlockNames.POOL_DILUTED)
-	public static Block dilutedPool;
-	@ObjectHolder(LibBlockNames.POOL_FABULOUS)
-	public static Block fabulousPool;
+	public static Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT, Block.Properties.from(livingrock));
+	public static Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE, Block.Properties.from(livingrock));
+	public static Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED, Block.Properties.from(livingrock));
+	public static Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS, Block.Properties.from(livingrock));
 
-	@ObjectHolder(LibBlockNames.RUNE_ALTAR)
-	public static Block runeAltar;
-	@ObjectHolder(LibBlockNames.PYLON)
-	public static Block manaPylon;
-	@ObjectHolder(LibBlockNames.PYLON_NATURA)
-	public static Block naturaPylon;
-	@ObjectHolder(LibBlockNames.PYLON_GAIA)
-	public static Block gaiaPylon;
+	public static Block runeAltar = new BlockRuneAltar(Block.Properties.from(livingrock));
+	public static Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7));
+	public static Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, Block.Properties.from(manaPylon));
+	public static Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, Block.Properties.from(manaPylon));
+	
+	public static Block pistonRelay = new BlockPistonRelay(Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL));
+	public static Block distributor = new BlockDistributor(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE));
+	public static Block manaVoid = new BlockManaVoid(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE));
+	public static Block manaDetector = new BlockManaDetector(Block.Properties.from(livingrock));
+	public static Block enchanter = new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE));
+	public static Block turntable = new BlockTurntable(Block.Properties.from(livingwood));
+	public static Block tinyPlanet = new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE));
+	public static Block alchemyCatalyst = new BlockAlchemyCatalyst(Block.Properties.from(livingrock));
+	public static Block openCrate = new BlockOpenCrate(Block.Properties.from(livingwood));
+	public static Block craftCrate = new BlockCraftyCrate(Block.Properties.from(livingwood));
+	public static Block forestEye = new BlockForestEye(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL));
+	public static Block manasteelBlock = new BlockStorage(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));
+	public static Block terrasteelBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
+	public static Block elementiumBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
+	public static Block manaDiamondBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
+	public static Block dragonstoneBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
+	public static Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, Block.Properties.from(livingwood));
+	public static Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, Block.Properties.from(livingwood));
+	public static Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, Block.Properties.from(livingwood));
+	
+	public static Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(15));
+	public static Block orangeShinyFlower = new BlockShinyFlower(DyeColor.ORANGE, Block.Properties.from(whiteShinyFlower));
+	public static Block magentaShinyFlower = new BlockShinyFlower(DyeColor.MAGENTA, Block.Properties.from(whiteShinyFlower));
+	public static Block lightBlueShinyFlower = new BlockShinyFlower(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteShinyFlower));
+	public static Block yellowShinyFlower = new BlockShinyFlower(DyeColor.YELLOW, Block.Properties.from(whiteShinyFlower));
+	public static Block limeShinyFlower = new BlockShinyFlower(DyeColor.LIME, Block.Properties.from(whiteShinyFlower));
+	public static Block pinkShinyFlower = new BlockShinyFlower(DyeColor.PINK, Block.Properties.from(whiteShinyFlower));
+	public static Block grayShinyFlower = new BlockShinyFlower(DyeColor.GRAY, Block.Properties.from(whiteShinyFlower));
+	public static Block lightGrayShinyFlower = new BlockShinyFlower(DyeColor.LIGHT_GRAY, Block.Properties.from(whiteShinyFlower));
+	public static Block cyanShinyFlower = new BlockShinyFlower(DyeColor.CYAN, Block.Properties.from(whiteShinyFlower));
+	public static Block purpleShinyFlower = new BlockShinyFlower(DyeColor.PURPLE, Block.Properties.from(whiteShinyFlower));
+	public static Block blueShinyFlower = new BlockShinyFlower(DyeColor.BLUE, Block.Properties.from(whiteShinyFlower));
+	public static Block brownShinyFlower = new BlockShinyFlower(DyeColor.BROWN, Block.Properties.from(whiteShinyFlower));
+	public static Block greenShinyFlower = new BlockShinyFlower(DyeColor.GREEN, Block.Properties.from(whiteShinyFlower));
+	public static Block redShinyFlower = new BlockShinyFlower(DyeColor.RED, Block.Properties.from(whiteShinyFlower));
+	public static Block blackShinyFlower = new BlockShinyFlower(DyeColor.BLACK, Block.Properties.from(whiteShinyFlower));
+	
+	public static Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD));
+	public static Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, Block.Properties.from(abstrusePlatform));
+	public static Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD));
+	public static Block alfPortal = new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD));
+	public static Block dreamwood = new BlockMod(Block.Properties.from(livingwood));
+	public static Block dreamwoodPlanks = new BlockMod(Block.Properties.from(livingwood));
+	public static Block dreamwoodPlanksMossy = new BlockMod(Block.Properties.from(livingwood));
+	public static Block dreamwoodFramed = new BlockMod(Block.Properties.from(livingwood));
+	public static Block dreamwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
+	public static Block dreamwoodGlimmering = new BlockMod(Block.Properties.from(livingwoodGlimmering));
+	public static Block conjurationCatalyst = new BlockConjurationCatalyst(Block.Properties.from(livingrock));
+	public static Block bifrost = new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS).notSolid());
+	public static Block solidVines = new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid());
 
-	@ObjectHolder(LibBlockNames.PISTON_RELAY)
-	public static Block pistonRelay;
-	@ObjectHolder(LibBlockNames.DISTRIBUTOR)
-	public static Block distributor;
-	@ObjectHolder(LibBlockNames.MANA_VOID)
-	public static Block manaVoid;
-	@ObjectHolder(LibBlockNames.MANA_DETECTOR)
-	public static Block manaDetector;
-	@ObjectHolder(LibBlockNames.ENCHANTER)
-	public static Block enchanter;
-	@ObjectHolder(LibBlockNames.TURNTABLE)
-	public static Block turntable;
-	@ObjectHolder(LibBlockNames.TINY_PLANET)
-	public static Block tinyPlanet;
-	@ObjectHolder(LibBlockNames.ALCHEMY_CATALYST)
-	public static Block alchemyCatalyst;
-	@ObjectHolder(LibBlockNames.OPEN_CRATE)
-	public static Block openCrate;
-	@ObjectHolder(LibBlockNames.CRAFT_CRATE)
-	public static Block craftCrate;
-	@ObjectHolder(LibBlockNames.FOREST_EYE)
-	public static Block forestEye;
-	@ObjectHolder(LibBlockNames.MANASTEEL_BLOCK)
-	public static Block manasteelBlock;
-	@ObjectHolder(LibBlockNames.TERRASTEEL_BLOCK)
-	public static Block terrasteelBlock;
-	@ObjectHolder(LibBlockNames.ELEMENTIUM_BLOCK)
-	public static Block elementiumBlock;
-	@ObjectHolder(LibBlockNames.MANA_DIAMOND_BLOCK)
-	public static Block manaDiamondBlock;
-	@ObjectHolder(LibBlockNames.DRAGONSTONE_BLOCK)
-	public static Block dragonstoneBlock;
-	@ObjectHolder(LibBlockNames.DRUM_WILD)
-	public static Block wildDrum;
-	@ObjectHolder(LibBlockNames.DRUM_GATHERING)
-	public static Block gatheringDrum;
-	@ObjectHolder(LibBlockNames.DRUM_CANOPY)
-	public static Block canopyDrum;
-	@ObjectHolder("white" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block whiteShinyFlower;
-	@ObjectHolder("orange" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block orangeShinyFlower;
-	@ObjectHolder("magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block magentaShinyFlower;
-	@ObjectHolder("light_blue" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block lightBlueShinyFlower;
-	@ObjectHolder("yellow" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block yellowShinyFlower;
-	@ObjectHolder("lime" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block limeShinyFlower;
-	@ObjectHolder("pink" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block pinkShinyFlower;
-	@ObjectHolder("gray" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block grayShinyFlower;
-	@ObjectHolder("light_gray" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block lightGrayShinyFlower;
-	@ObjectHolder("cyan" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block cyanShinyFlower;
-	@ObjectHolder("purple" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block purpleShinyFlower;
-	@ObjectHolder("blue" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block blueShinyFlower;
-	@ObjectHolder("brown" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block brownShinyFlower;
-	@ObjectHolder("green" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block greenShinyFlower;
-	@ObjectHolder("red" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block redShinyFlower;
-	@ObjectHolder("black" + LibBlockNames.SHINY_FLOWER_SUFFIX)
-	public static Block blackShinyFlower;
-	@ObjectHolder(LibBlockNames.PLATFORM_ABSTRUSE)
-	public static Block abstrusePlatform;
-	@ObjectHolder(LibBlockNames.PLATFORM_SPECTRAL)
-	public static Block spectralPlatform;
-	@ObjectHolder(LibBlockNames.PLATFORM_INFRANGIBLE)
-	public static Block infrangiblePlatform;
-	@ObjectHolder(LibBlockNames.ALF_PORTAL)
-	public static Block alfPortal;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD)
-	public static Block dreamwood;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS)
-	public static Block dreamwoodPlanks;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY)
-	public static Block dreamwoodPlanksMossy;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_FRAMED)
-	public static Block dreamwoodFramed;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED)
-	public static Block dreamwoodPatternFramed;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_GLIMMERING)
-	public static Block dreamwoodGlimmering;
-	@ObjectHolder(LibBlockNames.CONJURATION_CATALYST)
-	public static Block conjurationCatalyst;
-	@ObjectHolder(LibBlockNames.BIFROST)
-	public static Block bifrost;
-	@ObjectHolder(LibBlockNames.SOLID_VINE)
-	public static Block solidVines;
-	@ObjectHolder("white" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block whiteBuriedPetals;
-	@ObjectHolder("orange" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block orangeBuriedPetals;
-	@ObjectHolder("magenta" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block magentaBuriedPetals;
-	@ObjectHolder("light_blue" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block lightBlueBuriedPetals;
-	@ObjectHolder("yellow" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block yellowBuriedPetals;
-	@ObjectHolder("lime" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block limeBuriedPetals;
-	@ObjectHolder("pink" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block pinkBuriedPetals;
-	@ObjectHolder("gray" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block grayBuriedPetals;
-	@ObjectHolder("light_gray" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block lightGrayBuriedPetals;
-	@ObjectHolder("cyan" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block cyanBuriedPetals;
-	@ObjectHolder("purple" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block purpleBuriedPetals;
-	@ObjectHolder("blue" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block blueBuriedPetals;
-	@ObjectHolder("brown" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block brownBuriedPetals;
-	@ObjectHolder("green" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block greenBuriedPetals;
-	@ObjectHolder("red" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block redBuriedPetals;
-	@ObjectHolder("black" + LibBlockNames.BURIED_PETALS_SUFFIX)
-	public static Block blackBuriedPetals;
-	@ObjectHolder("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block whiteFloatingFlower;
-	@ObjectHolder("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block orangeFloatingFlower;
-	@ObjectHolder("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block magentaFloatingFlower;
-	@ObjectHolder("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block lightBlueFloatingFlower;
-	@ObjectHolder("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block yellowFloatingFlower;
-	@ObjectHolder("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block limeFloatingFlower;
-	@ObjectHolder("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block pinkFloatingFlower;
-	@ObjectHolder("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block grayFloatingFlower;
-	@ObjectHolder("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block lightGrayFloatingFlower;
-	@ObjectHolder("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block cyanFloatingFlower;
-	@ObjectHolder("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block purpleFloatingFlower;
-	@ObjectHolder("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block blueFloatingFlower;
-	@ObjectHolder("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block brownFloatingFlower;
-	@ObjectHolder("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block greenFloatingFlower;
-	@ObjectHolder("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block redFloatingFlower;
-	@ObjectHolder("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX)
-	public static Block blackFloatingFlower;
-	@ObjectHolder(LibBlockNames.TINY_POTATO)
-	public static Block tinyPotato;
-	@ObjectHolder(LibBlockNames.SPAWNER_CLAW)
-	public static Block spawnerClaw;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 0)
-	public static Block azulejo0;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 1)
-	public static Block azulejo1;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 2)
-	public static Block azulejo2;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 3)
-	public static Block azulejo3;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 4)
-	public static Block azulejo4;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 5)
-	public static Block azulejo5;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 6)
-	public static Block azulejo6;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 7)
-	public static Block azulejo7;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 8)
-	public static Block azulejo8;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 9)
-	public static Block azulejo9;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 10)
-	public static Block azulejo10;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 11)
-	public static Block azulejo11;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 12)
-	public static Block azulejo12;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 13)
-	public static Block azulejo13;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 14)
-	public static Block azulejo14;
-	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 15)
-	public static Block azulejo15;
-	@ObjectHolder(LibBlockNames.ENDER_EYE_BLOCK)
-	public static Block enderEye;
-	@ObjectHolder(LibBlockNames.STARFIELD)
-	public static Block starfield;
-	@ObjectHolder(LibBlockNames.FLUXFIELD)
-	public static Block rfGenerator;
-	@ObjectHolder(LibBlockNames.ELF_GLASS)
-	public static Block elfGlass;
-	@ObjectHolder(LibBlockNames.BREWERY)
-	public static Block brewery;
-	@ObjectHolder(LibBlockNames.MANA_GLASS)
-	public static Block manaGlass;
-	@ObjectHolder(LibBlockNames.TERRA_PLATE)
-	public static Block terraPlate;
-	@ObjectHolder(LibBlockNames.RED_STRING_CONTAINER)
-	public static Block redStringContainer;
-	@ObjectHolder(LibBlockNames.RED_STRING_DISPENSER)
-	public static Block redStringDispenser;
-	@ObjectHolder(LibBlockNames.RED_STRING_FERTILIZER)
-	public static Block redStringFertilizer;
-	@ObjectHolder(LibBlockNames.RED_STRING_COMPARATOR)
-	public static Block redStringComparator;
-	@ObjectHolder(LibBlockNames.RED_STRING_RELAY)
-	public static Block redStringRelay;
-	@ObjectHolder(LibBlockNames.MANA_FLAME)
-	public static Block manaFlame;
-	@ObjectHolder(LibBlockNames.PRISM)
-	public static Block prism;
-	@ObjectHolder(LibBlockNames.ENCHANTED_SOIL)
-	public static Block enchantedSoil;
-	@ObjectHolder("white" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockWhite;
-	@ObjectHolder("orange" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockOrange;
-	@ObjectHolder("magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockMagenta;
-	@ObjectHolder("light_blue" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockLightBlue;
-	@ObjectHolder("yellow" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockYellow;
-	@ObjectHolder("lime" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockLime;
-	@ObjectHolder("pink" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockPink;
-	@ObjectHolder("gray" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockGray;
-	@ObjectHolder("light_gray" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockSilver;
-	@ObjectHolder("cyan" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockCyan;
-	@ObjectHolder("purple" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockPurple;
-	@ObjectHolder("blue" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockBlue;
-	@ObjectHolder("brown" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockBrown;
-	@ObjectHolder("green" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockGreen;
-	@ObjectHolder("red" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockRed;
-	@ObjectHolder("black" + LibBlockNames.PETAL_BLOCK_SUFFIX)
-	public static Block petalBlockBlack;
-	@ObjectHolder(LibBlockNames.CORPOREA_INDEX)
-	public static Block corporeaIndex;
-	@ObjectHolder(LibBlockNames.CORPOREA_FUNNEL)
-	public static Block corporeaFunnel;
-	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block whiteMushroom;
-	@ObjectHolder("orange" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block orangeMushroom;
-	@ObjectHolder("magenta" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block magentaMushroom;
-	@ObjectHolder("light_blue" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block lightBlueMushroom;
-	@ObjectHolder("yellow" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block yellowMushroom;
-	@ObjectHolder("lime" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block limeMushroom;
-	@ObjectHolder("pink" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block pinkMushroom;
-	@ObjectHolder("gray" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block grayMushroom;
-	@ObjectHolder("light_gray" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block lightGrayMushroom;
-	@ObjectHolder("cyan" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block cyanMushroom;
-	@ObjectHolder("purple" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block purpleMushroom;
-	@ObjectHolder("blue" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block blueMushroom;
-	@ObjectHolder("brown" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block brownMushroom;
-	@ObjectHolder("green" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block greenMushroom;
-	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block redMushroom;
-	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX)
-	public static Block blackMushroom;
-	@ObjectHolder(LibBlockNames.PUMP)
-	public static Block pump;
-	@ObjectHolder("white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerWhite;
-	@ObjectHolder("orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerOrange;
-	@ObjectHolder("magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerMagenta;
-	@ObjectHolder("light_blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerLightBlue;
-	@ObjectHolder("yellow" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerYellow;
-	@ObjectHolder("lime" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerLime;
-	@ObjectHolder("pink" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerPink;
-	@ObjectHolder("gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerGray;
-	@ObjectHolder("light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerLightGray;
-	@ObjectHolder("cyan" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerCyan;
-	@ObjectHolder("purple" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerPurple;
-	@ObjectHolder("blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerBlue;
-	@ObjectHolder("brown" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerBrown;
-	@ObjectHolder("green" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerGreen;
-	@ObjectHolder("red" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerRed;
-	@ObjectHolder("black" + LibBlockNames.DOUBLE_FLOWER_SUFFIX)
-	public static Block doubleFlowerBlack;
-	@ObjectHolder(LibBlockNames.FAKE_AIR)
-	public static Block fakeAir;
-	@ObjectHolder(LibBlockNames.BLAZE_BLOCK)
-	public static Block blazeBlock;
-	@ObjectHolder(LibBlockNames.CORPOREA_INTERCEPTOR)
-	public static Block corporeaInterceptor;
-	@ObjectHolder(LibBlockNames.CORPOREA_CRYSTAL_CUBE)
-	public static Block corporeaCrystalCube;
-	@ObjectHolder(LibBlockNames.INCENSE_PLATE)
-	public static Block incensePlate;
-	@ObjectHolder(LibBlockNames.HOURGLASS)
-	public static Block hourglass;
-	@ObjectHolder(LibBlockNames.GHOST_RAIL)
-	public static Block ghostRail;
-	@ObjectHolder(LibBlockNames.SPARK_CHANGER)
-	public static Block sparkChanger;
-	@ObjectHolder(LibBlockNames.ROOT)
-	public static Block root;
-	@ObjectHolder(LibBlockNames.FEL_PUMPKIN)
-	public static Block felPumpkin;
-	@ObjectHolder(LibBlockNames.COCOON)
-	public static Block cocoon;
-	@ObjectHolder(LibBlockNames.LIGHT_RELAY)
-	public static Block lightRelayDefault;
-	@ObjectHolder("detector" + LibBlockNames.LIGHT_RELAY_SUFFIX)
-	public static Block lightRelayDetector;
-	@ObjectHolder("toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX)
-	public static Block lightRelayToggle;
-	@ObjectHolder("fork" + LibBlockNames.LIGHT_RELAY_SUFFIX)
-	public static Block lightRelayFork;
-	@ObjectHolder(LibBlockNames.LIGHT_LAUNCHER)
-	public static Block lightLauncher;
-	@ObjectHolder(LibBlockNames.MANA_BOMB)
-	public static Block manaBomb;
-	@ObjectHolder(LibBlockNames.CACOPHONIUM)
-	public static Block cacophonium;
-	@ObjectHolder(LibBlockNames.BELLOWS)
-	public static Block bellows;
-	@ObjectHolder(LibBlockNames.BIFROST_PERM)
-	public static Block bifrostPerm;
-	@ObjectHolder(LibBlockNames.CELL_BLOCK)
-	public static Block cellBlock;
-	@ObjectHolder(LibBlockNames.RED_STRING_INTERCEPTOR)
-	public static Block redStringInterceptor;
-	@ObjectHolder(LibBlockNames.GAIA_HEAD)
-	public static Block gaiaHead;
-	@ObjectHolder(LibBlockNames.GAIA_WALL_HEAD)
-	public static Block gaiaHeadWall;
-	@ObjectHolder(LibBlockNames.CORPOREA_RETAINER)
-	public static Block corporeaRetainer;
-	@ObjectHolder(LibBlockNames.TERU_TERU_BOZU)
-	public static Block teruTeruBozu;
-	@ObjectHolder(LibBlockNames.SHIMMERROCK)
-	public static Block shimmerrock;
-	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS)
-	public static Block shimmerwoodPlanks;
-	@ObjectHolder(LibBlockNames.AVATAR)
-	public static Block avatar;
-	@ObjectHolder("dry" + LibBlockNames.ALT_GRASS_SUFFIX)
-	public static Block dryGrass;
-	@ObjectHolder("golden" + LibBlockNames.ALT_GRASS_SUFFIX)
-	public static Block goldenGrass;
-	@ObjectHolder("vivid" + LibBlockNames.ALT_GRASS_SUFFIX)
-	public static Block vividGrass;
-	@ObjectHolder("scorched" + LibBlockNames.ALT_GRASS_SUFFIX)
-	public static Block scorchedGrass;
-	@ObjectHolder("infused" + LibBlockNames.ALT_GRASS_SUFFIX)
-	public static Block infusedGrass;
-	@ObjectHolder("mutated" + LibBlockNames.ALT_GRASS_SUFFIX)
-	public static Block mutatedGrass;
-	@ObjectHolder(LibBlockNames.ANIMATED_TORCH)
-	public static Block animatedTorch;
+	public static Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(4));
+	public static Block orangeBuriedPetals = new BlockBuriedPetals(DyeColor.ORANGE, Block.Properties.from(whiteBuriedPetals));
+	public static Block magentaBuriedPetals = new BlockBuriedPetals(DyeColor.MAGENTA, Block.Properties.from(whiteBuriedPetals));
+	public static Block lightBlueBuriedPetals = new BlockBuriedPetals(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteBuriedPetals));
+	public static Block yellowBuriedPetals = new BlockBuriedPetals(DyeColor.YELLOW, Block.Properties.from(whiteBuriedPetals));
+	public static Block limeBuriedPetals = new BlockBuriedPetals(DyeColor.LIME, Block.Properties.from(whiteBuriedPetals));
+	public static Block pinkBuriedPetals = new BlockBuriedPetals(DyeColor.PINK, Block.Properties.from(whiteBuriedPetals));
+	public static Block grayBuriedPetals = new BlockBuriedPetals(DyeColor.GRAY, Block.Properties.from(whiteBuriedPetals));
+	public static Block lightGrayBuriedPetals = new BlockBuriedPetals(DyeColor.LIGHT_GRAY, Block.Properties.from(whiteBuriedPetals));
+	public static Block cyanBuriedPetals = new BlockBuriedPetals(DyeColor.CYAN, Block.Properties.from(whiteBuriedPetals));
+	public static Block purpleBuriedPetals = new BlockBuriedPetals(DyeColor.PURPLE, Block.Properties.from(whiteBuriedPetals));
+	public static Block blueBuriedPetals = new BlockBuriedPetals(DyeColor.BLUE, Block.Properties.from(whiteBuriedPetals));
+	public static Block brownBuriedPetals = new BlockBuriedPetals(DyeColor.BROWN, Block.Properties.from(whiteBuriedPetals));
+	public static Block greenBuriedPetals = new BlockBuriedPetals(DyeColor.GREEN, Block.Properties.from(whiteBuriedPetals));
+	public static Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, Block.Properties.from(whiteBuriedPetals));
+	public static Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, Block.Properties.from(whiteBuriedPetals));
+	
+	public static Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15));
+	public static Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, Block.Properties.from(whiteFloatingFlower));
+	public static Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, Block.Properties.from(whiteFloatingFlower));
+	public static Block lightBlueFloatingFlower = new BlockFloatingFlower(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteFloatingFlower));
+	public static Block yellowFloatingFlower = new BlockFloatingFlower(DyeColor.YELLOW, Block.Properties.from(whiteFloatingFlower));
+	public static Block limeFloatingFlower = new BlockFloatingFlower(DyeColor.LIME, Block.Properties.from(whiteFloatingFlower));
+	public static Block pinkFloatingFlower = new BlockFloatingFlower(DyeColor.PINK, Block.Properties.from(whiteFloatingFlower));
+	public static Block grayFloatingFlower = new BlockFloatingFlower(DyeColor.GRAY, Block.Properties.from(whiteFloatingFlower));
+	public static Block lightGrayFloatingFlower = new BlockFloatingFlower(DyeColor.LIGHT_GRAY, Block.Properties.from(whiteFloatingFlower));
+	public static Block cyanFloatingFlower = new BlockFloatingFlower(DyeColor.CYAN, Block.Properties.from(whiteFloatingFlower));
+	public static Block purpleFloatingFlower = new BlockFloatingFlower(DyeColor.PURPLE, Block.Properties.from(whiteFloatingFlower));
+	public static Block blueFloatingFlower = new BlockFloatingFlower(DyeColor.BLUE, Block.Properties.from(whiteFloatingFlower));
+	public static Block brownFloatingFlower = new BlockFloatingFlower(DyeColor.BROWN, Block.Properties.from(whiteFloatingFlower));
+	public static Block greenFloatingFlower = new BlockFloatingFlower(DyeColor.GREEN, Block.Properties.from(whiteFloatingFlower));
+	public static Block redFloatingFlower = new BlockFloatingFlower(DyeColor.RED, Block.Properties.from(whiteFloatingFlower));
+	public static Block blackFloatingFlower = new BlockFloatingFlower(DyeColor.BLACK, Block.Properties.from(whiteFloatingFlower));
+	
+	public static Block tinyPotato = new BlockTinyPotato(Block.Properties.create(Material.WOOL).hardnessAndResistance(0.25F));
+	public static Block spawnerClaw = new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3));
+	
+	public static Block azulejo0 = new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE));
+	public static Block azulejo1 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo2 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo3 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo4 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo5 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo6 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo7 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo8 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo9 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo10 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo11 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo12 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo13 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo14 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block azulejo15 = new BlockMod(Block.Properties.from(azulejo0));
+	public static Block enderEye = new BlockEnderEye(Block.Properties.from(manasteelBlock));
+	public static Block starfield = new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL));
+	public static Block rfGenerator = new BlockRFGenerator(Block.Properties.from(livingrock));
+	public static Block elfGlass = new BlockElfGlass(Block.Properties.from(Blocks.GLASS).lightValue(15));
+	public static Block brewery = new BlockBrewery(Block.Properties.from(livingrock));
+	public static Block manaGlass = new BlockModGlass(Block.Properties.from(elfGlass));
+	public static Block terraPlate = new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));
+	public static Block redStringContainer = new BlockRedStringContainer(Block.Properties.from(livingrock));
+	public static Block redStringDispenser = new BlockRedStringDispenser(Block.Properties.from(livingrock));
+	public static Block redStringFertilizer = new BlockRedStringFertilizer(Block.Properties.from(livingrock));
+	public static Block redStringComparator = new BlockRedStringComparator(Block.Properties.from(livingrock));
+	public static Block redStringRelay = new BlockRedStringRelay(Block.Properties.from(livingrock));
+	public static Block redStringInterceptor = new BlockRedStringInterceptor(Block.Properties.from(livingrock));
+	public static Block manaFlame = new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement());
+	public static Block prism = new BlockPrism(Block.Properties.from(elfGlass).doesNotBlockMovement());
+	public static Block enchantedSoil = new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT));
+	
+	public static Block petalBlockWhite = new BlockPetalBlock(DyeColor.WHITE, Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT));
+	public static Block petalBlockOrange = new BlockPetalBlock(DyeColor.ORANGE, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockMagenta = new BlockPetalBlock(DyeColor.MAGENTA, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockLightBlue = new BlockPetalBlock(DyeColor.LIGHT_BLUE, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockYellow = new BlockPetalBlock(DyeColor.YELLOW, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockLime = new BlockPetalBlock(DyeColor.LIME, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockPink = new BlockPetalBlock(DyeColor.PINK, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockGray = new BlockPetalBlock(DyeColor.GRAY, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockSilver = new BlockPetalBlock(DyeColor.LIGHT_GRAY, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockCyan = new BlockPetalBlock(DyeColor.CYAN, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockPurple = new BlockPetalBlock(DyeColor.PURPLE, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockBlue = new BlockPetalBlock(DyeColor.BLUE, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockBrown = new BlockPetalBlock(DyeColor.BROWN, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockGreen = new BlockPetalBlock(DyeColor.GREEN, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockRed = new BlockPetalBlock(DyeColor.RED, Block.Properties.from(petalBlockWhite));
+	public static Block petalBlockBlack = new BlockPetalBlock(DyeColor.BLACK, Block.Properties.from(petalBlockWhite));
+
+	public static Block corporeaIndex = new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).notSolid());
+	public static Block corporeaFunnel = new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
+
+	public static Block whiteMushroom = new BlockModMushroom(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(3));
+	public static Block orangeMushroom = new BlockModMushroom(DyeColor.ORANGE, Block.Properties.from(whiteMushroom));
+	public static Block magentaMushroom = new BlockModMushroom(DyeColor.MAGENTA, Block.Properties.from(whiteMushroom));
+	public static Block lightBlueMushroom = new BlockModMushroom(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteMushroom));
+	public static Block yellowMushroom = new BlockModMushroom(DyeColor.YELLOW, Block.Properties.from(whiteMushroom));
+	public static Block limeMushroom = new BlockModMushroom(DyeColor.LIME, Block.Properties.from(whiteMushroom));
+	public static Block pinkMushroom = new BlockModMushroom(DyeColor.PINK, Block.Properties.from(whiteMushroom));
+	public static Block grayMushroom = new BlockModMushroom(DyeColor.GRAY, Block.Properties.from(whiteMushroom));
+	public static Block lightGrayMushroom = new BlockModMushroom(DyeColor.LIGHT_GRAY, Block.Properties.from(whiteMushroom));
+	public static Block cyanMushroom = new BlockModMushroom(DyeColor.CYAN, Block.Properties.from(whiteMushroom));
+	public static Block purpleMushroom = new BlockModMushroom(DyeColor.PURPLE, Block.Properties.from(whiteMushroom));
+	public static Block blueMushroom = new BlockModMushroom(DyeColor.BLUE, Block.Properties.from(whiteMushroom));
+	public static Block brownMushroom = new BlockModMushroom(DyeColor.BROWN, Block.Properties.from(whiteMushroom));
+	public static Block greenMushroom = new BlockModMushroom(DyeColor.GREEN, Block.Properties.from(whiteMushroom));
+	public static Block redMushroom = new BlockModMushroom(DyeColor.RED, Block.Properties.from(whiteMushroom));
+	public static Block blackMushroom = new BlockModMushroom(DyeColor.BLACK, Block.Properties.from(whiteMushroom));
+
+	public static Block pump = new BlockPump(Block.Properties.from(livingrock));
+	
+	public static Block doubleFlowerWhite = new BlockModDoubleFlower(DyeColor.WHITE, Block.Properties.from(whiteFlower));
+	public static Block doubleFlowerOrange = new BlockModDoubleFlower(DyeColor.ORANGE, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerMagenta = new BlockModDoubleFlower(DyeColor.MAGENTA, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerLightBlue = new BlockModDoubleFlower(DyeColor.LIGHT_BLUE, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerYellow = new BlockModDoubleFlower(DyeColor.YELLOW, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerLime = new BlockModDoubleFlower(DyeColor.LIME, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerPink = new BlockModDoubleFlower(DyeColor.PINK, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerGray = new BlockModDoubleFlower(DyeColor.GRAY, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerLightGray = new BlockModDoubleFlower(DyeColor.LIGHT_GRAY, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerCyan = new BlockModDoubleFlower(DyeColor.CYAN, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerPurple = new BlockModDoubleFlower(DyeColor.PURPLE, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerBlue = new BlockModDoubleFlower(DyeColor.BLUE, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerBrown = new BlockModDoubleFlower(DyeColor.BROWN, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerGreen = new BlockModDoubleFlower(DyeColor.GREEN, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerRed = new BlockModDoubleFlower(DyeColor.RED, Block.Properties.from(doubleFlowerWhite));
+	public static Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, Block.Properties.from(doubleFlowerWhite));
+
+	public static Block fakeAir = new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly());
+	public static Block blazeBlock = new BlockMod(Block.Properties.from(manasteelBlock).lightValue(15));
+	public static Block corporeaInterceptor = new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
+	public static Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Block.Properties.from(corporeaInterceptor));
+	public static Block incensePlate = new BlockIncensePlate(Block.Properties.from(livingwood));
+	public static Block hourglass = new BlockHourglass(Block.Properties.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL));
+	public static Block ghostRail = new BlockGhostRail(Block.Properties.from(Blocks.RAIL));
+	public static Block sparkChanger = new BlockSparkChanger(Block.Properties.from(livingrock));
+	public static Block root = new BlockRoot(Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.2F).sound(SoundType.WOOD));
+	public static Block felPumpkin = new BlockFelPumpkin(Block.Properties.from(Blocks.CARVED_PUMPKIN));
+	public static Block cocoon = new BlockCocoon(Block.Properties.create(Material.WOOL).hardnessAndResistance(3, 60).sound(SoundType.CLOTH));
+	public static Block lightRelayDefault = new BlockLightRelay(LuminizerVariant.DEFAULT, Block.Properties.create(Material.GLASS).doesNotBlockMovement());
+	public static Block lightRelayDetector = new BlockLightRelay(LuminizerVariant.DETECTOR, Block.Properties.from(lightRelayDefault));
+	public static Block lightRelayFork = new BlockLightRelay(LuminizerVariant.TOGGLE, Block.Properties.from(lightRelayDefault));
+	public static Block lightRelayToggle = new BlockLightRelay(LuminizerVariant.FORK, Block.Properties.from(lightRelayDefault));
+	public static Block lightLauncher = new BlockLightLauncher(Block.Properties.from(livingwood));
+	public static Block manaBomb = new BlockManaBomb(Block.Properties.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD));
+	public static Block cacophonium = new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F));
+	public static Block bellows = new BlockBellows(Block.Properties.from(livingwood));
+	public static Block bifrostPerm = new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS).notSolid());
+	public static Block cellBlock = new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH));
+	public static Block gaiaHeadWall = new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
+	public static Block gaiaHead = new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
+	public static Block corporeaRetainer = new BlockCorporeaRetainer(Block.Properties.from(corporeaInterceptor));
+	public static Block teruTeruBozu = new BlockTeruTeruBozu(Block.Properties.create(Material.WOOL));
+	public static Block shimmerrock = new BlockMod(Block.Properties.from(livingrock));
+	public static Block shimmerwoodPlanks = new BlockMod(Block.Properties.from(livingwood));
+	public static Block avatar = new BlockAvatar(Block.Properties.from(livingwood));
+	public static Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).tickRandomly().sound(SoundType.PLANT));
+	public static Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN, Block.Properties.from(dryGrass));
+	public static Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID, Block.Properties.from(dryGrass));
+	public static Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, Block.Properties.from(dryGrass));
+	public static Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED, Block.Properties.from(dryGrass));
+	public static Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED, Block.Properties.from(dryGrass));
+	public static Block animatedTorch = new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).lightValue(7).notSolid());
 
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
+		register(r, "white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, whiteFlower);
+		register(r, "orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, orangeFlower);
+		register(r, "magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, magentaFlower);
+		register(r, "light_blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, lightBlueFlower);
+		register(r, "yellow" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, yellowFlower);
+		register(r, "lime" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, limeFlower);
+		register(r, "pink" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, pinkFlower);
+		register(r, "gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, grayFlower);
+		register(r, "light_gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, lightGrayFlower);
+		register(r, "cyan" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, cyanFlower);
+		register(r, "purple" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, purpleFlower);
+		register(r, "blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, blueFlower);
+		register(r, "brown" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, brownFlower);
+		register(r, "green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, greenFlower);
+		register(r, "red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, redFlower);
+		register(r, "black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, blackFlower);
+		
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DEFAULT.name().toLowerCase(Locale.ROOT), defaultAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FOREST.name().toLowerCase(Locale.ROOT), forestAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.PLAINS.name().toLowerCase(Locale.ROOT), plainsAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MOUNTAIN.name().toLowerCase(Locale.ROOT), mountainAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FUNGAL.name().toLowerCase(Locale.ROOT), fungalAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.SWAMP.name().toLowerCase(Locale.ROOT), swampAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DESERT.name().toLowerCase(Locale.ROOT), desertAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.TAIGA.name().toLowerCase(Locale.ROOT), taigaAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MESA.name().toLowerCase(Locale.ROOT), mesaAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MOSSY.name().toLowerCase(Locale.ROOT), mossyAltar);
 
-		Block.Properties builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, new BlockModFlower(color, builder));
-		}
+		register(r, LibBlockNames.LIVING_ROCK, livingrock);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK, livingrockBrick);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY, livingrockBrickMossy);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_CRACKED, livingrockBrickCracked);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_CHISELED, livingrockBrickChiseled);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
-		for (BlockAltar.Variant v : BlockAltar.Variant.values()) {
-			r.register(new BlockAltar(v, builder)
-					.setRegistryName(LibMisc.MOD_ID, LibBlockNames.APOTHECARY_PREFIX + v.name().toLowerCase(Locale.ROOT)));
-		}
-
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, LibBlockNames.LIVING_ROCK, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_ROCK_BRICK, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_ROCK_BRICK_CRACKED, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_ROCK_BRICK_CHISELED, new BlockMod(builder));
-
-		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: livingwood should support leaves
-		register(r, LibBlockNames.LIVING_WOOD, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_WOOD_PLANKS, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_WOOD_FRAMED, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, new BlockMod(builder));
-		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, new BlockMod(builder.lightValue(12)));
+		register(r, LibBlockNames.LIVING_WOOD, livingwood);
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS, livingwoodPlanks);
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, livingwoodPlanksMossy);
+		register(r, LibBlockNames.LIVING_WOOD_FRAMED, livingwoodFramed);
+		register(r, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, livingwoodPatternFramed);
+		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, livingwoodGlimmering);
 
-		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		register(r, LibBlockNames.SPREADER, new BlockSpreader(BlockSpreader.Variant.MANA, builder));
-		register(r, LibBlockNames.SPREADER_REDSTONE, new BlockSpreader(BlockSpreader.Variant.REDSTONE, builder));
-		register(r, LibBlockNames.SPREADER_ELVEN, new BlockSpreader(BlockSpreader.Variant.ELVEN, builder));
-		register(r, LibBlockNames.SPREADER_GAIA, new BlockSpreader(BlockSpreader.Variant.GAIA, builder));
+		register(r, LibBlockNames.SPREADER, manaSpreader);
+		register(r, LibBlockNames.SPREADER_REDSTONE, redstoneSpreader);
+		register(r, LibBlockNames.SPREADER_ELVEN, elvenSpreader);
+		register(r, LibBlockNames.SPREADER_GAIA, gaiaSpreader);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, LibBlockNames.POOL, new BlockPool(BlockPool.Variant.DEFAULT, builder));
-		register(r, LibBlockNames.POOL_CREATIVE, new BlockPool(BlockPool.Variant.CREATIVE, builder));
-		register(r, LibBlockNames.POOL_DILUTED, new BlockPool(BlockPool.Variant.DILUTED, builder));
-		register(r, LibBlockNames.POOL_FABULOUS, new BlockPool(BlockPool.Variant.FABULOUS, builder));
+		register(r, LibBlockNames.POOL, manaPool);
+		register(r, LibBlockNames.POOL_CREATIVE, creativePool);
+		register(r, LibBlockNames.POOL_DILUTED, dilutedPool);
+		register(r, LibBlockNames.POOL_FABULOUS, fabulousPool);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, LibBlockNames.RUNE_ALTAR, new BlockRuneAltar(builder));
+		register(r, LibBlockNames.RUNE_ALTAR, runeAltar);
+		
+		register(r, LibBlockNames.PYLON, manaPylon);
+		register(r, LibBlockNames.PYLON_NATURA, naturaPylon);
+		register(r, LibBlockNames.PYLON_GAIA, gaiaPylon);
 
-		builder = Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7);
-		register(r, LibBlockNames.PYLON, new BlockPylon(BlockPylon.Variant.MANA, builder));
-		register(r, LibBlockNames.PYLON_NATURA, new BlockPylon(BlockPylon.Variant.NATURA, builder));
-		register(r, LibBlockNames.PYLON_GAIA, new BlockPylon(BlockPylon.Variant.GAIA, builder));
+		register(r, LibBlockNames.PISTON_RELAY, pistonRelay);
 
-		builder = Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL);
-		register(r, LibBlockNames.PISTON_RELAY, new BlockPistonRelay(builder));
+		register(r, LibBlockNames.DISTRIBUTOR, distributor);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, LibBlockNames.DISTRIBUTOR, new BlockDistributor(builder));
+		register(r, LibBlockNames.MANA_VOID, manaVoid);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE);
-		register(r, LibBlockNames.MANA_VOID, new BlockManaVoid(builder));
+		register(r, LibBlockNames.MANA_DETECTOR, manaDetector);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, LibBlockNames.MANA_DETECTOR, new BlockManaDetector(builder));
+		register(r, LibBlockNames.ENCHANTER, enchanter);
+		register(r, LibBlockNames.TURNTABLE, turntable);
+		register(r, LibBlockNames.TINY_PLANET, tinyPlanet);
+		register(r, LibBlockNames.ALCHEMY_CATALYST, alchemyCatalyst);
 
-		register(r, LibBlockNames.ENCHANTER, new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)));
-		register(r, LibBlockNames.TURNTABLE, new BlockTurntable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.TINY_PLANET, new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)));
-		register(r, LibBlockNames.ALCHEMY_CATALYST, new BlockAlchemyCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
+		register(r, LibBlockNames.OPEN_CRATE, openCrate);
+		register(r, LibBlockNames.CRAFT_CRATE, craftCrate);
 
-		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		register(r, LibBlockNames.OPEN_CRATE, new BlockOpenCrate(builder));
-		register(r, LibBlockNames.CRAFT_CRATE, new BlockCraftyCrate(builder));
+		register(r, LibBlockNames.FOREST_EYE, forestEye);
+		
+		register(r, LibBlockNames.MANASTEEL_BLOCK, manasteelBlock);
+		register(r, LibBlockNames.TERRASTEEL_BLOCK, terrasteelBlock);
+		register(r, LibBlockNames.ELEMENTIUM_BLOCK, elementiumBlock);
+		register(r, LibBlockNames.MANA_DIAMOND_BLOCK, manaDiamondBlock);
+		register(r, LibBlockNames.DRAGONSTONE_BLOCK, dragonstoneBlock);
 
-		register(r, LibBlockNames.FOREST_EYE, new BlockForestEye(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)));
+		register(r, LibBlockNames.DRUM_WILD, wildDrum);
+		register(r, LibBlockNames.DRUM_GATHERING, gatheringDrum);
+		register(r, LibBlockNames.DRUM_CANOPY, canopyDrum);
+		
+		register(r, "white" + LibBlockNames.SHINY_FLOWER_SUFFIX, whiteShinyFlower);
+		register(r, "orange" + LibBlockNames.SHINY_FLOWER_SUFFIX, orangeShinyFlower);
+		register(r, "magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX, magentaShinyFlower);
+		register(r, "light_blue" + LibBlockNames.SHINY_FLOWER_SUFFIX, lightBlueShinyFlower);
+		register(r, "yellow" + LibBlockNames.SHINY_FLOWER_SUFFIX, yellowShinyFlower);
+		register(r, "lime" + LibBlockNames.SHINY_FLOWER_SUFFIX, limeShinyFlower);
+		register(r, "pink" + LibBlockNames.SHINY_FLOWER_SUFFIX, pinkShinyFlower);
+		register(r, "gray" + LibBlockNames.SHINY_FLOWER_SUFFIX, grayShinyFlower);
+		register(r, "light_gray" + LibBlockNames.SHINY_FLOWER_SUFFIX, lightGrayShinyFlower);
+		register(r, "cyan" + LibBlockNames.SHINY_FLOWER_SUFFIX, cyanShinyFlower);
+		register(r, "purple" + LibBlockNames.SHINY_FLOWER_SUFFIX, purpleShinyFlower);
+		register(r, "blue" + LibBlockNames.SHINY_FLOWER_SUFFIX, blueShinyFlower);
+		register(r, "brown" + LibBlockNames.SHINY_FLOWER_SUFFIX, brownShinyFlower);
+		register(r, "green" + LibBlockNames.SHINY_FLOWER_SUFFIX, greenShinyFlower);
+		register(r, "red" + LibBlockNames.SHINY_FLOWER_SUFFIX, redShinyFlower);
+		register(r, "black" + LibBlockNames.SHINY_FLOWER_SUFFIX, blackShinyFlower);
 
-		builder = Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL);
-		register(r, LibBlockNames.MANASTEEL_BLOCK, new BlockStorage(builder));
-		register(r, LibBlockNames.TERRASTEEL_BLOCK, new BlockStorage(builder));
-		register(r, LibBlockNames.ELEMENTIUM_BLOCK, new BlockStorage(builder));
-		register(r, LibBlockNames.MANA_DIAMOND_BLOCK, new BlockStorage(builder));
-		register(r, LibBlockNames.DRAGONSTONE_BLOCK, new BlockStorage(builder));
+		register(r, LibBlockNames.PLATFORM_ABSTRUSE, abstrusePlatform);
+		register(r, LibBlockNames.PLATFORM_SPECTRAL, spectralPlatform);
+		register(r, LibBlockNames.PLATFORM_INFRANGIBLE, infrangiblePlatform);
+		register(r, LibBlockNames.ALF_PORTAL, alfPortal);
 
-		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		register(r, LibBlockNames.DRUM_WILD, new BlockForestDrum(BlockForestDrum.Variant.WILD, builder));
-		register(r, LibBlockNames.DRUM_CANOPY, new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder));
-		register(r, LibBlockNames.DRUM_GATHERING, new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder));
-
-		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(15);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX, new BlockShinyFlower(color, builder));
-		}
-
-		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD);
-		register(r, LibBlockNames.PLATFORM_ABSTRUSE, new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder));
-		register(r, LibBlockNames.PLATFORM_SPECTRAL, new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder));
-		register(r, LibBlockNames.PLATFORM_INFRANGIBLE, new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.ALF_PORTAL, new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)));
-
-		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: dreamwood should support leaves?
-		register(r, LibBlockNames.DREAM_WOOD, new BlockMod(builder));
-		register(r, LibBlockNames.DREAM_WOOD_PLANKS, new BlockMod(builder));
-		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, new BlockMod(builder));
-		register(r, LibBlockNames.DREAM_WOOD_FRAMED, new BlockMod(builder));
-		register(r, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new BlockMod(builder));
-		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, new BlockMod(builder.lightValue(12)));
+		register(r, LibBlockNames.DREAM_WOOD, dreamwood);
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS, dreamwoodPlanks);
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, dreamwoodPlanksMossy);
+		register(r, LibBlockNames.DREAM_WOOD_FRAMED, dreamwoodFramed);
+		register(r, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, dreamwoodPatternFramed);
+		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, dreamwoodGlimmering);
 
-		register(r, LibBlockNames.CONJURATION_CATALYST, new BlockConjurationCatalyst(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
-		register(r, LibBlockNames.BIFROST, new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS).notSolid()));
-		register(r, LibBlockNames.SOLID_VINE, new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
+		register(r, LibBlockNames.CONJURATION_CATALYST, conjurationCatalyst);
+		register(r, LibBlockNames.BIFROST, bifrost);
+		register(r, LibBlockNames.SOLID_VINE, solidVines);
+		
+		register(r, "white" + LibBlockNames.BURIED_PETALS_SUFFIX, whiteBuriedPetals);
+		register(r, "orange" + LibBlockNames.BURIED_PETALS_SUFFIX, orangeBuriedPetals);
+		register(r, "magenta" + LibBlockNames.BURIED_PETALS_SUFFIX, magentaBuriedPetals);
+		register(r, "light_blue" + LibBlockNames.BURIED_PETALS_SUFFIX, lightBlueBuriedPetals);
+		register(r, "yellow" + LibBlockNames.BURIED_PETALS_SUFFIX, yellowBuriedPetals);
+		register(r, "lime" + LibBlockNames.BURIED_PETALS_SUFFIX, limeBuriedPetals);
+		register(r, "pink" + LibBlockNames.BURIED_PETALS_SUFFIX, pinkBuriedPetals);
+		register(r, "gray" + LibBlockNames.BURIED_PETALS_SUFFIX, grayBuriedPetals);
+		register(r, "light_gray" + LibBlockNames.BURIED_PETALS_SUFFIX, lightGrayBuriedPetals);
+		register(r, "cyan" + LibBlockNames.BURIED_PETALS_SUFFIX, cyanBuriedPetals);
+		register(r, "purple" + LibBlockNames.BURIED_PETALS_SUFFIX, purpleBuriedPetals);
+		register(r, "blue" + LibBlockNames.BURIED_PETALS_SUFFIX, blueBuriedPetals);
+		register(r, "brown" + LibBlockNames.BURIED_PETALS_SUFFIX, brownBuriedPetals);
+		register(r, "green" + LibBlockNames.BURIED_PETALS_SUFFIX, greenBuriedPetals);
+		register(r, "red" + LibBlockNames.BURIED_PETALS_SUFFIX, redBuriedPetals);
+		register(r, "black" + LibBlockNames.BURIED_PETALS_SUFFIX, blackBuriedPetals);
+		
+		register(r, "white" + LibBlockNames.FLOATING_FLOWER_SUFFIX, whiteFloatingFlower);
+		register(r, "orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX, orangeFloatingFlower);
+		register(r, "magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX, magentaFloatingFlower);
+		register(r, "light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX, lightBlueFloatingFlower);
+		register(r, "yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX, yellowFloatingFlower);
+		register(r, "lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX, limeFloatingFlower);
+		register(r, "pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX, pinkFloatingFlower);
+		register(r, "gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX, grayFloatingFlower);
+		register(r, "light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX, lightGrayFloatingFlower);
+		register(r, "cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX, cyanFloatingFlower);
+		register(r, "purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX, purpleFloatingFlower);
+		register(r, "blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX, blueFloatingFlower);
+		register(r, "brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX, brownFloatingFlower);
+		register(r, "green" + LibBlockNames.FLOATING_FLOWER_SUFFIX, greenFloatingFlower);
+		register(r, "red" + LibBlockNames.FLOATING_FLOWER_SUFFIX, redFloatingFlower);
+		register(r, "black" + LibBlockNames.FLOATING_FLOWER_SUFFIX, blackFloatingFlower);
 
-		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(4);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX, new BlockBuriedPetals(color, builder));
-		}
+		register(r, LibBlockNames.TINY_POTATO, tinyPotato);
+		register(r, LibBlockNames.SPAWNER_CLAW, spawnerClaw);
+		
+		register(r, LibBlockNames.AZULEJO_PREFIX + 0, azulejo0);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 1, azulejo1);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 2, azulejo2);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 3, azulejo3);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 4, azulejo4);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 5, azulejo5);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 6, azulejo6);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 7, azulejo7);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 8, azulejo8);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 9, azulejo9);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 10, azulejo10);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 11, azulejo11);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 12, azulejo12);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 13, azulejo13);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 14, azulejo14);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 15, azulejo15);
 
-		builder = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX, new BlockFloatingFlower(color, builder));
-		}
+		register(r, LibBlockNames.ENDER_EYE_BLOCK, enderEye);
+		register(r, LibBlockNames.STARFIELD, starfield);
+		register(r, LibBlockNames.FLUXFIELD, rfGenerator);
+		register(r, LibBlockNames.ELF_GLASS, elfGlass);
+		register(r, LibBlockNames.BREWERY, brewery);
+		register(r, LibBlockNames.MANA_GLASS, manaGlass);
+		register(r, LibBlockNames.TERRA_PLATE, terraPlate);
 
-		register(r, LibBlockNames.TINY_POTATO, new BlockTinyPotato(Block.Properties.create(Material.WOOL).hardnessAndResistance(0.25F)));
-		register(r, LibBlockNames.SPAWNER_CLAW, new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3)));
+		register(r, LibBlockNames.RED_STRING_CONTAINER, redStringContainer);
+		register(r, LibBlockNames.RED_STRING_DISPENSER, redStringDispenser);
+		register(r, LibBlockNames.RED_STRING_FERTILIZER, redStringFertilizer);
+		register(r, LibBlockNames.RED_STRING_COMPARATOR, redStringComparator);
+		register(r, LibBlockNames.RED_STRING_RELAY, redStringRelay);
+		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, redStringInterceptor);
+		register(r, LibBlockNames.MANA_FLAME, manaFlame);
+		register(r, LibBlockNames.PRISM, prism);
+		register(r, LibBlockNames.ENCHANTED_SOIL, enchantedSoil);
+		
+		register(r, "white" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockWhite);
+		register(r, "orange" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockOrange);
+		register(r, "magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockMagenta);
+		register(r, "light_blue" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockLightBlue);
+		register(r, "yellow" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockYellow);
+		register(r, "lime" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockLime);
+		register(r, "pink" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockPink);
+		register(r, "gray" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockGray);
+		register(r, "light_gray" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockSilver);
+		register(r, "cyan" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockCyan);
+		register(r, "purple" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockPurple);
+		register(r, "blue" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockBlue);
+		register(r, "brown" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockBrown);
+		register(r, "green" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockGreen);
+		register(r, "red" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockRed);
+		register(r, "black" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockBlack);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE);
-		for (int i = 0; i < 16; i++) {
-			register(r, LibBlockNames.AZULEJO_PREFIX + i, new BlockMod(builder));
-		}
+		register(r, LibBlockNames.CORPOREA_INDEX, corporeaIndex);
+		register(r, LibBlockNames.CORPOREA_FUNNEL, corporeaFunnel);
+		
+		register(r, "white" + LibBlockNames.MUSHROOM_SUFFIX, whiteMushroom);
+		register(r, "orange" + LibBlockNames.MUSHROOM_SUFFIX, orangeMushroom);
+		register(r, "magenta" + LibBlockNames.MUSHROOM_SUFFIX, magentaMushroom);
+		register(r, "light_blue" + LibBlockNames.MUSHROOM_SUFFIX, lightBlueMushroom);
+		register(r, "yellow" + LibBlockNames.MUSHROOM_SUFFIX, yellowMushroom);
+		register(r, "lime" + LibBlockNames.MUSHROOM_SUFFIX, limeMushroom);
+		register(r, "pink" + LibBlockNames.MUSHROOM_SUFFIX, pinkMushroom);
+		register(r, "gray" + LibBlockNames.MUSHROOM_SUFFIX, grayMushroom);
+		register(r, "light_gray" + LibBlockNames.MUSHROOM_SUFFIX, lightGrayMushroom);
+		register(r, "cyan" + LibBlockNames.MUSHROOM_SUFFIX, cyanMushroom);
+		register(r, "purple" + LibBlockNames.MUSHROOM_SUFFIX, purpleMushroom);
+		register(r, "blue" + LibBlockNames.MUSHROOM_SUFFIX, blueMushroom);
+		register(r, "brown" + LibBlockNames.MUSHROOM_SUFFIX, brownMushroom);
+		register(r, "green" + LibBlockNames.MUSHROOM_SUFFIX, greenMushroom);
+		register(r, "red" + LibBlockNames.MUSHROOM_SUFFIX, redMushroom);
+		register(r, "black" + LibBlockNames.MUSHROOM_SUFFIX, blackMushroom);
 
-		register(r, LibBlockNames.ENDER_EYE_BLOCK, new BlockEnderEye(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)));
-		register(r, LibBlockNames.STARFIELD, new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL)));
-		register(r, LibBlockNames.FLUXFIELD, new BlockRFGenerator(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
-		register(r, LibBlockNames.ELF_GLASS, new BlockElfGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).notSolid()));
-		register(r, LibBlockNames.BREWERY, new BlockBrewery(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
-		register(r, LibBlockNames.MANA_GLASS, new BlockModGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).notSolid()));
-		register(r, LibBlockNames.TERRA_PLATE, new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)));
+		register(r, LibBlockNames.PUMP, pump);
+		
+		register(r, "white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerWhite);
+		register(r, "orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerOrange);
+		register(r, "magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerMagenta);
+		register(r, "light_blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerLightBlue);
+		register(r, "yellow" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerYellow);
+		register(r, "lime" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerLime);
+		register(r, "pink" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerPink);
+		register(r, "gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerGray);
+		register(r, "light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerLightGray);
+		register(r, "cyan" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerCyan);
+		register(r, "purple" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerPurple);
+		register(r, "blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerBlue);
+		register(r, "brown" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerBrown);
+		register(r, "green" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerGreen);
+		register(r, "red" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerRed);
+		register(r, "black" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerBlack);
 
-		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, LibBlockNames.RED_STRING_CONTAINER, new BlockRedStringContainer(builder));
-		register(r, LibBlockNames.RED_STRING_DISPENSER, new BlockRedStringDispenser(builder));
-		register(r, LibBlockNames.RED_STRING_FERTILIZER, new BlockRedStringFertilizer(builder));
-		register(r, LibBlockNames.RED_STRING_COMPARATOR, new BlockRedStringComparator(builder));
-		register(r, LibBlockNames.RED_STRING_RELAY, new BlockRedStringRelay(builder));
-		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, new BlockRedStringInterceptor(builder));
-		register(r, LibBlockNames.MANA_FLAME, new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()));
-		register(r, LibBlockNames.PRISM, new BlockPrism(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()));
-		register(r, LibBlockNames.ENCHANTED_SOIL, new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT)));
+		register(r, LibBlockNames.FAKE_AIR, fakeAir);
+		register(r, LibBlockNames.BLAZE_BLOCK, blazeBlock);
+		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, corporeaInterceptor);
+		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, corporeaCrystalCube);
+		register(r, LibBlockNames.INCENSE_PLATE, incensePlate);
+		register(r, LibBlockNames.HOURGLASS, hourglass);
+		register(r, LibBlockNames.GHOST_RAIL, ghostRail);
+		register(r, LibBlockNames.SPARK_CHANGER, sparkChanger);
+		register(r, LibBlockNames.ROOT, root);
+		register(r, LibBlockNames.FEL_PUMPKIN, felPumpkin);
+		register(r, LibBlockNames.COCOON, cocoon);
 
-		builder = Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX, new BlockPetalBlock(color, builder));
-		}
+		register(r, LibBlockNames.LIGHT_RELAY, lightRelayDefault);
+		register(r, "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX, lightRelayDetector);
+		register(r, "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX, lightRelayFork);
+		register(r, "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX, lightRelayToggle);
 
-		register(r, LibBlockNames.CORPOREA_INDEX, new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).notSolid()));
-		register(r, LibBlockNames.CORPOREA_FUNNEL, new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
+		register(r, LibBlockNames.LIGHT_LAUNCHER, lightLauncher);
+		register(r, LibBlockNames.MANA_BOMB, manaBomb);
+		register(r, LibBlockNames.CACOPHONIUM, cacophonium);
+		register(r, LibBlockNames.BELLOWS, bellows);
+		register(r, LibBlockNames.BIFROST_PERM, bifrostPerm);
+		register(r, LibBlockNames.CELL_BLOCK, cellBlock);
+		register(r, LibBlockNames.GAIA_WALL_HEAD, gaiaHeadWall);
+		register(r, LibBlockNames.GAIA_HEAD, gaiaHead);
+		register(r, LibBlockNames.CORPOREA_RETAINER, corporeaRetainer);
+		register(r, LibBlockNames.TERU_TERU_BOZU, teruTeruBozu);
+		register(r, LibBlockNames.SHIMMERROCK, shimmerrock);
+		register(r, LibBlockNames.SHIMMERWOOD_PLANKS, shimmerwoodPlanks);
+		register(r, LibBlockNames.AVATAR, avatar);
 
-		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.MUSHROOM_SUFFIX, new BlockModMushroom(color, builder));
-		}
+		register(r, BlockAltGrass.Variant.DRY.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, dryGrass);
+		register(r, BlockAltGrass.Variant.GOLDEN.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, goldenGrass);
+		register(r, BlockAltGrass.Variant.VIVID.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, vividGrass);
+		register(r, BlockAltGrass.Variant.SCORCHED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, scorchedGrass);
+		register(r, BlockAltGrass.Variant.INFUSED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, infusedGrass);
+		register(r, BlockAltGrass.Variant.MUTATED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, mutatedGrass);
 
-		register(r, LibBlockNames.PUMP, new BlockPump(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
-
-		builder = Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
-		for (DyeColor color : DyeColor.values()) {
-			register(r, color.getName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX, new BlockModDoubleFlower(color, builder));
-		}
-
-		register(r, LibBlockNames.FAKE_AIR, new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly()));
-		register(r, LibBlockNames.BLAZE_BLOCK, new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15)));
-		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
-		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, new BlockCorporeaCrystalCube(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
-		register(r, LibBlockNames.INCENSE_PLATE, new BlockIncensePlate(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.HOURGLASS, new BlockHourglass(Block.Properties.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL)));
-		register(r, LibBlockNames.GHOST_RAIL, new BlockGhostRail(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.7F).sound(SoundType.METAL)));
-		register(r, LibBlockNames.SPARK_CHANGER, new BlockSparkChanger(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
-		register(r, LibBlockNames.ROOT, new BlockRoot(Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.2F).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.FEL_PUMPKIN, new BlockFelPumpkin(Block.Properties.from(Blocks.CARVED_PUMPKIN)));
-		register(r, LibBlockNames.COCOON, new BlockCocoon(Block.Properties.create(Material.WOOL).hardnessAndResistance(3, 60).sound(SoundType.CLOTH)));
-
-		builder = Block.Properties.create(Material.GLASS).doesNotBlockMovement();
-		register(r, LibBlockNames.LIGHT_RELAY, new BlockLightRelay(LuminizerVariant.DEFAULT, builder));
-		register(r, "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX, new BlockLightRelay(LuminizerVariant.DETECTOR, builder));
-		register(r, "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX, new BlockLightRelay(LuminizerVariant.FORK, builder));
-		register(r, "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX, new BlockLightRelay(LuminizerVariant.TOGGLE, builder));
-
-		register(r, LibBlockNames.LIGHT_LAUNCHER, new BlockLightLauncher(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.MANA_BOMB, new BlockManaBomb(Block.Properties.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.CACOPHONIUM, new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F)));
-		register(r, LibBlockNames.BELLOWS, new BlockBellows(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.BIFROST_PERM, new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS).notSolid()));
-		register(r, LibBlockNames.CELL_BLOCK, new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH)));
-		register(r, LibBlockNames.GAIA_WALL_HEAD, new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)));
-		register(r, LibBlockNames.GAIA_HEAD, new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1)));
-		register(r, LibBlockNames.CORPOREA_RETAINER, new BlockCorporeaRetainer(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)));
-		register(r, LibBlockNames.TERU_TERU_BOZU, new BlockTeruTeruBozu(Block.Properties.create(Material.WOOL)));
-		register(r, LibBlockNames.SHIMMERROCK, new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)));
-		register(r, LibBlockNames.SHIMMERWOOD_PLANKS, new BlockMod(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
-		register(r, LibBlockNames.AVATAR, new BlockAvatar(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)));
-
-		builder = Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).tickRandomly().sound(SoundType.PLANT);
-		for (BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
-			register(r, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, new BlockAltGrass(v, builder));
-		}
-
-		register(r, LibBlockNames.ANIMATED_TORCH, new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).lightValue(7).notSolid()));
+		register(r, LibBlockNames.ANIMATED_TORCH, animatedTorch);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
-
 		register(r, Registry.BLOCK.getKey(whiteFlower), new BlockItem(whiteFlower, props));
 		register(r, Registry.BLOCK.getKey(orangeFlower), new BlockItem(orangeFlower, props));
 		register(r, Registry.BLOCK.getKey(magentaFlower), new BlockItem(magentaFlower, props));
