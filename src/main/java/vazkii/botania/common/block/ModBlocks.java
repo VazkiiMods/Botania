@@ -25,6 +25,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
@@ -103,7 +104,7 @@ public final class ModBlocks {
 	public static Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7));
 	public static Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, Block.Properties.from(manaPylon));
 	public static Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, Block.Properties.from(manaPylon));
-	
+
 	public static Block pistonRelay = new BlockPistonRelay(Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL));
 	public static Block distributor = new BlockDistributor(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE));
 	public static Block manaVoid = new BlockManaVoid(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE));
@@ -123,7 +124,7 @@ public final class ModBlocks {
 	public static Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, Block.Properties.from(livingwood));
 	public static Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, Block.Properties.from(livingwood));
 	public static Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, Block.Properties.from(livingwood));
-	
+
 	public static Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(15));
 	public static Block orangeShinyFlower = new BlockShinyFlower(DyeColor.ORANGE, Block.Properties.from(whiteShinyFlower));
 	public static Block magentaShinyFlower = new BlockShinyFlower(DyeColor.MAGENTA, Block.Properties.from(whiteShinyFlower));
@@ -140,7 +141,7 @@ public final class ModBlocks {
 	public static Block greenShinyFlower = new BlockShinyFlower(DyeColor.GREEN, Block.Properties.from(whiteShinyFlower));
 	public static Block redShinyFlower = new BlockShinyFlower(DyeColor.RED, Block.Properties.from(whiteShinyFlower));
 	public static Block blackShinyFlower = new BlockShinyFlower(DyeColor.BLACK, Block.Properties.from(whiteShinyFlower));
-	
+
 	public static Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD));
 	public static Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, Block.Properties.from(abstrusePlatform));
 	public static Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD));
@@ -171,7 +172,7 @@ public final class ModBlocks {
 	public static Block greenBuriedPetals = new BlockBuriedPetals(DyeColor.GREEN, Block.Properties.from(whiteBuriedPetals));
 	public static Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, Block.Properties.from(whiteBuriedPetals));
 	public static Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, Block.Properties.from(whiteBuriedPetals));
-	
+
 	public static Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15));
 	public static Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, Block.Properties.from(whiteFloatingFlower));
 	public static Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, Block.Properties.from(whiteFloatingFlower));
@@ -188,10 +189,10 @@ public final class ModBlocks {
 	public static Block greenFloatingFlower = new BlockFloatingFlower(DyeColor.GREEN, Block.Properties.from(whiteFloatingFlower));
 	public static Block redFloatingFlower = new BlockFloatingFlower(DyeColor.RED, Block.Properties.from(whiteFloatingFlower));
 	public static Block blackFloatingFlower = new BlockFloatingFlower(DyeColor.BLACK, Block.Properties.from(whiteFloatingFlower));
-	
+
 	public static Block tinyPotato = new BlockTinyPotato(Block.Properties.create(Material.WOOL).hardnessAndResistance(0.25F));
 	public static Block spawnerClaw = new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3));
-	
+
 	public static Block azulejo0 = new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE));
 	public static Block azulejo1 = new BlockMod(Block.Properties.from(azulejo0));
 	public static Block azulejo2 = new BlockMod(Block.Properties.from(azulejo0));
@@ -224,7 +225,7 @@ public final class ModBlocks {
 	public static Block manaFlame = new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement());
 	public static Block prism = new BlockPrism(Block.Properties.from(elfGlass).doesNotBlockMovement());
 	public static Block enchantedSoil = new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT));
-	
+
 	public static Block petalBlockWhite = new BlockPetalBlock(DyeColor.WHITE, Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT));
 	public static Block petalBlockOrange = new BlockPetalBlock(DyeColor.ORANGE, Block.Properties.from(petalBlockWhite));
 	public static Block petalBlockMagenta = new BlockPetalBlock(DyeColor.MAGENTA, Block.Properties.from(petalBlockWhite));
@@ -263,7 +264,7 @@ public final class ModBlocks {
 	public static Block blackMushroom = new BlockModMushroom(DyeColor.BLACK, Block.Properties.from(whiteMushroom));
 
 	public static Block pump = new BlockPump(Block.Properties.from(livingrock));
-	
+
 	public static Block doubleFlowerWhite = new BlockModDoubleFlower(DyeColor.WHITE, Block.Properties.from(whiteFlower));
 	public static Block doubleFlowerOrange = new BlockModDoubleFlower(DyeColor.ORANGE, Block.Properties.from(doubleFlowerWhite));
 	public static Block doubleFlowerMagenta = new BlockModDoubleFlower(DyeColor.MAGENTA, Block.Properties.from(doubleFlowerWhite));
@@ -335,7 +336,7 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, greenFlower);
 		register(r, "red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, redFlower);
 		register(r, "black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, blackFlower);
-		
+
 		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DEFAULT.name().toLowerCase(Locale.ROOT), defaultAltar);
 		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FOREST.name().toLowerCase(Locale.ROOT), forestAltar);
 		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.PLAINS.name().toLowerCase(Locale.ROOT), plainsAltar);
@@ -372,7 +373,7 @@ public final class ModBlocks {
 		register(r, LibBlockNames.POOL_FABULOUS, fabulousPool);
 
 		register(r, LibBlockNames.RUNE_ALTAR, runeAltar);
-		
+
 		register(r, LibBlockNames.PYLON, manaPylon);
 		register(r, LibBlockNames.PYLON_NATURA, naturaPylon);
 		register(r, LibBlockNames.PYLON_GAIA, gaiaPylon);
@@ -394,7 +395,7 @@ public final class ModBlocks {
 		register(r, LibBlockNames.CRAFT_CRATE, craftCrate);
 
 		register(r, LibBlockNames.FOREST_EYE, forestEye);
-		
+
 		register(r, LibBlockNames.MANASTEEL_BLOCK, manasteelBlock);
 		register(r, LibBlockNames.TERRASTEEL_BLOCK, terrasteelBlock);
 		register(r, LibBlockNames.ELEMENTIUM_BLOCK, elementiumBlock);
@@ -404,7 +405,7 @@ public final class ModBlocks {
 		register(r, LibBlockNames.DRUM_WILD, wildDrum);
 		register(r, LibBlockNames.DRUM_GATHERING, gatheringDrum);
 		register(r, LibBlockNames.DRUM_CANOPY, canopyDrum);
-		
+
 		register(r, "white" + LibBlockNames.SHINY_FLOWER_SUFFIX, whiteShinyFlower);
 		register(r, "orange" + LibBlockNames.SHINY_FLOWER_SUFFIX, orangeShinyFlower);
 		register(r, "magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX, magentaShinyFlower);
@@ -438,7 +439,7 @@ public final class ModBlocks {
 		register(r, LibBlockNames.CONJURATION_CATALYST, conjurationCatalyst);
 		register(r, LibBlockNames.BIFROST, bifrost);
 		register(r, LibBlockNames.SOLID_VINE, solidVines);
-		
+
 		register(r, "white" + LibBlockNames.BURIED_PETALS_SUFFIX, whiteBuriedPetals);
 		register(r, "orange" + LibBlockNames.BURIED_PETALS_SUFFIX, orangeBuriedPetals);
 		register(r, "magenta" + LibBlockNames.BURIED_PETALS_SUFFIX, magentaBuriedPetals);
@@ -455,7 +456,7 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.BURIED_PETALS_SUFFIX, greenBuriedPetals);
 		register(r, "red" + LibBlockNames.BURIED_PETALS_SUFFIX, redBuriedPetals);
 		register(r, "black" + LibBlockNames.BURIED_PETALS_SUFFIX, blackBuriedPetals);
-		
+
 		register(r, "white" + LibBlockNames.FLOATING_FLOWER_SUFFIX, whiteFloatingFlower);
 		register(r, "orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX, orangeFloatingFlower);
 		register(r, "magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX, magentaFloatingFlower);
@@ -475,7 +476,7 @@ public final class ModBlocks {
 
 		register(r, LibBlockNames.TINY_POTATO, tinyPotato);
 		register(r, LibBlockNames.SPAWNER_CLAW, spawnerClaw);
-		
+
 		register(r, LibBlockNames.AZULEJO_PREFIX + 0, azulejo0);
 		register(r, LibBlockNames.AZULEJO_PREFIX + 1, azulejo1);
 		register(r, LibBlockNames.AZULEJO_PREFIX + 2, azulejo2);
@@ -510,7 +511,7 @@ public final class ModBlocks {
 		register(r, LibBlockNames.MANA_FLAME, manaFlame);
 		register(r, LibBlockNames.PRISM, prism);
 		register(r, LibBlockNames.ENCHANTED_SOIL, enchantedSoil);
-		
+
 		register(r, "white" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockWhite);
 		register(r, "orange" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockOrange);
 		register(r, "magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockMagenta);
@@ -530,7 +531,7 @@ public final class ModBlocks {
 
 		register(r, LibBlockNames.CORPOREA_INDEX, corporeaIndex);
 		register(r, LibBlockNames.CORPOREA_FUNNEL, corporeaFunnel);
-		
+
 		register(r, "white" + LibBlockNames.MUSHROOM_SUFFIX, whiteMushroom);
 		register(r, "orange" + LibBlockNames.MUSHROOM_SUFFIX, orangeMushroom);
 		register(r, "magenta" + LibBlockNames.MUSHROOM_SUFFIX, magentaMushroom);
@@ -549,7 +550,7 @@ public final class ModBlocks {
 		register(r, "black" + LibBlockNames.MUSHROOM_SUFFIX, blackMushroom);
 
 		register(r, LibBlockNames.PUMP, pump);
-		
+
 		register(r, "white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerWhite);
 		register(r, "orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerOrange);
 		register(r, "magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerMagenta);

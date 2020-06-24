@@ -25,6 +25,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
+
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -43,6 +44,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
