@@ -71,7 +71,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	/**
 	 * Processes a food, placing it in the appropriate place in the history.
 	 * 
-	 * @return the streak multiplier index for the food, which you can pass to {@link #getMultiplierForStreak}.
+	 * @return the last time the food showed up in history.
 	 */
 	private int processFood(ItemStack food) {
 		for (ListIterator<ItemStack> it = lastFoods.listIterator(); it.hasNext();) {
@@ -89,7 +89,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		if (lastFoods.size() >= getMaxStreak()) {
 			lastFoods.remove(lastFoods.size() - 1);
 		}
-		return Math.min(streakLength + 1, getMaxStreak());
+		return getMaxStreak();
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 
 			if (!stack.isEmpty() && stack.getItem().isFood() && !item.removed && item.age >= slowdown) {
 				if (cooldown <= 0) {
-					streakLength = processFood(stack);
+					streakLength = Math.min(streakLength + 1, processFood(stack));
 
 					int val = Math.min(12, stack.getItem().getFood().getHealing());
 					digestingMana = val * val * 70;
