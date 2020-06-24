@@ -14,18 +14,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
+import net.minecraft.potion.InstantEffect;
 
 import javax.annotation.Nonnull;
 
-public class PotionClear extends Effect {
+public class PotionClear extends InstantEffect {
 
 	public PotionClear() {
 		super(EffectType.NEUTRAL, 0xFFFFFF);
-	}
-
-	@Override
-	public boolean isInstant() {
-		return true;
 	}
 
 	@Override
