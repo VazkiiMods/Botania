@@ -23,457 +23,401 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.block.ModBlocks.register;
+import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.LibBlockNames.*;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@ObjectHolder(LibMisc.MOD_ID)
 public final class ModFluffBlocks {
+	public static Block livingwoodStairs = new BlockModStairs(livingwood.getDefaultState(), Block.Properties.from(livingwood));
+	public static Block livingwoodSlab = new SlabBlock(Block.Properties.from(livingwood));
+	public static Block livingwoodWall = new WallBlock(Block.Properties.from(livingwood));
+	public static Block livingwoodFence = new FenceBlock(Block.Properties.from(livingwood));
+	public static Block livingwoodFenceGate = new FenceGateBlock(Block.Properties.from(livingwood));
+	public static Block livingwoodPlankStairs = new BlockModStairs(livingwoodPlanks.getDefaultState(), Block.Properties.from(livingwoodPlanks));
+	public static Block livingwoodPlankSlab = new SlabBlock(Block.Properties.from(livingwoodPlanks));
+	public static Block livingrockStairs = new BlockModStairs(livingrock.getDefaultState(), Block.Properties.from(livingrock));
+	public static Block livingrockSlab = new SlabBlock(Block.Properties.from(livingrock));
+	public static Block livingrockWall = new WallBlock(Block.Properties.from(livingrock));
+	public static Block livingrockBrickStairs = new BlockModStairs(livingrockBrick.getDefaultState(), Block.Properties.from(livingrockBrick));
+	public static Block livingrockBrickSlab = new SlabBlock(Block.Properties.from(livingrockBrick));
+	public static Block dreamwoodStairs = new BlockModStairs(dreamwood.getDefaultState(), Block.Properties.from(dreamwood));
+	public static Block dreamwoodSlab = new SlabBlock(Block.Properties.from(dreamwood));
+	public static Block dreamwoodWall = new WallBlock(Block.Properties.from(dreamwood));
+	public static Block dreamwoodFence = new FenceBlock(Block.Properties.from(dreamwood));
+	public static Block dreamwoodFenceGate = new FenceGateBlock(Block.Properties.from(dreamwood));
+	public static Block dreamwoodPlankStairs = new BlockModStairs(dreamwoodPlanks.getDefaultState(), Block.Properties.from(dreamwoodPlanks));
+	public static Block dreamwoodPlankSlab = new SlabBlock(Block.Properties.from(dreamwoodPlanks));
 
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX)
-	public static Block livingwoodStairs;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX)
-	public static Block livingwoodSlab;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + WALL_SUFFIX)
-	public static Block livingwoodWall;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX)
-	public static Block livingwoodFence;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX)
-	public static Block livingwoodFenceGate;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX)
-	public static Block livingwoodPlankStairs;
-	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX)
-	public static Block livingwoodPlankSlab;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX)
-	public static Block livingrockStairs;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX)
-	public static Block livingrockSlab;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK + WALL_SUFFIX)
-	public static Block livingrockWall;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX)
-	public static Block livingrockBrickStairs;
-	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX)
-	public static Block livingrockBrickSlab;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX)
-	public static Block dreamwoodStairs;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX)
-	public static Block dreamwoodSlab;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + WALL_SUFFIX)
-	public static Block dreamwoodWall;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX)
-	public static Block dreamwoodFence;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX)
-	public static Block dreamwoodFenceGate;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX)
-	public static Block dreamwoodPlankStairs;
-	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX)
-	public static Block dreamwoodPlankSlab;
+	public static Block darkQuartz = new BlockMod(Block.Properties.from(Blocks.QUARTZ_BLOCK));
+	public static Block darkQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block darkQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block darkQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block darkQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block manaQuartz = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block manaQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block manaQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block manaQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block manaQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block blazeQuartz = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block blazeQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block blazeQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block blazeQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block blazeQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block lavenderQuartz = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block lavenderQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block lavenderQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block lavenderQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block lavenderQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block redQuartz = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block redQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block redQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block redQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block redQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block elfQuartz = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block elfQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block elfQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block elfQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block elfQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block sunnyQuartz = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block sunnyQuartzChiseled = new BlockMod(Block.Properties.from(darkQuartz));
+	public static Block sunnyQuartzPillar = new RotatedPillarBlock(Block.Properties.from(darkQuartz));
+	public static Block sunnyQuartzSlab = new SlabBlock(Block.Properties.from(darkQuartz));
+	public static Block sunnyQuartzStairs = new BlockModStairs(darkQuartz.getDefaultState(), Block.Properties.from(darkQuartz));
+	
+	public static Block whitePavement = new BlockMod(Block.Properties.from(livingrock));
+	public static Block whitePavementStair = new BlockModStairs(whitePavement.getDefaultState(), Block.Properties.from(whitePavement));
+	public static Block whitePavementSlab = new SlabBlock(Block.Properties.from(whitePavement));
+	
+	public static Block blackPavement = new BlockMod(Block.Properties.from(whitePavement));
+	public static Block blackPavementStair = new BlockModStairs(whitePavement.getDefaultState(), Block.Properties.from(whitePavement));
+	public static Block blackPavementSlab = new SlabBlock(Block.Properties.from(whitePavement));
+	
+	public static Block bluePavement = new BlockMod(Block.Properties.from(whitePavement));
+	public static Block bluePavementStair = new BlockModStairs(whitePavement.getDefaultState(), Block.Properties.from(whitePavement));
+	public static Block bluePavementSlab = new SlabBlock(Block.Properties.from(whitePavement));
+	
+	public static Block yellowPavement = new BlockMod(Block.Properties.from(whitePavement));
+	public static Block yellowPavementStair = new BlockModStairs(whitePavement.getDefaultState(), Block.Properties.from(whitePavement));
+	public static Block yellowPavementSlab = new SlabBlock(Block.Properties.from(whitePavement));
+	
+	public static Block redPavement = new BlockMod(Block.Properties.from(whitePavement));
+	public static Block redPavementStair = new BlockModStairs(whitePavement.getDefaultState(), Block.Properties.from(whitePavement));
+	public static Block redPavementSlab = new SlabBlock(Block.Properties.from(whitePavement));
+	
+	public static Block greenPavement = new BlockMod(Block.Properties.from(whitePavement));
+	public static Block greenPavementStair = new BlockModStairs(whitePavement.getDefaultState(), Block.Properties.from(whitePavement));
+	public static Block greenPavementSlab = new SlabBlock(Block.Properties.from(whitePavement));
+	
+	public static Block biomeStoneForest = new BlockMod(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE));
+	public static Block biomeStoneForestSlab = new SlabBlock(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneForestStairs = new BlockModStairs(biomeStoneForest.getDefaultState(), Block.Properties.from(biomeStoneForest));
+	public static Block biomeCobblestoneForest = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeCobblestoneForestSlab = new SlabBlock(Block.Properties.from(biomeStoneForest));
+	public static Block biomeCobblestoneForestStairs = new BlockModStairs(biomeStoneForest.getDefaultState(), Block.Properties.from(biomeStoneForest));
+	public static Block biomeWallForest = new WallBlock(Block.Properties.from(biomeStoneForest));
+	public static Block biomeBrickForest = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeBrickForestSlab = new SlabBlock(Block.Properties.from(biomeStoneForest));
+	public static Block biomeBrickForestStairs = new BlockModStairs(biomeStoneForest.getDefaultState(), Block.Properties.from(biomeStoneForest));
+	public static Block biomeChiseledBrickForest = new BlockMod(Block.Properties.from(biomeStoneForest));
+	
+	public static Block biomeStonePlains = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStonePlainsSlab = new SlabBlock(Block.Properties.from(biomeStonePlains));
+	public static Block biomeStonePlainsStairs = new BlockModStairs(biomeStonePlains.getDefaultState(), Block.Properties.from(biomeStonePlains));
+	public static Block biomeCobblestonePlains = new BlockMod(Block.Properties.from(biomeStonePlains));
+	public static Block biomeCobblestonePlainsSlab = new SlabBlock(Block.Properties.from(biomeStonePlains));
+	public static Block biomeCobblestonePlainsStairs = new BlockModStairs(biomeStonePlains.getDefaultState(), Block.Properties.from(biomeStonePlains));
+	public static Block biomeWallPlains = new WallBlock(Block.Properties.from(biomeStonePlains));
+	public static Block biomeBrickPlains = new BlockMod(Block.Properties.from(biomeStonePlains));
+	public static Block biomeBrickPlainsSlab = new SlabBlock(Block.Properties.from(biomeStonePlains));
+	public static Block biomeBrickPlainsStairs = new BlockModStairs(biomeStonePlains.getDefaultState(), Block.Properties.from(biomeStonePlains));
+	public static Block biomeChiseledBrickPlains = new BlockMod(Block.Properties.from(biomeStonePlains));
+	
+	public static Block biomeStoneMountain = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneMountainSlab = new SlabBlock(Block.Properties.from(biomeStoneMountain));
+	public static Block biomeStoneMountainStairs = new BlockModStairs(biomeStoneMountain.getDefaultState(), Block.Properties.from(biomeStoneMountain));
+	public static Block biomeCobblestoneMountain = new BlockMod(Block.Properties.from(biomeStoneMountain));
+	public static Block biomeCobblestoneMountainSlab = new SlabBlock(Block.Properties.from(biomeStoneMountain));
+	public static Block biomeCobblestoneMountainStairs = new BlockModStairs(biomeStoneMountain.getDefaultState(), Block.Properties.from(biomeStoneMountain));
+	public static Block biomeWallMountain = new WallBlock(Block.Properties.from(biomeStoneMountain));
+	public static Block biomeBrickMountain = new BlockMod(Block.Properties.from(biomeStoneMountain));
+	public static Block biomeBrickMountainSlab = new SlabBlock(Block.Properties.from(biomeStoneMountain));
+	public static Block biomeBrickMountainStairs = new BlockModStairs(biomeStoneMountain.getDefaultState(), Block.Properties.from(biomeStoneMountain));
+	public static Block biomeChiseledBrickMountain = new BlockMod(Block.Properties.from(biomeStoneMountain));
+	
+	public static Block biomeStoneFungal = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneFungalSlab = new SlabBlock(Block.Properties.from(biomeStoneFungal));
+	public static Block biomeStoneFungalStairs = new BlockModStairs(biomeStoneFungal.getDefaultState(), Block.Properties.from(biomeStoneFungal));
+	public static Block biomeCobblestoneFungal = new BlockMod(Block.Properties.from(biomeStoneFungal));
+	public static Block biomeCobblestoneFungalSlab = new SlabBlock(Block.Properties.from(biomeStoneFungal));
+	public static Block biomeCobblestoneFungalStairs = new BlockModStairs(biomeStoneFungal.getDefaultState(), Block.Properties.from(biomeStoneFungal));
+	public static Block biomeWallFungal = new WallBlock(Block.Properties.from(biomeStoneFungal));
+	public static Block biomeBrickFungal = new BlockMod(Block.Properties.from(biomeStoneFungal));
+	public static Block biomeBrickFungalSlab = new SlabBlock(Block.Properties.from(biomeStoneFungal));
+	public static Block biomeBrickFungalStairs = new BlockModStairs(biomeStoneFungal.getDefaultState(), Block.Properties.from(biomeStoneFungal));
+	public static Block biomeChiseledBrickFungal = new BlockMod(Block.Properties.from(biomeStoneFungal));
+	
+	public static Block biomeStoneSwamp = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneSwampSlab = new SlabBlock(Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeStoneSwampStairs = new BlockModStairs(biomeStoneSwamp.getDefaultState(), Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeCobblestoneSwamp = new BlockMod(Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeCobblestoneSwampSlab = new SlabBlock(Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeCobblestoneSwampStairs = new BlockModStairs(biomeStoneSwamp.getDefaultState(), Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeWallSwamp = new WallBlock(Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeBrickSwamp = new BlockMod(Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeBrickSwampSlab = new SlabBlock(Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeBrickSwampStairs = new BlockModStairs(biomeStoneSwamp.getDefaultState(), Block.Properties.from(biomeStoneSwamp));
+	public static Block biomeChiseledBrickSwamp = new BlockMod(Block.Properties.from(biomeStoneSwamp));
+	
+	public static Block biomeStoneDesert = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneDesertSlab = new SlabBlock(Block.Properties.from(biomeStoneDesert));
+	public static Block biomeStoneDesertStairs = new BlockModStairs(biomeStoneDesert.getDefaultState(), Block.Properties.from(biomeStoneDesert));
+	public static Block biomeCobblestoneDesert = new BlockMod(Block.Properties.from(biomeStoneDesert));
+	public static Block biomeCobblestoneDesertSlab = new SlabBlock(Block.Properties.from(biomeStoneDesert));
+	public static Block biomeCobblestoneDesertStairs = new BlockModStairs(biomeStoneDesert.getDefaultState(), Block.Properties.from(biomeStoneDesert));
+	public static Block biomeWallDesert = new WallBlock(Block.Properties.from(biomeStoneDesert));
+	public static Block biomeBrickDesert = new BlockMod(Block.Properties.from(biomeStoneDesert));
+	public static Block biomeBrickDesertSlab = new SlabBlock(Block.Properties.from(biomeStoneDesert));
+	public static Block biomeBrickDesertStairs = new BlockModStairs(biomeStoneDesert.getDefaultState(), Block.Properties.from(biomeStoneDesert));
+	public static Block biomeChiseledBrickDesert = new BlockMod(Block.Properties.from(biomeStoneDesert));
+	
+	public static Block biomeStoneTaiga = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneTaigaSlab = new SlabBlock(Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeStoneTaigaStairs = new BlockModStairs(biomeStoneTaiga.getDefaultState(), Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeCobblestoneTaiga = new BlockMod(Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeCobblestoneTaigaSlab = new SlabBlock(Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeCobblestoneTaigaStairs = new BlockModStairs(biomeStoneTaiga.getDefaultState(), Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeWallTaiga = new WallBlock(Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeBrickTaiga = new BlockMod(Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeBrickTaigaSlab = new SlabBlock(Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeBrickTaigaStairs = new BlockModStairs(biomeStoneTaiga.getDefaultState(), Block.Properties.from(biomeStoneTaiga));
+	public static Block biomeChiseledBrickTaiga = new BlockMod(Block.Properties.from(biomeStoneTaiga));
+	
+	public static Block biomeStoneMesa = new BlockMod(Block.Properties.from(biomeStoneForest));
+	public static Block biomeStoneMesaSlab = new SlabBlock(Block.Properties.from(biomeStoneMesa));
+	public static Block biomeStoneMesaStairs = new BlockModStairs(biomeStoneMesa.getDefaultState(), Block.Properties.from(biomeStoneMesa));
+	public static Block biomeCobblestoneMesa = new BlockMod(Block.Properties.from(biomeStoneMesa));
+	public static Block biomeCobblestoneMesaSlab = new SlabBlock(Block.Properties.from(biomeStoneMesa));
+	public static Block biomeCobblestoneMesaStairs = new BlockModStairs(biomeStoneMesa.getDefaultState(), Block.Properties.from(biomeStoneMesa));
+	public static Block biomeWallMesa = new WallBlock(Block.Properties.from(biomeStoneMesa));
+	public static Block biomeBrickMesa = new BlockMod(Block.Properties.from(biomeStoneMesa));
+	public static Block biomeBrickMesaSlab = new SlabBlock(Block.Properties.from(biomeStoneMesa));
+	public static Block biomeBrickMesaStairs = new BlockModStairs(biomeStoneMesa.getDefaultState(), Block.Properties.from(biomeStoneMesa));
+	public static Block biomeChiseledBrickMesa = new BlockMod(Block.Properties.from(biomeStoneMesa));
 
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK)
-	public static Block darkQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_DARK)
-	public static Block darkQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK + "_pillar")
-	public static Block darkQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK + SLAB_SUFFIX)
-	public static Block darkQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_DARK + STAIR_SUFFIX)
-	public static Block darkQuartzStairs;
+	public static Block shimmerrockSlab = new SlabBlock(Block.Properties.from(shimmerrock));
+	public static Block shimmerrockStairs = new BlockModStairs(shimmerrock.getDefaultState(), Block.Properties.from(shimmerrock));
+	
+	public static Block shimmerwoodPlankSlab = new SlabBlock(Block.Properties.from(shimmerwoodPlanks));
+	public static Block shimmerwoodPlankStairs = new BlockModStairs(shimmerwoodPlanks.getDefaultState(), Block.Properties.from(shimmerwoodPlanks));
 
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA)
-	public static Block manaQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_MANA)
-	public static Block manaQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA + "_pillar")
-	public static Block manaQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA + SLAB_SUFFIX)
-	public static Block manaQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_MANA + STAIR_SUFFIX)
-	public static Block manaQuartzStairs;
-
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE)
-	public static Block blazeQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_BLAZE)
-	public static Block blazeQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + "_pillar")
-	public static Block blazeQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + SLAB_SUFFIX)
-	public static Block blazeQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_BLAZE + STAIR_SUFFIX)
-	public static Block blazeQuartzStairs;
-
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER)
-	public static Block lavenderQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_LAVENDER)
-	public static Block lavenderQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + "_pillar")
-	public static Block lavenderQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + SLAB_SUFFIX)
-	public static Block lavenderQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_LAVENDER + STAIR_SUFFIX)
-	public static Block lavenderQuartzStairs;
-
-	@ObjectHolder(LibBlockNames.QUARTZ_RED)
-	public static Block redQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_RED)
-	public static Block redQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_RED + "_pillar")
-	public static Block redQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_RED + SLAB_SUFFIX)
-	public static Block redQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_RED + STAIR_SUFFIX)
-	public static Block redQuartzStairs;
-
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF)
-	public static Block elfQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_ELF)
-	public static Block elfQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF + "_pillar")
-	public static Block elfQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF + SLAB_SUFFIX)
-	public static Block elfQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_ELF + STAIR_SUFFIX)
-	public static Block elfQuartzStairs;
-
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY)
-	public static Block sunnyQuartz;
-	@ObjectHolder("chiseled_" + LibBlockNames.QUARTZ_SUNNY)
-	public static Block sunnyQuartzChiseled;
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + "_pillar")
-	public static Block sunnyQuartzPillar;
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + SLAB_SUFFIX)
-	public static Block sunnyQuartzSlab;
-	@ObjectHolder(LibBlockNames.QUARTZ_SUNNY + STAIR_SUFFIX)
-	public static Block sunnyQuartzStairs;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone")
-	public static Block biomeStoneForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneForestSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneForestStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone")
-	public static Block biomeCobblestoneForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneForestSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneForestStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks")
-	public static Block biomeBrickForest;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickForestSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickForestStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks")
-	public static Block biomeChiseledBrickForest;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone")
-	public static Block biomeStonePlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX)
-	public static Block biomeStonePlainsSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX)
-	public static Block biomeStonePlainsStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone")
-	public static Block biomeCobblestonePlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestonePlainsSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestonePlainsStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallPlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks")
-	public static Block biomeBrickPlains;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickPlainsSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickPlainsStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks")
-	public static Block biomeChiseledBrickPlains;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone")
-	public static Block biomeStoneMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneMountainSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneMountainStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone")
-	public static Block biomeCobblestoneMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneMountainSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneMountainStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks")
-	public static Block biomeBrickMountain;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickMountainSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickMountainStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks")
-	public static Block biomeChiseledBrickMountain;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone")
-	public static Block biomeStoneFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneFungalSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneFungalStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone")
-	public static Block biomeCobblestoneFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneFungalSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneFungalStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks")
-	public static Block biomeBrickFungal;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickFungalSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickFungalStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks")
-	public static Block biomeChiseledBrickFungal;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone")
-	public static Block biomeStoneSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneSwampSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneSwampStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone")
-	public static Block biomeCobblestoneSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneSwampSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneSwampStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks")
-	public static Block biomeBrickSwamp;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickSwampSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickSwampStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks")
-	public static Block biomeChiseledBrickSwamp;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone")
-	public static Block biomeStoneDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneDesertSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneDesertStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone")
-	public static Block biomeCobblestoneDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneDesertSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneDesertStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks")
-	public static Block biomeBrickDesert;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickDesertSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickDesertStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks")
-	public static Block biomeChiseledBrickDesert;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone")
-	public static Block biomeStoneTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneTaigaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneTaigaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone")
-	public static Block biomeCobblestoneTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneTaigaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneTaigaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks")
-	public static Block biomeBrickTaiga;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickTaigaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickTaigaStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks")
-	public static Block biomeChiseledBrickTaiga;
-
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone")
-	public static Block biomeStoneMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX)
-	public static Block biomeStoneMesaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX)
-	public static Block biomeStoneMesaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone")
-	public static Block biomeCobblestoneMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX)
-	public static Block biomeCobblestoneMesaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX)
-	public static Block biomeCobblestoneMesaStairs;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX)
-	public static Block biomeWallMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks")
-	public static Block biomeBrickMesa;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX)
-	public static Block biomeBrickMesaSlab;
-	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX)
-	public static Block biomeBrickMesaStairs;
-	@ObjectHolder("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks")
-	public static Block biomeChiseledBrickMesa;
-
-	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX)
-	public static Block whitePavement;
-	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX)
-	public static Block blackPavement;
-	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX)
-	public static Block bluePavement;
-	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX)
-	public static Block yellowPavement;
-	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX)
-	public static Block redPavement;
-	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX)
-	public static Block greenPavement;
-
-	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
-	public static Block whitePavementSlab;
-	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
-	public static Block blackPavementSlab;
-	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
-	public static Block bluePavementSlab;
-	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
-	public static Block yellowPavementSlab;
-	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
-	public static Block redPavementSlab;
-	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX)
-	public static Block greenPavementSlab;
-
-	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
-	public static Block whitePavementStair;
-	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
-	public static Block blackPavementStair;
-	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
-	public static Block bluePavementStair;
-	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
-	public static Block yellowPavementStair;
-	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
-	public static Block redPavementStair;
-	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX)
-	public static Block greenPavementStair;
-
-	@ObjectHolder(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX)
-	public static Block shimmerrockSlab;
-	@ObjectHolder(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX)
-	public static Block shimmerrockStairs;
-	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX)
-	public static Block shimmerwoodPlankSlab;
-	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX)
-	public static Block shimmerwoodPlankStairs;
-
-	@ObjectHolder(LibBlockNames.MANA_GLASS + "_pane")
-	public static Block managlassPane;
-	@ObjectHolder(LibBlockNames.ELF_GLASS + "_pane")
-	public static Block alfglassPane;
-	@ObjectHolder(LibBlockNames.BIFROST + "_pane")
-	public static Block bifrostPane;
+	public static Block managlassPane = new BlockModPane(Block.Properties.from(manaGlass));
+	public static Block alfglassPane = new BlockModPane(Block.Properties.from(elfGlass));
+	public static Block bifrostPane = new BlockModPane(Block.Properties.from(bifrostPerm));
 
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
-		Block base = r.getValue(prefix(LibBlockNames.LIVING_WOOD));
-		register(r, LibBlockNames.LIVING_WOOD + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_WOOD + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_WOOD + WALL_SUFFIX, new WallBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, new FenceBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD + STAIR_SUFFIX, livingwoodStairs);
+		register(r, LibBlockNames.LIVING_WOOD + SLAB_SUFFIX, livingwoodSlab);
+		register(r, LibBlockNames.LIVING_WOOD + WALL_SUFFIX, livingwoodWall);
+		register(r, LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, livingwoodFence);
+		register(r, LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, livingwoodFenceGate);
 
-		base = r.getValue(prefix(LibBlockNames.LIVING_WOOD_PLANKS));
-		register(r, LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX, livingwoodPlankStairs);
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX, livingwoodPlankSlab);
 
-		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK));
-		register(r, LibBlockNames.LIVING_ROCK + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_ROCK + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_ROCK + WALL_SUFFIX, new WallBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_ROCK + STAIR_SUFFIX, livingrockStairs);
+		register(r, LibBlockNames.LIVING_ROCK + SLAB_SUFFIX, livingrockSlab);
+		register(r, LibBlockNames.LIVING_ROCK + WALL_SUFFIX, livingrockWall);
 
-		base = r.getValue(prefix(LibBlockNames.LIVING_ROCK_BRICK));
-		register(r, LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-		register(r, LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX, livingrockBrickStairs);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX, livingrockBrickSlab);
 
-		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD));
-		register(r, LibBlockNames.DREAM_WOOD + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-		register(r, LibBlockNames.DREAM_WOOD + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.DREAM_WOOD + WALL_SUFFIX, new WallBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, new FenceBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD + STAIR_SUFFIX, dreamwoodStairs);
+		register(r, LibBlockNames.DREAM_WOOD + SLAB_SUFFIX, dreamwoodSlab);
+		register(r, LibBlockNames.DREAM_WOOD + WALL_SUFFIX, dreamwoodWall);
+		register(r, LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, dreamwoodFence);
+		register(r, LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, dreamwoodFenceGate);
 
-		base = r.getValue(prefix(LibBlockNames.DREAM_WOOD_PLANKS));
-		register(r, LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-		register(r, LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX, dreamwoodPlankStairs);
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX, dreamwoodPlankSlab);
+		
+		register(r, QUARTZ_DARK, darkQuartz);
+		register(r, "chiseled_" + QUARTZ_DARK, darkQuartzChiseled);
+		register(r, QUARTZ_DARK + "_pillar", darkQuartzPillar);
+		register(r, QUARTZ_DARK + SLAB_SUFFIX, darkQuartzSlab);
+		register(r, QUARTZ_DARK + STAIR_SUFFIX, darkQuartzStairs);
+		
+		register(r, QUARTZ_MANA, manaQuartz);
+		register(r, "chiseled_" + QUARTZ_MANA, manaQuartzChiseled);
+		register(r, QUARTZ_MANA + "_pillar", manaQuartzPillar);
+		register(r, QUARTZ_MANA + SLAB_SUFFIX, manaQuartzSlab);
+		register(r, QUARTZ_MANA + STAIR_SUFFIX, manaQuartzStairs);
+		
+		register(r, QUARTZ_BLAZE, blazeQuartz);
+		register(r, "chiseled_" + QUARTZ_BLAZE, blazeQuartzChiseled);
+		register(r, QUARTZ_BLAZE + "_pillar", blazeQuartzPillar);
+		register(r, QUARTZ_BLAZE + SLAB_SUFFIX, blazeQuartzSlab);
+		register(r, QUARTZ_BLAZE + STAIR_SUFFIX, blazeQuartzStairs);
+		
+		register(r, QUARTZ_LAVENDER, lavenderQuartz);
+		register(r, "chiseled_" + QUARTZ_LAVENDER, lavenderQuartzChiseled);
+		register(r, QUARTZ_LAVENDER + "_pillar", lavenderQuartzPillar);
+		register(r, QUARTZ_LAVENDER + SLAB_SUFFIX, lavenderQuartzSlab);
+		register(r, QUARTZ_LAVENDER + STAIR_SUFFIX, lavenderQuartzStairs);
+		
+		register(r, QUARTZ_RED, redQuartz);
+		register(r, "chiseled_" + QUARTZ_RED, redQuartzChiseled);
+		register(r, QUARTZ_RED + "_pillar", redQuartzPillar);
+		register(r, QUARTZ_RED + SLAB_SUFFIX, redQuartzSlab);
+		register(r, QUARTZ_RED + STAIR_SUFFIX, redQuartzStairs);
+		
+		register(r, QUARTZ_ELF, elfQuartz);
+		register(r, "chiseled_" + QUARTZ_ELF, elfQuartzChiseled);
+		register(r, QUARTZ_ELF + "_pillar", elfQuartzPillar);
+		register(r, QUARTZ_ELF + SLAB_SUFFIX, elfQuartzSlab);
+		register(r, QUARTZ_ELF + STAIR_SUFFIX, elfQuartzStairs);
+		
+		register(r, QUARTZ_SUNNY, sunnyQuartz);
+		register(r, "chiseled_" + QUARTZ_SUNNY, sunnyQuartzChiseled);
+		register(r, QUARTZ_SUNNY + "_pillar", sunnyQuartzPillar);
+		register(r, QUARTZ_SUNNY + SLAB_SUFFIX, sunnyQuartzSlab);
+		register(r, QUARTZ_SUNNY + STAIR_SUFFIX, sunnyQuartzStairs);
+		
+		register(r, "white" + PAVEMENT_SUFFIX, whitePavement);
+		register(r, "white" + PAVEMENT_SUFFIX + STAIR_SUFFIX, whitePavementStair);
+		register(r, "white" + PAVEMENT_SUFFIX + SLAB_SUFFIX, whitePavementSlab);
+		
+		register(r, "black" + PAVEMENT_SUFFIX, blackPavement);
+		register(r, "black" + PAVEMENT_SUFFIX + STAIR_SUFFIX, blackPavementStair);
+		register(r, "black" + PAVEMENT_SUFFIX + SLAB_SUFFIX, blackPavementSlab);
+		
+		register(r, "blue" + PAVEMENT_SUFFIX, bluePavement);
+		register(r, "blue" + PAVEMENT_SUFFIX + STAIR_SUFFIX, bluePavementStair);
+		register(r, "blue" + PAVEMENT_SUFFIX + SLAB_SUFFIX, bluePavementSlab);
+		
+		register(r, "yellow" + PAVEMENT_SUFFIX, yellowPavement);
+		register(r, "yellow" + PAVEMENT_SUFFIX + STAIR_SUFFIX, yellowPavementStair);
+		register(r, "yellow" + PAVEMENT_SUFFIX + SLAB_SUFFIX, yellowPavementSlab);
+		
+		register(r, "red" + PAVEMENT_SUFFIX, redPavement);
+		register(r, "red" + PAVEMENT_SUFFIX + STAIR_SUFFIX, redPavementStair);
+		register(r, "red" + PAVEMENT_SUFFIX + SLAB_SUFFIX, redPavementSlab);
+		
+		register(r, "green" + PAVEMENT_SUFFIX, greenPavement);
+		register(r, "green" + PAVEMENT_SUFFIX + STAIR_SUFFIX, greenPavementStair);
+		register(r, "green" + PAVEMENT_SUFFIX + SLAB_SUFFIX, greenPavementSlab);
+		
+		register(r, METAMORPHIC_PREFIX + "forest_stone", biomeStoneForest);
+		register(r, METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX, biomeStoneForestSlab);
+		register(r, METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX, biomeStoneForestStairs);
+		register(r, METAMORPHIC_PREFIX + "forest_cobblestone", biomeCobblestoneForest);
+		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX, biomeCobblestoneForestSlab);
+		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX, biomeCobblestoneForestStairs);
+		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX, biomeWallForest);
+		register(r, METAMORPHIC_PREFIX + "forest_bricks", biomeBrickForest);
+		register(r, METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX, biomeBrickForestSlab);
+		register(r, METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX, biomeBrickForestStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "forest_bricks", biomeChiseledBrickForest);
+		
+		register(r, METAMORPHIC_PREFIX + "plains_stone", biomeStonePlains);
+		register(r, METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX, biomeStonePlainsSlab);
+		register(r, METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX, biomeStonePlainsStairs);
+		register(r, METAMORPHIC_PREFIX + "plains_cobblestone", biomeCobblestonePlains);
+		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX, biomeCobblestonePlainsSlab);
+		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX, biomeCobblestonePlainsStairs);
+		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX, biomeWallPlains);
+		register(r, METAMORPHIC_PREFIX + "plains_bricks", biomeBrickPlains);
+		register(r, METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX, biomeBrickPlainsSlab);
+		register(r, METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX, biomeBrickPlainsStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "plains_bricks", biomeChiseledBrickPlains);
+		
+		register(r, METAMORPHIC_PREFIX + "mountain_stone", biomeStoneMountain);
+		register(r, METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX, biomeStoneMountainSlab);
+		register(r, METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX, biomeStoneMountainStairs);
+		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone", biomeCobblestoneMountain);
+		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX, biomeCobblestoneMountainSlab);
+		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX, biomeCobblestoneMountainStairs);
+		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX, biomeWallMountain);
+		register(r, METAMORPHIC_PREFIX + "mountain_bricks", biomeBrickMountain);
+		register(r, METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX, biomeBrickMountainSlab);
+		register(r, METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX, biomeBrickMountainStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "mountain_bricks", biomeChiseledBrickMountain);
+		
+		register(r, METAMORPHIC_PREFIX + "fungal_stone", biomeStoneFungal);
+		register(r, METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX, biomeStoneFungalSlab);
+		register(r, METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX, biomeStoneFungalStairs);
+		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone", biomeCobblestoneFungal);
+		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX, biomeCobblestoneFungalSlab);
+		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX, biomeCobblestoneFungalStairs);
+		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX, biomeWallFungal);
+		register(r, METAMORPHIC_PREFIX + "fungal_bricks", biomeBrickFungal);
+		register(r, METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX, biomeBrickFungalSlab);
+		register(r, METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX, biomeBrickFungalStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "fungal_bricks", biomeChiseledBrickFungal);
+		
+		register(r, METAMORPHIC_PREFIX + "swamp_stone", biomeStoneSwamp);
+		register(r, METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX, biomeStoneSwampSlab);
+		register(r, METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX, biomeStoneSwampStairs);
+		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone", biomeCobblestoneSwamp);
+		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX, biomeCobblestoneSwampSlab);
+		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX, biomeCobblestoneSwampStairs);
+		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX, biomeWallSwamp);
+		register(r, METAMORPHIC_PREFIX + "swamp_bricks", biomeBrickSwamp);
+		register(r, METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX, biomeBrickSwampSlab);
+		register(r, METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX, biomeBrickSwampStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "swamp_bricks", biomeChiseledBrickSwamp);
+		
+		register(r, METAMORPHIC_PREFIX + "desert_stone", biomeStoneDesert);
+		register(r, METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX, biomeStoneDesertSlab);
+		register(r, METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX, biomeStoneDesertStairs);
+		register(r, METAMORPHIC_PREFIX + "desert_cobblestone", biomeCobblestoneDesert);
+		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX, biomeCobblestoneDesertSlab);
+		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX, biomeCobblestoneDesertStairs);
+		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX, biomeWallDesert);
+		register(r, METAMORPHIC_PREFIX + "desert_bricks", biomeBrickDesert);
+		register(r, METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX, biomeBrickDesertSlab);
+		register(r, METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX, biomeBrickDesertStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "desert_bricks", biomeChiseledBrickDesert);
+		
+		register(r, METAMORPHIC_PREFIX + "taiga_stone", biomeStoneTaiga);
+		register(r, METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX, biomeStoneTaigaSlab);
+		register(r, METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX, biomeStoneTaigaStairs);
+		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone", biomeCobblestoneTaiga);
+		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX, biomeCobblestoneTaigaSlab);
+		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX, biomeCobblestoneTaigaStairs);
+		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX, biomeWallTaiga);
+		register(r, METAMORPHIC_PREFIX + "taiga_bricks", biomeBrickTaiga);
+		register(r, METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX, biomeBrickTaigaSlab);
+		register(r, METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX, biomeBrickTaigaStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "taiga_bricks", biomeChiseledBrickTaiga);
+		
+		register(r, METAMORPHIC_PREFIX + "mesa_stone", biomeStoneMesa);
+		register(r, METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX, biomeStoneMesaSlab);
+		register(r, METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX, biomeStoneMesaStairs);
+		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone", biomeCobblestoneMesa);
+		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX, biomeCobblestoneMesaSlab);
+		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX, biomeCobblestoneMesaStairs);
+		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX, biomeWallMesa);
+		register(r, METAMORPHIC_PREFIX + "mesa_bricks", biomeBrickMesa);
+		register(r, METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX, biomeBrickMesaSlab);
+		register(r, METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX, biomeBrickMesaStairs);
+		register(r, "chiseled_" + METAMORPHIC_PREFIX + "mesa_bricks", biomeChiseledBrickMesa);
+		
+		register(r, LibBlockNames.SHIMMERROCK + SLAB_SUFFIX, shimmerrockSlab);
+		register(r, LibBlockNames.SHIMMERROCK + STAIR_SUFFIX, shimmerrockStairs);
 
-		Block.Properties props = Block.Properties.from(Blocks.QUARTZ_BLOCK);
-		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
+		register(r, LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX, shimmerwoodPlankSlab);
+		register(r, LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX, shimmerwoodPlankStairs);
 
-			base = new BlockMod(props);
-			register(r, variant, base);
-			register(r, "chiseled_" + variant, new BlockMod(props));
-			register(r, variant + "_pillar", new RotatedPillarBlock(props));
-			register(r, variant + SLAB_SUFFIX, new SlabBlock(props));
-			register(r, variant + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
-		}
-
-		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		for (String color : LibBlockNames.PAVEMENT_VARIANTS) {
-			Block block = new BlockMod(props);
-			register(r, color + LibBlockNames.PAVEMENT_SUFFIX, block);
-			register(r, color + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX, new BlockModStairs(block.getDefaultState(), props));
-			register(r, color + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX, new SlabBlock(props));
-		}
-
-		props = Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 10).sound(SoundType.STONE);
-		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			base = new BlockMod(props);
-			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone", base);
-			register(r, Registry.BLOCK.getKey(base).getPath() + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
-			register(r, Registry.BLOCK.getKey(base).getPath() + SLAB_SUFFIX, new SlabBlock(props));
-
-			base = new BlockMod(props);
-			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone", base);
-			register(r, Registry.BLOCK.getKey(base).getPath() + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
-			register(r, Registry.BLOCK.getKey(base).getPath() + SLAB_SUFFIX, new SlabBlock(props));
-			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX, new WallBlock(props));
-
-			base = new BlockMod(props);
-			register(r, LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks", base);
-			register(r, Registry.BLOCK.getKey(base).getPath() + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), props));
-			register(r, Registry.BLOCK.getKey(base).getPath() + SLAB_SUFFIX, new SlabBlock(props));
-			register(r, "chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks", new BlockMod(props));
-		}
-
-		base = r.getValue(prefix(LibBlockNames.SHIMMERROCK));
-		register(r, LibBlockNames.SHIMMERROCK + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.SHIMMERROCK + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-
-		base = r.getValue(prefix(LibBlockNames.SHIMMERWOOD_PLANKS));
-		register(r, LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(Block.Properties.from(base)));
-		register(r, LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX, new BlockModStairs(base.getDefaultState(), Block.Properties.from(base)));
-
-		base = r.getValue(prefix(LibBlockNames.MANA_GLASS));
-		register(r, LibBlockNames.MANA_GLASS + "_pane", new BlockModPane(Block.Properties.from(base)));
-
-		base = r.getValue(prefix(LibBlockNames.ELF_GLASS));
-		register(r, LibBlockNames.ELF_GLASS + "_pane", new BlockModPane(Block.Properties.from(base)));
-
-		base = r.getValue(prefix(LibBlockNames.BIFROST_PERM));
-		register(r, LibBlockNames.BIFROST + "_pane", new BlockModPane(Block.Properties.from(base)));
+		register(r, LibBlockNames.MANA_GLASS + "_pane", managlassPane);
+		register(r, LibBlockNames.ELF_GLASS + "_pane", alfglassPane);
+		register(r, LibBlockNames.BIFROST + "_pane", bifrostPane);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
