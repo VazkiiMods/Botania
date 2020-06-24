@@ -99,8 +99,8 @@ public class BlockLootProvider implements IDataProvider {
 		functionTable.put(ModBlocks.tinyPotato, BlockLootProvider::genTinyPotato);
 
 		// Flower NBT saving
-		functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOOD, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT));
-		functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOOD, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT));
+		functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOODS, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT, SubTileGourmaryllis.TAG_STREAK_LENGTH));
+		functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOODS, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT, SubTileGourmaryllis.TAG_STREAK_LENGTH));
 		functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
 		functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
 		functionTable.put(ModSubtiles.munchdew, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
