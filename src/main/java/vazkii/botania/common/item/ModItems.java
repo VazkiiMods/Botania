@@ -84,7 +84,6 @@ import static vazkii.botania.common.block.ModBlocks.dreamwood;
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@ObjectHolder(LibMisc.MOD_ID)
 public final class ModItems {
 	public static final Item lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
 

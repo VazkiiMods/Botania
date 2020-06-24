@@ -55,7 +55,6 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Arrays;
 import java.util.Locale;
 
-@ObjectHolder(LibMisc.MOD_ID)
 public final class ModBlocks {
 	public static Block whiteFlower = new BlockModFlower(DyeColor.WHITE, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
 	public static Block orangeFlower = new BlockModFlower(DyeColor.ORANGE, Block.Properties.from(whiteFlower));
