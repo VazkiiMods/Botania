@@ -19,16 +19,15 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileKekimurus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":kekimurus")
-	public static TileEntityType<SubTileKekimurus> TYPE;
-
 	private static final int RANGE = 5;
 
 	public SubTileKekimurus() {
-		super(TYPE);
+		super(ModSubtiles.KEKIMURUS);
 	}
 
 	@Override

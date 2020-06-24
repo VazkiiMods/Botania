@@ -33,6 +33,8 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -40,9 +42,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileSpectrolus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus")
-	public static TileEntityType<SubTileSpectrolus> TYPE;
-
 	public static final String TAG_NEXT_COLOR = "nextColor";
 	private static final int WOOL_GEN = 1200;
 	private static final int SHEEP_GEN = 5000;
@@ -53,7 +52,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	private DyeColor nextColor = DyeColor.WHITE;
 
 	public SubTileSpectrolus() {
-		super(TYPE);
+		super(ModSubtiles.SPECTROLUS);
 	}
 
 	@Override

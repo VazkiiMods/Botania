@@ -26,18 +26,17 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":shulk_me_not")
-	public static TileEntityType<SubTileShulkMeNot> TYPE;
-
 	private static final int RADIUS = 8;
 
 	public SubTileShulkMeNot() {
-		super(TYPE);
+		super(ModSubtiles.SHULK_ME_NOT);
 	}
 
 	@Override

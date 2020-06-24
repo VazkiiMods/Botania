@@ -19,15 +19,14 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileBellethorn extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bellethorn")
-	public static TileEntityType<SubTileBellethorn> TYPE;
-
 	public static final int RANGE = 6;
 	public static final int RANGE_MINI = 1;
 
@@ -36,7 +35,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileBellethorn() {
-		this(TYPE);
+		this(ModSubtiles.BELLETHORNE);
 	}
 
 	@Override
@@ -105,11 +104,8 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileBellethorn {
-		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi")
-		public static TileEntityType<SubTileBellethorn.Mini> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.BELLETHORNE_CHIBI);
 		}
 
 		@Override

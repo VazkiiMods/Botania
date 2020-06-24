@@ -16,20 +16,18 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.*;
 
 public class SubTileVinculotus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":vinculotus")
-	public static TileEntityType<SubTileVinculotus> TYPE;
-
 	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final int RANGE = 64;
 
 	public SubTileVinculotus() {
-		super(TYPE);
+		super(ModSubtiles.VINCULOTUS);
 	}
 
 	@Override

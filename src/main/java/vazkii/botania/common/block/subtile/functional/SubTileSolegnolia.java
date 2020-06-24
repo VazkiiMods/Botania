@@ -16,15 +16,13 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
 import java.util.Set;
 
 public class SubTileSolegnolia extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":solegnolia")
-	public static TileEntityType<SubTileSolegnolia> TYPE;
-
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 
@@ -35,7 +33,7 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileSolegnolia() {
-		this(TYPE);
+		this(ModSubtiles.SOLEGNOLIA);
 	}
 
 	@Override
@@ -79,11 +77,8 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileSolegnolia {
-		@ObjectHolder(LibMisc.MOD_ID + ":solegnolia_chibi")
-		public static TileEntityType<SubTileSolegnolia.Mini> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.SOLEGNOLIA_CHIBI);
 		}
 
 		@Override

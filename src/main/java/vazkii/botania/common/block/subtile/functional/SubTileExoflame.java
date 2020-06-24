@@ -17,19 +17,17 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":exoflame")
-	public static TileEntityType<SubTileExoflame> TYPE;
-
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
 
 	public SubTileExoflame() {
-		super(TYPE);
+		super(ModSubtiles.EXOFLAME);
 	}
 
 	@Override

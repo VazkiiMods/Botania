@@ -19,6 +19,8 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -27,9 +29,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileMunchdew extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":munchdew")
-	public static TileEntityType<SubTileMunchdew> TYPE;
-
 	public static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";
 
@@ -41,7 +40,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	private int cooldown = 0;
 
 	public SubTileMunchdew() {
-		super(TYPE);
+		super(ModSubtiles.MUNCHDEW);
 	}
 
 	@Override

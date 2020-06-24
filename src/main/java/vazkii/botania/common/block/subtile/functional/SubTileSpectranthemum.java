@@ -27,6 +27,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -34,9 +35,6 @@ import vazkii.botania.common.network.PacketHandler;
 import java.util.List;
 
 public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":spectranthemum")
-	public static TileEntityType<SubTileSpectranthemum> TYPE;
-
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
@@ -50,7 +48,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
 	public SubTileSpectranthemum() {
-		super(TYPE);
+		super(ModSubtiles.SPECTRANTHEMUM);
 	}
 
 	@Override

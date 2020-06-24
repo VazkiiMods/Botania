@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
@@ -20,14 +21,11 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 public class SubTileBergamute extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bergamute")
-	public static TileEntityType<SubTileBergamute> TYPE;
-
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 
 	public SubTileBergamute() {
-		super(TYPE);
+		super(ModSubtiles.BERGAMUTE);
 	}
 
 	@Override

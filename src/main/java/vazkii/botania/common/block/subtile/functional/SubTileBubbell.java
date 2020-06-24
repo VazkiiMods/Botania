@@ -20,13 +20,11 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileBubbell extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":bubbell")
-	public static TileEntityType<SubTileBubbell> TYPE;
-
 	private static final int RANGE = 12;
 	private static final int RANGE_MINI = 6;
 	private static final int COST_PER_TICK = 4;
@@ -39,7 +37,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileBubbell() {
-		this(TYPE);
+		this(ModSubtiles.BUBBELL);
 	}
 
 	@Override
@@ -115,11 +113,8 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileBubbell {
-		@ObjectHolder(LibMisc.MOD_ID + ":bubbell_chibi")
-		public static TileEntityType<SubTileBubbell.Mini> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.BUBBELL_CHIBI);
 		}
 
 		@Override

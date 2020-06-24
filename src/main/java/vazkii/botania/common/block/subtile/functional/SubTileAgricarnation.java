@@ -19,6 +19,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
@@ -26,9 +27,6 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.Set;
 
 public class SubTileAgricarnation extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":agricarnation")
-	public static TileEntityType<SubTileAgricarnation> TYPE;
-
 	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANTS, Material.CACTUS, Material.ORGANIC,
 			Material.LEAVES, Material.GOURD, Material.OCEAN_PLANT, Material.BAMBOO);
 	private static final int RANGE = 5;
@@ -39,7 +37,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileAgricarnation() {
-		this(TYPE);
+		this(ModSubtiles.AGRICARNATION);
 	}
 
 	@Override
@@ -132,11 +130,8 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileAgricarnation {
-		@ObjectHolder(LibMisc.MOD_ID + ":agricarnation_chibi")
-		public static TileEntityType<SubTileAgricarnation> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.AGRICARNATION_CHIBI);
 		}
 
 		@Override

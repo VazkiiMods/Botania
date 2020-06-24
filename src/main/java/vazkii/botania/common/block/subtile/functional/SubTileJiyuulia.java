@@ -12,14 +12,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
-	@ObjectHolder(LibMisc.MOD_ID + ":jiyuulia")
-	public static TileEntityType<SubTileJiyuulia> TYPE;
-
 	public SubTileJiyuulia() {
-		super(TYPE);
+		super(ModSubtiles.JIYUULIA);
 	}
 
 	@Override

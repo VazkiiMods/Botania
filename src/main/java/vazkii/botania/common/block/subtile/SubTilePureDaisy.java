@@ -12,28 +12,23 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
 import java.util.Arrays;
 
 public class SubTilePureDaisy extends TileEntitySpecialFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":pure_daisy")
-	public static TileEntityType<SubTilePureDaisy> TYPE;
-
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
 	private static final int RECIPE_COMPLETE_EVENT = 0;
@@ -54,7 +49,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private final int[] ticksRemaining = new int[POSITIONS.length];
 
 	public SubTilePureDaisy() {
-		super(TYPE);
+		super(ModSubtiles.PURE_DAISY);
 		Arrays.fill(prevTicksRemaining, -1);
 		Arrays.fill(ticksRemaining, -1);
 	}

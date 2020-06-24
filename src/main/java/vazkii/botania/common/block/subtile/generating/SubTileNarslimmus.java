@@ -25,20 +25,19 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileNarslimmus extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":narslimmus")
-	public static TileEntityType<SubTileNarslimmus> TYPE;
-
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 
 	private static final int RANGE = 2;
 
 	public SubTileNarslimmus() {
-		super(TYPE);
+		super(ModSubtiles.NARSLIMMUS);
 	}
 
 	@Override

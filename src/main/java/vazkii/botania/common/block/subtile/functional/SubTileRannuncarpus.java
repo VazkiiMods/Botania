@@ -33,6 +33,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -44,9 +45,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus")
-	public static TileEntityType<SubTileRannuncarpus> TYPE;
-
 	private static final int RANGE = 2;
 	private static final int RANGE_Y = 3;
 	private static final int RANGE_PLACE_MANA = 8;
@@ -62,7 +60,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileRannuncarpus() {
-		this(TYPE);
+		this(ModSubtiles.RANNUNCARPUS);
 	}
 
 	@Override
@@ -188,11 +186,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {
-		@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus_chibi")
-		public static TileEntityType<SubTileRannuncarpus.Mini> TYPE;
-
 		public Mini() {
-			super(TYPE);
+			super(ModSubtiles.RANNUNCARPUS_CHIBI);
 		}
 
 		@Override

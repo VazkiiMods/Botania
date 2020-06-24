@@ -13,16 +13,14 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.Predicate;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
-	@ObjectHolder(LibMisc.MOD_ID + ":dreadthorn")
-	public static TileEntityType<SubTileDreadthorn> TYPE;
-
 	public SubTileDreadthorn() {
-		super(TYPE);
+		super(ModSubtiles.DREADTHORN);
 	}
 
 	@Override

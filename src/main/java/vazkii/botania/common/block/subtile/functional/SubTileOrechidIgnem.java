@@ -15,19 +15,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Map;
 import java.util.function.Predicate;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
-	@ObjectHolder(LibMisc.MOD_ID + ":orechid_ignem")
-	public static TileEntityType<SubTileOrechidIgnem> TYPE;
-
 	private static final int COST = 20000;
 
 	public SubTileOrechidIgnem() {
-		super(TYPE);
+		super(ModSubtiles.ORECHID_IGNEM);
 	}
 
 	@Override

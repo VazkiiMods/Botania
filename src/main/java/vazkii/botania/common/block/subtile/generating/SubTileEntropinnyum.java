@@ -21,19 +21,18 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":entropinnyum")
-	public static TileEntityType<SubTileEntropinnyum> TYPE;
-
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 
 	public SubTileEntropinnyum() {
-		super(TYPE);
+		super(ModSubtiles.ENTROPINNYUM);
 	}
 
 	@Override

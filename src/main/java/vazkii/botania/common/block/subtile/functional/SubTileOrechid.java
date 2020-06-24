@@ -24,6 +24,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibMisc;
@@ -38,9 +39,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SubTileOrechid extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":orechid")
-	public static TileEntityType<SubTileOrechid> TYPE;
-
 	private static final int COST = 17500;
 	private static final int COST_GOG = 700;
 	private static final int DELAY = 100;
@@ -53,7 +51,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	}
 
 	public SubTileOrechid() {
-		this(TYPE);
+		this(ModSubtiles.ORECHID);
 	}
 
 	@Override

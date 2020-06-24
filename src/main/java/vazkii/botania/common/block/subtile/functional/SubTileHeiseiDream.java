@@ -22,19 +22,17 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
-	@ObjectHolder(LibMisc.MOD_ID + ":heisei_dream")
-	public static TileEntityType<SubTileHeiseiDream> TYPE;
-
 	private static final int RANGE = 5;
 	private static final int COST = 100;
 
 	public SubTileHeiseiDream() {
-		super(TYPE);
+		super(ModSubtiles.HEISEI_DREAM);
 	}
 
 	@Override
