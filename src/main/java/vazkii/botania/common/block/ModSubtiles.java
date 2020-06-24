@@ -38,194 +38,194 @@ import static vazkii.botania.common.block.ModBlocks.register;
 
 @ObjectHolder(LibMisc.MOD_ID)
 public class ModSubtiles {
-	public static Block pureDaisy = new BlockSpecialFlower(Block.Properties.from(Blocks.POPPY), SubTilePureDaisy::new);
-	public static Block pureDaisyFloating = new BlockFloatingSpecialFlower(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15), SubTilePureDaisy::new);
+	public static final Block pureDaisy = new BlockSpecialFlower(Block.Properties.from(Blocks.POPPY), SubTilePureDaisy::new);
+	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15), SubTilePureDaisy::new);
 	
-	public static Block manastar = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileManastar::new);
-	public static Block manastarFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileManastar::new);
+	public static final Block manastar = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileManastar::new);
+	public static final Block manastarFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileManastar::new);
 	
-	public static Block hydroangeas = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHydroangeas::new);
-	public static Block hydroangeasFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileHydroangeas::new);
+	public static final Block hydroangeas = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHydroangeas::new);
+	public static final Block hydroangeasFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileHydroangeas::new);
 	
-	public static Block endoflame = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileEndoflame::new);
-	public static Block endoflameFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileEndoflame::new);
+	public static final Block endoflame = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileEndoflame::new);
+	public static final Block endoflameFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileEndoflame::new);
 	
-	public static Block thermalily = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileThermalily::new);
-	public static Block thermalilyFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileThermalily::new);
+	public static final Block thermalily = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileThermalily::new);
+	public static final Block thermalilyFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileThermalily::new);
 	
-	public static Block rosaArcana = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileArcaneRose::new);
-	public static Block rosaArcanaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileArcaneRose::new);
+	public static final Block rosaArcana = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileArcaneRose::new);
+	public static final Block rosaArcanaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileArcaneRose::new);
 	
-	public static Block munchdew = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileMunchdew::new);
-	public static Block munchdewFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMunchdew::new);
+	public static final Block munchdew = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileMunchdew::new);
+	public static final Block munchdewFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMunchdew::new);
 	
-	public static Block entropinnyum = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileEntropinnyum::new);
-	public static Block entropinnyumFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileEntropinnyum::new);
+	public static final Block entropinnyum = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileEntropinnyum::new);
+	public static final Block entropinnyumFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileEntropinnyum::new);
 	
-	public static Block kekimurus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileKekimurus::new);
-	public static Block kekimurusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileKekimurus::new);
+	public static final Block kekimurus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileKekimurus::new);
+	public static final Block kekimurusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileKekimurus::new);
 	
-	public static Block gourmaryllis = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileGourmaryllis::new);
-	public static Block gourmaryllisFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileGourmaryllis::new);
+	public static final Block gourmaryllis = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileGourmaryllis::new);
+	public static final Block gourmaryllisFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileGourmaryllis::new);
 	
-	public static Block narslimmus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileNarslimmus::new);
-	public static Block narslimmusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileNarslimmus::new);
+	public static final Block narslimmus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileNarslimmus::new);
+	public static final Block narslimmusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileNarslimmus::new);
 	
-	public static Block spectrolus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSpectrolus::new);
-	public static Block spectrolusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileSpectrolus::new);
+	public static final Block spectrolus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSpectrolus::new);
+	public static final Block spectrolusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileSpectrolus::new);
 	
-	public static Block dandelifeon = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileDandelifeon::new);
-	public static Block dandelifeonFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileDandelifeon::new);
+	public static final Block dandelifeon = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileDandelifeon::new);
+	public static final Block dandelifeonFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileDandelifeon::new);
 	
-	public static Block rafflowsia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileRafflowsia::new);
-	public static Block rafflowsiaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileRafflowsia::new);
+	public static final Block rafflowsia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileRafflowsia::new);
+	public static final Block rafflowsiaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileRafflowsia::new);
 	
-	public static Block shulkMeNot = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileShulkMeNot::new);
-	public static Block shulkMeNotFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileShulkMeNot::new);
+	public static final Block shulkMeNot = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileShulkMeNot::new);
+	public static final Block shulkMeNotFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileShulkMeNot::new);
 	
-	public static Block bellethorn = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn::new);
-	public static Block bellethornChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn.Mini::new);
-	public static Block bellethornFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn::new);
-	public static Block bellethornChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn.Mini::new);
+	public static final Block bellethorn = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn::new);
+	public static final Block bellethornChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn.Mini::new);
+	public static final Block bellethornFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn::new);
+	public static final Block bellethornChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBellethorn.Mini::new);
 
-	public static Block bergamute = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBergamute::new);
-	public static Block bergamuteFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileBergamute::new);
+	public static final Block bergamute = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBergamute::new);
+	public static final Block bergamuteFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileBergamute::new);
 	
-	public static Block dreadthorn = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileDreadthorn::new);
-	public static Block dreadthornFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileDreadthorn::new);
+	public static final Block dreadthorn = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileDreadthorn::new);
+	public static final Block dreadthornFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileDreadthorn::new);
 	
-	public static Block heiseiDream = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHeiseiDream::new);
-	public static Block heiseiDreamFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileHeiseiDream::new);
+	public static final Block heiseiDream = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHeiseiDream::new);
+	public static final Block heiseiDreamFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileHeiseiDream::new);
 	
-	public static Block tigerseye = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileTigerseye::new);
-	public static Block tigerseyeFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileTigerseye::new);
+	public static final Block tigerseye = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileTigerseye::new);
+	public static final Block tigerseyeFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileTigerseye::new);
 	
-	public static Block jadedAmaranthus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileJadedAmaranthus::new);
-	public static Block jadedAmaranthusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileJadedAmaranthus::new);
+	public static final Block jadedAmaranthus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileJadedAmaranthus::new);
+	public static final Block jadedAmaranthusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileJadedAmaranthus::new);
 	
-	public static Block orechid = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileOrechid::new);
-	public static Block orechidFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileOrechid::new);
+	public static final Block orechid = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileOrechid::new);
+	public static final Block orechidFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileOrechid::new);
 	
-	public static Block fallenKanade = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileFallenKanade::new);
-	public static Block fallenKanadeFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileFallenKanade::new);
+	public static final Block fallenKanade = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileFallenKanade::new);
+	public static final Block fallenKanadeFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileFallenKanade::new);
 	
-	public static Block exoflame = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileExoflame::new);
-	public static Block exoflameFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileExoflame::new);
+	public static final Block exoflame = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileExoflame::new);
+	public static final Block exoflameFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileExoflame::new);
 	
-	public static Block agricarnation = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation::new);
-	public static Block agricarnationChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation.Mini::new);
-	public static Block agricarnationFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation::new);
-	public static Block agricarnationChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation.Mini::new);
+	public static final Block agricarnation = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation::new);
+	public static final Block agricarnationChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation.Mini::new);
+	public static final Block agricarnationFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation::new);
+	public static final Block agricarnationChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileAgricarnation.Mini::new);
 	
-	public static Block hopperhock = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
-	public static Block hopperhockChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
-	public static Block hopperhockFloating = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
-	public static Block hopperhockChibiFloating = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
+	public static final Block hopperhock = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
+	public static final Block hopperhockChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
+	public static final Block hopperhockFloating = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
+	public static final Block hopperhockChibiFloating = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
 	
-	public static Block tangleberrie = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileTangleberrie::new);
-	public static Block tangleberrieFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileTangleberrie::new);
+	public static final Block tangleberrie = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileTangleberrie::new);
+	public static final Block tangleberrieFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileTangleberrie::new);
 	
-	public static Block jiyuulia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileJiyuulia::new);
-	public static Block jiyuuliaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileJiyuulia::new);
+	public static final Block jiyuulia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileJiyuulia::new);
+	public static final Block jiyuuliaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileJiyuulia::new);
 	
-	public static Block rannuncarpus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus::new);
-	public static Block rannuncarpusChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus.Mini::new);
-	public static Block rannuncarpusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus::new);
-	public static Block rannuncarpusChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus.Mini::new);
+	public static final Block rannuncarpus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus::new);
+	public static final Block rannuncarpusChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus.Mini::new);
+	public static final Block rannuncarpusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus::new);
+	public static final Block rannuncarpusChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileRannuncarpus.Mini::new);
 	
-	public static Block hyacidus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHyacidus::new);
-	public static Block hyacidusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileHyacidus::new);
+	public static final Block hyacidus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHyacidus::new);
+	public static final Block hyacidusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileHyacidus::new);
 	
-	public static Block pollidisiac = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTilePollidisiac::new);
-	public static Block pollidisiacFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTilePollidisiac::new);
+	public static final Block pollidisiac = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTilePollidisiac::new);
+	public static final Block pollidisiacFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTilePollidisiac::new);
 	
-	public static Block clayconia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia::new);
-	public static Block clayconiaChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia.Mini::new);
-	public static Block clayconiaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia::new);
-	public static Block clayconiaChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia.Mini::new);
+	public static final Block clayconia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia::new);
+	public static final Block clayconiaChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia.Mini::new);
+	public static final Block clayconiaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia::new);
+	public static final Block clayconiaChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileClayconia.Mini::new);
 	
-	public static Block loonium = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileLoonuim::new);
-	public static Block looniumFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileLoonuim::new);
+	public static final Block loonium = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileLoonuim::new);
+	public static final Block looniumFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileLoonuim::new);
 	
-	public static Block daffomill = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileDaffomill::new);
-	public static Block daffomillFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileDaffomill::new);
+	public static final Block daffomill = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileDaffomill::new);
+	public static final Block daffomillFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileDaffomill::new);
 	
-	public static Block vinculotus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileVinculotus::new);
-	public static Block vinculotusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileVinculotus::new);
+	public static final Block vinculotus = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileVinculotus::new);
+	public static final Block vinculotusFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileVinculotus::new);
 	
-	public static Block spectranthemum = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSpectranthemum::new);
-	public static Block spectranthemumFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileSpectranthemum::new);
+	public static final Block spectranthemum = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSpectranthemum::new);
+	public static final Block spectranthemumFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileSpectranthemum::new);
 	
-	public static Block medumone = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileMedumone::new);
-	public static Block medumoneFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMedumone::new);
+	public static final Block medumone = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileMedumone::new);
+	public static final Block medumoneFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMedumone::new);
 	
-	public static Block marimorphosis = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileMarimorphosis::new);
-	public static Block marimorphosisChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMarimorphosis.Mini::new);
-	public static Block marimorphosisFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileMarimorphosis::new);
-	public static Block marimorphosisChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMarimorphosis.Mini::new);
+	public static final Block marimorphosis = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileMarimorphosis::new);
+	public static final Block marimorphosisChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMarimorphosis.Mini::new);
+	public static final Block marimorphosisFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileMarimorphosis::new);
+	public static final Block marimorphosisChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileMarimorphosis.Mini::new);
 	
-	public static Block bubbell = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell::new);
-	public static Block bubbellChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell.Mini::new);
-	public static Block bubbellFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell::new);
-	public static Block bubbellChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell.Mini::new);
+	public static final Block bubbell = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell::new);
+	public static final Block bubbellChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell.Mini::new);
+	public static final Block bubbellFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell::new);
+	public static final Block bubbellChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileBubbell.Mini::new);
 	
-	public static Block solegnolia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia::new);
-	public static Block solegnoliaChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia.Mini::new);
-	public static Block solegnoliaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia::new);
-	public static Block solegnoliaChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia.Mini::new);
+	public static final Block solegnolia = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia::new);
+	public static final Block solegnoliaChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia.Mini::new);
+	public static final Block solegnoliaFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia::new);
+	public static final Block solegnoliaChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileSolegnolia.Mini::new);
 	
-	public static Block orechidIgnem = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileOrechidIgnem::new);
-	public static Block orechidIgnemFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileOrechidIgnem::new);
+	public static final Block orechidIgnem = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileOrechidIgnem::new);
+	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileOrechidIgnem::new);
 	
-	public static TileEntityType<SubTilePureDaisy> PURE_DAISY = TileEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
-	public static TileEntityType<SubTileManastar> MANASTAR = TileEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);
-	public static TileEntityType<SubTileHydroangeas> HYDROANGEAS = TileEntityType.Builder.create(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating).build(null);
-	public static TileEntityType<SubTileEndoflame> ENDOFLAME = TileEntityType.Builder.create(SubTileEndoflame::new, endoflame, endoflameFloating).build(null);
-	public static TileEntityType<SubTileThermalily> THERMALILY = TileEntityType.Builder.create(SubTileThermalily::new, thermalily, thermalilyFloating).build(null);
-	public static TileEntityType<SubTileArcaneRose> ROSA_ARCANA = TileEntityType.Builder.create(SubTileArcaneRose::new, rosaArcana, rosaArcanaFloating).build(null);
-	public static TileEntityType<SubTileMunchdew> MUNCHDEW = TileEntityType.Builder.create(SubTileMunchdew::new, munchdew, munchdewFloating).build(null);
-	public static TileEntityType<SubTileEntropinnyum> ENTROPINNYUM = TileEntityType.Builder.create(SubTileEntropinnyum::new, entropinnyum, entropinnyumFloating).build(null);
-	public static TileEntityType<SubTileKekimurus> KEKIMURUS = TileEntityType.Builder.create(SubTileKekimurus::new, kekimurus, kekimurusFloating).build(null);
-	public static TileEntityType<SubTileGourmaryllis> GOURMARYLLIS = TileEntityType.Builder.create(SubTileGourmaryllis::new, gourmaryllis, gourmaryllisFloating).build(null);
-	public static TileEntityType<SubTileNarslimmus> NARSLIMMUS = TileEntityType.Builder.create(SubTileNarslimmus::new, narslimmus, narslimmusFloating).build(null);
-	public static TileEntityType<SubTileSpectrolus> SPECTROLUS = TileEntityType.Builder.create(SubTileSpectrolus::new, spectrolus, spectrolusFloating).build(null);
-	public static TileEntityType<SubTileDandelifeon> DANDELIFEON = TileEntityType.Builder.create(SubTileDandelifeon::new, dandelifeon, dandelifeonFloating).build(null);
-	public static TileEntityType<SubTileRafflowsia> RAFFLOWSIA = TileEntityType.Builder.create(SubTileRafflowsia::new, rafflowsia, rafflowsiaFloating).build(null);
-	public static TileEntityType<SubTileShulkMeNot> SHULK_ME_NOT = TileEntityType.Builder.create(SubTileShulkMeNot::new, shulkMeNot, shulkMeNotFloating).build(null);
-	public static TileEntityType<SubTileBellethorn> BELLETHORNE = TileEntityType.Builder.create(SubTileBellethorn::new, bellethorn, bellethornFloating).build(null);
-	public static TileEntityType<SubTileBellethorn.Mini> BELLETHORNE_CHIBI = TileEntityType.Builder.create(SubTileBellethorn.Mini::new, bellethornChibi, bellethornChibiFloating).build(null);
-	public static TileEntityType<SubTileBergamute> BERGAMUTE = TileEntityType.Builder.create(SubTileBergamute::new, bergamute, bergamuteFloating).build(null);
-	public static TileEntityType<SubTileDreadthorn> DREADTHORN = TileEntityType.Builder.create(SubTileDreadthorn::new, dreadthorn, dreadthornFloating).build(null);
-	public static TileEntityType<SubTileHeiseiDream> HEISEI_DREAM = TileEntityType.Builder.create(SubTileHeiseiDream::new, heiseiDream, heiseiDreamFloating).build(null);
-	public static TileEntityType<SubTileTigerseye> TIGERSEYE = TileEntityType.Builder.create(SubTileTigerseye::new, tigerseye, tigerseyeFloating).build(null);
-	public static TileEntityType<SubTileJadedAmaranthus> JADED_AMARANTHUS = TileEntityType.Builder.create(SubTileJadedAmaranthus::new, jadedAmaranthus, jadedAmaranthusFloating).build(null);
-	public static TileEntityType<SubTileOrechid> ORECHID = TileEntityType.Builder.create(SubTileOrechid::new, orechid, orechidFloating).build(null);
-	public static TileEntityType<SubTileFallenKanade> FALLEN_KANADE = TileEntityType.Builder.create(SubTileFallenKanade::new, fallenKanade, fallenKanadeFloating).build(null);
-	public static TileEntityType<SubTileExoflame> EXOFLAME = TileEntityType.Builder.create(SubTileExoflame::new, exoflame, exoflameFloating).build(null);
-	public static TileEntityType<SubTileAgricarnation> AGRICARNATION = TileEntityType.Builder.create(SubTileAgricarnation::new, agricarnation, agricarnationFloating).build(null);
-	public static TileEntityType<SubTileAgricarnation.Mini> AGRICARNATION_CHIBI = TileEntityType.Builder.create(SubTileAgricarnation.Mini::new, agricarnationChibi, agricarnationChibiFloating).build(null);
-	public static TileEntityType<SubTileHopperhock> HOPPERHOCK = TileEntityType.Builder.create(SubTileHopperhock::new, hopperhock, hopperhockFloating).build(null);
-	public static TileEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = TileEntityType.Builder.create(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating).build(null);
-	public static TileEntityType<SubTileTangleberrie> TANGLEBERRIE = TileEntityType.Builder.create(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating).build(null);
-	public static TileEntityType<SubTileJiyuulia> JIYUULIA = TileEntityType.Builder.create(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating).build(null);
-	public static TileEntityType<SubTileRannuncarpus> RANNUNCARPUS = TileEntityType.Builder.create(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
-	public static TileEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = TileEntityType.Builder.create(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating).build(null);
-	public static TileEntityType<SubTileHyacidus> HYACIDUS = TileEntityType.Builder.create(SubTileHyacidus::new, hyacidus, hyacidusFloating).build(null);
-	public static TileEntityType<SubTilePollidisiac> POLLIDISIAC = TileEntityType.Builder.create(SubTilePollidisiac::new, pollidisiac, pollidisiacFloating).build(null);
-	public static TileEntityType<SubTileClayconia> CLAYCONIA = TileEntityType.Builder.create(SubTileClayconia::new, clayconia, clayconiaFloating).build(null);
-	public static TileEntityType<SubTileClayconia.Mini> CLAYCONIA_CHIBI = TileEntityType.Builder.create(SubTileClayconia.Mini::new, clayconiaChibi, clayconiaChibiFloating).build(null);
-	public static TileEntityType<SubTileLoonuim> LOONIUM = TileEntityType.Builder.create(SubTileLoonuim::new, loonium, looniumFloating).build(null);
-	public static TileEntityType<SubTileDaffomill> DAFFOMILL = TileEntityType.Builder.create(SubTileDaffomill::new, daffomill, daffomillFloating).build(null);
-	public static TileEntityType<SubTileVinculotus> VINCULOTUS = TileEntityType.Builder.create(SubTileVinculotus::new, vinculotus, vinculotusFloating).build(null);
-	public static TileEntityType<SubTileSpectranthemum> SPECTRANTHEMUM = TileEntityType.Builder.create(SubTileSpectranthemum::new, spectranthemum, spectranthemumFloating).build(null);
-	public static TileEntityType<SubTileMedumone> MEDUMONE = TileEntityType.Builder.create(SubTileMedumone::new, medumone, medumoneFloating).build(null);
-	public static TileEntityType<SubTileMarimorphosis> MARIMORPHOSIS = TileEntityType.Builder.create(SubTileMarimorphosis::new, marimorphosis, marimorphosisFloating).build(null);
-	public static TileEntityType<SubTileMarimorphosis.Mini> MARIMORPHOSIS_CHIBI = TileEntityType.Builder.create(SubTileMarimorphosis.Mini::new, marimorphosisChibi, marimorphosisChibiFloating).build(null);
-	public static TileEntityType<SubTileBubbell> BUBBELL = TileEntityType.Builder.create(SubTileBubbell::new, bubbell, bubbellFloating).build(null);
-	public static TileEntityType<SubTileBubbell.Mini> BUBBELL_CHIBI = TileEntityType.Builder.create(SubTileBubbell.Mini::new, bubbellChibi, bubbellChibiFloating).build(null);
-	public static TileEntityType<SubTileSolegnolia> SOLEGNOLIA = TileEntityType.Builder.create(SubTileSolegnolia::new, solegnolia, solegnoliaFloating).build(null);
-	public static TileEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = TileEntityType.Builder.create(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating).build(null);
-	public static TileEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = TileEntityType.Builder.create(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating).build(null);
+	public static final TileEntityType<SubTilePureDaisy> PURE_DAISY = TileEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
+	public static final TileEntityType<SubTileManastar> MANASTAR = TileEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);
+	public static final TileEntityType<SubTileHydroangeas> HYDROANGEAS = TileEntityType.Builder.create(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating).build(null);
+	public static final TileEntityType<SubTileEndoflame> ENDOFLAME = TileEntityType.Builder.create(SubTileEndoflame::new, endoflame, endoflameFloating).build(null);
+	public static final TileEntityType<SubTileThermalily> THERMALILY = TileEntityType.Builder.create(SubTileThermalily::new, thermalily, thermalilyFloating).build(null);
+	public static final TileEntityType<SubTileArcaneRose> ROSA_ARCANA = TileEntityType.Builder.create(SubTileArcaneRose::new, rosaArcana, rosaArcanaFloating).build(null);
+	public static final TileEntityType<SubTileMunchdew> MUNCHDEW = TileEntityType.Builder.create(SubTileMunchdew::new, munchdew, munchdewFloating).build(null);
+	public static final TileEntityType<SubTileEntropinnyum> ENTROPINNYUM = TileEntityType.Builder.create(SubTileEntropinnyum::new, entropinnyum, entropinnyumFloating).build(null);
+	public static final TileEntityType<SubTileKekimurus> KEKIMURUS = TileEntityType.Builder.create(SubTileKekimurus::new, kekimurus, kekimurusFloating).build(null);
+	public static final TileEntityType<SubTileGourmaryllis> GOURMARYLLIS = TileEntityType.Builder.create(SubTileGourmaryllis::new, gourmaryllis, gourmaryllisFloating).build(null);
+	public static final TileEntityType<SubTileNarslimmus> NARSLIMMUS = TileEntityType.Builder.create(SubTileNarslimmus::new, narslimmus, narslimmusFloating).build(null);
+	public static final TileEntityType<SubTileSpectrolus> SPECTROLUS = TileEntityType.Builder.create(SubTileSpectrolus::new, spectrolus, spectrolusFloating).build(null);
+	public static final TileEntityType<SubTileDandelifeon> DANDELIFEON = TileEntityType.Builder.create(SubTileDandelifeon::new, dandelifeon, dandelifeonFloating).build(null);
+	public static final TileEntityType<SubTileRafflowsia> RAFFLOWSIA = TileEntityType.Builder.create(SubTileRafflowsia::new, rafflowsia, rafflowsiaFloating).build(null);
+	public static final TileEntityType<SubTileShulkMeNot> SHULK_ME_NOT = TileEntityType.Builder.create(SubTileShulkMeNot::new, shulkMeNot, shulkMeNotFloating).build(null);
+	public static final TileEntityType<SubTileBellethorn> BELLETHORNE = TileEntityType.Builder.create(SubTileBellethorn::new, bellethorn, bellethornFloating).build(null);
+	public static final TileEntityType<SubTileBellethorn.Mini> BELLETHORNE_CHIBI = TileEntityType.Builder.create(SubTileBellethorn.Mini::new, bellethornChibi, bellethornChibiFloating).build(null);
+	public static final TileEntityType<SubTileBergamute> BERGAMUTE = TileEntityType.Builder.create(SubTileBergamute::new, bergamute, bergamuteFloating).build(null);
+	public static final TileEntityType<SubTileDreadthorn> DREADTHORN = TileEntityType.Builder.create(SubTileDreadthorn::new, dreadthorn, dreadthornFloating).build(null);
+	public static final TileEntityType<SubTileHeiseiDream> HEISEI_DREAM = TileEntityType.Builder.create(SubTileHeiseiDream::new, heiseiDream, heiseiDreamFloating).build(null);
+	public static final TileEntityType<SubTileTigerseye> TIGERSEYE = TileEntityType.Builder.create(SubTileTigerseye::new, tigerseye, tigerseyeFloating).build(null);
+	public static final TileEntityType<SubTileJadedAmaranthus> JADED_AMARANTHUS = TileEntityType.Builder.create(SubTileJadedAmaranthus::new, jadedAmaranthus, jadedAmaranthusFloating).build(null);
+	public static final TileEntityType<SubTileOrechid> ORECHID = TileEntityType.Builder.create(SubTileOrechid::new, orechid, orechidFloating).build(null);
+	public static final TileEntityType<SubTileFallenKanade> FALLEN_KANADE = TileEntityType.Builder.create(SubTileFallenKanade::new, fallenKanade, fallenKanadeFloating).build(null);
+	public static final TileEntityType<SubTileExoflame> EXOFLAME = TileEntityType.Builder.create(SubTileExoflame::new, exoflame, exoflameFloating).build(null);
+	public static final TileEntityType<SubTileAgricarnation> AGRICARNATION = TileEntityType.Builder.create(SubTileAgricarnation::new, agricarnation, agricarnationFloating).build(null);
+	public static final TileEntityType<SubTileAgricarnation.Mini> AGRICARNATION_CHIBI = TileEntityType.Builder.create(SubTileAgricarnation.Mini::new, agricarnationChibi, agricarnationChibiFloating).build(null);
+	public static final TileEntityType<SubTileHopperhock> HOPPERHOCK = TileEntityType.Builder.create(SubTileHopperhock::new, hopperhock, hopperhockFloating).build(null);
+	public static final TileEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = TileEntityType.Builder.create(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating).build(null);
+	public static final TileEntityType<SubTileTangleberrie> TANGLEBERRIE = TileEntityType.Builder.create(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating).build(null);
+	public static final TileEntityType<SubTileJiyuulia> JIYUULIA = TileEntityType.Builder.create(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating).build(null);
+	public static final TileEntityType<SubTileRannuncarpus> RANNUNCARPUS = TileEntityType.Builder.create(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
+	public static final TileEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = TileEntityType.Builder.create(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating).build(null);
+	public static final TileEntityType<SubTileHyacidus> HYACIDUS = TileEntityType.Builder.create(SubTileHyacidus::new, hyacidus, hyacidusFloating).build(null);
+	public static final TileEntityType<SubTilePollidisiac> POLLIDISIAC = TileEntityType.Builder.create(SubTilePollidisiac::new, pollidisiac, pollidisiacFloating).build(null);
+	public static final TileEntityType<SubTileClayconia> CLAYCONIA = TileEntityType.Builder.create(SubTileClayconia::new, clayconia, clayconiaFloating).build(null);
+	public static final TileEntityType<SubTileClayconia.Mini> CLAYCONIA_CHIBI = TileEntityType.Builder.create(SubTileClayconia.Mini::new, clayconiaChibi, clayconiaChibiFloating).build(null);
+	public static final TileEntityType<SubTileLoonuim> LOONIUM = TileEntityType.Builder.create(SubTileLoonuim::new, loonium, looniumFloating).build(null);
+	public static final TileEntityType<SubTileDaffomill> DAFFOMILL = TileEntityType.Builder.create(SubTileDaffomill::new, daffomill, daffomillFloating).build(null);
+	public static final TileEntityType<SubTileVinculotus> VINCULOTUS = TileEntityType.Builder.create(SubTileVinculotus::new, vinculotus, vinculotusFloating).build(null);
+	public static final TileEntityType<SubTileSpectranthemum> SPECTRANTHEMUM = TileEntityType.Builder.create(SubTileSpectranthemum::new, spectranthemum, spectranthemumFloating).build(null);
+	public static final TileEntityType<SubTileMedumone> MEDUMONE = TileEntityType.Builder.create(SubTileMedumone::new, medumone, medumoneFloating).build(null);
+	public static final TileEntityType<SubTileMarimorphosis> MARIMORPHOSIS = TileEntityType.Builder.create(SubTileMarimorphosis::new, marimorphosis, marimorphosisFloating).build(null);
+	public static final TileEntityType<SubTileMarimorphosis.Mini> MARIMORPHOSIS_CHIBI = TileEntityType.Builder.create(SubTileMarimorphosis.Mini::new, marimorphosisChibi, marimorphosisChibiFloating).build(null);
+	public static final TileEntityType<SubTileBubbell> BUBBELL = TileEntityType.Builder.create(SubTileBubbell::new, bubbell, bubbellFloating).build(null);
+	public static final TileEntityType<SubTileBubbell.Mini> BUBBELL_CHIBI = TileEntityType.Builder.create(SubTileBubbell.Mini::new, bubbellChibi, bubbellChibiFloating).build(null);
+	public static final TileEntityType<SubTileSolegnolia> SOLEGNOLIA = TileEntityType.Builder.create(SubTileSolegnolia::new, solegnolia, solegnoliaFloating).build(null);
+	public static final TileEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = TileEntityType.Builder.create(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating).build(null);
+	public static final TileEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = TileEntityType.Builder.create(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating).build(null);
 	
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
