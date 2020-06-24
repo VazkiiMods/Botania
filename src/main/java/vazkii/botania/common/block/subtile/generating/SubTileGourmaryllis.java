@@ -48,7 +48,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	private int digestingMana = 0;
 	private List<ItemStack> lastFoods = new LinkedList<>();
 	private int streakLength = 0;
-	private int lastFoodCount = 1;
+	private int lastFoodCount = 0;
 
 	public SubTileGourmaryllis() {
 		super(TYPE);
@@ -61,7 +61,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	private double getMultiplierForStreak(int index) {
 		// special-case repeated first foods
 		if (index == 0) {
-			return 1.0 / lastFoodCount++;
+			return 1.0 / ++lastFoodCount;
 		} else {
 			lastFoodCount = 1;
 			return STREAK_MULTIPLIERS[index];
