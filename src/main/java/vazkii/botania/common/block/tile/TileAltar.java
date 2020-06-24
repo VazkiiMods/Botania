@@ -65,7 +65,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary, ITickableTileEntity {
-
+	
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
