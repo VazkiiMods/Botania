@@ -15,13 +15,10 @@ import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
-
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.LibBlockNames.*;

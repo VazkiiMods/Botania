@@ -17,7 +17,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,8 +25,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraftforge.registries.ObjectHolder;
-
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
@@ -39,10 +36,6 @@ import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.dispenser.SeedBehaviours;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
-import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.*;
-import vazkii.botania.common.block.tile.mana.*;
-import vazkii.botania.common.block.tile.string.*;
 import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
@@ -52,7 +45,6 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 public final class ModBlocks {
