@@ -31,10 +31,10 @@ public class ModPotions {
 	public static void registerPotions(RegistryEvent.Register<Effect> evt) {
 		IForgeRegistry<Effect> r = evt.getRegistry();
 		register(r, LibPotionNames.SOUL_CROSS, soulCross);
-		register(r, LibPotionNames.FEATHER_FEET, soulCross);
-		register(r, LibPotionNames.EMPTINESS, soulCross);
-		register(r, LibPotionNames.BLOODTHIRST, soulCross);
-		register(r, LibPotionNames.ALLURE, soulCross);
-		register(r, LibPotionNames.CLEAR, soulCross);
+		register(r, LibPotionNames.FEATHER_FEET, featherfeet);
+		register(r, LibPotionNames.EMPTINESS, emptiness);
+		register(r, LibPotionNames.BLOODTHIRST, bloodthrst);
+		register(r, LibPotionNames.ALLURE, allure);
+		register(r, LibPotionNames.CLEAR, clear);
 	}
 }
