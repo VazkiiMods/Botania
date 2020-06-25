@@ -124,7 +124,7 @@ public class GunModel implements IBakedModel {
 		return cache.computeIfAbsent(Pair.of(lens.getItem(), clip), p -> new CompositeBakedModel(bakery, lens, clip ? originalModelClip : originalModel));
 	}
 
-	private static class CompositeBakedModel extends BakedModelWrapper<IBakedModel> {
+	private static class CompositeBakedModel extends DelegatedModel {
 		private static final BlockModel MODEL_GENERATED = ObfuscationReflectionHelper.getPrivateValue(ModelBakery.class, null, "field_177606_o");
 
 		private final List<BakedQuad> genQuads = new ArrayList<>();

@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class PlatformModel extends BakedModelWrapper<IBakedModel> {
+public class PlatformModel extends DelegatedModel {
 	public PlatformModel(IBakedModel original) {
 		super(original);
 	}

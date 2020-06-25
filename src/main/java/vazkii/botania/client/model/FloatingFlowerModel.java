@@ -74,7 +74,7 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 		return new Baked(bakedFlower, bakedIslands);
 	}
 
-	public static class Baked extends BakedModelWrapper<IBakedModel> {
+	public static class Baked extends DelegatedModel {
 		private final Map<IFloatingFlower.IslandType, List<BakedQuad>> genQuads = new HashMap<>();
 		private final Map<IFloatingFlower.IslandType, Map<Direction, List<BakedQuad>>> faceQuads = new HashMap<>();
 

@@ -41,7 +41,7 @@ public class BlockSolidVines extends VineBlock {
 
 	@Nonnull
 	@Override
-	public ItemStack getPickBlock(@Nonnull BlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, PlayerEntity player) {
+	public ItemStack getItem(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new ItemStack(Blocks.VINE);
 	}
 }

@@ -220,7 +220,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	public Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
 	public Map<ResourceLocation, Integer> netherOreWeights = Collections.emptyMap();
-	private Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
+	private final Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 
 	@Override
 	public Map<ResourceLocation, Integer> getOreWeights() {
