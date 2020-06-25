@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -32,7 +33,7 @@ import vazkii.botania.common.item.ItemSparkUpgrade;
 
 import javax.annotation.Nonnull;
 
-public class BlockSparkChanger extends BlockModWaterloggable {
+public class BlockSparkChanger extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
 
@@ -109,14 +110,9 @@ public class BlockSparkChanger extends BlockModWaterloggable {
 		return 0;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileSparkChanger();
 	}
 

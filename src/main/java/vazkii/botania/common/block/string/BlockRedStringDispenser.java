@@ -50,7 +50,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull BlockState meta, IBlockReader world) {
+	public TileRedString createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileRedStringDispenser();
 	}
 }

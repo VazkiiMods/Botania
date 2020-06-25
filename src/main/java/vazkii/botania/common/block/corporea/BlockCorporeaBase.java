@@ -10,6 +10,7 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,7 +20,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public abstract class BlockCorporeaBase extends BlockMod {
+public abstract class BlockCorporeaBase extends BlockMod implements ITileEntityProvider {
 
 	public BlockCorporeaBase(Block.Properties builder) {
 		super(builder);
@@ -34,8 +35,4 @@ public abstract class BlockCorporeaBase extends BlockMod {
 		}
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
 }

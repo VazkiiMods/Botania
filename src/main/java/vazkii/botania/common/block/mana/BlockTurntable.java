@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -27,20 +28,15 @@ import vazkii.botania.common.block.tile.mana.TileTurntable;
 
 import javax.annotation.Nonnull;
 
-public class BlockTurntable extends BlockMod implements IWandable, IWandHUD {
+public class BlockTurntable extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
 
 	public BlockTurntable(Properties builder) {
 		super(builder);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileTurntable();
 	}
 

@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -22,7 +23,7 @@ import vazkii.botania.common.block.tile.TileCacophonium;
 
 import javax.annotation.Nonnull;
 
-public class BlockCacophonium extends BlockMod {
+public class BlockCacophonium extends BlockMod implements ITileEntityProvider {
 	protected BlockCacophonium(Properties builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
@@ -60,14 +61,9 @@ public class BlockCacophonium extends BlockMod {
 		}
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileCacophonium();
 	}
 

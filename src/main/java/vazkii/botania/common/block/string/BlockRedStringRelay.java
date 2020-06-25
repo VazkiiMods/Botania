@@ -28,7 +28,7 @@ public class BlockRedStringRelay extends BlockRedString {
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileRedString createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileRedStringRelay();
 	}
 

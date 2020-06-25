@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +39,7 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements ITileEntityProvider, IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
@@ -123,13 +124,8 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements IWandab
 	}
 
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileAnimatedTorch();
-	}
-
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
 	}
 
 	@Override

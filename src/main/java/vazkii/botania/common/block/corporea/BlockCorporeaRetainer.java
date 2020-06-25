@@ -10,6 +10,7 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -22,7 +23,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaRetainer extends BlockMod {
+public class BlockCorporeaRetainer extends BlockMod implements ITileEntityProvider {
 
 	public BlockCorporeaRetainer(Block.Properties builder) {
 		super(builder);
@@ -57,14 +58,9 @@ public class BlockCorporeaRetainer extends BlockMod {
 		return ((TileCorporeaRetainer) world.getTileEntity(pos)).getComparatorValue();
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileCorporeaRetainer();
 	}
 

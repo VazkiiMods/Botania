@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -28,7 +29,7 @@ import vazkii.botania.common.block.tile.mana.TileManaDetector;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
+public class BlockManaDetector extends BlockMod implements IManaCollisionGhost, ITileEntityProvider {
 
 	public BlockManaDetector(Properties builder) {
 		super(builder);
@@ -61,14 +62,9 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 		}
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileManaDetector();
 	}
 

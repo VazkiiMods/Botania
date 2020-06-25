@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,7 +43,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandHUD {
+public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvider, IWandable, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
@@ -115,14 +116,9 @@ public class BlockSpecialFlower extends FlowerBlock implements IWandable, IWandH
 		return tileentity != null && tileentity.receiveClientEvent(event, param);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return teProvider.get();
 	}
 

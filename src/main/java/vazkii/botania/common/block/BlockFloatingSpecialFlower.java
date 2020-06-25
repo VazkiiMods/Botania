@@ -128,7 +128,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return teProvider.get();
 	}
 }

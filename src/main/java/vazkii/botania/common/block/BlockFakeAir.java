@@ -8,10 +8,7 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.AirBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -25,7 +22,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockFakeAir extends AirBlock {
+public class BlockFakeAir extends AirBlock implements ITileEntityProvider {
 
 	public BlockFakeAir(Properties builder) {
 		super(builder);
@@ -54,14 +51,9 @@ public class BlockFakeAir extends AirBlock {
 		return 4;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileFakeAir();
 	}
 }

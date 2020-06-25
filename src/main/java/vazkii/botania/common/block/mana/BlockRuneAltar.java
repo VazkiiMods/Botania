@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -34,7 +35,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockRuneAltar extends BlockModWaterloggable implements IWandable {
+public class BlockRuneAltar extends BlockModWaterloggable implements ITileEntityProvider, IWandable {
 
 	private static final VoxelShape TOP = Block.makeCuboidShape(0, 6, 0, 16, 12, 16);
 	private static final VoxelShape BOTTOM = Block.makeCuboidShape(2, 0, 2, 14, 6, 14);
@@ -87,14 +88,9 @@ public class BlockRuneAltar extends BlockModWaterloggable implements IWandable {
 		}
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileRuneAltar();
 	}
 

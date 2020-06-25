@@ -13,6 +13,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -48,7 +49,7 @@ import javax.annotation.Nullable;
 
 import java.util.List;
 
-public class BlockSpreader extends BlockModWaterloggable implements IWandable, IWandHUD, IWireframeAABBProvider {
+public class BlockSpreader extends BlockModWaterloggable implements ITileEntityProvider, IWandable, IWandHUD, IWireframeAABBProvider {
 	private static final VoxelShape RENDER_SHAPE = makeCuboidShape(1, 1, 1, 15, 15, 15);
 
 	public enum Variant {
@@ -200,14 +201,9 @@ public class BlockSpreader extends BlockModWaterloggable implements IWandable, I
 		return true;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileSpreader();
 	}
 

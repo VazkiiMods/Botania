@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -24,7 +25,7 @@ import vazkii.botania.common.block.tile.TileSpawnerClaw;
 
 import javax.annotation.Nonnull;
 
-public class BlockSpawnerClaw extends BlockModWaterloggable {
+public class BlockSpawnerClaw extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(2, 0, 2, 14, 2, 14);
 
@@ -44,14 +45,9 @@ public class BlockSpawnerClaw extends BlockModWaterloggable {
 		list.add(new ItemStack(Blocks.SPAWNER));
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, IBlockReader world) {
+	public TileEntity createNewTileEntity(IBlockReader world) {
 		return new TileSpawnerClaw();
 	}
 

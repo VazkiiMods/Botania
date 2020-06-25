@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockAvatar extends BlockModWaterloggable {
+public class BlockAvatar extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape X_AABB = makeCuboidShape(5, 0, 3.5, 11, 17, 12.5);
 	private static final VoxelShape Z_AABB = makeCuboidShape(3.5, 0, 5, 12.5, 17, 11);
@@ -97,14 +98,9 @@ public class BlockAvatar extends BlockModWaterloggable {
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileAvatar();
 	}
 

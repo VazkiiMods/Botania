@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -44,7 +45,7 @@ import vazkii.botania.common.item.rod.ItemWaterRod;
 
 import javax.annotation.Nonnull;
 
-public class BlockAltar extends BlockMod {
+public class BlockAltar extends BlockMod implements ITileEntityProvider {
 
 	private static final VoxelShape BASE = Block.makeCuboidShape(0, 0, 0, 16, 2, 16);
 	private static final VoxelShape MIDDLE = Block.makeCuboidShape(2, 2, 2, 14, 12, 14);
@@ -213,14 +214,9 @@ public class BlockAltar extends BlockMod {
 				.orElse(stack);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileAltar();
 	}
 

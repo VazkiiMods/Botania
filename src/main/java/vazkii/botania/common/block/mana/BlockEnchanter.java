@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,7 +38,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
+public class BlockEnchanter extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
 
 	public BlockEnchanter(Properties builder) {
 		super(builder);
@@ -49,14 +50,9 @@ public class BlockEnchanter extends BlockMod implements IWandable, IWandHUD {
 		builder.add(BotaniaStateProps.ENCHANTER_DIRECTION);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileEnchanter();
 	}
 

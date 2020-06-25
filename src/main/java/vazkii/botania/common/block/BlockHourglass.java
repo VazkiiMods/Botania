@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -47,7 +48,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, IWandable, IWandHUD {
+public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, ITileEntityProvider, IWandable, IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 18.4, 12);
 
@@ -134,14 +135,9 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileHourglass();
 	}
 

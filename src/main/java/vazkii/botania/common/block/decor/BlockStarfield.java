@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -20,7 +21,7 @@ import vazkii.botania.common.block.tile.TileStarfield;
 
 import javax.annotation.Nonnull;
 
-public class BlockStarfield extends BlockModWaterloggable {
+public class BlockStarfield extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
@@ -34,14 +35,9 @@ public class BlockStarfield extends BlockModWaterloggable {
 		return SHAPE;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileStarfield();
 	}
 

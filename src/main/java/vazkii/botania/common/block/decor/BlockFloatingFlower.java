@@ -10,6 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
@@ -40,7 +41,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockFloatingFlower extends BlockModWaterloggable {
+public class BlockFloatingFlower extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;
@@ -107,14 +108,9 @@ public class BlockFloatingFlower extends BlockModWaterloggable {
 		return ActionResultType.PASS;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileFloatingFlower();
 	}
 }

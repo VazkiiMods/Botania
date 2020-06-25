@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -24,20 +25,15 @@ import vazkii.botania.common.block.tile.mana.TileManaVoid;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider {
+public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, ITileEntityProvider {
 
 	public BlockManaVoid(Properties builder) {
 		super(builder);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileManaVoid();
 	}
 

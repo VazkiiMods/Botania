@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
@@ -16,20 +17,15 @@ import vazkii.botania.common.block.tile.TileCell;
 
 import javax.annotation.Nonnull;
 
-public class BlockCell extends BlockMod {
+public class BlockCell extends BlockMod implements ITileEntityProvider {
 
 	public BlockCell(Properties builder) {
 		super(builder);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileCell();
 	}
 

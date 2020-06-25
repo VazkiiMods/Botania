@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -26,7 +27,7 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 
 import javax.annotation.Nonnull;
 
-public class BlockPump extends BlockModWaterloggable {
+public class BlockPump extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape X_SHAPE = makeCuboidShape(0, 0, 4, 16, 8, 12);
 	private static final VoxelShape Z_SHAPE = makeCuboidShape(4, 0, 0, 12, 8, 16);
@@ -68,14 +69,9 @@ public class BlockPump extends BlockModWaterloggable {
 		return ((TilePump) world.getTileEntity(pos)).comparator;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TilePump();
 	}
 }

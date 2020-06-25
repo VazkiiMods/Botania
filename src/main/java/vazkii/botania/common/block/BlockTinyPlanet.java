@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -21,7 +22,7 @@ import vazkii.botania.common.block.tile.TileTinyPlanet;
 
 import javax.annotation.Nonnull;
 
-public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost {
+public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost, ITileEntityProvider {
 
 	private static final VoxelShape AABB = makeCuboidShape(3, 3, 3, 13, 13, 13);
 
@@ -35,14 +36,9 @@ public class BlockTinyPlanet extends BlockModWaterloggable implements IManaColli
 		return AABB;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileTinyPlanet();
 	}
 

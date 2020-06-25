@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,8 +29,9 @@ import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class BlockAlfPortal extends BlockMod implements IWandable {
+public class BlockAlfPortal extends BlockMod implements ITileEntityProvider, IWandable {
 
 	public BlockAlfPortal(Properties builder) {
 		super(builder);
@@ -41,14 +43,9 @@ public class BlockAlfPortal extends BlockMod implements IWandable {
 		builder.add(BotaniaStateProps.ALFPORTAL_STATE);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileAlfPortal();
 	}
 

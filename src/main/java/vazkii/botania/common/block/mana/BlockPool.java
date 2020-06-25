@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -39,7 +40,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockPool extends BlockModWaterloggable implements IWandHUD, IWandable {
+public class BlockPool extends BlockModWaterloggable implements ITileEntityProvider, IWandHUD, IWandable {
 	private static final VoxelShape SLAB = makeCuboidShape(0, 0, 0, 16, 8, 16);
 	private static final VoxelShape CUTOUT = makeCuboidShape(1, 1, 1, 15, 8, 15);
 	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, IBooleanFunction.ONLY_FIRST);
@@ -74,14 +75,9 @@ public class BlockPool extends BlockModWaterloggable implements IWandHUD, IWanda
 		}
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TilePool();
 	}
 

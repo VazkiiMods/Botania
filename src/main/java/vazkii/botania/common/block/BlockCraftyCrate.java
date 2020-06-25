@@ -42,7 +42,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileCraftCrate();
 	}
 

@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockIncensePlate extends BlockModWaterloggable {
+public class BlockIncensePlate extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape X_SHAPE = makeCuboidShape(6, 0, 2, 10, 1, 14);
 	private static final VoxelShape Z_SHAPE = makeCuboidShape(2, 0, 6, 14, 1, 10);
@@ -117,14 +118,9 @@ public class BlockIncensePlate extends BlockModWaterloggable {
 		}
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileIncensePlate();
 	}
 

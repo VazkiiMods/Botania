@@ -11,6 +11,7 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
@@ -32,7 +33,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 
-public class BlockBellows extends BlockMod {
+public class BlockBellows extends BlockMod implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 10.0, 13);
 
@@ -73,14 +74,9 @@ public class BlockBellows extends BlockMod {
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileBellows();
 	}
 

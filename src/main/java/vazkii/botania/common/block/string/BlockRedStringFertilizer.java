@@ -49,7 +49,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull BlockState meta, @Nonnull IBlockReader world) {
+	public TileRedString createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileRedStringFertilizer();
 	}
 }

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
@@ -31,7 +32,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaFlame extends BlockMod {
+public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 4, 4, 12, 12, 12);
 
@@ -67,14 +68,9 @@ public class BlockManaFlame extends BlockMod {
 		return ActionResultType.PASS;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileManaFlame();
 	}
 }

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -20,7 +21,7 @@ import vazkii.botania.common.block.tile.TileForestEye;
 
 import javax.annotation.Nonnull;
 
-public class BlockForestEye extends BlockModWaterloggable {
+public class BlockForestEye extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 4, 4, 12, 12, 12);
 
@@ -45,14 +46,9 @@ public class BlockForestEye extends BlockModWaterloggable {
 		return eye == null ? 0 : Math.min(15, Math.max(0, eye.entities - 1));
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileForestEye();
 	}
 

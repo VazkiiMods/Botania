@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -36,7 +37,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockLightRelay extends BlockModWaterloggable implements IWandable {
+public class BlockLightRelay extends BlockModWaterloggable implements ITileEntityProvider, IWandable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
@@ -103,14 +104,9 @@ public class BlockLightRelay extends BlockModWaterloggable implements IWandable 
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileLightRelay();
 	}
 

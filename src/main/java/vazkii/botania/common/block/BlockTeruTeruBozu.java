@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +30,7 @@ import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;
 
-public class BlockTeruTeruBozu extends BlockModWaterloggable {
+public class BlockTeruTeruBozu extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0.16, 4, 12, 15.84, 12);
 
@@ -110,14 +111,9 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable {
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileTeruTeruBozu();
 	}
 

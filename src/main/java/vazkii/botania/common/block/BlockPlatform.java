@@ -8,10 +8,7 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,7 +33,7 @@ import vazkii.botania.common.block.tile.TilePlatform;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost {
+public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, ITileEntityProvider {
 
 	public enum Variant {
 		ABSTRUSE,
@@ -71,14 +68,9 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		return variant != Variant.INFRANGIBLE;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TilePlatform();
 	}
 

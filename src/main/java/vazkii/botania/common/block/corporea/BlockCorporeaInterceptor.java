@@ -59,7 +59,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileCorporeaBase createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileCorporeaInterceptor();
 	}
 

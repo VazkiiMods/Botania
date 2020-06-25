@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockEnderEye extends BlockMod {
+public class BlockEnderEye extends BlockMod implements ITileEntityProvider {
 
 	protected BlockEnderEye(Properties builder) {
 		super(builder);
@@ -47,14 +48,9 @@ public class BlockEnderEye extends BlockMod {
 		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileEnderEye();
 	}
 

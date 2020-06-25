@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +22,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockBifrost extends BlockBifrostPerm {
+public class BlockBifrost extends BlockBifrostPerm implements ITileEntityProvider {
 
 	public BlockBifrost(Properties builder) {
 		super(builder);
@@ -33,14 +34,9 @@ public class BlockBifrost extends BlockBifrostPerm {
 		return new ItemStack(ModItems.rainbowRod);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileBifrost();
 	}
 }
