@@ -70,7 +70,6 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
-		addPropertyOverride(new ResourceLocation("botania", "bindmode"), (stack, worldIn, entityIn) -> getBindMode(stack) ? 1 : 0);
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, ItemUseContext ctx) {

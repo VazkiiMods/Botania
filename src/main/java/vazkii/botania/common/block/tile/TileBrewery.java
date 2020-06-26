@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,11 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
@@ -33,8 +32,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -257,7 +254,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		return !isFull();
 	}
 
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int manaToGet = getManaCost();
 		if (manaToGet > 0) {
 			int x = mc.getMainWindow().getScaledWidth() / 2 + 20;
@@ -267,7 +264,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 				return;
 			}
 
-			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(itemHandler.getStackInSlot(0)));
+			RenderHelper.renderProgressPie(ms, x, y, (float) mana / (float) manaToGet, recipe.getOutput(itemHandler.getStackInSlot(0)));
 		}
 	}
 

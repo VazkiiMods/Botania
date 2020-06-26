@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -28,7 +29,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -157,7 +157,7 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 		tile.renderHUD();
 	}

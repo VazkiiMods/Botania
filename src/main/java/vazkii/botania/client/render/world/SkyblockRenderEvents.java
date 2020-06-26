@@ -10,7 +10,6 @@ package vazkii.botania.client.render.world;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -21,7 +20,7 @@ public final class SkyblockRenderEvents {
 	public static void onRender(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
 		if (ConfigHandler.CLIENT.enableFancySkybox.get()
-				&& world.getDimension().getType() == DimensionType.OVERWORLD
+				&& world.func_234923_W_() == World.field_234918_g_
 				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get()
 						|| WorldTypeSkyblock.isWorldSkyblock(world))) {
 			if (!(world.getDimension().getSkyRenderer() instanceof SkyblockSkyRenderer)) {

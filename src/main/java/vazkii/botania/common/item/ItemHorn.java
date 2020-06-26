@@ -37,8 +37,6 @@ import java.util.Locale;
 public class ItemHorn extends Item {
 	public ItemHorn(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),
-				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0);
 	}
 
 	@Nonnull

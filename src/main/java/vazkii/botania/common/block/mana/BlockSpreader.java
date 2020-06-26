@@ -10,12 +10,12 @@ package vazkii.botania.common.block.mana;
 
 import com.google.common.collect.ImmutableList;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -204,7 +204,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
 		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc);
 	}
 

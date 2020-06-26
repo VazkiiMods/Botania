@@ -20,11 +20,10 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 public class ItemSlimeBottle extends Item {
-	private static final String TAG_ACTIVE = "active";
+	public static final String TAG_ACTIVE = "active";
 
 	public ItemSlimeBottle(Properties builder) {
 		super(builder);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"), (stack, worldIn, entityIn) -> stack.hasTag() && stack.getTag().getBoolean(TAG_ACTIVE) ? 1.0F : 0.0F);
 	}
 
 	@Override

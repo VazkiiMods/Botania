@@ -68,15 +68,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
-			if (entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity)) {
-				return 0;
-			}
-			return 1;
-		});
 	}
 
-	private boolean shouldBreak(PlayerEntity player) {
+	public static boolean shouldBreak(PlayerEntity player) {
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 

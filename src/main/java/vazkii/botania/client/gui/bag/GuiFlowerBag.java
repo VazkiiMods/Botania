@@ -63,7 +63,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 				int x = guiLeft + slot.xPos;
 				int y = guiTop + slot.yPos;
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-				mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
+				mc.fontRenderer.func_238405_a_("0", x + 11, y + 9, 0xFF6666);
 			}
 		}
 	}

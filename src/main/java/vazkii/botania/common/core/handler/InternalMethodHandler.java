@@ -60,12 +60,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name) {
-		HUDHandler.drawSimpleManaHUD(color, mana, maxMana, name);
+		HUDHandler.drawSimpleManaHUD(ms, color, mana, maxMana, name);
 	}
 
 	@Override
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
-		HUDHandler.drawComplexManaHUD(color, mana, maxMana, name, bindDisplay, properlyBound);
+		HUDHandler.drawComplexManaHUD(color, ms, mana, maxMana, name, bindDisplay, properlyBound);
 	}
 
 	@Override

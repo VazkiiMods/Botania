@@ -28,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -186,8 +187,8 @@ public final class RenderHelper {
 		return RenderType.makeType(LibResources.PREFIX_MOD + "crafting_halo", DefaultVertexFormats.POSITION_COLOR_TEX, GL11.GL_QUADS, 64, false, true, glState);
 	}
 
-	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height) {
-		AbstractGui.blit(x, y, u, v, width, height, 256, 256);
+	public static void drawTexturedModalRect(MatrixStack ms, int x, int y, int u, int v, int width, int height) {
+		AbstractGui.func_238463_a_(ms, x, y, u, v, width, height, 256, 256);
 	}
 
 	public static void renderStar(MatrixStack ms, IRenderTypeBuffer buffers, int color, float xScale, float yScale, float zScale, long seed) {
@@ -247,7 +248,7 @@ public final class RenderHelper {
 		}
 	}
 
-	public static void renderProgressPie(int x, int y, float progress, ItemStack stack) {
+	public static void renderProgressPie(MatrixStack ms, int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 
@@ -277,16 +278,17 @@ public final class RenderHelper {
 		RenderSystem.stencilMask(0x00);
 		RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 
+		Matrix4f mat = ms.getLast().getMatrix();
 		BufferBuilder buf = Tessellator.getInstance().getBuffer();
 		buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
-		buf.pos(centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
+		buf.pos(mat, centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
 
 		for (int i = degs; i > 0; i--) {
-			double rad = (i - 90) / 180F * Math.PI;
-			buf.pos(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
+			float rad = (i - 90) / 180F * (float) Math.PI;
+			buf.pos(mat, centerX + MathHelper.cos(rad) * r, centerY + MathHelper.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
 		}
 
-		buf.pos(centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
+		buf.pos(mat, centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
 		Tessellator.getInstance().draw();
 
 		RenderSystem.disableBlend();

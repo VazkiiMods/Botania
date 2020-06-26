@@ -40,14 +40,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
-	private static final String TAG_ACTIVE = "active";
+	public static final String TAG_ACTIVE = "active";
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 
 	public ItemBlackHoleTalisman(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"),
-				(stack, worldIn, entityIn) -> ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false) ? 1 : 0);
 	}
 
 	@Nonnull

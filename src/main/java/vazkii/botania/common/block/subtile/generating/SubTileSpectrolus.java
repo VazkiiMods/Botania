@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Block;
@@ -21,7 +22,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -29,14 +29,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -127,19 +124,19 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
-		super.renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		super.renderHUD(ms, mc);
 
 		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
 		int color = getColor();
 
 		if (!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
+			int width = 16 + mc.fontRenderer.func_238414_a_(stackName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
+			mc.fontRenderer.func_238407_a_(ms, stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 		}
 

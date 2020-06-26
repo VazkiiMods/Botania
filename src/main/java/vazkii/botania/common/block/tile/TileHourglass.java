@@ -226,7 +226,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);
-			mc.fontRenderer.drawStringWithShadow(timeStr, x + 20, y, getColor());
+			mc.fontRenderer.func_238405_a_(timeStr, x + 20, y, getColor());
 
 			String status = "";
 			if (lock) {
@@ -236,7 +236,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			}
 			if (!status.isEmpty()) {
-				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRenderer.func_238405_a_(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
 			}
 		}
 

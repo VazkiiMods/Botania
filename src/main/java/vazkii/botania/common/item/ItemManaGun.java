@@ -57,12 +57,6 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		super(props.defaultMaxDamage(COOLDOWN));
 	}
 
-	// ItemRenderer does not call IBakedModel.getModelWithOverrides unless this is true, or we have called addPropertyOverride.
-	@Override
-	public boolean hasCustomProperties() {
-		return true;
-	}
-
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {

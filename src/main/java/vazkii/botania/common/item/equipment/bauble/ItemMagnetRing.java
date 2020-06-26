@@ -44,7 +44,6 @@ public class ItemMagnetRing extends ItemBauble {
 	public ItemMagnetRing(Properties props, int range) {
 		super(props);
 		this.range = range;
-		addPropertyOverride(new ResourceLocation("botania", "on"), (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0);
 	}
 
 	private void onTossItem(ItemTossEvent event) {

@@ -953,7 +953,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
 
-		mc.fontRenderer.drawStringWithShadow("" + playerCount, px + 15, py + 4, 0xFFFFFF);
+		mc.fontRenderer.func_238405_a_("" + playerCount, px + 15, py + 4, 0xFFFFFF);
 		RenderSystem.popMatrix();
 
 		return 5;

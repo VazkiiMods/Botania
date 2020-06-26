@@ -97,7 +97,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw();
-		HUDHandler.renderManaBar(28, 113, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
+		HUDHandler.renderManaBar(ms, 28, 113, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

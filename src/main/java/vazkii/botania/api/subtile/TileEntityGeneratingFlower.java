@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -289,7 +290,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
 		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());

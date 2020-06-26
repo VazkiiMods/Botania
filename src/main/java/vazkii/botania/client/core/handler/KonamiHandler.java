@@ -71,7 +71,7 @@ public class KonamiHandler {
 
 			RenderSystem.translated(currWidth, evt.gui.height / 2 - 10, 0);
 			RenderSystem.scalef(4, 4, 4);
-			Minecraft.getInstance().fontRenderer.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
+			Minecraft.getInstance().fontRenderer.func_238405_a_(meme, 0, 0, 0xFFFFFF);
 			RenderSystem.popMatrix();
 			RenderSystem.enableDepthTest();
 		}

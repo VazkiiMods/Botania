@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.BlockState;
@@ -29,7 +30,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.mana.IManaItem;
@@ -37,7 +37,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -239,14 +238,14 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
-		super.renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		super.renderHUD(ms, mc);
 
 		String filter = I18n.format("botaniamisc.filter" + filterType);
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
 		int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-		mc.fontRenderer.drawStringWithShadow(filter, x, y, TextFormatting.GRAY.getColor());
+		mc.fontRenderer.func_238405_a_(ms, filter, x, y, TextFormatting.GRAY.getColor());
 		RenderSystem.disableLighting();
 	}
 

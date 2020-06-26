@@ -31,10 +31,6 @@ public class ItemBlockPool extends BlockItem {
 
 	public ItemBlockPool(Block block, Properties props) {
 		super(block, props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "full"), (stack, worldIn, entityIn) -> {
-			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
-			return renderFull ? 1F : 0F;
-		});
 	}
 
 	@OnlyIn(Dist.CLIENT)

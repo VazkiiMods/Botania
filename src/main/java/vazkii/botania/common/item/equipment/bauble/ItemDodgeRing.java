@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -119,7 +120,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(PlayerEntity player, ItemStack stack, float pticks) {
+	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack, float pticks) {
 		int xo = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 20;
 		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 20;
 
@@ -128,8 +129,8 @@ public class ItemDodgeRing extends ItemBauble {
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {
-				AbstractGui.fill(xo, y - 2, xo + 40, y - 1, 0x88000000);
-				AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				AbstractGui.func_238467_a_(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
+				AbstractGui.func_238467_a_(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 

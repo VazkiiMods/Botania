@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -24,7 +25,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +32,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
@@ -44,8 +43,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -496,12 +493,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD() {
+	public void renderHUD(MatrixStack ms) {
 		if (manaRequired > 0 && !itemToEnchant.isEmpty()) {
 			int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20;
 			int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 8;
 
-			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
+			RenderHelper.renderProgressPie(ms, x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}
 	}
 

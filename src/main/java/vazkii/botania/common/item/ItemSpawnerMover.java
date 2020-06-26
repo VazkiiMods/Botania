@@ -48,7 +48,6 @@ public class ItemSpawnerMover extends Item {
 
 	public ItemSpawnerMover(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation("botania", "full"), (stack, worldIn, entityIn) -> hasData(stack) ? 1 : 0);
 	}
 
 	@Nullable
@@ -64,7 +63,7 @@ public class ItemSpawnerMover extends Item {
 		return null;
 	}
 
-	private static boolean hasData(ItemStack stack) {
+	public static boolean hasData(ItemStack stack) {
 		return getEntityId(stack) != null;
 	}
 

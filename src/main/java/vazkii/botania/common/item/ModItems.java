@@ -82,7 +82,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModItems {
-	public static final Item lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
+	public static final ItemLexicon lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
 
 	public static final Item whitePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.WHITE), DyeColor.WHITE, defaultBuilder());
 	public static final Item orangePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.ORANGE), DyeColor.ORANGE, defaultBuilder());
@@ -190,7 +190,7 @@ public final class ModItems {
 
 	public static final Item manaTablet = new ItemManaTablet(unstackable());
 	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair());
-	public static final Item manaCookie = new ItemManaCookie(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build()));
+	public static final Item manaCookie = new Item(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build()));
 	public static final Item fertilizer = new ItemFertilizer(defaultBuilder());
 
 	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder());

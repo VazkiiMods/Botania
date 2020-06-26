@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
@@ -144,7 +145,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvid
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileEntitySpecialFlower) world.getTileEntity(pos)).renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TileEntitySpecialFlower) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 }

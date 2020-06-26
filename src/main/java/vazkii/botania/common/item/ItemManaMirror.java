@@ -17,11 +17,12 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.mana.IManaItem;
@@ -154,9 +155,9 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		}
 
 		ResourceLocation dim = new ResourceLocation(getDimension(stack));
-		DimensionType type = DimensionType.byName(dim);
-		if (type != null) {
-			World world = server.getWorld(type);
+		RegistryKey<World> type = RegistryKey.func_240903_a_(Registry.field_239699_ae_, dim);
+		World world = server.getWorld(type);
+		if (world != null) {
 			TileEntity tile = world.getTileEntity(coords);
 			if (tile instanceof IManaPool) {
 				return (IManaPool) tile;

@@ -15,8 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.EndDimension;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -36,7 +36,7 @@ public class ItemEnderAir extends Item {
 		ItemStack stack = event.getItemStack();
 		World world = event.getWorld();
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimension() instanceof EndDimension) {
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.field_236001_e_) {
 			List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
 					event.getPlayer().getBoundingBox().grow(3.5D),
 					entity -> entity != null && entity.isAlive()

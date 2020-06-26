@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -298,7 +299,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {}
+	public void renderHUD(MatrixStack ms, Minecraft mc) {}
 
 	/**
 	 * Gets the comparator input value for this SubTileEntity

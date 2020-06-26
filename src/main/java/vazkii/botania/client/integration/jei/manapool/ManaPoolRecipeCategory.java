@@ -107,7 +107,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(48, 0);
-		HUDHandler.renderManaBar(28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
+		HUDHandler.renderManaBar(ms, 28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

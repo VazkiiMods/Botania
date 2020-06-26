@@ -88,7 +88,7 @@ public final class ItemsRemainingRenderHandler {
 			}
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
+			mc.fontRenderer.func_238405_a_(text, x + 20, y + 6, color);
 
 			RenderSystem.disableBlend();
 			RenderSystem.enableAlphaTest();

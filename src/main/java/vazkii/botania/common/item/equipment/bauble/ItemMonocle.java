@@ -50,7 +50,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(PlayerEntity player) {
+	public static void renderHUD(MatrixStack ms, PlayerEntity player) {
 		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult ray = mc.objectMouseOver;
 		if (ray == null || ray.getType() != RayTraceResult.Type.BLOCK) {
@@ -84,7 +84,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);
 
-		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
+		mc.fontRenderer.func_238405_a_(ms, text, x + 20, y + 4, 0xFFFFFF);
 	}
 
 	public static boolean hasMonocle(PlayerEntity player) {

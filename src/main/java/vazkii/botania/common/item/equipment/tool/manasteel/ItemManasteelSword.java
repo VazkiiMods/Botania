@@ -34,8 +34,6 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 
 	public ItemManasteelSword(IItemTier mat, Properties props) {
 		super(mat, 3, -2.4F, props);
-		addPropertyOverride(new ResourceLocation("botania", "elucidator"),
-				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
 	}
 
 	@Override

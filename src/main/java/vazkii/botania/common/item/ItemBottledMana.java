@@ -43,13 +43,12 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemBottledMana extends Item {
-	private static final int SWIGS = 6;
+	public static final int SWIGS = 6;
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> SWIGS - getSwigsLeft(stack));
 	}
 
 	public void effect(ItemStack stack, LivingEntity living, int id) {
@@ -254,7 +253,7 @@ public class ItemBottledMana extends Item {
 		return UseAction.DRINK;
 	}
 
-	private int getSwigsLeft(ItemStack stack) {
+	public static int getSwigsLeft(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_SWIGS_LEFT, SWIGS);
 	}
 

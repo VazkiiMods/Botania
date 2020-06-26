@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -110,8 +111,8 @@ public class BlockBrewery extends BlockModWaterloggable implements ITileEntityPr
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileBrewery) world.getTileEntity(pos)).renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TileBrewery) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 }

@@ -23,13 +23,11 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import org.lwjgl.opengl.GL11;
 
@@ -55,8 +53,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -399,7 +395,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = pool.getDisplayName().getString();
 		int color = 0x4444FF;
-		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), manaCap, name);
+		HUDHandler.drawSimpleManaHUD(ms, color, getCurrentMana(), manaCap, name);
 
 		int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 11;
 		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 30;
@@ -411,7 +407,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		mc.textureManager.bindTexture(HUDHandler.manaBar);
-		RenderHelper.drawTexturedModalRect(x, y, u, v, 22, 15);
+		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 		RenderSystem.color4f(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -48,7 +49,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileCraftCrate) {
 			TileCraftCrate craft = (TileCraftCrate) tile;
@@ -58,8 +59,8 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 			int xc = mc.getMainWindow().getScaledWidth() / 2 + 20;
 			int yc = mc.getMainWindow().getScaledHeight() / 2 - height / 2;
 
-			AbstractGui.fill(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
-			AbstractGui.fill(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
+			AbstractGui.func_238467_a_(ms, xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
+			AbstractGui.func_238467_a_(ms, xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -72,7 +73,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 						enabled = craft.getPattern().openSlots.get(index);
 					}
 
-					AbstractGui.fill(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
+					AbstractGui.func_238467_a_(ms, xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
 					ItemStack item = craft.getItemHandler().getStackInSlot(index);
 					mc.getItemRenderer().renderItemAndEffectIntoGUI(item, xp, yp);

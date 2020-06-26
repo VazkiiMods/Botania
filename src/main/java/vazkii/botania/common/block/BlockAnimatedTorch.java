@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -82,8 +83,8 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements ITileEn
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileAnimatedTorch) world.getTileEntity(pos)).renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TileAnimatedTorch) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

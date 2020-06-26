@@ -445,7 +445,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(PlayerEntity player, ItemStack stack) {
+	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack) {
 		int u = Math.max(1, getVariant(stack)) * 9 - 9;
 		int v = 0;
 
@@ -472,7 +472,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			}
 
 			RenderSystem.color4f(1F, 1F, 1F, trans);
-			RenderHelper.drawTexturedModalRect(x, y, u, v, 9, 9);
+			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 9, 9);
 			x += 8;
 		}
 
@@ -480,9 +480,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {
-				AbstractGui.fill(xo, y - 2, xo + 80, y - 1, 0x88000000);
+				AbstractGui.func_238467_a_(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
 			}
-			AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+			AbstractGui.func_238467_a_(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
 		RenderSystem.enableAlphaTest();

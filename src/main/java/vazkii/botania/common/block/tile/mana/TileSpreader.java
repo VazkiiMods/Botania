@@ -22,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -31,7 +30,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -47,8 +45,6 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -544,7 +540,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void renderHUD(Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
 		int color = getVariant().hudColor;
-		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), getMaxMana(), name);
+		HUDHandler.drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		if (!lens.isEmpty()) {
@@ -553,7 +549,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 
-			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
+			mc.fontRenderer.func_238405_a_(lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderSystem.disableLighting();
 		}
@@ -567,7 +563,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 				int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+				mc.fontRenderer.func_238405_a_(stackName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			}
 

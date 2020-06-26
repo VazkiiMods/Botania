@@ -26,7 +26,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	float chargeVelocityMultiplier() {
+	public float chargeVelocityMultiplier() {
 		return 2F;
 	}
 

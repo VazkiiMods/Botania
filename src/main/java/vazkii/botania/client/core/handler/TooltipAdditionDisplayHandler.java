@@ -66,10 +66,10 @@ public final class TooltipAdditionDisplayHandler {
 		RenderSystem.disableLighting();
 		RenderSystem.pushMatrix();
 		RenderSystem.translatef(0, 0, 300);
-		font.drawStringWithShadow(rank, mouseX, mouseY - 12, 0xFFFFFF);
+		font.func_238405_a_(rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if (!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
-			font.drawStringWithShadow(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
+			font.func_238405_a_(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
 		RenderSystem.popMatrix();
 		RenderSystem.enableLighting();

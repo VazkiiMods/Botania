@@ -63,7 +63,7 @@ public final class BossBarHandler {
 				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
-				mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
+				mc.fontRenderer.func_238405_a_(name, tx, y - 10, 0xA2018C);
 				RenderSystem.enableBlend();
 				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}
@@ -79,7 +79,7 @@ public final class BossBarHandler {
 			ShaderHelper.useShader(program, barUniformCallback);
 		}
 
-		RenderHelper.drawTexturedModalRect(x, y, u, v, w, h);
+		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, w, h);
 
 		if (program != null) {
 			ShaderHelper.releaseShader();

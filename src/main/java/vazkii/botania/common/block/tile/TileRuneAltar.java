@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -18,13 +19,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ObjectHolder;
 
 import org.lwjgl.opengl.GL11;
 
@@ -42,8 +41,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -363,7 +360,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		return !isFull();
 	}
 
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int xc = mc.getMainWindow().getScaledWidth() / 2;
 		int yc = mc.getMainWindow().getScaledHeight() / 2;
 
@@ -389,36 +386,36 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 				mc.textureManager.bindTexture(HUDHandler.manaBar);
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
-				RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
+				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 				if (progress == 1F) {
 					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-					RenderSystem.translatef(0F, 0F, 100F);
+					ms.translate(0, 0, 100);
 					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-					RenderSystem.translatef(0F, 0F, -100F);
+					ms.translate(0, 0, -100);
 				}
 
-				RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getCraftingResult(inv));
+				RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.getCraftingResult(inv));
 
 				if (progress == 1F) {
-					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
+					mc.fontRenderer.func_238421_b_(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
 				}
 			});
 
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				RenderSystem.translated(xPos, yPos, 0);
+				ms.translate(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				RenderSystem.translated(-xPos, -yPos, 0);
+				ms.translate(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}
 		} else if (recipeKeepTicks > 0) {
 			String s = I18n.format("botaniamisc.altarRefill0");
-			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			mc.fontRenderer.func_238405_a_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");
-			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
+			mc.fontRenderer.func_238405_a_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

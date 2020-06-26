@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -133,12 +134,12 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int x = mc.getMainWindow().getScaledWidth() / 2 + 10;
 		int y = mc.getMainWindow().getScaledHeight() / 2 - 8;
 
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.fontRenderer.drawStringWithShadow(I18n.format("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
+		mc.fontRenderer.func_238405_a_(ms, I18n.format("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
 	}
 
 	@Override

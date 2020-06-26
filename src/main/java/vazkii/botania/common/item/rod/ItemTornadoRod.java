@@ -51,7 +51,6 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	public ItemTornadoRod(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation("botania", "flying"), (stack, world, living) -> isFlying(stack) ? 1 : 0);
 	}
 
 	@Override
@@ -117,7 +116,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		return ActionResult.resultPass(stack);
 	}
 
-	private boolean isFlying(ItemStack stack) {
+	public static boolean isFlying(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_FLYING, false);
 	}
 

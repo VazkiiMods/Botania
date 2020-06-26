@@ -528,7 +528,7 @@ public class ItemCraftingHalo extends Item {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(PlayerEntity player, ItemStack stack) {
+	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		int slot = getSegmentLookedAt(stack, player);
 
@@ -538,11 +538,11 @@ public class ItemCraftingHalo extends Item {
 			int x = mc.getMainWindow().getScaledWidth() / 2 - l / 2;
 			int y = mc.getMainWindow().getScaledHeight() / 2 - 65;
 
-			AbstractGui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
-			AbstractGui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
+			AbstractGui.func_238467_a_(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
+			AbstractGui.func_238467_a_(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.getMainWindow().getScaledWidth() / 2 - 8, mc.getMainWindow().getScaledHeight() / 2 - 52);
 
-			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
+			mc.fontRenderer.func_238405_a_(ms, name, x, y, 0xFFFFFF);
 		} else {
 			ItemStack[] recipe = getCraftingItems(stack, slot);
 			ITextComponent label = new TranslationTextComponent("botaniamisc.unsetRecipe");
@@ -555,30 +555,30 @@ public class ItemCraftingHalo extends Item {
 				setRecipe = true;
 			}
 
-			renderRecipe(label, recipe, player, setRecipe);
+			renderRecipe(ms, label, recipe, player, setRecipe);
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private static void renderRecipe(ITextComponent label, ItemStack[] recipe, PlayerEntity player, boolean setRecipe) {
+	private static void renderRecipe(MatrixStack ms, ITextComponent label, ItemStack[] recipe, PlayerEntity player, boolean setRecipe) {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!recipe[9].isEmpty()) {
 			int x = mc.getMainWindow().getScaledWidth() / 2 - 45;
 			int y = mc.getMainWindow().getScaledHeight() / 2 - 90;
 
-			AbstractGui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
-			AbstractGui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
+			AbstractGui.func_238467_a_(ms, x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
+			AbstractGui.func_238467_a_(ms, x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
 
-			AbstractGui.fill(x + 66, y + 14, x + 92, y + 40, 0x22000000);
-			AbstractGui.fill(x - 2, y - 2, x + 56, y + 56, 0x22000000);
+			AbstractGui.func_238467_a_(ms, x + 66, y + 14, x + 92, y + 40, 0x22000000);
+			AbstractGui.func_238467_a_(ms, x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
 			for (int i = 0; i < 9; i++) {
 				ItemStack stack = recipe[i];
 				if (!stack.isEmpty()) {
 					int xpos = x + i % 3 * 18;
 					int ypos = y + i / 3 * 18;
-					AbstractGui.fill(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
+					AbstractGui.func_238467_a_(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
 					mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, xpos, ypos);
 				}
@@ -592,10 +592,10 @@ public class ItemCraftingHalo extends Item {
 		int yoff = 110;
 		if (setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+			mc.fontRenderer.func_238405_a_(ms, warning, mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+		mc.fontRenderer.func_238407_a_(ms, label, mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 	}
 }

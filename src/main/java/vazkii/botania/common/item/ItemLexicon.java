@@ -40,7 +40,6 @@ public class ItemLexicon extends Item implements IElvenItem {
 
 	public ItemLexicon(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "elven"), (stack, world, living) -> isElvenItem(stack) ? 1 : 0);
 	}
 
 	public static boolean isOpen() {

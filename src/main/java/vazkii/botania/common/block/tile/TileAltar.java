@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Blocks;
@@ -26,7 +27,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -41,7 +41,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -53,8 +52,6 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -368,7 +365,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int xc = mc.getMainWindow().getScaledWidth() / 2;
 		int yc = mc.getMainWindow().getScaledHeight() / 2;
 
@@ -390,13 +387,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			maybeRecipe.ifPresent(recipe -> {
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				mc.textureManager.bindTexture(HUDHandler.manaBar);
-				RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 8, 22, 15);
+				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 				ItemStack stack = recipe.getCraftingResult(inv);
 
 				mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 				mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-				mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
+				mc.fontRenderer.func_238421_b_(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
 			});
 
 			for (int i = 0; i < amt; i++) {
@@ -410,9 +407,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 		} else if (recipeKeepTicks > 0 && getFluid() == Fluids.WATER) {
 			String s = I18n.format("botaniamisc.altarRefill0");
-			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			mc.fontRenderer.func_238421_b_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");
-			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
+			mc.fontRenderer.func_238421_b_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

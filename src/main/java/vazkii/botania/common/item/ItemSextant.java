@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Blocks;
@@ -183,7 +184,7 @@ public class ItemSextant extends Item {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(PlayerEntity player, ItemStack stack) {
+	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack) {
 		ItemStack onUse = player.getActiveItemStack();
 		int time = player.getItemInUseCount();
 
@@ -199,7 +200,7 @@ public class ItemSextant extends Item {
 				s = TextFormatting.RED + s;
 			}
 
-			font.drawStringWithShadow(s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
+			font.func_238405_a_(ms, s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
 
 			if (inRange) {
 				radius += 4;
@@ -209,9 +210,9 @@ public class ItemSextant extends Item {
 				RenderSystem.color4f(0F, 1F, 1F, 1F);
 				for (int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
-					double xp = x + Math.cos(radian) * radius;
-					double yp = y + Math.sin(radian) * radius;
-					Tessellator.getInstance().getBuffer().pos(xp, yp, 0).endVertex();
+					float xp = x + net.minecraft.util.math.MathHelper.cos(radian) * (float) radius;
+					float yp = y + net.minecraft.util.math.MathHelper.sin(radian) * (float) radius;
+					Tessellator.getInstance().getBuffer().pos(ms.getLast().getMatrix(), xp, yp, 0).endVertex();
 				}
 				Tessellator.getInstance().draw();
 				RenderSystem.enableTexture();

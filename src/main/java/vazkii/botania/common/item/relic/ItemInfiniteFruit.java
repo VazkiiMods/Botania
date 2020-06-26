@@ -29,7 +29,6 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	public ItemInfiniteFruit(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "boot"), (stack, worldIn, entityIn) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		}
 	}
 
-	private static boolean isBoot(ItemStack stack) {
+	public static boolean isBoot(ItemStack stack) {
 		String name = stack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}

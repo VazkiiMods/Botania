@@ -36,14 +36,6 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 	public ItemLivingwoodBow(Properties builder) {
 		super(builder);
-		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
-			if (entityIn == null) {
-				return 0.0F;
-			} else {
-				ItemStack itemstack = entityIn.getActiveItemStack();
-				return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
-			}
-		});
 	}
 
 	// [VanillaCopy] super
@@ -92,7 +84,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
 						abstractarrowentity = customeArrow(abstractarrowentity);
-						abstractarrowentity.shoot(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+						abstractarrowentity.func_234612_a_(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 						if (f == 1.0F) {
 							abstractarrowentity.setIsCritical(true);
 						}
@@ -134,7 +126,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		}
 	}
 
-	float chargeVelocityMultiplier() {
+	public float chargeVelocityMultiplier() {
 		return 1F;
 	}
 

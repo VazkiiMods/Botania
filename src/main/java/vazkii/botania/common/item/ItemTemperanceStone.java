@@ -32,8 +32,6 @@ public class ItemTemperanceStone extends Item {
 
 	public ItemTemperanceStone(Properties builder) {
 		super(builder);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"),
-				(stack, worldIn, entityIn) -> ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false) ? 1 : 0);
 	}
 
 	@Nonnull

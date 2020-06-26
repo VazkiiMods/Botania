@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.wand;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -21,6 +22,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public interface IWandHUD {
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, World world, BlockPos pos);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos);
 
 }

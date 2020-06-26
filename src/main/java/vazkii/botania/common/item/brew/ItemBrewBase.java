@@ -57,7 +57,6 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
 		this.baseItem = baseItem;
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> swigs - getSwigsLeft(stack));
 	}
 
 	@Override
@@ -209,6 +208,10 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Nonnull
 	public static String getSubtype(ItemStack stack) {
 		return stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
+	}
+
+	public int getSwigs() {
+		return swigs;
 	}
 
 	public int getSwigsLeft(ItemStack stack) {

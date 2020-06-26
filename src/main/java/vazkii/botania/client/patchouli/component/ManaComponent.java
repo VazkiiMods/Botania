@@ -52,7 +52,7 @@ public class ManaComponent implements ICustomComponent {
 		if (context.isAreaHovered(mouseX, mouseY, x, y - 2, 102, 5 + 20)) {
 			ratio = 1;
 		}
-		HUDHandler.renderManaBar(x, y + 10, 0x0000FF, 0.75F,
+		HUDHandler.renderManaBar(ms, x, y + 10, 0x0000FF, 0.75F,
 				manaValues[(context.getTicksInBook() / 20) % manaValues.length], TilePool.MAX_MANA / ratio);
 
 		String ratioString = I18n.format("botaniamisc.ratio", ratio);
