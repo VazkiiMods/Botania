@@ -74,7 +74,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 			for (int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
-					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."));
+					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."), Util.field_240973_b_);
 					return;
 				}
 			}
@@ -130,7 +130,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
-		name = ITextComponent.Serializer.fromJson(cmp.getString(TAG_NAME));
+		name = ITextComponent.Serializer.func_240643_a_(cmp.getString(TAG_NAME));
 	}
 
 	@Override

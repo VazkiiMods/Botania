@@ -21,7 +21,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -97,7 +97,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		if (getMana(stack) == Integer.MAX_VALUE) {
-			stacks.add(new TranslationTextComponent("botaniamisc.getALife").applyTextStyle(TextFormatting.RED));
+			stacks.add(new TranslationTextComponent("botaniamisc.getALife").func_240699_a_(TextFormatting.RED));
 		}
 	}
 
@@ -192,8 +192,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			return;
 		}
 
-		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
-		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
+		Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
+		Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
 

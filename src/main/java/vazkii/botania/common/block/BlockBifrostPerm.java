@@ -37,7 +37,7 @@ public class BlockBifrostPerm extends BlockModGlass {
 
 	@Override
 	public float[] getBeaconColorMultiplier(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
-		int rgb = MathHelper.hsvToRGB(world.getDimension().getWorld().getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F);
+		int rgb = MathHelper.hsvToRGB(((World) world).getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F);
 		float[] ret = new float[3];
 		ret[0] = ((rgb >> 16) & 0xFF) / 255.0F;
 		ret[1] = ((rgb >> 8) & 0xFF) / 255.0F;

@@ -67,11 +67,6 @@ public class BlockLightRelay extends BlockModWaterloggable implements ITileEntit
 	}
 
 	@Override
-	public int tickRate(IWorldReader world) {
-		return 2;
-	}
-
-	@Override
 	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		if (!worldIn.isRemote && variant == LuminizerVariant.TOGGLE) {
 			if (state.get(BlockStateProperties.POWERED) && !worldIn.isBlockPowered(pos)) {

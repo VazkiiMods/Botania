@@ -60,8 +60,8 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 1: { // Water
-			if (!living.world.isRemote && !living.world.getDimension().doesWaterVaporize()) {
-				living.world.setBlockState(new BlockPos(living), Blocks.WATER.getDefaultState());
+			if (!living.world.isRemote && !living.world.func_230315_m_().func_236040_e_()) {
+				living.world.setBlockState(living.func_233580_cy_(), Blocks.WATER.getDefaultState());
 			}
 			break;
 		}
@@ -79,7 +79,7 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 4: { // Mega Jump
-			if (!living.world.getDimension().isNether()) {
+			if (!living.world.func_230315_m_().func_236040_e_()) {
 				if (!living.world.isRemote) {
 					living.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 300, 5));
 				}

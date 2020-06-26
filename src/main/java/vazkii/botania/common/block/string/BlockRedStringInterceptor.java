@@ -58,11 +58,6 @@ public class BlockRedStringInterceptor extends BlockRedString {
 		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
 	}
 
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 2;
-	}
-
 	@Nonnull
 	@Override
 	public TileRedString createNewTileEntity(@Nonnull IBlockReader world) {

@@ -13,9 +13,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.loot.conditions.LootConditionManager;
+import net.minecraft.loot.functions.LootFunctionManager;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntity;
@@ -23,10 +26,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.storage.loot.conditions.LootConditionManager;
-import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -157,6 +157,7 @@ public class Botania {
 		modBus.addGenericListener(Item.class, ModSubtiles::registerItemBlocks);
 		modBus.addGenericListener(TileEntityType.class, ModSubtiles::registerTEs);
 		modBus.addGenericListener(GlobalLootModifierSerializer.class, DisposeModifier::register);
+		modBus.addGenericListener(Attribute.class, PixieHandler::registerAttribute);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.addListener(this::serverAboutToStart);
@@ -172,7 +173,7 @@ public class Botania {
 		forgeBus.addListener(ItemVirus::onLivingHurt);
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
-		forgeBus.addGenericListener(Entity.class, PixieHandler::registerAttribute);
+		forgeBus.addGenericListener(Entity.class, PixieHandler::attachAttribute);
 		forgeBus.addGenericListener(TileEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
 		forgeBus.addListener(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
@@ -280,10 +281,6 @@ public class Botania {
 					'0', sm
 			);
 			PatchouliAPI.instance.registerMultiblock(new ResourceLocation(LibMisc.MOD_ID, "gaia_ritual"), mb);
-
-			LootConditionManager.registerCondition(new TrueGuardianKiller.Serializer());
-			LootConditionManager.registerCondition(new EnableRelics.Serializer());
-			LootFunctionManager.registerFunction(new BindUuid.Serializer());
 
 			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
 			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);

@@ -10,9 +10,9 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.BannerPattern;
@@ -86,9 +86,9 @@ public class MiscellaneousIcons {
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
 	public void onModelRegister(ModelRegistryEvent evt) {
-		Set<Material> materials;
+		Set<RenderMaterial> materials;
 		try {
-			materials = (Set<Material>) MATERIALS.invokeExact();
+			materials = (Set<RenderMaterial>) MATERIALS.invokeExact();
 		} catch (Throwable throwable) {
 			throw new RuntimeException(throwable);
 		}
@@ -97,8 +97,8 @@ public class MiscellaneousIcons {
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
 			if (pattern.getFileName().startsWith(LibMisc.MOD_ID)) {
-				materials.add(new Material(Atlases.SHIELD_ATLAS, pattern.func_226957_a_(false)));
-				materials.add(new Material(Atlases.BANNER_ATLAS, pattern.func_226957_a_(true)));
+				materials.add(new RenderMaterial(Atlases.SHIELD_ATLAS, pattern.func_226957_a_(false)));
+				materials.add(new RenderMaterial(Atlases.BANNER_ATLAS, pattern.func_226957_a_(true)));
 			}
 		}
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));

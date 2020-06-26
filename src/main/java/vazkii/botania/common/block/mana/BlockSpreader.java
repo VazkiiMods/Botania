@@ -91,11 +91,6 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 	}
 
 	@Override
-	public boolean canEntitySpawn(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityType<?> type) {
-		return false;
-	}
-
-	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		Direction orientation = placer == null ? Direction.WEST : Direction.getFacingDirections(placer)[0].getOpposite();
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);

@@ -34,7 +34,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	}
 
 	public static boolean isDisposable(Block block) {
-		return ModTags.Items.DISPOSABLE.contains(block.asItem());
+		return ModTags.Items.DISPOSABLE.func_230235_a_(block.asItem());
 	}
 
 	private static boolean isDisposable(ItemStack stack) {
@@ -42,7 +42,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 			return false;
 		}
 
-		return ModTags.Items.DISPOSABLE.contains(stack.getItem());
+		return ModTags.Items.DISPOSABLE.func_230235_a_(stack.getItem());
 	}
 
 	private static boolean isSemiDisposable(ItemStack stack) {

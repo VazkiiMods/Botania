@@ -30,7 +30,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return getWorld().getDimension().isNether();
+		return getWorld().func_230315_m_().func_236037_d_();
 	}
 
 	@Override

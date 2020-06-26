@@ -8,7 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.culling.ClippingHelperImpl;
+import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -23,7 +23,7 @@ public class RenderNoop<T extends Entity> extends EntityRenderer<T> {
 	}
 
 	@Override
-	public boolean shouldRender(T entity, @Nonnull ClippingHelperImpl clipping, double x, double y, double z) {
+	public boolean shouldRender(T entity, @Nonnull ClippingHelper clipping, double x, double y, double z) {
 		return false;
 	}
 

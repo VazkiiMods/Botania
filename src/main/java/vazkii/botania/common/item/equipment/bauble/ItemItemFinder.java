@@ -170,7 +170,7 @@ public class ItemItemFinder extends ItemBauble {
 
 			if (!pstack.isEmpty()) {
 				range = 12;
-				BlockPos pos = new BlockPos(player);
+				BlockPos pos = player.func_233580_cy_();
 				for (BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
 					TileEntity tile = player.world.getTileEntity(pos_);
 					if (tile != null) {

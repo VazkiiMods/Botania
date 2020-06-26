@@ -52,12 +52,12 @@ public class CorporeaInputHandler {
 			int count = 1;
 			int max = stack.getMaxStackSize();
 
-			if (Screen.hasShiftDown()) {
+			if (Screen.func_231173_s_()) {
 				count = max;
-				if (Screen.hasControlDown()) {
+				if (Screen.func_231172_r_()) {
 					count /= 4;
 				}
-			} else if (Screen.hasControlDown()) {
+			} else if (Screen.func_231172_r_()) {
 				count = max / 2;
 			}
 

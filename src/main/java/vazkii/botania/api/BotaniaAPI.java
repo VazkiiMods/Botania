@@ -9,7 +9,7 @@
 package vazkii.botania.api;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.DyeColor;
@@ -128,6 +128,11 @@ public interface BotaniaAPI {
 		public float getToughness() {
 			return 0;
 		}
+
+		@Override
+		public float func_230304_f_() {
+			return 0;
+		}
 	};
 
 	IItemTier DUMMY_ITEM_TIER = new IItemTier() {
@@ -200,7 +205,4 @@ public interface BotaniaAPI {
 		return new DummyMethodHandler();
 	}
 
-	default IAttribute getPixieSpawnChanceAttribute() {
-		return new RangedAttribute(null, "missingno", 0, 0, 0);
-	}
 }

@@ -52,11 +52,6 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 2;
-	}
-
 	@Nonnull
 	@Override
 	public TileCorporeaBase createNewTileEntity(@Nonnull IBlockReader world) {

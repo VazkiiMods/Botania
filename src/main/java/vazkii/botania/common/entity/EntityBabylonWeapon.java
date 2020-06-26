@@ -20,6 +20,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -86,7 +87,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	public void tick() {
-		LivingEntity thrower = getThrower();
+		LivingEntity thrower = func_234616_v_();
 		if (!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
 			remove();
 			return;
@@ -174,7 +175,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
-		LivingEntity thrower = getThrower();
+		LivingEntity thrower = func_234616_v_();
 		if (pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
 			world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 3F, Explosion.Mode.NONE);
 			remove();

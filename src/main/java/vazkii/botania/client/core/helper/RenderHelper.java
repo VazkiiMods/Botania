@@ -28,6 +28,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
@@ -86,7 +88,7 @@ public final class RenderHelper {
 		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
 		RenderState.AlphaState zeroAlpha = new RenderState.AlphaState(0);
 		RenderState.AlphaState oneTenthAlpha = new RenderState.AlphaState(0.004F);
-		RenderState.DepthTestState noDepth = new RenderState.DepthTestState(GL11.GL_ALWAYS);
+		RenderState.DepthTestState noDepth = new RenderState.DepthTestState("always", GL11.GL_ALWAYS);
 		boolean useShaders = ShaderHelper.useShaders();
 
 		RenderType.State glState = RenderType.State.getBuilder().shadeModel(smoothShade)
@@ -161,7 +163,7 @@ public final class RenderHelper {
 		GAIA_PYLON_GLOW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, gaiaPylonGlow) : gaiaPylonGlow;
 
 		// Same as entity_translucent, with no depth test and a shader
-		glState = RenderType.State.getBuilder().depthTest(new RenderState.DepthTestState(GL11.GL_ALWAYS)).texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderType.State.getBuilder().depthTest(new RenderState.DepthTestState("always", GL11.GL_ALWAYS)).texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		ShaderCallback cb = shader -> {
 			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);

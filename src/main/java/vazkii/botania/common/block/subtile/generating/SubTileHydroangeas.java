@@ -11,10 +11,10 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
@@ -70,8 +70,8 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 				for (BlockPos offset : offsets) {
 					BlockPos pos = getEffectivePos().add(offset);
 
-					IFluidState fstate = getWorld().getFluidState(pos);
-					Tag<Fluid> search = getMaterialToSearchFor();
+					FluidState fstate = getWorld().getFluidState(pos);
+					ITag<Fluid> search = getMaterialToSearchFor();
 					if (fstate.isTagged(search)
 							&& (getBlockToSearchBelow() == null
 									|| getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow())
@@ -120,7 +120,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
 	}
 
-	public Tag<Fluid> getMaterialToSearchFor() {
+	public ITag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.WATER;
 	}
 

@@ -131,7 +131,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements ITileEn
 	@Override
 	public void onPlayerDestroy(IWorld world, BlockPos pos, BlockState state) {
 		// TE is already gone so best we can do is just notify everyone
-		world.notifyNeighbors(pos, this);
+		world.func_230547_a_(pos, this);
 		super.onPlayerDestroy(world, pos, state);
 	}
 

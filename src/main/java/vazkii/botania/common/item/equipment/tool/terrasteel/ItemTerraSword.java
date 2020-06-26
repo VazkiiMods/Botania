@@ -103,7 +103,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
-		LivingEntity thrower = entity.getThrower();
+		LivingEntity thrower = entity.func_234616_v_();
 
 		for (LivingEntity living : entities) {
 			if (living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity

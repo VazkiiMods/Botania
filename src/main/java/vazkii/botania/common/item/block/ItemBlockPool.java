@@ -42,7 +42,7 @@ public class ItemBlockPool extends BlockItem {
 	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
 		if (((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE) {
 			for (int i = 0; i < 2; i++) {
-				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i).applyTextStyle(TextFormatting.GRAY));
+				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i).func_240699_a_(TextFormatting.GRAY));
 			}
 		}
 	}

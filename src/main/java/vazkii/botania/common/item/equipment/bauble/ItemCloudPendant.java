@@ -45,7 +45,7 @@ public class ItemCloudPendant extends ItemBauble {
 			if (player == Minecraft.getInstance().player) {
 				ClientPlayerEntity playerSp = (ClientPlayerEntity) player;
 
-				if (playerSp.onGround) {
+				if (playerSp.func_233570_aj_()) {
 					timesJumped = 0;
 				} else {
 					if (playerSp.movementInput.jump) {

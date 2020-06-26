@@ -124,17 +124,17 @@ public class BergamuteEventHandler {
 		}
 
 		@Override
-		public float getX() {
+		public double getX() {
 			return compose.getX();
 		}
 
 		@Override
-		public float getY() {
+		public double getY() {
 			return compose.getY();
 		}
 
 		@Override
-		public float getZ() {
+		public double getZ() {
 			return compose.getZ();
 		}
 

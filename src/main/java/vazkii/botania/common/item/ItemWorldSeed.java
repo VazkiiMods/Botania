@@ -35,7 +35,7 @@ public class ItemWorldSeed extends Item {
 			return new ActionResult<>(ActionResultType.SUCCESS, stack);
 		}
 
-		BlockPos coords = world.getSpawnPoint();
+		BlockPos coords = ((ServerWorld) world).func_241135_u_();
 		if (world.getDimension().canRespawnHere() && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getPosX(), player.getPosY(), player.getPosZ()) > 24) {
 			player.rotationPitch = 0F;
 			player.rotationYaw = 0F;

@@ -23,7 +23,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.Vector3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -152,11 +152,11 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 		if (!recieverStack.isEmpty()) {
 			ITextComponent stackName = recieverStack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
+			int width = 16 + mc.fontRenderer.func_238414_a_(stackName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 		}
 

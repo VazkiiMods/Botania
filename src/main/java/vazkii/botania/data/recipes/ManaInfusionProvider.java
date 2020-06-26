@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -254,7 +254,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 		}
 
 		@SuppressWarnings("unchecked")
-		private static <T extends Comparable<T>> String getName(IProperty<T> prop, Comparable<?> val) {
+		private static <T extends Comparable<T>> String getName(Property<T> prop, Comparable<?> val) {
 			return prop.getName((T) val);
 		}
 

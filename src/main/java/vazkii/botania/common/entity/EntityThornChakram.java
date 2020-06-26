@@ -32,7 +32,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vector3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -98,7 +98,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 
 		// Returning motion
 		if (isReturning()) {
-			Entity thrower = getThrower();
+			Entity thrower = func_234616_v_();
 			if (thrower != null) {
 				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
 				setMotion(motion.toVector3d());
@@ -116,7 +116,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 
 		// Server state control
 		if (!world.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
-			LivingEntity thrower = getThrower();
+			Entity thrower = func_234616_v_();
 			if (thrower == null) {
 				dropAndKill();
 			} else {
@@ -174,13 +174,15 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 		}
 		case ENTITY: {
 			EntityRayTraceResult rtr = (EntityRayTraceResult) pos;
-			if (!world.isRemote && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getThrower()) {
-				LivingEntity thrower = getThrower();
-				rtr.getEntity().attackEntityFrom(thrower != null
-						? thrower instanceof PlayerEntity
-								? DamageSource.causeThrownDamage(this, thrower)
-								: DamageSource.causeMobDamage(thrower)
-						: DamageSource.GENERIC, 12);
+			if (!world.isRemote && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != func_234616_v_()) {
+				Entity thrower = func_234616_v_();
+				DamageSource src = DamageSource.GENERIC;
+				if (thrower instanceof PlayerEntity) {
+					src = DamageSource.causeThrownDamage(this, thrower);
+				} else if (thrower instanceof LivingEntity) {
+					src = DamageSource.causeMobDamage((LivingEntity) thrower);
+				}
+				rtr.getEntity().attackEntityFrom(src, 12);
 				if (isFire()) {
 					rtr.getEntity().setFire(5);
 				} else if (world.rand.nextInt(3) == 0) {

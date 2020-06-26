@@ -15,7 +15,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -24,6 +23,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.math.vector.Vector3f;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 
@@ -83,7 +83,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		if (cubeModel != null) {
 			ms.push();
 			ms.translate(-0.5F, 0.25F, -0.5F);
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentBlockType());
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentCullBlockType());
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
 			ms.pop();
 		}

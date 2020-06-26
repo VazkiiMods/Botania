@@ -114,7 +114,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 								}
 
 								if (logic.spawnData.getNbt().size() == 1 && logic.spawnData.getNbt().contains("id", 8)) {
-									((MobEntity) entity).onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)), SpawnReason.SPAWNER, (ILivingEntityData) null, (CompoundNBT) null);
+									((MobEntity) entity).onInitialSpawn(world, world.getDifficultyForLocation(entity.func_233580_cy_()), SpawnReason.SPAWNER, (ILivingEntityData) null, (CompoundNBT) null);
 								}
 							}
 

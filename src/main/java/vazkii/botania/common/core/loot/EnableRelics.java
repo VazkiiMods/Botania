@@ -12,12 +12,12 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.loot.ILootSerializer;
+import net.minecraft.loot.LootConditionType;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.conditions.ILootCondition;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -28,17 +28,18 @@ public class EnableRelics implements ILootCondition {
 		return ConfigHandler.COMMON.relicsEnabled.get();
 	}
 
-	public static class Serializer extends ILootCondition.AbstractSerializer<EnableRelics> {
-		public Serializer() {
-			super(new ResourceLocation(LibMisc.MOD_ID, "enable_relics"), EnableRelics.class);
-		}
+	@Override
+	public LootConditionType func_230419_b_() {
+		return ModLootModifiers.ENABLE_RELICS;
+	}
 
+	public static class Serializer implements ILootSerializer<EnableRelics> {
 		@Override
-		public void serialize(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
+		public void func_230424_a_(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
 
 		@Nonnull
 		@Override
-		public EnableRelics deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+		public EnableRelics func_230423_a_(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
 			return new EnableRelics();
 		}
 	}

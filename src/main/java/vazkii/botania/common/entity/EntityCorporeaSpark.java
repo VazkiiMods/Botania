@@ -20,6 +20,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -254,7 +255,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
+	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!removed && !stack.isEmpty()) {
 			if (player.world.isRemote) {
@@ -262,7 +263,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 				if (valid) {
 					player.swingArm(hand);
 				}
-				return valid;
+				return valid ? ActionResultType.SUCCESS : ActionResultType.PASS;
 			}
 
 			if (stack.getItem() == ModItems.twigWand) {
@@ -274,7 +275,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 				} else {
 					displayRelatives(player, new ArrayList<>(), master);
 				}
-				return true;
+				return ActionResultType.SUCCESS;
 			} else if (stack.getItem() instanceof ItemDye) {
 				DyeColor color = ((ItemDye) stack.getItem()).color;
 				if (color != getNetwork()) {
@@ -287,15 +288,15 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 					}
 
 					stack.shrink(1);
-					return true;
+					return ActionResultType.SUCCESS;
 				}
 			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Nonnull

@@ -11,9 +11,8 @@ package vazkii.botania.common.core.handler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -22,10 +21,11 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
+import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
@@ -35,11 +35,14 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static vazkii.botania.common.block.ModBlocks.register;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	public static final IAttribute PIXIE_SPAWN_CHANCE = new RangedAttribute(null, "botania.pixieSpawnChance", 0, 0, 1);
+	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("botania.pixieSpawnChance", 0, 0, 1);
 	private static final Map<EquipmentSlotType, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlotType.class), m -> {
 		m.put(EquipmentSlotType.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
 		m.put(EquipmentSlotType.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
@@ -56,12 +59,17 @@ public final class PixieHandler {
 			Effects.WEAKNESS
 	};
 
+	public static void registerAttribute(RegistryEvent.Register<Attribute> evt) {
+		IForgeRegistry<Attribute> r = evt.getRegistry();
+		register(r, prefix("pixie_spawn_chance"), PIXIE_SPAWN_CHANCE);
+	}
+
 	public static AttributeModifier makeModifier(EquipmentSlotType slot, String name, double amount) {
 		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
 	}
 
 	// Want to do this as early as possible -- doing it at entity join world means attribute modifiers are ignored when loading
-	public static void registerAttribute(AttachCapabilitiesEvent<Entity> evt) {
+	public static void attachAttribute(AttachCapabilitiesEvent<Entity> evt) {
 		if (evt.getObject() instanceof PlayerEntity) {
 			AbstractAttributeMap attributes = ((PlayerEntity) evt.getObject()).getAttributes();
 			if (attributes.getAttributeInstance(PIXIE_SPAWN_CHANCE) == null) {
@@ -90,7 +98,7 @@ public final class PixieHandler {
 				}
 
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
-				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(new BlockPos(pixie)),
+				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(pixie.func_233580_cy_()),
 						SpawnReason.EVENT, null, null);
 				player.world.addEntity(pixie);
 			}

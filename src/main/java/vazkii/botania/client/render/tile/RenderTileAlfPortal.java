@@ -16,6 +16,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 
+import net.minecraft.util.math.vector.Matrix3f;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -55,7 +58,7 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 	}
 
 	public void renderIcon(MatrixStack ms, IRenderTypeBuffer buffers, TextureAtlasSprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentBlockType());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentCullBlockType());
 		Matrix4f model = ms.getLast().getMatrix();
 		Matrix3f normal = ms.getLast().getNormal();
 		buffer.pos(model, x, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMaxV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();

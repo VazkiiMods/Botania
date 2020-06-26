@@ -38,7 +38,7 @@ public class ItemVineBall extends Item {
 
 		if (!world.isRemote) {
 			EntityVineBall ball = new EntityVineBall(player, true);
-			ball.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			ball.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			world.addEntity(ball);
 		}
 

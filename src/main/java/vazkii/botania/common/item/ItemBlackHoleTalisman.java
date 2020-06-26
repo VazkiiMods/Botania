@@ -21,10 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -181,12 +178,12 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		Block block = getBlock(stack);
 		ItemStack bstack = new ItemStack(block);
-		ITextComponent cand = super.getDisplayName(stack);
+		IFormattableTextComponent cand = super.getDisplayName(stack).func_230532_e_();
 
 		if (!bstack.isEmpty()) {
-			cand.appendText(" (");
-			cand.appendSibling(bstack.getDisplayName().applyTextStyle(TextFormatting.GREEN));
-			cand.appendText(")");
+			cand.func_240702_b_(" (");
+			cand.func_230529_a_(bstack.getDisplayName().func_230532_e_().func_240699_a_(TextFormatting.GREEN));
+			cand.func_240702_b_(")");
 		}
 
 		return cand;
@@ -232,7 +229,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(new StringTextComponent(Integer.toString(count) + " ").appendSibling(new ItemStack(block).getDisplayName()).applyTextStyle(TextFormatting.GRAY));
+			stacks.add(new StringTextComponent(count + " ").func_230529_a_(new ItemStack(block).getDisplayName()).func_240699_a_(TextFormatting.GRAY));
 		}
 
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {

@@ -14,14 +14,14 @@ import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.RailShape;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -51,12 +51,12 @@ public class BlockGhostRail extends AbstractRailBlock {
 		int floatTicks = cart.getPersistentData().getInt(TAG_FLOAT_TICKS);
 		Preconditions.checkState(floatTicks > 0);
 
-		BlockPos entPos = new BlockPos(cart);
+		BlockPos entPos = cart.func_233580_cy_();
 		BlockState state = cart.world.getBlockState(entPos);
 		boolean air = state.isAir(cart.world, entPos);
 
 		if (state.getBlock() == ModBlocks.dreamwood
-				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
+				|| (state.getBlock() != ModBlocks.ghostRail && state.func_235714_a_(BlockTags.RAILS))) {
 			cart.world.playEvent(2003, entPos, 0);
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 0);
 		} else {
@@ -84,11 +84,11 @@ public class BlockGhostRail extends AbstractRailBlock {
 		}
 	}
 
-	private final Map<DimensionType, Set<AbstractMinecartEntity>> floatingCarts = new HashMap<>();
+	private final Map<RegistryKey<World>, Set<AbstractMinecartEntity>> floatingCarts = new HashMap<>();
 
 	private void addFloatingCart(AbstractMinecartEntity cart) {
 		if (cart.isAlive() && cart.getPersistentData().getInt(TAG_FLOAT_TICKS) > 0) {
-			floatingCarts.computeIfAbsent(cart.world.getDimension().getType(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
+			floatingCarts.computeIfAbsent(cart.world.func_234923_W_(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
 					.add(cart);
 		}
 	}
@@ -102,10 +102,10 @@ public class BlockGhostRail extends AbstractRailBlock {
 	private void worldTick(TickEvent.WorldTickEvent evt) {
 		if (!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
 			evt.world.getProfiler().startSection("cartFloatingIter");
-			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.getDimension().getType(), Collections.emptySet()).iterator();
+			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.func_234923_W_(), Collections.emptySet()).iterator();
 			while (iter.hasNext()) {
 				AbstractMinecartEntity c = iter.next();
-				BlockPos entPos = new BlockPos(c);
+				BlockPos entPos = c.func_233580_cy_();
 
 				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)
 						|| c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
@@ -127,7 +127,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 
 	@Nonnull
 	@Override
-	public IProperty<RailShape> getShapeProperty() {
+	public Property<RailShape> getShapeProperty() {
 		return BlockStateProperties.RAIL_SHAPE_STRAIGHT;
 	}
 }

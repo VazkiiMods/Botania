@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.Tag;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -44,20 +45,20 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-		if (GENERATING.contains(this)) {
-			tooltip.add(new TranslationTextComponent("botania.flowerType.generating").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
-		} else if (FUNCTIONAL.contains(this)) {
-			tooltip.add(new TranslationTextComponent("botania.flowerType.functional").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
-		} else if (MISC.contains(this)) {
-			tooltip.add(new TranslationTextComponent("botania.flowerType.misc").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
+		if (GENERATING.func_230235_a_(this)) {
+			tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+		} else if (FUNCTIONAL.func_230235_a_(this)) {
+			tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+		} else if (MISC.func_230235_a_(this)) {
+			tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
 		}
 
 		// Prevent crash when tooltips queried before configs load
 		if (Botania.finishedLoading && ConfigHandler.CLIENT.referencesEnabled.get()) {
 			String key = getTranslationKey() + ".reference";
-			ITextComponent lore = new TranslationTextComponent(key);
+			IFormattableTextComponent lore = new TranslationTextComponent(key);
 			if (!lore.getString().equals(key)) {
-				tooltip.add(lore.applyTextStyles(TextFormatting.ITALIC, TextFormatting.GRAY));
+				tooltip.add(lore.func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
 			}
 		}
 	}

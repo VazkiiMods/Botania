@@ -51,7 +51,7 @@ public class ItemSlingshot extends Item {
 			}
 
 			EntityVineBall ball = new EntityVineBall(living, false);
-			ball.shoot(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
+			ball.func_234612_a_(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
 			ball.setMotion(ball.getMotion().scale(1.6));
 			world.addEntity(ball);
 			world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));

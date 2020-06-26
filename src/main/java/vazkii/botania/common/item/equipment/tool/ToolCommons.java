@@ -23,6 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
@@ -73,7 +75,7 @@ public final class ToolCommons {
 	}
 
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
-			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter,
+			Vector3i startDelta, Vector3i endDelta, Predicate<BlockState> filter,
 			boolean dispose) {
 		for (BlockPos iterPos : BlockPos.getAllInBoxMutable(centerPos.add(startDelta),
 				centerPos.add(endDelta))) {

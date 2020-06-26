@@ -10,6 +10,7 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
@@ -38,7 +39,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public Tag<Fluid> getMaterialToSearchFor() {
+	public ITag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.LAVA;
 	}
 

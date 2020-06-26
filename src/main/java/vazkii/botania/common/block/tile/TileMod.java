@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -36,8 +37,8 @@ public class TileMod extends TileEntity {
 	}
 
 	@Override
-	public void read(CompoundNBT tag) {
-		super.read(tag);
+	public void func_230337_a_(BlockState state, CompoundNBT tag) {
+		super.func_230337_a_(state, tag);
 		readPacketNBT(tag);
 	}
 

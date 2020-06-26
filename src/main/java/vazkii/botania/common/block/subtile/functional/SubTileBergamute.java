@@ -40,7 +40,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	}
 
 	// todo seems expensive when we have lots of sounds cache maybe?
-	protected static SubTileBergamute getBergamuteNearby(float x, float y, float z) {
+	protected static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
 				.filter(f -> f.getEffectivePos().distanceSq(x, y, z, false) <= RANGE * RANGE)

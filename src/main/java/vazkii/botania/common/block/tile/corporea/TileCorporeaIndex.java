@@ -14,6 +14,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -329,7 +330,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static boolean isInRangeOfIndex(PlayerEntity player, TileCorporeaIndex index) {
-		return player.dimension == index.world.getDimension().getType() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.getPosX(), player.getPosZ()) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.getPosY() + (player.world.isRemote ? 0 : 1.6)) < 5;
+		return player.world.func_234923_W_() == index.world.func_234923_W_() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.getPosX(), player.getPosZ()) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.getPosY() + (player.world.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -367,7 +368,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		if (!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
-			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).func_240699_a_(TextFormatting.LIGHT_PURPLE), Util.field_240973_b_);
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), res.getExtractedCount());
 		}
 	}

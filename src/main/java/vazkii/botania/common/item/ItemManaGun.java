@@ -23,10 +23,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -179,7 +176,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		boolean clip = hasClip(stack);
-		if (clip && !Screen.hasShiftDown()) {
+		if (clip && !Screen.func_231173_s_()) {
 			tooltip.add(TooltipHandler.getShiftInfoTooltip());
 			return;
 		}
@@ -205,8 +202,8 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 					name = lensAt.getDisplayName();
 				}
 
-				ITextComponent tip = new StringTextComponent(" - ").appendSibling(name);
-				tip.getStyle().setColor(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
+				IFormattableTextComponent tip = new StringTextComponent(" - ").func_230529_a_(name);
+				tip.func_240699_a_(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
 				tooltip.add(tip);
 			}
 		}
@@ -216,11 +213,11 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		ItemStack lens = getLens(stack);
-		ITextComponent cmp = super.getDisplayName(stack);
+		IFormattableTextComponent cmp = super.getDisplayName(stack).func_230532_e_();
 		if (!lens.isEmpty()) {
-			cmp.appendText(" (");
-			cmp.appendSibling(lens.getDisplayName().applyTextStyle(TextFormatting.GREEN));
-			cmp.appendText(")");
+			cmp.func_240702_b_(" (");
+			cmp.func_230529_a_(lens.getDisplayName().func_230532_e_().func_240699_a_(TextFormatting.GREEN));
+			cmp.func_240702_b_(")");
 		}
 		return cmp;
 	}

@@ -150,7 +150,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 			}
 
 			if (target != null) {
-				if (BLACKLIST.contains(target.getType())) {
+				if (BLACKLIST.func_230235_a_(target.getType())) {
 					return ActionResult.resultFail(stack);
 				}
 

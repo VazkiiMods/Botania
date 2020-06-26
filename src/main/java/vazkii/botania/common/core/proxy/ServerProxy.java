@@ -10,7 +10,7 @@ package vazkii.botania.common.core.proxy;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.common.core.helper.Vector3;
@@ -35,7 +35,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getGameTime();
+		return ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_).getGameTime();
 	}
 
 	@Override

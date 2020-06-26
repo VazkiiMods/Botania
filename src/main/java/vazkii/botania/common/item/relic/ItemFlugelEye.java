@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import com.mojang.datafixers.Dynamic;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -61,7 +59,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				}
 			} else {
 				ItemStack stack = ctx.getItem();
-				GlobalPos loc = GlobalPos.of(world.getDimension().getType(), pos);
+				GlobalPos loc = GlobalPos.func_239648_a_(world.func_234923_W_(), pos);
 				ItemNBTHelper.set(stack, TAG_LOCATION, loc.serialize(NBTDynamicOps.INSTANCE));
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
@@ -102,7 +100,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getPosX(), living.getPosY(), living.getPosZ()) * 10);
 
-		if (loc.getDimension() == world.getDimension().getType()
+		if (loc.func_239646_a_() == world.func_234923_W_()
 				&& (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true))) {
 			moveParticlesAndSound(living);
 			living.setPositionAndUpdate(x + 0.5, y + 1.5, z + 0.5);

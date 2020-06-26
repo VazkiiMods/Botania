@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -86,8 +87,8 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		Map<ResourceLocation, Integer> map = getOreMap();
 		List<TagRandomItem> values = map.entrySet().stream()
 				.flatMap(e -> {
-					Tag<Block> tag = BlockTags.getCollection().get(e.getKey());
-					if (tag != null && !tag.getAllElements().isEmpty()) {
+					ITag<Block> tag = BlockTags.getCollection().get(e.getKey());
+					if (tag != null && !tag.func_230236_b_().isEmpty()) {
 						return Stream.of(new TagRandomItem(e.getValue(), tag));
 					} else {
 						return Stream.empty();
@@ -99,7 +100,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 			return null;
 		}
 
-		Tag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
+		ITag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
 		return ore.getRandomElement(getWorld().getRandom()).getDefaultState();
 	}
 
@@ -162,9 +163,9 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	private static class TagRandomItem extends WeightedRandom.Item {
 
-		public final Tag<Block> tag;
+		public final ITag<Block> tag;
 
-		public TagRandomItem(int weight, Tag<Block> tag) {
+		public TagRandomItem(int weight, ITag<Block> tag) {
 			super(weight);
 			this.tag = tag;
 		}

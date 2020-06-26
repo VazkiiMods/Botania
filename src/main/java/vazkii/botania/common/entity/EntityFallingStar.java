@@ -55,7 +55,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			world.addParticle(data, getPosX() + xs, getPosY() + ys, getPosZ() + zs, 0, 0, 0);
 		}
 
-		LivingEntity thrower = getThrower();
+		LivingEntity thrower = func_234616_v_();
 		if (!world.isRemote && thrower != null) {
 			AxisAlignedBB axis = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
@@ -82,7 +82,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			return;
 		}
 
-		LivingEntity thrower = getThrower();
+		LivingEntity thrower = func_234616_v_();
 		if (pos.getType() == RayTraceResult.Type.ENTITY && thrower != null) {
 			Entity e = ((EntityRayTraceResult) pos).getEntity();
 			if (e != thrower && e.isAlive()) {

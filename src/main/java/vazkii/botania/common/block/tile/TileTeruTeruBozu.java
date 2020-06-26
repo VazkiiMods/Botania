@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.lib.LibBlockNames;
@@ -42,6 +43,7 @@ public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
 	}
 
 	public static void resetRainTime(World w) {
-		w.getWorldInfo().setRainTime(w.rand.nextInt(w.getWorldInfo().isRaining() ? 12000 : 168000) + 12000);
+		int time = w.rand.nextInt(w.getWorldInfo().isRaining() ? 12000 : 168000) + 12000;
+		((ServerWorld) w).getServer().func_240793_aU_().func_230407_G_().setRainTime(time);
 	}
 }

@@ -13,12 +13,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 
@@ -63,7 +63,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<DimensionType, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
@@ -116,7 +116,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 
 		if (event.phase == TickEvent.Phase.END) {
-			DimensionType dim = event.world.getDimension().getType();
+			RegistryKey<World> dim = event.world.func_234923_W_();
 			if (blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
@@ -149,7 +149,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			return;
 		}
 
-		DimensionType dim = world.getDimension().getType();
+		RegistryKey<World> dim = world.func_234923_W_();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 	}
 
@@ -287,8 +287,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				for (BlockPos adj : adjacent(cand.coordinates)) {
 					Block block = world.getBlockState(adj).getBlock();
 
-					boolean isWood = BlockTags.LOGS.contains(block);
-					boolean isLeaf = BlockTags.LEAVES.contains(block);
+					boolean isWood = BlockTags.LOGS.func_230235_a_(block);
+					boolean isLeaf = BlockTags.LEAVES.func_230235_a_(block);
 
 					// If it's not wood or a leaf, we aren't interested.
 					if (!isWood && !isLeaf) {

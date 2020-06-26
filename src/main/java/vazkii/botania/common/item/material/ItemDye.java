@@ -62,7 +62,7 @@ public class ItemDye extends Item16Colors {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
 		if (target instanceof SheepEntity) {
 			SheepEntity entitysheep = (SheepEntity) target;
 
@@ -71,9 +71,9 @@ public class ItemDye extends Item16Colors {
 				stack.shrink(1);
 			}
 
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	private boolean shouldRecolor(Block block) {

@@ -141,10 +141,10 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - 0.5, getPosY() - 0.5, getPosZ() - 0.5, getPosX() + 0.5, getPosY() + 0.5, getPosZ() + 0.5));
 			if (targetList.contains(target)) {
-				LivingEntity thrower = getThrower();
-				if (thrower != null) {
+				Entity thrower = func_234616_v_();
+				if (thrower instanceof LivingEntity) {
 					PlayerEntity player = thrower instanceof PlayerEntity ? (PlayerEntity) thrower : null;
-					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
+					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage((LivingEntity) thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
 				} else {
 					target.attackEntityFrom(DamageSource.GENERIC, evil ? 12 : 7);
 				}

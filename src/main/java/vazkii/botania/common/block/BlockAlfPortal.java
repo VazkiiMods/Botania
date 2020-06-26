@@ -57,10 +57,4 @@ public class BlockAlfPortal extends BlockMod implements ITileEntityProvider, IWa
 		}
 		return did;
 	}
-
-	@Override
-	public int getLightValue(@Nonnull BlockState state) {
-		return state.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : super.getLightValue(state);
-	}
-
 }

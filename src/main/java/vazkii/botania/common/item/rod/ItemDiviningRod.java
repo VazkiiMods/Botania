@@ -54,7 +54,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 			if (world.isRemote) {
 				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
-				doHighlight(world, new BlockPos(p), range, seedxor);
+				doHighlight(world, p.func_233580_cy_(), range, seedxor);
 				p.swingArm(hand);
 			} else {
 				world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
@@ -71,7 +71,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
-			if (Tags.Blocks.ORES.contains(block)) {
+			if (Tags.Blocks.ORES.func_230235_a_(block)) {
 				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.rand.nextFloat(),

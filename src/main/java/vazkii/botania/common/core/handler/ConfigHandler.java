@@ -114,6 +114,7 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue enchanterEnabled;
 		public final ForgeConfigSpec.BooleanValue fluxfieldEnabled;
 		public final ForgeConfigSpec.BooleanValue relicsEnabled;
+		// todo 1.16 remove
 		public final ForgeConfigSpec.BooleanValue ringOfOdinFireResist;
 		public final ForgeConfigSpec.BooleanValue invertMagnetRing;
 		public final ForgeConfigSpec.BooleanValue enableThaumcraftStablizers;

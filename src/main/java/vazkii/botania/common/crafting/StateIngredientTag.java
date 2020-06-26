@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 
@@ -23,27 +24,27 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
-	private final Tag<Block> tag;
+	private final ITag.INamedTag<Block> tag;
 
-	public StateIngredientTag(Tag<Block> tag) {
-		super(tag.getAllElements() instanceof Set ? (Set<Block>) tag.getAllElements() : new HashSet<>(tag.getAllElements()));
+	public StateIngredientTag(ITag.INamedTag<Block> tag) {
+		super(tag.func_230236_b_());
 		this.tag = tag;
 	}
 
 	public StateIngredientTag(ResourceLocation id) {
-		this(new BlockTags.Wrapper(id));
+		this(BlockTags.makeWrapperTag(id.toString()));
 	}
 
 	@Override
 	public boolean test(BlockState state) {
-		return tag.contains(state.getBlock());
+		return tag.func_230235_a_(state.getBlock());
 	}
 
 	@Override
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "tag");
-		object.addProperty("tag", tag.getId().toString());
+		object.addProperty("tag", tag.func_230234_a_().toString());
 		return object;
 	}
 
@@ -54,7 +55,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return tag.getAllElements().stream().map(Block::getDefaultState).collect(Collectors.toList());
+		return tag.func_230236_b_().stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
 }

@@ -69,7 +69,7 @@ public class ItemEnderAir extends Item {
 
 		if (!world.isRemote) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
-			b.shoot(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
+			b.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
 			world.addEntity(b);
 		} else {
 			player.swingArm(hand);

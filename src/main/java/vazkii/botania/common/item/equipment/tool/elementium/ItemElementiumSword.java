@@ -10,6 +10,7 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import com.google.common.collect.Multimap;
 
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 
@@ -27,10 +28,10 @@ public class ItemElementiumSword extends ItemManasteelSword {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
-		Multimap<String, AttributeModifier> ret = super.getAttributeModifiers(slot);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
+		Multimap<Attribute, AttributeModifier> ret = super.getAttributeModifiers(slot);
 		if (slot == EquipmentSlotType.MAINHAND) {
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE.getName(), PixieHandler.makeModifier(slot, "Sword modifier", 0.05));
+			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Sword modifier", 0.05));
 		}
 		return ret;
 	}

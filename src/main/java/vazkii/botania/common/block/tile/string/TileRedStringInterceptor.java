@@ -71,7 +71,7 @@ public class TileRedStringInterceptor extends TileRedString {
 				if (coords != null && coords.equals(pos)) {
 					Block block = inter.getBlockState().getBlock();
 					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BlockStateProperties.POWERED, true));
-					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, block.tickRate(world));
+					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, 2);
 					did = true;
 				}
 			}

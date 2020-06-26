@@ -9,7 +9,7 @@
 package vazkii.botania.common.impl;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -101,6 +101,12 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		@Override
 		public float getToughness() {
 			return toughness;
+		}
+
+		@Override
+		public float func_230304_f_() {
+			// todo 1.16 armor toughness. move terrasteel's bonus here?
+			return 0;
 		}
 	}
 
@@ -211,11 +217,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public IInternalMethodHandler internalHandler() {
 		return tmp;
-	}
-
-	@Override
-	public IAttribute getPixieSpawnChanceAttribute() {
-		return PixieHandler.PIXIE_SPAWN_CHANCE;
 	}
 
 	public Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();

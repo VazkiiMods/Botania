@@ -60,7 +60,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			stacks.add(new TranslationTextComponent("botaniamisc.color", colorName).applyTextStyle(TextFormatting.GRAY));
+			stacks.add(new TranslationTextComponent("botaniamisc.color", colorName).func_240699_a_(TextFormatting.GRAY));
 		}
 	}
 

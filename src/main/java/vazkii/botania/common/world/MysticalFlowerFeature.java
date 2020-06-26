@@ -8,8 +8,7 @@
  */
 package vazkii.botania.common.world;
 
-import com.mojang.datafixers.Dynamic;
-
+import com.mojang.serialization.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoublePlantBlock;
@@ -65,7 +64,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 					int y1 = y + rand.nextInt(4) - rand.nextInt(4);
 					int z1 = z + rand.nextInt(dist * 2) - dist;
 					BlockPos pos2 = new BlockPos(x1, y1, z1);
-					if (world.isAirBlock(pos2) && (!world.getDimension().isNether() || y1 < 127) && flower.isValidPosition(world, pos2)) {
+					if (world.isAirBlock(pos2) && (!world.func_230315_m_().func_236037_d_() || y1 < 127) && flower.isValidPosition(world, pos2)) {
 						world.setBlockState(pos2, flower, 2);
 						any = true;
 						if (rand.nextDouble() < config.getTallChance()

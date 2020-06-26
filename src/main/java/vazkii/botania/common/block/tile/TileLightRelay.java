@@ -290,7 +290,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				playSound(ModSounds.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 			}
 
-			BlockPos pos = new BlockPos(this);
+			BlockPos pos = func_233580_cy_();
 			BlockPos exitPos = getExitPos();
 
 			if (pos.equals(exitPos)) {
@@ -299,7 +299,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					BlockState state = world.getBlockState(pos);
 					if (state.getBlock() == ModBlocks.lightRelayDetector) {
 						world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
-						world.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), state.getBlock().tickRate(world));
+						world.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), 2);
 					}
 
 					TileLightRelay relay = (TileLightRelay) tile;

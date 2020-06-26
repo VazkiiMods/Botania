@@ -53,7 +53,7 @@ public class ItemCacophonium extends Item {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		if (entity instanceof MobEntity) {
 			MobEntity living = (MobEntity) entity;
 			SoundEvent sound = null;
@@ -79,11 +79,11 @@ public class ItemCacophonium extends Item {
 					player.swingArm(hand);
 				}
 
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Nonnull
@@ -110,9 +110,9 @@ public class ItemCacophonium extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if (isDOIT(stack)) {
-			list.add(new TranslationTextComponent("botaniamisc.justDoIt").applyTextStyle(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent("botaniamisc.justDoIt").func_240699_a_(TextFormatting.GRAY));
 		} else if (getSound(stack) != null) {
-			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).applyTextStyle(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).func_240699_a_(TextFormatting.GRAY));
 		}
 	}
 

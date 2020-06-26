@@ -19,6 +19,7 @@ import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
+import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
@@ -39,7 +40,7 @@ public class CommandSkyblockSpread {
 	private static int run(CommandContext<CommandSource> ctx, int range) throws CommandSyntaxException {
 		PlayerEntity player = EntityArgument.getPlayer(ctx, "player");
 		int minDist = 100;
-		BlockPos spawn = player.world.getSpawnPoint();
+		BlockPos spawn = ((ServerWorld) player.world).func_241135_u_();
 		int x, z;
 
 		do {

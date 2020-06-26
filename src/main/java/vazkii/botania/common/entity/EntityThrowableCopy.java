@@ -8,18 +8,22 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.tileentity.EndGatewayTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,85 +33,33 @@ import javax.annotation.Nullable;
 
 import java.util.UUID;
 
-public abstract class EntityThrowableCopy extends Entity implements IProjectile {
-	private int xTile = -1;
-	private int yTile = -1;
-	private int zTile = -1;
-	protected boolean inGround;
-	public int throwableShake;
-	protected LivingEntity owner;
-	private UUID ownerId;
-	private Entity ignoreEntity;
-	private int ignoreTime;
-
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> p_i48540_1_, World p_i48540_2_) {
-		super(p_i48540_1_, p_i48540_2_);
+public abstract class EntityThrowableCopy extends ProjectileEntity {
+	protected EntityThrowableCopy(EntityType<? extends net.minecraft.entity.projectile.ThrowableEntity> type, World worldIn) {
+		super(type, worldIn);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> p_i48541_1_, double p_i48541_2_, double p_i48541_4_, double p_i48541_6_, World p_i48541_8_) {
-		this(p_i48541_1_, p_i48541_8_);
-		this.setPosition(p_i48541_2_, p_i48541_4_, p_i48541_6_);
+	protected EntityThrowableCopy(EntityType<? extends net.minecraft.entity.projectile.ThrowableEntity> type, double x, double y, double z, World worldIn) {
+		this(type, worldIn);
+		this.setPosition(x, y, z);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> p_i48542_1_, LivingEntity p_i48542_2_, World p_i48542_3_) {
-		this(p_i48542_1_, p_i48542_2_.getPosX(), p_i48542_2_.getPosYEye() - (double) 0.1F, p_i48542_2_.getPosZ(), p_i48542_3_);
-		this.owner = p_i48542_2_;
-		this.ownerId = p_i48542_2_.getUniqueID();
+	protected EntityThrowableCopy(EntityType<? extends net.minecraft.entity.projectile.ThrowableEntity> type, LivingEntity livingEntityIn, World worldIn) {
+		this(type, livingEntityIn.getPosX(), livingEntityIn.getPosYEye() - (double) 0.1F, livingEntityIn.getPosZ(), worldIn);
+		this.setShooter(livingEntityIn);
 	}
 
 	/**
 	 * Checks if the entity is in range to render.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public boolean isInRangeToRenderDist(double p_70112_1_) {
+	public boolean isInRangeToRenderDist(double distance) {
 		double d0 = this.getBoundingBox().getAverageEdgeLength() * 4.0D;
 		if (Double.isNaN(d0)) {
 			d0 = 4.0D;
 		}
 
 		d0 = d0 * 64.0D;
-		return p_70112_1_ < d0 * d0;
-	}
-
-	/**
-	 * Sets throwable heading based on an entity that's throwing it
-	 */
-	public void shoot(Entity p_184538_1_, float p_184538_2_, float p_184538_3_, float p_184538_4_, float p_184538_5_, float p_184538_6_) {
-		float f = -MathHelper.sin(p_184538_3_ * ((float) Math.PI / 180F)) * MathHelper.cos(p_184538_2_ * ((float) Math.PI / 180F));
-		float f1 = -MathHelper.sin((p_184538_2_ + p_184538_4_) * ((float) Math.PI / 180F));
-		float f2 = MathHelper.cos(p_184538_3_ * ((float) Math.PI / 180F)) * MathHelper.cos(p_184538_2_ * ((float) Math.PI / 180F));
-		this.shoot((double) f, (double) f1, (double) f2, p_184538_5_, p_184538_6_);
-		Vector3d Vector3d = p_184538_1_.getMotion();
-		this.setMotion(this.getMotion().add(Vector3d.x, p_184538_1_.onGround ? 0.0D : Vector3d.y, Vector3d.z));
-	}
-
-	/**
-	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
-	 */
-	public void shoot(double p_70186_1_, double p_70186_3_, double p_70186_5_, float p_70186_7_, float p_70186_8_) {
-		Vector3d Vector3d = (new Vector3d(p_70186_1_, p_70186_3_, p_70186_5_)).normalize().add(this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_, this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_, this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_).scale((double) p_70186_7_);
-		this.setMotion(Vector3d);
-		float f = MathHelper.sqrt(horizontalMag(Vector3d));
-		this.rotationYaw = (float) (MathHelper.atan2(Vector3d.x, Vector3d.z) * (double) (180F / (float) Math.PI));
-		this.rotationPitch = (float) (MathHelper.atan2(Vector3d.y, (double) f) * (double) (180F / (float) Math.PI));
-		this.prevRotationYaw = this.rotationYaw;
-		this.prevRotationPitch = this.rotationPitch;
-	}
-
-	/**
-	 * Updates the entity motion clientside, called by packets from the server
-	 */
-	@OnlyIn(Dist.CLIENT)
-	public void setVelocity(double p_70016_1_, double p_70016_3_, double p_70016_5_) {
-		this.setMotion(p_70016_1_, p_70016_3_, p_70016_5_);
-		if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-			float f = MathHelper.sqrt(p_70016_1_ * p_70016_1_ + p_70016_5_ * p_70016_5_);
-			this.rotationYaw = (float) (MathHelper.atan2(p_70016_1_, p_70016_5_) * (double) (180F / (float) Math.PI));
-			this.rotationPitch = (float) (MathHelper.atan2(p_70016_3_, (double) f) * (double) (180F / (float) Math.PI));
-			this.prevRotationYaw = this.rotationYaw;
-			this.prevRotationPitch = this.rotationPitch;
-		}
-
+		return distance < d0 * d0;
 	}
 
 	/**
@@ -115,91 +67,52 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	 */
 	public void tick() {
 		super.tick();
-		if (this.throwableShake > 0) {
-			--this.throwableShake;
-		}
+		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_, RayTraceContext.BlockMode.OUTLINE);
+		boolean flag = false;
+		if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = ((BlockRayTraceResult) raytraceresult).getPos();
+			BlockState blockstate = this.world.getBlockState(blockpos);
+			if (blockstate.isIn(Blocks.NETHER_PORTAL)) {
+				this.setPortal(blockpos);
+				flag = true;
+			} else if (blockstate.isIn(Blocks.END_GATEWAY)) {
+				TileEntity tileentity = this.world.getTileEntity(blockpos);
+				if (tileentity instanceof EndGatewayTileEntity) {
+					((EndGatewayTileEntity) tileentity).teleportEntity(this);
+				}
 
-		if (this.inGround) {
-			this.inGround = false;
-			this.setMotion(this.getMotion().mul((double) (this.rand.nextFloat() * 0.2F), (double) (this.rand.nextFloat() * 0.2F), (double) (this.rand.nextFloat() * 0.2F)));
-		}
-
-		AxisAlignedBB axisalignedbb = this.getBoundingBox().expand(this.getMotion()).grow(1.0D);
-
-		for (Entity entity : this.world.getEntitiesInAABBexcluding(this, axisalignedbb, (p_213881_0_) -> {
-			return !p_213881_0_.isSpectator() && p_213881_0_.canBeCollidedWith();
-		})) {
-			if (entity == this.ignoreEntity) {
-				++this.ignoreTime;
-				break;
-			}
-
-			if (this.owner != null && this.ticksExisted < 2 && this.ignoreEntity == null) {
-				this.ignoreEntity = entity;
-				this.ignoreTime = 3;
-				break;
+				flag = true;
 			}
 		}
 
-		RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, axisalignedbb, (p_213880_1_) -> {
-			return !p_213880_1_.isSpectator() && p_213880_1_.canBeCollidedWith() && p_213880_1_ != this.ignoreEntity;
-		}, RayTraceContext.BlockMode.OUTLINE, true);
-		if (this.ignoreEntity != null && this.ignoreTime-- <= 0) {
-			this.ignoreEntity = null;
+		if (raytraceresult.getType() != RayTraceResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+			this.onImpact(raytraceresult);
 		}
 
-		if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
-			if (raytraceresult.getType() == RayTraceResult.Type.BLOCK && this.world.getBlockState(((BlockRayTraceResult) raytraceresult).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
-				this.setPortal(((BlockRayTraceResult) raytraceresult).getPos());
-			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-				this.onImpact(raytraceresult);
-			}
-		}
-
-		Vector3d Vector3d = this.getMotion();
-		double d0 = this.getPosX() + Vector3d.x;
-		double d1 = this.getPosY() + Vector3d.y;
-		double d2 = this.getPosZ() + Vector3d.z;
-		float f = MathHelper.sqrt(horizontalMag(Vector3d));
-		this.rotationYaw = (float) (MathHelper.atan2(Vector3d.x, Vector3d.z) * (double) (180F / (float) Math.PI));
-
-		for (this.rotationPitch = (float) (MathHelper.atan2(Vector3d.y, (double) f) * (double) (180F / (float) Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-			;
-		}
-
-		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
-			this.prevRotationPitch += 360.0F;
-		}
-
-		while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
-			this.prevRotationYaw -= 360.0F;
-		}
-
-		while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
-			this.prevRotationYaw += 360.0F;
-		}
-
-		this.rotationPitch = MathHelper.lerp(0.2F, this.prevRotationPitch, this.rotationPitch);
-		this.rotationYaw = MathHelper.lerp(0.2F, this.prevRotationYaw, this.rotationYaw);
-		float f1;
+		Vector3d vector3d = this.getMotion();
+		double d2 = this.getPosX() + vector3d.x;
+		double d0 = this.getPosY() + vector3d.y;
+		double d1 = this.getPosZ() + vector3d.z;
+		this.func_234617_x_();
+		float f;
 		if (this.isInWater()) {
 			for (int i = 0; i < 4; ++i) {
-				float f2 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, d0 - Vector3d.x * 0.25D, d1 - Vector3d.y * 0.25D, d2 - Vector3d.z * 0.25D, Vector3d.x, Vector3d.y, Vector3d.z);
+				float f1 = 0.25F;
+				this.world.addParticle(ParticleTypes.BUBBLE, d2 - vector3d.x * 0.25D, d0 - vector3d.y * 0.25D, d1 - vector3d.z * 0.25D, vector3d.x, vector3d.y, vector3d.z);
 			}
 
-			f1 = 0.8F;
+			f = 0.8F;
 		} else {
-			f1 = 0.99F;
+			f = 0.99F;
 		}
 
-		this.setMotion(Vector3d.scale((double) f1));
+		this.setMotion(vector3d.scale((double) f));
 		if (!this.hasNoGravity()) {
-			Vector3d Vector3d1 = this.getMotion();
-			this.setMotion(Vector3d1.x, Vector3d1.y - (double) this.getGravityVelocity(), Vector3d1.z);
+			Vector3d vector3d1 = this.getMotion();
+			this.setMotion(vector3d1.x, vector3d1.y - (double) this.getGravityVelocity(), vector3d1.z);
 		}
 
-		this.setPosition(d0, d1, d2);
+		this.setPosition(d2, d0, d1);
 	}
 
 	/**
@@ -207,53 +120,6 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	 */
 	protected float getGravityVelocity() {
 		return 0.03F;
-	}
-
-	/**
-	 * Called when this EntityThrowable hits a block or entity.
-	 */
-	protected abstract void onImpact(RayTraceResult p_70184_1_);
-
-	public void writeAdditional(CompoundNBT p_213281_1_) {
-		p_213281_1_.putInt("xTile", this.xTile);
-		p_213281_1_.putInt("yTile", this.yTile);
-		p_213281_1_.putInt("zTile", this.zTile);
-		p_213281_1_.putByte("shake", (byte) this.throwableShake);
-		p_213281_1_.putBoolean("inGround", this.inGround);
-		if (this.ownerId != null) {
-			p_213281_1_.put("owner", NBTUtil.writeUniqueId(this.ownerId));
-		}
-
-	}
-
-	/**
-	 * (abstract) Protected helper method to read subclass entity data from NBT.
-	 */
-	public void readAdditional(CompoundNBT p_70037_1_) {
-		this.xTile = p_70037_1_.getInt("xTile");
-		this.yTile = p_70037_1_.getInt("yTile");
-		this.zTile = p_70037_1_.getInt("zTile");
-		this.throwableShake = p_70037_1_.getByte("shake") & 255;
-		this.inGround = p_70037_1_.getBoolean("inGround");
-		this.owner = null;
-		if (p_70037_1_.contains("owner", 10)) {
-			this.ownerId = NBTUtil.readUniqueId(p_70037_1_.getCompound("owner"));
-		}
-
-	}
-
-	@Nullable
-	public LivingEntity getThrower() {
-		if ((this.owner == null || this.owner.removed) && this.ownerId != null && this.world instanceof ServerWorld) {
-			Entity entity = ((ServerWorld) this.world).getEntityByUuid(this.ownerId);
-			if (entity instanceof LivingEntity) {
-				this.owner = (LivingEntity) entity;
-			} else {
-				this.owner = null;
-			}
-		}
-
-		return this.owner;
 	}
 
 	public IPacket<?> createSpawnPacket() {

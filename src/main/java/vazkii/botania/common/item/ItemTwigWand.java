@@ -21,10 +21,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -214,10 +215,10 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	private static BlockState rotate(BlockState old, Direction.Axis axis) {
-		for (IProperty<?> prop : old.getProperties()) {
+		for (Property<?> prop : old.func_235904_r_()) {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 				@SuppressWarnings("unchecked")
-				IProperty<Direction> facingProp = (IProperty<Direction>) prop;
+				Property<Direction> facingProp = (Property<Direction>) prop;
 
 				Direction oldDir = old.get(facingProp);
 				Direction newDir = rotateAround(oldDir, axis);
@@ -346,15 +347,15 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.GRAY));
 	}
 
 	@Override
-	public String getHighlightTip(ItemStack stack, String displayName) {
+	public ITextComponent getHighlightTip(ItemStack stack, ITextComponent displayName) {
 		ITextComponent mode = new StringTextComponent(" (")
-				.appendSibling(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.DARK_GREEN))
-				.appendText(")");
-		return displayName + mode.getFormattedText();
+				.func_230529_a_(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.DARK_GREEN))
+				.func_240702_b_(")");
+		return displayName.func_230532_e_().func_230529_a_(mode);
 	}
 
 	public static ItemStack forColors(int color1, int color2) {

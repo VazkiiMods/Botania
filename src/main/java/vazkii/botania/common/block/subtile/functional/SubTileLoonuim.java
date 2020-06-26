@@ -13,24 +13,24 @@ import com.google.common.collect.Multimap;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameterSets;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vector3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -76,7 +76,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 					Collections.shuffle(stacks);
 					stack = stacks.get(0);
 				}
-			} while (stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.contains(stack.getItem()));
+			} while (stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.func_230235_a_(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
 			int xp = getEffectivePos().getX() - RANGE + rand.nextInt(bound);
@@ -135,12 +135,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.setPositionAndRotation(x, y, z, world.rand.nextFloat() * 360F, 0);
 			entity.setMotion(Vector3d.ZERO);
 
-			Multimap<String, AttributeModifier> map = HashMultimap.create();
-			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(),
-					new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
-			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
-			entity.getAttributes().applyAttributeModifiers(map);
+			entity.getAttribute(Attributes.field_233818_a_).func_233769_c_(new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.getAttribute(Attributes.field_233823_f_).func_233769_c_(new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
 
 			entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE,
 					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));

@@ -48,7 +48,7 @@ public final class ModBanners {
 	private static void addPattern(String name, String id, IItemProvider craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
-		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, new ItemStack(craftingItem));
+		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, false);
 		PATTERNS.put(craftingItem.asItem().delegate, pattern);
 	}
 }

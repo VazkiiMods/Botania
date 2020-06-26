@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -58,12 +59,12 @@ public class EntityPinkWither extends WitherEntity {
 	}
 
 	@Override
-	protected boolean processInteract(PlayerEntity player, Hand hand) {
+	protected ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
 		if (!player.isSneaking()) {
 			player.startRiding(this);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override

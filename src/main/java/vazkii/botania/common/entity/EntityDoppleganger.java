@@ -39,6 +39,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.util.*;
@@ -107,7 +108,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final Tag<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
+	private static final ITag.INamedTag<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 
@@ -167,7 +168,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (world.isRemote) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").applyTextStyle(TextFormatting.RED));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
 			}
 
 			return false;
@@ -265,7 +266,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						trippedPositions.add(pos.down());
 					}
 
-					if (!allowBlockHere && isBlockHere && !BLACKLIST.contains(state.getBlock())) //ceiling is obstructed in this column
+					if (!allowBlockHere && isBlockHere && !BLACKLIST.func_230235_a_(state.getBlock())) //ceiling is obstructed in this column
 					{
 						trippedPositions.add(pos);
 					}
@@ -561,7 +562,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						world.destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
-						if (BLACKLIST.contains(block)) {
+						if (BLACKLIST.func_230235_a_(block)) {
 							continue;
 						}
 						//don't break the floor
@@ -781,7 +782,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+								pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.func_233580_cy_()),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
 							}

@@ -75,7 +75,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
 		BlockState state = player.world.getBlockState(pos);
-		boolean isGlass = state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.contains(state.getBlock());
+		boolean isGlass = state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.func_230235_a_(state.getBlock());
 		boolean hasSilk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
 		if (hasSilk || !isGlass) {
 			return super.onBlockStartBreak(itemstack, pos, player);

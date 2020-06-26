@@ -58,7 +58,7 @@ public class ItemPinkinator extends Item {
 					pink.setCustomName(wither.getCustomName());
 					pink.setCustomNameVisible(wither.isCustomNameVisible());
 				}
-				pink.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pink)), SpawnReason.CONVERSION, null, null);
+				pink.onInitialSpawn(world, world.getDifficultyForLocation(pink.func_233580_cy_()), SpawnReason.CONVERSION, null, null);
 				world.addEntity(pink);
 				pink.spawnExplosionParticle();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -74,7 +74,7 @@ public class ItemPinkinator extends Item {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		tooltip.add(new TranslationTextComponent("botaniamisc.pinkinatorDesc").applyTextStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("botaniamisc.pinkinatorDesc").func_240699_a_(TextFormatting.GRAY));
 	}
 
 }

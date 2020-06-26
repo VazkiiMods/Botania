@@ -28,12 +28,12 @@ public final class TooltipHandler {
 	}
 
 	public static ITextComponent getShiftInfoTooltip() {
-		ITextComponent shift = new StringTextComponent("SHIFT").applyTextStyle(TextFormatting.AQUA);
-		return new TranslationTextComponent("botaniamisc.shiftinfo", shift).applyTextStyle(TextFormatting.GRAY);
+		ITextComponent shift = new StringTextComponent("SHIFT").func_240699_a_(TextFormatting.AQUA);
+		return new TranslationTextComponent("botaniamisc.shiftinfo", shift).func_240699_a_(TextFormatting.GRAY);
 	}
 
 	public static void addOnShift(List<ITextComponent> tooltip, Runnable lambda) {
-		if (Screen.hasShiftDown()) {
+		if (Screen.func_231173_s_()) {
 			lambda.run();
 		} else {
 			tooltip.add(getShiftInfoTooltip());

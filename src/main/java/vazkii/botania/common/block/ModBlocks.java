@@ -8,11 +8,9 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
@@ -26,6 +24,8 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
@@ -88,12 +88,13 @@ public final class ModBlocks {
 	public static Block livingwoodPlanksMossy = new BlockMod(Block.Properties.from(livingwood));
 	public static Block livingwoodFramed = new BlockMod(Block.Properties.from(livingwood));
 	public static Block livingwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
-	public static Block livingwoodGlimmering = new BlockMod(Block.Properties.from(livingwood).lightValue(12));
+	public static Block livingwoodGlimmering = new BlockMod(Block.Properties.from(livingwood).func_235838_a_(s -> 12));
 
-	public static Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, Block.Properties.from(livingwood));
-	public static Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, Block.Properties.from(livingwood));
-	public static Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, Block.Properties.from(livingwood));
-	public static Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, Block.Properties.from(livingwood));
+	private static final AbstractBlock.IExtendedPositionPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
+	public static Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, Block.Properties.from(livingwood).func_235827_a_(NO_SPAWN));
+	public static Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, Block.Properties.from(livingwood).func_235827_a_(NO_SPAWN));
+	public static Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, Block.Properties.from(livingwood).func_235827_a_(NO_SPAWN));
+	public static Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, Block.Properties.from(livingwood).func_235827_a_(NO_SPAWN));
 
 	public static Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT, Block.Properties.from(livingrock));
 	public static Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE, Block.Properties.from(livingrock));
@@ -101,7 +102,7 @@ public final class ModBlocks {
 	public static Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS, Block.Properties.from(livingrock));
 
 	public static Block runeAltar = new BlockRuneAltar(Block.Properties.from(livingrock));
-	public static Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7));
+	public static Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).func_235838_a_(s -> 7));
 	public static Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, Block.Properties.from(manaPylon));
 	public static Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, Block.Properties.from(manaPylon));
 
@@ -109,7 +110,7 @@ public final class ModBlocks {
 	public static Block distributor = new BlockDistributor(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE));
 	public static Block manaVoid = new BlockManaVoid(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE));
 	public static Block manaDetector = new BlockManaDetector(Block.Properties.from(livingrock));
-	public static Block enchanter = new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE));
+	public static Block enchanter = new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).func_235838_a_(s -> 15).sound(SoundType.STONE));
 	public static Block turntable = new BlockTurntable(Block.Properties.from(livingwood));
 	public static Block tinyPlanet = new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE));
 	public static Block alchemyCatalyst = new BlockAlchemyCatalyst(Block.Properties.from(livingrock));
@@ -125,7 +126,7 @@ public final class ModBlocks {
 	public static Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, Block.Properties.from(livingwood));
 	public static Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, Block.Properties.from(livingwood));
 
-	public static Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(15));
+	public static Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, Block.Properties.from(whiteFlower).func_235838_a_(s -> 15));
 	public static Block orangeShinyFlower = new BlockShinyFlower(DyeColor.ORANGE, Block.Properties.from(whiteShinyFlower));
 	public static Block magentaShinyFlower = new BlockShinyFlower(DyeColor.MAGENTA, Block.Properties.from(whiteShinyFlower));
 	public static Block lightBlueShinyFlower = new BlockShinyFlower(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteShinyFlower));
@@ -145,7 +146,8 @@ public final class ModBlocks {
 	public static Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD));
 	public static Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, Block.Properties.from(abstrusePlatform));
 	public static Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD));
-	public static Block alfPortal = new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD));
+	public static Block alfPortal = new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)
+					.func_235838_a_(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
 	public static Block dreamwood = new BlockMod(Block.Properties.from(livingwood));
 	public static Block dreamwoodPlanks = new BlockMod(Block.Properties.from(livingwood));
 	public static Block dreamwoodPlanksMossy = new BlockMod(Block.Properties.from(livingwood));
@@ -153,10 +155,10 @@ public final class ModBlocks {
 	public static Block dreamwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
 	public static Block dreamwoodGlimmering = new BlockMod(Block.Properties.from(livingwoodGlimmering));
 	public static Block conjurationCatalyst = new BlockConjurationCatalyst(Block.Properties.from(livingrock));
-	public static Block bifrost = new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS).notSolid());
+	public static Block bifrost = new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).func_235838_a_(s -> 15).sound(SoundType.GLASS).notSolid());
 	public static Block solidVines = new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid());
 
-	public static Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(4));
+	public static Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, Block.Properties.from(whiteFlower).func_235838_a_(s -> 4));
 	public static Block orangeBuriedPetals = new BlockBuriedPetals(DyeColor.ORANGE, Block.Properties.from(whiteBuriedPetals));
 	public static Block magentaBuriedPetals = new BlockBuriedPetals(DyeColor.MAGENTA, Block.Properties.from(whiteBuriedPetals));
 	public static Block lightBlueBuriedPetals = new BlockBuriedPetals(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteBuriedPetals));
@@ -173,7 +175,7 @@ public final class ModBlocks {
 	public static Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, Block.Properties.from(whiteBuriedPetals));
 	public static Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, Block.Properties.from(whiteBuriedPetals));
 
-	public static Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15));
+	public static Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).func_235838_a_(s -> 15));
 	public static Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, Block.Properties.from(whiteFloatingFlower));
 	public static Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, Block.Properties.from(whiteFloatingFlower));
 	public static Block lightBlueFloatingFlower = new BlockFloatingFlower(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteFloatingFlower));
@@ -212,7 +214,7 @@ public final class ModBlocks {
 	public static Block enderEye = new BlockEnderEye(Block.Properties.from(manasteelBlock));
 	public static Block starfield = new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL));
 	public static Block rfGenerator = new BlockRFGenerator(Block.Properties.from(livingrock));
-	public static Block elfGlass = new BlockElfGlass(Block.Properties.from(Blocks.GLASS).lightValue(15));
+	public static Block elfGlass = new BlockElfGlass(Block.Properties.from(Blocks.GLASS).func_235838_a_(s -> 15));
 	public static Block brewery = new BlockBrewery(Block.Properties.from(livingrock));
 	public static Block manaGlass = new BlockModGlass(Block.Properties.from(elfGlass));
 	public static Block terraPlate = new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));
@@ -222,7 +224,7 @@ public final class ModBlocks {
 	public static Block redStringComparator = new BlockRedStringComparator(Block.Properties.from(livingrock));
 	public static Block redStringRelay = new BlockRedStringRelay(Block.Properties.from(livingrock));
 	public static Block redStringInterceptor = new BlockRedStringInterceptor(Block.Properties.from(livingrock));
-	public static Block manaFlame = new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement());
+	public static Block manaFlame = new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).func_235838_a_(s -> 15).doesNotBlockMovement());
 	public static Block prism = new BlockPrism(Block.Properties.from(elfGlass).doesNotBlockMovement());
 	public static Block enchantedSoil = new BlockEnchantedSoil(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.6F).sound(SoundType.PLANT));
 
@@ -246,7 +248,7 @@ public final class ModBlocks {
 	public static Block corporeaIndex = new BlockCorporeaIndex(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).notSolid());
 	public static Block corporeaFunnel = new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
 
-	public static Block whiteMushroom = new BlockModMushroom(DyeColor.WHITE, Block.Properties.from(whiteFlower).lightValue(3));
+	public static Block whiteMushroom = new BlockModMushroom(DyeColor.WHITE, Block.Properties.from(whiteFlower).func_235838_a_(s -> 3));
 	public static Block orangeMushroom = new BlockModMushroom(DyeColor.ORANGE, Block.Properties.from(whiteMushroom));
 	public static Block magentaMushroom = new BlockModMushroom(DyeColor.MAGENTA, Block.Properties.from(whiteMushroom));
 	public static Block lightBlueMushroom = new BlockModMushroom(DyeColor.LIGHT_BLUE, Block.Properties.from(whiteMushroom));
@@ -283,7 +285,7 @@ public final class ModBlocks {
 	public static Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, Block.Properties.from(doubleFlowerWhite));
 
 	public static Block fakeAir = new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly());
-	public static Block blazeBlock = new BlockMod(Block.Properties.from(manasteelBlock).lightValue(15));
+	public static Block blazeBlock = new BlockMod(Block.Properties.from(manasteelBlock).func_235838_a_(s -> 15));
 	public static Block corporeaInterceptor = new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
 	public static Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Block.Properties.from(corporeaInterceptor));
 	public static Block incensePlate = new BlockIncensePlate(Block.Properties.from(livingwood));
@@ -301,7 +303,7 @@ public final class ModBlocks {
 	public static Block manaBomb = new BlockManaBomb(Block.Properties.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD));
 	public static Block cacophonium = new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F));
 	public static Block bellows = new BlockBellows(Block.Properties.from(livingwood));
-	public static Block bifrostPerm = new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS).notSolid());
+	public static Block bifrostPerm = new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).func_235838_a_(s -> 15).sound(SoundType.GLASS).notSolid());
 	public static Block cellBlock = new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH));
 	public static Block gaiaHeadWall = new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
 	public static Block gaiaHead = new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
@@ -316,7 +318,7 @@ public final class ModBlocks {
 	public static Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, Block.Properties.from(dryGrass));
 	public static Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED, Block.Properties.from(dryGrass));
 	public static Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED, Block.Properties.from(dryGrass));
-	public static Block animatedTorch = new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).lightValue(7).notSolid());
+	public static Block animatedTorch = new BlockAnimatedTorch(Block.Properties.create(Material.MISCELLANEOUS).func_235838_a_(s -> 7).notSolid());
 
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();

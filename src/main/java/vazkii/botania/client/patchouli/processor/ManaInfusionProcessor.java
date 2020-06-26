@@ -92,7 +92,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			return I18n.format("botaniamisc.drop") + TextFormatting.BOLD + " (?)";
 		case "dropTip0":
 		case "dropTip1": {
-			String drop = new KeybindTextComponent("key.drop").applyTextStyle(TextFormatting.GREEN).getFormattedText();
+			String drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN).getFormattedText();
 			return I18n.format("botaniamisc.dropTip" + key.substring(7), drop);
 		}
 		}

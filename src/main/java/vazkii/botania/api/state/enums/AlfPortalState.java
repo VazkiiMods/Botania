@@ -18,7 +18,7 @@ public enum AlfPortalState implements IStringSerializable {
 	ON_X;
 
 	@Override
-	public String getName() {
+	public String func_176610_l() {
 		return name().toLowerCase(Locale.ROOT);
 	}
 

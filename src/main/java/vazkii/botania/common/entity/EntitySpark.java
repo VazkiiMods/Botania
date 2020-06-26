@@ -20,6 +20,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -235,7 +236,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	}
 
 	@Override
-	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
+	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (isAlive() && !stack.isEmpty()) {
 			if (world.isRemote) {
@@ -244,7 +245,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 				if (valid) {
 					player.swingArm(hand);
 				}
-				return valid;
+				return valid ? ActionResultType.SUCCESS : ActionResultType.PASS;
 			}
 
 			SparkUpgradeType upgrade = getUpgrade();
@@ -259,30 +260,30 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 					} else {
 						dropAndKill();
 					}
-					return true;
+					return ActionResultType.SUCCESS;
 				} else {
 					SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
 							.forEach(s -> particleBeam(player, this, (Entity) s));
-					return true;
+					return ActionResultType.SUCCESS;
 				}
 			} else if (stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
 				setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
 				stack.shrink(1);
-				return true;
+				return ActionResultType.SUCCESS;
 			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
-				return true;
+				return ActionResultType.SUCCESS;
 			} else if (stack.getItem() instanceof ItemDye) {
 				DyeColor color = ((ItemDye) stack.getItem()).color;
 				if (color != getNetwork()) {
 					setNetwork(color);
 					stack.shrink(1);
-					return true;
+					return ActionResultType.SUCCESS;
 				}
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Nonnull

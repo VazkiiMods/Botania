@@ -278,7 +278,7 @@ public class ItemAstrolabe extends Item {
 
 		tip.add(new StringTextComponent(size + " x " + size));
 		if (block != Blocks.AIR) {
-			tip.add(new ItemStack(block).getDisplayName().applyTextStyle(TextFormatting.GRAY));
+			tip.add(new ItemStack(block).getDisplayName().func_230531_f_().func_240699_a_(TextFormatting.GRAY));
 		}
 	}
 

@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -80,7 +81,7 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 
 		if (hourglass.lock) {
 			if (!player.world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"), Util.field_240973_b_);
 			}
 			return ActionResultType.FAIL;
 		}
@@ -106,11 +107,6 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
-	}
-
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 4;
 	}
 
 	@Override

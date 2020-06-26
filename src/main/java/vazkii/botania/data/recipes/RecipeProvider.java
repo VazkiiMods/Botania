@@ -26,6 +26,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
@@ -917,20 +918,20 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.setGroup("botania:petal_double")
 					.addCriterion("has_item", hasItem(ModBlocks.getDoubleFlower(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.getName() + "_double");
+					.build(consumer, "botania:petal_" + color.func_176610_l() + "_double");
 			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 2)
 					.addIngredient(ModBlocks.getFlower(color))
 					.setGroup("botania:petal")
 					.addCriterion("has_item", hasItem(ModBlocks.getFlower(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.getName());
+					.build(consumer, "botania:petal_" + color.func_176610_l());
 			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getDye(color))
 					.addIngredient(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
 					.addIngredient(ModItems.pestleAndMortar)
 					.setGroup("botania:dye")
 					.addCriterion("has_item", hasItem(ModItems.getDye(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:dye_" + color.getName());
+					.build(consumer, "botania:dye_" + color.func_176610_l());
 		}
 
 		ShapelessRecipeBuilder.shapelessRecipe(ModItems.magentaDye, 2)
@@ -2558,7 +2559,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_flower_item", marimorphosis).build(consumer);
 	}
 
-	private ShapedRecipeBuilder compression(IItemProvider output, Tag<Item> input) {
+	private ShapedRecipeBuilder compression(IItemProvider output, ITag<Item> input) {
 		return ShapedRecipeBuilder.shapedRecipe(output)
 				.key('I', input)
 				.patternLine("III")

@@ -27,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -348,13 +349,12 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		BlockState state = getState(stack);
-		ITextComponent cmp = super.getDisplayName(stack);
+		IFormattableTextComponent cmp = super.getDisplayName(stack).func_230532_e_();
 		if (!state.isAir()) {
-			cmp.appendText(" (");
+			cmp.func_240702_b_(" (");
 			ITextComponent sub = new ItemStack(state.getBlock()).getDisplayName();
-			sub.getStyle().setColor(TextFormatting.GREEN);
-			cmp.appendSibling(sub);
-			cmp.appendText(")");
+			cmp.func_230529_a_(sub.func_230532_e_().func_240699_a_(TextFormatting.GREEN));
+			cmp.func_240702_b_(")");
 		}
 		return cmp;
 	}

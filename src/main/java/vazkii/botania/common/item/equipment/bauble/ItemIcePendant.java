@@ -41,10 +41,10 @@ public class ItemIcePendant extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
 		if (!entity.world.isRemote && !entity.isSneaking()) {
-			boolean lastOnGround = entity.onGround;
-			entity.onGround = true;
-			FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
-			entity.onGround = lastOnGround;
+			boolean lastOnGround = entity.func_233570_aj_();
+			entity.func_230245_c_(true);
+			FrostWalkerEnchantment.freezeNearby(entity, entity.world, entity.func_233580_cy_(), 8);
+			entity.func_230245_c_(lastOnGround);
 
 			int x = MathHelper.floor(entity.getPosX());
 			int y = MathHelper.floor(entity.getPosY());

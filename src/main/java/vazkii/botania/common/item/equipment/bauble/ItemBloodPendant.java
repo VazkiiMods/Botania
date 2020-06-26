@@ -27,6 +27,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -75,19 +76,19 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").func_240699_a_(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).func_240699_a_(TextFormatting.LIGHT_PURPLE));
 		for (EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().getEffectType().getColor();
-			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
+			IFormattableTextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if (effect.getAmplifier() > 0) {
-				cmp.appendText(" ");
-				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.func_240702_b_(" ");
+				cmp.func_230529_a_(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
-			tooltip.add(cmp.applyTextStyle(format));
+			tooltip.add(cmp.func_240699_a_(format));
 		}
 	}
 

@@ -128,7 +128,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
 		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
 		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
-		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : DimensionType.getKey(pool.getWorld().getDimension().getType()).toString());
+		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : pool.getWorld().func_234923_W_().func_240901_a_().toString());
 	}
 
 	public BlockPos getPoolCoords(ItemStack stack) {
