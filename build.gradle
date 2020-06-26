@@ -26,7 +26,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.15.2"
+def mc_version = "1.16.1"
 version = "${config.version}-${config.build_number}"
 group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = config.mod_name
@@ -34,7 +34,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: "20200510-1.15.1"
+    mappings channel: 'snapshot', version: "20200514-1.16"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -79,10 +79,6 @@ sourceSets.main.resources {
 repositories {
     mavenCentral()
     maven {
-        name "yarn2mcp"
-        url "https://maven.tterrag.com/"
-    }
-    maven {
         url "https://maven.blamejared.com"
     }
     maven {
@@ -102,7 +98,8 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-31.2.22"
+    minecraft "net.minecraftforge:forge:${mc_version}-32.0.0"
+    /*
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-35.185:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-35.185")
 
@@ -111,6 +108,7 @@ dependencies {
     
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0")
+    */
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
