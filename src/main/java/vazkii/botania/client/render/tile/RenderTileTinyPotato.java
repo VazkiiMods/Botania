@@ -207,8 +207,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 			float opacity = Minecraft.getInstance().gameSettings.getTextBackgroundOpacity(0.25F);
 			int opacityRGB = (int) (opacity * 255.0F) << 24;
-			mc.fontRenderer.renderString(potato.name.getFormattedText(), -halfWidth, 0, 0x20FFFFFF, false, ms.getLast().getMatrix(), buffers, true, opacityRGB, light);
-			mc.fontRenderer.renderString(potato.name.getFormattedText(), -halfWidth, 0, 0xFFFFFFFF, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			mc.fontRenderer.func_238416_a_(potato.name, -halfWidth, 0, 0x20FFFFFF, false, ms.getLast().getMatrix(), buffers, true, opacityRGB, light);
+			mc.fontRenderer.func_238416_a_(potato.name, -halfWidth, 0, 0xFFFFFFFF, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
 				ms.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";

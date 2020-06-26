@@ -34,16 +34,16 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class EntityThrowableCopy extends ProjectileEntity {
-	protected EntityThrowableCopy(EntityType<? extends net.minecraft.entity.projectile.ThrowableEntity> type, World worldIn) {
+	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> type, World worldIn) {
 		super(type, worldIn);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends net.minecraft.entity.projectile.ThrowableEntity> type, double x, double y, double z, World worldIn) {
+	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> type, double x, double y, double z, World worldIn) {
 		this(type, worldIn);
 		this.setPosition(x, y, z);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends net.minecraft.entity.projectile.ThrowableEntity> type, LivingEntity livingEntityIn, World worldIn) {
+	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> type, LivingEntity livingEntityIn, World worldIn) {
 		this(type, livingEntityIn.getPosX(), livingEntityIn.getPosYEye() - (double) 0.1F, livingEntityIn.getPosZ(), worldIn);
 		this.setShooter(livingEntityIn);
 	}

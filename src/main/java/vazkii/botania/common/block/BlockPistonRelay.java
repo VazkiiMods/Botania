@@ -65,11 +65,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	}
 
 	@Override
-	public boolean canEntitySpawn(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityType<?> type) {
-		return false;
-	}
-
-	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!world.isRemote) {
 			mapCoords(world.func_234923_W_(), pos, 2);

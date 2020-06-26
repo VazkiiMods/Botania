@@ -205,7 +205,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc);
+		((TileSpreader) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

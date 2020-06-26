@@ -61,7 +61,7 @@ public class ItemHorn extends Item {
 	public void onUsingTick(ItemStack stack, LivingEntity player, int time) {
 		if (!player.world.isRemote) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
-				breakGrass(player.world, stack, new BlockPos(player));
+				breakGrass(player.world, stack, player.func_233580_cy_());
 			}
 			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
@@ -87,7 +87,7 @@ public class ItemHorn extends Item {
 			if (block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
-							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
+							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.func_230235_a_(block)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
 				coords.add(pos.toImmutable());
 			}

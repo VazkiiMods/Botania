@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -86,7 +87,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int color = 0xAA006600;
 
 		char motion = backwards ? '<' : '>';
@@ -97,7 +98,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
 		int y = mc.getMainWindow().getScaledHeight() / 2 - 15;
-		mc.fontRenderer.func_238405_a_(speed, x, y, color);
+		mc.fontRenderer.func_238405_a_(ms, speed, x, y, color);
 	}
 
 }

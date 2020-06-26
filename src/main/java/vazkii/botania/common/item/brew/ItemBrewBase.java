@@ -10,8 +10,10 @@ package vazkii.botania.common.item.brew;
 
 import com.google.common.collect.Lists;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -22,10 +24,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectUtils;
 import net.minecraft.util.*;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -133,40 +132,40 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
 	@OnlyIn(Dist.CLIENT)
 	public static void addPotionTooltip(List<EffectInstance> list, List<ITextComponent> lores, float durationFactor) {
-		List<Tuple<String, AttributeModifier>> list1 = Lists.newArrayList();
+		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 		if (list.isEmpty()) {
 			lores.add((new TranslationTextComponent("effect.none")).func_240699_a_(TextFormatting.GRAY));
 		} else {
-			for (EffectInstance effectinstance : list) {
-				ITextComponent itextcomponent = new TranslationTextComponent(effectinstance.getEffectName());
+			for(EffectInstance effectinstance : list) {
+				IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(effectinstance.getEffectName());
 				Effect effect = effectinstance.getPotion();
-				Map<IAttribute, AttributeModifier> map = effect.getAttributeModifierMap();
+				Map<Attribute, AttributeModifier> map = effect.getAttributeModifierMap();
 				if (!map.isEmpty()) {
-					for (Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
+					for(Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
 						AttributeModifier attributemodifier = entry.getValue();
 						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierAmount(effectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						list1.add(new Tuple<>(entry.getKey().getName(), attributemodifier1));
+						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
 					}
 				}
 
 				if (effectinstance.getAmplifier() > 0) {
-					itextcomponent.appendText(" ").appendSibling(new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
+					iformattabletextcomponent.func_240702_b_(" ").func_230529_a_(new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					itextcomponent.appendText(" (").appendText(EffectUtils.getPotionDurationString(effectinstance, durationFactor)).appendText(")");
+					iformattabletextcomponent.func_240702_b_(" (").func_240702_b_(EffectUtils.getPotionDurationString(effectinstance, durationFactor)).func_240702_b_(")");
 				}
 
-				lores.add(itextcomponent.func_240699_a_(effect.getEffectType().getColor()));
+				lores.add(iformattabletextcomponent.func_240699_a_(effect.getEffectType().getColor()));
 			}
 		}
 
 		if (!list1.isEmpty()) {
-			lores.add(new StringTextComponent(""));
+			lores.add(StringTextComponent.field_240750_d_);
 			lores.add((new TranslationTextComponent("potion.whenDrank")).func_240699_a_(TextFormatting.DARK_PURPLE));
 
-			for (Tuple<String, AttributeModifier> tuple : list1) {
-				AttributeModifier attributemodifier2 = tuple.getB();
+			for(Pair<Attribute, AttributeModifier> pair : list1) {
+				AttributeModifier attributemodifier2 = pair.getSecond();
 				double d0 = attributemodifier2.getAmount();
 				double d1;
 				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
@@ -176,10 +175,10 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + tuple.getA()))).func_240699_a_(TextFormatting.BLUE));
+					lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).func_240699_a_(TextFormatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + tuple.getA()))).func_240699_a_(TextFormatting.RED));
+					lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).func_240699_a_(TextFormatting.RED));
 				}
 			}
 		}

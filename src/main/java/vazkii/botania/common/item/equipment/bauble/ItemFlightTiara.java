@@ -487,7 +487,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 		RenderSystem.enableAlphaTest();
 		RenderSystem.color4f(1F, 1F, 1F, 1F);
-		mc.textureManager.bindTexture(AbstractGui.GUI_ICONS_LOCATION);
+		mc.textureManager.bindTexture(AbstractGui.field_230665_h_);
 	}
 
 	public static int getVariant(ItemStack stack) {

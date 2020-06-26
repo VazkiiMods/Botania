@@ -130,7 +130,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		PlayerEntity player = ctx.getPlayer();
 
 		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
-		if (bindPos != null && bindPos.getDimension() == world.getDimension().getType()) {
+		if (bindPos != null && bindPos.func_239646_a_() == world.func_234923_W_()) {
 			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
 			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(world);
 			data.mapping.put(bindPos.getPos(), pos.toImmutable());

@@ -37,7 +37,7 @@ public class ItemPoolMinecart extends Item {
 		World world = context.getWorld();
 		BlockPos blockpos = context.getPos();
 		BlockState iblockstate = world.getBlockState(blockpos);
-		if (!iblockstate.isIn(BlockTags.RAILS)) {
+		if (!iblockstate.func_235714_a_(BlockTags.RAILS)) {
 			return ActionResultType.FAIL;
 		} else {
 			ItemStack itemstack = context.getItem();

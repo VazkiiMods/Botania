@@ -43,7 +43,7 @@ public class BlockTurntable extends BlockMod implements ITileEntityProvider, IWa
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TileTurntable) world.getTileEntity(pos)).renderHUD(mc);
+		((TileTurntable) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

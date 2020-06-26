@@ -221,7 +221,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, ResourceLocation recipeId) {
 		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex == slot) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
+				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.func_231173_s_()) {
 					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
 				}
 			}

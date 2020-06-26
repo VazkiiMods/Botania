@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.AbstractGui;
@@ -28,6 +29,7 @@ public final class TooltipAdditionDisplayHandler {
 		if (evt.getStack().isEmpty()) {
 			return;
 		}
+		MatrixStack ms = new MatrixStack(); // todo 1.16 get from event?
 
 		ItemStack stack = evt.getStack();
 		int width = evt.getWidth();
@@ -37,13 +39,13 @@ public final class TooltipAdditionDisplayHandler {
 		FontRenderer font = evt.getFontRenderer();
 
 		if (stack.getItem() instanceof ItemTerraPick) {
-			drawTerraPick(stack, tooltipX, tooltipY, width, height, font);
+			drawTerraPick(ms, stack, tooltipX, tooltipY, width, height, font);
 		} else if (stack.getItem() instanceof IManaTooltipDisplay) {
-			drawManaBar(stack, (IManaTooltipDisplay) stack.getItem(), tooltipX, tooltipY, width, height);
+			drawManaBar(ms, stack, (IManaTooltipDisplay) stack.getItem(), tooltipX, tooltipY, width, height);
 		}
 	}
 
-	private static void drawTerraPick(ItemStack stack, int mouseX, int mouseY, int width, int height, FontRenderer font) {
+	private static void drawTerraPick(MatrixStack ms, ItemStack stack, int mouseX, int mouseY, int width, int height, FontRenderer font) {
 		int level = ItemTerraPick.getLevel(stack);
 		int max = ItemTerraPick.LEVELS[Math.min(ItemTerraPick.LEVELS.length - 1, level + 1)];
 		boolean ss = level >= ItemTerraPick.LEVELS.length - 1;
@@ -54,37 +56,37 @@ public final class TooltipAdditionDisplayHandler {
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
 		RenderSystem.disableDepthTest();
-		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.func_238467_a_(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for (int i = 0; i < rainbowWidth; i++) {
-			AbstractGui.fill(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
+			AbstractGui.func_238467_a_(ms, mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
 		}
-		AbstractGui.fill(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		AbstractGui.func_238467_a_(ms, mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		RenderSystem.disableLighting();
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef(0, 0, 300);
-		font.func_238405_a_(rank, mouseX, mouseY - 12, 0xFFFFFF);
+		ms.push();
+		ms.translate(0, 0, 300);
+		font.func_238405_a_(ms, rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if (!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
-			font.func_238405_a_(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
+			font.func_238405_a_(ms, rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
-		RenderSystem.popMatrix();
+		ms.pop();
 		RenderSystem.enableLighting();
 		RenderSystem.enableDepthTest();
 		GL11.glPopAttrib();
 	}
 
-	private static void drawManaBar(ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int width, int height) {
+	private static void drawManaBar(MatrixStack ms, ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int width, int height) {
 		float fraction = display.getManaFractionForDisplay(stack);
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
 		RenderSystem.disableDepthTest();
-		AbstractGui.fill(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
-		AbstractGui.fill(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
-		AbstractGui.fill(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		AbstractGui.func_238467_a_(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.func_238467_a_(ms, mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		AbstractGui.func_238467_a_(ms, mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
 }

@@ -66,7 +66,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			int blue = color & 0xFF;
 			BlockState state = pool.getBlockState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(state));
+			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.func_239220_a_(state, false));
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 					.renderModelBrightnessColor(ms.getLast(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}

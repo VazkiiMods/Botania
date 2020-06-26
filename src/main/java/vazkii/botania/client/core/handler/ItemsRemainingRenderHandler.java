@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,7 +41,7 @@ public final class ItemsRemainingRenderHandler {
 	private static int ticks, count;
 
 	@OnlyIn(Dist.CLIENT)
-	public static void render(float partTicks) {
+	public static void render(MatrixStack ms, float partTicks) {
 		if (ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
 			Minecraft mc = Minecraft.getInstance();
@@ -56,39 +58,48 @@ public final class ItemsRemainingRenderHandler {
 
 			RenderSystem.color4f(1F, 1F, 1F, alpha);
 			int xp = x + (int) (16F * (1F - alpha));
-			RenderSystem.translatef(xp, y, 0F);
-			RenderSystem.scalef(alpha, 1F, 1F);
+			ms.translate(xp, y, 0F);
+			ms.scale(alpha, 1F, 1F);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, 0, 0);
-			RenderSystem.scalef(1F / alpha, 1F, 1F);
-			RenderSystem.translatef(-xp, -y, 0F);
+			ms.scale(1F / alpha, 1F, 1F);
+			ms.translate(-xp, -y, 0F);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			RenderSystem.enableBlend();
 
-			String text = "";
+			ITextComponent text = StringTextComponent.field_240750_d_;
 
 			if (customString == null) {
 				if (!stack.isEmpty()) {
-					text = TextFormatting.GREEN + stack.getDisplayName().getString();
+					text = stack.getDisplayName().func_230532_e_().func_240699_a_(TextFormatting.GREEN);
 					if (count >= 0) {
 						int max = stack.getMaxStackSize();
 						int stacks = count / max;
 						int rem = count % max;
 
 						if (stacks == 0) {
-							text = "" + count;
+							text = new StringTextComponent(Integer.toString(count));
 						} else {
-							text = count + " (" + TextFormatting.AQUA + stacks + TextFormatting.RESET + "*" + TextFormatting.GRAY + max + TextFormatting.RESET + "+" + TextFormatting.YELLOW + rem + TextFormatting.RESET + ")";
+							ITextComponent stacksText = new StringTextComponent(Integer.toString(stacks)).func_240699_a_(TextFormatting.AQUA);
+							ITextComponent maxText = new StringTextComponent(Integer.toString(max)).func_240699_a_(TextFormatting.GRAY);
+							ITextComponent remText = new StringTextComponent(Integer.toString(rem)).func_240699_a_(TextFormatting.YELLOW);
+							text = new StringTextComponent(count + " (")
+											.func_230529_a_(stacksText)
+											.func_240702_b_("*")
+											.func_230529_a_(maxText)
+											.func_240702_b_("+")
+											.func_230529_a_(remText)
+											.func_240702_b_(")");
 						}
 					} else if (count == -1) {
-						text = "\u221E";
+						text = new StringTextComponent("\u221E");
 					}
 				}
 			} else {
-				text = customString.getFormattedText();
+				text = customString;
 			}
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.fontRenderer.func_238405_a_(text, x + 20, y + 6, color);
+			mc.fontRenderer.func_238407_a_(ms, text, x + 20, y + 6, color);
 
 			RenderSystem.disableBlend();
 			RenderSystem.enableAlphaTest();

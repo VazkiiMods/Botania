@@ -142,7 +142,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		ResourceLocation recipeId = recipe.getId();
 		recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex >= endIndex) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
+				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.func_231173_s_()) {
 					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
 				}
 			}

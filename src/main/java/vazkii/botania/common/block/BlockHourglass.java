@@ -159,7 +159,7 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 	@Override
 	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
-		tile.renderHUD();
+		tile.renderHUD(ms);
 	}
 
 }

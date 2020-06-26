@@ -106,7 +106,7 @@ public final class ModBlocks {
 	public static Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, Block.Properties.from(manaPylon));
 	public static Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, Block.Properties.from(manaPylon));
 
-	public static Block pistonRelay = new BlockPistonRelay(Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL));
+	public static Block pistonRelay = new BlockPistonRelay(Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL).func_235827_a_(NO_SPAWN));
 	public static Block distributor = new BlockDistributor(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE));
 	public static Block manaVoid = new BlockManaVoid(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE));
 	public static Block manaDetector = new BlockManaDetector(Block.Properties.from(livingrock));

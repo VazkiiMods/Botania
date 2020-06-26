@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Block;
@@ -537,7 +538,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
 		int color = getVariant().hudColor;
 		HUDHandler.drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
@@ -549,7 +550,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 
-			mc.fontRenderer.func_238405_a_(lensName, x + 20, y + 5, color);
+			mc.fontRenderer.func_238405_a_(ms, lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderSystem.disableLighting();
 		}
@@ -563,7 +564,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 				int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-				mc.fontRenderer.func_238405_a_(stackName, x + 20, y + 5, color);
+				mc.fontRenderer.func_238405_a_(ms, stackName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			}
 

@@ -14,6 +14,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -34,9 +35,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemBlockSpecialFlower extends BlockItem {
-	private static final Tag<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
-	private static final Tag<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
-	private static final Tag<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
+	private static final ITag.INamedTag<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
+	private static final ITag.INamedTag<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
+	private static final ITag.INamedTag<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
 
 	public ItemBlockSpecialFlower(Block block1, Properties props) {
 		super(block1, props);

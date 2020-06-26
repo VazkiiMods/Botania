@@ -225,7 +225,7 @@ public final class HUDHandler {
 			}
 
 			profiler.endStartSection("itemsRemaining");
-			ItemsRemainingRenderHandler.render(event.getPartialTicks());
+			ItemsRemainingRenderHandler.render(ms, event.getPartialTicks());
 			profiler.endSection();
 			profiler.endSection();
 

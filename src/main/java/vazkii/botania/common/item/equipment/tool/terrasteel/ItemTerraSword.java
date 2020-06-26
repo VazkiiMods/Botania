@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -103,7 +104,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
 		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
-		LivingEntity thrower = entity.func_234616_v_();
+		Entity thrower = entity.func_234616_v_();
 
 		for (LivingEntity living : entities) {
 			if (living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity
@@ -121,8 +122,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 						DamageSource source = DamageSource.MAGIC;
 						if (thrower instanceof PlayerEntity) {
 							source = DamageSource.causePlayerDamage((PlayerEntity) thrower);
-						} else if (thrower != null) {
-							source = DamageSource.causeMobDamage(thrower);
+						} else if (thrower instanceof LivingEntity) {
+							source = DamageSource.causeMobDamage((LivingEntity) thrower);
 						}
 						living.attackEntityFrom(source, damage);
 						entity.remove();

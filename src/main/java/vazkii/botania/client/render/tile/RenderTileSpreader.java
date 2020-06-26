@@ -62,7 +62,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			b = (color & 0xFF) / 255F;
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(spreader.getBlockState()));
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.func_239220_a_(spreader.getBlockState(), false));
 		IBakedModel bakedModel = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(spreader.getBlockState());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.renderModelBrightnessColor(ms.getLast(), buffer, spreader.getBlockState(),
@@ -95,7 +95,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		if (spreader.paddingColor != null) {
 			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).get().getDefaultState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(carpet);
-			buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(carpet));
+			buffer = buffers.getBuffer(RenderTypeLookup.func_239220_a_(carpet, false));
 
 			float f = 1 / 16F;
 

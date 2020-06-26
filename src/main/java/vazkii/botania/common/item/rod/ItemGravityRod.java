@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGravityRod extends Item implements IManaUsingItem {
-	private static final Tag<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
+	private static final ITag.INamedTag<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 
