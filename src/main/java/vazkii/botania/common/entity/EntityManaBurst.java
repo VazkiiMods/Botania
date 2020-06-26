@@ -187,14 +187,14 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			}
 		}
 
-		Vec3d vec3d = this.getMotion();
-		double d0 = this.getPosX() + vec3d.x;
-		double d1 = this.getPosY() + vec3d.y;
-		double d2 = this.getPosZ() + vec3d.z;
-		float f = MathHelper.sqrt(horizontalMag(vec3d));
-		this.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
+		Vector3d Vector3d = this.getMotion();
+		double d0 = this.getPosX() + Vector3d.x;
+		double d1 = this.getPosY() + Vector3d.y;
+		double d2 = this.getPosZ() + Vector3d.z;
+		float f = MathHelper.sqrt(horizontalMag(Vector3d));
+		this.rotationYaw = (float) (MathHelper.atan2(Vector3d.x, Vector3d.z) * (double) (180F / (float) Math.PI));
 
-		for (this.rotationPitch = (float) (MathHelper.atan2(vec3d.y, (double) f) * (double) (180F / (float) Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+		for (this.rotationPitch = (float) (MathHelper.atan2(Vector3d.y, (double) f) * (double) (180F / (float) Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
 			;
 		}
 
@@ -216,7 +216,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if (this.isInWater()) {
 			for (int i = 0; i < 4; ++i) {
 				float f2 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, d0 - vec3d.x * 0.25D, d1 - vec3d.y * 0.25D, d2 - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+				this.world.addParticle(ParticleTypes.BUBBLE, d0 - Vector3d.x * 0.25D, d1 - Vector3d.y * 0.25D, d2 - Vector3d.z * 0.25D, Vector3d.x, Vector3d.y, Vector3d.z);
 			}
 
 			f1 = 0.8F;
@@ -224,10 +224,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			f1 = 0.99F;
 		}
 
-		// Botania - no drag this.setMotion(vec3d.scale((double)f1));
+		// Botania - no drag this.setMotion(Vector3d.scale((double)f1));
 		if (!this.hasNoGravity()) {
-			Vec3d vec3d1 = this.getMotion();
-			this.setMotion(vec3d1.x, vec3d1.y - (double) this.getGravityVelocity(), vec3d1.z);
+			Vector3d Vector3d1 = this.getMotion();
+			this.setMotion(Vector3d1.x, Vector3d1.y - (double) this.getGravityVelocity(), Vector3d1.z);
 		}
 
 		this.setPosition(d0, d1, d2);

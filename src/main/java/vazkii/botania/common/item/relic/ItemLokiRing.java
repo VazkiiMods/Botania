@@ -111,8 +111,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			for (BlockPos cursor : cursors) {
 				BlockPos pos = hit.add(cursor);
 				if (ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, false)) {
-					Vec3d lookHit = lookPos.getHitVec();
-					Vec3d newHitVec = new Vec3d(pos.getX() + MathHelper.frac(lookHit.getX()), pos.getY() + MathHelper.frac(lookHit.getY()), pos.getZ() + MathHelper.frac(lookHit.getZ()));
+					Vector3d lookHit = lookPos.getHitVec();
+					Vector3d newHitVec = new Vector3d(pos.getX() + MathHelper.frac(lookHit.getX()), pos.getY() + MathHelper.frac(lookHit.getY()), pos.getZ() + MathHelper.frac(lookHit.getZ()));
 					BlockRayTraceResult newHit = new BlockRayTraceResult(newHitVec, lookPos.getFace(), pos, false);
 					ItemUseContext ctx = new ItemUseContext(player, event.getHand(), newHit);
 

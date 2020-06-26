@@ -241,7 +241,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 						item.remove();
 					} else {
-						item.setMotion(moveVector.multiply(3, 1.5, 3).toVec3D());
+						item.setMotion(moveVector.multiply(3, 1.5, 3).toVector3d());
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}

@@ -49,7 +49,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 			if (entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
-				BlockRayTraceResult hit = new BlockRayTraceResult(Vec3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
+				BlockRayTraceResult hit = new BlockRayTraceResult(Vector3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
 				PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), stackToPlace);
 
 				if (stackToPlace.isEmpty()) {

@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.IPlacementConfig;

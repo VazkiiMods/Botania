@@ -18,7 +18,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -38,7 +38,7 @@ public class EntityMagicLandmine extends Entity {
 
 	@Override
 	public void tick() {
-		setMotion(Vec3d.ZERO);
+		setMotion(Vector3d.ZERO);
 		super.tick();
 
 		float range = 2.5F;

@@ -27,7 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -273,7 +273,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if (cooldown > 0) {
 					if (ItemNBTHelper.getBoolean(stack, TAG_BOOST_PENDING, false)) {
-						player.moveRelative(5F, new Vec3d(0F, 0F, 1F));
+						player.moveRelative(5F, new Vector3d(0F, 0F, 1F));
 						ItemNBTHelper.removeEntry(stack, TAG_BOOST_PENDING);
 					}
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);

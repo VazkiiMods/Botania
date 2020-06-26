@@ -17,7 +17,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -51,7 +51,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 		if (getWorld().isRemote) {
 			if (burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
-				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
+				Vector3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
 				getWorld().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;

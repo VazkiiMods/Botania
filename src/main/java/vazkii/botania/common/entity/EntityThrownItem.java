@@ -54,8 +54,8 @@ public class EntityThrownItem extends ItemEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3d vec3 = getPositionVec();
-		Vec3d vec31 = getPositionVec().add(getMotion());
+		Vector3d vec3 = getPositionVec();
+		Vector3d vec31 = getPositionVec().add(getMotion());
 
 		RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(vec3, vec31,
 				RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
@@ -69,7 +69,7 @@ public class EntityThrownItem extends ItemEntity {
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof PlayerEntity) || pickupDelay == 0)) {
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(f);
-					Optional<Vec3d> ray1 = axisalignedbb.rayTrace(vec3, vec31);
+					Optional<Vector3d> ray1 = axisalignedbb.rayTrace(vec3, vec31);
 
 					if (ray1.isPresent()) {
 						double d1 = vec3.distanceTo(ray1.get());

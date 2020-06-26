@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -95,7 +95,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			float blue = (color & 0xFF) / 255F;
 
 			if (Math.random() > particleChance) {
-				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
+				Vector3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
 				double z = getPos().getZ() + offset.z;

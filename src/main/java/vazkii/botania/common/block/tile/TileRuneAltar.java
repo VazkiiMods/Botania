@@ -22,7 +22,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -83,7 +83,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
 				item.setPickupDelay(40);
-				item.setMotion(Vec3d.ZERO);
+				item.setMotion(Vector3d.ZERO);
 				world.addEntity(item);
 			}
 

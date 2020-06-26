@@ -34,7 +34,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -204,7 +204,7 @@ public class ItemCraftingHalo extends Item {
 			return;
 		}
 
-		Vec3d lookVec3 = player.getLookVec();
+		Vector3d lookVec3 = player.getLookVec();
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 		float m = 0.1F;
 		for (int i = 0; i < 4; i++) {

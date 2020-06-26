@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.world;
 
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.DynamicOps;
 
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.DynamicOps;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
 import vazkii.botania.common.core.handler.ConfigHandler;

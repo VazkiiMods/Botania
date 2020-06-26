@@ -14,7 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -40,7 +40,7 @@ public class Vector3 {
 		z = d2;
 	}
 
-	public Vector3(Vec3d vec) {
+	public Vector3(Vector3d vec) {
 		this(vec.x, vec.y, vec.z);
 	}
 
@@ -162,8 +162,8 @@ public class Vector3 {
 		return new Vector3(d, 0, d1);
 	}
 
-	public Vec3d toVec3D() {
-		return new Vec3d(x, y, z);
+	public Vector3d toVector3d() {
+		return new Vector3d(x, y, z);
 	}
 
 	public double angle(Vector3 vec) {

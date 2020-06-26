@@ -19,7 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarTile;
@@ -71,8 +71,8 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 				if (held) {
 					player.fallDistance = 0F;
 					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
-					Vec3d oldMot = player.getMotion();
-					player.setMotion(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
+					Vector3d oldMot = player.getMotion();
+					player.setMotion(new Vector3d(oldMot.getX(), my, oldMot.getZ()));
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for (int i = 0; i < 5; i++) {

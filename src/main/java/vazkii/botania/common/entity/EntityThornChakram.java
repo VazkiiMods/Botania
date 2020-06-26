@@ -32,7 +32,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -85,7 +85,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	@Override
 	public void tick() {
 		// Standard motion
-		Vec3d old = getMotion();
+		Vector3d old = getMotion();
 
 		super.tick();
 
@@ -101,7 +101,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 			Entity thrower = getThrower();
 			if (thrower != null) {
 				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
-				setMotion(motion.toVec3D());
+				setMotion(motion.toVector3d());
 			}
 		}
 
@@ -162,7 +162,7 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
-				setMotion(movementVec.toVec3D());
+				setMotion(movementVec.toVector3d());
 				bounced = true;
 
 				if (!world.isRemote) {

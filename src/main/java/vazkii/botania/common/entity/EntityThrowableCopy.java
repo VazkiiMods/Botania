@@ -77,19 +77,19 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 		float f1 = -MathHelper.sin((p_184538_2_ + p_184538_4_) * ((float) Math.PI / 180F));
 		float f2 = MathHelper.cos(p_184538_3_ * ((float) Math.PI / 180F)) * MathHelper.cos(p_184538_2_ * ((float) Math.PI / 180F));
 		this.shoot((double) f, (double) f1, (double) f2, p_184538_5_, p_184538_6_);
-		Vec3d vec3d = p_184538_1_.getMotion();
-		this.setMotion(this.getMotion().add(vec3d.x, p_184538_1_.onGround ? 0.0D : vec3d.y, vec3d.z));
+		Vector3d Vector3d = p_184538_1_.getMotion();
+		this.setMotion(this.getMotion().add(Vector3d.x, p_184538_1_.onGround ? 0.0D : Vector3d.y, Vector3d.z));
 	}
 
 	/**
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
 	public void shoot(double p_70186_1_, double p_70186_3_, double p_70186_5_, float p_70186_7_, float p_70186_8_) {
-		Vec3d vec3d = (new Vec3d(p_70186_1_, p_70186_3_, p_70186_5_)).normalize().add(this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_, this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_, this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_).scale((double) p_70186_7_);
-		this.setMotion(vec3d);
-		float f = MathHelper.sqrt(horizontalMag(vec3d));
-		this.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
-		this.rotationPitch = (float) (MathHelper.atan2(vec3d.y, (double) f) * (double) (180F / (float) Math.PI));
+		Vector3d Vector3d = (new Vector3d(p_70186_1_, p_70186_3_, p_70186_5_)).normalize().add(this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_, this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_, this.rand.nextGaussian() * (double) 0.0075F * (double) p_70186_8_).scale((double) p_70186_7_);
+		this.setMotion(Vector3d);
+		float f = MathHelper.sqrt(horizontalMag(Vector3d));
+		this.rotationYaw = (float) (MathHelper.atan2(Vector3d.x, Vector3d.z) * (double) (180F / (float) Math.PI));
+		this.rotationPitch = (float) (MathHelper.atan2(Vector3d.y, (double) f) * (double) (180F / (float) Math.PI));
 		this.prevRotationYaw = this.rotationYaw;
 		this.prevRotationPitch = this.rotationPitch;
 	}
@@ -156,14 +156,14 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 			}
 		}
 
-		Vec3d vec3d = this.getMotion();
-		double d0 = this.getPosX() + vec3d.x;
-		double d1 = this.getPosY() + vec3d.y;
-		double d2 = this.getPosZ() + vec3d.z;
-		float f = MathHelper.sqrt(horizontalMag(vec3d));
-		this.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
+		Vector3d Vector3d = this.getMotion();
+		double d0 = this.getPosX() + Vector3d.x;
+		double d1 = this.getPosY() + Vector3d.y;
+		double d2 = this.getPosZ() + Vector3d.z;
+		float f = MathHelper.sqrt(horizontalMag(Vector3d));
+		this.rotationYaw = (float) (MathHelper.atan2(Vector3d.x, Vector3d.z) * (double) (180F / (float) Math.PI));
 
-		for (this.rotationPitch = (float) (MathHelper.atan2(vec3d.y, (double) f) * (double) (180F / (float) Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+		for (this.rotationPitch = (float) (MathHelper.atan2(Vector3d.y, (double) f) * (double) (180F / (float) Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
 			;
 		}
 
@@ -185,7 +185,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 		if (this.isInWater()) {
 			for (int i = 0; i < 4; ++i) {
 				float f2 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, d0 - vec3d.x * 0.25D, d1 - vec3d.y * 0.25D, d2 - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+				this.world.addParticle(ParticleTypes.BUBBLE, d0 - Vector3d.x * 0.25D, d1 - Vector3d.y * 0.25D, d2 - Vector3d.z * 0.25D, Vector3d.x, Vector3d.y, Vector3d.z);
 			}
 
 			f1 = 0.8F;
@@ -193,10 +193,10 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 			f1 = 0.99F;
 		}
 
-		this.setMotion(vec3d.scale((double) f1));
+		this.setMotion(Vector3d.scale((double) f1));
 		if (!this.hasNoGravity()) {
-			Vec3d vec3d1 = this.getMotion();
-			this.setMotion(vec3d1.x, vec3d1.y - (double) this.getGravityVelocity(), vec3d1.z);
+			Vector3d Vector3d1 = this.getMotion();
+			this.setMotion(Vector3d1.x, Vector3d1.y - (double) this.getGravityVelocity(), Vector3d1.z);
 		}
 
 		this.setPosition(d0, d1, d2);

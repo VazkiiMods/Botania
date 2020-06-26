@@ -18,7 +18,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,7 +78,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 					if (player.world.isRemote) {
 						if ((player.onGround || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vec3d(0, 0, 1));
+							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vector3d(0, 0, 1));
 							beltItem.onMovedTick(belt, player);
 
 							if (player.ticksExisted % COST_INTERVAL == 0) {

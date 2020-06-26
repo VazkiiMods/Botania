@@ -19,7 +19,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,7 +43,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
-		Vec3d vec = e.getPosition();
+		Vector3d vec = e.getPosition();
 		List<PlayerEntity> players = event.getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 
 		for (PlayerEntity player : players) {

@@ -19,7 +19,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
@@ -47,7 +47,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 
 		World world = getWorld();
 		BlockPos pos = getEffectivePos();
-		Vec3d posD = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
+		Vector3d posD = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
 		List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 		if (!world.isRemote) {
 			for (ShulkerEntity shulker : shulkers) {

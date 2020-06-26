@@ -17,6 +17,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.TickableSound;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
@@ -40,14 +41,11 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.BeaconTileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -158,7 +156,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
 			if (!world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").applyTextStyle(TextFormatting.RED));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
 			}
 			return false;
 		}
@@ -184,7 +182,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").applyTextStyle(TextFormatting.RED));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
 			}
 
 			return false;
@@ -204,13 +202,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
-			e.getAttributes().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
+			e.getAttribute(Attributes.field_233818_a_).setBaseValue(MAX_HP * playerCount);
 			if (hard) {
-				e.getAttributes().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
+				e.getAttribute(Attributes.field_233826_i_).setBaseValue(15);
 			}
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(e)), SpawnReason.EVENT, null, null);
+			e.onInitialSpawn(world, world.getDifficultyForLocation(e.func_233580_cy_()), SpawnReason.EVENT, null, null);
 			world.addEntity(e);
 		}
 
@@ -468,7 +466,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			}
 
 			PlayerEntity saveLastAttacker = attackingPlayer;
-			Vec3d savePos = getPositionVec();
+			Vector3d savePos = getPositionVec();
 
 			attackingPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
@@ -733,7 +731,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (aggro) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if (dying && mobSpawnTicks > 0) {
-					setMotion(Vec3d.ZERO);
+					setMotion(Vector3d.ZERO);
 
 					int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
 					if (reverseTicks < MOB_SPAWN_START_TICKS) {
@@ -890,8 +888,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			world.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
-		Vec3d oldPosVec = new Vec3d(oldX, oldY + getHeight() / 2, oldZ);
-		Vec3d newPosVec = new Vec3d(newX, newY + getHeight() / 2, newZ);
+		Vector3d oldPosVec = new Vector3d(oldX, oldY + getHeight() / 2, oldZ);
+		Vector3d newPosVec = new Vector3d(newX, newY + getHeight() / 2, newZ);
 
 		if (oldPosVec.squareDistanceTo(newPosVec) > 1) {
 			//damage players in the path of the teleport
@@ -1044,7 +1042,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		@Override
 		public void tick() {
 			if (!guardian.isAlive()) {
-				donePlaying = true;
+				func_239509_o_();
 			}
 		}
 	}

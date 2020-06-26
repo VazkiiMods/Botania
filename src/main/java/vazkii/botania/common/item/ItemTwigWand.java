@@ -277,9 +277,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {
-		Vec3d origOffset = world.getBlockState(orig).getOffset(world, orig);
+		Vector3d origOffset = world.getBlockState(orig).getOffset(world, orig);
 		Vector3 vorig = new Vector3(orig.getX() + origOffset.getX() + 0.5, orig.getY() + origOffset.getY() + 0.5, orig.getZ() + origOffset.getZ() + 0.5);
-		Vec3d endOffset = world.getBlockState(end).getOffset(world, end);
+		Vector3d endOffset = world.getBlockState(end).getOffset(world, end);
 		Vector3 vend = new Vector3(end.getX() + endOffset.getX() + 0.5, end.getY() + endOffset.getY() + 0.5, end.getZ() + endOffset.getZ() + 0.5);
 		doParticleBeam(world, vorig, vend);
 	}

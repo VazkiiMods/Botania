@@ -25,7 +25,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -133,7 +133,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			}
 
 			entity.setPositionAndRotation(x, y, z, world.rand.nextFloat() * 360F, 0);
-			entity.setMotion(Vec3d.ZERO);
+			entity.setMotion(Vector3d.ZERO);
 
 			Multimap<String, AttributeModifier> map = HashMultimap.create();
 			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(),

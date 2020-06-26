@@ -13,7 +13,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -80,7 +80,7 @@ public class BlockModFlower extends FlowerBlock implements IGrowable {
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
-		Vec3d offset = state.getOffset(world, pos);
+		Vector3d offset = state.getOffset(world, pos);
 		double x = pos.getX() + offset.x;
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;

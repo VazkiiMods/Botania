@@ -28,7 +28,7 @@ public final class MathHelper {
 			finalVector = finalVector.normalize();
 		}
 
-		entity.setMotion(finalVector.multiply(modifier).toVec3D());
+		entity.setMotion(finalVector.multiply(modifier).toVector3d());
 	}
 
 	public static int multiplyColor(int c1, int c2) {

@@ -134,7 +134,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
 			Vector3 diffVec = targetVec.subtract(thisVec);
 			Vector3 motionVec = diffVec.normalize().multiply(evil ? 0.5 : 0.6);
-			setMotion(motionVec.toVec3D());
+			setMotion(motionVec.toVector3d());
 			if (time < 10) {
 				setMotion(getMotion().getX(), Math.abs(getMotion().getY()), getMotion().getZ());
 			}

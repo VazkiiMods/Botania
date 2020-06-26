@@ -23,7 +23,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -55,7 +55,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvid
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext ctx) {
-		Vec3d shift = state.getOffset(world, pos);
+		Vector3d shift = state.getOffset(world, pos);
 		return SHAPE.withOffset(shift.x, shift.y, shift.z);
 	}
 

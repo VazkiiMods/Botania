@@ -50,7 +50,7 @@ public class ItemStarSword extends ItemManasteelSword {
 
 					EntityFallingStar star = new EntityFallingStar(player, world);
 					star.setPosition(posVec.x, posVec.y, posVec.z);
-					star.setMotion(motVec.toVec3D());
+					star.setMotion(motVec.toVector3d());
 					world.addEntity(star);
 
 					if (!world.isRaining()

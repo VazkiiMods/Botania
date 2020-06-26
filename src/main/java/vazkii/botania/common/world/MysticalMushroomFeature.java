@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.world;
 
-import com.mojang.datafixers.Dynamic;
-
+import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 
+import net.minecraft.world.gen.feature.structure.StructureManager;
 import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.common.block.ModBlocks;
@@ -33,7 +33,7 @@ public class MysticalMushroomFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean place(@Nonnull IWorld world, @Nonnull ChunkGenerator<? extends GenerationSettings> generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
+	public boolean func_230362_a_(ISeedReader world, StructureManager structureManager, ChunkGenerator generator, Random rand, BlockPos pos, MysticalFlowerConfig config) {
 		boolean spawn = true;
 		if (world.getDimension() instanceof IFlowerlessWorld) {
 			spawn = ((IFlowerlessWorld) world.getDimension()).generateFlowers(world);

@@ -113,7 +113,7 @@ public class ItemDodgeRing extends ItemBauble {
 		Vector3 lookVec = new Vector3(x, 0, z);
 		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, dir == Direction.WEST || dir == Direction.NORTH ? 1 : (dir == Direction.EAST || dir == Direction.SOUTH ? -1 : 0), 0)).multiply(1.25);
 
-		player.setMotion(sideVec.toVec3D());
+		player.setMotion(sideVec.toVector3d());
 
 		PacketHandler.sendToServer(new PacketDodge());
 	}

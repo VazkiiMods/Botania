@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -114,7 +114,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
 	private void wiggleAround(double x, double y, double z) {
 		BlockPos blockpos = new BlockPos(x, y, z);
-		Vec3d vec3d = new Vec3d(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
+		Vector3d Vector3d = new Vector3d(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
 		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 		Direction direction = Direction.UP;
 		double d0 = Double.MAX_VALUE;
@@ -122,7 +122,7 @@ public class FXSparkle extends SpriteTexturedParticle {
 		for (Direction direction1 : new Direction[] { Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP }) {
 			blockpos$mutable.setPos(blockpos).move(direction1);
 			if (!this.world.getBlockState(blockpos$mutable).isCollisionShapeOpaque(this.world, blockpos$mutable)) {
-				double d1 = vec3d.getCoordinate(direction1.getAxis());
+				double d1 = Vector3d.getCoordinate(direction1.getAxis());
 				double d2 = direction1.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1.0D - d1 : d1;
 				if (d2 < d0) {
 					d0 = d2;

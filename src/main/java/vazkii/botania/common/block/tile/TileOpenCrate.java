@@ -16,7 +16,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -72,7 +72,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 
 	public void eject(ItemStack stack, boolean redstone) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
-		item.setMotion(Vec3d.ZERO);
+		item.setMotion(Vector3d.ZERO);
 		if (redstone) {
 			item.age = -200;
 		}

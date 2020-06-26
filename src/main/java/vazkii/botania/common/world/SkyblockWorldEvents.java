@@ -24,7 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -60,13 +60,13 @@ public final class SkyblockWorldEvents {
 
 			CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 			if (player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
-				World overworld = ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD);
-				World world = player.world;
+				World overworld = ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_);
+				ServerWorld world = (ServerWorld) player.world;
 				if (WorldTypeSkyblock.isWorldSkyblock(world)) {
-					BlockPos coords = world.getSpawnPoint();
+					BlockPos coords = world.func_241135_u_();
 					if (coords.getY() <= 0) {
 						coords = new BlockPos(coords.getX(), 64, coords.getZ());
-						world.setSpawnPoint(coords);
+						world.func_241124_a__(coords);
 					}
 					if (world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world == overworld) {
 						spawnPlayer(player, coords, false);
@@ -87,7 +87,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				if (ModTags.Blocks.PEBBLE_SOURCES.contains(block)) {
+				if (ModTags.Blocks.PEBBLE_SOURCES.func_230235_a_(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
@@ -146,7 +146,7 @@ public final class SkyblockWorldEvents {
 			if (player instanceof ServerPlayerEntity) {
 				ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnPoint(pos, true, false, player.world.getDimension().getType());
+				pmp.func_241153_a_(pmp.world.func_234923_W_(), pos, true, false);
 				if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
 					player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 				}

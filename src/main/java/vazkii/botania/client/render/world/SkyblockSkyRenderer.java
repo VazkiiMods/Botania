@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vector3d;
 import net.minecraftforge.client.SkyRenderHandler;
 
 import org.lwjgl.opengl.GL11;
@@ -53,10 +53,10 @@ public class SkyblockSkyRenderer implements SkyRenderHandler {
 		VertexFormat skyVertexFormat = mc.worldRenderer.skyVertexFormat;
 
 		RenderSystem.disableTexture();
-		Vec3d vec3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
-		float f = (float) vec3d.x;
-		float f1 = (float) vec3d.y;
-		float f2 = (float) vec3d.z;
+		Vector3d Vector3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
+		float f = (float) Vector3d.x;
+		float f1 = (float) Vector3d.y;
+		float f2 = (float) Vector3d.z;
 
 		// Botania - darken in void
 		float insideVoid = 0;

@@ -205,7 +205,7 @@ public class FXLightning extends Particle {
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
 		// don't have an entity to pass, just use the render view
 		Entity viewer = Minecraft.getInstance().renderViewEntity;
-		RayTraceContext ctx = new RayTraceContext(start.toVec3D(), end.toVec3D(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, viewer);
+		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, viewer);
 		RayTraceResult mop = world.rayTraceBlocks(ctx);
 
 		if (mop.getType() == RayTraceResult.Type.BLOCK) {
