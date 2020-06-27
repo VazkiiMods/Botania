@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -29,7 +30,7 @@ public class FXWisp extends SpriteTexturedParticle {
 	private final float moteParticleScale;
 	private final int moteHalfLife;
 
-	public FXWisp(World world, double d, double d1, double d2, double xSpeed, double ySpeed, double zSpeed,
+	public FXWisp(ClientWorld world, double d, double d1, double d2, double xSpeed, double ySpeed, double zSpeed,
 			float size, float red, float green, float blue, boolean depthTest, float maxAgeMul, boolean noClip) {
 		super(world, d, d1, d2, 0, 0, 0);
 		// super applies wiggle to motion so set it here instead
