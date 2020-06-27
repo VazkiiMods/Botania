@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -87,7 +88,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	public void tick() {
-		LivingEntity thrower = func_234616_v_();
+		Entity thrower = func_234616_v_();
 		if (!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
 			remove();
 			return;
@@ -175,7 +176,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
-		LivingEntity thrower = func_234616_v_();
+		Entity thrower = func_234616_v_();
 		if (pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
 			world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 3F, Explosion.Mode.NONE);
 			remove();
