@@ -134,6 +134,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	private void superUpdate() {
+		super.tick();
 		// Botania - inline supersuperclass.tick()
 		{
 			if (!this.world.isRemote) {

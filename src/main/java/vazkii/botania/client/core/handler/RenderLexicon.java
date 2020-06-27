@@ -25,7 +25,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderHandEvent;
 
@@ -160,16 +162,16 @@ public class RenderLexicon {
 				misspelling = mc.world.rand.nextInt(MISSPELLINGS.length);
 			}
 
-			String title = ItemLexicon.getTitle(stack).getFormattedText();
+			String title = ItemLexicon.getTitle(stack).getString();
 			if (SHOULD_MISSPELL) {
 				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
 			}
-			font.renderString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			font.renderString(font.func_238412_a_(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			String edition = ItemLexicon.getEdition().applyTextStyles(TextFormatting.ITALIC, TextFormatting.BOLD).getFormattedText();
-			font.renderString(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			ITextComponent edition = ItemLexicon.getEdition().func_230532_e_().func_240701_a_(TextFormatting.ITALIC, TextFormatting.BOLD);
+			font.func_238416_a_(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			if (quote == -1) {
 				quote = mc.world.rand.nextInt(QUOTES.length);
