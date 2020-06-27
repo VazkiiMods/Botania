@@ -8,9 +8,11 @@
  */
 package vazkii.botania.client.gui.bag;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,27 +36,27 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground();
-		super.render(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+	public void func_230430_a_(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+		this.func_230446_a_(ms);
+		super.func_230430_a_(ms, mouseX, mouseY, partialTicks);
+		this.func_230459_a_(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void func_230451_b_(MatrixStack ms, int mouseX, int mouseY) {
 		String s = I18n.format(ModItems.flowerBag.getTranslationKey());
-		font.drawString(s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
-		font.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		field_230712_o_.func_238421_b_(ms, s, xSize / 2 - field_230712_o_.getStringWidth(s) / 2, 6, 4210752);
+		field_230712_o_.func_238421_b_(ms, I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void func_230450_a_(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
-		int k = (width - xSize) / 2;
-		int l = (height - ySize) / 2;
-		blit(k, l, 0, 0, xSize, ySize);
+		int k = (field_230708_k_ - xSize) / 2;
+		int l = (field_230709_l_ - ySize) / 2;
+		func_238474_b_(ms, k, l, 0, 0, xSize, ySize);
 
 		for (Slot slot : container.inventorySlots) {
 			if (slot instanceof SlotItemHandler && !slot.getHasStack()) {
@@ -63,7 +65,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 				int x = guiLeft + slot.xPos;
 				int y = guiTop + slot.yPos;
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-				mc.fontRenderer.func_238405_a_("0", x + 11, y + 9, 0xFF6666);
+				mc.fontRenderer.func_238405_a_(ms, "0", x + 11, y + 9, 0xFF6666);
 			}
 		}
 	}
