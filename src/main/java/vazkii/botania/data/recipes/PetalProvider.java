@@ -139,7 +139,7 @@ public class PetalProvider extends RecipeProvider {
 	}
 
 	private static Ingredient tagIngr(String tag) {
-		return Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, tag)));
+		return Ingredient.fromTag(ItemTags.makeWrapperTag(prefix(tag).toString()));
 	}
 
 	private static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {

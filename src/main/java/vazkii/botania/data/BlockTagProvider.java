@@ -35,62 +35,63 @@ public class BlockTagProvider extends BlockTagsProvider {
 	protected void registerTags() {
 		Predicate<Block> botania = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
 
-		getBuilder(BlockTags.RAILS).add(ModBlocks.ghostRail);
+		func_240522_a_(BlockTags.RAILS).func_240532_a_(ModBlocks.ghostRail);
 
-		getBuilder(BlockTags.SLABS).add(registry.stream().filter(botania)
+		func_240522_a_(BlockTags.SLABS).func_240534_a_(registry.stream().filter(botania)
 				.filter(b -> b instanceof SlabBlock)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new));
 
-		getBuilder(BlockTags.STAIRS).add(registry.stream().filter(botania)
+		func_240522_a_(BlockTags.STAIRS).func_240534_a_(registry.stream().filter(botania)
 				.filter(b -> b instanceof StairsBlock)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new));
 
-		getBuilder(BlockTags.WALLS).add(registry.stream().filter(botania)
+		func_240522_a_(BlockTags.WALLS).func_240534_a_(registry.stream().filter(botania)
 				.filter(b -> b instanceof WallBlock)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new));
 
-		getBuilder(BlockTags.FENCES).add(registry.stream().filter(botania)
+		func_240522_a_(BlockTags.FENCES).func_240534_a_(registry.stream().filter(botania)
 				.filter(b -> b instanceof FenceBlock)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new));
 
-		getBuilder(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
+		func_240522_a_(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).func_240534_a_(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getFloatingFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getBuilder(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(botania)
+		func_240522_a_(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).func_240534_a_(registry.stream().filter(botania)
 				.filter(b -> b instanceof BlockFloatingSpecialFlower)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new)
 		);
 
-		getBuilder(ModTags.Blocks.FLOATING_FLOWERS).add(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
+		func_240522_a_(ModTags.Blocks.FLOATING_FLOWERS).func_240531_a_(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS)
+						.func_240531_a_(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
-		getBuilder(ModTags.Blocks.MYSTICAL_FLOWERS).add(
+		func_240522_a_(ModTags.Blocks.MYSTICAL_FLOWERS).func_240534_a_(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getBuilder(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
+		func_240522_a_(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).func_240534_a_(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getDoubleFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getBuilder(BlockTags.TALL_FLOWERS).add(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		getBuilder(BlockTags.SMALL_FLOWERS).add(ModTags.Blocks.MYSTICAL_FLOWERS);
-		getBuilder(BlockTags.FLOWERS).add(ModTags.Blocks.SPECIAL_FLOWERS);
+		func_240522_a_(BlockTags.TALL_FLOWERS).func_240531_a_(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
+		func_240522_a_(BlockTags.SMALL_FLOWERS).func_240531_a_(ModTags.Blocks.MYSTICAL_FLOWERS);
+		func_240522_a_(BlockTags.FLOWERS).func_240531_a_(ModTags.Blocks.SPECIAL_FLOWERS);
 
-		getBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
+		func_240522_a_(BlockTags.IMPERMEABLE).func_240534_a_(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 	}
 
 	@Nonnull

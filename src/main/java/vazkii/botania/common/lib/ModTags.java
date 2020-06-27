@@ -14,6 +14,9 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.client.lib.LibResources;
+
+import java.lang.invoke.MethodHandle;
 
 public class ModTags {
 	public static class Items {
@@ -184,10 +187,15 @@ public class ModTags {
 	}
 
 	public static class Entities {
-		public static final ITag.INamedTag<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
+		public static final ITag.INamedTag<EntityType<?>> SHADED_MESA_BLACKLIST;
 
-		private static ITag.INamedTag<EntityType<?>> tag(String name) {
-			return new EntityTypeTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, name));
+		static {
+			MethodHandle handle = LibObfuscation.getMethod(EntityTypeTags.class, "func_232896_a_", String.class);
+			try {
+				SHADED_MESA_BLACKLIST = (ITag.INamedTag<EntityType<?>>) handle.invokeExact(LibResources.PREFIX_MOD + "shaded_mesa_blacklist");
+			} catch (Throwable throwable) {
+				throw new RuntimeException(throwable);
+			}
 		}
 	}
 }
