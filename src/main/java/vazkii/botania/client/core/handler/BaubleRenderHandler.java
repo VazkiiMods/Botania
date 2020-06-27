@@ -25,14 +25,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 
 import net.minecraft.util.math.vector.Vector3f;
-import top.theillusivec4.curios.api.CuriosAPI;
-import top.theillusivec4.curios.api.capability.CuriosCapability;
-import top.theillusivec4.curios.api.inventory.CurioStackHandler;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -47,13 +43,14 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 
 	@Override
 	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		dispatchRenders(ms, buffers, light, player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+		// todo 1.16 curios dispatchRenders(ms, buffers, light, player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
 
 		if (ConfigHandler.CLIENT.renderAccessories.get() && player.getActivePotionEffect(Effects.INVISIBILITY) == null) {
 			renderManaTablet(ms, buffers, player);
 		}
 	}
 
+	/*
 	// Like LayerCurios, but with Botania-specific logic
 	private void dispatchRenders(MatrixStack ms, IRenderTypeBuffer buffers, int light, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ms.push();
@@ -95,6 +92,7 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 		});
 		ms.pop();
 	}
+	*/
 
 	private void renderManaTablet(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player) {
 		boolean renderedOne = false;

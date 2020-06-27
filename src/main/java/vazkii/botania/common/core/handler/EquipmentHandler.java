@@ -24,7 +24,6 @@ import net.minecraftforge.items.wrapper.RangedWrapper;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 import java.util.Arrays;
@@ -37,9 +36,11 @@ public abstract class EquipmentHandler {
 
 	public static void init() {
 		if (Botania.curiosLoaded) {
+			/* todo 1.16 curios
 			instance = new CurioIntegration();
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
 			MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
+			*/
 		} else {
 			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
 			instance = handler;

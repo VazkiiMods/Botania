@@ -6,6 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
+/* todo 1.16 curios
 package vazkii.botania.common.integration.curios;
 
 import com.google.common.collect.Multimap;
@@ -159,3 +160,4 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 	}
 }
+*/
