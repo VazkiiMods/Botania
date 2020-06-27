@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.patchouli.component;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.item.ItemStack;
@@ -43,32 +44,32 @@ public class TerraPlateComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef(0F, 0F, -10.0f);
-		context.renderItemStack(x + 13, y + 1, mouseX, mouseY, cornerBlock);
+	public void render(MatrixStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+		ms.push();
+		ms.translate(0, 0, -10);
+		context.renderItemStack(ms, x + 13, y + 1, mouseX, mouseY, cornerBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 20, y + 4, mouseX, mouseY, middleBlock);
-		context.renderItemStack(x + 7, y + 4, mouseX, mouseY, middleBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 20, y + 4, mouseX, mouseY, middleBlock);
+		context.renderItemStack(ms, x + 7, y + 4, mouseX, mouseY, middleBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 13, y + 8, mouseX, mouseY, cornerBlock);
-		context.renderItemStack(x + 27, y + 8, mouseX, mouseY, centerBlock);
-		context.renderItemStack(x, y + 8, mouseX, mouseY, cornerBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 13, y + 8, mouseX, mouseY, cornerBlock);
+		context.renderItemStack(ms, x + 27, y + 8, mouseX, mouseY, centerBlock);
+		context.renderItemStack(ms, x, y + 8, mouseX, mouseY, cornerBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 7, y + 12, mouseX, mouseY, middleBlock);
-		context.renderItemStack(x + 20, y + 12, mouseX, mouseY, middleBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 7, y + 12, mouseX, mouseY, middleBlock);
+		context.renderItemStack(ms, x + 20, y + 12, mouseX, mouseY, middleBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 14, y + 15, mouseX, mouseY, cornerBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 14, y + 15, mouseX, mouseY, cornerBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 13, y, mouseX, mouseY, plateBlock);
-		RenderSystem.translatef(0F, 0F, -10.0f);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 13, y, mouseX, mouseY, plateBlock);
+		ms.translate(0F, 0F, -10.0f);
 
-		RenderSystem.popMatrix();
+		ms.pop();
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.KeybindTextComponent;
 import net.minecraft.util.text.TextFormatting;
 
@@ -92,7 +93,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			return I18n.format("botaniamisc.drop") + TextFormatting.BOLD + " (?)";
 		case "dropTip0":
 		case "dropTip1": {
-			String drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN).getFormattedText();
+			ITextComponent drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN);
 			return I18n.format("botaniamisc.dropTip" + key.substring(7), drop);
 		}
 		}

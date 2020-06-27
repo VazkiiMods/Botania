@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.patchouli.component;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.screen.Screen;
@@ -39,7 +40,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 	protected abstract List<Ingredient> makeIngredients();
 
 	@Override
-	public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+	public void render(MatrixStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		int degreePerInput = (int) (360F / ingredients.size());
 		int ticksElapsed = context.getTicksInBook();
 
@@ -50,13 +51,13 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 				: 0;
 
 		for (Ingredient input : ingredients) {
-			renderIngredientAtAngle(context, currentDegree, input, mouseX, mouseY);
+			renderIngredientAtAngle(ms, context, currentDegree, input, mouseX, mouseY);
 
 			currentDegree += degreePerInput;
 		}
 	}
 
-	private void renderIngredientAtAngle(IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
+	private void renderIngredientAtAngle(MatrixStack ms, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
 		if (ingredient.hasNoMatchingItems()) {
 			return;
 		}
@@ -66,10 +67,10 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 		double xPos = x + Math.cos(angle * Math.PI / 180D) * radius + 32;
 		double yPos = y + Math.sin(angle * Math.PI / 180D) * radius + 32;
 
-		RenderSystem.pushMatrix(); // This translation makes it not stuttery. It does not affect the tooltip as that is drawn separately later.
-		RenderSystem.translated(xPos - (int) xPos, yPos - (int) yPos, 0);
-		context.renderIngredient((int) xPos, (int) yPos, mouseX, mouseY, ingredient);
-		RenderSystem.popMatrix();
+		ms.push(); // This translation makes it not stuttery. It does not affect the tooltip as that is drawn separately later.
+		ms.translate(xPos - (int) xPos, yPos - (int) yPos, 0);
+		context.renderIngredient(ms, (int) xPos, (int) yPos, mouseX, mouseY, ingredient);
+		ms.pop();
 	}
 
 }
