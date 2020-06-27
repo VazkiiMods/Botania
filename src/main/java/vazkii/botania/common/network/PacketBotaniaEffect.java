@@ -91,7 +91,7 @@ public class PacketBotaniaEffect {
 						int g = (hex & 0xFF00) >> 8;
 						int b = hex & 0xFF;
 						for (int i = 0; i < 10; i++) {
-							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.rand));
+							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.func_239631_a_(world.rand));
 							SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 							world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 						}

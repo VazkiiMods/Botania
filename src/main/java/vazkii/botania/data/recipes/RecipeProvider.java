@@ -817,7 +817,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(mushrooms, 2)
 				.addIngredient(Items.BOWL)
 				.addCriterion("has_item", hasItem(Items.BOWL))
-				.addCriterion("has_orig_recipe", new RecipeUnlockedTrigger.Instance(new ResourceLocation("mushroom_stew")))
+				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.func_235675_a_(new ResourceLocation("mushroom_stew")))
 				.build(consumer, "botania:mushroom_stew");
 
 		ShapedRecipeBuilder.shapedRecipe(Items.COBWEB)
@@ -1005,7 +1005,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addRecipe(
 						cacophoniumBase.get().key('G', Ingredient.fromItemListStream(Stream.of(
 								new Ingredient.TagList(Tags.Items.INGOTS_GOLD),
-								new Ingredient.TagList(new ItemTags.Wrapper(new ResourceLocation("forge", "ingots/brass"))))
+								new Ingredient.TagList(ItemTags.makeWrapperTag("forge:ingots/brass")))
 						))::build
 				).setAdvancement(prefix("recipes/botania/cacophonium"),
 						ConditionalAdvancement.builder()
@@ -1014,7 +1014,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 										.withParentId(new ResourceLocation("recipes/root"))
 										.withRewards(AdvancementRewards.Builder.recipe(cacophoniumId))
 										.withCriterion("has_item", hasItem(Items.NOTE_BLOCK))
-										.withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(cacophoniumId))
+										.withCriterion("has_the_recipe", RecipeUnlockedTrigger.func_235675_a_(cacophoniumId))
 										.withRequirementsStrategy(IRequirementsStrategy.OR))
 				).build(consumer, cacophoniumId);
 
@@ -1197,7 +1197,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			if (pattern == CratePattern.NONE) {
 				continue;
 			}
-			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getName().split("_", 2)[1])).get();
+			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.func_176610_l().split("_", 2)[1])).get();
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeBuilder.shapedRecipe(item)
 					.key('P', ModItems.placeholder)
@@ -2398,7 +2398,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerTerrasteelUpgradeRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider output,
-			IItemProvider upgradedInput, Tag<Item> runeInput) {
+			IItemProvider upgradedInput, ITag<Item> runeInput) {
 		ShapedRecipeBuilder.shapedRecipe(output)
 				.key('T', ModItems.livingwoodTwig)
 				.key('S', ModTags.Items.INGOTS_TERRASTEEL)
@@ -2442,7 +2442,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, Tag<Item> input, String name) {
+	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, ITag<Item> input, String name) {
 		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
 				.addCriterion("has_item", hasItem(output))
 				.addIngredient(input)
