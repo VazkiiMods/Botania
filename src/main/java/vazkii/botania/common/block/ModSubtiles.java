@@ -119,8 +119,8 @@ public class ModSubtiles {
 
 	public static final Block hopperhock = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
 	public static final Block hopperhockChibi = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
-	public static final Block hopperhockFloating = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
-	public static final Block hopperhockChibiFloating = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
+	public static final Block hopperhockFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock::new);
+	public static final Block hopperhockChibiFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisy), SubTileHopperhock.Mini::new);
 
 	public static final Block tangleberrie = new BlockSpecialFlower(Block.Properties.from(pureDaisy), SubTileTangleberrie::new);
 	public static final Block tangleberrieFloating = new BlockFloatingSpecialFlower(Block.Properties.from(pureDaisyFloating), SubTileTangleberrie::new);

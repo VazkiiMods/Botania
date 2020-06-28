@@ -21,13 +21,18 @@
           "source": "block_entity",
           "ops": [
             {
-              "source": "lastFood",
-              "target": "BlockEntityTag.lastFood",
+              "source": "lastFoods",
+              "target": "BlockEntityTag.lastFoods",
               "op": "replace"
             },
             {
               "source": "lastFoodCount",
               "target": "BlockEntityTag.lastFoodCount",
+              "op": "replace"
+            },
+            {
+              "source": "streakLength",
+              "target": "BlockEntityTag.streakLength",
               "op": "replace"
             }
           ]
