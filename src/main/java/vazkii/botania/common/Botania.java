@@ -236,6 +236,7 @@ public class Botania {
 							.func_233813_a_());
 			ModBanners.init();
 			ColorHelper.init();
+			ModLootModifiers.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());

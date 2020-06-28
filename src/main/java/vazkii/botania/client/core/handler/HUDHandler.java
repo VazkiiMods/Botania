@@ -77,7 +77,7 @@ public final class HUDHandler {
 		IProfiler profiler = mc.getProfiler();
 		ItemStack main = mc.player.getHeldItemMainhand();
 		ItemStack offhand = mc.player.getHeldItemOffhand();
-		MatrixStack ms = null; // todo 1.16 Forge moment: ms is not accessible from the event currently
+		MatrixStack ms = event.getMatrixStack();
 
 		if (event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");

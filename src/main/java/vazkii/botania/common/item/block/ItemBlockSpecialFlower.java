@@ -48,12 +48,14 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
 		if (Botania.finishedLoading) {
-			if (GENERATING.func_230235_a_(this)) {
-				tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-			} else if (FUNCTIONAL.func_230235_a_(this)) {
-				tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-			} else if (MISC.func_230235_a_(this)) {
-				tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+			if (world != null) {
+				if (GENERATING.func_230235_a_(this)) {
+					tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+				} else if (FUNCTIONAL.func_230235_a_(this)) {
+					tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+				} else if (MISC.func_230235_a_(this)) {
+					tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+				}
 			}
 
 			if (ConfigHandler.CLIENT.referencesEnabled.get()) {

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
@@ -27,7 +28,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	private final ITag.INamedTag<Block> tag;
 
 	public StateIngredientTag(ITag.INamedTag<Block> tag) {
-		super(tag.func_230236_b_());
+		super(ImmutableSet.of());
 		this.tag = tag;
 	}
 

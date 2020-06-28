@@ -86,7 +86,7 @@ public final class RenderHelper {
 		TRANSLUCENT_TRANSPARENCY = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
 		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
 		RenderState.CullState disableCull = new RenderState.CullState(false);
-		RenderState.LayerState projectionLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228500_J_");
+		RenderState.LayerState viewOffsetZLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_239235_M_");
 		RenderState.WriteMaskState colorMask = new RenderState.WriteMaskState(true, false);
 		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
 		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
@@ -107,15 +107,15 @@ public final class RenderHelper {
 		RECTANGLE = RenderType.makeType(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 		CIRCLE = RenderType.makeType(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(1))).layer(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).build(false);
+		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(1))).layer(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).build(false);
 		LINE_1 = RenderType.makeType(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(1))).layer(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(1))).layer(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
 		LINE_1_NO_DEPTH = RenderType.makeType(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(4))).layer(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(4))).layer(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
 		LINE_4_NO_DEPTH = RenderType.makeType(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(5))).layer(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(5))).layer(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
 		LINE_5_NO_DEPTH = RenderType.makeType(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
-		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(8))).layer(projectionLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
+		glState = RenderType.State.getBuilder().line(new RenderState.LineState(OptionalDouble.of(8))).layer(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(colorMask).depthTest(noDepth).build(false);
 		LINE_8_NO_DEPTH = RenderType.makeType(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
 		glState = RenderType.State.getBuilder().texture(mipmapBlockAtlasTexture).transparency(TRANSLUCENT_TRANSPARENCY).alpha(new RenderState.AlphaState(0.05F)).lightmap(enableLightmap).build(true);
