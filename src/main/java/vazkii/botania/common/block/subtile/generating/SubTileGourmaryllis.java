@@ -46,7 +46,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	private int cooldown = 0;
 	private int digestingMana = 0;
 	private List<ItemStack> lastFoods = new LinkedList<>();
-	private int streakLength = 0;
+	private int streakLength = -1;
 	private int lastFoodCount = 0;
 
 	public SubTileGourmaryllis() {
@@ -109,7 +109,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				addMana(digestingMana);
 				digestingMana = 0;
 
-				float burpPitch = 1 - (lastFoodCount - 1) * 0.05F;
+				float burpPitch = (float) Math.pow(2.0, (streakLength == 0 ? -lastFoodCount : streakLength) / 12.0);
 				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
 				sync();
 			} else if (cooldown % munchInterval == 0) {
