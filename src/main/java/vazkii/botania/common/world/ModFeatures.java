@@ -25,8 +25,8 @@ import java.util.Set;
 import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModFeatures {
-	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature(MysticalFlowerConfig::deserialize);
-	public static final Feature<MysticalFlowerConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature(MysticalFlowerConfig::deserialize);
+	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
+	public static final Feature<MysticalFlowerConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 
 	public static final Set<BiomeDictionary.Type> TYPE_BLACKLIST = ImmutableSet.of(
 			BiomeDictionary.Type.DEAD,
@@ -44,16 +44,12 @@ public class ModFeatures {
 		register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
 	}
 
-	public static void registerChunkGenerators(RegistryEvent.Register<ChunkGeneratorType<?, ?>> evt) {
-		register(evt.getRegistry(), "garden_of_glass", SkyblockChunkGenerator.TYPE);
-	}
-
 	public static void addWorldgen() {
 		for (Biome biome : Registry.BIOME) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
-				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.withConfiguration(new MysticalFlowerConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}
-			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.withConfiguration(new MysticalFlowerConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 		}
 	}
 }

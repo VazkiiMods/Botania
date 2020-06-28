@@ -140,7 +140,6 @@ public class Botania {
 		modBus.addListener(IMCHandler::handle);
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(DataGenerators::gatherData);
-		modBus.addGenericListener(ChunkGeneratorType.class, ModFeatures::registerChunkGenerators);
 		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
 		modBus.addGenericListener(Item.class, ModItems::registerItems);
 		modBus.addGenericListener(ContainerType.class, ModItems::registerContainers);
