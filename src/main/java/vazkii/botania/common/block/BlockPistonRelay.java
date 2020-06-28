@@ -150,8 +150,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			for (int i = 0; i < list.size(); i += 2) {
 				INBT from = list.get(i);
 				INBT to = list.get(i + 1);
-				BlockPos fromPos = BlockPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, from));
-				BlockPos toPos = BlockPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, to));
+				BlockPos fromPos = BlockPos.field_239578_a_.decode(NBTDynamicOps.INSTANCE, from).result().get().getFirst();
+				BlockPos toPos = BlockPos.field_239578_a_.decode(NBTDynamicOps.INSTANCE, to).result().get().getFirst();
 
 				mapping.put(fromPos, toPos);
 			}
@@ -162,8 +162,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		public CompoundNBT write(@Nonnull CompoundNBT cmp) {
 			ListNBT list = new ListNBT();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
-				list.add(e.getKey().serialize(NBTDynamicOps.INSTANCE));
-				list.add(e.getValue().serialize(NBTDynamicOps.INSTANCE));
+				INBT from = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, e.getKey()).result().get();
+				INBT to = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, e.getValue()).result().get();
+				list.add(from);
+				list.add(to);
 			}
 			cmp.put("list", list);
 			return cmp;

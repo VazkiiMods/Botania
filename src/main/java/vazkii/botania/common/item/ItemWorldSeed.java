@@ -36,7 +36,8 @@ public class ItemWorldSeed extends Item {
 		}
 
 		BlockPos coords = ((ServerWorld) world).func_241135_u_();
-		if (world.getDimension().canRespawnHere() && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getPosX(), player.getPosY(), player.getPosZ()) > 24) {
+		// todo 1.16 only make it work in dimensions with a conceptual spawn point
+		if (MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getPosX(), player.getPosY(), player.getPosZ()) > 24) {
 			player.rotationPitch = 0F;
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);

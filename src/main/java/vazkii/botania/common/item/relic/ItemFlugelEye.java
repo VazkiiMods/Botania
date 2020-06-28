@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.relic;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,6 +33,7 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
@@ -60,7 +62,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			} else {
 				ItemStack stack = ctx.getItem();
 				GlobalPos loc = GlobalPos.func_239648_a_(world.func_234923_W_(), pos);
-				ItemNBTHelper.set(stack, TAG_LOCATION, loc.serialize(NBTDynamicOps.INSTANCE));
+				INBT nbt = GlobalPos.field_239645_a_.encodeStart(NBTDynamicOps.INSTANCE, loc).result().get();
+				ItemNBTHelper.set(stack, TAG_LOCATION, nbt);
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
@@ -93,7 +96,12 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		if (nbt == null) {
 			return stack;
 		}
-		GlobalPos loc = GlobalPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, nbt));
+		Optional<GlobalPos> maybeLoc = GlobalPos.field_239645_a_.decode(NBTDynamicOps.INSTANCE, nbt).result().map(Pair::getFirst);
+		if (!maybeLoc.isPresent()) {
+			ItemNBTHelper.removeEntry(stack, TAG_LOCATION);
+			return stack;
+		}
+		GlobalPos loc = maybeLoc.get();
 		int x = loc.getPos().getX();
 		int y = loc.getPos().getY();
 		int z = loc.getPos().getZ();
@@ -130,7 +138,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	public BlockPos getBinding(ItemStack stack) {
 		INBT nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
 		if (nbt != null) {
-			return GlobalPos.deserialize(new Dynamic<>(NBTDynamicOps.INSTANCE, nbt)).getPos();
+			return GlobalPos.field_239645_a_.decode(NBTDynamicOps.INSTANCE, nbt).result()
+							.map(Pair::getFirst)
+							.map(GlobalPos::getPos).orElse(null);
 		}
 		return null;
 	}

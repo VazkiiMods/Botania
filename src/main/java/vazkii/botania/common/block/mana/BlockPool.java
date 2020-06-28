@@ -114,7 +114,7 @@ public class BlockPool extends BlockModWaterloggable implements ITileEntityProvi
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TilePool) world.getTileEntity(pos)).renderHUD(mc);
+		((TilePool) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

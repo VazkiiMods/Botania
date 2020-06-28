@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Block;
@@ -391,7 +392,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = pool.getDisplayName().getString();
 		int color = 0x4444FF;

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -59,12 +60,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name) {
+	public void drawSimpleManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name) {
 		HUDHandler.drawSimpleManaHUD(ms, color, mana, maxMana, name);
 	}
 
 	@Override
-	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
+	public void drawComplexManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
 		HUDHandler.drawComplexManaHUD(color, ms, mana, maxMana, name, bindDisplay, properlyBound);
 	}
 

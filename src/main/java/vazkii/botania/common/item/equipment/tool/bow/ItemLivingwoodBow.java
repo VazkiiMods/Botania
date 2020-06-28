@@ -83,7 +83,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 					if (!worldIn.isRemote) {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
-						abstractarrowentity = customeArrow(abstractarrowentity);
+						abstractarrowentity = customArrow(abstractarrowentity);
 						abstractarrowentity.func_234612_a_(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 						if (f == 1.0F) {
 							abstractarrowentity.setIsCritical(true);

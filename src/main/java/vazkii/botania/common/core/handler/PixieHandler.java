@@ -71,10 +71,12 @@ public final class PixieHandler {
 	// Want to do this as early as possible -- doing it at entity join world means attribute modifiers are ignored when loading
 	public static void attachAttribute(AttachCapabilitiesEvent<Entity> evt) {
 		if (evt.getObject() instanceof PlayerEntity) {
+			/* todo 1.16 impossible rn?
 			AbstractAttributeMap attributes = ((PlayerEntity) evt.getObject()).getAttributes();
 			if (attributes.getAttributeInstance(PIXIE_SPAWN_CHANCE) == null) {
 				attributes.registerAttribute(PIXIE_SPAWN_CHANCE);
 			}
+			*/
 		}
 	}
 

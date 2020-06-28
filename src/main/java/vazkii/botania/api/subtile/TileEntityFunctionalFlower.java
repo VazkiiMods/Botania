@@ -239,7 +239,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -21,8 +22,11 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.tags.ITag;
+import net.minecraft.tileentity.EndGatewayTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -134,8 +138,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	private void superUpdate() {
-		super.tick();
-		// Botania - inline supersuperclass.tick()
+		// Botania: inline Entity.tick()
 		{
 			if (!this.world.isRemote) {
 				this.setFlag(6, this.isGlowing());
@@ -143,95 +146,53 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 			this.baseTick();
 		}
-		if (this.throwableShake > 0) {
-			--this.throwableShake;
-		}
 
-		if (this.inGround) {
-			this.inGround = false;
-			this.setMotion(this.getMotion().mul((double) (this.rand.nextFloat() * 0.2F), (double) (this.rand.nextFloat() * 0.2F), (double) (this.rand.nextFloat() * 0.2F)));
-		}
+		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_, RayTraceContext.BlockMode.OUTLINE);
+		boolean flag = false;
+		if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = ((BlockRayTraceResult)raytraceresult).getPos();
+			BlockState blockstate = this.world.getBlockState(blockpos);
+			if (blockstate.isIn(Blocks.NETHER_PORTAL)) {
+				this.setPortal(blockpos);
+				flag = true;
+			} else if (blockstate.isIn(Blocks.END_GATEWAY)) {
+				TileEntity tileentity = this.world.getTileEntity(blockpos);
+				if (tileentity instanceof EndGatewayTileEntity) {
+					((EndGatewayTileEntity)tileentity).teleportEntity(this);
+				}
 
-		AxisAlignedBB axisalignedbb = this.getBoundingBox().expand(this.getMotion()).grow(1.0D);
-
-		/* Botania - no ignoreEntity stuff at all
-		for(Entity entity : this.world.getEntitiesInAABBexcluding(this, axisalignedbb, (p_213881_0_) -> {
-			return !p_213881_0_.isSpectator() && p_213881_0_.canBeCollidedWith();
-		})) {
-			if (entity == this.ignoreEntity) {
-				++this.ignoreTime;
-				break;
-			}
-		
-			if (this.owner != null && this.ticksExisted < 2 && this.ignoreEntity == null) {
-				this.ignoreEntity = entity;
-				this.ignoreTime = 3;
-				break;
-			}
-		}
-		*/
-
-		RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, axisalignedbb, (p_213880_1_) -> {
-			return !p_213880_1_.isSpectator() && p_213880_1_.canBeCollidedWith(); // && p_213880_1_ != this.ignoreEntity;
-		}, RayTraceContext.BlockMode.OUTLINE, true);
-		/*
-		if (this.ignoreEntity != null && this.ignoreTime-- <= 0) {
-			this.ignoreEntity = null;
-		}
-		*/
-
-		if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
-			if (raytraceresult.getType() == RayTraceResult.Type.BLOCK && this.world.getBlockState(((BlockRayTraceResult) raytraceresult).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
-				this.setPortal(((BlockRayTraceResult) raytraceresult).getPos());
-			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-				this.onImpact(raytraceresult);
+				flag = true;
 			}
 		}
 
-		Vector3d Vector3d = this.getMotion();
-		double d0 = this.getPosX() + Vector3d.x;
-		double d1 = this.getPosY() + Vector3d.y;
-		double d2 = this.getPosZ() + Vector3d.z;
-		float f = MathHelper.sqrt(horizontalMag(Vector3d));
-		this.rotationYaw = (float) (MathHelper.atan2(Vector3d.x, Vector3d.z) * (double) (180F / (float) Math.PI));
-
-		for (this.rotationPitch = (float) (MathHelper.atan2(Vector3d.y, (double) f) * (double) (180F / (float) Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-			;
+		if (raytraceresult.getType() != RayTraceResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+			this.onImpact(raytraceresult);
 		}
 
-		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
-			this.prevRotationPitch += 360.0F;
-		}
-
-		while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
-			this.prevRotationYaw -= 360.0F;
-		}
-
-		while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
-			this.prevRotationYaw += 360.0F;
-		}
-
-		this.rotationPitch = MathHelper.lerp(0.2F, this.prevRotationPitch, this.rotationPitch);
-		this.rotationYaw = MathHelper.lerp(0.2F, this.prevRotationYaw, this.rotationYaw);
-		float f1;
+		Vector3d vector3d = this.getMotion();
+		double d2 = this.getPosX() + vector3d.x;
+		double d0 = this.getPosY() + vector3d.y;
+		double d1 = this.getPosZ() + vector3d.z;
+		this.func_234617_x_();
+		float f;
 		if (this.isInWater()) {
-			for (int i = 0; i < 4; ++i) {
-				float f2 = 0.25F;
-				this.world.addParticle(ParticleTypes.BUBBLE, d0 - Vector3d.x * 0.25D, d1 - Vector3d.y * 0.25D, d2 - Vector3d.z * 0.25D, Vector3d.x, Vector3d.y, Vector3d.z);
+			for(int i = 0; i < 4; ++i) {
+				float f1 = 0.25F;
+				this.world.addParticle(ParticleTypes.BUBBLE, d2 - vector3d.x * 0.25D, d0 - vector3d.y * 0.25D, d1 - vector3d.z * 0.25D, vector3d.x, vector3d.y, vector3d.z);
 			}
 
-			f1 = 0.8F;
+			f = 0.8F;
 		} else {
-			f1 = 0.99F;
+			f = 0.99F;
 		}
 
-		// Botania - no drag this.setMotion(Vector3d.scale((double)f1));
+		// Botania: no drag this.setMotion(vector3d.scale((double)f));
 		if (!this.hasNoGravity()) {
-			Vector3d Vector3d1 = this.getMotion();
-			this.setMotion(Vector3d1.x, Vector3d1.y - (double) this.getGravityVelocity(), Vector3d1.z);
+			Vector3d vector3d1 = this.getMotion();
+			this.setMotion(vector3d1.x, vector3d1.y - (double)this.getGravityVelocity(), vector3d1.z);
 		}
 
-		this.setPosition(d0, d1, d2);
+		this.setPosition(d2, d0, d1);
 	}
 
 	@Override
@@ -287,13 +248,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	@Override
-	public boolean handleWaterMovement() {
+	public boolean handleFluidAcceleration(ITag<Fluid> fluid, double mag) {
 		return false;
 	}
 
 	@Override
 	public boolean isInLava() {
-		//Avoids expensive getBlockState check in Entity#onEntityUpdate (see super impl)
 		return false;
 	}
 

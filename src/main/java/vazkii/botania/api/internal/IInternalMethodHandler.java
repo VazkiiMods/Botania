@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.internal;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -48,10 +49,10 @@ public interface IInternalMethodHandler {
 	public boolean hasSolegnoliaAround(Entity e);
 
 	@OnlyIn(Dist.CLIENT)
-	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name);
+	public void drawSimpleManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name);
 
 	@OnlyIn(Dist.CLIENT)
-	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound);
+	public void drawComplexManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound);
 
 	public ItemStack getBindDisplayForFlowerType(TileEntitySpecialFlower e);
 

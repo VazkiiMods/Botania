@@ -13,7 +13,10 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BreakableBlock;
+import net.minecraft.block.StainedGlassPaneBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.*;
@@ -24,6 +27,7 @@ import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
@@ -32,6 +36,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.lwjgl.opengl.GL11;
@@ -306,15 +311,15 @@ public final class RenderHelper {
 		if (model == null) {
 			model = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, entity);
 		}
-		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(ms, model, ItemCameraTransforms.TransformType.NONE, false);
+		model = ForgeHooksClient.handleCameraTransforms(ms, model, ItemCameraTransforms.TransformType.NONE, false);
 		ms.translate(-0.5D, -0.5D, -0.5D);
-		if (!model.isBuiltInRenderer()) {
-			RenderType rendertype = RenderTypeLookup.getRenderType(stack);
 
-			IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffers, rendertype, true, stack.hasEffect());
+		if (!model.isBuiltInRenderer() && (stack.getItem() != Items.TRIDENT)) {
+			RenderType rendertype = RenderTypeLookup.func_239219_a_(stack, true);
+			IVertexBuilder ivertexbuilder = ItemRenderer.func_239391_c_(buffers, rendertype, true, stack.hasEffect());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
-			stack.getItem().getItemStackTileEntityRenderer().render(stack, ms, buffers, light, overlay);
+			stack.getItem().getItemStackTileEntityRenderer().func_239207_a_(stack, ItemCameraTransforms.TransformType.NONE, ms, buffers, light, overlay);
 		}
 
 		ms.pop();
