@@ -8,52 +8,32 @@
  */
 package vazkii.botania.common.world;
 
+import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.provider.BiomeProviderType;
-import net.minecraft.world.biome.provider.OverworldBiomeProviderSettings;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.OverworldGenSettings;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.gen.DimensionSettings;
+import net.minecraft.world.server.ServerChunkProvider;
 
-import javax.annotation.Nonnull;
-
-public class WorldTypeSkyblock extends WorldType {
+public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 
 	public WorldTypeSkyblock() {
 		super("botania-skyblock");
-
 	}
 
 	public static boolean isWorldSkyblock(World world) {
-		return world.getWorldInfo().getGenerator() instanceof WorldTypeSkyblock;
+		return world.getChunkProvider() instanceof ServerChunkProvider
+						&& ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyblockChunkGenerator;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public boolean hasInfoNotice() {
-		return true;
-	}
+	/* todo 1.16 impossible now?
 
 	@Override
 	public float getCloudHeight() {
 		return 260f;
 	}
 
-	@Nonnull
-	@Override
-	public ChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
-		if (world.dimension.getType() == DimensionType.OVERWORLD) {
-			OverworldGenSettings genSettings = SkyblockChunkGenerator.TYPE.createSettings();
-			OverworldBiomeProviderSettings biomeSettings = BiomeProviderType.VANILLA_LAYERED.createSettings(world.getWorldInfo()).setGeneratorSettings(genSettings);
-			return SkyblockChunkGenerator.TYPE.create(world, BiomeProviderType.VANILLA_LAYERED.create(biomeSettings), genSettings);
-		}
-		return super.createChunkGenerator(world);
-	}
-
-	/* In skyblock worlds, do not darken the sky until player hits y=0 */
+	// In skyblock worlds, do not darken the sky until player hits y=0
 	@Override
 	public double getHorizon(World world) {
 		return 0.0D;
@@ -63,5 +43,10 @@ public class WorldTypeSkyblock extends WorldType {
 	public double voidFadeMagnitude() {
 		return 1.0D;
 	}
+	*/
 
+	@Override
+	protected ChunkGenerator func_230484_a_(long seed) {
+		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false), DimensionSettings.Preset.field_236122_b_.func_236137_b_().func_236108_a_());
+	}
 }
