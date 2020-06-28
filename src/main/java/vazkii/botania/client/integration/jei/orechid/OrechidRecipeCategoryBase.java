@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -84,7 +85,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
 		List<ItemStack> stackList = BlockTags.getCollection().getOrCreate(recipe.entry.getKey())
-				.getAllElements()
+				.func_230236_b_()
 				.stream()
 				.filter(s -> s.asItem() != Items.AIR)
 				.map(ItemStack::new)
@@ -118,10 +119,10 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	}
 
 	@Override
-	public void draw(T recipe, double mouseX, double mouseY) {
+	public void draw(T recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
+		overlay.draw(ms, 48, 0);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

@@ -102,10 +102,10 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-36.187:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-36.187")
 
+    compileOnly fg.deobf("mezz.jei:jei-1.16.1:7.0.0.2:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.1:7.0.0.2")
+
     /*
-    compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
-    
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.2-2.0")
     */

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -117,10 +118,10 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	}
 
 	@Override
-	public void draw(IPureDaisyRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IPureDaisyRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
+		overlay.draw(ms, 48, 0);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.manapool;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -103,10 +104,10 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	}
 
 	@Override
-	public void draw(IManaInfusionRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IManaInfusionRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
+		overlay.draw(ms, 48, 0);
 		HUDHandler.renderManaBar(ms, 28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();

@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.petalapothecary;
+package vazkii.botania.client.integration.jei.runicaltar;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -23,9 +23,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.api.recipe.IPetalRecipe;
+import vazkii.botania.api.recipe.IRuneAltarRecipe;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -35,20 +37,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
+public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "petals");
-	private final IDrawableStatic background;
+	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "runic_altar");
+	private final IDrawable background;
 	private final String localizedName;
-	private final IDrawableStatic overlay;
+	private final IDrawable overlay;
 	private final IDrawable icon;
 
-	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
+	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
-		localizedName = I18n.format("botania.nei.petalApothecary");
+		localizedName = I18n.format("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
-		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.defaultAltar));
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
 	}
 
 	@Nonnull
@@ -59,8 +61,8 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 	@Nonnull
 	@Override
-	public Class<? extends IPetalRecipe> getRecipeClass() {
-		return IPetalRecipe.class;
+	public Class<? extends IRuneAltarRecipe> getRecipeClass() {
+		return IRuneAltarRecipe.class;
 	}
 
 	@Nonnull
@@ -82,7 +84,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	}
 
 	@Override
-	public void setIngredients(IPetalRecipe recipe, IIngredients iIngredients) {
+	public void setIngredients(IRuneAltarRecipe recipe, IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
 		for (Ingredient ingr : recipe.getIngredients()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
@@ -92,18 +94,19 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	}
 
 	@Override
-	public void draw(IPetalRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IRuneAltarRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw();
+		overlay.draw(ms);
+		HUDHandler.renderManaBar(ms, 28, 113, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IPetalRecipe recipe, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRuneAltarRecipe recipe, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
-		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
+		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
@@ -128,4 +131,5 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
 		return new Point((int) newX, (int) newY);
 	}
+
 }

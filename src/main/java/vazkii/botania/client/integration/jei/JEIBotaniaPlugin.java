@@ -28,6 +28,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 
+import net.minecraft.util.text.TranslationTextComponent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -108,7 +109,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	public static boolean doesOreExist(ResourceLocation tagId) {
-		return !BlockTags.getCollection().getOrCreate(tagId).getAllElements().isEmpty();
+		return !BlockTags.getCollection().getOrCreate(tagId).func_230236_b_().isEmpty();
 	}
 
 	@Override
@@ -222,7 +223,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex == slot) {
 				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.func_231173_s_()) {
-					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
+					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
 				}
 			}
 		});

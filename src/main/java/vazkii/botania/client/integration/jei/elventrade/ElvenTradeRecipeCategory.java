@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.elventrade;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -31,6 +32,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 
+import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -99,10 +101,10 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void draw(IElvenTradeRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IElvenTradeRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(0, 4);
+		overlay.draw(ms, 0, 4);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 
@@ -143,7 +145,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex >= endIndex) {
 				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.func_231173_s_()) {
-					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
+					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
 				}
 			}
 		});
