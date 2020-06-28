@@ -23,7 +23,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
-
 import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
@@ -56,21 +55,21 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 		ms.push();
 		CuriosAPI.getCuriosHandler(player).ifPresent(handler -> {
 			Map<String, CurioStackHandler> curios = handler.getCurioMap();
-
+	
 			for (Map.Entry<String, CurioStackHandler> e : curios.entrySet()) {
 				for (int i = 0; i < e.getValue().getSlots(); i++) {
 					ItemStack stack = e.getValue().getStackInSlot(i);
 					if (!stack.isEmpty()) {
 						Item item = stack.getItem();
 						ItemStack toRender = stack;
-
+	
 						if (item instanceof IPhantomInkable) {
 							IPhantomInkable inkable = (IPhantomInkable) item;
 							if (inkable.hasPhantomInk(stack)) {
 								continue;
 							}
 						}
-
+	
 						if (item instanceof ICosmeticAttachable) {
 							ICosmeticAttachable attachable = (ICosmeticAttachable) item;
 							ItemStack cosmetic = attachable.getCosmeticItem(stack);
@@ -78,7 +77,7 @@ public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlaye
 								toRender = cosmetic;
 							}
 						}
-
+	
 						toRender.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
 							if (c.hasRender(e.getKey(), player) && c instanceof CurioIntegration.Wrapper) {
 								ms.push();

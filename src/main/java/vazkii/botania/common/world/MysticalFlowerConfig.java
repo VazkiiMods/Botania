@@ -8,21 +8,21 @@
  */
 package vazkii.botania.common.world;
 
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class MysticalFlowerConfig implements IFeatureConfig {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-					Codec.INT.fieldOf("flower_patch_size").forGetter(MysticalFlowerConfig::getFlowerPatchSize),
-					Codec.INT.fieldOf("mushroom_patch_size").forGetter(MysticalFlowerConfig::getMushroomPatchSize),
-					Codec.INT.fieldOf("patch_count").forGetter(MysticalFlowerConfig::getPatchCount),
-					Codec.INT.fieldOf("patch_density").forGetter(MysticalFlowerConfig::getPatchDensity),
-					Codec.INT.fieldOf("patch_chance").forGetter(MysticalFlowerConfig::getPatchChance),
-					Codec.DOUBLE.fieldOf("tall_chance").forGetter(MysticalFlowerConfig::getTallChance)
+			Codec.INT.fieldOf("flower_patch_size").forGetter(MysticalFlowerConfig::getFlowerPatchSize),
+			Codec.INT.fieldOf("mushroom_patch_size").forGetter(MysticalFlowerConfig::getMushroomPatchSize),
+			Codec.INT.fieldOf("patch_count").forGetter(MysticalFlowerConfig::getPatchCount),
+			Codec.INT.fieldOf("patch_density").forGetter(MysticalFlowerConfig::getPatchDensity),
+			Codec.INT.fieldOf("patch_chance").forGetter(MysticalFlowerConfig::getPatchChance),
+			Codec.DOUBLE.fieldOf("tall_chance").forGetter(MysticalFlowerConfig::getTallChance)
 	).apply(instance, MysticalFlowerConfig::new));
 
 	private final int flowerPatchSize;
@@ -34,12 +34,12 @@ public class MysticalFlowerConfig implements IFeatureConfig {
 
 	public static MysticalFlowerConfig fromConfig() {
 		return new MysticalFlowerConfig(
-						ConfigHandler.COMMON.flowerPatchSize.get(),
-						ConfigHandler.COMMON.mushroomQuantity.get(),
-						ConfigHandler.COMMON.flowerPatchSize.get(),
-						ConfigHandler.COMMON.flowerDensity.get(),
-						ConfigHandler.COMMON.flowerPatchChance.get(),
-						ConfigHandler.COMMON.flowerTallChance.get()
+				ConfigHandler.COMMON.flowerPatchSize.get(),
+				ConfigHandler.COMMON.mushroomQuantity.get(),
+				ConfigHandler.COMMON.flowerPatchSize.get(),
+				ConfigHandler.COMMON.flowerDensity.get(),
+				ConfigHandler.COMMON.flowerPatchChance.get(),
+				ConfigHandler.COMMON.flowerTallChance.get()
 		);
 	}
 

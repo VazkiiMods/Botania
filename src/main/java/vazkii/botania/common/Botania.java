@@ -227,13 +227,13 @@ public class Botania {
 			}
 
 			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
-							.func_233815_a_(Attributes.field_233821_d_, 0.4)
-							.func_233815_a_(Attributes.field_233818_a_, EntityDoppleganger.MAX_HP)
-							.func_233815_a_(Attributes.field_233820_c_, 1.0)
-							.func_233813_a_());
+					.func_233815_a_(Attributes.field_233821_d_, 0.4)
+					.func_233815_a_(Attributes.field_233818_a_, EntityDoppleganger.MAX_HP)
+					.func_233815_a_(Attributes.field_233820_c_, 1.0)
+					.func_233813_a_());
 			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
-							.func_233815_a_(Attributes.field_233818_a_, 2.0)
-							.func_233813_a_());
+					.func_233815_a_(Attributes.field_233818_a_, 2.0)
+					.func_233813_a_());
 			ModBanners.init();
 			ColorHelper.init();
 			ModLootModifiers.init();

@@ -19,8 +19,8 @@ import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileBrewery;
 

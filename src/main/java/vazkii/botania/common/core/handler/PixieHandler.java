@@ -24,8 +24,8 @@ import net.minecraft.util.Util;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-
 import net.minecraftforge.registries.IForgeRegistry;
+
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;

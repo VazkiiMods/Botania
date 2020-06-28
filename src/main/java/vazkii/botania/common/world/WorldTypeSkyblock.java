@@ -23,22 +23,22 @@ public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 
 	public static boolean isWorldSkyblock(World world) {
 		return world.getChunkProvider() instanceof ServerChunkProvider
-						&& ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyblockChunkGenerator;
+				&& ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyblockChunkGenerator;
 	}
 
 	/* todo 1.16 impossible now?
-
+	
 	@Override
 	public float getCloudHeight() {
 		return 260f;
 	}
-
+	
 	// In skyblock worlds, do not darken the sky until player hits y=0
 	@Override
 	public double getHorizon(World world) {
 		return 0.0D;
 	}
-
+	
 	@Override
 	public double voidFadeMagnitude() {
 		return 1.0D;

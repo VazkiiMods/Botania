@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -41,7 +42,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 	}
 
 	@Override
-	public boolean matches(RecipeWrapper inv, @Nonnull World world) {
+	public boolean matches(IInventory inv, @Nonnull World world) {
 		boolean matches = super.matches(inv, world);
 
 		if (matches) {
@@ -65,7 +66,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack stack = getRecipeOutput().copy();
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack ingr = inv.getStackInSlot(i);

@@ -9,6 +9,7 @@
 package vazkii.botania.api.wand;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

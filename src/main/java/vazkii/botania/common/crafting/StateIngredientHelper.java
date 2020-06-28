@@ -11,9 +11,9 @@ package vazkii.botania.common.crafting;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;

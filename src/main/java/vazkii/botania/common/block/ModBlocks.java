@@ -147,7 +147,7 @@ public final class ModBlocks {
 	public static Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, Block.Properties.from(abstrusePlatform));
 	public static Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD));
 	public static Block alfPortal = new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)
-					.func_235838_a_(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
+			.func_235838_a_(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
 	public static Block dreamwood = new BlockMod(Block.Properties.from(livingwood));
 	public static Block dreamwoodPlanks = new BlockMod(Block.Properties.from(livingwood));
 	public static Block dreamwoodPlanksMossy = new BlockMod(Block.Properties.from(livingwood));

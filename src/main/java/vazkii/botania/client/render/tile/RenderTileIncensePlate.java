@@ -19,8 +19,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import javax.annotation.Nonnull;

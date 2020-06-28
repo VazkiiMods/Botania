@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;

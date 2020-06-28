@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +19,7 @@ import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
 
-public interface IRuneAltarRecipe extends IRecipe<RecipeWrapper> {
+public interface IRuneAltarRecipe extends IRecipe<IInventory> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
 
 	int getManaUsage();

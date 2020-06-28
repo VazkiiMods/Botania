@@ -18,8 +18,8 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-
 import net.minecraft.world.server.ServerWorld;
+
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 

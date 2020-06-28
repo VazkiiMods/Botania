@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -44,7 +45,7 @@ public class RecipePetals implements IPetalRecipe {
 	}
 
 	@Override
-	public boolean matches(RecipeWrapper inv, @Nonnull World world) {
+	public boolean matches(IInventory inv, @Nonnull World world) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -81,7 +82,7 @@ public class RecipePetals implements IPetalRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		return getRecipeOutput().copy();
 	}
 

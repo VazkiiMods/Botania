@@ -9,8 +9,8 @@
 package vazkii.botania.common.block.mana;
 
 import com.google.common.collect.ImmutableList;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;

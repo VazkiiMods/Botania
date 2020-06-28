@@ -25,8 +25,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.IForgeShearable;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -83,7 +83,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 
 			for (MobEntity entity : entities) {
 				if (entity instanceof IShearable && ((IShearable) entity).func_230262_K__()
-								|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.func_233580_cy_()) ) {
+						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.func_233580_cy_())) {
 					shearables.add(entity);
 				} else if (entity instanceof CowEntity) {
 					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
@@ -120,9 +120,9 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					for (ItemStack wool : stacks) {
 						ItemEntity ent = entity.entityDropItem(wool, 1.0F);
 						ent.setMotion(ent.getMotion().add(
-										world.rand.nextFloat() * 0.05F,
-										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
-										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+								world.rand.nextFloat() * 0.05F,
+								(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
+								(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
 						));
 					}
 				}

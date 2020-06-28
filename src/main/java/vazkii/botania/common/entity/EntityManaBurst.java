@@ -150,7 +150,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_, RayTraceContext.BlockMode.OUTLINE);
 		boolean flag = false;
 		if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos blockpos = ((BlockRayTraceResult)raytraceresult).getPos();
+			BlockPos blockpos = ((BlockRayTraceResult) raytraceresult).getPos();
 			BlockState blockstate = this.world.getBlockState(blockpos);
 			if (blockstate.isIn(Blocks.NETHER_PORTAL)) {
 				this.setPortal(blockpos);
@@ -158,7 +158,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			} else if (blockstate.isIn(Blocks.END_GATEWAY)) {
 				TileEntity tileentity = this.world.getTileEntity(blockpos);
 				if (tileentity instanceof EndGatewayTileEntity) {
-					((EndGatewayTileEntity)tileentity).teleportEntity(this);
+					((EndGatewayTileEntity) tileentity).teleportEntity(this);
 				}
 
 				flag = true;
@@ -176,7 +176,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		this.func_234617_x_();
 		float f;
 		if (this.isInWater()) {
-			for(int i = 0; i < 4; ++i) {
+			for (int i = 0; i < 4; ++i) {
 				float f1 = 0.25F;
 				this.world.addParticle(ParticleTypes.BUBBLE, d2 - vector3d.x * 0.25D, d0 - vector3d.y * 0.25D, d1 - vector3d.z * 0.25D, vector3d.x, vector3d.y, vector3d.z);
 			}
@@ -189,7 +189,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		// Botania: no drag this.setMotion(vector3d.scale((double)f));
 		if (!this.hasNoGravity()) {
 			Vector3d vector3d1 = this.getMotion();
-			this.setMotion(vector3d1.x, vector3d1.y - (double)this.getGravityVelocity(), vector3d1.z);
+			this.setMotion(vector3d1.x, vector3d1.y - (double) this.getGravityVelocity(), vector3d1.z);
 		}
 
 		this.setPosition(d2, d0, d1);

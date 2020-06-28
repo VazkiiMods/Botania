@@ -9,8 +9,8 @@
 package vazkii.botania.common.item.brew;
 
 import com.google.common.collect.Lists;
-
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -136,12 +136,12 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		if (list.isEmpty()) {
 			lores.add((new TranslationTextComponent("effect.none")).func_240699_a_(TextFormatting.GRAY));
 		} else {
-			for(EffectInstance effectinstance : list) {
+			for (EffectInstance effectinstance : list) {
 				IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(effectinstance.getEffectName());
 				Effect effect = effectinstance.getPotion();
 				Map<Attribute, AttributeModifier> map = effect.getAttributeModifierMap();
 				if (!map.isEmpty()) {
-					for(Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+					for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
 						AttributeModifier attributemodifier = entry.getValue();
 						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierAmount(effectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
 						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
@@ -164,7 +164,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 			lores.add(StringTextComponent.field_240750_d_);
 			lores.add((new TranslationTextComponent("potion.whenDrank")).func_240699_a_(TextFormatting.DARK_PURPLE));
 
-			for(Pair<Attribute, AttributeModifier> pair : list1) {
+			for (Pair<Attribute, AttributeModifier> pair : list1) {
 				AttributeModifier attributemodifier2 = pair.getSecond();
 				double d0 = attributemodifier2.getAmount();
 				double d1;

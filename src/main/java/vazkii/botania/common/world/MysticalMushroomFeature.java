@@ -9,6 +9,7 @@
 package vazkii.botania.common.world;
 
 import com.mojang.serialization.Dynamic;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.BlockPos;
@@ -16,8 +17,8 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
-
 import net.minecraft.world.gen.feature.structure.StructureManager;
+
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.Random;

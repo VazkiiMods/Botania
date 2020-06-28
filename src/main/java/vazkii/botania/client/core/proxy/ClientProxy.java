@@ -173,9 +173,9 @@ public class ClientProxy implements IProxy {
 
 	private static void registerPropertyGetters() {
 		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
-						(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
+				(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
-						(stack, world, entity) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
+				(stack, world, entity) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
 
 		ResourceLocation vuvuzelaId = prefix("vuvuzela");
 		IItemPropertyGetter isVuvuzela = (stack, world, entity) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
@@ -185,15 +185,15 @@ public class ClientProxy implements IProxy {
 
 		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
-						(stack, world, entity) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
+				(stack, world, entity) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
-						(stack, world, entity) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
+				(stack, world, entity) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
 		registerPropertyGetter(ModItems.spawnerMover, prefix("full"),
-						(stack, world, entity) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
+				(stack, world, entity) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.temperanceStone, prefix("active"),
-						(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
+				(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.twigWand, prefix("bindmode"),
-						(stack, world, entity) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
+				(stack, world, entity) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
 
 		ResourceLocation poolFullId = prefix("full");
 		IItemPropertyGetter poolFull = (stack, world, entity) -> {
@@ -225,19 +225,19 @@ public class ClientProxy implements IProxy {
 		registerPropertyGetter(ModItems.magnetRingGreater, prefix("on"), ringOnGetter);
 
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
-						(stack, world, entity) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
+				(stack, world, entity) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
-						(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
+				(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraAxe, prefix("terraaxe_on"),
-						(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
+				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
-						(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
+				(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraPick, prefix("enabled"),
-						(stack, world, entity) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
+				(stack, world, entity) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.infiniteFruit, prefix("boot"),
-						(stack, worldIn, entity) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
+				(stack, worldIn, entity) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 		registerPropertyGetter(ModItems.tornadoRod, prefix("flying"),
-						(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
+				(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
 		IItemPropertyGetter pulling = ItemModelsProperties.func_239417_a_(Items.BOW, new ResourceLocation("pulling"));
 		IItemPropertyGetter pull = (stack, worldIn, entity) -> {
@@ -246,8 +246,8 @@ public class ClientProxy implements IProxy {
 			} else {
 				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
 				return entity.getActiveItemStack() != stack
-								? 0.0F
-								: (stack.getUseDuration() - entity.getItemInUseCount()) * item.chargeVelocityMultiplier() / 20.0F;
+						? 0.0F
+						: (stack.getUseDuration() - entity.getItemInUseCount()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
 		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);

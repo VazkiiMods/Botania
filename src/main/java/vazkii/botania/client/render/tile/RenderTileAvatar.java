@@ -21,8 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;

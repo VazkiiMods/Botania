@@ -10,6 +10,7 @@ package vazkii.botania.common.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
@@ -23,10 +24,10 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
 	private static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
-					instance -> instance.group(
-									BiomeProvider.field_235202_a_.fieldOf("biome_source").forGetter(scg -> scg.biomeProvider),
-									DimensionStructuresSettings.field_236190_a_.fieldOf("structures").forGetter(ChunkGenerator::func_235957_b_)
-					).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
+			instance -> instance.group(
+					BiomeProvider.field_235202_a_.fieldOf("biome_source").forGetter(scg -> scg.biomeProvider),
+					DimensionStructuresSettings.field_236190_a_.fieldOf("structures").forGetter(ChunkGenerator::func_235957_b_)
+			).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
 	public SkyblockChunkGenerator(BiomeProvider provider, DimensionStructuresSettings settings) {
 		super(provider, settings);
@@ -53,13 +54,10 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	}
 
 	@Override
-	public void func_230350_a_(long seed, BiomeManager biomes, IChunk chunk, GenerationStage.Carving stage) {
-	}
+	public void func_230350_a_(long seed, BiomeManager biomes, IChunk chunk, GenerationStage.Carving stage) {}
 
 	@Override
-	public void func_230351_a_(WorldGenRegion region, StructureManager structureManager) {
-	}
-
+	public void func_230351_a_(WorldGenRegion region, StructureManager structureManager) {}
 
 	@Override
 	public int func_222529_a(int x, int z, Heightmap.Type heightmapType) {

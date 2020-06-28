@@ -17,9 +17,9 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;

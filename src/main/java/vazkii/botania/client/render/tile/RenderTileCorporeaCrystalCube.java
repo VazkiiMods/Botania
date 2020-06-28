@@ -22,8 +22,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 

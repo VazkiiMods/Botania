@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.relic;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,6 +34,7 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+
 import java.util.Optional;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
@@ -139,8 +141,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		INBT nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
 		if (nbt != null) {
 			return GlobalPos.field_239645_a_.decode(NBTDynamicOps.INSTANCE, nbt).result()
-							.map(Pair::getFirst)
-							.map(GlobalPos::getPos).orElse(null);
+					.map(Pair::getFirst)
+					.map(GlobalPos::getPos).orElse(null);
 		}
 		return null;
 	}

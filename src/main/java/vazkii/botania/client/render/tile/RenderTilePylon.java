@@ -21,8 +21,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;

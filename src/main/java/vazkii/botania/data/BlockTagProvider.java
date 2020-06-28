@@ -71,7 +71,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 
 		func_240522_a_(ModTags.Blocks.FLOATING_FLOWERS).func_240531_a_(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS)
-						.func_240531_a_(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
+				.func_240531_a_(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
 		func_240522_a_(ModTags.Blocks.MYSTICAL_FLOWERS).func_240534_a_(
 				Arrays.stream(DyeColor.values())

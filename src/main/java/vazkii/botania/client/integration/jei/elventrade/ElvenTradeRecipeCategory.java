@@ -31,8 +31,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-
 import net.minecraft.util.text.TranslationTextComponent;
+
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;

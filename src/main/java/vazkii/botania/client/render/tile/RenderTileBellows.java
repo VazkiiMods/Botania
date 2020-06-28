@@ -16,8 +16,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.math.vector.Vector3f;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.tile.mana.TileBellows;

@@ -10,9 +10,9 @@ package vazkii.botania.client.fx;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -24,15 +24,15 @@ import java.util.Locale;
 
 public class WispParticleData implements IParticleData {
 	public static final Codec<WispParticleData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-					Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
-					Codec.FLOAT.fieldOf("r").forGetter(d -> d.r),
-					Codec.FLOAT.fieldOf("g").forGetter(d -> d.g),
-					Codec.FLOAT.fieldOf("b").forGetter(d -> d.b),
-					Codec.FLOAT.fieldOf("maxAgeMul").forGetter(d -> d.maxAgeMul),
-					Codec.BOOL.fieldOf("depthTest").forGetter(d -> d.depthTest),
-					Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip)
-					)
-					.apply(instance, WispParticleData::new));
+			Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
+			Codec.FLOAT.fieldOf("r").forGetter(d -> d.r),
+			Codec.FLOAT.fieldOf("g").forGetter(d -> d.g),
+			Codec.FLOAT.fieldOf("b").forGetter(d -> d.b),
+			Codec.FLOAT.fieldOf("maxAgeMul").forGetter(d -> d.maxAgeMul),
+			Codec.BOOL.fieldOf("depthTest").forGetter(d -> d.depthTest),
+			Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip)
+	)
+			.apply(instance, WispParticleData::new));
 	public final float size;
 	public final float r, g, b;
 	public final float maxAgeMul;

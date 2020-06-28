@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -49,7 +50,7 @@ public class RecipeBrew implements IBrewRecipe {
 	}
 
 	@Override
-	public boolean matches(RecipeWrapper inv, @Nonnull World world) {
+	public boolean matches(IInventory inv, @Nonnull World world) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
 		for (int i = 0; i < inv.getSizeInventory(); i++) {

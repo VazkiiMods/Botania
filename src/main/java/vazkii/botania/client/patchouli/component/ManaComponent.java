@@ -9,12 +9,13 @@
 package vazkii.botania.client.patchouli.component;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
-
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.patchouli.api.IComponentRenderContext;

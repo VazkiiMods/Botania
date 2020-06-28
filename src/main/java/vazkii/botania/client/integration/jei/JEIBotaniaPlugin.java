@@ -27,8 +27,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-
 import net.minecraft.util.text.TranslationTextComponent;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;

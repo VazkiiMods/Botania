@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.mana;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;

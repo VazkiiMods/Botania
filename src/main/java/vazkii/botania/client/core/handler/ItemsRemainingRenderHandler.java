@@ -83,12 +83,12 @@ public final class ItemsRemainingRenderHandler {
 							ITextComponent maxText = new StringTextComponent(Integer.toString(max)).func_240699_a_(TextFormatting.GRAY);
 							ITextComponent remText = new StringTextComponent(Integer.toString(rem)).func_240699_a_(TextFormatting.YELLOW);
 							text = new StringTextComponent(count + " (")
-											.func_230529_a_(stacksText)
-											.func_240702_b_("*")
-											.func_230529_a_(maxText)
-											.func_240702_b_("+")
-											.func_230529_a_(remText)
-											.func_240702_b_(")");
+									.func_230529_a_(stacksText)
+									.func_240702_b_("*")
+									.func_230529_a_(maxText)
+									.func_240702_b_("+")
+									.func_230529_a_(remText)
+									.func_240702_b_(")");
 						}
 					} else if (count == -1) {
 						text = new StringTextComponent("\u221E");
