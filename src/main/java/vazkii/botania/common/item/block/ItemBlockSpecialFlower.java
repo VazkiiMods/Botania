@@ -46,20 +46,22 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-		if (GENERATING.func_230235_a_(this)) {
-			tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-		} else if (FUNCTIONAL.func_230235_a_(this)) {
-			tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-		} else if (MISC.func_230235_a_(this)) {
-			tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-		}
-
 		// Prevent crash when tooltips queried before configs load
-		if (Botania.finishedLoading && ConfigHandler.CLIENT.referencesEnabled.get()) {
-			String key = getTranslationKey() + ".reference";
-			IFormattableTextComponent lore = new TranslationTextComponent(key);
-			if (!lore.getString().equals(key)) {
-				tooltip.add(lore.func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
+		if (Botania.finishedLoading) {
+			if (GENERATING.func_230235_a_(this)) {
+				tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+			} else if (FUNCTIONAL.func_230235_a_(this)) {
+				tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+			} else if (MISC.func_230235_a_(this)) {
+				tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+			}
+
+			if (ConfigHandler.CLIENT.referencesEnabled.get()) {
+				String key = getTranslationKey() + ".reference";
+				IFormattableTextComponent lore = new TranslationTextComponent(key);
+				if (!lore.getString().equals(key)) {
+					tooltip.add(lore.func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
+				}
 			}
 		}
 	}

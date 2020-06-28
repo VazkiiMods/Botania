@@ -33,7 +33,11 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 	}
 
 	public ItemManasteelSword(IItemTier mat, Properties props) {
-		super(mat, 3, -2.4F, props);
+		this(mat, 3, -2.4F, props);
+	}
+
+	public ItemManasteelSword(IItemTier mat, int attackDamage, float attackSpeed, Properties props) {
+		super(mat, attackDamage, attackSpeed, props);
 	}
 
 	@Override

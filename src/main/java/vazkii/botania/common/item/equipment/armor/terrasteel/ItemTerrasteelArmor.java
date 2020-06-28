@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -56,15 +58,16 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Nonnull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot, ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-		UUID uuid = new UUID((getTranslationKey(stack) + slot.toString()).hashCode(), 0);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
+		Multimap<Attribute, AttributeModifier> ret = super.getAttributeModifiers(slot);
+		UUID uuid = new UUID(Registry.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
 		if (slot == getEquipmentSlot()) {
+			ret = HashMultimap.create(ret);
 			int reduction = material.getDamageReductionAmount(slot);
-			multimap.put(Attributes.field_233820_c_,
+			ret.put(Attributes.field_233820_c_,
 					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
 		}
-		return multimap;
+		return ret;
 	}
 
 	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {

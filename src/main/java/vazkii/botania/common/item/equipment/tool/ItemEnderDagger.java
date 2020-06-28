@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger(Properties props) {
-		super(BotaniaAPI.instance().getManasteelItemTier(), props);
+		super(BotaniaAPI.instance().getManasteelItemTier(), 3, -1.25F, props);
 	}
 
 	@Override
@@ -59,19 +59,6 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return false;
-	}
-
-	@Nonnull
-	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-		Multimap<Attribute, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
-
-		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-			multimap.put(Attributes.field_233825_h_,
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, AttributeModifier.Operation.ADDITION));
-		}
-
-		return multimap;
 	}
 
 }

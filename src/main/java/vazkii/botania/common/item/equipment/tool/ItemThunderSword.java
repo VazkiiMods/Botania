@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.entity.Entity;
@@ -40,7 +42,7 @@ public class ItemThunderSword extends ItemManasteelSword {
 	private static final String TAG_LIGHTNING_SEED = "lightningSeed";
 
 	public ItemThunderSword(Properties props) {
-		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), 3, -1.5F, props);
 	}
 
 	@Override
@@ -82,20 +84,6 @@ public class ItemThunderSword extends ItemManasteelSword {
 		}
 
 		return super.hitEntity(stack, entity, attacker);
-	}
-
-	@Nonnull
-	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-		Multimap<Attribute, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
-
-		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-			multimap.removeAll(Attributes.field_233825_h_);
-			multimap.put(Attributes.field_233825_h_,
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, AttributeModifier.Operation.ADDITION));
-		}
-
-		return multimap;
 	}
 
 }
