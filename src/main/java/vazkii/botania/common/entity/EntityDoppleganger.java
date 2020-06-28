@@ -9,6 +9,7 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -91,7 +92,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	public static final int ARENA_HEIGHT = 5;
 
 	private static final int SPAWN_TICKS = 160;
-	private static final float MAX_HP = 320F;
+	public static final float MAX_HP = 320F;
 
 	private static final int MOB_SPAWN_START_TICKS = 20;
 	private static final int MOB_SPAWN_END_TICKS = 80;
@@ -428,14 +429,6 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	@Override
-	protected void registerAttributes() {
-		super.registerAttributes();
-		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4);
-		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
-		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
-	}
-
-	@Override
 	public boolean canDespawn(double dist) {
 		return false;
 	}
@@ -631,7 +624,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							EntityPixie pixie = new EntityPixie(world);
 							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 							pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-							pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+							pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.func_233580_cy_()),
 									SpawnReason.MOB_SUMMONED, null, null);
 							world.addEntity(pixie);
 						}
@@ -641,13 +634,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				}
 
 				if (entity != null) {
-					if (!entity.isImmuneToFire()) {
+					if (!entity.func_230279_az_()) {
 						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					}
 					float range = 6F;
 					entity.setPosition(getPosX() + 0.5 + Math.random() * range - range / 2, getPosY() - 1,
 							getPosZ() + 0.5 + Math.random() * range - range / 2);
-					entity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)),
+					entity.onInitialSpawn(world, world.getDifficultyForLocation(entity.func_233580_cy_()),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
@@ -700,7 +693,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 				//also see SleepingHandler
 				if (player.isSleeping()) {
-					player.func_225652_a_(true, true);
+					player.wakeUp();
 				}
 
 				clearPotions(player);
@@ -944,8 +937,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public int bossBarRenderCallback(int x, int y) {
-		RenderSystem.pushMatrix();
+	public int bossBarRenderCallback(MatrixStack ms, int x, int y) {
+		ms.push();
 		int px = x + 160;
 		int py = y + 12;
 
@@ -953,8 +946,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
 
-		mc.fontRenderer.func_238405_a_("" + playerCount, px + 15, py + 4, 0xFFFFFF);
-		RenderSystem.popMatrix();
+		mc.fontRenderer.func_238405_a_(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
+		ms.pop();
 
 		return 5;
 	}

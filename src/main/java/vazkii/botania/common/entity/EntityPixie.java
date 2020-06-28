@@ -52,12 +52,6 @@ public class EntityPixie extends FlyingEntity {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
-	@Override
-	protected void registerAttributes() {
-		super.registerAttributes();
-		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(2.0);
-	}
-
 	public void setPixieType(int type) {
 		dataManager.set(PIXIE_TYPE, type);
 	}

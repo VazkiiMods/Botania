@@ -13,7 +13,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -85,6 +88,7 @@ import vazkii.botania.common.core.loot.*;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
@@ -223,6 +227,14 @@ public class Botania {
 				new WorldTypeSkyblock();
 			}
 
+			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
+							.func_233815_a_(Attributes.field_233821_d_, 0.4)
+							.func_233815_a_(Attributes.field_233818_a_, EntityDoppleganger.MAX_HP)
+							.func_233815_a_(Attributes.field_233820_c_, 1.0)
+							.func_233813_a_());
+			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
+							.func_233815_a_(Attributes.field_233818_a_, 2.0)
+							.func_233813_a_());
 			ModBanners.init();
 			ColorHelper.init();
 

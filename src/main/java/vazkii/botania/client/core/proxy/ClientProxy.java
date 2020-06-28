@@ -153,13 +153,14 @@ public class ClientProxy implements IProxy {
 			}
 		}
 
+		registerRenderTypes();
+
 		DeferredWorkQueue.runLater(() -> {
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
+			registerPropertyGetters();
 		});
 
-		registerPropertyGetters();
-		registerRenderTypes();
 	}
 
 	private static void registerPropertyGetter(IItemProvider item, ResourceLocation id, IItemPropertyGetter propGetter) {
