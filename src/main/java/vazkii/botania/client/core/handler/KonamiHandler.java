@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -61,18 +62,19 @@ public class KonamiHandler {
 
 	public static void renderBook(BookDrawScreenEvent evt) {
 		if (konamiTime > 0) {
+			MatrixStack ms = evt.matrixStack;
 			String meme = I18n.format("botania.subtitle.way");
 			RenderSystem.disableDepthTest();
-			RenderSystem.pushMatrix();
+			ms.push();
 			int fullWidth = Minecraft.getInstance().fontRenderer.getStringWidth(meme);
-			int left = evt.gui.width;
-			double widthPerTick = (fullWidth + evt.gui.width) / 240;
+			int left = evt.gui.field_230708_k_;
+			double widthPerTick = (fullWidth + evt.gui.field_230708_k_) / 240;
 			double currWidth = left - widthPerTick * (240 - (konamiTime - evt.partialTicks)) * 3.2;
 
-			RenderSystem.translated(currWidth, evt.gui.height / 2 - 10, 0);
-			RenderSystem.scalef(4, 4, 4);
-			Minecraft.getInstance().fontRenderer.func_238405_a_(meme, 0, 0, 0xFFFFFF);
-			RenderSystem.popMatrix();
+			ms.translate(currWidth, evt.gui.field_230709_l_ / 2 - 10, 0);
+			ms.scale(4, 4, 4);
+			Minecraft.getInstance().fontRenderer.func_238405_a_(evt.matrixStack, meme, 0, 0, 0xFFFFFF);
+			ms.pop();
 			RenderSystem.enableDepthTest();
 		}
 	}

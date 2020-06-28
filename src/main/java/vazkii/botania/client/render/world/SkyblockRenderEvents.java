@@ -23,9 +23,11 @@ public final class SkyblockRenderEvents {
 				&& world.func_234923_W_() == World.field_234918_g_
 				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get()
 						|| WorldTypeSkyblock.isWorldSkyblock(world))) {
+			/* todo 1.16
 			if (!(world.getDimension().getSkyRenderer() instanceof SkyblockSkyRenderer)) {
 				world.getDimension().setSkyRenderer(new SkyblockSkyRenderer());
 			}
+			*/
 		}
 	}
 

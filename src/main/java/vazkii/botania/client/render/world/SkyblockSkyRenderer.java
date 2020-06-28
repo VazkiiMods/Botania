@@ -84,7 +84,7 @@ public class SkyblockSkyRenderer implements SkyRenderHandler {
 		RenderSystem.disableAlphaTest();
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		float[] afloat = world.dimension.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
+		float[] afloat = world.func_239132_a_().func_230492_a_(world.getCelestialAngle(partialTicks), partialTicks);
 		if (afloat != null) {
 			RenderSystem.disableTexture();
 			RenderSystem.shadeModel(7425);

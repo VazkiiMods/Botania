@@ -8,15 +8,25 @@
  */
 package vazkii.botania.client.fx;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.ParticleType;
 
+import javax.annotation.Nonnull;
+
 public class WispParticleType extends ParticleType<WispParticleData> {
 	public WispParticleType() {
 		super(false, WispParticleData.DESERIALIZER);
+	}
+
+	@Nonnull
+	@Override
+	public Codec<WispParticleData> func_230522_e_() {
+		return WispParticleData.CODEC;
 	}
 
 	public static class Factory implements IParticleFactory<WispParticleData> {
