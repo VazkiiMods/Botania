@@ -18,10 +18,6 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.client.lib.LibResources;
-
-import java.lang.invoke.MethodHandle;
-
 public class ModTags {
 	public static class Items {
 		public static final ITag.INamedTag<Item> DUSTS_MANA = forgeTag("dusts/mana");
@@ -191,15 +187,10 @@ public class ModTags {
 	}
 
 	public static class Entities {
-		public static final ITag.INamedTag<EntityType<?>> SHADED_MESA_BLACKLIST;
+		public static final ITag.INamedTag<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
-		static {
-			MethodHandle handle = LibObfuscation.getMethod(EntityTypeTags.class, "func_232896_a_", String.class);
-			try {
-				SHADED_MESA_BLACKLIST = (ITag.INamedTag<EntityType<?>>) handle.invokeExact(LibResources.PREFIX_MOD + "shaded_mesa_blacklist");
-			} catch (Throwable throwable) {
-				throw new RuntimeException(throwable);
-			}
+		private static ITag.INamedTag<EntityType<?>> tag(String name) {
+			return EntityTypeTags.func_232896_a_(new ResourceLocation(LibMisc.MOD_ID, name).toString());
 		}
 	}
 }
