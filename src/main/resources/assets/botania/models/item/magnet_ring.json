@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/ring_magnet_lesser"
+    "layer0": "botania:item/ring_magnet_lesser"
   },
   "overrides": [{
     "predicate": {

@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "bottom": "minecraft:block/dirt",
-    "top": "botania:blocks/enchantedsoil0",
-    "side": "botania:blocks/enchantedsoil1"
+    "top": "botania:block/enchantedsoil0",
+    "side": "botania:block/enchantedsoil1"
   }
 }

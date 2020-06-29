@@ -1,8 +1,8 @@
 {
   "parent": "block/stairs",
   "textures": {
-    "bottom": "botania:blocks/blockredquartz0",
-    "top": "botania:blocks/blockredquartz1",
-    "side": "botania:blocks/blockredquartz2"
+    "bottom": "botania:block/blockredquartz0",
+    "top": "botania:block/blockredquartz1",
+    "side": "botania:block/blockredquartz2"
   }
 }

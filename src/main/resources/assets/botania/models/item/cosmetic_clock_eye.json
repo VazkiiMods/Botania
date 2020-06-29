@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/cosmetic17"
+    "layer0": "botania:item/cosmetic17"
   }
 }

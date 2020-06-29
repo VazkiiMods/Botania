@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/cellblock"
+    "all": "botania:block/cellblock"
   }
 }

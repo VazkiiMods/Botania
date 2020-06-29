@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": { 
-		"layer0": "botania:items/pendant_cloud_super"
+		"layer0": "botania:item/pendant_cloud_super"
 	}
 }

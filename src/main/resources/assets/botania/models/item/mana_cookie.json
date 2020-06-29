@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/mana_cookie"
+    "layer0": "botania:item/mana_cookie"
   },
   "overrides": [{
     "predicate": {

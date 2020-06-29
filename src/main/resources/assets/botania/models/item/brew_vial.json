@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/vial0",
-    "layer1": "botania:items/vial1_0"
+    "layer0": "botania:item/vial0",
+    "layer1": "botania:item/vial1_0"
   },
   "overrides": [
     {

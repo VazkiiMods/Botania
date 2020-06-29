@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/pestle_mortar"
+        "layer0": "botania:item/pestle_mortar"
     }
 }

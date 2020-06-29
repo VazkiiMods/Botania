@@ -3,10 +3,10 @@
   "comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
   "parent": "minecraft:block/block",
   "textures": {
-    "cloth": "botania:blocks/corporea_crystal_cube_cloth",
-    "base": "botania:blocks/corporea_crystal_cube_base",
-    "glass": "botania:blocks/corporea_crystal_cube_glass",
-    "particle": "botania:blocks/corporea_crystal_cube_base"
+    "cloth": "botania:block/corporea_crystal_cube_cloth",
+    "base": "botania:block/corporea_crystal_cube_base",
+    "glass": "botania:block/corporea_crystal_cube_glass",
+    "particle": "botania:block/corporea_crystal_cube_base"
   },
   "elements": [
     {

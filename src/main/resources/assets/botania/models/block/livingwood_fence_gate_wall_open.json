@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fence_gate_wall_open",
   "textures": {
-    "texture": "botania:blocks/livingwood1"
+    "texture": "botania:block/livingwood1"
   }
 }

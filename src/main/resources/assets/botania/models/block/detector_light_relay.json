@@ -1,5 +1,5 @@
 {
   "textures": {
-    "particle": "botania:blocks/luminizer_detector"
+    "particle": "botania:block/luminizer_detector"
   }
 }

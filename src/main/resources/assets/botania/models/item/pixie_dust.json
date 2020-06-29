@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/pixie_dust"
+        "layer0": "botania:item/pixie_dust"
     }
 }

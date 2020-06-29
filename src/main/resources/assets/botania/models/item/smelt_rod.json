@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/rod_smelt"
+    "layer0": "botania:item/rod_smelt"
   }
 }

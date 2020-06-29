@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": { 
-		"layer0": "botania:items/tool_astrolabe"
+		"layer0": "botania:item/tool_astrolabe"
 	}
 }

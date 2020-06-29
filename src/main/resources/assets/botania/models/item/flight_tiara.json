@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/headpiece_tiara_flight"
+    "layer0": "botania:item/headpiece_tiara_flight"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/cross",
   "textures": {
-    "cross": "botania:blocks/mushroom10"
+    "cross": "botania:block/mushroom10"
   }
 }

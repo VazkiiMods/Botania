@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/pool",
   "textures": {
-    "all": "botania:blocks/livingrock0"
+    "all": "botania:block/livingrock0"
   }
 }

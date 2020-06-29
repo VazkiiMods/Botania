@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/terrasteel_ingot"
+        "layer0": "botania:item/terrasteel_ingot"
     }
 }

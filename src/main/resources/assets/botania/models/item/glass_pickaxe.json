@@ -2,6 +2,6 @@
     "parent": "minecraft:item/handheld",
     "textures": 
     {
-        "layer0": "botania:items/glass_pickaxe"
+        "layer0": "botania:item/glass_pickaxe"
     }
 }

@@ -2,8 +2,8 @@
 	"__comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"texture": "botania:blocks/splitter",
-		"particle": "botania:blocks/splitter"
+		"texture": "botania:block/splitter",
+		"particle": "botania:block/splitter"
 	},
 	"elements": [ 	 
 		{

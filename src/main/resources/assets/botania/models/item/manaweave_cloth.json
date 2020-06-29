@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/manaweave_cloth"
+        "layer0": "botania:item/manaweave_cloth"
     }
 }

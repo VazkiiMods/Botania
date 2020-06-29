@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/ring_swim"
+    "layer0": "botania:item/ring_swim"
   }
 }

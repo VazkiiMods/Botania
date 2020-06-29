@@ -195,35 +195,35 @@ public class MiscellaneousIcons {
 			return;
 		}
 
-		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
-		evt.addSprite(prefix("blocks/alfheim_portal_swirl"));
-		evt.addSprite(prefix("blocks/luminizer"));
-		evt.addSprite(prefix("blocks/luminizer_detector"));
-		evt.addSprite(prefix("blocks/luminizer_fork"));
-		evt.addSprite(prefix("blocks/luminizer_toggle"));
-		evt.addSprite(prefix("blocks/catalyst_alchemy_overlay"));
-		evt.addSprite(prefix("blocks/catalyst_conjuration_overlay"));
-		evt.addSprite(prefix("blocks/enchanter_overlay"));
-		evt.addSprite(prefix("blocks/mana_void_overlay"));
-		evt.addSprite(prefix("blocks/mana_water"));
-		evt.addSprite(prefix("blocks/terra_plate_overlay"));
-		evt.addSprite(prefix("items/spark_corporea"));
-		evt.addSprite(prefix("items/spark_corporea_master"));
-		evt.addSprite(prefix("items/spark_corporea_star"));
-		evt.addSprite(prefix("items/spark"));
+		evt.addSprite(prefix("block/alfheim_portal_swirl"));
+		evt.addSprite(prefix("block/alfheim_portal_swirl"));
+		evt.addSprite(prefix("block/luminizer"));
+		evt.addSprite(prefix("block/luminizer_detector"));
+		evt.addSprite(prefix("block/luminizer_fork"));
+		evt.addSprite(prefix("block/luminizer_toggle"));
+		evt.addSprite(prefix("block/catalyst_alchemy_overlay"));
+		evt.addSprite(prefix("block/catalyst_conjuration_overlay"));
+		evt.addSprite(prefix("block/enchanter_overlay"));
+		evt.addSprite(prefix("block/mana_void_overlay"));
+		evt.addSprite(prefix("block/mana_water"));
+		evt.addSprite(prefix("block/terra_plate_overlay"));
+		evt.addSprite(prefix("item/spark_corporea"));
+		evt.addSprite(prefix("item/spark_corporea_master"));
+		evt.addSprite(prefix("item/spark_corporea_star"));
+		evt.addSprite(prefix("item/spark"));
 
 		for (int i = 0; i < 4; i++) {
-			evt.addSprite(prefix("items/spark_upgrade_rune_" + i));
+			evt.addSprite(prefix("item/spark_upgrade_rune_" + i));
 		}
 
-		evt.addSprite(prefix("items/special_tail"));
+		evt.addSprite(prefix("item/special_tail"));
 
 		/*
-		evt.addSprite(prefix("items/triggers/mana_detector"));
-		evt.addSprite(prefix("items/triggers/rune_altar_can_craft"));
+		evt.addSprite(prefix("item/triggers/mana_detector"));
+		evt.addSprite(prefix("item/triggers/rune_altar_can_craft"));
 		
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
-			register(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name()));
+			register(evt.getMap(), "item/triggers/mana" + WordUtils.capitalizeFully(s.name()));
 		}
 		*/
 	}
@@ -233,34 +233,34 @@ public class MiscellaneousIcons {
 			return;
 		}
 
-		alfPortalTex = get(evt.getMap(), "blocks/alfheim_portal_swirl");
-		lightRelayWorldIcon = get(evt.getMap(), "blocks/luminizer");
-		lightRelayWorldIconRed = get(evt.getMap(), "blocks/luminizer_detector");
-		lightRelayWorldIconGreen = get(evt.getMap(), "blocks/luminizer_fork");
-		lightRelayWorldIconPurple = get(evt.getMap(), "blocks/luminizer_toggle");
-		alchemyCatalystOverlay = get(evt.getMap(), "blocks/catalyst_alchemy_overlay");
-		conjurationCatalystOverlay = get(evt.getMap(), "blocks/catalyst_conjuration_overlay");
-		enchanterOverlay = get(evt.getMap(), "blocks/enchanter_overlay");
-		manaVoidOverlay = get(evt.getMap(), "blocks/mana_void_overlay");
-		manaWater = get(evt.getMap(), "blocks/mana_water");
-		terraPlateOverlay = get(evt.getMap(), "blocks/terra_plate_overlay");
-		corporeaWorldIcon = get(evt.getMap(), "items/spark_corporea");
-		corporeaWorldIconMaster = get(evt.getMap(), "items/spark_corporea_master");
-		corporeaIconStar = get(evt.getMap(), "items/spark_corporea_star");
-		sparkWorldIcon = get(evt.getMap(), "items/spark");
+		alfPortalTex = get(evt.getMap(), "block/alfheim_portal_swirl");
+		lightRelayWorldIcon = get(evt.getMap(), "block/luminizer");
+		lightRelayWorldIconRed = get(evt.getMap(), "block/luminizer_detector");
+		lightRelayWorldIconGreen = get(evt.getMap(), "block/luminizer_fork");
+		lightRelayWorldIconPurple = get(evt.getMap(), "block/luminizer_toggle");
+		alchemyCatalystOverlay = get(evt.getMap(), "block/catalyst_alchemy_overlay");
+		conjurationCatalystOverlay = get(evt.getMap(), "block/catalyst_conjuration_overlay");
+		enchanterOverlay = get(evt.getMap(), "block/enchanter_overlay");
+		manaVoidOverlay = get(evt.getMap(), "block/mana_void_overlay");
+		manaWater = get(evt.getMap(), "block/mana_water");
+		terraPlateOverlay = get(evt.getMap(), "block/terra_plate_overlay");
+		corporeaWorldIcon = get(evt.getMap(), "item/spark_corporea");
+		corporeaWorldIconMaster = get(evt.getMap(), "item/spark_corporea_master");
+		corporeaIconStar = get(evt.getMap(), "item/spark_corporea_star");
+		sparkWorldIcon = get(evt.getMap(), "item/spark");
 
 		for (int i = 0; i < 4; i++) {
-			sparkUpgradeIcons[i] = get(evt.getMap(), "items/spark_upgrade_rune_" + i);
+			sparkUpgradeIcons[i] = get(evt.getMap(), "item/spark_upgrade_rune_" + i);
 		}
 
-		tailIcon = get(evt.getMap(), "items/special_tail");
+		tailIcon = get(evt.getMap(), "item/special_tail");
 
 		/*
-		manaDetectorIcon = get(evt.getMap(), "items/triggers/mana_detector");
-		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/rune_altar_can_craft");
+		manaDetectorIcon = get(evt.getMap(), "item/triggers/mana_detector");
+		runeAltarTriggerIcon = get(evt.getMap(), "item/triggers/rune_altar_can_craft");
 		
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
-			manaLevelTriggerIcons.put(s, get(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name())));
+			manaLevelTriggerIcons.put(s, get(evt.getMap(), "item/triggers/mana" + WordUtils.capitalizeFully(s.name())));
 		}
 		*/
 	}

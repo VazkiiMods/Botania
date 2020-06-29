@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/special_phiflower"
+    "layer0": "botania:item/special_phiflower"
   }
 }

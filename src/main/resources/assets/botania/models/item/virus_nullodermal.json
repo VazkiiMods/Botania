@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/virus_skeleton"
+    "layer0": "botania:item/virus_skeleton"
   }
 }

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/flask0",
-    "layer1": "botania:items/flask1_0"
+    "layer0": "botania:item/flask0",
+    "layer1": "botania:item/flask1_0"
   },
   "overrides": [
     {

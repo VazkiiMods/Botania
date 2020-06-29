@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/cosmetic32"
+    "layer0": "botania:item/cosmetic32"
   },
   "display": {
     "head": {

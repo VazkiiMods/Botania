@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/headpiece_tiara_wing_9"
+    "layer0": "botania:item/headpiece_tiara_wing_9"
   }
 }

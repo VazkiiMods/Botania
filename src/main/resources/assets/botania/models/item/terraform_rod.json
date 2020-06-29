@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/rod_terraform"
+    "layer0": "botania:item/rod_terraform"
   }
 }

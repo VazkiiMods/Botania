@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/manasteel_helmet_reveal"
+    "layer0": "botania:item/manasteel_helmet_reveal"
   }
 }

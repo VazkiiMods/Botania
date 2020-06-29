@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/cross",
   "textures": {
-    "cross": "botania:blocks/flower3tall1"
+    "cross": "botania:block/flower3tall1"
   }
 }

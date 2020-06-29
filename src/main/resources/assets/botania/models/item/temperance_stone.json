@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/stone_temperance"
+    "layer0": "botania:item/stone_temperance"
   },
   "overrides": [
     {

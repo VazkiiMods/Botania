@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/halo_crafting"
+    "layer0": "botania:item/halo_crafting"
   }
 }

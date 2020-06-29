@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/pool",
   "textures": {
-    "all": "botania:blocks/pool_infinite"
+    "all": "botania:block/pool_infinite"
   }
 }

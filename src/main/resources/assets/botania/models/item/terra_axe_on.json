@@ -1,6 +1,6 @@
 {
   "parent": "botania:item/terra_axe",
   "textures": {
-    "layer0": "botania:items/terrasteel_axe_activated"
+    "layer0": "botania:item/terrasteel_axe_activated"
   }
 }

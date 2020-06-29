@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/mana_detector"
+    "all": "botania:block/mana_detector"
   }
 }

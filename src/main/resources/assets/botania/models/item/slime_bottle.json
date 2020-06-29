@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/bottle_slime"
+    "layer0": "botania:item/bottle_slime"
   },
   "overrides": [
     {

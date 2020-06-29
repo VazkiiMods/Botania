@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/life_essence"
+        "layer0": "botania:item/life_essence"
     }
 }

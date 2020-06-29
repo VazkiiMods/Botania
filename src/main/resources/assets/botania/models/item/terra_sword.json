@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/terrasteel_sword"
+    "layer0": "botania:item/terrasteel_sword"
   }
 }

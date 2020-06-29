@@ -2,6 +2,6 @@
     "parent": "minecraft:item/handheld",
     "textures": 
     {
-        "layer0": "botania:items/manasteel_axe"
+        "layer0": "botania:item/manasteel_axe"
     }
 }

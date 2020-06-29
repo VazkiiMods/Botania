@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/rune8"
+    "layer0": "botania:item/rune8"
   }
 }

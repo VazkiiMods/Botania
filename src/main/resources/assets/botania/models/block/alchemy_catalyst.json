@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/catalyst_alchemy"
+    "all": "botania:block/catalyst_alchemy"
   }
 }

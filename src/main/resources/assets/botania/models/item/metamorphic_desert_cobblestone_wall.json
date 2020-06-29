@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "botania:blocks/biomestone13"
+    "wall": "botania:block/biomestone13"
   }
 }

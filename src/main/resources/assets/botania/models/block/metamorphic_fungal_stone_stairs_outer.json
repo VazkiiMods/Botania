@@ -1,8 +1,8 @@
 {
   "parent": "block/outer_stairs",
   "textures": {
-      "bottom": "botania:blocks/biomestone3",
-      "top": "botania:blocks/biomestone3",
-      "side": "botania:blocks/biomestone3"
+      "bottom": "botania:block/biomestone3",
+      "top": "botania:block/biomestone3",
+      "side": "botania:block/biomestone3"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/cross",
   "textures": {
-    "cross": "botania:blocks/flower_gen_thermalily"
+    "cross": "botania:block/flower_gen_thermalily"
   }
 }

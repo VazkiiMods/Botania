@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/dreamwood1"
+    "all": "botania:block/dreamwood1"
   }
 }

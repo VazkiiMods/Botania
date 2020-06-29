@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/relic_infinite_fruit"
+    "layer0": "botania:item/relic_infinite_fruit"
   },
   "overrides": [{
     "predicate": {

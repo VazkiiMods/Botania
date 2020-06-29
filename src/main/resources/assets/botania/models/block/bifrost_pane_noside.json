@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_glass_pane_noside",
   "textures": {
-    "edge": "botania:blocks/bifrostpermpane",
-    "pane": "botania:blocks/bifrost"
+    "edge": "botania:block/bifrostpermpane",
+    "pane": "botania:block/bifrost"
   }
 }

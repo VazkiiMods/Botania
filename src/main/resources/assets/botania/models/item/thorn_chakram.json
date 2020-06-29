@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/thornchakram0"
+    "layer0": "botania:item/thornchakram0"
   }
 }

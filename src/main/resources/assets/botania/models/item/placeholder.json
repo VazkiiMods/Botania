@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/crafting_place_holder"
+        "layer0": "botania:item/crafting_place_holder"
     }
 }

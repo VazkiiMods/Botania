@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/pavement4"
+    "all": "botania:block/pavement4"
   }
 }

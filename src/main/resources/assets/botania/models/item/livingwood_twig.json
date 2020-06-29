@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/twig_livingwood"
+        "layer0": "botania:item/twig_livingwood"
     }
 }

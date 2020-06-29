@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/spreader_inside",
   "textures": {
-    "inside": "botania:blocks/redstone_spreader_inside"
+    "inside": "botania:block/redstone_spreader_inside"
   }
 }

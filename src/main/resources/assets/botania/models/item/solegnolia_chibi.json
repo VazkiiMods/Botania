@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:blocks/flower_func_solegnolia_chibi"
+    "layer0": "botania:block/flower_func_solegnolia_chibi"
   }
 }

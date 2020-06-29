@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/belt_speed"
+    "layer0": "botania:item/belt_speed"
   }
 }

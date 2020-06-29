@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/terrasteel_axe"
+    "layer0": "botania:item/terrasteel_axe"
   },
   "overrides": [{
     "predicate": {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/spell_cloth"
+    "layer0": "botania:item/spell_cloth"
   }
 }

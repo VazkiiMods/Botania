@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/seed_world"
+    "layer0": "botania:item/seed_world"
   }
 }

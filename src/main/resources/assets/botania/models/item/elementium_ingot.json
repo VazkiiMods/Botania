@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/elementium_ingot"
+        "layer0": "botania:item/elementium_ingot"
     }
 }
