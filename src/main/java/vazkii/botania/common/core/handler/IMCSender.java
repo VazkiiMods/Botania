@@ -119,12 +119,12 @@ public class IMCSender {
 
 		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
 		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
 		}
 
 		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
 		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_PANE_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
 		}
 
 		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
@@ -133,23 +133,23 @@ public class IMCSender {
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.GLAZED_TERRACOTTA_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.WOOL_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.WOOL_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.WOOL_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.CARPET_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.CARPET_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CARPET_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.CONCRETE_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CONCRETE_MAP.get(color).get());
 		}
 
 		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_POWDER_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b, color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get());
+			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get());
 		}
 	}
 

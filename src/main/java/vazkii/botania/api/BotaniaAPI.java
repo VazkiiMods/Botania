@@ -81,22 +81,22 @@ public interface BotaniaAPI {
 		return Collections.emptyMap();
 	}
 
-	default Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> getPaintableBlocks() {
+	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}
 
 	default void registerPaintableBlock(Block block, Function<DyeColor, Block> transformer) {
-		registerPaintableBlock(block.delegate, transformer);
+		registerPaintableBlock(Registry.BLOCK.getKey(block), transformer);
 	}
 
 	/**
 	 * Make Botania aware of how to transform between different colors of a block, for use in the paint lens.
 	 * This method can be safely called during parallel mod initialization
 	 * 
-	 * @param block       The block
+	 * @param blockId     The block ID
 	 * @param transformer Function from color to a new block
 	 */
-	default void registerPaintableBlock(IRegistryDelegate<Block> block, Function<DyeColor, Block> transformer) {
+	default void registerPaintableBlock(ResourceLocation blockId, Function<DyeColor, Block> transformer) {
 
 	}
 
