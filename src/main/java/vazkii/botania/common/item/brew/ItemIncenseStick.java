@@ -70,11 +70,11 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getOrDefault(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, brew.getRegistryName());
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

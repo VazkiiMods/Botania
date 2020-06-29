@@ -18,11 +18,11 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import org.apache.logging.log4j.LogManager;
@@ -65,7 +65,11 @@ public interface BotaniaAPI {
 		return 0;
 	}
 
-	default IForgeRegistry<Brew> getBrewRegistry() {
+	/**
+	 * Get the registry for brews.
+	 * Forge documentation: This is purely a read-only wrapper. Register brews using the registry events.
+	 */
+	default Registry<Brew> getBrewRegistry() {
 		return null;
 	}
 

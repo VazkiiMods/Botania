@@ -37,10 +37,13 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemBrewBase extends Item implements IBrewItem {
 
@@ -114,7 +117,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
 		if (isInGroup(tab)) {
-			for (ResourceLocation id : BotaniaAPI.instance().getBrewRegistry().getKeys()) {
+			for (ResourceLocation id : BotaniaAPI.instance().getBrewRegistry().keySet()) {
 				ItemStack stack = new ItemStack(this);
 				setBrew(stack, id);
 				list.add(stack);
@@ -193,11 +196,17 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getOrDefault(ResourceLocation.tryCreate(key));
 	}
 
-	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, (brew == null ? ModBrews.fallbackBrew : brew).getRegistryName());
+	public static void setBrew(ItemStack stack, @Nullable Brew brew) {
+		ResourceLocation id;
+		if (brew != null) {
+			id = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
+		} else {
+			id = prefix("fallback");
+		}
+		setBrew(stack, id);
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

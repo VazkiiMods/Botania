@@ -14,12 +14,15 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
+import vazkii.botania.common.lib.LibObfuscation;
 
+import java.lang.invoke.MethodHandle;
 import java.util.Arrays;
 
 import static vazkii.botania.common.block.ModBlocks.register;
@@ -27,8 +30,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModBrews {
 
-	public static IForgeRegistry<Brew> registry;
-	public static final Brew fallbackBrew = new Brew(0, 0);
+	public static Registry<Brew> registry;
+	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new EffectInstance(Effects.SPEED, 1800, 1));
 	public static final Brew strength = new Brew(0xEE3F3F, 4000, new EffectInstance(Effects.STRENGTH, 1800, 1));
 	public static final Brew haste = new Brew(0xF4A432, 4000, new EffectInstance(Effects.HASTE, 1800, 1));
@@ -54,12 +57,17 @@ public class ModBrews {
 	public static Brew warpWard;
 
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
-		registry = new RegistryBuilder<Brew>()
-				.setName(prefix("brews"))
-				.setType(Brew.class)
-				.setDefaultKey(prefix("fallback"))
-				.disableSaving()
-				.create();
+		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
+		MethodHandle makeBuilder = LibObfuscation.getMethod(GameData.class, "makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
+		try {
+			@SuppressWarnings("unchecked")
+			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invokeExact(prefix("brews"), Brew.class, prefix("fallback"));
+			builder.disableSaving().create();
+			// grab the vanilla wrapper for use
+			registry = GameData.getWrapperDefaulted(Brew.class);
+		} catch (Throwable throwable) {
+			throw new RuntimeException(throwable);
+		}
 	}
 
 	public static void registerBrews(RegistryEvent.Register<Brew> evt) {

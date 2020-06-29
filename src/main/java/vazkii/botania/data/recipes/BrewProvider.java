@@ -23,6 +23,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
@@ -87,7 +88,7 @@ public class BrewProvider extends RecipeProvider {
 
 		@Override
 		public void serialize(JsonObject json) {
-			json.addProperty("brew", brew.getRegistryName().toString());
+			json.addProperty("brew", BotaniaAPI.instance().getBrewRegistry().getKey(brew).toString());
 			JsonArray ingredients = new JsonArray();
 			for (Ingredient ingr : inputs) {
 				ingredients.add(ingr.serialize());

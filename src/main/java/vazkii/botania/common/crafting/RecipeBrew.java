@@ -148,7 +148,7 @@ public class RecipeBrew implements IBrewRecipe {
 			if (brewId == null || !BotaniaAPI.instance().getBrewRegistry().containsKey(brewId)) {
 				throw new JsonParseException("Unknown brew " + brewStr);
 			}
-			Brew brew = BotaniaAPI.instance().getBrewRegistry().getValue(brewId);
+			Brew brew = BotaniaAPI.instance().getBrewRegistry().getOrDefault(brewId);
 
 			JsonArray ingrs = JSONUtils.getJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
@@ -160,7 +160,8 @@ public class RecipeBrew implements IBrewRecipe {
 
 		@Override
 		public RecipeBrew read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
-			Brew brew = buf.readRegistryIdUnsafe(BotaniaAPI.instance().getBrewRegistry());
+			int intId = buf.readVarInt();
+			Brew brew = BotaniaAPI.instance().getBrewRegistry().getByValue(intId);
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.read(buf);
@@ -170,7 +171,8 @@ public class RecipeBrew implements IBrewRecipe {
 
 		@Override
 		public void write(@Nonnull PacketBuffer buf, @Nonnull RecipeBrew recipe) {
-			buf.writeRegistryIdUnsafe(BotaniaAPI.instance().getBrewRegistry(), recipe.getBrew());
+			int intId = BotaniaAPI.instance().getBrewRegistry().getId(recipe.getBrew());
+			buf.writeVarInt(intId);
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.write(buf);

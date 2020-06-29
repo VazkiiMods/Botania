@@ -10,19 +10,18 @@ package vazkii.botania.common.impl;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -32,12 +31,8 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.*;
@@ -187,7 +182,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public IForgeRegistry<Brew> getBrewRegistry() {
+	public Registry<Brew> getBrewRegistry() {
 		return ModBrews.registry;
 	}
 
