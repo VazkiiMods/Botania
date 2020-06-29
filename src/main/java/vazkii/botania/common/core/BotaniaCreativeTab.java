@@ -165,9 +165,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModBlocks.scorchedGrass);
 		addItem(ModBlocks.infusedGrass);
 		addItem(ModBlocks.mutatedGrass);
-		if (Botania.thaumcraftLoaded) {
-			addItem(ModItems.manaInkwell);
-		}
 		addItem(ModBlocks.wildDrum);
 		addItem(ModBlocks.gatheringDrum);
 		addItem(ModBlocks.canopyDrum);
@@ -273,9 +270,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.enderDagger);
 		addItem(ModItems.livingwoodBow);
 		addItem(ModItems.manasteelHelm);
-		if (Botania.thaumcraftLoaded) {
-			addItem(ModItems.manasteelHelmRevealing);
-		}
 		addItem(ModItems.manasteelChest);
 		addItem(ModItems.manasteelLegs);
 		addItem(ModItems.manasteelBoots);
@@ -292,9 +286,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.thunderSword);
 		addItem(ModItems.crystalBow);
 		addItem(ModItems.elementiumHelm);
-		if (Botania.thaumcraftLoaded) {
-			addItem(ModItems.elementiumHelmRevealing);
-		}
 		addItem(ModItems.elementiumChest);
 		addItem(ModItems.elementiumLegs);
 		addItem(ModItems.elementiumBoots);
@@ -305,9 +296,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.terraAxe);
 		addItem(ModItems.temperanceStone);
 		addItem(ModItems.terrasteelHelm);
-		if (Botania.thaumcraftLoaded) {
-			addItem(ModItems.terrasteelHelmRevealing);
-		}
 		addItem(ModItems.terrasteelChest);
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);

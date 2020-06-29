@@ -117,10 +117,6 @@ public class Botania {
 
 	public static boolean gardenOfGlassLoaded = false;
 
-	public static boolean thaumcraftLoaded = false;
-	public static boolean bcApiLoaded = false;
-	public static boolean bloodMagicLoaded = false;
-	public static boolean coloredLightsLoaded = false;
 	public static boolean curiosLoaded = false;
 
 	public static IProxy proxy;
@@ -197,19 +193,9 @@ public class Botania {
 		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
 
 		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
-		thaumcraftLoaded = ModList.get().isLoaded("thaumcraft");
-		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
-		bloodMagicLoaded = ModList.get().isLoaded("bloodmagic"); // Psh, noob
-		coloredLightsLoaded = ModList.get().isLoaded("easycoloredlights");
 		curiosLoaded = ModList.get().isLoaded("curios");
 
 		PacketHandler.init();
-
-		if (Botania.thaumcraftLoaded) {
-			if (ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
-				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
-			}
-		}
 
 		EquipmentHandler.init();
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);

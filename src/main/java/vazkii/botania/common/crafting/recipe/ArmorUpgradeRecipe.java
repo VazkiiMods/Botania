@@ -48,9 +48,6 @@ public class ArmorUpgradeRecipe implements ICraftingRecipe {
 			ItemStack stack = inv.getStackInSlot(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
-				if (Botania.thaumcraftLoaded) {
-					HelmRevealingRecipe.copyTCData(stack, out);
-				}
 				break;
 			}
 		}

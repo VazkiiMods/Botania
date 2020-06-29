@@ -114,11 +114,7 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue enchanterEnabled;
 		public final ForgeConfigSpec.BooleanValue fluxfieldEnabled;
 		public final ForgeConfigSpec.BooleanValue relicsEnabled;
-		// todo 1.16 remove
-		public final ForgeConfigSpec.BooleanValue ringOfOdinFireResist;
 		public final ForgeConfigSpec.BooleanValue invertMagnetRing;
-		public final ForgeConfigSpec.BooleanValue enableThaumcraftStablizers;
-		public final ForgeConfigSpec.BooleanValue enableThaumcraftAspects;
 
 		public final ForgeConfigSpec.IntValue harvestLevelWeight;
 		public final ForgeConfigSpec.IntValue harvestLevelBore;
@@ -163,18 +159,9 @@ public final class ConfigHandler {
 			relicsEnabled = builder
 					.comment("Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.")
 					.define("relics.enabled", true);
-			ringOfOdinFireResist = builder
-					.comment("Set this to false to make the Ring of Odin not apply fire resistance. Mostly for people who use Witchery transformations.")
-					.define("ringOfOdin.fireResist", true);
 			invertMagnetRing = builder
 					.comment("Set this to true to invert the Ring of Magnetization's controls (from shift to stop to shift to work)")
 					.define("magnetRing.invert", false);
-			enableThaumcraftStablizers = builder
-					.comment("Set this to false to disable Thaumcraft Infusion Stabilizing in botania blocks")
-					.define("thaumraftStabilizers.enabled", true);
-			enableThaumcraftAspects = builder
-					.comment("Set this to false to disable Thaumcraft aspects on Botania items")
-					.define("thaumcraftAspects.enabled", true);
 			harvestLevelWeight = builder
 					.comment("The harvest level of the Mana Lens: Weight. 3 is diamond level. Defaults to 2 (iron level)")
 					.defineInRange("harvestLevel.weightLens", 2, 0, Integer.MAX_VALUE);

@@ -45,9 +45,6 @@ public class AncientWillRecipeWrapper implements ICustomCraftingCategoryExtensio
 		ImmutableList.Builder<ItemStack> helmets = ImmutableList.builder();
 		ImmutableList.Builder<ItemStack> wills = ImmutableList.builder();
 		helmets.add(new ItemStack(ModItems.terrasteelHelm));
-		if (Botania.thaumcraftLoaded) {
-			helmets.add(new ItemStack(ModItems.terrasteelHelmRevealing));
-		}
 		wills.add(new ItemStack(ModItems.ancientWillAhrim));
 		wills.add(new ItemStack(ModItems.ancientWillDharok));
 		wills.add(new ItemStack(ModItems.ancientWillGuthan));

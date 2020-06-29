@@ -122,7 +122,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		List<ItemStack> stacks = new ArrayList<>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, !doit);
 		if (MinecraftForge.EVENT_BUS.post(event)) {
-			return new CorporeaResult(stacks, 0, 0); // todo 1.15 what to do here
+			return new CorporeaResult(stacks, 0, 0);
 		}
 
 		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);

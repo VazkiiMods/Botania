@@ -68,15 +68,6 @@ public class BrewProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor("bloodthirst"), ModBrews.bloodthirst, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.FERMENTED_SPIDER_EYE), Ingredient.fromItems(Items.LAPIS_LAZULI), Ingredient.fromItems(Items.FIRE_CHARGE), Ingredient.fromItems(Items.IRON_INGOT)));
 		consumer.accept(new FinishedRecipe(idFor("allure"), ModBrews.allure, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.COD), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.GOLDEN_CARROT)));
 		consumer.accept(new FinishedRecipe(idFor("clear"), ModBrews.clear, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.EMERALD), Ingredient.fromItems(Items.MELON_SLICE)));
-
-		// todo 1.15 conditional recipe or remove
-		if (Botania.thaumcraftLoaded) {
-			Item salisMundus = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "salis_mundus")).get();
-			Item bathSalts = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "bath_salts")).get();
-			Item amber = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "amber")).get();
-
-			consumer.accept(new FinishedRecipe(idFor("warp_ward"), ModBrews.warpWard, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(salisMundus), Ingredient.fromItems(bathSalts), Ingredient.fromItems(amber)));
-		}
 	}
 
 	private static ResourceLocation idFor(String s) {

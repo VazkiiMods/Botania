@@ -82,6 +82,7 @@ public final class RenderHelper {
 	public static final RenderType ENTITY_TRANSLUCENT_GOLD;
 
 	static {
+		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
 		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
 		TRANSLUCENT_TRANSPARENCY = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
 		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
