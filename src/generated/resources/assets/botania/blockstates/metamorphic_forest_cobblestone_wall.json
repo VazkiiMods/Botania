@@ -10,7 +10,7 @@
     },
     {
       "when": {
-        "north": "true"
+        "north": "low"
       },
       "apply": {
         "model": "botania:block/metamorphic_forest_cobblestone_wall_side",
@@ -19,7 +19,36 @@
     },
     {
       "when": {
-        "south": "true"
+        "north": "tall"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_forest_cobblestone_wall_side_tall",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "low"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_forest_cobblestone_wall_side",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_forest_cobblestone_wall_side_tall",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "low"
       },
       "apply": {
         "model": "botania:block/metamorphic_forest_cobblestone_wall_side",
@@ -29,7 +58,17 @@
     },
     {
       "when": {
-        "west": "true"
+        "south": "tall"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_forest_cobblestone_wall_side_tall",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "low"
       },
       "apply": {
         "model": "botania:block/metamorphic_forest_cobblestone_wall_side",
@@ -39,11 +78,11 @@
     },
     {
       "when": {
-        "east": "true"
+        "west": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_forest_cobblestone_wall_side",
-        "y": 90,
+        "model": "botania:block/metamorphic_forest_cobblestone_wall_side_tall",
+        "y": 270,
         "uvlock": true
       }
     }

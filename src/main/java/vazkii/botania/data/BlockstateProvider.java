@@ -8,8 +8,11 @@
  */
 package vazkii.botania.data;
 
+import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
@@ -20,6 +23,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.ModBlocks;
@@ -30,6 +34,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -76,7 +81,8 @@ public class BlockstateProvider extends BlockStateProvider {
 					} else if (b instanceof WallBlock) {
 						ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
 						ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-						wallBlock((WallBlock) b, post, side);
+						ModelFile tallSide = models().getExistingFile(prefix("block/" + name + "_side_tall"));
+						wallBlock((WallBlock) b, post, side, tallSide);
 					} else if (b instanceof FenceBlock) {
 						ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
 						ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
@@ -134,6 +140,25 @@ public class BlockstateProvider extends BlockStateProvider {
 						simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 					}
 				});
+	}
+
+	private static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
+			.put(Direction.NORTH, WallBlock.field_235613_c_)
+			.put(Direction.EAST, WallBlock.field_235612_b_)
+			.put(Direction.SOUTH, WallBlock.field_235614_d_)
+			.put(Direction.WEST, WallBlock.field_235615_e_).build();
+
+	private void wallBlock(WallBlock block, ModelFile post, ModelFile side, ModelFile tallSide) {
+		MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
+				.part().modelFile(post).addModel()
+				.condition(WallBlock.UP, true).end();
+
+		DIRECTION_TO_WALL_SIDE.forEach((dir, value) -> {
+			builder.part().modelFile(side).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).addModel()
+					.condition(value, WallHeight.LOW).end()
+					.part().modelFile(tallSide).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).addModel()
+					.condition(value, WallHeight.TALL);
+		});
 	}
 
 	private void redStringBlock(Block b) {
