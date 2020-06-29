@@ -26,6 +26,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 import vazkii.botania.common.block.BlockAltGrass;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.string.BlockRedString;
@@ -60,7 +61,11 @@ public class BlockstateProvider extends BlockStateProvider {
 					}
 
 					String name = Registry.BLOCK.getKey(b).getPath();
-					if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
+					if (b instanceof BlockSpecialFlower) {
+						ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
+							.texture("cross", prefix("block/" + name));
+						simpleBlock(b, model);
+					} else if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
 						ModelFile file = models().getExistingFile(prefix("block/" + name));
 						getVariantBuilder(b)
 								.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(file, 90, 90, false))

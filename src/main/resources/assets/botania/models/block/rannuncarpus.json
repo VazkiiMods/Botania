@@ -1,6 +1,0 @@
-{
-  "parent": "botania:block/shapes/cross",
-  "textures": {
-    "cross": "botania:block/flower_func_rannuncarpus"
-  }
-}
