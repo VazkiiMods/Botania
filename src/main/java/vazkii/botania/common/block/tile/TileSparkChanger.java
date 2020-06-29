@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TileSparkChanger extends TileSimpleInventory {
+public class TileSparkChanger extends TileExposedSimpleInventory {
 	public TileSparkChanger() {
 		super(ModTiles.SPARK_CHANGER);
 	}
@@ -73,7 +73,6 @@ public class TileSparkChanger extends TileSimpleInventory {
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose
 		return new Inventory(1) {
 			@Override
 			public int getInventoryStackLimit() {

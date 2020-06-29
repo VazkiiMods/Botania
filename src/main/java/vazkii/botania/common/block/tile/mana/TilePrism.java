@@ -24,13 +24,14 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TilePrism extends TileSimpleInventory {
+public class TilePrism extends TileExposedSimpleInventory {
 	public TilePrism() {
 		super(ModTiles.PRISM);
 	}
@@ -65,7 +66,6 @@ public class TilePrism extends TileSimpleInventory {
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose
 		return new Inventory(1) {
 			@Override
 			public boolean isItemValidForSlot(int index, ItemStack stack) {

@@ -35,7 +35,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TileHourglass extends TileSimpleInventory implements ITickableTileEntity {
+public class TileHourglass extends TileExposedSimpleInventory implements ITickableTileEntity {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -163,7 +163,6 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose
 		return new Inventory(1) {
 			@Override
 			public boolean isItemValidForSlot(int index, ItemStack stack) {

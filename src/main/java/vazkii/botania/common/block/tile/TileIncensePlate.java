@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -18,6 +19,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -33,11 +35,12 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Random;
 
-public class TileIncensePlate extends TileSimpleInventory implements ITickableTileEntity {
+public class TileIncensePlate extends TileExposedSimpleInventory implements ISidedInventory, ITickableTileEntity {
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
 	private static final int RANGE = 32;
@@ -165,7 +168,6 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose, prevent extract
 		return new Inventory(1) {
 			@Override
 			public boolean isItemValidForSlot(int index, ItemStack stack) {
@@ -182,4 +184,20 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 		}
 	}
 
+	private static final int[] SLOTS = { 0 };
+
+	@Override
+	public int[] getSlotsForFace(Direction side) {
+		return SLOTS;
+	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
+		return true;
+	}
+
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+		return false;
+	}
 }

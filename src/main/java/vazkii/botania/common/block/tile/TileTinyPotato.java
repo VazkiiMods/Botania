@@ -32,7 +32,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity, INameable {
+public class TileTinyPotato extends TileExposedSimpleInventory implements ITickableTileEntity, INameable {
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
@@ -136,7 +136,6 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose
 		return new Inventory(6);
 	}
 

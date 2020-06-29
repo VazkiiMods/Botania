@@ -43,7 +43,6 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose
 		return new Inventory(10) {
 			@Override
 			public int getInventoryStackLimit() {

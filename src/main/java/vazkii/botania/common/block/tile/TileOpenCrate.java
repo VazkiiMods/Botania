@@ -24,7 +24,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileOpenCrate extends TileSimpleInventory implements ITickableTileEntity {
+public class TileOpenCrate extends TileExposedSimpleInventory implements ITickableTileEntity {
 	public TileOpenCrate() {
 		this(ModTiles.OPEN_CRATE);
 	}
@@ -35,7 +35,6 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 
 	@Override
 	protected Inventory createItemHandler() {
-		// todo 1.16 expose
 		return new Inventory(1);
 	}
 
