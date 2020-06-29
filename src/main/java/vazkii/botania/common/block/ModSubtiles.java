@@ -19,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
@@ -36,7 +35,6 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
-@ObjectHolder(LibMisc.MOD_ID)
 public class ModSubtiles {
 	public static final Block pureDaisy = new BlockSpecialFlower(Block.Properties.from(Blocks.POPPY), SubTilePureDaisy::new);
 	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15), SubTilePureDaisy::new);
