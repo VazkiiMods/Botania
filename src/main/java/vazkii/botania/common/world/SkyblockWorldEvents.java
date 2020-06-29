@@ -29,7 +29,6 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;

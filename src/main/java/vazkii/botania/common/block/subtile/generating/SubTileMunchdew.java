@@ -12,17 +12,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.Collections;

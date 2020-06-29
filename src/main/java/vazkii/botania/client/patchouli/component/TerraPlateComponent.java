@@ -9,7 +9,6 @@
 package vazkii.botania.client.patchouli.component;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.item.ItemStack;
 

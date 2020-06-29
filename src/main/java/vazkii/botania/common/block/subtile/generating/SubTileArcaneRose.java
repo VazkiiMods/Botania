@@ -10,16 +10,12 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.ExperienceHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 

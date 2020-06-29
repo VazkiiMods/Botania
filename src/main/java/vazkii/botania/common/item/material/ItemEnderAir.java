@@ -18,7 +18,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;

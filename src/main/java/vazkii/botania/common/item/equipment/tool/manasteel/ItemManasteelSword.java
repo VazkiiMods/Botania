@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;

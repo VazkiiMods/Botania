@@ -24,8 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.TransformationMatrix;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.SimpleModelTransform;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;

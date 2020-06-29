@@ -27,11 +27,7 @@ import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.render.entity.*;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.mana.*;
-import vazkii.botania.common.block.tile.string.*;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.LibMisc;
 

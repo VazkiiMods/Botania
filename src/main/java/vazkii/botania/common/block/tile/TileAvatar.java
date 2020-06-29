@@ -14,17 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickableTileEntity {
 	private static final int MAX_MANA = 6400;

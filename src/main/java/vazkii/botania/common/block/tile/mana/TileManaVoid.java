@@ -8,15 +8,10 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
-
 import vazkii.botania.api.mana.IClientManaHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaVoid extends TileMod implements IClientManaHandler {
 	public TileManaVoid() {

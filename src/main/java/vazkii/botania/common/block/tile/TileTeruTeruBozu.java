@@ -9,13 +9,8 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.registries.ObjectHolder;
-
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
 	private boolean wasRaining = false;

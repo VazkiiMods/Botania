@@ -24,8 +24,6 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
-
 public class AlfPortalBreadTrigger extends AbstractCriterionTrigger<AlfPortalBreadTrigger.Instance> {
 	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "alf_portal_bread");
 	public static final AlfPortalBreadTrigger INSTANCE = new AlfPortalBreadTrigger();

@@ -9,13 +9,9 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileRedStringComparator extends TileRedString {
 	private int comparatorValue = 0;

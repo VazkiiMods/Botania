@@ -8,12 +8,8 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -24,8 +20,6 @@ import net.minecraft.world.server.ServerWorld;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-
-import java.util.*;
 
 // Catch-all "used an item and it succeeded" trigger for Botania items, because making a separate
 // trigger for each one is dumb.

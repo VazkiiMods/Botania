@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.TileEntity;

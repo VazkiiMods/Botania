@@ -9,11 +9,8 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
 	public SubTileJiyuulia() {

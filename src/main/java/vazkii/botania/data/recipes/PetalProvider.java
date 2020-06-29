@@ -27,7 +27,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;

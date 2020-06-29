@@ -26,7 +26,6 @@ import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
-import vazkii.botania.common.item.relic.ItemLokiRing;
 
 import javax.annotation.Nonnull;
 

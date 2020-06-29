@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -35,7 +34,9 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.*;
+import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;

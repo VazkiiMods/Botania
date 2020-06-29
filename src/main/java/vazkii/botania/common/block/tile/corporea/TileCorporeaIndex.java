@@ -13,21 +13,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.*;
 import java.util.regex.Matcher;

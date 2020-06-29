@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 

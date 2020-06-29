@@ -19,10 +19,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ObjectHolder;
-
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileOpenCrate extends TileExposedSimpleInventory implements ITickableTileEntity {
 	public TileOpenCrate() {

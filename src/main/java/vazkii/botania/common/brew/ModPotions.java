@@ -12,9 +12,7 @@ import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.brew.potion.*;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibPotionNames;
 
 import static vazkii.botania.common.block.ModBlocks.register;

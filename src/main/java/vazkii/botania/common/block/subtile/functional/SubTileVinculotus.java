@@ -9,16 +9,13 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.*;
 

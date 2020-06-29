@@ -22,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;

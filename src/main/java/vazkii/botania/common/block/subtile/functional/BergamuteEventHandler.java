@@ -15,7 +15,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.mana.TilePool;
 

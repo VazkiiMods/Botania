@@ -8,19 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -28,10 +20,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
-import javax.annotation.Nonnull;
-
-import java.util.List;
-import java.util.Random;
 import java.util.function.Consumer;
 
 public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {

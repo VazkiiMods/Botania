@@ -29,7 +29,6 @@ import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockAlfPortal extends BlockMod implements ITileEntityProvider, IWandable {
 

@@ -24,8 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import vazkii.botania.common.Botania;
-
 import javax.annotation.Nonnull;
 
 public class ArmorUpgradeRecipe implements ICraftingRecipe {

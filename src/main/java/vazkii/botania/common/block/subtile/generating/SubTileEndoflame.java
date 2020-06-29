@@ -14,20 +14,16 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";

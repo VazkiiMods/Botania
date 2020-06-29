@@ -9,7 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.IItemProvider;
