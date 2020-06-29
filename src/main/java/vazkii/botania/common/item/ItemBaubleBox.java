@@ -26,8 +26,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-
 import net.minecraftforge.items.wrapper.InvWrapper;
+
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 

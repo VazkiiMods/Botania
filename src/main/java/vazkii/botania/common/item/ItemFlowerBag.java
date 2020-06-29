@@ -50,8 +50,8 @@ public class ItemFlowerBag extends Item {
 	public static boolean isValid(int slot, ItemStack stack) {
 		Block blk = Block.getBlockFromItem(stack.getItem());
 		return !stack.isEmpty()
-			&& blk.getClass() == BlockModFlower.class
-			&& slot == ((BlockModFlower) blk).color.getId();
+				&& blk.getClass() == BlockModFlower.class
+				&& slot == ((BlockModFlower) blk).color.getId();
 	}
 
 	public static Inventory getInventory(ItemStack stack) {
@@ -98,7 +98,7 @@ public class ItemFlowerBag extends Item {
 					Inventory bagInv = getInventory(bag);
 					ItemStack existing = bagInv.getStackInSlot(color);
 					int newCount = Math.min(existing.getCount() + entityStack.getCount(),
-						Math.min(existing.getMaxStackSize(), bagInv.getInventoryStackLimit()));
+							Math.min(existing.getMaxStackSize(), bagInv.getInventoryStackLimit()));
 					int numPickedUp = newCount - existing.getCount();
 
 					if (numPickedUp > 0) {
