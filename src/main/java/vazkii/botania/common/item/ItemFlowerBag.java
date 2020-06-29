@@ -19,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.network.play.server.SCollectItemPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -28,7 +27,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -36,13 +34,14 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ItemFlowerBag extends Item {
+	public static final int SIZE = 16;
+
 	public ItemFlowerBag(Properties props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onPickupItem);
@@ -56,7 +55,7 @@ public class ItemFlowerBag extends Item {
 	}
 
 	public static Inventory getInventory(ItemStack stack) {
-		return new ItemBackedInventory(stack, 16) {
+		return new ItemBackedInventory(stack, SIZE) {
 			@Override
 			public boolean isItemValidForSlot(int slot, @Nonnull ItemStack stack) {
 				return isValid(slot, stack);

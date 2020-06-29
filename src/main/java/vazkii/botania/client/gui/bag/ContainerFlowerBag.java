@@ -43,7 +43,7 @@ public class ContainerFlowerBag extends Container {
 		if (!playerInv.player.world.isRemote) {
 			flowerBagInv = ItemFlowerBag.getInventory(bag);
 		} else {
-			flowerBagInv = new Inventory(16);
+			flowerBagInv = new Inventory(ItemFlowerBag.SIZE);
 		}
 
 		for (i = 0; i < 2; ++i) {

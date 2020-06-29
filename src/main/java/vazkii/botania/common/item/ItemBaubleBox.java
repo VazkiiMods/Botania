@@ -10,25 +10,24 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
+import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
@@ -36,47 +35,38 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ItemBaubleBox extends Item {
+	public static final int SIZE = 24;
 
 	public ItemBaubleBox(Properties props) {
 		super(props);
 	}
 
+	public static Inventory getInventory(ItemStack stack) {
+		return new ItemBackedInventory(stack, SIZE) {
+			@Override
+			public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack) {
+				return EquipmentHandler.instance.isAccessory(stack);
+			}
+		};
+	}
+
 	@Nonnull
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT oldCapNbt) {
-		return new InvProvider();
+		return new InvProvider(stack);
 	}
 
-	private static class InvProvider implements ICapabilitySerializable<INBT> {
+	private static class InvProvider implements ICapabilityProvider {
+		private final LazyOptional<IItemHandler> opt;
 
-		private final IItemHandler inv = new ItemStackHandler(24) {
-			@Nonnull
-			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
-				if (!toInsert.isEmpty()) {
-					if (EquipmentHandler.instance.isAccessory(toInsert)) {
-						return super.insertItem(slot, toInsert, simulate);
-					}
-				}
-				return toInsert;
-			}
-		};
-		private final LazyOptional<IItemHandler> opt = LazyOptional.of(() -> inv);
+		public InvProvider(ItemStack stack) {
+			opt = LazyOptional.of(() -> new InvWrapper(getInventory(stack)));
+		}
 
 		@Nonnull
 		@Override
 		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
-		}
-
-		@Override
-		public INBT serializeNBT() {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
-		}
-
-		@Override
-		public void deserializeNBT(INBT nbt) {
-			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
 		}
 	}
 
