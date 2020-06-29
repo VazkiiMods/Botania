@@ -74,7 +74,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements ITileEnt
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
 		if (!cstack.isEmpty()) {
 			changer.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
-			ItemHandlerHelper.giveItemToPlayer(player, cstack);
+			player.inventory.placeItemBackInInventory(player.world, cstack);
 			return ActionResultType.SUCCESS;
 		} else if (!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
 			changer.getItemHandler().setInventorySlotContents(0, pstack.split(1));

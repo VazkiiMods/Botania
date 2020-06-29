@@ -117,7 +117,7 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 					if (stack.getCount() == 1) {
 						player.setHeldItem(hand, fill(tile.getFluid(), stack));
 					} else {
-						ItemHandlerHelper.giveItemToPlayer(player, fill(tile.getFluid(), new ItemStack(stack.getItem())));
+						player.inventory.placeItemBackInInventory(player.world, new ItemStack(stack.getItem()));
 						stack.shrink(1);
 					}
 				}

@@ -80,7 +80,7 @@ public class BlockEnchanter extends BlockMod implements ITileEntityProvider, IWa
 				return ActionResultType.PASS;
 			}
 		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
-			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
+			player.inventory.placeItemBackInInventory(player.world, enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}

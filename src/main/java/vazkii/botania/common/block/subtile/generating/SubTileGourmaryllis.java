@@ -76,7 +76,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		for (ListIterator<ItemStack> it = lastFoods.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
 			ItemStack streakFood = it.next();
-			if (ItemHandlerHelper.canItemStacksStack(streakFood, food)) {
+			if (streakFood.isItemEqual(food) && ItemStack.areItemStackTagsEqual(streakFood, food)) {
 				it.remove();
 				lastFoods.add(0, streakFood);
 				return index;

@@ -67,7 +67,7 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 		ItemStack stackOnPlayer = player.getHeldItem(hand);
 		if (!stackOnAvatar.isEmpty()) {
 			avatar.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
-			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
+			player.inventory.placeItemBackInInventory(player.world, stackOnAvatar);
 			return ActionResultType.SUCCESS;
 		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
 			avatar.getItemHandler().setInventorySlotContents(0, stackOnPlayer.split(1));

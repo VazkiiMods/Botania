@@ -59,7 +59,7 @@ public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 			if (!stack.isEmpty() && ItemTags.SAPLINGS.func_230235_a_(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
 				if (!world.isRemote) {
 					stack.shrink(1);
-					ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.lexicon));
+					player.inventory.placeItemBackInInventory(player.world, new ItemStack(ModItems.lexicon));
 				}
 				return ActionResultType.SUCCESS;
 			}

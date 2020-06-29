@@ -79,7 +79,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 				stack.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 				did = true;
 			} else {
-				ItemHandlerHelper.giveItemToPlayer(player, plateStack);
+				player.inventory.placeItemBackInInventory(player.world, plateStack);
 				plate.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 
 				did = true;

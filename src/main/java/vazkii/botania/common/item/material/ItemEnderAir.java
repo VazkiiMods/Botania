@@ -47,7 +47,7 @@ public class ItemEnderAir extends Item {
 
 			if (!world.isRemote) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), enderAir);
+				event.getPlayer().inventory.placeItemBackInInventory(world, enderAir);
 				stack.shrink(1);
 				world.playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
 			}

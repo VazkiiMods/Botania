@@ -148,7 +148,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 
 			spreader.getItemHandler().setInventorySlotContents(0, heldItem.copy());
 		} else if (!lens.isEmpty() && !wool) {
-			ItemHandlerHelper.giveItemToPlayer(player, lens);
+			player.inventory.placeItemBackInInventory(player.world, lens);
 			spreader.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		}
 
@@ -161,7 +161,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 			}
 		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor).get());
-			ItemHandlerHelper.giveItemToPlayer(player, pad);
+			player.inventory.placeItemBackInInventory(player.world, pad);
 			spreader.paddingColor = null;
 			spreader.markDirty();
 		}

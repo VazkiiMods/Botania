@@ -111,7 +111,7 @@ public final class SkyblockWorldEvents {
 							if (equipped.isEmpty()) {
 								player.setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
 							} else {
-								ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.waterBowl));
+								player.inventory.placeItemBackInInventory(player.world, new ItemStack(ModItems.waterBowl));
 							}
 						}
 

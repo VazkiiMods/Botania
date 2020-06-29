@@ -198,7 +198,7 @@ public class ItemCraftingHalo extends Item {
 
 	private static void doCraft(PlayerEntity player, ItemStack[] recipe, boolean particles) {
 		consumeRecipeIngredients(recipe, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(EmptyHandler.INSTANCE), player);
-		ItemHandlerHelper.giveItemToPlayer(player, recipe[9]);
+		player.inventory.placeItemBackInInventory(player.world, recipe[9]);
 
 		if (!particles) {
 			return;
@@ -238,7 +238,7 @@ public class ItemCraftingHalo extends Item {
 						if (player == null) {
 							ItemHandlerHelper.insertItem(inv, container, false);
 						} else {
-							ItemHandlerHelper.giveItemToPlayer(player, container);
+							player.inventory.placeItemBackInInventory(player.world, container);
 						}
 					}
 				}

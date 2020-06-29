@@ -57,7 +57,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 				if (stack.isEmpty()) {
 					player.setHeldItem(hand, stackAt);
 				} else if (!stackAt.isEmpty()) {
-					ItemHandlerHelper.giveItemToPlayer(player, stackAt);
+					player.inventory.placeItemBackInInventory(player.world, stackAt);
 				}
 
 				getItemHandler().setInventorySlotContents(index, copy);
