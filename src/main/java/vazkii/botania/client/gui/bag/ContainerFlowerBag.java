@@ -11,16 +11,16 @@ package vazkii.botania.client.gui.bag;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Hand;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.SlotItemHandler;
 
 import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -32,6 +32,7 @@ public class ContainerFlowerBag extends Container {
 	}
 
 	private final ItemStack bag;
+	public final IInventory flowerBagInv;
 
 	public ContainerFlowerBag(int windowId, PlayerInventory playerInv, ItemStack bag) {
 		super(ModItems.FLOWER_BAG_CONTAINER, windowId);
@@ -39,12 +40,21 @@ public class ContainerFlowerBag extends Container {
 		int j;
 
 		this.bag = bag;
-		IItemHandlerModifiable flowerBagInv = (IItemHandlerModifiable) bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
+		if (!playerInv.player.world.isRemote) {
+			flowerBagInv = ItemFlowerBag.getInventory(bag);
+		} else {
+			flowerBagInv = new Inventory(16);
+		}
 
 		for (i = 0; i < 2; ++i) {
 			for (j = 0; j < 8; ++j) {
 				int k = j + i * 8;
-				addSlot(new SlotItemHandler(flowerBagInv, k, 17 + j * 18, 26 + i * 18));
+				addSlot(new Slot(flowerBagInv, k, 17 + j * 18, 26 + i * 18) {
+					@Override
+					public boolean isItemValid(@Nonnull ItemStack stack) {
+						return ItemFlowerBag.isValid(k, stack);
+					}
+				});
 			}
 		}
 

@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
@@ -35,6 +36,7 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 
 import javax.annotation.Nonnull;
@@ -46,39 +48,39 @@ public class ItemFlowerBag extends Item {
 		MinecraftForge.EVENT_BUS.addListener(this::onPickupItem);
 	}
 
+	public static boolean isValid(int slot, ItemStack stack) {
+		Block blk = Block.getBlockFromItem(stack.getItem());
+		return !stack.isEmpty()
+			&& blk.getClass() == BlockModFlower.class
+			&& slot == ((BlockModFlower) blk).color.getId();
+	}
+
+	public static Inventory getInventory(ItemStack stack) {
+		return new ItemBackedInventory(stack, 16) {
+			@Override
+			public boolean isItemValidForSlot(int slot, @Nonnull ItemStack stack) {
+				return isValid(slot, stack);
+			}
+		};
+	}
+
 	@Nonnull
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT oldCapNbt) {
-		return new InvProvider();
+		return new InvProvider(stack);
 	}
 
-	private static class InvProvider implements ICapabilitySerializable<INBT> {
+	private static class InvProvider implements ICapabilityProvider {
+		private final LazyOptional<IItemHandler> opt;
 
-		private final IItemHandler inv = new ItemStackHandler(16) {
-			@Override
-			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-				Block blk = Block.getBlockFromItem(stack.getItem());
-				return !stack.isEmpty()
-						&& blk.getClass() == BlockModFlower.class
-						&& slot == ((BlockModFlower) blk).color.getId();
-			}
-		};
-		private final LazyOptional<IItemHandler> opt = LazyOptional.of(() -> inv);
+		private InvProvider(ItemStack stack) {
+			opt = LazyOptional.of(() -> new InvWrapper(getInventory(stack)));
+		}
 
 		@Nonnull
 		@Override
 		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
-		}
-
-		@Override
-		public INBT serializeNBT() {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
-		}
-
-		@Override
-		public void deserializeNBT(INBT nbt) {
-			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
 		}
 	}
 
@@ -94,14 +96,22 @@ public class ItemFlowerBag extends Item {
 
 				ItemStack bag = event.getPlayer().inventory.getStackInSlot(i);
 				if (!bag.isEmpty() && bag.getItem() == this) {
-					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
-
-					ItemStack result = bagInv.insertItem(color, entityStack, false);
-					int numPickedUp = entityStack.getCount() - result.getCount();
-
-					event.getItem().setItem(result);
+					Inventory bagInv = getInventory(bag);
+					ItemStack existing = bagInv.getStackInSlot(color);
+					int newCount = Math.min(existing.getCount() + entityStack.getCount(),
+						Math.min(existing.getMaxStackSize(), bagInv.getInventoryStackLimit()));
+					int numPickedUp = newCount - existing.getCount();
 
 					if (numPickedUp > 0) {
+						if (existing.isEmpty()) {
+							bagInv.setInventorySlotContents(color, entityStack.split(numPickedUp));
+						} else {
+							existing.grow(numPickedUp);
+							entityStack.shrink(numPickedUp);
+						}
+						event.getItem().setItem(entityStack);
+						bagInv.markDirty();
+
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
 							event.getItem().world.playSound(null, event.getPlayer().getPosX(), event.getPlayer().getPosY(), event.getPlayer().getPosZ(),
@@ -150,12 +160,12 @@ public class ItemFlowerBag extends Item {
 					return ActionResultType.FAIL;
 				}
 
-				ctx.getItem().getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(bagInv -> {
-					for (int i = 0; i < bagInv.getSlots(); i++) {
-						ItemStack flower = bagInv.getStackInSlot(i);
-						((IItemHandlerModifiable) bagInv).setStackInSlot(i, ItemHandlerHelper.insertItemStacked(tileInv, flower, false));
-					}
-				});
+				IInventory bagInv = getInventory(ctx.getItem());
+				for (int i = 0; i < bagInv.getSizeInventory(); i++) {
+					ItemStack flower = bagInv.getStackInSlot(i);
+					ItemStack rem = ItemHandlerHelper.insertItemStacked(tileInv, flower, false);
+					bagInv.setInventorySlotContents(i, rem);
+				}
 
 			}
 

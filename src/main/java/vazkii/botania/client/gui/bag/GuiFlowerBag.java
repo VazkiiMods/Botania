@@ -58,7 +58,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 		func_238474_b_(ms, k, l, 0, 0, xSize, ySize);
 
 		for (Slot slot : container.inventorySlots) {
-			if (slot instanceof SlotItemHandler && !slot.getHasStack()) {
+			if (slot.inventory == container.flowerBagInv && !slot.getHasStack()) {
 				DyeColor color = DyeColor.byId(slot.getSlotIndex());
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 				int x = guiLeft + slot.xPos;
