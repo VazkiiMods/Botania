@@ -146,10 +146,10 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 				player.setHeldItem(hand, ItemStack.EMPTY);
 			}
 
-			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
+			spreader.getItemHandler().setInventorySlotContents(0, heldItem.copy());
 		} else if (!lens.isEmpty() && !wool) {
 			ItemHandlerHelper.giveItemToPlayer(player, lens);
-			spreader.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			spreader.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		}
 
 		if (wool && spreader.paddingColor == null) {

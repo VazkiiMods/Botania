@@ -70,7 +70,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 		}
 
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
-			plate.getItemHandler().setStackInSlot(0, stack.copy());
+			plate.getItemHandler().setInventorySlotContents(0, stack.copy());
 			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
@@ -80,7 +80,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 				did = true;
 			} else {
 				ItemHandlerHelper.giveItemToPlayer(player, plateStack);
-				plate.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+				plate.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 
 				did = true;
 			}

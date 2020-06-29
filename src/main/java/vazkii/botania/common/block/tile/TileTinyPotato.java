@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -49,7 +50,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
 			if (!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
-				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
+				getItemHandler().setInventorySlotContents(index, ItemStack.EMPTY);
 			} else if (!stack.isEmpty()) {
 				ItemStack copy = stack.split(1);
 
@@ -59,7 +60,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 					ItemHandlerHelper.giveItemToPlayer(player, stackAt);
 				}
 
-				getItemHandler().setStackInSlot(index, copy);
+				getItemHandler().setInventorySlotContents(index, copy);
 			}
 		}
 
@@ -134,8 +135,9 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 6;
+	protected Inventory createItemHandler() {
+		// todo 1.16 expose
+		return new Inventory(6);
 	}
 
 	@Nonnull

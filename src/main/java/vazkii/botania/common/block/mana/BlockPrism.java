@@ -77,10 +77,10 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 				player.setHeldItem(hand, ItemStack.EMPTY);
 			}
 
-			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
+			prism.getItemHandler().setInventorySlotContents(0, heldItem.copy());
 		} else if (!lens.isEmpty()) {
 			ItemHandlerHelper.giveItemToPlayer(player, lens);
-			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			prism.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		}
 
 		return ActionResultType.SUCCESS;

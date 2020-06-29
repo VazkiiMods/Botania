@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -233,7 +234,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
 		}
 
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		ILensControl control = getLensController(lens);
 		if (control != null) {
 			if (isredstone) {
@@ -462,7 +463,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void checkForReceiver() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		ILensControl control = getLensController(stack);
 		if (control != null && !control.allowBurstShooting(stack, this, false)) {
 			return;
@@ -495,7 +496,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect) {
 			((ILensEffect) lens.getItem()).apply(lens, props);
 		}
@@ -544,7 +545,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		int color = getVariant().hudColor;
 		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
 
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		if (!lens.isEmpty()) {
 			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
@@ -589,26 +590,17 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
+	protected Inventory createItemHandler() {
+		// todo 1.16 expose
+		return new Inventory(1) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 
-			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!stack.isEmpty() && stack.getItem() instanceof ILens) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return !stack.isEmpty() && stack.getItem() instanceof ILens;
 			}
 		};
 	}

@@ -14,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -55,7 +56,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	private boolean isDust() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		return !stack.isEmpty() && stack.getItem() == ModItems.manaPowder;
 	}
 
@@ -112,7 +113,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	public int getTotalTime() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -140,7 +141,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	public int getColor() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -161,31 +162,27 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
-			@Nonnull
+	protected Inventory createItemHandler() {
+		// todo 1.16 expose
+		return new Inventory(1) {
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return !stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
 						|| stack.getItem() == Blocks.RED_SAND.asItem()
 						|| stack.getItem() == Blocks.SOUL_SAND.asItem()
-						|| stack.getItem() == ModItems.manaPowder)) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
-			}
-
-			@Override
-			public void onContentsChanged(int slot) {
-				super.onContentsChanged(slot);
-				if (!TileHourglass.this.world.isRemote) {
-					time = 0;
-					timeFraction = 0F;
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);
-				}
+						|| stack.getItem() == ModItems.manaPowder);
 			}
 		};
+	}
+
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		if (!world.isRemote) {
+			time = 0;
+			timeFraction = 0F;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);
+		}
 	}
 
 	@Override
@@ -210,18 +207,13 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 		lock = tag.getBoolean(TAG_LOCK);
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(MatrixStack ms) {
 		Minecraft mc = Minecraft.getInstance();
 		int x = mc.getMainWindow().getScaledWidth() / 2 + 10;
 		int y = mc.getMainWindow().getScaledHeight() / 2 - 10;
 
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (!stack.isEmpty()) {
 			mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, stack, x, y);

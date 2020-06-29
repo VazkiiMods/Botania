@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -33,8 +34,9 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
+	protected Inventory createItemHandler() {
+		// todo 1.16 expose
+		return new Inventory(1);
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 		}
 
 		if (canEject()) {
-			ItemStack stack = itemHandler.getStackInSlot(0);
+			ItemStack stack = getItemHandler().getStackInSlot(0);
 			if (!stack.isEmpty()) {
 				eject(stack, redstone);
 			}
@@ -77,7 +79,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 			item.age = -200;
 		}
 
-		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+		getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		world.addEntity(item);
 	}
 

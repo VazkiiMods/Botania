@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
@@ -34,8 +35,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class TileCraftCrate extends TileOpenCrate {
-	private static final String TAG_PATTERN = "pattern";
-
 	private int signal = 0;
 
 	public TileCraftCrate() {
@@ -43,26 +42,17 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 10;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
+	protected Inventory createItemHandler() {
+		// todo 1.16 expose
+		return new Inventory(10) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 
-			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (slot != 9 && !isLocked(slot)) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
+			public boolean isItemValidForSlot(int slot, ItemStack stack) {
+				return slot != 9 && !isLocked(slot);
 			}
 		};
 	}
@@ -92,7 +82,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		int newSignal = 0;
 		for (; newSignal < 9; newSignal++) // dis for loop be derpy
 		{
-			if (!isLocked(newSignal) && itemHandler.getStackInSlot(newSignal).isEmpty()) {
+			if (!isLocked(newSignal) && getItemHandler().getStackInSlot(newSignal).isEmpty()) {
 				break;
 			}
 		}
@@ -115,7 +105,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			}
 		}, 3, 3);
 		for (int i = 0; i < craft.getSizeInventory(); i++) {
-			ItemStack stack = itemHandler.getStackInSlot(i);
+			ItemStack stack = getItemHandler().getStackInSlot(i);
 
 			if (stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder) {
 				continue;
@@ -126,16 +116,16 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		Optional<ICraftingRecipe> matchingRecipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
 		matchingRecipe.ifPresent(recipe -> {
-			itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
+			getItemHandler().setInventorySlotContents(9, recipe.getCraftingResult(craft));
 
 			List<ItemStack> remainders = recipe.getRemainingItems(craft);
 			for (int i = 0; i < craft.getSizeInventory(); i++) {
 				ItemStack s = remainders.get(i);
-				if (!itemHandler.getStackInSlot(i).isEmpty()
-						&& itemHandler.getStackInSlot(i).getItem() == ModItems.placeholder) {
+				if (!getItemHandler().getStackInSlot(i).isEmpty()
+						&& getItemHandler().getStackInSlot(i).getItem() == ModItems.placeholder) {
 					continue;
 				}
-				itemHandler.setStackInSlot(i, s);
+				getItemHandler().setInventorySlotContents(i, s);
 			}
 		});
 
@@ -144,7 +134,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	boolean isFull() {
 		for (int i = 0; i < 9; i++) {
-			if (!isLocked(i) && itemHandler.getStackInSlot(i).isEmpty()) {
+			if (!isLocked(i) && getItemHandler().getStackInSlot(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -154,11 +144,11 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	private void ejectAll() {
 		for (int i = 0; i < getSizeInventory(); ++i) {
-			ItemStack stack = itemHandler.getStackInSlot(i);
+			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);
 			}
-			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+			getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 		}
 	}
 

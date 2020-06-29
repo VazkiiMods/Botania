@@ -20,6 +20,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -40,6 +42,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -140,18 +143,17 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
-			RecipeWrapper inv = getRecipeWrapper();
-			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
+			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, getItemHandler(), world);
 			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
+				ItemStack output = recipe.getCraftingResult(getItemHandler());
 
 				for (int i = 0; i < getSizeInventory(); i++) {
-					itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+					getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 
 				stack.shrink(1);
 
-				ItemStack output = recipe.getCraftingResult(inv);
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 				world.addEntity(outputItem);
@@ -162,13 +164,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			});
 			return maybeRecipe.isPresent();
 		} else if (!hasFluidCapability && !item.getTags().contains(ITEM_TAG_APOTHECARY_SPAWNED)) {
-			if (!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty()) {
+			if (!getItemHandler().getStackInSlot(getSizeInventory() - 1).isEmpty()) {
 				return false;
 			}
 
 			for (int i = 0; i < getSizeInventory(); i++) {
-				if (itemHandler.getStackInSlot(i).isEmpty()) {
-					itemHandler.setStackInSlot(i, stack.split(1));
+				if (getItemHandler().getStackInSlot(i).isEmpty()) {
+					getItemHandler().setInventorySlotContents(i, stack.split(1));
 					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 					return true;
 				}
@@ -190,7 +192,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
 		for (int i = 0; i < getSizeInventory(); i++) {
-			ItemStack stack = itemHandler.getStackInSlot(i);
+			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (stack.isEmpty()) {
 				break;
 			}
@@ -201,13 +203,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	public void trySetLastRecipe(PlayerEntity player) {
-		tryToSetLastRecipe(player, itemHandler, lastRecipe);
+		tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
-	public static void tryToSetLastRecipe(PlayerEntity player, IItemHandlerModifiable inv, List<ItemStack> lastRecipe) {
+	public static void tryToSetLastRecipe(PlayerEntity player, IInventory inv, List<ItemStack> lastRecipe) {
 		if (lastRecipe == null || lastRecipe.isEmpty() || player.world.isRemote) {
 			return;
 		}
@@ -222,7 +224,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack pstack = player.inventory.getStackInSlot(i);
 				if (player.isCreative() || (!pstack.isEmpty() && pstack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, pstack))) {
-					inv.setStackInSlot(index, player.isCreative() ? stack.copy() : pstack.split(1));
+					inv.setInventorySlotContents(index, player.isCreative() ? stack.copy() : pstack.split(1));
 					didAny = true;
 					index++;
 					break;
@@ -239,7 +241,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 	public boolean isEmpty() {
 		for (int i = 0; i < getSizeInventory(); i++) {
-			if (!itemHandler.getStackInSlot(i).isEmpty()) {
+			if (!getItemHandler().getStackInSlot(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -262,7 +264,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 		} else {
 			for (int i = 0; i < getSizeInventory(); i++) {
-				ItemStack stackAt = itemHandler.getStackInSlot(i);
+				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if (stackAt.isEmpty()) {
 					break;
 				}
@@ -337,15 +339,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 16;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, false) {
+	protected Inventory createItemHandler() {
+		return new Inventory(16) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 		};
@@ -373,7 +370,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		int radius = 24;
 		int amt = 0;
 		for (int i = 0; i < getSizeInventory(); i++) {
-			if (itemHandler.getStackInSlot(i).isEmpty()) {
+			if (getItemHandler().getStackInSlot(i).isEmpty()) {
 				break;
 			}
 			amt++;
@@ -381,15 +378,14 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		if (amt > 0) {
 			float anglePer = 360F / amt;
-			RecipeWrapper inv = getRecipeWrapper();
 
-			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, inv, world);
+			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.PETAL_TYPE, getItemHandler(), world);
 			maybeRecipe.ifPresent(recipe -> {
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				mc.textureManager.bindTexture(HUDHandler.manaBar);
 				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-				ItemStack stack = recipe.getCraftingResult(inv);
+				ItemStack stack = recipe.getCraftingResult(getItemHandler());
 
 				mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 				mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
@@ -400,7 +396,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
 				RenderSystem.translated(xPos, yPos, 0);
-				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
+				mc.getItemRenderer().renderItemIntoGUI(getItemHandler().getStackInSlot(i), 0, 0);
 				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;

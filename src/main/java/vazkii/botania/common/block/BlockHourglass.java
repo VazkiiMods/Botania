@@ -88,12 +88,12 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 		}
 
 		if (hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
-			hourglass.getItemHandler().setStackInSlot(0, stack.copy());
+			hourglass.getItemHandler().setInventorySlotContents(0, stack.copy());
 			stack.setCount(0);
 			return ActionResultType.SUCCESS;
 		} else if (!hgStack.isEmpty()) {
 			ItemHandlerHelper.giveItemToPlayer(player, hgStack);
-			hourglass.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			hourglass.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 			return ActionResultType.SUCCESS;
 		}
 

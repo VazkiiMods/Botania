@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
@@ -51,7 +52,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 
 	@Override
 	public void tick() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (!stack.isEmpty() && burning) {
 			if (getBlockState().get(BlockStateProperties.WATERLOGGED) && timeLeft > 1) {
 				timeLeft = 1;
@@ -92,7 +93,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 					world.addParticle(data, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 				}
 			} else {
-				itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+				getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 				burning = false;
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
@@ -128,7 +129,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	}
 
 	public void ignite() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 
 		if (stack.isEmpty() || burning) {
 			return;
@@ -142,11 +143,6 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 		burning = true;
 		Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
 		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * ItemIncenseStick.TIME_MULTIPLIER;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return 1;
 	}
 
 	@Override
@@ -168,22 +164,12 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickableTi
 	}
 
 	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
-			@Nonnull
+	protected Inventory createItemHandler() {
+		// todo 1.16 expose, prevent extract
+		return new Inventory(1) {
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (acceptsItem(stack)) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
-			}
-
-			@Nonnull
-			@Override
-			public ItemStack extractItem(int slot, int amount, boolean simulate) {
-				return ItemStack.EMPTY;
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return acceptsItem(stack);
 			}
 		};
 	}
