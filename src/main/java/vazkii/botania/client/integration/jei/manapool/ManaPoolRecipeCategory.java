@@ -50,7 +50,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
 		localizedName = I18n.format("botania.nei.manaPool");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 		icon = guiHelper.createDrawableIngredient(renderStack.copy());

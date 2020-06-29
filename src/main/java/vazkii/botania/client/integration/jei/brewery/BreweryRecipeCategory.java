@@ -44,7 +44,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 	private final String localizedName;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = new ResourceLocation("botania", "textures/gui/nei_brewery.png");
+		ResourceLocation location = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 0, 0, 166, 65);
 		localizedName = I18n.format("botania.nei.brewery");
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.brewery));
