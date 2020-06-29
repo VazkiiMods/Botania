@@ -30,6 +30,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -117,10 +118,11 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		int startY = 25;
 		int stopX = 70;
 		int stopY = 73;
-		wr.pos(startX, startY, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
-		wr.pos(startX, stopY, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
-		wr.pos(stopX, stopY, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
-		wr.pos(stopX, startY, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
+		Matrix4f mat = ms.getLast().getMatrix();
+		wr.pos(mat, startX, startY, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
+		wr.pos(mat, startX, stopY, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
+		wr.pos(mat, stopX, stopY, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
+		wr.pos(mat, stopX, startY, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
 		tess.draw();
 	}
 
