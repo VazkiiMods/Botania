@@ -54,7 +54,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			return Collections.emptyList();
 		}
 
-		IItemHandler acc = BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player);
+		IItemHandler acc = BotaniaAPI.instance().getAccessoriesInventory(player);
 		if (acc == null) {
 			return Collections.emptyList();
 		}

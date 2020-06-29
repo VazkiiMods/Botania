@@ -32,6 +32,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
@@ -541,7 +542,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
 		int color = getVariant().hudColor;
-		HUDHandler.drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
+		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		if (!lens.isEmpty()) {

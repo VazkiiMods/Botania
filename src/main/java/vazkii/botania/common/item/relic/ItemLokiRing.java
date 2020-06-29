@@ -136,7 +136,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 	}
 
-	public static void breakOnAllCursors(PlayerEntity player, Item item, ItemStack stack, BlockPos pos, Direction side) {
+	public static void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {
+		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
 		if (lokiRing.isEmpty() || player.world.isRemote || !(item instanceof ISequentialBreaker)) {
 			return;

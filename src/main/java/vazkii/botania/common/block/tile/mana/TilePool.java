@@ -32,6 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.*;
@@ -396,7 +397,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = pool.getDisplayName().getString();
 		int color = 0x4444FF;
-		HUDHandler.drawSimpleManaHUD(ms, color, getCurrentMana(), manaCap, name);
+		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), manaCap, name);
 
 		int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 11;
 		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 30;

@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -63,7 +64,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 		int cooldown = getCooldown(stack);
 
-		if (SubTileSolegnolia.hasSolegnoliaAround(living)) {
+		if (BotaniaAPI.instance().hasSolegnoliaAround(living)) {
 			if (cooldown < 0) {
 				setCooldown(stack, 2);
 			}
@@ -103,7 +104,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(ItemEntity item) {
-		if (!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
+		if (!item.isAlive() || item.pickupDelay >= 40 || BotaniaAPI.instance().hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
 			return false;
 		}
 

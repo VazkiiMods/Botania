@@ -94,7 +94,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	@Override
 	public Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
 		Map<InvWithLocation, Integer> countMap = new HashMap<>();
-		List<IWrappedInventory> wrappedInventories = BotaniaAPI.instance().internalHandler().wrapInventory(inventories);
+		List<IWrappedInventory> wrappedInventories = BotaniaAPI.instance().wrapInventory(inventories);
 		for (IWrappedInventory inv : wrappedInventories) {
 			ICorporeaRequest request = new CorporeaRequest(matcher, -1);
 			inv.countItems(request);
@@ -127,7 +127,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
 
-		List<IWrappedInventory> inventoriesW = BotaniaAPI.instance().internalHandler().wrapInventory(inventories);
+		List<IWrappedInventory> inventoriesW = BotaniaAPI.instance().wrapInventory(inventories);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
 		ICorporeaRequest request = new CorporeaRequest(matcher, itemCount);

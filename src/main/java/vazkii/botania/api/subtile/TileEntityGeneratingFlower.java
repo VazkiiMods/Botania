@@ -19,6 +19,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
@@ -26,6 +27,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
@@ -33,6 +35,7 @@ import vazkii.botania.api.mana.IManaCollector;
  * The basic class for a Generating Flower.
  */
 public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
+	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
 
@@ -101,13 +104,13 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
 				double z = getPos().getZ() + offset.z;
-				BotaniaAPI.instance().internalHandler().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+				BotaniaAPI.instance().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		}
 
 		boolean passive = isPassiveFlower();
 		if (!getWorld().isRemote) {
-			int muhBalance = BotaniaAPI.instance().internalHandler().getPassiveFlowerDecay();
+			int muhBalance = BotaniaAPI.instance().getPassiveFlowerDecay();
 
 			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				getWorld().destroyBlock(getPos(), false);
@@ -147,9 +150,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 
 		if (needsNew && ticksExisted == 1) { // New flowers only
-			IManaNetwork network = BotaniaAPI.instance().internalHandler().getManaNetworkInstance();
+			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(getWorld()).size();
-			if (BotaniaAPI.instance().internalHandler().shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
 				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -289,12 +292,16 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
 	}
 
+	public ItemStack getHudIcon() {
+		return Registry.ITEM.getValue(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}
 
 	@Override

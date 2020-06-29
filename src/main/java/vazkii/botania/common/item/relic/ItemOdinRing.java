@@ -47,7 +47,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public void onValidPlayerWornTick(PlayerEntity player) {
-		if (player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get()) {
+		if (player.isBurning()) {
 			player.extinguish();
 		}
 	}
@@ -64,7 +64,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			boolean negate = damageNegations.contains(event.getSource().damageType)
-					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
+					|| (fireNegations.contains(event.getSource().damageType));
 			boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 			if (hasRing && negate) {
 				event.setCanceled(true);

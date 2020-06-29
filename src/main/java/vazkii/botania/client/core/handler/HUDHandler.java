@@ -174,7 +174,7 @@ public final class HUDHandler {
 				boolean creative = false;
 
 				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(EmptyHandler.INSTANCE);
-				IItemHandler accInv = BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player);
+				IItemHandler accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
 
 				int invSize = mainInv.getSlots();
 				int size = invSize;

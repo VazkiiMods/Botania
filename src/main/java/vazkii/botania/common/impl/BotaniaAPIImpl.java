@@ -9,29 +9,48 @@
 package vazkii.botania.common.impl;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.InternalMethodHandler;
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.core.handler.*;
+import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -212,11 +231,61 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return RELIC_RARITY.getValue();
 	}
 
-	private final InternalMethodHandler tmp = new InternalMethodHandler();
+	@Override
+	public IManaNetwork getManaNetworkInstance() {
+		return ManaNetworkHandler.instance;
+	}
 
 	@Override
-	public IInternalMethodHandler internalHandler() {
-		return tmp;
+	public int getPassiveFlowerDecay() {
+		return LibMisc.PASSIVE_FLOWER_DECAY;
+	}
+
+	@Override
+	public IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
+		if (Botania.curiosLoaded) {
+			LazyOptional<IItemHandlerModifiable> cap = EquipmentHandler.getAllWorn(player);
+			return cap.orElseGet(EmptyHandler::new);
+		}
+		return new EmptyHandler();
+	}
+
+	@Override
+	public void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {
+		ItemLokiRing.breakOnAllCursors(player, stack, pos, side);
+	}
+
+	@Override
+	public boolean hasSolegnoliaAround(Entity e) {
+		return SubTileSolegnolia.hasSolegnoliaAround(e);
+	}
+
+	@Override
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		SparkleParticleData data = SparkleParticleData.sparkle(size, r, g, b, m);
+		world.addParticle(data, x, y, z, 0, 0, 0);
+	}
+
+	@Override
+	public boolean shouldForceCheck() {
+		return ConfigHandler.COMMON.flowerForceCheck.get();
+	}
+
+	@Override
+	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
+		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
+		for (InvWithLocation inv : inventories) {
+			ICorporeaSpark spark = CorporeaHelper.instance().getSparkForInventory(inv);
+			IWrappedInventory wrapped = null;
+			// try integrations
+
+			// last chance - this will always work
+			if (wrapped == null) {
+				wrapped = WrappedIInventory.wrap(inv, spark);
+			}
+			arrayList.add(wrapped);
+		}
+		return arrayList;
 	}
 
 	public Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();

@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
@@ -47,7 +48,8 @@ public class BergamuteEventHandler {
 						float red = (color >> 16 & 0xFF) / 255F;
 						float green = (color >> 8 & 0xFF) / 255F;
 						float blue = (color & 0xFF) / 255F;
-						BotaniaAPI.instance().internalHandler().sparkleFX(berg.getWorld(), berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
+						berg.getWorld().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
 					}
 				}
 			}

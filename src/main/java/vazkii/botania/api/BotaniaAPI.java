@@ -9,30 +9,35 @@
 package vazkii.botania.api;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import org.apache.logging.log4j.LogManager;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.internal.DummyMethodHandler;
-import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.api.internal.DummyManaNetwork;
+import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -200,9 +205,42 @@ public interface BotaniaAPI {
 		return Rarity.EPIC;
 	}
 
-	// todo 1.15 combine with this and BotaniaAPIClient
-	default IInternalMethodHandler internalHandler() {
-		return new DummyMethodHandler();
+	default IManaNetwork getManaNetworkInstance() {
+		return DummyManaNetwork.instance;
 	}
 
+	/**
+	 * @return How many ticks a passive flower can have before it decays
+	 */
+	default int getPassiveFlowerDecay() {
+		return 0;
+	}
+
+	default IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
+		return new EmptyHandler();
+	}
+
+	/**
+	 * Break all the blocks the given player has selected with the loki ring.
+	 * The item passed must implement {@link vazkii.botania.api.item.ISequentialBreaker}.
+	 */
+	default void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {}
+
+	default boolean hasSolegnoliaAround(Entity e) {
+		return false;
+	}
+
+	default void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {}
+
+	/**
+	 * See config value "flower.forceCheck" for more information
+	 */
+	default boolean shouldForceCheck() {
+		return false;
+	}
+
+	// todo 1.16 reevaluate this
+	default List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
+		return Collections.emptyList();
+	}
 }

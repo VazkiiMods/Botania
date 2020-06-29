@@ -84,7 +84,7 @@ public final class BoundTileRenderer {
 
 		LazyOptional<IItemHandler> mainInvCap = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
 		mainInvCap.ifPresent(mainInv -> {
-			IItemHandlerModifiable acc = BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player);
+			IItemHandlerModifiable acc = BotaniaAPI.instance().getAccessoriesInventory(player);
 			IItemHandler joined = acc != null ? new CombinedInvWrapper((IItemHandlerModifiable) mainInv, acc) : mainInv;
 
 			for (int i = 0; i < joined.getSlots(); i++) {
