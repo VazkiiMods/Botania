@@ -384,9 +384,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 				if (progress == 1F) {
 					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-					ms.translate(0, 0, 100);
+					// change to MatrixStack ops when renderItemIntoGUI starts taking MatrixStack
+					RenderSystem.translated(0, 0, 100);
 					mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-					ms.translate(0, 0, -100);
+					RenderSystem.translated(0, 0, -100);
 				}
 
 				RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.getCraftingResult(getItemHandler()));
@@ -399,9 +400,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				ms.translate(xPos, yPos, 0);
+				// change to MatrixStack ops when renderItemIntoGUI starts taking MatrixStack
+				RenderSystem.translated(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(getItemHandler().getStackInSlot(i), 0, 0);
-				ms.translate(-xPos, -yPos, 0);
+				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}
