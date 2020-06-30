@@ -9,6 +9,7 @@
 package vazkii.botania.data;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -94,26 +95,25 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.toArray(Block[]::new)
 		);
 
-
 		func_240522_a_(ModTags.Blocks.MISC_SPECIAL_FLOWERS).func_240534_a_(manastar, pureDaisy);
 		func_240522_a_(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS).func_240534_a_(
-			dandelifeon, endoflame, entropinnyum,
-			gourmaryllis, hydroangeas, kekimurus,
-			munchdew, narslimmus, rafflowsia, rosaArcana,
-			shulkMeNot, spectrolus, thermalily
+				dandelifeon, endoflame, entropinnyum,
+				gourmaryllis, hydroangeas, kekimurus,
+				munchdew, narslimmus, rafflowsia, rosaArcana,
+				shulkMeNot, spectrolus, thermalily
 		);
 		func_240522_a_(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).func_240534_a_(
-			agricarnation, agricarnationChibi, bellethorn, bellethornChibi,
-			bergamute, bubbell, bubbellChibi, clayconia, clayconiaChibi,
-			daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
-			hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
-			jiyuulia, loonium, marimorphosis, marimorphosisChibi,
-			medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
-			solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
+				agricarnation, agricarnationChibi, bellethorn, bellethornChibi,
+				bergamute, bubbell, bubbellChibi, clayconia, clayconiaChibi,
+				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
+				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
+				jiyuulia, loonium, marimorphosis, marimorphosisChibi,
+				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
+				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
 		);
 		func_240522_a_(ModTags.Blocks.SPECIAL_FLOWERS).func_240531_a_(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
-			.func_240531_a_(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
-			.func_240531_a_(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
+				.func_240531_a_(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
+				.func_240531_a_(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		func_240522_a_(BlockTags.TALL_FLOWERS).func_240531_a_(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
 		func_240522_a_(BlockTags.SMALL_FLOWERS).func_240531_a_(ModTags.Blocks.MYSTICAL_FLOWERS);

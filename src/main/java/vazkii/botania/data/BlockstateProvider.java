@@ -64,7 +64,7 @@ public class BlockstateProvider extends BlockStateProvider {
 					String name = Registry.BLOCK.getKey(b).getPath();
 					if (b instanceof BlockSpecialFlower || b instanceof BlockModMushroom) {
 						ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
-							.texture("cross", prefix("block/" + name));
+								.texture("cross", prefix("block/" + name));
 						simpleBlock(b, model);
 					} else if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
 						ModelFile file = models().getExistingFile(prefix("block/" + name));
