@@ -8,38 +8,33 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockBuriedPetals extends BlockModFlower {
+public class BlockBuriedPetals extends BushBlock implements IGrowable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 1.6, 16);
 
-	public BlockBuriedPetals(DyeColor color, Properties builder) {
-		super(color, builder);
-	}
+	private final DyeColor color;
 
-	@Nonnull
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public Block.OffsetType getOffsetType() {
-		return Block.OffsetType.NONE;
+	public BlockBuriedPetals(DyeColor color, Properties builder) {
+		super(builder);
+		this.color = color;
 	}
 
 	@Nonnull
@@ -66,4 +61,21 @@ public class BlockBuriedPetals extends BlockModFlower {
 		return BlockRenderType.INVISIBLE;
 	}
 
+	@Override
+	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+		return world.getBlockState(pos.up()).isAir(world, pos);
+	}
+
+	@Override
+	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return canGrow(world, pos, state, false);
+	}
+
+	@Override
+	public void grow(@Nonnull ServerWorld world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+		Block block = ModBlocks.getDoubleFlower(color);
+		if (block instanceof DoublePlantBlock) {
+			((DoublePlantBlock) block).placeAt(world, pos, 3);
+		}
+	}
 }

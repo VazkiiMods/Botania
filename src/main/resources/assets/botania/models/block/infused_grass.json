@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "minecraft:block/dirt",
-    "top": "botania:block/altgrass8",
-    "side": "botania:block/altgrass9"
-  }
-}

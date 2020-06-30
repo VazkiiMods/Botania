@@ -14,9 +14,12 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 
+import vazkii.botania.common.block.BlockModDoubleFlower;
+import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -37,10 +40,14 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 					if (i instanceof BlockItem) {
 						Block b = ((BlockItem) i).getBlock();
 						String name = Registry.ITEM.getKey(i).getPath();
-						if (b instanceof BlockSpecialFlower || b instanceof BlockModMushroom) {
+						if (b instanceof BlockSpecialFlower || b instanceof BlockModMushroom
+							|| b instanceof BlockModFlower
+						) {
 							withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name));
 						} else if (b instanceof BlockFloatingFlower || b instanceof BlockRedString) {
 							withExistingParent(name, prefix("block/" + name));
+						} else if (b instanceof BlockModDoubleFlower) {
+							withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name + "_top"));
 						}
 					}
 				});

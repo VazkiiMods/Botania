@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "botania:block/gray_double_flower"
+  }
+}

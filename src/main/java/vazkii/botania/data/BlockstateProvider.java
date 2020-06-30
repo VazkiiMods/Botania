@@ -25,18 +25,19 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
-import vazkii.botania.common.block.BlockAltGrass;
-import vazkii.botania.common.block.BlockSpecialFlower;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
+import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -54,19 +55,68 @@ public class BlockstateProvider extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		Registry.BLOCK.stream().filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
-				.forEach(b -> {
-					if (b == ModBlocks.craftCrate || b == ModBlocks.ghostRail
-							|| b == ModBlocks.solidVines) {
-						return;
-					}
+		Set<Block> blocks = Registry.BLOCK.stream()
+			.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
+			.collect(Collectors.toSet());
+		// Manually written blockstates + models
+		blocks.remove(ModBlocks.craftCrate);
+		blocks.remove(ModBlocks.ghostRail);
+		blocks.remove(ModBlocks.solidVines);
 
+		// Single blocks
+		String elfGlassName = Registry.BLOCK.getKey(ModBlocks.elfGlass).getPath();
+		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
+			.mapToObj(i -> models().getExistingFile(prefix("block/" + elfGlassName + "_" + i)))
+			.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
+		getVariantBuilder(ModBlocks.elfGlass).partialState().setModels(elfGlassFiles);
+		blocks.remove(ModBlocks.elfGlass);
+
+		String plateName = Registry.BLOCK.getKey(ModBlocks.incensePlate).getPath();
+		ModelFile plateFile = models().getExistingFile(prefix("block/" + plateName));
+		horizontalBlock(ModBlocks.incensePlate, plateFile, 0);
+		blocks.remove(ModBlocks.incensePlate);
+
+		// Block types
+		Predicate<Block> flowers = b -> b instanceof BlockSpecialFlower
+			|| b instanceof BlockModMushroom
+			|| b instanceof BlockModFlower;
+		takeAll(blocks, flowers).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
+				.texture("cross", prefix("block/" + name));
+			simpleBlock(b, model);
+		});
+
+		takeAll(blocks, ModBlocks.gaiaHead, ModBlocks.gaiaHeadWall).forEach(b -> {
+			ModelFile file = models().getExistingFile(new ResourceLocation("block/soul_sand"));
+			getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
+		});
+
+		takeAll(blocks, b -> b instanceof BlockAltGrass).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ResourceLocation side = prefix("block/" + name + "_side");
+			ResourceLocation top = prefix("block/" + name + "_top");
+			ModelFile model = models().cubeBottomTop(name, side, new ResourceLocation("block/dirt"), top);
+			getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
+				new ConfiguredModel(model, 0, 90, false),
+				new ConfiguredModel(model, 0, 180, false),
+				new ConfiguredModel(model, 0, 270, false));
+		});
+
+		takeAll(blocks, b -> b instanceof BlockRedString).forEach(this::redStringBlock);
+
+		takeAll(blocks, b -> b instanceof BlockModDoubleFlower).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ModelFile bottom = models().cross(name, prefix("block/" + name));
+			ModelFile top = models().cross(name + "_top", prefix("block/" + name + "_top"));
+			getVariantBuilder(b)
+				.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER).setModels(new ConfiguredModel(bottom))
+				.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
+		});
+
+		blocks.forEach(b -> {
 					String name = Registry.BLOCK.getKey(b).getPath();
-					if (b instanceof BlockSpecialFlower || b instanceof BlockModMushroom) {
-						ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
-								.texture("cross", prefix("block/" + name));
-						simpleBlock(b, model);
-					} else if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
+					if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
 						ModelFile file = models().getExistingFile(prefix("block/" + name));
 						getVariantBuilder(b)
 								.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(file, 90, 90, false))
@@ -106,31 +156,9 @@ public class BlockstateProvider extends BlockStateProvider {
 						ModelFile noSide = models().getExistingFile(prefix("block/" + name + "_noside"));
 						ModelFile noSideAlt = models().getExistingFile(prefix("block/" + name + "_noside_alt"));
 						paneBlock((PaneBlock) b, post, side, sideAlt, noSide, noSideAlt);
-					} else if (b instanceof TallFlowerBlock) {
-						ModelFile bottom = models().getExistingFile(prefix("block/" + name));
-						ModelFile top = models().getExistingFile(prefix("block/" + name + "_top"));
-						getVariantBuilder(b)
-								.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER).setModels(new ConfiguredModel(bottom))
-								.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
-					} else if (b instanceof BlockAltGrass) {
-						ModelFile model = models().getExistingFile(prefix("block/" + name));
-						getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
-								new ConfiguredModel(model, 0, 90, false),
-								new ConfiguredModel(model, 0, 180, false),
-								new ConfiguredModel(model, 0, 270, false));
-					} else if (b == ModBlocks.gaiaHead || b == ModBlocks.gaiaHeadWall) {
-						ModelFile file = models().getExistingFile(new ResourceLocation("block/soul_sand"));
-						getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
 					} else if (b instanceof BlockPetalBlock) {
 						ModelFile file = models().getExistingFile(prefix("block/petal_block"));
 						getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
-					} else if (b instanceof BlockRedString) {
-						redStringBlock(b);
-					} else if (b == ModBlocks.elfGlass) {
-						ConfiguredModel[] files = IntStream.rangeClosed(0, 3)
-								.mapToObj(i -> models().getExistingFile(prefix("block/" + name + "_" + i)))
-								.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
-						getVariantBuilder(b).partialState().setModels(files);
 					} else if (b == ModBlocks.enderEye || b == ModBlocks.manaDetector) {
 						ModelFile offFile = models().getExistingFile(prefix("block/" + name));
 						ModelFile onFile = models().getExistingFile(prefix("block/" + name + "_powered"));
@@ -139,13 +167,32 @@ public class BlockstateProvider extends BlockStateProvider {
 					} else if (b == ModBlocks.tinyPotato || b == ModBlocks.felPumpkin || b == ModBlocks.pump) {
 						ModelFile file = models().getExistingFile(prefix("block/" + name));
 						horizontalBlock(b, file);
-					} else if (b == ModBlocks.incensePlate) {
-						ModelFile file = models().getExistingFile(prefix("block/" + name));
-						horizontalBlock(b, file, 0);
 					} else {
 						simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 					}
 				});
+	}
+
+	@SafeVarargs
+	private static <T> Iterable<T> takeAll(Set<T> src, T... items) {
+		List<T> ret = Arrays.asList(items);
+		src.removeAll(ret);
+		return ret;
+	}
+
+	private static <T> Iterable<T> takeAll(Set<T> src, Predicate<T> pred) {
+		List<T> ret = new ArrayList<>();
+
+		Iterator<T> iter = src.iterator();
+		while (iter.hasNext()) {
+			T item = iter.next();
+			if (pred.test(item)) {
+				iter.remove();
+				ret.add(item);
+			}
+		}
+
+		return ret;
 	}
 
 	private static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
