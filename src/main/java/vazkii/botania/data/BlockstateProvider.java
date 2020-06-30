@@ -167,7 +167,10 @@ public class BlockstateProvider extends BlockStateProvider {
 	}
 
 	private void redStringBlock(Block b) {
-		ModelFile file = models().getExistingFile(prefix("block/" + Registry.BLOCK.getKey(b).getPath()));
+		String name = Registry.BLOCK.getKey(b).getPath();
+		ResourceLocation selfName = prefix("block/" + name);
+		ResourceLocation front = prefix("block/red_string_sender");
+		ModelFile file = models().orientable(name, selfName, front, selfName);
 		getVariantBuilder(b)
 				.partialState().with(BlockStateProperties.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
 				.partialState().with(BlockStateProperties.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))
