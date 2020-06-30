@@ -50,9 +50,6 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 		return SHAPE;
 	}
 
-	@Override
-	public void tick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
-
 	// [VanillaCopy] super, without light level requirement
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {

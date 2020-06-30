@@ -28,6 +28,7 @@ import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -61,7 +62,7 @@ public class BlockstateProvider extends BlockStateProvider {
 					}
 
 					String name = Registry.BLOCK.getKey(b).getPath();
-					if (b instanceof BlockSpecialFlower) {
+					if (b instanceof BlockSpecialFlower || b instanceof BlockModMushroom) {
 						ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
 							.texture("cross", prefix("block/" + name));
 						simpleBlock(b, model);
