@@ -1,8 +1,8 @@
 {
   "parent": "block/outer_stairs",
   "textures": {
-      "bottom": "botania:block/biomestone22",
-      "top": "botania:block/biomestone22",
-      "side": "botania:block/biomestone22"
+      "bottom": "botania:block/metamorphic_taiga_bricks",
+      "top": "botania:block/metamorphic_taiga_bricks",
+      "side": "botania:block/metamorphic_taiga_bricks"
   }
 }

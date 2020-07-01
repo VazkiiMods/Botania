@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "top": "botania:block/biomestone2",
-    "bottom": "botania:block/biomestone2",
-    "side": "botania:block/biomestone2"
+    "top": "botania:block/metamorphic_mountain_stone",
+    "bottom": "botania:block/metamorphic_mountain_stone",
+    "side": "botania:block/metamorphic_mountain_stone"
   }
 }

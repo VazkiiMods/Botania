@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:block/biomestone8"
+    "all": "botania:block/metamorphic_forest_cobblestone"
   }
 }

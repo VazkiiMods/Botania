@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:block/biomestone19"
+    "all": "botania:block/metamorphic_fungal_bricks"
   }
 }

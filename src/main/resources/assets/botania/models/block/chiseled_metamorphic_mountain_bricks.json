@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:block/biomestone26"
+    "all": "botania:block/chiseled_metamorphic_mountain_bricks"
   }
 }

@@ -1,8 +1,8 @@
 {
   "parent": "block/inner_stairs",
   "textures": {
-      "bottom": "botania:block/biomestone18",
-      "top": "botania:block/biomestone18",
-      "side": "botania:block/biomestone18"
+      "bottom": "botania:block/metamorphic_mountain_bricks",
+      "top": "botania:block/metamorphic_mountain_bricks",
+      "side": "botania:block/metamorphic_mountain_bricks"
   }
 }
