@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:block/storage2"
+    "all": "botania:block/elementium_block"
   }
 }

@@ -1,11 +1,11 @@
 {
   "parent": "botania:block/shapes/eightbyeight",
   "textures": {
-    "bottom": "botania:block/foresteye0",
-    "top": "botania:block/foresteye1",
-    "north": "botania:block/foresteye2",
-    "south": "botania:block/foresteye3",
-    "west": "botania:block/foresteye4",
-    "east": "botania:block/foresteye5"
+    "bottom": "botania:block/forest_eye_bottom",
+    "top": "botania:block/forest_eye_top",
+    "north": "botania:block/forest_eye_north",
+    "south": "botania:block/forest_eye_south",
+    "west": "botania:block/forest_eye_west",
+    "east": "botania:block/forest_eye_east"
   }
 }

@@ -2,7 +2,7 @@
   "parent": "minecraft:block/orientable",
   "textures": {
     "top": "minecraft:block/pumpkin_top",
-    "front": "botania:block/pumpkin_fel",
+    "front": "botania:block/fel_pumpkin",
     "side": "minecraft:block/pumpkin_side"
   }
 }

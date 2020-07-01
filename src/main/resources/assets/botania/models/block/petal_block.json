@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/cube_all_tinted",
   "textures": {
-    "all": "botania:block/petalblock"
+    "all": "botania:block/petal_block"
   }
 }

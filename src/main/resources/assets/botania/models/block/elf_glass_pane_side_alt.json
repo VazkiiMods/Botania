@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_glass_pane_side_alt",
   "textures": {
-    "edge": "botania:block/elfglasspane",
+    "edge": "botania:block/elfglass_pane",
     "pane": "botania:block/elfglass"
   }
 }

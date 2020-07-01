@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "top": "botania:block/pavement0",
-    "bottom": "botania:block/pavement0",
-    "side": "botania:block/pavement0"
+    "top": "botania:block/white_pavement",
+    "bottom": "botania:block/white_pavement",
+    "side": "botania:block/white_pavement"
   }
 }

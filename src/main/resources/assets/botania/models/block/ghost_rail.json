@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/rail_flat",
   "textures": {
-    "rail": "botania:block/rail_ghost"
+    "rail": "botania:block/ghost_rail"
   }
 }
