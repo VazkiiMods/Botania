@@ -4,7 +4,7 @@
 	"textures": {
 		"structure": "botania:block/pump_structure",
 		"head_sheat": "botania:block/pump_head_sheat",
-		"particle": "botania:block/livingrock0"
+		"particle": "botania:block/livingrock"
 	},
 	"elements": [
 		{

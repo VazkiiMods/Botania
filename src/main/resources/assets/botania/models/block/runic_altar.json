@@ -5,7 +5,7 @@
 		"bottom": "botania:block/runic_altar_bottom",
 		"up": "botania:block/runic_altar_top",
 		"side": "botania:block/runic_altar_side",
-		"particle": "botania:block/livingrock0"
+		"particle": "botania:block/livingrock"
 	},
 	"elements": [ 	 
 		{

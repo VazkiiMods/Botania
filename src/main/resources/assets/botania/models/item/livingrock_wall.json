@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "botania:block/livingrock0"
+    "wall": "botania:block/livingrock"
   }
 }
