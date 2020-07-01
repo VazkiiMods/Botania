@@ -8,11 +8,10 @@
  */
 package vazkii.botania.client.patchouli.component;
 
+import com.google.common.collect.Streams;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.Minecraft;
-import com.google.common.collect.Streams;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
