@@ -56,8 +56,8 @@ public class BlockstateProvider extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		Set<Block> blocks = Registry.BLOCK.stream()
-			.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
-			.collect(Collectors.toSet());
+				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
+				.collect(Collectors.toSet());
 		// Manually written blockstates + models
 		blocks.remove(ModBlocks.craftCrate);
 		blocks.remove(ModBlocks.ghostRail);
@@ -66,8 +66,8 @@ public class BlockstateProvider extends BlockStateProvider {
 		// Single blocks
 		String elfGlassName = Registry.BLOCK.getKey(ModBlocks.elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
-			.mapToObj(i -> models().getExistingFile(prefix("block/" + elfGlassName + "_" + i)))
-			.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
+				.mapToObj(i -> models().getExistingFile(prefix("block/" + elfGlassName + "_" + i)))
+				.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
 		getVariantBuilder(ModBlocks.elfGlass).partialState().setModels(elfGlassFiles);
 		blocks.remove(ModBlocks.elfGlass);
 
@@ -78,12 +78,12 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		// Block types
 		Predicate<Block> flowers = b -> b instanceof BlockSpecialFlower
-			|| b instanceof BlockModMushroom
-			|| b instanceof BlockModFlower;
+				|| b instanceof BlockModMushroom
+				|| b instanceof BlockModFlower;
 		takeAll(blocks, flowers).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
-				.texture("cross", prefix("block/" + name));
+					.texture("cross", prefix("block/" + name));
 			simpleBlock(b, model);
 		});
 
@@ -98,9 +98,9 @@ public class BlockstateProvider extends BlockStateProvider {
 			ResourceLocation top = prefix("block/" + name + "_top");
 			ModelFile model = models().cubeBottomTop(name, side, new ResourceLocation("block/dirt"), top);
 			getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
-				new ConfiguredModel(model, 0, 90, false),
-				new ConfiguredModel(model, 0, 180, false),
-				new ConfiguredModel(model, 0, 270, false));
+					new ConfiguredModel(model, 0, 90, false),
+					new ConfiguredModel(model, 0, 180, false),
+					new ConfiguredModel(model, 0, 270, false));
 		});
 
 		takeAll(blocks, b -> b instanceof BlockRedString).forEach(this::redStringBlock);
@@ -110,67 +110,67 @@ public class BlockstateProvider extends BlockStateProvider {
 			ModelFile bottom = models().cross(name, prefix("block/" + name));
 			ModelFile top = models().cross(name + "_top", prefix("block/" + name + "_top"));
 			getVariantBuilder(b)
-				.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER).setModels(new ConfiguredModel(bottom))
-				.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
+					.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER).setModels(new ConfiguredModel(bottom))
+					.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
 		});
 
 		blocks.forEach(b -> {
-					String name = Registry.BLOCK.getKey(b).getPath();
-					if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
-						ModelFile file = models().getExistingFile(prefix("block/" + name));
-						getVariantBuilder(b)
-								.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(file, 90, 90, false))
-								.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(file))
-								.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(file, 90, 0, false));
-					} else if (b instanceof SlabBlock) {
-						ModelFile file = models().getExistingFile(prefix("block/" + name));
-						ModelFile fullFile = models().getExistingFile(prefix("block/" + name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length())));
-						getVariantBuilder(b)
-								.partialState().with(SlabBlock.TYPE, SlabType.BOTTOM).setModels(new ConfiguredModel(file))
-								.partialState().with(SlabBlock.TYPE, SlabType.TOP).setModels(new ConfiguredModel(file, 180, 0, true))
-								.partialState().with(SlabBlock.TYPE, SlabType.DOUBLE).setModels(new ConfiguredModel(fullFile));
-					} else if (b instanceof StairsBlock) {
-						ModelFile stair = models().getExistingFile(prefix("block/" + name));
-						ModelFile inner = models().getExistingFile(prefix("block/" + name + "_inner"));
-						ModelFile outer = models().getExistingFile(prefix("block/" + name + "_outer"));
-						stairsBlock((StairsBlock) b, stair, inner, outer);
-					} else if (b instanceof WallBlock) {
-						ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
-						ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-						ModelFile tallSide = models().getExistingFile(prefix("block/" + name + "_side_tall"));
-						wallBlock((WallBlock) b, post, side, tallSide);
-					} else if (b instanceof FenceBlock) {
-						ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
-						ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-						fourWayBlock((FenceBlock) b, post, side);
-					} else if (b instanceof FenceGateBlock) {
-						ModelFile gate = models().getExistingFile(prefix("block/" + name));
-						ModelFile gateOpen = models().getExistingFile(prefix("block/" + name + "_open"));
-						ModelFile wall = models().getExistingFile(prefix("block/" + name + "_wall"));
-						ModelFile wallOpen = models().getExistingFile(prefix("block/" + name + "_wall_open"));
-						fenceGateBlock((FenceGateBlock) b, gate, gateOpen, wall, wallOpen);
-					} else if (b instanceof PaneBlock) {
-						ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
-						ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-						ModelFile sideAlt = models().getExistingFile(prefix("block/" + name + "_side_alt"));
-						ModelFile noSide = models().getExistingFile(prefix("block/" + name + "_noside"));
-						ModelFile noSideAlt = models().getExistingFile(prefix("block/" + name + "_noside_alt"));
-						paneBlock((PaneBlock) b, post, side, sideAlt, noSide, noSideAlt);
-					} else if (b instanceof BlockPetalBlock) {
-						ModelFile file = models().getExistingFile(prefix("block/petal_block"));
-						getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
-					} else if (b == ModBlocks.enderEye || b == ModBlocks.manaDetector) {
-						ModelFile offFile = models().getExistingFile(prefix("block/" + name));
-						ModelFile onFile = models().getExistingFile(prefix("block/" + name + "_powered"));
-						getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, false).setModels(new ConfiguredModel(offFile));
-						getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, true).setModels(new ConfiguredModel(onFile));
-					} else if (b == ModBlocks.tinyPotato || b == ModBlocks.felPumpkin || b == ModBlocks.pump) {
-						ModelFile file = models().getExistingFile(prefix("block/" + name));
-						horizontalBlock(b, file);
-					} else {
-						simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
-					}
-				});
+			String name = Registry.BLOCK.getKey(b).getPath();
+			if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
+				ModelFile file = models().getExistingFile(prefix("block/" + name));
+				getVariantBuilder(b)
+						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(file, 90, 90, false))
+						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(file))
+						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(file, 90, 0, false));
+			} else if (b instanceof SlabBlock) {
+				ModelFile file = models().getExistingFile(prefix("block/" + name));
+				ModelFile fullFile = models().getExistingFile(prefix("block/" + name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length())));
+				getVariantBuilder(b)
+						.partialState().with(SlabBlock.TYPE, SlabType.BOTTOM).setModels(new ConfiguredModel(file))
+						.partialState().with(SlabBlock.TYPE, SlabType.TOP).setModels(new ConfiguredModel(file, 180, 0, true))
+						.partialState().with(SlabBlock.TYPE, SlabType.DOUBLE).setModels(new ConfiguredModel(fullFile));
+			} else if (b instanceof StairsBlock) {
+				ModelFile stair = models().getExistingFile(prefix("block/" + name));
+				ModelFile inner = models().getExistingFile(prefix("block/" + name + "_inner"));
+				ModelFile outer = models().getExistingFile(prefix("block/" + name + "_outer"));
+				stairsBlock((StairsBlock) b, stair, inner, outer);
+			} else if (b instanceof WallBlock) {
+				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
+				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
+				ModelFile tallSide = models().getExistingFile(prefix("block/" + name + "_side_tall"));
+				wallBlock((WallBlock) b, post, side, tallSide);
+			} else if (b instanceof FenceBlock) {
+				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
+				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
+				fourWayBlock((FenceBlock) b, post, side);
+			} else if (b instanceof FenceGateBlock) {
+				ModelFile gate = models().getExistingFile(prefix("block/" + name));
+				ModelFile gateOpen = models().getExistingFile(prefix("block/" + name + "_open"));
+				ModelFile wall = models().getExistingFile(prefix("block/" + name + "_wall"));
+				ModelFile wallOpen = models().getExistingFile(prefix("block/" + name + "_wall_open"));
+				fenceGateBlock((FenceGateBlock) b, gate, gateOpen, wall, wallOpen);
+			} else if (b instanceof PaneBlock) {
+				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
+				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
+				ModelFile sideAlt = models().getExistingFile(prefix("block/" + name + "_side_alt"));
+				ModelFile noSide = models().getExistingFile(prefix("block/" + name + "_noside"));
+				ModelFile noSideAlt = models().getExistingFile(prefix("block/" + name + "_noside_alt"));
+				paneBlock((PaneBlock) b, post, side, sideAlt, noSide, noSideAlt);
+			} else if (b instanceof BlockPetalBlock) {
+				ModelFile file = models().getExistingFile(prefix("block/petal_block"));
+				getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
+			} else if (b == ModBlocks.enderEye || b == ModBlocks.manaDetector) {
+				ModelFile offFile = models().getExistingFile(prefix("block/" + name));
+				ModelFile onFile = models().getExistingFile(prefix("block/" + name + "_powered"));
+				getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, false).setModels(new ConfiguredModel(offFile));
+				getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, true).setModels(new ConfiguredModel(onFile));
+			} else if (b == ModBlocks.tinyPotato || b == ModBlocks.felPumpkin || b == ModBlocks.pump) {
+				ModelFile file = models().getExistingFile(prefix("block/" + name));
+				horizontalBlock(b, file);
+			} else {
+				simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
+			}
+		});
 	}
 
 	@SafeVarargs

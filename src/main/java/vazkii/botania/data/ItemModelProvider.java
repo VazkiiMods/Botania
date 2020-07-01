@@ -41,8 +41,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 						Block b = ((BlockItem) i).getBlock();
 						String name = Registry.ITEM.getKey(i).getPath();
 						if (b instanceof BlockSpecialFlower || b instanceof BlockModMushroom
-							|| b instanceof BlockModFlower
-						) {
+								|| b instanceof BlockModFlower) {
 							withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name));
 						} else if (b instanceof BlockFloatingFlower || b instanceof BlockRedString) {
 							withExistingParent(name, prefix("block/" + name));
