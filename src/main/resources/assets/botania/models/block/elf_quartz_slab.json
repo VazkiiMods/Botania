@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "botania:block/blockelfquartz0",
-    "top": "botania:block/blockelfquartz1",
-    "side": "botania:block/blockelfquartz2"
+    "bottom": "botania:block/elf_quartz_bottom",
+    "top": "botania:block/elf_quartz_top",
+    "side": "botania:block/elf_quartz_side"
   }
 }

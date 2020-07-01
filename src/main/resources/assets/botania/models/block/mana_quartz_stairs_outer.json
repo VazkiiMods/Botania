@@ -1,8 +1,8 @@
 {
   "parent": "block/outer_stairs",
   "textures": {
-    "bottom": "botania:block/blockmanaquartz0",
-    "top": "botania:block/blockmanaquartz1",
-    "side": "botania:block/blockmanaquartz2"
+    "bottom": "botania:block/mana_quartz_bottom",
+    "top": "botania:block/mana_quartz_top",
+    "side": "botania:block/mana_quartz_side"
   }
 }
