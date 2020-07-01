@@ -3,6 +3,6 @@
   "textures": {
     "inside": "botania:block/redstone_spreader_inside",
     "side": "botania:block/redstone_spreader_side",
-    "material": "botania:block/livingwood0"
+    "material": "botania:block/livingwood"
   }
 }

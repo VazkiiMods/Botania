@@ -3,6 +3,6 @@
   "textures": {
     "inside": "botania:block/elven_spreader_inside",
     "side": "botania:block/elven_spreader_side",
-    "material": "botania:block/dreamwood0"
+    "material": "botania:block/dreamwood"
   }
 }
