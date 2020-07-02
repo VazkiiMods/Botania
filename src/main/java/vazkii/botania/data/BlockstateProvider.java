@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.DyeColor;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
@@ -26,9 +27,9 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
-import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -40,6 +41,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider extends BlockStateProvider {
@@ -59,22 +61,46 @@ public class BlockstateProvider extends BlockStateProvider {
 				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
 		// Manually written blockstates + models
-		blocks.remove(ModBlocks.craftCrate);
-		blocks.remove(ModBlocks.ghostRail);
-		blocks.remove(ModBlocks.solidVines);
+		blocks.remove(craftCrate);
+		blocks.remove(ghostRail);
+		blocks.remove(solidVines);
 
 		// Single blocks
-		String elfGlassName = Registry.BLOCK.getKey(ModBlocks.elfGlass).getPath();
+		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> models().getExistingFile(prefix("block/" + elfGlassName + "_" + i)))
 				.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
-		getVariantBuilder(ModBlocks.elfGlass).partialState().setModels(elfGlassFiles);
-		blocks.remove(ModBlocks.elfGlass);
+		getVariantBuilder(elfGlass).partialState().setModels(elfGlassFiles);
+		blocks.remove(elfGlass);
 
 		String plateName = Registry.BLOCK.getKey(ModBlocks.incensePlate).getPath();
 		ModelFile plateFile = models().getExistingFile(prefix("block/" + plateName));
-		horizontalBlock(ModBlocks.incensePlate, plateFile, 0);
-		blocks.remove(ModBlocks.incensePlate);
+		horizontalBlock(incensePlate, plateFile, 0);
+		blocks.remove(incensePlate);
+
+		// TESRs with only particles
+		particleOnly(animatedTorch, new ResourceLocation("block/redstone_torch"));
+		particleOnly(avatar, prefix("block/livingwood"));
+		particleOnly(bellows, prefix("block/livingwood"));
+		particleOnly(brewery, prefix("block/livingrock"));
+		particleOnly(corporeaIndex, prefix("block/elementium_block"));
+		particleOnly(lightRelayDetector, prefix("block/luminizer_detector"));
+		simpleBlock(fakeAir, models().getBuilder(Registry.BLOCK.getKey(ModBlocks.fakeAir).getPath()));
+		particleOnly(lightRelayFork, prefix("block/luminizer_fork"));
+		particleOnly(gaiaHead, new ResourceLocation("block/soul_sand"));
+		particleOnly(gaiaHeadWall, new ResourceLocation("block/soul_sand"));
+		particleOnly(gaiaPylon, prefix("block/elementium_block"));
+		particleOnly(hourglass, prefix("block/mana_glass"));
+		particleOnly(lightRelayDefault, prefix("block/luminizer"));
+		particleOnly(manaFlame, new ResourceLocation("block/fire_0"));
+		particleOnly(manaPylon, prefix("block/manasteel_block"));
+		particleOnly(naturaPylon, prefix("block/terrasteel_block"));
+		particleOnly(teruTeruBozu, new ResourceLocation("block/white_wool"));
+		particleOnly(lightRelayToggle, prefix("block/luminizer_toggle"));
+
+		blocks.removeAll(Arrays.asList(animatedTorch, avatar, bellows, brewery, corporeaIndex, lightRelayDetector,
+				fakeAir, lightRelayFork, gaiaHead, gaiaHeadWall, gaiaPylon, hourglass,
+				lightRelayDefault, manaFlame, manaPylon, naturaPylon, teruTeruBozu, lightRelayToggle));
 
 		// Block types
 		Predicate<Block> flowers = b -> b instanceof BlockSpecialFlower
@@ -85,11 +111,6 @@ public class BlockstateProvider extends BlockStateProvider {
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
 					.texture("cross", prefix("block/" + name));
 			simpleBlock(b, model);
-		});
-
-		takeAll(blocks, ModBlocks.gaiaHead, ModBlocks.gaiaHeadWall).forEach(b -> {
-			ModelFile file = models().getExistingFile(new ResourceLocation("block/soul_sand"));
-			getVariantBuilder(b).partialState().setModels(new ConfiguredModel(file));
 		});
 
 		takeAll(blocks, b -> b instanceof BlockAltGrass).forEach(b -> {
@@ -112,6 +133,12 @@ public class BlockstateProvider extends BlockStateProvider {
 			getVariantBuilder(b)
 					.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER).setModels(new ConfiguredModel(bottom))
 					.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
+		});
+
+		takeAll(blocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
+			DyeColor color = ((BlockBuriedPetals) b).color;
+			ResourceLocation wool = new ResourceLocation("block/" + color.func_176610_l() + "_wool");
+			particleOnly(b, wool);
 		});
 
 		blocks.forEach(b -> {
@@ -171,6 +198,13 @@ public class BlockstateProvider extends BlockStateProvider {
 				simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 			}
 		});
+	}
+
+	private void particleOnly(Block b, ResourceLocation particle) {
+		String name = Registry.BLOCK.getKey(b).getPath();
+		ModelFile f = models().getBuilder(name)
+				.texture("particle", particle);
+		simpleBlock(b, f);
 	}
 
 	@SafeVarargs
