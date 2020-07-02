@@ -18,9 +18,8 @@ plugins {
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'pmd'
-// apply plugin: 'com.matthewprenger.cursegradle'
 
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
@@ -256,35 +255,29 @@ def parseConfig(File config) {
 	}
 }
 
-/*
-curseforge {
-	if(priv == null){
-		return
-	}
-    apiKey = priv.cfkey
-    project {
-        id = "225643"
-        changelog = """
-		    See http://botaniamod.net/changelog.php#${version}
-        """
-        releaseType = "release"
-        addGameVersion "${mc_version}"
-        relations {
-            requiredLibrary 'curios'
-            optionalLibrary 'quark'
-            optionalLibrary 'albedo'
+publishing {
+    tasks.publish.dependsOn build
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+            artifact srcJar
+            artifact apiJar
+            pom.withXml {
+                def node = asNode()
+                if(node.dependencies.size() > 0)
+                    node.remove(node.dependencies) // Remove deps, as they are all mappings-dependent and/or forge
+            }
         }
     }
-}
-*/
 
-uploadArchives {
     repositories {
-        mavenDeployer {
-            repository(url: "file://" + (System.getenv("local_maven") != null ? System.getenv("local_maven") : System.getenv("bamboo_local_maven")))
+        maven {
+            url "file://" + System.getenv("local_maven")
         }
     }
 }
-// tasks.uploadArchives.dependsOn reobfJar
 
 defaultTasks 'clean', 'checkSyntax', 'build'
