@@ -138,11 +138,6 @@ task checkSyntax {
     dependsOn spotlessJavaCheck, pmdMain
 }
 
-if (System.getenv().BUILD_NUMBER != null) { 
-    //adds the build number to the end of the version string if on a build server
-    version += ".${System.getenv().BUILD_NUMBER}"
-}
-
 jar {
     manifest {
         attributes(["Specification-Title": "botania",
