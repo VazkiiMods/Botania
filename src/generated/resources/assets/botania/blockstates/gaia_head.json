@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/soul_sand"
+      "model": "botania:block/gaia_head"
     }
   }
 }

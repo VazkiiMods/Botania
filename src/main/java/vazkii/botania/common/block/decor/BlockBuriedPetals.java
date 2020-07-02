@@ -30,7 +30,7 @@ public class BlockBuriedPetals extends BushBlock implements IGrowable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 1.6, 16);
 
-	private final DyeColor color;
+	public final DyeColor color;
 
 	public BlockBuriedPetals(DyeColor color, Properties builder) {
 		super(builder);
