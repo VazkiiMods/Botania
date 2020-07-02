@@ -51,7 +51,12 @@
     },
     {
       "type": "item",
-      "item": "botania:mana_pool:0{RenderFull:1b}",
+      "item": {
+        "item": "botania:mana_pool",
+        "nbt": {
+          "RenderFull": 1
+        }
+      },
       "framed": "false",
       "x": 49,
       "y": 41

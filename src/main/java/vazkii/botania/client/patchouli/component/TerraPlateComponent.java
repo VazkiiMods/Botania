@@ -14,9 +14,10 @@ import net.minecraft.item.ItemStack;
 
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
+import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * Patchouli custom component that draws provided stacks arranged like the Terrestial Agglomeration Plate multiblock.
@@ -24,10 +25,10 @@ import java.util.function.Function;
  * Parameters: corner, center, edge, plate can be provided to override default blocks.
  */
 public class TerraPlateComponent implements ICustomComponent {
-	public String corner = "botania:livingrock";
-	public String center = "botania:livingrock";
-	public String edge = "minecraft:lapis_block";
-	public String plate = "botania:terra_plate";
+	public IVariable corner = IVariable.wrap("botania:livingrock");
+	public IVariable center = IVariable.wrap("botania:livingrock");
+	public IVariable edge = IVariable.wrap("minecraft:lapis_block");
+	public IVariable plate = IVariable.wrap("botania:terra_plate");
 
 	private transient int x, y;
 	private transient ItemStack cornerBlock, centerBlock, middleBlock, plateBlock;
@@ -36,10 +37,6 @@ public class TerraPlateComponent implements ICustomComponent {
 	public void build(int componentX, int componentY, int pageNum) {
 		this.x = componentX;
 		this.y = componentY;
-		this.cornerBlock = PatchouliAPI.instance.deserializeItemStack(corner);
-		this.centerBlock = PatchouliAPI.instance.deserializeItemStack(center);
-		this.middleBlock = PatchouliAPI.instance.deserializeItemStack(edge);
-		this.plateBlock = PatchouliAPI.instance.deserializeItemStack(plate);
 	}
 
 	@Override
@@ -72,10 +69,10 @@ public class TerraPlateComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void onVariablesAvailable(Function<String, String> lookup) {
-		corner = lookup.apply(corner);
-		center = lookup.apply(center);
-		edge = lookup.apply(edge);
-		plate = lookup.apply(plate);
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+		cornerBlock = lookup.apply(corner).as(ItemStack.class);
+		centerBlock = lookup.apply(center).as(ItemStack.class);
+		middleBlock = lookup.apply(edge).as(ItemStack.class);
+		plateBlock = lookup.apply(plate).as(ItemStack.class);
 	}
 }

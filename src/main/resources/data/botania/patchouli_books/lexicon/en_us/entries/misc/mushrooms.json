@@ -11,7 +11,24 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.mushrooms1",
-      "recipes": "botania:mushroom_0;botania:mushroom_1;botania:mushroom_2;botania:mushroom_3;botania:mushroom_4;botania:mushroom_5;botania:mushroom_6;botania:mushroom_7;botania:mushroom_8;botania:mushroom_9;botania:mushroom_10;botania:mushroom_11;botania:mushroom_12;botania:mushroom_13;botania:mushroom_14;botania:mushroom_15"
+      "recipes": [
+        "botania:mushroom_0",
+        "botania:mushroom_1",
+        "botania:mushroom_2",
+        "botania:mushroom_3",
+        "botania:mushroom_4",
+        "botania:mushroom_5",
+        "botania:mushroom_6",
+        "botania:mushroom_7",
+        "botania:mushroom_8",
+        "botania:mushroom_9",
+        "botania:mushroom_10",
+        "botania:mushroom_11",
+        "botania:mushroom_12",
+        "botania:mushroom_13",
+        "botania:mushroom_14",
+        "botania:mushroom_15"
+      ]
     }
   ]
 }

@@ -39,7 +39,10 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool3",
-      "recipes": "botania:mana_infusion/manasteel;botania:mana_infusion/manasteel_block"
+      "recipes": [
+        "botania:mana_infusion/manasteel",
+        "botania:mana_infusion/manasteel_block"
+      ]
     },
     {
       "type": "botania:mana_infusion",
@@ -49,12 +52,18 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool5",
-      "recipes": "botania:mana_infusion/mana_diamond;botania:mana_infusion/mana_diamond_block"
+      "recipes": [
+        "botania:mana_infusion/mana_diamond",
+        "botania:mana_infusion/mana_diamond_block"
+      ]
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool6",
-      "recipes": "botania:mana_infusion/mana_powder_dust;botania:mana_infusion/mana_powder_dye"
+      "recipes": [
+        "botania:mana_infusion/mana_powder_dust",
+        "botania:mana_infusion/mana_powder_dye"
+      ]
     },
     {
       "type": "botania:mana_infusion",

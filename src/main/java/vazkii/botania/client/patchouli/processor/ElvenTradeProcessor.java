@@ -21,8 +21,8 @@ import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
+import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,10 +32,10 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	private int longestIngredientSize, mostInputs, mostOutputs;
 
 	@Override
-	public void setup(IVariableProvider<String> variables) {
+	public void setup(IVariableProvider variables) {
 		ImmutableList.Builder<IElvenTradeRecipe> builder = ImmutableList.builder();
-		for (String s : variables.get("recipes").split(";")) {
-			IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s));
+		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
+			IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s.asString()));
 			if (recipe instanceof IElvenTradeRecipe) {
 				builder.add((IElvenTradeRecipe) recipe);
 			} else {
@@ -61,12 +61,12 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	}
 
 	@Override
-	public String process(String key) {
+	public IVariable process(String key) {
 		if (recipes.isEmpty()) {
 			return null;
 		}
 		if (key.equals("heading")) {
-			return recipes.get(0).getOutputs().get(0).getDisplayName().getString();
+			return IVariable.wrap(recipes.get(0).getOutputs().get(0).getDisplayName().getString());
 		} else if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			if (index < mostInputs) {
@@ -78,17 +78,16 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 		if (key.startsWith("output")) {
 			int index = Integer.parseInt(key.substring(6)) - 1;
 			if (index < mostOutputs) {
-				return recipes.stream().map(IElvenTradeRecipe::getOutputs)
+				return IVariable.wrapList(recipes.stream().map(IElvenTradeRecipe::getOutputs)
 						.map(l -> index < l.size() ? l.get(index) : ItemStack.EMPTY)
-						.map(PatchouliAPI.instance::serializeItemStack).collect(Collectors.joining(","));
-			} else {
-				return null;
+						.map(IVariable::from)
+						.collect(Collectors.toList()));
 			}
 		}
 		return null;
 	}
 
-	private String interweaveIngredients(int inputIndex) {
+	private IVariable interweaveIngredients(int inputIndex) {
 		List<Ingredient> recipes = this.recipes.stream().map(IElvenTradeRecipe::getIngredients).map(ingredients -> {
 			if (inputIndex < ingredients.size()) {
 				return ingredients.get(inputIndex);

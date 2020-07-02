@@ -30,7 +30,14 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.grassSeeds5",
-      "recipes": "botania:dry_seeds;botania:golden_seeds;botania:vivid_seeds;botania:scorched_seeds;botania:infused_seeds;botania:mutated_seeds"
+      "recipes": [
+        "botania:dry_seeds",
+        "botania:golden_seeds",
+        "botania:vivid_seeds",
+        "botania:scorched_seeds",
+        "botania:infused_seeds",
+        "botania:mutated_seeds"
+      ]
     }
   ],
   "extra_recipe_mappings": {

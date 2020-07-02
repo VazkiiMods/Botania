@@ -25,7 +25,24 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.azulejo3",
-      "recipes": "botania:azulejo_0_alt;botania:azulejo_1;botania:azulejo_2;botania:azulejo_3;botania:azulejo_4;botania:azulejo_5;botania:azulejo_6;botania:azulejo_7;botania:azulejo_8;botania:azulejo_9;botania:azulejo_10;botania:azulejo_11;botania:azulejo_12;botania:azulejo_13;botania:azulejo_14;botania:azulejo_15"
+      "recipes": [
+        "botania:azulejo_0_alt",
+        "botania:azulejo_1",
+        "botania:azulejo_2",
+        "botania:azulejo_3",
+        "botania:azulejo_4",
+        "botania:azulejo_5",
+        "botania:azulejo_6",
+        "botania:azulejo_7",
+        "botania:azulejo_8",
+        "botania:azulejo_9",
+        "botania:azulejo_10",
+        "botania:azulejo_11",
+        "botania:azulejo_12",
+        "botania:azulejo_13",
+        "botania:azulejo_14",
+        "botania:azulejo_15"
+      ]
     }
   ]
 }

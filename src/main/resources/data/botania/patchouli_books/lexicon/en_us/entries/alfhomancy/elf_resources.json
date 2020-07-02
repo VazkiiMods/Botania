@@ -27,17 +27,17 @@
     {
       "type": "botania:elven_trade",
       "text": "botania.page.elfResources3",
-      "recipes": "botania:elven_trade/elementium;botania:elven_trade/elementium_block"
+      "recipes": ["botania:elven_trade/elementium", "botania:elven_trade/elementium_block"]
     },
     {
       "type": "botania:elven_trade",
       "text": "botania.page.elfResources4",
-      "recipes": "botania:elven_trade/pixie_dust"
+      "recipes": ["botania:elven_trade/pixie_dust"]
     },
     {
       "type": "botania:elven_trade",
       "text": "botania.page.elfResources5",
-      "recipes": "botania:elven_trade/dragonstone;botania:elven_trade/dragonstone_block"
+      "recipes": ["botania:elven_trade/dragonstone", "botania:elven_trade/dragonstone_block"]
     },
     {
       "type": "text",
