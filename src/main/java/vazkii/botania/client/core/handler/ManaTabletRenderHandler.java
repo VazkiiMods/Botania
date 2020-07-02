@@ -29,64 +29,18 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public final class BaubleRenderHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
+public final class ManaTabletRenderHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
 
-	public BaubleRenderHandler(IEntityRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> renderer) {
+	public ManaTabletRenderHandler(IEntityRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> renderer) {
 		super(renderer);
 	}
 
 	@Override
 	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		// todo 1.16 curios dispatchRenders(ms, buffers, light, player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
-
-		if (ConfigHandler.CLIENT.renderAccessories.get() && player.getActivePotionEffect(Effects.INVISIBILITY) == null) {
+		if (ConfigHandler.CLIENT.renderAccessories.get() && player.isInvisible()) {
 			renderManaTablet(ms, buffers, player);
 		}
 	}
-
-	/*
-	// Like LayerCurios, but with Botania-specific logic
-	private void dispatchRenders(MatrixStack ms, IRenderTypeBuffer buffers, int light, PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ms.push();
-		CuriosAPI.getCuriosHandler(player).ifPresent(handler -> {
-			Map<String, CurioStackHandler> curios = handler.getCurioMap();
-	
-			for (Map.Entry<String, CurioStackHandler> e : curios.entrySet()) {
-				for (int i = 0; i < e.getValue().getSlots(); i++) {
-					ItemStack stack = e.getValue().getStackInSlot(i);
-					if (!stack.isEmpty()) {
-						Item item = stack.getItem();
-						ItemStack toRender = stack;
-	
-						if (item instanceof IPhantomInkable) {
-							IPhantomInkable inkable = (IPhantomInkable) item;
-							if (inkable.hasPhantomInk(stack)) {
-								continue;
-							}
-						}
-	
-						if (item instanceof ICosmeticAttachable) {
-							ICosmeticAttachable attachable = (ICosmeticAttachable) item;
-							ItemStack cosmetic = attachable.getCosmeticItem(stack);
-							if (!cosmetic.isEmpty()) {
-								toRender = cosmetic;
-							}
-						}
-	
-						toRender.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
-							if (c.hasRender(e.getKey(), player) && c instanceof CurioIntegration.Wrapper) {
-								ms.push();
-								((CurioIntegration.Wrapper) c).doRender(this, player, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
-								ms.pop();
-							}
-						});
-					}
-				}
-			}
-		});
-		ms.pop();
-	}
-	*/
 
 	private void renderManaTablet(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player) {
 		boolean renderedOne = false;

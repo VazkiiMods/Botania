@@ -12,6 +12,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.util.ITooltipFlag;
@@ -26,7 +27,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.util.List;
@@ -76,10 +76,10 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 		if (variant.isHead) {
-			layer.getEntityModel().bipedHead.translateRotate(ms);
+			bipedModel.bipedHead.translateRotate(ms);
 			switch (variant) {
 			case RED_GLASSES:
 			case ENGINEER_GOGGLES:
@@ -228,7 +228,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			}
 		} else { // body cosmetics
-			layer.getEntityModel().bipedBody.translateRotate(ms);
+			bipedModel.bipedBody.translateRotate(ms);
 			switch (variant) {
 			case BLACK_BOWTIE:
 				ms.translate(0, 0.1, -0.13);

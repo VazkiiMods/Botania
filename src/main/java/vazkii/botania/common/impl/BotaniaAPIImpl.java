@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
@@ -31,7 +30,6 @@ import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -239,11 +237,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
-		if (Botania.curiosLoaded) {
-			LazyOptional<IItemHandlerModifiable> cap = EquipmentHandler.getAllWorn(player);
-			return cap.orElseGet(EmptyHandler::new);
-		}
-		return new EmptyHandler();
+		return EquipmentHandler.getAllWorn(player).orElseGet(EmptyHandler::new);
 	}
 
 	@Override

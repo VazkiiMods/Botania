@@ -10,9 +10,15 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComparatorBlock;
+import net.minecraft.block.RedstoneWireBlock;
+import net.minecraft.block.RepeaterBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
@@ -31,7 +37,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
@@ -42,8 +47,8 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		layer.getEntityModel().bipedHead.translateRotate(ms);
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.bipedHead.translateRotate(ms);
 		ms.translate(0.15, -0.2, -0.25);
 		ms.scale(0.3F, -0.3F, -0.3F);
 		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
@@ -88,26 +93,20 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	public static boolean hasMonocle(PlayerEntity player) {
-		return EquipmentHandler.getAllWorn(player).map(inv -> {
-			for (int i = 0; i < inv.getSlots(); i++) {
-				ItemStack stack = inv.getStackInSlot(i);
-				if (!stack.isEmpty()) {
-					Item item = stack.getItem();
-					if (item instanceof IBurstViewerBauble) {
-						return true;
-					}
-
-					if (item instanceof ICosmeticAttachable) {
-						ICosmeticAttachable attach = (ICosmeticAttachable) item;
-						ItemStack cosmetic = attach.getCosmeticItem(stack);
-						if (!cosmetic.isEmpty() && cosmetic.getItem() instanceof IBurstViewerBauble) {
-							return true;
-						}
-					}
+		return !EquipmentHandler.findOrEmpty(stack -> {
+			if (!stack.isEmpty()) {
+				Item item = stack.getItem();
+				if (item instanceof IBurstViewerBauble) {
+					return true;
+				}
+				if (item instanceof ICosmeticAttachable) {
+					ICosmeticAttachable attach = (ICosmeticAttachable) item;
+					ItemStack cosmetic = attach.getCosmeticItem(stack);
+					return !cosmetic.isEmpty() && cosmetic.getItem() instanceof IBurstViewerBauble;
 				}
 			}
 			return false;
-		}).orElse(false);
+		}, player).isEmpty();
 	}
 
 }

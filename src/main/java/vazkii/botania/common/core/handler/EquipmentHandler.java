@@ -17,12 +17,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.RangedWrapper;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 import java.util.Arrays;
@@ -35,11 +35,9 @@ public abstract class EquipmentHandler {
 
 	public static void init() {
 		if (Botania.curiosLoaded) {
-			/* todo 1.16 curios
 			instance = new CurioIntegration();
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
 			MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
-			*/
 		} else {
 			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
 			instance = handler;
@@ -123,9 +121,6 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
-			if (living instanceof PlayerEntity) {
-				return LazyOptional.of(() -> new RangedWrapper(new InvWrapper(((PlayerEntity) living).inventory), 0, 9));
-			}
 			return LazyOptional.empty();
 		}
 
