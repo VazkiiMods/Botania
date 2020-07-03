@@ -1,8 +1,0 @@
-{
-	"parent": "botania:block/shapes/three_high_bottom_top",
-	"textures": {
-		"bottom": "botania:block/terra_plate_bottom",
-		"up": "botania:block/terra_plate_top",
-		"side": "botania:block/terra_plate_side"
-	}
-}

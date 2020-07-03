@@ -120,15 +120,42 @@ public class BlockstateProvider extends BlockStateProvider {
 		getVariantBuilder(elfGlass).partialState().setModels(elfGlassFiles);
 		remainingBlocks.remove(elfGlass);
 
+		String enchSoilName = Registry.BLOCK.getKey(enchantedSoil).getPath();
+		simpleBlock(enchantedSoil, models().cubeBottomTop(enchSoilName,
+			prefix("block/" + enchSoilName + "_side"),
+			new ResourceLocation("block/dirt"),
+			prefix("block/" + enchSoilName + "_top")
+		));
+		remainingBlocks.remove(enchantedSoil);
+
 		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
 		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
 			new ResourceLocation("block/pumpkin_top")));
 		remainingBlocks.remove(felPumpkin);
 
-		String plateName = Registry.BLOCK.getKey(ModBlocks.incensePlate).getPath();
+		String forestEyeName = Registry.BLOCK.getKey(forestEye).getPath();
+		ModelFile forestEyeFile = models().withExistingParent(forestEyeName, prefix("block/shapes/eightbyeight"))
+			.texture("bottom", prefix("block/" + forestEyeName + "_bottom"))
+			.texture("top", prefix("block/" + forestEyeName + "_top"))
+			.texture("north", prefix("block/" + forestEyeName + "_north"))
+			.texture("south", prefix("block/" + forestEyeName + "_south"))
+			.texture("west", prefix("block/" + forestEyeName + "_west"))
+			.texture("east", prefix("block/" + forestEyeName + "_east"));
+		simpleBlock(forestEye, forestEyeFile);
+		remainingBlocks.remove(forestEye);
+
+		String plateName = Registry.BLOCK.getKey(incensePlate).getPath();
 		ModelFile plateFile = models().getExistingFile(prefix("block/" + plateName));
 		horizontalBlock(incensePlate, plateFile, 0);
 		remainingBlocks.remove(incensePlate);
+
+		String lightLauncherName = Registry.BLOCK.getKey(lightLauncher).getPath();
+		ModelFile lightLauncherFile = models().withExistingParent(lightLauncherName, prefix("block/shapes/four_high_bottom_top"))
+			.texture("bottom", prefix("block/" + lightLauncherName + "_end"))
+			.texture("top", prefix("block/" + lightLauncherName + "_end"))
+			.texture("side", prefix("block/" + lightLauncherName + "_side"));
+		simpleBlock(lightLauncher, lightLauncherFile);
+		remainingBlocks.remove(lightLauncher);
 
 		String openCrateName = Registry.BLOCK.getKey(openCrate).getPath();
 		ModelFile openCrateFile = models().withExistingParent(openCrateName, prefix("block/shapes/crate"))
@@ -136,6 +163,44 @@ public class BlockstateProvider extends BlockStateProvider {
 			.texture("bottom", prefix("block/" + openCrateName + "_bottom"));
 		simpleBlock(openCrate, openCrateFile);
 		remainingBlocks.remove(openCrate);
+
+		String sparkChangerName = Registry.BLOCK.getKey(sparkChanger).getPath();
+		ModelFile sparkChangerFile = models().withExistingParent(sparkChangerName, prefix("block/shapes/three_high_bottom_top"))
+			.texture("bottom", prefix("block/" + sparkChangerName + "_bottom"))
+			.texture("top", prefix("block/" + sparkChangerName + "_top"))
+			.texture("side", prefix("block/" + sparkChangerName + "_side"));
+		simpleBlock(sparkChanger, sparkChangerFile);
+		remainingBlocks.remove(sparkChanger);
+
+		String starfieldName = Registry.BLOCK.getKey(starfield).getPath();
+		ModelFile starfieldFile = models().withExistingParent(starfieldName, prefix("block/shapes/four_high_bottom_top"))
+			.texture("bottom", prefix("block/" + starfieldName + "_bottom"))
+			.texture("top", prefix("block/" + starfieldName + "_top"))
+			.texture("side", prefix("block/" + starfieldName + "_side"));
+		simpleBlock(starfield, starfieldFile);
+		remainingBlocks.remove(starfield);
+
+		String terraPlateName = Registry.BLOCK.getKey(terraPlate).getPath();
+		ModelFile terraPlateFile = models().withExistingParent(terraPlateName, prefix("block/shapes/three_high_bottom_top"))
+			.texture("bottom", prefix("block/" + terraPlateName + "_bottom"))
+			.texture("top", prefix("block/" + terraPlateName + "_top"))
+			.texture("side", prefix("block/" + terraPlateName + "_side"));
+		simpleBlock(terraPlate, terraPlateFile);
+		remainingBlocks.remove(terraPlate);
+
+		String tinyPlanetName = Registry.BLOCK.getKey(tinyPlanet).getPath();
+		ModelFile tinyPlanetFile = models().withExistingParent(tinyPlanetName, prefix("block/shapes/tenbyten_all"))
+			.texture("all", prefix("block/" + tinyPlanetName));
+		simpleBlock(tinyPlanet, tinyPlanetFile);
+		remainingBlocks.remove(tinyPlanet);
+
+		String turnTableName = Registry.BLOCK.getKey(turntable).getPath();
+		simpleBlock(turntable, models().cubeBottomTop(turnTableName,
+			prefix("block/" + turnTableName + "_side"),
+			prefix("block/" + turnTableName + "_bottom"),
+			prefix("block/" + turnTableName + "_top")
+		));
+		remainingBlocks.remove(turntable);
 
 		fixedWallBlock((WallBlock) ModFluffBlocks.dreamwoodWall, prefix("block/dreamwood"));
 		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockWall, prefix("block/livingrock"));

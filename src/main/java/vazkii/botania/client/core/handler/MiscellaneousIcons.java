@@ -201,8 +201,8 @@ public class MiscellaneousIcons {
 		evt.addSprite(prefix("block/luminizer_detector"));
 		evt.addSprite(prefix("block/luminizer_fork"));
 		evt.addSprite(prefix("block/luminizer_toggle"));
-		evt.addSprite(prefix("block/catalyst_alchemy_overlay"));
-		evt.addSprite(prefix("block/catalyst_conjuration_overlay"));
+		evt.addSprite(prefix("block/alchemy_catalyst_overlay"));
+		evt.addSprite(prefix("block/conjuration_catalyst_overlay"));
 		evt.addSprite(prefix("block/enchanter_overlay"));
 		evt.addSprite(prefix("block/mana_void_overlay"));
 		evt.addSprite(prefix("block/mana_water"));
@@ -238,8 +238,8 @@ public class MiscellaneousIcons {
 		lightRelayWorldIconRed = get(evt.getMap(), "block/luminizer_detector");
 		lightRelayWorldIconGreen = get(evt.getMap(), "block/luminizer_fork");
 		lightRelayWorldIconPurple = get(evt.getMap(), "block/luminizer_toggle");
-		alchemyCatalystOverlay = get(evt.getMap(), "block/catalyst_alchemy_overlay");
-		conjurationCatalystOverlay = get(evt.getMap(), "block/catalyst_conjuration_overlay");
+		alchemyCatalystOverlay = get(evt.getMap(), "block/alchemy_catalyst_overlay");
+		conjurationCatalystOverlay = get(evt.getMap(), "block/conjuration_catalyst_overlay");
 		enchanterOverlay = get(evt.getMap(), "block/enchanter_overlay");
 		manaVoidOverlay = get(evt.getMap(), "block/mana_void_overlay");
 		manaWater = get(evt.getMap(), "block/mana_water");
