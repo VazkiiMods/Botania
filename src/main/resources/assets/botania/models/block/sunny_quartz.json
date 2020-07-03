@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "botania:block/sunny_quartz_bottom",
-    "top": "botania:block/sunny_quartz_top",
-    "side": "botania:block/sunny_quartz_side"
-  }
-}

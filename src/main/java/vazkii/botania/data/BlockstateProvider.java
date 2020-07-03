@@ -71,6 +71,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		manualModel(blocks, corporeaCrystalCube);
 		manualModel(blocks, prism);
 		manualModel(blocks, runeAltar);
+		manualModel(blocks, spawnerClaw);
 
 		// Single blocks
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
@@ -159,34 +160,6 @@ public class BlockstateProvider extends BlockStateProvider {
 				.texture("all", prefix("block/petal_block"));
 		takeAll(blocks, b -> b instanceof BlockPetalBlock).forEach(b -> simpleBlock(b, petalBlockModel));
 
-		takeAll(blocks, b -> b instanceof StairsBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
-			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
-			boolean quartz = name.contains("quartz");
-			if (quartz) {
-				ResourceLocation side = prefix("block/" + baseName + "_side");
-				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
-				ResourceLocation top = prefix("block/" + baseName + "_top");
-				stairsBlock((StairsBlock) b, side, bottom, top);
-			} else {
-				stairsBlock((StairsBlock) b, prefix("block/" + baseName));
-			}
-		});
-
-		takeAll(blocks, b -> b instanceof SlabBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
-			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
-			boolean quartz = name.contains("quartz");
-			if (quartz) {
-				ResourceLocation side = prefix("block/" + baseName + "_side");
-				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
-				ResourceLocation top = prefix("block/" + baseName + "_top");
-				slabBlock((SlabBlock) b, prefix(baseName), side, bottom, top);
-			} else {
-				slabBlock((SlabBlock) b, prefix(baseName), prefix("block/" + baseName));
-			}
-		});
-
 		takeAll(blocks, b -> b instanceof BlockAltGrass).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ResourceLocation side = prefix("block/" + name + "_side");
@@ -235,6 +208,35 @@ public class BlockstateProvider extends BlockStateProvider {
 			blocks.removeAll(Arrays.asList(base, cobble, cobbleWall, brick, chiseledBricks));
 		}
 
+		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
+			ResourceLocation quartzId = prefix(variant + "_quartz");
+			Block quartz = Registry.BLOCK.getValue(quartzId).get();
+			simpleBlock(quartz, models().cubeBottomTop(quartzId.getPath(),
+				prefix("block/" + quartzId.getPath() + "_side"),
+				prefix("block/" + quartzId.getPath() + "_bottom"),
+				prefix("block/" + quartzId.getPath() + "_top")));
+
+			ResourceLocation pillarId = prefix(variant + "_quartz_pillar");
+			Block pillar = Registry.BLOCK.getValue(pillarId).get();
+			ModelFile pillarModel = models().cubeColumn(pillarId.getPath(),
+				prefix("block/" + pillarId.getPath() + "_side"),
+				prefix("block/" + pillarId.getPath() + "_end"));
+			getVariantBuilder(pillar)
+				.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(pillarModel, 90, 90, false))
+				.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(pillarModel))
+				.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(pillarModel, 90, 0, false));
+
+			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
+			Block chiseled = Registry.BLOCK.getValue(chiseledId).get();
+			simpleBlock(chiseled, models().cubeColumn(chiseledId.getPath(),
+				prefix("block/" + chiseledId.getPath() + "_side"),
+				prefix("block/" + chiseledId.getPath() + "_end")));
+
+			blocks.remove(quartz);
+			blocks.remove(pillar);
+			blocks.remove(chiseled);
+		}
+
 		takeAll(blocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
 			DyeColor color = ((BlockBuriedPetals) b).color;
 			ResourceLocation wool = new ResourceLocation("block/" + color.func_176610_l() + "_wool");
@@ -250,24 +252,44 @@ public class BlockstateProvider extends BlockStateProvider {
 			simpleBlock(b, model);
 		});
 
+		takeAll(blocks, b -> b instanceof PaneBlock).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ResourceLocation edge = prefix("block/" + name);
+			ResourceLocation pane = prefix("block/" + name.substring(0, name.length() - "_pane".length()));
+			paneBlock((PaneBlock) b, pane, edge);
+		});
+
+		takeAll(blocks, b -> b instanceof StairsBlock).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
+			boolean quartz = name.contains("quartz");
+			if (quartz) {
+				ResourceLocation side = prefix("block/" + baseName + "_side");
+				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
+				ResourceLocation top = prefix("block/" + baseName + "_top");
+				stairsBlock((StairsBlock) b, side, bottom, top);
+			} else {
+				stairsBlock((StairsBlock) b, prefix("block/" + baseName));
+			}
+		});
+
+		takeAll(blocks, b -> b instanceof SlabBlock).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
+			boolean quartz = name.contains("quartz");
+			if (quartz) {
+				ResourceLocation side = prefix("block/" + baseName + "_side");
+				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
+				ResourceLocation top = prefix("block/" + baseName + "_top");
+				slabBlock((SlabBlock) b, prefix(baseName), side, bottom, top);
+			} else {
+				slabBlock((SlabBlock) b, prefix(baseName), prefix("block/" + baseName));
+			}
+		});
+
 		blocks.forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
-			if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
-				ModelFile file = models().getExistingFile(prefix("block/" + name));
-				getVariantBuilder(b)
-						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(file, 90, 90, false))
-						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(file))
-						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(file, 90, 0, false));
-			} else if (b instanceof PaneBlock) {
-				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
-				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-				ModelFile sideAlt = models().getExistingFile(prefix("block/" + name + "_side_alt"));
-				ModelFile noSide = models().getExistingFile(prefix("block/" + name + "_noside"));
-				ModelFile noSideAlt = models().getExistingFile(prefix("block/" + name + "_noside_alt"));
-				paneBlock((PaneBlock) b, post, side, sideAlt, noSide, noSideAlt);
-			} else {
-				simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
-			}
+			simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		});
 	}
 
