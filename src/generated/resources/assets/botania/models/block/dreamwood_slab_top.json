@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "side": "botania:block/dreamwood",
+    "bottom": "botania:block/dreamwood",
+    "top": "botania:block/dreamwood"
+  }
+}

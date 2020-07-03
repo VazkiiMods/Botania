@@ -1,8 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-      "bottom": "botania:block/livingwood_planks",
-      "top": "botania:block/livingwood_planks",
-      "side": "botania:block/livingwood_planks"
-  }
-}

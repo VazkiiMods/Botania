@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-      "bottom": "botania:block/livingrock_bricks",
-      "top": "botania:block/livingrock_bricks",
-      "side": "botania:block/livingrock_bricks"
-  }
-}

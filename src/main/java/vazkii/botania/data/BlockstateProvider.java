@@ -120,6 +120,34 @@ public class BlockstateProvider extends BlockStateProvider {
 			simpleBlock(b, model);
 		});
 
+		takeAll(blocks, b -> b instanceof StairsBlock).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
+			boolean quartz = name.contains("quartz");
+			if (quartz) {
+				ResourceLocation side = prefix("block/" + baseName + "_side");
+				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
+				ResourceLocation top = prefix("block/" + baseName + "_top");
+				stairsBlock((StairsBlock) b, side, bottom, top);
+			} else {
+				stairsBlock((StairsBlock) b, prefix("block/" + baseName));
+			}
+		});
+
+		takeAll(blocks, b -> b instanceof SlabBlock).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
+			boolean quartz = name.contains("quartz");
+			if (quartz) {
+				ResourceLocation side = prefix("block/" + baseName + "_side");
+				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
+				ResourceLocation top = prefix("block/" + baseName + "_top");
+				slabBlock((SlabBlock) b, prefix(baseName), side, bottom, top);
+			} else {
+				slabBlock((SlabBlock) b, prefix(baseName), prefix("block/" + baseName));
+			}
+		});
+
 		takeAll(blocks, b -> b instanceof BlockAltGrass).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ResourceLocation side = prefix("block/" + name + "_side");
@@ -148,25 +176,9 @@ public class BlockstateProvider extends BlockStateProvider {
 			Block base = Registry.BLOCK.getValue(baseId).get();
 			simpleBlock(base);
 
-			ResourceLocation slabId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX);
-			Block slab = Registry.BLOCK.getValue(slabId).get();
-			slabBlock((SlabBlock) slab, baseId, prefix("block/" + baseId.getPath()));
-
-			ResourceLocation stairId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX);
-			Block stair = Registry.BLOCK.getValue(stairId).get();
-			stairsBlock((StairsBlock) stair, prefix("block/" + baseId.getPath()));
-
 			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
 			Block cobble = Registry.BLOCK.getValue(cobbleId).get();
 			simpleBlock(cobble);
-
-			ResourceLocation cobbleSlabId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX);
-			Block cobbleSlab = Registry.BLOCK.getValue(cobbleSlabId).get();
-			slabBlock((SlabBlock) cobbleSlab, cobbleId, prefix("block/" + cobbleId.getPath()));
-
-			ResourceLocation cobbleStairId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX);
-			Block cobbleStair = Registry.BLOCK.getValue(cobbleStairId).get();
-			stairsBlock((StairsBlock) cobbleStair, prefix("block/" + cobbleId.getPath()));
 
 			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
 			Block cobbleWall = Registry.BLOCK.getValue(cobbleWallId).get();
@@ -176,20 +188,12 @@ public class BlockstateProvider extends BlockStateProvider {
 			Block brick = Registry.BLOCK.getValue(brickId).get();
 			simpleBlock(brick);
 
-			ResourceLocation brickSlabId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX);
-			Block brickSlab = Registry.BLOCK.getValue(brickSlabId).get();
-			slabBlock((SlabBlock) brickSlab, brickId, prefix("block/" + brickId.getPath()));
-
-			ResourceLocation brickStairId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX);
-			Block brickStair = Registry.BLOCK.getValue(brickStairId).get();
-			stairsBlock((StairsBlock) brickStair, prefix("block/" + brickId.getPath()));
-
 			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 			Block chiseledBricks = Registry.BLOCK.getValue(chiseledBricksId).get();
 			simpleBlock(chiseledBricks);
 
-			blocks.removeAll(Arrays.asList(base, slab, stair, cobble, cobbleSlab, cobbleStair, cobbleWall,
-				brick, brickSlab, brickStair, chiseledBricks));
+			// stairs and slabs handled above already
+			blocks.removeAll(Arrays.asList(base, cobble, cobbleWall, brick, chiseledBricks));
 		}
 
 		takeAll(blocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
