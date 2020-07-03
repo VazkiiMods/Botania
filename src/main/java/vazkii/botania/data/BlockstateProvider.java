@@ -198,6 +198,15 @@ public class BlockstateProvider extends BlockStateProvider {
 			particleOnly(b, wool);
 		});
 
+		takeAll(blocks, b -> b instanceof BlockAltar).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/petal_apothecary"))
+				.texture("side", prefix("block/" + name + "_side"))
+				.texture("goblet", prefix("block/" + name + "_goblet"))
+				.texture("top_bottom", prefix("block/" + name + "_top_bottom"));
+			simpleBlock(b, model);
+		});
+
 		blocks.forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			if (name.contains("quartz") && b instanceof RotatedPillarBlock) {
