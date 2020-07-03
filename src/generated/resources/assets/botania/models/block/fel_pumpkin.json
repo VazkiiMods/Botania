@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "side": "block/pumpkin_side",
+    "front": "botania:block/fel_pumpkin",
+    "top": "block/pumpkin_top"
+  }
+}
