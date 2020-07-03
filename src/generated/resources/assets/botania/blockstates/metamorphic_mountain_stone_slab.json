@@ -1,9 +1,7 @@
 {
   "variants": {
     "type=top": {
-      "model": "botania:block/metamorphic_mountain_stone_slab",
-      "x": 180,
-      "uvlock": true
+      "model": "botania:block/metamorphic_mountain_stone_slab_top"
     },
     "type=bottom": {
       "model": "botania:block/metamorphic_mountain_stone_slab"

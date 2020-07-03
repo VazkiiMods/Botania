@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_wall_post",
-  "textures": {
-    "wall": "botania:block/metamorphic_plains_cobblestone"
-  }
-}

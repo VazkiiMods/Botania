@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-      "bottom": "botania:block/metamorphic_forest_bricks",
-      "top": "botania:block/metamorphic_forest_bricks",
-      "side": "botania:block/metamorphic_forest_bricks"
-  }
-}

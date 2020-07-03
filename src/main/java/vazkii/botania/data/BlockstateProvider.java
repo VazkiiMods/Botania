@@ -78,6 +78,13 @@ public class BlockstateProvider extends BlockStateProvider {
 		horizontalBlock(incensePlate, plateFile, 0);
 		blocks.remove(incensePlate);
 
+		fixedWallBlock((WallBlock) ModFluffBlocks.dreamwoodWall, prefix("block/dreamwood"));
+		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockWall, prefix("block/livingrock"));
+		fixedWallBlock((WallBlock) ModFluffBlocks.livingwoodWall, prefix("block/livingwood"));
+		blocks.remove(ModFluffBlocks.dreamwoodWall);
+		blocks.remove(ModFluffBlocks.livingrockWall);
+		blocks.remove(ModFluffBlocks.livingwoodWall);
+
 		// TESRs with only particles
 		particleOnly(animatedTorch, new ResourceLocation("block/redstone_torch"));
 		particleOnly(avatar, prefix("block/livingwood"));
@@ -135,6 +142,56 @@ public class BlockstateProvider extends BlockStateProvider {
 					.partialState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setModels(new ConfiguredModel(top));
 		});
 
+		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain",
+			"plains", "swamp", "taiga"}) {
+			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
+			Block base = Registry.BLOCK.getValue(baseId).get();
+			simpleBlock(base);
+
+			ResourceLocation slabId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX);
+			Block slab = Registry.BLOCK.getValue(slabId).get();
+			slabBlock((SlabBlock) slab, baseId, prefix("block/" + baseId.getPath()));
+
+			ResourceLocation stairId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX);
+			Block stair = Registry.BLOCK.getValue(stairId).get();
+			stairsBlock((StairsBlock) stair, prefix("block/" + baseId.getPath()));
+
+			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
+			Block cobble = Registry.BLOCK.getValue(cobbleId).get();
+			simpleBlock(cobble);
+
+			ResourceLocation cobbleSlabId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX);
+			Block cobbleSlab = Registry.BLOCK.getValue(cobbleSlabId).get();
+			slabBlock((SlabBlock) cobbleSlab, cobbleId, prefix("block/" + cobbleId.getPath()));
+
+			ResourceLocation cobbleStairId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX);
+			Block cobbleStair = Registry.BLOCK.getValue(cobbleStairId).get();
+			stairsBlock((StairsBlock) cobbleStair, prefix("block/" + cobbleId.getPath()));
+
+			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
+			Block cobbleWall = Registry.BLOCK.getValue(cobbleWallId).get();
+			fixedWallBlock((WallBlock) cobbleWall, prefix("block/" + cobbleId.getPath()));
+
+			ResourceLocation brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			Block brick = Registry.BLOCK.getValue(brickId).get();
+			simpleBlock(brick);
+
+			ResourceLocation brickSlabId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX);
+			Block brickSlab = Registry.BLOCK.getValue(brickSlabId).get();
+			slabBlock((SlabBlock) brickSlab, brickId, prefix("block/" + brickId.getPath()));
+
+			ResourceLocation brickStairId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX);
+			Block brickStair = Registry.BLOCK.getValue(brickStairId).get();
+			stairsBlock((StairsBlock) brickStair, prefix("block/" + brickId.getPath()));
+
+			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			Block chiseledBricks = Registry.BLOCK.getValue(chiseledBricksId).get();
+			simpleBlock(chiseledBricks);
+
+			blocks.removeAll(Arrays.asList(base, slab, stair, cobble, cobbleSlab, cobbleStair, cobbleWall,
+				brick, brickSlab, brickStair, chiseledBricks));
+		}
+
 		takeAll(blocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
 			DyeColor color = ((BlockBuriedPetals) b).color;
 			ResourceLocation wool = new ResourceLocation("block/" + color.func_176610_l() + "_wool");
@@ -161,11 +218,6 @@ public class BlockstateProvider extends BlockStateProvider {
 				ModelFile inner = models().getExistingFile(prefix("block/" + name + "_inner"));
 				ModelFile outer = models().getExistingFile(prefix("block/" + name + "_outer"));
 				stairsBlock((StairsBlock) b, stair, inner, outer);
-			} else if (b instanceof WallBlock) {
-				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
-				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-				ModelFile tallSide = models().getExistingFile(prefix("block/" + name + "_side_tall"));
-				wallBlock((WallBlock) b, post, side, tallSide);
 			} else if (b instanceof FenceBlock) {
 				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
 				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
@@ -235,7 +287,15 @@ public class BlockstateProvider extends BlockStateProvider {
 			.put(Direction.SOUTH, WallBlock.field_235614_d_)
 			.put(Direction.WEST, WallBlock.field_235615_e_).build();
 
-	private void wallBlock(WallBlock block, ModelFile post, ModelFile side, ModelFile tallSide) {
+	// Copy of super but fixed to account for blockstate property changes in 1.16
+	private void fixedWallBlock(WallBlock block, ResourceLocation tex) {
+		String name = Registry.BLOCK.getKey(block).getPath();
+		ModelFile post = models().withExistingParent(name + "_post", "block/template_wall_post")
+			.texture("wall", tex);
+		ModelFile side = models().withExistingParent(name + "_wall_side", "block/template_wall_side")
+			.texture("wall", tex);
+		ModelFile tallSide = models().withExistingParent(name + "_wall_side_tall", "block/template_wall_side_tall")
+			.texture("wall", tex);
 		MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
 				.part().modelFile(post).addModel()
 				.condition(WallBlock.UP, true).end();

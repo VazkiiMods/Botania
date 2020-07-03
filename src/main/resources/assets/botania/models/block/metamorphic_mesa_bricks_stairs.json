@@ -1,8 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-      "bottom": "botania:block/metamorphic_mesa_bricks",
-      "top": "botania:block/metamorphic_mesa_bricks",
-      "side": "botania:block/metamorphic_mesa_bricks"
-  }
-}

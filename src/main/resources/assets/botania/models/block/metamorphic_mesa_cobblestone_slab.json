@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "top": "botania:block/metamorphic_mesa_cobblestone",
-    "bottom": "botania:block/metamorphic_mesa_cobblestone",
-    "side": "botania:block/metamorphic_mesa_cobblestone"
-  }
-}

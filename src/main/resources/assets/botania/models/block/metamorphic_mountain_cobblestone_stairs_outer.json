@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-      "bottom": "botania:block/metamorphic_mountain_cobblestone",
-      "top": "botania:block/metamorphic_mountain_cobblestone",
-      "side": "botania:block/metamorphic_mountain_cobblestone"
-  }
-}
