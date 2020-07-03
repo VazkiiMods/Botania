@@ -17,9 +17,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -34,6 +37,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.item.IPetalApothecary;
+import vazkii.botania.api.item.IPetalApothecary.State;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -44,8 +49,11 @@ import vazkii.botania.common.item.rod.ItemWaterRod;
 
 import javax.annotation.Nonnull;
 
+import java.util.Locale;
+
 public class BlockAltar extends BlockMod implements ITileEntityProvider {
 
+	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
 	private static final VoxelShape BASE = Block.makeCuboidShape(0, 0, 0, 16, 2, 16);
 	private static final VoxelShape MIDDLE = Block.makeCuboidShape(2, 2, 2, 14, 12, 14);
 	private static final VoxelShape TOP = Block.makeCuboidShape(2, 12, 2, 14, 20, 14);
@@ -70,6 +78,13 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 	protected BlockAltar(Variant v, Block.Properties builder) {
 		super(builder);
 		this.variant = v;
+		setDefaultState(getDefaultState().with(FLUID, State.EMPTY));
+	}
+
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		super.fillStateContainer(builder);
+		builder.add(FLUID);
 	}
 
 	@Nonnull
@@ -89,63 +104,52 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 	}
 
 	@Override
-	public int getLightValue(@Nonnull BlockState state, IBlockReader world, @Nonnull BlockPos pos) {
-		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof TileAltar && ((TileAltar) te).getFluid() == Fluids.LAVA) {
-			return 15;
-		} else {
-			return super.getLightValue(state, world, pos);
-		}
-	}
-
-	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
+		State fluid = tile.getFluid();
 		ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 			return ActionResultType.SUCCESS;
-		} else if (tile.isEmpty() && tile.getFluid() == Fluids.WATER && stack.isEmpty()) {
+		} else if (tile.isEmpty() && fluid == State.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
 			return ActionResultType.SUCCESS;
 		} else {
-			if (!stack.isEmpty() && tile.getFluid() != Fluids.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid()) && !Botania.gardenOfGlassLoaded) {
+			if (!stack.isEmpty() && fluid != State.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid().asVanilla()) && !Botania.gardenOfGlassLoaded) {
 				if (!player.abilities.isCreativeMode) {
 					//support bucket stacks
 					if (stack.getCount() == 1) {
-						player.setHeldItem(hand, fill(tile.getFluid(), stack));
+						player.setHeldItem(hand, fill(tile.getFluid().asVanilla(), stack));
 					} else {
 						player.inventory.placeItemBackInInventory(player.world, new ItemStack(stack.getItem()));
 						stack.shrink(1);
 					}
 				}
 
-				tile.setFluid(Fluids.EMPTY);
+				tile.setFluid(State.EMPTY);
 				world.getChunkProvider().getLightManager().checkBlock(pos);
 
 				return ActionResultType.SUCCESS;
 			} else if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
-				if (tile.getFluid() == Fluids.EMPTY) {
+				if (tile.getFluid() == State.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
 					} else if (!player.abilities.isCreativeMode) {
 						player.setHeldItem(hand, drain(Fluids.WATER, stack));
 					}
 
-					tile.setFluid(Fluids.WATER);
-					world.getChunkProvider().getLightManager().checkBlock(pos);
+					tile.setFluid(State.WATER);
 				}
 
 				return ActionResultType.SUCCESS;
 			} else if (!stack.isEmpty() && isValidFluidContainerToDrain(stack, Fluids.LAVA)) {
-				if (tile.getFluid() == Fluids.EMPTY) {
+				if (tile.getFluid() == State.EMPTY) {
 					if (!player.abilities.isCreativeMode) {
 						player.setHeldItem(hand, drain(Fluids.LAVA, stack));
 					}
 
-					tile.setFluid(Fluids.LAVA);
-					world.getChunkProvider().getLightManager().checkBlock(pos);
+					tile.setFluid(State.LAVA);
 				}
 
 				return ActionResultType.SUCCESS;
@@ -158,12 +162,9 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 	@Override
 	public void fillWithRain(World world, BlockPos pos) {
 		if (world.rand.nextInt(20) == 1) {
-			TileEntity tile = world.getTileEntity(pos);
-			if (tile instanceof TileAltar) {
-				TileAltar altar = (TileAltar) tile;
-				if (altar.getFluid() == Fluids.EMPTY) {
-					altar.setFluid(Fluids.WATER);
-				}
+			BlockState state = world.getBlockState(pos);
+			if (state.get(FLUID) == State.EMPTY) {
+				world.setBlockState(pos, state.with(FLUID, State.WATER));
 			}
 		}
 	}
@@ -235,7 +236,6 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 
 	@Override
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		TileAltar altar = (TileAltar) world.getTileEntity(pos);
-		return altar.getFluid() == Fluids.WATER ? 15 : 0;
+		return state.get(FLUID) == State.WATER ? 15 : 0;
 	}
 }

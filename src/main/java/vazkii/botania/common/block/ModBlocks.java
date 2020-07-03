@@ -24,6 +24,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -66,7 +67,8 @@ public final class ModBlocks {
 	public static final Block redFlower = new BlockModFlower(DyeColor.RED, Block.Properties.from(whiteFlower));
 	public static final Block blackFlower = new BlockModFlower(DyeColor.BLACK, Block.Properties.from(whiteFlower));
 
-	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE));
+	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, Block.Properties.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE)
+			.func_235838_a_(s -> s.get(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
 	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, Block.Properties.from(defaultAltar));
 	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, Block.Properties.from(defaultAltar));
 	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, Block.Properties.from(defaultAltar));

@@ -10,20 +10,48 @@ package vazkii.botania.api.item;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.util.IStringSerializable;
+
+import javax.annotation.Nonnull;
+
+import java.util.Locale;
 
 /**
  * Base Interface for the Petal Apothecary block. Can
  * be safely casted to TileEntity.
  */
 public interface IPetalApothecary {
+	enum State implements IStringSerializable {
+		EMPTY,
+		WATER,
+		LAVA;
+
+		@Nonnull
+		@Override
+		public String func_176610_l() {
+			return name().toLowerCase(Locale.ROOT);
+		}
+
+		public Fluid asVanilla() {
+			switch (this) {
+			default:
+			case EMPTY:
+				return Fluids.EMPTY;
+			case WATER:
+				return Fluids.WATER;
+			case LAVA:
+				return Fluids.LAVA;
+			}
+		}
+	}
 
 	/**
-	 * Set the contained fluid. Must be {@link Fluids#WATER}, {@link Fluids#LAVA}, or {@link Fluids#EMPTY}.
+	 * Set the contained fluid.
 	 */
-	public void setFluid(Fluid fluid);
+	public void setFluid(State fluid);
 
 	/**
-	 * Get the contained fluid. Will be {@link Fluids#WATER}, {@link Fluids#LAVA}, or {@link Fluids#EMPTY}.
+	 * Get the contained fluid.
 	 */
-	public Fluid getFluid();
+	public State getFluid();
 }

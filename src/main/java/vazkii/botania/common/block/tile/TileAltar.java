@@ -12,6 +12,7 @@ import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -49,6 +50,7 @@ import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -66,11 +68,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
 
-	private static final String TAG_FLUID = "fluid";
-
 	private static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
-
-	private Fluid fluid = Fluids.EMPTY;
 
 	private List<ItemStack> lastRecipe = null;
 	private int recipeKeepTicks = 0;
@@ -102,10 +100,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		boolean hasFluidCapability = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
 
-		if (getFluid() == Fluids.EMPTY) {
+		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
 			if (stack.getItem() instanceof FishBucketItem && ((FishBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
-				setFluid(Fluids.WATER);
+				setFluid(State.WATER);
 				((FishBucketItem) stack.getItem()).onLiquidPlaced(world, stack, getPos().up()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
 				return true;
@@ -118,12 +116,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				FluidStack drainLava = fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
 
 				if (!drainWater.isEmpty() && drainWater.getFluid() == Fluids.WATER && drainWater.getAmount() == FluidAttributes.BUCKET_VOLUME) {
-					setFluid(Fluids.WATER);
+					setFluid(State.WATER);
 					fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
 				} else if (!drainLava.isEmpty() && drainLava.getFluid() == Fluids.LAVA && drainLava.getAmount() == FluidAttributes.BUCKET_VOLUME) {
-					setFluid(Fluids.LAVA);
+					setFluid(State.LAVA);
 					fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
 					item.setItem(fluidHandler.getContainer());
 					return true;
@@ -133,7 +131,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return false;
 		}
 
-		if (getFluid() == Fluids.LAVA) {
+		if (getFluid() == State.LAVA) {
 			item.setFire(100);
 			return true;
 		}
@@ -154,7 +152,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 				world.addEntity(outputItem);
 
-				setFluid(Fluids.EMPTY);
+				setFluid(State.EMPTY);
 
 				world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 			});
@@ -280,7 +278,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				}
 			}
 
-			if (getFluid() == Fluids.LAVA) {
+			if (getFluid() == State.LAVA) {
 				world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 				if (Math.random() > 0.9) {
 					world.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
@@ -293,21 +291,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		} else {
 			lastRecipe = null;
 		}
-	}
-
-	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
-		super.writePacketNBT(cmp);
-
-		cmp.putString(TAG_FLUID, Registry.FLUID.getKey(fluid).toString());
-	}
-
-	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
-		super.readPacketNBT(cmp);
-
-		ResourceLocation id = new ResourceLocation(cmp.getString(TAG_FLUID));
-		fluid = Registry.FLUID.getOrDefault(id);
 	}
 
 	@Override
@@ -345,16 +328,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@Override
-	public void setFluid(Fluid fluid) {
-		Preconditions.checkArgument(fluid == Fluids.WATER || fluid == Fluids.LAVA || fluid == Fluids.EMPTY);
-		this.fluid = fluid;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-		world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+	public void setFluid(State fluid) {
+		world.setBlockState(getPos(), getBlockState().with(BlockAltar.FLUID, fluid));
 	}
 
 	@Override
-	public Fluid getFluid() {
-		return fluid;
+	public State getFluid() {
+		return getBlockState().get(BlockAltar.FLUID);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -397,7 +377,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				angle += anglePer;
 			}
-		} else if (recipeKeepTicks > 0 && getFluid() == Fluids.WATER) {
+		} else if (recipeKeepTicks > 0 && getFluid() == State.WATER) {
 			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRenderer.func_238421_b_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");
