@@ -25,6 +25,8 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
@@ -58,22 +60,44 @@ public class BlockstateProvider extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		Set<Block> blocks = Registry.BLOCK.stream()
+		Set<Block> remainingBlocks = Registry.BLOCK.stream()
 				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
 		// Manually written blockstate + models
-		blocks.remove(craftCrate);
-		blocks.remove(ghostRail);
-		blocks.remove(solidVines);
+		remainingBlocks.remove(craftCrate);
+		remainingBlocks.remove(ghostRail);
+		remainingBlocks.remove(solidVines);
 
 		// Manually written simpleBlock
-		manualModel(blocks, cocoon);
-		manualModel(blocks, corporeaCrystalCube);
-		manualModel(blocks, prism);
-		manualModel(blocks, runeAltar);
-		manualModel(blocks, spawnerClaw);
+		manualModel(remainingBlocks, cocoon);
+		manualModel(remainingBlocks, corporeaCrystalCube);
+		manualModel(remainingBlocks, distributor);
+		manualModel(remainingBlocks, prism);
+		manualModel(remainingBlocks, runeAltar);
+		manualModel(remainingBlocks, spawnerClaw);
 
 		// Single blocks
+		String alfPortalName = Registry.BLOCK.getKey(alfPortal).getPath();
+		ModelFile alfPortalModel = models().cubeAll(alfPortalName, prefix("block/" + alfPortalName));
+		ModelFile alfPortalActivatedModel = models().cubeAll(alfPortalName + "_activated", prefix("block/" + alfPortalName + "_activated"));
+		getVariantBuilder(alfPortal).partialState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF)
+			.setModels(new ConfiguredModel(alfPortalModel));
+		getVariantBuilder(alfPortal).partialState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.ON_X)
+			.setModels(new ConfiguredModel(alfPortalActivatedModel));
+		getVariantBuilder(alfPortal).partialState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.ON_Z)
+			.setModels(new ConfiguredModel(alfPortalActivatedModel));
+		remainingBlocks.remove(alfPortal);
+
+		String bifrostPermName = Registry.BLOCK.getKey(bifrostPerm).getPath();
+		simpleBlock(bifrostPerm, models().cubeAll(bifrostPermName, prefix("block/bifrost")));
+		remainingBlocks.remove(bifrostPerm);
+
+		String cacophoniumName = Registry.BLOCK.getKey(cacophonium).getPath();
+		simpleBlock(cacophonium, models().cubeTop(cacophoniumName,
+			prefix("block/" + cacophoniumName),
+			prefix("block/" + cacophoniumName + "_top")));
+		remainingBlocks.remove(cacophonium);
+
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> {
@@ -82,73 +106,90 @@ public class BlockstateProvider extends BlockStateProvider {
 				})
 				.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
 		getVariantBuilder(elfGlass).partialState().setModels(elfGlassFiles);
-		blocks.remove(elfGlass);
+		remainingBlocks.remove(elfGlass);
 
 		String plateName = Registry.BLOCK.getKey(ModBlocks.incensePlate).getPath();
 		ModelFile plateFile = models().getExistingFile(prefix("block/" + plateName));
 		horizontalBlock(incensePlate, plateFile, 0);
-		blocks.remove(incensePlate);
+		remainingBlocks.remove(incensePlate);
 
 		fixedWallBlock((WallBlock) ModFluffBlocks.dreamwoodWall, prefix("block/dreamwood"));
 		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockWall, prefix("block/livingrock"));
 		fixedWallBlock((WallBlock) ModFluffBlocks.livingwoodWall, prefix("block/livingwood"));
-		blocks.remove(ModFluffBlocks.dreamwoodWall);
-		blocks.remove(ModFluffBlocks.livingrockWall);
-		blocks.remove(ModFluffBlocks.livingwoodWall);
+		remainingBlocks.remove(ModFluffBlocks.dreamwoodWall);
+		remainingBlocks.remove(ModFluffBlocks.livingrockWall);
+		remainingBlocks.remove(ModFluffBlocks.livingwoodWall);
 
 		fenceBlock((FenceBlock) dreamwoodFence, prefix("block/dreamwood_planks"));
 		fenceGateBlock((FenceGateBlock) dreamwoodFenceGate, prefix("block/dreamwood_planks"));
 		fenceBlock((FenceBlock) livingwoodFence, prefix("block/livingwood_planks"));
 		fenceGateBlock((FenceGateBlock) livingwoodFenceGate, prefix("block/livingwood_planks"));
-		blocks.remove(dreamwoodFence);
-		blocks.remove(dreamwoodFenceGate);
-		blocks.remove(livingwoodFence);
-		blocks.remove(livingwoodFenceGate);
+		remainingBlocks.remove(dreamwoodFence);
+		remainingBlocks.remove(dreamwoodFenceGate);
+		remainingBlocks.remove(livingwoodFence);
+		remainingBlocks.remove(livingwoodFenceGate);
 
 		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
 		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
 				new ResourceLocation("block/pumpkin_top")));
-		blocks.remove(felPumpkin);
+		remainingBlocks.remove(felPumpkin);
 
 		// TESRs with only particles
-		particleOnly(blocks, animatedTorch, new ResourceLocation("block/redstone_torch"));
-		particleOnly(blocks, avatar, prefix("block/livingwood"));
-		particleOnly(blocks, bellows, prefix("block/livingwood"));
-		particleOnly(blocks, brewery, prefix("block/livingrock"));
-		particleOnly(blocks, corporeaIndex, prefix("block/elementium_block"));
-		particleOnly(blocks, lightRelayDetector, prefix("block/luminizer_detector"));
+		particleOnly(remainingBlocks, animatedTorch, new ResourceLocation("block/redstone_torch"));
+		particleOnly(remainingBlocks, avatar, prefix("block/livingwood"));
+		particleOnly(remainingBlocks, bellows, prefix("block/livingwood"));
+		particleOnly(remainingBlocks, brewery, prefix("block/livingrock"));
+		particleOnly(remainingBlocks, corporeaIndex, prefix("block/elementium_block"));
+		particleOnly(remainingBlocks, lightRelayDetector, prefix("block/luminizer_detector"));
 		simpleBlock(fakeAir, models().getBuilder(Registry.BLOCK.getKey(ModBlocks.fakeAir).getPath()));
-		blocks.remove(fakeAir);
-		particleOnly(blocks, lightRelayFork, prefix("block/luminizer_fork"));
-		particleOnly(blocks, gaiaHead, new ResourceLocation("block/soul_sand"));
-		particleOnly(blocks, gaiaHeadWall, new ResourceLocation("block/soul_sand"));
-		particleOnly(blocks, gaiaPylon, prefix("block/elementium_block"));
-		particleOnly(blocks, hourglass, prefix("block/mana_glass"));
-		particleOnly(blocks, lightRelayDefault, prefix("block/luminizer"));
-		particleOnly(blocks, manaFlame, new ResourceLocation("block/fire_0"));
-		particleOnly(blocks, manaPylon, prefix("block/manasteel_block"));
-		particleOnly(blocks, naturaPylon, prefix("block/terrasteel_block"));
-		particleOnly(blocks, teruTeruBozu, new ResourceLocation("block/white_wool"));
-		particleOnly(blocks, lightRelayToggle, prefix("block/luminizer_toggle"));
+		remainingBlocks.remove(fakeAir);
+		particleOnly(remainingBlocks, lightRelayFork, prefix("block/luminizer_fork"));
+		particleOnly(remainingBlocks, gaiaHead, new ResourceLocation("block/soul_sand"));
+		particleOnly(remainingBlocks, gaiaHeadWall, new ResourceLocation("block/soul_sand"));
+		particleOnly(remainingBlocks, gaiaPylon, prefix("block/elementium_block"));
+		particleOnly(remainingBlocks, hourglass, prefix("block/mana_glass"));
+		particleOnly(remainingBlocks, lightRelayDefault, prefix("block/luminizer"));
+		particleOnly(remainingBlocks, manaFlame, new ResourceLocation("block/fire_0"));
+		particleOnly(remainingBlocks, manaPylon, prefix("block/manasteel_block"));
+		particleOnly(remainingBlocks, naturaPylon, prefix("block/terrasteel_block"));
+		particleOnly(remainingBlocks, teruTeruBozu, new ResourceLocation("block/white_wool"));
+		particleOnly(remainingBlocks, lightRelayToggle, prefix("block/luminizer_toggle"));
 
 		// Block groups
 		Predicate<Block> flowers = b -> b instanceof BlockSpecialFlower
 				|| b instanceof BlockModMushroom
 				|| b instanceof BlockModFlower;
-		takeAll(blocks, flowers).forEach(b -> {
+		takeAll(remainingBlocks, flowers).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
 					.texture("cross", prefix("block/" + name));
 			simpleBlock(b, model);
 		});
 
-		takeAll(blocks, pump, tinyPotato).forEach(b -> {
+		takeAll(remainingBlocks, corporeaFunnel, corporeaInterceptor, corporeaRetainer).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			simpleBlock(b, models().cubeColumn(name, prefix("block/" + name + "_side"), prefix("block/" + name + "_end")));
+		});
+
+		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ResourceLocation tex = b == manaPool || b == fabulousPool
+				? prefix("block/livingrock")
+				: prefix("block/" + name);
+			ModelFile pool = models().withExistingParent(name, prefix("block/shapes/pool"))
+				.texture("all", tex);
+			models().withExistingParent(name + "_full", prefix("block/shapes/pool_full"))
+				.texture("all", tex).texture("liquid", prefix("block/mana_water"));
+			simpleBlock(b, pool);
+		});
+
+		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile file = models().getExistingFile(prefix("block/" + name));
 			horizontalBlock(b, file);
 		});
 
-		takeAll(blocks, enderEye, manaDetector).forEach(b -> {
+		takeAll(remainingBlocks, enderEye, manaDetector).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile offFile = models().cubeAll(name, prefix("block/" + name));
 			ModelFile onFile = models().cubeAll(name + "_powered", prefix("block/" + name + "_powered"));
@@ -158,9 +199,9 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		ModelFile petalBlockModel = models().withExistingParent("petal_block", prefix("block/shapes/cube_all_tinted"))
 				.texture("all", prefix("block/petal_block"));
-		takeAll(blocks, b -> b instanceof BlockPetalBlock).forEach(b -> simpleBlock(b, petalBlockModel));
+		takeAll(remainingBlocks, b -> b instanceof BlockPetalBlock).forEach(b -> simpleBlock(b, petalBlockModel));
 
-		takeAll(blocks, b -> b instanceof BlockAltGrass).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof BlockAltGrass).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ResourceLocation side = prefix("block/" + name + "_side");
 			ResourceLocation top = prefix("block/" + name + "_top");
@@ -171,9 +212,9 @@ public class BlockstateProvider extends BlockStateProvider {
 					new ConfiguredModel(model, 0, 270, false));
 		});
 
-		takeAll(blocks, b -> b instanceof BlockRedString).forEach(this::redStringBlock);
+		takeAll(remainingBlocks, b -> b instanceof BlockRedString).forEach(this::redStringBlock);
 
-		takeAll(blocks, b -> b instanceof BlockModDoubleFlower).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof BlockModDoubleFlower).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile bottom = models().cross(name, prefix("block/" + name));
 			ModelFile top = models().cross(name + "_top", prefix("block/" + name + "_top"));
@@ -205,7 +246,7 @@ public class BlockstateProvider extends BlockStateProvider {
 			simpleBlock(chiseledBricks);
 
 			// stairs and slabs handled above already
-			blocks.removeAll(Arrays.asList(base, cobble, cobbleWall, brick, chiseledBricks));
+			remainingBlocks.removeAll(Arrays.asList(base, cobble, cobbleWall, brick, chiseledBricks));
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
@@ -232,18 +273,18 @@ public class BlockstateProvider extends BlockStateProvider {
 				prefix("block/" + chiseledId.getPath() + "_side"),
 				prefix("block/" + chiseledId.getPath() + "_end")));
 
-			blocks.remove(quartz);
-			blocks.remove(pillar);
-			blocks.remove(chiseled);
+			remainingBlocks.remove(quartz);
+			remainingBlocks.remove(pillar);
+			remainingBlocks.remove(chiseled);
 		}
 
-		takeAll(blocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
 			DyeColor color = ((BlockBuriedPetals) b).color;
 			ResourceLocation wool = new ResourceLocation("block/" + color.func_176610_l() + "_wool");
-			particleOnly(blocks, b, wool);
+			particleOnly(remainingBlocks, b, wool);
 		});
 
-		takeAll(blocks, b -> b instanceof BlockAltar).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof BlockAltar).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/petal_apothecary"))
 					.texture("side", prefix("block/" + name + "_side"))
@@ -252,14 +293,14 @@ public class BlockstateProvider extends BlockStateProvider {
 			simpleBlock(b, model);
 		});
 
-		takeAll(blocks, b -> b instanceof PaneBlock).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof PaneBlock).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ResourceLocation edge = prefix("block/" + name);
 			ResourceLocation pane = prefix("block/" + name.substring(0, name.length() - "_pane".length()));
 			paneBlock((PaneBlock) b, pane, edge);
 		});
 
-		takeAll(blocks, b -> b instanceof StairsBlock).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof StairsBlock).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
@@ -273,7 +314,7 @@ public class BlockstateProvider extends BlockStateProvider {
 			}
 		});
 
-		takeAll(blocks, b -> b instanceof SlabBlock).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof SlabBlock).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
@@ -287,7 +328,7 @@ public class BlockstateProvider extends BlockStateProvider {
 			}
 		});
 
-		blocks.forEach(b -> {
+		remainingBlocks.forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		});

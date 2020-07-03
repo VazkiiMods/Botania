@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
+    "state=off": {
       "model": "botania:block/alfheim_portal"
+    },
+    "state=on_z": {
+      "model": "botania:block/alfheim_portal_activated"
+    },
+    "state=on_x": {
+      "model": "botania:block/alfheim_portal_activated"
     }
   }
 }
