@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static vazkii.botania.common.block.ModBlocks.*;
+import static vazkii.botania.common.block.ModFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider extends BlockStateProvider {
@@ -73,7 +74,10 @@ public class BlockstateProvider extends BlockStateProvider {
 		// Single blocks
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
-				.mapToObj(i -> models().getExistingFile(prefix("block/" + elfGlassName + "_" + i)))
+				.mapToObj(i -> {
+					String varName = elfGlassName + "_" + i;
+					return models().cubeAll(varName, prefix("block/" + varName));
+				})
 				.map(ConfiguredModel::new).toArray(ConfiguredModel[]::new);
 		getVariantBuilder(elfGlass).partialState().setModels(elfGlassFiles);
 		blocks.remove(elfGlass);
@@ -90,9 +94,18 @@ public class BlockstateProvider extends BlockStateProvider {
 		blocks.remove(ModFluffBlocks.livingrockWall);
 		blocks.remove(ModFluffBlocks.livingwoodWall);
 
+		fenceBlock((FenceBlock) dreamwoodFence, prefix("block/dreamwood_planks"));
+		fenceGateBlock((FenceGateBlock) dreamwoodFenceGate, prefix("block/dreamwood_planks"));
+		fenceBlock((FenceBlock) livingwoodFence, prefix("block/livingwood_planks"));
+		fenceGateBlock((FenceGateBlock) livingwoodFenceGate, prefix("block/livingwood_planks"));
+		blocks.remove(dreamwoodFence);
+		blocks.remove(dreamwoodFenceGate);
+		blocks.remove(livingwoodFence);
+		blocks.remove(livingwoodFenceGate);
+
 		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
-		models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
-			new ResourceLocation("block/pumpkin_top"));
+		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
+			new ResourceLocation("block/pumpkin_top")));
 		blocks.remove(felPumpkin);
 
 		// TESRs with only particles
@@ -244,16 +257,6 @@ public class BlockstateProvider extends BlockStateProvider {
 						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(file, 90, 90, false))
 						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(file))
 						.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(file, 90, 0, false));
-			} else if (b instanceof FenceBlock) {
-				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
-				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
-				fourWayBlock((FenceBlock) b, post, side);
-			} else if (b instanceof FenceGateBlock) {
-				ModelFile gate = models().getExistingFile(prefix("block/" + name));
-				ModelFile gateOpen = models().getExistingFile(prefix("block/" + name + "_open"));
-				ModelFile wall = models().getExistingFile(prefix("block/" + name + "_wall"));
-				ModelFile wallOpen = models().getExistingFile(prefix("block/" + name + "_wall_open"));
-				fenceGateBlock((FenceGateBlock) b, gate, gateOpen, wall, wallOpen);
 			} else if (b instanceof PaneBlock) {
 				ModelFile post = models().getExistingFile(prefix("block/" + name + "_post"));
 				ModelFile side = models().getExistingFile(prefix("block/" + name + "_side"));
