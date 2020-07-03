@@ -119,11 +119,11 @@ public final class ModBlocks {
 	public static final Block openCrate = new BlockOpenCrate(Block.Properties.from(livingwood));
 	public static final Block craftCrate = new BlockCraftyCrate(Block.Properties.from(livingwood));
 	public static final Block forestEye = new BlockForestEye(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL));
-	public static final Block manasteelBlock = new BlockStorage(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));
-	public static final Block terrasteelBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
-	public static final Block elementiumBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
-	public static final Block manaDiamondBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
-	public static final Block dragonstoneBlock = new BlockStorage(Block.Properties.from(manasteelBlock));
+	public static final Block manasteelBlock = new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));
+	public static final Block terrasteelBlock = new BlockMod(Block.Properties.from(manasteelBlock));
+	public static final Block elementiumBlock = new BlockMod(Block.Properties.from(manasteelBlock));
+	public static final Block manaDiamondBlock = new BlockMod(Block.Properties.from(manasteelBlock));
+	public static final Block dragonstoneBlock = new BlockMod(Block.Properties.from(manasteelBlock));
 	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, Block.Properties.from(livingwood));
 	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, Block.Properties.from(livingwood));
 	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, Block.Properties.from(livingwood));
@@ -216,7 +216,7 @@ public final class ModBlocks {
 	public static final Block enderEye = new BlockEnderEye(Block.Properties.from(manasteelBlock));
 	public static final Block starfield = new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL));
 	public static final Block rfGenerator = new BlockRFGenerator(Block.Properties.from(livingrock));
-	public static final Block elfGlass = new BlockElfGlass(Block.Properties.from(Blocks.GLASS).func_235838_a_(s -> 15));
+	public static final Block elfGlass = new BlockModGlass(Block.Properties.from(Blocks.GLASS).func_235838_a_(s -> 15));
 	public static final Block brewery = new BlockBrewery(Block.Properties.from(livingrock));
 	public static final Block manaGlass = new BlockModGlass(Block.Properties.from(elfGlass));
 	public static final Block terraPlate = new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));

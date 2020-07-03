@@ -69,6 +69,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		// Manually written simpleBlock
 		manualModel(blocks, cocoon);
 		manualModel(blocks, corporeaCrystalCube);
+		manualModel(blocks, prism);
 		manualModel(blocks, runeAltar);
 
 		// Single blocks
@@ -105,7 +106,7 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
 		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
-			new ResourceLocation("block/pumpkin_top")));
+				new ResourceLocation("block/pumpkin_top")));
 		blocks.remove(felPumpkin);
 
 		// TESRs with only particles
@@ -155,7 +156,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 
 		ModelFile petalBlockModel = models().withExistingParent("petal_block", prefix("block/shapes/cube_all_tinted"))
-			.texture("all", prefix("block/petal_block"));
+				.texture("all", prefix("block/petal_block"));
 		takeAll(blocks, b -> b instanceof BlockPetalBlock).forEach(b -> simpleBlock(b, petalBlockModel));
 
 		takeAll(blocks, b -> b instanceof StairsBlock).forEach(b -> {
@@ -209,7 +210,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 
 		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain",
-			"plains", "swamp", "taiga"}) {
+				"plains", "swamp", "taiga" }) {
 			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			Block base = Registry.BLOCK.getValue(baseId).get();
 			simpleBlock(base);
@@ -243,9 +244,9 @@ public class BlockstateProvider extends BlockStateProvider {
 		takeAll(blocks, b -> b instanceof BlockAltar).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/petal_apothecary"))
-				.texture("side", prefix("block/" + name + "_side"))
-				.texture("goblet", prefix("block/" + name + "_goblet"))
-				.texture("top_bottom", prefix("block/" + name + "_top_bottom"));
+					.texture("side", prefix("block/" + name + "_side"))
+					.texture("goblet", prefix("block/" + name + "_goblet"))
+					.texture("top_bottom", prefix("block/" + name + "_top_bottom"));
 			simpleBlock(b, model);
 		});
 
@@ -321,11 +322,11 @@ public class BlockstateProvider extends BlockStateProvider {
 	private void fixedWallBlock(WallBlock block, ResourceLocation tex) {
 		String name = Registry.BLOCK.getKey(block).getPath();
 		ModelFile post = models().withExistingParent(name + "_post", "block/template_wall_post")
-			.texture("wall", tex);
+				.texture("wall", tex);
 		ModelFile side = models().withExistingParent(name + "_wall_side", "block/template_wall_side")
-			.texture("wall", tex);
+				.texture("wall", tex);
 		ModelFile tallSide = models().withExistingParent(name + "_wall_side_tall", "block/template_wall_side_tall")
-			.texture("wall", tex);
+				.texture("wall", tex);
 		MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
 				.part().modelFile(post).addModel()
 				.condition(WallBlock.UP, true).end();

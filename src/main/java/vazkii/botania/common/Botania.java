@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -264,14 +265,8 @@ public class Botania {
 							"_________",
 					}
 			};
-			IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK, state -> {
-				try {
-					// No world to pass here, so just fall back to false if it errors
-					return state.isBeaconBase(null, null, null);
-				} catch (Exception ignored) {
-					return false;
-				}
-			});
+			IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK,
+					state -> state.func_235714_a_(BlockTags.field_232875_ap_));
 			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
 					pat,
 					'P', ModBlocks.gaiaPylon,
