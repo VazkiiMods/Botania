@@ -27,6 +27,7 @@ import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
@@ -64,7 +65,6 @@ public class BlockstateProvider extends BlockStateProvider {
 				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
 		// Manually written blockstate + models
-		remainingBlocks.remove(craftCrate);
 		remainingBlocks.remove(ghostRail);
 		remainingBlocks.remove(solidVines);
 
@@ -98,6 +98,18 @@ public class BlockstateProvider extends BlockStateProvider {
 			prefix("block/" + cacophoniumName + "_top")));
 		remainingBlocks.remove(cacophonium);
 
+		String craftCrateName = Registry.BLOCK.getKey(craftCrate).getPath();
+		getVariantBuilder(craftCrate).forAllStates(s -> {
+			CratePattern pat = s.get(BotaniaStateProps.CRATE_PATTERN);
+			String suffix = pat == CratePattern.NONE ? "" : "_" + pat.func_176610_l().substring("crafty_".length());
+			String name = craftCrateName + suffix;
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/crate"))
+				.texture("bottom", prefix("block/" + craftCrateName + "_bottom"))
+				.texture("side", prefix("block/" + name));
+			return new ConfiguredModel[] { new ConfiguredModel(model) };
+		});
+		remainingBlocks.remove(craftCrate);
+
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> {
@@ -108,10 +120,22 @@ public class BlockstateProvider extends BlockStateProvider {
 		getVariantBuilder(elfGlass).partialState().setModels(elfGlassFiles);
 		remainingBlocks.remove(elfGlass);
 
+		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
+		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
+			new ResourceLocation("block/pumpkin_top")));
+		remainingBlocks.remove(felPumpkin);
+
 		String plateName = Registry.BLOCK.getKey(ModBlocks.incensePlate).getPath();
 		ModelFile plateFile = models().getExistingFile(prefix("block/" + plateName));
 		horizontalBlock(incensePlate, plateFile, 0);
 		remainingBlocks.remove(incensePlate);
+
+		String openCrateName = Registry.BLOCK.getKey(openCrate).getPath();
+		ModelFile openCrateFile = models().withExistingParent(openCrateName, prefix("block/shapes/crate"))
+			.texture("side", prefix("block/" + openCrateName))
+			.texture("bottom", prefix("block/" + openCrateName + "_bottom"));
+		simpleBlock(openCrate, openCrateFile);
+		remainingBlocks.remove(openCrate);
 
 		fixedWallBlock((WallBlock) ModFluffBlocks.dreamwoodWall, prefix("block/dreamwood"));
 		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockWall, prefix("block/livingrock"));
@@ -128,11 +152,6 @@ public class BlockstateProvider extends BlockStateProvider {
 		remainingBlocks.remove(dreamwoodFenceGate);
 		remainingBlocks.remove(livingwoodFence);
 		remainingBlocks.remove(livingwoodFenceGate);
-
-		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
-		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
-				new ResourceLocation("block/pumpkin_top")));
-		remainingBlocks.remove(felPumpkin);
 
 		// TESRs with only particles
 		particleOnly(remainingBlocks, animatedTorch, new ResourceLocation("block/redstone_torch"));
@@ -169,6 +188,32 @@ public class BlockstateProvider extends BlockStateProvider {
 		takeAll(remainingBlocks, corporeaFunnel, corporeaInterceptor, corporeaRetainer).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
 			simpleBlock(b, models().cubeColumn(name, prefix("block/" + name + "_side"), prefix("block/" + name + "_end")));
+		});
+
+		takeAll(remainingBlocks, gatheringDrum, canopyDrum, wildDrum).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/drum"))
+				.texture("top", prefix("block/drum_top"))
+				.texture("side", prefix("block/" + name));
+			simpleBlock(b, model);
+		});
+
+		takeAll(remainingBlocks, manaSpreader, redstoneSpreader, gaiaSpreader, elvenSpreader).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			String material;
+			if (b == elvenSpreader) {
+				material = "dreamwood";
+			} else if (b == gaiaSpreader) {
+				material = name + "_material";
+			} else {
+				material = "livingwood";
+			}
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/spreader"))
+				.texture("side", prefix("block/" + name + "_side"))
+				.texture("material", prefix("block/" + material));
+			models().withExistingParent(name + "_inside", prefix("block/shapes/spreader_inside"))
+				.texture("inside", prefix("block/" + name + "_inside"));
+			simpleBlock(b, model);
 		});
 
 		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {

@@ -1,7 +1,0 @@
-{
-  "parent": "botania:block/shapes/crate",
-  "textures": {
-    "bottom": "botania:block/crate_open_bottom",
-    "side": "botania:block/crate_open"
-  }
-}
