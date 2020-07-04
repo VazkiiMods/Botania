@@ -1,3 +1,11 @@
+r1.15 387
+* Update critical hit logic in ancient wills to match vanilla
+* Fix crashes with flugel tiara when running on Java 11
+* Many internal changes in <i>preparation</i> for portability to other mod loaders (dev team, MoriyaShiine)
+* Fix typo in Bifrost rod description
+* Restore Garden of Glass sky renderer
+* Gourmaryllis mana formula has changed: it now rewards a longer chain of diverse foods. Alternating blindly between two foods is no longer the most optimal way, but should still work as a baseline starting point. Try to feed it many different foods! (Alwinfy)
+* Barring no major catastrophes, this will likely be the final 1.15 build. 1.16 awaits!
 r1.15 386
 * Fix dedicated server crash
 r1.15 385
