@@ -39,7 +39,7 @@ public final class ConfigHandler {
 		public Client(ForgeConfigSpec.Builder builder) {
 			builder.push("rendering");
 			useShaders = builder
-					.comment("Set this to false to disable the use of shaders for some of the mod's renders.")
+					.comment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
 					.define("shaders", true);
 			boundBlockWireframe = builder
 					.comment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")

@@ -52,7 +52,7 @@ import java.util.OptionalDouble;
 import java.util.Random;
 
 public final class RenderHelper {
-	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY;
+	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = getTranslucentTransparency();
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
@@ -71,16 +71,19 @@ public final class RenderHelper {
 	public static final RenderType TERRA_PLATE;
 	public static final RenderType ENCHANTER;
 	public static final RenderType HALO;
-	public static final RenderType MANA_PYLON_GLOW;
-	public static final RenderType NATURA_PYLON_GLOW;
-	public static final RenderType GAIA_PYLON_GLOW;
+	public static final RenderType MANA_PYLON_GLOW = getPylonGlow("mana_pylon_glow", RenderTilePylon.MANA_TEXTURE);
+	public static final RenderType NATURA_PYLON_GLOW = getPylonGlow("natura_pylon_glow", RenderTilePylon.NATURA_TEXTURE);
+	public static final RenderType GAIA_PYLON_GLOW = getPylonGlow("gaia_pylon_glow", RenderTilePylon.GAIA_TEXTURE);
+	public static final RenderType MANA_PYLON_GLOW_DIRECT = getPylonGlowDirect("mana_pylon_glow_direct", RenderTilePylon.MANA_TEXTURE);
+	public static final RenderType NATURA_PYLON_GLOW_DIRECT = getPylonGlowDirect("natura_pylon_glow_direct", RenderTilePylon.NATURA_TEXTURE);
+	public static final RenderType GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
+
 	public static final RenderType ASTROLABE_PREVIEW;
 	public static final RenderType ENTITY_TRANSLUCENT_GOLD;
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
 		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
-		TRANSLUCENT_TRANSPARENCY = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
 		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
 		RenderState.CullState disableCull = new RenderState.CullState(false);
 		RenderState.LayerState viewOffsetZLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_239235_M_");
@@ -153,18 +156,6 @@ public final class RenderHelper {
 		RenderType halo = RenderType.makeType(LibResources.PREFIX_MOD + "halo", DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 64, glState);
 		HALO = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, halo) : halo;
 
-		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState(RenderTilePylon.MANA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		RenderType manaPylonGlow = RenderType.makeType(LibResources.PREFIX_MOD + "mana_pylon_glow", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, glState);
-		MANA_PYLON_GLOW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, manaPylonGlow) : manaPylonGlow;
-
-		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState(RenderTilePylon.NATURA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		RenderType naturaPylonGlow = RenderType.makeType(LibResources.PREFIX_MOD + "natura_pylon_glow", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, glState);
-		NATURA_PYLON_GLOW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, naturaPylonGlow) : naturaPylonGlow;
-
-		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState(RenderTilePylon.GAIA_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(zeroAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		RenderType gaiaPylonGlow = RenderType.makeType(LibResources.PREFIX_MOD + "gaia_pylon_glow", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, glState);
-		GAIA_PYLON_GLOW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, gaiaPylonGlow) : gaiaPylonGlow;
-
 		// Same as entity_translucent, with no depth test and a shader
 		glState = RenderType.State.getBuilder().depthTest(new RenderState.DepthTestState("always", GL11.GL_ALWAYS)).texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		ShaderCallback cb = shader -> {
@@ -179,6 +170,35 @@ public final class RenderHelper {
 		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		RenderType gold = RenderType.makeType(LibResources.PREFIX_MOD + "entity_translucent_gold", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, true, true, glState);
 		ENTITY_TRANSLUCENT_GOLD = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, gold) : gold;
+	}
+
+	private static RenderState.TransparencyState getTranslucentTransparency() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
+	}
+
+	private static RenderType getPylonGlowDirect(String name, ResourceLocation texture) {
+		return getPylonGlow(name, texture, true);
+	}
+
+	private static RenderType getPylonGlow(String name, ResourceLocation texture) {
+		return getPylonGlow(name, texture, false);
+	}
+
+	private static RenderType getPylonGlow(String name, ResourceLocation texture, boolean direct) {
+		RenderType.State.Builder glState = RenderType.State.getBuilder()
+			.texture(new RenderState.TextureState(texture, false, false))
+			.transparency(TRANSLUCENT_TRANSPARENCY)
+			.diffuseLighting(new RenderState.DiffuseLightingState(true))
+			.alpha(new RenderState.AlphaState(0))
+			.cull(new RenderState.CullState(false))
+			.lightmap(new RenderState.LightmapState(true))
+			.overlay(new RenderState.OverlayState(true));
+		if (!direct) {
+			RenderState.TargetState itemTarget = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_241712_U_");
+			glState = glState.target(itemTarget);
+		}
+		RenderType layer = RenderType.makeType(LibResources.PREFIX_MOD + name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, glState.build(false));
+		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
 	}
 
 	public static RenderType getHaloLayer(ResourceLocation texture) {

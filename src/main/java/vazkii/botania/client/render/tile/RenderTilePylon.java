@@ -50,6 +50,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 
 	// Overrides for when we call this TESR without an actual pylon
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
+	private static ItemCameraTransforms.TransformType forceTransform = ItemCameraTransforms.TransformType.NONE;
 
 	public RenderTilePylon(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -65,7 +66,9 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 	}
 
 	private void renderPylon(@Nullable TilePylon pylon, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		BlockPylon.Variant type = pylon == null ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
+		boolean renderingItem = pylon == null;
+		boolean direct = renderingItem && (forceTransform == ItemCameraTransforms.TransformType.GUI || forceTransform.func_241716_a_()); // loosely based off ItemRenderer logic
+		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
 		IPylonModel model;
 		ResourceLocation texture;
 		RenderType shaderLayer;
@@ -74,19 +77,19 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		case MANA: {
 			model = manaModel;
 			texture = MANA_TEXTURE;
-			shaderLayer = RenderHelper.MANA_PYLON_GLOW;
+			shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
 			break;
 		}
 		case NATURA: {
 			model = naturaModel;
 			texture = NATURA_TEXTURE;
-			shaderLayer = RenderHelper.NATURA_PYLON_GLOW;
+			shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
 			break;
 		}
 		case GAIA: {
 			model = gaiaModel;
 			texture = GAIA_TEXTURE;
-			shaderLayer = RenderHelper.GAIA_PYLON_GLOW;
+			shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
 			break;
 		}
 		}
@@ -140,6 +143,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 		public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType type, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 			if (Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
+				RenderTilePylon.forceTransform = type;
 				TileEntityRenderer<TilePylon> r = TileEntityRendererDispatcher.instance.getRenderer(DUMMY.getValue());
 				((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
 			}
