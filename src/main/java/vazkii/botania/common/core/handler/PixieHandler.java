@@ -83,6 +83,7 @@ public final class PixieHandler {
 	public static void onDamageTaken(LivingHurtEvent event) {
 		if (!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+			/* todo unimpl
 			double chance = player.getAttribute(PIXIE_SPAWN_CHANCE).getValue();
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
 
@@ -104,6 +105,7 @@ public final class PixieHandler {
 						SpawnReason.EVENT, null, null);
 				player.world.addEntity(pixie);
 			}
+			*/
 		}
 	}
 }
