@@ -74,8 +74,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		}
 
 		ms.push();
-		ms.translate(0.5F, 1.8F, 0.5F);
-		ms.rotate(new Vector3f(1, 0, 1).rotationDegrees(180F));
+		ms.translate(0.5F, 0.5F, 0.5F);
 		renderSpinningCubes(ms, buffers, overlay, 2, 15);
 		ms.pop();
 
