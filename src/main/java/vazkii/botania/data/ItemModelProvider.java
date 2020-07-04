@@ -18,9 +18,9 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
-
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
+
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
@@ -50,7 +50,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 	@Override
 	protected void registerModels() {
 		Set<Item> items = Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(Registry.ITEM.getKey(i).getNamespace()))
-			.collect(Collectors.toSet());
+				.collect(Collectors.toSet());
 		registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()));
 	}
 
@@ -60,8 +60,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
 		String animatedTorchName = Registry.ITEM.getKey(ModBlocks.animatedTorch.asItem()).getPath();
 		withExistingParent(animatedTorchName, "item/generated")
-			.texture("layer0", new ResourceLocation("block/redstone_torch"))
-			.texture("layer1", prefix("block/animated_torch_glimmer"));
+				.texture("layer0", new ResourceLocation("block/redstone_torch"))
+				.texture("layer1", prefix("block/animated_torch_glimmer"));
 		itemBlocks.remove(ModBlocks.animatedTorch.asItem());
 
 		String gaiaHeadName = Registry.ITEM.getKey(ModBlocks.gaiaHead.asItem()).getPath();
@@ -82,15 +82,15 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 			String name = Registry.ITEM.getKey(i).getPath();
 			String baseName = name.substring(0, name.length() - "_pane".length());
 			withExistingParent(name, "item/generated")
-				.texture("layer0", prefix("block/" + baseName));
+					.texture("layer0", prefix("block/" + baseName));
 		});
 
 		Predicate<BlockItem> defaultGenerated = i -> {
 			Block b = i.getBlock();
 			return b instanceof BlockSpecialFlower || b instanceof BlockModMushroom
-				|| b instanceof BlockLightRelay
-				|| b instanceof BlockModFlower
-				|| b == ModBlocks.ghostRail;
+					|| b instanceof BlockLightRelay
+					|| b instanceof BlockModFlower
+					|| b == ModBlocks.ghostRail;
 		};
 		takeAll(itemBlocks, defaultGenerated).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
@@ -100,14 +100,14 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockPool).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
 			withExistingParent(name, prefix("block/" + name))
-				.override().predicate(prefix("full"), 1).model(getExistingFile(prefix("block/" + name + "_full"))).end();
+					.override().predicate(prefix("full"), 1).model(getExistingFile(prefix("block/" + name + "_full"))).end();
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof WallBlock).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
 			String baseName = name.substring(0, name.length() - "_wall".length());
 			withExistingParent(name, new ResourceLocation("block/wall_inventory"))
-				.texture("wall", prefix("block/" + baseName));
+					.texture("wall", prefix("block/" + baseName));
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockSpreader).forEach(i -> {
@@ -121,15 +121,15 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				material = "livingwood";
 			}
 			withExistingParent(name, prefix("block/shapes/spreader_item"))
-				.texture("side", prefix("block/" + name + "_side"))
-				.texture("material", prefix("block/" + material))
-				.texture("inside", prefix("block/" + name + "_inside"));
+					.texture("side", prefix("block/" + name + "_side"))
+					.texture("material", prefix("block/" + material))
+					.texture("inside", prefix("block/" + name + "_inside"));
 		});
 
 		takeAll(itemBlocks, ModBlocks.avatar.asItem(), ModBlocks.bellows.asItem(),
-			ModBlocks.brewery.asItem(), ModBlocks.corporeaIndex.asItem(), ModBlocks.gaiaPylon.asItem(),
-			ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModBlocks.naturaPylon.asItem(), ModBlocks.teruTeruBozu.asItem())
-			.forEach(this::builtinEntity);
+				ModBlocks.brewery.asItem(), ModBlocks.corporeaIndex.asItem(), ModBlocks.gaiaPylon.asItem(),
+				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModBlocks.naturaPylon.asItem(), ModBlocks.teruTeruBozu.asItem())
+						.forEach(this::builtinEntity);
 
 		takeAll(itemBlocks, i -> i instanceof ItemPetal).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
@@ -138,12 +138,12 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
 		String dreamwoodFenceName = Registry.ITEM.getKey(ModFluffBlocks.dreamwoodFence.asItem()).getPath();
 		withExistingParent(dreamwoodFenceName, "block/fence_inventory")
-			.texture("texture", prefix("block/dreamwood_planks"));
+				.texture("texture", prefix("block/dreamwood_planks"));
 		itemBlocks.remove(ModFluffBlocks.dreamwoodFence.asItem());
 
 		String livingwoodFenceName = Registry.ITEM.getKey(ModFluffBlocks.livingwoodFence.asItem()).getPath();
 		withExistingParent(livingwoodFenceName, "block/fence_inventory")
-			.texture("texture", prefix("block/livingwood_planks"));
+				.texture("texture", prefix("block/livingwood_planks"));
 		itemBlocks.remove(ModFluffBlocks.livingwoodFence.asItem());
 
 		String elfGlassName = Registry.ITEM.getKey(ModBlocks.elfGlass.asItem()).getPath();
@@ -160,32 +160,32 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		// [VanillaCopy] from item/chest.json
 		String name = Registry.ITEM.getKey(i).getPath();
 		getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
-			.transforms()
-			.transform(ModelBuilder.Perspective.GUI)
-			.rotation(30, 45, 0)
-			.scale(0.625F)
-			.end()
-			.transform(ModelBuilder.Perspective.GROUND)
-			.translation(0, 3, 0)
-			.scale(0.25F)
-			.end()
-			.transform(ModelBuilder.Perspective.HEAD)
-			.rotation(0, 180, 0)
-			.end()
-			.transform(ModelBuilder.Perspective.FIXED)
-			.rotation(0, 180, 0)
-			.scale(0.5F)
-			.end()
-			.transform(ModelBuilder.Perspective.THIRDPERSON_RIGHT)
-			.rotation(75, 315, 0)
-			.translation(0, 2.5F, 0)
-			.scale(0.375F)
-			.end()
-			.transform(ModelBuilder.Perspective.FIRSTPERSON_RIGHT)
-			.rotation(0, 315, 0)
-			.scale(0.4F)
-			.end()
-			.end();
+				.transforms()
+				.transform(ModelBuilder.Perspective.GUI)
+				.rotation(30, 45, 0)
+				.scale(0.625F)
+				.end()
+				.transform(ModelBuilder.Perspective.GROUND)
+				.translation(0, 3, 0)
+				.scale(0.25F)
+				.end()
+				.transform(ModelBuilder.Perspective.HEAD)
+				.rotation(0, 180, 0)
+				.end()
+				.transform(ModelBuilder.Perspective.FIXED)
+				.rotation(0, 180, 0)
+				.scale(0.5F)
+				.end()
+				.transform(ModelBuilder.Perspective.THIRDPERSON_RIGHT)
+				.rotation(75, 315, 0)
+				.translation(0, 2.5F, 0)
+				.scale(0.375F)
+				.end()
+				.transform(ModelBuilder.Perspective.FIRSTPERSON_RIGHT)
+				.rotation(0, 315, 0)
+				.scale(0.4F)
+				.end()
+				.end();
 	}
 
 	@Nonnull

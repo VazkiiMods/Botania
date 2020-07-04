@@ -43,9 +43,9 @@ public class MiscellaneousIcons {
 
 	public TextureAtlasSprite alfPortalTex,
 			lightRelayWorldIcon,
-		lightRelayDetectorWorldIcon,
-		lightRelayForkWorldIcon,
-		lightRelayToggleWorldIcon,
+			lightRelayDetectorWorldIcon,
+			lightRelayForkWorldIcon,
+			lightRelayToggleWorldIcon,
 			alchemyCatalystOverlay,
 			conjurationCatalystOverlay,
 			enchanterOverlay,
