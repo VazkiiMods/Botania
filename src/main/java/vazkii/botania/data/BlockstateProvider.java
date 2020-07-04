@@ -226,20 +226,20 @@ public class BlockstateProvider extends BlockStateProvider {
 		particleOnly(remainingBlocks, bellows, prefix("block/livingwood"));
 		particleOnly(remainingBlocks, brewery, prefix("block/livingrock"));
 		particleOnly(remainingBlocks, corporeaIndex, prefix("block/elementium_block"));
-		particleOnly(remainingBlocks, lightRelayDetector, prefix("block/luminizer_detector"));
+		particleOnly(remainingBlocks, lightRelayDetector, prefix("block/detector_light_relay"));
 		simpleBlock(fakeAir, models().getBuilder(Registry.BLOCK.getKey(ModBlocks.fakeAir).getPath()));
 		remainingBlocks.remove(fakeAir);
-		particleOnly(remainingBlocks, lightRelayFork, prefix("block/luminizer_fork"));
+		particleOnly(remainingBlocks, lightRelayFork, prefix("block/fork_light_relay"));
 		particleOnly(remainingBlocks, gaiaHead, new ResourceLocation("block/soul_sand"));
 		particleOnly(remainingBlocks, gaiaHeadWall, new ResourceLocation("block/soul_sand"));
 		particleOnly(remainingBlocks, gaiaPylon, prefix("block/elementium_block"));
 		particleOnly(remainingBlocks, hourglass, prefix("block/mana_glass"));
-		particleOnly(remainingBlocks, lightRelayDefault, prefix("block/luminizer"));
+		particleOnly(remainingBlocks, lightRelayDefault, prefix("block/light_relay"));
 		particleOnly(remainingBlocks, manaFlame, new ResourceLocation("block/fire_0"));
 		particleOnly(remainingBlocks, manaPylon, prefix("block/manasteel_block"));
 		particleOnly(remainingBlocks, naturaPylon, prefix("block/terrasteel_block"));
 		particleOnly(remainingBlocks, teruTeruBozu, new ResourceLocation("block/white_wool"));
-		particleOnly(remainingBlocks, lightRelayToggle, prefix("block/luminizer_toggle"));
+		particleOnly(remainingBlocks, lightRelayToggle, prefix("block/toggle_light_relay"));
 
 		// Block groups
 		Predicate<Block> flowers = b -> b instanceof BlockSpecialFlower
@@ -465,8 +465,9 @@ public class BlockstateProvider extends BlockStateProvider {
 		blocks.remove(b);
 	}
 
+	// ? extends T technically not correct, but is more convenient in ItemModelProvider
 	@SafeVarargs
-	private static <T> Iterable<T> takeAll(Set<T> src, T... items) {
+	public static <T> Collection<T> takeAll(Set<? extends T> src, T... items) {
 		List<T> ret = Arrays.asList(items);
 		if (!src.removeAll(ret)) {
 			Botania.LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
@@ -474,7 +475,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		return ret;
 	}
 
-	private static <T> Iterable<T> takeAll(Set<T> src, Predicate<T> pred) {
+	public static <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred) {
 		List<T> ret = new ArrayList<>();
 
 		Iterator<T> iter = src.iterator();

@@ -1,8 +1,0 @@
-{
-  "parent": "botania:block/shapes/spreader_item",
-  "textures": {
-    "inside": "botania:block/redstone_spreader_inside",
-    "side": "botania:block/redstone_spreader_side",
-    "material": "botania:block/livingwood"
-  }
-}

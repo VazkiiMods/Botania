@@ -43,9 +43,9 @@ public class MiscellaneousIcons {
 
 	public TextureAtlasSprite alfPortalTex,
 			lightRelayWorldIcon,
-			lightRelayWorldIconRed,
-			lightRelayWorldIconGreen,
-			lightRelayWorldIconPurple,
+		lightRelayDetectorWorldIcon,
+		lightRelayForkWorldIcon,
+		lightRelayToggleWorldIcon,
 			alchemyCatalystOverlay,
 			conjurationCatalystOverlay,
 			enchanterOverlay,
@@ -197,10 +197,6 @@ public class MiscellaneousIcons {
 
 		evt.addSprite(prefix("block/alfheim_portal_swirl"));
 		evt.addSprite(prefix("block/alfheim_portal_swirl"));
-		evt.addSprite(prefix("block/luminizer"));
-		evt.addSprite(prefix("block/luminizer_detector"));
-		evt.addSprite(prefix("block/luminizer_fork"));
-		evt.addSprite(prefix("block/luminizer_toggle"));
 		evt.addSprite(prefix("block/alchemy_catalyst_overlay"));
 		evt.addSprite(prefix("block/conjuration_catalyst_overlay"));
 		evt.addSprite(prefix("block/enchanter_overlay"));
@@ -234,10 +230,10 @@ public class MiscellaneousIcons {
 		}
 
 		alfPortalTex = get(evt.getMap(), "block/alfheim_portal_swirl");
-		lightRelayWorldIcon = get(evt.getMap(), "block/luminizer");
-		lightRelayWorldIconRed = get(evt.getMap(), "block/luminizer_detector");
-		lightRelayWorldIconGreen = get(evt.getMap(), "block/luminizer_fork");
-		lightRelayWorldIconPurple = get(evt.getMap(), "block/luminizer_toggle");
+		lightRelayWorldIcon = get(evt.getMap(), "block/light_relay");
+		lightRelayDetectorWorldIcon = get(evt.getMap(), "block/detector_light_relay");
+		lightRelayForkWorldIcon = get(evt.getMap(), "block/fork_light_relay");
+		lightRelayToggleWorldIcon = get(evt.getMap(), "block/toggle_light_relay");
 		alchemyCatalystOverlay = get(evt.getMap(), "block/alchemy_catalyst_overlay");
 		conjurationCatalystOverlay = get(evt.getMap(), "block/conjuration_catalyst_overlay");
 		enchanterOverlay = get(evt.getMap(), "block/enchanter_overlay");

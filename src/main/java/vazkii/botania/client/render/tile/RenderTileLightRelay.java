@@ -50,9 +50,9 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		Minecraft mc = Minecraft.getInstance();
 		if (sprites.isEmpty()) {
 			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
-			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed);
-			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayWorldIconGreen);
-			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayWorldIconPurple);
+			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
+			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
+			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
 		}
 
 		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);

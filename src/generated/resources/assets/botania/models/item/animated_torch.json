@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "block/redstone_torch",
+    "layer1": "botania:block/animated_torch_glimmer"
+  }
+}
