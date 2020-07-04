@@ -66,9 +66,6 @@ public class BlockstateProvider extends BlockStateProvider {
 				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
 
-		// Handled by FloatingFlowerModelProvider
-		remainingBlocks.removeIf(b -> b instanceof BlockFloatingFlower);
-
 		// Manually written blockstate + models
 		remainingBlocks.remove(ghostRail);
 		remainingBlocks.remove(solidVines);
@@ -406,6 +403,11 @@ public class BlockstateProvider extends BlockStateProvider {
 					.texture("goblet", prefix("block/" + name + "_goblet"))
 					.texture("top_bottom", prefix("block/" + name + "_top_bottom"));
 			simpleBlock(b, model);
+		});
+
+		takeAll(remainingBlocks, b -> b instanceof BlockFloatingFlower).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath();
+			simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof PaneBlock).forEach(b -> {
