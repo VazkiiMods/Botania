@@ -42,7 +42,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 
 		ms.push();
 
-		double time = ClientTickHandler.ticksInGame + partialTicks + new Random(tEntity.getEntityId()).nextInt();
+		double time = tEntity.world.getDayTime() + partialTicks + new Random(tEntity.getEntityId()).nextInt(200);
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
 		int alpha = (int) ((0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0F);
