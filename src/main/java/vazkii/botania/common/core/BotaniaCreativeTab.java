@@ -65,9 +65,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 			this.addItem(ModItems.getPetal(color));
 		}
 		addItem(ModItems.pestleAndMortar);
-		for (DyeColor color : DyeColor.values()) {
-			this.addItem(ModItems.getDye(color));
-		}
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
 		addItem(ModItems.blackLotus);

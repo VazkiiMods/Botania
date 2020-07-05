@@ -17,12 +17,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -75,6 +80,22 @@ public class BlockPool extends BlockModWaterloggable implements ITileEntityProvi
 		} else {
 			return super.getDrops(state, builder);
 		}
+	}
+
+	@Nonnull
+	@Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
+		TileEntity te = world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
+		if (stack.getItem() instanceof DyeItem && te instanceof TilePool) {
+			DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+			if (color != ((TilePool) te).getColor()) {
+				((TilePool) te).setColor(color);
+				stack.shrink(1);
+				return ActionResultType.SUCCESS;
+			}
+		}
+		return super.onBlockActivated(state, world, pos, player, hand, hit);
 	}
 
 	@Nonnull

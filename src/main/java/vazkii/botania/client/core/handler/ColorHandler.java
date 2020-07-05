@@ -120,10 +120,8 @@ public final class ColorHandler {
 				ModItems.twigWand);
 
 		IItemColor petalHandler = (s, t) -> t == 0 ? ((ItemPetal) s.getItem()).color.colorValue : -1;
-		IItemColor dyeHandler = (s, t) -> t == 0 ? ((Item16Colors) s.getItem()).color.colorValue : -1;
 		for (DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
-			items.register(dyeHandler, ModItems.getDye(color));
 		}
 
 		items.register((s, t) -> t == 0 ? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) s.getItem()).getBlock().getDefaultState(), null, null, t) : -1,
@@ -190,8 +188,8 @@ public final class ColorHandler {
 
 		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? MathHelper.hsvToRGB(0.375F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
-		dyeHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
-		items.register(dyeHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,
+		IItemColor lensHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
+		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,
 				ModItems.lensGravity, ModItems.lensMine, ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet,
 				ModItems.lensExplosive, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire, ModItems.lensPiston,
 				ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect, ModItems.lensFirework, ModItems.lensFlare,

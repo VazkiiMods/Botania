@@ -119,11 +119,11 @@ public final class RenderHelper {
 		LINE_8_NO_DEPTH = RenderType.makeType(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
 		glState = RenderType.State.getBuilder()
-			.texture(mipmapBlockAtlasTexture)
-			.transparency(TRANSLUCENT_TRANSPARENCY)
-			.target(itemTarget)
-			.alpha(new RenderState.AlphaState(0.05F))
-			.lightmap(enableLightmap).build(true);
+				.texture(mipmapBlockAtlasTexture)
+				.transparency(TRANSLUCENT_TRANSPARENCY)
+				.target(itemTarget)
+				.alpha(new RenderState.AlphaState(0.05F))
+				.lightmap(enableLightmap).build(true);
 		// todo 1.15: need normals?
 		SPARK = RenderType.makeType(LibResources.PREFIX_MOD + "spark", DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 256, glState);
 		RenderType lightRelay = RenderType.makeType(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 64, glState);
@@ -145,10 +145,10 @@ public final class RenderHelper {
 
 		RenderState.TextureState babylonTexture = new RenderState.TextureState(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
 		glState = RenderType.State.getBuilder().texture(babylonTexture)
-			.transparency(TRANSLUCENT_TRANSPARENCY)
-			.target(itemTarget)
-			.cull(disableCull)
-			.shadeModel(smoothShade).build(true);
+				.transparency(TRANSLUCENT_TRANSPARENCY)
+				.target(itemTarget)
+				.cull(disableCull)
+				.shadeModel(smoothShade).build(true);
 		RenderType babylonIcon = RenderType.makeType(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormats.POSITION_COLOR_TEX, GL11.GL_QUADS, 64, glState);
 		BABYLON_ICON = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, babylonIcon) : babylonIcon;
 
@@ -196,12 +196,12 @@ public final class RenderHelper {
 
 	private static RenderType getPylonGlow(String name, ResourceLocation texture, boolean direct) {
 		RenderType.State.Builder glState = RenderType.State.getBuilder()
-			.texture(new RenderState.TextureState(texture, false, false))
-			.transparency(TRANSLUCENT_TRANSPARENCY)
-			.diffuseLighting(new RenderState.DiffuseLightingState(true))
-			.alpha(new RenderState.AlphaState(0))
-			.cull(new RenderState.CullState(false))
-			.lightmap(new RenderState.LightmapState(true));
+				.texture(new RenderState.TextureState(texture, false, false))
+				.transparency(TRANSLUCENT_TRANSPARENCY)
+				.diffuseLighting(new RenderState.DiffuseLightingState(true))
+				.alpha(new RenderState.AlphaState(0))
+				.cull(new RenderState.CullState(false))
+				.lightmap(new RenderState.LightmapState(true));
 		if (!direct) {
 			RenderState.TargetState itemTarget = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_241712_U_");
 			glState = glState.target(itemTarget);

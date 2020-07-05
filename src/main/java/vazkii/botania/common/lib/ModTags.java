@@ -63,8 +63,6 @@ public class ModTags {
 		public static final ITag.INamedTag<Item> DISPOSABLE = tag("disposable");
 		public static final ITag.INamedTag<Item> SEMI_DISPOSABLE = tag("semi_disposable");
 
-		public static final ITag.INamedTag<Item> DYES = tag("dyes");
-
 		public static final ITag.INamedTag<Item> PETALS = tag("petals");
 		public static final ITag.INamedTag<Item> PETALS_BLACK = tag("petals/black");
 		public static final ITag.INamedTag<Item> PETALS_BLUE = tag("petals/blue");

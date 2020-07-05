@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -34,7 +35,6 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemDye;
 
 import javax.annotation.Nonnull;
 
@@ -259,7 +259,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		ItemStack stack = player.getHeldItem(hand);
 		if (!removed && !stack.isEmpty()) {
 			if (player.world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemDye || stack.getItem() == ModItems.phantomInk;
+				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof DyeItem || stack.getItem() == ModItems.phantomInk;
 				if (valid) {
 					player.swingArm(hand);
 				}
@@ -276,8 +276,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 					displayRelatives(player, new ArrayList<>(), master);
 				}
 				return ActionResultType.SUCCESS;
-			} else if (stack.getItem() instanceof ItemDye) {
-				DyeColor color = ((ItemDye) stack.getItem()).color;
+			} else if (stack.getItem() instanceof DyeItem) {
+				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
 				if (color != getNetwork()) {
 					setNetwork(color);
 

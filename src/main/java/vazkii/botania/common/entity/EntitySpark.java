@@ -13,6 +13,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -38,7 +39,6 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -241,7 +241,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 		if (isAlive() && !stack.isEmpty()) {
 			if (world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
-						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof ItemDye;
+						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof DyeItem;
 				if (valid) {
 					player.swingArm(hand);
 				}
@@ -273,8 +273,8 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
 				return ActionResultType.SUCCESS;
-			} else if (stack.getItem() instanceof ItemDye) {
-				DyeColor color = ((ItemDye) stack.getItem()).color;
+			} else if (stack.getItem() instanceof DyeItem) {
+				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
 				if (color != getNetwork()) {
 					setNetwork(color);
 					stack.shrink(1);

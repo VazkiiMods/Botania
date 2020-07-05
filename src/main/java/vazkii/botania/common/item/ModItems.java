@@ -11,10 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -100,23 +97,6 @@ public final class ModItems {
 	public static final Item greenPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.GREEN), DyeColor.GREEN, defaultBuilder());
 	public static final Item redPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.RED), DyeColor.RED, defaultBuilder());
 	public static final Item blackPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.BLACK), DyeColor.BLACK, defaultBuilder());
-
-	public static final Item whiteDye = new ItemDye(DyeColor.WHITE, defaultBuilder());
-	public static final Item orangeDye = new ItemDye(DyeColor.ORANGE, defaultBuilder());
-	public static final Item magentaDye = new ItemDye(DyeColor.MAGENTA, defaultBuilder());
-	public static final Item lightBlueDye = new ItemDye(DyeColor.LIGHT_BLUE, defaultBuilder());
-	public static final Item yellowDye = new ItemDye(DyeColor.YELLOW, defaultBuilder());
-	public static final Item limeDye = new ItemDye(DyeColor.LIME, defaultBuilder());
-	public static final Item pinkDye = new ItemDye(DyeColor.PINK, defaultBuilder());
-	public static final Item grayDye = new ItemDye(DyeColor.GRAY, defaultBuilder());
-	public static final Item lightGrayDye = new ItemDye(DyeColor.LIGHT_GRAY, defaultBuilder());
-	public static final Item cyanDye = new ItemDye(DyeColor.CYAN, defaultBuilder());
-	public static final Item purpleDye = new ItemDye(DyeColor.PURPLE, defaultBuilder());
-	public static final Item blueDye = new ItemDye(DyeColor.BLUE, defaultBuilder());
-	public static final Item brownDye = new ItemDye(DyeColor.BROWN, defaultBuilder());
-	public static final Item greenDye = new ItemDye(DyeColor.GREEN, defaultBuilder());
-	public static final Item redDye = new ItemDye(DyeColor.RED, defaultBuilder());
-	public static final Item blackDye = new ItemDye(DyeColor.BLACK, defaultBuilder());
 
 	public static final Item pestleAndMortar = new ItemSelfReturning(unstackable());
 	public static final Item twigWand = new ItemTwigWand(unstackable().rarity(Rarity.RARE));
@@ -434,22 +414,6 @@ public final class ModItems {
 		register(r, "green" + LibItemNames.PETAL_SUFFIX, greenPetal);
 		register(r, "red" + LibItemNames.PETAL_SUFFIX, redPetal);
 		register(r, "black" + LibItemNames.PETAL_SUFFIX, blackPetal);
-		register(r, "white" + LibItemNames.DYE_SUFFIX, whiteDye);
-		register(r, "orange" + LibItemNames.DYE_SUFFIX, orangeDye);
-		register(r, "magenta" + LibItemNames.DYE_SUFFIX, magentaDye);
-		register(r, "light_blue" + LibItemNames.DYE_SUFFIX, lightBlueDye);
-		register(r, "yellow" + LibItemNames.DYE_SUFFIX, yellowDye);
-		register(r, "lime" + LibItemNames.DYE_SUFFIX, limeDye);
-		register(r, "pink" + LibItemNames.DYE_SUFFIX, pinkDye);
-		register(r, "gray" + LibItemNames.DYE_SUFFIX, grayDye);
-		register(r, "light_gray" + LibItemNames.DYE_SUFFIX, lightGrayDye);
-		register(r, "cyan" + LibItemNames.DYE_SUFFIX, cyanDye);
-		register(r, "purple" + LibItemNames.DYE_SUFFIX, purpleDye);
-		register(r, "blue" + LibItemNames.DYE_SUFFIX, blueDye);
-		register(r, "brown" + LibItemNames.DYE_SUFFIX, brownDye);
-		register(r, "green" + LibItemNames.DYE_SUFFIX, greenDye);
-		register(r, "red" + LibItemNames.DYE_SUFFIX, redDye);
-		register(r, "black" + LibItemNames.DYE_SUFFIX, blackDye);
 		register(r, LibItemNames.PESTLE_AND_MORTAR, pestleAndMortar);
 		register(r, LibItemNames.TWIG_WAND, twigWand);
 		register(r, LibItemNames.MANASTEEL_INGOT, manaSteel);
@@ -805,41 +769,4 @@ public final class ModItems {
 		}
 	}
 
-	public static Item getDye(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteDye;
-		case ORANGE:
-			return orangeDye;
-		case MAGENTA:
-			return magentaDye;
-		case LIGHT_BLUE:
-			return lightBlueDye;
-		case YELLOW:
-			return yellowDye;
-		case LIME:
-			return limeDye;
-		case PINK:
-			return pinkDye;
-		case GRAY:
-			return grayDye;
-		case LIGHT_GRAY:
-			return lightGrayDye;
-		case CYAN:
-			return cyanDye;
-		case PURPLE:
-			return purpleDye;
-		case BLUE:
-			return blueDye;
-		case BROWN:
-			return brownDye;
-		case GREEN:
-			return greenDye;
-		case RED:
-			return redDye;
-		case BLACK:
-			return blackDye;
-		}
-	}
 }

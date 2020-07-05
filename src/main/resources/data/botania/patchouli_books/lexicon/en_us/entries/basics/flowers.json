@@ -76,11 +76,6 @@
     },
     {
       "type": "crafting",
-      "text": "botania.page.flowers7",
-      "recipe": "botania:fertilizer_powder"
-    },
-    {
-      "type": "crafting",
       "text": "botania.page.flowers8",
       "recipe": "botania:fertilizer_dye"
     },

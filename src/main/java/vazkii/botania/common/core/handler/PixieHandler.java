@@ -86,20 +86,20 @@ public final class PixieHandler {
 			/* todo unimpl
 			double chance = player.getAttribute(PIXIE_SPAWN_CHANCE).getValue();
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
-
+			
 			if (Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.world);
 				pixie.setPosition(player.getPosX(), player.getPosY() + 2, player.getPosZ());
-
+			
 				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
 					pixie.setApplyPotionEffect(new EffectInstance(potions[event.getEntityLiving().world.rand.nextInt(potions.length)], 40, 0));
 				}
-
+			
 				float dmg = 4;
 				if (!sword.isEmpty()) {
 					dmg += 2;
 				}
-
+			
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
 				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(pixie.func_233580_cy_()),
 						SpawnReason.EVENT, null, null);

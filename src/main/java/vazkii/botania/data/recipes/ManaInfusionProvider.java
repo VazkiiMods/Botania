@@ -15,10 +15,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.state.Property;
@@ -65,7 +62,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		Ingredient dust = Ingredient.fromItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 		consumer.accept(new FinishedRecipe(id("mana_powder_dust"), new ItemStack(ModItems.manaPowder), dust, 500));
-		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(ModItems::getDye).toArray(Item[]::new));
+		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(DyeItem::getItem).toArray(Item[]::new));
 		consumer.accept(new FinishedRecipe(id("mana_powder_dye"), new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
 		consumer.accept(new FinishedRecipe(id("piston_relay"), new ItemStack(ModBlocks.pistonRelay), ingr(Blocks.PISTON), 15000));
