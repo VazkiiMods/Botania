@@ -212,7 +212,6 @@ public class Botania {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
-			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::loadLoot);
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerUpdate);
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
 		}
