@@ -43,7 +43,6 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	}
 
 	/**
-	 * Alternative constructor for brews that allows for potion effects from mods that use DeferredRegisters and gets the potion color using PotionUtils
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A supplier that supplies a list of effects to apply to the player when they drink it.
 	 */
