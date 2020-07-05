@@ -49,7 +49,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	public Brew(int cost, Supplier<List<EffectInstance>> effects) {
 		this.color = () -> PotionUtils.getPotionColorFromEffectList(effects.get());
 		this.cost = cost;
-		this.effects = () -> ImmutableList.copyOf(effects.get());
+		this.effects = effects;
 	}
 
 	/**
