@@ -17,6 +17,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -31,7 +32,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class TileCraftCrate extends TileOpenCrate {
+	private static final String TAG_CRAFTING_RESULT = "craft_result";
 	private int signal = 0;
+	private ItemStack craftResult = ItemStack.EMPTY;
 
 	public TileCraftCrate() {
 		super(ModTiles.CRAFT_CRATE);
@@ -39,7 +42,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	protected Inventory createItemHandler() {
-		return new Inventory(10) {
+		return new Inventory(9) {
 			@Override
 			public int getInventoryStackLimit() {
 				return 1;
@@ -47,7 +50,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 			@Override
 			public boolean isItemValidForSlot(int slot, ItemStack stack) {
-				return slot != 9 && !isLocked(slot);
+				return !isLocked(slot);
 			}
 		};
 	}
@@ -62,6 +65,18 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	private boolean isLocked(int slot) {
 		return !getPattern().openSlots.get(slot);
+	}
+
+	@Override
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		craftResult = ItemStack.read(tag.getCompound(TAG_CRAFTING_RESULT));
+	}
+
+	@Override
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
+		tag.put(TAG_CRAFTING_RESULT, craftResult.write(new CompoundNBT()));
 	}
 
 	@Override
@@ -111,7 +126,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		Optional<ICraftingRecipe> matchingRecipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
 		matchingRecipe.ifPresent(recipe -> {
-			getItemHandler().setInventorySlotContents(9, recipe.getCraftingResult(craft));
+			craftResult = recipe.getCraftingResult(craft);
 
 			List<ItemStack> remainders = recipe.getRemainingItems(craft);
 			for (int i = 0; i < craft.getSizeInventory(); i++) {
@@ -128,7 +143,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	boolean isFull() {
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < getItemHandler().getSizeInventory(); i++) {
 			if (!isLocked(i) && getItemHandler().getStackInSlot(i).isEmpty()) {
 				return false;
 			}
@@ -144,6 +159,10 @@ public class TileCraftCrate extends TileOpenCrate {
 				eject(stack, false);
 			}
 			getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
+		}
+		if (!craftResult.isEmpty()) {
+			eject(craftResult, false);
+			craftResult = ItemStack.EMPTY;
 		}
 	}
 

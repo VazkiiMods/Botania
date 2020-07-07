@@ -30,6 +30,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
@@ -179,20 +180,8 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 		}
 	}
 
-	private static final int[] SLOTS = { 0 };
-
 	@Override
-	public int[] getSlotsForFace(Direction side) {
-		return SLOTS;
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+	public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return false;
 	}
 }
