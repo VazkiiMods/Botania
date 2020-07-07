@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -232,13 +233,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return !getState(stack).isAir();
 	}
 
-	public static ItemStack removeFromInventory(PlayerEntity player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block, boolean doit) {
-		return inv.map(handler -> removeFromInventory(player, handler, stack, block, doit)).orElse(ItemStack.EMPTY);
-	}
-
-	public static ItemStack removeFromInventory(PlayerEntity player, IItemHandler inv, ItemStack stack, Block block, boolean doit) {
+	public static ItemStack removeFromInventory(PlayerEntity player, IInventory inv, ItemStack stack, Block block, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
-		for (int i = inv.getSlots() - 1; i >= 0; i--) {
+		for (int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getStackInSlot(i);
 			if (invStack.isEmpty()) {
 				continue;
@@ -246,7 +243,14 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 			Item item = invStack.getItem();
 			if (item == block.asItem()) {
-				return inv.extractItem(i, 1, !doit);
+				ItemStack ret;
+				if (doit) {
+					ret = inv.decrStackSize(i, 1);
+				} else {
+					ret = invStack.copy();
+					ret.setCount(1);
+				}
+				return ret;
 			}
 
 			if (item instanceof IBlockProvider) {
@@ -271,7 +275,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 		ItemStack outStack = removeFromInventory(player, BotaniaAPI.instance().getAccessoriesInventory(player), stack, block, doit);
 		if (outStack.isEmpty()) {
-			outStack = removeFromInventory(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), stack, block, doit);
+			outStack = removeFromInventory(player, player.inventory, stack, block, doit);
 		}
 		return outStack;
 	}
@@ -286,7 +290,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			return -1;
 		}
 
-		int count = getInventoryItemCount(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), stack, block);
+		int count = getInventoryItemCount(player, player.inventory, stack, block);
 		if (count == -1) {
 			return -1;
 		}
@@ -294,17 +298,13 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return count + baubleCount;
 	}
 
-	public static int getInventoryItemCount(PlayerEntity player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block) {
-		return inv.map(handler -> getInventoryItemCount(player, handler, stack, block)).orElse(0);
-	}
-
-	public static int getInventoryItemCount(PlayerEntity player, IItemHandler inv, ItemStack stack, Block block) {
+	public static int getInventoryItemCount(PlayerEntity player, IInventory inv, ItemStack stack, Block block) {
 		if (player.abilities.isCreativeMode) {
 			return -1;
 		}
 
 		int count = 0;
-		for (int i = 0; i < inv.getSlots(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack invStack = inv.getStackInSlot(i);
 			if (invStack.isEmpty()) {
 				continue;

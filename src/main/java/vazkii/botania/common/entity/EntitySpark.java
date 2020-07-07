@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
@@ -105,8 +106,8 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
 
-				IItemHandler inv = BotaniaAPI.instance().getAccessoriesInventory(player);
-				for (int i = 0; i < inv.getSlots(); i++) {
+				IInventory inv = BotaniaAPI.instance().getAccessoriesInventory(player);
+				for (int i = 0; i < inv.getSizeInventory(); i++) {
 					stacks.add(inv.getStackInSlot(i));
 				}
 

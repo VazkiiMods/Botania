@@ -11,6 +11,7 @@ package vazkii.botania.common.impl.mana;
 import com.google.common.collect.Iterables;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -54,14 +55,11 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			return Collections.emptyList();
 		}
 
-		IItemHandler acc = BotaniaAPI.instance().getAccessoriesInventory(player);
-		if (acc == null) {
-			return Collections.emptyList();
-		}
+		IInventory acc = BotaniaAPI.instance().getAccessoriesInventory(player);
 
-		List<ItemStack> toReturn = new ArrayList<>(acc.getSlots());
+		List<ItemStack> toReturn = new ArrayList<>(acc.getSizeInventory());
 
-		for (int slot = 0; slot < acc.getSlots(); slot++) {
+		for (int slot = 0; slot < acc.getSizeInventory(); slot++) {
 			ItemStack stackInSlot = acc.getStackInSlot(slot);
 
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {

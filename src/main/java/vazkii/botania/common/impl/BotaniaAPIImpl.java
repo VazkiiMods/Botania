@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
@@ -19,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -36,6 +36,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
+import vazkii.botania.common.item.CapWrapper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibMisc;
@@ -236,8 +237,8 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
-		return EquipmentHandler.getAllWorn(player).orElseGet(EmptyHandler::new);
+	public IInventory getAccessoriesInventory(PlayerEntity player) {
+		return new CapWrapper(EquipmentHandler.getAllWorn(player).orElseGet(EmptyHandler::new));
 	}
 
 	@Override

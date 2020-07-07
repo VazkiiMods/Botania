@@ -86,13 +86,13 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			return false;
 		}
 
-		ItemStack istack = ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, false);
+		ItemStack istack = ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, false);
 		if (!istack.isEmpty()) {
 			boolean mana = ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, false);
 			if (mana) {
 				if (doit) {
 					ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, true);
-					ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, true);
+					ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, true);
 				}
 
 				return true;
@@ -108,7 +108,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			return 0;
 		}
 
-		return ItemExchangeRod.getInventoryItemCount(player, new InvWrapper(player.getInventoryEnderChest()), stack, block);
+		return ItemExchangeRod.getInventoryItemCount(player, player.getInventoryEnderChest(), stack, block);
 	}
 
 }

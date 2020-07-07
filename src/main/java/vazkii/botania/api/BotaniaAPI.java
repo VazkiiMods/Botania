@@ -12,6 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
@@ -215,8 +217,8 @@ public interface BotaniaAPI {
 		return 0;
 	}
 
-	default IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
-		return new EmptyHandler();
+	default IInventory getAccessoriesInventory(PlayerEntity player) {
+		return new Inventory(0);
 	}
 
 	/**

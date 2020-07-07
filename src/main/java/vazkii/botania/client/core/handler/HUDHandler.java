@@ -18,6 +18,7 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.profiler.IProfiler;
@@ -31,9 +32,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import org.lwjgl.opengl.GL11;
 
@@ -173,18 +171,15 @@ public final class HUDHandler {
 				boolean anyRequest = false;
 				boolean creative = false;
 
-				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(EmptyHandler.INSTANCE);
-				IItemHandler accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
+				IInventory mainInv = player.inventory;
+				IInventory accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
 
-				int invSize = mainInv.getSlots();
-				int size = invSize;
-				if (accInv != null) {
-					size += accInv.getSlots();
-				}
+				int invSize = mainInv.getSizeInventory();
+				int size = invSize + accInv.getSizeInventory();
 
 				for (int i = 0; i < size; i++) {
 					boolean useAccessories = i >= invSize;
-					IItemHandler inv = useAccessories ? accInv : mainInv;
+					IInventory inv = useAccessories ? accInv : mainInv;
 					ItemStack stack = inv.getStackInSlot(i - (useAccessories ? invSize : 0));
 
 					if (!stack.isEmpty()) {
