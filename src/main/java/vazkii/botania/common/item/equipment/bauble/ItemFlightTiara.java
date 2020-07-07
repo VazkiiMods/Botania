@@ -480,14 +480,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {
-				AbstractGui.func_238467_a_(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
+				AbstractGui.fill(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
 			}
-			AbstractGui.func_238467_a_(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+			AbstractGui.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
 		RenderSystem.enableAlphaTest();
 		RenderSystem.color4f(1F, 1F, 1F, 1F);
-		mc.textureManager.bindTexture(AbstractGui.field_230665_h_);
+		mc.textureManager.bindTexture(AbstractGui.GUI_ICONS_LOCATION);
 	}
 
 	public static int getVariant(ItemStack stack) {

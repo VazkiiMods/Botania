@@ -33,7 +33,7 @@ public final class TooltipHandler {
 	}
 
 	public static void addOnShift(List<ITextComponent> tooltip, Runnable lambda) {
-		if (Screen.func_231173_s_()) {
+		if (Screen.hasShiftDown()) {
 			lambda.run();
 		} else {
 			tooltip.add(getShiftInfoTooltip());

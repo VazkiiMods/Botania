@@ -200,7 +200,7 @@ public class ItemSextant extends Item {
 				s = TextFormatting.RED + s;
 			}
 
-			font.func_238405_a_(ms, s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
+			font.drawStringWithShadow(ms, s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
 
 			if (inRange) {
 				radius += 4;

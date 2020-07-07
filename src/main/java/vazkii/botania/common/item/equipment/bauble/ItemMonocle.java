@@ -89,7 +89,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);
 
-		mc.fontRenderer.func_238405_a_(ms, text, x + 20, y + 4, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 	}
 
 	public static boolean hasMonocle(PlayerEntity player) {

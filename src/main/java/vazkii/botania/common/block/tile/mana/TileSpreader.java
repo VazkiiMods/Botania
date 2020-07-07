@@ -552,7 +552,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 
-			mc.fontRenderer.func_238405_a_(ms, lensName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(ms, lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderSystem.disableLighting();
 		}
@@ -566,7 +566,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 				int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-				mc.fontRenderer.func_238405_a_(ms, stackName, x + 20, y + 5, color);
+				mc.fontRenderer.drawStringWithShadow(ms, stackName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			}
 

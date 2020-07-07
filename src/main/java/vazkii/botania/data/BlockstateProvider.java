@@ -103,7 +103,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		String craftCrateName = Registry.BLOCK.getKey(craftCrate).getPath();
 		getVariantBuilder(craftCrate).forAllStates(s -> {
 			CratePattern pat = s.get(BotaniaStateProps.CRATE_PATTERN);
-			String suffix = pat == CratePattern.NONE ? "" : "_" + pat.func_176610_l().substring("crafty_".length());
+			String suffix = pat == CratePattern.NONE ? "" : "_" + pat.getString().substring("crafty_".length());
 			String name = craftCrateName + suffix;
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/crate"))
 					.texture("bottom", prefix("block/" + craftCrateName + "_bottom"))
@@ -392,7 +392,7 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		takeAll(remainingBlocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
 			DyeColor color = ((BlockBuriedPetals) b).color;
-			ResourceLocation wool = new ResourceLocation("block/" + color.func_176610_l() + "_wool");
+			ResourceLocation wool = new ResourceLocation("block/" + color.getString() + "_wool");
 			particleOnly(remainingBlocks, b, wool);
 		});
 

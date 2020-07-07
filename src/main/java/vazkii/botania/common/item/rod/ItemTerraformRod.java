@@ -96,7 +96,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 				continue;
 			}
 
-			if (ModTags.Blocks.TERRAFORMABLE.func_230235_a_(state.getBlock())) {
+			if (ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
 				for (Direction dir : Direction.Plane.HORIZONTAL) {

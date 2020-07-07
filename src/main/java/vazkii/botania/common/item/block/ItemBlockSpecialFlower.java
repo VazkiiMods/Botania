@@ -48,11 +48,11 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		// Prevent crash when tooltips queried before configs load
 		if (Botania.finishedLoading) {
 			if (world != null) {
-				if (GENERATING.func_230235_a_(this)) {
+				if (GENERATING.contains(this)) {
 					tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-				} else if (FUNCTIONAL.func_230235_a_(this)) {
+				} else if (FUNCTIONAL.contains(this)) {
 					tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
-				} else if (MISC.func_230235_a_(this)) {
+				} else if (MISC.contains(this)) {
 					tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
 				}
 			}

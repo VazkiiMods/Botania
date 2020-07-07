@@ -41,14 +41,14 @@ public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 		BlockState iblockstate = world.getBlockState(blockpos);
 		RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock) iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
 		double d3;
-		if (iblockstate.func_235714_a_(BlockTags.RAILS)) {
+		if (iblockstate.isIn(BlockTags.RAILS)) {
 			if (railshape.isAscending()) {
 				d3 = 0.6D;
 			} else {
 				d3 = 0.1D;
 			}
 		} else {
-			if (!iblockstate.isAir() || !world.getBlockState(blockpos.down()).func_235714_a_(BlockTags.RAILS)) {
+			if (!iblockstate.isAir() || !world.getBlockState(blockpos.down()).isIn(BlockTags.RAILS)) {
 				return this.behaviourDefaultDispenseItem.dispense(source, stack);
 			}
 

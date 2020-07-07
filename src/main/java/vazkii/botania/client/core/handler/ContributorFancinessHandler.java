@@ -110,7 +110,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				Item item = ModTags.Items.SPECIAL_FLOWERS.func_230236_b_().stream()
+				Item item = ModTags.Items.SPECIAL_FLOWERS.getAllElements().stream()
 						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				m.put(key, new ItemStack(item));

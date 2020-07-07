@@ -157,7 +157,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
 			if (!world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 			return false;
 		}
@@ -168,7 +168,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (world.isRemote) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 
 			return false;
@@ -183,7 +183,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 
 			return false;
@@ -203,9 +203,9 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
-			e.getAttribute(Attributes.field_233818_a_).setBaseValue(MAX_HP * playerCount);
+			e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 			if (hard) {
-				e.getAttribute(Attributes.field_233826_i_).setBaseValue(15);
+				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 			}
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
@@ -266,7 +266,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						trippedPositions.add(pos.down());
 					}
 
-					if (!allowBlockHere && isBlockHere && !BLACKLIST.func_230235_a_(state.getBlock())) //ceiling is obstructed in this column
+					if (!allowBlockHere && isBlockHere && !BLACKLIST.contains(state.getBlock())) //ceiling is obstructed in this column
 					{
 						trippedPositions.add(pos);
 					}
@@ -554,7 +554,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 						world.destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
-						if (BLACKLIST.func_230235_a_(block)) {
+						if (BLACKLIST.contains(block)) {
 							continue;
 						}
 						//don't break the floor
@@ -945,7 +945,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
 
-		mc.fontRenderer.func_238405_a_(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
 		ms.pop();
 
 		return 5;

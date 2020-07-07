@@ -108,7 +108,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	public static boolean doesOreExist(ResourceLocation tagId) {
-		return !BlockTags.getCollection().getOrCreate(tagId).func_230236_b_().isEmpty();
+		return !BlockTags.getCollection().getOrCreate(tagId).getAllElements().isEmpty();
 	}
 
 	@Override
@@ -221,7 +221,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, ResourceLocation recipeId) {
 		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex == slot) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.func_231173_s_()) {
+				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
 					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
 				}
 			}

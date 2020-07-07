@@ -219,7 +219,7 @@ public final class RenderHelper {
 	}
 
 	public static void drawTexturedModalRect(MatrixStack ms, int x, int y, int u, int v, int width, int height) {
-		AbstractGui.func_238463_a_(ms, x, y, u, v, width, height, 256, 256);
+		AbstractGui.blit(ms, x, y, u, v, width, height, 256, 256);
 	}
 
 	public static void renderStar(MatrixStack ms, IRenderTypeBuffer buffers, int color, float xScale, float yScale, float zScale, long seed) {

@@ -56,7 +56,7 @@ public final class DebugHandler {
 				}
 			}
 
-			if (Screen.func_231172_r_() && Screen.func_231173_s_()) {
+			if (Screen.hasControlDown() && Screen.hasShiftDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
 				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
 

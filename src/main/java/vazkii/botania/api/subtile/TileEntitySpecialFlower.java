@@ -125,7 +125,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 		if (cap == FLOATING_FLOWER_CAP) {
-			if (hasWorld() && getBlockState().func_235714_a_(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
+			if (hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
 		}
@@ -158,8 +158,8 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	@Override
-	public final void func_230337_a_(BlockState state, CompoundNBT cmp) {
-		super.func_230337_a_(state, cmp);
+	public final void read(BlockState state, CompoundNBT cmp) {
+		super.read(state, cmp);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}

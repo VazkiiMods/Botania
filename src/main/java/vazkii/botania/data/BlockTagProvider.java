@@ -120,7 +120,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		func_240522_a_(BlockTags.FLOWERS).func_240531_a_(ModTags.Blocks.SPECIAL_FLOWERS);
 
 		func_240522_a_(BlockTags.IMPERMEABLE).func_240534_a_(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
-		func_240522_a_(BlockTags.field_232875_ap_).func_240534_a_(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
+		func_240522_a_(BlockTags.BEACON_BASE_BLOCKS).func_240534_a_(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
 	}
 

@@ -349,11 +349,11 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		BlockState state = getState(stack);
-		IFormattableTextComponent cmp = super.getDisplayName(stack).func_230532_e_();
+		IFormattableTextComponent cmp = super.getDisplayName(stack).deepCopy();
 		if (!state.isAir()) {
 			cmp.func_240702_b_(" (");
 			ITextComponent sub = new ItemStack(state.getBlock()).getDisplayName();
-			cmp.func_230529_a_(sub.func_230532_e_().func_240699_a_(TextFormatting.GREEN));
+			cmp.func_230529_a_(sub.deepCopy().func_240699_a_(TextFormatting.GREEN));
 			cmp.func_240702_b_(")");
 		}
 		return cmp;

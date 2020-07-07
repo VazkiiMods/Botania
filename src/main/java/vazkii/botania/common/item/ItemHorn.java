@@ -88,7 +88,7 @@ public class ItemHorn extends Item {
 			if (block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
-							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.func_230235_a_(block)
+							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
 				coords.add(pos.toImmutable());
 			}

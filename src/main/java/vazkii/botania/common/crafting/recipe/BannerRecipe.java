@@ -50,7 +50,7 @@ public class BannerRecipe extends SpecialRecipe {
 
 			if (ModBanners.PATTERNS.containsKey(item.delegate) && !foundItem) {
 				foundItem = true;
-			} else if (ItemTags.BANNERS.func_230235_a_(item) && !foundBanner && BannerTileEntity.getPatterns(stack) < 6) {
+			} else if (ItemTags.BANNERS.contains(item) && !foundBanner && BannerTileEntity.getPatterns(stack) < 6) {
 				foundBanner = true;
 			} else if (item instanceof DyeItem && !foundDye) {
 				foundDye = true;
@@ -73,7 +73,7 @@ public class BannerRecipe extends SpecialRecipe {
 			Item item = stack.getItem();
 			if (ModBanners.PATTERNS.containsKey(item.delegate)) {
 				pattern = ModBanners.PATTERNS.get(item.delegate);
-			} else if (ItemTags.BANNERS.func_230235_a_(item)) {
+			} else if (ItemTags.BANNERS.contains(item)) {
 				banner = stack;
 			} else if (item instanceof DyeItem) {
 				dye = stack;

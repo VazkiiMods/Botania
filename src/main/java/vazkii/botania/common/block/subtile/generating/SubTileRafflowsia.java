@@ -49,7 +49,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 						BlockPos pos = getEffectivePos().add(i - RANGE, j - RANGE, k - RANGE);
 
 						BlockState state = getWorld().getBlockState(pos);
-						if (state.func_235714_a_(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
+						if (state.isIn(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
 							if (state.getBlock() == lastFlower) {
 								lastFlowerTimes++;
 							} else {

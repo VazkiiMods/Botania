@@ -245,7 +245,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
 		int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-		mc.fontRenderer.func_238405_a_(ms, filter, x, y, TextFormatting.GRAY.getColor());
+		mc.fontRenderer.drawStringWithShadow(ms, filter, x, y, TextFormatting.GRAY.getColor());
 		RenderSystem.disableLighting();
 	}
 

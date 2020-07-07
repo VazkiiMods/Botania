@@ -73,16 +73,16 @@ public class ItemVirus extends Item {
 					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new).insertItem(0, saddle, false);
 				}
 
-				ModifiableAttributeInstance movementSpeed = newHorse.getAttribute(Attributes.field_233821_d_);
-				movementSpeed.setBaseValue(horse.getAttribute(Attributes.field_233821_d_).getBaseValue());
+				ModifiableAttributeInstance movementSpeed = newHorse.getAttribute(Attributes.MOVEMENT_SPEED);
+				movementSpeed.setBaseValue(horse.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue());
 				movementSpeed.func_233769_c_(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
-				ModifiableAttributeInstance health = newHorse.getAttribute(Attributes.field_233818_a_);
-				health.setBaseValue(horse.getAttribute(Attributes.field_233818_a_).getBaseValue());
+				ModifiableAttributeInstance health = newHorse.getAttribute(Attributes.MAX_HEALTH);
+				health.setBaseValue(horse.getAttribute(Attributes.MAX_HEALTH).getBaseValue());
 				health.func_233769_c_(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
-				ModifiableAttributeInstance jumpHeight = newHorse.getAttribute(Attributes.field_233830_m_);
-				jumpHeight.setBaseValue(horse.getAttribute(Attributes.field_233830_m_).getBaseValue());
+				ModifiableAttributeInstance jumpHeight = newHorse.getAttribute(Attributes.HORSE_JUMP_STRENGTH);
+				jumpHeight.setBaseValue(horse.getAttribute(Attributes.HORSE_JUMP_STRENGTH).getBaseValue());
 				jumpHeight.func_233769_c_(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);

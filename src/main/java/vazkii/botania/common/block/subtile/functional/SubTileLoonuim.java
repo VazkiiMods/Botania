@@ -70,7 +70,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 					Collections.shuffle(stacks);
 					stack = stacks.get(0);
 				}
-			} while (stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.func_230235_a_(stack.getItem()));
+			} while (stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
 			int xp = getEffectivePos().getX() - RANGE + rand.nextInt(bound);
@@ -129,8 +129,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.setPositionAndRotation(x, y, z, world.rand.nextFloat() * 360F, 0);
 			entity.setMotion(Vector3d.ZERO);
 
-			entity.getAttribute(Attributes.field_233818_a_).func_233769_c_(new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
-			entity.getAttribute(Attributes.field_233823_f_).func_233769_c_(new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.getAttribute(Attributes.MAX_HEALTH).func_233769_c_(new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.getAttribute(Attributes.ATTACK_DAMAGE).func_233769_c_(new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
 
 			entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE,
 					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));

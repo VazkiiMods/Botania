@@ -307,13 +307,13 @@ public final class HUDHandler {
 			int w = mc.getMainWindow().getScaledWidth();
 			int h = mc.getMainWindow().getScaledHeight();
 			int boxH = h / 2 + (tile.locked ? 20 : 10);
-			AbstractGui.func_238467_a_(ms, w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
-			AbstractGui.func_238467_a_(ms, w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
+			AbstractGui.fill(ms, w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
+			AbstractGui.fill(ms, w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
 
-			mc.fontRenderer.func_238405_a_(ms, s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
-			mc.fontRenderer.func_238405_a_(ms, tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(ms, s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
+			mc.fontRenderer.drawStringWithShadow(ms, tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
 			if (tile.locked) {
-				mc.fontRenderer.func_238405_a_(ms, I18n.format("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
+				mc.fontRenderer.drawStringWithShadow(ms, I18n.format("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
 			}
 			RenderSystem.enableRescaleNormal();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(target, w / 2 + 10, h / 2 - 10);
@@ -332,14 +332,14 @@ public final class HUDHandler {
 		int x = mc.getMainWindow().getScaledWidth() - l - 20;
 		int y = mc.getMainWindow().getScaledHeight() - 60;
 
-		AbstractGui.func_238467_a_(ms, x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
-		AbstractGui.func_238467_a_(ms, x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
+		AbstractGui.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
+		AbstractGui.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
 		RenderSystem.enableRescaleNormal();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
 
-		mc.fontRenderer.func_238405_a_(ms, txt0, x + 20, y, 0xFFFFFF);
-		mc.fontRenderer.func_238405_a_(ms, txt1, x + 20, y + 14, 0xFFFFFF);
-		mc.fontRenderer.func_238405_a_(ms, txt2, x + 20, y + 24, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(ms, txt0, x + 20, y, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(ms, txt1, x + 20, y + 14, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(ms, txt2, x + 20, y + 24, 0xFFFFFF);
 	}
 
 	public static void drawSimpleManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name) {
@@ -349,7 +349,7 @@ public final class HUDHandler {
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2;
 		int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
 
-		mc.fontRenderer.func_238405_a_(ms, name, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(ms, name, x, y, color);
 
 		x = mc.getMainWindow().getScaledWidth() / 2 - 51;
 		y += 10;
@@ -372,11 +372,11 @@ public final class HUDHandler {
 
 		RenderSystem.disableDepthTest();
 		if (properlyBound) {
-			mc.fontRenderer.func_238405_a_(ms, "\u2714", x + 10, y + 9, 0x004C00);
-			mc.fontRenderer.func_238405_a_(ms, "\u2714", x + 10, y + 8, 0x0BD20D);
+			mc.fontRenderer.drawStringWithShadow(ms, "\u2714", x + 10, y + 9, 0x004C00);
+			mc.fontRenderer.drawStringWithShadow(ms, "\u2714", x + 10, y + 8, 0x0BD20D);
 		} else {
-			mc.fontRenderer.func_238405_a_(ms, "\u2718", x + 10, y + 9, 0x4C0000);
-			mc.fontRenderer.func_238405_a_(ms, "\u2718", x + 10, y + 8, 0xD2080D);
+			mc.fontRenderer.drawStringWithShadow(ms, "\u2718", x + 10, y + 9, 0x4C0000);
+			mc.fontRenderer.drawStringWithShadow(ms, "\u2718", x + 10, y + 8, 0xD2080D);
 		}
 		RenderSystem.enableDepthTest();
 	}

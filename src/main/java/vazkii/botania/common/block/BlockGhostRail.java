@@ -56,7 +56,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 		boolean air = state.isAir(cart.world, entPos);
 
 		if (state.getBlock() == ModBlocks.dreamwood
-				|| (state.getBlock() != ModBlocks.ghostRail && state.func_235714_a_(BlockTags.RAILS))) {
+				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
 			cart.world.playEvent(2003, entPos, 0);
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 0);
 		} else {

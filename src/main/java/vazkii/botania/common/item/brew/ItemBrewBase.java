@@ -162,7 +162,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		}
 
 		if (!list1.isEmpty()) {
-			lores.add(StringTextComponent.field_240750_d_);
+			lores.add(StringTextComponent.EMPTY);
 			lores.add((new TranslationTextComponent("potion.whenDrank")).func_240699_a_(TextFormatting.DARK_PURPLE));
 
 			for (Pair<Attribute, AttributeModifier> pair : list1) {

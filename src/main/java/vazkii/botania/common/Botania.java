@@ -214,12 +214,12 @@ public class Botania {
 			}
 
 			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
-					.func_233815_a_(Attributes.field_233821_d_, 0.4)
-					.func_233815_a_(Attributes.field_233818_a_, EntityDoppleganger.MAX_HP)
-					.func_233815_a_(Attributes.field_233820_c_, 1.0)
+					.func_233815_a_(Attributes.MOVEMENT_SPEED, 0.4)
+					.func_233815_a_(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
+					.func_233815_a_(Attributes.KNOCKBACK_RESISTANCE, 1.0)
 					.func_233813_a_());
 			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
-					.func_233815_a_(Attributes.field_233818_a_, 2.0)
+					.func_233815_a_(Attributes.MAX_HEALTH, 2.0)
 					.func_233813_a_());
 			ModBanners.init();
 			ColorHelper.init();
@@ -265,7 +265,7 @@ public class Botania {
 					}
 			};
 			IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK,
-					state -> state.func_235714_a_(BlockTags.field_232875_ap_));
+					state -> state.isIn(BlockTags.BEACON_BASE_BLOCKS));
 			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
 					pat,
 					'P', ModBlocks.gaiaPylon,

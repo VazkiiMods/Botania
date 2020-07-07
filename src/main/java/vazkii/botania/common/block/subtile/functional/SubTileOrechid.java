@@ -85,7 +85,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		List<TagRandomItem> values = map.entrySet().stream()
 				.flatMap(e -> {
 					ITag<Block> tag = BlockTags.getCollection().get(e.getKey());
-					if (tag != null && !tag.func_230236_b_().isEmpty()) {
+					if (tag != null && !tag.getAllElements().isEmpty()) {
 						return Stream.of(new TagRandomItem(e.getValue(), tag));
 					} else {
 						return Stream.empty();

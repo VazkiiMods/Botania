@@ -170,7 +170,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		boolean clip = hasClip(stack);
-		if (clip && !Screen.func_231173_s_()) {
+		if (clip && !Screen.hasShiftDown()) {
 			tooltip.add(TooltipHandler.getShiftInfoTooltip());
 			return;
 		}
@@ -207,10 +207,10 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		ItemStack lens = getLens(stack);
-		IFormattableTextComponent cmp = super.getDisplayName(stack).func_230532_e_();
+		IFormattableTextComponent cmp = super.getDisplayName(stack).deepCopy();
 		if (!lens.isEmpty()) {
 			cmp.func_240702_b_(" (");
-			cmp.func_230529_a_(lens.getDisplayName().func_230532_e_().func_240699_a_(TextFormatting.GREEN));
+			cmp.func_230529_a_(lens.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN));
 			cmp.func_240702_b_(")");
 		}
 		return cmp;

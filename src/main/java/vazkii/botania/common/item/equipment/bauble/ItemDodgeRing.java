@@ -129,8 +129,8 @@ public class ItemDodgeRing extends ItemBauble {
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {
-				AbstractGui.func_238467_a_(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
-				AbstractGui.func_238467_a_(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				AbstractGui.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
+				AbstractGui.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 

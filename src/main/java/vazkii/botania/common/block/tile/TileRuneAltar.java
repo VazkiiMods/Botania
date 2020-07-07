@@ -393,7 +393,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.getCraftingResult(getItemHandler()));
 
 				if (progress == 1F) {
-					mc.fontRenderer.func_238421_b_(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
+					mc.fontRenderer.drawString(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
 				}
 			});
 
@@ -409,9 +409,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			}
 		} else if (recipeKeepTicks > 0) {
 			String s = I18n.format("botaniamisc.altarRefill0");
-			mc.fontRenderer.func_238405_a_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");
-			mc.fontRenderer.func_238405_a_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

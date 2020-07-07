@@ -81,7 +81,7 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 
 		if (hourglass.lock) {
 			if (!player.world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"), Util.field_240973_b_);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"), Util.DUMMY_UUID);
 			}
 			return ActionResultType.FAIL;
 		}

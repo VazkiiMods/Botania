@@ -175,11 +175,11 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		Block block = getBlock(stack);
 		ItemStack bstack = new ItemStack(block);
-		IFormattableTextComponent cand = super.getDisplayName(stack).func_230532_e_();
+		IFormattableTextComponent cand = super.getDisplayName(stack).deepCopy();
 
 		if (!bstack.isEmpty()) {
 			cand.func_240702_b_(" (");
-			cand.func_230529_a_(bstack.getDisplayName().func_230532_e_().func_240699_a_(TextFormatting.GREEN));
+			cand.func_230529_a_(bstack.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN));
 			cand.func_240702_b_(")");
 		}
 

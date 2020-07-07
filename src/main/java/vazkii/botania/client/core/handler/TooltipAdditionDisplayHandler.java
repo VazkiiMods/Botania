@@ -56,11 +56,11 @@ public final class TooltipAdditionDisplayHandler {
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
 		RenderSystem.disableDepthTest();
-		AbstractGui.func_238467_a_(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.fill(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for (int i = 0; i < rainbowWidth; i++) {
-			AbstractGui.func_238467_a_(ms, mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
+			AbstractGui.fill(ms, mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
 		}
-		AbstractGui.func_238467_a_(ms, mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		AbstractGui.fill(ms, mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
@@ -68,10 +68,10 @@ public final class TooltipAdditionDisplayHandler {
 		RenderSystem.disableLighting();
 		ms.push();
 		ms.translate(0, 0, 300);
-		font.func_238405_a_(ms, rank, mouseX, mouseY - 12, 0xFFFFFF);
+		font.drawStringWithShadow(ms, rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if (!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
-			font.func_238405_a_(ms, rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
+			font.drawStringWithShadow(ms, rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
 		ms.pop();
 		RenderSystem.enableLighting();
@@ -84,9 +84,9 @@ public final class TooltipAdditionDisplayHandler {
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
 		RenderSystem.disableDepthTest();
-		AbstractGui.func_238467_a_(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
-		AbstractGui.func_238467_a_(ms, mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
-		AbstractGui.func_238467_a_(ms, mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		AbstractGui.fill(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.fill(ms, mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		AbstractGui.fill(ms, mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
 }

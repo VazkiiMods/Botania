@@ -270,7 +270,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					TileEntity tile = null;
 					CompoundNBT tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
-						tile = TileEntity.func_235657_b_(state, tilecmp);
+						tile = TileEntity.readTileEntity(state, tilecmp);
 					}
 
 					entity.world.setBlockState(pos, state);

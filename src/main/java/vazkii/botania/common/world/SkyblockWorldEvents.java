@@ -86,7 +86,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				if (ModTags.Blocks.PEBBLE_SOURCES.func_230235_a_(block)) {
+				if (ModTags.Blocks.PEBBLE_SOURCES.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 

@@ -59,7 +59,7 @@ public class ItemBlockTinyPotato extends BlockItem {
 			PlayerEntity player = (PlayerEntity) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {
-				player.sendMessage(new StringTextComponent(NOT_MY_NAME[ticks]).func_240699_a_(TextFormatting.RED), Util.field_240973_b_);
+				player.sendMessage(new StringTextComponent(NOT_MY_NAME[ticks]).func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

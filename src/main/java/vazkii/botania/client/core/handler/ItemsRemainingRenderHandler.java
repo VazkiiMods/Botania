@@ -66,11 +66,11 @@ public final class ItemsRemainingRenderHandler {
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			RenderSystem.enableBlend();
 
-			ITextComponent text = StringTextComponent.field_240750_d_;
+			ITextComponent text = StringTextComponent.EMPTY;
 
 			if (customString == null) {
 				if (!stack.isEmpty()) {
-					text = stack.getDisplayName().func_230532_e_().func_240699_a_(TextFormatting.GREEN);
+					text = stack.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN);
 					if (count >= 0) {
 						int max = stack.getMaxStackSize();
 						int stacks = count / max;

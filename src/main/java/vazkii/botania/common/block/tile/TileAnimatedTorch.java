@@ -136,7 +136,7 @@ public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 		int y = mc.getMainWindow().getScaledHeight() / 2 - 8;
 
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.fontRenderer.func_238405_a_(ms, I18n.format("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
+		mc.fontRenderer.drawStringWithShadow(ms, I18n.format("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
 	}
 
 	@Override

@@ -909,19 +909,19 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.setGroup("botania:petal_double")
 					.addCriterion("has_item", hasItem(ModBlocks.getDoubleFlower(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.func_176610_l() + "_double");
+					.build(consumer, "botania:petal_" + color.getString() + "_double");
 			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 2)
 					.addIngredient(ModBlocks.getFlower(color))
 					.setGroup("botania:petal")
 					.addCriterion("has_item", hasItem(ModBlocks.getFlower(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.func_176610_l());
+					.build(consumer, "botania:petal_" + color.getString());
 			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
 					.addIngredient(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
 					.addIngredient(ModItems.pestleAndMortar)
 					.setGroup("botania:dye")
 					.addCriterion("has_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:dye_" + color.func_176610_l());
+					.build(consumer, "botania:dye_" + color.getString());
 		}
 
 		ShapelessRecipeBuilder.shapelessRecipe(Items.MAGENTA_DYE, 2)
@@ -1187,7 +1187,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			if (pattern == CratePattern.NONE) {
 				continue;
 			}
-			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.func_176610_l().split("_", 2)[1])).get();
+			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getString().split("_", 2)[1])).get();
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeBuilder.shapedRecipe(item)
 					.key('P', ModItems.placeholder)

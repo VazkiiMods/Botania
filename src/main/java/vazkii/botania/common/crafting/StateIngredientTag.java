@@ -35,14 +35,14 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Override
 	public boolean test(BlockState state) {
-		return tag.func_230235_a_(state.getBlock());
+		return tag.contains(state.getBlock());
 	}
 
 	@Override
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "tag");
-		object.addProperty("tag", tag.func_230234_a_().toString());
+		object.addProperty("tag", tag.getName().toString());
 		return object;
 	}
 
@@ -53,7 +53,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return tag.func_230236_b_().stream().map(Block::getDefaultState).collect(Collectors.toList());
+		return tag.getAllElements().stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
 }

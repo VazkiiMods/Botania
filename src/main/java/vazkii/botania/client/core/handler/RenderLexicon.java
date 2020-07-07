@@ -172,7 +172,7 @@ public class RenderLexicon {
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			ITextComponent edition = ItemLexicon.getEdition().func_230532_e_().func_240701_a_(TextFormatting.ITALIC, TextFormatting.BOLD);
+			ITextComponent edition = ItemLexicon.getEdition().deepCopy().func_240701_a_(TextFormatting.ITALIC, TextFormatting.BOLD);
 			font.func_238416_a_(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			if (quote == -1) {

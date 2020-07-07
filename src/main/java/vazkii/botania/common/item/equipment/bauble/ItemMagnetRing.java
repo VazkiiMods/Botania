@@ -107,17 +107,17 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		ItemStack stack = item.getItem();
-		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.func_230235_a_(stack.getItem())) {
+		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem())) {
 			return false;
 		}
 
 		BlockPos pos = item.func_233580_cy_();
 
-		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.func_230235_a_(item.world.getBlockState(pos).getBlock())) {
+		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock())) {
 			return false;
 		}
 
-		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.func_230235_a_(item.world.getBlockState(pos.down()).getBlock())) {
+		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock())) {
 			return false;
 		}
 

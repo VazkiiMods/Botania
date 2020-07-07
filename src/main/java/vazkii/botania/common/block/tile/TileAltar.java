@@ -360,7 +360,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 				mc.getItemRenderer().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 				mc.getItemRenderer().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-				mc.fontRenderer.func_238421_b_(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
+				mc.fontRenderer.drawString(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
 			});
 
 			for (int i = 0; i < amt; i++) {
@@ -374,9 +374,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 		} else if (recipeKeepTicks > 0 && getFluid() == State.WATER) {
 			String s = I18n.format("botaniamisc.altarRefill0");
-			mc.fontRenderer.func_238421_b_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			mc.fontRenderer.drawString(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");
-			mc.fontRenderer.func_238421_b_(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
+			mc.fontRenderer.drawString(ms, s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

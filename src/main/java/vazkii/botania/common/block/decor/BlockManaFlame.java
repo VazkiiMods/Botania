@@ -55,7 +55,7 @@ public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		if (Botania.gardenOfGlassLoaded) {
 			ItemStack stack = player.getHeldItem(hand);
-			if (!stack.isEmpty() && ItemTags.SAPLINGS.func_230235_a_(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
+			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
 				if (!world.isRemote) {
 					stack.shrink(1);
 					player.inventory.placeItemBackInInventory(player.world, new ItemStack(ModItems.lexicon));

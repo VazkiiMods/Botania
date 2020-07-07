@@ -278,8 +278,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				for (BlockPos adj : adjacent(cand.coordinates)) {
 					Block block = world.getBlockState(adj).getBlock();
 
-					boolean isWood = BlockTags.LOGS.func_230235_a_(block);
-					boolean isLeaf = BlockTags.LEAVES.func_230235_a_(block);
+					boolean isWood = BlockTags.LOGS.contains(block);
+					boolean isLeaf = BlockTags.LEAVES.contains(block);
 
 					// If it's not wood or a leaf, we aren't interested.
 					if (!isWood && !isLeaf) {

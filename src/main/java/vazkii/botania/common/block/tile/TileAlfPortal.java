@@ -317,8 +317,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	@Override
-	public void func_230337_a_(BlockState state, CompoundNBT cmp) {
-		super.func_230337_a_(state, cmp);
+	public void read(BlockState state, CompoundNBT cmp) {
+		super.read(state, cmp);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();

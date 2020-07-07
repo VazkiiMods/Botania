@@ -354,7 +354,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		ITextComponent mode = new StringTextComponent(" (")
 				.func_230529_a_(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.DARK_GREEN))
 				.func_240702_b_(")");
-		return displayName.func_230532_e_().func_230529_a_(mode);
+		return displayName.deepCopy().func_230529_a_(mode);
 	}
 
 	public static ItemStack forColors(int color1, int color2) {

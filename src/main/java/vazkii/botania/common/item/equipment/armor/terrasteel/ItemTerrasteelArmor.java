@@ -64,7 +64,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		if (slot == getEquipmentSlot()) {
 			ret = HashMultimap.create(ret);
 			int reduction = material.getDamageReductionAmount(slot);
-			ret.put(Attributes.field_233820_c_,
+			ret.put(Attributes.KNOCKBACK_RESISTANCE,
 					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
 		}
 		return ret;

@@ -155,7 +155,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		}
 
 		ResourceLocation dim = new ResourceLocation(getDimension(stack));
-		RegistryKey<World> type = RegistryKey.func_240903_a_(Registry.field_239699_ae_, dim);
+		RegistryKey<World> type = RegistryKey.func_240903_a_(Registry.WORLD_KEY, dim);
 		World world = server.getWorld(type);
 		if (world != null) {
 			TileEntity tile = world.getTileEntity(coords);

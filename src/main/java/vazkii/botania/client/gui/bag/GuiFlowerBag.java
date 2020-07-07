@@ -35,17 +35,17 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 	}
 
 	@Override
-	public void func_230430_a_(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.func_230446_a_(ms);
-		super.func_230430_a_(ms, mouseX, mouseY, partialTicks);
+	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(ms);
+		super.render(ms, mouseX, mouseY, partialTicks);
 		this.func_230459_a_(ms, mouseX, mouseY);
 	}
 
 	@Override
 	protected void func_230451_b_(MatrixStack ms, int mouseX, int mouseY) {
 		String s = I18n.format(ModItems.flowerBag.getTranslationKey());
-		field_230712_o_.func_238421_b_(ms, s, xSize / 2 - field_230712_o_.getStringWidth(s) / 2, 6, 4210752);
-		field_230712_o_.func_238421_b_(ms, I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		font.drawString(ms, s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
+		font.drawString(ms, I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -53,9 +53,9 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
-		int k = (field_230708_k_ - xSize) / 2;
-		int l = (field_230709_l_ - ySize) / 2;
-		func_238474_b_(ms, k, l, 0, 0, xSize, ySize);
+		int k = (width - xSize) / 2;
+		int l = (height - ySize) / 2;
+		blit(ms, k, l, 0, 0, xSize, ySize);
 
 		for (Slot slot : container.inventorySlots) {
 			if (slot.inventory == container.flowerBagInv && !slot.getHasStack()) {
@@ -64,7 +64,7 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 				int x = guiLeft + slot.xPos;
 				int y = guiTop + slot.yPos;
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-				mc.fontRenderer.func_238405_a_(ms, "0", x + 11, y + 9, 0xFF6666);
+				mc.fontRenderer.drawStringWithShadow(ms, "0", x + 11, y + 9, 0xFF6666);
 			}
 		}
 	}

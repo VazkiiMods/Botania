@@ -44,7 +44,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 		int ticksElapsed = context.getTicksInBook();
 
 		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get()
-				? Screen.func_231173_s_()
+				? Screen.hasShiftDown()
 						? ticksElapsed
 						: ticksElapsed + pticks
 				: 0;

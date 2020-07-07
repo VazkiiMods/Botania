@@ -71,7 +71,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 			for (int i = 0; i < inventorySize(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
-					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."), Util.field_240973_b_);
+					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."), Util.DUMMY_UUID);
 					return;
 				}
 			}
