@@ -61,7 +61,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 		boolean did = false;
 
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			if (getItemHandler().getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
@@ -149,7 +149,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 					world.addEntity(outputItem);
 					world.addBlockEvent(getPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
 
-					for (int i = 0; i < getSizeInventory(); i++) {
+					for (int i = 0; i < inventorySize(); i++) {
 						getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 					}
 				}

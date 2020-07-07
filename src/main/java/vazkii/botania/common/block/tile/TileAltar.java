@@ -8,18 +8,15 @@
  */
 package vazkii.botania.common.block.tile;
 
-import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
@@ -30,11 +27,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -142,7 +137,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				saveLastRecipe();
 				ItemStack output = recipe.getCraftingResult(getItemHandler());
 
-				for (int i = 0; i < getSizeInventory(); i++) {
+				for (int i = 0; i < inventorySize(); i++) {
 					getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 
@@ -158,11 +153,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			});
 			return maybeRecipe.isPresent();
 		} else if (!hasFluidCapability && !item.getTags().contains(ITEM_TAG_APOTHECARY_SPAWNED)) {
-			if (!getItemHandler().getStackInSlot(getSizeInventory() - 1).isEmpty()) {
+			if (!getItemHandler().getStackInSlot(inventorySize() - 1).isEmpty()) {
 				return false;
 			}
 
-			for (int i = 0; i < getSizeInventory(); i++) {
+			for (int i = 0; i < inventorySize(); i++) {
 				if (getItemHandler().getStackInSlot(i).isEmpty()) {
 					getItemHandler().setInventorySlotContents(i, stack.split(1));
 					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
@@ -185,7 +180,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 	public void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (stack.isEmpty()) {
 				break;
@@ -234,7 +229,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	public boolean isEmpty() {
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			if (!getItemHandler().getStackInSlot(i).isEmpty()) {
 				return false;
 			}
@@ -257,7 +252,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		} else {
-			for (int i = 0; i < getSizeInventory(); i++) {
+			for (int i = 0; i < inventorySize(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if (stackAt.isEmpty()) {
 					break;
@@ -345,7 +340,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		float angle = -90;
 		int radius = 24;
 		int amt = 0;
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			if (getItemHandler().getStackInSlot(i).isEmpty()) {
 				break;
 			}

@@ -55,7 +55,7 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 			if (water) {
 				int petals = 0;
-				for (int i = 0; i < altar.getSizeInventory(); i++) {
+				for (int i = 0; i < altar.inventorySize(); i++) {
 					if (!altar.getItemHandler().getStackInSlot(i).isEmpty()) {
 						petals++;
 					} else {

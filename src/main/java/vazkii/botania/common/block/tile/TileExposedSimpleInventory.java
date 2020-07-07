@@ -27,6 +27,11 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 	}
 
 	@Override
+	public int getSizeInventory() {
+		return inventorySize();
+	}
+
+	@Override
 	public ItemStack getStackInSlot(int index) {
 		return getItemHandler().getStackInSlot(index);
 	}

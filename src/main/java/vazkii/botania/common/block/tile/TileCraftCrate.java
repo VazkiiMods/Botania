@@ -138,7 +138,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	private void ejectAll() {
-		for (int i = 0; i < getSizeInventory(); ++i) {
+		for (int i = 0; i < inventorySize(); ++i) {
 			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);

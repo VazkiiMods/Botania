@@ -41,14 +41,14 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		ms.push();
 
 		int items = 0;
-		for (int i = 0; i < altar.getSizeInventory(); i++) {
+		for (int i = 0; i < altar.inventorySize(); i++) {
 			if (altar.getItemHandler().getStackInSlot(i).isEmpty()) {
 				break;
 			} else {
 				items++;
 			}
 		}
-		float[] angles = new float[altar.getSizeInventory()];
+		float[] angles = new float[altar.inventorySize()];
 
 		float anglePer = 360F / items;
 		float totalAngle = 0F;
@@ -58,7 +58,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
 		double time = ClientTickHandler.ticksInGame + partticks;
 
-		for (int i = 0; i < altar.getSizeInventory(); i++) {
+		for (int i = 0; i < altar.inventorySize(); i++) {
 			ms.push();
 			ms.translate(0.5F, 1.25F, 0.5F);
 			ms.rotate(Vector3f.YP.rotationDegrees(angles[i] + (float) time));

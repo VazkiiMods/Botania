@@ -49,7 +49,7 @@ public class InventoryHelper {
 
 	public static void dropInventory(TileSimpleInventory inv, World world, BlockState state, BlockPos pos) {
 		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
+			for (int j1 = 0; j1 < inv.inventorySize(); ++j1) {
 				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (!itemstack.isEmpty()) {
@@ -62,7 +62,7 @@ public class InventoryHelper {
 	}
 
 	public static void withdrawFromInventory(TileSimpleInventory inv, PlayerEntity player) {
-		for (int i = inv.getSizeInventory() - 1; i >= 0; i--) {
+		for (int i = inv.inventorySize() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getStackInSlot(i);
 			if (!stackAt.isEmpty()) {
 				ItemStack copy = stackAt.copy();

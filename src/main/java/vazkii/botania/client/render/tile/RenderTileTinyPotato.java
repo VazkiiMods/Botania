@@ -229,7 +229,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		float s = 1F / 3.5F;
 		ms.scale(s, s, s);
 
-		for (int i = 0; i < potato.getSizeInventory(); i++) {
+		for (int i = 0; i < potato.inventorySize(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
 			if (stack.isEmpty()) {
 				continue;

@@ -44,7 +44,7 @@ public abstract class TileSimpleInventory extends TileMod {
 
 	@Override
 	public void readPacketNBT(CompoundNBT tag) {
-		NonNullList<ItemStack> tmp = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
+		NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(tag, tmp);
 		copyToInv(tmp, itemHandler);
 	}
@@ -54,7 +54,8 @@ public abstract class TileSimpleInventory extends TileMod {
 		ItemStackHelper.saveAllItems(tag, copyFromInv(itemHandler));
 	}
 
-	public final int getSizeInventory() {
+	// NB: Cannot be named the same as the corresponding method in vanilla's interface -- causes obf issues with MCP
+	public final int inventorySize() {
 		return getItemHandler().getSizeInventory();
 	}
 

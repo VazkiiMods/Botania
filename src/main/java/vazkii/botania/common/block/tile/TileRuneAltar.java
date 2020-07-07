@@ -93,7 +93,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		boolean did = false;
 
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			if (getItemHandler().getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
@@ -221,7 +221,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 	private void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (stack.isEmpty()) {
 				break;
@@ -276,7 +276,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				world.addBlockEvent(getPos(), ModBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
-				for (int i = 0; i < getSizeInventory(); i++) {
+				for (int i = 0; i < inventorySize(); i++) {
 					ItemStack stack = getItemHandler().getStackInSlot(i);
 					if (!stack.isEmpty()) {
 						if (stack.getItem() instanceof ItemRune && (player == null || !player.abilities.isCreativeMode)) {
@@ -294,7 +294,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public boolean isEmpty() {
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			if (!getItemHandler().getStackInSlot(i).isEmpty()) {
 				return false;
 			}
@@ -362,7 +362,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		float angle = -90;
 		int radius = 24;
 		int amt = 0;
-		for (int i = 0; i < getSizeInventory(); i++) {
+		for (int i = 0; i < inventorySize(); i++) {
 			if (getItemHandler().getStackInSlot(i).isEmpty()) {
 				break;
 			}

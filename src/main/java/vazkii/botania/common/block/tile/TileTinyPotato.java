@@ -68,7 +68,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
-			for (int i = 0; i < getSizeInventory(); i++) {
+			for (int i = 0; i < inventorySize(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
 					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."), Util.field_240973_b_);
