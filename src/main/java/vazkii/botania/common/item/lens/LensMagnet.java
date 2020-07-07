@@ -12,6 +12,7 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -69,17 +70,17 @@ public class LensMagnet extends Lens {
 			return;
 		}
 
-		Vector3 burstVec = Vector3.fromEntity(entity);
-		Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
-		Vector3 motionVec = new Vector3(entity.getMotion());
+		Vector3d burstVec = entity.getPositionVec();
+		Vector3d tileVec = Vector3d.func_237489_a_(tile.getPos()).add(0, -0.1, 0);
+		Vector3d motionVec = entity.getMotion();
 
-		Vector3 normalMotionVec = motionVec.normalize();
-		Vector3 magnetVec = tileVec.subtract(burstVec).normalize();
-		Vector3 differenceVec = normalMotionVec.subtract(magnetVec).multiply(motionVec.mag() * 0.1);
+		Vector3d normalMotionVec = motionVec.normalize();
+		Vector3d magnetVec = tileVec.subtract(burstVec).normalize();
+		Vector3d differenceVec = normalMotionVec.subtract(magnetVec).scale(motionVec.length() * 0.1);
 
-		Vector3 finalMotionVec = motionVec.subtract(differenceVec);
+		Vector3d finalMotionVec = motionVec.subtract(differenceVec);
 		if (!magnetized) {
-			finalMotionVec = finalMotionVec.multiply(0.75);
+			finalMotionVec = finalMotionVec.scale(0.75);
 			entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
 			entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
 			entity.getPersistentData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());

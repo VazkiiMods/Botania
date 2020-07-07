@@ -31,6 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -313,8 +314,8 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				}
 				remove();
 			} else {
-				Vector3 thisVec = Vector3.fromEntity(this);
-				Vector3 motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
+				Vector3d thisVec = getPositionVec();
+				Vector3d motVec = thisVec.inverse().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().scale(0.5);
 
 				int color;
 

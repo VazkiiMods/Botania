@@ -16,10 +16,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IDirectioned;
 import vazkii.botania.api.mana.IThrottledPacket;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class LensRedirect extends Lens {
@@ -34,8 +36,8 @@ public class LensRedirect extends Lens {
 			if (tile instanceof IDirectioned) {
 				if (!burst.isFake()) {
 					IDirectioned redir = (IDirectioned) tile;
-					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
-					Vector3 sourceVec = new Vector3(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
+					Vector3d tileVec = Vector3d.func_237489_a_(tile.getPos());
+					Vector3d sourceVec = Vector3d.func_237489_a_(coords);
 
 					AxisAlignedBB axis;
 					VoxelShape collideShape = entity.world.getBlockState(coords).getCollisionShape(entity.world, coords);
@@ -45,14 +47,14 @@ public class LensRedirect extends Lens {
 						axis = collideShape.getBoundingBox().offset(coords); // todo 1.13 more granular collisions?
 					}
 
-					if (!sourceVec.isInside(axis)) {
-						sourceVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+					if (!axis.contains(sourceVec)) {
+						sourceVec = new Vector3d(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
 					}
 
-					Vector3 diffVec = sourceVec.subtract(tileVec);
-					Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
-					Vector3 rotVec = new Vector3(0, 1, 0);
-					double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
+					Vector3d diffVec = sourceVec.subtract(tileVec);
+					Vector3d diffVec2D = new Vector3d(diffVec.x, diffVec.z, 0);
+					Vector3d rotVec = new Vector3d(0, 1, 0);
+					double angle = MathHelper.angleBetween(rotVec, diffVec2D) / Math.PI * 180.0;
 
 					if (sourceVec.x < tileVec.x) {
 						angle = -angle;
@@ -60,8 +62,8 @@ public class LensRedirect extends Lens {
 
 					redir.setRotationX((float) angle + 90F);
 
-					rotVec = new Vector3(diffVec.x, 0, diffVec.z);
-					angle = diffVec.angle(rotVec) * 180F / Math.PI;
+					rotVec = new Vector3d(diffVec.x, 0, diffVec.z);
+					angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 					if (sourceVec.y < tileVec.y) {
 						angle = -angle;
 					}

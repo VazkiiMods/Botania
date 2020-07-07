@@ -30,6 +30,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -44,6 +45,7 @@ import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
@@ -640,20 +642,20 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
-		Vector3 thisVec = Vector3.fromTileEntityCenter(this);
-		Vector3 blockVec = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		Vector3d thisVec = Vector3d.func_237489_a_(getPos());
+		Vector3d blockVec = Vector3d.func_237489_a_(pos);
 
 		VoxelShape shape = player.world.getBlockState(pos).getShape(player.world, pos);
 		AxisAlignedBB axis = shape.isEmpty() ? new AxisAlignedBB(pos) : shape.getBoundingBox().offset(pos);
 
-		if (!blockVec.isInside(axis)) {
-			blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+		if (!axis.contains(blockVec)) {
+			blockVec = new Vector3d(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
 		}
 
-		Vector3 diffVec = blockVec.subtract(thisVec);
-		Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
-		Vector3 rotVec = new Vector3(0, 1, 0);
-		double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
+		Vector3d diffVec = blockVec.subtract(thisVec);
+		Vector3d diffVec2D = new Vector3d(diffVec.x, diffVec.z, 0);
+		Vector3d rotVec = new Vector3d(0, 1, 0);
+		double angle = MathHelper.angleBetween(rotVec, diffVec2D) / Math.PI * 180.0;
 
 		if (blockVec.x < thisVec.x) {
 			angle = -angle;
@@ -661,8 +663,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		rotationX = (float) angle + 90;
 
-		rotVec = new Vector3(diffVec.x, 0, diffVec.z);
-		angle = diffVec.angle(rotVec) * 180F / Math.PI;
+		rotVec = new Vector3d(diffVec.x, 0, diffVec.z);
+		angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 		if (blockVec.y < thisVec.y) {
 			angle = -angle;
 		}

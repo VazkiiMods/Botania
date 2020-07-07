@@ -126,18 +126,17 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			if (liveTime < delay) {
 				setMotion(Vector3d.ZERO);
 			} else if (liveTime == delay && player != null) {
-				Vector3 playerLook;
+				Vector3d playerLook;
 				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 64, true);
 				if (rtr.getType() != RayTraceResult.Type.BLOCK) {
-					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
+					playerLook = player.getLookVec().scale(64).add(player.getPositionVec());
 				} else {
-					playerLook = new Vector3(rtr.getPos().getX() + 0.5, rtr.getPos().getY() + 0.5, rtr.getPos().getZ() + 0.5);
+					playerLook = Vector3d.func_237489_a_(rtr.getPos());
 				}
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);
-				Vector3 motionVec = playerLook.subtract(thisVec).normalize().multiply(2);
 
-				mot = motionVec.toVector3d();
+				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
 				world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);

@@ -28,7 +28,6 @@ import java.util.Objects;
 public class Vector3 {
 	public static final Vector3 ZERO = new Vector3(0, 0, 0);
 	public static final Vector3 ONE = new Vector3(1, 1, 1);
-	public static final Vector3 CENTER = new Vector3(0.5, 0.5, 0.5);
 
 	public final double x;
 	public final double y;
@@ -46,10 +45,6 @@ public class Vector3 {
 
 	public static Vector3 fromBlockPos(BlockPos pos) {
 		return new Vector3(pos.getX(), pos.getY(), pos.getZ());
-	}
-
-	public static Vector3 fromEntity(Entity e) {
-		return new Vector3(e.getPosX(), e.getPosY(), e.getPosZ());
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
@@ -170,31 +165,8 @@ public class Vector3 {
 		return Math.acos(normalize().dotProduct(vec.normalize()));
 	}
 
-	public boolean isInside(AxisAlignedBB aabb) {
-		return x >= aabb.minX && y >= aabb.maxY && z >= aabb.minZ && x < aabb.maxX && y < aabb.maxY && z < aabb.maxZ;
-	}
-
 	public boolean isZero() {
 		return x == 0 && y == 0 && z == 0;
-	}
-
-	public boolean isAxial() {
-		return x == 0 ? y == 0 || z == 0 : y == 0 && z == 0;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public Vector3f vector3f() {
-		return new Vector3f((float) x, (float) y, (float) z);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public Vector4f vector4f() {
-		return new Vector4f((float) x, (float) y, (float) z, 1);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public void glVertex() {
-		GL11.glVertex3d(x, y, z);
 	}
 
 	public Vector3 negate() {

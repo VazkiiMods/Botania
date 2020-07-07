@@ -412,10 +412,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 				double iterY = getPosY();
 				double iterZ = getPosZ();
 
-				Vector3 currentPos = Vector3.fromEntity(this);
-				Vector3 oldPos = new Vector3(prevPosX, prevPosY, prevPosZ);
-				Vector3 diffVec = oldPos.subtract(currentPos);
-				Vector3 diffVecNorm = diffVec.normalize();
+				Vector3d currentPos = getPositionVec();
+				Vector3d oldPos = new Vector3d(prevPosX, prevPosY, prevPosZ);
+				Vector3d diffVec = oldPos.subtract(currentPos);
+				Vector3d diffVecNorm = diffVec.normalize();
 
 				double distance = 0.095;
 
@@ -436,12 +436,12 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 					iterY += diffVecNorm.y * distance;
 					iterZ += diffVecNorm.z * distance;
 
-					currentPos = new Vector3(iterX, iterY, iterZ);
+					currentPos = new Vector3d(iterX, iterY, iterZ);
 					diffVec = oldPos.subtract(currentPos);
 					if (getPersistentData().contains(ItemTinyPlanet.TAG_ORBIT)) {
 						break;
 					}
-				} while (Math.abs(diffVec.mag()) > distance);
+				} while (Math.abs(diffVec.length()) > distance);
 
 				WispParticleData data = WispParticleData.wisp(0.1F * size, or, og, ob, depth);
 				world.addParticle(data, iterX, iterY, iterZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);

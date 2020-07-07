@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -52,7 +53,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 				return;
 			}
 
-			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
+			Vector3d centerBlock = new Vector3d(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if (variant == BlockPylon.Variant.NATURA) {
 				if (ConfigHandler.CLIENT.elfPortalParticlesEnabled.get()) {
@@ -64,9 +65,9 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					double x = pos.getX() + 0.5 + Math.cos(worldTime) * r;
 					double z = pos.getZ() + 0.5 + Math.sin(worldTime) * r;
 
-					Vector3 ourCoords = new Vector3(x, pos.getY() + 0.25, z);
-					centerBlock = centerBlock.subtract(new Vector3(0, 0.5, 0));
-					Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
+					Vector3d ourCoords = new Vector3d(x, pos.getY() + 0.25, z);
+					centerBlock = centerBlock.subtract(0, 0.5, 0);
+					Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 					WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 1);
 					world.addParticle(data, x, pos.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
@@ -76,8 +77,8 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					}
 				}
 			} else {
-				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
-				Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
+				Vector3d ourCoords = Vector3d.func_237489_a_(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
+				Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if (block instanceof BlockModFlower) {
