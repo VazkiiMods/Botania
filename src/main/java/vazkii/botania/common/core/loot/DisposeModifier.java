@@ -35,6 +35,7 @@ public class DisposeModifier extends LootModifier {
 
 	public static void register(RegistryEvent.Register<GlobalLootModifierSerializer<?>> evt) {
 		evt.getRegistry().register(new Serializer().setRegistryName(prefix("dispose")));
+		evt.getRegistry().register(new AddRandomItemModifier.Serializer().setRegistryName(prefix("add_item")));
 	}
 
 	@Nonnull

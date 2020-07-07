@@ -122,14 +122,6 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	private static final ResourceLocation TARGET_LOOT_TABLE = new ResourceLocation("blocks/grass");
-
-	public static void loadLoot(LootTableLoadEvent event) {
-		if (Botania.gardenOfGlassLoaded && event.getName().equals(TARGET_LOOT_TABLE)) {
-			event.getTable().addPool(LootHandler.getInjectPool("gog_grass"));
-		}
-	}
-
 	public static void spawnPlayer(PlayerEntity player, BlockPos pos, boolean fabricated) {
 		CompoundNBT data = player.getPersistentData();
 		if (!data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {

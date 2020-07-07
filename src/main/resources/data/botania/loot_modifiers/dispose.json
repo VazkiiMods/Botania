@@ -1,4 +1,4 @@
 {
   "conditions": [],
-  "function": "botania:dispose"
+  "type": "botania:dispose"
 }
