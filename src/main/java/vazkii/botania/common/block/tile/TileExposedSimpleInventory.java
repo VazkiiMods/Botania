@@ -19,6 +19,7 @@ import net.minecraft.util.LazyValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.Set;
 import java.util.stream.IntStream;
 
