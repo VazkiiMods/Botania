@@ -93,11 +93,6 @@ public class ModBrews {
 		register(r, LibBrewNames.BLOODTHIRST, bloodthirst);
 		register(r, LibBrewNames.ALLURE, allure);
 		register(r, LibBrewNames.CLEAR, clear);
-
-		Registry.EFFECTS.getValue(new ResourceLocation("thaumcraft:warpward")).ifPresent(warpWardPotion -> {
-			warpWard = new Brew(0xFBBDFF, 25000, new EffectInstance(warpWardPotion, 12000, 0)).setNotBloodPendantInfusable();
-			register(r, LibBrewNames.WARP_WARD, warpWard);
-		});
 	}
 
 	private static Brew make(int cost, EffectInstance... effects) {

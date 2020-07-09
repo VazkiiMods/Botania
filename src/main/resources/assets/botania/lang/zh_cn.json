@@ -1236,9 +1236,6 @@
   "item.botania.virus_nullodermal": "骷髅病毒",
   "item.botania.skydirt_rod": "高原法杖",
   "item.botania.placeholder": "合成占位符",
-  "item.botania.manasteel_helmet_revealing": "魔钢揭示头盔",
-  "item.botania.terrasteel_helmet_revealing": "泰拉钢揭示头盔",
-  "item.botania.elementium_helmet_revealing": "源质钢揭示头盔",
   "item.botania.itemfinder": "寻物者",
   "item.botania.super_lava_pendant": "绯红项链",
   "item.botania.ender_hand": "末影之手",
@@ -1251,7 +1248,6 @@
   "item.botania.divining_rod": "占矿法杖",
   "item.botania.gravity_rod": "黑山法杖",
   "item.botania.regenivy": "永恒常春藤",
-  "item.botania.mana_inkwell": "植物学家的笔墨",
   "item.botania.vial": "魔法玻璃小瓶",
   "item.botania.flask": "精灵玻璃烧瓶",
   "item.botania.brew_vial": "装有%s (%s)的小瓶",
@@ -1405,7 +1401,6 @@
   "botania.brew.bloodthirst": "腥红之影",
   "botania.brew.overload": "过载",
   "botania.brew.allure": "诱惑",
-  "botania.brew.warp_ward": "理智",
   "botania.brew.clear": "赦免",
 
   "effect.botania.soul_cross": "噬魂",
@@ -1807,10 +1802,6 @@
   "botania.page.flowerBag0": "众所周知,$(thing)物品栏$(0)的空间是有 限的,这样一来带着各种颜色 的花就变成了一个难题.幸运的 是,$(item)采花袋$(0)考虑到了这些问题 .每种颜色的$(item)神秘花$(0)最多能储 存1组,除此之外,它还会主动 将持有者捡起的花装入其中.",
   "botania.page.flowerBag2": "手上拿着的物品不会被自动 放入袋子中.$(p)其次,用采花袋shift右击$(item)箱子$(0) 或其他容器会将储存的花装 入其中.",
   "botania.page.flowerBag1": "Pull a copter out of it (任意颜色均可)",
-
-  "botania.entry.wrap": "扭曲",
-  "botania.tagline.wrap": "这可是扭曲",
-  "botania.page.wrap0": "看样子这个模组的作者决心 以$(item)扭曲$(0)的形式增加种游戏机 制.我不太清楚它会怎样,很有 可能是什么坏的东西.:/$(p)你所说的\"第四面墙\"是什么 ...?(十八世纪的法国剧作家 提出了第四面墙Fourth Wall 的观念,他殷殷叮嘱营造幻觉 的重要性)",
 
   "botania.entry.mIntro": "魔力的介绍",
   "botania.tagline.mIntro": "始于魔力",

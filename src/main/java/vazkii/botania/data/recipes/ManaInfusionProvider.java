@@ -75,13 +75,6 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(id("mana_quartz"), new ItemStack(ModItems.manaQuartz), ingr(Items.QUARTZ), 250));
 		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), ingr(Items.POTATO), 1337));
 
-		/* todo 1.15 rip
-		if (Botania.thaumcraftLoaded) {
-			Item inkwell = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "scribing_tools"));
-			consumer.accept(new FinishedRecipe(id("mana_inkwell"), new ItemStack(ModItems.manaInkwell), ingr(inkwell), 35000));
-		}
-		*/
-
 		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(ModBlocks.manaGlass), ingr(Blocks.GLASS), 150));
 		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(ModItems.manaString), ingr(Items.STRING), 5000));
 

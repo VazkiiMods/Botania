@@ -1137,9 +1137,6 @@
   "item.botania.virus_nullodermal": "Vírus Nullodermal",
   "item.botania.skydirt_rod": "Cajado de Highlands",
   "item.botania.placeholder": "Reservante de espaço",
-  "item.botania.manasteel_helmet_revealing": "Elmo de Manasteel da Revelação",
-  "item.botania.terrasteel_helmet_revealing": "Elmo de Terrasteel da Revelaçao",
-  "item.botania.elementium_helmet_revealing": "Elmo de Elementium da Revelação",
   "item.botania.itemfinder": "O Espectador",
   "item.botania.super_lava_pendant": "Pingente Carmesiano",
   "item.botania.ender_hand": "Mão do Fim",
@@ -1152,7 +1149,6 @@
   "item.botania.divining_rod": "Cajado do Manto Pleno",
   "item.botania.gravity_rod": "Cajado da Mesa Sombria",
   "item.botania.regenivy": "Hera Eterna",
-  "item.botania.mana_inkwell": "Tinteiro do Botanurgista",
   "item.botania.vial": "Frasco Pequeno",
   "item.botania.flask": "Frasco de Vidro Élfico",
   "item.botania.brew_vial": "Frasco Pequeno de %s (%s)",
@@ -1298,7 +1294,6 @@
   "botania.brew.bloodthirst": "Sombra Carmim",
   "botania.brew.overload": "Sobrecarga",
   "botania.brew.allure": "Sedução marinha",
-  "botania.brew.warp_ward": "Mente Sã",
   "botania.brew.clear": "Absolução",
 
   "effect.botania.soul_cross": "Almas Cruzadas",
@@ -1433,9 +1428,6 @@
   "botania.page.flowerBag2": "Itens não serem coletados caso o cesto esteja ativamente na mão do jogador.$(p)Além disso, shift-clique direito com o cesto em um $(item)Baú$(0) ou em outro inventário armazena as flores no inventário clicado.",
   "botania.page.flowerBag0": "As leis da física sobre o $(thing)Inventário$(0) são um pouco rígidas nesse mundo. Graças a isso, carregar uma gama de flores diferentes pode ser uma dor de cabeça. Felizmente, um $(item)Cesto de Flores$(0) resolve esse problema. Ele pode guardar 64 de cada cor de $(item)Flor Mística$(0), não apenas isso, mas qualquer flor coletada automaticamente entra no cesto.",
   "botania.page.flowerBag1": "O tamanho é o mesmo por dentro (qualquer cor funciona)",
-
-  "botania.entry.wrap": "Wrap",
-  "botania.page.wrap0": "Parece que o autor do mod decidiu adicionar uma mecânica conhecida como $(item)Wrap$(0). Não se sabe o que significa, mas certamente é algo ruim. :/$(p)O que é essa 'barreira da realidade' a qual você se refere...?",
 
   "botania.entry.mIntro": "Uma introdução à Mana",
   "botania.tagline.mIntro": "O básico",

@@ -62,10 +62,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.*;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevealing;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.lens.*;
 import vazkii.botania.common.item.material.*;
 import vazkii.botania.common.item.record.ItemModRecord;
@@ -190,7 +186,6 @@ public final class ModItems {
 	public static final Item snowHorn = new ItemHorn(unstackable());
 	public static final Item manaMirror = new ItemManaMirror(unstackable());
 	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable());
-	public static final Item manasteelHelmRevealing = new ItemManasteelHelmRevealing(unstackable());
 	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlotType.CHEST, unstackable());
 	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlotType.LEGS, unstackable());
 	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlotType.FEET, unstackable());
@@ -200,7 +195,6 @@ public final class ModItems {
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable());
 	public static final Item manasteelShears = new ItemManasteelShears(unstackable());
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().func_234689_a_());
-	public static final Item terrasteelHelmRevealing = new ItemTerrasteelHelmRevealing(unstackable().func_234689_a_());
 	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().func_234689_a_());
 	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().func_234689_a_());
 	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().func_234689_a_());
@@ -231,7 +225,6 @@ public final class ModItems {
 	public static final Item sunnyQuartz = new Item(defaultBuilder());
 	public static final Item waterRod = new ItemWaterRod(unstackable());
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable());
-	public static final Item elementiumHelmRevealing = new ItemElementiumHelmRevealing(unstackable());
 	public static final Item elementiumChest = new ItemElementiumChest(unstackable());
 	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable());
 	public static final Item elementiumBoots = new ItemElementiumBoots(unstackable());
@@ -266,7 +259,6 @@ public final class ModItems {
 	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item diviningRod = new ItemDiviningRod(unstackable());
 	public static final Item gravityRod = new ItemGravityRod(unstackable());
-	public static final Item manaInkwell = new ItemManaInkwell(unstackable().setNoRepair());
 	public static final Item vial = new ItemVial(defaultBuilder());
 	public static final Item flask = new ItemVial(defaultBuilder());
 	public static final Item brewVial = new ItemBrewBase(unstackable(), 4, 32, () -> vial);
@@ -500,7 +492,6 @@ public final class ModItems {
 		register(r, LibItemNames.SNOW_HORN, snowHorn);
 		register(r, LibItemNames.MANA_MIRROR, manaMirror);
 		register(r, LibItemNames.MANASTEEL_HELM, manasteelHelm);
-		register(r, LibItemNames.MANASTEEL_HELM_R, manasteelHelmRevealing);
 		register(r, LibItemNames.MANASTEEL_CHEST, manasteelChest);
 		register(r, LibItemNames.MANASTEEL_LEGS, manasteelLegs);
 		register(r, LibItemNames.MANASTEEL_BOOTS, manasteelBoots);
@@ -510,7 +501,6 @@ public final class ModItems {
 		register(r, LibItemNames.MANASTEEL_SWORD, manasteelSword);
 		register(r, LibItemNames.MANASTEEL_SHEARS, manasteelShears);
 		register(r, LibItemNames.TERRASTEEL_HELM, terrasteelHelm);
-		register(r, LibItemNames.TERRASTEEL_HELM_R, terrasteelHelmRevealing);
 		register(r, LibItemNames.TERRASTEEL_CHEST, terrasteelChest);
 		register(r, LibItemNames.TERRASTEEL_LEGS, terrasteelLegs);
 		register(r, LibItemNames.TERRASTEEL_BOOTS, terrasteelBoots);
@@ -541,7 +531,6 @@ public final class ModItems {
 		register(r, LibItemNames.QUARTZ_SUNNY, sunnyQuartz);
 		register(r, LibItemNames.WATER_ROD, waterRod);
 		register(r, LibItemNames.ELEMENTIUM_HELM, elementiumHelm);
-		register(r, LibItemNames.ELEMENTIUM_HELM_R, elementiumHelmRevealing);
 		register(r, LibItemNames.ELEMENTIUM_CHEST, elementiumChest);
 		register(r, LibItemNames.ELEMENTIUM_LEGS, elementiumLegs);
 		register(r, LibItemNames.ELEMENTIUM_BOOTS, elementiumBoots);
@@ -576,7 +565,6 @@ public final class ModItems {
 		register(r, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT), sparkUpgradeIsolated);
 		register(r, LibItemNames.DIVINING_ROD, diviningRod);
 		register(r, LibItemNames.GRAVITY_ROD, gravityRod);
-		register(r, LibItemNames.MANA_INKWELL, manaInkwell);
 		register(r, LibItemNames.VIAL, vial);
 		register(r, LibItemNames.FLASK, flask);
 		register(r, LibItemNames.BREW_VIAL, brewVial);
@@ -702,7 +690,6 @@ public final class ModItems {
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
 		register(r, "cosmetic_remove", CosmeticRemoveRecipe.SERIALIZER);
-		register(r, "helm_revealing", HelmRevealingRecipe.SERIALIZER);
 		register(r, "keep_ivy", KeepIvyRecipe.SERIALIZER);
 		register(r, "lens_dye", LensDyeingRecipe.SERIALIZER);
 		register(r, "mana_gun_add_clip", ManaGunClipRecipe.SERIALIZER);

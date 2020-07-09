@@ -1043,9 +1043,6 @@
   "item.botania.virus_nullodermal": "virus nullodermal",
   "item.botania.skydirt_rod": "Vara de las tierras altas",
   "item.botania.placeholder": "Marcador de trabajo",
-  "item.botania.manasteel_helmet_revealing": "Casco de manacero de la revelación",
-  "item.botania.terrasteel_helmet_revealing": "Casco de terracero de la revelación",
-  "item.botania.elementium_helmet_revealing": "Casco de elementio de la revelación",
   "item.botania.itemfinder": "El Espectador",
   "item.botania.super_lava_pendant": "Colgante carmesí",
   "item.botania.ender_hand": "Mano del Fin",
@@ -1058,7 +1055,6 @@
   "item.botania.divining_rod": "Vara de manto abundante",
   "item.botania.gravity_rod": "Vara de mesa sombría",
   "item.botania.regenivy": "Hiedra eterna",
-  "item.botania.mana_inkwell": "Tintero del Botanurgista",
   "item.botania.vial": "Vial de manacristal",
   "item.botania.flask": "Matraz de alfcristal",
   "item.botania.brew_vial": "Vial de %s (%s)",
@@ -1186,7 +1182,6 @@
   "botania.brew.bloodthirst": "sombra carmesí",
   "botania.brew.overload": "sobrecarga",
   "botania.brew.allure": "atracción marina",
-  "botania.brew.warp_ward": "pensamientos cuerdos",
   "botania.brew.clear": "absolución",
 
   "effect.botania.soul_cross": "Cruz de alma",
@@ -1325,9 +1320,6 @@
   "botania.page.flowerBag0": "Las leyes de la física respecto al $(thing)inventario$(0) están un tanto sesgadas en esta mundo. Gracias a eso, llevar una colección de flores de diferentes colores puede llegar a ser problemático. Afortunadamente, una $(item)bolsa de flores$(0) solventa este problema. Puede almacenar un montón de cada color de $(item)flor mística$(0), no solo eso pero recogerá de forma pasiva a toda flor que entre en el inventario de su portador.",
   "botania.page.flowerBag2": "Las flores no se añadirán a la bolsa automáticamente si se está sosteniendo una de ese tipo.$(p)Además, haciendo shift-clic derecho con la bolsa en un $(item)cofre$(0) u otro inventario almacenará las flores que contenga en dicho inventario.",
   "botania.page.flowerBag1": "Saca un helicóptero de ella (cualquier color funciona)",
-
-  "botania.entry.wrap": "Wrap",
-  "botania.page.wrap0": "Parece que el creador de este mod decidió añadir una extraña mecánica en la forma de $(item)wrap$(0). No sé que hace, probablemente algo malo. :/$(p)¿Qué es esa \"cuarta pared\" de la que hablas...?",
 
   "botania.entry.mIntro": "Introducción al maná",
   "botania.page.mIntro0": "El $(thing)maná$(0) es una sustancia etérea. En términos sencillos, es una forma de $(thing)enegía mística$(0). Su existencia sensorial es inconstante y su color depende del entorno donde se coloca.$(p)El dominio del $(thing)maná$(0) es uno de los talentos más importantes que un botanista tiene que controlar.",
@@ -2490,16 +2482,6 @@
   "botania.entry.cacophonium": "Cacófono",
   "botania.page.cacophonium0": "Este interesante instrumento, el $(item)cacófono$(0), tiene la habilidad de imitar casi todos los sonidos de los seres vivos, permitiendo al \"músico\" tocarlos a voluntad. Haz clic derecho con él en una entidad hace que aprenda el sonido. Entonces se puede tocar presionando el botón derecho.$(p)Por qué nadie querrá hacer esto, sin embargo, está más allá de todo entendimiento",
   "botania.page.cacophonium1": "Digno de Les Luthiers",
-
-  "botania.entry.tcIntegration": "Integración con Thaumcraft",
-  "botania.page.tcIntegration0": "A menudo, los caminos de la $(thing)botánica$(0) y $(thing)taumaturgia$(0) se cruzan. Mezclando algunos artefactos mencionados en este libro así como algunos de la escuela de $(5)Thaumcraft$(0) permite la creación de combinaciones.",
-  "botania.page.tcIntegration1": "Lo primero y principal, combinando cualquier casco de $(item)metal de maná$(0) con unas $(item)gafas de la revelación$(0) permite una combinación de ambos.$(p)La protección y regeneración de armadura funciona a la vez que las habilidades de las gafas, pero sin descuento de $(thing)vis$(0).",
-  "botania.page.tcIntegration2": "Cascos de la revelación (funciona con cualquier casco de Botania)",
-  "botania.page.tcIntegration3": "Sigamos, el $(thing)maná$(0) también puede servir como un tipo interesante de tinta. Infundiendo unas $(item)herramientas de escritura$(0) con $(thing)maná$(0) de una $(item)pila de maná$(0) les permite usar $(thing)maná$(0) como fuente de tinta.$(p)Se rellenan igual que una $(item)tableta de maná$(0), tirándolas sobre la pila. hay que reseñar que las herramientas no vienen rellenas de inicio.",
-  "botania.page.tcIntegration4": "Haciendo el $(item)tintero del Botanurgista",
-  "botania.page.tcIntegration5": "Continuando, existen una variedad de recursos y creaciones que sirven como parafernalia del $(item)altar de infusión$(0), para rebajar la inestabilidad, tales como $(item)flores centelleantes, flores flotantes y una serie de pilones$(0).$(p)Por último, se puede crear, usando recursos típicos de la taumaturgia, un $(thing)fermento$(0) que otorga un efecto de $(thing)defensa de warp$(0).",
-  "botania.page.tcIntegration6a": "Tal vez la locura no sea siempre la mejor herramienta. Cuando sea el caso, un buen baño generalmente lo soluciona. Un fermento probablemente sea la mejor forma, aunque...",
-  "botania.page.tcIntegration6b": "La carita triste oficial",
 
   "botania.entry.bcIntegration": "Integración con Buildcraft",
   "botania.page.bcIntegration0": "Recientes avances en la tecnología de tuberías ha permitido $(item)compuertas$(0) para detectar $(thing)maná$(0) alrededor suyo. Una $(item)compuerta$(0) puede detectar si el contenedor de $(thing)maná$(0) está vacío, lleno o tiene algo de maná.$(p)Las $(item)compuertas$(0) pueden usar el disparador del $(item)detector de maná$(0) si pasa maná junto a la tubería. Además, pueden detectar si el $(item)altar rúnico$(0) está listo para crear runas."

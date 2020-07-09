@@ -275,8 +275,6 @@
   "magnetRing.invert": "Inverted Magnet Ring Controls",
   "seasonalFeatures.enabled": "Seasonal Features",
   "shedding.enable": "Natural Shedding",
-  "thaumcraftAspects.enabled": "TC Aspects",
-  "thaumraftStabilizers.enabled": "TC Infusion Stabilizers",
 
   "botania.baubletype.amulet": "Equippable in the \u00a7aAmulet\u00a77 slot",
   "botania.baubletype.ring": "Equippable in the \u00a7aRing\u00a77 slot",
@@ -1206,9 +1204,6 @@
   "item.botania.virus_nullodermal": "Nullodermal Virus",
   "item.botania.skydirt_rod": "Rod of the Highlands",
   "item.botania.placeholder": "Crafting Placeholder",
-  "item.botania.manasteel_helmet_revealing": "Manasteel Helmet of Revealing",
-  "item.botania.terrasteel_helmet_revealing": "Terrasteel Helmet of Revealing",
-  "item.botania.elementium_helmet_revealing": "Elementium Helmet of Revealing",
   "item.botania.itemfinder": "The Spectator",
   "item.botania.super_lava_pendant": "Crimson Pendant",
   "item.botania.ender_hand": "Hand of Ender",
@@ -1221,7 +1216,6 @@
   "item.botania.divining_rod": "Rod of the Plentiful Mantle",
   "item.botania.gravity_rod": "Rod of the Shaded Mesa",
   "item.botania.regenivy": "Timeless Ivy",
-  "item.botania.mana_inkwell": "Botanurgist's Inkwell",
   "item.botania.vial": "Managlass Vial",
   "item.botania.flask": "Alfglass Flask",
   "item.botania.brew_vial": "Vial of %s (%s)",
@@ -1375,7 +1369,6 @@
   "botania.brew.bloodthirst": "Crimson Shade",
   "botania.brew.overload": "Overload",
   "botania.brew.allure": "Marine Allure",
-  "botania.brew.warp_ward": "Sane Thoughts",
   "botania.brew.clear": "Absolution",
 
   "effect.botania.soul_cross": "Soul Cross",
@@ -1774,10 +1767,6 @@
   "botania.page.flowerBag0": "The physical laws regarding $(thing)Inventories$(0) are somewhat skewed in our world. Thanks to that, carrying an array of different colors of flowers can turn out to be a major hassle. Luckily, a $(item)Flower Pouch$(0) takes care of all those issues. It can store up to one stack of each color of $(l:basics/flowers)$(item)Mystical Flower$(0)$(/l), and passively catch any more that its holder picks up.",
   "botania.page.flowerBag2": "Flowers won't be picked up by the pouch if the pouch is held in your dominant hand.$(p)Furthermore, sneak-right clicking the pouch on a $(item)Chest$(0) or other inventory will dump all flowers the pouch contains into said inventory.",
   "botania.page.flowerBag1": "It's about the same size on the inside (any colors work)",
-
-  "botania.entry.wrap": "Wrap",
-  "botania.tagline.wrap": "It's a wrap",
-  "botania.page.wrap0": "It seems like the creator of this mod has decided to add a strange game mechanic, in the form of $(item)Wrap$(0). I don't really know what it does, probably something bad. :/$(p)(What's this \"Fourth Wall\" you're talking about...?)",
 
   "botania.entry.mIntro": "Introduction to Mana",
   "botania.tagline.mIntro": "Start off with Mana",
