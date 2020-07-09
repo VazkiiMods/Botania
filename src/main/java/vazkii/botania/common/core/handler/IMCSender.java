@@ -81,6 +81,7 @@ public class IMCSender {
 
 		// Vanilla
 		addOreWeightNether("quartz", 19600);
+		addOreWeightNether("netherite", 148);
 		// Mystical Agriculture
 		addOreWeight("nether/inferium", 10000);
 		addOreWeight("nether/prosperity", 7420);
@@ -110,12 +111,6 @@ public class IMCSender {
 		// Tinkers Construct
 		addOreWeightNether("ardite", 500);
 		addOreWeightNether("cobalt", 500);
-
-		/* Ore weights TODO 1.14 / 1.15
-		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics certusQuartz, certus/quartz or quartz/certus?
-		addOreWeight("oreQuartzBlack", 5535); // Actually Additions quartzBlock, quartz/black or black/quartz?
-		addOreWeightNether("oreHaditeCoal", 500); // Hadite haditeCoal, hadite/coal or coal/hadite?
-		*/
 
 		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
 		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values()) {
@@ -153,15 +148,13 @@ public class IMCSender {
 		}
 	}
 
-	public static void sendToSelf(String method, Object thing) {
-		InterModComms.sendTo(LibMisc.MOD_ID, method, () -> thing);
-	}
-
 	private static void addOreWeight(String oreTag, int weight) {
-		sendToSelf(IMC.REGISTER_ORE_WEIGHT, new Pair<>(new ResourceLocation("forge", "ores/" + oreTag), weight));
+		ResourceLocation tag = new ResourceLocation("forge", "ores/" + oreTag);
+		BotaniaAPI.instance().registerOreWeight(tag, weight);
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
-		sendToSelf(IMC.REGISTER_NETHER_ORE_WEIGHT, new Pair<>(new ResourceLocation("forge", "ores/" + oreTag), weight));
+		ResourceLocation tag = new ResourceLocation("forge", "ores/" + oreTag);
+		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
 	}
 }

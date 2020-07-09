@@ -135,7 +135,6 @@ public class Botania {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modBus.addListener(this::commonSetup);
 		modBus.addListener(IMCSender::enqueue);
-		modBus.addListener(IMCHandler::handle);
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(DataGenerators::gatherData);
 		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
