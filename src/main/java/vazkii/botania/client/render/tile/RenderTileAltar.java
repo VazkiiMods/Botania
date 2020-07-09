@@ -128,7 +128,6 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 		int green = ((color >> 8) & 0xFF);
 		int blue = (color & 0xFF);
 		Matrix4f mat = ms.getLast().getMatrix();
-		// todo 1.15 check the normals
 		builder.pos(mat, 0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).tex(sprite.getMinU(), sprite.getMaxV()).overlay(overlay).lightmap(light).normal(0, 0, 1).endVertex();
 		builder.pos(mat, 16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).tex(sprite.getMaxU(), sprite.getMaxV()).overlay(overlay).lightmap(light).normal(0, 0, 1).endVertex();
 		builder.pos(mat, 16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).tex(sprite.getMaxU(), sprite.getMinV()).overlay(overlay).lightmap(light).normal(0, 0, 1).endVertex();

@@ -46,7 +46,6 @@ public class RuneProvider extends RecipeProvider {
 
 	@Override
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		// todo 1.13 re-tagify these once the community settles down on some names
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;

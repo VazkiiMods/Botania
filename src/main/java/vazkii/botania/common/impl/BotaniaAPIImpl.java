@@ -119,7 +119,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 		@Override
 		public float func_230304_f_() {
-			// todo 1.16 armor toughness. move terrasteel's bonus here?
 			return 0;
 		}
 	}

@@ -35,20 +35,6 @@ import java.util.List;
 public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
 	private static final int COST_PER = 55;
 
-	// todo 1.13 migrate rest of these
-	private static final List<String> validBlocks = ImmutableList.of(
-			"hardenedClay",
-			"snowLayer",
-			"mycelium",
-			"sandstone",
-
-			// Mod support
-			"marble",
-			"blockMarble",
-			"limestone",
-			"blockLimestone"
-	);
-
 	public ItemTerraformRod(Properties props) {
 		super(props);
 	}

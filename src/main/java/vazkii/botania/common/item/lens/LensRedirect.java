@@ -44,7 +44,7 @@ public class LensRedirect extends Lens {
 					if (collideShape.isEmpty()) {
 						axis = new AxisAlignedBB(coords, coords.add(1, 1, 1));
 					} else {
-						axis = collideShape.getBoundingBox().offset(coords); // todo 1.13 more granular collisions?
+						axis = collideShape.getBoundingBox().offset(coords);
 					}
 
 					if (!axis.contains(sourceVec)) {
