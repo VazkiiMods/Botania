@@ -386,13 +386,12 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		if (!player.isSneaking()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		} else {
-			RayTraceResult pos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
-			if (pos instanceof BlockRayTraceResult && !world.isRemote) {
-				double x = pos.getHitVec().x - getPos().getX() - 0.5;
-				double y = pos.getHitVec().y - getPos().getY() - 0.5;
-				double z = pos.getHitVec().z - getPos().getZ() - 0.5;
+			BlockRayTraceResult bpos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
+			if (!world.isRemote) {
+				double x = bpos.getHitVec().x - getPos().getX() - 0.5;
+				double y = bpos.getHitVec().y - getPos().getY() - 0.5;
+				double z = bpos.getHitVec().z - getPos().getZ() - 0.5;
 
-				BlockRayTraceResult bpos = (BlockRayTraceResult) pos;
 				if (bpos.getFace() != Direction.DOWN && bpos.getFace() != Direction.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);
 					Vector3 relative = new Vector3(-0.5, 0, 0);
@@ -606,8 +605,12 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	@Override
 	public void markDirty() {
-		checkForReceiver();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null) {
+			checkForReceiver();
+			if (!world.isRemote) {
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			}
+		}
 	}
 
 	@Override

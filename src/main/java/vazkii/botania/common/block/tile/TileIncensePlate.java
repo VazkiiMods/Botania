@@ -175,7 +175,7 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		if (!world.isRemote) {
+		if (world != null && !world.isRemote) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}

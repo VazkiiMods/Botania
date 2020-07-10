@@ -83,7 +83,9 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 }

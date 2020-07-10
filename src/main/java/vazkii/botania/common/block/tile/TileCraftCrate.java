@@ -178,7 +178,9 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	@Override

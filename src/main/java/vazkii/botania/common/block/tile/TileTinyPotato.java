@@ -115,7 +115,9 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	@Override
