@@ -128,7 +128,6 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		ms.pop();
 	}
 
-	@SuppressWarnings("deprecation")
 	private void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
 		ms.push();
 		getEntityModel().bipedHead.translateRotate(ms);
