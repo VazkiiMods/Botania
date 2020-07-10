@@ -18,7 +18,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.imc.IMC;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibMisc;
 
