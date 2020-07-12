@@ -62,7 +62,7 @@ public class RenderLexicon {
 	private static final String[] MISSPELLINGS = {
 			"Bonito", "Bonita", "Bonitia", "Botnaia", "Bontonio",
 			"Botnia", "Bonitaaaaaaaaaa", "Botonio", "Botonia",
-			"Banana", "Brotania", "Botanica", "Boat", "Batania"
+			"Banana", "Brotania", "Botanica", "Boat", "Batania", "Bosnia"
 	};
 
 	private static int quote = -1;
