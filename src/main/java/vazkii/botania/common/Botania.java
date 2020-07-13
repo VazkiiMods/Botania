@@ -187,6 +187,9 @@ public class Botania {
 		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
 		forgeBus.addListener(LootHandler::lootLoad);
+
+		ModLootModifiers.init();
+		ModCriteriaTriggers.init();
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -222,7 +225,6 @@ public class Botania {
 					.func_233813_a_());
 			ModBanners.init();
 			ColorHelper.init();
-			ModLootModifiers.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
@@ -273,15 +275,6 @@ public class Botania {
 					'0', sm
 			);
 			PatchouliAPI.instance.registerMultiblock(new ResourceLocation(LibMisc.MOD_ID, "gaia_ritual"), mb);
-
-			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
-			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
-			CriteriaTriggers.register(DopplegangerNoArmorTrigger.INSTANCE);
-			CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
-			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
-			CriteriaTriggers.register(ManaGunTrigger.INSTANCE);
-			CriteriaTriggers.register(LokiPlaceTrigger.INSTANCE);
-			CriteriaTriggers.register(AlfPortalBreadTrigger.INSTANCE);
 
 			ModBlocks.addDispenserBehaviours();
 
