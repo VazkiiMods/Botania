@@ -39,7 +39,8 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	public Brew(int color, int cost, EffectInstance... effects) {
 		this.color = () -> color;
 		this.cost = cost;
-		this.effects = () -> ImmutableList.copyOf(effects);
+		List<EffectInstance> savedEffects = ImmutableList.copyOf(effects);
+		this.effects = () -> savedEffects;
 	}
 
 	/**
