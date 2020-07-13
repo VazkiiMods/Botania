@@ -981,32 +981,14 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
 				.build(consumer);
 
-		ResourceLocation cacophoniumId = Registry.ITEM.getKey(ModItems.cacophonium);
-		Supplier<ShapedRecipeBuilder> cacophoniumBase = () -> ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
+		ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
 				.key('N', Items.NOTE_BLOCK)
+				.key('G', Tags.Items.INGOTS_GOLD)
 				.patternLine(" G ")
 				.patternLine("GNG")
 				.patternLine("GG ")
-				.addCriterion("has_item", hasItem(Items.NOTE_BLOCK));
-		ConditionalRecipe.builder()
-				.addCondition(new TagEmptyCondition("forge", "ingots/brass"))
-				.addRecipe(cacophoniumBase.get().key('G', Tags.Items.INGOTS_GOLD)::build)
-				.addCondition(TrueCondition.INSTANCE)
-				.addRecipe(
-						cacophoniumBase.get().key('G', Ingredient.fromItemListStream(Stream.of(
-								new Ingredient.TagList(Tags.Items.INGOTS_GOLD),
-								new Ingredient.TagList(ItemTags.makeWrapperTag("forge:ingots/brass")))
-						))::build
-				).setAdvancement(prefix("recipes/botania/cacophonium"),
-						ConditionalAdvancement.builder()
-								.addCondition(TrueCondition.INSTANCE)
-								.addAdvancement(Advancement.Builder.builder()
-										.withParentId(new ResourceLocation("recipes/root"))
-										.withRewards(AdvancementRewards.Builder.recipe(cacophoniumId))
-										.withCriterion("has_item", hasItem(Items.NOTE_BLOCK))
-										.withCriterion("has_the_recipe", RecipeUnlockedTrigger.func_235675_a_(cacophoniumId))
-										.withRequirementsStrategy(IRequirementsStrategy.OR))
-				).build(consumer, cacophoniumId);
+				.addCriterion("has_item", hasItem(Items.NOTE_BLOCK))
+				.build(consumer);
 
 		ShapedRecipeBuilder.shapedRecipe(ModItems.grassHorn)
 				.key('S', ModItems.grassSeeds)
