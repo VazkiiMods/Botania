@@ -13,11 +13,11 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,8 +47,8 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	}
 
 	@Override
-	public void write(PacketBuffer buffer) {
-		super.write(buffer); // We're sending super's contents instead as tags are sent *after* recipes.
+	protected Collection<Block> getBlocks() {
+		return tag.getAllElements();
 	}
 
 	@Override

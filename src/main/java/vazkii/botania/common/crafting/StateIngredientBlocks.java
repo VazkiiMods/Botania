@@ -52,6 +52,7 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public void write(PacketBuffer buffer) {
 		buffer.writeVarInt(0);
+		Collection<Block> blocks = getBlocks();
 		buffer.writeVarInt(blocks.size());
 		for (Block block : blocks) {
 			buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
@@ -61,5 +62,9 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public List<BlockState> getDisplayed() {
 		return blocks.stream().map(Block::getDefaultState).collect(Collectors.toList());
+	}
+
+	protected Collection<Block> getBlocks() {
+		return blocks;
 	}
 }
