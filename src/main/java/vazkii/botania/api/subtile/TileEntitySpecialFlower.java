@@ -154,7 +154,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	protected void tickFlower() {
 		ticksExisted++;
-		// todo 1.14 this isn't being markDirtied, but do we even want to keep this field around?
 	}
 
 	@Override

@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.api.item.AccessoryRenderHelper;
+import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 
 public class ItemKnockbackBelt extends ItemBauble {
