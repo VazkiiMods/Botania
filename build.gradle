@@ -101,7 +101,7 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-32.0.32"
+    minecraft "net.minecraftforge:forge:${mc_version}-32.0.66"
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-38:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-38")
 
