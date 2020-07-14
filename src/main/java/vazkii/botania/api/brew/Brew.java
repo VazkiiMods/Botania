@@ -12,17 +12,19 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * The class for a Brew definition, each one is a singleton.
  */
 public class Brew extends ForgeRegistryEntry<Brew> {
-	private final int color;
+	private final Supplier<Integer> color;
 	private final int cost;
-	private final List<EffectInstance> effects;
+	private final Supplier<List<EffectInstance>> effects;
 	private boolean canInfuseBloodPendant = true;
 	private boolean canInfuseIncense = true;
 
@@ -35,9 +37,20 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
 	public Brew(int color, int cost, EffectInstance... effects) {
-		this.color = color;
+		this.color = () -> color;
 		this.cost = cost;
-		this.effects = ImmutableList.copyOf(effects);
+		List<EffectInstance> savedEffects = ImmutableList.copyOf(effects);
+		this.effects = () -> savedEffects;
+	}
+
+	/**
+	 * @param cost    The cost, in Mana for this brew.
+	 * @param effects A supplier that supplies a list of effects to apply to the player when they drink it.
+	 */
+	public Brew(int cost, Supplier<List<EffectInstance>> effects) {
+		this.color = () -> PotionUtils.getPotionColorFromEffectList(effects.get());
+		this.cost = cost;
+		this.effects = effects;
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	 * Alfglass Flask at all times.
 	 */
 	public int getColor(ItemStack stack) {
-		return color;
+		return color.get();
 	}
 
 	/**
@@ -107,7 +120,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<EffectInstance> getPotionEffects(ItemStack stack) {
-		return effects;
+		return effects.get();
 	}
 
 }
