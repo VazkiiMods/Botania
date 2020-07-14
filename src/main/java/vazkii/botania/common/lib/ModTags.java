@@ -172,7 +172,6 @@ public class ModTags {
 		public static final ITag.INamedTag<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
 		public static final ITag.INamedTag<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 
-		public static final ITag.INamedTag<Block> PEBBLE_SOURCES = tag("pebble_sources");
 		public static final ITag.INamedTag<Block> TERRAFORMABLE = tag("terraformable");
 
 		private static ITag.INamedTag<Block> tag(String name) {

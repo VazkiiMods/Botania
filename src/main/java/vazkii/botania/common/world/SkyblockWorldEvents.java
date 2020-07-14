@@ -18,6 +18,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -40,6 +42,7 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
+	private static final ITag.INamedTag<Block> PEBBLE_SOURCES = BlockTags.makeWrapperTag("gardenofglass:pebble_sources");
 	private static final String TAG_MADE_ISLAND = "Botania-MadeIsland";
 	private static final String TAG_HAS_OWN_ISLAND = "Botania-HasOwnIsland";
 	private static final String TAG_ISLAND_X = "Botania-IslandX";
@@ -83,7 +86,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				if (ModTags.Blocks.PEBBLE_SOURCES.contains(block)) {
+				if (PEBBLE_SOURCES.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
