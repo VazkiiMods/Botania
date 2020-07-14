@@ -51,9 +51,9 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+	public void onUse(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
 		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof PlayerEntity) {
-			terraform(stack, living.world, (PlayerEntity) living);
+			terraform(stack, world, (PlayerEntity) living);
 		}
 	}
 

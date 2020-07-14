@@ -132,8 +132,8 @@ public class ItemCacophonium extends Item {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-		if (count % (isDOIT(stack) ? 20 : 6) == 0) {
+	public void onUse(World world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int count) {
+		if (!world.isRemote && count % (isDOIT(stack) ? 20 : 6) == 0) {
 			playSound(player.world, stack, player.getPosX(), player.getPosY(), player.getPosZ(), SoundCategory.PLAYERS, 0.9F);
 		}
 	}

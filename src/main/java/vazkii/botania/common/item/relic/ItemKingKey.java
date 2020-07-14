@@ -60,10 +60,10 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if (count != getUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, 150, true))) {
+		if (count != getUseDuration(stack) && spawned < 20 && !world.isRemote && (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
 
 			double playerRot = Math.toRadians(living.rotationYaw + 90);
@@ -78,7 +78,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			Vector3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
 
-			Random rand = living.world.rand;
+			Random rand = world.rand;
 			Vector3 axis = look.normalize().crossProduct(new Vector3(-1, 0, -1)).normalize();
 
 			double rot = mod * Math.PI / 4 - Math.PI / 2;
@@ -90,15 +90,15 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			Vector3 end = pl.add(axis1);
 
-			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, living.world);
+			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, world);
 			weapon.setPosition(end.x, end.y, end.z);
 			weapon.rotationYaw = living.rotationYaw;
 			weapon.setVariety(rand.nextInt(WEAPON_TYPES));
 			weapon.setDelay(spawned);
 			weapon.setRotation(MathHelper.wrapDegrees(-living.rotationYaw + 180));
 
-			living.world.addEntity(weapon);
-			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + living.world.rand.nextFloat() * 3F);
+			world.addEntity(weapon);
+			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + world.rand.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}

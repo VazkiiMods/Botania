@@ -70,7 +70,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int time) {
+	public void onUse(World world, LivingEntity living, ItemStack stack, int time) {
 		if (!(living instanceof PlayerEntity)) {
 			return;
 		}
@@ -84,10 +84,10 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 		BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(p, 32, false);
 
 		if (pos.getType() == RayTraceResult.Type.BLOCK) {
-			BlockState state = p.world.getBlockState(pos.getPos());
+			BlockState state = world.getBlockState(pos.getPos());
 
 			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
-			Optional<ItemStack> maybeResult = p.world.getRecipeManager()
+			Optional<ItemStack> maybeResult = world.getRecipeManager()
 					.getRecipe(IRecipeType.SMELTING, dummyInv, p.world)
 					.map(r -> r.getCraftingResult(dummyInv));
 
@@ -104,10 +104,10 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 						data.progress--;
 						decremented = true;
 						if (data.progress <= 0) {
-							if (!p.world.isRemote) {
-								p.world.setBlockState(pos.getPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
-								p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
-								p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+							if (!world.isRemote) {
+								world.setBlockState(pos.getPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
+								world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
+								world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
 								ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
@@ -119,7 +119,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								double x = pos.getPos().getX() + Math.random();
 								double y = pos.getPos().getY() + Math.random();
 								double z = pos.getPos().getZ() + Math.random();
-								p.world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
+								world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
 							}
 						}
 					}
@@ -133,10 +133,10 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 						double y = pos.getPos().getY() + Math.random();
 						double z = pos.getPos().getZ() + Math.random();
 						WispParticleData data = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
-						p.world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
+						world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
 					}
 					if (time % 10 == 0) {
-						p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+						world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 					}
 				}
 			}

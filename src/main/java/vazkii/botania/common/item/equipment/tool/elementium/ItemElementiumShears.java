@@ -56,15 +56,15 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		if (living.world.isRemote) {
+	public void onUse(World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+		if (world.isRemote) {
 			return;
 		}
 
 		if (count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
 			Predicate<Entity> shearablePred = e -> e instanceof IShearable || e instanceof IForgeShearable;
-			List<Entity> shearable = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), shearablePred);
+			List<Entity> shearable = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), shearablePred);
 			if (shearable.size() > 0) {
 				for (Entity entity : shearable) {
 					if (entity instanceof IShearable && ((IShearable) entity).func_230262_K__()) {

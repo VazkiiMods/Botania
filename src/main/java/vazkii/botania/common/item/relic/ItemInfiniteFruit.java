@@ -54,8 +54,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		super.onUsingTick(stack, living, count);
+	public void onUse(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
 		if (!(living instanceof PlayerEntity)) {
 			return;
 		}
