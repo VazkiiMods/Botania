@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.fx;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.block.Block;
@@ -24,6 +25,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -79,10 +82,11 @@ public class FXLightning extends Particle {
 	@Nonnull
 	@Override
 	public IParticleRenderType getRenderType() {
-		return IParticleRenderType.NO_RENDER;
+		return IParticleRenderType.CUSTOM;
 	}
 
-	public void renderBolt(int pass, boolean inner) {
+	public void renderBolt(MatrixStack ms, int pass, boolean inner) {
+		Matrix4f mat = ms.getLast().getMatrix();
 		BufferBuilder wr = Tessellator.getInstance().getBuffer();
 
 		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;
@@ -118,28 +122,41 @@ public class FXLightning extends Particle {
 			int g = (color & 0xFF00) >> 8;
 			int b = color & 0xFF;
 			int a = (int) (mainAlpha * rendersegment.light * 0xFF);
+			int fullbright = 0xF000F0;
 
-			wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-			wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-			wr.pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-			wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
+			endvec.subtract(diff2).vertex(mat, wr);
+			wr.tex(0.5F, 0).lightmap(fullbright).color(r, g, b, a).endVertex();
+			startvec.subtract(diff1).vertex(mat, wr);
+			wr.tex(0.5F, 0).lightmap(fullbright).color(r, g, b, a).endVertex();
+			startvec.add(diff1).vertex(mat, wr);
+			wr.tex(0.5F, 1).lightmap(fullbright).color(r, g, b, a).endVertex();
+			endvec.add(diff2).vertex(mat, wr);
+			wr.tex(0.5F, 1).lightmap(fullbright).color(r, g, b, a).endVertex();
 
 			if (rendersegment.next == null) {
 				Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
 
-				wr.pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).tex(0, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).tex(0, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
+				roundend.subtract(diff2).vertex(mat, wr);
+				wr.tex(0, 0).lightmap(fullbright).color(r, g, b, a).endVertex();
+				endvec.subtract(diff2).vertex(mat, wr);
+				wr.tex(0.5F, 0).lightmap(fullbright).color(r, g, b, a).endVertex();
+				endvec.add(diff2).vertex(mat, wr);
+				wr.tex(0.5F, 1).lightmap(fullbright).color(r, g, b, a).endVertex();
+				roundend.add(diff2).vertex(mat, wr);
+				wr.tex(0, 1).lightmap(fullbright).color(r, g, b, a).endVertex();
 			}
 
 			if (rendersegment.prev == null) {
 				Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
 
-				wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).tex(0, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).tex(0, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
+				startvec.subtract(diff1).vertex(mat, wr);
+				wr.tex(0.5F, 0).lightmap(fullbright).color(r, g, b, a).endVertex();
+				roundend.subtract(diff1).vertex(mat, wr);
+				wr.tex(0, 0).lightmap(fullbright).color(r, g, b, a).endVertex();
+				roundend.add(diff1).vertex(mat, wr);
+				wr.tex(0, 1).lightmap(fullbright).color(r, g, b, a).endVertex();
+				startvec.add(diff1).vertex(mat, wr);
+				wr.tex(0.5F, 1).lightmap(fullbright).color(r, g, b, a).endVertex();
 			}
 		}
 	}
@@ -203,9 +220,7 @@ public class FXLightning extends Particle {
 	}
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-		// don't have an entity to pass, just use the render view
-		Entity viewer = Minecraft.getInstance().renderViewEntity;
-		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, viewer);
+		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, null);
 		RayTraceResult mop = world.rayTraceBlocks(ctx);
 
 		if (mop.getType() == RayTraceResult.Type.BLOCK) {
@@ -273,7 +288,7 @@ public class FXLightning extends Particle {
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
 		Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
-		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY() + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.getPosZ() - pos.z);
+		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY()  - pos.y, (float) renderEntity.getPosZ() - pos.z);
 	}
 
 }

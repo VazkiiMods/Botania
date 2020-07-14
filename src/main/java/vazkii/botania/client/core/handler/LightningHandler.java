@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -37,6 +38,7 @@ public class LightningHandler {
 	public static final Deque<FXLightning> queuedLightningBolts = new ArrayDeque<>();
 
 	public static void onRenderWorldLast(RenderWorldLastEvent event) {
+		MatrixStack ms = event.getMatrixStack();
 		IProfiler profiler = Minecraft.getInstance().getProfiler();
 
 		profiler.startSection("botania-particles");
@@ -50,8 +52,8 @@ public class LightningHandler {
 		double interpPosY = entity.lastTickPosY + (entity.getPosY() - entity.lastTickPosY) * frame;
 		double interpPosZ = entity.lastTickPosZ + (entity.getPosZ() - entity.lastTickPosZ) * frame;
 
-		RenderSystem.pushMatrix();
-		RenderSystem.translated(-interpPosX, -interpPosY, -interpPosZ);
+		ms.push();
+		ms.translate(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.getInstance();
 
@@ -64,7 +66,7 @@ public class LightningHandler {
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
-			bolt.renderBolt(0, false);
+			bolt.renderBolt(ms, 0, false);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
 				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
@@ -78,7 +80,7 @@ public class LightningHandler {
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
 		for (FXLightning bolt : queuedLightningBolts) {
-			bolt.renderBolt(1, true);
+			bolt.renderBolt(ms, 1, true);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.draw();
 				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
@@ -92,8 +94,7 @@ public class LightningHandler {
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 
-		RenderSystem.translated(interpPosX, interpPosY, interpPosZ);
-		RenderSystem.popMatrix();
+		ms.pop();
 
 		profiler.endSection();
 		profiler.endSection();
