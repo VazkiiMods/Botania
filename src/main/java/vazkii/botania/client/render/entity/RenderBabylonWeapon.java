@@ -50,14 +50,10 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		ms.push();
 		float s = 1.5F;
 		ms.scale(s, s, s);
-		ms.rotate(Vector3f.YP.rotationDegrees(-90F));
-		ms.rotate(Vector3f.ZP.rotationDegrees(45F));
-
-		// todo 1.15 get the alpha in to the BMR
-		// GlStateManager.color4f(1F, 1F, 1F, chargeMul);
+		ms.rotate(Vector3f.YP.rotationDegrees(90F));
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentCullBlockType()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.func_239280_i_()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 
 		Random rand = new Random(weapon.getUniqueID().getMostSignificantBits());
