@@ -19,13 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -34,7 +32,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.ModTags;
@@ -61,7 +58,7 @@ public final class SkyblockWorldEvents {
 			if (player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
 				World overworld = ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_);
 				ServerWorld world = (ServerWorld) player.world;
-				if (WorldTypeSkyblock.isWorldSkyblock(world)) {
+				if (SkyblockChunkGenerator.isWorldSkyblock(world)) {
 					BlockPos coords = world.func_241135_u_();
 					if (coords.getY() <= 0) {
 						coords = new BlockPos(coords.getX(), 64, coords.getZ());

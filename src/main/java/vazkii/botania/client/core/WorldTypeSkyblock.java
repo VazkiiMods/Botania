@@ -6,33 +6,30 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.world;
+package vazkii.botania.client.core;
 
 import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.DimensionSettings;
-import net.minecraft.world.server.ServerChunkProvider;
+
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 
 public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
+	public static final BiomeGeneratorTypeScreens INSTANCE = new WorldTypeSkyblock();
 
-	public WorldTypeSkyblock() {
+	private WorldTypeSkyblock() {
 		super("botania-skyblock");
 	}
 
-	public static boolean isWorldSkyblock(World world) {
-		return world.getChunkProvider() instanceof ServerChunkProvider
-				&& ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyblockChunkGenerator;
-	}
-
-	/* todo 1.16 impossible now?
+	/* todo 1.16 these have moved elsewhere
 	
+	moved to DimensionRenderInfo
 	@Override
 	public float getCloudHeight() {
 		return 260f;
 	}
 	
+	moved to ClientWorldInfo
 	// In skyblock worlds, do not darken the sky until player hits y=0
 	@Override
 	public double getHorizon(World world) {
@@ -47,6 +44,6 @@ public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 
 	@Override
 	protected ChunkGenerator func_230484_a_(long seed) {
-		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false), DimensionSettings.Preset.field_236122_b_.func_236137_b_().func_236108_a_());
+		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false), seed, SkyblockChunkGenerator.dimSettingsPreset.func_236137_b_());
 	}
 }

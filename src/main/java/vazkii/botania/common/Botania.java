@@ -105,8 +105,8 @@ import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.data.DataGenerators;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -211,9 +211,7 @@ public class Botania {
 		}
 
 		DeferredWorkQueue.runLater(() -> {
-			if (Botania.gardenOfGlassLoaded) {
-				new WorldTypeSkyblock();
-			}
+			SkyblockChunkGenerator.init();
 
 			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
 					.func_233815_a_(Attributes.MOVEMENT_SPEED, 0.4)

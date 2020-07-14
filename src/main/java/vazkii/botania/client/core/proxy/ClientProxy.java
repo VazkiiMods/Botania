@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeBuffers;
@@ -43,6 +44,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.lwjgl.glfw.GLFW;
 
+import vazkii.botania.client.core.WorldTypeSkyblock;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -81,6 +83,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandle;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
@@ -156,6 +159,15 @@ public class ClientProxy implements IProxy {
 		registerRenderTypes();
 
 		DeferredWorkQueue.runLater(() -> {
+			MethodHandle worldTypesGetter = LibObfuscation.getGetter(BiomeGeneratorTypeScreens.class, "field_239068_c_");
+			try {
+				@SuppressWarnings("unchecked")
+				List<BiomeGeneratorTypeScreens> worldTypes = (List<BiomeGeneratorTypeScreens>) worldTypesGetter.invokeExact();
+				worldTypes.add(WorldTypeSkyblock.INSTANCE);
+			} catch (Throwable throwable) {
+				throw new RuntimeException(throwable);
+			}
+
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
 			registerPropertyGetters();

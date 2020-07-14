@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.world.WorldTypeSkyblock;
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 
 public final class SkyblockRenderEvents {
 
@@ -22,7 +22,7 @@ public final class SkyblockRenderEvents {
 		if (ConfigHandler.CLIENT.enableFancySkybox.get()
 				&& world.func_234923_W_() == World.field_234918_g_
 				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get()
-						|| WorldTypeSkyblock.isWorldSkyblock(world))) {
+						|| SkyblockChunkGenerator.isWorldSkyblock(world))) {
 			/* todo 1.16
 			if (!(world.getDimension().getSkyRenderer() instanceof SkyblockSkyRenderer)) {
 				world.getDimension().setSkyRenderer(new SkyblockSkyRenderer());

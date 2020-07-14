@@ -12,28 +12,64 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.WorldGenRegion;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.NoiseSettings;
+import net.minecraft.world.gen.settings.ScalingSettings;
+import net.minecraft.world.gen.settings.SlideSettings;
+import net.minecraft.world.server.ServerChunkProvider;
+
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.lib.LibObfuscation;
+
+import java.lang.invoke.MethodHandle;
+import java.util.Optional;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
-	private static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
-			instance -> instance.group(
-					BiomeProvider.field_235202_a_.fieldOf("biome_source").forGetter(scg -> scg.biomeProvider),
-					DimensionStructuresSettings.field_236190_a_.fieldOf("structures").forGetter(ChunkGenerator::func_235957_b_)
-			).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
+	// [VanillaCopy] overworld chunk generator codec
+	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeProvider.field_235202_a_.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
+			Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
+			DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings))
+			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
+	public static DimensionSettings.Preset dimSettingsPreset;
 
-	public SkyblockChunkGenerator(BiomeProvider provider, DimensionStructuresSettings settings) {
-		super(provider, settings);
+	public static void init() {
+		Registry.register(Registry.field_239690_aB_, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
+		MethodHandle createOverWorldPreset = LibObfuscation.getMethod(DimensionSettings.Preset.class, "func_236135_a_", DimensionStructuresSettings.class, boolean.class, DimensionSettings.Preset.class);
+		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock", preset -> {
+			// [VanillaCopy] overworld preset creation
+			try {
+				return (DimensionSettings) createOverWorldPreset.invokeExact(new DimensionStructuresSettings(true), false, preset);
+			} catch (Throwable throwable) {
+				throw new RuntimeException(throwable);
+			}
+		});
+	}
+
+	private final long seed;
+	private final DimensionSettings settings;
+
+	public SkyblockChunkGenerator(BiomeProvider provider, long seed, DimensionSettings settings) {
+		super(provider, provider, settings.func_236108_a_(), seed);
+		this.seed = seed;
+		this.settings = settings;
+	}
+
+	public static boolean isWorldSkyblock(World world) {
+		return world.getChunkProvider() instanceof ServerChunkProvider
+				&& ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyblockChunkGenerator;
 	}
 
 	@Override
@@ -43,7 +79,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 
 	@Override
 	public ChunkGenerator func_230349_a_(long newSeed) {
-		return new SkyblockChunkGenerator(this.biomeProvider.func_230320_a_(newSeed), func_235957_b_());
+		return new SkyblockChunkGenerator(this.biomeProvider.func_230320_a_(newSeed), newSeed, settings);
 	}
 
 	@Override
