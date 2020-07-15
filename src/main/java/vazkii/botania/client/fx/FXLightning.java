@@ -182,6 +182,7 @@ public class FXLightning extends Particle {
 		@Override
 		public void finishRender(Tessellator tess) {
 			tess.draw();
+			RenderSystem.enableTexture();
 			RenderSystem.disableBlend();
 			RenderSystem.depthMask(true);
 		}
