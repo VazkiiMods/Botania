@@ -43,6 +43,7 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 
 	@Override
 	public void render(TileEntity tile, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
 		if (!(tile instanceof TileEntitySpecialFlower)
 				|| !(Minecraft.getInstance().renderViewEntity instanceof LivingEntity)) {
 			return;
@@ -71,8 +72,6 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 				}
 			}
 		}
-
-		RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
 	}
 
 	private static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {

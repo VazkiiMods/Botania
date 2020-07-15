@@ -103,7 +103,10 @@ public final class RenderHelper {
 				.build(false);
 		STAR = RenderType.makeType(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderType.State.getBuilder().transparency(TRANSLUCENT_TRANSPARENCY).cull(disableCull).build(false);
+		glState = RenderType.State.getBuilder()
+				.transparency(TRANSLUCENT_TRANSPARENCY)
+				.target(itemTarget)
+				.cull(disableCull).build(false);
 		RECTANGLE = RenderType.makeType(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 		CIRCLE = RenderType.makeType(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
