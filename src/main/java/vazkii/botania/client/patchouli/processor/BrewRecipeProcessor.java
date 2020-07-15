@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraft.util.text.TranslationTextComponent;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -45,7 +46,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 		if (recipe == null) {
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.wrap(I18n.format("botaniamisc.brewOf", I18n.format(recipe.getBrew().getTranslationKey())));
+			return IVariable.from(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(recipe.getBrew().getTranslationKey())));
 		} else if (key.equals("vial")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.vial)));
 		} else if (key.equals("flask")) {

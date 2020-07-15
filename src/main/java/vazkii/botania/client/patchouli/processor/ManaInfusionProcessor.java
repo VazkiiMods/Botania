@@ -15,11 +15,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.KeybindTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.*;
 
-import net.minecraft.util.text.TranslationTextComponent;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
@@ -71,7 +68,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		switch (key) {
 		case "heading":
 			if (!hasCustomHeading) {
-				return IVariable.wrap(recipes.get(0).getRecipeOutput().getDisplayName().getString());
+				return IVariable.from(recipes.get(0).getRecipeOutput().getDisplayName());
 			}
 			return null;
 		case "input":
@@ -91,7 +88,8 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		case "mana":
 			return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 		case "drop":
-			return IVariable.wrap(I18n.format("botaniamisc.drop") + TextFormatting.BOLD + " (?)");
+			ITextComponent q = new StringTextComponent("(?)").func_240699_a_(TextFormatting.BOLD);
+			return IVariable.from(new TranslationTextComponent("botaniamisc.drop").func_240702_b_(" ").func_230529_a_(q));
 		case "dropTip0":
 		case "dropTip1":
 			ITextComponent drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN);

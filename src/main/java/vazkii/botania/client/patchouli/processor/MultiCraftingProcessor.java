@@ -68,7 +68,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.wrap(recipes.get(0).getRecipeOutput().getDisplayName().getString());
+				return IVariable.from(recipes.get(0).getRecipeOutput().getDisplayName());
 			}
 			return null;
 		}

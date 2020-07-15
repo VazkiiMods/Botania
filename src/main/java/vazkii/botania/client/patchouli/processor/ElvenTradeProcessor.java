@@ -66,7 +66,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("heading")) {
-			return IVariable.wrap(recipes.get(0).getOutputs().get(0).getDisplayName().getString());
+			return IVariable.from(recipes.get(0).getOutputs().get(0).getDisplayName());
 		} else if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			if (index < mostInputs) {

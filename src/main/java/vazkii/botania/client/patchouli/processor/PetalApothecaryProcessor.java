@@ -41,7 +41,7 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 		case "output":
 			return IVariable.from(recipe.getRecipeOutput());
 		case "heading":
-			return IVariable.wrap(recipe.getRecipeOutput().getDisplayName().getString());
+			return IVariable.from(recipe.getRecipeOutput().getDisplayName());
 		}
 		return null;
 	}
