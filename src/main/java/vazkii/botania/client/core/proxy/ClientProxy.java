@@ -50,6 +50,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.render.entity.RenderMagicLandmine;
 import vazkii.botania.client.render.world.SkyblockRenderEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -130,7 +131,7 @@ public class ClientProxy implements IProxy {
 		forgeBus.addListener(ClientTickHandler::renderTick);
 		forgeBus.addListener(BoundTileRenderer::onWorldRenderLast);
 		forgeBus.addListener(BossBarHandler::onBarRender);
-		forgeBus.addListener(BlockHighlightRenderHandler::onWorldRenderLast);
+		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
 		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
 		forgeBus.addListener(SkyblockRenderEvents::onRender);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);

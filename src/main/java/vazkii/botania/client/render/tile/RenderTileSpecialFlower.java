@@ -9,6 +9,7 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -17,18 +18,22 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Matrix4f;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.client.core.handler.BlockHighlightRenderHandler;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 
+import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
@@ -58,9 +63,9 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 					ms.push();
 					ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
 					if (descriptor.isCircle()) {
-						BlockHighlightRenderHandler.renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
+						renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
 					} else {
-						BlockHighlightRenderHandler.renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
+						renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
 					}
 					ms.pop();
 				}
@@ -77,5 +82,89 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 			return coords.isPresent() && coords.get().equals(tilePos);
 		}
 		return false;
+	}
+
+	private static void renderCircle(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos center, double radius) {
+		ms.push();
+		double x = center.getX() + 0.5;
+		double y = center.getY();
+		double z = center.getZ() + 0.5;
+		ms.translate(x, y, z);
+		int color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int r = (color >> 16 & 0xFF);
+		int g = (color >> 8 & 0xFF);
+		int b = (color & 0xFF);
+
+		int alpha = 32;
+		float f = 1F / 16F;
+
+		int totalAngles = 360;
+		int drawAngles = 360;
+		int step = totalAngles / drawAngles;
+
+		radius -= f;
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.CIRCLE);
+		Matrix4f mat = ms.getLast().getMatrix();
+
+		Runnable centerFunc = () -> buffer.pos(mat, 0, f, 0).color(r, g, b, alpha).endVertex();
+		List<Runnable> vertexFuncs = new ArrayList<>();
+		for (int i = 0; i < totalAngles + 1; i += step) {
+			double rad = (totalAngles - i) * Math.PI / 180.0;
+			float xp = (float) (Math.cos(rad) * radius);
+			float zp = (float) (Math.sin(rad) * radius);
+			vertexFuncs.add(() -> buffer.pos(mat, xp, f, zp).color(r, g, b, alpha).endVertex());
+		}
+		RenderHelper.triangleFan(centerFunc, vertexFuncs);
+
+		radius += f;
+		float f1 = f + f / 4F;
+		int alpha2 = 64;
+
+		centerFunc = () -> buffer.pos(mat, 0, f1, 0).color(r, g, b, alpha2).endVertex();
+		vertexFuncs.clear();
+		for (int i = 0; i < totalAngles + 1; i += step) {
+			double rad = (totalAngles - i) * Math.PI / 180.0;
+			float xp = (float) (Math.cos(rad) * radius);
+			float zp = (float) (Math.sin(rad) * radius);
+			vertexFuncs.add(() -> buffer.pos(mat, xp, f1, zp).color(r, g, b, alpha2).endVertex());
+		}
+		RenderHelper.triangleFan(centerFunc, vertexFuncs);
+		ms.pop();
+	}
+
+	public static void renderRectangle(MatrixStack ms, IRenderTypeBuffer buffers, AxisAlignedBB aabb, boolean inner, @Nullable Integer color, byte alpha) {
+		ms.push();
+		ms.translate(aabb.minX, aabb.minY, aabb.minZ);
+
+		if (color == null) {
+			color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		}
+		int r = (color >> 16 & 0xFF);
+		int g = (color >> 8 & 0xFF);
+		int b = (color & 0xFF);
+
+		float f = 1F / 16F;
+		float x = (float) (aabb.maxX - aabb.minX - f);
+		float z = (float) (aabb.maxZ - aabb.minZ - f);
+
+		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
+		Matrix4f mat = ms.getLast().getMatrix();
+		buffer.pos(mat, x, f, f).color(r, g, b, alpha).endVertex();
+		buffer.pos(mat, f, f, f).color(r, g, b, alpha).endVertex();
+		buffer.pos(mat, f, f, z).color(r, g, b, alpha).endVertex();
+		buffer.pos(mat, x, f, z).color(r, g, b, alpha).endVertex();
+
+		if (inner) {
+			x += f;
+			z += f;
+			float f1 = f + f / 4F;
+			alpha *= 2;
+			buffer.pos(mat, x, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, 0, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, 0, f1, z).color(r, g, b, alpha).endVertex();
+			buffer.pos(mat, x, f1, z).color(r, g, b, alpha).endVertex();
+		}
+
+		ms.pop();
 	}
 }

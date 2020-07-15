@@ -59,7 +59,7 @@ public final class ModEntities {
 			.setShouldReceiveVelocityUpdates(true)
 			.build("");
 	public static final EntityType<EntityMagicLandmine> MAGIC_LANDMINE = EntityType.Builder.<EntityMagicLandmine>create(EntityMagicLandmine::new, EntityClassification.MISC)
-			.size(0, 0)
+			.size(5F, 0.1F)
 			.setTrackingRange(128)
 			.setUpdateInterval(40)
 			.setShouldReceiveVelocityUpdates(false)
