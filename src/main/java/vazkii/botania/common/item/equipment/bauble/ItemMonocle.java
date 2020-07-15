@@ -92,7 +92,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		mc.fontRenderer.drawStringWithShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 	}
 
-	public static boolean hasMonocle(PlayerEntity player) {
+	public static boolean hasMonocle(LivingEntity living) {
 		return !EquipmentHandler.findOrEmpty(stack -> {
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
@@ -106,7 +106,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 				}
 			}
 			return false;
-		}, player).isEmpty();
+		}, living).isEmpty();
 	}
 
 }

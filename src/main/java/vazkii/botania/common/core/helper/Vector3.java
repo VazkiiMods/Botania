@@ -9,6 +9,7 @@
 package vazkii.botania.common.core.helper;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;

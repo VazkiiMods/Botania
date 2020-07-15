@@ -53,31 +53,6 @@ public final class BlockHighlightRenderHandler {
 
 		ms.push();
 
-		if (Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
-
-			ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
-			if (!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
-				Optional<BlockPos> coords = ItemTwigWand.getBindingAttempt(stackHeld);
-				if (coords.isPresent()) {
-					bPos = coords.get();
-				}
-			}
-
-			TileEntity tile = mc.world.getTileEntity(bPos);
-			if (tile instanceof TileEntitySpecialFlower) {
-				TileEntitySpecialFlower subtile = (TileEntitySpecialFlower) tile;
-				RadiusDescriptor descriptor = subtile.getRadius();
-				if (descriptor != null) {
-					if (descriptor.isCircle()) {
-						renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
-					} else {
-						renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
-					}
-				}
-			}
-		}
-
 		double offY = -1.0 / 16 + 0.005;
 		for (Entity e : mc.world.getAllEntities()) {
 			if (e instanceof EntityMagicLandmine) {
@@ -106,13 +81,9 @@ public final class BlockHighlightRenderHandler {
 		buffers.finish();
 	}
 
-	private static void renderRectangle(MatrixStack ms, IRenderTypeBuffer buffers, AxisAlignedBB aabb, boolean inner, @Nullable Integer color, byte alpha) {
-		double renderPosX = Minecraft.getInstance().getRenderManager().info.getProjectedView().getX();
-		double renderPosY = Minecraft.getInstance().getRenderManager().info.getProjectedView().getY();
-		double renderPosZ = Minecraft.getInstance().getRenderManager().info.getProjectedView().getZ();
-
+	public static void renderRectangle(MatrixStack ms, IRenderTypeBuffer buffers, AxisAlignedBB aabb, boolean inner, @Nullable Integer color, byte alpha) {
 		ms.push();
-		ms.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
+		ms.translate(aabb.minX, aabb.minY, aabb.minZ);
 
 		if (color == null) {
 			color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
@@ -146,16 +117,12 @@ public final class BlockHighlightRenderHandler {
 		ms.pop();
 	}
 
-	private static void renderCircle(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos center, double radius) {
-		double renderPosX = Minecraft.getInstance().getRenderManager().info.getProjectedView().getX();
-		double renderPosY = Minecraft.getInstance().getRenderManager().info.getProjectedView().getY();
-		double renderPosZ = Minecraft.getInstance().getRenderManager().info.getProjectedView().getZ();
-
+	public static void renderCircle(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos center, double radius) {
 		ms.push();
 		double x = center.getX() + 0.5;
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
-		ms.translate(x - renderPosX, y - renderPosY, z - renderPosZ);
+		ms.translate(x, y, z);
 		int color = MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);

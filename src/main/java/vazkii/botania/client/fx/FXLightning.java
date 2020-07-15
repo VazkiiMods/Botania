@@ -11,8 +11,8 @@ package vazkii.botania.client.fx;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -29,11 +29,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
@@ -166,7 +167,7 @@ public class FXLightning extends Particle {
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
 		Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
-		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY()  - pos.y, (float) renderEntity.getPosZ() - pos.z);
+		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY() - pos.y, (float) renderEntity.getPosZ() - pos.z);
 	}
 
 	private static final IParticleRenderType LAYER = new IParticleRenderType() {

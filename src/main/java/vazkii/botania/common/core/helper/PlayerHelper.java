@@ -13,6 +13,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -51,13 +52,13 @@ public final class PlayerHelper {
 				|| !player.getHeldItemOffhand().isEmpty() && template.isAssignableFrom(player.getHeldItemOffhand().getItem().getClass());
 	}
 
-	public static ItemStack getFirstHeldItem(PlayerEntity player, Item item) {
-		return getFirstHeldItem(player, s -> s.getItem() == item);
+	public static ItemStack getFirstHeldItem(LivingEntity living, Item item) {
+		return getFirstHeldItem(living, s -> s.getItem() == item);
 	}
 
-	public static ItemStack getFirstHeldItem(PlayerEntity player, Predicate<ItemStack> pred) {
-		ItemStack main = player.getHeldItemMainhand();
-		ItemStack offhand = player.getHeldItemOffhand();
+	public static ItemStack getFirstHeldItem(LivingEntity living, Predicate<ItemStack> pred) {
+		ItemStack main = living.getHeldItemMainhand();
+		ItemStack offhand = living.getHeldItemOffhand();
 		if (!main.isEmpty() && pred.test(main)) {
 			return main;
 		} else if (!offhand.isEmpty() && pred.test(offhand)) {

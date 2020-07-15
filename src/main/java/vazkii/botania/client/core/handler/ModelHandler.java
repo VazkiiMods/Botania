@@ -60,11 +60,10 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ENCHANTER, RenderTileEnchanter::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ALF_PORTAL, RenderTileAlfPortal::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.MINI_ISLAND, RenderTileFloatingFlower::new);
-		// TODO 1.14 this seems highly questionable.
 		ModSubtiles.getTypes().stream()
 				.map(Pair::getSecond)
 				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
-				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileFloatingFlower::new));
+				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileSpecialFlower::new));
 		ClientRegistry.bindTileEntityRenderer(ModTiles.TINY_POTATO, RenderTileTinyPotato::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.STARFIELD, RenderTileStarfield::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.BREWERY, RenderTileBrewery::new);

@@ -1,6 +1,15 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.fx;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -9,6 +18,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
 import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.*;
@@ -62,7 +72,7 @@ public class LightningSegmentGenerator {
 			for (int i = 1; i < BRANCH_FACTOR; i++) {
 				Vector3 basepoint = startpoint.add(subsegment.multiply(i));
 				Vector3 randoff = segment.diff.perpendicular().normalize().rotate(rand.nextFloat() * 360, segment.diff)
-					.multiply((rand.nextFloat() - 0.5F) * amount * 2);
+						.multiply((rand.nextFloat() - 0.5F) * amount * 2);
 				newpoints[i] = new FXLightningBoltPoint(basepoint, randoff);
 			}
 
