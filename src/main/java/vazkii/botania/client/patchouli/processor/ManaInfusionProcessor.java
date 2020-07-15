@@ -19,6 +19,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.KeybindTextComponent;
 import net.minecraft.util.text.TextFormatting;
 
+import net.minecraft.util.text.TranslationTextComponent;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
@@ -94,7 +95,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		case "dropTip0":
 		case "dropTip1":
 			ITextComponent drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN);
-			return IVariable.wrap(I18n.format("botaniamisc.dropTip" + key.substring(7), drop));
+			return IVariable.from(new TranslationTextComponent("botaniamisc." + key, drop));
 		}
 		return null;
 	}
