@@ -1793,7 +1793,7 @@
   "botania.page.pool10": "Making a $(item)Diluted Mana Pool$(0)",
   "botania.page.pool14": "The $(item)Diluted Mana Pool$(0) can be useful as a small buffer for a flower or system that doesn't use much $(thing)Mana$(0), as a normal pool holds a $(o)lot$() of it. Thanks to that, $(thing)Mana$(0) readings for a normal pool won't be very precise: due to its scale, the displayed bar's size on a normal pool will increase very slowly.",
   "botania.page.pool2": "Tossing certain resources into a $(item)Mana Pool$(0) will infuse them with $(thing)Mana$(0) from the pool, turning them into more magically-useful forms, like $(item)Manasteel Ingots$(0) or $(item)Mana Pearls$(0).$(p)A $(thing)Wand of the Forest$(0) can read the $(item)Mana$(0) levels in a pool, much like a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l). A $(item)Redstone Comparator$(0) can also output a signal based on percentage full.",
-  "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any color of $(l:basics/flowers)$(item)Floral Powder$(0)$(/l) on a pool will have give the pool its color, for decoration or easier labelling.",
+  "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any color of $(item)Dye$(0) on a pool will have give the pool its color, for decoration or easier labelling.",
   "botania.page.pool3": "Infusing $(item)Manasteel$(0)",
   "botania.page.pool4": "Infusing $(item)Mana Pearls$(0)",
   "botania.page.pool5": "Infusing $(item)Mana Diamonds$(0)",
@@ -1808,7 +1808,7 @@
   "botania.tagline.sparks": "Simple and fast short-range Mana transporters",
   "botania.page.sparks0": "$(item)Sparks$(0) are interesting things. Created from a combination of raw energy and $(thing)Mana$(0), they can be placed only on a few specific $(thing)Mana$(0)-containing or -accepting blocks (notably $(l:mana/pool)$(item)Mana Pools$(0)$(/l)).$(p)Certain blocks have the ability to harness $(thing)Mana$(0) from $(item)Sparks$(0), but as of now their uses are sparse.",
   "botania.page.sparks1": "Placing a $(item)Spark$(0) over a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) and another over a nearby block that can accept it will allow the latter to access the former's reserves on demand.$(p)To remove a $(item)Spark$(0), simply sneak-right click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l). Regular right-clicking will show which other $(item)Sparks$(0) this one can transfer to.",
-  "botania.page.sparks3": "Sparks can be dyed with $(l:basics/flowers)$(item)Floral Powders$(0)$(/l); sparks with different colors will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
+  "botania.page.sparks3": "Sparks can be dyed with $(item)Dye$(0); sparks with different colors will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
   "botania.page.sparks2": "$(o)holds up spork$()",
 
   "botania.entry.sparkUpgrades": "Spark Augments",
@@ -2789,7 +2789,7 @@
   "botania.page.corporea2": "When a $(item)Corporea Spark$(0) is placed or right-clicked, each spark in the network will connect (or reconnect) to nearby sparks, adding them to the network (as long as a $(item)Master Corporea Spark$(0) is somewhere in the network). While each individual spark's connection range is only around eight blocks, the entire spark network can go for a virtually infinite distance.",
   "botania.page.corporea3": "A $(item)Corporea Spark$(0) can see the inventory directly beneath it, but can only access items from its top side. Each $(item)Corporea Spark$(0) can see the items of every other spark in the network, and certain blocks can use their Sparks to request items from the network.",
   "botania.page.corporea4": "The $(item)Master Corporea Spark$(0), unfortunately, is too busy managing the network to see its own inventory.$(p)Furthermore, $(item)Corporea Sparks$(0) can't push items $(o)into$() their respective inventories; those should be added through means like $(item)Hoppers$(0).",
-  "botania.page.corporea5": "Like normal $(l:mana/sparks)$(item)Sparks$(0)$(/l), $(item)Corporea Sparks$(0) can be dyed with $(l:basics/flowers)$(item)Floral Powder$(0)$(/l); the little star icon floating around the spark shows its current color. $(item)Corporea Sparks$(0) of different colors won't interact. Thus, multiple independent Networks can be in an area without interacting.",
+  "botania.page.corporea5": "Like normal $(l:mana/sparks)$(item)Sparks$(0)$(/l), $(item)Corporea Sparks$(0) can be dyed with $(item)Dye$(0); the little star icon floating around the spark shows its current color. $(item)Corporea Sparks$(0) of different colors won't interact. Thus, multiple independent Networks can be in an area without interacting.",
   "botania.page.corporea6": "Visualizing a Network and removing a spark from a container are performed the same way they are on ordinary $(l:mana/sparks)$(item)Sparks$(0)$(/l).$(p)Note that having two $(item)Master Corporea Sparks$(0) in the same network is a bad idea and can cause $(o)undefined behavior$().",
   "botania.page.corporea7": "A spark of ingenuity",
   "botania.page.corporea8": "Love-colored",
@@ -3225,7 +3225,7 @@
 
   "botania.entry.mushrooms": "Shimmering Mushrooms",
   "botania.tagline.mushrooms": "Touch fuzzy, but don't get dizzy",
-  "botania.page.mushrooms0": "Sprinkling some $(l:basics/flowers)$(item)Floral Powder$(0)$(/l) on a $(item)Mushrooms$(0) seems to mutate the latter. The $(item)Mushroom$(0) changes shape, takes on the color of the powder, and glows dimly; in addition, it's usable as a substitute $(l:basics/flowers)$(item)Mystical Petal$(0)$(/l). $(p)$(item)Shimmering Mushrooms$(0) can also be seldom found deep underground in isolated patches.",
+  "botania.page.mushrooms0": "Sprinkling some $(item)Dye$(0) on a $(item)Mushrooms$(0) seems to mutate the latter. The $(item)Mushroom$(0) changes shape, takes on the color of the dye, and glows dimly; in addition, it's usable as a substitute $(l:basics/flowers)$(item)Mystical Petal$(0)$(/l). $(p)$(item)Shimmering Mushrooms$(0) can also be seldom found deep underground in isolated patches.",
   "botania.page.mushrooms1": "They don't make you bigger",
 
   "botania.entry.phantomInk": "Phantom Ink",
