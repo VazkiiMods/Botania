@@ -69,10 +69,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 					FluidState fstate = getWorld().getFluidState(pos);
 					ITag<Fluid> search = getMaterialToSearchFor();
-					if (fstate.isTagged(search)
-							&& (getBlockToSearchBelow() == null
-									|| getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow())
-							&& fstate.isSource()) {
+					if (fstate.isTagged(search) && fstate.isSource()) {
 						if (search != FluidTags.WATER) {
 							getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 						} else {
@@ -119,10 +116,6 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	public ITag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.WATER;
-	}
-
-	public Block getBlockToSearchBelow() {
-		return null;
 	}
 
 	public void playSound() {

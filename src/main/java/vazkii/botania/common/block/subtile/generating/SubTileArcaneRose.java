@@ -30,7 +30,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getMana() >= getMaxMana()) {
+		if (world.isRemote || getMana() >= getMaxMana()) {
 			return;
 		}
 
@@ -39,6 +39,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.func_233570_aj_()) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				addMana(50);
+				sync();
 				return;
 			}
 		}
@@ -48,6 +49,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 			if (orb.isAlive()) {
 				addMana(orb.getXpValue() * 35);
 				orb.remove();
+				sync();
 				return;
 			}
 		}
