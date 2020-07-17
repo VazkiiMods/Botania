@@ -38,10 +38,6 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 	@Override
 	public void render(@Nonnull TileAltar altar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (!altar.getWorld().isBlockLoaded(altar.getPos())) {
-			return;
-		}
-
 		ms.push();
 		ms.translate(0.5, 1.5, 0.5);
 

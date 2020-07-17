@@ -46,11 +46,6 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 	@Override
 	public void render(@Nullable TilePool pool, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
-				|| !(pool.getBlockState().getBlock() instanceof BlockPool))) {
-			return;
-		}
-
 		ms.push();
 
 		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;

@@ -47,13 +47,6 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 
 	@Override
 	public void render(@Nullable TileAvatar avatar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (avatar != null) {
-			if (!avatar.getWorld().isBlockLoaded(avatar.getPos())
-					|| avatar.getBlockState().getBlock() != ModBlocks.avatar) {
-				return;
-			}
-		}
-
 		ms.push();
 		Direction facing = avatar != null && avatar.getWorld() != null ? avatar.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING) : Direction.SOUTH;
 
