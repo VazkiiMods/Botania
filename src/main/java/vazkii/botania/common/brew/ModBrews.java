@@ -20,9 +20,8 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
-import vazkii.botania.common.lib.LibObfuscation;
 
-import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static vazkii.botania.common.block.ModBlocks.register;
@@ -58,10 +57,11 @@ public class ModBrews {
 
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
 		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
-		MethodHandle makeBuilder = LibObfuscation.getMethod(GameData.class, "makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
 		try {
+			Method makeBuilder = GameData.class.getDeclaredMethod("makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
+			makeBuilder.setAccessible(true);
 			@SuppressWarnings("unchecked")
-			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invokeExact(prefix("brews"), Brew.class, prefix("fallback"));
+			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invoke(null, prefix("brews"), Brew.class, prefix("fallback"));
 			builder.disableSaving().create();
 			// grab the vanilla wrapper for use
 			registry = GameData.getWrapperDefaulted(Brew.class);

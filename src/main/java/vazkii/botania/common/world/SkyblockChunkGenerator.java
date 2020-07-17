@@ -12,7 +12,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
@@ -24,16 +23,10 @@ import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.NoiseSettings;
-import net.minecraft.world.gen.settings.ScalingSettings;
-import net.minecraft.world.gen.settings.SlideSettings;
 import net.minecraft.world.server.ServerChunkProvider;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.lib.LibObfuscation;
-
-import java.lang.invoke.MethodHandle;
-import java.util.Optional;
+import vazkii.botania.mixin.MixinDimensionSettingsPreset;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -47,15 +40,8 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 
 	public static void init() {
 		Registry.register(Registry.field_239690_aB_, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
-		MethodHandle createOverWorldPreset = LibObfuscation.getMethod(DimensionSettings.Preset.class, "func_236135_a_", DimensionStructuresSettings.class, boolean.class, DimensionSettings.Preset.class);
-		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock", preset -> {
-			// [VanillaCopy] overworld preset creation
-			try {
-				return (DimensionSettings) createOverWorldPreset.invokeExact(new DimensionStructuresSettings(true), false, preset);
-			} catch (Throwable throwable) {
-				throw new RuntimeException(throwable);
-			}
-		});
+		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock",
+				preset -> MixinDimensionSettingsPreset.createOverworldSettings(new DimensionStructuresSettings(true), false, preset));
 	}
 
 	private final long seed;

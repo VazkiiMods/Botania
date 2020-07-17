@@ -82,7 +82,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if (block instanceof BlockModFlower) {
-					int hex = ((BlockModFlower) block).color.colorValue;
+					int hex = ((BlockModFlower) block).color.getColorValue();
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;

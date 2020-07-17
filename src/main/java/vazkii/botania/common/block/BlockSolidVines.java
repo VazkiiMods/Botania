@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.server.ServerWorld;
 
+import vazkii.botania.mixin.MixinFireBlock;
+
 import javax.annotation.Nonnull;
 
 import java.util.Random;
@@ -25,7 +27,7 @@ public class BlockSolidVines extends VineBlock {
 
 	public BlockSolidVines(Properties builder) {
 		super(builder);
-		((FireBlock) Blocks.FIRE).setFireInfo(this, 15, 100);
+		((MixinFireBlock) Blocks.FIRE).callSetFireInfo(this, 15, 100);
 	}
 
 	@Override

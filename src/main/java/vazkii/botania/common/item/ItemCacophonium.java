@@ -29,24 +29,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.MixinMobEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.lang.invoke.MethodHandle;
 import java.util.List;
 
 public class ItemCacophonium extends Item {
 
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
-	private static final MethodHandle GET_AMBIENT_SOUND = LibObfuscation.getMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND);
 
 	public ItemCacophonium(Properties props) {
 		super(props);
@@ -63,11 +60,7 @@ public class ItemCacophonium extends Item {
 			} else if (living instanceof SlimeEntity) {
 				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			} else {
-				try {
-					sound = (SoundEvent) GET_AMBIENT_SOUND.invokeExact(living);
-				} catch (Throwable ex) {
-					Botania.LOGGER.debug("Couldn't get living sound", ex);
-				}
+				sound = ((MixinMobEntity) living).callGetAmbientSound();
 			}
 
 			if (sound != null) {

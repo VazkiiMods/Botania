@@ -55,7 +55,7 @@ public class BlockModDoubleFlower extends TallFlowerBlock {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		int hex = color.colorValue;
+		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

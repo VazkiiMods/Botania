@@ -33,7 +33,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).get(id);
+		IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.BREW_TYPE).get(id);
 		if (recipe instanceof IBrewRecipe) {
 			this.recipe = (IBrewRecipe) recipe;
 		} else {

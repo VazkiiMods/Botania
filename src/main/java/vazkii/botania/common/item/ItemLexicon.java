@@ -18,6 +18,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -101,5 +103,10 @@ public class ItemLexicon extends Item implements IElvenItem {
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
+	}
+
+	// Random item to expose this as public
+	public static BlockRayTraceResult doRayTrace(World world, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
+		return Item.rayTrace(world, player, fluidMode);
 	}
 }

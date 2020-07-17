@@ -66,7 +66,7 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		int hex = color.colorValue;
+		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -92,6 +92,6 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return color.colorValue;
+		return color.getColorValue();
 	}
 }

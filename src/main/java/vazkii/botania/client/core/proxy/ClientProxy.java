@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeBuffers;
@@ -75,16 +74,14 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.MixinBiomeGeneratorTypeScreens;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandle;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
@@ -95,7 +92,6 @@ public class ClientProxy implements IProxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
-	private static final MethodHandle REGISTER_PROPERTY_GETTER = LibObfuscation.getMethod(ItemModelsProperties.class, "func_239418_a_", Item.class, ResourceLocation.class, IItemPropertyGetter.class);
 
 	public static KeyBinding CORPOREA_REQUEST;
 
@@ -160,14 +156,7 @@ public class ClientProxy implements IProxy {
 		registerRenderTypes();
 
 		DeferredWorkQueue.runLater(() -> {
-			MethodHandle worldTypesGetter = LibObfuscation.getGetter(BiomeGeneratorTypeScreens.class, "field_239068_c_");
-			try {
-				@SuppressWarnings("unchecked")
-				List<BiomeGeneratorTypeScreens> worldTypes = (List<BiomeGeneratorTypeScreens>) worldTypesGetter.invokeExact();
-				worldTypes.add(WorldTypeSkyblock.INSTANCE);
-			} catch (Throwable throwable) {
-				throw new RuntimeException(throwable);
-			}
+			MixinBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
@@ -177,11 +166,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	private static void registerPropertyGetter(IItemProvider item, ResourceLocation id, IItemPropertyGetter propGetter) {
-		try {
-			REGISTER_PROPERTY_GETTER.invokeExact(item.asItem(), id, propGetter);
-		} catch (Throwable throwable) {
-			throw new RuntimeException(throwable);
-		}
+		ItemModelsProperties.func_239418_a_(item.asItem(), id, propGetter);
 	}
 
 	private static void registerPropertyGetters() {

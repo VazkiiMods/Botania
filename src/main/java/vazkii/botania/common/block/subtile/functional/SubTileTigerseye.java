@@ -21,6 +21,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.mixin.MixinAvoidEntityGoal;
+import vazkii.botania.mixin.MixinCreeperEntity;
+import vazkii.botania.mixin.MixinGoalSelector;
+import vazkii.botania.mixin.MixinNearestAttackableTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +52,8 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
 		for (MobEntity entity : entities) {
-			List<PrioritizedGoal> entries = new ArrayList<>(entity.goalSelector.goals);
-			entries.addAll(entity.targetSelector.goals);
+			List<PrioritizedGoal> entries = new ArrayList<>(((MixinGoalSelector) entity.goalSelector).getGoals());
+			entries.addAll(((MixinGoalSelector) entity.targetSelector).getGoals());
 
 			boolean avoidsOcelots = false;
 			if (shouldAfffect) {
@@ -65,7 +69,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 			}
 
 			if (entity instanceof CreeperEntity) {
-				((CreeperEntity) entity).timeSinceIgnited = 2;
+				((MixinCreeperEntity) entity).setTimeSinceIgnited(2);
 				entity.setAttackTarget(null);
 			}
 
@@ -80,8 +84,9 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	// TODO replace this kludge
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private boolean messWithRunAwayAI(AvoidEntityGoal aiEntry) {
-		if (aiEntry.classToAvoid == OcelotEntity.class) {
-			aiEntry.classToAvoid = PlayerEntity.class;
+		MixinAvoidEntityGoal mEntry = (MixinAvoidEntityGoal) aiEntry;
+		if (mEntry.getClassToAvoid() == OcelotEntity.class) {
+			mEntry.setClassToAvoid(PlayerEntity.class);
 			return true;
 		}
 		return false;
@@ -89,8 +94,9 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void messWithGetTargetAI(NearestAttackableTargetGoal aiEntry) {
-		if (aiEntry.targetClass == PlayerEntity.class) {
-			aiEntry.targetClass = EnderCrystalEntity.class; // Something random that won't be around
+		MixinNearestAttackableTarget mEntry = (MixinNearestAttackableTarget) aiEntry;
+		if (mEntry.getTargetClass() == PlayerEntity.class) {
+			mEntry.setTargetClass(EnderCrystalEntity.class); // Something random that won't be around
 		}
 	}
 

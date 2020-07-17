@@ -49,6 +49,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
+import vazkii.botania.common.item.ItemLexicon;
 
 import javax.annotation.Nullable;
 
@@ -386,7 +387,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		if (!player.isSneaking()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		} else {
-			BlockRayTraceResult bpos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
+			BlockRayTraceResult bpos = ItemLexicon.doRayTrace(world, player, RayTraceContext.FluidMode.NONE);
 			if (!world.isRemote) {
 				double x = bpos.getHitVec().x - getPos().getX() - 0.5;
 				double y = bpos.getHitVec().y - getPos().getY() - 0.5;

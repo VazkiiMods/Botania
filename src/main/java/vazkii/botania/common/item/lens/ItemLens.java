@@ -134,7 +134,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 			return MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 		}
 
-		return DyeColor.byId(storedColor).colorValue;
+		return DyeColor.byId(storedColor).getColorValue();
 	}
 
 	public static int getStoredColor(ItemStack stack) {

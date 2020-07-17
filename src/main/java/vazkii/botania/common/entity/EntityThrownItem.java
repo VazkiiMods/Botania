@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.mixin.MixinItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +36,7 @@ public class EntityThrownItem extends ItemEntity {
 	public EntityThrownItem(World world, double x,
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
-		setPickupDelay(item.pickupDelay);
+		setPickupDelay(((MixinItemEntity) item).getPickupDelay());
 		setMotion(item.getMotion());
 		setInvulnerable(true);
 	}
@@ -65,6 +66,7 @@ public class EntityThrownItem extends ItemEntity {
 			Entity entity = null;
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().offset(getMotion().scale(2)).grow(2));
 			double d0 = 0.0D;
+			int pickupDelay = ((MixinItemEntity) this).getPickupDelay();
 
 			for (Entity entity1 : list) {
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof PlayerEntity) || pickupDelay == 0)) {

@@ -41,11 +41,9 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nullable;
 
-import java.lang.invoke.MethodHandle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -392,8 +390,6 @@ public final class RenderHelper {
 
 	}
 
-	private static final MethodHandle RENDER_BAKED_ITEM_MODEL = LibObfuscation.getMethod(ItemRenderer.class, "func_229114_a_", IBakedModel.class, ItemStack.class, int.class, int.class, MatrixStack.class, IVertexBuilder.class);
-
 	// [VanillaCopy] Portions of ItemRenderer.renderItem
 	// Does not support TEISRs
 	public static void renderItemModelGold(@Nullable LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType transform, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable World world, int light, int overlay) {
@@ -411,11 +407,7 @@ public final class RenderHelper {
 			ms.translate(-0.5D, -0.5D, -0.5D);
 			if (!ibakedmodel.isBuiltInRenderer() && (stack.getItem() != Items.TRIDENT || flag1)) {
 				IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasEffect());
-				try {
-					RENDER_BAKED_ITEM_MODEL.invokeExact(ir, ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
-				} catch (Throwable ex) {
-					throw new RuntimeException("Error calling renderBakedItemModel", ex);
-				}
+				ir.renderModel(ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
 			}
 
 			ms.pop();
