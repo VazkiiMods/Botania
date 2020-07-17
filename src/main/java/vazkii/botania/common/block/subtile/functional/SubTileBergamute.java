@@ -35,6 +35,12 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 		}
 	}
 
+	@Override
+	public void remove() {
+		super.remove();
+		existingFlowers.remove(this);
+	}
+
 	// todo seems expensive when we have lots of sounds cache maybe?
 	protected static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
 		return existingFlowers.stream()

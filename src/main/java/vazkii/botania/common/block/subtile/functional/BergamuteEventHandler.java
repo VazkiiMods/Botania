@@ -58,6 +58,8 @@ public class BergamuteEventHandler {
 	private static boolean shouldSilence(ISound sound) {
 		return sound.getCategory() != SoundCategory.VOICE
 				&& sound.getCategory() != SoundCategory.MUSIC
+				&& sound.getCategory() != SoundCategory.RECORDS
+				&& sound.getCategory() != SoundCategory.AMBIENT
 				&& sound.getClass().getName().startsWith("net.minecraft.client.audio");
 	}
 
