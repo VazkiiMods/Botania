@@ -169,11 +169,11 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void emptyManaIntoCollector() {
-		if (linkedCollector != null && isValidBinding()) {
+		if (isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
 			if (!collector.isFull() && getMana() > 0) {
 				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				mana = getMana() - manaval;
+				addMana(manaval);
 				collector.receiveMana(manaval);
 			}
 		}
