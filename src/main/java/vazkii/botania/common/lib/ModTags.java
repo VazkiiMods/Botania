@@ -100,6 +100,8 @@ public class ModTags {
 		public static final ITag.INamedTag<Item> RUNES_WINTER = tag("runes/winter");
 		public static final ITag.INamedTag<Item> RUNES_WRATH = tag("runes/wrath");
 
+		public static final ITag.INamedTag<Item> BURST_VIEWERS = tag("burst_viewers");
+
 		public static ITag.INamedTag<Item> getFlowerTag(DyeColor color) {
 			switch (color) {
 			default:

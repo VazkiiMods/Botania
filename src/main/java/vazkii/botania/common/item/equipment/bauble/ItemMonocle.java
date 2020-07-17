@@ -34,12 +34,12 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.lib.ModTags;
 
-public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
+public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 
 	public ItemMonocle(Properties props) {
 		super(props);
@@ -96,13 +96,13 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		return !EquipmentHandler.findOrEmpty(stack -> {
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
-				if (item instanceof IBurstViewerBauble) {
+				if (item.isIn(ModTags.Items.BURST_VIEWERS)) {
 					return true;
 				}
 				if (item instanceof ICosmeticAttachable) {
 					ICosmeticAttachable attach = (ICosmeticAttachable) item;
 					ItemStack cosmetic = attach.getCosmeticItem(stack);
-					return !cosmetic.isEmpty() && cosmetic.getItem() instanceof IBurstViewerBauble;
+					return !cosmetic.isEmpty() && cosmetic.getItem().isIn(ModTags.Items.BURST_VIEWERS);
 				}
 			}
 			return false;

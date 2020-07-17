@@ -54,6 +54,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.func_240522_a_(ItemTags.TALL_FLOWERS).func_240531_a_(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.func_240522_a_(ItemTags.SMALL_FLOWERS).func_240531_a_(ModTags.Items.MYSTICAL_FLOWERS);
 		this.func_240522_a_(ItemTags.FLOWERS).func_240531_a_(ModTags.Items.SPECIAL_FLOWERS);
+
+		this.func_240522_a_(ModTags.Items.BURST_VIEWERS).func_240532_a_(ModItems.monocle);
 	}
 
 	@Nonnull
