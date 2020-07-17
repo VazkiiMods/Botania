@@ -17,6 +17,8 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 
+import javax.annotation.Nullable;
+
 import java.util.*;
 import java.util.function.BinaryOperator;
 
@@ -45,7 +47,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	@Override
 	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
 		if (manaPools.containsKey(world)) {
-			return getClosest(manaPools.get(world), pos, world.isRemote, limit);
+			return getClosest(manaPools.get(world), pos, limit);
 		}
 		return null;
 	}
@@ -53,7 +55,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	@Override
 	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
 		if (manaCollectors.containsKey(world)) {
-			return getClosest(manaCollectors.get(world), pos, world.isRemote, limit);
+			return getClosest(manaCollectors.get(world), pos, limit);
 		}
 		return null;
 	}
@@ -71,12 +73,22 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return set != null && set.contains(tile);
 	}
 
-	private TileEntity getClosest(Set<TileEntity> tiles, BlockPos pos, boolean remoteCheck, int limit) {
-		return tiles.stream()
-				.filter(t -> t.getWorld().isRemote == remoteCheck && !t.isRemoved()
-						&& t.getPos().distanceSq(pos) <= limit * limit)
-				.reduce(BinaryOperator.minBy(Comparator.comparing(t -> t.getPos().distanceSq(pos), Double::compare)))
-				.orElse(null);
+	@Nullable
+	private TileEntity getClosest(Set<TileEntity> tiles, BlockPos pos, int limit) {
+		double minDist = Double.MAX_VALUE;
+		TileEntity closest = null;
+
+		for (TileEntity te : tiles) {
+			if (!te.isRemoved()) {
+				double distance = te.getPos().distanceSq(pos);
+				if (distance <= limit * limit && distance < minDist) {
+					minDist = distance;
+					closest = te;
+				}
+			}
+		}
+
+		return closest;
 	}
 
 	private void remove(Map<World, Set<TileEntity>> map, TileEntity tile) {
@@ -105,7 +117,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private Set<TileEntity> getAllInWorld(Map<World, Set<TileEntity>> map, World world) {
-		return map.getOrDefault(world, new HashSet<>());
+		Set<TileEntity> ret = map.get(world);
+		if (ret == null) {
+			return Collections.emptySet();
+		} else {
+			return Collections.unmodifiableSet(ret);
+		}
 	}
 
 }
