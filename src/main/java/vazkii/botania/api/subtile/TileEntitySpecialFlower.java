@@ -237,30 +237,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
 
 	/**
-	 * Called when a player right clicks this sub tile.
-	 */
-	public ActionResultType onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		return ActionResultType.PASS;
-	}
-
-	/**
-	 * Called when this sub tile is added to the world.
-	 */
-	public void onBlockAdded(World world, BlockPos pos, BlockState state) {}
-
-	/**
-	 * Called when this sub tile is harvested
-	 */
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {}
-
-	/**
-	 * Allows additional processing of sub tile drops
-	 */
-	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
-		return list;
-	}
-
-	/**
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
@@ -301,20 +277,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 */
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(MatrixStack ms, Minecraft mc) {}
-
-	/**
-	 * Gets the comparator input value for this SubTileEntity
-	 */
-	public int getComparatorInputOverride() {
-		return 0;
-	}
-
-	/**
-	 * Gets the redstone power level for this SubTileEntity
-	 */
-	public int getPowerLevel(Direction side) {
-		return 0;
-	}
 
 	/**
 	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.
