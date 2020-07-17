@@ -432,69 +432,203 @@ public class ModSubtiles {
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
-		Registry<Block> b = Registry.BLOCK;
 		IForgeRegistry<Item> r = evt.getRegistry();
 		Item.Properties props = ModItems.defaultBuilder();
 
-		for (Pair<Supplier<? extends TileEntitySpecialFlower>, ResourceLocation> type : getTypes()) {
-			Block block = b.getValue(type.getSecond()).get();
-			Block floating = b.getValue(floating(type.getSecond())).get();
+		register(r, getId(pureDaisy), new ItemBlockSpecialFlower(pureDaisy, props));
+		register(r, getId(pureDaisyFloating), new ItemBlockSpecialFlower(pureDaisyFloating, props));
 
-			register(r, type.getSecond(), new ItemBlockSpecialFlower(block, props));
-			register(r, floating(type.getSecond()), new ItemBlockSpecialFlower(floating, props));
-		}
+		register(r, getId(manastar), new ItemBlockSpecialFlower(manastar, props));
+		register(r, getId(manastarFloating), new ItemBlockSpecialFlower(manastarFloating, props));
+
+		register(r, getId(hydroangeas), new ItemBlockSpecialFlower(hydroangeas, props));
+		register(r, getId(hydroangeasFloating), new ItemBlockSpecialFlower(hydroangeasFloating, props));
+
+		register(r, getId(endoflame), new ItemBlockSpecialFlower(endoflame, props));
+		register(r, getId(endoflameFloating), new ItemBlockSpecialFlower(endoflameFloating, props));
+
+		register(r, getId(thermalily), new ItemBlockSpecialFlower(thermalily, props));
+		register(r, getId(thermalilyFloating), new ItemBlockSpecialFlower(thermalilyFloating, props));
+
+		register(r, getId(rosaArcana), new ItemBlockSpecialFlower(rosaArcana, props));
+		register(r, getId(rosaArcanaFloating), new ItemBlockSpecialFlower(rosaArcanaFloating, props));
+
+		register(r, getId(munchdew), new ItemBlockSpecialFlower(munchdew, props));
+		register(r, getId(munchdewFloating), new ItemBlockSpecialFlower(munchdewFloating, props));
+
+		register(r, getId(entropinnyum), new ItemBlockSpecialFlower(entropinnyum, props));
+		register(r, getId(entropinnyumFloating), new ItemBlockSpecialFlower(entropinnyumFloating, props));
+
+		register(r, getId(kekimurus), new ItemBlockSpecialFlower(kekimurus, props));
+		register(r, getId(kekimurusFloating), new ItemBlockSpecialFlower(kekimurusFloating, props));
+
+		register(r, getId(gourmaryllis), new ItemBlockSpecialFlower(gourmaryllis, props));
+		register(r, getId(gourmaryllisFloating), new ItemBlockSpecialFlower(gourmaryllisFloating, props));
+
+		register(r, getId(narslimmus), new ItemBlockSpecialFlower(narslimmus, props));
+		register(r, getId(narslimmusFloating), new ItemBlockSpecialFlower(narslimmusFloating, props));
+
+		register(r, getId(spectrolus), new ItemBlockSpecialFlower(spectrolus, props));
+		register(r, getId(spectrolusFloating), new ItemBlockSpecialFlower(spectrolusFloating, props));
+
+		register(r, getId(dandelifeon), new ItemBlockSpecialFlower(dandelifeon, props));
+		register(r, getId(dandelifeonFloating), new ItemBlockSpecialFlower(dandelifeonFloating, props));
+
+		register(r, getId(rafflowsia), new ItemBlockSpecialFlower(rafflowsia, props));
+		register(r, getId(rafflowsiaFloating), new ItemBlockSpecialFlower(rafflowsiaFloating, props));
+
+		register(r, getId(shulkMeNot), new ItemBlockSpecialFlower(shulkMeNot, props));
+		register(r, getId(shulkMeNotFloating), new ItemBlockSpecialFlower(shulkMeNotFloating, props));
+
+		register(r, getId(bellethorn), new ItemBlockSpecialFlower(bellethorn, props));
+		register(r, getId(bellethornChibi), new ItemBlockSpecialFlower(bellethornChibi, props));
+		register(r, getId(bellethornFloating), new ItemBlockSpecialFlower(bellethornFloating, props));
+		register(r, getId(bellethornChibiFloating), new ItemBlockSpecialFlower(bellethornChibiFloating, props));
+
+		register(r, getId(bergamute), new ItemBlockSpecialFlower(bergamute, props));
+		register(r, getId(bergamuteFloating), new ItemBlockSpecialFlower(bergamuteFloating, props));
+
+		register(r, getId(dreadthorn), new ItemBlockSpecialFlower(dreadthorn, props));
+		register(r, getId(dreadthornFloating), new ItemBlockSpecialFlower(dreadthornFloating, props));
+
+		register(r, getId(heiseiDream), new ItemBlockSpecialFlower(heiseiDream, props));
+		register(r, getId(heiseiDreamFloating), new ItemBlockSpecialFlower(heiseiDreamFloating, props));
+
+		register(r, getId(tigerseye), new ItemBlockSpecialFlower(tigerseye, props));
+		register(r, getId(tigerseyeFloating), new ItemBlockSpecialFlower(tigerseyeFloating, props));
+
+		register(r, getId(jadedAmaranthus), new ItemBlockSpecialFlower(jadedAmaranthus, props));
+		register(r, getId(jadedAmaranthusFloating), new ItemBlockSpecialFlower(jadedAmaranthusFloating, props));
+
+		register(r, getId(orechid), new ItemBlockSpecialFlower(orechid, props));
+		register(r, getId(orechidFloating), new ItemBlockSpecialFlower(orechidFloating, props));
+
+		register(r, getId(fallenKanade), new ItemBlockSpecialFlower(fallenKanade, props));
+		register(r, getId(fallenKanadeFloating), new ItemBlockSpecialFlower(fallenKanadeFloating, props));
+
+		register(r, getId(exoflame), new ItemBlockSpecialFlower(exoflame, props));
+		register(r, getId(exoflameFloating), new ItemBlockSpecialFlower(exoflameFloating, props));
+
+		register(r, getId(agricarnation), new ItemBlockSpecialFlower(agricarnation, props));
+		register(r, getId(agricarnationChibi), new ItemBlockSpecialFlower(agricarnationChibi, props));
+		register(r, getId(agricarnationFloating), new ItemBlockSpecialFlower(agricarnationFloating, props));
+		register(r, getId(agricarnationChibiFloating), new ItemBlockSpecialFlower(agricarnationChibiFloating, props));
+
+		register(r, getId(hopperhock), new ItemBlockSpecialFlower(hopperhock, props));
+		register(r, getId(hopperhockChibi), new ItemBlockSpecialFlower(hopperhockChibi, props));
+		register(r, getId(hopperhockFloating), new ItemBlockSpecialFlower(hopperhockFloating, props));
+		register(r, getId(hopperhockChibiFloating), new ItemBlockSpecialFlower(hopperhockChibiFloating, props));
+
+		register(r, getId(tangleberrie), new ItemBlockSpecialFlower(tangleberrie, props));
+		register(r, getId(tangleberrieFloating), new ItemBlockSpecialFlower(tangleberrieFloating, props));
+
+		register(r, getId(jiyuulia), new ItemBlockSpecialFlower(jiyuulia, props));
+		register(r, getId(jiyuuliaFloating), new ItemBlockSpecialFlower(jiyuuliaFloating, props));
+
+		register(r, getId(rannuncarpus), new ItemBlockSpecialFlower(rannuncarpus, props));
+		register(r, getId(rannuncarpusChibi), new ItemBlockSpecialFlower(rannuncarpusChibi, props));
+		register(r, getId(rannuncarpusFloating), new ItemBlockSpecialFlower(rannuncarpusFloating, props));
+		register(r, getId(rannuncarpusChibiFloating), new ItemBlockSpecialFlower(rannuncarpusChibiFloating, props));
+
+		register(r, getId(hyacidus), new ItemBlockSpecialFlower(hyacidus, props));
+		register(r, getId(hyacidusFloating), new ItemBlockSpecialFlower(hyacidusFloating, props));
+
+		register(r, getId(pollidisiac), new ItemBlockSpecialFlower(pollidisiac, props));
+		register(r, getId(pollidisiacFloating), new ItemBlockSpecialFlower(pollidisiacFloating, props));
+
+		register(r, getId(clayconia), new ItemBlockSpecialFlower(clayconia, props));
+		register(r, getId(clayconiaChibi), new ItemBlockSpecialFlower(clayconiaChibi, props));
+		register(r, getId(clayconiaFloating), new ItemBlockSpecialFlower(clayconiaFloating, props));
+		register(r, getId(clayconiaChibiFloating), new ItemBlockSpecialFlower(clayconiaChibiFloating, props));
+
+		register(r, getId(loonium), new ItemBlockSpecialFlower(loonium, props));
+		register(r, getId(looniumFloating), new ItemBlockSpecialFlower(looniumFloating, props));
+
+		register(r, getId(daffomill), new ItemBlockSpecialFlower(daffomill, props));
+		register(r, getId(daffomillFloating), new ItemBlockSpecialFlower(daffomillFloating, props));
+
+		register(r, getId(vinculotus), new ItemBlockSpecialFlower(vinculotus, props));
+		register(r, getId(vinculotusFloating), new ItemBlockSpecialFlower(vinculotusFloating, props));
+
+		register(r, getId(spectranthemum), new ItemBlockSpecialFlower(spectranthemum, props));
+		register(r, getId(spectranthemumFloating), new ItemBlockSpecialFlower(spectranthemumFloating, props));
+
+		register(r, getId(medumone), new ItemBlockSpecialFlower(medumone, props));
+		register(r, getId(medumoneFloating), new ItemBlockSpecialFlower(medumoneFloating, props));
+
+		register(r, getId(marimorphosis), new ItemBlockSpecialFlower(marimorphosis, props));
+		register(r, getId(marimorphosisChibi), new ItemBlockSpecialFlower(marimorphosisChibi, props));
+		register(r, getId(marimorphosisFloating), new ItemBlockSpecialFlower(marimorphosisFloating, props));
+		register(r, getId(marimorphosisChibiFloating), new ItemBlockSpecialFlower(marimorphosisChibiFloating, props));
+
+		register(r, getId(bubbell), new ItemBlockSpecialFlower(bubbell, props));
+		register(r, getId(bubbellChibi), new ItemBlockSpecialFlower(bubbellChibi, props));
+		register(r, getId(bubbellFloating), new ItemBlockSpecialFlower(bubbellFloating, props));
+		register(r, getId(bubbellChibiFloating), new ItemBlockSpecialFlower(bubbellChibiFloating, props));
+
+		register(r, getId(solegnolia), new ItemBlockSpecialFlower(solegnolia, props));
+		register(r, getId(solegnoliaChibi), new ItemBlockSpecialFlower(solegnoliaChibi, props));
+		register(r, getId(solegnoliaFloating), new ItemBlockSpecialFlower(solegnoliaFloating, props));
+		register(r, getId(solegnoliaChibiFloating), new ItemBlockSpecialFlower(solegnoliaChibiFloating, props));
+
+		register(r, getId(orechidIgnem), new ItemBlockSpecialFlower(orechidIgnem, props));
+		register(r, getId(orechidIgnemFloating), new ItemBlockSpecialFlower(orechidIgnemFloating, props));
+	}
+	
+	private static ResourceLocation getId(Block b) {
+		return Registry.BLOCK.getKey(b);
 	}
 
 	public static void registerTEs(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
-		register(r, LibBlockNames.SUBTILE_PUREDAISY, PURE_DAISY);
-		register(r, LibBlockNames.SUBTILE_MANASTAR, MANASTAR);
-		register(r, LibBlockNames.SUBTILE_HYDROANGEAS, HYDROANGEAS);
-		register(r, LibBlockNames.SUBTILE_ENDOFLAME, ENDOFLAME);
-		register(r, LibBlockNames.SUBTILE_THERMALILY, THERMALILY);
-		register(r, LibBlockNames.SUBTILE_ARCANE_ROSE, ROSA_ARCANA);
-		register(r, LibBlockNames.SUBTILE_MUNCHDEW, MUNCHDEW);
-		register(r, LibBlockNames.SUBTILE_ENTROPINNYUM, ENTROPINNYUM);
-		register(r, LibBlockNames.SUBTILE_KEKIMURUS, KEKIMURUS);
-		register(r, LibBlockNames.SUBTILE_GOURMARYLLIS, GOURMARYLLIS);
-		register(r, LibBlockNames.SUBTILE_NARSLIMMUS, NARSLIMMUS);
-		register(r, LibBlockNames.SUBTILE_SPECTROLUS, SPECTROLUS);
-		register(r, LibBlockNames.SUBTILE_DANDELIFEON, DANDELIFEON);
-		register(r, LibBlockNames.SUBTILE_RAFFLOWSIA, RAFFLOWSIA);
-		register(r, LibBlockNames.SUBTILE_SHULK_ME_NOT, SHULK_ME_NOT);
-		register(r, LibBlockNames.SUBTILE_BELLETHORN, BELLETHORNE);
-		register(r, chibi(LibBlockNames.SUBTILE_BELLETHORN), BELLETHORNE_CHIBI);
-		register(r, LibBlockNames.SUBTILE_BERGAMUTE, BERGAMUTE);
-		register(r, LibBlockNames.SUBTILE_DREADTHORN, DREADTHORN);
-		register(r, LibBlockNames.SUBTILE_HEISEI_DREAM, HEISEI_DREAM);
-		register(r, LibBlockNames.SUBTILE_TIGERSEYE, TIGERSEYE);
-		register(r, LibBlockNames.SUBTILE_JADED_AMARANTHUS, JADED_AMARANTHUS);
-		register(r, LibBlockNames.SUBTILE_ORECHID, ORECHID);
-		register(r, LibBlockNames.SUBTILE_FALLEN_KANADE, FALLEN_KANADE);
-		register(r, LibBlockNames.SUBTILE_EXOFLAME, EXOFLAME);
-		register(r, LibBlockNames.SUBTILE_AGRICARNATION, AGRICARNATION);
-		register(r, chibi(LibBlockNames.SUBTILE_AGRICARNATION), AGRICARNATION_CHIBI);
-		register(r, LibBlockNames.SUBTILE_HOPPERHOCK, HOPPERHOCK);
-		register(r, chibi(LibBlockNames.SUBTILE_HOPPERHOCK), HOPPERHOCK_CHIBI);
-		register(r, LibBlockNames.SUBTILE_TANGLEBERRIE, TANGLEBERRIE);
-		register(r, LibBlockNames.SUBTILE_JIYUULIA, JIYUULIA);
-		register(r, LibBlockNames.SUBTILE_RANNUNCARPUS, RANNUNCARPUS);
-		register(r, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS), RANNUNCARPUS_CHIBI);
-		register(r, LibBlockNames.SUBTILE_HYACIDUS, HYACIDUS);
-		register(r, LibBlockNames.SUBTILE_POLLIDISIAC, POLLIDISIAC);
-		register(r, LibBlockNames.SUBTILE_CLAYCONIA, CLAYCONIA);
-		register(r, chibi(LibBlockNames.SUBTILE_CLAYCONIA), CLAYCONIA_CHIBI);
-		register(r, LibBlockNames.SUBTILE_LOONIUM, LOONIUM);
-		register(r, LibBlockNames.SUBTILE_DAFFOMILL, DAFFOMILL);
-		register(r, LibBlockNames.SUBTILE_VINCULOTUS, VINCULOTUS);
-		register(r, LibBlockNames.SUBTILE_SPECTRANTHEMUM, SPECTRANTHEMUM);
-		register(r, LibBlockNames.SUBTILE_MEDUMONE, MEDUMONE);
-		register(r, LibBlockNames.SUBTILE_MARIMORPHOSIS, MARIMORPHOSIS);
-		register(r, chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS), MARIMORPHOSIS_CHIBI);
-		register(r, LibBlockNames.SUBTILE_BUBBELL, BUBBELL);
-		register(r, chibi(LibBlockNames.SUBTILE_BUBBELL), BUBBELL_CHIBI);
-		register(r, LibBlockNames.SUBTILE_SOLEGNOLIA, SOLEGNOLIA);
-		register(r, chibi(LibBlockNames.SUBTILE_SOLEGNOLIA), SOLEGNOLIA_CHIBI);
-		register(r, LibBlockNames.SUBTILE_ORECHID_IGNEM, ORECHID_IGNEM);
+		register(r, getId(pureDaisy), PURE_DAISY);
+		register(r, getId(manastar), MANASTAR);
+		register(r, getId(hydroangeas), HYDROANGEAS);
+		register(r, getId(endoflame), ENDOFLAME);
+		register(r, getId(thermalily), THERMALILY);
+		register(r, getId(rosaArcana), ROSA_ARCANA);
+		register(r, getId(munchdew), MUNCHDEW);
+		register(r, getId(entropinnyum), ENTROPINNYUM);
+		register(r, getId(kekimurus), KEKIMURUS);
+		register(r, getId(gourmaryllis), GOURMARYLLIS);
+		register(r, getId(narslimmus), NARSLIMMUS);
+		register(r, getId(spectrolus), SPECTROLUS);
+		register(r, getId(dandelifeon), DANDELIFEON);
+		register(r, getId(rafflowsia), RAFFLOWSIA);
+		register(r, getId(shulkMeNot), SHULK_ME_NOT);
+		register(r, getId(bellethorn), BELLETHORNE);
+		register(r, getId(bellethornChibi), BELLETHORNE_CHIBI);
+		register(r, getId(bergamute), BERGAMUTE);
+		register(r, getId(dreadthorn), DREADTHORN);
+		register(r, getId(heiseiDream), HEISEI_DREAM);
+		register(r, getId(tigerseye), TIGERSEYE);
+		register(r, getId(jadedAmaranthus), JADED_AMARANTHUS);
+		register(r, getId(orechid), ORECHID);
+		register(r, getId(fallenKanade), FALLEN_KANADE);
+		register(r, getId(exoflame), EXOFLAME);
+		register(r, getId(agricarnation), AGRICARNATION);
+		register(r, getId(agricarnationChibi), AGRICARNATION_CHIBI);
+		register(r, getId(hopperhock), HOPPERHOCK);
+		register(r, getId(hopperhockChibi), HOPPERHOCK_CHIBI);
+		register(r, getId(tangleberrie), TANGLEBERRIE);
+		register(r, getId(jiyuulia), JIYUULIA);
+		register(r, getId(rannuncarpus), RANNUNCARPUS);
+		register(r, getId(rannuncarpusChibi), RANNUNCARPUS_CHIBI);
+		register(r, getId(hyacidus), HYACIDUS);
+		register(r, getId(pollidisiac), POLLIDISIAC);
+		register(r, getId(clayconia), CLAYCONIA);
+		register(r, getId(clayconiaChibi), CLAYCONIA_CHIBI);
+		register(r, getId(loonium), LOONIUM);
+		register(r, getId(daffomill), DAFFOMILL);
+		register(r, getId(vinculotus), VINCULOTUS);
+		register(r, getId(spectranthemum), SPECTRANTHEMUM);
+		register(r, getId(medumone), MEDUMONE);
+		register(r, getId(marimorphosis), MARIMORPHOSIS);
+		register(r, getId(marimorphosisChibi), MARIMORPHOSIS_CHIBI);
+		register(r, getId(bubbell), BUBBELL);
+		register(r, getId(bubbellChibi), BUBBELL_CHIBI);
+		register(r, getId(solegnolia), SOLEGNOLIA);
+		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
+		register(r, getId(orechidIgnem), ORECHID_IGNEM);
 	}
 }
