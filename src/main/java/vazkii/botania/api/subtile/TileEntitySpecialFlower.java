@@ -272,7 +272,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	/**
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
-	 * is looking at the block with a Manaseer Monocle (IBurstViewerBauble).
+	 * is looking at the block with a Manaseer Monocle.
 	 */
 	@OnlyIn(Dist.CLIENT)
 	public RadiusDescriptor getRadius() {

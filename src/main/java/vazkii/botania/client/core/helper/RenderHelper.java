@@ -134,7 +134,12 @@ public final class RenderHelper {
 		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState()).diffuseLighting(enableDiffuse).build(false);
 		SPINNING_CUBE = RenderType.makeType(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState()).diffuseLighting(enableDiffuse).transparency(TRANSLUCENT_TRANSPARENCY).build(false);
+		glState = RenderType.State.getBuilder()
+			.texture(new RenderState.TextureState())
+			.diffuseLighting(enableDiffuse)
+			.transparency(TRANSLUCENT_TRANSPARENCY)
+			.target(itemTarget)
+			.build(false);
 		SPINNING_CUBE_GHOST = RenderType.makeType(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 64, glState);
 
 		glState = RenderType.State.getBuilder().texture(mipmapBlockAtlasTexture)
