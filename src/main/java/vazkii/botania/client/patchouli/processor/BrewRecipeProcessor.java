@@ -13,8 +13,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.util.text.TranslationTextComponent;
+
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;

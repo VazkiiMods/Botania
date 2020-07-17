@@ -54,7 +54,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 				if (shulker.isAlive() && shulker.getDistanceSq(posD) < RADIUS * RADIUS) {
 					LivingEntity target = shulker.getAttackTarget();
 					if (target instanceof IMob && target.isAlive()
-						&& target.getDistanceSq(posD) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
+							&& target.getDistanceSq(posD) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
 						target.remove();
 						shulker.remove();
 

@@ -8,13 +8,10 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -31,6 +28,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.LibMisc;
 
+import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModelHandler {
@@ -50,7 +48,7 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(prefix("block/gaia_spreader_inside"));
 		ModelLoader.addSpecialModel(prefix("block/mana_spreader_inside"));
 		ModelLoader.addSpecialModel(prefix("block/redstone_spreader_inside"));
-		registerSubtiles();
+		registerIslands();
 
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ALTAR, RenderTileAltar::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.SPREADER, RenderTileSpreader::new);
@@ -60,10 +58,6 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ENCHANTER, RenderTileEnchanter::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ALF_PORTAL, RenderTileAlfPortal::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.MINI_ISLAND, RenderTileFloatingFlower::new);
-		ModSubtiles.getTypes().stream()
-				.map(Pair::getSecond)
-				.map(rl -> Registry.BLOCK_ENTITY_TYPE.getValue(rl).get())
-				.forEach(typ -> ClientRegistry.bindTileEntityRenderer(typ, RenderTileSpecialFlower::new));
 		ClientRegistry.bindTileEntityRenderer(ModTiles.TINY_POTATO, RenderTileTinyPotato::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.STARFIELD, RenderTileStarfield::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.BREWERY, RenderTileBrewery::new);
@@ -89,6 +83,56 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(ModTiles.AVATAR, RenderTileAvatar::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ANIMATED_TORCH, RenderTileAnimatedTorch::new);
 
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.PURE_DAISY, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.MANASTAR, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HYDROANGEAS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.ENDOFLAME, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.THERMALILY, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.ROSA_ARCANA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.MUNCHDEW, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.ENTROPINNYUM, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.KEKIMURUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.GOURMARYLLIS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.NARSLIMMUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SPECTROLUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.DANDELIFEON, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.RAFFLOWSIA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SHULK_ME_NOT, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.BELLETHORNE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.BELLETHORNE_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.BERGAMUTE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.DREADTHORN, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HEISEI_DREAM, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.TIGERSEYE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.JADED_AMARANTHUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.ORECHID, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.FALLEN_KANADE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.EXOFLAME, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.AGRICARNATION, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.AGRICARNATION_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HOPPERHOCK, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HOPPERHOCK_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.TANGLEBERRIE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.JIYUULIA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.RANNUNCARPUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.RANNUNCARPUS_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HYACIDUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.POLLIDISIAC, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.CLAYCONIA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.CLAYCONIA_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.LOONIUM, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.DAFFOMILL, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.VINCULOTUS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SPECTRANTHEMUM, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.MEDUMONE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.MARIMORPHOSIS, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.MARIMORPHOSIS_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.BUBBELL, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.BUBBELL_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SOLEGNOLIA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SOLEGNOLIA_CHIBI, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.ORECHID_IGNEM, RenderTileSpecialFlower::new);
+
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_BURST, RenderNoop::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLAYER_MOVER, RenderNoop::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.SIGNAL_FLARE, RenderNoop::new);
@@ -111,7 +155,7 @@ public final class ModelHandler {
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENDER_AIR_BOTTLE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 	}
 
-	private static void registerSubtiles() {
+	private static void registerIslands() {
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.GRASS, prefix("block/islands/island_grass"));
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.PODZOL, prefix("block/islands/island_podzol"));
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.MYCEL, prefix("block/islands/island_mycel"));
