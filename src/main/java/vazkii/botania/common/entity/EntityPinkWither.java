@@ -15,13 +15,10 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.mixin.MixinGoalSelector;
 import vazkii.botania.mixin.MixinWitherEntity;
@@ -77,10 +74,4 @@ public class EntityPinkWither extends WitherEntity {
 
 	@Override
 	public void addTrackingPlayer(@Nonnull ServerPlayerEntity player) {}
-
-	@Nonnull
-	@Override
-	public IPacket<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
 }
