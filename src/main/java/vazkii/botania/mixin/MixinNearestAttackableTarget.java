@@ -8,7 +8,6 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +17,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface MixinNearestAttackableTarget {
 	@Accessor
 	Class<?> getTargetClass();
-
-	@Accessor
-	void setTargetClass(Class<?> clazz);
 }

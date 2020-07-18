@@ -8,7 +8,6 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +17,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface MixinAvoidEntityGoal {
 	@Accessor
 	Class<?> getClassToAvoid();
-
-	@Accessor
-	void setClassToAvoid(Class<? extends LivingEntity> clazz);
 }
