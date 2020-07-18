@@ -168,11 +168,7 @@ public final class ToolCommons {
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 
-	// [VanillaCopy] Exact Entity.func_213324_a but available serverside, partialTicks fixed to 1, and narrowed return type
 	public static BlockRayTraceResult raytraceFromEntity(Entity e, double distance, boolean fluids) {
-		Vector3d Vector3d = e.getEyePosition(1);
-		Vector3d Vector3d1 = e.getLook(1);
-		Vector3d Vector3d2 = Vector3d.add(Vector3d1.x * distance, Vector3d1.y * distance, Vector3d1.z * distance);
-		return e.world.rayTraceBlocks(new RayTraceContext(Vector3d, Vector3d2, RayTraceContext.BlockMode.OUTLINE, fluids ? RayTraceContext.FluidMode.ANY : RayTraceContext.FluidMode.NONE, e));
+		return (BlockRayTraceResult) e.pick(distance, 1, fluids);
 	}
 }

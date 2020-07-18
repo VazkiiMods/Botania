@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.mixin.MixinGoalSelector;
+import vazkii.botania.mixin.MixinWitherEntity;
 
 import javax.annotation.Nonnull;
 
@@ -50,10 +51,10 @@ public class EntityPinkWither extends WitherEntity {
 
 		if (Math.random() < 0.1) {
 			for (int j = 0; j < 3; ++j) {
-				double d10 = getHeadX(j);
-				double d2 = getHeadY(j);
-				double d4 = getHeadZ(j);
-				world.addParticle(ParticleTypes.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+				double x = ((MixinWitherEntity) this).callGetHeadX(j);
+				double y = ((MixinWitherEntity) this).callGetHeadY(j);
+				double z = ((MixinWitherEntity) this).callGetHeadZ(j);
+				world.addParticle(ParticleTypes.HEART, x + rand.nextGaussian() * 0.3, y + rand.nextGaussian() * 0.3, z + rand.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -76,32 +77,6 @@ public class EntityPinkWither extends WitherEntity {
 
 	@Override
 	public void addTrackingPlayer(@Nonnull ServerPlayerEntity player) {}
-
-	// [VanillaCopy] super
-
-	private double getHeadX(int p_82214_1_) {
-		if (p_82214_1_ <= 0) {
-			return this.getPosX();
-		} else {
-			float f = (this.renderYawOffset + (float) (180 * (p_82214_1_ - 1))) * ((float) Math.PI / 180F);
-			float f1 = MathHelper.cos(f);
-			return this.getPosX() + (double) f1 * 1.3D;
-		}
-	}
-
-	private double getHeadY(int p_82208_1_) {
-		return p_82208_1_ <= 0 ? this.getPosY() + 3.0D : this.getPosY() + 2.2D;
-	}
-
-	private double getHeadZ(int p_82213_1_) {
-		if (p_82213_1_ <= 0) {
-			return this.getPosZ();
-		} else {
-			float f = (this.renderYawOffset + (float) (180 * (p_82213_1_ - 1))) * ((float) Math.PI / 180F);
-			float f1 = MathHelper.sin(f);
-			return this.getPosZ() + (double) f1 * 1.3D;
-		}
-	}
 
 	@Nonnull
 	@Override

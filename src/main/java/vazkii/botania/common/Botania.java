@@ -17,6 +17,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -221,6 +222,7 @@ public class Botania {
 			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
 					.func_233815_a_(Attributes.MAX_HEALTH, 2.0)
 					.func_233813_a_());
+			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.func_234258_eI_().func_233813_a_());
 			ModBanners.init();
 			ColorHelper.init();
 
