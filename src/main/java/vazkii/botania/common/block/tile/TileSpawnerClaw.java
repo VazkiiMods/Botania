@@ -43,7 +43,6 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 			AccessorAbstractSpawner mLogic = (AccessorAbstractSpawner) logic;
 
 			// [VanillaCopy] AbstractSpawner.tick, edits noted
-			// todo 1.16 investigate instead mixing into AbstractSpawner instead of duplicating logic here
 			if (!mLogic.callIsActivated()) { // Activate when vanilla is *not* running the spawner
 				mLogic.setPrevMobRotation(mLogic.getMobRotation());
 			} else {

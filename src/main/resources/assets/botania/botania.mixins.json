@@ -18,7 +18,8 @@
     "AccessorMobEntity",
     "AccessorNearestAttackableTarget",
     "AccessorRecipeManager",
-    "AccessorWitherEntity"
+    "AccessorWitherEntity",
+    "MixinPlayerEntity"
   ],
   "client": [
     "AccessorBiomeGeneratorTypeScreens",

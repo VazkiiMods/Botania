@@ -174,7 +174,6 @@ public class Botania {
 		forgeBus.addListener(ItemVirus::onLivingHurt);
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
-		forgeBus.addGenericListener(Entity.class, PixieHandler::attachAttribute);
 		forgeBus.addGenericListener(TileEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
 		forgeBus.addListener(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);

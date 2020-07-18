@@ -68,23 +68,10 @@ public final class PixieHandler {
 		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
 	}
 
-	// Want to do this as early as possible -- doing it at entity join world means attribute modifiers are ignored when loading
-	public static void attachAttribute(AttachCapabilitiesEvent<Entity> evt) {
-		if (evt.getObject() instanceof PlayerEntity) {
-			/* todo 1.16 impossible rn?
-			AbstractAttributeMap attributes = ((PlayerEntity) evt.getObject()).getAttributes();
-			if (attributes.getAttributeInstance(PIXIE_SPAWN_CHANCE) == null) {
-				attributes.registerAttribute(PIXIE_SPAWN_CHANCE);
-			}
-			*/
-		}
-	}
-
 	public static void onDamageTaken(LivingHurtEvent event) {
 		if (!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			/* todo unimpl
-			double chance = player.getAttribute(PIXIE_SPAWN_CHANCE).getValue();
+			double chance = player.func_233637_b_(PIXIE_SPAWN_CHANCE);
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
 			
 			if (Math.random() < chance) {
@@ -105,7 +92,6 @@ public final class PixieHandler {
 						SpawnReason.EVENT, null, null);
 				player.world.addEntity(pixie);
 			}
-			*/
 		}
 	}
 }
