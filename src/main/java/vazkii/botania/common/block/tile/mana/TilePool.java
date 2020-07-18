@@ -20,7 +20,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -56,7 +55,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -176,7 +175,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		int age = ((MixinItemEntity) item).getAge();
+		int age = ((AccessorItemEntity) item).getAge();
 		if (age > 100 && age < 130) {
 			return false;
 		}
@@ -193,7 +192,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-				((MixinItemEntity) outputItem).setAge(105);
+				((AccessorItemEntity) outputItem).setAge(105);
 				world.addEntity(outputItem);
 
 				craftingFanciness();

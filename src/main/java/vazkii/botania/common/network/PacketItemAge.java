@@ -14,7 +14,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.function.Supplier;
 
@@ -41,7 +41,7 @@ public class PacketItemAge {
 			ctx.get().enqueueWork(() -> {
 				Entity e = Minecraft.getInstance().world.getEntityByID(message.entityId);
 				if (e instanceof ItemEntity) {
-					((MixinItemEntity) e).setAge(message.age);
+					((AccessorItemEntity) e).setAge(message.age);
 				}
 			});
 		}

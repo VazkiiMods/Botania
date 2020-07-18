@@ -8,14 +8,22 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.recipebook.RecipeBookGui;
-import net.minecraft.client.gui.recipebook.RecipeBookPage;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(RecipeBookGui.class)
-public interface MixinRecipeBookGui {
+import javax.annotation.Nullable;
+
+@Mixin(MobEntity.class)
+public interface AccessorMobEntity {
+	@Nullable
+	@Invoker
+	SoundEvent callGetAmbientSound();
+
 	@Accessor
-	RecipeBookPage getRecipeBookPage();
+	void setDeathLootTable(ResourceLocation id);
 }

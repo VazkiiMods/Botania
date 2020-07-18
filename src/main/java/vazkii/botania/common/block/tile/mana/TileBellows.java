@@ -24,14 +24,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.mixin.MixinAbstractFurnaceTileEntity;
-
-import javax.annotation.Nullable;
+import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
 public class TileBellows extends TileMod implements ITickableTileEntity {
 	private static final String TAG_ACTIVE = "active";
@@ -82,7 +79,7 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 					AbstractCookingRecipe recipe = p.getFirst();
 					boolean canSmelt = p.getSecond();
 					if (canSmelt) {
-						MixinAbstractFurnaceTileEntity mFurnace = (MixinAbstractFurnaceTileEntity) furnace;
+						AccessorAbstractFurnaceTileEntity mFurnace = (AccessorAbstractFurnaceTileEntity) furnace;
 						mFurnace.setCookTime(Math.min(recipe.getCookTime() - 1, mFurnace.getCookTime() + 20));
 						mFurnace.setBurnTime(Math.max(0, mFurnace.getBurnTime() - 10));
 					}

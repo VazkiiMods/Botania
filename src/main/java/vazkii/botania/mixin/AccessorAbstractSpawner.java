@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(AbstractSpawner.class)
-public interface MixinAbstractSpawner {
+public interface AccessorAbstractSpawner {
 	@Invoker("func_221409_a")
 	void callSpawnEntity(Entity e);
 

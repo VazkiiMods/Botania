@@ -26,7 +26,7 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.server.ServerChunkProvider;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.mixin.MixinDimensionSettingsPreset;
+import vazkii.botania.mixin.AccessorDimensionSettingsPreset;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -41,7 +41,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	public static void init() {
 		Registry.register(Registry.field_239690_aB_, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
 		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock",
-				preset -> MixinDimensionSettingsPreset.createOverworldSettings(new DimensionStructuresSettings(true), false, preset));
+				preset -> AccessorDimensionSettingsPreset.createOverworldSettings(new DimensionStructuresSettings(true), false, preset));
 	}
 
 	private final long seed;

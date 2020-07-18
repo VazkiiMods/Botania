@@ -20,8 +20,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-import vazkii.botania.mixin.MixinGoalSelector;
-import vazkii.botania.mixin.MixinWitherEntity;
+import vazkii.botania.mixin.AccessorGoalSelector;
+import vazkii.botania.mixin.AccessorWitherEntity;
 
 import javax.annotation.Nonnull;
 
@@ -35,10 +35,10 @@ public class EntityPinkWither extends WitherEntity {
 		super.registerGoals();
 
 		// Remove firing wither skulls
-		((MixinGoalSelector) goalSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
+		((AccessorGoalSelector) goalSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
 
 		// Remove revenge and aggro
-		((MixinGoalSelector) targetSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
+		((AccessorGoalSelector) targetSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
 				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
 	}
 
@@ -48,9 +48,9 @@ public class EntityPinkWither extends WitherEntity {
 
 		if (Math.random() < 0.1) {
 			for (int j = 0; j < 3; ++j) {
-				double x = ((MixinWitherEntity) this).callGetHeadX(j);
-				double y = ((MixinWitherEntity) this).callGetHeadY(j);
-				double z = ((MixinWitherEntity) this).callGetHeadZ(j);
+				double x = ((AccessorWitherEntity) this).callGetHeadX(j);
+				double y = ((AccessorWitherEntity) this).callGetHeadY(j);
+				double z = ((AccessorWitherEntity) this).callGetHeadZ(j);
 				world.addParticle(ParticleTypes.HEART, x + rand.nextGaussian() * 0.3, y + rand.nextGaussian() * 0.3, z + rand.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}

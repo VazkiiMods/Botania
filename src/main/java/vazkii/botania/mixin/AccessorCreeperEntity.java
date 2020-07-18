@@ -8,14 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.FireBlock;
+import net.minecraft.entity.monster.CreeperEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(FireBlock.class)
-public interface MixinFireBlock {
-	@Invoker
-	void callSetFireInfo(Block block, int encouragement, int flammability);
+@Mixin(CreeperEntity.class)
+public interface AccessorCreeperEntity {
+	@Accessor
+	void setTimeSinceIgnited(int time);
 }

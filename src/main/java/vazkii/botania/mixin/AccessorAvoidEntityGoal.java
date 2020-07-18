@@ -8,22 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.MobEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import org.spongepowered.asm.mixin.gen.Invoker;
 
-import javax.annotation.Nullable;
-
-@Mixin(MobEntity.class)
-public interface MixinMobEntity {
-	@Nullable
-	@Invoker
-	SoundEvent callGetAmbientSound();
-
+@Mixin(AvoidEntityGoal.class)
+public interface AccessorAvoidEntityGoal {
 	@Accessor
-	void setDeathLootTable(ResourceLocation id);
+	Class<?> getClassToAvoid();
 }

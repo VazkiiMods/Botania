@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import java.util.Map;
 
 @Mixin(RecipeManager.class)
-public interface MixinRecipeManager {
+public interface AccessorRecipeManager {
 	@Invoker
 	<C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> callGetRecipes(IRecipeType<T> type);
 }

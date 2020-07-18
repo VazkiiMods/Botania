@@ -8,17 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.List;
-
-@Mixin(BiomeGeneratorTypeScreens.class)
-public interface MixinBiomeGeneratorTypeScreens {
-	@Accessor("field_239068_c_")
-	static List<BiomeGeneratorTypeScreens> getAllTypes() {
-		throw new IllegalStateException();
-	}
+@Mixin(NearestAttackableTargetGoal.class)
+public interface AccessorNearestAttackableTarget {
+	@Accessor
+	Class<?> getTargetClass();
 }

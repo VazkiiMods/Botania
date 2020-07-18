@@ -20,7 +20,7 @@ import net.minecraftforge.event.RegistryEvent;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
-import vazkii.botania.mixin.MixinRecipeManager;
+import vazkii.botania.mixin.AccessorRecipeManager;
 
 import java.util.Map;
 
@@ -83,6 +83,6 @@ public class ModRecipeTypes {
 	}
 
 	public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(World world, IRecipeType<T> type) {
-		return ((MixinRecipeManager) world.getRecipeManager()).callGetRecipes(type);
+		return ((AccessorRecipeManager) world.getRecipeManager()).callGetRecipes(type);
 	}
 }

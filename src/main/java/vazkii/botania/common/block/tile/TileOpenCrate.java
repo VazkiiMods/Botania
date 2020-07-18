@@ -20,7 +20,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 public class TileOpenCrate extends TileExposedSimpleInventory implements ITickableTileEntity {
 	public TileOpenCrate() {
@@ -73,7 +73,7 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements ITickab
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
 		item.setMotion(Vector3d.ZERO);
 		if (redstone) {
-			((MixinItemEntity) item).setAge(-200);
+			((AccessorItemEntity) item).setAge(-200);
 		}
 
 		getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);

@@ -8,14 +8,19 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.recipebook.RecipeBookPage;
-import net.minecraft.client.gui.recipebook.RecipeWidget;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.HoeItem;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(RecipeBookPage.class)
-public interface MixinRecipeBookPage {
-	@Accessor
-	RecipeWidget getHoveredButton();
+import java.util.Map;
+
+@Mixin(HoeItem.class)
+public interface AccessorHoeItem {
+	@Accessor("HOE_LOOKUP")
+	static Map<Block, BlockState> getConversions() {
+		throw new IllegalStateException();
+	}
 }

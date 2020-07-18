@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Set;
 
 @Mixin(ModelBakery.class)
-public interface MixinModelBakery {
+public interface AccessorModelBakery {
 	@Accessor("LOCATIONS_BUILTIN_TEXTURES")
 	static Set<RenderMaterial> getMaterials() {
 		throw new IllegalStateException();

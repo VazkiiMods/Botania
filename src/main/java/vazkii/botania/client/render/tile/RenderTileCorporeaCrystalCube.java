@@ -26,7 +26,7 @@ import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nullable;
 
@@ -57,7 +57,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 				};
 			}
 
-			((MixinItemEntity) entity).setAge(ClientTickHandler.ticksInGame);
+			((AccessorItemEntity) entity).setAge(ClientTickHandler.ticksInGame);
 			stack = cube.getRequestTarget();
 			entity.setItem(stack);
 		}

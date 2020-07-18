@@ -28,7 +28,7 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
-				int age = ((MixinItemEntity) item).getAge();
+				int age = ((AccessorItemEntity) item).getAge();
 				if (age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED)) {
 					continue;
 				}

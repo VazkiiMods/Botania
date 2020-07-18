@@ -8,13 +8,16 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.ai.goal.GoalSelector;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(CreeperEntity.class)
-public interface MixinCreeperEntity {
+import java.util.Set;
+
+@Mixin(GoalSelector.class)
+public interface AccessorGoalSelector {
 	@Accessor
-	void setTimeSinceIgnited(int time);
+	Set<PrioritizedGoal> getGoals();
 }

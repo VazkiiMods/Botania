@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(Minecraft.class)
-public interface MixinMinecraft {
+public interface AccessorMinecraft {
 	@Accessor
 	float getRenderPartialTicksPaused();
 }

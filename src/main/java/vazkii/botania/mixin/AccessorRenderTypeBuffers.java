@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.SortedMap;
 
 @Mixin(RenderTypeBuffers.class)
-public interface MixinRenderTypeBuffers {
+public interface AccessorRenderTypeBuffers {
 	@Accessor
 	SortedMap<RenderType, BufferBuilder> getFixedBuffers();
 }

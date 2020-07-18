@@ -22,7 +22,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.mixin.MixinMinecraft;
+import vazkii.botania.mixin.AccessorMinecraft;
 
 public final class ClientTickHandler {
 
@@ -49,7 +49,7 @@ public final class ClientTickHandler {
 			if (mc.isGamePaused()) {
 				// If game is paused, need to use the saved value. The event is always fired with the "true" value which
 				// keeps updating when paused. See RenderTickEvent fire site for details, remove when MinecraftForge#6991 is resolved
-				partialTicks = ((MixinMinecraft) mc).getRenderPartialTicksPaused();
+				partialTicks = ((AccessorMinecraft) mc).getRenderPartialTicksPaused();
 			}
 		} else {
 			calcDelta();

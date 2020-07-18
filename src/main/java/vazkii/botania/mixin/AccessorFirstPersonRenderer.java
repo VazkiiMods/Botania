@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(FirstPersonRenderer.class)
-public interface MixinFirstPersonRenderer {
+public interface AccessorFirstPersonRenderer {
 	@Invoker
 	void callTransformSideFirstPerson(MatrixStack ms, HandSide side, float equip);
 

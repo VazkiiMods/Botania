@@ -8,19 +8,19 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.HoeItem;
+import net.minecraft.entity.item.ItemEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.Map;
+@Mixin(ItemEntity.class)
+public interface AccessorItemEntity {
+	@Accessor
+	int getAge();
 
-@Mixin(HoeItem.class)
-public interface MixinHoeItem {
-	@Accessor("HOE_LOOKUP")
-	static Map<Block, BlockState> getConversions() {
-		throw new IllegalStateException();
-	}
+	@Accessor
+	void setAge(int age);
+
+	@Accessor
+	int getPickupDelay();
 }

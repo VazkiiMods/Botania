@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.MixinLivingEntity;
+import vazkii.botania.mixin.AccessorLivingEntity;
 
 import javax.annotation.Nonnull;
 
@@ -67,7 +67,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 			if (count == 5) {
 				if (player.canEat(false)) {
-					((MixinLivingEntity) player).setActiveItemStackUseCount(20);
+					((AccessorLivingEntity) player).setActiveItemStackUseCount(20);
 				}
 			}
 		}

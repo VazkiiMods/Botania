@@ -24,7 +24,7 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -60,7 +60,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 					int slowdown = getSlowdownFactor();
 
 					for (ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						int age = ((MixinItemEntity) item).getAge();
+						int age = ((AccessorItemEntity) item).getAge();
 						if (age >= 59 + slowdown && item.isAlive()) {
 							ItemStack stack = item.getItem();
 							if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {

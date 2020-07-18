@@ -23,8 +23,8 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketIndexKeybindRequest;
-import vazkii.botania.mixin.MixinRecipeBookGui;
-import vazkii.botania.mixin.MixinRecipeBookPage;
+import vazkii.botania.mixin.AccessorRecipeBookGui;
+import vazkii.botania.mixin.AccessorRecipeBookPage;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -82,8 +82,8 @@ public class CorporeaInputHandler {
 
 		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeGui().isVisible()) {
 			RecipeBookGui recipeBook = ((InventoryScreen) screen).getRecipeGui();
-			RecipeBookPage page = ((MixinRecipeBookGui) recipeBook).getRecipeBookPage();
-			RecipeWidget widget = ((MixinRecipeBookPage) page).getHoveredButton();
+			RecipeBookPage page = ((AccessorRecipeBookGui) recipeBook).getRecipeBookPage();
+			RecipeWidget widget = ((AccessorRecipeBookPage) page).getHoveredButton();
 			if (widget != null) {
 				return widget.getRecipe().getRecipeOutput();
 			}

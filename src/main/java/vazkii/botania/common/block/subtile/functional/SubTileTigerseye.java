@@ -21,10 +21,10 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.mixin.MixinAvoidEntityGoal;
-import vazkii.botania.mixin.MixinCreeperEntity;
-import vazkii.botania.mixin.MixinGoalSelector;
-import vazkii.botania.mixin.MixinNearestAttackableTarget;
+import vazkii.botania.mixin.AccessorAvoidEntityGoal;
+import vazkii.botania.mixin.AccessorCreeperEntity;
+import vazkii.botania.mixin.AccessorGoalSelector;
+import vazkii.botania.mixin.AccessorNearestAttackableTarget;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -48,24 +48,24 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		}
 
 		for (CreeperEntity entity : getWorld().getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
-			((MixinCreeperEntity) entity).setTimeSinceIgnited(2);
+			((AccessorCreeperEntity) entity).setTimeSinceIgnited(2);
 			entity.setAttackTarget(null);
 
 
 			if (getMana() >= COST) {
 				boolean did = false;
 
-				Set<PrioritizedGoal> goals = ((MixinGoalSelector) entity.goalSelector).getGoals();
+				Set<PrioritizedGoal> goals = ((AccessorGoalSelector) entity.goalSelector).getGoals();
 				boolean hasRunAwayFromPlayerGoal = goals.stream()
-					.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((MixinAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
+					.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
 				if (!hasRunAwayFromPlayerGoal) {
 					entity.goalSelector.addGoal(3, new AvoidEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
 					did = true;
 				}
 
-				for (PrioritizedGoal pg : new ArrayList<>(((MixinGoalSelector) entity.targetSelector).getGoals())) {
+				for (PrioritizedGoal pg : new ArrayList<>(((AccessorGoalSelector) entity.targetSelector).getGoals())) {
 					if (pg.getGoal() instanceof NearestAttackableTargetGoal
-						&& ((MixinNearestAttackableTarget) pg.getGoal()).getTargetClass() == PlayerEntity.class) {
+						&& ((AccessorNearestAttackableTarget) pg.getGoal()).getTargetClass() == PlayerEntity.class) {
 						entity.targetSelector.removeGoal(pg.getGoal());
 						did = true;
 					}

@@ -33,7 +33,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.mixin.MixinMobEntity;
+import vazkii.botania.mixin.AccessorMobEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -60,7 +60,7 @@ public class ItemCacophonium extends Item {
 			} else if (living instanceof SlimeEntity) {
 				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			} else {
-				sound = ((MixinMobEntity) living).callGetAmbientSound();
+				sound = ((AccessorMobEntity) living).callGetAmbientSound();
 			}
 
 			if (sound != null) {

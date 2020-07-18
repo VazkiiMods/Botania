@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(DimensionSettings.Preset.class)
-public interface MixinDimensionSettingsPreset {
+public interface AccessorDimensionSettingsPreset {
 	@Invoker("func_236135_a_")
 	static DimensionSettings createOverworldSettings(DimensionStructuresSettings structureSettings, boolean amplified, DimensionSettings.Preset preset) {
 		throw new IllegalStateException();

@@ -8,16 +8,14 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.block.Block;
+import net.minecraft.block.FireBlock;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-import java.util.List;
-
-@Mixin(ItemOverrideList.class)
-public interface MixinItemOverrideList {
-	@Accessor
-	List<IBakedModel> getOverrideBakedModels();
+@Mixin(FireBlock.class)
+public interface AccessorFireBlock {
+	@Invoker
+	void callSetFireInfo(Block block, int encouragement, int flammability);
 }

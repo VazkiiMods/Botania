@@ -21,7 +21,7 @@ import net.minecraft.world.spawner.AbstractSpawner;
 
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.mixin.MixinAbstractSpawner;
+import vazkii.botania.mixin.AccessorAbstractSpawner;
 
 import java.util.Optional;
 
@@ -40,7 +40,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 		if (mana >= 5 && tileBelow instanceof MobSpawnerTileEntity) {
 			MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileBelow;
 			AbstractSpawner logic = spawner.getSpawnerBaseLogic();
-			MixinAbstractSpawner mLogic = (MixinAbstractSpawner) logic;
+			AccessorAbstractSpawner mLogic = (AccessorAbstractSpawner) logic;
 
 			// [VanillaCopy] AbstractSpawner.tick, edits noted
 			// todo 1.16 investigate instead mixing into AbstractSpawner instead of duplicating logic here

@@ -13,7 +13,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import net.minecraft.tileentity.SmokerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +25,7 @@ import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.capability.SimpleCapProvider;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.MixinAbstractFurnaceTileEntity;
+import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
 public class ExoflameFurnaceHandler {
 
@@ -43,11 +42,11 @@ public class ExoflameFurnaceHandler {
 	}
 
 	public static boolean canSmelt(AbstractFurnaceTileEntity furnace, IRecipe<?> recipe) {
-		return ((MixinAbstractFurnaceTileEntity) furnace).invokeCanSmelt(recipe);
+		return ((AccessorAbstractFurnaceTileEntity) furnace).invokeCanSmelt(recipe);
 	}
 
 	public static IRecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceTileEntity furnace) {
-		return ((MixinAbstractFurnaceTileEntity) furnace).getRecipeType();
+		return ((AccessorAbstractFurnaceTileEntity) furnace).getRecipeType();
 	}
 
 	private static class FurnaceExoflameHeatable implements IExoflameHeatable {
@@ -85,7 +84,7 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public int getBurnTime() {
-			return ((MixinAbstractFurnaceTileEntity) furnace).getBurnTime();
+			return ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
 		}
 
 		@Override
@@ -95,14 +94,14 @@ public class ExoflameFurnaceHandler {
 				BlockPos pos = furnace.getPos();
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockStateProperties.LIT, true));
 			}
-			int burnTime = ((MixinAbstractFurnaceTileEntity) furnace).getBurnTime();
-			((MixinAbstractFurnaceTileEntity) furnace).setBurnTime(burnTime + 200);
+			int burnTime = ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
+			((AccessorAbstractFurnaceTileEntity) furnace).setBurnTime(burnTime + 200);
 		}
 
 		@Override
 		public void boostCookTime() {
-			int cookTime = ((MixinAbstractFurnaceTileEntity) furnace).getCookTime();
-			((MixinAbstractFurnaceTileEntity) furnace).setCookTime(Math.min(currentRecipe.getCookTime() - 1, cookTime + 1));
+			int cookTime = ((AccessorAbstractFurnaceTileEntity) furnace).getCookTime();
+			((AccessorAbstractFurnaceTileEntity) furnace).setCookTime(Math.min(currentRecipe.getCookTime() - 1, cookTime + 1));
 		}
 	}
 }

@@ -8,13 +8,17 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(AvoidEntityGoal.class)
-public interface MixinAvoidEntityGoal {
-	@Accessor
-	Class<?> getClassToAvoid();
+import java.util.List;
+
+@Mixin(BiomeGeneratorTypeScreens.class)
+public interface AccessorBiomeGeneratorTypeScreens {
+	@Accessor("field_239068_c_")
+	static List<BiomeGeneratorTypeScreens> getAllTypes() {
+		throw new IllegalStateException();
+	}
 }

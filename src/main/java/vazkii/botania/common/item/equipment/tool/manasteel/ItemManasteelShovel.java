@@ -28,7 +28,7 @@ import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.mixin.MixinHoeItem;
+import vazkii.botania.mixin.AccessorHoeItem;
 
 import javax.annotation.Nonnull;
 
@@ -88,7 +88,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		}
 
 		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = MixinHoeItem.getConversions().get(block);
+		BlockState converted = AccessorHoeItem.getConversions().get(block);
 		if (converted == null) {
 			return ActionResultType.PASS;
 		}

@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import javax.annotation.Nullable;
 
 @Mixin(AbstractFurnaceTileEntity.class)
-public interface MixinAbstractFurnaceTileEntity {
+public interface AccessorAbstractFurnaceTileEntity {
 	@Invoker
 	boolean invokeCanSmelt(@Nullable IRecipe<?> recipe);
 

@@ -23,8 +23,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.mixin.MixinItemEntity;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -38,7 +37,7 @@ public class EntityThrownItem extends ItemEntity {
 	public EntityThrownItem(World world, double x,
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
-		setPickupDelay(((MixinItemEntity) item).getPickupDelay());
+		setPickupDelay(((AccessorItemEntity) item).getPickupDelay());
 		setMotion(item.getMotion());
 		setInvulnerable(true);
 	}
@@ -60,7 +59,7 @@ public class EntityThrownItem extends ItemEntity {
 		super.tick();
 
 		// [VanillaCopy] derivative from ThrowableEntity
-		int pickupDelay = ((MixinItemEntity) this).getPickupDelay();
+		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.canBeCollidedWith() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
 		RayTraceResult ray = ProjectileHelper.func_234618_a_(this, filter, RayTraceContext.BlockMode.OUTLINE);
 		if (ray.getType() == RayTraceResult.Type.BLOCK) {
