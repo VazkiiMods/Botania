@@ -63,14 +63,14 @@ public class EntityThrownItem extends ItemEntity {
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.canBeCollidedWith() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
 		RayTraceResult ray = ProjectileHelper.func_234618_a_(this, filter, RayTraceContext.BlockMode.OUTLINE);
 		if (ray.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos pos = ((BlockRayTraceResult)ray).getPos();
+			BlockPos pos = ((BlockRayTraceResult) ray).getPos();
 			BlockState state = this.world.getBlockState(pos);
 			if (state.isIn(Blocks.NETHER_PORTAL)) {
 				this.setPortal(pos);
 			} else if (state.isIn(Blocks.END_GATEWAY)) {
 				TileEntity tileentity = this.world.getTileEntity(pos);
 				if (tileentity instanceof EndGatewayTileEntity) {
-					((EndGatewayTileEntity)tileentity).teleportEntity(this);
+					((EndGatewayTileEntity) tileentity).teleportEntity(this);
 				}
 			}
 		}

@@ -835,6 +835,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(mutatedGrass), new BlockItem(mutatedGrass, props));
 		register(r, Registry.BLOCK.getKey(animatedTorch), new BlockItem(animatedTorch, props));
 		register(r, Registry.BLOCK.getKey(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
+		register(r, Registry.BLOCK.getKey(gaiaHead), new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 
 		DistExecutor.runForDist(() -> () -> registerWithTEISRS(r), () -> () -> registerWithoutTEISRS(r));
 	}
@@ -854,8 +855,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(brewery), new BlockItem(brewery, props));
 		register(r, Registry.BLOCK.getKey(corporeaIndex), new BlockItem(corporeaIndex, props));
 		register(r, Registry.BLOCK.getKey(hourglass), new BlockItem(hourglass, props));
-		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON));
-		register(r, Registry.BLOCK.getKey(gaiaHead), head);
 		return null;
 	}
 
@@ -872,8 +871,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(brewery), new BlockItem(brewery, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(brewery))));
 		register(r, Registry.BLOCK.getKey(corporeaIndex), new BlockItem(corporeaIndex, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(corporeaIndex))));
 		register(r, Registry.BLOCK.getKey(hourglass), new BlockItem(hourglass, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(hourglass))));
-		Item head = new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON).setISTER(() -> () -> new TEISR(gaiaHead)));
-		register(r, Registry.BLOCK.getKey(gaiaHead), head);
 		return null;
 	}
 

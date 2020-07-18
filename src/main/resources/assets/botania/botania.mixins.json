@@ -31,7 +31,9 @@
     "AccessorRecipeBookPage",
     "AccessorRenderState",
     "AccessorRenderTypeBuffers",
+    "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
+    "MixinSkullTileEntityRenderer",
     "MixinSplashes"
   ],
   "injectors": {

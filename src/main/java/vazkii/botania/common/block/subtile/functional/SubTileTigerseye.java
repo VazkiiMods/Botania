@@ -51,13 +51,12 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 			((AccessorCreeperEntity) entity).setTimeSinceIgnited(2);
 			entity.setAttackTarget(null);
 
-
 			if (getMana() >= COST) {
 				boolean did = false;
 
 				Set<PrioritizedGoal> goals = ((AccessorGoalSelector) entity.goalSelector).getGoals();
 				boolean hasRunAwayFromPlayerGoal = goals.stream()
-					.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
+						.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
 				if (!hasRunAwayFromPlayerGoal) {
 					entity.goalSelector.addGoal(3, new AvoidEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
 					did = true;
@@ -65,7 +64,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 				for (PrioritizedGoal pg : new ArrayList<>(((AccessorGoalSelector) entity.targetSelector).getGoals())) {
 					if (pg.getGoal() instanceof NearestAttackableTargetGoal
-						&& ((AccessorNearestAttackableTarget) pg.getGoal()).getTargetClass() == PlayerEntity.class) {
+							&& ((AccessorNearestAttackableTarget) pg.getGoal()).getTargetClass() == PlayerEntity.class) {
 						entity.targetSelector.removeGoal(pg.getGoal());
 						did = true;
 					}
