@@ -53,8 +53,6 @@ public class ModBrews {
 	public static final Brew overload = new Brew(0x232323, 12000, new EffectInstance(Effects.STRENGTH, 1800, 3), new EffectInstance(Effects.SPEED, 1800, 2), new EffectInstance(Effects.WEAKNESS, 3600, 1), new EffectInstance(Effects.HUNGER, 200, 2));
 	public static final Brew clear = make(4000, new EffectInstance(ModPotions.clear, 0, 0));
 
-	public static Brew warpWard;
-
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
 		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
 		try {
