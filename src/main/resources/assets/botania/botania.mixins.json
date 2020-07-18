@@ -25,8 +25,11 @@
     "MixinFirstPersonRenderer",
     "MixinItemOverrideList",
     "MixinModelBakery",
+    "MixinMinecraft",
     "MixinRecipeBookGui",
     "MixinRecipeBookPage",
+    "MixinRenderTypeBuffers",
+    "MixinSplashes",
     "MixinWorldRenderer"
   ],
   "injectors": {

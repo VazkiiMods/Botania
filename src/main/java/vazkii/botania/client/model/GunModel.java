@@ -26,7 +26,6 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.SimpleModelTransform;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -124,8 +123,6 @@ public class GunModel implements IBakedModel {
 	}
 
 	private static class CompositeBakedModel extends DelegatedModel {
-		private static final BlockModel MODEL_GENERATED = ObfuscationReflectionHelper.getPrivateValue(ModelBakery.class, null, "field_177606_o");
-
 		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
@@ -138,7 +135,7 @@ public class GunModel implements IBakedModel {
 			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
 
 			IBakedModel lensBaked;
-			if (lensUnbaked instanceof BlockModel && ((BlockModel) lensUnbaked).getRootModel() == MODEL_GENERATED) {
+			if (lensUnbaked instanceof BlockModel && ((BlockModel) lensUnbaked).getRootModel() == ModelBakery.MODEL_GENERATED) {
 				BlockModel bm = (BlockModel) lensUnbaked;
 				lensBaked = new ItemModelGenerator()
 						.makeItemModel(ModelLoader.defaultTextureGetter(), bm)

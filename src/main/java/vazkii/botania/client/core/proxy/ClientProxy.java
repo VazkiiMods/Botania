@@ -75,6 +75,7 @@ import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.MixinBiomeGeneratorTypeScreens;
+import vazkii.botania.mixin.MixinRenderTypeBuffers;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -108,7 +109,6 @@ public class ClientProxy implements IProxy {
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelRegister);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
-		modBus.addListener(SplashHandler::registerFactories);
 		modBus.addListener(ModelHandler::registerModels);
 		modBus.addListener(ModParticles.FactoryHandler::registerFactories);
 
@@ -298,7 +298,7 @@ public class ClientProxy implements IProxy {
 			ColorHandler.init();
 
 			// Needed to prevent mana pools on carts from X-raying through the cart
-			SortedMap<RenderType, BufferBuilder> layers = ObfuscationReflectionHelper.getPrivateValue(RenderTypeBuffers.class, Minecraft.getInstance().getRenderTypeBuffers(), "field_228480_b_");
+			SortedMap<RenderType, BufferBuilder> layers = ((MixinRenderTypeBuffers) Minecraft.getInstance().getRenderTypeBuffers()).getFixedBuffers();
 			layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getBufferSize()));
 		});
 	}
