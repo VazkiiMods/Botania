@@ -33,7 +33,6 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.lwjgl.opengl.GL11;
 
@@ -41,6 +40,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.mixin.AccessorRenderState;
 
 import javax.annotation.Nullable;
 
@@ -50,7 +50,7 @@ import java.util.OptionalDouble;
 import java.util.Random;
 
 public final class RenderHelper {
-	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = getTranslucentTransparency();
+	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = AccessorRenderState.getTranslucentTransparency();
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
@@ -81,10 +81,10 @@ public final class RenderHelper {
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
-		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
+		RenderState.TransparencyState lightningTransparency = AccessorRenderState.getLightningTransparency();
 		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
 		RenderState.CullState disableCull = new RenderState.CullState(false);
-		RenderState.LayerState viewOffsetZLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_239235_M_");
+		RenderState.LayerState viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
 		RenderState.WriteMaskState colorMask = new RenderState.WriteMaskState(true, false);
 		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
 		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
@@ -92,7 +92,7 @@ public final class RenderHelper {
 		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
 		RenderState.AlphaState oneTenthAlpha = new RenderState.AlphaState(0.004F);
 		RenderState.DepthTestState noDepth = new RenderState.DepthTestState("always", GL11.GL_ALWAYS);
-		RenderState.TargetState itemTarget = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_241712_U_");
+		RenderState.TargetState itemTarget = AccessorRenderState.getItemEntityTarget();
 		boolean useShaders = ShaderHelper.useShaders();
 
 		RenderType.State glState = RenderType.State.getBuilder().shadeModel(smoothShade)
@@ -187,10 +187,6 @@ public final class RenderHelper {
 		ENTITY_TRANSLUCENT_GOLD = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, gold) : gold;
 	}
 
-	private static RenderState.TransparencyState getTranslucentTransparency() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
-	}
-
 	private static RenderType getPylonGlowDirect(String name, ResourceLocation texture) {
 		return getPylonGlow(name, texture, true);
 	}
@@ -208,8 +204,7 @@ public final class RenderHelper {
 				.cull(new RenderState.CullState(false))
 				.lightmap(new RenderState.LightmapState(true));
 		if (!direct) {
-			RenderState.TargetState itemTarget = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_241712_U_");
-			glState = glState.target(itemTarget);
+			glState = glState.target(AccessorRenderState.getItemEntityTarget());
 		}
 		RenderType layer = RenderType.makeType(LibResources.PREFIX_MOD + name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, glState.build(false));
 		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;

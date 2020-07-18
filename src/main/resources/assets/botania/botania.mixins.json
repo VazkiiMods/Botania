@@ -22,12 +22,14 @@
   ],
   "client": [
     "AccessorBiomeGeneratorTypeScreens",
+    "AccessorEndPortalTileEntityRenderer",
     "AccessorFirstPersonRenderer",
     "AccessorItemOverrideList",
     "AccessorModelBakery",
     "AccessorMinecraft",
     "AccessorRecipeBookGui",
     "AccessorRecipeBookPage",
+    "AccessorRenderState",
     "AccessorRenderTypeBuffers",
     "AccessorWorldRenderer",
     "MixinSplashes"
