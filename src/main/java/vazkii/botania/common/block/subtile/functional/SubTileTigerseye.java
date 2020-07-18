@@ -8,15 +8,18 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
 	private static final int COST = 70;
+	private static final int SUCCESS_EVENT = 0;
 
 	public SubTileTigerseye() {
 		super(ModSubtiles.TIGERSEYE);
@@ -62,11 +66,37 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 				}
 
 				if (did) {
+					entity.playSound(SoundEvents.ENTITY_CREEPER_HURT, 1.0F, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+					world.addBlockEvent(getPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getEntityId());
 					addMana(-COST);
 					sync();
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean receiveClientEvent(int id, int payload) {
+		if (id == SUCCESS_EVENT) {
+			if (world.isRemote) {
+				Entity e = world.getEntityByID(payload);
+				if (e != null) {
+					float r = (getColor() >> 16 & 0xFF) / 255F;
+					float g = (getColor() >> 8 & 0xFF) / 255F;
+					float b = (getColor() & 0xFF) / 255F;
+					SparkleParticleData data = SparkleParticleData.sparkle(world.rand.nextFloat(), r, g, b, 10);
+
+					for (int i = 0; i < 50; i++) {
+						double x = e.getPosX() + world.rand.nextDouble() - 0.5;
+						double y = e.getPosY() + e.getHeight() * world.rand.nextDouble();
+						double z = e.getPosZ() + world.rand.nextDouble() - 0.5;
+						world.addParticle(data, x, y, z, 0, 0, 0);
+					}
+				}
+			}
+			return true;
+		}
+		return super.receiveClientEvent(id, payload);
 	}
 
 	@Override
