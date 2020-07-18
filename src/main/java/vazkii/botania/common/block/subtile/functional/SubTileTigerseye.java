@@ -8,13 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 
@@ -23,7 +20,6 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	private static final int RANGE = 10;
@@ -35,7 +31,6 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	@SuppressWarnings("deprecated")
 	public void tickFlower() {
 		super.tickFlower();
 
@@ -43,54 +38,34 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 			return;
 		}
 
-		boolean shouldAfffect = getMana() >= COST;
+		for (CreeperEntity entity : getWorld().getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
+			entity.timeSinceIgnited = 2;
+			entity.setAttackTarget(null);
 
-		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
-		for (MobEntity entity : entities) {
-			List<PrioritizedGoal> entries = new ArrayList<>(entity.goalSelector.goals);
-			entries.addAll(entity.targetSelector.goals);
+			if (getMana() >= COST) {
+				boolean did = false;
 
-			boolean avoidsOcelots = false;
-			if (shouldAfffect) {
-				for (PrioritizedGoal entry : entries) {
-					if (entry.getGoal() instanceof AvoidEntityGoal) {
-						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.getGoal()) || avoidsOcelots;
-					}
+				boolean hasRunAwayFromPlayerGoal = entity.goalSelector.goals.stream()
+					.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AvoidEntityGoal) g.getGoal()).classToAvoid == PlayerEntity.class);
+				if (!hasRunAwayFromPlayerGoal) {
+					entity.goalSelector.addGoal(3, new AvoidEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
+					did = true;
+				}
 
-					if (entry.getGoal() instanceof NearestAttackableTargetGoal) {
-						messWithGetTargetAI((NearestAttackableTargetGoal) entry.getGoal());
+				for (PrioritizedGoal pg : new ArrayList<>(entity.targetSelector.goals)) {
+					if (pg.getGoal() instanceof NearestAttackableTargetGoal
+						&& ((NearestAttackableTargetGoal) pg.getGoal()).targetClass == PlayerEntity.class) {
+						entity.targetSelector.removeGoal(pg.getGoal());
+						did = true;
 					}
 				}
+
+				if (did) {
+					addMana(-COST);
+					sync();
+				}
 			}
-
-			if (entity instanceof CreeperEntity) {
-				((CreeperEntity) entity).timeSinceIgnited = 2;
-				entity.setAttackTarget(null);
-			}
-
-			if (avoidsOcelots) {
-				addMana(-COST);
-				sync();
-				shouldAfffect = false;
-			}
-		}
-	}
-
-	// TODO replace this kludge
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private boolean messWithRunAwayAI(AvoidEntityGoal aiEntry) {
-		if (aiEntry.classToAvoid == OcelotEntity.class) {
-			aiEntry.classToAvoid = PlayerEntity.class;
-			return true;
-		}
-		return false;
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void messWithGetTargetAI(NearestAttackableTargetGoal aiEntry) {
-		if (aiEntry.targetClass == PlayerEntity.class) {
-			aiEntry.targetClass = EnderCrystalEntity.class; // Something random that won't be around
 		}
 	}
 
