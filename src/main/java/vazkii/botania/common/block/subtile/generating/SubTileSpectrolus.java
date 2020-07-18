@@ -34,6 +34,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.mixin.MixinItemEntity;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -65,7 +66,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 		AxisAlignedBB itemAABB = new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
-		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((ItemEntity) e).age >= slowdown);
+		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((MixinItemEntity) e).getAge() >= slowdown);
 		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
 
 		for (Entity target : targets) {

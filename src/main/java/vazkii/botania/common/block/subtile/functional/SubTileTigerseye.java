@@ -21,8 +21,13 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.mixin.MixinAvoidEntityGoal;
+import vazkii.botania.mixin.MixinCreeperEntity;
+import vazkii.botania.mixin.MixinGoalSelector;
+import vazkii.botania.mixin.MixinNearestAttackableTarget;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	private static final int RANGE = 10;
@@ -43,23 +48,24 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		}
 
 		for (CreeperEntity entity : getWorld().getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
-			entity.timeSinceIgnited = 2;
+			((MixinCreeperEntity) entity).setTimeSinceIgnited(2);
 			entity.setAttackTarget(null);
 
 
 			if (getMana() >= COST) {
 				boolean did = false;
 
-				boolean hasRunAwayFromPlayerGoal = entity.goalSelector.goals.stream()
-					.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AvoidEntityGoal) g.getGoal()).classToAvoid == PlayerEntity.class);
+				Set<PrioritizedGoal> goals = ((MixinGoalSelector) entity.goalSelector).getGoals();
+				boolean hasRunAwayFromPlayerGoal = goals.stream()
+					.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((MixinAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
 				if (!hasRunAwayFromPlayerGoal) {
 					entity.goalSelector.addGoal(3, new AvoidEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
 					did = true;
 				}
 
-				for (PrioritizedGoal pg : new ArrayList<>(entity.targetSelector.goals)) {
+				for (PrioritizedGoal pg : new ArrayList<>(((MixinGoalSelector) entity.targetSelector).getGoals())) {
 					if (pg.getGoal() instanceof NearestAttackableTargetGoal
-						&& ((NearestAttackableTargetGoal) pg.getGoal()).targetClass == PlayerEntity.class) {
+						&& ((MixinNearestAttackableTarget) pg.getGoal()).getTargetClass() == PlayerEntity.class) {
 						entity.targetSelector.removeGoal(pg.getGoal());
 						did = true;
 					}

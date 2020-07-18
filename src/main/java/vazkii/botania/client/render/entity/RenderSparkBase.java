@@ -60,7 +60,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.push();
 		ms.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 		ms.scale(0.2F, 0.2F, 0.2F);
-		int starColor = tEntity.getNetwork().colorValue | ((int) (a * 255.0F) << 24);
+		int starColor = tEntity.getNetwork().getColorValue() | ((int) (a * 255.0F) << 24);
 		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar, starColor);
 		ms.pop();
 

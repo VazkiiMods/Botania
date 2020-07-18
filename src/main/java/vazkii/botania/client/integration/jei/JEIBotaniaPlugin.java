@@ -27,6 +27,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
@@ -120,12 +121,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
-		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()), ManaPoolRecipeCategory.UID);
+		World world = Minecraft.getInstance().world;
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
+		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
 				BotaniaAPI.instance().getOreWeights().entrySet().stream()
@@ -187,7 +189,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager())) {
+		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world)) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}

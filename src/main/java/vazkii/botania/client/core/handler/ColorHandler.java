@@ -57,11 +57,11 @@ public final class ColorHandler {
 						return -1;
 					}
 
-					int color = DyeColor.WHITE.colorValue;
+					int color = DyeColor.WHITE.getColorValue();
 					if (world != null && pos != null) {
 						TileEntity te = world.getTileEntity(pos);
 						if (te instanceof TilePool) {
-							color = ((TilePool) te).color.colorValue;
+							color = ((TilePool) te).color.getColorValue();
 						}
 					}
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
@@ -84,7 +84,7 @@ public final class ColorHandler {
 		);
 
 		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.colorValue : -1,
+		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.getColorValue() : -1,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -114,12 +114,12 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				ModItems.lifeEssence, ModItems.gaiaIngot);
 
-		items.register((s, t) -> t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).colorValue
-				: t == 2 ? DyeColor.byId(ItemTwigWand.getColor2(s)).colorValue
+		items.register((s, t) -> t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).getColorValue()
+				: t == 2 ? DyeColor.byId(ItemTwigWand.getColor2(s)).getColorValue()
 				: -1,
 				ModItems.twigWand);
 
-		IItemColor petalHandler = (s, t) -> t == 0 ? ((ItemPetal) s.getItem()).color.colorValue : -1;
+		IItemColor petalHandler = (s, t) -> t == 0 ? ((ItemPetal) s.getItem()).color.getColorValue() : -1;
 		for (DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
 		}

@@ -87,7 +87,7 @@ public class PacketBotaniaEffect {
 					switch (message.type) {
 					case PAINT_LENS: {
 						DyeColor placeColor = DyeColor.byId(message.args[0]);
-						int hex = placeColor.colorValue;
+						int hex = placeColor.getColorValue();
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 						int b = hex & 0xFF;

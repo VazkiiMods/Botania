@@ -23,17 +23,24 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import vazkii.botania.mixin.MixinGoalSelector;
+
 import javax.annotation.Nonnull;
 
 public class EntityPinkWither extends WitherEntity {
 	public EntityPinkWither(EntityType<EntityPinkWither> type, World world) {
 		super(type, world);
+	}
+
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
 
 		// Remove firing wither skulls
-		goalSelector.goals.removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
+		((MixinGoalSelector) goalSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
 
 		// Remove revenge and aggro
-		targetSelector.goals.removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
+		((MixinGoalSelector) targetSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
 				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
 	}
 

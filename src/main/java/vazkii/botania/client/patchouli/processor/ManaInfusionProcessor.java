@@ -42,12 +42,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		ImmutableList.Builder<IManaInfusionRecipe> builder = ImmutableList.builder();
 		if (variables.has("group")) {
 			String group = variables.get("group").asString();
-			TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()).stream()
+			TilePool.manaInfusionRecipes(Minecraft.getInstance().world).stream()
 					.filter(r -> r.getGroup().equals(group))
 					.forEach(builder::add);
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).get(new ResourceLocation(s.asString()));
+				IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.MANA_INFUSION_TYPE).get(new ResourceLocation(s.asString()));
 				if (recipe instanceof IManaInfusionRecipe) {
 					builder.add((IManaInfusionRecipe) recipe);
 				} else {

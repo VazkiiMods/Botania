@@ -32,6 +32,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.mixin.MixinWorldRenderer;
 
 import java.util.Random;
 
@@ -54,8 +55,8 @@ public class SkyblockSkyRenderer implements SkyRenderHandler {
 	@Override
 	public void render(int ticks, float partialTicks, MatrixStack matrixStackIn, ClientWorld world, Minecraft mc) {
 		// Environment setup
-		VertexBuffer skyVBO = mc.worldRenderer.skyVBO;
-		VertexFormat skyVertexFormat = mc.worldRenderer.skyVertexFormat;
+		VertexBuffer skyVBO = ((MixinWorldRenderer) mc.worldRenderer).getSkyVBO();
+		VertexFormat skyVertexFormat = ((MixinWorldRenderer) mc.worldRenderer).getSkyVertexFormat();
 
 		RenderSystem.disableTexture();
 		Vector3d Vector3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
@@ -377,7 +378,7 @@ public class SkyblockSkyRenderer implements SkyRenderHandler {
 	}
 
 	private void renderStars(VertexFormat format, MatrixStack ms, Minecraft mc, float alpha, float partialTicks) {
-		net.minecraft.client.renderer.vertex.VertexBuffer starVBO = mc.worldRenderer.starVBO;
+		net.minecraft.client.renderer.vertex.VertexBuffer starVBO = ((MixinWorldRenderer) mc.worldRenderer).getStarVBO();
 
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		ms.push();

@@ -35,7 +35,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	public void setup(IVariableProvider variables) {
 		ImmutableList.Builder<IElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s.asString()));
+			IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s.asString()));
 			if (recipe instanceof IElvenTradeRecipe) {
 				builder.add((IElvenTradeRecipe) recipe);
 			} else {

@@ -10,7 +10,7 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ItemOverride;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -30,15 +30,15 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.MixinItemOverrideList;
+import vazkii.botania.mixin.MixinModelBakery;
 
-import java.lang.invoke.MethodHandle;
+import java.util.List;
 import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class MiscellaneousIcons {
-	private static final MethodHandle MATERIALS = LibObfuscation.getGetter(ModelBakery.class, "field_177602_b");
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
 	public TextureAtlasSprite alfPortalTex,
@@ -86,12 +86,7 @@ public class MiscellaneousIcons {
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
 	public void onModelRegister(ModelRegistryEvent evt) {
-		Set<RenderMaterial> materials;
-		try {
-			materials = (Set<RenderMaterial>) MATERIALS.invokeExact();
-		} catch (Throwable throwable) {
-			throw new RuntimeException(throwable);
-		}
+		Set<RenderMaterial> materials = MixinModelBakery.getMaterials();
 
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
@@ -147,8 +142,9 @@ public class MiscellaneousIcons {
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
-		for (int i = 0; i < original.getOverrides().overrideBakedModels.size(); i++) {
-			original.getOverrides().overrideBakedModels.set(i, new LexiconModel(original.getOverrides().overrideBakedModels.get(i)));
+		List<IBakedModel> overrides = ((MixinItemOverrideList) original.getOverrides()).getOverrideBakedModels();
+		for (int i = 0; i < overrides.size(); i++) {
+			overrides.set(i, new LexiconModel(overrides.get(i)));
 		}
 
 		// Mana Blaster
