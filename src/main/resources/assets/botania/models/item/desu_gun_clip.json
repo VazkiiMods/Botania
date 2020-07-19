@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/desugun2",
-    "layer1": "botania:item/desugun1"
+    "layer0": "botania:item/desu_gun_clip",
+    "layer1": "botania:item/desu_gun_overlay"
   }
 }

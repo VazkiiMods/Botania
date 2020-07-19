@@ -51,9 +51,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.collect(Collectors.toSet());
 		registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()));
 		registerItemOverrides(items);
-		takeAll(items, i -> i instanceof ItemLens).forEach(i -> getBuilder(name(i)).parent(getExistingFile(GENERATED))
-				.texture("layer0", prefix("item/lens"))
-				.texture("layer1", prefix("item/" + name(i))));
+		registerItems(items);
 	}
 
 	private static String name(Item i) {
@@ -63,12 +61,48 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 	private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
 
 	private ItemModelBuilder generatedItem(String name) {
-		return getBuilder(name).parent(getExistingFile(GENERATED))
-				.texture("layer0", prefix("item/" + name));
+		return withExistingParent(name, GENERATED)
+			.texture("layer0", prefix("item/" + name));
 	}
 
 	private ItemModelBuilder generatedItem(Item i) {
 		return generatedItem(name(i));
+	}
+
+	private void registerItems(Set<Item> items) {
+		// Written manually
+		items.remove(manaGun);
+
+		takeAll(items, i -> i instanceof ItemLens).forEach(i ->
+			withExistingParent(name(i), GENERATED)
+				.texture("layer0", prefix("item/lens"))
+				.texture("layer1", prefix("item/" + name(i))));
+
+		generatedItem(bloodPendant)
+			.texture("layer1", prefix("item/" + name(bloodPendant) + "_overlay"));
+		items.remove(bloodPendant);
+
+		generatedItem(enderDagger)
+			.texture("layer1", prefix("item/" + name(enderDagger) + "_overlay"));
+		items.remove(enderDagger);
+
+		generatedItem(incenseStick)
+			.texture("layer1", prefix("item/" + name(incenseStick) + "_overlay"));
+		items.remove(incenseStick);
+
+		generatedItem(manaMirror)
+			.texture("layer1", prefix("item/" + name(manaMirror) + "_overlay"));
+		items.remove(manaMirror);
+
+		generatedItem(manaTablet)
+			.texture("layer1", prefix("item/" + name(manaTablet) + "_overlay"));
+		items.remove(manaTablet);
+
+		withExistingParent(name(thirdEye), GENERATED)
+			.texture("layer0", prefix("item/" + name(thirdEye) + "_0"))
+			.texture("layer1", prefix("item/" + name(thirdEye) + "_1"))
+			.texture("layer2", prefix("item/" + name(thirdEye) + "_2"));
+		items.remove(thirdEye);
 	}
 
 	private void registerItemOverrides(Set<Item> items) {
@@ -86,7 +120,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 			.texture("layer1", prefix("item/" + name(brewFlask) + "_0"));
 		for (int i = 1; i <= 5; i++) {
 			String overrideName = name(brewFlask) + "_" + i;
-			ModelFile overrideModel = getBuilder(overrideName)
+			ModelFile overrideModel = withExistingParent(overrideName, GENERATED)
 				.texture("layer0", prefix("item/" + name(flask)))
 				.texture("layer1", prefix("item/" + overrideName));
 			flaskBuilder.override()
@@ -100,7 +134,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 			.texture("layer1", prefix("item/" + name(brewVial) + "_0"));
 		for (int i = 1; i <= 3; i++) {
 			String overrideName = name(brewVial) + "_" + i;
-			ModelFile overrideModel = getBuilder(overrideName)
+			ModelFile overrideModel = withExistingParent(overrideName, GENERATED)
 				.texture("layer0", prefix("item/" + name(vial)))
 				.texture("layer1", prefix("item/" + overrideName));
 			vialBuilder.override()
@@ -201,12 +235,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(generatedItem(name(terraAxe) + "_active")).end();
 		items.remove(terraAxe);
 
-		ModelFile enabledModel = getBuilder(name(terraPick) + "_active")
-				.parent(getExistingFile(GENERATED))
+		ModelFile enabledModel = withExistingParent(name(terraPick) + "_active", GENERATED)
 				.texture("layer0", prefix("item/" + name(terraPick)))
 				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
-		ModelFile tippedEnabledModel = getBuilder(name(terraPick) + "_tipped_active")
-				.parent(getExistingFile(GENERATED))
+		ModelFile tippedEnabledModel = withExistingParent(name(terraPick) + "_tipped_active", GENERATED)
 				.texture("layer0", prefix("item/" + name(terraPick) + "_tipped"))
 				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
 

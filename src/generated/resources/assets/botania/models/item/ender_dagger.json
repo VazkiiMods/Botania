@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "item/generated",
   "textures": {
     "layer0": "botania:item/ender_dagger",
     "layer1": "botania:item/ender_dagger_overlay"
