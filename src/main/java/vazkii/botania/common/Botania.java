@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common;
 
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -81,7 +79,7 @@ import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.capability.NoopExoflameHeatable;
-import vazkii.botania.common.core.command.CommandSkyblockSpread;
+import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.DisposeModifier;
@@ -206,7 +204,7 @@ public class Botania {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
-			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerUpdate);
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
 		}
 
@@ -297,7 +295,7 @@ public class Botania {
 
 	private void serverStarting(FMLServerStartingEvent event) {
 		if (Botania.gardenOfGlassLoaded) {
-			CommandSkyblockSpread.register(event.getCommandDispatcher());
+			SkyblockCommand.register(event.getCommandDispatcher());
 		}
 	}
 
