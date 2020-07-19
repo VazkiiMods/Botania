@@ -10,6 +10,9 @@ import vazkii.botania.common.core.handler.PixieHandler;
 
 @Mixin(PlayerEntity.class)
 public class MixinPlayerEntity {
+	/**
+	 * Registers the pixie spawn chance attribute on players
+	 */
 	@Inject(at = @At("RETURN"), method = "func_234570_el_")
 	private static void addPixieAttribute(CallbackInfoReturnable<AttributeModifierMap.MutableAttribute> cir) {
 		cir.getReturnValue().func_233814_a_(PixieHandler.PIXIE_SPAWN_CHANCE);

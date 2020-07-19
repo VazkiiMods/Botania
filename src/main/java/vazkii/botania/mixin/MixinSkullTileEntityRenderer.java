@@ -26,12 +26,12 @@ import vazkii.botania.common.block.BlockGaiaHead;
 
 import javax.annotation.Nullable;
 
-/**
- * This hook is necessary instead of just overriding render() in RenderTileGaiaHead as normal
- * because vanilla ItemStackTileEntityRenderer checks for skull blocks and calls this static method directly.
- */
 @Mixin(SkullTileEntityRenderer.class)
 public abstract class MixinSkullTileEntityRenderer {
+	/**
+	 * This hook is necessary instead of just overriding render() in RenderTileGaiaHead as normal
+	 * because vanilla ItemStackTileEntityRenderer checks for skull blocks and calls this static method directly.
+	 */
 	@Inject(at = @At("HEAD"), method = "render(Lnet/minecraft/util/Direction;FLnet/minecraft/block/SkullBlock$ISkullType;Lcom/mojang/authlib/GameProfile;FLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;I)V", cancellable = true)
 	private static void onRender(@Nullable Direction direction, float angle, SkullBlock.ISkullType skullType, @Nullable GameProfile gameProfileIn, float animationProgress, MatrixStack ms, IRenderTypeBuffer buffers, int light, CallbackInfo ci) {
 		if (skullType == BlockGaiaHead.GAIA_TYPE) {

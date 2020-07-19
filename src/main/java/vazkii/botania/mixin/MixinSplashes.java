@@ -29,6 +29,9 @@ public class MixinSplashes {
 	@Final
 	private List<String> possibleSplashes;
 
+	/**
+	 * Adds splash texts if enabled
+	 */
 	@Inject(at = @At("RETURN"), method = "apply")
 	public void addSplashes(List<String> splashes, IResourceManager resourceManager, IProfiler profiler, CallbackInfo ci) {
 		if (ConfigHandler.CLIENT.splashesEnabled.get()) {

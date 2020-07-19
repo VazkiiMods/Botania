@@ -35,7 +35,8 @@
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
     "MixinSkullTileEntityRenderer",
-    "MixinSplashes"
+    "MixinSplashes",
+    "MixinWorldRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
