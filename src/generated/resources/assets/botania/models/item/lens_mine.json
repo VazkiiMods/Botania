@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
     "layer0": "botania:item/lens",
     "layer1": "botania:item/lens_mine"

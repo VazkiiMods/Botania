@@ -26,6 +26,7 @@ import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -50,6 +51,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.collect(Collectors.toSet());
 		registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()));
 		registerItemOverrides(items);
+		takeAll(items, i -> i instanceof ItemLens).forEach(i ->
+			getBuilder(name(i)).parent(getExistingFile(GENERATED))
+			.texture("layer0", prefix("item/lens"))
+			.texture("layer1", prefix("item/" + name(i))));
 	}
 
 	private static String name(Item i) {
