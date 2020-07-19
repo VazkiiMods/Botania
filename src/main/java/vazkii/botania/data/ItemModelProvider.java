@@ -72,10 +72,42 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 	}
 
 	private void registerItemOverrides(Set<Item> items) {
+		// Written manually
+		items.remove(livingwoodBow);
+		items.remove(crystalBow);
+
 		generatedItem(blackHoleTalisman).override()
 				.predicate(prefix("active"), 1)
 				.model(generatedItem(name(blackHoleTalisman) + "_active")).end();
 		items.remove(blackHoleTalisman);
+
+		ItemModelBuilder flaskBuilder = withExistingParent(name(brewFlask), GENERATED)
+			.texture("layer0", prefix("item/" + name(flask)))
+			.texture("layer1", prefix("item/" + name(brewFlask) + "_0"));
+		for (int i = 1; i <= 5; i++) {
+			String overrideName = name(brewFlask) + "_" + i;
+			ModelFile overrideModel = getBuilder(overrideName)
+				.texture("layer0", prefix("item/" + name(flask)))
+				.texture("layer1", prefix("item/" + overrideName));
+			flaskBuilder.override()
+				.predicate(prefix("swigs_taken"), i)
+				.model(overrideModel).end();
+		}
+		items.remove(brewFlask);
+
+		ItemModelBuilder vialBuilder = withExistingParent(name(brewVial), GENERATED)
+			.texture("layer0", prefix("item/" + name(vial)))
+			.texture("layer1", prefix("item/" + name(brewVial) + "_0"));
+		for (int i = 1; i <= 3; i++) {
+			String overrideName = name(brewVial) + "_" + i;
+			ModelFile overrideModel = getBuilder(overrideName)
+				.texture("layer0", prefix("item/" + name(vial)))
+				.texture("layer1", prefix("item/" + overrideName));
+			vialBuilder.override()
+				.predicate(prefix("swigs_taken"), i)
+				.model(overrideModel).end();
+		}
+		items.remove(brewVial);
 
 		generatedItem(elementiumShears).override()
 				.predicate(prefix("reddit"), 1)
@@ -109,6 +141,15 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.predicate(prefix("active"), 1)
 				.model(generatedItem(name(magnetRingGreater) + "_active")).end();
 		items.remove(magnetRingGreater);
+
+		ItemModelBuilder bottle = generatedItem(manaBottle);
+		for (int i = 1; i <= 5; i++) {
+			ModelFile overrideModel = generatedItem(name(manaBottle) + "_" + i);
+			bottle.override()
+				.predicate(prefix("swigs_taken"), i)
+				.model(overrideModel).end();
+		}
+		items.remove(manaBottle);
 
 		generatedItem(manaCookie).override()
 				.predicate(prefix("totalbiscuit"), 1)

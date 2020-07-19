@@ -1,36 +1,36 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "botania:item/bottle_mana_0"
+    "layer0": "botania:item/mana_bottle"
   },
   "overrides": [
     {
       "predicate": {
-        "botania:swigs_taken": 1
+        "botania:swigs_taken": 1.0
       },
       "model": "botania:item/mana_bottle_1"
     },
     {
       "predicate": {
-        "botania:swigs_taken": 2
+        "botania:swigs_taken": 2.0
       },
       "model": "botania:item/mana_bottle_2"
     },
     {
       "predicate": {
-        "botania:swigs_taken": 3
+        "botania:swigs_taken": 3.0
       },
       "model": "botania:item/mana_bottle_3"
     },
     {
       "predicate": {
-        "botania:swigs_taken": 4
+        "botania:swigs_taken": 4.0
       },
       "model": "botania:item/mana_bottle_4"
     },
     {
       "predicate": {
-        "botania:swigs_taken": 5
+        "botania:swigs_taken": 5.0
       },
       "model": "botania:item/mana_bottle_5"
     }
