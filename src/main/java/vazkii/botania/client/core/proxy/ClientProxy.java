@@ -215,22 +215,22 @@ public class ClientProxy implements IProxy {
 		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
 
 		IItemPropertyGetter ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
-		registerPropertyGetter(ModItems.magnetRing, prefix("on"), ringOnGetter);
-		registerPropertyGetter(ModItems.magnetRingGreater, prefix("on"), ringOnGetter);
+		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
+		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
 				(stack, world, entity) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
 				(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
-		registerPropertyGetter(ModItems.terraAxe, prefix("terraaxe_on"),
+		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
 				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
 				(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
-		registerPropertyGetter(ModItems.terraPick, prefix("enabled"),
+		registerPropertyGetter(ModItems.terraPick, prefix("active"),
 				(stack, world, entity) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.infiniteFruit, prefix("boot"),
 				(stack, worldIn, entity) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
-		registerPropertyGetter(ModItems.tornadoRod, prefix("flying"),
+		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
 				(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
 		IItemPropertyGetter pulling = ItemModelsProperties.func_239417_a_(Items.BOW, new ResourceLocation("pulling"));
