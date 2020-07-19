@@ -152,10 +152,10 @@ public final class ConfigHandler {
 			builder.push("manaSpreaders");
 			silentSpreaders = builder
 					.comment("Set this to true to disable the mana spreader shooting sound")
-					.define("manaSpreaders.silent", false);
+					.define("silent", false);
 			spreaderTraceTime = builder
 					.comment("How many ticks into the future will mana spreaders attempt to predict where mana bursts go? Setting this lower will improve spreader performance, but will cause them to not fire at targets that are too far away.")
-					.defineInRange("manaSpreaders.traceTime", 400, 1, Integer.MAX_VALUE);
+					.defineInRange("traceTime", 400, 1, Integer.MAX_VALUE);
 			builder.pop();
 
 			builder.push("harvestLevels");
