@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 
 public final class LibEntityNames {
 	public static final ResourceLocation MANA_BURST = makeName("mana_burst");
-	public static final ResourceLocation SIGNAL_FLARE = makeName("signal_flare");
 	public static final ResourceLocation PIXIE = makeName("pixie");
 	public static final ResourceLocation FLAME_RING = makeName("flame_ring");
 	public static final ResourceLocation VINE_BALL = makeName("vine_ball");

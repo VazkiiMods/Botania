@@ -26,13 +26,6 @@ public final class ModEntities {
 			.setTrackingRange(64)
 			.setShouldReceiveVelocityUpdates(true)
 			.build("");
-	public static final EntityType<EntitySignalFlare> SIGNAL_FLARE = EntityType.Builder.<EntitySignalFlare>create(
-			EntitySignalFlare::new, EntityClassification.MISC)
-			.size(0, 0)
-			.setUpdateInterval(10)
-			.setTrackingRange(2048)
-			.setShouldReceiveVelocityUpdates(false)
-			.build("");
 	public static final EntityType<EntityPixie> PIXIE = EntityType.Builder.<EntityPixie>create(EntityPixie::new, EntityClassification.MISC)
 			.size(1, 1)
 			.setUpdateInterval(3)
@@ -142,7 +135,6 @@ public final class ModEntities {
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> evt) {
 		IForgeRegistry<EntityType<?>> r = evt.getRegistry();
 		register(r, LibEntityNames.MANA_BURST, MANA_BURST);
-		register(r, LibEntityNames.SIGNAL_FLARE, SIGNAL_FLARE);
 		register(r, LibEntityNames.PIXIE, PIXIE);
 		register(r, LibEntityNames.FLAME_RING, FLAME_RING);
 		register(r, LibEntityNames.VINE_BALL, VINE_BALL);

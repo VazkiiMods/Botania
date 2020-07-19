@@ -37,7 +37,6 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
-import vazkii.botania.common.entity.EntitySignalFlare;
 
 import javax.annotation.Nonnull;
 
@@ -151,22 +150,9 @@ public class ItemBottledMana extends Item {
 			}
 			break;
 		}
-		case 12: { // Flare
+		case 12: { // ???
 			if (!living.world.isRemote) {
-				EntitySignalFlare flare = new EntitySignalFlare(living.world);
-				flare.setPosition(living.getPosX(), living.getPosY(), living.getPosZ());
-				flare.setColor(living.world.rand.nextInt(16));
-				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.world.rand.nextFloat() - living.world.rand.nextFloat()) * 0.2F) * 0.7F);
-
-				living.world.addEntity(flare);
-
-				int range = 5;
-				List<LivingEntity> entities = living.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range));
-				for (LivingEntity entity : entities) {
-					if (entity != living && (!(entity instanceof PlayerEntity) || ServerLifecycleHooks.getCurrentServer() == null || ServerLifecycleHooks.getCurrentServer().isPVPEnabled())) {
-						entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 5));
-					}
-				}
+				// todo 1.16 pick something new
 			}
 
 			break;

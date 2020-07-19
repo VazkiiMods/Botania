@@ -51,10 +51,9 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.collect(Collectors.toSet());
 		registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()));
 		registerItemOverrides(items);
-		takeAll(items, i -> i instanceof ItemLens).forEach(i ->
-			getBuilder(name(i)).parent(getExistingFile(GENERATED))
-			.texture("layer0", prefix("item/lens"))
-			.texture("layer1", prefix("item/" + name(i))));
+		takeAll(items, i -> i instanceof ItemLens).forEach(i -> getBuilder(name(i)).parent(getExistingFile(GENERATED))
+				.texture("layer0", prefix("item/lens"))
+				.texture("layer1", prefix("item/" + name(i))));
 	}
 
 	private static String name(Item i) {
@@ -65,21 +64,22 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
 	private ItemModelBuilder generatedItem(String name) {
 		return getBuilder(name).parent(getExistingFile(GENERATED))
-			.texture("layer0", prefix("item/" + name));
+				.texture("layer0", prefix("item/" + name));
 	}
+
 	private ItemModelBuilder generatedItem(Item i) {
 		return generatedItem(name(i));
 	}
 
 	private void registerItemOverrides(Set<Item> items) {
 		generatedItem(blackHoleTalisman).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(blackHoleTalisman) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(blackHoleTalisman) + "_active")).end();
 		items.remove(blackHoleTalisman);
 
 		generatedItem(elementiumShears).override()
-			.predicate(prefix("reddit"), 1)
-			.model(generatedItem("dammitreddit")).end();
+				.predicate(prefix("reddit"), 1)
+				.model(generatedItem("dammitreddit")).end();
 		items.remove(elementiumShears);
 
 		ModelFile vuvuzela = generatedItem("vuvuzela");
@@ -91,106 +91,106 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		items.remove(snowHorn);
 
 		generatedItem(infiniteFruit).override()
-			.predicate(prefix("boot"), 1)
-			.model(generatedItem("dasboot")).end();
+				.predicate(prefix("boot"), 1)
+				.model(generatedItem("dasboot")).end();
 		items.remove(infiniteFruit);
 
 		generatedItem(lexicon).override()
-			.predicate(prefix("elven"), 1)
-			.model(generatedItem(name(lexicon) + "_elven")).end();
+				.predicate(prefix("elven"), 1)
+				.model(generatedItem(name(lexicon) + "_elven")).end();
 		items.remove(lexicon);
 
 		generatedItem(magnetRing).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(magnetRing) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(magnetRing) + "_active")).end();
 		items.remove(magnetRing);
 
 		generatedItem(magnetRingGreater).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(magnetRingGreater) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(magnetRingGreater) + "_active")).end();
 		items.remove(magnetRingGreater);
 
 		generatedItem(manaCookie).override()
-			.predicate(prefix("totalbiscuit"), 1)
-			.model(generatedItem("totalbiscuit")).end();
+				.predicate(prefix("totalbiscuit"), 1)
+				.model(generatedItem("totalbiscuit")).end();
 		items.remove(manaCookie);
 
 		generatedItem(manasteelSword).override()
-			.predicate(prefix("elucidator"), 1)
-			.model(generatedItem("elucidator")).end();
+				.predicate(prefix("elucidator"), 1)
+				.model(generatedItem("elucidator")).end();
 		items.remove(manasteelSword);
 
 		generatedItem(manaweaveHelm).override()
-			.predicate(prefix("holiday"), 1)
-			.model(generatedItem(name(manaweaveHelm) + "_holiday")).end();
+				.predicate(prefix("holiday"), 1)
+				.model(generatedItem(name(manaweaveHelm) + "_holiday")).end();
 		items.remove(manaweaveHelm);
 
 		generatedItem(manaweaveChest).override()
-			.predicate(prefix("holiday"), 1)
-			.model(generatedItem(name(manaweaveChest) + "_holiday")).end();
+				.predicate(prefix("holiday"), 1)
+				.model(generatedItem(name(manaweaveChest) + "_holiday")).end();
 		items.remove(manaweaveChest);
 
 		generatedItem(manaweaveLegs).override()
-			.predicate(prefix("holiday"), 1)
-			.model(generatedItem(name(manaweaveLegs) + "_holiday")).end();
+				.predicate(prefix("holiday"), 1)
+				.model(generatedItem(name(manaweaveLegs) + "_holiday")).end();
 		items.remove(manaweaveLegs);
 
 		generatedItem(manaweaveBoots).override()
-			.predicate(prefix("holiday"), 1)
-			.model(generatedItem(name(manaweaveBoots) + "_holiday")).end();
+				.predicate(prefix("holiday"), 1)
+				.model(generatedItem(name(manaweaveBoots) + "_holiday")).end();
 		items.remove(manaweaveBoots);
 
 		generatedItem(slimeBottle).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(slimeBottle) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(slimeBottle) + "_active")).end();
 		items.remove(slimeBottle);
 
 		generatedItem(spawnerMover).override()
-			.predicate(prefix("full"), 1)
-			.model(generatedItem(name(spawnerMover) + "_full")).end();
+				.predicate(prefix("full"), 1)
+				.model(generatedItem(name(spawnerMover) + "_full")).end();
 		items.remove(spawnerMover);
 
 		generatedItem(temperanceStone).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(temperanceStone) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(temperanceStone) + "_active")).end();
 		items.remove(temperanceStone);
 
 		generatedItem(terraAxe).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(terraAxe) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(terraAxe) + "_active")).end();
 		items.remove(terraAxe);
 
 		ModelFile enabledModel = getBuilder(name(terraPick) + "_active")
-			.parent(getExistingFile(GENERATED))
-			.texture("layer0", prefix("item/" + name(terraPick)))
-			.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
+				.parent(getExistingFile(GENERATED))
+				.texture("layer0", prefix("item/" + name(terraPick)))
+				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
 		ModelFile tippedEnabledModel = getBuilder(name(terraPick) + "_tipped_active")
-			.parent(getExistingFile(GENERATED))
-			.texture("layer0", prefix("item/" + name(terraPick) + "_tipped"))
-			.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
+				.parent(getExistingFile(GENERATED))
+				.texture("layer0", prefix("item/" + name(terraPick) + "_tipped"))
+				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
 
 		generatedItem(terraPick).override()
-			.predicate(prefix("active"), 1)
-			.model(enabledModel).end()
-			.override()
-			.predicate(prefix("tipped"), 1)
-			.model(generatedItem(name(terraPick) + "_tipped")).end()
-			.override()
-			.predicate(prefix("tipped"), 1).predicate(prefix("active"), 1)
-			.model(tippedEnabledModel).end();
+				.predicate(prefix("active"), 1)
+				.model(enabledModel).end()
+				.override()
+				.predicate(prefix("tipped"), 1)
+				.model(generatedItem(name(terraPick) + "_tipped")).end()
+				.override()
+				.predicate(prefix("tipped"), 1).predicate(prefix("active"), 1)
+				.model(tippedEnabledModel).end();
 		items.remove(terraPick);
 
 		generatedItem(tornadoRod).override()
-			.predicate(prefix("active"), 1)
-			.model(generatedItem(name(tornadoRod) + "_active")).end();
+				.predicate(prefix("active"), 1)
+				.model(generatedItem(name(tornadoRod) + "_active")).end();
 		items.remove(tornadoRod);
 
 		generatedItem(twigWand)
-			.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
-			.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
-			.override()
-			.predicate(prefix("bindmode"), 1)
-			.model(generatedItem(name(twigWand) + "_bind")).end();
+				.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
+				.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
+				.override()
+				.predicate(prefix("bindmode"), 1)
+				.model(generatedItem(name(twigWand) + "_bind")).end();
 		items.remove(twigWand);
 	}
 
