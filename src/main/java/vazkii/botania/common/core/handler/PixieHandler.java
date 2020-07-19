@@ -42,7 +42,7 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("botania.pixieSpawnChance", 0, 0, 1);
+	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
 	private static final Map<EquipmentSlotType, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlotType.class), m -> {
 		m.put(EquipmentSlotType.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
 		m.put(EquipmentSlotType.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
