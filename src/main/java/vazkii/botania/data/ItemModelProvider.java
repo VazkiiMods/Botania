@@ -72,6 +72,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 	private void registerItems(Set<Item> items) {
 		// Written manually
 		items.remove(manaGun);
+		items.remove(waterBowl);
 
 		takeAll(items, i -> i instanceof ItemLens).forEach(i ->
 			withExistingParent(name(i), GENERATED)
@@ -103,6 +104,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 			.texture("layer1", prefix("item/" + name(thirdEye) + "_1"))
 			.texture("layer2", prefix("item/" + name(thirdEye) + "_2"));
 		items.remove(thirdEye);
+
+		takeAll(items, i -> true).forEach(this::generatedItem);
 	}
 
 	private void registerItemOverrides(Set<Item> items) {
