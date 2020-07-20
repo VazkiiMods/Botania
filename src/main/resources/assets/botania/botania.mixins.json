@@ -19,6 +19,7 @@
     "AccessorNearestAttackableTarget",
     "AccessorRecipeManager",
     "AccessorWitherEntity",
+    "MixinEndermanPickupBlock",
     "MixinPlayerEntity"
   ],
   "client": [
