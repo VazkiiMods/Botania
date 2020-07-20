@@ -10,7 +10,6 @@ package vazkii.botania.common.network;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -20,12 +19,12 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
-import vazkii.botania.common.lib.LibMisc;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class PacketHandler {
 	private static final String PROTOCOL = "6";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-			new ResourceLocation(LibMisc.MOD_ID, "chan"),
+			prefix("chan"),
 			() -> PROTOCOL,
 			PROTOCOL::equals,
 			PROTOCOL::equals

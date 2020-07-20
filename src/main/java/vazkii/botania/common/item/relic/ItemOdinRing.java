@@ -27,6 +27,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.HashSet;
 import java.util.Set;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final Set<String> damageNegations = new HashSet<>();
@@ -73,7 +75,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/odin_ring");
+		return prefix("challenge/odin_ring");
 	}
 
 }

@@ -18,6 +18,8 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ModTags {
 	public static class Items {
 		public static final ITag.INamedTag<Item> DUSTS_MANA = forgeTag("dusts/mana");
@@ -141,7 +143,7 @@ public class ModTags {
 		}
 
 		private static ITag.INamedTag<Item> tag(String name) {
-			return ItemTags.makeWrapperTag(new ResourceLocation(LibMisc.MOD_ID, name).toString());
+			return ItemTags.makeWrapperTag(prefix(name).toString());
 		}
 
 		private static ITag.INamedTag<Item> forgeTag(String name) {
@@ -177,7 +179,7 @@ public class ModTags {
 		public static final ITag.INamedTag<Block> TERRAFORMABLE = tag("terraformable");
 
 		private static ITag.INamedTag<Block> tag(String name) {
-			return BlockTags.makeWrapperTag(new ResourceLocation(LibMisc.MOD_ID, name).toString());
+			return BlockTags.makeWrapperTag(prefix(name).toString());
 		}
 
 		private static ITag.INamedTag<Block> forgeTag(String name) {
@@ -189,7 +191,7 @@ public class ModTags {
 		public static final ITag.INamedTag<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
 		private static ITag.INamedTag<EntityType<?>> tag(String name) {
-			return EntityTypeTags.func_232896_a_(new ResourceLocation(LibMisc.MOD_ID, name).toString());
+			return EntityTypeTags.func_232896_a_(prefix(name).toString());
 		}
 	}
 }

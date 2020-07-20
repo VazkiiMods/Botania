@@ -16,6 +16,8 @@ import net.minecraftforge.event.LootTableLoadEvent;
 
 import vazkii.botania.common.lib.LibMisc;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public final class LootHandler {
 
 	public static void lootLoad(LootTableLoadEvent evt) {
@@ -49,7 +51,7 @@ public final class LootHandler {
 	}
 
 	private static LootEntry.Builder<?> getInjectEntry(String name, int weight) {
-		ResourceLocation table = new ResourceLocation(LibMisc.MOD_ID, "inject/" + name);
+		ResourceLocation table = prefix("inject/" + name);
 		return TableLootEntry.builder(table)
 				.weight(weight);
 	}

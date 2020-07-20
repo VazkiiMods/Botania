@@ -58,6 +58,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	private static final String TAG_COLOR1 = "color1";
@@ -98,7 +100,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			if (!world.isRemote) {
 				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
-				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
+				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
 					float red = (float) Math.random();

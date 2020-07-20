@@ -17,14 +17,14 @@ import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 // Catch-all "used an item and it succeeded" trigger for Botania items, because making a separate
 // trigger for each one is dumb.
 public class UseItemSuccessTrigger extends AbstractCriterionTrigger<UseItemSuccessTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "use_item_success");
+	public static final ResourceLocation ID = prefix("use_item_success");
 	public static final UseItemSuccessTrigger INSTANCE = new UseItemSuccessTrigger();
 
 	private UseItemSuccessTrigger() {}

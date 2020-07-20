@@ -19,12 +19,13 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorLivingEntity;
 
 import javax.annotation.Nonnull;
 
 import java.util.Locale;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
@@ -85,7 +86,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/infinite_fruit");
+		return prefix("challenge/infinite_fruit");
 	}
 
 }

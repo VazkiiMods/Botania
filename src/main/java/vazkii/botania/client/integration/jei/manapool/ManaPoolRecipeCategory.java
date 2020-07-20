@@ -31,16 +31,17 @@ import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "mana_pool");
+	public static final ResourceLocation UID = prefix("mana_pool");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -50,7 +51,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
 		localizedName = I18n.format("botania.nei.manaPool");
-		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 		icon = guiHelper.createDrawableIngredient(renderStack.copy());

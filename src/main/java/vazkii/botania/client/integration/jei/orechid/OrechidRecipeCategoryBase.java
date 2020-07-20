@@ -26,7 +26,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -34,6 +33,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> implements IRecipeCategory<T> {
 
@@ -45,7 +46,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	private final ItemStack inputStack;
 
 	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, ItemStack inputStack, String localizedName) {
-		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		background = guiHelper.createBlankDrawable(168, 64);
 		this.localizedName = localizedName;

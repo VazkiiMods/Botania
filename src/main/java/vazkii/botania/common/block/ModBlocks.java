@@ -49,6 +49,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Locale;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public final class ModBlocks {
 	public static final Block whiteFlower = new BlockModFlower(DyeColor.WHITE, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
 	public static final Block orangeFlower = new BlockModFlower(DyeColor.ORANGE, Block.Properties.from(whiteFlower));
@@ -879,7 +881,7 @@ public final class ModBlocks {
 	}
 
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, String name, IForgeRegistryEntry<V> thing) {
-		register(reg, new ResourceLocation(LibMisc.MOD_ID, name), thing);
+		register(reg, prefix(name), thing);
 	}
 
 	public static void addDispenserBehaviours() {

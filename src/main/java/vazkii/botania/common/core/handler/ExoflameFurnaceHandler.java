@@ -24,14 +24,15 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.capability.SimpleCapProvider;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ExoflameFurnaceHandler {
 
 	@CapabilityInject(IExoflameHeatable.class)
 	public static Capability<IExoflameHeatable> CAPABILITY;
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "exoflame_heatable");
+	public static final ResourceLocation ID = prefix("exoflame_heatable");
 
 	public static void attachFurnaceCapability(AttachCapabilitiesEvent<TileEntity> event) {
 		TileEntity te = event.getObject();

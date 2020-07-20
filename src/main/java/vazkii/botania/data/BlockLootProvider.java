@@ -55,6 +55,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class BlockLootProvider implements IDataProvider {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private final DataGenerator generator;
@@ -170,7 +172,7 @@ public class BlockLootProvider implements IDataProvider {
 
 	private static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = Registry.BLOCK.getValue(new ResourceLocation(LibMisc.MOD_ID, cobbleName)).get();
+		Block cobble = Registry.BLOCK.getValue(prefix(cobbleName)).get();
 		return genRegular(cobble);
 	}
 

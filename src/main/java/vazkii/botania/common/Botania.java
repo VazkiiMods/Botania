@@ -271,7 +271,7 @@ public class Botania {
 					'I', sm,
 					'0', sm
 			);
-			PatchouliAPI.instance.registerMultiblock(new ResourceLocation(LibMisc.MOD_ID, "gaia_ritual"), mb);
+			PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
 
 			ModBlocks.addDispenserBehaviours();
 

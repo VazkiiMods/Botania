@@ -71,9 +71,11 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
-	private static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "main");
+	private static final ResourceLocation ID = prefix("main");
 
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistration registry) {

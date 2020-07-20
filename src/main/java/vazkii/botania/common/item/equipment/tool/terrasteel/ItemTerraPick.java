@@ -47,6 +47,8 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
@@ -194,7 +196,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
 
 		if (origLevel == 5) {
-			PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/rank_ss_pick"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("challenge/rank_ss_pick"), "code_triggered");
 		}
 	}
 

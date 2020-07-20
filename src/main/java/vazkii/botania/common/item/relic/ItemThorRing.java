@@ -16,6 +16,8 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemThorRing extends ItemRelicBauble {
 
 	public ItemThorRing(Properties props) {
@@ -24,7 +26,7 @@ public class ItemThorRing extends ItemRelicBauble {
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring");
+		return prefix("challenge/thor_ring");
 	}
 
 	public static ItemStack getThorRing(PlayerEntity player) {

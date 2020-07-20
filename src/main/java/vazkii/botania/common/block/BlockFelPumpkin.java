@@ -22,12 +22,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorMobEntity;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class BlockFelPumpkin extends BlockMod {
-	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(LibMisc.MOD_ID, "fel_blaze");
-	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
+	private static final ResourceLocation LOOT_TABLE = prefix("fel_blaze");
 
 	public BlockFelPumpkin(Properties builder) {
 		super(builder);

@@ -39,9 +39,11 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "pure_daisy");
+	public static final ResourceLocation UID = prefix("pure_daisy");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -50,7 +52,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 46);
 		localizedName = I18n.format("botania.nei.pureDaisy");
-		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.pureDaisy));
 	}

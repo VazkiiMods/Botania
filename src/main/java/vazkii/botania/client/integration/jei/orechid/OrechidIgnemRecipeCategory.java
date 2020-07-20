@@ -17,15 +17,16 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.Map;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<OrechidIgnemRecipeWrapper> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "orechid_ignem");
+	public static final ResourceLocation UID = prefix("orechid_ignem");
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
 		super(guiHelper, new ItemStack(ModSubtiles.orechidIgnem), new ItemStack(Blocks.NETHERRACK, 64),
