@@ -16,7 +16,6 @@ import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -27,7 +26,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -38,6 +36,9 @@ import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
+import vazkii.botania.client.integration.jei.mana.ManaIngredientHelper;
+import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeWrapper;
@@ -66,7 +67,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -181,6 +182,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
+	}
+
+	@Override
+	public void registerIngredients(IModIngredientRegistration registry) {
+		registry.register(ManaIngredient.Type.INSTANCE,
+				Collections.singleton(ManaIngredient.getCreative()),
+				ManaIngredientHelper.INSTANCE,
+				ManaIngredientRenderer.Square.INSTANCE);
 	}
 
 	@Override

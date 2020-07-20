@@ -11,30 +11,28 @@ package vazkii.botania.client.integration.jei.manapool;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
-
+import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
-import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
+import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -101,6 +99,8 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
 		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+
+		iIngredients.setInput(ManaIngredient.Type.INSTANCE, new ManaIngredient(recipe.getManaToConsume(), false));
 	}
 
 	@Override
@@ -108,7 +108,6 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 48, 0);
-		HUDHandler.renderManaBar(ms, 28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -135,6 +134,14 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 		recipeLayout.getItemStacks().init(index, false, 99, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+
+		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.Type.INSTANCE);
+		manaIngredients.init(0, true,
+				ManaIngredientRenderer.Bar.INSTANCE,
+				28, 50,
+				102, 5,
+				0, 0);
+		manaIngredients.set(ingredients);
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}

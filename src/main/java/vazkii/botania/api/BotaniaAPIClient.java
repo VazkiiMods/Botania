@@ -10,6 +10,7 @@ package vazkii.botania.api;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import mezz.jei.api.ingredients.IIngredientType;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
@@ -20,6 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.mana.IManaIngredient;
 
 import java.util.Collections;
 import java.util.Map;
@@ -68,4 +70,18 @@ public interface BotaniaAPIClient {
 	 * dependong on the value of {@code properlyBound}.
 	 */
 	default void drawComplexManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {}
+
+	/**
+	 * Create a mana ingredient, for use with JEI.
+	 */
+	default IManaIngredient createManaIngredient(int amount, boolean isCreative) {
+	    return null;
+    }
+
+	/**
+	 * Get the IIngredientType for mana, for use with JEI.
+	 */
+	default IIngredientType<IManaIngredient> getManaIngredientType() {
+	    return null;
+    }
 }

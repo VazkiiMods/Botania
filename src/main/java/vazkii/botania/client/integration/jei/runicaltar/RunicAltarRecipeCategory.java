@@ -10,28 +10,26 @@ package vazkii.botania.client.integration.jei.runicaltar;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-
+import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
-import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
+import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,6 +89,8 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 		}
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
 		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+
+		iIngredients.setInput(ManaIngredient.Type.INSTANCE, new ManaIngredient(recipe.getManaUsage(), false));
 	}
 
 	@Override
@@ -98,7 +98,6 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(ms);
-		HUDHandler.renderManaBar(ms, 28, 105, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -121,6 +120,14 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+
+		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.Type.INSTANCE);
+		manaIngredients.init(0, true,
+				ManaIngredientRenderer.Bar.INSTANCE,
+				28, 105,
+				102, 5,
+				0, 0);
+		manaIngredients.set(ingredients);
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
