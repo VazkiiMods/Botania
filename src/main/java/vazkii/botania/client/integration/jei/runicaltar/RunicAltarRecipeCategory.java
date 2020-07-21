@@ -23,8 +23,6 @@ import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.lib.LibMisc;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
