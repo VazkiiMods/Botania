@@ -39,7 +39,7 @@ public class PhantomInkRecipe extends SpecialCraftingRecipe {
 				if (stack.getItem() == ModItems.phantomInk && !foundInk) {
 					foundInk = true;
 				} else if (!foundItem) {
-					if (stack.getItem() instanceof IPhantomInkable && stack.getItem().getContainerItem(stack).isEmpty()) {
+					if (stack.getItem() instanceof IPhantomInkable && !stack.getItem().hasRecipeRemainder()) {
 						foundItem = true;
 					} else {
 						return false;
@@ -55,7 +55,7 @@ public class PhantomInkRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory var1) {
+	public ItemStack craft(@Nonnull CraftingInventory var1) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for (int i = 0; i < var1.size(); i++) {

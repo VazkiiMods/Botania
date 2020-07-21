@@ -58,7 +58,7 @@ public class ManaUpgradeRecipe implements CraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		return output(compose.craft(inv), inv);
 	}
 
@@ -93,7 +93,7 @@ public class ManaUpgradeRecipe implements CraftingRecipe {
 
 	public static final RecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ManaUpgradeRecipe> {
+	private static class Serializer implements RecipeSerializer<ManaUpgradeRecipe> {
 		@Override
 		public ManaUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
 			return new ManaUpgradeRecipe(RecipeSerializer.SHAPED.read(recipeId, json));

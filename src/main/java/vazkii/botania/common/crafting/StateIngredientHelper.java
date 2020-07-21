@@ -25,6 +25,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
+import net.minecraft.util.registry.Registry;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -57,13 +58,13 @@ public class StateIngredientHelper {
 		case "tag":
 			return new StateIngredientTag(BlockTags.register(JsonHelper.getString(object, "tag")));
 		case "block":
-			return new StateIngredientBlock(ForgeRegistries.BLOCKS.getValue(new Identifier(JsonHelper.getString(object, "block"))));
+			return new StateIngredientBlock(Registry.BLOCK.get(new Identifier(JsonHelper.getString(object, "block"))));
 		case "state":
 			return new StateIngredientBlockState(readBlockState(object));
 		case "blocks":
 			HashSet<Block> blocks = new HashSet<>();
 			for (JsonElement element : JsonHelper.getArray(object, "blocks")) {
-				blocks.add(ForgeRegistries.BLOCKS.getValue(new Identifier(element.getAsString())));
+				blocks.add(Registry.BLOCK.get(new Identifier(element.getAsString())));
 			}
 			return new StateIngredientBlocks(blocks);
 		default:
@@ -77,12 +78,13 @@ public class StateIngredientHelper {
 			int count = buffer.readVarInt();
 			Set<Block> set = new HashSet<>();
 			for (int i = 0; i < count; i++) {
-				Block block = buffer.readRegistryIdUnsafe(ForgeRegistries.BLOCKS);
+				int id = buffer.readVarInt();
+				Block block = Registry.BLOCK.get(id);
 				set.add(block);
 			}
 			return new StateIngredientBlocks(set);
 		case 1:
-			return new StateIngredientBlock(buffer.readRegistryIdUnsafe(ForgeRegistries.BLOCKS));
+			return new StateIngredientBlock(Registry.BLOCK.get(buffer.readVarInt()));
 		case 2:
 			return new StateIngredientBlockState(Block.getStateFromRawId(buffer.readVarInt()));
 		default:
@@ -110,7 +112,7 @@ public class StateIngredientHelper {
 		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
 		Identifier id = Identifier.tryParse(name);
-		if (id == null || !ForgeRegistries.BLOCKS.containsKey(id)) {
+		if (id == null || !Registry.BLOCK.containsId(id)) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
 		return NbtHelper.toBlockState(nbt);

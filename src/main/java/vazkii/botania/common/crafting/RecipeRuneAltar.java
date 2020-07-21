@@ -116,7 +116,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		return mana;
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipeRuneAltar> {
+	public static class Serializer implements RecipeSerializer<RecipeRuneAltar> {
 		@Nonnull
 		@Override
 		public RecipeRuneAltar read(@Nonnull Identifier id, @Nonnull JsonObject json) {

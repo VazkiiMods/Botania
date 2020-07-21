@@ -54,7 +54,7 @@ public class StateIngredientBlocks implements StateIngredient {
 		Collection<Block> blocks = getBlocks();
 		buffer.writeVarInt(blocks.size());
 		for (Block block : blocks) {
-			buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
+			buffer.writeVarInt(Registry.BLOCK.getRawId(block));
 		}
 	}
 

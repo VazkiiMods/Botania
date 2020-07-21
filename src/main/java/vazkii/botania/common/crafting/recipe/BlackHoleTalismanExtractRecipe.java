@@ -49,7 +49,7 @@ public class BlackHoleTalismanExtractRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack talisman = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {

@@ -106,7 +106,7 @@ public class RecipePetals implements IPetalRecipe {
 		return ModRecipeTypes.PETAL_SERIALIZER;
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipePetals> {
+	public static class Serializer implements RecipeSerializer<RecipePetals> {
 		@Nonnull
 		@Override
 		public RecipePetals read(@Nonnull Identifier id, @Nonnull JsonObject json) {

@@ -52,7 +52,7 @@ public class ManaGunClipRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -77,12 +77,6 @@ public class ManaGunClipRecipe extends SpecialCraftingRecipe {
 	@Override
 	public boolean fits(int width, int height) {
 		return width * height >= 2;
-	}
-
-	@Nonnull
-	@Override
-	public DefaultedList<ItemStack> getRemainingItems(CraftingInventory inv) {
-		return DefaultedList.ofSize(inv.size(), ItemStack.EMPTY);
 	}
 
 	@Nonnull

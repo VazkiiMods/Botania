@@ -74,7 +74,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		return stack;
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<HeadRecipe> {
+	public static class Serializer implements RecipeSerializer<HeadRecipe> {
 
 		@Nonnull
 		@Override

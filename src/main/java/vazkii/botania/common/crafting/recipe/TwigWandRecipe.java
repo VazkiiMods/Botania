@@ -46,7 +46,7 @@ public class TwigWandRecipe implements CraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(CraftingInventory inv) {
+	public ItemStack craft(CraftingInventory inv) {
 		int first = -1;
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getStack(i);
@@ -88,7 +88,7 @@ public class TwigWandRecipe implements CraftingRecipe {
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingItems(CraftingInventory inv) {
+	public DefaultedList<ItemStack> getRemainingStacks(CraftingInventory inv) {
 		return compose.getRemainingStacks(inv);
 	}
 
@@ -116,7 +116,7 @@ public class TwigWandRecipe implements CraftingRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<TwigWandRecipe> {
+	private static class Serializer implements RecipeSerializer<TwigWandRecipe> {
 		@Nonnull
 		@Override
 		public TwigWandRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {

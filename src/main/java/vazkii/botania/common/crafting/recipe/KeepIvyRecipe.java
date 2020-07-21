@@ -41,7 +41,7 @@ public class KeepIvyRecipe extends SpecialCraftingRecipe {
 					foundIvy = true;
 				} else if (!foundItem
 						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false))
-						&& !stack.getItem().hasContainerItem(stack)) {
+						&& !stack.getItem().hasRecipeRemainder()) {
 					foundItem = true;
 				} else {
 					return false;
@@ -54,7 +54,7 @@ public class KeepIvyRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {

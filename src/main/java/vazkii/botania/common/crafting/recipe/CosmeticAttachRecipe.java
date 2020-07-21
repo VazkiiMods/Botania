@@ -53,7 +53,7 @@ public class CosmeticAttachRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack cosmeticItem = ItemStack.EMPTY;
 		ItemStack attachableItem = ItemStack.EMPTY;
 

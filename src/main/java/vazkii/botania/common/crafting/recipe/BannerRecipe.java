@@ -63,7 +63,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack banner = ItemStack.EMPTY;
 		ItemStack dye = ItemStack.EMPTY;
 		BannerPattern pattern = null;

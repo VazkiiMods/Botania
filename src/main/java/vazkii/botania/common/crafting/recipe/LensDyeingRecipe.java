@@ -80,7 +80,7 @@ public class LensDyeingRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 

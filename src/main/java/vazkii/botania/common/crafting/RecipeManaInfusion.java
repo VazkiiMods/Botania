@@ -104,7 +104,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		return new ItemStack(ModBlocks.manaPool);
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipeManaInfusion> {
+	public static class Serializer implements RecipeSerializer<RecipeManaInfusion> {
 
 		@Nonnull
 		@Override

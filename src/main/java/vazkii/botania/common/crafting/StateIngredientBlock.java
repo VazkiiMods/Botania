@@ -42,7 +42,7 @@ public class StateIngredientBlock implements StateIngredient {
 	@Override
 	public void write(PacketByteBuf buffer) {
 		buffer.writeVarInt(1);
-		buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
+		buffer.writeVarInt(Registry.BLOCK.getRawId(block));
 	}
 
 	@Override

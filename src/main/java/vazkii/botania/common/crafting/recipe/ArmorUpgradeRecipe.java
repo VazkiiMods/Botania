@@ -39,7 +39,7 @@ public class ArmorUpgradeRecipe implements CraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack out = compose.craft(inv);
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getStack(i);
@@ -82,7 +82,7 @@ public class ArmorUpgradeRecipe implements CraftingRecipe {
 
 	public static final RecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ArmorUpgradeRecipe> {
+	private static class Serializer implements RecipeSerializer<ArmorUpgradeRecipe> {
 		@Override
 		public ArmorUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
 			return new ArmorUpgradeRecipe(RecipeSerializer.SHAPED.read(recipeId, json));

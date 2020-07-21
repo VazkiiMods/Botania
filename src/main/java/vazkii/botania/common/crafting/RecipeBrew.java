@@ -136,7 +136,7 @@ public class RecipeBrew implements IBrewRecipe {
 				&& inputs.equals(((RecipeBrew) o).inputs);
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipeBrew> {
+	public static class Serializer implements RecipeSerializer<RecipeBrew> {
 		@Nonnull
 		@Override
 		public RecipeBrew read(@Nonnull Identifier id, @Nonnull JsonObject json) {

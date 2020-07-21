@@ -53,7 +53,7 @@ public class AncientWillRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
 		ItemStack item = ItemStack.EMPTY;
 		IAncientWillContainer.AncientWillType will = null;
 
