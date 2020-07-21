@@ -13,6 +13,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -148,9 +150,9 @@ public class Botania implements ModInitializer {
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
-		forgeBus.addListener(ItemLokiRing::onPlayerInteract);
+		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
 		forgeBus.addListener(ItemOdinRing::onPlayerAttacked);
-		forgeBus.addListener(ItemEnderAir::onPlayerInteract);
+		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
 		forgeBus.addListener(ItemGoddessCharm::onExplosion);
 		forgeBus.addListener(ItemGrassSeeds::onTickEnd);
 		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
@@ -167,7 +169,7 @@ public class Botania implements ModInitializer {
 		forgeBus.addListener(SubTileDaffomill::onItemTrack);
 		forgeBus.addListener(SubTileVinculotus::onEndermanTeleport);
 		forgeBus.addListener(EventPriority.LOWEST, SubTileLoonuim::onDrops);
-		forgeBus.addListener(BlockRedStringInterceptor::onInteract);
+		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
 		forgeBus.addListener(LootHandler::lootLoad);
@@ -191,7 +193,7 @@ public class Botania implements ModInitializer {
 
 		if (Botania.gardenOfGlassLoaded) {
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
-			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
+			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 
 		DeferredWorkQueue.runLater(() -> {

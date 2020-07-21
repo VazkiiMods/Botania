@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,9 +49,9 @@ public class TileRedStringInterceptor extends TileRedString {
 		return !isRemoved() && world.getBlockEntity(pos) == this;
 	}
 
-	public static void onInteract(PlayerEntity player, World world, BlockPos pos, Hand hand) {
+	public static ActionResult onInteract(PlayerEntity player, World world, BlockPos pos, Hand hand) {
 		if (world.isClient) {
-			return;
+			return ActionResult.PASS;
 		}
 
 		List<TileRedStringInterceptor> remove = new ArrayList<>();
@@ -77,7 +78,9 @@ public class TileRedStringInterceptor extends TileRedString {
 		if (did) {
 			player.swingHand(hand);
 			world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
+			return ActionResult.SUCCESS;
 		}
+		return ActionResult.PASS;
 	}
 
 }

@@ -21,6 +21,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -53,49 +54,47 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static ActionResult onPlayerInteract(PlayerEntity player, World world, Hand hand, BlockHitResult hit) {
 		if (Botania.gardenOfGlassLoaded) {
-			ItemStack equipped = event.getItemStack();
-			PlayerEntity player = event.getPlayer();
+			ItemStack equipped = player.getStackInHand(hand);
 
 			if (equipped.isEmpty() && player.isSneaking()) {
-				BlockState state = event.getWorld().getBlockState(event.getPos());
+				BlockState state = world.getBlockState(hit.getBlockPos());
 				Block block = state.getBlock();
 
 				if (PEBBLE_SOURCES.contains(block)) {
-					BlockSoundGroup st = state.getSoundType(event.getWorld(), event.getPos(), player);
+					BlockSoundGroup st = state.getSoundGroup();
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
-					if (event.getWorld().isClient) {
-						player.swingHand(event.getHand());
+					if (world.isClient) {
+						player.swingHand(hand);
 					} else if (Math.random() < 0.8) {
 						player.dropItem(new ItemStack(ModItems.pebble), false);
 					}
 
-					event.setCanceled(true);
-					event.setCancellationResult(ActionResult.SUCCESS);
+					return ActionResult.SUCCESS;
 				}
 			} else if (!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
 				if (rtr.getType() == HitResult.Type.BLOCK) {
 					BlockPos pos = rtr.getBlockPos();
-					if (event.getWorld().getBlockState(pos).getMaterial() == Material.WATER) {
-						if (!event.getWorld().isClient) {
+					if (world.getBlockState(pos).getMaterial() == Material.WATER) {
+						if (!world.isClient) {
 							equipped.decrement(1);
 
 							if (equipped.isEmpty()) {
-								player.setStackInHand(event.getHand(), new ItemStack(ModItems.waterBowl));
+								player.setStackInHand(hand, new ItemStack(ModItems.waterBowl));
 							} else {
 								player.inventory.offerOrDrop(player.world, new ItemStack(ModItems.waterBowl));
 							}
 						}
 
-						event.setCanceled(true);
-						event.setCancellationResult(ActionResult.SUCCESS);
+						return ActionResult.SUCCESS;
 					}
 				}
 			}
 		}
+		return ActionResult.PASS;
 	}
 
 	public static void spawnPlayer(PlayerEntity player, IslandPos islandPos) {

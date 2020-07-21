@@ -22,6 +22,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -66,25 +67,23 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		super(props);
 	}
 
-	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		PlayerEntity player = event.getPlayer();
+	public static ActionResult onPlayerInteract(PlayerEntity player, World world, Hand hand, BlockHitResult lookPos) {
 		ItemStack lokiRing = getLokiRing(player);
 		if (lokiRing.isEmpty() || !player.isSneaking()) {
-			return;
+			return ActionResult.PASS;
 		}
 
-		ItemStack stack = event.getItemStack();
-		BlockHitResult lookPos = ToolCommons.raytraceFromEntity(player, 10F, true);
+		ItemStack stack = player.getStackInHand(hand);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 
 		if (lookPos.getType() != HitResult.Type.BLOCK) {
-			return;
+			return ActionResult.PASS;
 		}
 
 		BlockPos hit = lookPos.getBlockPos();
 		if (stack.isEmpty()) {
 			BlockPos originCoords = getBindingCenter(lokiRing);
-			if (!event.getWorld().isClient) {
+			if (!world.isClient) {
 				if (originCoords.getY() == -1) {
 					// Initiate a new pending list of positions
 					setBindingCenter(lokiRing, hit);
@@ -106,8 +105,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				}
 			}
 
-			event.setCanceled(true);
-			event.setCancellationResult(ActionResult.SUCCESS);
+			return ActionResult.SUCCESS;
 		} else {
 			int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 			ItemStack original = stack.copy();
@@ -118,7 +116,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					Vec3d lookHit = lookPos.getPos();
 					Vec3d newHitVec = new Vec3d(pos.getX() + MathHelper.fractionalPart(lookHit.getX()), pos.getY() + MathHelper.fractionalPart(lookHit.getY()), pos.getZ() + MathHelper.fractionalPart(lookHit.getZ()));
 					BlockHitResult newHit = new BlockHitResult(newHitVec, lookPos.getSide(), pos, false);
-					ItemUsageContext ctx = new ItemUsageContext(player, event.getHand(), newHit);
+					ItemUsageContext ctx = new ItemUsageContext(player, hand, newHit);
 
 					ActionResult result;
 					if (player.isCreative()) {
@@ -133,9 +131,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					}
 				}
 			}
-			if (player instanceof ServerPlayerEntity) {
+			if (successes > 0 && player instanceof ServerPlayerEntity) {
 				LokiPlaceTrigger.INSTANCE.trigger((ServerPlayerEntity) player, lokiRing, successes);
 			}
+			return successes > 0 ? ActionResult.SUCCESS : ActionResult.PASS;
 		}
 	}
 

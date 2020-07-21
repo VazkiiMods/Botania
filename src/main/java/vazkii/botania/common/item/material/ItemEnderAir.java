@@ -32,29 +32,29 @@ public class ItemEnderAir extends Item {
 		super(props);
 	}
 
-	public static void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
-		ItemStack stack = event.getItemStack();
-		World world = event.getWorld();
+	public static TypedActionResult<ItemStack> onPlayerInteract(PlayerEntity player, World world, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 
 		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimensionRegistryKey() == DimensionType.THE_END_REGISTRY_KEY) {
 			List<AreaEffectCloudEntity> list = world.getEntities(AreaEffectCloudEntity.class,
-					event.getPlayer().getBoundingBox().expand(3.5D),
+					player.getBoundingBox().expand(3.5D),
 					entity -> entity != null && entity.isAlive()
 							&& entity.getParticleType().getType() == ParticleTypes.DRAGON_BREATH);
 			if (!list.isEmpty()) {
-				return;
+				return TypedActionResult.pass(stack);
 			}
 
 			if (!world.isClient) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				event.getPlayer().inventory.offerOrDrop(world, enderAir);
+				player.inventory.offerOrDrop(world, enderAir);
 				stack.decrement(1);
-				world.playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
+				world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
 			}
 
-			event.setCanceled(true);
-			event.setCancellationResult(ActionResult.SUCCESS);
+			return TypedActionResult.success(stack);
 		}
+
+		return TypedActionResult.pass(stack);
 	}
 
 	@Nonnull

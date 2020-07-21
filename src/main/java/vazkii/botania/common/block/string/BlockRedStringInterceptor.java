@@ -11,13 +11,18 @@ package vazkii.botania.common.block.string;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 
+import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 
@@ -38,8 +43,8 @@ public class BlockRedStringInterceptor extends BlockRedString {
 		builder.add(Properties.POWERED);
 	}
 
-	public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
-		TileRedStringInterceptor.onInteract(event.getPlayer(), event.getWorld(), event.getPos(), event.getHand());
+	public static ActionResult onInteract(PlayerEntity player, World world, Hand hand, BlockHitResult hit) {
+		return TileRedStringInterceptor.onInteract(player, world, hit.getBlockPos(), hand);
 	}
 
 	@Override
