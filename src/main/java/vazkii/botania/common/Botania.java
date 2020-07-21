@@ -31,6 +31,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -42,7 +43,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -158,7 +158,7 @@ public class Botania {
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.addListener(this::serverAboutToStart);
-		forgeBus.addListener(this::serverStarting);
+		forgeBus.addListener(this::registerCommands);
 		forgeBus.addListener(this::serverStopping);
 		forgeBus.addListener(ItemLokiRing::onPlayerInteract);
 		forgeBus.addListener(ItemOdinRing::onPlayerAttacked);
@@ -290,9 +290,9 @@ public class Botania {
 		}
 	}
 
-	private void serverStarting(FMLServerStartingEvent event) {
+	private void registerCommands(RegisterCommandsEvent event) {
 		if (Botania.gardenOfGlassLoaded) {
-			SkyblockCommand.register(event.getCommandDispatcher());
+			SkyblockCommand.register(event.getDispatcher());
 		}
 	}
 
