@@ -31,12 +31,9 @@ public class ManaIngredientHelper implements IIngredientHelper<IManaIngredient> 
     @Override
     public ItemStack getCheatItemStack(IManaIngredient ingredient) {
         int amount = ingredient.getAmount();
-        ItemStack stack;
-        if(amount > ItemManaTablet.MAX_MANA && !ingredient.isCreative()) {
-            stack = new ItemStack(ModItems.manaRingGreater);
-        } else {
-            stack = new ItemStack(ModItems.manaTablet);
-        }
+        ItemStack stack = new ItemStack(amount > ItemManaTablet.MAX_MANA && !ingredient.isCreative() ?
+                                        ModItems.manaRingGreater :
+                                        ModItems.manaTablet);
 
         ((IManaItem) stack.getItem()).addMana(stack, ingredient.getAmount());
         if(ingredient.isCreative()) {
