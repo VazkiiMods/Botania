@@ -835,14 +835,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
 		register(r, Registry.BLOCK.getId(gaiaHead), new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 
-		DistExecutor.runForDist(() -> () -> registerWithTEISRS(r), () -> () -> registerWithoutTEISRS(r));
-	}
-
-	// Yay side-safety -.-
-
-	@Environment(EnvType.SERVER)
-	private static Void registerWithoutTEISRS(IForgeRegistry<Item> r) {
-		Item.Settings props = ModItems.defaultBuilder();
 		register(r, Registry.BLOCK.getId(manaPylon), new BlockItem(manaPylon, props));
 		register(r, Registry.BLOCK.getId(naturaPylon), new BlockItem(naturaPylon, props));
 		register(r, Registry.BLOCK.getId(gaiaPylon), new BlockItem(gaiaPylon, props));
@@ -853,23 +845,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(brewery), new BlockItem(brewery, props));
 		register(r, Registry.BLOCK.getId(corporeaIndex), new BlockItem(corporeaIndex, props));
 		register(r, Registry.BLOCK.getId(hourglass), new BlockItem(hourglass, props));
-		return null;
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static Void registerWithTEISRS(IForgeRegistry<Item> r) {
-		Item.Settings pylonProps = ModItems.defaultBuilder().setISTER(() -> () -> new RenderTilePylon.TEISR());
-		register(r, Registry.BLOCK.getId(manaPylon), new BlockItem(manaPylon, pylonProps));
-		register(r, Registry.BLOCK.getId(naturaPylon), new BlockItem(naturaPylon, pylonProps));
-		register(r, Registry.BLOCK.getId(gaiaPylon), new BlockItem(gaiaPylon, pylonProps));
-
-		register(r, Registry.BLOCK.getId(teruTeruBozu), new BlockItem(teruTeruBozu, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(teruTeruBozu))));
-		register(r, Registry.BLOCK.getId(avatar), new BlockItem(avatar, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(avatar))));
-		register(r, Registry.BLOCK.getId(bellows), new BlockItem(bellows, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(bellows))));
-		register(r, Registry.BLOCK.getId(brewery), new BlockItem(brewery, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(brewery))));
-		register(r, Registry.BLOCK.getId(corporeaIndex), new BlockItem(corporeaIndex, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(corporeaIndex))));
-		register(r, Registry.BLOCK.getId(hourglass), new BlockItem(hourglass, ModItems.defaultBuilder().setISTER(() -> () -> new TEISR(hourglass))));
-		return null;
 	}
 
 	public static <T> void register(Registry<? super T> reg, Identifier name, T thing) {

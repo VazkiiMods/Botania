@@ -26,7 +26,7 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.Random;
 
-public class RenderTileRedString extends BlockEntityRenderer<TileRedString> {
+public class RenderTileRedString<T extends TileRedString> extends BlockEntityRenderer<T> {
 	private static float sizeAlpha = 0F;
 
 	public static void tick() {

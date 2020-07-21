@@ -35,16 +35,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RenderTileSpecialFlower extends BlockEntityRenderer<BlockEntity> {
+public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends BlockEntityRenderer<T> {
 	public RenderTileSpecialFlower(BlockEntityRenderDispatcher dispatcher) {
 		super(dispatcher);
 	}
 
 	@Override
-	public void render(BlockEntity tile, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(TileEntitySpecialFlower tile, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
-		if (!(tile instanceof TileEntitySpecialFlower)
-				|| !(MinecraftClient.getInstance().cameraEntity instanceof LivingEntity)) {
+		if (!(MinecraftClient.getInstance().cameraEntity instanceof LivingEntity)) {
 			return;
 		}
 

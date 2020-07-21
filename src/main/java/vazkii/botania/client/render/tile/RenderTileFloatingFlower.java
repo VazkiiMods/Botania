@@ -22,20 +22,21 @@ import net.minecraft.client.util.math.Vector3f;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class RenderTileFloatingFlower extends BlockEntityRenderer<BlockEntity> {
+public class RenderTileFloatingFlower extends BlockEntityRenderer<TileFloatingFlower> {
 
 	public RenderTileFloatingFlower(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull BlockEntity tile, float t, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nonnull TileFloatingFlower tile, float t, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		renderFloatingIsland(tile, t, ms, buffers, light, overlay);
 	}
 
