@@ -8,7 +8,10 @@
  */
 package vazkii.botania.common;
 
+import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -24,6 +27,9 @@ import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.CommandSource;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;
@@ -139,9 +145,9 @@ public class Botania implements ModInitializer {
 		PixieHandler.registerAttribute();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-		forgeBus.addListener(this::serverAboutToStart);
-		forgeBus.addListener(this::serverStarting);
-		forgeBus.addListener(this::serverStopping);
+		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
+		CommandRegistrationCallback.EVENT.register(this::registerCommands);
+		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
 		forgeBus.addListener(ItemLokiRing::onPlayerInteract);
 		forgeBus.addListener(ItemOdinRing::onPlayerAttacked);
 		forgeBus.addListener(ItemEnderAir::onPlayerInteract);
@@ -262,7 +268,7 @@ public class Botania implements ModInitializer {
 		finishedLoading = true;
 	}
 
-	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
+	private void serverAboutToStart(MinecraftServer server) {
 		if (BotaniaAPI.instance().getClass() != BotaniaAPIImpl.class) {
 			String clname = BotaniaAPI.instance().getClass().getName();
 			throw new IllegalAccessError("The Botania API has been overriden. "
@@ -272,13 +278,13 @@ public class Botania implements ModInitializer {
 		}
 	}
 
-	private void serverStarting(FMLServerStartingEvent event) {
+	private void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
 		if (Botania.gardenOfGlassLoaded) {
-			SkyblockCommand.register(event.getCommandDispatcher());
+			SkyblockCommand.register(dispatcher);
 		}
 	}
 
-	private void serverStopping(FMLServerStoppingEvent event) {
+	private void serverStopping(MinecraftServer server) {
 		ManaNetworkHandler.instance.clear();
 	}
 
