@@ -66,7 +66,7 @@ public class EntityMagicLandmine extends Entity {
 					player.damage(DamageSource.magic(this, summoner), 10);
 					player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 25, 0));
 					StatusEffectInstance wither = new StatusEffectInstance(StatusEffects.WITHER, 120, 2);
-					wither.getCurativeItems().clear();
+					// wither.getCurativeItems().clear();
 					player.addStatusEffect(wither);
 				}
 			}

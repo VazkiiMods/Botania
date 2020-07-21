@@ -42,7 +42,7 @@ public interface IManaBurst {
 
 	void setManaLossPerTick(float mana);
 
-	float getGravity();
+	float getBurstGravity();
 
 	void setGravity(float gravity);
 

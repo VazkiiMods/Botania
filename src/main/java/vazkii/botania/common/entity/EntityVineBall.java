@@ -87,8 +87,7 @@ public class EntityVineBall extends ThrownEntity implements FlyingItemEntity {
 					boolean first = true;
 					while (pos.getY() > 0) {
 						BlockState state = world.getBlockState(pos);
-						Block block = state.getBlock();
-						if (block.isAir(state, world, pos)) {
+						if (state.isAir()) {
 							BlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
 
 							if (first && !stateSet.canPlaceAt(world, pos)) {

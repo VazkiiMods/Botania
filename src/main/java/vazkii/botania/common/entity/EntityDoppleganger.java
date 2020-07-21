@@ -79,6 +79,7 @@ import javax.annotation.Nullable;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -390,7 +391,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		PlayerEntity player = (PlayerEntity) e;
 
 		String name = player.getName().getString();
-		return !(player instanceof FakePlayer || FAKE_PLAYER_PATTERN.matcher(name).matches());
+		return !FAKE_PLAYER_PATTERN.matcher(name).matches();
 	}
 
 	@Override

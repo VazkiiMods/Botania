@@ -8,14 +8,17 @@
  */
 package vazkii.botania.common.entity;
 
+import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -35,8 +38,9 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class EntityPoolMinecart extends AbstractMinecartEntity {
+public class EntityPoolMinecart extends AbstractMinecartEntity implements EntityPickInteractionAware {
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 	private static final TrackedData<Integer> MANA = DataTracker.registerData(EntityPoolMinecart.class, TrackedDataHandlerRegistry.INTEGER);
@@ -69,18 +73,12 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 
 	@Nonnull
 	@Override
-	public ItemStack getCartItem() {
-		return new ItemStack(ModItems.poolMinecart);
-	}
-
-	@Nonnull
-	@Override
 	public AbstractMinecartEntity.Type getMinecartType() {
 		return Type.RIDEABLE;
 	}
 
 	@Override
-	public boolean canBeRidden() {
+	protected boolean canAddPassenger(Entity passenger) {
 		return false;
 	}
 
@@ -92,7 +90,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedResult(HitResult target) {
+	public ItemStack getPickedStack(@Nullable PlayerEntity player, HitResult target) {
 		return new ItemStack(ModItems.poolMinecart);
 	}
 
@@ -128,8 +126,8 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	}
 
 	@Override
-	public void moveMinecartOnRail(BlockPos pos) {
-		super.moveMinecartOnRail(pos);
+	public void moveOnRail(BlockPos pos, BlockState state) {
+		super.moveOnRail(pos, state);
 
 		for (Direction dir : Direction.Type.HORIZONTAL) {
 			BlockPos posP = pos.offset(dir);

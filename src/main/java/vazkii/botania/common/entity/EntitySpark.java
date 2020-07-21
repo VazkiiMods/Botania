@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.entity;
 
+import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -46,7 +47,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EntitySpark extends EntitySparkBase implements ISparkEntity {
+public class EntitySpark extends EntitySparkBase implements ISparkEntity, EntityPickInteractionAware {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final TrackedData<Integer> UPGRADE = DataTracker.registerData(EntitySpark.class, TrackedDataHandlerRegistry.INTEGER);
@@ -71,7 +72,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedResult(HitResult target) {
+	public ItemStack getPickedStack(PlayerEntity player, HitResult target) {
 		return new ItemStack(ModItems.spark);
 	}
 

@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import com.google.common.base.Predicates;
 
+import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
@@ -36,11 +37,12 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
+public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark, EntityPickInteractionAware {
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
@@ -68,7 +70,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedResult(HitResult target) {
+	public ItemStack getPickedStack(@Nullable PlayerEntity player, HitResult target) {
 		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
 	}
 

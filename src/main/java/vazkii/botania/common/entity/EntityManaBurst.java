@@ -580,7 +580,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	@Override
 	protected float getGravity() {
-		return getGravity();
+		return getBurstGravity();
 	}
 
 	@Override
@@ -648,7 +648,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	@Override
-	public float getGravity() {
+	public float getBurstGravity() {
 		return dataTracker.get(GRAVITY);
 	}
 
