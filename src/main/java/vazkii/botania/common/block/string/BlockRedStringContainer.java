@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
@@ -19,7 +20,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringContainer extends BlockRedString {
 
-	public BlockRedStringContainer(Block.Properties builder) {
+	public BlockRedStringContainer(AbstractBlock.Settings builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN));
 	}

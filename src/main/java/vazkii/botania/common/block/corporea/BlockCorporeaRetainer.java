@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaRetainer extends BlockMod implements BlockEntityProvider {
 
-	public BlockCorporeaRetainer(Block.Properties builder) {
+	public BlockCorporeaRetainer(AbstractBlock.Settings builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(Properties.POWERED, false));
 	}

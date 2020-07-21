@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -27,7 +28,7 @@ import java.util.Random;
 
 public class BlockRedStringInterceptor extends BlockRedString {
 
-	public BlockRedStringInterceptor(Block.Properties builder) {
+	public BlockRedStringInterceptor(AbstractBlock.Settings builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN).with(Properties.POWERED, false));
 	}

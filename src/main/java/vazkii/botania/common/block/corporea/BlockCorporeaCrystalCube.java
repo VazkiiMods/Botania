@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -35,7 +36,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBaseWaterloggable imp
 
 	private static final VoxelShape SHAPE = createCuboidShape(3.0, 0, 3.0, 13.0, 16, 13.0);
 
-	public BlockCorporeaCrystalCube(Block.Properties builder) {
+	public BlockCorporeaCrystalCube(AbstractBlock.Settings builder) {
 		super(builder);
 	}
 

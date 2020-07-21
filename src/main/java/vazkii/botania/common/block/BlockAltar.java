@@ -8,10 +8,7 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -74,7 +71,7 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 
 	public final Variant variant;
 
-	protected BlockAltar(Variant v, Block.Properties builder) {
+	protected BlockAltar(Variant v, AbstractBlock.Settings builder) {
 		super(builder);
 		this.variant = v;
 		setDefaultState(getDefaultState().with(FLUID, State.EMPTY));

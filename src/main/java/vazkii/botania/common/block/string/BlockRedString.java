@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -18,7 +19,7 @@ import vazkii.botania.common.block.BlockMod;
 
 public abstract class BlockRedString extends BlockMod implements BlockEntityProvider {
 
-	public BlockRedString(Block.Properties builder) {
+	public BlockRedString(AbstractBlock.Settings builder) {
 		super(builder);
 	}
 

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -25,7 +26,7 @@ import java.util.Random;
 
 public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 
-	public BlockCorporeaInterceptor(Block.Properties builder) {
+	public BlockCorporeaInterceptor(AbstractBlock.Settings builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(Properties.POWERED, false));
 	}

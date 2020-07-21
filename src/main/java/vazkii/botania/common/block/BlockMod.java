@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 
 public class BlockMod extends Block {
 
-	public BlockMod(Block.Properties builder) {
+	public BlockMod(AbstractBlock.Settings builder) {
 		super(builder);
 	}
 
