@@ -10,6 +10,7 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
@@ -63,7 +64,7 @@ public class RenderDoppleganger extends BipedEntityRenderer<EntityDoppleganger, 
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
-	public RenderDoppleganger(EntityRenderDispatcher renderManager) {
+	public RenderDoppleganger(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
 		super(renderManager, new Model(), 0F);
 	}
 
@@ -83,7 +84,7 @@ public class RenderDoppleganger extends BipedEntityRenderer<EntityDoppleganger, 
 
 	@Nonnull
 	@Override
-	public Identifier getEntityTexture(@Nonnull EntityDoppleganger entity) {
+	public Identifier getTexture(@Nonnull EntityDoppleganger entity) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayerEntity)) {

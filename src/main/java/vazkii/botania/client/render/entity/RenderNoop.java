@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -17,7 +18,7 @@ import net.minecraft.util.Identifier;
 import javax.annotation.Nonnull;
 
 public class RenderNoop<T extends Entity> extends EntityRenderer<T> {
-	public RenderNoop(EntityRenderDispatcher manager) {
+	public RenderNoop(EntityRenderDispatcher manager, EntityRendererRegistry.Context ctx) {
 		super(manager);
 	}
 

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
@@ -21,7 +22,7 @@ import net.minecraft.util.Identifier;
 
 public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 
-	public RenderManaStorm(EntityRenderDispatcher renderManager) {
+	public RenderManaStorm(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
 		super(renderManager);
 	}
 
@@ -36,7 +37,7 @@ public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 
 	@Nonnull
 	@Override
-	public Identifier getEntityTexture(@Nonnull EntityManaStorm entity) {
+	public Identifier getTexture(@Nonnull EntityManaStorm entity) {
 		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 

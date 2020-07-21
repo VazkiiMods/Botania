@@ -87,7 +87,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 
 	@Nonnull
 	@Override
-	public Identifier getEntityTexture(@Nonnull EntitySparkBase entity) {
+	public Identifier getTexture(@Nonnull EntitySparkBase entity) {
 		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 

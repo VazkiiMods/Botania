@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -25,12 +26,12 @@ import javax.annotation.Nonnull;
 public class RenderPoolMinecart extends MinecartEntityRenderer<EntityPoolMinecart> {
 	private static final TilePool DUMMY = new TilePool();
 
-	public RenderPoolMinecart(EntityRenderDispatcher manager) {
+	public RenderPoolMinecart(EntityRenderDispatcher manager, EntityRendererRegistry.Context ctx) {
 		super(manager);
 	}
 
 	@Override
-	protected void renderBlockState(EntityPoolMinecart poolCart, float partialTicks, @Nonnull BlockState state, MatrixStack ms, VertexConsumerProvider buffers, int light) {
+	protected void renderBlock(EntityPoolMinecart poolCart, float partialTicks, @Nonnull BlockState state, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		super.renderBlock(poolCart, partialTicks, state, ms, buffers, light);
 		RenderTilePool.cartMana = poolCart.getMana();
 		BlockEntityRenderDispatcher.INSTANCE.get(DUMMY).render(null, ClientTickHandler.partialTicks, ms, buffers, light, OverlayTexture.DEFAULT_UV);

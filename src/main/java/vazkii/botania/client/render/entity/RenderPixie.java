@@ -10,6 +10,7 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -37,13 +38,13 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
-	public RenderPixie(EntityRenderDispatcher renderManager) {
+	public RenderPixie(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
 		super(renderManager, new ModelPixie(), 0.0F);
 	}
 
 	@Nonnull
 	@Override
-	public Identifier getEntityTexture(@Nonnull EntityPixie entity) {
+	public Identifier getTexture(@Nonnull EntityPixie entity) {
 		return new Identifier(LibResources.MODEL_PIXIE);
 	}
 }

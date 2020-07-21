@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
@@ -30,7 +31,7 @@ import java.util.Random;
 
 public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 
-	public RenderBabylonWeapon(EntityRenderDispatcher renderManager) {
+	public RenderBabylonWeapon(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
 		super(renderManager);
 	}
 
@@ -78,7 +79,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 
 	@Nonnull
 	@Override
-	public Identifier getEntityTexture(@Nonnull EntityBabylonWeapon entity) {
+	public Identifier getTexture(@Nonnull EntityBabylonWeapon entity) {
 		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 

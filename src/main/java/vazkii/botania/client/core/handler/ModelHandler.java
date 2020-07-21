@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -144,25 +145,25 @@ public final class ModelHandler {
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.corporeaIndex.asItem(), new TEISR(ModBlocks.corporeaIndex));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.hourglass.asItem(), new TEISR(ModBlocks.hourglass));
 
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_BURST, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLAYER_MOVER, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FLAME_RING, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_MISSILE, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FALLING_STAR, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THROWN_ITEM, m -> new ItemEntityRenderer(m, MinecraftClient.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PIXIE, RenderPixie::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPARK, RenderSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PINK_WITHER, RenderPinkWither::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_STORM, RenderManaStorm::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_BURST, RenderNoop::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.FLAME_RING, RenderNoop::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.FALLING_STAR, RenderNoop::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.THROWN_ITEM, (m, ctx) -> new ItemEntityRenderer(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.PIXIE, RenderPixie::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.SPARK, RenderSpark::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_STORM, RenderManaStorm::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THORN_CHAKRAM, renderManager -> new FlyingItemEntityRenderer<>(renderManager, MinecraftClient.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.VINE_BALL, renderManager -> new FlyingItemEntityRenderer<>(renderManager, MinecraftClient.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENDER_AIR_BOTTLE, renderManager -> new FlyingItemEntityRenderer<>(renderManager, MinecraftClient.getInstance().getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
 	}
 
 	private static void registerIslands() {

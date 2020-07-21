@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -27,7 +28,7 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 	// Global y offset so that overlapping landmines do not Z-fight
 	public static double offY = INITIAL_OFFSET;
 
-	public RenderMagicLandmine(EntityRenderDispatcher renderManager) {
+	public RenderMagicLandmine(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
 		super(renderManager);
 	}
 

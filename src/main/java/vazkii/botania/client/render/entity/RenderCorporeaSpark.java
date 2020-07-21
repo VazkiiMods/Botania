@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
@@ -20,7 +21,7 @@ import vazkii.botania.common.entity.EntityCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
-	public RenderCorporeaSpark(EntityRenderDispatcher manager) {
+	public RenderCorporeaSpark(EntityRenderDispatcher manager, EntityRendererRegistry.Context ctx) {
 		super(manager);
 	}
 
