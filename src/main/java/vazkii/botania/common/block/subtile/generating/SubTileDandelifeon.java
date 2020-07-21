@@ -11,6 +11,7 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -49,8 +50,10 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0) {
-			runSimulation();
+		if (!getWorld().isRemote) {
+			if (ticksExisted % SPEED == 0 && getWorld().isBlockPowered(getPos())) {
+				runSimulation();
+			}
 		}
 	}
 
@@ -187,11 +190,6 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 			tile = world.getTileEntity(pos);
 			((TileCell) tile).setGeneration(this, gen);
 		}
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	@Override

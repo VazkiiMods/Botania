@@ -27,6 +27,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketItemAge;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 				List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, axis);
 				int slowdown = getSlowdownFactor();
 				for (ItemEntity item : items) {
-					if (item.isAlive() && item.age >= slowdown) {
+					if (item.isAlive() && ((AccessorItemEntity) item).getAge() >= slowdown) {
 						item.setMotion(
 								item.getMotion().getX() + orientation.getXOffset() * 0.05,
 								item.getMotion().getY() + orientation.getYOffset() * 0.05,
@@ -171,7 +172,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	public static void onItemTrack(PlayerEvent.StartTracking evt) {
 		if (evt.getTarget() instanceof ItemEntity) {
 			int entityId = evt.getTarget().getEntityId();
-			int age = ((ItemEntity) evt.getTarget()).age;
+			int age = ((AccessorItemEntity) evt.getTarget()).getAge();
 			PacketHandler.sendTo((ServerPlayerEntity) evt.getPlayer(), new PacketItemAge(entityId, age));
 		}
 	}

@@ -14,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.render.tile.RenderTileRedString;
@@ -23,8 +22,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-
-import java.lang.reflect.Field;
+import vazkii.botania.mixin.AccessorMinecraft;
 
 public final class ClientTickHandler {
 
@@ -36,7 +34,6 @@ public final class ClientTickHandler {
 	public static float partialTicks = 0;
 	public static float delta = 0;
 	public static float total = 0;
-	private static final Field RENDER_PARTIAL_TICKS_PAUSED = ObfuscationReflectionHelper.findField(Minecraft.class, "field_193996_ah");
 
 	private static void calcDelta() {
 		float oldTotal = total;
@@ -51,12 +48,8 @@ public final class ClientTickHandler {
 
 			if (mc.isGamePaused()) {
 				// If game is paused, need to use the saved value. The event is always fired with the "true" value which
-				// keeps updating when paused. See RenderTickEvent fire site for details
-				try {
-					partialTicks = (float) RENDER_PARTIAL_TICKS_PAUSED.get(mc);
-				} catch (IllegalAccessException ignored) {
-					// fall back to jittery one
-				}
+				// keeps updating when paused. See RenderTickEvent fire site for details, remove when MinecraftForge#6991 is resolved
+				partialTicks = ((AccessorMinecraft) mc).getRenderPartialTicksPaused();
 			}
 		} else {
 			calcDelta();

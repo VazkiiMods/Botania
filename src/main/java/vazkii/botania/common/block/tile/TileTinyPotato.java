@@ -23,10 +23,11 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TileTinyPotato extends TileExposedSimpleInventory implements ITickableTileEntity, INameable {
 	private static final String TAG_NAME = "name";
@@ -76,7 +77,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 				}
 			}
 
-			PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 
@@ -115,7 +116,9 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	@Override

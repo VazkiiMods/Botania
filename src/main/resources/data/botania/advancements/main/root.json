@@ -9,7 +9,7 @@
     "description": {
       "translate": "botania.desc"
     },
-    "background": "botania:textures/blocks/livingwood0.png",
+    "background": "botania:textures/block/livingwood.png",
     "show_toast": false,
     "announce_to_chat": false
   },

@@ -116,8 +116,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.func_240531_a_(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		func_240522_a_(BlockTags.TALL_FLOWERS).func_240531_a_(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		func_240522_a_(BlockTags.SMALL_FLOWERS).func_240531_a_(ModTags.Blocks.MYSTICAL_FLOWERS);
-		func_240522_a_(BlockTags.FLOWERS).func_240531_a_(ModTags.Blocks.SPECIAL_FLOWERS);
+		func_240522_a_(BlockTags.SMALL_FLOWERS).func_240531_a_(ModTags.Blocks.MYSTICAL_FLOWERS).func_240531_a_(ModTags.Blocks.SPECIAL_FLOWERS);
 
 		func_240522_a_(BlockTags.IMPERMEABLE).func_240534_a_(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 		func_240522_a_(BlockTags.BEACON_BASE_BLOCKS).func_240534_a_(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,

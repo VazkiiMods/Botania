@@ -59,12 +59,12 @@ public class ItemHorn extends Item {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity player, int time) {
-		if (!player.world.isRemote) {
+	public void onUse(World world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int time) {
+		if (!world.isRemote) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
-				breakGrass(player.world, stack, player.func_233580_cy_());
+				breakGrass(world, stack, player.func_233580_cy_());
 			}
-			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
 

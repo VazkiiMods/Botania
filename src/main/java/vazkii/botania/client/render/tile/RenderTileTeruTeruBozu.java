@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
@@ -41,7 +42,7 @@ public class RenderTileTeruTeruBozu extends TileEntityRenderer<TileTeruTeruBozu>
 	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
 		ms.rotate(Vector3f.XP.rotationDegrees(180));
-		double time = Botania.proxy.getWorldElapsedTicks() + partialTicks;
+		double time = ClientTickHandler.ticksInGame + partialTicks;
 		boolean hasWorld = tileentity != null && tileentity.getWorld() != null;
 		if (hasWorld) {
 			time += new Random(tileentity.getPos().hashCode()).nextInt(1000);

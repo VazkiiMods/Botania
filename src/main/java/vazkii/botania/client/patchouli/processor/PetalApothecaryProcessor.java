@@ -24,7 +24,7 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).get(id);
+		this.recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.PETAL_TYPE).get(id);
 		if (recipe == null) {
 			Botania.LOGGER.warn("Missing apothecary recipe " + id);
 		}
@@ -41,7 +41,7 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 		case "output":
 			return IVariable.from(recipe.getRecipeOutput());
 		case "heading":
-			return IVariable.wrap(recipe.getRecipeOutput().getDisplayName().getString());
+			return IVariable.from(recipe.getRecipeOutput().getDisplayName());
 		}
 		return null;
 	}

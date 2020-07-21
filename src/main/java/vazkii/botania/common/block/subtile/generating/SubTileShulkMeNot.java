@@ -44,8 +44,8 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 		World world = getWorld();
 		BlockPos pos = getEffectivePos();
 		Vector3d posD = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
-		List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 		if (!world.isRemote) {
+			List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 			for (ShulkerEntity shulker : shulkers) {
 				if (getMaxMana() - getMana() < generate) {
 					break;
@@ -53,7 +53,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 
 				if (shulker.isAlive() && shulker.getDistanceSq(posD) < RADIUS * RADIUS) {
 					LivingEntity target = shulker.getAttackTarget();
-					if (target != null && target instanceof IMob && target.isAlive()
+					if (target instanceof IMob && target.isAlive()
 							&& target.getDistanceSq(posD) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
 						target.remove();
 						shulker.remove();

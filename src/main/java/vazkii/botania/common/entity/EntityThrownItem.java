@@ -8,24 +8,26 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.network.IPacket;
+import net.minecraft.tileentity.EndGatewayTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.function.Predicate;
 
 public class EntityThrownItem extends ItemEntity {
 	public EntityThrownItem(EntityType<EntityThrownItem> type, World world) {
@@ -35,7 +37,7 @@ public class EntityThrownItem extends ItemEntity {
 	public EntityThrownItem(World world, double x,
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
-		setPickupDelay(item.pickupDelay);
+		setPickupDelay(((AccessorItemEntity) item).getPickupDelay());
 		setMotion(item.getMotion());
 		setInvulnerable(true);
 	}
@@ -55,70 +57,42 @@ public class EntityThrownItem extends ItemEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		Vector3d vec3 = getPositionVec();
-		Vector3d vec31 = getPositionVec().add(getMotion());
 
-		RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(vec3, vec31,
-				RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
-
-		if (!world.isRemote) {
-			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().offset(getMotion().scale(2)).grow(2));
-			double d0 = 0.0D;
-
-			for (Entity entity1 : list) {
-				if (entity1.canBeCollidedWith() && (!(entity1 instanceof PlayerEntity) || pickupDelay == 0)) {
-					float f = 1.0F;
-					AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(f);
-					Optional<Vector3d> ray1 = axisalignedbb.rayTrace(vec3, vec31);
-
-					if (ray1.isPresent()) {
-						double d1 = vec3.distanceTo(ray1.get());
-
-						if (d1 < d0 || d0 == 0.0D) {
-							entity = entity1;
-							d0 = d1;
-						}
-					}
-				}
-			}
-
-			if (entity != null) {
-				ray = new EntityRayTraceResult(entity);
-			}
-		}
-
-		if (ray != null) {
-			if (ray.getType() == RayTraceResult.Type.BLOCK
-					&& world.getBlockState(((BlockRayTraceResult) ray).getPos()).getBlock() == Blocks.NETHER_PORTAL) {
-				setPortal(((BlockRayTraceResult) ray).getPos());
-			} else {
-				if (ray.getType() == RayTraceResult.Type.ENTITY) {
-					((EntityRayTraceResult) ray).getEntity().attackEntityFrom(DamageSource.MAGIC, 2.0F);
-					if (!world.isRemote) {
-						Entity item = getItem().getItem().createEntity(world, this, getItem());
-						if (item == null) {
-							item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
-							world.addEntity(item);
-						}
-						item.setMotion(getMotion().scale(0.25));
-					}
-					remove();
-
+		// [VanillaCopy] derivative from ThrowableEntity
+		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
+		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.canBeCollidedWith() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
+		RayTraceResult ray = ProjectileHelper.func_234618_a_(this, filter, RayTraceContext.BlockMode.OUTLINE);
+		if (ray.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos pos = ((BlockRayTraceResult) ray).getPos();
+			BlockState state = this.world.getBlockState(pos);
+			if (state.isIn(Blocks.NETHER_PORTAL)) {
+				this.setPortal(pos);
+			} else if (state.isIn(Blocks.END_GATEWAY)) {
+				TileEntity tileentity = this.world.getTileEntity(pos);
+				if (tileentity instanceof EndGatewayTileEntity) {
+					((EndGatewayTileEntity) tileentity).teleportEntity(this);
 				}
 			}
 		}
 
-		Vector3 vec3m = new Vector3(getMotion());
-		if (vec3m.mag() < 1.0F) {
-			if (!world.isRemote) {
-				Entity item = getItem().getItem().createEntity(world, this, getItem());
-				if (item == null) {
-					item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
-					world.addEntity(item);
-				}
-				item.setMotion(getMotion());
+		// Bonk any entities hit
+		if (!world.isRemote && ray.getType() == RayTraceResult.Type.ENTITY) {
+			Entity bonk = ((EntityRayTraceResult) ray).getEntity();
+			bonk.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+			Entity item = getItem().getItem().createEntity(world, this, getItem());
+			if (item == null) {
+				item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
+				world.addEntity(item);
 			}
+			item.setMotion(getMotion().scale(0.25));
+			remove();
+			return;
+		}
+
+		if (!world.isRemote && getMotion().length() < 1.0F) {
+			Entity item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
+			world.addEntity(item);
+			item.setMotion(getMotion());
 			remove();
 		}
 	}

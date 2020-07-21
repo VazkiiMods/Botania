@@ -13,16 +13,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.tileentity.EndPortalTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.common.block.tile.TileStarfield;
+import vazkii.botania.mixin.AccessorEndPortalTileEntityRenderer;
 
 import java.util.List;
 import java.util.Random;
@@ -30,7 +29,7 @@ import java.util.Random;
 // [VanillaCopy] end portal TESR, relevant edits are commented
 public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 	private static final Random RANDOM = new Random(31100L);
-	private static List<RenderType> field_228881_e_ = ObfuscationReflectionHelper.getPrivateValue(EndPortalTileEntityRenderer.class, null, "field_228881_e_");
+	private static final List<RenderType> LAYERS = AccessorEndPortalTileEntityRenderer.getLayers();
 
 	public RenderTileStarfield(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -44,15 +43,15 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 		int i = this.getPasses(d0);
 		float f = this.getOffset();
 		Matrix4f matrix4f = p_225616_3_.getLast().getMatrix();
-		this.func_228883_a_(p_225616_1_, f, 0.15F, matrix4f, p_225616_4_.getBuffer(field_228881_e_.get(0)));
+		this.renderCube(p_225616_1_, f, 0.15F, matrix4f, p_225616_4_.getBuffer(LAYERS.get(0)));
 
 		for (int j = 1; j < i; ++j) {
-			this.func_228883_a_(p_225616_1_, f, 2.0F / (float) (18 - j), matrix4f, p_225616_4_.getBuffer(field_228881_e_.get(j)));
+			this.renderCube(p_225616_1_, f, 2.0F / (float) (18 - j), matrix4f, p_225616_4_.getBuffer(LAYERS.get(j)));
 		}
 
 	}
 
-	private void func_228883_a_(TileStarfield p_228883_1_, float p_228883_2_, float p_228883_3_, Matrix4f p_228883_4_, IVertexBuilder p_228883_5_) {
+	private void renderCube(TileStarfield p_228883_1_, float p_228883_2_, float p_228883_3_, Matrix4f p_228883_4_, IVertexBuilder p_228883_5_) {
 		float f = (RANDOM.nextFloat() * 0.5F + 0.1F) * p_228883_3_;
 		float f1 = (RANDOM.nextFloat() * 0.5F + 0.4F) * p_228883_3_;
 		float f2 = (RANDOM.nextFloat() * 0.5F + 0.5F) * p_228883_3_;
@@ -63,15 +62,15 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 		f1 = (color >> 8 & 0xFF) / 255F * p_228883_3_;
 		f2 = (color & 0xFF) / 255F * p_228883_3_;
 
-		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, f, f1, f2, Direction.SOUTH);
-		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f, f1, f2, Direction.NORTH);
-		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.EAST);
-		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.WEST);
-		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f, f1, f2, Direction.DOWN);
-		this.func_228884_a_(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, p_228883_2_, p_228883_2_, 1.0F, 1.0F, 0.0F, 0.0F, f, f1, f2, Direction.UP);
+		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, f, f1, f2, Direction.SOUTH);
+		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f, f1, f2, Direction.NORTH);
+		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.EAST);
+		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.WEST);
+		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f, f1, f2, Direction.DOWN);
+		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, p_228883_2_, p_228883_2_, 1.0F, 1.0F, 0.0F, 0.0F, f, f1, f2, Direction.UP);
 	}
 
-	private void func_228884_a_(TileStarfield p_228884_1_, Matrix4f p_228884_2_, IVertexBuilder p_228884_3_, float p_228884_4_, float p_228884_5_, float p_228884_6_, float p_228884_7_, float p_228884_8_, float p_228884_9_, float p_228884_10_, float p_228884_11_, float p_228884_12_, float p_228884_13_, float p_228884_14_, Direction p_228884_15_) {
+	private void shouldRenderFace(TileStarfield p_228884_1_, Matrix4f p_228884_2_, IVertexBuilder p_228884_3_, float p_228884_4_, float p_228884_5_, float p_228884_6_, float p_228884_7_, float p_228884_8_, float p_228884_9_, float p_228884_10_, float p_228884_11_, float p_228884_12_, float p_228884_13_, float p_228884_14_, Direction p_228884_15_) {
 		if (p_228884_15_ == Direction.UP) { // Botania: up face only
 			p_228884_3_.pos(p_228884_2_, p_228884_4_, p_228884_6_, p_228884_8_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
 			p_228884_3_.pos(p_228884_2_, p_228884_5_, p_228884_6_, p_228884_9_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();

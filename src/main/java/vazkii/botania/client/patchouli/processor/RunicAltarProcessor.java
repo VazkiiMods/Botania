@@ -21,7 +21,7 @@ public class RunicAltarProcessor extends PetalApothecaryProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).get(id);
+		this.recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.RUNE_TYPE).get(id);
 		if (recipe == null) {
 			Botania.LOGGER.warn("Missing rune altar recipe " + id);
 		}

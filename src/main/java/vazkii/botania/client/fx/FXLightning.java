@@ -8,7 +8,10 @@
  */
 package vazkii.botania.client.fx;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -17,14 +20,23 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
+
+import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
@@ -35,55 +47,53 @@ import java.util.*;
 public class FXLightning extends Particle {
 
 	private static final int fadetime = 20;
-	private final Map<Integer, Integer> splitParents = new HashMap<>();
-	private final double length;
-	private final Random rand;
+	private final int expandTime;
 	private final int colorOuter;
 	private final int colorInner;
 
-	private List<FXLightningSegment> segments = new ArrayList<>();
-	private int segmentCount = 1;
-	private int splitCount;
-	private float speed = 1.5F;
+	private final List<FXLightningSegment> segments;
+	private final int segmentCount;
 
-	public FXLightning(ClientWorld world, Vector3 sourcevec, Vector3 targetvec, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+	public FXLightning(ClientWorld world, Vector3 sourcevec, Vector3 targetvec, float speed, long seed, int colorOuter, int colorInner) {
 		super(world, sourcevec.x, sourcevec.y, sourcevec.z);
-		rand = new Random(seed);
-		speed = ticksPerMeter;
 		this.colorOuter = colorOuter;
 		this.colorInner = colorInner;
-		length = targetvec.subtract(sourcevec).mag();
-		maxAge = fadetime + rand.nextInt(fadetime) - fadetime / 2;
+		double length = targetvec.subtract(sourcevec).mag();
+		maxAge = fadetime + world.rand.nextInt(fadetime) - fadetime / 2;
+		expandTime = (int) (length * speed);
 		age = -(int) (length * speed);
 
-		segments.add(new FXLightningSegment(sourcevec, targetvec));
-
-		fractal(2, length / 1.5, 0.7F, 0.7F, 45);
-		fractal(2, length / 4, 0.5F, 0.8F, 50);
-		fractal(2, length / 15, 0.5F, 0.9F, 55);
-		fractal(2, length / 30, 0.5F, 1.0F, 60);
-		fractal(2, length / 60, 0, 0, 0);
-		fractal(2, length / 100, 0, 0, 0);
-		fractal(2, length / 400, 0, 0, 0);
-
-		calculateCollisionAndDiffs();
-
-		segments.sort((o1, o2) -> Float.compare(o2.light, o1.light));
+		LightningSegmentGenerator gen = new LightningSegmentGenerator(seed);
+		Pair<Integer, List<FXLightningSegment>> res = gen.compute(sourcevec, targetvec, length);
+		segmentCount = res.getFirst();
+		segments = res.getSecond();
 	}
 
 	@Override
 	public void renderParticle(IVertexBuilder buffer, ActiveRenderInfo info, float partialTicks) {
-		LightningHandler.queuedLightningBolts.offer(this);
+		// todo fix this >.>
+
+		// old way (bad position and too thick)
+		// LightningHandler.queuedLightningBolts.offer(this);
+
+		// new way (right position but heavy artifacting)
+		/*
+		Vector3d cameraPos = info.getProjectedView();
+		MatrixStack ms = new MatrixStack();
+		ms.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
+		renderBolt(ms, buffer, 0, false);
+		renderBolt(ms, buffer, 1, true);
+		*/
 	}
 
 	@Nonnull
 	@Override
 	public IParticleRenderType getRenderType() {
-		return IParticleRenderType.NO_RENDER;
+		return LAYER;
 	}
 
-	public void renderBolt(int pass, boolean inner) {
-		BufferBuilder wr = Tessellator.getInstance().getBuffer();
+	public void renderBolt(MatrixStack ms, IVertexBuilder wr, int pass, boolean inner) {
+		Matrix4f mat = ms.getLast().getMatrix();
 
 		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;
 		float mainAlpha;
@@ -92,8 +102,6 @@ public class FXLightning extends Particle {
 		} else {
 			mainAlpha = 1 - boltAge * 0.5F;
 		}
-
-		int expandTime = (int) (length * speed);
 
 		int renderstart = (int) ((expandTime / 2 - maxAge + age) / (float) (expandTime / 2) * segmentCount);
 		int renderend = (int) ((age + expandTime) / (float) expandTime * segmentCount);
@@ -118,162 +126,67 @@ public class FXLightning extends Particle {
 			int g = (color & 0xFF00) >> 8;
 			int b = color & 0xFF;
 			int a = (int) (mainAlpha * rendersegment.light * 0xFF);
+			int fullbright = 0xF000F0;
 
-			wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-			wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-			wr.pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-			wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
+			endvec.subtract(diff2).vertex(mat, wr);
+			wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+			startvec.subtract(diff1).vertex(mat, wr);
+			wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+			startvec.add(diff1).vertex(mat, wr);
+			wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
+			endvec.add(diff2).vertex(mat, wr);
+			wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
 
 			if (rendersegment.next == null) {
 				Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
 
-				wr.pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).tex(0, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).tex(0, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
+				roundend.subtract(diff2).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0, 0).lightmap(fullbright).endVertex();
+				endvec.subtract(diff2).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+				endvec.add(diff2).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
+				roundend.add(diff2).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0, 1).lightmap(fullbright).endVertex();
 			}
 
 			if (rendersegment.prev == null) {
 				Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
 
-				wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5F, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).tex(0, 0).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).tex(0, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
-				wr.pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5F, 1).lightmap(0xF000F0).color(r, g, b, a).endVertex();
+				startvec.subtract(diff1).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+				roundend.subtract(diff1).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0, 0).lightmap(fullbright).endVertex();
+				roundend.add(diff1).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0, 1).lightmap(fullbright).endVertex();
+				startvec.add(diff1).vertex(mat, wr);
+				wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
 			}
-		}
-	}
-
-	private void fractal(int splits, double amount, double splitChance, double splitLength, double splitAngle) {
-		List<FXLightningSegment> oldSegments = segments;
-		segments = new ArrayList<>();
-
-		FXLightningSegment prev;
-
-		for (FXLightningSegment segment : oldSegments) {
-			prev = segment.prev;
-
-			Vector3 subsegment = segment.diff.multiply(1F / splits);
-
-			FXLightningBoltPoint[] newpoints = new FXLightningBoltPoint[splits + 1];
-
-			Vector3 startpoint = segment.startPoint.point;
-			newpoints[0] = segment.startPoint;
-			newpoints[splits] = segment.endPoint;
-
-			for (int i = 1; i < splits; i++) {
-				Vector3 randoff = segment.diff.perpendicular().normalize().rotate(rand.nextFloat() * 360, segment.diff);
-				randoff = randoff.multiply((rand.nextFloat() - 0.5F) * amount * 2);
-
-				Vector3 basepoint = startpoint.add(subsegment.multiply(i));
-
-				newpoints[i] = new FXLightningBoltPoint(basepoint, randoff);
-			}
-
-			for (int i = 0; i < splits; i++) {
-				FXLightningSegment next = new FXLightningSegment(newpoints[i], newpoints[i + 1], segment.light, segment.segmentNo * splits + i, segment.splitNo);
-				next.prev = prev;
-				if (prev != null) {
-					prev.next = next;
-				}
-
-				if (i != 0 && rand.nextFloat() < splitChance) {
-					Vector3 splitrot = next.diff.xCrossProduct().rotate(rand.nextFloat() * 360, next.diff);
-					Vector3 diff = next.diff.rotate((rand.nextFloat() * 0.66F + 0.33F) * splitAngle, splitrot).multiply(splitLength);
-
-					splitCount++;
-					splitParents.put(splitCount, next.splitNo);
-
-					FXLightningSegment split = new FXLightningSegment(newpoints[i], new FXLightningBoltPoint(newpoints[i + 1].basepoint, newpoints[i + 1].offsetvec.add(diff)), segment.light / 2F, next.segmentNo, splitCount);
-					split.prev = prev;
-
-					segments.add(split);
-				}
-
-				prev = next;
-				segments.add(next);
-			}
-
-			if (segment.next != null) {
-				segment.next.prev = prev;
-			}
-		}
-
-		segmentCount *= splits;
-	}
-
-	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-		// don't have an entity to pass, just use the render view
-		Entity viewer = Minecraft.getInstance().renderViewEntity;
-		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, viewer);
-		RayTraceResult mop = world.rayTraceBlocks(ctx);
-
-		if (mop.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos pos = ((BlockRayTraceResult) mop).getPos();
-			Block block = world.getBlockState(pos).getBlock();
-
-			if (world.isAirBlock(pos)) {
-				return prevresistance;
-			}
-
-			return prevresistance + block.getExplosionResistance() + 0.3F;
-		} else {
-			return prevresistance;
-		}
-	}
-
-	private void calculateCollisionAndDiffs() {
-		Map<Integer, Integer> lastactivesegment = new HashMap<>();
-
-		segments.sort((o1, o2) -> {
-			int comp = Integer.compare(o1.splitNo, o2.splitNo);
-			if (comp == 0) {
-				return Integer.compare(o1.segmentNo, o2.segmentNo);
-			} else {
-				return comp;
-			}
-		});
-
-		int lastSplitCalc = 0;
-		int lastActiveSegment = 0;// unterminated
-		float splitResistance = 0;
-
-		for (FXLightningSegment segment : segments) {
-			if (segment.splitNo > lastSplitCalc) {
-				lastactivesegment.put(lastSplitCalc, lastActiveSegment);
-				lastSplitCalc = segment.splitNo;
-				lastActiveSegment = lastactivesegment.get(splitParents.get(segment.splitNo));
-				splitResistance = lastActiveSegment < segment.segmentNo ? 50 : 0;
-			}
-
-			if (splitResistance >= 40 * segment.light) {
-				continue;
-			}
-
-			splitResistance = rayTraceResistance(segment.startPoint.point, segment.endPoint.point, splitResistance);
-			lastActiveSegment = segment.segmentNo;
-		}
-		lastactivesegment.put(lastSplitCalc, lastActiveSegment);
-
-		lastSplitCalc = 0;
-		lastActiveSegment = lastactivesegment.get(0);
-		for (Iterator<FXLightningSegment> iterator = segments.iterator(); iterator.hasNext();) {
-			FXLightningSegment segment = iterator.next();
-			if (lastSplitCalc != segment.splitNo) {
-				lastSplitCalc = segment.splitNo;
-				lastActiveSegment = lastactivesegment.get(segment.splitNo);
-			}
-
-			if (segment.segmentNo > lastActiveSegment) {
-				iterator.remove();
-			}
-			segment.calcEndDiffs();
 		}
 	}
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
 		Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
-		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY() + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.getPosZ() - pos.z);
+		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY() - pos.y, (float) renderEntity.getPosZ() - pos.z);
 	}
+
+	private static final IParticleRenderType LAYER = new IParticleRenderType() {
+		@Override
+		public void beginRender(BufferBuilder buffer, TextureManager textureManager) {
+			RenderSystem.depthMask(false);
+			RenderSystem.enableBlend();
+			RenderSystem.defaultBlendFunc();
+			RenderSystem.disableTexture();
+			buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP);
+		}
+
+		@Override
+		public void finishRender(Tessellator tess) {
+			tess.draw();
+			RenderSystem.enableTexture();
+			RenderSystem.disableBlend();
+			RenderSystem.depthMask(true);
+		}
+	};
 
 }

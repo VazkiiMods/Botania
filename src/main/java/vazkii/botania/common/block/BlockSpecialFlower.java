@@ -20,6 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -49,8 +50,8 @@ public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvid
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
-	protected BlockSpecialFlower(Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
-		super(Effects.SPEED, 4, props);
+	protected BlockSpecialFlower(Effect stewEffect, int stewDuration, Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
+		super(stewEffect, stewDuration, props);
 		this.teProvider = teProvider;
 	}
 
@@ -62,53 +63,10 @@ public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvid
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
-	}
-
-	@Override
-	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
-	}
-
-	@Override
-	public int getStrongPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return getWeakPower(state, world, pos, side);
-	}
-
-	@Override
-	public boolean canProvidePower(BlockState state) {
-		return true;
-	}
-
-	@Override
 	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		return state.getBlock() == ModBlocks.redStringRelay
 				|| state.getBlock() == Blocks.MYCELIUM
 				|| super.isValidGround(state, worldIn, pos);
-	}
-
-	@Override
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		super.onBlockHarvested(world, pos, state, player);
-		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
-	}
-
-	@Nonnull
-	@Override
-	public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-		List<ItemStack> drops = super.getDrops(state, builder);
-		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
-		if (te instanceof TileEntitySpecialFlower) {
-			return ((TileEntitySpecialFlower) te).getDrops(drops, builder);
-		} else {
-			return drops;
-		}
 	}
 
 	@Override
@@ -132,16 +90,6 @@ public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvid
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
-	}
-
-	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
-	}
-
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
 	}
 
 	@OnlyIn(Dist.CLIENT)

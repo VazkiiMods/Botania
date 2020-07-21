@@ -35,20 +35,6 @@ import java.util.List;
 public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
 	private static final int COST_PER = 55;
 
-	// todo 1.13 migrate rest of these
-	private static final List<String> validBlocks = ImmutableList.of(
-			"hardenedClay",
-			"snowLayer",
-			"mycelium",
-			"sandstone",
-
-			// Mod support
-			"marble",
-			"blockMarble",
-			"limestone",
-			"blockLimestone"
-	);
-
 	public ItemTerraformRod(Properties props) {
 		super(props);
 	}
@@ -65,9 +51,9 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+	public void onUse(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
 		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof PlayerEntity) {
-			terraform(stack, living.world, (PlayerEntity) living);
+			terraform(stack, world, (PlayerEntity) living);
 		}
 	}
 

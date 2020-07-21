@@ -18,14 +18,13 @@ import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.lib.LibObfuscation;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketIndexKeybindRequest;
+import vazkii.botania.mixin.AccessorRecipeBookGui;
+import vazkii.botania.mixin.AccessorRecipeBookPage;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -83,14 +82,10 @@ public class CorporeaInputHandler {
 
 		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeGui().isVisible()) {
 			RecipeBookGui recipeBook = ((InventoryScreen) screen).getRecipeGui();
-			try {
-				RecipeBookPage page = ObfuscationReflectionHelper.getPrivateValue(RecipeBookGui.class, recipeBook, LibObfuscation.RECIPE_BOOK_PAGE);
-				RecipeWidget widget = ObfuscationReflectionHelper.getPrivateValue(RecipeBookPage.class, page, LibObfuscation.HOVERED_BUTTON);
-				if (widget != null) {
-					return widget.getRecipe().getRecipeOutput();
-				}
-			} catch (Exception e) {
-				Botania.LOGGER.error("Failed to get hovered recipe gui button", e);
+			RecipeBookPage page = ((AccessorRecipeBookGui) recipeBook).getRecipeBookPage();
+			RecipeWidget widget = ((AccessorRecipeBookPage) page).getHoveredButton();
+			if (widget != null) {
+				return widget.getRecipe().getRecipeOutput();
 			}
 		}
 

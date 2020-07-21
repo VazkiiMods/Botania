@@ -23,6 +23,7 @@ import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -35,9 +36,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "runic_altar");
+	public static final ResourceLocation UID = prefix("runic_altar");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -46,7 +49,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
 		localizedName = I18n.format("botania.nei.runicAltar");
-		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
 	}

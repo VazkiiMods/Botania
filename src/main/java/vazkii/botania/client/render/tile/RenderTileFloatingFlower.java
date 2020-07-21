@@ -38,6 +38,10 @@ public class RenderTileFloatingFlower extends TileEntityRenderer<TileEntity> {
 
 	@Override
 	public void render(@Nonnull TileEntity tile, float t, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		renderFloatingIsland(tile, t, ms, buffers, light, overlay);
+	}
+
+	public static void renderFloatingIsland(TileEntity tile, float t, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if (ConfigHandler.CLIENT.staticFloaters.get()) {
 			return;
 		}
@@ -68,7 +72,6 @@ public class RenderTileFloatingFlower extends TileEntityRenderer<TileEntity> {
 		brd.getBlockModelRenderer().renderModel(ms.getLast(), buffers.getBuffer(RenderTypeLookup.func_239220_a_(state, false)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
 
 		ms.pop();
-
 	}
 
 }

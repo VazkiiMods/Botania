@@ -19,12 +19,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class RelicBindTrigger extends AbstractCriterionTrigger<RelicBindTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "relic_bind");
+	public static final ResourceLocation ID = prefix("relic_bind");
 	public static final RelicBindTrigger INSTANCE = new RelicBindTrigger();
 
 	private RelicBindTrigger() {}

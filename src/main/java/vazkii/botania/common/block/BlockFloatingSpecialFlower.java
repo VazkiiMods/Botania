@@ -49,53 +49,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		this.teProvider = teProvider;
 	}
 
-	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
-	}
-
-	@Override
-	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
-	}
-
-	@Override
-	public int getStrongPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return getWeakPower(state, world, pos, side);
-	}
-
-	@Override
-	public boolean canProvidePower(BlockState state) {
-		return true;
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {}
-
-	@Override
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		super.onBlockHarvested(world, pos, state, player);
-		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
-	}
-
-	@Nonnull
-	@Override
-	public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-		List<ItemStack> drops = super.getDrops(state, builder);
-		TileEntity te = builder.get(LootParameters.BLOCK_ENTITY);
-
-		if (te instanceof TileEntitySpecialFlower) {
-			return ((TileEntitySpecialFlower) te).getDrops(drops, builder);
-		} else {
-			return drops;
-		}
-	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
@@ -105,21 +61,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
-	}
-
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		ActionResultType tileResult = ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, hit);
-		if (tileResult.isSuccessOrConsume()) {
-			return tileResult;
-		} else {
-			return super.onBlockActivated(state, world, pos, player, hand, hit);
-		}
-	}
-
-	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
 	@OnlyIn(Dist.CLIENT)

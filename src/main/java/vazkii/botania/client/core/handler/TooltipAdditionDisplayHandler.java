@@ -29,7 +29,7 @@ public final class TooltipAdditionDisplayHandler {
 		if (evt.getStack().isEmpty()) {
 			return;
 		}
-		MatrixStack ms = new MatrixStack(); // todo 1.16 get from event?
+		MatrixStack ms = evt.getMatrixStack();
 
 		ItemStack stack = evt.getStack();
 		int width = evt.getWidth();

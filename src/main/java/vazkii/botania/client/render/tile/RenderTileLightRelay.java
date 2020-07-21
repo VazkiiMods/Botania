@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
-	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
+	private static final Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
 
 	public RenderTileLightRelay(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -43,9 +43,6 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 	@Override
 	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
-		if (!(state.getBlock() instanceof BlockLightRelay)) {
-			return;
-		}
 
 		Minecraft mc = Minecraft.getInstance();
 		if (sprites.isEmpty()) {

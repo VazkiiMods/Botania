@@ -20,8 +20,10 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class LokiPlaceTrigger extends AbstractCriterionTrigger<LokiPlaceTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "loki_placed_blocks");
+	public static final ResourceLocation ID = prefix("loki_placed_blocks");
 	public static final LokiPlaceTrigger INSTANCE = new LokiPlaceTrigger();
 
 	private LokiPlaceTrigger() {}

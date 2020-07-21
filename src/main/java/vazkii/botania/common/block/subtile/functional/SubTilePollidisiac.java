@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 
 				if (animal.getGrowingAge() == 0 && !animal.isInLove()) {
 					for (ItemEntity item : items) {
-						if (item.age < 60 + slowdown || !item.isAlive()) {
+						int age = ((AccessorItemEntity) item).getAge();
+						if (age < 60 + slowdown || !item.isAlive()) {
 							continue;
 						}
 

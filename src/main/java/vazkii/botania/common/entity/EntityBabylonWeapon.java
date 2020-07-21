@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -97,13 +98,11 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			return;
 		}
 		PlayerEntity player = (PlayerEntity) thrower;
-		boolean charging = isCharging();
 		if (!world.isRemote) {
-			ItemStack stack = player == null ? ItemStack.EMPTY : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
+			ItemStack stack = PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && ItemKingKey.isCharging(stack);
-			if (charging != newCharging) {
+			if (isCharging() != newCharging) {
 				setCharging(newCharging);
-				charging = newCharging;
 			}
 		}
 
@@ -111,7 +110,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		int liveTime = getLiveTicks();
 		int delay = getDelay();
-		charging &= liveTime == 0;
+		boolean charging = isCharging() && liveTime == 0;
 
 		if (charging) {
 			setMotion(Vector3d.ZERO);
@@ -139,9 +138,9 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
 				world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
-			setLiveTicks(liveTime + 1);
 
 			if (!world.isRemote) {
+				setLiveTicks(liveTime + 1);
 				AxisAlignedBB axis = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 				List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
 				for (LivingEntity living : entities) {
@@ -164,14 +163,15 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		super.tick();
 
+		// Apply after super tick so drag is not applied by super
 		setMotion(mot);
 
-		if (liveTime > delay) {
+		if (world.isRemote && liveTime > delay) {
 			WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
 			world.addParticle(data, getPosX(), getPosY(), getPosZ(), 0, -0F, 0);
 		}
 
-		if (liveTime > 200 + delay) {
+		if (!world.isRemote && liveTime > 200 + delay) {
 			remove();
 		}
 	}

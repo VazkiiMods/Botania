@@ -12,12 +12,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 import java.util.Set;
 
 /**
  * A basic interface for a world's Mana Network.
- * 
- * @see IInternalMethodHandler#getManaNetworkInstance()
  */
 public interface IManaNetwork {
 
@@ -25,43 +25,40 @@ public interface IManaNetwork {
 	 * Clears the entire Mana Network of all it's contents, you probably
 	 * don't want to call this unless you have a very good reason.
 	 */
-	public void clear();
+	void clear();
 
 	/**
 	 * Gets the closest Mana Collector (eg. Mana Spreader) in the network to the Chunk
 	 * Coordinates passed in, in the given dimension.<br>
-	 * A way of getting the dimension is via world.provider.dimensionId<br>
 	 * Note that this function *can* get performance intensive, it's reccomended you
 	 * call it sparingly and take cache of the value returned.
 	 * 
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 *              is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestCollector(BlockPos pos, World world, int limit);
+	@Nullable
+	TileEntity getClosestCollector(BlockPos pos, World world, int limit);
 
 	/**
 	 * Gets the closest Mana Pool in the network to the Chunk Coordinates passed in,
 	 * in the given dimension.<br>
-	 * A way of getting the dimension is via world.provider.dimensionId<br>
 	 * Note that this function *can* get performance intensive, it's reccomended you
 	 * call it sparingly and take cache of the value returned.
 	 * 
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 *              is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestPool(BlockPos pos, World world, int limit);
+	@Nullable
+	TileEntity getClosestPool(BlockPos pos, World world, int limit);
 
 	/**
-	 * Gets the set of all Mana Collectors (eg. Mana Spreader) in the dimension
-	 * passed in. Note that this is the actual set and not a copy, make sure to
-	 * clone the set if you intend to change it in any way.
+	 * Gets read-only view of all Mana Collectors (eg. Mana Spreader) in the dimension
+	 * passed in.
 	 */
-	public Set<TileEntity> getAllCollectorsInWorld(World world);
+	Set<TileEntity> getAllCollectorsInWorld(World world);
 
 	/**
-	 * Gets the set of all Mana Pools in the dimension passed in. Note that this
-	 * is the actual set and not a copy, make sure to clone the set if you intend
-	 * to change it in any way.
+	 * Gets read-only view of all Mana Pools in the dimension passed in.
 	 */
-	public Set<TileEntity> getAllPoolsInWorld(World world);
+	Set<TileEntity> getAllPoolsInWorld(World world);
 }

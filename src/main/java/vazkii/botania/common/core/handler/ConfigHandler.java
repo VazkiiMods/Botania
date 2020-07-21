@@ -138,6 +138,7 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.IntValue mushroomQuantity;
 
 		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon;
+		public final ForgeConfigSpec.IntValue gogIslandScaleMultiplier;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("blockBreakingParticles");
@@ -152,10 +153,10 @@ public final class ConfigHandler {
 			builder.push("manaSpreaders");
 			silentSpreaders = builder
 					.comment("Set this to true to disable the mana spreader shooting sound")
-					.define("manaSpreaders.silent", false);
+					.define("silent", false);
 			spreaderTraceTime = builder
 					.comment("How many ticks into the future will mana spreaders attempt to predict where mana bursts go? Setting this lower will improve spreader performance, but will cause them to not fire at targets that are too far away.")
-					.defineInRange("manaSpreaders.traceTime", 400, 1, Integer.MAX_VALUE);
+					.defineInRange("traceTime", 400, 1, Integer.MAX_VALUE);
 			builder.pop();
 
 			builder.push("harvestLevels");
@@ -212,6 +213,12 @@ public final class ConfigHandler {
 			gogSpawnWithLexicon = builder
 					.comment("Set this to false to disable spawning with a Lexica Botania in Garden of Glass worlds, if you are modifying the modpack's progression to not start with Botania.")
 					.define("gardenOfGlass.spawnWithLexicon", true);
+			gogIslandScaleMultiplier = builder
+					.comment("The multiplier for island distances for multiplayer Garden of Glass worlds.\n" +
+							"Islands are placed on a grid with 256 blocks between points, with the spawn island always being placed on 256, 256.\n" +
+							"By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
+							"Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.")
+					.defineInRange("gardenOfGlass.islandScaleMultiplier", 8, 1, 512);
 		}
 	}
 

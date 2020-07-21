@@ -33,7 +33,6 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.lwjgl.opengl.GL11;
 
@@ -41,18 +40,17 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorRenderState;
 
 import javax.annotation.Nullable;
 
-import java.lang.invoke.MethodHandle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Random;
 
 public final class RenderHelper {
-	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = getTranslucentTransparency();
+	private static final RenderState.TransparencyState TRANSLUCENT_TRANSPARENCY = AccessorRenderState.getTranslucentTransparency();
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
@@ -83,10 +81,10 @@ public final class RenderHelper {
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
-		RenderState.TransparencyState lightningTransparency = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228512_d_");
+		RenderState.TransparencyState lightningTransparency = AccessorRenderState.getLightningTransparency();
 		RenderState.TextureState mipmapBlockAtlasTexture = new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, true);
 		RenderState.CullState disableCull = new RenderState.CullState(false);
-		RenderState.LayerState viewOffsetZLayering = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_239235_M_");
+		RenderState.LayerState viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
 		RenderState.WriteMaskState colorMask = new RenderState.WriteMaskState(true, false);
 		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
 		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
@@ -94,7 +92,7 @@ public final class RenderHelper {
 		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
 		RenderState.AlphaState oneTenthAlpha = new RenderState.AlphaState(0.004F);
 		RenderState.DepthTestState noDepth = new RenderState.DepthTestState("always", GL11.GL_ALWAYS);
-		RenderState.TargetState itemTarget = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_241712_U_");
+		RenderState.TargetState itemTarget = AccessorRenderState.getItemEntityTarget();
 		boolean useShaders = ShaderHelper.useShaders();
 
 		RenderType.State glState = RenderType.State.getBuilder().shadeModel(smoothShade)
@@ -103,7 +101,10 @@ public final class RenderHelper {
 				.build(false);
 		STAR = RenderType.makeType(LibResources.PREFIX_MOD + "star", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderType.State.getBuilder().transparency(TRANSLUCENT_TRANSPARENCY).cull(disableCull).build(false);
+		glState = RenderType.State.getBuilder()
+				.transparency(TRANSLUCENT_TRANSPARENCY)
+				.target(itemTarget)
+				.cull(disableCull).build(false);
 		RECTANGLE = RenderType.makeType(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
 		CIRCLE = RenderType.makeType(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
@@ -124,7 +125,6 @@ public final class RenderHelper {
 				.target(itemTarget)
 				.alpha(new RenderState.AlphaState(0.05F))
 				.lightmap(enableLightmap).build(true);
-		// todo 1.15: need normals?
 		SPARK = RenderType.makeType(LibResources.PREFIX_MOD + "spark", DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 256, glState);
 		RenderType lightRelay = RenderType.makeType(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 64, glState);
 		LIGHT_RELAY = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, lightRelay) : lightRelay;
@@ -132,7 +132,12 @@ public final class RenderHelper {
 		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState()).diffuseLighting(enableDiffuse).build(false);
 		SPINNING_CUBE = RenderType.makeType(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState()).diffuseLighting(enableDiffuse).transparency(TRANSLUCENT_TRANSPARENCY).build(false);
+		glState = RenderType.State.getBuilder()
+				.texture(new RenderState.TextureState())
+				.diffuseLighting(enableDiffuse)
+				.transparency(TRANSLUCENT_TRANSPARENCY)
+				.target(itemTarget)
+				.build(false);
 		SPINNING_CUBE_GHOST = RenderType.makeType(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 64, glState);
 
 		glState = RenderType.State.getBuilder().texture(mipmapBlockAtlasTexture)
@@ -182,10 +187,6 @@ public final class RenderHelper {
 		ENTITY_TRANSLUCENT_GOLD = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, gold) : gold;
 	}
 
-	private static RenderState.TransparencyState getTranslucentTransparency() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_228515_g_");
-	}
-
 	private static RenderType getPylonGlowDirect(String name, ResourceLocation texture) {
 		return getPylonGlow(name, texture, true);
 	}
@@ -203,8 +204,7 @@ public final class RenderHelper {
 				.cull(new RenderState.CullState(false))
 				.lightmap(new RenderState.LightmapState(true));
 		if (!direct) {
-			RenderState.TargetState itemTarget = ObfuscationReflectionHelper.getPrivateValue(RenderState.class, null, "field_241712_U_");
-			glState = glState.target(itemTarget);
+			glState = glState.target(AccessorRenderState.getItemEntityTarget());
 		}
 		RenderType layer = RenderType.makeType(LibResources.PREFIX_MOD + name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, glState.build(false));
 		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
@@ -385,8 +385,6 @@ public final class RenderHelper {
 
 	}
 
-	private static final MethodHandle RENDER_BAKED_ITEM_MODEL = LibObfuscation.getMethod(ItemRenderer.class, "func_229114_a_", IBakedModel.class, ItemStack.class, int.class, int.class, MatrixStack.class, IVertexBuilder.class);
-
 	// [VanillaCopy] Portions of ItemRenderer.renderItem
 	// Does not support TEISRs
 	public static void renderItemModelGold(@Nullable LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType transform, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable World world, int light, int overlay) {
@@ -404,11 +402,7 @@ public final class RenderHelper {
 			ms.translate(-0.5D, -0.5D, -0.5D);
 			if (!ibakedmodel.isBuiltInRenderer() && (stack.getItem() != Items.TRIDENT || flag1)) {
 				IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasEffect());
-				try {
-					RENDER_BAKED_ITEM_MODEL.invokeExact(ir, ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
-				} catch (Throwable ex) {
-					throw new RuntimeException("Error calling renderBakedItemModel", ex);
-				}
+				ir.renderModel(ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
 			}
 
 			ms.pop();

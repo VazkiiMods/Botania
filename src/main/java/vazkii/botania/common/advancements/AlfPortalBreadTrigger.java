@@ -20,12 +20,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class AlfPortalBreadTrigger extends AbstractCriterionTrigger<AlfPortalBreadTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "alf_portal_bread");
+	public static final ResourceLocation ID = prefix("alf_portal_bread");
 	public static final AlfPortalBreadTrigger INSTANCE = new AlfPortalBreadTrigger();
 
 	private AlfPortalBreadTrigger() {}

@@ -79,7 +79,6 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<HeadRecipe> {
 
-		// todo 1.15 reduce this duplication with RecipeRuneAltar, probably by introducing an abstract superclass
 		@Nonnull
 		@Override
 		public HeadRecipe read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {

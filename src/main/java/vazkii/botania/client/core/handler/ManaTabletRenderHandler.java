@@ -37,7 +37,7 @@ public final class ManaTabletRenderHandler extends LayerRenderer<AbstractClientP
 
 	@Override
 	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (ConfigHandler.CLIENT.renderAccessories.get() && player.isInvisible()) {
+		if (ConfigHandler.CLIENT.renderAccessories.get() && !player.isInvisible()) {
 			renderManaTablet(ms, buffers, player);
 		}
 	}

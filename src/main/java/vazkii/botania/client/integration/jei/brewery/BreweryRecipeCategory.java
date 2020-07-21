@@ -28,7 +28,6 @@ import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -36,15 +35,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "brewery");
+	public static final ResourceLocation UID = prefix("brewery");
 	private final IDrawableStatic background;
 	private final IDrawable icon;
 	private final String localizedName;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/nei_brewery.png");
+		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 0, 0, 166, 65);
 		localizedName = I18n.format("botania.nei.brewery");
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.brewery));

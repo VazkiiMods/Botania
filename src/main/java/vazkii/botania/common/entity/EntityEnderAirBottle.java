@@ -72,8 +72,7 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 		for (BlockPos bPos : BlockPos.getAllInBoxMutable(pos.add(-range, -rangeY, -range),
 				pos.add(range, rangeY, range))) {
 			BlockState state = world.getBlockState(bPos);
-			Block block = state.getBlock();
-			if (block.isReplaceableOreGen(state, world, bPos, BlockStateMatcher.forBlock(Blocks.STONE))) {
+			if (state.getBlock() == Blocks.STONE) {
 				possibleCoords.add(bPos.toImmutable());
 			}
 		}

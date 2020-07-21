@@ -78,6 +78,25 @@ public interface BotaniaAPI {
 		return Collections.emptyMap();
 	}
 
+	/**
+	 * Register ore to be produced by the Orechid
+	 * 
+	 * @param tag    Block tag ID containing the ores to register
+	 * @param weight Relative weight of tis entry
+	 */
+	default void registerOreWeight(ResourceLocation tag, int weight) {
+
+	}
+
+	/**
+	 * Register ore to be produced by the Orechid Ignem
+	 * 
+	 * @see #registerOreWeight
+	 */
+	default void registerNetherOreWeight(ResourceLocation tag, int weight) {
+
+	}
+
 	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}

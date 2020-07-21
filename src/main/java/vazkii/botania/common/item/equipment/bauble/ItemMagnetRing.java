@@ -26,6 +26,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -102,7 +103,8 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(ItemEntity item) {
-		if (!item.isAlive() || item.pickupDelay >= 40 || BotaniaAPI.instance().hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
+		int pickupDelay = ((AccessorItemEntity) item).getPickupDelay();
+		if (!item.isAlive() || pickupDelay >= 40 || BotaniaAPI.instance().hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
 			return false;
 		}
 

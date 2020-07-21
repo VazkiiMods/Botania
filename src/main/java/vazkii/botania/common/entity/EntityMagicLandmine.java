@@ -41,8 +41,7 @@ public class EntityMagicLandmine extends Entity {
 		setMotion(Vector3d.ZERO);
 		super.tick();
 
-		float range = 2.5F;
-
+		float range = getWidth() / 2;
 		float r = 0.2F;
 		float g = 0F;
 		float b = 0.2F;
@@ -64,7 +63,7 @@ public class EntityMagicLandmine extends Entity {
 			}
 
 			if (!world.isRemote) {
-				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPosX() - range, getPosY() - range, getPosZ() - range, getPosX() + range, getPosY() + range, getPosZ() + range));
+				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, getBoundingBox());
 				for (PlayerEntity player : players) {
 					player.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, summoner), 10);
 					player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 25, 0));

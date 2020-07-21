@@ -126,11 +126,10 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -rangeY, -range),
 				getEffectivePos().add(range, rangeY, range))) {
 			BlockState state = getWorld().getBlockState(pos);
-			if (state.getBlock().isReplaceableOreGen(state, getWorld(), pos, matcher)) {
+			if (state.getBlock() == Blocks.STONE) {
 				possibleCoords.add(pos.toImmutable());
 			}
 		}

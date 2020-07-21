@@ -171,7 +171,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements ITickab
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		if (!world.isRemote) {
+		if (world != null && !world.isRemote) {
 			time = 0;
 			timeFraction = 0F;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);

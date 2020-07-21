@@ -14,7 +14,6 @@ import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.settings.KeyBinding;
@@ -36,19 +35,19 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.lwjgl.glfw.GLFW;
 
+import vazkii.botania.client.core.WorldTypeSkyblock;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
-import vazkii.botania.client.render.world.SkyblockRenderEvents;
+import vazkii.botania.client.render.entity.RenderMagicLandmine;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -72,13 +71,13 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
+import vazkii.botania.mixin.AccessorRenderTypeBuffers;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandle;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
@@ -91,7 +90,6 @@ public class ClientProxy implements IProxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
-	private static final MethodHandle REGISTER_PROPERTY_GETTER = LibObfuscation.getMethod(ItemModelsProperties.class, "func_239418_a_", Item.class, ResourceLocation.class, IItemPropertyGetter.class);
 
 	public static KeyBinding CORPOREA_REQUEST;
 
@@ -108,7 +106,6 @@ public class ClientProxy implements IProxy {
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelRegister);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
-		modBus.addListener(SplashHandler::registerFactories);
 		modBus.addListener(ModelHandler::registerModels);
 		modBus.addListener(ModParticles.FactoryHandler::registerFactories);
 
@@ -127,9 +124,8 @@ public class ClientProxy implements IProxy {
 		forgeBus.addListener(ClientTickHandler::renderTick);
 		forgeBus.addListener(BoundTileRenderer::onWorldRenderLast);
 		forgeBus.addListener(BossBarHandler::onBarRender);
-		forgeBus.addListener(BlockHighlightRenderHandler::onWorldRenderLast);
+		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
 		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
-		forgeBus.addListener(SkyblockRenderEvents::onRender);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 		forgeBus.addListener(EventPriority.LOWEST, BergamuteEventHandler::onSoundEvent);
 	}
@@ -156,6 +152,8 @@ public class ClientProxy implements IProxy {
 		registerRenderTypes();
 
 		DeferredWorkQueue.runLater(() -> {
+			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
+
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
 			registerPropertyGetters();
@@ -164,11 +162,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	private static void registerPropertyGetter(IItemProvider item, ResourceLocation id, IItemPropertyGetter propGetter) {
-		try {
-			REGISTER_PROPERTY_GETTER.invokeExact(item.asItem(), id, propGetter);
-		} catch (Throwable throwable) {
-			throw new RuntimeException(throwable);
-		}
+		ItemModelsProperties.func_239418_a_(item.asItem(), id, propGetter);
 	}
 
 	private static void registerPropertyGetters() {
@@ -221,22 +215,22 @@ public class ClientProxy implements IProxy {
 		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
 
 		IItemPropertyGetter ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
-		registerPropertyGetter(ModItems.magnetRing, prefix("on"), ringOnGetter);
-		registerPropertyGetter(ModItems.magnetRingGreater, prefix("on"), ringOnGetter);
+		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
+		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
 				(stack, world, entity) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
 				(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
-		registerPropertyGetter(ModItems.terraAxe, prefix("terraaxe_on"),
+		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
 				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
 				(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
-		registerPropertyGetter(ModItems.terraPick, prefix("enabled"),
+		registerPropertyGetter(ModItems.terraPick, prefix("active"),
 				(stack, world, entity) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.infiniteFruit, prefix("boot"),
 				(stack, worldIn, entity) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
-		registerPropertyGetter(ModItems.tornadoRod, prefix("flying"),
+		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
 				(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
 		IItemPropertyGetter pulling = ItemModelsProperties.func_239417_a_(Items.BOW, new ResourceLocation("pulling"));
@@ -300,7 +294,7 @@ public class ClientProxy implements IProxy {
 			ColorHandler.init();
 
 			// Needed to prevent mana pools on carts from X-raying through the cart
-			SortedMap<RenderType, BufferBuilder> layers = ObfuscationReflectionHelper.getPrivateValue(RenderTypeBuffers.class, Minecraft.getInstance().getRenderTypeBuffers(), "field_228480_b_");
+			SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderTypeBuffers) Minecraft.getInstance().getRenderTypeBuffers()).getFixedBuffers();
 			layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getBufferSize()));
 		});
 	}
@@ -310,16 +304,12 @@ public class ClientProxy implements IProxy {
 		PlayerRenderer render;
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler(render));
-		if (Botania.curiosLoaded) {
-			render.addLayer(new ManaTabletRenderHandler(render));
-		}
+		render.addLayer(new ManaTabletRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler(render));
-		if (Botania.curiosLoaded) {
-			render.addLayer(new ManaTabletRenderHandler(render));
-		}
+		render.addLayer(new ManaTabletRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
 	}
 

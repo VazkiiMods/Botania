@@ -15,7 +15,7 @@
       "u": 0,
       "v": 0,
       "texture_width": 128,
-      "texture_height": 128,
+      "texture_height": 256,
       "width": 100,
       "height": 62
     },
@@ -28,7 +28,7 @@
       "u": 0,
       "v": 64,
       "texture_width": 128,
-      "texture_height": 128,
+      "texture_height": 256,
       "width": 11,
       "height": 11
     },

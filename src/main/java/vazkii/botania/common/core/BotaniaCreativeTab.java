@@ -29,6 +29,8 @@ import javax.annotation.Nonnull;
 
 import java.util.Comparator;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public final class BotaniaCreativeTab extends ItemGroup {
 
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
@@ -60,7 +62,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getFlower(color));
 		}
-		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
+		addTag(prefix("special_flowers"));
 		for (DyeColor color : DyeColor.values()) {
 			this.addItem(ModItems.getPetal(color));
 		}
@@ -434,7 +436,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		for (DyeColor color : DyeColor.values()) {
 			addItem(ModBlocks.getFloatingFlower(color));
 		}
-		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_floating_flowers"));
+		addTag(prefix("special_floating_flowers"));
 		addItem(ModBlocks.petalBlockWhite);
 		addItem(ModBlocks.petalBlockOrange);
 		addItem(ModBlocks.petalBlockMagenta);

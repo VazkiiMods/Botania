@@ -24,6 +24,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
@@ -167,7 +168,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for (IRecipe<?> recipe : world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+		for (IRecipe<?> recipe : ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
 			if (recipe instanceof IElvenTradeRecipe && ((IElvenTradeRecipe) recipe).containsItem(inputStack)) {
 				return true;
 			}
@@ -263,16 +264,16 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Collection<IElvenTradeRecipe> elvenTradeRecipes(RecipeManager rm) {
+	public static Collection<IElvenTradeRecipe> elvenTradeRecipes(World world) {
 		// By virtue of IRecipeType's type parameter,
-		// we know all the recipes in the map must be AbstractElvenTradeRecipe.
+		// we know all the recipes in the map must be IElvenTradeRecipe.
 		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
-		return (Collection<IElvenTradeRecipe>) (Collection<?>) rm.getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values();
+		return (Collection<IElvenTradeRecipe>) (Collection<?>) ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values();
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
-		for (IRecipe<?> r : world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+		for (IRecipe<?> r : ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
 			if (!(r instanceof IElvenTradeRecipe)) {
 				continue;
 			}

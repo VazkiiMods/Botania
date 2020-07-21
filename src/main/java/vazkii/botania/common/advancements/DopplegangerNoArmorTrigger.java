@@ -20,12 +20,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class DopplegangerNoArmorTrigger extends AbstractCriterionTrigger<DopplegangerNoArmorTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "gaia_guardian_no_armor");
+	public static final ResourceLocation ID = prefix("gaia_guardian_no_armor");
 	public static final DopplegangerNoArmorTrigger INSTANCE = new DopplegangerNoArmorTrigger();
 
 	private DopplegangerNoArmorTrigger() {}

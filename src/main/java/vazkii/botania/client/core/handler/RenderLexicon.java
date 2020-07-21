@@ -14,7 +14,6 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BookModel;
@@ -39,16 +38,13 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorFirstPersonRenderer;
 
-import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
 import java.util.List;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
-	private static final MethodHandle APPLY_EQUIP_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228406_b_", MatrixStack.class, HandSide.class, float.class);
-	private static final MethodHandle APPLY_SWING_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228399_a_", MatrixStack.class, HandSide.class, float.class);
 	private static final BookModel model = new BookModel();
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.0004;
 	public static final RenderMaterial TEXTURE = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
@@ -101,12 +97,8 @@ public class RenderLexicon {
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
 				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
-				try {
-					APPLY_EQUIP_OFFSET.invokeExact(Minecraft.getInstance().getFirstPersonRenderer(), ms, handside, equipProgress);
-					APPLY_SWING_OFFSET.invokeExact(Minecraft.getInstance().getFirstPersonRenderer(), ms, handside, swingProgress);
-				} catch (Throwable ex) {
-					Botania.LOGGER.catching(ex);
-				}
+				((AccessorFirstPersonRenderer) Minecraft.getInstance().getFirstPersonRenderer()).callTransformSideFirstPerson(ms, handside, equipProgress);
+				((AccessorFirstPersonRenderer) Minecraft.getInstance().getFirstPersonRenderer()).callTransformFirstPerson(ms, handside, swingProgress);
 			}
 
 			doRender(stack, handside, ms, buffers, light, partialTicks);

@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[31,)"
+loaderVersion="[32,)"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
 logoFile="logo_gog.png" #optional
@@ -15,7 +15,7 @@ An extension to Botania that adds skyblock like gameplay.'''
 
 [[dependencies.gardenofglass]]
     modId="botania"
-    versionRange="[r1.15-387,)"
+    versionRange="[1.16-390,)"
     mandatory=true
     ordering="AFTER"
     side="BOTH"

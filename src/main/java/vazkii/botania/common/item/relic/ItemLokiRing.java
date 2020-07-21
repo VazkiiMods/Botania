@@ -50,6 +50,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, IManaUsingItem {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
@@ -290,7 +292,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/loki_ring");
+		return prefix("challenge/loki_ring");
 	}
 
 }

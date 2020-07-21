@@ -70,8 +70,8 @@ public class TilePrism extends TileExposedSimpleInventory {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			BlockState state = getBlockState();
 			boolean hasLens = !getItemHandler().getStackInSlot(0).isEmpty();
 			if (state.getBlock() != ModBlocks.prism || state.get(BotaniaStateProps.HAS_LENS) != hasLens) {

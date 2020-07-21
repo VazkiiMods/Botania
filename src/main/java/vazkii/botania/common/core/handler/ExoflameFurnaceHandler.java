@@ -24,19 +24,15 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.capability.SimpleCapProvider;
-import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
-import java.lang.invoke.MethodHandle;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ExoflameFurnaceHandler {
 
 	@CapabilityInject(IExoflameHeatable.class)
 	public static Capability<IExoflameHeatable> CAPABILITY;
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "exoflame_heatable");
-
-	private static final MethodHandle CAN_SMELT = LibObfuscation.getMethod(AbstractFurnaceTileEntity.class, "func_214008_b", IRecipe.class);
-	private static final MethodHandle RECIPE_TYPE = LibObfuscation.getGetter(AbstractFurnaceTileEntity.class, "field_214014_c");
+	public static final ResourceLocation ID = prefix("exoflame_heatable");
 
 	public static void attachFurnaceCapability(AttachCapabilitiesEvent<TileEntity> event) {
 		TileEntity te = event.getObject();
@@ -46,13 +42,12 @@ public class ExoflameFurnaceHandler {
 		}
 	}
 
-	public static boolean canSmelt(AbstractFurnaceTileEntity furnace, IRecipe<?> recipe) throws Throwable {
-		return (boolean) CAN_SMELT.invokeExact(furnace, recipe);
+	public static boolean canSmelt(AbstractFurnaceTileEntity furnace, IRecipe<?> recipe) {
+		return ((AccessorAbstractFurnaceTileEntity) furnace).invokeCanSmelt(recipe);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static IRecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceTileEntity furnace) throws Throwable {
-		return (IRecipeType<? extends AbstractCookingRecipe>) RECIPE_TYPE.invokeExact(furnace);
+	public static IRecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceTileEntity furnace) {
+		return ((AccessorAbstractFurnaceTileEntity) furnace).getRecipeType();
 	}
 
 	private static class FurnaceExoflameHeatable implements IExoflameHeatable {
@@ -90,7 +85,7 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public int getBurnTime() {
-			return furnace.burnTime;
+			return ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
 		}
 
 		@Override
@@ -100,12 +95,14 @@ public class ExoflameFurnaceHandler {
 				BlockPos pos = furnace.getPos();
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockStateProperties.LIT, true));
 			}
-			furnace.burnTime += 200;
+			int burnTime = ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
+			((AccessorAbstractFurnaceTileEntity) furnace).setBurnTime(burnTime + 200);
 		}
 
 		@Override
 		public void boostCookTime() {
-			furnace.cookTime = Math.min(currentRecipe.getCookTime() - 1, furnace.cookTime + 1);
+			int cookTime = ((AccessorAbstractFurnaceTileEntity) furnace).getCookTime();
+			((AccessorAbstractFurnaceTileEntity) furnace).setCookTime(Math.min(currentRecipe.getCookTime() - 1, cookTime + 1));
 		}
 	}
 }

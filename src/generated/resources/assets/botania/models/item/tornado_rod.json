@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "botania:item/tornado_rod"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:active": 1.0
+      },
+      "model": "botania:item/tornado_rod_active"
+    }
+  ]
+}

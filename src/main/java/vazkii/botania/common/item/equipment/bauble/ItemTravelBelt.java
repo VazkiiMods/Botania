@@ -26,9 +26,9 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 

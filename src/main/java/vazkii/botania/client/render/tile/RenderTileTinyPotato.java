@@ -104,10 +104,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	@Override
 	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (potato.getBlockState().getBlock() != ModBlocks.tinyPotato) {
-			return;
-		}
-
 		ms.push();
 
 		String name = potato.name.getString().toLowerCase().trim();

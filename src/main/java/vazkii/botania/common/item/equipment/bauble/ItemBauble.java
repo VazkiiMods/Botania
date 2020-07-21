@@ -22,8 +22,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.KeybindTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -39,13 +37,14 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class ItemBauble extends Item implements ICosmeticAttachable, IPhantomInkable {
 
@@ -141,7 +140,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
 		if (!entity.world.isRemote && entity instanceof ServerPlayerEntity) {
-			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, prefix("main/bauble_wear"), "code_triggered");
 		}
 	}
 

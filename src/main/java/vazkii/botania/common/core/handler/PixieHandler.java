@@ -42,7 +42,7 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("botania.pixieSpawnChance", 0, 0, 1);
+	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
 	private static final Map<EquipmentSlotType, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlotType.class), m -> {
 		m.put(EquipmentSlotType.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
 		m.put(EquipmentSlotType.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
@@ -68,44 +68,30 @@ public final class PixieHandler {
 		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
 	}
 
-	// Want to do this as early as possible -- doing it at entity join world means attribute modifiers are ignored when loading
-	public static void attachAttribute(AttachCapabilitiesEvent<Entity> evt) {
-		if (evt.getObject() instanceof PlayerEntity) {
-			/* todo 1.16 impossible rn?
-			AbstractAttributeMap attributes = ((PlayerEntity) evt.getObject()).getAttributes();
-			if (attributes.getAttributeInstance(PIXIE_SPAWN_CHANCE) == null) {
-				attributes.registerAttribute(PIXIE_SPAWN_CHANCE);
-			}
-			*/
-		}
-	}
-
 	public static void onDamageTaken(LivingHurtEvent event) {
 		if (!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			/* todo unimpl
-			double chance = player.getAttribute(PIXIE_SPAWN_CHANCE).getValue();
+			double chance = player.func_233637_b_(PIXIE_SPAWN_CHANCE);
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
-			
+
 			if (Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.world);
 				pixie.setPosition(player.getPosX(), player.getPosY() + 2, player.getPosZ());
-			
+
 				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
 					pixie.setApplyPotionEffect(new EffectInstance(potions[event.getEntityLiving().world.rand.nextInt(potions.length)], 40, 0));
 				}
-			
+
 				float dmg = 4;
 				if (!sword.isEmpty()) {
 					dmg += 2;
 				}
-			
+
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
 				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(pixie.func_233580_cy_()),
 						SpawnReason.EVENT, null, null);
 				player.world.addEntity(pixie);
 			}
-			*/
 		}
 	}
 }

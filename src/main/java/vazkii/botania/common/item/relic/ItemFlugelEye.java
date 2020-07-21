@@ -29,13 +29,14 @@ import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 
 import java.util.Optional;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
@@ -76,12 +77,14 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		float x = (float) (living.getPosX() - Math.random() * living.getWidth());
-		float y = (float) (living.getPosY() + Math.random());
-		float z = (float) (living.getPosZ() - Math.random() * living.getWidth());
-		WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-		living.world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
+	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
+		if (world.isRemote) {
+			float x = (float) (living.getPosX() - Math.random() * living.getWidth());
+			float y = (float) (living.getPosY() + Math.random());
+			float z = (float) (living.getPosZ() - Math.random() * living.getWidth());
+			WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
+			world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
+		}
 	}
 
 	@Nonnull
@@ -154,7 +157,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/flugel_eye");
+		return prefix("challenge/flugel_eye");
 	}
 
 }

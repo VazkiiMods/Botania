@@ -22,11 +22,4 @@ public class BlockModPane extends PaneBlock {
 	public BlockModPane(Properties props) {
 		super(props);
 	}
-
-	@Override
-	public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing) {
-		Block block = world.getBlockState(pos.offset(facing)).getBlock();
-		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm
-				|| super.canBeConnectedTo(state, world, pos, facing);
-	}
 }

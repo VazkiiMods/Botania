@@ -58,10 +58,6 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (!pylon.getWorld().isBlockLoaded(pylon.getPos()) || !(pylon.getBlockState().getBlock() instanceof BlockPylon)) {
-			return;
-		}
-
 		renderPylon(pylon, pticks, ms, buffers, light, overlay);
 	}
 

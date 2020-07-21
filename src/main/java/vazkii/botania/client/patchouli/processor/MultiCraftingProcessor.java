@@ -20,6 +20,7 @@ import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -38,7 +39,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Map<ResourceLocation, IRecipe<CraftingInventory>> recipeMap = Minecraft.getInstance().world.getRecipeManager().getRecipes(IRecipeType.CRAFTING);
+		Map<ResourceLocation, IRecipe<CraftingInventory>> recipeMap = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, IRecipeType.CRAFTING);
 		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
@@ -68,7 +69,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.wrap(recipes.get(0).getRecipeOutput().getDisplayName().getString());
+				return IVariable.from(recipes.get(0).getRecipeOutput().getDisplayName());
 			}
 			return null;
 		}

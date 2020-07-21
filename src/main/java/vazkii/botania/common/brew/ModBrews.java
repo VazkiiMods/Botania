@@ -20,9 +20,8 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
-import vazkii.botania.common.lib.LibObfuscation;
 
-import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static vazkii.botania.common.block.ModBlocks.register;
@@ -54,14 +53,13 @@ public class ModBrews {
 	public static final Brew overload = new Brew(0x232323, 12000, new EffectInstance(Effects.STRENGTH, 1800, 3), new EffectInstance(Effects.SPEED, 1800, 2), new EffectInstance(Effects.WEAKNESS, 3600, 1), new EffectInstance(Effects.HUNGER, 200, 2));
 	public static final Brew clear = make(4000, new EffectInstance(ModPotions.clear, 0, 0));
 
-	public static Brew warpWard;
-
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
 		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
-		MethodHandle makeBuilder = LibObfuscation.getMethod(GameData.class, "makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
 		try {
+			Method makeBuilder = GameData.class.getDeclaredMethod("makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
+			makeBuilder.setAccessible(true);
 			@SuppressWarnings("unchecked")
-			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invokeExact(prefix("brews"), Brew.class, prefix("fallback"));
+			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invoke(null, prefix("brews"), Brew.class, prefix("fallback"));
 			builder.disableSaving().create();
 			// grab the vanilla wrapper for use
 			registry = GameData.getWrapperDefaulted(Brew.class);

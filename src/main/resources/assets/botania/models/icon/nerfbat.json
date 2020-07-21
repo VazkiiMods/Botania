@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:item/special_nerfbat"
+    "layer0": "botania:item/nerfbat"
   }
 }

@@ -21,6 +21,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.mixin.AccessorGoalSelector;
 
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 				entity.setAttackTarget(null);
 
 				// Move any EntityAIHurtByTarget to highest priority
-				for (PrioritizedGoal entry : entity.targetSelector.goals) {
+				for (PrioritizedGoal entry : ((AccessorGoalSelector) entity.targetSelector).getGoals()) {
 					if (entry.getGoal() instanceof HurtByTargetGoal) {
 						// Concurrent modification OK since we break out of the loop
 						entity.targetSelector.removeGoal(entry.getGoal());

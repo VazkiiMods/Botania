@@ -8,10 +8,13 @@
  */
 package vazkii.botania.common.core.helper;
 
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector4f;
@@ -167,6 +170,11 @@ public class Vector3 {
 
 	public boolean isZero() {
 		return x == 0 && y == 0 && z == 0;
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void vertex(Matrix4f mat, IVertexBuilder buffer) {
+		buffer.pos(mat, (float) x, (float) y, (float) z);
 	}
 
 	public Vector3 negate() {

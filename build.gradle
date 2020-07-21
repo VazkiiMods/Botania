@@ -5,9 +5,11 @@ buildscript {
             name "forge"
             url "https://files.minecraftforge.net/maven"
         }
+        maven { url = 'https://dist.creeper.host/Sponge/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.0.+'
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 
@@ -20,6 +22,11 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'pmd'
+apply plugin: 'org.spongepowered.mixin'
+
+mixin {
+    add sourceSets.main, "botania.refmap.json"
+}
 
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
@@ -101,9 +108,10 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-32.0.32"
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-37:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-37")
+    minecraft "net.minecraftforge:forge:${mc_version}-32.0.66"
+    compile 'org.spongepowered:mixin:0.8'
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-39:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-39")
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.1:7.0.0.2:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.1:7.0.0.2")
@@ -144,7 +152,9 @@ jar {
                     "Implementation-Title": project.name,
                     "Implementation-Version": "${version}",
                     "Implementation-Vendor": "botania",
-                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                    "MixinConnector": "vazkii.botania.common.MixinConnector"
+        ])
     }
     
     exclude "**/*.bat"

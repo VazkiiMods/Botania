@@ -22,23 +22,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorHoeItem;
 
 import javax.annotation.Nonnull;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
 
-	protected static final Map<Block, BlockState> HOE_LOOKUP = ObfuscationReflectionHelper.getPrivateValue(HoeItem.class, null, LibObfuscation.HOE_LOOKUP);
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelShovel(Properties props) {
@@ -91,7 +88,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		}
 
 		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = HOE_LOOKUP.get(block);
+		BlockState converted = AccessorHoeItem.getConversions().get(block);
 		if (converted == null) {
 			return ActionResultType.PASS;
 		}

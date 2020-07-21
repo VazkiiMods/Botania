@@ -76,9 +76,10 @@ public class ItemSextant extends Item {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
 		if (getUseDuration(stack) - count < 10
-				|| !(living instanceof PlayerEntity)) {
+				|| !(living instanceof PlayerEntity)
+				|| world.isRemote) {
 			return;
 		}
 
@@ -88,7 +89,7 @@ public class ItemSextant extends Item {
 		if (y != -1) {
 			Vector3 source = new Vector3(x, y, z);
 
-			double radius = calculateRadius(stack, (PlayerEntity) living);
+			double radius = calculateRadius(stack, living);
 
 			if (count % 10 == 0) {
 				WispParticleData data = WispParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
@@ -96,7 +97,7 @@ public class ItemSextant extends Item {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double zp = z + Math.sin(radian) * radius;
-					living.world.addParticle(data, xp + 0.5, source.y + 1, zp + 0.5, 0, - -0.01F, 0);
+					world.addParticle(data, xp + 0.5, source.y + 1, zp + 0.5, 0, - -0.01F, 0);
 				}
 			}
 		}
@@ -108,7 +109,7 @@ public class ItemSextant extends Item {
 			return;
 		}
 
-		double radius = calculateRadius(stack, (PlayerEntity) living);
+		double radius = calculateRadius(stack, living);
 		if (1 < radius && radius <= MAX_RADIUS) {
 			IStateMatcher matcher = PatchouliAPI.instance.predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
@@ -162,17 +163,17 @@ public class ItemSextant extends Item {
 		return ActionResult.resultSuccess(stack);
 	}
 
-	private static double calculateRadius(ItemStack stack, PlayerEntity player) {
+	private static double calculateRadius(ItemStack stack, LivingEntity living) {
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		Vector3 source = new Vector3(x, y, z);
 		WispParticleData data = WispParticleData.wisp(0.2F, 1F, 0F, 0F, 1);
-		player.world.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
+		living.world.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
 
-		Vector3 centerVec = Vector3.fromEntityCenter(player);
+		Vector3 centerVec = Vector3.fromEntityCenter(living);
 		Vector3 diffVec = source.subtract(centerVec);
-		Vector3 lookVec = new Vector3(player.getLookVec());
+		Vector3 lookVec = new Vector3(living.getLookVec());
 		double mul = diffVec.y / lookVec.y;
 		lookVec = lookVec.multiply(mul).add(centerVec);
 

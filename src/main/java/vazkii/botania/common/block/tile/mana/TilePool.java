@@ -20,13 +20,13 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -55,6 +55,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -138,8 +139,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return val;
 	}
 
-	public static List<IManaInfusionRecipe> manaInfusionRecipes(RecipeManager rm) {
-		return rm.getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
+	public static List<IManaInfusionRecipe> manaInfusionRecipes(World world) {
+		return ModRecipeTypes.getRecipes(world, ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
 				.filter(r -> r instanceof IManaInfusionRecipe)
 				.map(r -> (IManaInfusionRecipe) r)
 				.collect(Collectors.toList());
@@ -149,7 +150,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		List<IManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
 		List<IManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
-		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world.getRecipeManager())) {
+		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world)) {
 			if (recipe.matches(stack)) {
 				if (recipe.getCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
@@ -174,7 +175,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		if (item.age > 100 && item.age < 130) {
+		int age = ((AccessorItemEntity) item).getAge();
+		if (age > 100 && age < 130) {
 			return false;
 		}
 
@@ -190,7 +192,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-				outputItem.age = 105;
+				((AccessorItemEntity) outputItem).setAge(105);
 				world.addEntity(outputItem);
 
 				craftingFanciness();

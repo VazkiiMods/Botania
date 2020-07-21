@@ -13,6 +13,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.Botania;
@@ -32,7 +33,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		IRecipe<?> recipe = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).get(id);
+		IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.BREW_TYPE).get(id);
 		if (recipe instanceof IBrewRecipe) {
 			this.recipe = (IBrewRecipe) recipe;
 		} else {
@@ -45,7 +46,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 		if (recipe == null) {
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.wrap(I18n.format("botaniamisc.brewOf", I18n.format(recipe.getBrew().getTranslationKey())));
+			return IVariable.from(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(recipe.getBrew().getTranslationKey())));
 		} else if (key.equals("vial")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.vial)));
 		} else if (key.equals("flask")) {

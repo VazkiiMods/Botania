@@ -72,7 +72,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -85,6 +84,8 @@ import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSpawnData {
 	public static final float ARENA_RANGE = 12F;
@@ -434,7 +435,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 	@Override
 	public ResourceLocation getLootTable() {
-		return new ResourceLocation(LibMisc.MOD_ID, hardMode ? "gaia_guardian_2" : "gaia_guardian");
+		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override

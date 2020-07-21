@@ -46,9 +46,11 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "elven_trade");
+	public static final ResourceLocation UID = prefix("elven_trade");
 	private final String localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
@@ -57,7 +59,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
 		localizedName = I18n.format("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
-		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
+		overlay = guiHelper.createDrawable(prefix("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.alfPortal));
 	}
 

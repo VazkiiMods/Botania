@@ -46,11 +46,6 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 	@Override
 	public void render(@Nullable TilePool pool, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
-				|| !(pool.getBlockState().getBlock() instanceof BlockPool))) {
-			return;
-		}
-
 		ms.push();
 
 		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
@@ -59,7 +54,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
 			time *= 0.005F;
-			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F), pool.color.colorValue);
+			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F), pool.color.getColorValue());
 
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;

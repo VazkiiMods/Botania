@@ -36,9 +36,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "petals");
+	public static final ResourceLocation UID = prefix("petals");
 	private final IDrawableStatic background;
 	private final String localizedName;
 	private final IDrawableStatic overlay;
@@ -47,7 +49,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
 		localizedName = I18n.format("botania.nei.petalApothecary");
-		overlay = guiHelper.createDrawable(new ResourceLocation(LibMisc.MOD_ID, "textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.defaultAltar));
 	}

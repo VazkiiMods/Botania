@@ -24,13 +24,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-
-import javax.annotation.Nullable;
+import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
 public class TileBellows extends TileMod implements ITickableTileEntity {
 	private static final String TAG_ACTIVE = "active";
@@ -81,8 +79,9 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 					AbstractCookingRecipe recipe = p.getFirst();
 					boolean canSmelt = p.getSecond();
 					if (canSmelt) {
-						furnace.cookTime = Math.min(recipe.getCookTime() - 1, furnace.cookTime + 20);
-						furnace.burnTime = Math.max(0, furnace.burnTime - 10);
+						AccessorAbstractFurnaceTileEntity mFurnace = (AccessorAbstractFurnaceTileEntity) furnace;
+						mFurnace.setCookTime(Math.min(recipe.getCookTime() - 1, mFurnace.getCookTime() + 20));
+						mFurnace.setBurnTime(Math.max(0, mFurnace.getBurnTime() - 10));
 					}
 
 					if (furnace instanceof FurnaceTileEntity
@@ -150,21 +149,11 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 		}
 	}
 
-	@Nullable
-	@SuppressWarnings("unchecked")
 	public static Pair<AbstractCookingRecipe, Boolean> canSmelt(AbstractFurnaceTileEntity furnace) {
-		IRecipeType<AbstractCookingRecipe> rt;
-		AbstractCookingRecipe recipe;
-		boolean canSmelt;
-		try {
-			rt = (IRecipeType<AbstractCookingRecipe>) ExoflameFurnaceHandler.getRecipeType(furnace);
-			recipe = furnace.getWorld().getRecipeManager().getRecipe(rt, furnace, furnace.getWorld()).orElse(null);
-			canSmelt = ExoflameFurnaceHandler.canSmelt(furnace, recipe);
-			return Pair.of(recipe, canSmelt);
-		} catch (Throwable e) {
-			Botania.LOGGER.error("Failed to reflect furnace", e);
-			return null;
-		}
+		IRecipeType<? extends AbstractCookingRecipe> rt = ExoflameFurnaceHandler.getRecipeType(furnace);
+		AbstractCookingRecipe recipe = furnace.getWorld().getRecipeManager().getRecipe(rt, furnace, furnace.getWorld()).orElse(null);
+		boolean canSmelt = ExoflameFurnaceHandler.canSmelt(furnace, recipe);
+		return Pair.of(recipe, canSmelt);
 	}
 
 }

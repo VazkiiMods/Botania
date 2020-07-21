@@ -8,15 +8,14 @@
  */
 package vazkii.botania.common;
 
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -25,10 +24,10 @@ import net.minecraft.potion.Effect;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -80,14 +79,12 @@ import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.capability.NoopExoflameHeatable;
-import vazkii.botania.common.core.command.CommandSkyblockSpread;
+import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.DisposeModifier;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.core.proxy.IProxy;
-import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -105,8 +102,8 @@ import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.data.DataGenerators;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -121,13 +118,13 @@ public class Botania {
 
 	public static boolean curiosLoaded = false;
 
-	public static IProxy proxy;
+	public static IProxy proxy = new IProxy() {};
 	public static boolean finishedLoading = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	public Botania() {
-		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
 		proxy.registerHandlers();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
@@ -135,7 +132,6 @@ public class Botania {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modBus.addListener(this::commonSetup);
 		modBus.addListener(IMCSender::enqueue);
-		modBus.addListener(IMCHandler::handle);
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(DataGenerators::gatherData);
 		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
@@ -174,7 +170,6 @@ public class Botania {
 		forgeBus.addListener(ItemVirus::onLivingHurt);
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
-		forgeBus.addGenericListener(Entity.class, PixieHandler::attachAttribute);
 		forgeBus.addGenericListener(TileEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
 		forgeBus.addListener(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
@@ -188,6 +183,9 @@ public class Botania {
 		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
 		forgeBus.addListener(LootHandler::lootLoad);
+
+		ModLootModifiers.init();
+		ModCriteriaTriggers.init();
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -204,14 +202,12 @@ public class Botania {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
-			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerUpdate);
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
 		}
 
 		DeferredWorkQueue.runLater(() -> {
-			if (Botania.gardenOfGlassLoaded) {
-				new WorldTypeSkyblock();
-			}
+			SkyblockChunkGenerator.init();
 
 			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
 					.func_233815_a_(Attributes.MOVEMENT_SPEED, 0.4)
@@ -221,9 +217,8 @@ public class Botania {
 			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
 					.func_233815_a_(Attributes.MAX_HEALTH, 2.0)
 					.func_233813_a_());
+			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.func_234258_eI_().func_233813_a_());
 			ModBanners.init();
-			ColorHelper.init();
-			ModLootModifiers.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
@@ -273,16 +268,7 @@ public class Botania {
 					'I', sm,
 					'0', sm
 			);
-			PatchouliAPI.instance.registerMultiblock(new ResourceLocation(LibMisc.MOD_ID, "gaia_ritual"), mb);
-
-			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
-			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
-			CriteriaTriggers.register(DopplegangerNoArmorTrigger.INSTANCE);
-			CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
-			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
-			CriteriaTriggers.register(ManaGunTrigger.INSTANCE);
-			CriteriaTriggers.register(LokiPlaceTrigger.INSTANCE);
-			CriteriaTriggers.register(AlfPortalBreadTrigger.INSTANCE);
+			PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
 
 			ModBlocks.addDispenserBehaviours();
 
@@ -306,7 +292,7 @@ public class Botania {
 
 	private void serverStarting(FMLServerStartingEvent event) {
 		if (Botania.gardenOfGlassLoaded) {
-			CommandSkyblockSpread.register(event.getCommandDispatcher());
+			SkyblockCommand.register(event.getCommandDispatcher());
 		}
 	}
 

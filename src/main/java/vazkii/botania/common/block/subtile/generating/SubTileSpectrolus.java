@@ -34,6 +34,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -65,7 +66,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 		AxisAlignedBB itemAABB = new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
-		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((ItemEntity) e).age >= slowdown);
+		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
 		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
 
 		for (Entity target : targets) {
@@ -80,15 +81,15 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					ItemStack morbid = new ItemStack(sheep.isBurning() ? Items.COOKED_MUTTON : Items.MUTTON);
 					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
-					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getFleeceColor()).get());
+					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(sheep.getFleeceColor()));
 					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getItem();
 
-				if (!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
-					Block expected = ColorHelper.WOOL_MAP.get(nextColor).get();
+				if (!stack.isEmpty() && ColorHelper.isWool(Block.getBlockFromItem(stack.getItem()))) {
+					Block expected = ColorHelper.WOOL_MAP.apply(nextColor);
 
 					if (expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
@@ -127,7 +128,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		super.renderHUD(ms, mc);
 
-		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
+		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(nextColor));
 		int color = getColor();
 
 		if (!stack.isEmpty()) {

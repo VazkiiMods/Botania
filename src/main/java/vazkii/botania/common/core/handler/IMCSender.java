@@ -12,13 +12,13 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.imc.IMC;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -81,6 +81,7 @@ public class IMCSender {
 
 		// Vanilla
 		addOreWeightNether("quartz", 19600);
+		addOreWeightNether("netherite", 148);
 		// Mystical Agriculture
 		addOreWeight("nether/inferium", 10000);
 		addOreWeight("nether/prosperity", 7420);
@@ -111,57 +112,49 @@ public class IMCSender {
 		addOreWeightNether("ardite", 500);
 		addOreWeightNether("cobalt", 500);
 
-		/* Ore weights TODO 1.14 / 1.15
-		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics certusQuartz, certus/quartz or quartz/certus?
-		addOreWeight("oreQuartzBlack", 5535); // Actually Additions quartzBlock, quartz/black or black/quartz?
-		addOreWeightNether("oreHaditeCoal", 500); // Hadite haditeCoal, hadite/coal or coal/hadite?
-		*/
-
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
-		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, ColorHelper.STAINED_GLASS_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_MAP.apply(color), ColorHelper.STAINED_GLASS_MAP);
 		}
 
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
-		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_PANE_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, ColorHelper.STAINED_GLASS_PANE_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_PANE_MAP.apply(color), ColorHelper.STAINED_GLASS_PANE_MAP);
 		}
 
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
-		for (IRegistryDelegate<Block> b : ColorHelper.TERRACOTTA_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, ColorHelper.TERRACOTTA_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.TERRACOTTA_MAP.apply(color), ColorHelper.TERRACOTTA_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.GLAZED_TERRACOTTA_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.GLAZED_TERRACOTTA_MAP.apply(color), ColorHelper.GLAZED_TERRACOTTA_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.WOOL_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.WOOL_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.WOOL_MAP.apply(color), ColorHelper.WOOL_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.CARPET_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CARPET_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CARPET_MAP.apply(color), ColorHelper.CARPET_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CONCRETE_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_MAP.apply(color), ColorHelper.CONCRETE_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_POWDER_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_POWDER_MAP.apply(color), ColorHelper.CONCRETE_POWDER_MAP);
 		}
-	}
-
-	public static void sendToSelf(String method, Object thing) {
-		InterModComms.sendTo(LibMisc.MOD_ID, method, () -> thing);
 	}
 
 	private static void addOreWeight(String oreTag, int weight) {
-		sendToSelf(IMC.REGISTER_ORE_WEIGHT, new Pair<>(new ResourceLocation("forge", "ores/" + oreTag), weight));
+		ResourceLocation tag = new ResourceLocation("forge", "ores/" + oreTag);
+		BotaniaAPI.instance().registerOreWeight(tag, weight);
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
-		sendToSelf(IMC.REGISTER_NETHER_ORE_WEIGHT, new Pair<>(new ResourceLocation("forge", "ores/" + oreTag), weight));
+		ResourceLocation tag = new ResourceLocation("forge", "ores/" + oreTag);
+		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
 	}
 }

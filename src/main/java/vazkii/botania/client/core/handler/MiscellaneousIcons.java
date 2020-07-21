@@ -10,10 +10,10 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -21,6 +21,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 
+import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
@@ -30,15 +31,16 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorItemOverrideList;
+import vazkii.botania.mixin.AccessorModelBakery;
 
-import java.lang.invoke.MethodHandle;
+import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class MiscellaneousIcons {
-	private static final MethodHandle MATERIALS = LibObfuscation.getGetter(ModelBakery.class, "field_177602_b");
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
 	public TextureAtlasSprite alfPortalTex,
@@ -64,8 +66,6 @@ public class MiscellaneousIcons {
 	public final IBakedModel[] tiaraWingIcons = new IBakedModel[ItemFlightTiara.WING_TYPES];
 	public final IBakedModel[] thirdEyeLayers = new IBakedModel[3];
 
-	public TextureAtlasSprite tailIcon = null;
-
 	public IBakedModel goldfishModel,
 			phiFlowerModel,
 			nerfBatModel,
@@ -86,12 +86,7 @@ public class MiscellaneousIcons {
 	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
 
 	public void onModelRegister(ModelRegistryEvent evt) {
-		Set<RenderMaterial> materials;
-		try {
-			materials = (Set<RenderMaterial>) MATERIALS.invokeExact();
-		} catch (Throwable throwable) {
-			throw new RuntimeException(throwable);
-		}
+		Set<RenderMaterial> materials = AccessorModelBakery.getMaterials();
 
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
@@ -147,8 +142,9 @@ public class MiscellaneousIcons {
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
-		for (int i = 0; i < original.getOverrides().overrideBakedModels.size(); i++) {
-			original.getOverrides().overrideBakedModels.set(i, new LexiconModel(original.getOverrides().overrideBakedModels.get(i)));
+		List<IBakedModel> overrides = ((AccessorItemOverrideList) original.getOverrides()).getOverrideBakedModels();
+		for (int i = 0; i < overrides.size(); i++) {
+			overrides.set(i, new LexiconModel(overrides.get(i)));
 		}
 
 		// Mana Blaster
@@ -203,13 +199,13 @@ public class MiscellaneousIcons {
 		evt.addSprite(prefix("block/mana_void_overlay"));
 		evt.addSprite(prefix("block/mana_water"));
 		evt.addSprite(prefix("block/terra_plate_overlay"));
-		evt.addSprite(prefix("item/spark_corporea"));
-		evt.addSprite(prefix("item/spark_corporea_master"));
-		evt.addSprite(prefix("item/spark_corporea_star"));
+		evt.addSprite(prefix("item/corporea_spark_star"));
 		evt.addSprite(prefix("item/spark"));
 
-		for (int i = 0; i < 4; i++) {
-			evt.addSprite(prefix("item/spark_upgrade_rune_" + i));
+		for (SparkUpgradeType type : SparkUpgradeType.values()) {
+			if (type != SparkUpgradeType.NONE) {
+				evt.addSprite(prefix("item/spark_upgrade_rune_" + type.name().toLowerCase(Locale.ROOT)));
+			}
 		}
 
 		evt.addSprite(prefix("item/special_tail"));
@@ -240,16 +236,16 @@ public class MiscellaneousIcons {
 		manaVoidOverlay = get(evt.getMap(), "block/mana_void_overlay");
 		manaWater = get(evt.getMap(), "block/mana_water");
 		terraPlateOverlay = get(evt.getMap(), "block/terra_plate_overlay");
-		corporeaWorldIcon = get(evt.getMap(), "item/spark_corporea");
-		corporeaWorldIconMaster = get(evt.getMap(), "item/spark_corporea_master");
-		corporeaIconStar = get(evt.getMap(), "item/spark_corporea_star");
+		corporeaWorldIcon = get(evt.getMap(), "item/corporea_spark");
+		corporeaWorldIconMaster = get(evt.getMap(), "item/corporea_spark_master");
+		corporeaIconStar = get(evt.getMap(), "item/corporea_spark_star");
 		sparkWorldIcon = get(evt.getMap(), "item/spark");
 
-		for (int i = 0; i < 4; i++) {
-			sparkUpgradeIcons[i] = get(evt.getMap(), "item/spark_upgrade_rune_" + i);
+		for (SparkUpgradeType type : SparkUpgradeType.values()) {
+			if (type != SparkUpgradeType.NONE) {
+				sparkUpgradeIcons[type.ordinal() - 1] = get(evt.getMap(), "item/spark_upgrade_rune_" + type.name().toLowerCase(Locale.ROOT));
+			}
 		}
-
-		tailIcon = get(evt.getMap(), "item/special_tail");
 
 		/*
 		manaDetectorIcon = get(evt.getMap(), "item/triggers/mana_detector");
@@ -262,7 +258,11 @@ public class MiscellaneousIcons {
 	}
 
 	private TextureAtlasSprite get(AtlasTexture map, String name) {
-		return map.getSprite(prefix(name));
+		TextureAtlasSprite ret = map.getSprite(prefix(name));
+		if (ret == map.getSprite(MissingTextureSprite.getLocation())) {
+			Botania.LOGGER.error("Missing texture for {}", name);
+		}
+		return ret;
 	}
 
 	private MiscellaneousIcons() {}

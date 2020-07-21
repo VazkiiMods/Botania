@@ -18,12 +18,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class AlfPortalTrigger extends AbstractCriterionTrigger<AlfPortalTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "open_elf_portal");
+	public static final ResourceLocation ID = prefix("open_elf_portal");
 	public static final AlfPortalTrigger INSTANCE = new AlfPortalTrigger();
 
 	private AlfPortalTrigger() {}

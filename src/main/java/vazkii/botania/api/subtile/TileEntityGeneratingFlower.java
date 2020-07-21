@@ -48,8 +48,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	private int mana;
 
-	public int redstoneSignal = 0;
-
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int passiveDecayTicks;
@@ -60,37 +58,19 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		super(type);
 	}
 
-	/**
-	 * If set to true, redstoneSignal will be updated every tick.
-	 */
-	public boolean acceptsRedstone() {
-		return false;
-	}
-
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
 		linkCollector();
 
-		if (canGeneratePassively()) {
+		if (!getWorld().isRemote && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if (delay > 0 && ticksExisted % delay == 0 && !getWorld().isRemote) {
-				if (shouldSyncPassiveGeneration()) {
-					sync();
-				}
+			if (delay > 0 && ticksExisted % delay == 0) {
 				addMana(getValueForPassiveGeneration());
 			}
 		}
 		emptyManaIntoCollector();
-
-		if (acceptsRedstone()) {
-			redstoneSignal = 0;
-			for (Direction dir : Direction.values()) {
-				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
-				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
-			}
-		}
 
 		if (getWorld().isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
@@ -106,11 +86,13 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 				double z = getPos().getZ() + offset.z;
 				BotaniaAPI.instance().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
-		}
-
-		boolean passive = isPassiveFlower();
-		if (!getWorld().isRemote) {
+		} else {
+			boolean passive = isPassiveFlower();
 			int muhBalance = BotaniaAPI.instance().getPassiveFlowerDecay();
+
+			if (passive) {
+				passiveDecayTicks++;
+			}
 
 			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				getWorld().destroyBlock(getPos(), false);
@@ -118,10 +100,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
 				}
 			}
-		}
-
-		if (passive) {
-			passiveDecayTicks++;
 		}
 	}
 
@@ -169,21 +147,18 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void emptyManaIntoCollector() {
-		if (linkedCollector != null && isValidBinding()) {
+		if (isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
 			if (!collector.isFull() && getMana() > 0) {
 				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				mana = getMana() - manaval;
+				addMana(manaval);
 				collector.receiveMana(manaval);
+				sync();
 			}
 		}
 	}
 
 	public boolean isPassiveFlower() {
-		return false;
-	}
-
-	public boolean shouldSyncPassiveGeneration() {
 		return false;
 	}
 

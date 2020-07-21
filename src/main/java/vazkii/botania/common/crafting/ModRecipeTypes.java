@@ -8,16 +8,21 @@
  */
 package vazkii.botania.common.crafting;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
+import vazkii.botania.mixin.AccessorRecipeManager;
+
+import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -75,5 +80,9 @@ public class ModRecipeTypes {
 		public String toString() {
 			return Registry.RECIPE_TYPE.getKey(this).toString();
 		}
+	}
+
+	public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(World world, IRecipeType<T> type) {
+		return ((AccessorRecipeManager) world.getRecipeManager()).callGetRecipes(type);
 	}
 }

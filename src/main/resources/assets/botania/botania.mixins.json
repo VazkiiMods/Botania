@@ -1,0 +1,45 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "package": "vazkii.botania.mixin",
+  "refmap": "botania.refmap.json",
+  "mixins": [
+    "AccessorAbstractFurnaceTileEntity",
+    "AccessorAbstractSpawner",
+    "AccessorAvoidEntityGoal",
+    "AccessorCreeperEntity",
+    "AccessorDimensionSettingsPreset",
+    "AccessorFireBlock",
+    "AccessorGoalSelector",
+    "AccessorHoeItem",
+    "AccessorItemEntity",
+    "AccessorLivingEntity",
+    "AccessorMobEntity",
+    "AccessorNearestAttackableTarget",
+    "AccessorRecipeManager",
+    "AccessorWitherEntity",
+    "MixinEndermanPickupBlock",
+    "MixinPlayerEntity"
+  ],
+  "client": [
+    "AccessorBiomeGeneratorTypeScreens",
+    "AccessorEndPortalTileEntityRenderer",
+    "AccessorFirstPersonRenderer",
+    "AccessorItemOverrideList",
+    "AccessorModelBakery",
+    "AccessorMinecraft",
+    "AccessorRecipeBookGui",
+    "AccessorRecipeBookPage",
+    "AccessorRenderState",
+    "AccessorRenderTypeBuffers",
+    "AccessorSkullTileEntityRenderer",
+    "AccessorWorldRenderer",
+    "MixinSkullTileEntityRenderer",
+    "MixinSplashes",
+    "MixinWorldRenderer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
