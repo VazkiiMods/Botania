@@ -12,7 +12,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.DyeColor;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -20,7 +20,7 @@ import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 public class IMCSender {
-	public static void enqueue(InterModEnqueueEvent evt) {
+	public static void enqueue() {
 		// Vanilla
 		addOreWeight("coal", 67415);
 		addOreWeight("diamond", 883);

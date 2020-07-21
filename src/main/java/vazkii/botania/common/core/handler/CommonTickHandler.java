@@ -9,6 +9,7 @@
 package vazkii.botania.common.core.handler;
 
 
+import net.minecraft.server.world.ServerWorld;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;
 
@@ -16,10 +17,8 @@ public final class CommonTickHandler {
 
 	private CommonTickHandler() {}
 
-	public static void onTick(TickEvent.WorldTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			((CorporeaHelperImpl) CorporeaHelper.instance()).clearCache();
-		}
+	public static void onTick(ServerWorld world) {
+		((CorporeaHelperImpl) CorporeaHelper.instance()).clearCache();
 	}
 
 }

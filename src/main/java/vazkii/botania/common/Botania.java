@@ -12,6 +12,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -120,7 +121,7 @@ public class Botania implements ModInitializer {
 
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modBus.addListener(this::commonSetup);
-		modBus.addListener(IMCSender::enqueue);
+		IMCSender.enqueue();
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(DataGenerators::gatherData);
 		ModFeatures.registerFeatures();
@@ -159,7 +160,7 @@ public class Botania implements ModInitializer {
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
 		forgeBus.addGenericListener(BlockEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
-		forgeBus.addListener(CommonTickHandler::onTick);
+		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
 		forgeBus.addListener(PotionEmptiness::onSpawn);
 		forgeBus.addListener(PotionSoulCross::onEntityKill);
