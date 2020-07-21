@@ -62,7 +62,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
 	private ItemModelBuilder generatedItem(String name) {
 		return withExistingParent(name, GENERATED)
-			.texture("layer0", prefix("item/" + name));
+				.texture("layer0", prefix("item/" + name));
 	}
 
 	private ItemModelBuilder generatedItem(Item i) {
@@ -74,35 +74,34 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		items.remove(manaGun);
 		items.remove(waterBowl);
 
-		takeAll(items, i -> i instanceof ItemLens).forEach(i ->
-			withExistingParent(name(i), GENERATED)
+		takeAll(items, i -> i instanceof ItemLens).forEach(i -> withExistingParent(name(i), GENERATED)
 				.texture("layer0", prefix("item/lens"))
 				.texture("layer1", prefix("item/" + name(i))));
 
 		generatedItem(bloodPendant)
-			.texture("layer1", prefix("item/" + name(bloodPendant) + "_overlay"));
+				.texture("layer1", prefix("item/" + name(bloodPendant) + "_overlay"));
 		items.remove(bloodPendant);
 
 		generatedItem(enderDagger)
-			.texture("layer1", prefix("item/" + name(enderDagger) + "_overlay"));
+				.texture("layer1", prefix("item/" + name(enderDagger) + "_overlay"));
 		items.remove(enderDagger);
 
 		generatedItem(incenseStick)
-			.texture("layer1", prefix("item/" + name(incenseStick) + "_overlay"));
+				.texture("layer1", prefix("item/" + name(incenseStick) + "_overlay"));
 		items.remove(incenseStick);
 
 		generatedItem(manaMirror)
-			.texture("layer1", prefix("item/" + name(manaMirror) + "_overlay"));
+				.texture("layer1", prefix("item/" + name(manaMirror) + "_overlay"));
 		items.remove(manaMirror);
 
 		generatedItem(manaTablet)
-			.texture("layer1", prefix("item/" + name(manaTablet) + "_overlay"));
+				.texture("layer1", prefix("item/" + name(manaTablet) + "_overlay"));
 		items.remove(manaTablet);
 
 		withExistingParent(name(thirdEye), GENERATED)
-			.texture("layer0", prefix("item/" + name(thirdEye) + "_0"))
-			.texture("layer1", prefix("item/" + name(thirdEye) + "_1"))
-			.texture("layer2", prefix("item/" + name(thirdEye) + "_2"));
+				.texture("layer0", prefix("item/" + name(thirdEye) + "_0"))
+				.texture("layer1", prefix("item/" + name(thirdEye) + "_1"))
+				.texture("layer2", prefix("item/" + name(thirdEye) + "_2"));
 		items.remove(thirdEye);
 
 		takeAll(items, i -> true).forEach(this::generatedItem);
@@ -119,30 +118,30 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		items.remove(blackHoleTalisman);
 
 		ItemModelBuilder flaskBuilder = withExistingParent(name(brewFlask), GENERATED)
-			.texture("layer0", prefix("item/" + name(flask)))
-			.texture("layer1", prefix("item/" + name(brewFlask) + "_0"));
+				.texture("layer0", prefix("item/" + name(flask)))
+				.texture("layer1", prefix("item/" + name(brewFlask) + "_0"));
 		for (int i = 1; i <= 5; i++) {
 			String overrideName = name(brewFlask) + "_" + i;
 			ModelFile overrideModel = withExistingParent(overrideName, GENERATED)
-				.texture("layer0", prefix("item/" + name(flask)))
-				.texture("layer1", prefix("item/" + overrideName));
+					.texture("layer0", prefix("item/" + name(flask)))
+					.texture("layer1", prefix("item/" + overrideName));
 			flaskBuilder.override()
-				.predicate(prefix("swigs_taken"), i)
-				.model(overrideModel).end();
+					.predicate(prefix("swigs_taken"), i)
+					.model(overrideModel).end();
 		}
 		items.remove(brewFlask);
 
 		ItemModelBuilder vialBuilder = withExistingParent(name(brewVial), GENERATED)
-			.texture("layer0", prefix("item/" + name(vial)))
-			.texture("layer1", prefix("item/" + name(brewVial) + "_0"));
+				.texture("layer0", prefix("item/" + name(vial)))
+				.texture("layer1", prefix("item/" + name(brewVial) + "_0"));
 		for (int i = 1; i <= 3; i++) {
 			String overrideName = name(brewVial) + "_" + i;
 			ModelFile overrideModel = withExistingParent(overrideName, GENERATED)
-				.texture("layer0", prefix("item/" + name(vial)))
-				.texture("layer1", prefix("item/" + overrideName));
+					.texture("layer0", prefix("item/" + name(vial)))
+					.texture("layer1", prefix("item/" + overrideName));
 			vialBuilder.override()
-				.predicate(prefix("swigs_taken"), i)
-				.model(overrideModel).end();
+					.predicate(prefix("swigs_taken"), i)
+					.model(overrideModel).end();
 		}
 		items.remove(brewVial);
 
@@ -183,8 +182,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		for (int i = 1; i <= 5; i++) {
 			ModelFile overrideModel = generatedItem(name(manaBottle) + "_" + i);
 			bottle.override()
-				.predicate(prefix("swigs_taken"), i)
-				.model(overrideModel).end();
+					.predicate(prefix("swigs_taken"), i)
+					.model(overrideModel).end();
 		}
 		items.remove(manaBottle);
 
@@ -262,10 +261,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		items.remove(tornadoRod);
 
 		ModelFile twigwandBind = withExistingParent(name(twigWand) + "_bind", GENERATED)
-			.texture("layer0", prefix("item/" + name(twigWand)))
-			.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
-			.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
-			.texture("layer3", prefix("item/" + name(twigWand) + "_bind"));
+				.texture("layer0", prefix("item/" + name(twigWand)))
+				.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
+				.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
+				.texture("layer3", prefix("item/" + name(twigWand) + "_bind"));
 		generatedItem(twigWand)
 				.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
 				.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))

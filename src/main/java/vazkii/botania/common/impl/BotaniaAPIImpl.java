@@ -263,7 +263,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
-		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
+		List<IWrappedInventory> arrayList = new ArrayList<>();
 		for (InvWithLocation inv : inventories) {
 			ICorporeaSpark spark = CorporeaHelper.instance().getSparkForInventory(inv);
 			IWrappedInventory wrapped = null;
