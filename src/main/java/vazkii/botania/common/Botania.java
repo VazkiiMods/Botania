@@ -203,7 +203,6 @@ public class Botania implements ModInitializer {
 					.build());
 			DefaultAttributeRegistry.put(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes().build());
 			ModBanners.init();
-			ColorHelper.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());

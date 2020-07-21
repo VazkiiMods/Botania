@@ -12,6 +12,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -108,39 +109,39 @@ public class IMCSender {
 		addOreWeightNether("ardite", 500);
 		addOreWeightNether("cobalt", 500);
 
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
-		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.STAINED_GLASS_MAP.get(color).get());
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, ColorHelper.STAINED_GLASS_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_MAP.apply(color), ColorHelper.STAINED_GLASS_MAP);
 		}
 
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
-		for (IRegistryDelegate<Block> b : ColorHelper.STAINED_GLASS_PANE_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.STAINED_GLASS_PANE_MAP.get(color).get());
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, ColorHelper.STAINED_GLASS_PANE_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_PANE_MAP.apply(color), ColorHelper.STAINED_GLASS_PANE_MAP);
 		}
 
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
-		for (IRegistryDelegate<Block> b : ColorHelper.TERRACOTTA_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.TERRACOTTA_MAP.get(color).get());
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, ColorHelper.TERRACOTTA_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.TERRACOTTA_MAP.apply(color), ColorHelper.TERRACOTTA_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.GLAZED_TERRACOTTA_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.GLAZED_TERRACOTTA_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.GLAZED_TERRACOTTA_MAP.apply(color), ColorHelper.GLAZED_TERRACOTTA_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.WOOL_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.WOOL_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.WOOL_MAP.apply(color), ColorHelper.WOOL_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.CARPET_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CARPET_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CARPET_MAP.apply(color), ColorHelper.CARPET_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CONCRETE_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_MAP.apply(color), ColorHelper.CONCRETE_MAP);
 		}
 
-		for (IRegistryDelegate<Block> b : ColorHelper.CONCRETE_POWDER_MAP.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(b.get(), color -> ColorHelper.CONCRETE_POWDER_MAP.get(color).get());
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_POWDER_MAP.apply(color), ColorHelper.CONCRETE_POWDER_MAP);
 		}
 	}
 

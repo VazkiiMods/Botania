@@ -257,12 +257,17 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(generatedItem(name(tornadoRod) + "_active")).end();
 		items.remove(tornadoRod);
 
+		ModelFile twigwandBind = withExistingParent(name(twigWand) + "_bind", GENERATED)
+			.texture("layer0", prefix("item/" + name(twigWand)))
+			.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
+			.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
+			.texture("layer3", prefix("item/" + name(twigWand) + "_bind"));
 		generatedItem(twigWand)
 				.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
 				.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
 				.override()
 				.predicate(prefix("bindmode"), 1)
-				.model(generatedItem(name(twigWand) + "_bind")).end();
+				.model(twigwandBind).end();
 		items.remove(twigWand);
 	}
 

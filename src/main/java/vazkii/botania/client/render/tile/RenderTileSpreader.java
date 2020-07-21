@@ -91,7 +91,7 @@ public class RenderTileSpreader extends BlockEntityRenderer<TileSpreader> {
 		}
 
 		if (spreader.paddingColor != null) {
-			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).get().getDefaultState();
+			BlockState carpet = ColorHelper.CARPET_MAP.apply(spreader.paddingColor).getDefaultState();
 			BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(carpet);
 			buffer = buffers.getBuffer(RenderLayers.getEntityBlockLayer(carpet, false));
 

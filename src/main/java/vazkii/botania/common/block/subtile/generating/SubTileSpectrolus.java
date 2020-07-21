@@ -80,15 +80,15 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					ItemStack morbid = new ItemStack(sheep.isOnFire() ? Items.COOKED_MUTTON : Items.MUTTON);
 					((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, morbid), target.getX(), target.getY() + target.getStandingEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
-					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getColor()).get());
+					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(sheep.getColor()));
 					((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, wool), target.getX(), target.getY() + target.getStandingEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getStack();
 
-				if (!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
-					Block expected = ColorHelper.WOOL_MAP.get(nextColor).get();
+				if (!stack.isEmpty() && ColorHelper.isWool(Block.getBlockFromItem(stack.getItem()))) {
+					Block expected = ColorHelper.WOOL_MAP.apply(nextColor);
 
 					if (expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
@@ -127,7 +127,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
 		super.renderHUD(ms, mc);
 
-		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
+		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(nextColor));
 		int color = getColor();
 
 		if (!stack.isEmpty()) {
