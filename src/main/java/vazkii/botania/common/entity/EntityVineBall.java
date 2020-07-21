@@ -17,7 +17,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -41,7 +40,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = IRendersAsItem.class)
+@EnvironmentInterface(value = EnvType.CLIENT, itf = FlyingItemEntity.class)
 public class EntityVineBall extends ThrownEntity implements FlyingItemEntity {
 	private static final TrackedData<Float> GRAVITY = DataTracker.registerData(EntityVineBall.class, TrackedDataHandlerRegistry.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,

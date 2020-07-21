@@ -16,7 +16,6 @@ import net.minecraft.block.PlantBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -43,7 +42,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = IRendersAsItem.class)
+@EnvironmentInterface(value = EnvType.CLIENT, itf = FlyingItemEntity.class)
 public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity {
 	private static final TrackedData<Integer> BOUNCES = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Boolean> FLARE = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.BOOLEAN);

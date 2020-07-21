@@ -15,7 +15,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
@@ -34,7 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = IRendersAsItem.class)
+@EnvironmentInterface(value = EnvType.CLIENT, itf = FlyingItemEntity.class)
 public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEntity {
 	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, World world) {
 		super(type, world);
