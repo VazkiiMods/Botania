@@ -15,7 +15,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;

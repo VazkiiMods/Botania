@@ -10,7 +10,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.util.LazyOptional;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;

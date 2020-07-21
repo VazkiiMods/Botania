@@ -19,7 +19,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;

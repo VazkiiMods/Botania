@@ -19,8 +19,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;

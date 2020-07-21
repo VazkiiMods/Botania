@@ -8,7 +8,6 @@
  */
 package vazkii.botania.data;
 
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 import vazkii.botania.data.recipes.*;
 

@@ -32,10 +32,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.core.handler.ModSounds;

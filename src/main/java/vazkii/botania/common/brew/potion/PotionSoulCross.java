@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import vazkii.botania.common.brew.ModPotions;
 

@@ -24,7 +24,6 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.core.helper.ItemNBTHelper;

@@ -18,7 +18,6 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.Tags;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModBlocks;

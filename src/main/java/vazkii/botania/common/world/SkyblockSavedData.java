@@ -16,7 +16,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.world.PersistentState;
-import net.minecraftforge.common.util.Constants;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 

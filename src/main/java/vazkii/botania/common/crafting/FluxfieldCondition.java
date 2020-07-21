@@ -10,8 +10,6 @@ package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;

@@ -30,8 +30,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;

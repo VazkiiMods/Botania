@@ -13,8 +13,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.event.TickEvent;
 
 import org.lwjgl.glfw.GLFW;
 

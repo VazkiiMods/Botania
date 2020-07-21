@@ -26,7 +26,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;

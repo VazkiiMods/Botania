@@ -19,7 +19,6 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.items.SlotItemHandler;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;

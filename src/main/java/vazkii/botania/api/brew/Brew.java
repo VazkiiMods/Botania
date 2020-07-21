@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
 

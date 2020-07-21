@@ -17,8 +17,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 

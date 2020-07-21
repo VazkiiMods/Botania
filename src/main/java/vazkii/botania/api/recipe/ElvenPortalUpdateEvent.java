@@ -11,7 +11,6 @@ package vazkii.botania.api.recipe;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
-import net.minecraftforge.eventbus.api.Event;
 
 import java.util.List;
 

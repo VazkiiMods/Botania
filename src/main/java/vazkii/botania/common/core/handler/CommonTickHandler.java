@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraftforge.event.TickEvent;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;

@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.event.TickEvent;
 
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.render.tile.RenderTileRedString;

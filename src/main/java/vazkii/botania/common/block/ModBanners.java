@@ -12,7 +12,6 @@ import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.common.item.ModItems;
 

@@ -15,7 +15,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;

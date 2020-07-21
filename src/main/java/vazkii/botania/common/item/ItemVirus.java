@@ -29,9 +29,6 @@ import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 
 public class ItemVirus extends Item {
 	public ItemVirus(Settings builder) {

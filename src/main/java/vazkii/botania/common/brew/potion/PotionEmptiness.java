@@ -13,8 +13,6 @@ import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.eventbus.api.Event;
 
 import vazkii.botania.common.brew.ModPotions;
 

@@ -9,8 +9,6 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
 
 public class ManaNetworkEvent extends Event {
 

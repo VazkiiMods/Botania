@@ -22,7 +22,6 @@ import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.item.ItemTwigWand;

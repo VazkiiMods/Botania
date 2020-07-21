@@ -11,8 +11,6 @@ package vazkii.botania.client.fx;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.event.RegistryEvent;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 

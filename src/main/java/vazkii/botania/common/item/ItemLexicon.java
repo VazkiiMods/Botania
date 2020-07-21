@@ -27,8 +27,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.handler.TooltipHandler;

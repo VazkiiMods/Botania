@@ -22,8 +22,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.common.block.ModBlocks;

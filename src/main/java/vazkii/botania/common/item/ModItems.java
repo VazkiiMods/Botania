@@ -18,12 +18,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.registries.IForgeRegistry;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IFloatingFlower;

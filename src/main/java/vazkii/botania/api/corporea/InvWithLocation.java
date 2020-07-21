@@ -10,7 +10,6 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
 
 public class InvWithLocation {
 

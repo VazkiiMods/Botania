@@ -16,7 +16,6 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;

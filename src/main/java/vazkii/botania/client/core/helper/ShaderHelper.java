@@ -17,7 +17,6 @@ import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloadListener;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fml.ModList;
 
 import org.lwjgl.system.MemoryUtil;
 

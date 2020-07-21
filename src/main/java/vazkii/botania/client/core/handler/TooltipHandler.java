@@ -13,7 +13,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import vazkii.botania.common.item.ItemKeepIvy;
 

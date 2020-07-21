@@ -17,7 +17,6 @@ import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Lazy;
 import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
 
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.ModItems;

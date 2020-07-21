@@ -16,7 +16,6 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.Set;
 

@@ -13,9 +13,6 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.helper.ColorHelper;

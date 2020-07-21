@@ -10,9 +10,6 @@ package vazkii.botania.data;
 
 import com.google.gson.JsonObject;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
-import net.minecraftforge.client.model.generators.ModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
 
 import vazkii.botania.client.model.FloatingFlowerModel;
 

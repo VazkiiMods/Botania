@@ -27,14 +27,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;

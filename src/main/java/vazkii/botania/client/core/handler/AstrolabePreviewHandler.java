@@ -22,7 +22,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.ItemAstrolabe;

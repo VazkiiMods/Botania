@@ -24,7 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import net.minecraftforge.common.MinecraftForge;
 
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;

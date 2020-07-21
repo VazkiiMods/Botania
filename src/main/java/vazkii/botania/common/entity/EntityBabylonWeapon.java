@@ -27,7 +27,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;

@@ -14,7 +14,6 @@ import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.DyeColor;
-import net.minecraftforge.registries.IRegistryDelegate;
 
 public final class ColorHelper {
 	public static final BiMap<DyeColor, IRegistryDelegate<Block>> STAINED_GLASS_MAP = HashBiMap.create();

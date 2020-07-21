@@ -16,7 +16,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.recipe.StateIngredient;
 

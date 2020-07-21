@@ -21,7 +21,6 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 

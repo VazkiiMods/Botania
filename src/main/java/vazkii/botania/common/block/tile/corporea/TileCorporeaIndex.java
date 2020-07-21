@@ -17,8 +17,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Box;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ServerChatEvent;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;

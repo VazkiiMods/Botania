@@ -14,7 +14,6 @@ import net.minecraft.block.SkullBlock;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.SkullEntityModel;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;

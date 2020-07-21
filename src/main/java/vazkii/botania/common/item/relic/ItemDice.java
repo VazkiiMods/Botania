@@ -18,7 +18,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;

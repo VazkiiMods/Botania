@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraftforge.common.ToolType;
 
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;

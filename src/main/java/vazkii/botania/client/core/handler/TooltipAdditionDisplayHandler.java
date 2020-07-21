@@ -15,7 +15,6 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 
 import org.lwjgl.opengl.GL11;
 

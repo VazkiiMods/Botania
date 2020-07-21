@@ -10,7 +10,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;

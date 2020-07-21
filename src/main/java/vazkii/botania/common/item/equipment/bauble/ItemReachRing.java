@@ -13,7 +13,6 @@ import com.google.common.collect.Multimap;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeMod;
 
 public class ItemReachRing extends ItemBauble {
 

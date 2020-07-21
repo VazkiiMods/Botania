@@ -10,7 +10,6 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.eventbus.api.Event;
 
 import java.util.List;
 

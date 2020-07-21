@@ -16,9 +16,6 @@ import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.event.RegistryEvent;
 
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
 

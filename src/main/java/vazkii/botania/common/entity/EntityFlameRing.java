@@ -18,7 +18,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;

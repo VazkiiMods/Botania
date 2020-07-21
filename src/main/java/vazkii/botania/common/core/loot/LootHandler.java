@@ -12,7 +12,6 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.event.LootTableLoadEvent;
 
 import vazkii.botania.common.lib.LibMisc;
 

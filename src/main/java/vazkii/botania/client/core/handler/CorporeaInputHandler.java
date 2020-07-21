@@ -17,7 +17,6 @@ import net.minecraft.client.gui.screen.recipebook.RecipeBookResults;
 import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
-import net.minecraftforge.client.event.GuiScreenEvent;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;

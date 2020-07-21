@@ -11,8 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class CapWrapper implements Inventory {
 	private final IItemHandler handler;

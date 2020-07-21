@@ -10,7 +10,6 @@ package vazkii.botania.common.capability;
 
 import net.minecraft.nbt.Tag;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 

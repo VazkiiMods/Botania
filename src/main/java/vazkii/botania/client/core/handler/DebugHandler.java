@@ -14,11 +14,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.forgespi.language.IModInfo;
 
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;

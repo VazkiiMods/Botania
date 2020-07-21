@@ -11,8 +11,6 @@ package vazkii.botania.common.network;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 

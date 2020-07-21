@@ -11,7 +11,6 @@ package vazkii.botania.common.network;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;

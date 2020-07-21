@@ -28,7 +28,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;

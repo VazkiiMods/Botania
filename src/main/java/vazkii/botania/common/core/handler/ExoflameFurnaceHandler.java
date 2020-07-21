@@ -17,9 +17,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
